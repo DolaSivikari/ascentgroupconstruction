@@ -9,7 +9,7 @@ const WhoWeServe = () => {
       <div className="container mx-auto px-6 md:px-8 lg:px-12 max-w-7xl">
         {/* Section Header - Enterprise Style */}
         <div className="max-w-3xl mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-6 leading-tight">
+          <h2 className="text-3xl md:text-5xl font-bold text-foreground mb-6 leading-tight tracking-tight">
             Client Solutions
           </h2>
           <p className="text-lg md:text-xl text-muted-foreground leading-relaxed">

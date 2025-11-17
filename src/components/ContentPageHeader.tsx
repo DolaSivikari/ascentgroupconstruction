@@ -68,7 +68,7 @@ const ContentPageHeader = ({
           </nav>
 
           {/* Title */}
-          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-[hsl(var(--bg))] mb-3 sm:mb-4 break-words leading-tight">
+          <h1 className="text-4xl md:text-6xl font-bold text-[hsl(var(--bg))] mb-3 sm:mb-4 break-words leading-tight tracking-tight">
             {title}
           </h1>
           
