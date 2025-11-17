@@ -116,7 +116,7 @@ const SEO = ({
     priceRange: "$$-$$$",
     paymentAccepted: ["Cash", "Check", "Credit Card", "Bank Transfer", "Financing Available"],
     currenciesAccepted: "CAD",
-    foundingDate: "2009",
+    foundingDate: "2025",
     knowsAbout: [
       "Specialty Contracting",
       "Building Envelope Systems",
@@ -129,9 +129,9 @@ const SEO = ({
       "Sustainable Construction"
     ],
     award: [
-      "15+ Years Excellence in Construction Services",
-      "WSIB Certified Contractor",
-      "Licensed Building Envelope Contractor Ontario"
+      "WSIB Compliant Contractor",
+      "Licensed Building Envelope Contractor Ontario",
+      "$5M+ Liability Coverage"
     ],
     // Aggregate rating removed until verified reviews are collected
     hasOfferCatalog: {

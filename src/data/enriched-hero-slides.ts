@@ -7,9 +7,9 @@ export const enrichedHeroSlides = [
     video: buildingVideo,
     poster: buildingPoster,
     stat: "15+",
-    statLabel: "Years Experience",
+    statLabel: "Years Team Experience",
     headline: "Building Envelope & Interior Trades Specialist",
-    subheadline: "Founded by construction professionals with 15+ years of highrise and commercial experience—delivering quality envelope and interior work with professional execution and full accountability.",
+    subheadline: "New company. Experienced team. Founded by construction professionals with 15+ years in highrise and commercial work—delivering quality envelope and interior trades with professional execution and full accountability.",
     primaryCTA: {
       label: "Request Site Assessment",
       href: "/contact",
@@ -54,10 +54,10 @@ export const enrichedHeroSlides = [
   {
     video: buildingVideo,
     poster: buildingPoster,
-    stat: "10+",
-    statLabel: "Projects Completed",
+    stat: "2025",
+    statLabel: "Newly Established",
     headline: "Building Our Track Record",
-    subheadline: "Established in 2025 and building on 15+ years of industry experience. We're actively completing envelope and interior projects across the GTA, delivering professional execution with safety compliance and warranty-backed installation.",
+    subheadline: "New company established in 2025, built on 15+ years of team experience. We're actively completing envelope and interior projects across the GTA, delivering professional execution with safety compliance and warranty-backed installation.",
     primaryCTA: {
       label: "View Our Work",
       href: "/projects",

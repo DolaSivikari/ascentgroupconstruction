@@ -70,10 +70,10 @@ const Footer = () => {
   // Use trust bar items from admin if available, otherwise show default certifications
   const displayTrustItems = trustBarItems.length > 0;
   const certifications = [
-    { icon: Shield, title: "COR Certified", subtitle: "Safety Excellence" },
+    { icon: Shield, title: "Working Toward COR", subtitle: "Safety Excellence" },
     { icon: FileCheck, title: "WSIB Compliant", subtitle: "Full Coverage" },
     { icon: Award, title: "$5M+ Insured", subtitle: "Liability" },
-    { icon: Building2, title: "TCA Member", subtitle: "Since 2009" },
+    { icon: Building2, title: "Established 2025", subtitle: "Growing in GTA" },
   ];
 
   const citationSchema = {

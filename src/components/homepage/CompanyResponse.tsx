@@ -5,36 +5,36 @@ import { Link } from "react-router-dom";
 
 const responses = [
   {
+    icon: Award,
+    value: "15+",
+    label: "Years Team Experience",
+    description: "Seasoned professionals bringing proven expertise",
+    linkText: "About Us",
+    linkUrl: "/about"
+  },
+  {
     icon: Building,
-    value: "500+",
-    label: "Buildings Delivered",
-    description: "Adding to Ontario's infrastructure capacity",
-    linkText: "View Our Work",
-    linkUrl: "/portfolio"
+    value: "85%",
+    label: "Self-Performed Work",
+    description: "Direct execution, clear accountability",
+    linkText: "View Our Services",
+    linkUrl: "/services"
   },
   {
     icon: Calendar,
-    value: "98%",
-    label: "Finished On Schedule",
-    description: "Efficiency that reduces costs and waste",
+    value: "2025",
+    label: "Newly Established",
+    description: "Building our track record with professional execution",
     linkText: "Our Process",
-    linkUrl: "/about"
+    linkUrl: "/our-process"
   },
   {
     icon: DollarSign,
-    value: "$30M+",
-    label: "Annual Projects",
-    description: "Driving economic growth in construction",
-    linkText: "Current Projects",
-    linkUrl: "/portfolio"
-  },
-  {
-    icon: Award,
-    value: "15+",
-    label: "Years in Business",
-    description: "Deep expertise through market cycles",
-    linkText: "About Us",
-    linkUrl: "/about"
+    value: "$5M+",
+    label: "Liability Coverage",
+    description: "Comprehensive insurance and WSIB compliance",
+    linkText: "Contact Us",
+    linkUrl: "/contact"
   }
 ];
 
