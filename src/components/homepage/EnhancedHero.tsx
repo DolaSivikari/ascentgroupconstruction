@@ -321,7 +321,7 @@ const EnhancedHero = ({ splashComplete = true }: { splashComplete?: boolean }) =
               </div>
             </div>
 
-            {/* COR Certified Badge */}
+            {/* Working Toward COR Badge */}
             <div 
               className={`group relative overflow-hidden rounded-2xl bg-white/10 backdrop-blur-xl border border-white/20 px-5 py-4 shadow-2xl hover:shadow-green-500/20 hover:scale-105 transition-all duration-300 ${animationsEnabled && !prefersReducedMotion ? 'animate-fade-in' : ''}`}
             >
@@ -330,7 +330,7 @@ const EnhancedHero = ({ splashComplete = true }: { splashComplete?: boolean }) =
                 <div className="p-2 rounded-lg bg-green-500/20">
                   <Shield className="h-5 w-5 text-green-400" />
                 </div>
-                <span className="text-sm font-bold text-white">COR Certified</span>
+                <span className="text-sm font-bold text-white">Working Toward COR</span>
               </div>
             </div>
 

@@ -98,7 +98,7 @@ export const PremiumDocumentSuite = () => {
                 { name: "Bonding Letter", size: "500KB", expiry: "$10M capacity" },
                 { name: "Business License", size: "1MB", expiry: "Valid 2025" },
                 { name: "Company Profile", size: "5MB", expiry: "2024 Edition" },
-                { name: "Safety Manual", size: "3MB", expiry: "COR Certified" },
+                { name: "Safety Manual", size: "3MB", expiry: "COR Standards" },
                 { name: "Project References", size: "2MB", expiry: "Current clients" },
                 { name: "Equipment List", size: "2MB", expiry: "Updated 2024" }
               ].map((doc, index) => (
