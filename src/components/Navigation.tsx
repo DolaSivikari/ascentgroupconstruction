@@ -132,7 +132,7 @@ const Navigation = () => {
     <>
       <nav
         className={cn(
-          "fixed top-0 left-0 right-0 z-navigation transition-all duration-500",
+          "fixed top-0 left-0 right-0 z-navigation transition-all duration-300",
           // Hide when scrolling down, show when scrolling up or at top
           scrollDirection === "down" && !isAtTop ? "-translate-y-full" : "translate-y-0",
           // Background changes based on hero page and scroll position
@@ -148,7 +148,7 @@ const Navigation = () => {
             <img 
               src={isHeroPage && isAtTop ? ascentLogoHorizontalLight : ascentLogoHorizontalDark} 
               alt="Ascent Group Construction Logo" 
-              className="h-14 md:h-18 lg:h-20 w-auto hover-scale-icon transition-all duration-500"
+              className="h-14 md:h-18 lg:h-20 w-auto hover-scale-icon transition-all duration-300"
             />
           </Link>
 
@@ -159,7 +159,7 @@ const Navigation = () => {
               aria-current={isActive("/") ? "page" : undefined}
               className={cn(
                 "text-sm font-medium relative py-2 hover-scale after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-primary after:scale-x-0 hover:after:scale-x-100",
-                "link-underline after:transition-transform transition-colors duration-500",
+                "link-underline after:transition-transform transition-colors duration-300",
                 isActive("/") ? "text-primary after:scale-x-100" : (isHeroPage && isAtTop ? "text-white" : "text-foreground"),
                 !isActive("/") && "hover:text-primary"
               )}

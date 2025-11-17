@@ -1,7 +1,7 @@
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
-import { UnifiedCard } from "@/components/shared/UnifiedCard";
+import { Card, CardContent } from "@/design-system/components/Card";
 import { Section } from "@/components/sections/Section";
 import PageHeader from "@/components/PageHeader";
 import { Button } from "@/ui/Button";
@@ -165,7 +165,7 @@ const About = () => {
         {/* Founder Story with parallax */}
         <ParallaxSection speed="medium">
           <ScrollReveal direction="right" delay={150}>
-            <UnifiedCard variant="elevated" className="mt-12 border-l-4 border-primary">
+            <Card variant="elevated" size="lg" className="mt-12 border-l-4 border-primary">
             <h3 className="text-2xl md:text-3xl font-semibold mb-4">The Ascent Story</h3>
             <p className="text-base md:text-lg text-muted-foreground leading-relaxed mb-6">
               I founded Ascent Group Construction in 2025 after spending 15+ years working in Ontario's construction industry. 
@@ -190,11 +190,10 @@ const About = () => {
             <div className="flex items-center gap-4 mt-6">
               <div>
                 <p className="font-semibold text-primary text-lg">Hebun Isik</p>
-                <p className="text-sm text-muted-foreground">Founder & Principal, Ascent Group Construction</p>
-                <p className="text-xs text-muted-foreground mt-1">Construction Engineering Technician | 15+ Years Industry Experience</p>
+                <p className="text-muted-foreground">Founder & Principal</p>
               </div>
             </div>
-          </UnifiedCard>
+          </Card>
           </ScrollReveal>
         </ParallaxSection>
       </Section>
@@ -213,26 +212,11 @@ const About = () => {
             const IconComponent = client.icon;
             return (
               <ScrollReveal key={index} direction="up" delay={index * 100}>
-                <UnifiedCard variant="interactive" className="hover:shadow-xl transition-all duration-300">
-                  <div className="flex items-start gap-4 mb-4">
-                    <div className="p-3 bg-primary/10 rounded-lg">
-                      <IconComponent className="w-6 h-6 text-primary" />
-                    </div>
-                    <div className="flex-1">
-                      <div className="flex items-center justify-between mb-2">
-                        <h3 className="text-xl md:text-2xl font-semibold">{client.title}</h3>
-                        <span className={`text-xs font-semibold px-3 py-1 rounded-full ${
-                          client.priority === 'Primary' ? 'bg-primary/20 text-primary' :
-                          client.priority === 'Secondary' ? 'bg-secondary/20 text-secondary-foreground' :
-                          'bg-muted text-muted-foreground'
-                        }`}>
-                          {client.priority}
-                        </span>
-                      </div>
-                      <p className="text-muted-foreground">{client.description}</p>
-                    </div>
-                  </div>
-                </UnifiedCard>
+                <Card variant="interactive" hover size="md">
+                  <IconComponent className="w-12 h-12 text-primary mb-4" />
+                  <h3 className="text-2xl font-semibold mb-3">{client.title}</h3>
+                  <p className="text-muted-foreground leading-relaxed">{client.description}</p>
+                </Card>
               </ScrollReveal>
             );
           })}
@@ -250,43 +234,11 @@ const About = () => {
 
         <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
           {services.map((service, index) => (
-            <UnifiedCard key={index} variant="base" className="hover:border-primary/50 transition-colors">
-              <div className="flex items-start gap-3">
-                <CheckCircle className="w-5 h-5 text-primary mt-1 flex-shrink-0" />
-                <span className="text-base md:text-lg font-medium">{service}</span>
-              </div>
-            </UnifiedCard>
+            <Card key={index} variant="default" size="md" className="hover:border-primary/50 transition-colors">
+              <CheckCircle className="w-5 h-5 text-primary mb-2" />
+              <span className="font-medium">{service}</span>
+            </Card>
           ))}
-        </div>
-
-        <p className="text-center text-muted-foreground mt-8 max-w-2xl mx-auto">
-          Each scope is planned for minimal disruption, clear sequencing, and documented QA/QC so owners 
-          and consultants have complete confidence in what was performed and why.
-        </p>
-      </Section>
-
-      {/* Our Values */}
-      <Section size="major" className="bg-muted/30">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">Our Values</h2>
-          <p className="text-lg md:text-xl text-muted-foreground">
-            The principles that guide every project we undertake
-          </p>
-        </div>
-
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {values.map((value, index) => {
-            const IconComponent = value.icon;
-            return (
-              <UnifiedCard key={index} variant="elevated" className="text-center">
-                <div className="inline-flex p-4 bg-primary/10 rounded-full mb-6">
-                  <IconComponent className="w-8 h-8 text-primary" />
-                </div>
-                <h3 className="text-xl md:text-2xl font-semibold mb-3">{value.title}</h3>
-                <p className="text-muted-foreground">{value.description}</p>
-              </UnifiedCard>
-            );
-          })}
         </div>
       </Section>
 
@@ -301,59 +253,18 @@ const About = () => {
 
         <div className="space-y-6 max-w-5xl mx-auto">
           {processSteps.map((step, index) => (
-            <UnifiedCard key={index} variant="elevated" className="hover:border-primary/50 transition-colors">
-              <div className="flex gap-6">
-                <div className="flex-shrink-0">
-                  <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center">
-                    <span className="text-2xl font-bold text-primary">{step.number}</span>
-                  </div>
+            <Card key={index} variant="elevated" size="md" hover>
+              <div className="flex items-start gap-4">
+                <div className="p-3 bg-primary/10 rounded-lg flex-shrink-0">
+                  <span className="text-2xl font-bold text-primary">{step.number}</span>
                 </div>
-                <div className="flex-1">
-                  <h3 className="text-xl md:text-2xl font-semibold mb-3">{step.title}</h3>
-                  <p className="text-muted-foreground leading-relaxed">
-                    {step.description}
-                  </p>
+                <div>
+                  <h3 className="text-xl font-semibold mb-2">{step.title}</h3>
+                  <p className="text-muted-foreground">{step.description}</p>
                 </div>
               </div>
-            </UnifiedCard>
+            </Card>
           ))}
-        </div>
-      </Section>
-
-      {/* Safety, Insurance & Compliance */}
-      <Section size="major" maxWidth="narrow" className="bg-muted/30">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">Safety, Insurance & Compliance</h2>
-          <p className="text-lg md:text-xl text-muted-foreground">
-            Your protection is our priority
-          </p>
-        </div>
-
-        <div className="grid md:grid-cols-2 gap-6">
-          <UnifiedCard variant="base">
-            <div className="flex items-start gap-3">
-              <CheckCircle className="w-5 h-5 text-primary mt-1 flex-shrink-0" />
-              <span>WSIB compliance and safety training (e.g., Working at Heights/WHMIS)</span>
-            </div>
-          </UnifiedCard>
-          <UnifiedCard variant="base">
-            <div className="flex items-start gap-3">
-              <CheckCircle className="w-5 h-5 text-primary mt-1 flex-shrink-0" />
-              <span>Commercial General Liability (CGL) coverage; certificates available on request</span>
-            </div>
-          </UnifiedCard>
-          <UnifiedCard variant="base">
-            <div className="flex items-start gap-3">
-              <CheckCircle className="w-5 h-5 text-primary mt-1 flex-shrink-0" />
-              <span>Bonding/Pre-qualification support available on request (project-dependent)</span>
-            </div>
-          </UnifiedCard>
-          <UnifiedCard variant="base">
-            <div className="flex items-start gap-3">
-              <CheckCircle className="w-5 h-5 text-primary mt-1 flex-shrink-0" />
-              <span>Job-specific Safety Plans, toolbox talks, and secure site practices</span>
-            </div>
-          </UnifiedCard>
         </div>
       </Section>
 
@@ -374,76 +285,24 @@ const About = () => {
 
       {/* Our Vision */}
       <Section size="major" maxWidth="narrow" className="bg-primary/5">
-        <UnifiedCard variant="elevated" className="border-2 border-primary/20 text-center">
-          <TrendingUp className="w-16 h-16 text-primary mx-auto mb-6" />
-          <h2 className="text-3xl md:text-4xl font-bold mb-6">Our Vision: From Specialist to General Contractor</h2>
-          <div className="text-left space-y-4">
-            <p className="text-lg md:text-xl text-muted-foreground leading-relaxed">
-              <strong className="text-foreground">Today (Year 1):</strong> We're establishing ourselves as a reliable 
-              specialty contractor for building envelope and restoration work. We're earning trust through quality 
-              execution, clear communication, and safety-first practices.
-            </p>
-            <p className="text-lg md:text-xl text-muted-foreground leading-relaxed">
-              <strong className="text-foreground">Years 2-3:</strong> Expand our capabilities as a lead contractor, 
-              taking full project responsibility for larger envelope programs while building relationships with key 
-              property managers, developers, and consultants across Ontario.
-            </p>
-            <p className="text-lg md:text-xl text-muted-foreground leading-relaxed">
-              <strong className="text-foreground">Years 4-5:</strong> Transition into a full-service general contractor, 
-              managing multiple trades and larger projects—while maintaining the specialty envelope expertise and service 
-              standards that define Ascent Group Construction.
-            </p>
-            <p className="text-base md:text-lg text-primary font-semibold mt-6 text-center">
-              We're not rushing the process. We're building the right foundation—one project, one relationship, 
-              one reputation at a time.
-            </p>
-          </div>
-        </UnifiedCard>
-      </Section>
-
-      {/* Ready to Work Together */}
-      <Section size="major" maxWidth="narrow" className="bg-muted/30">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">Ready to Work Together?</h2>
-          <p className="text-lg md:text-xl text-muted-foreground">
-            Let's discuss your project and how we can help
+        <Card variant="elevated" size="lg" className="text-center border-2 border-primary/20">
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">Ready to Discuss Your Project?</h2>
+          <p className="text-lg md:text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
+            Whether you need trade pricing for an active tender or want to discuss a restoration project, 
+            we're here to provide professional service and competitive rates.
           </p>
-        </div>
-
-        <div className="grid md:grid-cols-3 gap-6">
-          <UnifiedCard variant="interactive" className="text-center">
-            <div className="inline-flex p-4 bg-primary/10 rounded-full mb-4">
-              <Phone className="w-6 h-6 text-primary" />
-            </div>
-            <h3 className="text-xl md:text-2xl font-semibold mb-3">Book a Site Walk</h3>
-            <p className="text-muted-foreground mb-6">48–72h target for urgent matters</p>
-            <Button asChild className="w-full">
-              <Link to="/contact">Schedule Visit</Link>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Button asChild size="lg">
+              <Link to="/contact">{CTA_TEXT.contact}</Link>
             </Button>
-          </UnifiedCard>
-
-          <UnifiedCard variant="interactive" className="text-center">
-            <div className="inline-flex p-4 bg-primary/10 rounded-full mb-4">
-              <FileText className="w-6 h-6 text-primary" />
-            </div>
-            <h3 className="text-xl md:text-2xl font-semibold mb-3">Request a Quote</h3>
-            <p className="text-muted-foreground mb-6">Detailed project estimates</p>
-            <Button asChild variant="secondary" className="w-full">
-              <Link to="/estimate">{CTA_TEXT.project}</Link>
+            <Button asChild variant="outline" size="lg">
+              <Link to="/services">View Services</Link>
             </Button>
-          </UnifiedCard>
-
-          <UnifiedCard variant="interactive" className="text-center">
-            <div className="inline-flex p-4 bg-primary/10 rounded-full mb-4">
-              <Mail className="w-6 h-6 text-primary" />
-            </div>
-            <h3 className="text-xl md:text-2xl font-semibold mb-3">For GCs</h3>
-            <p className="text-muted-foreground mb-6">Trade packages & pre-qual docs</p>
-            <Button asChild variant="outline" className="w-full">
-              <Link to="/contact">Partner With Us</Link>
+            <Button asChild variant="outline" size="lg">
+              <Link to="/projects">View Projects</Link>
             </Button>
-          </UnifiedCard>
-        </div>
+          </div>
+        </Card>
       </Section>
 
       <Footer />
