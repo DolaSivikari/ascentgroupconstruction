@@ -318,7 +318,7 @@ const ContractorPortal = () => {
                     <Shield className="h-8 w-8 text-secondary" />
                   </div>
                   <h3 className="text-xl font-semibold text-foreground mb-2">Safety First</h3>
-                  <p className="text-muted-foreground">COR certified with zero lost-time incidents</p>
+                  <p className="text-muted-foreground">Working Toward COR Certification - Zero Lost-Time Incidents</p>
                 </CardContent>
               </Card>
             </div>

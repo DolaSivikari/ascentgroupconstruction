@@ -128,7 +128,7 @@ const Footer = () => {
             logoUrl={ascentLogoVerticalDark}
             serviceAreaText="Serving Toronto, Mississauga, Brampton, Vaughan, Markham & the Greater Toronto Area"
             linkedinUrl={linkedinUrl}
-            foundedYear={siteSettings?.founded_year || 2009}
+            foundedYear={siteSettings?.founded_year || 2025}
           />
         </div>
       </footer>
