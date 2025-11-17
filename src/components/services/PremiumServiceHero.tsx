@@ -41,7 +41,8 @@ export const PremiumServiceHero = () => {
           {/* Stats display */}
           <div className="flex flex-wrap justify-center gap-8 mb-12">
             <div className="text-center">
-              <div className="text-4xl md:text-5xl font-bold mb-2">500+</div>
+              <div className="text-4xl md:text-5xl font-bold mb-2">2025</div>
+              <div className="text-sm text-muted-foreground uppercase tracking-wider">Established</div>
               <div className="text-sm md:text-base text-primary-foreground/80">Projects Completed</div>
             </div>
             <div className="text-center">

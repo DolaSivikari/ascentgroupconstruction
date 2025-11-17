@@ -225,7 +225,7 @@ const Services = () => {
               {[
                 { title: "Self-Performed Work", description: "Direct control of quality and timeline" },
                 { title: "Licensed & Insured", description: "Full compliance and protection" },
-                { title: "Proven Track Record", description: "500+ successful projects" },
+                { title: "Professional Execution", description: "Experienced team delivering quality work" },
                 { title: "Expert Craftsmen", description: "Skilled trades with deep expertise" }
               ].map((item, index) => (
                 <div key={index} className="text-center p-6">

@@ -12,7 +12,7 @@ interface SEOProps {
 
 const SEO = ({
   title,
-  description = "Protect your building asset value with Ontario's envelope & restoration specialists. We prevent water damage, extend service life 25+ years, and eliminate emergency repair costs for property managers, condo boards, and asset owners across the GTA. 500+ buildings protected since 2009.",
+  description = "Ontario building envelope & interior trades contractor. Professional execution of EIFS, masonry, painting, and restoration work. Established 2025 by experienced construction professionals. Serving property managers, GCs, and building owners across the GTA.",
   keywords,
   ogImage = "/og-image.jpg",
   canonical,

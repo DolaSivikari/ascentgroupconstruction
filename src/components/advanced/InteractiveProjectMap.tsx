@@ -56,7 +56,7 @@ export const InteractiveProjectMap = () => {
             Our Project Footprint
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Serving clients across Ontario with 500+ successful projects
+            Serving clients across Ontario—building our reputation one project at a time
           </p>
         </div>
 

@@ -323,7 +323,7 @@ const OurProcess = () => {
             <Badge variant="secondary" className="mb-4">Step-by-Step Excellence</Badge>
             <h2 className="text-4xl font-bold mb-4">Our Proven Process</h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Every project follows our time-tested 4-step methodology, refined over 15 years and 500+ successful completions
+              Every project follows our proven methodology, delivering professional execution with clear accountability
             </p>
           </div>
 
@@ -341,7 +341,8 @@ const OurProcess = () => {
 
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-5xl mx-auto">
             <div className="text-center">
-              <div className="text-5xl md:text-6xl font-bold mb-2 text-secondary">500+</div>
+              <div className="text-5xl md:text-6xl font-bold mb-2 text-secondary">15+</div>
+              <div className="text-lg text-muted-foreground">Years Team Experience</div>
               <div className="text-primary-foreground/80">Completed Projects</div>
             </div>
             <div className="text-center">

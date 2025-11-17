@@ -19,7 +19,8 @@ const contactSchema = z.object({
 
 const stories = [
   {
-    stat: "500+",
+    stat: "15+",
+    statLabel: "Years Team Experience",
     label: "Projects Completed",
     detail: "From small renovations to major restorations",
     icon: CheckCircle2,
@@ -27,7 +28,7 @@ const stories = [
   {
     stat: "15+",
     label: "Years Experience",
-    detail: "Trusted by Ontario property owners since 2009",
+    detail: "New company. Experienced team. Building trust project by project.",
     icon: Clock,
   },
   {

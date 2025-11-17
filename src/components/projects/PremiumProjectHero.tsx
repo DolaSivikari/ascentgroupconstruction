@@ -82,7 +82,7 @@ export const PremiumProjectHero = ({ featuredProjects }: Props) => {
             </h1>
             
             <p className="text-xl md:text-2xl text-primary-foreground/90 mb-8">
-              {currentProject?.category || "500+ Successful Projects"}
+              {currentProject?.category || "Professional Project Execution"}
             </p>
 
             {/* Animated statistics dashboard */}

@@ -131,7 +131,8 @@ export const ServicesExplorer = () => {
               <div className="text-xs md:text-sm text-muted-foreground">Years Experience</div>
             </div>
             <div className="text-center p-4 rounded-lg bg-card/50 backdrop-blur-sm border border-border/50">
-              <div className="text-2xl md:text-3xl font-bold text-primary mb-1">500+</div>
+              <div className="text-2xl md:text-3xl font-bold text-primary mb-1">15+</div>
+              <div className="text-sm text-muted-foreground">Years Team Experience</div>
               <div className="text-xs md:text-sm text-muted-foreground">Projects Complete</div>
             </div>
           </div>

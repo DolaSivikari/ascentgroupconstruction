@@ -189,8 +189,8 @@ const Projects = () => {
   return (
     <div className="min-h-screen text-foreground">
       <SEO
-        title="Our Projects - 500+ Completed | Ascen Group"
-        description="Browse our portfolio of 500+ successfully completed construction and painting projects across the GTA. Commercial, residential, institutional, and industrial work."
+        title="Our Projects | Ascent Group Construction"
+        description="Browse our growing portfolio of construction and restoration projects across the GTA. Commercial, residential, and institutional envelope and interior work."
         canonical="https://ascentgroupconstruction.com/projects"
       />
       <Navigation />

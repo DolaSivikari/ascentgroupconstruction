@@ -39,7 +39,7 @@ export const ClientLogosCarousel = () => {
             Trusted By Industry Leaders
           </h3>
           <p className="text-foreground font-semibold">
-            500+ Projects Delivered for Ontario's Leading Organizations
+            Building Our Portfolio Across Ontario
           </p>
         </div>
 
@@ -69,7 +69,8 @@ export const ClientLogosCarousel = () => {
         {/* Bottom Stats */}
         <div className="mt-8 grid grid-cols-3 gap-6 text-center">
           <div>
-            <div className="text-3xl font-bold text-construction-orange">500+</div>
+            <div className="text-3xl font-bold text-construction-orange">2025</div>
+            <div className="text-muted-foreground">Established</div>
             <div className="text-sm text-muted-foreground">Projects</div>
           </div>
           <div>

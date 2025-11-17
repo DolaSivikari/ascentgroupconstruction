@@ -29,7 +29,7 @@ const InteriorBuildouts = () => {
   ]);
 
   const stats = [
-    { value: '500+', label: 'Buildouts' },
+    { value: '2025', label: 'Established' },
     { value: '2M+', label: 'SF Completed' },
     { value: '95%', label: 'On-Time Delivery' },
     { value: 'Level 5', label: 'Finish Quality' }
