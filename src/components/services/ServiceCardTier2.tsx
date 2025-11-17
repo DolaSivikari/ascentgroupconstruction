@@ -24,7 +24,7 @@ export const ServiceCardTier2 = ({
   const showTradeBadge = service_tier === 'TRADE_PACKAGE';
   
   return (
-    <Card className="h-full hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
+    <Card variant="interactive" className="h-full">
       <CardHeader>
         <div className="flex items-start justify-between gap-3 mb-3">
           <div className="w-12 h-12 rounded-lg bg-accent/10 flex items-center justify-center">

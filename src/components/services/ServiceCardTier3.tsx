@@ -18,7 +18,7 @@ export const ServiceCardTier3 = ({
   challenge_tags,
 }: ServiceCardTier3Props) => {
   return (
-    <Card className="h-full hover:shadow-md transition-all duration-200">
+    <Card variant="interactive" className="h-full">
       <CardContent className="p-4">
         <div className="flex items-start justify-between gap-2 mb-2">
           <h4 className="font-semibold text-foreground">{name}</h4>
