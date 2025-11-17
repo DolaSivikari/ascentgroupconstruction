@@ -26,7 +26,7 @@ export const ServiceCardTier1 = ({
   const showPrimeBadge = service_tier === 'PRIME_SPECIALTY';
   
   return (
-    <Card className="h-full hover:shadow-xl transition-all duration-300 border-2">
+    <Card variant="interactive" className="h-full border-2">
       <CardHeader className="pb-4">
         <div className="flex items-start justify-between gap-4 mb-4">
           <div className="w-16 h-16 rounded-xl bg-primary/10 flex items-center justify-center">
