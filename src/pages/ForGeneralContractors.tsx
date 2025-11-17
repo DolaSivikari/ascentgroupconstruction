@@ -2,7 +2,7 @@ import SEO from "@/components/SEO";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import PageHeader from "@/components/PageHeader";
-import { UnifiedCard } from "@/components/shared/UnifiedCard";
+import { Card } from "@/design-system/components/Card";
 import { Section } from "@/components/sections/Section";
 import { Button } from "@/ui/Button";
 import { CTA_TEXT } from "@/design-system/constants";
@@ -120,10 +120,10 @@ const ForGeneralContractors = () => {
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 max-w-5xl mx-auto">
             {tradePackages.map((pkg, index) => (
-              <UnifiedCard key={index} variant="base" className="p-4 flex items-start gap-3">
+              <Card key={index} variant="default" size="sm" className="flex items-start gap-3">
                 <CheckCircle className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
                 <span>{pkg}</span>
-              </UnifiedCard>
+              </Card>
             ))}
           </div>
 
@@ -150,11 +150,11 @@ const ForGeneralContractors = () => {
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {whyWorkWithUs.map((item, index) => (
-              <UnifiedCard key={index} variant="elevated">
+              <Card key={index} variant="elevated" size="md" hover>
                 <item.icon className="w-8 h-8 text-primary mb-4" />
                 <h3 className="text-xl font-semibold mb-2">{item.title}</h3>
                 <p className="text-muted-foreground">{item.description}</p>
-              </UnifiedCard>
+              </Card>
             ))}
           </div>
         </Section>
@@ -173,15 +173,15 @@ const ForGeneralContractors = () => {
           <div className="max-w-4xl mx-auto space-y-6">
             {processSteps.map((step, index) => (
               <ScrollReveal key={index} direction="left" delay={index * 100}>
-                <UnifiedCard variant="elevated" className="flex gap-6 items-start hover:shadow-xl transition-all duration-300">
-                  <div className="flex-shrink-0 w-12 h-12 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-bold text-xl">
-                    {step.number}
+                <Card variant="elevated" size="md" hover className="flex gap-6 items-start">
+                  <div className="p-3 bg-primary/10 rounded-lg flex-shrink-0">
+                    <span className="text-2xl font-bold text-primary">{step.number}</span>
                   </div>
-                  <div className="flex-1">
-                    <h3 className="text-xl md:text-2xl font-semibold mb-2">{step.title}</h3>
+                  <div>
+                    <h3 className="text-xl font-semibold mb-2">{step.title}</h3>
                     <p className="text-muted-foreground">{step.description}</p>
                   </div>
-                </UnifiedCard>
+                </Card>
               </ScrollReveal>
             ))}
           </div>
@@ -189,43 +189,40 @@ const ForGeneralContractors = () => {
 
         {/* Building Credentials Section */}
         <Section size="major" maxWidth="narrow" className="bg-muted/30">
-          <UnifiedCard variant="elevated" className="border-l-4 border-l-primary">
-            <h2 className="text-2xl md:text-3xl font-bold mb-4">
-              Building Our Credentials
-            </h2>
+          <Card variant="elevated" size="lg" className="border-l-4 border-l-primary">
+            <h3 className="text-2xl font-semibold mb-4 flex items-center gap-3">
+              <Download className="w-6 h-6 text-primary" />
+              Prequalification Documents
+            </h3>
             <p className="text-muted-foreground mb-6">
-              Ascent Group was established in 2025 by construction professionals with 15+ years of industry experience. We're actively building our prequalification documentation and working toward full compliance:
+              Download our complete prequalification package including:
             </p>
-                <div className="grid md:grid-cols-2 gap-4 mb-6">
-                  <div className="flex items-center gap-2">
-                    <CheckCircle className="w-5 h-5 text-green-500" />
-                    <span className="text-foreground">Licensed Business (Registered)</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <CheckCircle className="w-5 h-5 text-green-500" />
-                    <span className="text-foreground">10-Person Self-Performed Crew</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <Clock className="w-5 h-5 text-yellow-500" />
-                    <span className="text-foreground">WSIB Clearance (In Progress)</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <Clock className="w-5 h-5 text-yellow-500" />
-                    <span className="text-foreground">Liability Insurance (Finalizing)</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <Clock className="w-5 h-5 text-yellow-500" />
-                    <span className="text-foreground">COR Certification (Pursuing)</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <CheckCircle className="w-5 h-5 text-green-500" />
-                    <span className="text-foreground">Site Safety Plans & Procedures</span>
-                  </div>
-                </div>
-            <p className="text-sm text-muted-foreground italic">
-              We understand that prequalification requirements vary by GC and project size. We're transparent about where we are in our credentialing process and committed to meeting your specific requirements.
-            </p>
-          </UnifiedCard>
+            <ul className="space-y-2 mb-6">
+              <li className="flex items-start gap-2">
+                <CheckCircle className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
+                <span>Company profile and project experience</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <CheckCircle className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
+                <span>WSIB clearance certificate</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <CheckCircle className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
+                <span>Insurance certificates ($5M general liability)</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <CheckCircle className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
+                <span>Safety certifications and COR training records</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <CheckCircle className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
+                <span>Sample project references and past performance</span>
+              </li>
+            </ul>
+            <Button asChild size="lg">
+              <Link to="/resources/contractor-portal">Access Documents</Link>
+            </Button>
+          </Card>
         </Section>
 
         {/* Contact Section */}
@@ -240,18 +237,15 @@ const ForGeneralContractors = () => {
           </div>
 
           <div className="grid md:grid-cols-2 gap-6 mb-8">
-            <UnifiedCard variant="interactive" className="text-center">
-              <Download className="w-8 h-8 text-primary mx-auto mb-4" />
-              <h3 className="text-xl md:text-2xl font-semibold mb-2">Download Company Info</h3>
-              <p className="text-muted-foreground mb-4 text-sm">
-                Company profile, services list, and current credentials status
-              </p>
-              <Button asChild className="w-full">
-                <Link to="/contact">Request Info Package</Link>
-              </Button>
-            </UnifiedCard>
+            <Card variant="interactive" hover size="md" className="text-center">
+              <Phone className="w-8 h-8 text-primary mx-auto mb-4" />
+              <h3 className="text-xl font-semibold mb-2">Call Us</h3>
+              <a href="tel:+14373290029" className="text-primary hover:underline">
+                +1 (437) 329-0029
+              </a>
+            </Card>
 
-            <UnifiedCard variant="interactive" className="text-center">
+            <Card variant="interactive" hover size="md" className="text-center">
               <FileText className="w-8 h-8 text-primary mx-auto mb-4" />
               <h3 className="text-xl md:text-2xl font-semibold mb-2">Request Unit Pricing</h3>
               <p className="text-muted-foreground mb-4 text-sm">
@@ -260,7 +254,7 @@ const ForGeneralContractors = () => {
               <Button asChild className="w-full">
                 <Link to="/contact">Submit Tender Request</Link>
               </Button>
-            </UnifiedCard>
+            </Card>
           </div>
 
           <div className="p-6 bg-muted/50 rounded-lg">

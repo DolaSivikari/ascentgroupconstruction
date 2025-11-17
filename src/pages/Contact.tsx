@@ -4,7 +4,7 @@ import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
 import PageHeader from "@/components/PageHeader";
-import { UnifiedCard } from "@/components/shared/UnifiedCard";
+import { Card } from "@/design-system/components/Card";
 import { Section } from "@/components/sections/Section";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
@@ -199,7 +199,7 @@ const Contact = () => {
               </Button>
             </div>
 
-            <UnifiedCard variant="elevated" className="border-2 hover:border-primary/20 transition-all shadow-2xl overflow-hidden">
+            <Card variant="elevated" size="lg" className="border-2 hover:border-primary/20 overflow-hidden">
               <div className="bg-gradient-to-br from-primary/10 via-primary/5 to-transparent p-8 border-b">
                 <h2 className="text-3xl font-bold mb-2">Request a Consultation</h2>
                 <p className="text-muted-foreground text-lg">
@@ -393,7 +393,7 @@ const Contact = () => {
                   </form>
                 )}
               </div>
-            </UnifiedCard>
+            </Card>
           </div>
         </div>
       </section>
