@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import ClientSegmentCard from "./ClientSegmentCard";
 import { SectionBadge } from "@/components/ui/SectionBadge";
 import { Section } from "@/components/sections/Section";
+import { Card, CardContent } from "@/design-system/components/Card";
 
 const ClientValueProposition = () => {
 
@@ -27,7 +28,7 @@ const ClientValueProposition = () => {
             </p>
           </div>
 
-          {/* Benefit Bullets */}
+          {/* Benefit Bullets - Using Unified Card System */}
           <div className="grid md:grid-cols-2 gap-4 mb-8">
             {[
               { title: "Prime accountability for envelope scopes", desc: "One team, one contract, one responsible point of contact." },
@@ -38,13 +39,15 @@ const ClientValueProposition = () => {
               { title: "Responsive by design", desc: "48–72‑hour site walks, fast submittals, and unit pricing for GC trade packages." },
           { title: "Local coverage", desc: "Toronto, Mississauga, Brampton, Vaughan/Markham, Oakville/Burlington, Hamilton." },
             ].map((benefit, index) => (
-              <div key={index} className="flex gap-3 p-4 rounded-lg bg-muted/30 border border-border/50 hover:bg-muted/40 hover:border-border/70 transition-all duration-300">
-                <CheckCircle2 className="w-5 h-5 text-construction-orange flex-shrink-0 mt-0.5" />
-                <div>
-                  <h4 className="font-semibold text-foreground text-base mb-1">{benefit.title}</h4>
-                  <p className="text-sm text-muted-foreground leading-relaxed">{benefit.desc}</p>
-                </div>
-              </div>
+              <Card key={index} variant="outline" size="sm" hover>
+                <CardContent className="flex gap-3 p-0">
+                  <CheckCircle2 className="w-5 h-5 text-construction-orange flex-shrink-0 mt-0.5" />
+                  <div>
+                    <h4 className="font-semibold text-foreground text-base mb-1">{benefit.title}</h4>
+                    <p className="text-sm text-muted-foreground leading-relaxed">{benefit.desc}</p>
+                  </div>
+                </CardContent>
+              </Card>
             ))}
         </div>
 
