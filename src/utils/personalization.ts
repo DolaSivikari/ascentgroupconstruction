@@ -88,7 +88,7 @@ class PersonalizationEngine {
 
     // Personalize based on referral source
     if (this.profile!.referralSource?.includes('google')) {
-      content.featuredServices = ['Emergency Response', 'Free Assessment', 'COR Certified'];
+      content.featuredServices = ['Emergency Response', 'Free Assessment', 'Working Toward COR'];
     } else if (this.profile!.referralSource?.includes('social')) {
       content.featuredServices = ['View Gallery', 'Client Reviews', 'Success Stories'];
     }

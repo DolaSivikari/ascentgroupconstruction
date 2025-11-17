@@ -19,7 +19,7 @@ export const PremiumServiceHero = () => {
           <div className="flex flex-wrap justify-center gap-4 mb-8">
             <div className="flex items-center gap-2 bg-primary-foreground/10 backdrop-blur-sm px-4 py-2 rounded-full border border-primary-foreground/20">
               <Award className="w-4 h-4" />
-              <span className="text-sm font-medium">COR Certified</span>
+              <span className="text-sm font-medium">Working Toward COR</span>
             </div>
             <div className="flex items-center gap-2 bg-primary-foreground/10 backdrop-blur-sm px-4 py-2 rounded-full border border-primary-foreground/20">
               <Shield className="w-4 h-4" />

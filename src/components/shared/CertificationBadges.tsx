@@ -18,10 +18,10 @@ interface CertificationBadgesProps {
 
 const defaultCertifications: Certification[] = [
   {
-    name: "COR Certified",
+    name: "Working Toward COR",
     icon: Shield,
-    description: "Certificate of Recognition for health and safety management systems",
-    validUntil: "Dec 2025",
+    description: "Developing safety management systems for Certificate of Recognition",
+    validUntil: "In Progress",
     verified: true
   },
   {

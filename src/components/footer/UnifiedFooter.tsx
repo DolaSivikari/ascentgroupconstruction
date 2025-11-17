@@ -38,7 +38,7 @@ export function UnifiedFooter({
   logoUrl,
   serviceAreaText,
   linkedinUrl,
-  foundedYear = 2009
+  foundedYear = 2025
 }: UnifiedFooterProps) {
   const topServices = services.slice(0, 6);
   const allNavLinks = [

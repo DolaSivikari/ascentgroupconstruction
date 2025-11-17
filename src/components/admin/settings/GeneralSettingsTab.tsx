@@ -22,7 +22,7 @@ export const GeneralSettingsTab = () => {
         phone: settings.phone || "",
         email: settings.email || "",
         address: settings.address || "",
-        founded_year: settings.founded_year || 2009,
+        founded_year: settings.founded_year || 2025,
         meta_title: settings.meta_title || "",
         meta_description: settings.meta_description || "",
       });
