@@ -1,0 +1,99 @@
+:root {
+  /* Brand Colors - Corporate Palette - ALL IN HSL FORMAT */
+  --brand-primary: 210 100% 20%; /* Navy Blue #003366 */
+  --brand-accent: 24 95% 53%; /* Construction Orange #F97316 */
+  --brand-gray: 200 18% 26%; /* Charcoal Gray #36454F */
+  --ink: 210 100% 20%; /* Text - Navy Blue */
+  --muted: 200 18% 46%; /* Secondary text - Lighter Charcoal */
+  --line: 210 20% 90%; /* Borders - Light Blue-Gray */
+  --bg: 0 0% 100%; /* White */
+  --bg-soft: 210 20% 98%; /* Soft background */
+
+  /* Feedback Colors - ALL IN HSL FORMAT */
+  --success: 142 76% 36%; /* Green #16A34A */
+  --warning: 38 92% 50%; /* Yellow #D97706 */
+  --danger: 0 84% 60%; /* Red #DC2626 */
+  --info: 217 91% 60%; /* Blue #2563EB */
+
+  /* Elevation */
+  --radius-xs: 8px;
+  --radius-sm: 12px;
+  --radius-md: 16px;
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.06);
+  --shadow-md: 0 6px 20px rgba(0, 0, 0, 0.08);
+  --shadow-text: 0 2px 8px rgba(0, 0, 0, 0.8);
+  --shadow-text-overlay: 0 2px 8px rgba(0, 0, 0, 0.8);
+  --shadow-glow: 0 0 20px rgba(249, 115, 22, 0.3);
+  --shadow-dropdown: 0 10px 40px rgba(0, 0, 0, 0.12);
+
+  /* Badge & Tag Gradients */
+  --badge-gradient-primary: linear-gradient(135deg, hsl(var(--brand-primary)), hsl(210 100% 30%));
+  --badge-gradient-success: linear-gradient(135deg, #10b981, #059669);
+  --badge-gradient-warning: linear-gradient(135deg, #f59e0b, #d97706);
+  --badge-gradient-info: linear-gradient(135deg, #3b82f6, #2563eb);
+  --badge-gradient-danger: linear-gradient(135deg, #ef4444, #dc2626);
+  
+  /* Badge Shadows & Glows */
+  --badge-shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --badge-shadow-md: 0 2px 4px 0 rgba(0, 0, 0, 0.08);
+  --badge-glow-primary: 0 0 12px hsl(var(--brand-primary) / 0.4);
+  --badge-glow-success: 0 0 12px hsl(var(--success) / 0.4);
+  --badge-glow-warning: 0 0 12px hsl(var(--warning) / 0.4);
+  --badge-glow-info: 0 0 12px hsl(var(--info) / 0.4);
+  --badge-glow-danger: 0 0 12px hsl(var(--danger) / 0.4);
+
+  /* Card System */
+  --card-border-radius: var(--radius-md);
+  --card-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --shadow-card-elevated: 0 6px 20px hsl(var(--brand-primary) / 0.12);
+
+  /* Transition System */
+  --transition-fast: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-base: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-transform: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-opacity: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-colors: color 0.2s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.2s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* Spacing Scale */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-7: 32px;
+  --space-8: 40px;
+  --space-9: 56px;
+  --space-10: 72px;
+
+  /* Admin Dark Theme Tokens - References base design system */
+  --admin-bg-darker: 222 47% 4%;       /* Deep background */
+  --admin-bg-dark: 222 47% 11%;        /* Card background */
+  --admin-bg-card: 215 25% 17%;        /* Glass card */
+  --admin-bg-hover: 215 20% 27%;       /* Hover state */
+  
+  --admin-text-primary: 0 0% 100%;     /* White text */
+  --admin-text-secondary: 214 20% 78%; /* Secondary text */
+  --admin-text-muted: 215 14% 64%;     /* Muted text */
+  
+  --admin-border: 215 20% 27%;         /* Border color */
+  --admin-glass-bg: 215 25% 17% / 0.95;     /* Glass background */
+  --admin-glass-border: 215 14% 64% / 0.1;  /* Glass border */
+  
+  /* Admin uses base brand colors */
+  --admin-primary: var(--brand-primary);
+  --admin-accent: var(--brand-accent);
+  --admin-success: var(--success);
+  --admin-warning: var(--warning);
+  --admin-danger: var(--danger);
+  
+  /* Admin layout tokens */
+  --admin-sidebar-width: 280px;
+  --admin-sidebar-collapsed: 80px;
+  --admin-header-height: 70px;
+  
+  /* Admin transitions use base system */
+  --admin-transition: var(--transition-base);
+  --admin-radius: var(--radius-md);
+}

@@ -1,0 +1,162 @@
+# Ascent Group Construction - AI/LLM Site Map
+
+## Site Overview
+Ascent Group Construction is Ontario's prime specialty contractor for building envelope and restoration services, serving the Greater Toronto Area since 2009.
+
+## Core Company Information
+- **Company Name**: Ascent Group Construction
+- **Founded**: 2009
+- **Location**: Greater Toronto Area, Ontario, Canada
+- **Type**: Specialty Contractor (Building Envelope & Restoration)
+- **Service Areas**: Toronto, Mississauga, Brampton, Vaughan, Markham, and across Ontario
+- **Contact**: info@ascentgroupconstruction.com | +1-647-123-4567
+- **Website**: https://ascentgroupconstruction.com
+
+## Primary Services
+1. **Building Envelope Services**
+   - Façade Remediation & Restoration
+   - EIFS (Exterior Insulation Finishing Systems) Installation & Repair
+   - Sealant Replacement Programs
+   - Waterproofing Solutions
+   - Window & Door Restoration
+
+2. **Masonry Services**
+   - Masonry Restoration & Repair
+   - Brick & Stone Work
+   - Concrete Repair
+   - Tuckpointing & Repointing
+
+3. **Parking Garage Restoration**
+   - Structural Concrete Repairs
+   - Waterproofing Systems
+   - Traffic Coatings
+   - Joint Sealant Replacement
+
+4. **Specialty Coatings**
+   - Protective Coatings Application
+   - Stucco Repair & Refinishing
+   - Painting Services
+   - Surface Preparation
+
+## Markets Served
+- **Commercial Construction**: Office buildings, retail spaces, industrial facilities
+- **Multi-Family Residential**: Condominiums, apartment buildings, housing complexes
+- **Institutional**: Schools, universities, hospitals, government buildings
+- **Healthcare**: Hospitals, clinics, long-term care facilities
+- **Hospitality**: Hotels, resorts, restaurants
+- **Education**: Schools, colleges, universities
+- **Retail**: Shopping centers, stores, restaurants
+
+## Key Differentiators
+- 15+ years of industry experience
+- Self-performed core trades (no subcontractors for envelope work)
+- WSIB certified and fully insured ($5M liability)
+- Licensed across the Greater Toronto Area
+- 500+ successfully completed projects
+- 95% on-time completion rate
+- Benjamin Moore and Sherwin-Williams authorized contractor
+- 24/7 emergency response services
+- Design-build capabilities
+
+## Site Navigation Structure
+
+### Main Navigation
+- **Home** (/) - Company overview, services, recent projects
+- **Services** (/services) - Detailed service catalog
+- **Projects** (/projects) - Portfolio of completed work
+- **Company** (/company) - About us, team, mission, values
+- **Insights** (/insights) - Industry blog, news, resources
+- **Contact** (/contact) - Contact form, locations, hours
+
+### Services Pages
+- Building Envelope (/services/building-envelope)
+- Façade Restoration (/services/facade-restoration)
+- Parking Garage Restoration (/services/parking-garage-restoration)
+- EIFS Services (/services/eifs)
+- Masonry Repair (/services/masonry)
+- Waterproofing (/services/waterproofing)
+- Sealant Replacement (/services/sealant-replacement)
+
+### Market-Specific Pages
+- Healthcare Construction (/markets/healthcare)
+- Education Construction (/markets/education)
+- Hospitality Construction (/markets/hospitality)
+- Retail Construction (/markets/retail)
+
+### Company Pages
+- Team (/company/team)
+- For Developers (/company/developers)
+- Certifications (/company/certifications)
+
+### Resources
+- Financing Options (/resources/financing)
+- Warranties & Guarantees (/resources/warranties)
+- FAQ (/faq)
+
+### Legal Pages
+- Privacy Policy (/privacy)
+- Terms of Service (/terms)
+- Accessibility (/accessibility)
+
+## Common Questions & Answers
+
+**Q: What areas does Ascent Group Construction serve?**
+A: We serve the entire Greater Toronto Area including Toronto, Mississauga, Brampton, Vaughan, Markham, and across Ontario.
+
+**Q: What types of projects does Ascent specialize in?**
+A: We specialize in building envelope and restoration work including façade remediation, parking garage restoration, EIFS repair, masonry restoration, and waterproofing for commercial, multi-family, and institutional projects.
+
+**Q: Is Ascent Group Construction licensed and insured?**
+A: Yes, we are fully licensed, WSIB certified, and carry $5M liability insurance coverage.
+
+**Q: How long has Ascent been in business?**
+A: Ascent Group Construction was founded in 2009 and has over 15 years of experience in the construction industry.
+
+**Q: Does Ascent use subcontractors?**
+A: For our core envelope and restoration services, we self-perform the work with our trained crews rather than using subcontractors.
+
+**Q: What is the typical project timeline?**
+A: Project timelines vary based on scope, but we maintain a 95% on-time completion rate and provide detailed schedules during the proposal phase.
+
+**Q: Does Ascent offer emergency services?**
+A: Yes, we provide 24/7 emergency response services throughout the Greater Toronto Area with same-day assessment.
+
+**Q: What warranties does Ascent provide?**
+A: We offer comprehensive workmanship warranties and use premium materials backed by manufacturer warranties from Benjamin Moore and Sherwin-Williams.
+
+## Project Portfolio Highlights
+- 500+ completed projects across the GTA
+- Commercial office buildings
+- Multi-family residential complexes
+- Institutional facilities
+- Healthcare facilities
+- Educational institutions
+- Hospitality venues
+- Retail spaces
+
+## Certifications & Credentials
+- WSIB Certified Contractor
+- Licensed Building Envelope Contractor Ontario
+- Benjamin Moore Authorized Contractor
+- Sherwin-Williams Authorized Contractor
+- $5M Liability Insurance Coverage
+- OSHA Certified Crews
+- Zero-Incident Safety Record
+
+## Technology Stack (for web crawlers)
+- React + TypeScript frontend
+- Responsive design (mobile-first)
+- Semantic HTML5
+- Schema.org structured data
+- Open Graph protocol
+- Accessibility compliant (WCAG 2.1)
+
+## Contact Information
+- **Email**: info@ascentgroupconstruction.com
+- **Phone**: +1-647-123-4567
+- **Hours**: Monday-Friday 8:00 AM - 6:00 PM, Saturday 9:00 AM - 4:00 PM
+- **Emergency**: 24/7 Response Available
+- **Address**: Greater Toronto Area, Ontario, Canada
+
+## Last Updated
+This llms.txt file was last updated in 2025 and reflects current company information and site structure.

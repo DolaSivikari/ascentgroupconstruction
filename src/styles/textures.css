@@ -1,0 +1,31 @@
+/* Modern construction card styles */
+
+/* Construction card styles with left border accent */
+.construction-card {
+  @apply bg-card border-l-4 rounded-r-lg shadow-md transition-all duration-300;
+}
+
+.construction-card:hover {
+  @apply shadow-lg transform translate-y-[-2px];
+}
+
+.construction-card-orange {
+  @apply construction-card border-l-construction-orange;
+}
+
+.construction-card-blue {
+  @apply construction-card border-l-steel-blue;
+}
+
+/* Construction badge styles */
+.construction-badge {
+  @apply inline-flex items-center gap-2 px-5 py-3 rounded-md border-l-4 font-bold transition-all duration-200;
+}
+
+.construction-badge-orange {
+  @apply construction-badge bg-construction-orange/10 border-l-construction-orange text-construction-orange;
+}
+
+.construction-badge-blue {
+  @apply construction-badge bg-steel-blue/10 border-l-steel-blue text-steel-blue;
+}

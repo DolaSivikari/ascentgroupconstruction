@@ -1,0 +1,70 @@
+name: Smoke Tests
+
+on:
+  push:
+    branches: [main, feature/**]
+  pull_request:
+    branches: [main]
+  schedule:
+    # Run every 6 hours
+    - cron: '0 */6 * * *'
+
+jobs:
+  smoke-test:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y curl jq bc
+
+      - name: Make smoke test script executable
+        run: chmod +x scripts/smoke-test.sh
+
+      - name: Run smoke tests (Production)
+        env:
+          VITE_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}
+          VITE_SUPABASE_PROJECT_ID: ${{ secrets.VITE_SUPABASE_PROJECT_ID }}
+        run: |
+          ./scripts/smoke-test.sh https://ascentgroupconstruction.com
+
+      - name: Run route audit
+        run: |
+          if [ -f scripts/audit-routes.ts ]; then
+            echo "Running route audit..."
+            npx ts-node scripts/audit-routes.ts || echo "Route audit completed with warnings"
+          fi
+
+      - name: Check bundle size
+        run: |
+          echo "Checking bundle size..."
+          if [ -f package.json ]; then
+            npm run build 2>&1 | tee build.log || true
+            if [ -f dist/index.html ]; then
+              DIST_SIZE=$(du -sh dist | cut -f1)
+              echo "📦 Build size: $DIST_SIZE"
+            fi
+          fi
+
+      - name: Security audit
+        run: |
+          echo "Running security audit..."
+          npm audit --production || echo "Security audit completed with warnings"
+
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: smoke-test-results
+          path: |
+            *.log
+            *.json
+
+      - name: Notify on failure
+        if: failure()
+        run: |
+          echo "::error::Smoke tests failed! Check the logs for details."

@@ -1,0 +1,2808 @@
+/* ============================================================================
+   ASCENT BUSINESS ADMIN PANEL - STYLES
+   ============================================================================ */
+
+:root {
+  /* Business Admin Theme - Now references design tokens */
+  --business-primary: var(--admin-primary);
+  --business-primary-dark: 221 83% 53%;
+  --business-accent-orange: var(--admin-accent);
+  --business-accent-green: var(--admin-success);
+  --business-accent-red: var(--admin-danger);
+  --business-accent-yellow: var(--admin-warning);
+  
+  --business-bg-darker: var(--admin-bg-darker);
+  --business-bg-dark: var(--admin-bg-dark);
+  --business-bg-card: var(--admin-bg-card);
+  --business-bg-hover: var(--admin-bg-hover);
+  
+  --business-text-primary: var(--admin-text-primary);
+  --business-text-secondary: var(--admin-text-secondary);
+  --business-text-muted: var(--admin-text-muted);
+  
+  --business-border: var(--admin-border);
+  --business-glass-bg: var(--admin-glass-bg);
+  --business-glass-border: var(--admin-glass-border);
+  
+  --business-sidebar-width: var(--admin-sidebar-width);
+  --business-sidebar-collapsed: var(--admin-sidebar-collapsed);
+  --business-header-height: var(--admin-header-height);
+}
+
+/* Business Admin Container */
+.business-admin-container {
+  display: flex;
+  min-height: 100vh;
+  background: var(--business-bg-darker);
+  position: relative;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+/* Animated Background */
+.business-admin-container::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: 
+    radial-gradient(ellipse at 20% 30%, rgba(37, 99, 235, 0.1) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 70%, rgba(16, 185, 129, 0.08) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Sidebar */
+.business-sidebar {
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 100vh;
+  width: var(--business-sidebar-width);
+  background: var(--business-glass-bg);
+  backdrop-filter: blur(20px);
+  border-right: 1px solid var(--business-glass-border);
+  display: flex;
+  flex-direction: column;
+  z-index: 100;
+  transition: transform 0.3s ease, width 0.3s ease;
+}
+
+/* Mobile Sidebar Backdrop */
+.business-sidebar-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+  z-index: 99;
+  animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Mobile Close Button */
+.business-sidebar-mobile-close {
+  display: none;
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  width: 40px;
+  height: 40px;
+  background: var(--business-bg-card);
+  border: 1px solid var(--business-border);
+  border-radius: 8px;
+  align-items: center;
+  justify-content: center;
+  color: var(--business-text-secondary);
+  cursor: pointer;
+  z-index: 101;
+  transition: all 0.15s ease;
+}
+
+.business-sidebar-mobile-close:hover {
+  background: var(--business-bg-hover);
+  color: var(--business-text-primary);
+}
+
+.business-sidebar.collapsed {
+  width: var(--business-sidebar-collapsed);
+}
+
+.business-sidebar-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 1.5rem 0;
+  overflow-y: auto;
+}
+
+/* Logo */
+.business-logo {
+  padding: 0 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.business-logo-content {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.business-logo-icon svg {
+  display: block;
+}
+
+.business-logo-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.business-logo-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--business-text-primary);
+  letter-spacing: -0.025em;
+}
+
+.business-logo-subtitle {
+  font-size: 0.75rem;
+  color: var(--business-text-secondary);
+  font-weight: 500;
+}
+
+/* Navigation */
+.business-nav {
+  flex: 1;
+  padding: 0 1rem;
+}
+
+.business-nav-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  margin-bottom: 0.25rem;
+  border-radius: var(--admin-radius);
+  color: var(--business-text-secondary);
+  text-decoration: none;
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: var(--admin-transition);
+  position: relative;
+  min-height: 44px;
+}
+
+.business-nav-item:hover {
+  background: var(--business-bg-hover);
+  color: var(--business-text-primary);
+  transform: translateX(4px);
+}
+
+.business-nav-item.active {
+  background: rgba(37, 99, 235, 0.15);
+  color: #60a5fa;
+}
+
+.business-nav-icon {
+  flex-shrink: 0;
+}
+
+.business-nav-label {
+  flex: 1;
+}
+
+.business-nav-badge {
+  background: var(--business-accent-orange);
+  color: white;
+  font-size: 0.625rem;
+  font-weight: 700;
+  padding: 0.125rem 0.5rem;
+  border-radius: 9999px;
+  min-width: 1.25rem;
+  text-align: center;
+}
+
+/* Sidebar collapsed state */
+.business-sidebar.collapsed .business-logo-text,
+.business-sidebar.collapsed .business-nav-label,
+.business-sidebar.collapsed .business-nav-badge {
+  display: none;
+}
+
+/* Toggle Button */
+.business-sidebar-toggle {
+  position: absolute;
+  right: -12px;
+  top: 2rem;
+  width: 24px;
+  height: 24px;
+  background: var(--business-bg-card);
+  border: 1px solid var(--business-border);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--business-text-secondary);
+  transition: all 0.15s ease;
+}
+
+.business-sidebar-toggle:hover {
+  background: var(--business-bg-hover);
+  color: var(--business-text-primary);
+}
+
+/* Main Content Area */
+.business-main-content {
+  flex: 1;
+  margin-left: var(--business-sidebar-width);
+  transition: margin-left 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  z-index: 1;
+}
+
+.business-main-content.sidebar-collapsed {
+  margin-left: var(--business-sidebar-collapsed);
+}
+
+/* Header */
+.business-header {
+  position: sticky;
+  top: 0;
+  height: var(--business-header-height);
+  background: var(--business-glass-bg);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--business-glass-border);
+  display: flex;
+  align-items: center;
+  padding: 0 1rem;
+  z-index: 50;
+}
+
+@media (min-width: 768px) {
+  .business-header {
+    padding: 0 2rem;
+  }
+}
+
+/* Hamburger Menu Button */
+.business-hamburger-btn {
+  display: none;
+  width: 44px;
+  height: 44px;
+  background: transparent;
+  border: 1px solid var(--business-border);
+  border-radius: 8px;
+  align-items: center;
+  justify-content: center;
+  color: var(--business-text-secondary);
+  cursor: pointer;
+  transition: all 0.15s ease;
+  flex-shrink: 0;
+}
+
+.business-hamburger-btn:hover {
+  background: var(--business-bg-hover);
+  color: var(--business-text-primary);
+}
+
+.business-header-content {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+}
+
+/* Search */
+.business-header-search {
+  flex: 1;
+  max-width: 500px;
+  position: relative;
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .business-header-search {
+    display: block;
+  }
+}
+
+.business-search-input {
+  width: 100%;
+  padding: 0.625rem 1rem 0.625rem 2.5rem;
+  background: var(--business-bg-dark);
+  border: 1px solid var(--business-border);
+  border-radius: 8px;
+  color: var(--business-text-primary);
+  font-size: 0.875rem;
+  transition: all 0.15s ease;
+}
+
+.business-search-input:focus {
+  outline: none;
+  border-color: var(--business-primary);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.business-search-icon {
+  position: absolute;
+  left: 0.75rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--business-text-muted);
+}
+
+.business-search-kbd {
+  position: absolute;
+  right: 0.75rem;
+  top: 50%;
+  transform: translateY(-50%);
+  padding: 0.125rem 0.375rem;
+  background: var(--business-bg-card);
+  border: 1px solid var(--business-border);
+  border-radius: 4px;
+  font-size: 0.75rem;
+  color: var(--business-text-muted);
+}
+
+/* Header Actions */
+.business-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-left: auto;
+}
+
+.business-action-button {
+  position: relative;
+  min-width: 44px;
+  min-height: 44px;
+  background: transparent;
+  border: 1px solid var(--business-border);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--business-text-secondary);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.business-action-button:hover {
+  background: var(--business-bg-hover);
+  color: var(--business-text-primary);
+}
+
+.business-notification-badge {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  width: 18px;
+  height: 18px;
+  background: var(--business-accent-red);
+  color: white;
+  font-size: 0.625rem;
+  font-weight: 700;
+  border-radius: 9999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* User Button */
+.business-user-button {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem;
+  background: transparent;
+  border: 1px solid var(--business-border);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.business-user-button:hover {
+  background: var(--business-bg-hover);
+}
+
+.business-user-avatar {
+  width: 32px;
+  height: 32px;
+  background: var(--business-primary);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 0.875rem;
+}
+
+.business-user-name {
+  color: var(--business-text-primary);
+  font-size: 0.875rem;
+  font-weight: 500;
+  display: none;
+}
+
+@media (min-width: 640px) {
+  .business-user-name {
+    display: block;
+  }
+}
+
+/* Page Content */
+.business-page-content {
+  flex: 1;
+  padding: 1rem;
+}
+
+@media (min-width: 768px) {
+  .business-page-content {
+    padding: 2rem;
+  }
+}
+
+/* Glass Cards */
+.business-glass-card {
+  background: var(--business-glass-bg);
+  backdrop-filter: blur(20px);
+  border: 1px solid var(--business-glass-border);
+  border-radius: var(--admin-radius);
+  box-shadow: var(--shadow-md);
+  transition: var(--admin-transition);
+}
+
+.business-glass-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-card-elevated);
+  border-color: rgba(148, 163, 184, 0.2);
+}
+
+/* Stats Grid */
+.business-stats-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+@media (min-width: 640px) {
+  .business-stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.25rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .business-stats-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+  }
+}
+
+/* Page Title */
+.business-page-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--business-text-primary);
+  margin-bottom: 0.5rem;
+}
+
+.business-page-subtitle {
+  font-size: 1rem;
+  color: var(--business-text-secondary);
+  margin-bottom: 2rem;
+}
+
+/* Buttons */
+.business-btn {
+  padding: 0.625rem 1.25rem;
+  min-height: 44px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.business-btn-primary {
+  background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+  color: white;
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+}
+
+.business-btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(37, 99, 235, 0.4);
+}
+
+.business-btn-success {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  color: white;
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+}
+
+.business-btn-success:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(16, 185, 129, 0.4);
+}
+
+.business-btn-ghost {
+  background: transparent;
+  color: var(--business-text-secondary);
+  border: 1px solid var(--business-border);
+}
+
+.business-btn-ghost:hover {
+  background: var(--business-bg-hover);
+  color: var(--business-text-primary);
+}
+
+/* Scrollbar */
+.business-sidebar-content::-webkit-scrollbar {
+  width: 6px;
+}
+
+.business-sidebar-content::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.business-sidebar-content::-webkit-scrollbar-thumb {
+  background: var(--business-bg-hover);
+  border-radius: 3px;
+}
+
+/* Nav Group Label */
+.business-nav-group-label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  margin: 0.5rem 0;
+  color: var(--business-text-muted);
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  min-height: 44px;
+}
+
+.business-nav-group-label:hover {
+  color: var(--business-text-secondary);
+}
+
+.business-nav-group {
+  padding-left: 0.5rem;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .business-hamburger-btn {
+    display: flex;
+  }
+
+  .business-sidebar {
+    transform: translateX(-100%);
+    z-index: 100;
+  }
+  
+  .business-sidebar.mobile-open {
+    transform: translateX(0);
+  }
+
+  .business-sidebar-mobile-close {
+    display: flex;
+  }
+
+  /* Hide desktop toggle on mobile */
+  .business-sidebar-toggle {
+    display: none;
+  }
+  
+  .business-main-content {
+    margin-left: 0 !important;
+  }
+
+  .business-page-title {
+    font-size: 1.5rem;
+  }
+
+  .business-page-subtitle {
+    font-size: 0.875rem;
+  }
+}
+
+/* Prevent body scroll when mobile menu is open */
+body:has(.business-sidebar.mobile-open) {
+  overflow: hidden;
+}
+
+@media (min-width: 1025px) {
+  .business-hamburger-btn {
+    display: none;
+  }
+
+  .business-sidebar-backdrop {
+    display: none;
+  }
+
+  .business-sidebar-mobile-close {
+    display: none;
+  }
+}
+
+/* ============================================================================
+   ADMIN DARK THEME WRAPPER - Override CSS Variables for Unified Dark Theme
+   ============================================================================ */
+
+.admin-dark-theme {
+  /* Force dark backgrounds */
+  --background: 222 47% 11%;        /* slate-900 */
+  --foreground: 0 0% 100%;          /* PURE WHITE */
+  
+  /* Force dark cards */
+  --card: 217 33% 17%;              /* slate-800 */
+  --card-foreground: 0 0% 100%;     /* PURE WHITE */
+  
+  /* Force dark popovers and dropdowns */
+  --popover: 217 33% 17%;           /* slate-800 */
+  --popover-foreground: 0 0% 100%;  /* PURE WHITE */
+  
+  /* Force dark inputs */
+  --input: 215 25% 27%;             /* slate-700 */
+  
+  /* Force dark muted backgrounds */
+  --muted: 215 25% 27%;             /* slate-700 */
+  --muted-foreground: 0 0% 100%;    /* PURE WHITE - NO MORE GRAY */
+  
+  /* Force dark borders */
+  --border: 215 25% 27%;            /* slate-700 */
+  
+  /* Ensure ring color is visible */
+  --ring: 217 91% 60%;              /* blue-400 */
+}
+
+/* ============================================================================
+   UNIVERSAL INTER FONT ENFORCEMENT
+   ============================================================================ */
+
+/* Force Inter font on ALL admin elements */
+.admin-dark-theme,
+.admin-dark-theme * {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif !important;
+}
+
+/* Explicit overrides for all text-bearing HTML elements */
+.admin-dark-theme h1,
+.admin-dark-theme h2,
+.admin-dark-theme h3,
+.admin-dark-theme h4,
+.admin-dark-theme h5,
+.admin-dark-theme h6,
+.admin-dark-theme p,
+.admin-dark-theme span,
+.admin-dark-theme div,
+.admin-dark-theme label,
+.admin-dark-theme button,
+.admin-dark-theme input,
+.admin-dark-theme textarea,
+.admin-dark-theme select,
+.admin-dark-theme option,
+.admin-dark-theme a,
+.admin-dark-theme li,
+.admin-dark-theme td,
+.admin-dark-theme th,
+.admin-dark-theme strong,
+.admin-dark-theme em,
+.admin-dark-theme code,
+.admin-dark-theme pre {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif !important;
+}
+
+/* Override any Tailwind font utilities that might be applied */
+.admin-dark-theme .font-playfair,
+.admin-dark-theme [class*="font-"] {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif !important;
+}
+
+/* ============================================================================
+   TYPOGRAPHY SCALE - CONSISTENT SIZES & WEIGHTS
+   ============================================================================ */
+
+/* Headings - Clear hierarchy with proper scaling */
+.admin-dark-theme h1 {
+  font-size: 2rem;           /* 32px */
+  font-weight: 700;          /* Bold */
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+
+.admin-dark-theme h2 {
+  font-size: 1.5rem;         /* 24px */
+  font-weight: 600;          /* Semi-bold */
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+}
+
+.admin-dark-theme h3 {
+  font-size: 1.25rem;        /* 20px */
+  font-weight: 600;          /* Semi-bold */
+  line-height: 1.4;
+}
+
+.admin-dark-theme h4 {
+  font-size: 1.125rem;       /* 18px */
+  font-weight: 600;          /* Semi-bold */
+  line-height: 1.4;
+}
+
+.admin-dark-theme h5 {
+  font-size: 1rem;           /* 16px */
+  font-weight: 600;          /* Semi-bold */
+  line-height: 1.5;
+}
+
+.admin-dark-theme h6 {
+  font-size: 0.875rem;       /* 14px */
+  font-weight: 600;          /* Semi-bold */
+  line-height: 1.5;
+}
+
+/* Body text - Base sizes */
+.admin-dark-theme p {
+  font-size: 0.875rem;       /* 14px */
+  font-weight: 400;          /* Regular */
+  line-height: 1.6;
+}
+
+.admin-dark-theme span {
+  font-size: inherit;
+  font-weight: inherit;
+  line-height: inherit;
+}
+
+/* Form labels - Clear and readable */
+.admin-dark-theme label {
+  font-size: 0.875rem;       /* 14px */
+  font-weight: 500;          /* Medium */
+  line-height: 1.5;
+  letter-spacing: 0.01em;
+}
+
+/* Input text - Comfortable reading */
+.admin-dark-theme input,
+.admin-dark-theme textarea,
+.admin-dark-theme select {
+  font-size: 0.875rem;       /* 14px */
+  font-weight: 400;          /* Regular */
+  line-height: 1.5;
+}
+
+/* Button text - Clear and actionable */
+.admin-dark-theme button {
+  font-size: 0.875rem;       /* 14px */
+  font-weight: 500;          /* Medium */
+  line-height: 1.5;
+}
+
+/* Table text - Dense but readable */
+.admin-dark-theme th {
+  font-size: 0.75rem;        /* 12px */
+  font-weight: 600;          /* Semi-bold */
+  line-height: 1.5;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.admin-dark-theme td {
+  font-size: 0.875rem;       /* 14px */
+  font-weight: 400;          /* Regular */
+  line-height: 1.5;
+}
+
+/* Links - Distinguishable but subtle */
+.admin-dark-theme a {
+  font-size: inherit;
+  font-weight: 500;          /* Medium */
+  line-height: inherit;
+}
+
+/* Small text - Captions, metadata */
+.admin-dark-theme small,
+.admin-dark-theme .text-xs {
+  font-size: 0.75rem;        /* 12px */
+  font-weight: 400;          /* Regular */
+  line-height: 1.5;
+}
+
+/* Large text - Emphasized content */
+.admin-dark-theme .text-lg {
+  font-size: 1.125rem;       /* 18px */
+  font-weight: 400;          /* Regular */
+  line-height: 1.6;
+}
+
+.admin-dark-theme .text-xl {
+  font-size: 1.25rem;        /* 20px */
+  font-weight: 500;          /* Medium */
+  line-height: 1.4;
+}
+
+/* Strong/Bold emphasis */
+.admin-dark-theme strong,
+.admin-dark-theme b {
+  font-weight: 600;          /* Semi-bold */
+}
+
+/* Code - Monospace with proper sizing */
+.admin-dark-theme code {
+  font-family: 'Monaco', 'Courier New', monospace;
+  font-size: 0.8125rem;      /* 13px - slightly smaller */
+  font-weight: 400;          /* Regular */
+  line-height: 1.5;
+}
+
+.admin-dark-theme pre {
+  font-family: 'Monaco', 'Courier New', monospace;
+  font-size: 0.8125rem;      /* 13px */
+  font-weight: 400;          /* Regular */
+  line-height: 1.6;
+}
+
+/* List items - Match body text */
+.admin-dark-theme li {
+  font-size: 0.875rem;       /* 14px */
+  font-weight: 400;          /* Regular */
+  line-height: 1.6;
+}
+
+/* Badge text - Small and bold */
+.admin-dark-theme [class*="badge"],
+.admin-dark-theme [class*="Badge"] {
+  font-size: 0.75rem;        /* 12px */
+  font-weight: 600;          /* Semi-bold */
+  line-height: 1;
+  letter-spacing: 0.025em;
+}
+
+/* Card titles and descriptions */
+.admin-dark-theme [class*="CardTitle"],
+.admin-dark-theme .card-title {
+  font-size: 1.125rem;       /* 18px */
+  font-weight: 600;          /* Semi-bold */
+  line-height: 1.4;
+}
+
+.admin-dark-theme [class*="CardDescription"],
+.admin-dark-theme .card-description {
+  font-size: 0.875rem;       /* 14px */
+  font-weight: 400;          /* Regular */
+  line-height: 1.6;
+}
+
+/* ============================================================================
+   BUTTON VARIANTS - CONSISTENT ADMIN STYLING
+   ============================================================================ */
+
+/* Base button reset for admin panel */
+.admin-dark-theme button {
+  border-radius: 8px;
+  transition: all 0.15s ease;
+  cursor: pointer;
+}
+
+/* Primary Button - Main actions (blue) */
+.admin-dark-theme button[class*="default"]:not([class*="outline"]):not([class*="ghost"]):not([class*="secondary"]),
+.admin-dark-theme .button-primary {
+  background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+  color: white !important;
+  border: 1px solid transparent;
+  box-shadow: 0 2px 8px rgba(37, 99, 235, 0.25);
+}
+
+.admin-dark-theme button[class*="default"]:hover:not([class*="outline"]):not([class*="ghost"]):not([class*="secondary"]),
+.admin-dark-theme .button-primary:hover {
+  background: linear-gradient(135deg, #1d4ed8 0%, #1e40af 100%);
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.35);
+  transform: translateY(-1px);
+}
+
+.admin-dark-theme button[class*="default"]:active:not([class*="outline"]):not([class*="ghost"]):not([class*="secondary"]),
+.admin-dark-theme .button-primary:active {
+  transform: translateY(0);
+  box-shadow: 0 1px 4px rgba(37, 99, 235, 0.2);
+}
+
+/* Secondary Button - Alternative actions (slate) */
+.admin-dark-theme button[class*="secondary"],
+.admin-dark-theme .button-secondary {
+  background: var(--business-bg-card);
+  color: white !important;
+  border: 1px solid var(--business-border);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.admin-dark-theme button[class*="secondary"]:hover,
+.admin-dark-theme .button-secondary:hover {
+  background: var(--business-bg-hover);
+  border-color: #475569;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+}
+
+.admin-dark-theme button[class*="secondary"]:active,
+.admin-dark-theme .button-secondary:active {
+  background: #334155;
+}
+
+/* Danger Button - Destructive actions (red) */
+.admin-dark-theme button[class*="destructive"],
+.admin-dark-theme .button-danger {
+  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+  color: white !important;
+  border: 1px solid transparent;
+  box-shadow: 0 2px 8px rgba(239, 68, 68, 0.25);
+}
+
+.admin-dark-theme button[class*="destructive"]:hover,
+.admin-dark-theme .button-danger:hover {
+  background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.35);
+  transform: translateY(-1px);
+}
+
+.admin-dark-theme button[class*="destructive"]:active,
+.admin-dark-theme .button-danger:active {
+  transform: translateY(0);
+  box-shadow: 0 1px 4px rgba(239, 68, 68, 0.2);
+}
+
+/* Ghost Button - Minimal actions (transparent) */
+.admin-dark-theme button[class*="ghost"],
+.admin-dark-theme .button-ghost {
+  background: transparent;
+  color: var(--business-text-secondary) !important;
+  border: 1px solid transparent;
+  box-shadow: none;
+}
+
+.admin-dark-theme button[class*="ghost"]:hover,
+.admin-dark-theme .button-ghost:hover {
+  background: var(--business-bg-hover);
+  color: var(--business-text-primary) !important;
+}
+
+.admin-dark-theme button[class*="ghost"]:active,
+.admin-dark-theme .button-ghost:active {
+  background: #334155;
+}
+
+/* Outline Button - Secondary with border emphasis */
+.admin-dark-theme button[class*="outline"],
+.admin-dark-theme .button-outline {
+  background: transparent;
+  color: #60a5fa !important;
+  border: 1.5px solid #60a5fa;
+  box-shadow: none;
+}
+
+.admin-dark-theme button[class*="outline"]:hover,
+.admin-dark-theme .button-outline:hover {
+  background: rgba(96, 165, 250, 0.1);
+  border-color: #93c5fd;
+  color: #93c5fd !important;
+}
+
+.admin-dark-theme button[class*="outline"]:active,
+.admin-dark-theme .button-outline:active {
+  background: rgba(96, 165, 250, 0.15);
+}
+
+/* Success Button - Positive actions (green) */
+.admin-dark-theme .button-success {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  color: white !important;
+  border: 1px solid transparent;
+  box-shadow: 0 2px 8px rgba(16, 185, 129, 0.25);
+}
+
+.admin-dark-theme .button-success:hover {
+  background: linear-gradient(135deg, #059669 0%, #047857 100%);
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.35);
+  transform: translateY(-1px);
+}
+
+.admin-dark-theme .button-success:active {
+  transform: translateY(0);
+  box-shadow: 0 1px 4px rgba(16, 185, 129, 0.2);
+}
+
+/* Warning Button - Caution actions (orange) */
+.admin-dark-theme .button-warning {
+  background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
+  color: white !important;
+  border: 1px solid transparent;
+  box-shadow: 0 2px 8px rgba(249, 115, 22, 0.25);
+}
+
+.admin-dark-theme .button-warning:hover {
+  background: linear-gradient(135deg, #ea580c 0%, #c2410c 100%);
+  box-shadow: 0 4px 12px rgba(249, 115, 22, 0.35);
+  transform: translateY(-1px);
+}
+
+.admin-dark-theme .button-warning:active {
+  transform: translateY(0);
+  box-shadow: 0 1px 4px rgba(249, 115, 22, 0.2);
+}
+
+/* Button Sizes - Consistent touch targets */
+.admin-dark-theme button[class*="default"],
+.admin-dark-theme button[class*="secondary"],
+.admin-dark-theme button[class*="destructive"],
+.admin-dark-theme button[class*="ghost"],
+.admin-dark-theme button[class*="outline"] {
+  min-height: 44px;          /* Touch-friendly */
+  padding: 0.625rem 1rem;
+  font-size: 0.875rem;       /* 14px */
+  font-weight: 500;          /* Medium */
+}
+
+/* Small buttons */
+.admin-dark-theme button[class*="sm"] {
+  min-height: 40px;
+  padding: 0.5rem 0.875rem;
+  font-size: 0.8125rem;      /* 13px */
+}
+
+/* Large buttons */
+.admin-dark-theme button[class*="lg"] {
+  min-height: 48px;
+  padding: 0.75rem 1.5rem;
+  font-size: 0.9375rem;      /* 15px */
+  font-weight: 600;          /* Semi-bold */
+}
+
+/* Icon buttons */
+.admin-dark-theme button[class*="icon"] {
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0.625rem;
+}
+
+/* Disabled state for all buttons */
+.admin-dark-theme button:disabled,
+.admin-dark-theme button[disabled] {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+/* Loading state indicator */
+.admin-dark-theme button[data-loading="true"] {
+  position: relative;
+  color: transparent !important;
+  pointer-events: none;
+}
+
+.admin-dark-theme button[data-loading="true"]::after {
+  content: '';
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  top: 50%;
+  left: 50%;
+  margin-left: -8px;
+  margin-top: -8px;
+  border: 2px solid transparent;
+  border-top-color: currentColor;
+  border-radius: 50%;
+  animation: button-loading-spinner 0.6s linear infinite;
+  color: white;
+}
+
+@keyframes button-loading-spinner {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* ============================================================================
+   TABLE STYLING - CONSISTENT ADMIN DATA TABLES
+   ============================================================================ */
+
+/* Table wrapper for responsive scrolling */
+.admin-dark-theme .table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  border-radius: 12px;
+  border: 1px solid var(--business-border);
+  background: var(--business-bg-card);
+}
+
+/* Base table styling */
+.admin-dark-theme table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  background: var(--business-bg-card);
+  color: white !important;
+}
+
+/* Table header */
+.admin-dark-theme thead {
+  background: var(--business-bg-dark);
+  border-bottom: 2px solid var(--business-border);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.admin-dark-theme th {
+  padding: 1rem 1.25rem;
+  text-align: left;
+  font-size: 0.75rem;        /* 12px */
+  font-weight: 600;          /* Semi-bold */
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--business-text-secondary) !important;
+  white-space: nowrap;
+  border-bottom: 2px solid var(--business-border);
+}
+
+/* First and last header cells */
+.admin-dark-theme th:first-child {
+  padding-left: 1.5rem;
+  border-top-left-radius: 12px;
+}
+
+.admin-dark-theme th:last-child {
+  padding-right: 1.5rem;
+  border-top-right-radius: 12px;
+}
+
+/* Table body */
+.admin-dark-theme tbody {
+  background: var(--business-bg-card);
+}
+
+/* Table rows */
+.admin-dark-theme tbody tr {
+  border-bottom: 1px solid var(--business-border);
+  transition: all 0.15s ease;
+}
+
+.admin-dark-theme tbody tr:last-child {
+  border-bottom: none;
+}
+
+/* Row hover effect */
+.admin-dark-theme tbody tr:hover {
+  background: var(--business-bg-hover);
+  transform: translateX(2px);
+}
+
+/* Table cells */
+.admin-dark-theme td {
+  padding: 1rem 1.25rem;
+  font-size: 0.875rem;       /* 14px */
+  font-weight: 400;          /* Regular */
+  color: white !important;
+  vertical-align: middle;
+  min-height: 60px;
+}
+
+/* First and last cells */
+.admin-dark-theme td:first-child {
+  padding-left: 1.5rem;
+}
+
+.admin-dark-theme td:last-child {
+  padding-right: 1.5rem;
+}
+
+/* Compact table variant */
+.admin-dark-theme .table-compact th {
+  padding: 0.75rem 1rem;
+}
+
+.admin-dark-theme .table-compact td {
+  padding: 0.75rem 1rem;
+  min-height: 48px;
+}
+
+/* Striped rows variant */
+.admin-dark-theme .table-striped tbody tr:nth-child(even) {
+  background: rgba(15, 23, 42, 0.5);
+}
+
+.admin-dark-theme .table-striped tbody tr:nth-child(even):hover {
+  background: var(--business-bg-hover);
+}
+
+/* Bordered table variant */
+.admin-dark-theme .table-bordered td,
+.admin-dark-theme .table-bordered th {
+  border-right: 1px solid var(--business-border);
+}
+
+.admin-dark-theme .table-bordered td:last-child,
+.admin-dark-theme .table-bordered th:last-child {
+  border-right: none;
+}
+
+/* Table cell alignments */
+.admin-dark-theme .text-center,
+.admin-dark-theme td[align="center"],
+.admin-dark-theme th[align="center"] {
+  text-align: center;
+}
+
+.admin-dark-theme .text-right,
+.admin-dark-theme td[align="right"],
+.admin-dark-theme th[align="right"] {
+  text-align: right;
+}
+
+/* Action cells with buttons */
+.admin-dark-theme td.actions {
+  white-space: nowrap;
+  width: 1%;
+}
+
+.admin-dark-theme td.actions > div {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+/* Status badges in tables */
+.admin-dark-theme td [class*="badge"],
+.admin-dark-theme td [class*="Badge"] {
+  display: inline-flex;
+  padding: 0.25rem 0.75rem;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+/* Empty state */
+.admin-dark-theme .table-empty {
+  padding: 3rem 1.5rem;
+  text-align: center;
+  color: var(--business-text-muted) !important;
+  font-size: 0.875rem;
+}
+
+.admin-dark-theme .table-empty-icon {
+  width: 48px;
+  height: 48px;
+  margin: 0 auto 1rem;
+  opacity: 0.5;
+}
+
+/* Loading state */
+.admin-dark-theme .table-loading {
+  position: relative;
+  min-height: 300px;
+}
+
+.admin-dark-theme .table-loading::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 32px;
+  height: 32px;
+  margin: -16px 0 0 -16px;
+  border: 3px solid var(--business-border);
+  border-top-color: var(--business-primary);
+  border-radius: 50%;
+  animation: table-loading-spinner 0.8s linear infinite;
+}
+
+@keyframes table-loading-spinner {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Sortable column headers */
+.admin-dark-theme th.sortable {
+  cursor: pointer;
+  -webkit-user-select: none;
+  user-select: none;
+  position: relative;
+  padding-right: 2rem;
+}
+
+.admin-dark-theme th.sortable:hover {
+  color: white !important;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.admin-dark-theme th.sortable::after {
+  content: '⇅';
+  position: absolute;
+  right: 0.75rem;
+  opacity: 0.5;
+  font-size: 0.875rem;
+}
+
+.admin-dark-theme th.sortable.sorted-asc::after {
+  content: '↑';
+  opacity: 1;
+  color: var(--business-primary);
+}
+
+.admin-dark-theme th.sortable.sorted-desc::after {
+  content: '↓';
+  opacity: 1;
+  color: var(--business-primary);
+}
+
+/* Selected row state */
+.admin-dark-theme tbody tr.selected {
+  background: rgba(37, 99, 235, 0.15);
+  border-left: 3px solid var(--business-primary);
+}
+
+.admin-dark-theme tbody tr.selected:hover {
+  background: rgba(37, 99, 235, 0.25);
+}
+
+/* Checkbox column */
+.admin-dark-theme th.checkbox-cell,
+.admin-dark-theme td.checkbox-cell {
+  width: 48px;
+  padding: 1rem 0.75rem;
+  text-align: center;
+}
+
+/* Responsive behavior - Mobile */
+@media (max-width: 768px) {
+  .admin-dark-theme th,
+  .admin-dark-theme td {
+    padding: 0.75rem 0.875rem;
+    font-size: 0.8125rem;    /* 13px */
+  }
+
+  .admin-dark-theme th:first-child,
+  .admin-dark-theme td:first-child {
+    padding-left: 1rem;
+  }
+
+  .admin-dark-theme th:last-child,
+  .admin-dark-theme td:last-child {
+    padding-right: 1rem;
+  }
+
+  /* Hide less important columns on mobile */
+  .admin-dark-theme th.hide-mobile,
+  .admin-dark-theme td.hide-mobile {
+    display: none;
+  }
+}
+
+/* Responsive behavior - Tablet */
+@media (max-width: 1024px) {
+  .admin-dark-theme th.hide-tablet,
+  .admin-dark-theme td.hide-tablet {
+    display: none;
+  }
+}
+
+/* Card-style table for mobile (alternative responsive pattern) */
+@media (max-width: 640px) {
+  .admin-dark-theme .table-card-mobile thead {
+    display: none;
+  }
+
+  .admin-dark-theme .table-card-mobile tbody,
+  .admin-dark-theme .table-card-mobile tr,
+  .admin-dark-theme .table-card-mobile td {
+    display: block;
+    width: 100%;
+  }
+
+  .admin-dark-theme .table-card-mobile tr {
+    margin-bottom: 1rem;
+    border: 1px solid var(--business-border);
+    border-radius: 8px;
+    padding: 1rem;
+    background: var(--business-bg-card);
+  }
+
+  .admin-dark-theme .table-card-mobile td {
+    padding: 0.5rem 0;
+    border: none;
+  }
+
+  .admin-dark-theme .table-card-mobile td::before {
+    content: attr(data-label);
+    display: block;
+    font-weight: 600;
+    font-size: 0.75rem;
+    color: var(--business-text-secondary) !important;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.25rem;
+  }
+}
+
+/* Pagination for tables */
+.admin-dark-theme .table-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1.5rem;
+  border-top: 1px solid var(--business-border);
+  background: var(--business-bg-dark);
+  border-radius: 0 0 12px 12px;
+}
+
+.admin-dark-theme .table-pagination-info {
+  font-size: 0.875rem;
+  color: var(--business-text-secondary) !important;
+}
+
+.admin-dark-theme .table-pagination-controls {
+  display: flex;
+  gap: 0.5rem;
+}
+
+/* ============================================================================
+   BADGE & STATUS INDICATOR STYLING
+   ============================================================================ */
+
+/* Base badge styling */
+.admin-dark-theme [class*="badge"],
+.admin-dark-theme [class*="Badge"],
+.admin-dark-theme .badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.375rem 0.75rem;
+  border-radius: 6px;
+  font-size: 0.75rem;       /* 12px */
+  font-weight: 600;         /* Semi-bold */
+  line-height: 1;
+  letter-spacing: 0.025em;
+  white-space: nowrap;
+  transition: all 0.15s ease;
+}
+
+/* Status badge variants with semantic colors */
+.admin-dark-theme .badge-success,
+.admin-dark-theme [data-status="approved"],
+.admin-dark-theme [data-status="completed"],
+.admin-dark-theme [data-status="active"],
+.admin-dark-theme [data-status="paid"] {
+  background: rgba(16, 185, 129, 0.15);
+  color: #34d399 !important;
+  border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+.admin-dark-theme .badge-warning,
+.admin-dark-theme [data-status="pending"],
+.admin-dark-theme [data-status="in_progress"],
+.admin-dark-theme [data-status="draft"] {
+  background: rgba(249, 115, 22, 0.15);
+  color: #fb923c !important;
+  border: 1px solid rgba(249, 115, 22, 0.3);
+}
+
+.admin-dark-theme .badge-danger,
+.admin-dark-theme [data-status="rejected"],
+.admin-dark-theme [data-status="failed"],
+.admin-dark-theme [data-status="overdue"],
+.admin-dark-theme [data-status="cancelled"] {
+  background: rgba(239, 68, 68, 0.15);
+  color: #f87171 !important;
+  border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+.admin-dark-theme .badge-info,
+.admin-dark-theme [data-status="new"],
+.admin-dark-theme [data-status="unread"] {
+  background: rgba(59, 130, 246, 0.15);
+  color: #60a5fa !important;
+  border: 1px solid rgba(59, 130, 246, 0.3);
+}
+
+.admin-dark-theme .badge-neutral,
+.admin-dark-theme [data-status="archived"],
+.admin-dark-theme [data-status="inactive"] {
+  background: rgba(148, 163, 184, 0.15);
+  color: #cbd5e1 !important;
+  border: 1px solid rgba(148, 163, 184, 0.3);
+}
+
+/* Badge with icon */
+.admin-dark-theme .badge svg {
+  width: 12px;
+  height: 12px;
+}
+
+/* Badge sizes */
+.admin-dark-theme .badge-sm {
+  padding: 0.25rem 0.5rem;
+  font-size: 0.6875rem;     /* 11px */
+}
+
+.admin-dark-theme .badge-lg {
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;      /* 14px */
+}
+
+/* Dot indicator variant */
+.admin-dark-theme .badge-dot::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+  display: inline-block;
+  margin-right: 0.375rem;
+}
+
+/* Pulse animation for live indicators */
+.admin-dark-theme .badge-pulse::before {
+  animation: badge-pulse 2s ease-in-out infinite;
+}
+
+@keyframes badge-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+/* Outlined badge variant */
+.admin-dark-theme .badge-outline {
+  background: transparent;
+  border-width: 1.5px;
+}
+
+/* ============================================================================
+   FORM FIELD STYLING - CONSISTENT INPUTS & VALIDATION
+   ============================================================================ */
+
+/* Form group container */
+.admin-dark-theme .form-group,
+.admin-dark-theme .space-y-2 > div {
+  margin-bottom: 1.25rem;
+}
+
+/* Form labels */
+.admin-dark-theme label,
+.admin-dark-theme .form-label {
+  display: block;
+  font-size: 0.875rem;      /* 14px */
+  font-weight: 500;         /* Medium */
+  color: white !important;
+  margin-bottom: 0.5rem;
+  letter-spacing: 0.01em;
+}
+
+/* Required field indicator */
+.admin-dark-theme label.required::after,
+.admin-dark-theme .form-label.required::after {
+  content: '*';
+  color: #f87171;
+  margin-left: 0.25rem;
+  font-weight: 700;
+}
+
+/* Input fields */
+.admin-dark-theme input[type="text"],
+.admin-dark-theme input[type="email"],
+.admin-dark-theme input[type="tel"],
+.admin-dark-theme input[type="number"],
+.admin-dark-theme input[type="password"],
+.admin-dark-theme input[type="url"],
+.admin-dark-theme input[type="search"],
+.admin-dark-theme input[type="date"],
+.admin-dark-theme input[type="datetime-local"],
+.admin-dark-theme textarea,
+.admin-dark-theme select {
+  width: 100%;
+  min-height: 44px;
+  padding: 0.625rem 0.875rem;
+  background: var(--business-bg-dark) !important;
+  border: 1.5px solid var(--business-border) !important;
+  border-radius: 8px;
+  color: white !important;
+  font-size: 0.875rem;
+  font-weight: 400;
+  line-height: 1.5;
+  transition: all 0.15s ease;
+}
+
+/* Textarea specific */
+.admin-dark-theme textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+/* Input focus state */
+.admin-dark-theme input:focus,
+.admin-dark-theme textarea:focus,
+.admin-dark-theme select:focus {
+  outline: none;
+  border-color: #60a5fa !important;
+  box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.15);
+  background: var(--business-bg-card) !important;
+}
+
+/* Placeholder styling */
+.admin-dark-theme input::placeholder,
+.admin-dark-theme textarea::placeholder {
+  color: var(--business-text-muted) !important;
+  opacity: 0.6;
+}
+
+/* Disabled state */
+.admin-dark-theme input:disabled,
+.admin-dark-theme textarea:disabled,
+.admin-dark-theme select:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  background: rgba(15, 23, 42, 0.5) !important;
+}
+
+/* Error state */
+.admin-dark-theme input.error,
+.admin-dark-theme textarea.error,
+.admin-dark-theme select.error,
+.admin-dark-theme input[aria-invalid="true"],
+.admin-dark-theme textarea[aria-invalid="true"],
+.admin-dark-theme select[aria-invalid="true"] {
+  border-color: #f87171 !important;
+  background: rgba(239, 68, 68, 0.05) !important;
+}
+
+.admin-dark-theme input.error:focus,
+.admin-dark-theme textarea.error:focus,
+.admin-dark-theme select.error:focus {
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.15);
+}
+
+/* Success state */
+.admin-dark-theme input.success,
+.admin-dark-theme textarea.success,
+.admin-dark-theme select.success {
+  border-color: #34d399 !important;
+  background: rgba(16, 185, 129, 0.05) !important;
+}
+
+.admin-dark-theme input.success:focus,
+.admin-dark-theme textarea.success:focus,
+.admin-dark-theme select.success:focus {
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.15);
+}
+
+/* Helper text */
+.admin-dark-theme .form-helper,
+.admin-dark-theme .form-description {
+  display: block;
+  font-size: 0.8125rem;     /* 13px */
+  color: var(--business-text-muted) !important;
+  margin-top: 0.375rem;
+  line-height: 1.5;
+}
+
+/* Error message */
+.admin-dark-theme .form-error,
+.admin-dark-theme .error-message,
+.admin-dark-theme [role="alert"] {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+  font-size: 0.8125rem;     /* 13px */
+  color: #f87171 !important;
+  margin-top: 0.375rem;
+  line-height: 1.5;
+  font-weight: 500;
+}
+
+.admin-dark-theme .form-error svg,
+.admin-dark-theme .error-message svg {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+}
+
+/* Success message */
+.admin-dark-theme .form-success {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+  font-size: 0.8125rem;
+  color: #34d399 !important;
+  margin-top: 0.375rem;
+  line-height: 1.5;
+  font-weight: 500;
+}
+
+/* Input with icon */
+.admin-dark-theme .input-with-icon {
+  position: relative;
+}
+
+.admin-dark-theme .input-with-icon input {
+  padding-left: 2.5rem;
+}
+
+.admin-dark-theme .input-icon {
+  position: absolute;
+  left: 0.875rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--business-text-muted);
+  pointer-events: none;
+}
+
+.admin-dark-theme .input-icon svg {
+  width: 16px;
+  height: 16px;
+}
+
+/* Checkbox and radio styling */
+.admin-dark-theme input[type="checkbox"],
+.admin-dark-theme input[type="radio"] {
+  width: 18px;
+  height: 18px;
+  min-height: 18px;
+  border: 1.5px solid var(--business-border);
+  background: var(--business-bg-dark);
+  cursor: pointer;
+  accent-color: #60a5fa;
+}
+
+.admin-dark-theme input[type="checkbox"]:checked,
+.admin-dark-theme input[type="radio"]:checked {
+  background: #60a5fa;
+  border-color: #60a5fa;
+}
+
+/* Form section headers */
+.admin-dark-theme .form-section-header {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: white !important;
+  margin-bottom: 1rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--business-border);
+}
+
+/* Form grid layout */
+.admin-dark-theme .form-grid {
+  display: grid;
+  gap: 1.25rem;
+}
+
+.admin-dark-theme .form-grid-2 {
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+}
+
+/* ============================================================================
+   MODAL/DIALOG STYLING - CONSISTENT POPUPS
+   ============================================================================ */
+
+/* Dialog backdrop */
+.admin-dark-theme [data-radix-dialog-overlay],
+.admin-dark-theme .dialog-overlay,
+.admin-dark-theme [role="dialog"] + div {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(8px);
+  z-index: 9998;
+  animation: dialog-backdrop-in 0.2s ease;
+}
+
+@keyframes dialog-backdrop-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Dialog content */
+.admin-dark-theme [data-radix-dialog-content],
+.admin-dark-theme .dialog-content,
+.admin-dark-theme [role="dialog"] {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90%;
+  max-width: 500px;
+  max-height: 90vh;
+  background: var(--business-bg-card) !important;
+  border: 1px solid var(--business-border);
+  border-radius: 16px;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+  z-index: 9999;
+  overflow: hidden;
+  animation: dialog-content-in 0.25s ease;
+}
+
+@keyframes dialog-content-in {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -48%) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+/* Dialog close animation */
+.admin-dark-theme [data-state="closed"] {
+  animation: dialog-content-out 0.2s ease;
+}
+
+@keyframes dialog-content-out {
+  from {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: translate(-50%, -48%) scale(0.96);
+  }
+}
+
+/* Dialog header */
+.admin-dark-theme .dialog-header {
+  padding: 1.5rem;
+  border-bottom: 1px solid var(--business-border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.admin-dark-theme .dialog-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: white !important;
+  margin: 0;
+}
+
+.admin-dark-theme .dialog-description {
+  font-size: 0.875rem;
+  color: var(--business-text-secondary) !important;
+  margin-top: 0.375rem;
+}
+
+/* Dialog body */
+.admin-dark-theme .dialog-body {
+  padding: 1.5rem;
+  overflow-y: auto;
+  max-height: calc(90vh - 180px);
+}
+
+/* Dialog footer */
+.admin-dark-theme .dialog-footer {
+  padding: 1.5rem;
+  border-top: 1px solid var(--business-border);
+  display: flex;
+  gap: 0.75rem;
+  justify-content: flex-end;
+  background: var(--business-bg-dark);
+}
+
+/* Dialog close button */
+.admin-dark-theme .dialog-close,
+.admin-dark-theme [data-radix-dialog-close] {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  width: 36px;
+  height: 36px;
+  background: transparent;
+  border: 1px solid var(--business-border);
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--business-text-secondary);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.admin-dark-theme .dialog-close:hover {
+  background: var(--business-bg-hover);
+  color: white !important;
+  border-color: #475569;
+}
+
+/* Large dialog variant */
+.admin-dark-theme .dialog-lg {
+  max-width: 720px;
+}
+
+/* Full screen dialog variant */
+.admin-dark-theme .dialog-fullscreen {
+  width: 95%;
+  max-width: 1200px;
+  height: 95vh;
+  max-height: 95vh;
+}
+
+.admin-dark-theme .dialog-fullscreen .dialog-body {
+  max-height: calc(95vh - 180px);
+}
+
+/* Alert dialog variant (destructive actions) */
+.admin-dark-theme .alert-dialog-content {
+  max-width: 420px;
+}
+
+.admin-dark-theme .alert-dialog-header {
+  padding: 1.25rem 1.5rem;
+}
+
+.admin-dark-theme .alert-dialog-title {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: #f87171 !important;
+}
+
+.admin-dark-theme .alert-dialog-title svg {
+  width: 24px;
+  height: 24px;
+  color: #f87171;
+}
+
+/* Responsive dialog sizing */
+@media (max-width: 640px) {
+  .admin-dark-theme [data-radix-dialog-content],
+  .admin-dark-theme .dialog-content {
+    width: 95%;
+    max-height: 95vh;
+  }
+
+  .admin-dark-theme .dialog-header,
+  .admin-dark-theme .dialog-body,
+  .admin-dark-theme .dialog-footer {
+    padding: 1.25rem;
+  }
+
+  .admin-dark-theme .dialog-footer {
+    flex-direction: column;
+  }
+
+  .admin-dark-theme .dialog-footer button {
+    width: 100%;
+  }
+}
+
+/* ============================================================================
+   DROPDOWN & SELECT MENU STYLING
+   ============================================================================ */
+
+/* Dropdown/Select trigger button */
+.admin-dark-theme [role="combobox"],
+.admin-dark-theme button[role="combobox"],
+.admin-dark-theme .select-trigger {
+  width: 100%;
+  min-height: 44px;
+  padding: 0.625rem 2.5rem 0.625rem 0.875rem;
+  background: var(--business-bg-dark) !important;
+  border: 1.5px solid var(--business-border) !important;
+  border-radius: 8px;
+  color: white !important;
+  font-size: 0.875rem;
+  font-weight: 400;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  position: relative;
+}
+
+.admin-dark-theme [role="combobox"]:hover,
+.admin-dark-theme button[role="combobox"]:hover {
+  border-color: #475569 !important;
+  background: var(--business-bg-card) !important;
+}
+
+.admin-dark-theme [role="combobox"]:focus,
+.admin-dark-theme button[role="combobox"]:focus {
+  outline: none;
+  border-color: #60a5fa !important;
+  box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.15);
+}
+
+/* Dropdown arrow icon */
+.admin-dark-theme [role="combobox"] svg:last-child,
+.admin-dark-theme button[role="combobox"] svg:last-child {
+  position: absolute;
+  right: 0.875rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--business-text-muted);
+  transition: transform 0.2s ease;
+}
+
+.admin-dark-theme [role="combobox"][data-state="open"] svg:last-child,
+.admin-dark-theme button[role="combobox"][data-state="open"] svg:last-child {
+  transform: translateY(-50%) rotate(180deg);
+}
+
+/* Dropdown content container */
+.admin-dark-theme [data-radix-select-content],
+.admin-dark-theme [data-radix-dropdown-menu-content],
+.admin-dark-theme [data-radix-popper-content-wrapper],
+.admin-dark-theme .dropdown-content {
+  min-width: 200px;
+  max-height: 400px;
+  background: var(--business-bg-card) !important;
+  border: 1px solid var(--business-border) !important;
+  border-radius: 8px;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
+  padding: 0.5rem;
+  z-index: 9999 !important;
+  overflow-y: auto;
+  animation: dropdown-slide-in 0.15s ease;
+}
+
+@keyframes dropdown-slide-in {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Dropdown viewport */
+.admin-dark-theme [data-radix-select-viewport] {
+  padding: 0;
+}
+
+/* Dropdown item */
+.admin-dark-theme [role="option"],
+.admin-dark-theme [role="menuitem"],
+.admin-dark-theme .dropdown-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.625rem 0.875rem;
+  border-radius: 6px;
+  color: white !important;
+  font-size: 0.875rem;
+  font-weight: 400;
+  cursor: pointer;
+  transition: all 0.1s ease;
+  outline: none;
+  min-height: 40px;
+}
+
+.admin-dark-theme [role="option"]:hover,
+.admin-dark-theme [role="menuitem"]:hover,
+.admin-dark-theme .dropdown-item:hover {
+  background: var(--business-bg-hover);
+}
+
+/* Keyboard navigation highlight */
+.admin-dark-theme [role="option"][data-highlighted],
+.admin-dark-theme [role="menuitem"][data-highlighted] {
+  background: var(--business-bg-hover);
+  outline: 2px solid rgba(96, 165, 250, 0.3);
+  outline-offset: -2px;
+}
+
+/* Selected item */
+.admin-dark-theme [role="option"][data-state="checked"],
+.admin-dark-theme [role="option"][aria-selected="true"],
+.admin-dark-theme .dropdown-item.selected {
+  background: rgba(37, 99, 235, 0.15);
+  color: #60a5fa !important;
+  font-weight: 500;
+}
+
+/* Checkmark icon for selected items */
+.admin-dark-theme [role="option"][data-state="checked"]::after,
+.admin-dark-theme .dropdown-item.selected::after {
+  content: '✓';
+  margin-left: auto;
+  color: #60a5fa;
+  font-weight: 700;
+}
+
+/* Disabled item */
+.admin-dark-theme [role="option"][data-disabled],
+.admin-dark-theme [role="menuitem"][data-disabled],
+.admin-dark-theme .dropdown-item:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* Dropdown separator */
+.admin-dark-theme [data-radix-dropdown-menu-separator],
+.admin-dark-theme .dropdown-separator {
+  height: 1px;
+  background: var(--business-border);
+  margin: 0.5rem 0;
+}
+
+/* Dropdown label/group */
+.admin-dark-theme [data-radix-select-label],
+.admin-dark-theme .dropdown-label {
+  padding: 0.5rem 0.875rem 0.25rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--business-text-muted) !important;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* Multi-select support */
+.admin-dark-theme .multi-select-item {
+  padding-left: 2.25rem;
+  position: relative;
+}
+
+.admin-dark-theme .multi-select-item input[type="checkbox"] {
+  position: absolute;
+  left: 0.875rem;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+/* Search input in dropdown */
+.admin-dark-theme .dropdown-search {
+  padding: 0.5rem;
+  margin-bottom: 0.5rem;
+  border-bottom: 1px solid var(--business-border);
+}
+
+.admin-dark-theme .dropdown-search input {
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  background: var(--business-bg-dark);
+  border: 1px solid var(--business-border);
+  border-radius: 6px;
+  color: white;
+  font-size: 0.875rem;
+}
+
+/* Empty state */
+.admin-dark-theme .dropdown-empty {
+  padding: 2rem 1rem;
+  text-align: center;
+  color: var(--business-text-muted) !important;
+  font-size: 0.875rem;
+}
+
+/* ============================================================================
+   TOAST NOTIFICATION STYLING
+   ============================================================================ */
+
+/* Toast container positioning */
+.admin-dark-theme .toast-container,
+.admin-dark-theme [data-sonner-toaster] {
+  position: fixed;
+  z-index: 99999;
+  pointer-events: none;
+}
+
+.admin-dark-theme .toast-container.top-right,
+.admin-dark-theme [data-sonner-toaster][data-position="top-right"] {
+  top: 1rem;
+  right: 1rem;
+}
+
+.admin-dark-theme .toast-container.top-left {
+  top: 1rem;
+  left: 1rem;
+}
+
+.admin-dark-theme .toast-container.bottom-right,
+.admin-dark-theme [data-sonner-toaster][data-position="bottom-right"] {
+  bottom: 1rem;
+  right: 1rem;
+}
+
+.admin-dark-theme .toast-container.bottom-left {
+  bottom: 1rem;
+  left: 1rem;
+}
+
+/* Toast base styling */
+.admin-dark-theme .toast,
+.admin-dark-theme [data-sonner-toast] {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.875rem;
+  min-width: 320px;
+  max-width: 450px;
+  padding: 1rem 1.25rem;
+  background: var(--business-bg-card) !important;
+  border: 1px solid var(--business-border);
+  border-radius: 12px;
+  box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.5);
+  margin-bottom: 0.75rem;
+  pointer-events: all;
+  animation: toast-slide-in 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+@keyframes toast-slide-in {
+  from {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Toast exit animation */
+.admin-dark-theme .toast[data-state="closed"],
+.admin-dark-theme [data-sonner-toast][data-removed="true"] {
+  animation: toast-slide-out 0.2s ease;
+}
+
+@keyframes toast-slide-out {
+  from {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+}
+
+/* Toast icon */
+.admin-dark-theme .toast-icon {
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Toast content */
+.admin-dark-theme .toast-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.admin-dark-theme .toast-title {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: white !important;
+  margin-bottom: 0.25rem;
+}
+
+.admin-dark-theme .toast-description {
+  font-size: 0.8125rem;
+  color: var(--business-text-secondary) !important;
+  line-height: 1.5;
+}
+
+/* Toast close button */
+.admin-dark-theme .toast-close {
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  background: transparent;
+  border: none;
+  border-radius: 4px;
+  color: var(--business-text-muted);
+  cursor: pointer;
+  transition: all 0.15s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.admin-dark-theme .toast-close:hover {
+  background: var(--business-bg-hover);
+  color: white !important;
+}
+
+/* Toast variants */
+.admin-dark-theme .toast-success,
+.admin-dark-theme [data-sonner-toast][data-type="success"] {
+  border-left: 4px solid #34d399;
+}
+
+.admin-dark-theme .toast-success .toast-icon {
+  background: rgba(16, 185, 129, 0.2);
+  color: #34d399 !important;
+}
+
+.admin-dark-theme .toast-error,
+.admin-dark-theme [data-sonner-toast][data-type="error"] {
+  border-left: 4px solid #f87171;
+}
+
+.admin-dark-theme .toast-error .toast-icon {
+  background: rgba(239, 68, 68, 0.2);
+  color: #f87171 !important;
+}
+
+.admin-dark-theme .toast-warning,
+.admin-dark-theme [data-sonner-toast][data-type="warning"] {
+  border-left: 4px solid #fb923c;
+}
+
+.admin-dark-theme .toast-warning .toast-icon {
+  background: rgba(249, 115, 22, 0.2);
+  color: #fb923c !important;
+}
+
+.admin-dark-theme .toast-info,
+.admin-dark-theme [data-sonner-toast][data-type="info"] {
+  border-left: 4px solid #60a5fa;
+}
+
+.admin-dark-theme .toast-info .toast-icon {
+  background: rgba(59, 130, 246, 0.2);
+  color: #60a5fa !important;
+}
+
+/* Toast progress bar */
+.admin-dark-theme .toast-progress {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 3px;
+  background: currentColor;
+  opacity: 0.5;
+  animation: toast-progress 5s linear forwards;
+}
+
+@keyframes toast-progress {
+  from { width: 100%; }
+  to { width: 0%; }
+}
+
+/* Toast action button */
+.admin-dark-theme .toast-action {
+  margin-top: 0.75rem;
+  padding: 0.5rem 1rem;
+  background: rgba(96, 165, 250, 0.15);
+  border: 1px solid rgba(96, 165, 250, 0.3);
+  border-radius: 6px;
+  color: #60a5fa !important;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.admin-dark-theme .toast-action:hover {
+  background: rgba(96, 165, 250, 0.25);
+}
+
+/* Mobile responsive */
+@media (max-width: 640px) {
+  .admin-dark-theme .toast,
+  .admin-dark-theme [data-sonner-toast] {
+    min-width: calc(100vw - 2rem);
+    max-width: calc(100vw - 2rem);
+  }
+}
+
+/* ============================================================================
+   LOADING SKELETON COMPONENTS
+   ============================================================================ */
+
+/* Base skeleton */
+.admin-dark-theme .skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--business-bg-card) 0%,
+    var(--business-bg-hover) 50%,
+    var(--business-bg-card) 100%
+  );
+  background-size: 200% 100%;
+  border-radius: 6px;
+  animation: skeleton-shimmer 1.5s ease-in-out infinite;
+}
+
+@keyframes skeleton-shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* Skeleton text lines */
+.admin-dark-theme .skeleton-text {
+  height: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.admin-dark-theme .skeleton-text-sm {
+  height: 0.875rem;
+}
+
+.admin-dark-theme .skeleton-text-lg {
+  height: 1.25rem;
+}
+
+/* Skeleton avatar/circle */
+.admin-dark-theme .skeleton-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+}
+
+.admin-dark-theme .skeleton-avatar-sm {
+  width: 32px;
+  height: 32px;
+}
+
+.admin-dark-theme .skeleton-avatar-lg {
+  width: 64px;
+  height: 64px;
+}
+
+/* Skeleton button */
+.admin-dark-theme .skeleton-button {
+  height: 44px;
+  width: 120px;
+  border-radius: 8px;
+}
+
+/* Skeleton card */
+.admin-dark-theme .skeleton-card {
+  padding: 1.5rem;
+  background: var(--business-bg-card);
+  border: 1px solid var(--business-border);
+  border-radius: 12px;
+}
+
+.admin-dark-theme .skeleton-card-header {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.admin-dark-theme .skeleton-card-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+/* Skeleton table */
+.admin-dark-theme .skeleton-table {
+  width: 100%;
+  border: 1px solid var(--business-border);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.admin-dark-theme .skeleton-table-header {
+  display: flex;
+  gap: 1rem;
+  padding: 1rem 1.5rem;
+  background: var(--business-bg-dark);
+  border-bottom: 1px solid var(--business-border);
+}
+
+.admin-dark-theme .skeleton-table-row {
+  display: flex;
+  gap: 1rem;
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid var(--business-border);
+}
+
+.admin-dark-theme .skeleton-table-row:last-child {
+  border-bottom: none;
+}
+
+.admin-dark-theme .skeleton-table-cell {
+  height: 1rem;
+  flex: 1;
+}
+
+/* Skeleton form */
+.admin-dark-theme .skeleton-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.admin-dark-theme .skeleton-form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.admin-dark-theme .skeleton-form-label {
+  height: 0.875rem;
+  width: 120px;
+}
+
+.admin-dark-theme .skeleton-form-input {
+  height: 44px;
+  width: 100%;
+  border-radius: 8px;
+}
+
+/* Skeleton dashboard stats */
+.admin-dark-theme .skeleton-stat-card {
+  padding: 1.5rem;
+  background: var(--business-bg-card);
+  border: 1px solid var(--business-border);
+  border-radius: 12px;
+}
+
+.admin-dark-theme .skeleton-stat-value {
+  height: 2rem;
+  width: 80px;
+  margin-bottom: 0.5rem;
+}
+
+.admin-dark-theme .skeleton-stat-label {
+  height: 0.875rem;
+  width: 120px;
+}
+
+/* Skeleton list item */
+.admin-dark-theme .skeleton-list-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  border-bottom: 1px solid var(--business-border);
+}
+
+.admin-dark-theme .skeleton-list-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+/* Pulse variant (slower, softer) */
+.admin-dark-theme .skeleton-pulse {
+  animation: skeleton-pulse 2s ease-in-out infinite;
+}
+
+@keyframes skeleton-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+/* ============================================================================
+   UNIVERSAL WHITE TEXT OVERRIDE - COMPREHENSIVE
+   ============================================================================ */
+
+/* Force ALL text elements to white */
+.admin-dark-theme *:not(svg):not(path):not(circle):not(rect):not(line):not(polyline):not(polygon) {
+  color: white !important;
+}
+
+/* Override all Tailwind text utility classes */
+.admin-dark-theme .text-muted-foreground,
+.admin-dark-theme .text-foreground,
+.admin-dark-theme .text-slate-200,
+.admin-dark-theme .text-slate-300,
+.admin-dark-theme .text-slate-400,
+.admin-dark-theme .text-gray-200,
+.admin-dark-theme .text-gray-300,
+.admin-dark-theme .text-gray-400,
+.admin-dark-theme .text-sm,
+.admin-dark-theme .text-xs,
+.admin-dark-theme .text-base,
+.admin-dark-theme .text-lg,
+.admin-dark-theme .text-xl,
+.admin-dark-theme .text-2xl {
+  color: white !important;
+}
+
+/* Card components - force white text */
+.admin-dark-theme [class*="CardTitle"],
+.admin-dark-theme [class*="CardDescription"],
+.admin-dark-theme .card-title,
+.admin-dark-theme .card-description {
+  color: white !important;
+}
+
+/* Badge components - force white text */
+.admin-dark-theme [class*="badge"],
+.admin-dark-theme [class*="Badge"] {
+  color: white !important;
+}
+
+/* Alert components */
+.admin-dark-theme [class*="alert"],
+.admin-dark-theme [class*="Alert"] {
+  color: white !important;
+}
+
+/* Tab components */
+.admin-dark-theme [role="tab"],
+.admin-dark-theme [class*="tab"] {
+  color: white !important;
+}
+
+/* Dialog/Modal components */
+.admin-dark-theme [role="dialog"] *,
+.admin-dark-theme [class*="dialog"] *,
+.admin-dark-theme [class*="Dialog"] * {
+  color: white !important;
+}
+
+/* Table components */
+.admin-dark-theme table,
+.admin-dark-theme thead,
+.admin-dark-theme tbody,
+.admin-dark-theme tr,
+.admin-dark-theme th,
+.admin-dark-theme td {
+  color: white !important;
+}
+
+/* FORCE white text on all form inputs - override any inline classes */
+.admin-dark-theme input,
+.admin-dark-theme textarea,
+.admin-dark-theme select,
+.admin-dark-theme input[type="text"],
+.admin-dark-theme input[type="email"],
+.admin-dark-theme input[type="tel"],
+.admin-dark-theme input[type="number"],
+.admin-dark-theme input[type="password"],
+.admin-dark-theme input[type="url"],
+.admin-dark-theme input[type="search"] {
+  background-color: hsl(217 33% 17%) !important; /* slate-800 */
+  border-color: hsl(215 25% 27%) !important;     /* slate-700 */
+  color: white !important;                       /* PURE WHITE TEXT */
+}
+
+/* Force white placeholder text */
+.admin-dark-theme input::placeholder,
+.admin-dark-theme textarea::placeholder {
+  color: rgba(255, 255, 255, 0.5) !important;    /* white with opacity */
+}
+
+/* Force white text on select trigger (the displayed value) */
+.admin-dark-theme [role="combobox"],
+.admin-dark-theme button[role="combobox"] {
+  color: white !important;                       /* PURE WHITE TEXT */
+}
+
+/* Force white text inside select dropdown options */
+.admin-dark-theme [role="option"] {
+  color: white !important;                       /* PURE WHITE TEXT */
+}
+
+/* Ensure all Cards in admin have dark backgrounds and white text */
+.admin-dark-theme .card {
+  background-color: hsl(217 33% 17%) !important; /* slate-800 */
+  border-color: hsl(215 25% 27%) !important;     /* slate-700 */
+  color: white !important;                       /* PURE WHITE TEXT */
+}
+
+/* Force white text on all heading and paragraph elements in admin */
+.admin-dark-theme h1,
+.admin-dark-theme h2,
+.admin-dark-theme h3,
+.admin-dark-theme h4,
+.admin-dark-theme h5,
+.admin-dark-theme h6,
+.admin-dark-theme p,
+.admin-dark-theme span,
+.admin-dark-theme div {
+  color: white !important;                       /* PURE WHITE TEXT */
+}
+
+/* Ensure labels are white */
+.admin-dark-theme label {
+  color: white !important;                       /* PURE WHITE TEXT */
+}
+
+/* Extra specificity for inputs with inline bg classes */
+.admin-dark-theme input.bg-slate-800,
+.admin-dark-theme textarea.bg-slate-800,
+.admin-dark-theme input[class*="bg-slate"],
+.admin-dark-theme textarea[class*="bg-slate"] {
+  color: hsl(210 40% 98%) !important;
+  background-color: hsl(217 33% 17%) !important;
+  border-color: hsl(215 25% 27%) !important;
+}
+
+/* Force white text on Select components with bg classes */
+.admin-dark-theme button[role="combobox"].bg-slate-800,
+.admin-dark-theme button[class*="bg-slate"][role="combobox"] {
+  color: hsl(210 40% 98%) !important;
+  background-color: hsl(217 33% 17%) !important;
+}
+
+/* Ensure SelectContent and options are readable and on top */
+.admin-dark-theme [data-radix-select-content],
+.admin-dark-theme [role="listbox"] {
+  background-color: hsl(217 33% 17%) !important;
+  border: 1px solid hsl(215 25% 27%) !important;
+  color: hsl(210 40% 98%) !important;
+  z-index: 100 !important;
+}
+
+.admin-dark-theme [role="option"],
+.admin-dark-theme [role="listbox"] > *,
+.admin-dark-theme [data-radix-select-content] * {
+  color: hsl(210 40% 98%) !important;
+}
+
+/* Fallback: any dark slate background inside admin gets white text */
+.admin-dark-theme [class*="bg-slate-8"],
+.admin-dark-theme [class*="bg-slate-9"] {
+  color: hsl(210 40% 98%) !important;
+}
+
+/* Admin portal: body-level variables for portals */
+body.admin-dark-portal {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif !important;
+  --background: 222 47% 11%;        /* slate-900 */
+  --foreground: 0 0% 100%;          /* PURE WHITE */
+  --card: 217 33% 17%;              /* slate-800 */
+  --card-foreground: 0 0% 100%;     /* PURE WHITE */
+  --popover: 217 33% 17%;           /* slate-800 */
+  --popover-foreground: 0 0% 100%;  /* PURE WHITE */
+  --input: 215 25% 27%;             /* slate-700 */
+  --muted: 215 25% 27%;             /* slate-700 */
+  --muted-foreground: 0 0% 100%;    /* PURE WHITE */
+  --border: 215 25% 27%;            /* slate-700 */
+  --ring: 217 91% 60%;              /* blue-400 */
+}
+
+/* Force Inter font on portal elements */
+body.admin-dark-portal,
+body.admin-dark-portal * {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif !important;
+}
+
+/* Portals: dropdowns/menus/popovers should be opaque and on top */
+body.admin-dark-portal [data-radix-select-content],
+body.admin-dark-portal [data-radix-popper-content-wrapper],
+body.admin-dark-portal [role="listbox"],
+body.admin-dark-portal .radix-select-content,
+body.admin-dark-portal .radix-popover-content,
+body.admin-dark-portal .radix-dropdown-menu-content {
+  background-color: hsl(217 33% 17%) !important;
+  color: white !important;                       /* PURE WHITE TEXT */
+  border: 1px solid hsl(215 25% 27%) !important;
+  z-index: 9999 !important;
+  backdrop-filter: blur(8px);
+}
+
+/* Ensure options inside portals are white */
+body.admin-dark-portal [role="option"],
+body.admin-dark-portal [role="menuitem"],
+body.admin-dark-portal [data-radix-select-content] *,
+body.admin-dark-portal .radix-dropdown-menu-content * {
+  color: white !important;                       /* PURE WHITE TEXT */
+}
+
+/* Portal universal white text override */
+body.admin-dark-portal *:not(svg):not(path):not(circle):not(rect):not(line):not(polyline):not(polygon) {
+  color: white !important;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif !important;
+}

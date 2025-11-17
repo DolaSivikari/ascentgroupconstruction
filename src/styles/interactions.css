@@ -1,0 +1,170 @@
+/* Universal Interaction Patterns for Touch and Mouse */
+
+/* Touch Target Optimization */
+.touch-target {
+  min-height: 44px;
+  min-width: 44px;
+  touch-action: manipulation; /* Prevent zoom on double-tap */
+}
+
+/* Interactive Elements - Universal Feedback */
+.interactive {
+  transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1),
+              box-shadow 0.2s cubic-bezier(0.4, 0, 0.2, 1),
+              background-color 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Hover Effects - Only on Devices That Support Hover */
+@media (hover: hover) and (pointer: fine) {
+  .interactive:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+
+  .interactive-scale:hover {
+    transform: scale(1.05);
+  }
+}
+
+/* Touch/Click Active State - Universal */
+.interactive:active,
+.interactive-scale:active {
+  transform: scale(0.98);
+  transition-duration: 0.1s;
+}
+
+/* Ripple Effect for Touch Feedback */
+.ripple-effect {
+  position: relative;
+  overflow: hidden;
+}
+
+.ripple-effect::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.5);
+  transform: translate(-50%, -50%);
+  transition: width 0.6s, height 0.6s;
+  pointer-events: none;
+}
+
+.ripple-effect:active::after {
+  width: 300px;
+  height: 300px;
+}
+
+/* Focus Visible for Keyboard Navigation */
+.interactive:focus-visible {
+  outline: 2px solid hsl(var(--primary));
+  outline-offset: 2px;
+}
+
+/* Smooth Scroll for Anchor Links */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+  .interactive,
+  .interactive:hover,
+  .interactive:active,
+  .ripple-effect::after {
+    transition: none !important;
+    animation: none !important;
+  }
+
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+/* Button Base Styles */
+button,
+.button-base {
+  @apply touch-target interactive;
+}
+
+/* Link Base Styles */
+a {
+  @apply interactive;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Card Interactions */
+.card-interactive {
+  @apply interactive;
+  cursor: pointer;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .card-interactive:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  }
+}
+
+/* Form Input Touch Optimization */
+input,
+textarea,
+select {
+  touch-action: manipulation;
+  font-size: 16px; /* Prevents zoom on iOS */
+}
+
+@media (max-width: 768px) {
+  input,
+  textarea,
+  select {
+    font-size: 16px !important; /* Force 16px to prevent zoom */
+  }
+}
+
+/* Safe Area for Mobile Devices */
+.safe-bottom {
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+.safe-top {
+  padding-top: env(safe-area-inset-top);
+}
+
+.safe-left {
+  padding-left: env(safe-area-inset-left);
+}
+
+.safe-right {
+  padding-right: env(safe-area-inset-right);
+}
+
+/* Scrollbar Styling */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* Snap Scroll for Card Carousels */
+.snap-x {
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+}
+
+.snap-start {
+  scroll-snap-align: start;
+}
+
+.snap-center {
+  scroll-snap-align: center;
+}

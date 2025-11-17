@@ -1,0 +1,29 @@
+{
+  "ci": {
+    "collect": {
+      "url": [
+        "http://localhost:8080",
+        "http://localhost:8080/about",
+        "http://localhost:8080/services"
+      ],
+      "numberOfRuns": 1,
+      "settings": {
+        "chromeFlags": "--no-sandbox --disable-gpu --headless",
+        "onlyCategories": ["performance", "accessibility", "best-practices", "seo", "pwa"]
+      }
+    },
+    "assert": {
+      "preset": "lighthouse:recommended",
+      "assertions": {
+        "categories:performance": ["error", { "minScore": 0.7 }],
+        "categories:pwa": ["error", { "minScore": 0.8 }],
+        "installable-manifest-missing": "off",
+        "service-worker-missing": "off",
+        "offline-start-url-missing": "off"
+      }
+    },
+    "upload": {
+      "target": "temporary-public-storage"
+    }
+  }
+}

@@ -1,0 +1,61 @@
+/* ===== GLOBAL ANTI-FLASH SYSTEM ===== */
+html.loading *,
+html.loading *::before,
+html.loading *::after {
+  transition: none !important;
+  animation: none !important;
+  animation-delay: 0s !important;
+}
+
+html.loading .backdrop-blur-xl {
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+/* Prevent layout shift during load */
+html.loading body {
+  overflow-x: hidden;
+}
+/* ===== END ANTI-FLASH SYSTEM ===== */
+
+@import "./tokens.css";
+@import "./typography.css";
+@import "./mobile-nav.css";
+@import "./interactions.css";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ===== ANTI-FLASH FIX ===== */
+/* Prevent ALL transitions and animations during initial page load */
+.page-loading,
+.page-loading * {
+  transition: none !important;
+  animation: none !important;
+}
+
+/* Disable specific animations during load */
+.page-loading .animate-fade-in,
+.page-loading .animate-spin,
+.page-loading [class*="animate-"] {
+  animation: none !important;
+  animation-delay: 0s !important;
+}
+
+/* Disable backdrop effects during load */
+.page-loading .backdrop-blur-xl {
+  backdrop-filter: none !important;
+}
+
+/* Ensure critical content is always visible */
+html, body {
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+#root {
+  min-height: 100vh;
+  isolation: isolate;
+}
+/* ===== END ANTI-FLASH FIX ===== */
