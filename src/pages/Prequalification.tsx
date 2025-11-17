@@ -46,7 +46,7 @@ const companyHighlights = [
   { icon: DollarSign, label: "Annual Volume", value: "$10-30M", desc: "Consistent project delivery" },
   { icon: Shield, label: "Bonding Capacity", value: "$5M", desc: "Single project capacity" },
   { icon: Building2, label: "Insurance", value: "$5M", desc: "General liability coverage" },
-  { icon: Award, label: "Safety Record", value: "COR Certified", desc: "Zero lost-time incidents" },
+  { icon: Award, label: "Safety Record", value: "Working Toward COR", desc: "Zero lost-time incidents" },
   { icon: Users, label: "Workforce", value: "20-50", desc: "Skilled tradespeople" },
 ];
 

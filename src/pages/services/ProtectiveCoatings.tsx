@@ -97,7 +97,7 @@ const ProtectiveCoatings = () => {
     <div className="min-h-screen">
       <SEO
         title="Protective & Architectural Coatings Toronto | Industrial Coatings Ontario"
-        description="Professional protective and architectural coating services across Ontario. Industrial-grade systems, anti-graffiti protection, heritage restoration finishes. 1,000+ projects with $30M+ in coatings applied."
+        description="Professional protective and architectural coating services across Ontario. Industrial-grade systems, anti-graffiti protection, heritage restoration finishes."
         keywords="protective coatings Toronto, industrial coatings, anti-graffiti coating, architectural coatings, epoxy coatings, heritage restoration coatings Toronto"
       />
       <Navigation />
