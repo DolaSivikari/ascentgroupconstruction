@@ -4,39 +4,24 @@ import { CheckCircle } from "lucide-react";
 
 const milestones = [
   {
-    year: "2009",
-    title: "Company Founded",
-    description: "Ascent Group Construction established with a focus on quality general contracting and construction management services in the GTA"
-  },
-  {
-    year: "2012",
-    title: "First $1M+ Project",
-    description: "Completed our first major commercial project, a 20-story condo tower exterior restoration in downtown Toronto"
-  },
-  {
-    year: "2015",
-    title: "Commercial Expansion",
-    description: "Expanded services to include specialized building envelope systems, restoration, and self-performed specialty trades across Ontario"
-  },
-  {
-    year: "2018",
-    title: "500 Projects Milestone",
-    description: "Reached 500 successfully completed projects with 98% client satisfaction rate"
-  },
-  {
-    year: "2020",
-    title: "Safety Excellence",
-    description: "Achieved OSHA Safety Excellence certification and maintained zero lost-time incident record"
-  },
-  {
-    year: "2022",
-    title: "Sustainability Leadership",
-    description: "Launched green construction initiatives and became certified in low-VOC and eco-friendly application methods"
-  },
-  {
     year: "2025",
-    title: "Industry Recognition",
-    description: "Named as one of the top construction contractors in the GTA, serving 1,000+ satisfied clients"
+    title: "Company Founded",
+    description: "Ascent Group Construction established by construction professionals with 15+ years of combined experience in building envelope and interior trades"
+  },
+  {
+    year: "Q1 2025",
+    title: "Initial Project Portfolio",
+    description: "Successfully completing our first projects across the GTA, focusing on EIFS, masonry repair, and interior finishes"
+  },
+  {
+    year: "Q2 2025",
+    title: "Building Relationships",
+    description: "Establishing partnerships with general contractors, property managers, and building consultants throughout Ontario"
+  },
+  {
+    year: "2025+",
+    title: "Growing Our Capabilities",
+    description: "Expanding service offerings and building our track record through professional execution, safety compliance, and client satisfaction"
   }
 ];
 
@@ -50,7 +35,7 @@ const CompanyTimeline = () => {
         <div className="text-center mb-12">
           <h2 className="text-4xl font-bold mb-4">Our Journey</h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            15+ years of consistent growth, innovation, and excellence in construction services
+            New company. Experienced team. Building our future on proven expertise and professional standards.
           </p>
         </div>
 
