@@ -31,7 +31,7 @@ const WhyChooseUs = () => {
         
         {/* Section Header - Enterprise Style */}
         <div className="max-w-3xl mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-6 leading-tight">
+          <h2 className="text-3xl md:text-5xl font-bold text-foreground mb-6 leading-tight tracking-tight">
             Why Property Owners Choose Us
           </h2>
           <p className="text-lg md:text-xl text-muted-foreground leading-relaxed">

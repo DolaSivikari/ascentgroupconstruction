@@ -350,7 +350,7 @@ const EnhancedHero = ({ splashComplete = true }: { splashComplete?: boolean }) =
 
           {/* Main Headline with Gradient Text */}
           <h1 
-            className={`text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-black mb-6 leading-[1.1] ${animationsEnabled && !prefersReducedMotion ? 'animate-fade-in' : ''}`}
+            className={`text-4xl md:text-6xl font-bold mb-6 leading-tight tracking-tight ${animationsEnabled && !prefersReducedMotion ? 'animate-fade-in' : ''}`}
             style={{ 
               textShadow: '0 4px 30px rgba(0,0,0,0.5)'
             }}

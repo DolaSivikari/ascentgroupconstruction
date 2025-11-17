@@ -51,7 +51,7 @@ export default function CompanyIntroduction() {
                 headerVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
               )}
             />
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-6 leading-tight">
+            <h2 className="text-3xl md:text-5xl font-bold text-foreground mb-6 leading-tight tracking-tight">
               Building Envelope & Restoration Specialists in Toronto (GTA)
             </h2>
             <p className="text-xl md:text-2xl text-muted-foreground leading-relaxed">

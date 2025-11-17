@@ -12,7 +12,7 @@ const ClientValueProposition = () => {
     <Section size="major" className="bg-background">
       <div className="max-w-4xl mb-12">
         <SectionBadge icon={Award} text="Why Choose Us" />
-        <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-6 leading-tight">
+        <h2 className="text-3xl md:text-5xl font-bold text-foreground mb-6 leading-tight tracking-tight">
           Why Clients Choose Us
         </h2>
         <p className="text-xl md:text-2xl text-foreground font-semibold mb-6">
@@ -68,7 +68,7 @@ const ClientValueProposition = () => {
       {/* Who We Serve Section */}
       <div className="mt-16 pt-12 border-t border-border/50">
         <div className="max-w-3xl mb-8">
-          <h3 className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-4 leading-tight">
+          <h3 className="text-2xl md:text-3xl font-semibold text-foreground mb-4 leading-tight">
             Who We Serve
           </h3>
           <p className="text-base md:text-lg text-muted-foreground leading-relaxed">

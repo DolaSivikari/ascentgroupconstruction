@@ -201,7 +201,7 @@ const About = () => {
       {/* Who We Serve */}
       <Section size="major" className="bg-muted/30">
         <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">Who We Serve</h2>
+          <h2 className="text-3xl md:text-5xl font-bold mb-4 tracking-tight">Who We Serve</h2>
           <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
             Trusted partners across Ontario's construction ecosystem
           </p>
@@ -226,7 +226,7 @@ const About = () => {
       {/* What We Self-Perform */}
       <Section size="major">
         <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">What We Self-Perform</h2>
+          <h2 className="text-3xl md:text-5xl font-bold mb-4 tracking-tight">What We Self-Perform</h2>
           <p className="text-lg md:text-xl text-muted-foreground">
             Each scope is planned for minimal disruption, clear sequencing, and documented QA/QC
           </p>
@@ -245,7 +245,7 @@ const About = () => {
       {/* Our 5-Step Approach */}
       <Section size="major">
         <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">Our 5-Step Approach</h2>
+          <h2 className="text-3xl md:text-5xl font-bold mb-4 tracking-tight">Our 5-Step Approach</h2>
           <p className="text-lg md:text-xl text-muted-foreground">
             A proven process for reliable project delivery
           </p>
@@ -273,7 +273,7 @@ const About = () => {
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
             <MapPin className="w-16 h-16 text-primary mx-auto mb-6" />
-            <h2 className="text-4xl font-bold mb-6">Where We Work</h2>
+            <h2 className="text-3xl md:text-5xl font-bold mb-6 tracking-tight">Where We Work</h2>
             <p className="text-xl text-muted-foreground leading-relaxed">
               We serve <strong>Ontario & the Greater Toronto Area</strong>, with emphasis on the GTA and 
               Golden Horseshoe: Toronto, Mississauga, Brampton, Vaughan/Markham, Oakville/Burlington, 
@@ -286,7 +286,7 @@ const About = () => {
       {/* Our Vision */}
       <Section size="major" maxWidth="narrow" className="bg-primary/5">
         <Card variant="elevated" size="lg" className="text-center border-2 border-primary/20">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">Ready to Discuss Your Project?</h2>
+          <h2 className="text-3xl md:text-5xl font-bold mb-4 tracking-tight">Ready to Discuss Your Project?</h2>
           <p className="text-lg md:text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
             Whether you need trade pricing for an active tender or want to discuss a restoration project, 
             we're here to provide professional service and competitive rates.
