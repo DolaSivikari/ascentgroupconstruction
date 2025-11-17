@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Card, CardContent } from "@/components/ui/card";
+import { Card, CardContent } from "@/design-system/components/Card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/ui/Button";
 import { MapPin, Calendar, Ruler, Eye, CheckCircle2, DollarSign, Shield } from "lucide-react";
@@ -50,7 +50,9 @@ const ProjectCard = ({
   return (
     <Card
       variant="interactive"
-      className="group cursor-pointer"
+      hover
+      size="sm"
+      className="group cursor-pointer overflow-hidden"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       onClick={() => onViewDetails(slug)}

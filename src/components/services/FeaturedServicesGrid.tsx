@@ -4,6 +4,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { motion } from "framer-motion";
 import * as Icons from "lucide-react";
 import { LucideIcon } from "lucide-react";
+import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/design-system/components/Card";
 
 interface Service {
   id: string;
@@ -108,7 +109,7 @@ export const FeaturedServicesGrid = () => {
                 <div className="h-1 w-24 bg-gradient-to-r from-primary to-accent rounded-full" />
               </div>
 
-              {/* Services Grid */}
+              {/* Services Grid - Using Unified Card System */}
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {group.services.map((service, serviceIndex) => {
                   const Icon = getIcon(service.icon_name);
@@ -124,37 +125,41 @@ export const FeaturedServicesGrid = () => {
                         to={`/services/${service.slug}`}
                         className="group block h-full"
                       >
-                        <div className="h-full p-6 rounded-xl border border-border bg-card hover:border-primary/50 hover:shadow-lg hover:shadow-primary/10 transition-all duration-300">
-                          {/* Icon */}
-                          <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-primary/10 to-accent/10 flex items-center justify-center mb-4 group-hover:from-primary/20 group-hover:to-accent/20 transition-all">
-                            <Icon className="w-6 h-6 text-primary group-hover:scale-110 transition-transform" />
-                          </div>
+                        <Card variant="interactive" hover className="h-full">
+                          <CardContent>
+                            {/* Icon */}
+                            <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-primary/10 to-accent/10 flex items-center justify-center mb-4 group-hover:from-primary/20 group-hover:to-accent/20 transition-all">
+                              <Icon className="w-6 h-6 text-primary group-hover:scale-110 transition-transform" />
+                            </div>
 
-                          {/* Service Name with Legacy Badge */}
-                          <div className="flex items-start justify-between gap-2 mb-3">
-                            <h4 className="text-xl font-semibold group-hover:text-primary transition-colors">
-                              {service.name}
-                            </h4>
-                            {service.publish_state === 'archived' && (
-                              <span className="px-2 py-1 text-xs font-medium rounded-full bg-muted text-muted-foreground shrink-0">
-                                Legacy
-                              </span>
+                            {/* Service Name with Legacy Badge */}
+                            <CardHeader className="p-0 mb-3">
+                              <div className="flex items-start justify-between gap-2">
+                                <CardTitle className="text-xl group-hover:text-primary transition-colors">
+                                  {service.name}
+                                </CardTitle>
+                                {service.publish_state === 'archived' && (
+                                  <span className="px-2 py-1 text-xs font-medium rounded-full bg-muted text-muted-foreground shrink-0">
+                                    Legacy
+                                  </span>
+                                )}
+                              </div>
+                            </CardHeader>
+
+                            {/* Description */}
+                            {service.short_description && (
+                              <CardDescription className="line-clamp-3 mb-4">
+                                {service.short_description}
+                              </CardDescription>
                             )}
-                          </div>
 
-                          {/* Description */}
-                          {service.short_description && (
-                            <p className="text-muted-foreground text-sm leading-relaxed line-clamp-3">
-                              {service.short_description}
-                            </p>
-                          )}
-
-                          {/* Hover Arrow */}
-                          <div className="mt-4 flex items-center text-sm font-medium text-primary opacity-0 group-hover:opacity-100 transition-opacity">
-                            Learn more
-                            <Icons.ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
-                          </div>
-                        </div>
+                            {/* Hover Arrow */}
+                            <div className="flex items-center text-sm font-medium text-primary opacity-0 group-hover:opacity-100 transition-opacity">
+                              Learn more
+                              <Icons.ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
+                            </div>
+                          </CardContent>
+                        </Card>
                       </Link>
                     </motion.div>
                   );
