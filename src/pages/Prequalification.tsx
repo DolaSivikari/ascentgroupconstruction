@@ -42,7 +42,7 @@ const categoryIcons: Record<string, any> = {
 };
 
 const companyHighlights = [
-  { icon: Calendar, label: "Experience", value: "15+ Years", desc: "Serving the GTA since 2009" },
+  { icon: Calendar, label: "Experience", value: "15+ Years", desc: "Combined team experience" },
   { icon: DollarSign, label: "Annual Volume", value: "$10-30M", desc: "Consistent project delivery" },
   { icon: Shield, label: "Bonding Capacity", value: "$5M", desc: "Single project capacity" },
   { icon: Building2, label: "Insurance", value: "$5M", desc: "General liability coverage" },
@@ -290,7 +290,7 @@ const Prequalification = () => {
                       <Shield className="w-12 h-12 text-primary mb-4" />
                       <h3 className="font-bold text-lg mb-2">Safety Excellence</h3>
                       <p className="text-muted-foreground text-sm">
-                        COR certified with zero lost-time incidents across 500+ projects. Industry-leading safety protocols and training.
+                        Working toward COR certification with comprehensive safety protocols and training across all projects.
                       </p>
                     </CardContent>
                   </Card>

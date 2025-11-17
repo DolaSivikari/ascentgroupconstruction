@@ -143,7 +143,7 @@ const Index = () => {
         "@type": "ListItem",
         "position": 1,
         "name": "Licensed Construction Excellence Across Ontario",
-        "description": "Fully licensed and insured with $5M liability coverage, WSIB compliant, and municipally licensed across the Greater Toronto Area with 500+ successful projects."
+        "description": "Fully licensed and insured with $5M liability coverage, active WSIB registration, working toward COR certification. Professional execution backed by comprehensive safety protocols."
       },
       {
         "@type": "ListItem",

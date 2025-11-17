@@ -2,29 +2,29 @@ import { DollarSign, Building2, Award, Shield, TrendingUp } from "lucide-react";
 
 const trustMetrics = [
   {
-    value: "$30M+",
-    label: "Projects Delivered",
-    icon: DollarSign,
-  },
-  {
-    value: "500+",
-    label: "Buildings Completed",
-    icon: Building2,
-  },
-  {
     value: "15+",
-    label: "Years of Excellence",
+    label: "Years Team Experience",
     icon: Award,
   },
   {
-    value: "$5M",
-    label: "Bonding Capacity",
+    value: "85%",
+    label: "Self-Performed Work",
+    icon: Building2,
+  },
+  {
+    value: "$5M+",
+    label: "Liability Coverage",
+    icon: Shield,
+  },
+  {
+    value: "2025",
+    label: "Established",
     icon: TrendingUp,
   },
   {
-    value: "98%",
-    label: "On-Time Completion",
-    icon: Shield,
+    value: "10",
+    label: "Core Team Members",
+    icon: DollarSign,
   },
 ];
 
@@ -61,22 +61,22 @@ const GCTrustStrip = () => {
         <div className="flex flex-wrap justify-center items-center gap-6 mt-8 pt-8 border-t border-primary/20">
           <div className="flex items-center gap-2 text-sm text-muted-foreground">
             <Shield className="h-4 w-4 text-primary" />
-            <span className="font-semibold">WSIB Certified</span>
+            <span className="font-semibold">Active WSIB Registration</span>
           </div>
           <div className="hidden sm:block w-px h-4 bg-border" />
           <div className="flex items-center gap-2 text-sm text-muted-foreground">
             <Shield className="h-4 w-4 text-primary" />
-            <span className="font-semibold">$5M Liability Coverage</span>
+            <span className="font-semibold">$5M+ Liability Coverage</span>
           </div>
           <div className="hidden sm:block w-px h-4 bg-border" />
           <div className="flex items-center gap-2 text-sm text-muted-foreground">
             <Shield className="h-4 w-4 text-primary" />
-            <span className="font-semibold">COR Safety Certified</span>
+            <span className="font-semibold">Working Toward COR</span>
           </div>
           <div className="hidden sm:block w-px h-4 bg-border" />
           <div className="flex items-center gap-2 text-sm text-muted-foreground">
             <Award className="h-4 w-4 text-primary" />
-            <span className="font-semibold">OGCA Member</span>
+            <span className="font-semibold">Licensed Contractor</span>
           </div>
         </div>
       </div>

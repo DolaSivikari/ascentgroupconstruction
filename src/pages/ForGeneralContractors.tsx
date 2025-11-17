@@ -27,8 +27,8 @@ const ForGeneralContractors = () => {
   const whyWorkWithUs = [
     {
       icon: Clock,
-      title: "Fast Quote Turnaround",
-      description: "Unit pricing and competitive bids within 48-72 hours on active tenders",
+      title: "Responsive Quote Turnaround",
+      description: "Competitive bids and unit pricing for active tenders—building our reputation on professionalism",
     },
     {
       icon: Users,
@@ -37,8 +37,8 @@ const ForGeneralContractors = () => {
     },
     {
       icon: Shield,
-      title: "Safety Compliance",
-      description: "Licensed business with site-specific safety plans and WSIB compliance in progress",
+      title: "Safety & Compliance",
+      description: "Active WSIB registration, comprehensive site safety protocols, and proper insurance coverage",
     },
     {
       icon: FileText,
