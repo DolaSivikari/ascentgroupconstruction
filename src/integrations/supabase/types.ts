@@ -1952,6 +1952,59 @@ export type Database = {
         }
         Relationships: []
       }
+      resume_submissions: {
+        Row: {
+          admin_notes: string | null
+          applicant_name: string
+          cover_letter: string | null
+          created_at: string | null
+          email: string
+          id: string
+          phone: string | null
+          position_applied: string | null
+          resume_url: string
+          reviewed_at: string | null
+          reviewed_by: string | null
+          status: string | null
+        }
+        Insert: {
+          admin_notes?: string | null
+          applicant_name: string
+          cover_letter?: string | null
+          created_at?: string | null
+          email: string
+          id?: string
+          phone?: string | null
+          position_applied?: string | null
+          resume_url: string
+          reviewed_at?: string | null
+          reviewed_by?: string | null
+          status?: string | null
+        }
+        Update: {
+          admin_notes?: string | null
+          applicant_name?: string
+          cover_letter?: string | null
+          created_at?: string | null
+          email?: string
+          id?: string
+          phone?: string | null
+          position_applied?: string | null
+          resume_url?: string
+          reviewed_at?: string | null
+          reviewed_by?: string | null
+          status?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "resume_submissions_reviewed_by_fkey"
+            columns: ["reviewed_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       review_requests: {
         Row: {
           client_name: string
