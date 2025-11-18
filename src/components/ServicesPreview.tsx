@@ -141,14 +141,14 @@ const ServicesPreview = () => {
                     <OptimizedImage
                       src={config.image}
                       alt={`${config.name} hero image`}
-                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                      className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
                       width={600}
                       height={400}
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-background/95 via-background/50 to-transparent" />
                     
                     <div className="absolute bottom-4 left-6 flex items-center gap-3">
-                      <div className="p-3 rounded-xl bg-background/80 backdrop-blur-sm border-2 border-primary/20">
+                      <div className="p-3 rounded-[var(--radius-lg)] bg-background/80 backdrop-blur-sm border-2 border-primary/20">
                         <IconComponent className="w-6 h-6 text-primary" />
                       </div>
                       <h3 className="text-2xl font-bold text-foreground">

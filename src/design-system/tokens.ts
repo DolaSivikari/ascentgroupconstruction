@@ -18,16 +18,22 @@ export const SPACING = {
 } as const;
 
 // ============================================
-// BORDER RADIUS (Unified System)
+// BORDER RADIUS (Unified System - 3 sizes only)
 // ============================================
 export const RADIUS = {
   none: '0',
-  sm: '0.5rem',    // 8px
-  md: '0.75rem',   // 12px
-  lg: '1rem',      // 16px
-  xl: '1.25rem',   // 20px
-  '2xl': '1.5rem', // 24px
-  full: '9999px',
+  sm: '0.5rem',    // 8px - Buttons, badges
+  md: '0.75rem',   // 12px - Standard cards, inputs
+  lg: '1rem',      // 16px - Hero sections, large features
+  full: '9999px',  // Circles only
+} as const;
+
+// Border Radius Utility Classes (USE THESE IN COMPONENTS)
+export const BORDER_RADIUS = {
+  button: 'rounded-[var(--radius-sm)]',    // 8px
+  card: 'rounded-[var(--radius-lg)]',      // 16px  
+  hero: 'rounded-[var(--radius-lg)]',      // 16px
+  full: 'rounded-full',                     // Circles only
 } as const;
 
 // ============================================
@@ -54,10 +60,16 @@ export const TRANSITION = {
 } as const;
 
 export const DURATION = {
-  fast: 150,
-  base: 200,
-  medium: 300,
-  slow: 500,
+  fast: 150,    // Micro-interactions (hover, click)
+  base: 300,    // Standard transitions (DEFAULT)
+  slow: 500,    // Page transitions only
+} as const;
+
+// Duration Utility Classes (USE THESE IN COMPONENTS)
+export const DURATION_CLASS = {
+  fast: 'duration-[150ms]',   // Hover states, clicks
+  base: 'duration-300',        // Default for most animations
+  slow: 'duration-500',        // Page transitions only
 } as const;
 
 // ============================================
@@ -109,11 +121,11 @@ export const TYPOGRAPHY = {
 // ============================================
 export const ANIMATION = {
   fadeIn: {
-    duration: DURATION.medium,
+    duration: DURATION.base,
     delay: 0,
   },
   slideUp: {
-    duration: DURATION.medium,
+    duration: DURATION.base,
     delay: 0,
   },
   scaleIn: {
@@ -121,7 +133,7 @@ export const ANIMATION = {
     delay: 0,
   },
   stagger: {
-    duration: DURATION.medium,
+    duration: DURATION.base,
     staggerDelay: 100,
   },
 } as const;

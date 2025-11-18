@@ -176,7 +176,7 @@ const Navigation = () => {
               <Link
                 to="/services"
                 className={cn(
-                  "px-2 py-2 text-sm font-medium hover:text-primary hover-scale inline-flex items-center gap-1 transition-colors duration-500",
+                  "px-2 py-2 text-sm font-medium hover:text-primary hover-scale inline-flex items-center gap-1 transition-colors duration-[150ms]",
                   "link-underline",
                   activeMegaMenu === "services" && "text-primary scale-105",
                   activeMegaMenu !== "services" && (isHeroPage && isAtTop ? "text-white" : "text-foreground")
@@ -201,7 +201,7 @@ const Navigation = () => {
             <Link
               to="/projects"
               className={cn(
-                "px-2 py-2 text-sm font-medium hover:text-primary hover-scale transition-colors duration-500",
+                "px-2 py-2 text-sm font-medium hover:text-primary hover-scale transition-colors duration-[150ms]",
                 "link-underline",
                 isActive("/projects") && "text-primary",
                 !isActive("/projects") && (isHeroPage && isAtTop ? "text-white" : "text-foreground")
@@ -218,7 +218,7 @@ const Navigation = () => {
             >
               <button
                 className={cn(
-                  "px-2 py-2 text-sm font-medium hover:text-primary hover-scale inline-flex items-center gap-1 transition-colors duration-500",
+                  "px-2 py-2 text-sm font-medium hover:text-primary hover-scale inline-flex items-center gap-1 transition-colors duration-[150ms]",
                   "link-underline",
                   activeMegaMenu === "company" && "text-primary scale-105",
                   activeMegaMenu !== "company" && (isHeroPage && isAtTop ? "text-white" : "text-foreground")
@@ -247,7 +247,7 @@ const Navigation = () => {
             >
               <button
                 className={cn(
-                  "px-2 py-2 text-sm font-medium hover:text-primary hover-scale inline-flex items-center gap-1 transition-colors duration-500",
+                  "px-2 py-2 text-sm font-medium hover:text-primary hover-scale inline-flex items-center gap-1 transition-colors duration-[150ms]",
                   "link-underline",
                   activeMegaMenu === "partners" && "text-primary scale-105",
                   activeMegaMenu !== "partners" && (isHeroPage && isAtTop ? "text-white" : "text-foreground")
@@ -276,7 +276,7 @@ const Navigation = () => {
             >
               <button
                 className={cn(
-                  "px-2 py-2 text-sm font-medium hover:text-primary hover-scale inline-flex items-center gap-1 transition-colors duration-500",
+                  "px-2 py-2 text-sm font-medium hover:text-primary hover-scale inline-flex items-center gap-1 transition-colors duration-[150ms]",
                   "link-underline",
                   activeMegaMenu === "resources" && "text-primary scale-105",
                   activeMegaMenu !== "resources" && (isHeroPage && isAtTop ? "text-white" : "text-foreground")
@@ -300,7 +300,7 @@ const Navigation = () => {
             <Link
               to="/contact"
               className={cn(
-                "text-sm font-medium relative py-2 hover-scale after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-primary after:scale-x-0 hover:after:scale-x-100 transition-colors duration-500",
+                "text-sm font-medium relative py-2 hover-scale after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-primary after:scale-x-0 hover:after:scale-x-100 transition-colors duration-[150ms]",
                 "link-underline after:transition-transform",
                 isActive("/contact") ? "text-primary after:scale-x-100" : (isHeroPage && isAtTop ? "text-white" : "text-foreground"),
                 !isActive("/contact") && "hover:text-primary"
@@ -317,7 +317,7 @@ const Navigation = () => {
               <a
                 href={`tel:${settings.phone}`}
                 className={cn(
-                  "hidden lg:flex items-center gap-2 text-sm font-medium hover:text-primary hover-scale whitespace-nowrap transition-colors duration-500",
+                  "hidden lg:flex items-center gap-2 text-sm font-medium hover:text-primary hover-scale whitespace-nowrap transition-colors duration-[150ms]",
                   isHeroPage && isAtTop ? "text-white" : "text-foreground"
                 )}
               >
@@ -337,7 +337,7 @@ const Navigation = () => {
             <Link 
               to="/resources/contractor-portal" 
               className={cn(
-                "text-sm font-medium hover:text-primary hover-scale whitespace-nowrap link-underline transition-colors duration-500",
+                "text-sm font-medium hover:text-primary hover-scale whitespace-nowrap link-underline transition-colors duration-[150ms]",
                 isHeroPage && isAtTop ? "text-white" : "text-foreground"
               )}
             >
@@ -351,7 +351,7 @@ const Navigation = () => {
                   onMouseEnter={openAdminDropdown}
                   onMouseLeave={scheduleCloseAdminDropdown}
                   className={cn(
-                    "px-2 py-2 text-sm font-medium hover:text-primary hover-scale inline-flex items-center gap-1 transition-colors duration-500",
+                    "px-2 py-2 text-sm font-medium hover:text-primary hover-scale inline-flex items-center gap-1 transition-colors duration-[150ms]",
                     "link-underline",
                     adminDropdownOpen && "text-primary scale-105",
                     !adminDropdownOpen && (isHeroPage && isAtTop ? "text-white" : "text-foreground")
@@ -361,7 +361,7 @@ const Navigation = () => {
                   <Shield className="w-4 h-4" />
                   Admin
                   <ChevronDown className={cn(
-                    "w-4 h-4 transition-[transform] duration-200",
+                    "w-4 h-4 transition-[transform] duration-[150ms]",
                     adminDropdownOpen && "rotate-180"
                   )} />
                 </DropdownMenuTrigger>
@@ -638,7 +638,7 @@ const Navigation = () => {
 
           {/* Mobile Menu Button - Optimized Touch Target & Animation */}
           <button
-            className="md:hidden text-foreground relative flex items-center justify-center h-11 w-11 min-h-[44px] min-w-[44px] rounded-md hover:bg-muted active:bg-muted/70 active:scale-95 transition-all duration-200 touch-manipulation"
+            className="md:hidden text-foreground relative flex items-center justify-center h-11 w-11 min-h-[44px] min-w-[44px] rounded-md hover:bg-muted active:bg-muted/70 active:scale-95 transition-all duration-[150ms] touch-manipulation"
             onClick={() => setIsOpen(!isOpen)}
             aria-label={isOpen ? "Close menu" : "Open menu"}
             aria-expanded={isOpen}
@@ -650,7 +650,7 @@ const Navigation = () => {
             {/* Hamburger Icon with smooth animation */}
             <div className="flex flex-col gap-1.5 w-6 relative z-10">
               <span className={`h-0.5 w-full bg-current rounded-full transition-all duration-300 ease-out ${isOpen ? 'rotate-45 translate-y-2' : ''}`} />
-              <span className={`h-0.5 w-full bg-current rounded-full transition-all duration-200 ease-out ${isOpen ? 'opacity-0 scale-0' : 'opacity-100 scale-100'}`} />
+              <span className={`h-0.5 w-full bg-current rounded-full transition-all duration-[150ms] ease-out ${isOpen ? 'opacity-0 scale-0' : 'opacity-100 scale-100'}`} />
               <span className={`h-0.5 w-full bg-current rounded-full transition-all duration-300 ease-out ${isOpen ? '-rotate-45 -translate-y-2' : ''}`} />
             </div>
           </button>

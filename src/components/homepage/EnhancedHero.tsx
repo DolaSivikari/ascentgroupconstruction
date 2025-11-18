@@ -307,7 +307,7 @@ const EnhancedHero = ({ splashComplete = true }: { splashComplete?: boolean }) =
           <div className="flex flex-wrap items-center justify-center md:justify-start gap-3 mb-8">
             {/* Main Stat Card */}
             <div 
-              className={`group relative overflow-hidden rounded-2xl bg-white/10 backdrop-blur-xl border border-white/20 px-5 py-4 shadow-2xl hover:shadow-accent/20 hover:scale-105 transition-all duration-300 ${animationsEnabled && !prefersReducedMotion ? 'animate-fade-in' : ''}`}
+              className={`group relative overflow-hidden rounded-[var(--radius-lg)] bg-white/10 backdrop-blur-xl border border-white/20 px-5 py-4 shadow-2xl hover:shadow-accent/20 hover:scale-105 transition-all duration-300 ${animationsEnabled && !prefersReducedMotion ? 'animate-fade-in' : ''}`}
             >
               <div className="absolute inset-0 bg-gradient-to-br from-accent/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               <div className="relative flex items-center gap-3">
@@ -323,7 +323,7 @@ const EnhancedHero = ({ splashComplete = true }: { splashComplete?: boolean }) =
 
             {/* Working Toward COR Badge */}
             <div 
-              className={`group relative overflow-hidden rounded-2xl bg-white/10 backdrop-blur-xl border border-white/20 px-5 py-4 shadow-2xl hover:shadow-green-500/20 hover:scale-105 transition-all duration-300 ${animationsEnabled && !prefersReducedMotion ? 'animate-fade-in' : ''}`}
+              className={`group relative overflow-hidden rounded-[var(--radius-lg)] bg-white/10 backdrop-blur-xl border border-white/20 px-5 py-4 shadow-2xl hover:shadow-green-500/20 hover:scale-105 transition-all duration-300 ${animationsEnabled && !prefersReducedMotion ? 'animate-fade-in' : ''}`}
             >
               <div className="absolute inset-0 bg-gradient-to-br from-green-500/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               <div className="relative flex items-center gap-2">
@@ -336,7 +336,7 @@ const EnhancedHero = ({ splashComplete = true }: { splashComplete?: boolean }) =
 
             {/* Zero Incidents Badge */}
             <div 
-              className={`group relative overflow-hidden rounded-2xl bg-white/10 backdrop-blur-xl border border-white/20 px-5 py-4 shadow-2xl hover:shadow-blue-500/20 hover:scale-105 transition-all duration-300 ${animationsEnabled && !prefersReducedMotion ? 'animate-fade-in' : ''}`}
+              className={`group relative overflow-hidden rounded-[var(--radius-lg)] bg-white/10 backdrop-blur-xl border border-white/20 px-5 py-4 shadow-2xl hover:shadow-blue-500/20 hover:scale-105 transition-all duration-300 ${animationsEnabled && !prefersReducedMotion ? 'animate-fade-in' : ''}`}
             >
               <div className="absolute inset-0 bg-gradient-to-br from-blue-500/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               <div className="relative flex items-center gap-2">

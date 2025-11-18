@@ -122,7 +122,7 @@ export const ProjectGallery: React.FC<ProjectGalleryProps> = ({
 
       {/* Before/After Comparison using BeforeAfterSlider */}
       {selectedTab === 'before-after' && beforeImages.length > 0 && afterImages.length > 0 && (
-        <div className="mb-12 bg-gradient-to-br from-blue-50 to-green-50 dark:from-blue-950/20 dark:to-green-950/20 p-8 rounded-2xl shadow-xl">
+        <div className="mb-12 bg-gradient-to-br from-blue-50 to-green-50 dark:from-blue-950/20 dark:to-green-950/20 p-8 rounded-[var(--radius-lg)] shadow-xl">
           <h3 className="text-2xl font-bold text-center mb-6">
             Interactive Before & After Comparison
           </h3>
@@ -162,7 +162,7 @@ export const ProjectGallery: React.FC<ProjectGalleryProps> = ({
         {displayImages.map((image, index) => (
           <div
             key={image.id}
-            className={`group relative aspect-square bg-muted rounded-xl overflow-hidden shadow-lg hover:shadow-2xl cursor-pointer ${!prefersReducedMotion && 'hover-scale'}`}
+            className={`group relative aspect-square bg-muted rounded-[var(--radius-lg)] overflow-hidden shadow-lg hover:shadow-2xl cursor-pointer ${!prefersReducedMotion && 'hover-scale'}`}
             style={{ transition: prefersReducedMotion ? 'box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1)' : 'var(--card-transition), box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1)' }}
             onClick={() => openLightbox(index)}
           >

@@ -61,10 +61,10 @@ export const ANIMATIONS = {
  */
 export const INTERACTIONS = {
   /** Standard card hover - lift + shadow increase */
-  cardHover: `hover:-translate-y-2 hover:shadow-[var(--shadow-3)] transition-all duration-[${DURATION.medium}ms]`,
+  cardHover: `hover:-translate-y-2 hover:shadow-[var(--shadow-3)] transition-all duration-[${DURATION.base}ms]`,
   
   /** Button hover - slight opacity change */
-  buttonHover: `hover:opacity-90 transition-opacity duration-[${DURATION.medium}ms]`,
+  buttonHover: `hover:opacity-90 transition-opacity duration-[${DURATION.base}ms]`,
   
   /** Link hover - color change */
   linkHover: `hover:text-primary transition-colors duration-[${DURATION.fast}ms]`,
