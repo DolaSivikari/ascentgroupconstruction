@@ -166,7 +166,7 @@ export const SmartPopularServices = memo(({ onLinkClick, variant = 'default' }: 
               key={service.link || service.service_link}
               to={service.link || service.service_link}
               onClick={() => handleClick(service, index)}
-              className="group relative overflow-hidden rounded-lg transition-all duration-300 hover:shadow-xl hover:-translate-y-0.5 active:scale-[0.98] touch-manipulation min-h-[72px]"
+              className="group relative overflow-hidden rounded-lg transition-all duration-300 hover:shadow-[var(--shadow-lg)] hover:-translate-y-0.5 active:scale-[0.98] touch-manipulation min-h-[72px]"
             >
               {/* Gradient Background */}
               <div className={`absolute inset-0 ${gradientClass} opacity-90 group-hover:opacity-100 transition-opacity`} />
