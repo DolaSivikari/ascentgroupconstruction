@@ -7,6 +7,7 @@ import PageHeader from "@/components/PageHeader";
 import { Button } from "@/ui/Button";
 import { CertificationBadges } from "@/components/shared/CertificationBadges";
 import { MarketSegmentedServices } from "@/components/services/MarketSegmentedServices";
+import { ServicePromotionsSection } from "@/components/services/ServicePromotionsSection";
 import { CheckCircle2, Users, Building, Briefcase, Home, Shield, Award, HardHat } from "lucide-react";
 import { WhoWeServeCard, WhoWeServeSection, FeatureCard } from "@/components/unified";
 import { CardGrid } from "@/components/shared/CardGrid";
@@ -85,6 +86,9 @@ const Services = () => {
             variant="simple"
           />
         </WhoWeServeSection>
+
+        {/* Service Promotions Section */}
+        <ServicePromotionsSection />
 
         {/* Specialty Contractor Information */}
         <section className="py-16 bg-muted/30">
