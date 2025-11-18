@@ -1,10 +1,10 @@
 import { Building2, Home, CheckCircle2, Award } from "lucide-react";
 import { Button } from "@/ui/Button";
 import { Link } from "react-router-dom";
-import ClientSegmentCard from "./ClientSegmentCard";
 import { SectionBadge } from "@/components/ui/SectionBadge";
 import { Section } from "@/components/sections/Section";
 import { Card, CardContent } from "@/design-system/components/Card";
+import { WhoWeServeCard } from "@/components/unified";
 
 const ClientValueProposition = () => {
 
@@ -65,7 +65,7 @@ const ClientValueProposition = () => {
         </div>
       </div>
 
-      {/* Who We Serve Section */}
+      {/* Who We Serve Section - Using Unified Components */}
       <div className="mt-16 pt-12 border-t border-border/50">
         <div className="max-w-3xl mb-8">
           <h3 className="text-2xl md:text-3xl font-semibold text-foreground mb-4 leading-tight">
@@ -77,30 +77,34 @@ const ClientValueProposition = () => {
         </div>
 
         <div className="grid lg:grid-cols-2 gap-6">
-            <ClientSegmentCard
-              icon={Building2}
-              title="Developers & Building Owners"
-              services={[
-                "New‑build envelope systems (EIFS, cladding, waterproofing)",
-                "Multi‑family & commercial façade installation",
-                "Warranty‑backed envelope delivery",
-                "Unit pricing for GC trade packages",
-              ]}
-              ctaText="View Services"
-              ctaUrl="/services"
-            />
+          <WhoWeServeCard
+            icon={Building2}
+            title="Developers & Building Owners"
+            description="New construction and multi-family projects"
+            link="/services"
+            variant="detailed"
+            benefits={[
+              "New‑build envelope systems (EIFS, cladding, waterproofing)",
+              "Multi‑family & commercial façade installation",
+              "Warranty‑backed envelope delivery",
+              "Unit pricing for GC trade packages",
+            ]}
+            ctaText="View Services"
+          />
 
-            <ClientSegmentCard
-              icon={Home}
-              title="Property Managers & Asset Owners"
-              services={[
-                "Façade restoration & parking‑garage repair",
-                "Emergency water intrusion response (48–72h)",
-                "Capital planning & phased rehabilitation",
-                "Occupied‑building expertise",
-              ]}
-              ctaText="Request Site Assessment"
-            ctaUrl="/contact"
+          <WhoWeServeCard
+            icon={Home}
+            title="Property Managers & Asset Owners"
+            description="Building restoration and maintenance solutions"
+            link="/contact"
+            variant="detailed"
+            benefits={[
+              "Façade restoration & parking‑garage repair",
+              "Emergency water intrusion response (48–72h)",
+              "Capital planning & phased rehabilitation",
+              "Occupied‑building expertise",
+            ]}
+            ctaText="Request Site Assessment"
           />
         </div>
       </div>

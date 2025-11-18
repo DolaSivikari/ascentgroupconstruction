@@ -28,6 +28,7 @@ import { usePageAnalytics } from "@/hooks/usePageAnalytics";
 import { ParallaxSection } from "@/components/animations/ParallaxSection";
 import { StaggerContainer } from "@/components/animations/StaggerContainer";
 import { UnifiedPageHero } from "@/components/sections/UnifiedPageHero";
+import { WhoWeServeCard, WhoWeServeSection } from "@/components/unified";
 
 const About = () => {
   // Analytics tracking
@@ -192,30 +193,24 @@ const About = () => {
         </ParallaxSection>
       </Section>
 
-      {/* Who We Serve */}
-      <Section size="major" className="bg-muted/30">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-5xl font-bold mb-4 tracking-tight">Who We Serve</h2>
-          <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
-            Trusted partners across Ontario's construction ecosystem
-          </p>
-        </div>
-
-        <div className="grid md:grid-cols-2 gap-8">
-          {clientTypes.map((client, index) => {
-            const IconComponent = client.icon;
-            return (
-              <ScrollReveal key={index} direction="up" delay={index * 100}>
-                <Card variant="interactive" hover size="md">
-                  <IconComponent className="w-12 h-12 text-primary mb-4" />
-                  <h3 className="text-2xl font-semibold mb-3">{client.title}</h3>
-                  <p className="text-muted-foreground leading-relaxed">{client.description}</p>
-                </Card>
-              </ScrollReveal>
-            );
-          })}
-        </div>
-      </Section>
+      {/* Who We Serve - Using Unified Components */}
+      <WhoWeServeSection
+        title="Who We Serve"
+        description="Trusted partners across Ontario's construction ecosystem"
+        columns={2}
+        background="muted"
+      >
+        {clientTypes.map((client) => (
+          <WhoWeServeCard
+            key={client.title}
+            icon={client.icon}
+            title={client.title}
+            description={client.description}
+            link={`/${client.title.toLowerCase().replace(/\s+/g, '-')}`}
+            variant="simple"
+          />
+        ))}
+      </WhoWeServeSection>
 
       {/* What We Self-Perform */}
       <Section size="major">

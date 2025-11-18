@@ -7,7 +7,8 @@ import PageHeader from "@/components/PageHeader";
 import { Button } from "@/ui/Button";
 import { CertificationBadges } from "@/components/shared/CertificationBadges";
 import { MarketSegmentedServices } from "@/components/services/MarketSegmentedServices";
-import { CheckCircle2, Users, Building, Briefcase } from "lucide-react";
+import { CheckCircle2, Users, Building, Briefcase, Home } from "lucide-react";
+import { WhoWeServeCard, WhoWeServeSection } from "@/components/unified";
 import { Section } from "@/components/sections/Section";
 import { CTA_TEXT } from "@/design-system/constants";
 import { ScrollReveal } from "@/components/animations/ScrollReveal";
@@ -47,68 +48,42 @@ const Services = () => {
 
       <main className="flex-1 relative">
 
-        {/* Who We Serve Section */}
-        <section className="py-20 bg-background">
-          <div className="container mx-auto px-4">
-            <div className="text-center mb-12">
-              <h2 className="text-4xl font-bold mb-4">Who We Serve</h2>
-              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-                Specialized construction services for diverse client needs
-              </p>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
-              {[
-                { 
-                  icon: Building, 
-                  title: "Commercial Clients", 
-                  description: "Retail, office, and industrial buildings",
-                  link: "/commercial-clients"
-                },
-                { 
-                  icon: Users, 
-                  title: "Property Managers", 
-                  description: "Multi-family and commercial properties",
-                  link: "/property-managers"
-                },
-                { 
-                  icon: CheckCircle2, 
-                  title: "Homeowners", 
-                  description: "Residential painting, renovations, and repairs",
-                  link: "/homeowners"
-                },
-                { 
-                  icon: Briefcase, 
-                  title: "General Contractors", 
-                  description: "Reliable subcontractor partnerships",
-                  link: "/for-general-contractors"
-                }
-              ].map((item, index) => {
-                const Icon = item.icon;
-                return (
-                  <ScrollReveal key={index} direction="up" delay={index * 100}>
-                    <Link 
-                      to={item.link}
-                      className="group p-6 rounded-[var(--radius-lg)] border border-border bg-card hover:shadow-[var(--shadow-lg)] transition-all duration-300"
-                    >
-                      <div className="flex flex-col items-center text-center">
-                        <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mb-4 group-hover:bg-primary/20 transition-colors">
-                          <Icon className="w-8 h-8 text-primary" />
-                        </div>
-                        <h3 className="text-lg font-semibold mb-2 group-hover:text-primary transition-colors">
-                          {item.title}
-                        </h3>
-                        <p className="text-sm text-muted-foreground">
-                          {item.description}
-                        </p>
-                      </div>
-                    </Link>
-                  </ScrollReveal>
-                );
-              })}
-            </div>
-          </div>
-        </section>
+        {/* Who We Serve Section - Using Unified Components */}
+        <WhoWeServeSection
+          title="Who We Serve"
+          description="Specialized construction services tailored to your specific needs"
+          columns={4}
+          background="default"
+        >
+          <WhoWeServeCard
+            icon={Building}
+            title="Commercial Clients"
+            description="Retail, office, and industrial buildings"
+            link="/commercial-clients"
+            variant="simple"
+          />
+          <WhoWeServeCard
+            icon={Users}
+            title="Property Managers"
+            description="Multi-family and commercial properties"
+            link="/property-managers"
+            variant="simple"
+          />
+          <WhoWeServeCard
+            icon={Home}
+            title="Homeowners"
+            description="Residential painting, renovations, and repairs"
+            link="/homeowners"
+            variant="simple"
+          />
+          <WhoWeServeCard
+            icon={Briefcase}
+            title="General Contractors"
+            description="Reliable subcontractor partnerships"
+            link="/for-general-contractors"
+            variant="simple"
+          />
+        </WhoWeServeSection>
 
         {/* Specialty Contractor Information */}
         <section className="py-16 bg-muted/30">
