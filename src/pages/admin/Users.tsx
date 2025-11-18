@@ -176,7 +176,7 @@ const Users = () => {
             </ul>
           </div>
           <div className="p-3 border border-border rounded-lg">
-            <Badge className="mb-2 bg-slate-600">Viewer</Badge>
+            <Badge variant="secondary" className="mb-2">Viewer</Badge>
             <p className="text-muted-foreground mb-2">Read-only access</p>
             <ul className="text-xs space-y-1 text-muted-foreground">
               <li>✓ View content</li>

@@ -79,8 +79,8 @@ export default function Monitoring() {
 
           <Card className="p-6">
             <div className="flex items-center gap-3">
-              <div className="p-3 bg-blue-100 dark:bg-blue-900/20 rounded-lg">
-                <Activity className="h-5 w-5 text-blue-600" />
+              <div className="p-3 bg-accent/10 rounded-lg">
+                <Activity className="h-5 w-5 text-accent" />
               </div>
               <div>
                 <p className="text-sm text-muted-foreground">Avg Load Time</p>
