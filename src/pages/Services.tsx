@@ -81,8 +81,8 @@ const Services = () => {
     <div className="min-h-screen flex flex-col">
       <SEO 
         title="Services"
-        description="Ascent Group Construction — Ontario's prime specialty contractor for building envelope & restoration. Self-performed façade remediation, parking garage restoration, EIFS, masonry repair, and waterproofing. Serving commercial, multi-family, and institutional projects across the GTA."
-        keywords="specialty contractor services, building envelope contractor, facade restoration, parking garage restoration, EIFS contractor, masonry repair, waterproofing contractor, commercial construction"
+        description="Ascent Group Construction — Main specialty contractor for building envelope, interior trades, and residential renovations. Serving commercial properties, multi-family buildings, and homeowners across Ontario. Self-performed work with 15+ years team experience."
+        keywords="specialty contractor services, building envelope contractor, residential renovation, interior trades, painting contractor, tile flooring, EIFS contractor, masonry repair, waterproofing contractor"
         canonical="https://ascentgroupconstruction.com/services"
       />
       <Navigation />
@@ -90,7 +90,7 @@ const Services = () => {
       <ParallaxSection speed="slow">
         <PageHeader
           title="Our Services"
-          description="Ontario's specialty contractor for building envelope & restoration. Self-performed work across commercial, multi-family, and institutional projects."
+          description="Main specialty contractor for building envelope, interior trades, and residential renovations. Serving commercial properties, multi-family buildings, and homeowners across Ontario with 15+ years team experience."
           backgroundImage={heroServicesImage}
           cta={{ label: CTA_TEXT.primary, href: "/estimate" }}
           breadcrumbs={[
@@ -149,21 +149,21 @@ const Services = () => {
                 },
                 { 
                   icon: Users, 
-                  title: "Multi-Family Residential", 
-                  description: "Condos, apartments, and housing complexes",
-                  link: "/multi-family-residential"
+                  title: "Property Managers", 
+                  description: "Multi-family and commercial properties",
+                  link: "/property-managers"
                 },
                 { 
                   icon: CheckCircle2, 
-                  title: "Institutional", 
-                  description: "Schools, hospitals, and public facilities",
-                  link: "/institutional-clients"
+                  title: "Homeowners", 
+                  description: "Residential painting, renovations, and repairs",
+                  link: "/homeowners"
                 },
                 { 
                   icon: Briefcase, 
                   title: "General Contractors", 
-                  description: "Professional trade partnerships",
-                  link: "/commercial-clients"
+                  description: "Reliable subcontractor partnerships",
+                  link: "/for-general-contractors"
                 }
               ].map((item, index) => {
                 const Icon = item.icon;
