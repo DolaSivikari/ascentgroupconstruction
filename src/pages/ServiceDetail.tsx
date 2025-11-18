@@ -57,14 +57,29 @@ interface Service {
 
 // Map service slugs to hero images
 const serviceHeroImages: Record<string, string> = {
-  'basement-finishing': '/src/assets/heroes/hero-tenant-improvements.jpg',
-  'carpentry-trim-work': '/src/assets/heroes/hero-tenant-improvements.jpg',
+  // Interior Construction Services
+  'basement-finishing': '/src/assets/heroes/hero-commercial.jpg',
+  'carpentry-trim-work': '/src/assets/heroes/hero-equipment.jpg',
   'interior-buildouts-finishing': '/src/assets/heroes/hero-tenant-improvements.jpg',
-  'suite-renovations': '/src/assets/heroes/hero-tenant-improvements.jpg',
+  'suite-renovations': '/src/assets/heroes/hero-multi-family.jpg',
+  'drywall-finishing': '/src/assets/heroes/hero-institutional.jpg',
+  
+  // Specialty Finishing Services
   'painting-services': '/src/assets/heroes/hero-painting.jpg',
-  'general-repairs-maintenance': '/src/assets/heroes/hero-general-contracting.jpg',
-  'kitchen-bathroom-renovations': '/src/assets/heroes/hero-tile-flooring.jpg',
+  'tile-flooring': '/src/assets/heroes/hero-tile-flooring.jpg',
+  'kitchen-bathroom-renovations': '/src/assets/heroes/hero-retail.jpg',
+  
+  // Building Envelope Services
+  'building-envelope-solutions': '/src/assets/heroes/hero-facade-remediation.jpg',
+  'cladding-systems': '/src/assets/heroes/hero-cladding.jpg',
+  'eifs-stucco-systems': '/src/assets/heroes/hero-facade-remediation.jpg',
+  'masonry-restoration': '/src/assets/heroes/hero-construction-management.jpg',
+  'waterproofing-systems': '/src/assets/heroes/hero-sealant-replacement.jpg',
+  
+  // Protective & Specialty Services
   'protective-architectural-coatings': '/src/assets/heroes/hero-protective-coatings.jpg',
+  'general-repairs-maintenance': '/src/assets/heroes/hero-general-contracting.jpg',
+  'sustainable-building': '/src/assets/heroes/hero-sustainable.jpg',
 };
 
 const ServiceDetail = () => {
