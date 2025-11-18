@@ -15,3 +15,6 @@ export { FeatureCard } from './FeatureCard';
 
 // Process Cards
 export { ProcessStepCard } from './ProcessStepCard';
+
+// Tools
+export { ServiceSelector } from '../tools/ServiceSelector';
