@@ -7,8 +7,9 @@ import PageHeader from "@/components/PageHeader";
 import { Button } from "@/ui/Button";
 import { CertificationBadges } from "@/components/shared/CertificationBadges";
 import { MarketSegmentedServices } from "@/components/services/MarketSegmentedServices";
-import { CheckCircle2, Users, Building, Briefcase, Home } from "lucide-react";
-import { WhoWeServeCard, WhoWeServeSection } from "@/components/unified";
+import { CheckCircle2, Users, Building, Briefcase, Home, Shield, Award, HardHat } from "lucide-react";
+import { WhoWeServeCard, WhoWeServeSection, FeatureCard } from "@/components/unified";
+import { CardGrid } from "@/components/shared/CardGrid";
 import { Section } from "@/components/sections/Section";
 import { CTA_TEXT } from "@/design-system/constants";
 import { ScrollReveal } from "@/components/animations/ScrollReveal";
@@ -51,7 +52,7 @@ const Services = () => {
         {/* Who We Serve Section - Using Unified Components */}
         <WhoWeServeSection
           title="Who We Serve"
-          description="Specialized construction services tailored to your specific needs"
+          description="Building envelope, restoration, and interior trades—self-performed by our experienced crew across Ontario & GTA"
           columns={4}
           background="default"
         >
@@ -105,33 +106,37 @@ const Services = () => {
         </section>
 
         {/* Why Choose Us */}
-        <section className="py-20 bg-gradient-to-b from-muted/10 to-background">
-          <div className="container mx-auto px-4">
-            <div className="text-center mb-12">
-              <h2 className="text-4xl font-bold mb-4">Why Choose Ascent Group</h2>
-              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-                Ontario's trusted specialty construction partner
-              </p>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl mx-auto">
-              {[
-                { title: "Self-Performed Work", description: "Direct control of quality and timeline" },
-                { title: "Licensed & Insured", description: "Full compliance and protection" },
-                { title: "Professional Execution", description: "Experienced team delivering quality work" },
-                { title: "Expert Craftsmen", description: "Skilled trades with deep expertise" }
-              ].map((item, index) => (
-                <div key={index} className="text-center p-6">
-                  <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
-                    <CheckCircle2 className="w-6 h-6 text-primary" />
-                  </div>
-                  <h3 className="text-lg font-semibold mb-2">{item.title}</h3>
-                  <p className="text-sm text-muted-foreground">{item.description}</p>
-                </div>
-              ))}
-            </div>
+        <Section className="bg-muted/30">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl font-bold mb-4">Why Choose Ascent Group</h2>
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              Ontario's trusted specialty construction partner
+            </p>
           </div>
-        </section>
+
+          <CardGrid columns={4} stagger="standard">
+            <FeatureCard 
+              icon={CheckCircle2} 
+              title="Self-Performed Work" 
+              description="85% self-performed—direct control of quality, timeline, and cost. No subcontractor markups."
+            />
+            <FeatureCard 
+              icon={Shield} 
+              title="Licensed & Insured" 
+              description="$2M CGL coverage, WSIB compliant, working toward COR safety certification"
+            />
+            <FeatureCard 
+              icon={Award} 
+              title="Manufacturer-Aligned" 
+              description="Certified installer for EIFS, sealants, and protective coatings. Work backed by product warranties."
+            />
+            <FeatureCard 
+              icon={HardHat} 
+              title="Experienced Crew" 
+              description="10-person dedicated team with 15+ years combined experience in envelope and restoration"
+            />
+          </CardGrid>
+        </Section>
 
         {/* Final CTA Section */}
         <section className="py-20 bg-gradient-to-br from-primary/10 via-accent/10 to-primary/10">
