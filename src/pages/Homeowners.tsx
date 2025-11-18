@@ -26,7 +26,7 @@ import { Link } from "react-router-dom";
 import { ScrollReveal } from "@/components/animations/ScrollReveal";
 import { StaggerContainer } from "@/components/animations/StaggerContainer";
 import { ParallaxSection } from "@/components/animations/ParallaxSection";
-import heroImage from "@/assets/heroes/hero-residential-painting.jpg";
+import heroImage from "@/assets/heroes/hero-painting.jpg";
 import { usePageAnalytics } from "@/hooks/usePageAnalytics";
 
 const Homeowners = () => {
