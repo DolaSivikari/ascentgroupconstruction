@@ -78,8 +78,8 @@ const ProjectFeaturedCard = ({
       {/* Card Footer */}
       <CardContent className="p-6">
         <Button asChild className="w-full group/btn">
-          <Link to={`/blog/${slug}`}>
-            View Full Case Study
+          <Link to={`/projects/${slug}`}>
+            View Full Project
             <ArrowRight className="ml-2 h-4 w-4 hover-translate-arrow" />
           </Link>
         </Button>
