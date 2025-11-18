@@ -43,7 +43,7 @@ const ClientSelector = () => {
   const isVisible = useIntersectionObserver(sectionRef);
 
   return (
-    <section ref={sectionRef} className="py-20 bg-background">
+    <section ref={sectionRef} className="py-16 md:py-20 lg:py-24 bg-background">
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold mb-4 text-foreground">
@@ -60,7 +60,7 @@ const ClientSelector = () => {
             return (
               <Card
                 key={index}
-                className={`group hover:shadow-xl transition-all duration-300 hover:-translate-y-2 ${
+                className={`group hover:shadow-[var(--shadow-lg)] transition-all duration-300 hover:-translate-y-2 ${
                   isVisible
                     ? "opacity-100 translate-y-0"
                     : "opacity-0 translate-y-8"

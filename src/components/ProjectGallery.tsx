@@ -162,7 +162,7 @@ export const ProjectGallery: React.FC<ProjectGalleryProps> = ({
         {displayImages.map((image, index) => (
           <div
             key={image.id}
-            className={`group relative aspect-square bg-muted rounded-[var(--radius-lg)] overflow-hidden shadow-lg hover:shadow-2xl cursor-pointer ${!prefersReducedMotion && 'hover-scale'}`}
+            className={`group relative aspect-square bg-muted rounded-[var(--radius-lg)] overflow-hidden shadow-lg hover:shadow-[var(--shadow-lg)] cursor-pointer ${!prefersReducedMotion && 'hover-scale'}`}
             style={{ transition: prefersReducedMotion ? 'box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1)' : 'var(--card-transition), box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1)' }}
             onClick={() => openLightbox(index)}
           >

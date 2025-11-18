@@ -6,7 +6,7 @@ import { GRID } from "@/design-system/layouts";
 
 const WhoWeServe = () => {
   return (
-    <section className="py-20 md:py-24 bg-background">
+    <section className="py-16 md:py-20 lg:py-24 bg-background">
       <div className="container mx-auto px-6 md:px-8 lg:px-12 max-w-7xl">
         {/* Section Header - Enterprise Style */}
         <div className="max-w-3xl mb-16">

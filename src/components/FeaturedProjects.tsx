@@ -93,7 +93,7 @@ const FeaturedProjects = () => {
 
   if (loading) {
     return (
-      <section className="py-20 bg-background">
+      <section className="py-16 md:py-20 lg:py-24 bg-background">
         <div className="container mx-auto px-4">
           <div className="text-center">
             <p className="text-muted-foreground">Loading projects...</p>
@@ -108,7 +108,7 @@ const FeaturedProjects = () => {
   }
 
   return (
-    <section className="py-20 bg-background">
+    <section className="py-16 md:py-20 lg:py-24 bg-background">
       <div className="container mx-auto px-4 max-w-6xl">
         <ScrollReveal direction="up">
           <div className="text-center mb-12">
