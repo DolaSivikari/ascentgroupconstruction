@@ -116,26 +116,9 @@ export const ServicesExplorer = () => {
             Complete Building Solutions
           </h2>
           
-          <p className="text-lg text-muted-foreground leading-relaxed mb-8">
+          <p className="text-lg text-muted-foreground leading-relaxed">
             From building envelope and cladding systems to masonry restoration and interior construction—our self-performed specialty services deliver quality across commercial, multi-family, and institutional projects.
           </p>
-          
-          {/* Stats Bar */}
-          <div className="grid grid-cols-3 gap-4 md:gap-8 max-w-2xl mx-auto">
-            <div className="text-center p-4 rounded-lg bg-card/50 backdrop-blur-sm border border-border/50">
-              <div className="text-2xl md:text-3xl font-bold text-primary mb-1">{services.length}+</div>
-              <div className="text-xs md:text-sm text-muted-foreground">Services</div>
-            </div>
-            <div className="text-center p-4 rounded-lg bg-card/50 backdrop-blur-sm border border-border/50">
-              <div className="text-2xl md:text-3xl font-bold text-primary mb-1">15+</div>
-              <div className="text-xs md:text-sm text-muted-foreground">Years Experience</div>
-            </div>
-            <div className="text-center p-4 rounded-lg bg-card/50 backdrop-blur-sm border border-border/50">
-              <div className="text-2xl md:text-3xl font-bold text-primary mb-1">15+</div>
-              <div className="text-sm text-muted-foreground">Years Team Experience</div>
-              <div className="text-xs md:text-sm text-muted-foreground">Projects Complete</div>
-            </div>
-          </div>
         </div>
 
         {/* Enhanced Search & Filter Controls */}
