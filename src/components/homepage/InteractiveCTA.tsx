@@ -172,7 +172,7 @@ const InteractiveCTA = () => {
             {(() => {
               const CurrentIcon = stories[currentStory].icon;
               return (
-                <div key={currentStory} className="bg-white/10 backdrop-blur-sm rounded-xl p-8 border border-white/20 animate-fade-in">
+                <div key={currentStory} className="bg-white/10 backdrop-blur-sm rounded-[var(--radius-lg)] p-8 border border-white/20 animate-fade-in">
                   <div className="flex items-start gap-4">
                     <div className="bg-secondary/20 rounded-full p-3 flex-shrink-0">
                       {CurrentIcon && <CurrentIcon className="h-8 w-8 text-secondary" />}
@@ -227,7 +227,7 @@ const InteractiveCTA = () => {
           </div>
 
           {/* Right Column - Quick Contact Form */}
-          <div className="bg-background rounded-2xl shadow-2xl p-8 lg:p-10">
+          <div className="bg-background rounded-[var(--radius-lg)] shadow-[var(--shadow-lg)] p-8 lg:p-10">
             <div className="mb-6">
               <h3 className="text-2xl font-bold text-foreground mb-2">
                 Get Your Free Estimate

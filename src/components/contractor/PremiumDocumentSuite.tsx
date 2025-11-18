@@ -30,11 +30,11 @@ export const PremiumDocumentSuite = () => {
             onMouseLeave={() => setIsFlipped(false)}
           >
             <div className={cn(
-              "relative w-full h-full transition-transform duration-700 preserve-3d cursor-pointer",
+              "relative w-full h-full transition-transform duration-500 preserve-3d cursor-pointer",
               isFlipped && "rotate-y-180"
             )}>
               {/* Front of card */}
-              <Card className="absolute inset-0 backface-hidden border-2 border-primary/30 shadow-2xl bg-gradient-to-br from-primary/5 to-transparent">
+              <Card className="absolute inset-0 backface-hidden border-2 border-primary/30 shadow-[var(--shadow-lg)] bg-gradient-to-br from-primary/5 to-transparent">
                 <CardHeader className="text-center">
                   <div className="w-20 h-20 mx-auto mb-4 rounded-full bg-primary/10 flex items-center justify-center">
                     <Package className="w-10 h-10 text-primary" />
@@ -60,7 +60,7 @@ export const PremiumDocumentSuite = () => {
               </Card>
 
               {/* Back of card - Exploding view */}
-              <Card className="absolute inset-0 backface-hidden rotate-y-180 border-2 border-primary shadow-2xl bg-gradient-to-br from-primary/10 to-primary/5">
+              <Card className="absolute inset-0 backface-hidden rotate-y-180 border-2 border-primary shadow-[var(--shadow-lg)] bg-gradient-to-br from-primary/10 to-primary/5">
                 <CardContent className="h-full flex flex-col items-center justify-center p-8">
                   <div className="grid grid-cols-2 gap-4 mb-6">
                     {documents.map((doc, index) => (
@@ -74,7 +74,7 @@ export const PremiumDocumentSuite = () => {
                       </div>
                     ))}
                   </div>
-                  <Button size="lg" className="gap-2 shadow-xl hover:shadow-2xl">
+                  <Button size="lg" className="gap-2 shadow-[var(--shadow-lg)] hover:shadow-[var(--shadow-lg)]">
                     <Download className="w-5 h-5" />
                     Download Complete Package
                   </Button>
@@ -104,7 +104,7 @@ export const PremiumDocumentSuite = () => {
               ].map((doc, index) => (
                 <Card 
                   key={doc.name}
-                  className="group relative overflow-hidden border-2 hover:border-primary/50 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl animate-fade-in"
+                  className="group relative overflow-hidden border-2 hover:border-primary/50 transition-all duration-300 hover:-translate-y-1 hover:shadow-[var(--shadow-lg)] animate-fade-in"
                   style={{ animationDelay: `${index * 75}ms` }}
                 >
                   <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />

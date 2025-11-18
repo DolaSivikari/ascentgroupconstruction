@@ -55,13 +55,13 @@ const ValuePillars = () => {
             return (
               <Card 
                 key={pillar.id} 
-                className="group border border-construction-orange/20 bg-white/60 dark:bg-slate-900/60 backdrop-blur-md hover:border-construction-orange/40 hover:shadow-xl hover:shadow-construction-orange/20 transition-all duration-300 hover:scale-105 rounded-xl overflow-hidden relative"
+                className="group border border-construction-orange/20 bg-white/60 dark:bg-slate-900/60 backdrop-blur-md hover:border-construction-orange/40 hover:shadow-[var(--shadow-lg)] hover:shadow-construction-orange/20 transition-all duration-300 hover:scale-105 rounded-[var(--radius-lg)] overflow-hidden relative"
               >
                 <div className="absolute inset-0 bg-gradient-to-br from-construction-orange/0 to-construction-orange/0 group-hover:from-construction-orange/10 group-hover:to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 <CardContent className="p-6 relative z-10">
                   <div className="flex flex-col items-start gap-4">
                     {IconComponent && (
-                      <div className="w-12 h-12 rounded-xl bg-construction-orange/10 flex items-center justify-center group-hover:bg-construction-orange/15 transition-colors duration-300">
+                      <div className="w-12 h-12 rounded-[var(--radius-lg)] bg-construction-orange/10 flex items-center justify-center group-hover:bg-construction-orange/15 transition-colors duration-300">
                         <IconComponent className="w-6 h-6 text-construction-orange" />
                       </div>
                     )}

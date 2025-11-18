@@ -84,7 +84,7 @@ const PrequalPackage = () => {
           </div>
         ))}
       </div>
-      <Card className="border-2 border-construction-orange/20 shadow-xl overflow-hidden bg-gradient-to-br from-background to-muted/30">
+      <Card className="border-2 border-construction-orange/20 shadow-[var(--shadow-lg)] overflow-hidden bg-gradient-to-br from-background to-muted/30">
         <div className="grid lg:grid-cols-2 gap-0">
           <div className="p-8 space-y-4">
             <h3 className="text-2xl md:text-3xl font-bold text-foreground mb-6">Package Contents</h3>
@@ -104,7 +104,7 @@ const PrequalPackage = () => {
             </div>
           </div>
           <div className="p-8 flex flex-col justify-center items-center text-center space-y-6 lg:border-l lg:border-border/30">
-            <div className="w-20 h-20 rounded-2xl bg-construction-orange/10 flex items-center justify-center mb-2 hover:bg-construction-orange/20 transition-colors duration-300">
+            <div className="w-20 h-20 rounded-[var(--radius-lg)] bg-construction-orange/10 flex items-center justify-center mb-2 hover:bg-construction-orange/20 transition-colors duration-300">
               <FileText className="w-10 h-10 text-construction-orange" />
             </div>
             <div>
@@ -113,7 +113,7 @@ const PrequalPackage = () => {
             </div>
             <Dialog open={open} onOpenChange={setOpen}>
               <DialogTrigger asChild>
-                <Button size="lg" className="w-full sm:w-auto bg-construction-orange hover:bg-construction-orange/90 shadow-lg hover:shadow-xl transition-all duration-300">
+                <Button size="lg" className="w-full sm:w-auto bg-construction-orange hover:bg-construction-orange/90 shadow-[var(--shadow-lg)] hover:shadow-[var(--shadow-lg)] transition-all duration-300">
                   <Download className="w-4 h-4 mr-2" />Request Vendor Packet
                 </Button>
               </DialogTrigger>

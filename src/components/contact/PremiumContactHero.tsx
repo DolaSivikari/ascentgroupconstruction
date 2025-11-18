@@ -40,7 +40,7 @@ export const PremiumContactHero = ({ contactInfo, loading }: Props) => {
 
         {/* Floating contact cards with glass morphism */}
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 animate-fade-in-up">
-          <Card className="group relative overflow-hidden border-2 hover:border-primary/50 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl bg-card/80 backdrop-blur-sm">
+          <Card className="group relative overflow-hidden border-2 hover:border-primary/50 transition-all duration-300 hover:-translate-y-2 hover:shadow-[var(--shadow-lg)] bg-card/80 backdrop-blur-sm">
             <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
             <CardHeader>
               <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
@@ -55,7 +55,7 @@ export const PremiumContactHero = ({ contactInfo, loading }: Props) => {
             </CardContent>
           </Card>
 
-          <Card className="group relative overflow-hidden border-2 hover:border-primary/50 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl bg-card/80 backdrop-blur-sm">
+          <Card className="group relative overflow-hidden border-2 hover:border-primary/50 transition-all duration-300 hover:-translate-y-2 hover:shadow-[var(--shadow-lg)] bg-card/80 backdrop-blur-sm">
             <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
             <CardHeader>
               <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
@@ -73,7 +73,7 @@ export const PremiumContactHero = ({ contactInfo, loading }: Props) => {
             </CardContent>
           </Card>
 
-          <Card className="group relative overflow-hidden border-2 hover:border-primary/50 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl bg-card/80 backdrop-blur-sm">
+          <Card className="group relative overflow-hidden border-2 hover:border-primary/50 transition-all duration-300 hover:-translate-y-2 hover:shadow-[var(--shadow-lg)] bg-card/80 backdrop-blur-sm">
             <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
             <CardHeader>
               <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
@@ -94,7 +94,7 @@ export const PremiumContactHero = ({ contactInfo, loading }: Props) => {
             </CardContent>
           </Card>
 
-          <Card className="group relative overflow-hidden border-2 hover:border-secondary/50 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl bg-gradient-to-br from-secondary/5 to-transparent backdrop-blur-sm">
+          <Card className="group relative overflow-hidden border-2 hover:border-secondary/50 transition-all duration-300 hover:-translate-y-2 hover:shadow-[var(--shadow-lg)] bg-gradient-to-br from-secondary/5 to-transparent backdrop-blur-sm">
             <div className="absolute inset-0 bg-gradient-to-br from-secondary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
             <CardHeader>
               <div className="w-12 h-12 rounded-full bg-secondary/10 flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">

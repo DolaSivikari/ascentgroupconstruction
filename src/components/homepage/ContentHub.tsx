@@ -96,7 +96,7 @@ const ContentHub = () => {
               key={category}
               onClick={() => setActiveCategory(category)}
               className={`
-                px-5 py-2.5 text-sm font-semibold rounded-md transition-all duration-200
+                px-5 py-2.5 text-sm font-semibold rounded-md transition-all duration-[150ms]
                 ${activeCategory === category 
                   ? 'bg-primary text-primary-foreground shadow-sm' 
                   : 'bg-background text-muted-foreground hover:bg-muted hover:text-foreground border border-border'
@@ -120,7 +120,7 @@ const ContentHub = () => {
                     alt={featuredPost.title}
                     width={1200}
                     height={800}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     sizes="(max-width: 768px) 100vw, 60vw"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-navy-dark/60 via-transparent to-transparent"></div>
@@ -135,7 +135,7 @@ const ContentHub = () => {
                     </span>
                   </div>
                   
-                  <h3 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-6 text-foreground leading-tight group-hover:text-primary transition-colors duration-200">
+                  <h3 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-6 text-foreground leading-tight group-hover:text-primary transition-colors duration-[150ms]">
                     {featuredPost.title}
                   </h3>
                   
@@ -195,7 +195,7 @@ const ContentHub = () => {
 
           <div className="overflow-hidden mb-12">
             <div 
-              className="grid grid-cols-1 md:grid-cols-3 gap-8 transition-transform duration-500 ease-out"
+              className="grid grid-cols-1 md:grid-cols-3 gap-8 transition-transform duration-300 ease-out"
               style={{ 
                 transform: window.innerWidth < 768 
                   ? `translateX(-${carousel.currentIndex * 100}%)` 

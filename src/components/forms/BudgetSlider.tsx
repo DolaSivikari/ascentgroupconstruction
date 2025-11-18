@@ -45,7 +45,7 @@ export const BudgetSlider = ({
       </div>
 
       {/* Visual Budget Bar */}
-      <div className="relative h-12 bg-muted rounded-xl overflow-hidden">
+      <div className="relative h-12 bg-muted rounded-[var(--radius-lg)] overflow-hidden">
         <div
           className="absolute inset-y-0 left-0 bg-gradient-to-r from-primary to-primary/70 transition-all duration-300"
           style={{ width: `${percentage}%` }}

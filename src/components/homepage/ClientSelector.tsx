@@ -68,7 +68,7 @@ const ClientSelector = () => {
                 style={{ transitionDelay: `${index * 150}ms` }}
               >
                 <CardContent className="p-8">
-                  <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${client.color} flex items-center justify-center mb-6 group-hover:scale-110 transition-transform`}>
+                  <div className={`w-16 h-16 rounded-[var(--radius-lg)] bg-gradient-to-br ${client.color} flex items-center justify-center mb-6 group-hover:scale-110 transition-transform`}>
                     <Icon className="w-8 h-8 text-primary" />
                   </div>
                   

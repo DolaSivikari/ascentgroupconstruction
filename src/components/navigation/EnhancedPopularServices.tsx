@@ -128,8 +128,8 @@ export const EnhancedPopularServices = memo(({ onLinkClick }: EnhancedPopularSer
               </div>
               
               {/* Shine Effect on Hover */}
-              <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                <div className="absolute top-0 -left-full h-full w-1/2 bg-gradient-to-r from-transparent via-white/20 to-transparent skew-x-12 group-hover:left-full transition-all duration-700" />
+              <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                <div className="absolute top-0 -left-full h-full w-1/2 bg-gradient-to-r from-transparent via-white/20 to-transparent skew-x-12 group-hover:left-full transition-all duration-500" />
               </div>
             </Link>
           );

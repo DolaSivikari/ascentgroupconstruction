@@ -29,7 +29,7 @@ export const ClientLogosCarousel = () => {
       ref={ref}
       className={cn(
         "py-12 bg-background/50 border-y border-border/30",
-        "transition-all duration-700",
+        "transition-all duration-500",
         isVisible ? "opacity-100" : "opacity-0"
       )}
     >
@@ -51,7 +51,7 @@ export const ClientLogosCarousel = () => {
               className={cn(
                 "flex items-center justify-center p-4 rounded-lg",
                 "border border-border/20 bg-background/80",
-                "transition-all duration-500",
+                "transition-all duration-300",
                 "hover:border-construction-orange/30 hover:shadow-lg hover:shadow-construction-orange/5",
                 activeIndex === index ? "scale-105 border-construction-orange/50" : "scale-100 opacity-70"
               )}

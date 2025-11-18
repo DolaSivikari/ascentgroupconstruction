@@ -179,7 +179,7 @@ export function MobileNavSheet({ open, onOpenChange }: MobileNavSheetProps) {
               {searchQuery && (
                 <button
                   onClick={handleClearSearch}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 p-1 hover:bg-muted rounded-full transition-all duration-200 touch-manipulation"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 p-1 hover:bg-muted rounded-full transition-all duration-[150ms] touch-manipulation"
                   aria-label="Clear search"
                 >
                   <X className="h-4 w-4 text-muted-foreground" />
@@ -197,7 +197,7 @@ export function MobileNavSheet({ open, onOpenChange }: MobileNavSheetProps) {
                     role="tab"
                     aria-selected={activeCategory === (category === "All" ? "" : category)}
                     className={cn(
-                      "px-3 py-1.5 rounded-full text-xs font-medium whitespace-nowrap transition-all duration-200 touch-manipulation",
+                      "px-3 py-1.5 rounded-full text-xs font-medium whitespace-nowrap transition-all duration-[150ms] touch-manipulation",
                       activeCategory === (category === "All" ? "" : category)
                         ? "bg-accent text-accent-foreground shadow-sm"
                         : "bg-muted text-muted-foreground hover:bg-muted/80"
@@ -257,7 +257,7 @@ export function MobileNavSheet({ open, onOpenChange }: MobileNavSheetProps) {
                     to="/"
                     onClick={handleLinkClick}
                     className={cn(
-                      "flex items-center gap-2 p-2.5 min-h-[44px] rounded-lg text-sm font-medium transition-all duration-200 hover:shadow-md active:scale-[0.98] touch-manipulation",
+                      "flex items-center gap-2 p-2.5 min-h-[44px] rounded-lg text-sm font-medium transition-all duration-[150ms] hover:shadow-[var(--shadow-md)] active:scale-[0.98] touch-manipulation",
                       isActive("/")
                         ? "bg-accent text-accent-foreground shadow-sm"
                         : "bg-card border border-border hover:border-accent/50"
@@ -271,7 +271,7 @@ export function MobileNavSheet({ open, onOpenChange }: MobileNavSheetProps) {
                     to="/contact"
                     onClick={handleLinkClick}
                     className={cn(
-                      "flex items-center gap-2 p-2.5 min-h-[44px] rounded-lg text-sm font-medium transition-all duration-200 hover:shadow-md active:scale-[0.98] touch-manipulation",
+                      "flex items-center gap-2 p-2.5 min-h-[44px] rounded-lg text-sm font-medium transition-all duration-[150ms] hover:shadow-[var(--shadow-md)] active:scale-[0.98] touch-manipulation",
                       isActive("/contact")
                         ? "bg-accent text-accent-foreground shadow-sm"
                         : "bg-card border border-border hover:border-accent/50"
@@ -284,7 +284,7 @@ export function MobileNavSheet({ open, onOpenChange }: MobileNavSheetProps) {
                   <Link
                     to="/contact"
                     onClick={handleLinkClick}
-                    className="flex items-center gap-2 p-2.5 min-h-[44px] rounded-lg text-sm font-medium transition-all duration-200 hover:shadow-md active:scale-[0.98] touch-manipulation bg-card border border-border hover:border-accent/50"
+                    className="flex items-center gap-2 p-2.5 min-h-[44px] rounded-lg text-sm font-medium transition-all duration-[150ms] hover:shadow-[var(--shadow-md)] active:scale-[0.98] touch-manipulation bg-card border border-border hover:border-accent/50"
                   >
                     <FileText className="h-4 w-4 flex-shrink-0" aria-hidden="true" />
                     <span>Request Quote</span>
@@ -293,7 +293,7 @@ export function MobileNavSheet({ open, onOpenChange }: MobileNavSheetProps) {
                     to="/projects"
                     onClick={handleLinkClick}
                     className={cn(
-                      "flex items-center gap-2 p-2.5 min-h-[44px] rounded-lg text-sm font-medium transition-all duration-200 hover:shadow-md active:scale-[0.98] touch-manipulation",
+                      "flex items-center gap-2 p-2.5 min-h-[44px] rounded-lg text-sm font-medium transition-all duration-[150ms] hover:shadow-[var(--shadow-md)] active:scale-[0.98] touch-manipulation",
                       isActive("/projects")
                         ? "bg-accent text-accent-foreground shadow-sm"
                         : "bg-card border border-border hover:border-accent/50"

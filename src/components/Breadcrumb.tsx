@@ -46,7 +46,7 @@ const Breadcrumb = ({ items, className, showHomeIcon = true }: BreadcrumbProps) 
               {item.href ? (
                 <Link 
                   to={item.href} 
-                  className="hover:text-primary transition-colors duration-200 flex items-center gap-1.5 min-h-[44px] min-w-[44px] -m-2 p-2"
+                  className="hover:text-primary transition-colors duration-[150ms] flex items-center gap-1.5 min-h-[44px] min-w-[44px] -m-2 p-2"
                   aria-label={`Navigate to ${item.label}`}
                 >
                   {index === 0 && showHomeIcon && <Home className="w-4 h-4" />}

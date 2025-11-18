@@ -122,7 +122,7 @@ export const ProjectGallery: React.FC<ProjectGalleryProps> = ({
 
       {/* Before/After Comparison using BeforeAfterSlider */}
       {selectedTab === 'before-after' && beforeImages.length > 0 && afterImages.length > 0 && (
-        <div className="mb-12 bg-gradient-to-br from-blue-50 to-green-50 dark:from-blue-950/20 dark:to-green-950/20 p-8 rounded-[var(--radius-lg)] shadow-xl">
+        <div className="mb-12 bg-gradient-to-br from-blue-50 to-green-50 dark:from-blue-950/20 dark:to-green-950/20 p-8 rounded-[var(--radius-lg)] shadow-[var(--shadow-lg)]">
           <h3 className="text-2xl font-bold text-center mb-6">
             Interactive Before & After Comparison
           </h3>

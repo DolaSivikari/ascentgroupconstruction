@@ -133,7 +133,7 @@ export const ProjectTimelineEstimator = () => {
           </h4>
 
           {/* Timeline Bar */}
-          <div className="relative h-24 bg-muted rounded-xl overflow-hidden border-2">
+          <div className="relative h-24 bg-muted rounded-[var(--radius-lg)] overflow-hidden border-2">
             {/* Minimum */}
             <div className="absolute left-0 top-0 bottom-0 w-1/3 bg-green-500/20 border-r-2 border-green-500/30 flex flex-col items-center justify-center">
               <p className="text-xs text-muted-foreground">Best Case</p>

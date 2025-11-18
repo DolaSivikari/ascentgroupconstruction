@@ -48,7 +48,7 @@ const CompanyTimeline = () => {
             {milestones.map((milestone, index) => (
               <div
                 key={index}
-                className={`relative mb-12 transition-all duration-700 ${
+                className={`relative mb-12 transition-all duration-500 ${
                   isVisible 
                     ? "opacity-100 translate-x-0" 
                     : "opacity-0 -translate-x-8"
@@ -65,7 +65,7 @@ const CompanyTimeline = () => {
                     <div className={`inline-block ${
                       index % 2 === 0 ? 'mr-0' : 'ml-0'
                     }`}>
-                      <div className="bg-card border-2 border-primary/20 rounded-lg p-6 hover:shadow-xl transition-shadow duration-300">
+                      <div className="bg-card border-2 border-primary/20 rounded-lg p-6 hover:shadow-[var(--shadow-lg)] transition-shadow duration-300">
                         <div className="text-3xl font-bold text-primary mb-2">
                           {milestone.year}
                         </div>

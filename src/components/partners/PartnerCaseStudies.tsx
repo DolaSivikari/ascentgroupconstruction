@@ -113,7 +113,7 @@ export function PartnerCaseStudies({ background = "default" }: PartnerCaseStudie
                 <div className="grid lg:grid-cols-[300px_1fr] gap-0">
                   {/* Partner Info Sidebar */}
                   <div className="bg-gradient-to-br from-primary/10 via-primary/5 to-muted/20 p-8 flex flex-col justify-center items-center border-r">
-                    <div className="w-32 h-32 bg-background rounded-xl shadow-lg p-4 mb-4 flex items-center justify-center">
+                    <div className="w-32 h-32 bg-background rounded-[var(--radius-lg)] shadow-[var(--shadow-lg)] p-4 mb-4 flex items-center justify-center">
                       <img
                         src={study.partnerLogo}
                         alt={`${study.partner} logo`}

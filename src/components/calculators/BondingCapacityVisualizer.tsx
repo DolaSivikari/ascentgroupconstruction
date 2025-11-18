@@ -62,10 +62,10 @@ export const BondingCapacityVisualizer = () => {
             <span className="font-bold text-primary">{utilizationPercent.toFixed(1)}%</span>
           </div>
           
-          <div className="relative h-16 bg-muted rounded-xl overflow-hidden border-2">
+          <div className="relative h-16 bg-muted rounded-[var(--radius-lg)] overflow-hidden border-2">
             {/* Used Capacity */}
             <div
-              className="absolute inset-y-0 left-0 bg-gradient-to-r from-primary to-primary/70 flex items-center justify-center transition-all duration-500"
+              className="absolute inset-y-0 left-0 bg-gradient-to-r from-primary to-primary/70 flex items-center justify-center transition-all duration-300"
               style={{ width: `${utilizationPercent}%` }}
             >
               {utilizationPercent > 15 && (
