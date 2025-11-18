@@ -2623,14 +2623,69 @@ body:has(.business-sidebar.mobile-open) {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
 }
 
+/* Card Padding Standards - Consistent spacing */
+.admin-dark-theme .card {
+  padding: var(--space-lg); /* 24px - medium cards */
+}
+
+.admin-dark-theme .card.card-sm {
+  padding: var(--space-md); /* 16px - small cards */
+}
+
+.admin-dark-theme .card.card-lg {
+  padding: var(--space-xl); /* 32px - large cards */
+}
+
 /* Card headers with better spacing */
 .admin-dark-theme .card > div:first-child {
-  padding: 1.5rem;
+  padding: var(--space-lg);
 }
 
 /* Card content with consistent padding */
 .admin-dark-theme .card-content {
-  padding: 1.5rem;
+  padding: var(--space-lg);
+}
+
+/* Touch Targets - Minimum 44x44px for accessibility */
+.admin-dark-theme button,
+.admin-dark-theme [role="button"],
+.admin-dark-theme input[type="button"],
+.admin-dark-theme input[type="submit"] {
+  min-height: var(--touch-md);
+  min-width: var(--touch-md);
+}
+
+/* Typography - Minimum font sizes enforced */
+.admin-dark-theme {
+  font-size: var(--text-base); /* 16px base */
+  line-height: var(--leading-normal);
+}
+
+.admin-dark-theme small,
+.admin-dark-theme .text-xs {
+  font-size: var(--text-xs); /* 12px minimum */
+}
+
+.admin-dark-theme .text-sm {
+  font-size: var(--text-sm); /* 14px */
+}
+
+.admin-dark-theme h1 {
+  font-size: var(--text-3xl);
+  font-weight: var(--font-bold);
+  line-height: var(--leading-tight);
+}
+
+.admin-dark-theme h2 {
+  font-size: var(--text-2xl);
+  font-weight: var(--font-semibold);
+  line-height: var(--leading-tight);
+}
+
+.admin-dark-theme h3 {
+  font-size: var(--text-xl);
+  font-weight: var(--font-semibold);
+  line-height: var(--leading-normal);
 }
 
 /* Select dropdowns - solid dark gray background, high z-index */

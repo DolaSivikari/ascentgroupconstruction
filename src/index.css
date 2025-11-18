@@ -114,8 +114,8 @@ All colors MUST be HSL.
     --card: 215 28% 12%;
     --card-foreground: 210 20% 95%;
 
-    --popover: 215 28% 12%;
-    --popover-foreground: 210 20% 95%;
+    --popover: 222 47% 12%;       /* Dark gray for admin popovers */
+    --popover-foreground: 0 0% 98%;  /* Almost white text */
 
     --primary: 0 0% 95%;            /* Light gray for dark mode */
     --primary-foreground: 0 0% 10%; /* Dark text */

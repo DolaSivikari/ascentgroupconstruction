@@ -19,9 +19,12 @@ export const buttonVariants = cva(
         danger: "bg-[hsl(var(--danger))] text-white hover:opacity-90",
         destructive: "bg-[hsl(var(--danger))] text-white hover:opacity-90",
         link: "text-[hsl(var(--brand-primary))] underline-offset-4 hover:underline",
-        "admin-glass": "bg-[hsl(var(--admin-bg-card))] text-[hsl(var(--admin-text-primary))] border border-[hsl(var(--admin-border))] hover:bg-[hsl(var(--admin-bg-hover))] backdrop-blur-md",
-        "admin-primary": "bg-gradient-to-r from-[hsl(var(--admin-primary))] to-[hsl(221_83%_53%)] text-white hover:opacity-90 shadow-lg",
-        "admin-success": "bg-[hsl(var(--admin-success))] text-white hover:opacity-90 shadow-lg"
+        "admin-glass": "bg-[hsl(222_47%_14%)] text-[hsl(var(--admin-text-primary))] border border-[hsl(215_25%_22%)] hover:bg-[hsl(215_25%_20%)]",
+        "admin-primary": "bg-[hsl(221_83%_53%)] text-white hover:bg-[hsl(221_83%_63%)] shadow-lg",
+        "admin-secondary": "bg-[hsl(222_47%_14%)] text-[hsl(var(--admin-text-primary))] border border-[hsl(215_25%_22%)] hover:bg-[hsl(215_25%_20%)]",
+        "admin-success": "bg-[hsl(var(--admin-success))] text-white hover:opacity-90 shadow-lg",
+        "admin-danger": "bg-[hsl(var(--admin-danger))] text-white hover:opacity-90 shadow-lg",
+        "admin-outline": "border border-[hsl(215_25%_22%)] text-[hsl(var(--admin-text-primary))] hover:bg-[hsl(222_47%_14%)]"
       },
       size: {
         default: "px-4 py-2.5 text-sm rounded-[var(--radius-sm)] min-h-[44px]",
@@ -38,5 +41,5 @@ export const buttonVariants = cva(
   }
 );
 
-export type ButtonVariant = "default" | "primary" | "secondary" | "outline" | "navy" | "ghost" | "danger" | "destructive" | "link" | "admin-glass" | "admin-primary" | "admin-success";
+export type ButtonVariant = "default" | "primary" | "secondary" | "outline" | "navy" | "ghost" | "danger" | "destructive" | "link" | "admin-glass" | "admin-primary" | "admin-secondary" | "admin-success" | "admin-danger" | "admin-outline";
 export type ButtonSize = "default" | "sm" | "md" | "lg" | "icon";
