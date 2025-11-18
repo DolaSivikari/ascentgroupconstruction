@@ -12,8 +12,8 @@ const Auth = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
   const [isLoading, setIsLoading] = useState(false);
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("hebunisik5@hotmail.com");
+  const [password, setPassword] = useState("2519166@Hebun");
 
   useEffect(() => {
     const checkUser = async () => {
