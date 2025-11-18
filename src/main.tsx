@@ -73,8 +73,18 @@ if ('serviceWorker' in navigator && import.meta.env.PROD) {
 
 // Listen for controller changes to ensure new SW takes control
 if ('serviceWorker' in navigator) {
+  let isFirstControllerChange = true;
+  
   navigator.serviceWorker.addEventListener('controllerchange', () => {
-    console.log('[Service Worker] Controller changed, reloading...');
+    // Skip the first controller change (happens on initial page load)
+    if (isFirstControllerChange) {
+      isFirstControllerChange = false;
+      console.log('[Service Worker] Initial controller set');
+      return;
+    }
+    
+    // Only reload if this is a genuine update (not initial page load)
+    console.log('[Service Worker] New version activated, reloading...');
     window.location.reload();
   });
 }

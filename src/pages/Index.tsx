@@ -41,18 +41,28 @@ const Index = () => {
   }, []);
   // Remove loading classes when hero is ready
   useEffect(() => {
+    let timeoutId: NodeJS.Timeout;
+    
     const handleHeroReady = () => {
-      // Small delay to ensure smooth transition
-      setTimeout(() => {
+      // Reduced delay for faster transition (100ms -> 50ms)
+      timeoutId = setTimeout(() => {
         document.documentElement.classList.remove('loading');
         document.documentElement.classList.remove('page-loading');
-      }, 100);
+      }, 50);
     };
 
     window.addEventListener('hero-ready', handleHeroReady);
     
+    // Maximum timeout to ensure classes are removed even if hero-ready never fires
+    const maxTimeout = setTimeout(() => {
+      document.documentElement.classList.remove('loading');
+      document.documentElement.classList.remove('page-loading');
+    }, 500);
+    
     return () => {
       window.removeEventListener('hero-ready', handleHeroReady);
+      clearTimeout(timeoutId);
+      clearTimeout(maxTimeout);
     };
   }, []);
 

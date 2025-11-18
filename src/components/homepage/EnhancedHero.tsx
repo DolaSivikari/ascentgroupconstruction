@@ -74,7 +74,7 @@ const EnhancedHero = ({ splashComplete = true }: { splashComplete?: boolean }) =
     setAnimationsEnabled(true);
   }, []);
 
-  // Enable animations after hero is ready (poster or video loaded)
+  // Mark hero as ready immediately on mount (poster images are preloaded in HTML)
   useEffect(() => {
     const markHeroReady = () => {
       if (!heroReadyRef.current) {
@@ -84,20 +84,13 @@ const EnhancedHero = ({ splashComplete = true }: { splashComplete?: boolean }) =
       }
     };
 
-    // Fallback timer in case assets are slow
-    const fallback = setTimeout(markHeroReady, 800);
+    // Dispatch immediately since poster images are preloaded
+    markHeroReady();
+    
+    // Fallback timer in case something goes wrong (reduced from 800ms to 300ms)
+    const fallback = setTimeout(markHeroReady, 300);
     
     return () => clearTimeout(fallback);
-  }, []);
-
-  // Preload poster images for current and adjacent slides
-  useEffect(() => {
-    // Mark hero as ready on mount
-    if (!heroReadyRef.current) {
-      heroReadyRef.current = true;
-      setIsPageLoaded(true);
-      window.dispatchEvent(new CustomEvent('hero-ready'));
-    }
   }, []);
 
   const handleVideoReady = () => {
