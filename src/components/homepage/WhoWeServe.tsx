@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { Building, HardHat, ArrowRight, CheckCircle2, Wrench, Hammer, Ruler } from "lucide-react";
 import { Button } from "@/ui/Button";
 import { Card } from "@/components/ui/card";
+import { GRID } from "@/design-system/layouts";
 
 const WhoWeServe = () => {
   return (
@@ -17,7 +18,7 @@ const WhoWeServe = () => {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-8 lg:gap-12">
+        <div className={GRID.cards2}>
           {/* Developers & Building Owners */}
           <Card variant="elevated" className="relative overflow-hidden group hover-subtle">
             <div className="p-8 lg:p-10">

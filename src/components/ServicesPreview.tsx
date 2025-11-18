@@ -8,6 +8,7 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/ui/Button";
 import { CheckCircle, ArrowRight } from "lucide-react";
 import OptimizedImage from "./OptimizedImage";
+import { GRID } from "@/design-system/layouts";
 
 interface Service {
   id: string;
@@ -117,7 +118,7 @@ const ServicesPreview = () => {
         </div>
 
         {loading ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className={GRID.cards4}>
             {[1, 2, 3, 4].map((i) => (
               <Card key={i} variant="elevated" className={`h-[500px] bg-muted ${!prefersReducedMotion && 'animate-pulse'}`}>
                 <div />
@@ -125,7 +126,7 @@ const ServicesPreview = () => {
             ))}
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className={GRID.cards4}>
             {Object.entries(categoryConfig).map(([categoryName, config]) => {
               const IconComponent = LucideIcons[config.icon] as React.ComponentType<{ className?: string }>;
               const featuredService = getCategoryService(categoryName);
