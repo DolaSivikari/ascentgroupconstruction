@@ -85,7 +85,7 @@ export const FileUploadZone = ({
         onDragLeave={handleDragLeave}
         onDrop={handleDrop}
         className={cn(
-          "border-2 border-dashed rounded-xl p-8 transition-all duration-300",
+          "border-2 border-dashed rounded-[var(--radius-lg)] p-8 transition-all duration-300",
           isDragging 
             ? "border-primary bg-primary/5 scale-105" 
             : "border-border hover:border-primary/50 hover:bg-muted/50"

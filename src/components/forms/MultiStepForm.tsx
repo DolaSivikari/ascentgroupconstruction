@@ -75,7 +75,7 @@ export const MultiStepForm = ({ steps, onComplete, onStepChange, className }: Mu
             <div
               key={index}
               className={cn(
-                "flex-1 h-2 rounded-full transition-all duration-500",
+                "flex-1 h-2 rounded-full transition-all duration-300",
                 index <= currentStep 
                   ? "bg-primary scale-105" 
                   : "bg-muted"

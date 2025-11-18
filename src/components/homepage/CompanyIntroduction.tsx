@@ -120,9 +120,9 @@ export default function CompanyIntroduction() {
                   <div
                     key={index}
                     className={cn(
-                      "group relative p-6 rounded-xl border border-construction-orange/20 bg-white/60 dark:bg-slate-900/60 backdrop-blur-md",
-                      "hover:border-construction-orange/40 hover:shadow-xl hover:shadow-construction-orange/20",
-                      "transition-all duration-500 hover:scale-105",
+                      "group relative p-6 rounded-[var(--radius-lg)] border border-construction-orange/20 bg-white/60 dark:bg-slate-900/60 backdrop-blur-md",
+                      "hover:border-construction-orange/40 hover:shadow-[var(--shadow-lg)] hover:shadow-construction-orange/20",
+                      "transition-all duration-300 hover:scale-105",
                       "overflow-hidden",
                       highlightsVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
                     )}
@@ -130,7 +130,7 @@ export default function CompanyIntroduction() {
                   >
                     <div className="absolute inset-0 bg-gradient-to-br from-construction-orange/0 to-construction-orange/0 group-hover:from-construction-orange/10 group-hover:to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                     <div className="relative z-10">
-                      <div className="w-14 h-14 rounded-xl bg-construction-orange/10 flex items-center justify-center mb-4 group-hover:bg-construction-orange/15 group-hover:scale-110 transition-all duration-300">
+                      <div className="w-14 h-14 rounded-[var(--radius-lg)] bg-construction-orange/10 flex items-center justify-center mb-4 group-hover:bg-construction-orange/15 group-hover:scale-110 transition-all duration-300">
                         <Icon className="w-7 h-7 text-construction-orange" />
                       </div>
                       <h3 className="text-xl font-bold text-foreground mb-3">{highlight.title}</h3>
@@ -146,11 +146,11 @@ export default function CompanyIntroduction() {
 
           {/* Service Areas - Modern Info Card */}
           <div className="mb-12 max-w-5xl mx-auto">
-            <div className="relative p-8 rounded-2xl border border-construction-orange/20 bg-white/40 dark:bg-slate-900/40 backdrop-blur-md overflow-hidden">
+            <div className="relative p-8 rounded-[var(--radius-lg)] border border-construction-orange/20 bg-white/40 dark:bg-slate-900/40 backdrop-blur-md overflow-hidden">
               <div className="absolute inset-0 bg-gradient-to-r from-construction-orange/5 via-transparent to-construction-orange/5" />
               <div className="relative z-10 grid md:grid-cols-2 gap-6 items-center">
                 <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 rounded-xl bg-construction-orange/10 flex items-center justify-center flex-shrink-0">
+                  <div className="w-12 h-12 rounded-[var(--radius-lg)] bg-construction-orange/10 flex items-center justify-center flex-shrink-0">
                     <MapPin className="w-6 h-6 text-construction-orange" />
                   </div>
                   <div>

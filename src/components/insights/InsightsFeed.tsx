@@ -172,7 +172,7 @@ const InsightsFeed = ({
                   <img
                     src={featuredInsight.featured_image || "/placeholder.svg"}
                     alt={featuredInsight.title}
-                    className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-500"
+                    className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-300"
                   />
                   {featuredInsight.is_pinned && (
                     <Badge className="absolute top-3 right-3 gap-1 bg-primary/90 backdrop-blur-sm text-xs">
@@ -221,7 +221,7 @@ const InsightsFeed = ({
                     <img
                       src={insight.featured_image || "/placeholder.svg"}
                       alt={insight.title}
-                      className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-500"
+                      className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-300"
                     />
                     {insight.is_pinned && (
                       <Badge className="absolute top-3 right-3 gap-1 bg-primary/90 backdrop-blur-sm">

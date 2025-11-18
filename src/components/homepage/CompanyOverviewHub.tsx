@@ -94,7 +94,7 @@ const CompanyOverviewHub = () => {
 
           {/* Our Approach Tab */}
           <TabsContent value="approach" className={!prefersReducedMotion ? 'animate-fade-in' : ''}>
-            <div className="bg-card rounded-2xl p-8 md:p-12 border">
+            <div className="bg-card rounded-[var(--radius-lg)] p-8 md:p-12 border">
               <div className="max-w-4xl mx-auto">
                 <h3 className="text-2xl md:text-3xl font-bold mb-6 text-foreground">
                   How We Deliver Excellence
@@ -120,7 +120,7 @@ const CompanyOverviewHub = () => {
 
           {/* Our Values Tab */}
           <TabsContent value="values" className={!prefersReducedMotion ? 'animate-fade-in' : ''}>
-            <div className="bg-card rounded-2xl p-8 md:p-12 border">
+            <div className="bg-card rounded-[var(--radius-lg)] p-8 md:p-12 border">
               <div className="max-w-4xl mx-auto">
                 <h3 className="text-2xl md:text-3xl font-bold mb-6 text-foreground text-center">
                   Built on Core Values
@@ -134,7 +134,7 @@ const CompanyOverviewHub = () => {
                     return (
                       <div
                         key={index}
-                        className="p-6 rounded-xl bg-gradient-to-br from-muted/50 to-muted border hover:border-primary/50 transition-all hover:shadow-lg group"
+                        className="p-6 rounded-[var(--radius-lg)] bg-gradient-to-br from-muted/50 to-muted border hover:border-primary/50 transition-all hover:shadow-[var(--shadow-lg)] group"
                       >
                         <div className="flex items-start gap-4">
                           <div className="p-3 rounded-lg bg-primary/10 group-hover:bg-primary/20 transition-colors">
@@ -159,7 +159,7 @@ const CompanyOverviewHub = () => {
 
           {/* Our Promise Tab */}
           <TabsContent value="promise" className={!prefersReducedMotion ? 'animate-fade-in' : ''}>
-            <div className="bg-card rounded-2xl p-8 md:p-12 border">
+            <div className="bg-card rounded-[var(--radius-lg)] p-8 md:p-12 border">
               <div className="max-w-4xl mx-auto">
                 <h3 className="text-2xl md:text-3xl font-bold mb-6 text-foreground text-center">
                   Our Commitment to You
@@ -171,7 +171,7 @@ const CompanyOverviewHub = () => {
                   {OUR_PROMISE.map((promise, index) => (
                     <div
                       key={index}
-                      className="p-6 rounded-xl bg-muted/30 border hover:border-primary/50 transition-all hover:shadow-md"
+                      className="p-6 rounded-[var(--radius-lg)] bg-muted/30 border hover:border-primary/50 transition-all hover:shadow-[var(--shadow-md)]"
                     >
                       <div className="flex items-start gap-3 mb-3">
                         <Target className="w-5 h-5 text-primary flex-shrink-0 mt-1" />
@@ -194,7 +194,7 @@ const CompanyOverviewHub = () => {
         <div className="mt-12 flex flex-col sm:flex-row items-center justify-center gap-4">
           <Link
             to="/contact"
-            className={`inline-flex items-center gap-2 px-8 py-4 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 font-semibold shadow-lg hover:shadow-xl group ${!prefersReducedMotion && 'hover-scale'}`}
+            className={`inline-flex items-center gap-2 px-8 py-4 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 font-semibold shadow-[var(--shadow-lg)] hover:shadow-[var(--shadow-lg)] group ${!prefersReducedMotion && 'hover-scale'}`}
             style={{ transition: prefersReducedMotion ? 'box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1)' : 'var(--card-transition), box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1)' }}
           >
             Start Your Project

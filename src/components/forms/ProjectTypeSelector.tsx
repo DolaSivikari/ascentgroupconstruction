@@ -91,7 +91,7 @@ export const ProjectTypeSelector = ({ selected, onChange, className }: ProjectTy
             )}>
               <div className="flex flex-col items-center text-center gap-3">
                 <div className={cn(
-                  "w-14 h-14 rounded-xl flex items-center justify-center transition-all",
+                  "w-14 h-14 rounded-[var(--radius-lg)] flex items-center justify-center transition-all",
                   isSelected
                     ? "bg-primary/20"
                     : "bg-muted"

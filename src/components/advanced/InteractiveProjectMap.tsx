@@ -46,7 +46,7 @@ export const InteractiveProjectMap = () => {
       ref={ref}
       className={cn(
         "py-16 bg-gradient-to-b from-background to-background/50",
-        "transition-all duration-700",
+        "transition-all duration-500",
         isVisible ? "opacity-100" : "opacity-0"
       )}
     >

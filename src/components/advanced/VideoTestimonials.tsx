@@ -62,7 +62,7 @@ export const VideoTestimonials = () => {
         ref={ref}
         className={cn(
           "py-16 bg-background",
-          "transition-all duration-700",
+          "transition-all duration-500",
           isVisible ? "opacity-100" : "opacity-0"
         )}
       >

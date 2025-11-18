@@ -47,7 +47,7 @@ export const TimelineSelector = ({
                 type="button"
                 onClick={() => onUrgencyChange(option.value)}
                 className={cn(
-                  "p-4 rounded-xl border-2 transition-all text-center",
+                  "p-4 rounded-[var(--radius-lg)] border-2 transition-all text-center",
                   urgency === option.value
                     ? "border-primary bg-primary/10 shadow-lg scale-105"
                     : "border-border hover:border-primary/30 hover:bg-muted/50"

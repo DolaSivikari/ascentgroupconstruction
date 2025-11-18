@@ -8,7 +8,7 @@ interface SectionProps {
 
 export function Section({ children, className }: SectionProps) {
   return (
-    <section className={cn("py-[72px] md:py-[56px] sm:py-[40px]", className)}>
+    <section className={cn("py-16 md:py-20 lg:py-24", className)}>
       <div className="mx-auto max-w-7xl px-6">{children}</div>
     </section>
   );

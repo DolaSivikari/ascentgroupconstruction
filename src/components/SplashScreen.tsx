@@ -66,7 +66,7 @@ const SplashScreen = ({ onComplete }: { onComplete: () => void }) => {
 
   return (
     <div
-      className={`fixed inset-0 z-[9999] bg-background flex items-center justify-center transition-opacity duration-500 ${
+      className={`fixed inset-0 z-[9999] bg-background flex items-center justify-center transition-opacity duration-300 ${
         isFadingOut ? "opacity-0" : "opacity-100"
       }`}
     >

@@ -48,7 +48,7 @@ export const ServiceCard3D = ({
         transition={{ duration: 0.5 }}
       >
         <div
-          className="relative overflow-hidden rounded-2xl border-2 border-border bg-card backdrop-blur-sm h-full"
+          className="relative overflow-hidden rounded-[var(--radius-lg)] border-2 border-border bg-card backdrop-blur-sm h-full"
           style={{
             ...tiltStyle,
             transformStyle: "preserve-3d",
@@ -95,7 +95,7 @@ export const ServiceCard3D = ({
                   transformStyle: "preserve-3d",
                 }}
               >
-                <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center backdrop-blur-sm border border-primary/20 group-hover:bg-primary/20 group-hover:border-primary/40 transition-all">
+                <div className="w-14 h-14 rounded-[var(--radius-lg)] bg-primary/10 flex items-center justify-center backdrop-blur-sm border border-primary/20 group-hover:bg-primary/20 group-hover:border-primary/40 transition-all">
                   <IconComponent className="w-7 h-7 text-primary" />
                 </div>
               </motion.div>

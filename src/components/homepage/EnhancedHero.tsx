@@ -263,7 +263,7 @@ const EnhancedHero = ({ splashComplete = true }: { splashComplete?: boolean }) =
       
       {/* Video Background */}
       <div 
-        className="absolute inset-0 w-full h-full transition-opacity duration-500 ease-in-out"
+        className="absolute inset-0 w-full h-full transition-opacity duration-300 ease-in-out"
         style={{ 
           opacity: isFadingOut ? 0.4 : 1,
           aspectRatio: '16/9'
@@ -299,7 +299,7 @@ const EnhancedHero = ({ splashComplete = true }: { splashComplete?: boolean }) =
 
       {/* Content */}
         <div 
-          className={`relative z-10 container mx-auto px-4 py-16 md:py-20 ${isPageLoaded ? 'transition-transform duration-500 ease-out' : ''}`}
+          className={`relative z-10 container mx-auto px-4 py-16 md:py-20 ${isPageLoaded ? 'transition-transform duration-300 ease-out' : ''}`}
           style={{ transform: isFadingOut ? 'translateY(4px)' : 'translateY(0)' }}
         >
         <div className="max-w-5xl mx-auto">
@@ -307,7 +307,7 @@ const EnhancedHero = ({ splashComplete = true }: { splashComplete?: boolean }) =
           <div className="flex flex-wrap items-center justify-center md:justify-start gap-3 mb-8">
             {/* Main Stat Card */}
             <div 
-              className={`group relative overflow-hidden rounded-[var(--radius-lg)] bg-white/10 backdrop-blur-xl border border-white/20 px-5 py-4 shadow-2xl hover:shadow-accent/20 hover:scale-105 transition-all duration-300 ${animationsEnabled && !prefersReducedMotion ? 'animate-fade-in' : ''}`}
+              className={`group relative overflow-hidden rounded-[var(--radius-lg)] bg-white/10 backdrop-blur-xl border border-white/20 px-5 py-4 shadow-[var(--shadow-lg)] hover:shadow-accent/20 hover:scale-105 transition-all duration-300 ${animationsEnabled && !prefersReducedMotion ? 'animate-fade-in' : ''}`}
             >
               <div className="absolute inset-0 bg-gradient-to-br from-accent/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               <div className="relative flex items-center gap-3">
@@ -323,7 +323,7 @@ const EnhancedHero = ({ splashComplete = true }: { splashComplete?: boolean }) =
 
             {/* Working Toward COR Badge */}
             <div 
-              className={`group relative overflow-hidden rounded-[var(--radius-lg)] bg-white/10 backdrop-blur-xl border border-white/20 px-5 py-4 shadow-2xl hover:shadow-green-500/20 hover:scale-105 transition-all duration-300 ${animationsEnabled && !prefersReducedMotion ? 'animate-fade-in' : ''}`}
+              className={`group relative overflow-hidden rounded-[var(--radius-lg)] bg-white/10 backdrop-blur-xl border border-white/20 px-5 py-4 shadow-[var(--shadow-lg)] hover:shadow-green-500/20 hover:scale-105 transition-all duration-300 ${animationsEnabled && !prefersReducedMotion ? 'animate-fade-in' : ''}`}
             >
               <div className="absolute inset-0 bg-gradient-to-br from-green-500/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               <div className="relative flex items-center gap-2">
@@ -336,7 +336,7 @@ const EnhancedHero = ({ splashComplete = true }: { splashComplete?: boolean }) =
 
             {/* Zero Incidents Badge */}
             <div 
-              className={`group relative overflow-hidden rounded-[var(--radius-lg)] bg-white/10 backdrop-blur-xl border border-white/20 px-5 py-4 shadow-2xl hover:shadow-blue-500/20 hover:scale-105 transition-all duration-300 ${animationsEnabled && !prefersReducedMotion ? 'animate-fade-in' : ''}`}
+              className={`group relative overflow-hidden rounded-[var(--radius-lg)] bg-white/10 backdrop-blur-xl border border-white/20 px-5 py-4 shadow-[var(--shadow-lg)] hover:shadow-blue-500/20 hover:scale-105 transition-all duration-300 ${animationsEnabled && !prefersReducedMotion ? 'animate-fade-in' : ''}`}
             >
               <div className="absolute inset-0 bg-gradient-to-br from-blue-500/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               <div className="relative flex items-center gap-2">
@@ -388,7 +388,7 @@ const EnhancedHero = ({ splashComplete = true }: { splashComplete?: boolean }) =
           <div 
             className={`flex flex-col sm:flex-row gap-4 mb-12 ${animationsEnabled && !prefersReducedMotion ? 'animate-fade-in' : ''}`}
           >
-            <Button asChild size="lg" variant="primary" className="group relative overflow-hidden shadow-2xl shadow-accent/50 hover:shadow-accent/70 transition-all duration-300">
+            <Button asChild size="lg" variant="primary" className="group relative overflow-hidden shadow-[var(--shadow-lg)] shadow-accent/50 hover:shadow-accent/70 transition-all duration-300">
               <Link to={primaryCTA.href} className="gap-2">
                 <div className="absolute inset-0 bg-gradient-to-r from-accent/20 via-accent/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 <primaryCTA.icon className="h-5 w-5 relative z-10" />
@@ -397,7 +397,7 @@ const EnhancedHero = ({ splashComplete = true }: { splashComplete?: boolean }) =
               </Link>
             </Button>
             
-            <Button asChild size="lg" variant="outline" className="group relative overflow-hidden bg-white/10 hover:bg-white/20 border-2 border-white/30 hover:border-white/50 text-white backdrop-blur-xl shadow-xl transition-all duration-300">
+            <Button asChild size="lg" variant="outline" className="group relative overflow-hidden bg-white/10 hover:bg-white/20 border-2 border-white/30 hover:border-white/50 text-white backdrop-blur-xl shadow-[var(--shadow-lg)] transition-all duration-300">
               <Link to={secondaryCTA.href}>
                 <div className="absolute inset-0 bg-gradient-to-r from-white/10 via-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 <span className="relative z-10">{secondaryCTA.label}</span>

@@ -43,7 +43,7 @@ export const TrustBadgeBar = () => {
       ref={ref}
       className={cn(
         "py-8 bg-gradient-to-r from-construction-orange/10 via-background/50 to-construction-orange/10 border-y border-construction-orange/20",
-        "transition-all duration-700",
+        "transition-all duration-500",
         isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
       )}
     >
@@ -55,10 +55,10 @@ export const TrustBadgeBar = () => {
               <div
                 key={index}
                 className={cn(
-                  "group flex flex-col items-center text-center p-4 rounded-xl relative overflow-hidden",
+                  "group flex flex-col items-center text-center p-4 rounded-[var(--radius-lg)] relative overflow-hidden",
                   "bg-white/60 dark:bg-slate-900/60 backdrop-blur-md",
                   "border border-construction-orange/20",
-                  "transition-all duration-500 hover:scale-105 hover:border-construction-orange/40",
+                  "transition-all duration-300 hover:scale-105 hover:border-construction-orange/40",
                   "hover:shadow-xl hover:shadow-construction-orange/20",
                   isVisible ? "opacity-100" : "opacity-0"
                 )}
@@ -67,7 +67,7 @@ export const TrustBadgeBar = () => {
                 }}
               >
                 <div className="absolute inset-0 bg-gradient-to-br from-construction-orange/0 to-construction-orange/0 group-hover:from-construction-orange/10 group-hover:to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                <div className="relative z-10 mb-2 p-2 rounded-xl bg-construction-orange/15 group-hover:bg-construction-orange/20 transition-colors duration-300">
+                <div className="relative z-10 mb-2 p-2 rounded-[var(--radius-lg)] bg-construction-orange/15 group-hover:bg-construction-orange/20 transition-colors duration-300">
                   <Icon className="w-6 h-6 text-construction-orange" />
                 </div>
                 <div className="relative z-10 font-semibold text-sm text-foreground">
