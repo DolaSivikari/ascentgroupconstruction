@@ -453,10 +453,12 @@
 
 /* ===== BUTTONS ===== */
 
-.business-button-primary {
-  background: hsl(var(--business-accent-orange));
-  color: white;
-  border: none;
+/* Base button styles */
+.business-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
   padding: 0.625rem 1.25rem;
   min-height: 44px;
   border-radius: var(--admin-radius);
@@ -464,46 +466,64 @@
   font-size: 0.875rem;
   cursor: pointer;
   transition: all 0.15s ease;
+  border: none;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.business-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Primary button - Orange accent */
+.business-btn-primary,
+.business-button-primary {
+  background: hsl(var(--business-accent-orange));
+  color: white;
   box-shadow: 0 2px 4px hsl(var(--business-accent-orange) / 0.2);
 }
 
+.business-btn-primary:hover:not(:disabled),
 .business-button-primary:hover {
-  opacity: 0.9;
+  background: hsl(25 100% 45%); /* Slightly darker orange */
   transform: translateY(-1px);
   box-shadow: 0 4px 8px hsl(var(--business-accent-orange) / 0.3);
 }
 
+/* Secondary button - Navy/Primary */
+.business-btn-secondary,
 .business-button-secondary {
   background: hsl(var(--brand-primary));
   color: white;
-  border: none;
-  padding: 0.625rem 1.25rem;
-  min-height: 44px;
-  border-radius: var(--admin-radius);
-  font-weight: 500;
-  font-size: 0.875rem;
-  cursor: pointer;
-  transition: all 0.15s ease;
   box-shadow: 0 2px 4px hsl(var(--brand-primary) / 0.2);
 }
 
+.business-btn-secondary:hover:not(:disabled),
 .business-button-secondary:hover {
   opacity: 0.9;
   transform: translateY(-1px);
   box-shadow: 0 4px 8px hsl(var(--brand-primary) / 0.3);
 }
 
+/* Ghost button - Transparent with orange hover */
+.business-btn-ghost {
+  background: transparent;
+  color: hsl(var(--business-text-primary));
+  border: 1px solid hsl(var(--business-border));
+}
+
+.business-btn-ghost:hover:not(:disabled) {
+  background: hsl(var(--business-accent-orange) / 0.1);
+  color: hsl(var(--business-accent-orange));
+  border-color: hsl(var(--business-accent-orange) / 0.3);
+}
+
+/* Outline button */
 .business-button-outline {
   background: white;
   color: hsl(var(--brand-primary));
   border: 2px solid hsl(var(--brand-primary));
-  padding: 0.625rem 1.25rem;
-  min-height: 44px;
-  border-radius: var(--admin-radius);
-  font-weight: 500;
-  font-size: 0.875rem;
-  cursor: pointer;
-  transition: all 0.15s ease;
 }
 
 .business-button-outline:hover {

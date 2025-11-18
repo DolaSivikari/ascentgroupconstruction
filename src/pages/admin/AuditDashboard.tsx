@@ -87,8 +87,8 @@ export default function AuditDashboard() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
           <Card className="p-6">
             <div className="flex items-center gap-3">
-              <div className="p-3 bg-blue-100 dark:bg-blue-900/20 rounded-lg">
-                <Activity className="h-5 w-5 text-blue-600" />
+              <div className="p-3 bg-accent/10 rounded-lg">
+                <Activity className="h-5 w-5 text-accent" />
               </div>
               <div>
                 <p className="text-sm text-muted-foreground">Total Events</p>
@@ -125,8 +125,8 @@ export default function AuditDashboard() {
 
           <Card className="p-6">
             <div className="flex items-center gap-3">
-              <div className="p-3 bg-purple-100 dark:bg-purple-900/20 rounded-lg">
-                <Shield className="h-5 w-5 text-purple-600" />
+              <div className="p-3 bg-primary/10 rounded-lg">
+                <Shield className="h-5 w-5 text-primary" />
               </div>
               <div>
                 <p className="text-sm text-muted-foreground">Today's Activity</p>
