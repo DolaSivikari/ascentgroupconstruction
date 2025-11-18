@@ -17,6 +17,26 @@ export default {
         sans: ['Barlow', 'system-ui', '-apple-system', 'sans-serif'],
         barlow: ['Barlow', 'sans-serif'],
       },
+      fontSize: {
+        'xs': 'var(--text-xs)',
+        'sm': 'var(--text-sm)',
+        'base': 'var(--text-base)',
+        'lg': 'var(--text-lg)',
+        'xl': 'var(--text-xl)',
+        '2xl': 'var(--text-2xl)',
+        '3xl': 'var(--text-3xl)',
+        '4xl': 'var(--text-4xl)',
+      },
+      spacing: {
+        'xs': 'var(--space-xs)',
+        'sm': 'var(--space-sm)',
+        'md': 'var(--space-md)',
+        'lg': 'var(--space-lg)',
+        'xl': 'var(--space-xl)',
+        '2xl': 'var(--space-2xl)',
+        '3xl': 'var(--space-3xl)',
+        '4xl': 'var(--space-4xl)',
+      },
       colors: {
         // Corporate theme colors
         "construction-black": {
