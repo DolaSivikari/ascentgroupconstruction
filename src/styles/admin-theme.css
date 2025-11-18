@@ -33,7 +33,7 @@
 .business-admin-container {
   display: flex;
   min-height: 100vh;
-  background: var(--business-bg-darker);
+  background: hsl(222 47% 8%);
   position: relative;
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 }
@@ -236,7 +236,7 @@
   color: var(--business-text-primary);
 }
 
-/* Main Content Area */
+/* Main Content Area - Dark gray background */
 .business-main-content {
   flex: 1;
   margin-left: var(--business-sidebar-width);
@@ -245,6 +245,8 @@
   flex-direction: column;
   position: relative;
   z-index: 1;
+  background: hsl(222 47% 10%);
+  min-height: 100vh;
 }
 
 .business-main-content.sidebar-collapsed {
@@ -438,10 +440,11 @@
   }
 }
 
-/* Page Content */
+/* Page Content - ensure dark gray background */
 .business-page-content {
   flex: 1;
   padding: 1rem;
+  background: transparent;
 }
 
 @media (min-width: 768px) {
@@ -2595,12 +2598,28 @@ body:has(.business-sidebar.mobile-open) {
    ADMIN COMPONENT IMPROVEMENTS - NO FORCED OVERRIDES
    ============================================================================ */
 
+/* Admin Panel Main Background - Darker gray */
+.admin-dark-theme,
+.admin-dark-theme body,
+.admin-dark-theme main,
+.admin-dark-theme [role="main"] {
+  background: hsl(222 47% 10%) !important;
+}
+
+/* Admin Content Areas - Dark gray */
+.admin-dark-theme .container,
+.admin-dark-theme .max-w-7xl,
+.admin-dark-theme .space-y-6,
+.admin-dark-theme section {
+  background: transparent !important;
+}
+
 /* Let components manage their own colors naturally */
-/* Cards - solid backgrounds with clear borders */
+/* Cards - solid dark gray backgrounds with clear borders */
 .admin-dark-theme .card,
 .admin-dark-theme [class*="Card"] {
-  background: hsl(var(--admin-bg-card)) !important;
-  border: 1px solid hsl(var(--admin-border)) !important;
+  background: hsl(222 47% 14%) !important;
+  border: 1px solid hsl(215 25% 22%) !important;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
 }
 
@@ -2614,17 +2633,25 @@ body:has(.business-sidebar.mobile-open) {
   padding: 1.5rem;
 }
 
-/* Select dropdowns - solid background, high z-index */
+/* Select dropdowns - solid dark gray background, high z-index */
 .admin-dark-theme [role="listbox"] {
-  background: hsl(var(--admin-bg-dark)) !important;
-  border: 1px solid hsl(var(--admin-border)) !important;
+  background: hsl(222 47% 12%) !important;
+  border: 1px solid hsl(215 25% 22%) !important;
   z-index: 9999 !important;
 }
 
-/* Dialog/Modal - solid backgrounds */
+/* Dialog/Modal - solid dark gray backgrounds */
 .admin-dark-theme [role="dialog"] {
-  background: hsl(var(--admin-bg-card)) !important;
-  border: 1px solid hsl(var(--admin-border)) !important;
+  background: hsl(222 47% 12%) !important;
+  border: 1px solid hsl(215 25% 22%) !important;
+}
+
+/* Input and textarea backgrounds - darker gray */
+.admin-dark-theme input,
+.admin-dark-theme textarea,
+.admin-dark-theme select {
+  background: hsl(222 47% 8%) !important;
+  border-color: hsl(215 25% 22%) !important;
 }
 
 /* Table alternating rows */
