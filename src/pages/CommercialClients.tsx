@@ -95,26 +95,6 @@ const CommercialClients = () => {
           benefits={benefits.map(b => ({ icon: b.icon, title: b.title, description: b.description }))}
         />
 
-        {/* Commercial Stats */}
-        <section className="py-16 bg-muted/30">
-          <div className="container mx-auto px-4">
-            <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-              <div className="text-center">
-                <div className="text-4xl font-bold text-primary mb-2">45K+</div>
-                <div className="text-muted-foreground">Sq Ft Completed</div>
-              </div>
-              <div className="text-center">
-                <div className="text-4xl font-bold text-primary mb-2">Zero</div>
-                <div className="text-muted-foreground">Business Disruptions</div>
-              </div>
-              <div className="text-center">
-                <div className="text-4xl font-bold text-primary mb-2">98%</div>
-                <div className="text-muted-foreground">On-Time Completion</div>
-              </div>
-            </div>
-          </div>
-        </section>
-
         {/* Industries */}
         <section className="py-16 bg-background">
           <div className="container mx-auto px-4">

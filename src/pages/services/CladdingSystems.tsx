@@ -14,13 +14,6 @@ import { ServiceCitySection } from "@/components/services/ServiceCitySection";
 import { ScrollReveal } from "@/components/animations/ScrollReveal";
 
 const CladdingSystems = () => {
-  const stats = [
-    { value: '2M+', label: 'SF Installed' },
-    { value: '150+', label: 'Facade Projects' },
-    { value: '100%', label: 'Warranty Compliant' },
-    { value: '15 Years', label: 'Expertise' }
-  ];
-
   const advantages = [
     'Specialized envelope crews with manufacturer certifications',
     'In-house engineering support for complex facades',

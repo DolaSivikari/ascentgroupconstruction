@@ -32,13 +32,6 @@ const Waterproofing = () => {
     { name: "Waterproofing", url: `${siteUrl}/services/waterproofing` }
   ]);
 
-  const stats = [
-    { value: '1M+', label: 'SF Protected' },
-    { value: 'ZERO', label: 'Leaks' },
-    { value: '400+', label: 'Systems' },
-    { value: '20 Years', label: 'Warranties' }
-  ];
-
   const deliverables = [
     {
       icon: Droplets,

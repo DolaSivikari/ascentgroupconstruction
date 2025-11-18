@@ -216,30 +216,6 @@ const Developers = () => {
             </div>
           </section>
 
-          {/* Stats Section */}
-          <section className="py-20 bg-primary text-primary-foreground">
-            <div className="container mx-auto px-4">
-              <div className="grid md:grid-cols-4 gap-8 max-w-5xl mx-auto text-center">
-                <div>
-                  <div className="text-5xl font-bold mb-2 text-secondary">15+</div>
-                  <div className="text-primary-foreground/80">Years Team Experience</div>
-                </div>
-                <div>
-                  <div className="text-5xl font-bold mb-2 text-secondary">85%</div>
-                  <div className="text-primary-foreground/80">Self-Performed Work</div>
-                </div>
-                <div>
-                  <div className="text-5xl font-bold mb-2 text-secondary">100+</div>
-                  <div className="text-primary-foreground/80">Multi-Unit Projects</div>
-                </div>
-                <div>
-                  <div className="text-5xl font-bold mb-2 text-secondary">Zero</div>
-                  <div className="text-primary-foreground/80">Safety Incidents</div>
-                </div>
-              </div>
-            </div>
-          </section>
-
           {/* Documentation Section */}
           <section className="py-20 bg-muted/30">
             <div className="container mx-auto px-4">

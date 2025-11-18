@@ -13,13 +13,6 @@ import { CTA_TEXT } from "@/design-system/constants";
 import { ScrollReveal } from "@/components/animations/ScrollReveal";
 
 const TileFlooring = () => {
-  const stats = [
-    { value: '500K+', label: 'SF Installed' },
-    { value: '100%', label: 'Warranty Compliant' },
-    { value: '200+', label: 'Projects Complete' },
-    { value: '15 Years', label: 'Experience' }
-  ];
-
   const deliverables = [
     {
       icon: Ruler,

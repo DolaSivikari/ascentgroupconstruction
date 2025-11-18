@@ -28,13 +28,6 @@ const InteriorBuildouts = () => {
     { name: 'Interior Buildouts', url: 'https://ascentgroupconstruction.com/services/interior-buildouts' }
   ]);
 
-  const stats = [
-    { value: '2025', label: 'Established' },
-    { value: '2M+', label: 'SF Completed' },
-    { value: '95%', label: 'On-Time Delivery' },
-    { value: 'Level 5', label: 'Finish Quality' }
-  ];
-
   const deliverables = [
     {
       icon: Ruler,
