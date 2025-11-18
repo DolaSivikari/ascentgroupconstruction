@@ -7,6 +7,7 @@ import OptimizedImage from "./OptimizedImage";
 import { resolveAssetPath } from "@/utils/assetResolver";
 import { supabase } from "@/integrations/supabase/client";
 import { useEffect, useState } from "react";
+import { GRID } from "@/design-system/layouts";
 
 interface BlogPost {
   slug: string;
@@ -47,7 +48,7 @@ const BlogPreview = () => {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-8 mb-8">
+        <div className={GRID.cards3}>
           {featuredPosts.slice(0, 1).map((post) => {
             const formattedDate = new Date(post.published_at).toLocaleDateString('en-US', {
               month: 'short',
@@ -92,7 +93,7 @@ const BlogPreview = () => {
           })}
         </div>
 
-        <div className="grid md:grid-cols-2 gap-8 mb-8">
+        <div className={GRID.cards2}>
           {featuredPosts.slice(1, 3).map((post) => {
             const formattedDate = new Date(post.published_at).toLocaleDateString('en-US', {
               month: 'short',

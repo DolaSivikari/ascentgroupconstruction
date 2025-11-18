@@ -8,6 +8,7 @@ import OptimizedImage from "./OptimizedImage";
 import { supabase } from "@/integrations/supabase/client";
 import { Badge } from "@/components/ui/badge";
 import { Link } from "react-router-dom";
+import { GRID } from "@/design-system/layouts";
 
 interface Project {
   id: string;
@@ -119,7 +120,7 @@ const FeaturedProjects = () => {
         </ScrollReveal>
 
         <StaggerContainer type="fade">
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-10">
+          <div className={GRID.cards3}>
             {projects.map((project, index) => (
               <ScrollReveal 
                 key={project.id} 

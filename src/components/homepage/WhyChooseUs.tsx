@@ -3,6 +3,7 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/ui/Button";
 import { Link } from "react-router-dom";
 import { useWhyChooseUs } from "@/hooks/useWhyChooseUs";
+import { GRID } from "@/design-system/layouts";
 
 // Fallback data with construction-specific icons
 const fallbackDifferentiators = [
@@ -43,7 +44,7 @@ const WhyChooseUs = () => {
         {isLoading ? (
           <div className="text-center py-12">Loading...</div>
         ) : (
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+          <div className={GRID.cards3}>
             {differentiators.map((item, index) => {
               const Icon = (LucideIcons as any)[item.icon] || LucideIcons.BadgeCheck;
               return (
