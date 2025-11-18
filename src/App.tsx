@@ -52,6 +52,7 @@ import CookieBanner from "./components/CookieBanner";
 // Removed NewsletterSubscribers - consolidated into UnifiedInbox
 import DynamicSpecialtyPage from "./pages/DynamicSpecialtyPage";
 import WhySpecialtyContractor from "./pages/WhySpecialtyContractor";
+import ServiceSelectorPage from "./pages/ServiceSelectorPage";
 
 // Lazy load admin pages (not critical for initial load) with error handling
 const Dashboard = lazy(() => import("./pages/admin/Dashboard").catch(() => ({
@@ -187,6 +188,7 @@ const App = () => (
                   <Route path="/prequalification" element={<Prequalification />} />
                   <Route path="/capabilities" element={<Capabilities />} />
                   <Route path="/careers" element={<Careers />} />
+                  <Route path="/service-selector" element={<ServiceSelectorPage />} />
                   
             <Route path="/services" element={<Services />} />
             <Route path="/services/interior-buildouts" element={<InteriorBuildouts />} />

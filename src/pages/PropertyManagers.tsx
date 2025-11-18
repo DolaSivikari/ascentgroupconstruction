@@ -14,61 +14,61 @@ const PropertyManagers = () => {
   const benefits = [
     {
       icon: CreditCard,
-      title: "Maximize ROI",
-      description: "Quality work that increases property value and reduces long-term maintenance costs"
+      title: "Capital Planning Support",
+      description: "Reserve fund study-aligned envelope repairs with clear documentation and manufacturer warranties"
     },
     {
       icon: Calendar,
-      title: "Flexible Scheduling",
-      description: "We work around your tenants' schedules with minimal disruption to operations"
+      title: "Occupied Building Expertise",
+      description: "Phased execution, tenant coordination, and off-hours work to minimize disruption"
     },
     {
       icon: Users,
-      title: "Volume Pricing",
-      description: "Competitive rates for multi-unit projects and ongoing maintenance programs"
+      title: "Multi-Property Programs",
+      description: "Consistent service across your portfolio with dedicated project managers and volume pricing"
     },
     {
       icon: ShieldCheck,
-      title: "Full Insurance",
-      description: "$5M liability coverage and WSIB compliance for your protection"
+      title: "Full Compliance",
+      description: "$5M CGL coverage, active WSIB registration, and comprehensive site safety protocols"
     },
     {
       icon: Timer,
-      title: "Fast Turnarounds",
-      description: "3-day unit turnover process keeps your vacancy rates low"
+      title: "48-72 Hour Response",
+      description: "Emergency site visits for active water intrusion and urgent facade issues"
     }
   ];
 
   const services = [
     {
-      title: "Unit Renovations",
-      description: "Fast, efficient unit renovations between tenants",
-      roi: "Reduce vacancy time by 40%"
+      title: "Façade Remediation",
+      description: "Cladding repairs, sealant replacement, EIFS/stucco restoration for mid-rise buildings",
+      roi: "Stop water intrusion, pass RSF requirements"
+    },
+    {
+      title: "Parking Garage Rehabilitation",
+      description: "Concrete restoration, waterproofing, protective coatings, traffic membrane systems",
+      roi: "Extend structural life 15-20 years"
     },
     {
       title: "Suite Turnovers",
-      description: "Complete painting, flooring, and finishing for tenant changes",
-      roi: "Minimize vacancy periods"
+      description: "3-day turnarounds for 1-2 bedroom units: painting, patching, flooring coordination",
+      roi: "Minimize vacancy downtime"
     },
     {
-      title: "Common Area Maintenance",
-      description: "Keep lobbies, hallways, and amenities looking their best",
-      roi: "Increase tenant retention 25%"
+      title: "Common Area Refresh",
+      description: "Lobbies, hallways, amenity spaces—commercial-grade finishes on property management timelines",
+      roi: "Enhance tenant satisfaction"
     },
     {
-      title: "Small Repairs & Maintenance",
-      description: "Responsive service for urgent tenant issues and minor repairs",
-      roi: "Faster response times"
+      title: "Sealant Maintenance Programs",
+      description: "10-12 year replacement cycles for window perimeters, expansion joints, curtain wall systems",
+      roi: "Prevent $200K+ emergency repairs"
     },
     {
-      title: "Exterior Restoration",
-      description: "Stucco, EIFS, and facade maintenance",
-      roi: "Extend building life 15+ years"
-    },
-    {
-      title: "Parking Garage Coatings",
-      description: "Protective coatings and line striping",
-      roi: "Prevent $50K+ in repairs"
+      title: "Balcony Waterproofing",
+      description: "Membrane replacement, tile over concrete, drainage solutions for occupied buildings",
+      roi: "Eliminate unit complaints"
     }
   ];
 
