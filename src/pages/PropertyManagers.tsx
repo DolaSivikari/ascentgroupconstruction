@@ -75,17 +75,18 @@ const PropertyManagers = () => {
   return (
     <div className="min-h-screen">
       <SEO 
-        title="Services for Property Managers - Multi-Unit Construction Specialists"
-        description="Trusted property management construction services across the GTA. Volume pricing, fast turnarounds, and minimal disruption for condos, apartments, and commercial properties."
-        keywords="property management, condo construction, multi-unit construction, property maintenance, GTA"
+        title="Property Management Services - Envelope & Restoration for Multi-Residential"
+        description="Façade remediation, parking garage restoration, and unit turnovers for 10-30 story condominiums in Toronto and GTA. Reserve fund study-aligned. WSIB compliant. Fast response for active leaks."
+        keywords="property management contractor, condo restoration GTA, facade remediation Toronto, parking garage repair, multi-residential contractor, reserve fund study contractor"
       />
       <Navigation />
       
       <PageHeader
-        title="Your Trusted Property Maintenance Partner"
-        description="Maximize property value and tenant satisfaction with our specialized multi-unit construction and restoration services. We understand the unique challenges of property management."
+        eyebrow="For Property Managers"
+        title="Envelope & Restoration Partner for Multi-Residential Properties"
+        description="Façade remediation, parking garage repairs, and unit turnovers for 10-30 story condominiums across the GTA. Fast response, clear documentation, reserve fund study-aligned work."
         backgroundImage={heroImage}
-        cta={{ label: CTA_TEXT.project, href: "/estimate" }}
+        cta={{ label: "Request Site Assessment", href: "/estimate" }}
         breadcrumbs={[
           { label: "Home", href: "/" },
           { label: "Property Managers" }
