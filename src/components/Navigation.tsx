@@ -61,6 +61,7 @@ const Navigation = () => {
     '/for-general-contractors',
     '/property-managers',
     '/commercial-clients',
+    '/homeowners',
     '/our-process',
     '/sustainability',
     '/faq',

@@ -25,6 +25,12 @@ export const NAVIGATION_ICONS: Record<string, string> = {
   '/how-we-work': 'Workflow',
   '/our-process': 'GitBranch',
   
+  // Client Types
+  '/homeowners': 'Home',
+  '/property-managers': 'Building',
+  '/commercial-clients': 'Briefcase',
+  '/for-general-contractors': 'Handshake',
+  
   // Resources
   '/resources/service-areas': 'MapPin',
   '/resources/contractor-portal': 'LogIn',

@@ -35,6 +35,7 @@ export const megaMenuDataEnhanced: MegaMenuDataEnhanced = {
           subItems: [
             { name: "Building Envelope Solutions", link: "/services/building-envelope", description: "Comprehensive envelope systems", badge: "popular" },
             { name: "Cladding Systems", link: "/services/cladding-systems", description: "Metal panels, EIFS, stucco & rainscreen", badge: "new" },
+            { name: "Masonry Restoration", link: "/services/masonry-restoration", description: "Brick, stone & concrete repair" },
             { name: "Waterproofing", link: "/services/waterproofing", description: "Complete waterproofing solutions" },
             { name: "Protective & Architectural Coatings", link: "/services/protective-coatings", description: "Interior/exterior protective systems" },
           ],
@@ -116,15 +117,16 @@ export const megaMenuDataEnhanced: MegaMenuDataEnhanced = {
   ],
   partners: [
     {
-      sectionTitle: "For Our Partners",
+      sectionTitle: "Who We Serve",
       categories: [
         {
-          title: "Partner Solutions",
-          description: "Specialized services for industry professionals",
+          title: "Our Client Types",
+          description: "Specialized services for every client",
           subItems: [
-            { name: "Commercial Clients", link: "/commercial-clients", description: "Solutions for commercial projects" },
-            { name: "Property Managers", link: "/property-managers", description: "Property management services" },
-            { name: "General Contractors", link: "/for-general-contractors", description: "Partnership opportunities" },
+            { name: "Homeowners", link: "/homeowners", description: "Residential services & renovations", badge: "new" },
+            { name: "Property Managers", link: "/property-managers", description: "Building maintenance & restoration" },
+            { name: "Commercial Clients", link: "/commercial-clients", description: "Direct commercial projects" },
+            { name: "General Contractors", link: "/for-general-contractors", description: "Trade partnership opportunities", badge: "important" },
           ],
         },
       ],
