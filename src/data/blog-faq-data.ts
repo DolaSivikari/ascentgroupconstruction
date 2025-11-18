@@ -18,8 +18,8 @@ export const blogFAQs: Record<string, Array<{ question: string; answer: string }
       answer: "Yes! Ascent Group Construction provides comprehensive specialty contracting services for commercial clients in Mississauga, Toronto, and throughout the GTA. We specialize in building envelope systems, restoration work, and self-performed trades that ensure quality control, on-time delivery, and single-point accountability for your project."
     },
     {
-      question: "Is your contracting service bonded and insured in Ontario?",
-      answer: "Absolutely. Ascent Group Construction is fully licensed, bonded, and insured for specialty contracting projects throughout Ontario. We carry comprehensive liability insurance and WSIB coverage, providing complete protection for property owners in Toronto, Mississauga, Brampton, Vaughan, and Markham."
+      question: "Is your contracting service licensed and insured in Ontario?",
+      answer: "Absolutely. Ascent Group Construction is fully licensed and insured for specialty contracting projects throughout Ontario. We carry $2M commercial general liability insurance and maintain active WSIB clearance, providing complete protection for property owners in Toronto, Mississauga, Brampton, Vaughan, and Markham."
     }
   ],
   "exterior-painting-cold-weather": [

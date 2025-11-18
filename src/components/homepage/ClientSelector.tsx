@@ -48,7 +48,7 @@ const ClientSelector = () => {
         variant="detailed"
         benefits={[
           "Fast response times",
-          "Bonded & fully insured",
+          "Active WSIB & $2M CGL coverage",
           "Large project capacity",
         ]}
         ctaText="Download Prequalification"
