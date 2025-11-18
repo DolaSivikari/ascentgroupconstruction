@@ -37,7 +37,7 @@ export function SearchSuggestions({ onSelectSearch, onNavigate, mobile = false }
   };
 
   return (
-    <div className={mobile ? "relative bg-background/95 backdrop-blur-lg border border-border rounded-lg shadow-xl max-h-[60vh] overflow-y-auto" : "absolute top-full left-0 right-0 mt-2 bg-background/95 backdrop-blur-lg border border-border rounded-lg shadow-xl z-50 max-h-[60vh] overflow-y-auto"}>
+    <div className={mobile ? "relative bg-background/95 backdrop-blur-lg border border-border rounded-lg shadow-[var(--shadow-lg)] max-h-[60vh] overflow-y-auto" : "absolute top-full left-0 right-0 mt-2 bg-background/95 backdrop-blur-lg border border-border rounded-lg shadow-[var(--shadow-lg)] z-50 max-h-[60vh] overflow-y-auto"}>
       {/* Recent Searches */}
       {recentSearches.length > 0 && (
         <div className="p-4 border-b border-border">

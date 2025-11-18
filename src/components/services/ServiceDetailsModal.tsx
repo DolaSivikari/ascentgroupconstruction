@@ -89,9 +89,9 @@ export const ServiceDetailsModal = ({
               }}
             >
               <div className={cn(
-                "h-full p-5 rounded-xl border-2 transition-all duration-300",
+                "h-full p-5 rounded-[var(--radius-lg)] border-2 transition-all duration-300",
                 "bg-card border-border",
-                "hover:border-primary/30 hover:shadow-lg hover:-translate-y-1"
+                "hover:border-primary/30 hover:shadow-[var(--shadow-lg)] hover:-translate-y-1"
               )}>
                 <div className="flex items-start justify-between gap-3">
                   <div className="flex-1">

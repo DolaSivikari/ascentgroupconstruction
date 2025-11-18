@@ -166,7 +166,7 @@ const InsightsFeed = ({
         {/* Featured Insight */}
         {featuredInsight && (
           <Link to={`/blog/${featuredInsight.slug}`}>
-            <Card className="mb-8 overflow-hidden hover:shadow-xl transition-shadow group animate-fade-in">
+            <Card className="mb-8 overflow-hidden hover:shadow-[var(--shadow-lg)] transition-shadow group animate-fade-in">
               <div className="grid md:grid-cols-2 gap-0">
                 <div className="relative aspect-[4/3] md:aspect-auto overflow-hidden">
                   <img
@@ -216,7 +216,7 @@ const InsightsFeed = ({
           <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3 animate-fade-in">
             {regularInsights.map((insight) => (
               <Link key={insight.id} to={`/blog/${insight.slug}`}>
-                <Card className="overflow-hidden h-full hover:shadow-xl transition-all group hover-scale">
+                <Card className="overflow-hidden h-full hover:shadow-[var(--shadow-lg)] transition-all group hover-scale">
                   <div className="relative aspect-[16/9] overflow-hidden">
                     <img
                       src={insight.featured_image || "/placeholder.svg"}

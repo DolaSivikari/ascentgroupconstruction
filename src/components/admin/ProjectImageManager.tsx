@@ -172,7 +172,7 @@ export const ProjectImageManager: React.FC<ProjectImageManagerProps> = ({
   return (
     <div className="space-y-6">
       {/* Header with Stats */}
-      <div className="bg-card p-6 rounded-xl border border-border shadow-sm">
+      <div className="bg-card p-6 rounded-[var(--radius-lg)] border border-border shadow-sm">
         <div className="flex items-center justify-between mb-4">
           <h2 className="text-2xl font-bold">📸 Project Gallery Manager</h2>
           <div className="flex gap-2">
@@ -225,7 +225,7 @@ export const ProjectImageManager: React.FC<ProjectImageManagerProps> = ({
               onDrop={(e) => handleDrop(e, category)}
               onDragOver={(e) => { e.preventDefault(); setIsDragging(true); }}
               onDragLeave={() => setIsDragging(false)}
-              className={`relative border-2 border-dashed rounded-xl p-6 text-center transition-all ${
+              className={`relative border-2 border-dashed rounded-[var(--radius-lg)] p-6 text-center transition-all ${
                 isDragging ? 'border-primary bg-primary/10 scale-105' : 'border-border bg-card hover:border-primary/50'
               }`}
             >
@@ -290,7 +290,7 @@ export const ProjectImageManager: React.FC<ProjectImageManagerProps> = ({
           filteredImages.map((image) => (
             <div
               key={image.id}
-              className={`group relative bg-card rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-all ${
+              className={`group relative bg-card rounded-lg overflow-hidden shadow-md hover:shadow-[var(--shadow-lg)] transition-all ${
                 viewMode === 'list' ? 'flex items-center gap-4 p-3' : ''
               }`}
             >

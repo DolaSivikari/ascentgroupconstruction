@@ -110,7 +110,7 @@ export const PremiumProjectHero = ({ featuredProjects }: Props) => {
             <Button 
               size="lg" 
               variant="secondary"
-              className="shadow-xl hover:shadow-2xl hover:scale-105 transition-all"
+              className="shadow-[var(--shadow-lg)] hover:shadow-[var(--shadow-lg)] hover:scale-105 transition-all"
             >
               View All Projects
             </Button>
