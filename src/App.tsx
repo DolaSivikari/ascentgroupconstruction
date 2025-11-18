@@ -18,6 +18,7 @@ import Estimate from "./pages/Estimate";
 import Auth from "./pages/Auth";
 import NotFound from "./pages/NotFound";
 import PropertyManagers from "./pages/PropertyManagers";
+import Homeowners from "./pages/Homeowners";
 import CommercialClients from "./pages/CommercialClients";
 import OurProcess from "./pages/OurProcess";
 import Sustainability from "./pages/Sustainability";
@@ -235,7 +236,7 @@ const App = () => (
                   <Route path="/accessibility" element={<Accessibility />} />
                   <Route path="/unsubscribe" element={<Unsubscribe />} />
                   <Route path="/property-managers" element={<PropertyManagers />} />
-                  <Route path="/homeowners" element={<Navigate to="/services" replace />} />
+                  <Route path="/homeowners" element={<Homeowners />} />
                   <Route path="/commercial-clients" element={<CommercialClients />} />
                   <Route path="/our-process" element={<OurProcess />} />
                   <Route path="/sustainability" element={<Sustainability />} />

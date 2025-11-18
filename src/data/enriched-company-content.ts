@@ -3,11 +3,11 @@
 
 export const enrichedCompanyStory = {
   title: 'Our Story',
-  content: `Ascent Group Construction was established in 2025 by construction professionals who bring 15+ years of combined experience from highrise and commercial building envelope and interior trades work across the Greater Toronto Area.
+  content: `Ascent Group Construction represents the next chapter for a team with 15+ years of combined experience in building envelope and interior trades work across the Greater Toronto Area.
 
-After years of working on large-scale projects—multi-unit residential towers, commercial developments, and institutional buildings—our founding team recognized a clear opportunity: property managers, building owners, and general contractors need reliable specialty trade partners who can deliver professional execution without the complexity of layered subcontracting.
+After years of delivering high-quality specialty work on multi-unit residential towers, commercial developments, and institutional buildings, our founding team recognized an opportunity: property managers, building owners, consultants, and general contractors need reliable specialty trade partners who bring proven hands-on experience, professional execution, and direct accountability.
 
-We founded Ascent Group to provide exactly that: direct, accountable execution of building envelope and interior finish work with the experience, professionalism, and safety standards that come from working on major GTA projects.
+We incorporated Ascent Group in 2025 to formalize this approach: providing building envelope restoration, EIFS systems, masonry work, waterproofing, and interior finishing services with the same professional standards and work quality we've maintained throughout our careers—now under our own name.
 
 **Our Approach**
 
@@ -31,12 +31,12 @@ Over the next 3-5 years, we aim to expand our service capabilities, grow our tea
 For now, we're focused on doing excellent work, one project at a time, and building lasting relationships with property managers, building owners, consultants, and general contractors who value professionalism, reliability, and accountability.`,
   
   stats: [
-    { value: '15+', label: 'Years Team Experience' },
-    { value: '2025', label: 'Company Founded' },
+    { value: '15+', label: 'Years Combined Experience' },
     { value: '85%', label: 'Self-Performed Work' },
-    { value: '$5M+', label: 'Liability Coverage' },
-    { value: '10', label: 'Core Team Members' },
-    { value: '100%', label: 'WSIB Compliant' }
+    { value: '$5M', label: 'CGL Liability Coverage' },
+    { value: '10+', label: 'Core Team Members' },
+    { value: '100%', label: 'WSIB Compliant' },
+    { value: 'COR-Ready', label: 'Safety Certification Path' }
   ]
 };
 
@@ -87,13 +87,15 @@ export const whyChooseAscent = {
 export const founderBio = {
   name: 'Hebun',
   title: 'Founder & Principal',
-  bio: `Hebun founded Ascent Group Construction in 2025 after gaining extensive experience in building envelope and interior trades work on highrise and commercial projects throughout the Greater Toronto Area.
+  bio: `Hebun established Ascent Group Construction in 2025 to bring 15+ years of proven building envelope and interior trades expertise directly to commercial, multi-family, and residential clients across Ontario.
 
-With hands-on experience in EIFS installation, masonry restoration, interior finishes, and building envelope systems, Hebun recognized the need for reliable specialty trade contractors who could deliver professional execution with clear accountability.
+Throughout his career, Hebun has worked on hundreds of envelope restoration, EIFS installation, masonry repair, and interior finishing projects—from 3-story walk-ups to 30-story high-rises, from retail renovations to institutional maintenance programs.
 
-Ascent Group was founded on a simple principle: property managers, building owners, and general contractors need trade partners who bring real experience, professional standards, and direct accountability—without the complexity of layered subcontracting.
+This depth of hands-on experience revealed a clear need in the market: property managers, building owners, consultants, and general contractors all need reliable specialty trade partners who combine technical expertise, professional execution, and direct accountability—without the complexity of layered subcontracting or the inflated margins of multiple middlemen.
 
-Hebun's vision for Ascent Group is to build a sustainable, professional contracting company that grows strategically through client satisfaction, quality execution, and a strong reputation in the Ontario market. The long-term goal is to expand capabilities and eventually build toward general contractor services while maintaining the hands-on, accountable approach that defines the company today.`,
+Ascent Group was created to fill this gap: delivering prime-scope specialty trade work with the same quality standards, safety protocols, and professional conduct clients expect from established firms, backed by a team that has proven these capabilities through years of successful project delivery.
+
+Hebun's vision for Ascent Group is sustainable growth through client satisfaction, quality execution, and a strong reputation in the Ontario construction market. The long-term goal is to expand service capabilities and eventually build toward general contractor services—but only after establishing a solid foundation as a trusted, accountable specialty contractor.`,
   credentials: [
     '15+ years construction industry experience',
     'Building envelope and interior trades specialist',

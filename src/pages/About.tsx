@@ -166,26 +166,20 @@ const About = () => {
         <ParallaxSection speed="medium">
           <ScrollReveal direction="right" delay={150}>
             <Card variant="elevated" size="lg" className="mt-12 border-l-4 border-primary">
-            <h3 className="text-2xl md:text-3xl font-semibold mb-4">The Ascent Story</h3>
+            <h3 className="text-2xl md:text-3xl font-semibold mb-4">Proven Expertise. New Name.</h3>
             <p className="text-base md:text-lg text-muted-foreground leading-relaxed mb-6">
-              I founded Ascent Group Construction in 2025 after spending 15+ years working in Ontario's construction industry. 
-              I started by studying Construction Engineering Technology, then worked my way through the field—first as a Site 
-              Coordinator with Madison Group and Aspenridge Homes on highrise residential projects, then as a trade subcontractor 
-              handling envelope and interior work on various commercial and multi-family properties.
+              Ascent Group Construction represents over 15 years of combined experience in building envelope and interior trades work across the Greater Toronto Area—formalized under a new company name in 2025.
             </p>
             <p className="text-base md:text-lg text-muted-foreground leading-relaxed mb-6">
-              Through those years, I learned what property managers and general contractors actually need from trade partners: 
-              fast turnaround on quotes, reliable execution, clear communication, and professional documentation. I also saw too 
-              many contractors overpromising and underdelivering—damaging relationships and leaving clients frustrated.
+              Our team has delivered hundreds of envelope restoration, EIFS installation, masonry repair, waterproofing, and interior finishing projects on buildings ranging from residential walk-ups to 30-story towers. We've worked as trusted trade partners for general contractors, property managers, building consultants, and institutional clients who demand professional execution and reliable results.
             </p>
             <p className="text-base md:text-lg text-muted-foreground leading-relaxed mb-6">
-              That's why I started Ascent Group—to build a specialty contractor that delivers on promises. We're currently 
-              actively working toward full WSIB clearance, COR certification, and bonding capacity.
+              We founded Ascent Group to bring this proven capability directly to clients who need specialty trade expertise without the complexity of layered subcontracting. Our focus is simple: deliver high-quality envelope and interior work, maintain professional safety and communication standards, and build lasting relationships through accountable performance.
             </p>
             <blockquote className="text-xl italic mb-4 border-l-2 border-primary/50 pl-6">
-              "We're building Ascent Group the right way—professional systems, quality execution, and honest positioning. 
-              Every project we complete moves us closer to becoming a full general contractor, but we're not there yet. 
-              Right now, we're focused on being the most reliable envelope and interior trade specialist in the GTA."
+              "We're building Ascent Group methodically—professional systems, quality execution, and honest client relationships. 
+              Our long-term vision is to expand into general contracting capabilities, but right now we're laser-focused on being 
+              the most reliable envelope and interior trade specialist in the GTA."
             </blockquote>
             <div className="flex items-center gap-4 mt-6">
               <div>
