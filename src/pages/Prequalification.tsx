@@ -42,45 +42,45 @@ const categoryIcons: Record<string, any> = {
 };
 
 const companyHighlights = [
-  { icon: Calendar, label: "Experience", value: "15+ Years", desc: "Combined team experience" },
-  { icon: DollarSign, label: "Annual Volume", value: "$10-30M", desc: "Consistent project delivery" },
-  { icon: Shield, label: "Bonding Capacity", value: "$5M", desc: "Single project capacity" },
-  { icon: Building2, label: "Insurance", value: "$5M", desc: "General liability coverage" },
-  { icon: Award, label: "Safety Record", value: "Working Toward COR", desc: "Zero lost-time incidents" },
-  { icon: Users, label: "Workforce", value: "20-50", desc: "Skilled tradespeople" },
+  { icon: Calendar, label: "Team Experience", value: "15+ Years", desc: "Combined hands-on experience in GTA market" },
+  { icon: Building2, label: "Company Status", value: "Est. 2025", desc: "New incorporation, experienced crew" },
+  { icon: Shield, label: "Insurance Coverage", value: "$5M CGL", desc: "General liability + WSIB compliant" },
+  { icon: Award, label: "Safety Commitment", value: "COR-Ready", desc: "Working toward COR certification" },
+  { icon: DollarSign, label: "Project Range", value: "$25K-$500K", desc: "Building portfolio of specialty work" },
+  { icon: Users, label: "Core Crew", value: "10 Skilled", desc: "Self-perform team + trusted partners" },
 ];
 
 const capabilities = [
-  { category: "Primary Delivery Methods", items: ["General Contracting", "Construction Management", "Design-Build"] },
-  { category: "Self-Perform Trades", items: ["EIFS & Stucco", "Masonry Restoration", "Waterproofing", "Exterior Cladding"] },
-  { category: "Market Sectors", items: ["Commercial", "Multi-Family", "Institutional", "Industrial"] },
-  { category: "Project Range", items: ["$100K - $5M single projects", "Multiple concurrent projects", "Emergency response available"] },
+  { category: "Primary Service Delivery", items: ["Lead Specialty Contractor (Building Envelope & Interior Trades)", "Self-Performed Envelope Restoration & Waterproofing", "Subcontractor to General Contractors", "Direct-to-Owner Trade Execution"] },
+  { category: "Core Self-Perform Trades", items: ["EIFS & Stucco Installation/Repair", "Masonry Restoration & Tuckpointing", "Caulking/Sealant Replacement", "Exterior Cladding Systems", "Interior Painting & Finishing", "Tile & Flooring Installation", "Drywall & Finishing"] },
+  { category: "Target Markets", items: ["Commercial Building Envelope (Subcontractor Role)", "Multi-Family Restoration (Property Managers)", "Residential Renovations (Homeowners)", "Institutional Maintenance (Through GCs)"] },
+  { category: "Current Project Capacity", items: ["$25K - $500K single project value", "Multiple small-to-mid projects concurrent", "Building portfolio + client relationships", "Emergency response for existing clients"] },
 ];
 
 const recentProjects = [
   {
-    name: "Waterfront Condo Restoration",
-    client: "Property Management Corp",
-    sector: "Multi-Family",
-    value: "$2.5M",
-    year: "2024",
-    scope: "Building envelope restoration, balcony repairs, waterproofing"
+    name: "Multi-Unit EIFS Repair",
+    client: "Private Property Manager",
+    sector: "Multi-Family Residential",
+    value: "$85K",
+    year: "2024 (Pre-Incorporation)",
+    scope: "EIFS damage repair, caulking replacement, color-matched finishing"
   },
   {
-    name: "Office Tower Renovation",
-    client: "Commercial Real Estate Trust",
+    name: "Commercial Storefront Renovation",
+    client: "Retail Business Owner",
     sector: "Commercial",
-    value: "$1.8M",
-    year: "2023",
-    scope: "Interior renovation, HVAC upgrades, accessibility improvements"
+    value: "$45K",
+    year: "2024 (Pre-Incorporation)",
+    scope: "Interior painting, drywall repair, ceiling finishing, floor prep"
   },
   {
-    name: "School Interior Upgrade",
-    client: "School Board",
-    sector: "Institutional",
-    value: "$950K",
-    year: "2023",
-    scope: "Classroom renovations, accessibility upgrades, safety improvements"
+    name: "Condo Balcony Waterproofing",
+    client: "Condo Corporation (Through GC)",
+    sector: "Multi-Family",
+    value: "$35K",
+    year: "2023 (Team Experience)",
+    scope: "Balcony membrane replacement, railing refinishing, drainage correction"
   },
 ];
 
@@ -213,14 +213,15 @@ const Prequalification = () => {
   return (
     <div className="min-h-screen">
       <SEO
-        title="Pre-Qualification Package | Envelope Contractor Toronto | Ascent Group"
-        description="Download Ascent Group Construction's complete pre-qualification package including certifications, insurance, bonding capacity, and safety documentation for RFP submissions."
+        title="Vendor Pre-Qualification Package - Main Specialty Contractor | Ascent Group Construction"
+        description="Pre-qualification package for Ascent Group Construction - 15+ years team experience in building envelope, EIFS, masonry, interior trades. WSIB compliant, $5M CGL coverage. Serving GCs, property managers, and building owners in Ontario."
+        keywords="specialty contractor prequalification, building envelope contractor Ontario, EIFS contractor GTA, masonry restoration Toronto, vendor prequalification package, subcontractor services"
       />
       <Navigation />
       
       <PageHeader
-        title="Contractor Pre-Qualification Portal"
-        description="Comprehensive contractor pre-qualification package with instant document access"
+        title="Vendor Pre-Qualification Package"
+        description="15+ Years Combined Team Experience • Building Envelope & Interior Trades Specialist • WSIB Compliant • $5M CGL Coverage • Serving Commercial, Multi-Family & Residential Markets"
         backgroundImage={heroImage}
         breadcrumbs={[
           { label: "Home", href: "/" },
@@ -231,6 +232,28 @@ const Prequalification = () => {
 
       <main className="py-16">
         <div className="container mx-auto px-4 max-w-7xl">
+          {/* Company Status Transparency Banner */}
+          <div className="mb-12">
+            <Card className="border-primary/20 bg-primary/5">
+              <CardContent className="pt-6">
+                <div className="flex items-start gap-4">
+                  <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
+                    <CheckCircle2 className="w-6 h-6 text-primary" />
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-semibold mb-2">Company Status: New Incorporation, Experienced Team</h3>
+                    <p className="text-muted-foreground mb-4">
+                      Ascent Group Construction was incorporated in 2025, but our team brings <strong>15+ years of combined hands-on experience</strong> from building envelope and interior trades work on commercial and multi-family projects throughout the Greater Toronto Area.
+                    </p>
+                    <p className="text-muted-foreground">
+                      We founded Ascent Group to provide <strong>direct, accountable specialty trade execution</strong> for property managers, building owners, consultants, and general contractors who need reliable partners for envelope restoration, waterproofing, EIFS, masonry, and interior finishing work.
+                    </p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+
           {/* Quick Stats */}
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-16">
             {companyHighlights.map((highlight, index) => {
