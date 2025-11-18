@@ -55,6 +55,18 @@ interface Service {
   faq_items: FAQItem[] | null;
 }
 
+// Map service slugs to hero images
+const serviceHeroImages: Record<string, string> = {
+  'basement-finishing': '/src/assets/heroes/hero-tenant-improvements.jpg',
+  'carpentry-trim-work': '/src/assets/heroes/hero-painting.jpg',
+  'interior-buildouts-finishing': '/src/assets/heroes/hero-tenant-improvements.jpg',
+  'suite-renovations': '/src/assets/heroes/hero-tenant-improvements.jpg',
+  'painting-services': '/src/assets/heroes/hero-painting.jpg',
+  'general-repairs-maintenance': '/src/assets/heroes/hero-painting.jpg',
+  'kitchen-bathroom-renovations': '/src/assets/heroes/hero-tile-flooring.jpg',
+  'protective-architectural-coatings': '/src/assets/heroes/hero-painting.jpg',
+};
+
 const ServiceDetail = () => {
   const { slug } = useParams<{ slug: string }>();
   const [service, setService] = useState<Service | null>(null);
@@ -168,15 +180,15 @@ const ServiceDetail = () => {
       <Navigation />
       
       <PageHeader
-        eyebrow="Our Services"
         title={service.name}
         description={service.short_description || ""}
+        backgroundImage={serviceHeroImages[service.slug]}
+        cta={{ label: CTA_TEXT.primary, href: "/contact" }}
         breadcrumbs={[
           { label: "Home", href: "/" },
           { label: "Services", href: "/services" },
           { label: service.name }
         ]}
-        variant="standard"
       />
       
       <main className="min-h-screen">
