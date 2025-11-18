@@ -41,9 +41,9 @@ const badgeVariants = cva(
         inactive: "border-0 bg-gradient-to-br from-[hsl(215_16%_47%)] to-[hsl(215_16%_40%)] text-white/90 [box-shadow:var(--badge-shadow-sm)] hover-scale",
       },
       size: {
-        xs: "text-[10px] px-2 py-0.5 gap-1 rounded-full",
-        sm: "text-xs px-2.5 py-1 gap-1.5 rounded-full",
-        md: "text-sm px-3 py-1.5 gap-2 rounded-full",
+        xs: "text-xs px-2.5 py-1 gap-1 rounded-full",  // Increased from 10px to 12px
+        sm: "text-sm px-3 py-1.5 gap-1.5 rounded-full",  // Increased padding
+        md: "text-base px-4 py-2 gap-2 rounded-full",  // Increased to 16px base
         lg: "text-base px-4 py-2 gap-2 rounded-[var(--radius-sm)]",
       },
     },
