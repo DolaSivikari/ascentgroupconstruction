@@ -95,8 +95,8 @@ const ForGeneralContractors = () => {
       <Navigation />
       
       <PageHeader
-        title="Trade Partner for Envelope & Interior Work"
-        description="Reliable, self-performed specialty trades for GCs executing commercial, multi-family, and institutional projects"
+        title="Reliable Trade Partner for General Contractors"
+        description="Subcontractor services for building envelope and interior trades. Self-performed work, fast quotes, professional execution. Serving GCs across commercial, multi-family, and institutional projects."
         backgroundImage={heroImage}
         cta={{ label: CTA_TEXT.gc, href: "#contact" }}
         breadcrumbs={[
@@ -185,6 +185,63 @@ const ForGeneralContractors = () => {
               </ScrollReveal>
             ))}
           </div>
+        </Section>
+
+        {/* We're Building Our Track Record Section */}
+        <Section size="major" className="bg-primary/5">
+          <Card variant="elevated" size="lg" className="border-l-4 border-l-primary max-w-4xl mx-auto">
+            <h3 className="text-2xl md:text-3xl font-semibold mb-4">We're Building Our Track Record</h3>
+            <p className="text-lg text-muted-foreground mb-6">
+              As a newly incorporated company, we understand GCs need proven reliability. Here's what we bring:
+            </p>
+            <div className="grid md:grid-cols-2 gap-4 mb-6">
+              <div className="flex items-start gap-3">
+                <CheckCircle className="w-5 h-5 text-primary flex-shrink-0 mt-1" />
+                <div>
+                  <strong className="text-foreground">15+ years team experience</strong>
+                  <p className="text-sm text-muted-foreground">from major GTA commercial projects</p>
+                </div>
+              </div>
+              <div className="flex items-start gap-3">
+                <CheckCircle className="w-5 h-5 text-primary flex-shrink-0 mt-1" />
+                <div>
+                  <strong className="text-foreground">Registered on bidding platforms</strong>
+                  <p className="text-sm text-muted-foreground">DataBid, ConstructConnect</p>
+                </div>
+              </div>
+              <div className="flex items-start gap-3">
+                <CheckCircle className="w-5 h-5 text-primary flex-shrink-0 mt-1" />
+                <div>
+                  <strong className="text-foreground">WSIB compliant</strong>
+                  <p className="text-sm text-muted-foreground">with comprehensive site safety protocols</p>
+                </div>
+              </div>
+              <div className="flex items-start gap-3">
+                <CheckCircle className="w-5 h-5 text-primary flex-shrink-0 mt-1" />
+                <div>
+                  <strong className="text-foreground">$5M liability coverage</strong>
+                  <p className="text-sm text-muted-foreground">and bonding available</p>
+                </div>
+              </div>
+              <div className="flex items-start gap-3">
+                <CheckCircle className="w-5 h-5 text-primary flex-shrink-0 mt-1" />
+                <div>
+                  <strong className="text-foreground">Client references available</strong>
+                  <p className="text-sm text-muted-foreground">upon request</p>
+                </div>
+              </div>
+              <div className="flex items-start gap-3">
+                <CheckCircle className="w-5 h-5 text-primary flex-shrink-0 mt-1" />
+                <div>
+                  <strong className="text-foreground">Competitive pricing</strong>
+                  <p className="text-sm text-muted-foreground">with transparent unit rates</p>
+                </div>
+              </div>
+            </div>
+            <p className="text-muted-foreground italic">
+              We know we need to earn your trust through professional execution, responsive communication, and quality work. Every project is an opportunity to prove we're the trade partner you can rely on.
+            </p>
+          </Card>
         </Section>
 
         {/* Building Credentials Section */}
