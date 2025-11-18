@@ -4,7 +4,7 @@ import SEO from "@/components/SEO";
 import PageHeader from "@/components/PageHeader";
 import { Section } from "@/components/sections/Section";
 import { ServiceSelector } from "@/components/tools/ServiceSelector";
-import heroImage from "@/assets/heroes/hero-building-envelope.jpg";
+import heroImage from "@/assets/heroes/hero-facade-remediation.jpg";
 
 /**
  * Service Selector Tool Page
