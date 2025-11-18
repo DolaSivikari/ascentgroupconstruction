@@ -32,7 +32,7 @@ const Navigation = () => {
   // Pages with hero backgrounds that should have transparent navigation
   const heroPages = [
     '/',
-    // Service pages
+    // Service pages - ALL services
     '/services',
     '/services/painting-services',
     '/services/building-envelope',
@@ -43,6 +43,17 @@ const Navigation = () => {
     '/services/cladding-systems',
     '/services/protective-coatings',
     '/services/sustainable-building',
+    '/services/basement-finishing',
+    '/services/carpentry-trim-work',
+    '/services/interior-buildouts-finishing',
+    '/services/suite-renovations',
+    '/services/drywall-finishing',
+    '/services/general-repairs-maintenance',
+    '/services/kitchen-bathroom-renovations',
+    '/services/building-envelope-solutions',
+    '/services/waterproofing-systems',
+    '/services/eifs-stucco-systems',
+    '/services/protective-architectural-coatings',
     // Company pages
     '/about',
     '/careers',
