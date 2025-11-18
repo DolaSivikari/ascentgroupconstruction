@@ -58,8 +58,8 @@ const Capabilities = () => {
   return (
     <div className="min-h-screen">
       <SEO
-        title="Capabilities | Project Delivery & Self-Perform Trades | Ascent Group"
-        description="Comprehensive general contracting capabilities including GC, CM, design-build delivery with self-perform exterior envelope and interior trades across Ontario."
+        title="Capabilities | Specialty Contracting & Self-Perform Trades | Ascent Group"
+        description="Specialty contracting capabilities: building envelope restoration and interior systems delivered through self-performed trades and integrated multi-trade execution across Ontario."
       />
       <Navigation />
       
