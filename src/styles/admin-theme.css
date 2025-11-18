@@ -186,6 +186,51 @@
   padding-left: 0.5rem;
 }
 
+/* Collapsible Group Labels (for Radix Collapsible) */
+.business-nav-group-label {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  margin: 0.5rem 0;
+  color: hsl(var(--business-nav-text));
+  background: transparent;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  min-height: 44px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  width: 100%;
+  text-align: left;
+  opacity: 0.9;
+}
+
+.business-nav-group-label:hover {
+  background: hsl(var(--business-nav-hover));
+  opacity: 1;
+}
+
+.business-nav-group-label svg {
+  width: 1rem;
+  height: 1rem;
+  flex-shrink: 0;
+  color: hsl(var(--business-nav-text));
+}
+
+.business-nav-group-label [data-state] {
+  color: hsl(var(--business-nav-text));
+}
+
+/* Collapsible Group Container */
+.business-nav-group {
+  padding-left: 0.5rem;
+  margin-bottom: 1rem;
+}
+
 /* Mobile Sidebar */
 .business-sidebar-backdrop {
   position: fixed;
