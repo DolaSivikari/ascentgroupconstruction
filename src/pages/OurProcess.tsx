@@ -92,18 +92,18 @@ const processSteps = [
 const qualityStandards = [
   {
     icon: ShieldCheck,
-    title: "Licensed & Insured",
-    description: "$2M CGL liability, WSIB compliant, all workers fully covered"
+    title: "WSIB Compliant & $2M CGL",
+    description: "Active WSIB registration since incorporation, $2M general liability coverage, all crew members fully insured"
   },
   {
     icon: Award,
-    title: "Quality Guaranteed",
-    description: "2-10 year warranties on all workmanship and materials"
+    title: "Manufacturer-Backed Warranties",
+    description: "2-10 year warranties depending on scope—EIFS systems carry full manufacturer warranty when installed per specifications"
   },
   {
     icon: HardHat,
-    title: "Expert Team",
-    description: "15+ years experience, certified professionals, background-checked"
+    title: "15+ Years Combined Experience",
+    description: "Core crew has worked together 5+ years, individual team members 15+ years in envelope and restoration trades"
   }
 ];
 

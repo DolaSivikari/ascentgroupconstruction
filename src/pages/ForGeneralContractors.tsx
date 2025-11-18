@@ -4,6 +4,8 @@ import Footer from "@/components/Footer";
 import PageHeader from "@/components/PageHeader";
 import { Card } from "@/design-system/components/Card";
 import { Section } from "@/components/sections/Section";
+import { CardGrid } from "@/components/shared/CardGrid";
+import { FeatureCard, ProcessStepCard } from "@/components/unified";
 import { Button } from "@/ui/Button";
 import { CTA_TEXT } from "@/design-system/constants";
 import { CheckCircle, Clock, Shield, FileText, Users, Wrench, Download, Mail, Phone } from "lucide-react";
@@ -27,61 +29,66 @@ const ForGeneralContractors = () => {
   const whyWorkWithUs = [
     {
       icon: Clock,
-      title: "Responsive Quote Turnaround",
-      description: "Competitive bids and unit pricing for active tenders—building our reputation on professionalism",
+      title: "48-Hour Quote Turnaround",
+      description: "Unit pricing for envelope scope on active tenders—typical response within 2 business days for standard packages",
     },
     {
       icon: Users,
-      title: "Self-Performed Work",
-      description: "85% of work done by our 10-person crew—minimal sub-tiers, direct accountability",
+      title: "Self-Performed Work (85%)",
+      description: "10-person dedicated crew handles EIFS, masonry, sealant, painting—minimal sub-tiers, direct accountability on every project",
     },
     {
       icon: Shield,
-      title: "Safety & Compliance",
-      description: "Active WSIB registration, comprehensive site safety protocols, and proper insurance coverage",
+      title: "WSIB & $2M CGL Coverage",
+      description: "Active WSIB registration since incorporation, comprehensive general liability, verified site safety protocols",
     },
     {
       icon: FileText,
-      title: "Clear Communication",
-      description: "Dedicated project lead, progress reporting, and prompt RFI responses",
+      title: "Daily Progress Reporting",
+      description: "Dedicated project lead assigned to every job—daily photo updates, prompt RFI turnaround within 24 hours",
     },
     {
       icon: CheckCircle,
-      title: "Professional Documentation",
-      description: "Complete closeout packages with product data sheets and warranty information",
+      title: "Manufacturer-Compliant Documentation",
+      description: "Complete closeout packages with product data sheets, warranty certificates, and material compliance verification",
     },
     {
       icon: Wrench,
-      title: "Trade Specialization",
-      description: "Focused on envelope and interior trades we execute well—no scope creep",
+      title: "Envelope & Interior Focus Only",
+      description: "We bid what we execute well—no structural, mechanical, or electrical scope creep",
     },
   ];
 
   const processSteps = [
     {
-      number: "1",
-      title: "Tender Review",
-      description: "We review your bid package and clarify scope, exclusions, and site requirements",
+      step: "1",
+      title: "Tender Review & Clarifications",
+      description: "We review your bid package, confirm scope boundaries, and submit RFIs for any ambiguities—ensuring accurate pricing without hidden assumptions",
+      icon: FileText,
     },
     {
-      number: "2",
-      title: "Unit Rate Submission",
-      description: "Competitive pricing broken down by trade and activity with clear assumptions",
+      step: "2",
+      title: "Competitive Unit Rate Submission",
+      description: "Detailed pricing by trade and activity within 48 hours for standard packages—broken down for transparency and easy comparison",
+      icon: CheckCircle,
     },
     {
-      number: "3",
-      title: "Award & Mobilization",
-      description: "Coordinate with your site superintendent for access, safety, and schedule alignment",
+      step: "3",
+      title: "Pre-Start Coordination",
+      description: "Upon award, we coordinate directly with your site superintendent for access, safety protocols, material deliveries, and schedule integration",
+      icon: Users,
     },
     {
-      number: "4",
-      title: "Execution",
-      description: "Daily reporting, photo documentation, and material compliance verification",
+      step: "4",
+      title: "Daily Execution & Reporting",
+      description: "Dedicated project lead provides daily photo updates, tracks progress against schedule, and responds to RFIs within 24 hours",
+      icon: Wrench,
     },
     {
-      number: "5",
-      title: "Closeout",
-      description: "Final walkthrough, warranty paperwork, and material certifications delivered",
+      step: "5",
+      title: "Closeout & Documentation",
+      description: "Final walkthrough with deficiency list, product data sheets, warranty certificates, and material compliance documentation delivered digitally",
+      icon: Shield,
     },
   ];
 
@@ -140,23 +147,24 @@ const ForGeneralContractors = () => {
         {/* Why Work With Us */}
         <Section size="major" className="bg-muted/30">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">
-              Why GCs Work With Us
+            <h2 className="text-3xl md:text-5xl font-bold mb-4">
+              Why GCs Choose Ascent Group
             </h2>
-            <p className="text-lg md:text-xl text-muted-foreground">
-              Professional execution, clear communication, and reliable trade-level expertise
+            <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
+              Reliable envelope and interior trades partner—built on professional execution and direct accountability
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <CardGrid columns={3} stagger="standard">
             {whyWorkWithUs.map((item, index) => (
-              <Card key={index} variant="elevated" size="md" hover>
-                <item.icon className="w-8 h-8 text-primary mb-4" />
-                <h3 className="text-xl font-semibold mb-2">{item.title}</h3>
-                <p className="text-muted-foreground">{item.description}</p>
-              </Card>
+              <FeatureCard
+                key={index}
+                icon={item.icon}
+                title={item.title}
+                description={item.description}
+              />
             ))}
-          </div>
+          </CardGrid>
         </Section>
 
         {/* Our Process */}
@@ -170,18 +178,15 @@ const ForGeneralContractors = () => {
             </p>
           </div>
 
-          <div className="max-w-4xl mx-auto space-y-6">
+          <div className="max-w-4xl mx-auto space-y-4">
             {processSteps.map((step, index) => (
               <ScrollReveal key={index} direction="left" delay={index * 100}>
-                <Card variant="elevated" size="md" hover className="flex gap-6 items-start">
-                  <div className="p-3 bg-primary/10 rounded-lg flex-shrink-0">
-                    <span className="text-2xl font-bold text-primary">{step.number}</span>
-                  </div>
-                  <div>
-                    <h3 className="text-xl font-semibold mb-2">{step.title}</h3>
-                    <p className="text-muted-foreground">{step.description}</p>
-                  </div>
-                </Card>
+                <ProcessStepCard
+                  step={step.step}
+                  title={step.title}
+                  description={step.description}
+                  icon={step.icon}
+                />
               </ScrollReveal>
             ))}
           </div>

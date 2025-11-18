@@ -13,22 +13,37 @@ import heroImage from "@/assets/heroes/hero-general-contracting.jpg";
 const Capabilities = () => {
   const deliveryMethods = [
     {
-      title: "Specialty Contracting",
-      description: "Self-performed building envelope and interior systems",
+      title: "Self-Performed Specialty Work",
+      description: "10-person crew executes 85% of work in-house",
       icon: Building2,
-      details: ["85% in-house execution", "Direct quality control", "No subcontractor markup", "Single-point accountability"],
+      details: [
+        "EIFS, stucco, sealant, masonry, painting—all direct execution", 
+        "Minimal sub-tier layers = direct accountability", 
+        "No subcontractor markup on self-performed scope", 
+        "Same crew start-to-finish for consistency"
+      ],
     },
     {
-      title: "Design-Assist",
-      description: "Early contractor involvement during design",
+      title: "Design-Assist Capability",
+      description: "Early involvement during pre-construction for envelope scope",
       icon: Users,
-      details: ["Constructability review", "Value engineering", "Technical expertise", "Optimal project outcomes"],
+      details: [
+        "Constructability review for EIFS and cladding systems", 
+        "Value engineering on material selection", 
+        "Manufacturer coordination (Dryvit, Parex, Sto)", 
+        "Realistic cost estimates based on actual field experience"
+      ],
     },
     {
-      title: "Multi-Trade Integration",
-      description: "Coordinated execution of multiple specialty trades",
+      title: "Multi-Trade Coordination",
+      description: "Bundle envelope + interior trades under one specialty contractor",
       icon: Layers,
-      details: ["Masonry + EIFS + waterproofing", "Unified scheduling", "Seamless coordination", "Reduced project complexity"],
+      details: [
+        "Typical package: Envelope remediation + painting + coatings", 
+        "Unified schedule—no waiting for separate sub awards", 
+        "Single project lead for all trades", 
+        "Reduces GC coordination burden on smaller projects"
+      ],
     },
   ];
 
@@ -51,8 +66,20 @@ const Capabilities = () => {
   ];
 
   const selfPerform = {
-    envelope: ["Stucco & EIFS Systems", "Architectural painting", "Metal cladding installation", "Waterproofing systems", "Masonry repair"],
-    interior: ["Commercial painting", "Interior buildouts", "High-performance coatings", "Parking garage restoration"],
+    envelope: [
+      "EIFS & stucco installation/repair (Dryvit, Parex, Sto certified)",
+      "Perimeter sealant replacement (windows, expansion joints, penetrations)",
+      "Masonry restoration & tuckpointing (brick, block, stone)",
+      "Exterior architectural painting & protective coatings",
+      "Balcony waterproofing membrane systems"
+    ],
+    interior: [
+      "Commercial & residential painting (interior/exterior)",
+      "High-performance coatings (epoxy, urethane, anti-graffiti)",
+      "Tile & resilient flooring installation",
+      "Interior drywall finishing & buildouts",
+      "Parking garage restoration (coating, marking, repairs)"
+    ],
   };
 
   return (
