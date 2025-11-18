@@ -11,6 +11,17 @@ import { reportWebVitals } from "./lib/webVitals";
 import { initErrorLogging } from "./utils/errorLogger";
 import { checkForDeploymentUpdate, clearAllCaches } from "./utils/cacheBuster";
 
+// Reload guard to prevent multiple simultaneous reloads
+let isReloading = false;
+
+const safeReload = () => {
+  if (!isReloading) {
+    isReloading = true;
+    console.log('[App] Reloading application...');
+    window.location.reload();
+  }
+};
+
 createRoot(document.getElementById("root")!).render(
   <HelmetProvider>
     <App />
@@ -24,10 +35,11 @@ reportWebVitals();
 initErrorLogging();
 
 // Check for deployment updates
-checkForDeploymentUpdate().then((hasUpdate) => {
+checkForDeploymentUpdate().then(async (hasUpdate) => {
   if (hasUpdate) {
     console.log('[Cache Buster] New deployment detected, clearing caches...');
-    clearAllCaches();
+    await clearAllCaches();
+    safeReload();
   }
 });
 
@@ -47,7 +59,7 @@ if ('serviceWorker' in navigator && import.meta.env.PROD) {
               if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
                 console.log('[Service Worker] New version available, clearing caches...');
                 
-                // Clear all caches before reloading
+                // Clear all caches before activating new worker
                 if ('caches' in window) {
                   caches.keys().then((names) => {
                     Promise.all(names.map(name => caches.delete(name)))
@@ -56,19 +68,20 @@ if ('serviceWorker' in navigator && import.meta.env.PROD) {
                           if (navigator.serviceWorker.controller) {
                             navigator.serviceWorker.controller.postMessage({ type: 'CLEAR_CACHE' });
                           }
-                          // Send skip waiting message
+                          // Send skip waiting message (will trigger controllerchange)
                           newWorker.postMessage({ type: 'SKIP_WAITING' });
-                          
-                          // Reload page after cache clear
-                          setTimeout(() => {
-                            console.log('[Service Worker] Reloading for update...');
-                            window.location.reload();
-                          }, 100);
                       });
                   });
                 }
               }
             });
+          }
+        });
+      })
+      .catch((error) => {
+        console.error('[Service Worker] Registration failed:', error);
+      });
+  });
 }
 
 // Listen for controller changes to ensure new SW takes control
@@ -84,22 +97,16 @@ if ('serviceWorker' in navigator) {
     }
     
     // Only reload if this is a genuine update (not initial page load)
-    console.log('[Service Worker] New version activated, reloading...');
-    window.location.reload();
+    console.log('[Service Worker] New version activated');
+    safeReload();
   });
 }
 
 // Keyboard shortcut: Ctrl/Cmd + Shift + U to force clear caches
-window.addEventListener('keydown', (e) => {
+window.addEventListener('keydown', async (e) => {
   if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key.toLowerCase() === 'u') {
     console.log('[Cache Buster] Shortcut triggered - clearing caches');
-    clearAllCaches();
+    await clearAllCaches();
+    safeReload();
   }
 });
-        });
-      })
-      .catch((error) => {
-        console.error('[Service Worker] Registration failed:', error);
-      });
-  });
-}
