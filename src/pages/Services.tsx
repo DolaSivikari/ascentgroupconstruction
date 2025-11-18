@@ -171,7 +171,7 @@ const Services = () => {
                   <ScrollReveal key={index} direction="up" delay={index * 100}>
                     <Link 
                       to={item.link}
-                      className="group p-6 rounded-xl border border-border bg-card hover:shadow-lg transition-all duration-300"
+                      className="group p-6 rounded-[var(--radius-lg)] border border-border bg-card hover:shadow-[var(--shadow-lg)] transition-all duration-300"
                     >
                       <div className="flex flex-col items-center text-center">
                         <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mb-4 group-hover:bg-primary/20 transition-colors">

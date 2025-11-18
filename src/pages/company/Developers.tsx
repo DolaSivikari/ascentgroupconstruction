@@ -132,11 +132,11 @@ const Developers = () => {
                 {benefits.map((benefit, index) => (
                   <Card 
                     key={index} 
-                    className="hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 group border-2 hover:border-primary/30 animate-fade-in-up"
+                    className="hover:shadow-[var(--shadow-lg)] hover:-translate-y-2 transition-all duration-300 group border-2 hover:border-primary/30 animate-fade-in-up"
                     style={{ animationDelay: `${index * 100}ms` }}
                   >
                     <CardContent className="p-6 text-center">
-                      <div className="w-14 h-14 bg-gradient-to-br from-primary to-primary/70 rounded-xl flex items-center justify-center mx-auto mb-4 shadow-lg group-hover:scale-110 group-hover:rotate-6 transition-all duration-300">
+                      <div className="w-14 h-14 bg-gradient-to-br from-primary to-primary/70 rounded-[var(--radius-lg)] flex items-center justify-center mx-auto mb-4 shadow-[var(--shadow-lg)] group-hover:scale-110 group-hover:rotate-6 transition-all duration-300">
                         <benefit.icon className="w-7 h-7 text-secondary" />
                       </div>
                       <h3 className="text-lg font-bold mb-2">{benefit.title}</h3>
@@ -162,7 +162,7 @@ const Developers = () => {
                 {services.map((service, index) => (
                   <Card 
                     key={index} 
-                    className="hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 border-2 hover:border-primary/30 animate-fade-in-up"
+                    className="hover:shadow-[var(--shadow-lg)] hover:-translate-y-2 transition-all duration-300 border-2 hover:border-primary/30 animate-fade-in-up"
                     style={{ animationDelay: `${index * 100}ms` }}
                   >
                     <CardContent className="p-8">
@@ -197,7 +197,7 @@ const Developers = () => {
                 {process.map((item, index) => (
                   <Card 
                     key={index} 
-                    className="relative hover:shadow-xl hover:-translate-y-1 transition-all duration-300 border-2 hover:border-primary/30 group animate-fade-in-up"
+                    className="relative hover:shadow-[var(--shadow-lg)] hover:-translate-y-1 transition-all duration-300 border-2 hover:border-primary/30 group animate-fade-in-up"
                     style={{ animationDelay: `${index * 100}ms` }}
                   >
                     <CardContent className="p-6">
@@ -247,7 +247,7 @@ const Developers = () => {
                 <Card className="border-2 border-primary/20">
                   <CardContent className="p-12">
                     <div className="flex flex-col md:flex-row gap-8 items-start">
-                      <div className="w-20 h-20 bg-primary/10 rounded-2xl flex items-center justify-center shrink-0">
+                      <div className="w-20 h-20 bg-primary/10 rounded-[var(--radius-lg)] flex items-center justify-center shrink-0">
                         <FileText className="w-10 h-10 text-primary" />
                       </div>
                       <div className="flex-1">

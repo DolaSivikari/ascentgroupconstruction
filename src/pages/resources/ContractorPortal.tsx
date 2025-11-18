@@ -292,7 +292,7 @@ const ContractorPortal = () => {
           <section>
             <h2 className="text-3xl font-bold text-foreground mb-8 text-center">Why Partner With Us</h2>
             <div className="grid md:grid-cols-3 gap-8">
-              <Card className="hover:shadow-xl hover:-translate-y-2 transition-all duration-300 group border-2 hover:border-primary/30 animate-fade-in-up">
+              <Card className="hover:shadow-[var(--shadow-lg)] hover:-translate-y-2 transition-all duration-300 group border-2 hover:border-primary/30 animate-fade-in-up">
                 <CardContent className="p-6 text-center">
                   <div className="w-16 h-16 bg-gradient-to-br from-primary to-primary/70 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
                     <CheckCircle2 className="h-8 w-8 text-secondary" />
@@ -303,7 +303,7 @@ const ContractorPortal = () => {
                   </p>
                 </CardContent>
               </Card>
-              <Card className="hover:shadow-xl hover:-translate-y-2 transition-all duration-300 group border-2 hover:border-primary/30 animate-fade-in-up" style={{ animationDelay: '100ms' }}>
+              <Card className="hover:shadow-[var(--shadow-lg)] hover:-translate-y-2 transition-all duration-300 group border-2 hover:border-primary/30 animate-fade-in-up" style={{ animationDelay: '100ms' }}>
                 <CardContent className="p-6 text-center">
                   <div className="w-16 h-16 bg-gradient-to-br from-primary to-primary/70 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
                     <Award className="h-8 w-8 text-secondary" />
@@ -312,7 +312,7 @@ const ContractorPortal = () => {
                   <p className="text-muted-foreground">$5M liability, $10M bonding capacity per project</p>
                 </CardContent>
               </Card>
-              <Card className="hover:shadow-xl hover:-translate-y-2 transition-all duration-300 group border-2 hover:border-primary/30 animate-fade-in-up" style={{ animationDelay: '200ms' }}>
+              <Card className="hover:shadow-[var(--shadow-lg)] hover:-translate-y-2 transition-all duration-300 group border-2 hover:border-primary/30 animate-fade-in-up" style={{ animationDelay: '200ms' }}>
                 <CardContent className="p-6 text-center">
                   <div className="w-16 h-16 bg-gradient-to-br from-primary to-primary/70 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
                     <Shield className="h-8 w-8 text-secondary" />

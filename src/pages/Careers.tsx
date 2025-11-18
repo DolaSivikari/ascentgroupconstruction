@@ -132,7 +132,7 @@ const Careers = () => {
               {benefits.map((benefit, index) => (
                 <Card key={index} className="hover:shadow-lg transition-shadow">
                   <CardContent className="p-6">
-                    <div className="w-14 h-14 bg-primary/10 rounded-xl flex items-center justify-center mb-4">
+                    <div className="w-14 h-14 bg-primary/10 rounded-[var(--radius-lg)] flex items-center justify-center mb-4">
                       <benefit.icon className="w-7 h-7 text-primary" />
                     </div>
                     <h3 className="text-xl font-bold mb-2">{benefit.title}</h3>
