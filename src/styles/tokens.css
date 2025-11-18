@@ -121,9 +121,9 @@
   --admin-bg-card: 222 47% 14%;        /* Card background - slightly lighter gray */
   --admin-bg-hover: 215 25% 20%;       /* Hover state - more visible */
   
-  --admin-text-primary: 0 0% 100%;      /* Pure white - maximum contrast for main text */
-  --admin-text-secondary: 210 20% 85%; /* Light blue-gray - high contrast labels */
-  --admin-text-muted: 210 15% 70%;     /* Medium blue-gray - still readable hints */
+  --admin-text-primary: 0 0% 100%;      /* Pure white - main text */
+  --admin-text-secondary: 0 0% 92%;    /* Very light gray - strong contrast subtitles/labels */
+  --admin-text-muted: 0 0% 80%;        /* Light gray - still clearly readable hints */
   
   --admin-border: 215 25% 25%;         /* Border color - more visible */
   --admin-nav-active-bg: 221 83% 28%;  /* Active nav background - darker blue */
