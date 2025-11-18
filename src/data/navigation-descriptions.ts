@@ -10,4 +10,10 @@ export const NAVIGATION_DESCRIPTIONS: Record<string, string> = {
   '/services/painting-services': 'Professional Finish',
   '/services/tile-flooring': 'Quality Surfaces',
   '/services/sustainable-construction': 'Green Building',
+  
+  // Client Types
+  '/homeowners': 'Residential Work',
+  '/property-managers': 'Building Care',
+  '/commercial-clients': 'Business Projects',
+  '/for-general-contractors': 'Trade Partner',
 };
