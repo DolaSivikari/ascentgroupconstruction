@@ -71,7 +71,7 @@ const Footer = () => {
   const certifications = [
     { icon: Shield, title: "Working Toward COR", subtitle: "Safety Excellence" },
     { icon: FileCheck, title: "WSIB Compliant", subtitle: "Full Coverage" },
-    { icon: Award, title: "$5M+ Insured", subtitle: "Liability" },
+    { icon: Award, title: "Fully Insured", subtitle: "$2M CGL Coverage" },
     { icon: Building2, title: "Established 2025", subtitle: "Growing in GTA" },
   ];
 

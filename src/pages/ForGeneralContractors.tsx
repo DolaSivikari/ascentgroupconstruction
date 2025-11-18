@@ -219,8 +219,8 @@ const ForGeneralContractors = () => {
               <div className="flex items-start gap-3">
                 <CheckCircle className="w-5 h-5 text-primary flex-shrink-0 mt-1" />
                 <div>
-                  <strong className="text-foreground">$5M liability coverage</strong>
-                  <p className="text-sm text-muted-foreground">and bonding available</p>
+                  <strong className="text-foreground">$2M CGL coverage</strong>
+                  <p className="text-sm text-muted-foreground">comprehensive liability insurance</p>
                 </div>
               </div>
               <div className="flex items-start gap-3">
@@ -265,7 +265,7 @@ const ForGeneralContractors = () => {
               </li>
               <li className="flex items-start gap-2">
                 <CheckCircle className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
-                <span>Insurance certificates ($5M general liability)</span>
+                <span>Insurance certificates ($2M CGL coverage)</span>
               </li>
               <li className="flex items-start gap-2">
                 <CheckCircle className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />

@@ -21,9 +21,9 @@ export const PremiumServiceHero = () => {
               <Award className="w-4 h-4" />
               <span className="text-sm font-medium">Working Toward COR</span>
             </div>
-            <div className="flex items-center gap-2 bg-primary-foreground/10 backdrop-blur-sm px-4 py-2 rounded-full border border-primary-foreground/20">
+            <div className="flex items-center gap-2 px-4 py-2 bg-background/10 backdrop-blur-sm rounded-full border border-border/20">
               <Shield className="w-4 h-4" />
-              <span className="text-sm font-medium">$10M Bonding</span>
+              <span className="text-sm font-medium">Fully Insured</span>
             </div>
             <div className="flex items-center gap-2 bg-primary-foreground/10 backdrop-blur-sm px-4 py-2 rounded-full border border-primary-foreground/20">
               <Clock className="w-4 h-4" />

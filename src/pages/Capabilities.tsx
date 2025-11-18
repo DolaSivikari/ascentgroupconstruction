@@ -216,11 +216,11 @@ const Capabilities = () => {
               <Card>
                 <CardHeader>
                   <TrendingUp className="h-8 w-8 text-primary mb-2" />
-                  <CardTitle>Available Bonding</CardTitle>
+                  <CardTitle>Project Financial Strength</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-2xl font-bold text-primary mb-2">$5M</p>
-                  <p className="text-sm text-muted-foreground">Single project capacity</p>
+                  <p className="text-2xl font-bold text-primary mb-2">$2M CGL</p>
+                  <p className="text-sm text-muted-foreground">Fully insured with WSIB compliance</p>
                 </CardContent>
               </Card>
             </div>

@@ -93,7 +93,7 @@ const qualityStandards = [
   {
     icon: ShieldCheck,
     title: "Licensed & Insured",
-    description: "$5M liability, WSIB compliant, all workers fully covered"
+    description: "$2M CGL liability, WSIB compliant, all workers fully covered"
   },
   {
     icon: Award,

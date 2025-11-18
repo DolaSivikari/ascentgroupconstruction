@@ -25,7 +25,7 @@ const CommercialClients = () => {
     {
       icon: ShieldCheck,
       title: "Fully Insured",
-      description: "$5M liability coverage and WSIB compliance - your business is protected"
+      description: "$2M CGL liability coverage and WSIB compliance - your business is protected"
     },
     {
       icon: Users,

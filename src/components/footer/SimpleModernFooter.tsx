@@ -33,7 +33,7 @@ export function SimpleModernFooter({
           <div className="flex gap-3 text-xs text-muted-foreground">
             <span>WSIB Compliant</span>
             <span>•</span>
-            <span>$5M+ Insured</span>
+            <span>Fully Insured</span>
           </div>
         </div>
 

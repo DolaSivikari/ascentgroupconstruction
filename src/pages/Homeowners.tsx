@@ -117,7 +117,7 @@ const Homeowners = () => {
     {
       icon: Shield,
       title: "Fully Insured & WSIB Compliant",
-      description: "$5M liability coverage and full WSIB compliance protect you and your property."
+      description: "$2M CGL liability coverage and full WSIB compliance protect you and your property."
     },
     {
       icon: Award,
@@ -352,7 +352,7 @@ const Homeowners = () => {
               </CardHeader>
               <CardContent>
                 <p className="text-muted-foreground">
-                  Yes. We carry $5M commercial general liability insurance and are fully WSIB compliant. We can provide certificates of insurance upon request.
+                  Yes. We carry $2M commercial general liability (CGL) insurance and are fully WSIB compliant. We can provide certificates of insurance upon request.
                 </p>
               </CardContent>
             </Card>

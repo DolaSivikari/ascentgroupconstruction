@@ -22,8 +22,8 @@ const Developers = () => {
   const benefits = [
     {
       icon: ShieldCheck,
-      title: "Bonding Capacity",
-      description: "$10M per project with financial strength to handle large-scale developments"
+      title: "Professional Standards",
+      description: "15+ years combined team experience with proven execution on large-scale developments"
     },
     {
       icon: Award,
@@ -64,7 +64,7 @@ const Developers = () => {
     {
       step: "1",
       title: "Pre-Qualification",
-      description: "Submit comprehensive documentation including insurance, bonding, safety records, and references"
+      description: "Submit comprehensive documentation including insurance, safety records, and references"
     },
     {
       step: "2",
@@ -87,7 +87,7 @@ const Developers = () => {
     <>
       <SEO 
         title="Developers & Contractors | Partnership Solutions"
-        description="Partner with Ascent Group Construction for your development projects. $10M bonding capacity, 15+ years experience, and proven delivery on multi-unit residential and commercial builds across the GTA."
+        description="Partner with Ascent Group Construction for your development projects. 15+ years experience and proven delivery on multi-unit residential and commercial builds across the GTA. Fully insured and WSIB compliant."
         canonical="/company/developers"
       />
       <div className="min-h-screen flex flex-col relative overflow-hidden">
@@ -221,12 +221,12 @@ const Developers = () => {
             <div className="container mx-auto px-4">
               <div className="grid md:grid-cols-4 gap-8 max-w-5xl mx-auto text-center">
                 <div>
-                  <div className="text-5xl font-bold mb-2 text-secondary">$10M</div>
-                  <div className="text-primary-foreground/80">Bonding Capacity</div>
+                  <div className="text-5xl font-bold mb-2 text-secondary">15+</div>
+                  <div className="text-primary-foreground/80">Years Team Experience</div>
                 </div>
                 <div>
-                  <div className="text-5xl font-bold mb-2 text-secondary">15+</div>
-                  <div className="text-primary-foreground/80">Years Experience</div>
+                  <div className="text-5xl font-bold mb-2 text-secondary">85%</div>
+                  <div className="text-primary-foreground/80">Self-Performed Work</div>
                 </div>
                 <div>
                   <div className="text-5xl font-bold mb-2 text-secondary">100+</div>
@@ -254,16 +254,13 @@ const Developers = () => {
                         <h2 className="text-3xl font-bold mb-4">Ready to Evaluate Us?</h2>
                         <p className="text-muted-foreground mb-6 text-lg">
                           Access our complete contractor documentation including insurance certificates, 
-                          WSIB clearance, bonding letters, safety certifications, financial statements, 
-                          and project references.
+                          WSIB clearance, safety certifications, and project references.
                         </p>
                         <div className="grid sm:grid-cols-2 gap-3 mb-8">
                           {[
-                            "Insurance: $5M Liability",
+                            "Insurance: $2M CGL",
                             "WSIB Clearance Certificate",
-                            "Bonding: $10M Capacity",
-                            "COR Safety Certification",
-                            "Financial Statements",
+                            "Working Toward COR",
                             "Project References",
                             "Equipment & Crew Details",
                             "Quality Management System"

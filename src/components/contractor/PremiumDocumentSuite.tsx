@@ -11,7 +11,6 @@ export const PremiumDocumentSuite = () => {
   const documents = [
     "Insurance Certificate",
     "WSIB Clearance",
-    "Bonding Letter",
     "Business License",
     "Company Profile",
     "Safety Manual",

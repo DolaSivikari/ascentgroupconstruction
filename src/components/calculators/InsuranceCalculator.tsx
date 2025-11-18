@@ -19,8 +19,8 @@ export const InsuranceCalculator = () => {
     const recommendedCoverage = projectValue * baseRate * durationMultiplier;
     const minimumCoverage = projectValue * 1.5; // Industry minimum
     
-    // Ascent Group's actual coverage
-    const ourCoverage = 5000000;
+    // Our comprehensive coverage
+    const ourCoverage = 2000000; // $2M CGL - Standard professional coverage
     
     return {
       recommended: Math.round(recommendedCoverage),
@@ -124,7 +124,7 @@ export const InsuranceCalculator = () => {
           {coverage.adequate && (
             <div className="p-4 bg-primary/10 rounded-lg border-2 border-primary/20">
               <p className="text-sm font-medium text-center">
-                ✓ Our $5M liability coverage is adequate for this project
+                ✓ Our $2M CGL coverage meets requirements for this project
               </p>
             </div>
           )}

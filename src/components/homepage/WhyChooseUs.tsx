@@ -7,7 +7,7 @@ import { GRID } from "@/design-system/layouts";
 
 // Fallback data with construction-specific icons
 const fallbackDifferentiators = [
-  { icon: "Shield", title: "Licensed & Certified", desc: "Fully licensed and insured with $5M liability coverage, active WSIB registration, and working toward COR certification. Professional execution backed by comprehensive insurance and safety protocols.", stats: "Established 2025" },
+  { icon: "Shield", title: "Licensed & Certified", desc: "Fully licensed and insured with $2M CGL liability coverage, active WSIB registration, and working toward COR certification. Professional execution backed by comprehensive insurance and safety protocols.", stats: "Established 2025" },
   { icon: "Building", title: "Comprehensive Services", desc: "Complete construction solutions from envelope restoration to specialty trades. Single point of contact eliminates coordination complexity and streamlines project delivery.", stats: "21+ Service Offerings" },
   { icon: "Award", title: "Premium Materials", desc: "Authorized contractor for industry-leading brands with extended manufacturer warranties. Premium materials and proven installation methods ensure lasting quality and performance.", stats: "Extended Warranties" },
   { icon: "Calendar", title: "On-Time Delivery", desc: "Dedicated project management with transparent pricing and detailed estimates. Our systematic approach maintains a 95% on-time completion rate across all projects.", stats: "95% On-Time Rate" },

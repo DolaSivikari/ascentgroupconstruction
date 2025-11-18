@@ -54,10 +54,10 @@ export const enrichedHeroSlides = [
   {
     video: buildingVideo,
     poster: buildingPoster,
-    stat: "$5M",
+    stat: "$2M",
     statLabel: "CGL Coverage",
     headline: "Proven Team. Professional Standards.",
-    subheadline: "Incorporated in 2025, our team brings 15+ years of hands-on experience from hundreds of commercial and residential projects. WSIB compliant, $5M liability coverage, and working toward COR certification—professional execution at every project scale.",
+    subheadline: "Incorporated in 2025, our team brings 15+ years of hands-on experience from hundreds of commercial and residential projects. WSIB compliant, $2M CGL liability coverage, and working toward COR certification—professional execution at every project scale.",
     primaryCTA: {
       label: "View Our Work",
       href: "/projects",

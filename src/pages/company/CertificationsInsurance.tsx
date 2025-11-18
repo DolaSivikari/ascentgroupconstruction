@@ -73,7 +73,6 @@ const CertificationsInsurance = () => {
     { name: "Certificate of Insurance", size: "2MB" },
     { name: "WSIB Clearance", size: "1MB" },
     { name: "Safety Manual", size: "5MB" },
-    { name: "Bonding Letter", size: "500KB" },
     { name: "Company Profile", size: "3MB" },
   ];
 
@@ -128,25 +127,6 @@ const CertificationsInsurance = () => {
                     <CardContent className="p-6 text-center">
                       <Icon className="h-12 w-12 text-primary mx-auto mb-4" />
                       <div className="text-2xl font-bold text-foreground mb-2">{item.value}</div>
-                      <div className="text-sm text-muted-foreground">{item.label}</div>
-                    </CardContent>
-                  </Card>
-                );
-              })}
-            </div>
-          </section>
-
-          {/* Bonding Capacity Section */}
-          <section>
-            <h2 className="text-3xl font-bold text-foreground mb-8">Bonding Capacity</h2>
-            <div className="grid md:grid-cols-3 gap-6">
-              {bondingCapacity.map((item, index) => {
-                const Icon = item.icon;
-                return (
-                  <Card key={index}>
-                    <CardContent className="p-6 text-center">
-                      <Icon className="h-10 w-10 text-primary mx-auto mb-4" />
-                      <div className="text-xl font-bold text-foreground mb-2">{item.value}</div>
                       <div className="text-sm text-muted-foreground">{item.label}</div>
                     </CardContent>
                   </Card>
