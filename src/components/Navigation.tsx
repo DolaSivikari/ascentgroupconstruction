@@ -256,7 +256,7 @@ const Navigation = () => {
                 aria-expanded={activeMegaMenu === "partners"}
                 aria-controls="partners-mega-menu"
               >
-                Partners
+                Who We Serve
                 <ChevronDown className={cn(
                   "w-4 h-4 icon-rotate transition-transform duration-300",
                   activeMegaMenu === "partners" && "rotate-180"
