@@ -46,9 +46,19 @@ const PropertyManagers = () => {
       roi: "Reduce vacancy time by 40%"
     },
     {
+      title: "Suite Turnovers",
+      description: "Complete painting, flooring, and finishing for tenant changes",
+      roi: "Minimize vacancy periods"
+    },
+    {
       title: "Common Area Maintenance",
       description: "Keep lobbies, hallways, and amenities looking their best",
       roi: "Increase tenant retention 25%"
+    },
+    {
+      title: "Small Repairs & Maintenance",
+      description: "Responsive service for urgent tenant issues and minor repairs",
+      roi: "Faster response times"
     },
     {
       title: "Exterior Restoration",
