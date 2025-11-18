@@ -94,6 +94,15 @@ const PerformanceDashboard = lazy(() => import("./pages/admin/PerformanceDashboa
 const UnifiedInbox = lazy(() => import("./pages/admin/UnifiedInbox").catch(() => ({
   default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Unified Inbox</p></div>
 })));
+const AuditDashboard = lazy(() => import("./pages/admin/AuditDashboard").catch(() => ({
+  default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Audit Dashboard</p></div>
+})));
+const ContentVersioning = lazy(() => import("./pages/admin/ContentVersioning").catch(() => ({
+  default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Content Versioning</p></div>
+})));
+const Monitoring = lazy(() => import("./pages/admin/Monitoring").catch(() => ({
+  default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Monitoring</p></div>
+})));
 
 import "./index.css";
 import "./styles/typography.css";
@@ -298,6 +307,9 @@ const App = () => (
                     <Route path="redirects" element={<RedirectsManager />} />
                     <Route path="performance-dashboard" element={<PerformanceDashboard />} />
                     <Route path="search-analytics" element={<SearchAnalytics />} />
+                    <Route path="audit" element={<AuditDashboard />} />
+                    <Route path="content-versions" element={<ContentVersioning />} />
+                    <Route path="monitoring" element={<Monitoring />} />
                     <Route path="quote-requests" element={<Navigate to="/admin/inbox?tab=quote" replace />} />
                     
                     {/* Inbox */}
