@@ -19,12 +19,12 @@ export const buttonVariants = cva(
         danger: "bg-[hsl(var(--danger))] text-white hover:opacity-90",
         destructive: "bg-[hsl(var(--danger))] text-white hover:opacity-90",
         link: "text-[hsl(var(--brand-primary))] underline-offset-4 hover:underline",
-        "admin-glass": "bg-[hsl(222_47%_14%)] text-[hsl(var(--admin-text-primary))] border border-[hsl(215_25%_22%)] hover:bg-[hsl(215_25%_20%)]",
-        "admin-primary": "bg-[hsl(221_83%_53%)] text-white hover:bg-[hsl(221_83%_63%)] shadow-lg",
-        "admin-secondary": "bg-[hsl(222_47%_14%)] text-[hsl(var(--admin-text-primary))] border border-[hsl(215_25%_22%)] hover:bg-[hsl(215_25%_20%)]",
+        "admin-glass": "bg-white/50 text-[hsl(var(--admin-text-primary))] border border-[hsl(var(--admin-border))] hover:bg-white backdrop-blur-sm",
+        "admin-primary": "bg-[hsl(var(--brand-accent))] text-white hover:opacity-90 shadow-lg",
+        "admin-secondary": "bg-[hsl(var(--brand-primary))] text-white hover:opacity-90 shadow-lg",
         "admin-success": "bg-[hsl(var(--admin-success))] text-white hover:opacity-90 shadow-lg",
         "admin-danger": "bg-[hsl(var(--admin-danger))] text-white hover:opacity-90 shadow-lg",
-        "admin-outline": "border border-[hsl(215_25%_22%)] text-[hsl(var(--admin-text-primary))] hover:bg-[hsl(222_47%_14%)]"
+        "admin-outline": "border-2 border-[hsl(var(--brand-primary))] text-[hsl(var(--brand-primary))] bg-white hover:bg-[hsl(var(--admin-bg-secondary))]"
       },
       size: {
         default: "px-4 py-2.5 text-sm rounded-[var(--radius-sm)] min-h-[44px]",
