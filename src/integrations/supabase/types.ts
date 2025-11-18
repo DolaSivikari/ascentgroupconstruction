@@ -2966,6 +2966,9 @@ export type Database = {
         Returns: number
       }
       can_edit_content: { Args: { _user_id: string }; Returns: boolean }
+      can_manage_settings: { Args: { _user_id: string }; Returns: boolean }
+      can_manage_users: { Args: { _user_id: string }; Returns: boolean }
+      can_view_analytics: { Args: { _user_id: string }; Returns: boolean }
       check_and_update_rate_limit: {
         Args: {
           p_endpoint: string
@@ -3037,6 +3040,7 @@ export type Database = {
           user_id: string
         }[]
       }
+      get_user_role: { Args: { _user_id: string }; Returns: string }
       has_role: {
         Args: {
           _role: Database["public"]["Enums"]["app_role"]
