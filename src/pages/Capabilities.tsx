@@ -24,25 +24,25 @@ const Capabilities = () => {
       ],
     },
     {
-      title: "Design-Assist Capability",
-      description: "Early involvement during pre-construction for envelope scope",
+      title: "Pre-Construction Consultation",
+      description: "Practical input during planning for envelope scope",
       icon: Users,
       details: [
-        "Constructability review for EIFS and cladding systems", 
-        "Value engineering on material selection", 
-        "Manufacturer coordination (Dryvit, Parex, Sto)", 
-        "Realistic cost estimates based on actual field experience"
+        "Field-tested recommendations for EIFS and cladding approaches", 
+        "Realistic cost guidance based on actual project experience", 
+        "Material selection support (Dryvit, Parex, Sto)", 
+        "Constructability insights for your envelope consultant"
       ],
     },
     {
-      title: "Multi-Trade Coordination",
-      description: "Bundle envelope + interior trades under one specialty contractor",
+      title: "Envelope + Interior Trade Packaging",
+      description: "Bundle related envelope and interior scopes under one specialty contractor",
       icon: Layers,
       details: [
-        "Typical package: Envelope remediation + painting + coatings", 
-        "Unified schedule—no waiting for separate sub awards", 
-        "Single project lead for all trades", 
-        "Reduces GC coordination burden on smaller projects"
+        "Typical package: Façade restoration + protective coatings + painting", 
+        "Unified schedule for envelope remediation and interior finishes", 
+        "Single point of contact for related building enclosure work", 
+        "Reduces coordination burden for envelope-focused projects"
       ],
     },
   ];
@@ -86,13 +86,13 @@ const Capabilities = () => {
     <div className="min-h-screen">
       <SEO
         title="Capabilities | Specialty Contracting & Self-Perform Trades | Ascent Group"
-        description="Specialty contracting capabilities: building envelope restoration and interior systems delivered through self-performed trades and integrated multi-trade execution across Ontario."
+        description="Emerging specialty contractor delivering building envelope restoration and interior trades across Ontario's GTA. Self-performed work with 15+ years combined team experience."
       />
       <Navigation />
       
       <PageHeader
-        title="Project Delivery Capabilities"
-        description="Specialty contracting excellence: Building envelope restoration and interior systems delivered through self-performed trades and integrated multi-trade execution across Ontario."
+        title="What We Deliver: Building Envelope & Interior Trades"
+        description="Self-performed specialty work with direct accountability. Serving commercial, multi-family, and residential clients across Ontario's GTA."
         backgroundImage={heroImage}
         cta={{ label: CTA_TEXT.primary, href: "/contact" }}
         breadcrumbs={[
@@ -136,24 +136,46 @@ const Capabilities = () => {
             </ScrollReveal>
           </section>
 
-          {/* Market Sectors - Link to Markets Page */}
+          {/* Service Categories */}
           <section className="mb-16">
-            <div className="text-center">
-              <h2 className="text-3xl font-bold mb-4">Market Sectors We Serve</h2>
-              <p className="text-muted-foreground mb-6 max-w-2xl mx-auto">
-                We deliver specialized construction solutions across commercial, multi-family, institutional, and industrial sectors.
-              </p>
-              <Link to="/markets">
-                <Button size="lg" className="gap-2">
-                  View All Markets <TrendingUp className="h-4 w-4" />
-                </Button>
-              </Link>
-            </div>
+            <h2 className="text-3xl font-bold mb-8 text-center">Service Categories</h2>
+            <ScrollReveal direction="up">
+              <div className="grid md:grid-cols-3 gap-6">
+                {marketSectors.map((sector, index) => (
+                  <Card key={index} className="hover:shadow-lg transition-shadow">
+                    <CardHeader>
+                      <CardTitle>{sector.name}</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <ul className="space-y-2 mb-4">
+                        {sector.services.map((service, i) => (
+                          <li key={i} className="text-sm text-muted-foreground flex items-start gap-2">
+                            <span className="text-primary mt-1">•</span>
+                            {service}
+                          </li>
+                        ))}
+                      </ul>
+                      <Link to={sector.link}>
+                        <Button variant="outline" className="w-full">
+                          View Services
+                        </Button>
+                      </Link>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+            </ScrollReveal>
           </section>
 
           {/* Self-Perform */}
           <section className="mb-16">
-            <h2 className="text-3xl font-bold mb-8 text-center">Self-Perform Capabilities</h2>
+            <h2 className="text-3xl font-bold mb-4 text-center">Self-Perform Capabilities</h2>
+            <div className="text-center mb-8 max-w-3xl mx-auto">
+              <p className="text-muted-foreground">
+                Our 10-person crew directly executes 85% of project scope—EIFS, masonry, sealant, painting, and coatings. 
+                We sub-trade only specialized equipment work (e.g., swing-stage rigging) and maintain direct oversight of all activities.
+              </p>
+            </div>
             <div className="grid md:grid-cols-2 gap-6">
               <Card>
                 <CardHeader>
@@ -190,31 +212,6 @@ const Capabilities = () => {
             </div>
           </section>
 
-          {/* Trade Coordination */}
-          <section className="mb-16">
-            <Card className="border-primary/20">
-              <CardHeader className="text-center">
-                <CardTitle className="text-2xl">Multi-Trade Coordination</CardTitle>
-                <CardDescription>We coordinate 15+ specialty trades including</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="grid md:grid-cols-3 gap-4 text-center">
-                  <div className="p-4">
-                    <p className="font-medium">Structural & Foundation</p>
-                    <p className="text-sm text-muted-foreground">Concrete, steel, carpentry</p>
-                  </div>
-                  <div className="p-4">
-                    <p className="font-medium">MEP Systems</p>
-                    <p className="text-sm text-muted-foreground">Mechanical, electrical, plumbing</p>
-                  </div>
-                  <div className="p-4">
-                    <p className="font-medium">Specialty Trades</p>
-                    <p className="text-sm text-muted-foreground">Fire protection, roofing, glazing</p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          </section>
 
           {/* Project Size */}
           <section>
@@ -233,11 +230,11 @@ const Capabilities = () => {
               <Card>
                 <CardHeader>
                   <Building2 className="h-8 w-8 text-primary mb-2" />
-                  <CardTitle>Largest Completed</CardTitle>
+                  <CardTitle>Team Experience</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-2xl font-bold text-primary mb-2">$15M+</p>
-                  <p className="text-sm text-muted-foreground">Mixed-use development</p>
+                  <p className="text-2xl font-bold text-primary mb-2">$15M+ Projects</p>
+                  <p className="text-sm text-muted-foreground">Prior roles on large-scale developments</p>
                 </CardContent>
               </Card>
               <Card>
@@ -247,7 +244,7 @@ const Capabilities = () => {
                 </CardHeader>
                 <CardContent>
                   <p className="text-2xl font-bold text-primary mb-2">$2M CGL</p>
-                  <p className="text-sm text-muted-foreground">Fully insured with WSIB compliance</p>
+                  <p className="text-sm text-muted-foreground">WSIB compliant with growing bonding capacity</p>
                 </CardContent>
               </Card>
             </div>
