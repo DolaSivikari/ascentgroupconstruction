@@ -115,22 +115,25 @@
   --touch-md: 44px;        /* Standard buttons, inputs */
   --touch-lg: 48px;        /* Large buttons */
 
-  /* Admin Dark Theme Tokens - Darker gray backgrounds */
-  --admin-bg-darker: 222 47% 8%;       /* Deep background - darker gray */
-  --admin-bg-dark: 222 47% 12%;        /* Card background - dark gray */
-  --admin-bg-card: 222 47% 14%;        /* Card background - slightly lighter gray */
-  --admin-bg-hover: 215 25% 20%;       /* Hover state - more visible */
+  /* Admin Light Theme Tokens - Corporate Colors */
+  --admin-bg-primary: 0 0% 100%;           /* White - main background */
+  --admin-bg-secondary: 210 20% 98%;       /* Soft blue-gray - secondary surfaces */
+  --admin-bg-card: 0 0% 100%;              /* White - cards */
+  --admin-bg-hover: 210 20% 95%;           /* Light hover state */
   
-  --admin-text-primary: 0 0% 100%;      /* Pure white - main text */
-  --admin-text-secondary: 0 0% 92%;    /* Very light gray - strong contrast subtitles/labels */
-  --admin-text-muted: 0 0% 80%;        /* Light gray - still clearly readable hints */
+  --admin-text-primary: 210 100% 20%;      /* Navy blue - main text */
+  --admin-text-secondary: 200 18% 26%;     /* Charcoal gray - secondary text */
+  --admin-text-muted: 200 18% 46%;         /* Lighter gray - muted text */
   
-  --admin-border: 215 25% 25%;         /* Border color - more visible */
-  --admin-nav-active-bg: 221 83% 28%;  /* Active nav background - darker blue */
-  --admin-nav-active-text: 210 100% 90%; /* Active nav text - very light blue */
-  --admin-nav-active-border: 221 83% 53%; /* Active nav border indicator */
+  --admin-border: 210 20% 90%;             /* Light border */
+  --admin-nav-bg: 210 100% 20%;            /* Navy blue sidebar */
+  --admin-nav-text: 0 0% 100%;             /* White text on navy */
+  --admin-nav-hover: 210 100% 25%;         /* Lighter navy on hover */
+  --admin-nav-active-bg: 210 100% 25%;     /* Active background */
+  --admin-nav-active-text: 24 95% 53%;     /* Orange active text */
+  --admin-nav-active-border: 24 95% 53%;   /* Orange border indicator */
   
-  /* Admin uses base brand colors */
+  /* Admin brand colors */
   --admin-primary: var(--brand-primary);
   --admin-accent: var(--brand-accent);
   --admin-success: var(--success);
