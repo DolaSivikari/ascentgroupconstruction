@@ -1,14 +1,12 @@
 import { Link } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
 import PageHeader from "@/components/PageHeader";
 import { Button } from "@/ui/Button";
-import { supabase } from "@/integrations/supabase/client";
 import { CertificationBadges } from "@/components/shared/CertificationBadges";
-import { FeaturedServicesGrid } from "@/components/services/FeaturedServicesGrid";
-import { ServiceCard3D } from "@/components/services/ServiceCard3D";
+import { MarketSegmentedServices } from "@/components/services/MarketSegmentedServices";
 import { CheckCircle2, Users, Building, Briefcase } from "lucide-react";
 import { Section } from "@/components/sections/Section";
 import { CTA_TEXT } from "@/design-system/constants";
@@ -16,66 +14,13 @@ import { ScrollReveal } from "@/components/animations/ScrollReveal";
 import heroServicesImage from "@/assets/heroes/hero-general-contracting.jpg";
 import { usePageAnalytics } from "@/hooks/usePageAnalytics";
 import { ParallaxSection } from "@/components/animations/ParallaxSection";
-import { StaggerContainer } from "@/components/animations/StaggerContainer";
 import { ArrowRight } from "lucide-react";
-import { PremiumServiceHero } from "@/components/services/PremiumServiceHero";
-
-interface Service {
-  id: string;
-  name: string;
-  slug: string;
-  short_description: string | null;
-  icon_name: string | null;
-  category: string | null;
-  featured?: boolean;
-}
-
-interface ServiceCategory {
-  name: string;
-  slug: string;
-  description: string;
-  services: Service[];
-}
 
 const Services = () => {
-  const [categories, setCategories] = useState<ServiceCategory[]>([]);
   const [isQuizOpen, setIsQuizOpen] = useState(false);
 
   // Analytics tracking
   usePageAnalytics('services');
-
-  useEffect(() => {
-    loadServices();
-  }, []);
-
-  const loadServices = async () => {
-    const { data } = await supabase
-      .from('services')
-      .select('id, name, slug, short_description, icon_name, category, category_description, featured')
-      .eq('publish_state', 'published')
-      .order('featured', { ascending: false })
-      .order('category', { ascending: true })
-      .order('name', { ascending: true});
-
-    if (data) {
-      // Group services by category
-      const grouped = data.reduce((acc, service) => {
-        const cat = service.category || 'Other';
-        if (!acc[cat]) {
-          acc[cat] = {
-            name: cat,
-            slug: cat.toLowerCase().replace(/\s+/g, '-'),
-            description: service.category_description || '',
-            services: []
-          };
-        }
-        acc[cat].services.push(service);
-        return acc;
-      }, {} as Record<string, ServiceCategory>);
-
-      setCategories(Object.values(grouped));
-    }
-  };
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -101,33 +46,6 @@ const Services = () => {
       </ParallaxSection>
 
       <main className="flex-1 relative">
-
-        {/* 3D Service Cards Section */}
-        <Section size="major" className="bg-background relative">
-          <ScrollReveal direction="up" delay={0}>
-            <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold mb-4">
-                Featured Services
-              </h2>
-              <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
-                Explore our specialized construction services with interactive 3D cards
-              </p>
-            </div>
-          </ScrollReveal>
-          <StaggerContainer type="fade">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {categories.slice(0, 6).flatMap(category => category.services.slice(0, 1)).map((service, index) => (
-                <ScrollReveal 
-                  key={service.id} 
-                  direction={index % 3 === 0 ? "left" : index % 3 === 1 ? "up" : "right"}
-                  delay={index * 100}
-                >
-                  <ServiceCard3D {...service} />
-                </ScrollReveal>
-              ))}
-            </div>
-          </StaggerContainer>
-        </Section>
 
         {/* Who We Serve Section */}
         <section className="py-20 bg-background">
@@ -262,8 +180,8 @@ const Services = () => {
           </div>
         </section>
 
-        {/* All Featured Services - Organized by Category */}
-        <FeaturedServicesGrid />
+        {/* Market-Segmented Services Display */}
+        <MarketSegmentedServices />
       </main>
 
       <Footer />
