@@ -115,15 +115,15 @@ const EnhancedHero = ({ splashComplete = true }: { splashComplete?: boolean }) =
         setIsFadingOut(true);
         setIsTransitioning(true);
         
-        // Fade out (500ms) -> Change content (instant) -> Fade in (500ms)
+        // Fade out (600ms) -> Change content (instant) -> Fade in (600ms)
         setTimeout(() => {
           setCurrentSlide((prev) => (prev + 1) % activeSlides.length);
           setIsFadingOut(false);
-        }, 500);
+        }, 600);
         
         setTimeout(() => {
           setIsTransitioning(false);
-        }, 1000);
+        }, 1200);
       }, 7000);
     }, 2000);
 
@@ -142,15 +142,15 @@ const EnhancedHero = ({ splashComplete = true }: { splashComplete?: boolean }) =
     setIsFadingOut(true);
     setIsTransitioning(true);
     
-    // Fade out (500ms) -> Change content (instant) -> Fade in (500ms)
+    // Fade out (600ms) -> Change content (instant) -> Fade in (600ms)
     setTimeout(() => {
       setCurrentSlide(index);
       setIsFadingOut(false);
-    }, 500);
+    }, 600);
     
     setTimeout(() => {
       setIsTransitioning(false);
-    }, 1000);
+    }, 1200);
   };
 
   const togglePlayPause = () => {
@@ -204,20 +204,28 @@ const EnhancedHero = ({ splashComplete = true }: { splashComplete?: boolean }) =
 
     if (isLeftSwipe) {
       // Swipe left - go to next slide
+      setIsFadingOut(true);
       setIsTransitioning(true);
       setTimeout(() => {
         setCurrentSlide((prev) => (prev + 1) % activeSlides.length);
+        setIsFadingOut(false);
+      }, 600);
+      setTimeout(() => {
         setIsTransitioning(false);
-      }, 500);
+      }, 1200);
     }
 
     if (isRightSwipe) {
       // Swipe right - go to previous slide
+      setIsFadingOut(true);
       setIsTransitioning(true);
       setTimeout(() => {
         setCurrentSlide((prev) => (prev - 1 + activeSlides.length) % activeSlides.length);
+        setIsFadingOut(false);
+      }, 600);
+      setTimeout(() => {
         setIsTransitioning(false);
-      }, 500);
+      }, 1200);
     }
   };
 
@@ -256,9 +264,9 @@ const EnhancedHero = ({ splashComplete = true }: { splashComplete?: boolean }) =
       
       {/* Video Background */}
       <div 
-        className="absolute inset-0 w-full h-full transition-opacity duration-300 ease-in-out"
+        className="absolute inset-0 w-full h-full transition-opacity duration-[600ms] ease-in-out"
         style={{ 
-          opacity: isFadingOut ? 0.4 : 1,
+          opacity: isFadingOut ? 0 : 1,
           aspectRatio: '16/9'
         }}
       >
@@ -292,8 +300,12 @@ const EnhancedHero = ({ splashComplete = true }: { splashComplete?: boolean }) =
 
       {/* Content */}
         <div 
-          className={`relative z-10 container mx-auto px-4 py-16 md:py-20 ${isPageLoaded ? 'transition-transform duration-300 ease-out' : ''}`}
-          style={{ transform: isFadingOut ? 'translateY(4px)' : 'translateY(0)' }}
+          className="relative z-10 container mx-auto px-4 py-16 md:py-20"
+          style={{ 
+            opacity: isFadingOut ? 0 : 1,
+            transform: isFadingOut ? 'translateY(8px)' : 'translateY(0)',
+            transition: 'opacity 600ms ease-in-out, transform 600ms ease-in-out'
+          }}
         >
         <div className="max-w-5xl mx-auto">
           {/* Floating Stat Mini-Cards with Glassmorphism */}
