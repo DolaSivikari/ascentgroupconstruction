@@ -116,21 +116,6 @@ const PropertyManagers = () => {
             ))}
           </div>
 
-          {/* Stats */}
-          <div className="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
-            <div className="text-center">
-              <div className="text-4xl font-bold text-primary mb-2">120+</div>
-              <div className="text-muted-foreground">Units Managed Monthly</div>
-            </div>
-            <div className="text-center">
-              <div className="text-4xl font-bold text-primary mb-2">3-Day</div>
-              <div className="text-muted-foreground">Average Turnover Time</div>
-            </div>
-            <div className="text-center">
-              <div className="text-4xl font-bold text-primary mb-2">98%</div>
-              <div className="text-muted-foreground">Tenant Satisfaction</div>
-            </div>
-          </div>
         </Section>
 
         {/* Services with ROI */}

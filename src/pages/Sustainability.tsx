@@ -35,33 +35,6 @@ const Sustainability = () => {
     calculateOffset(value);
   };
 
-  const stats = [
-    {
-      icon: Recycle,
-      value: "90%",
-      label: "Waste Diverted from Landfills",
-      color: "text-sustainability"
-    },
-    {
-      icon: Sun,
-      value: "100%",
-      label: "Low-VOC Materials Used",
-      color: "text-sustainability-dark"
-    },
-    {
-      icon: Droplet,
-      value: "35%",
-      label: "Water Usage Reduction",
-      color: "text-blue-600"
-    },
-    {
-      icon: Award,
-      value: "50+",
-      label: "Eco-Friendly Projects",
-      color: "text-sustainability"
-    }
-  ];
-
   const materialPractices = [
     {
       title: "Low-VOC Materials",
@@ -144,28 +117,6 @@ const Sustainability = () => {
               </div>
             </CardContent>
           </Card>
-        </section>
-
-        {/* Stats Section */}
-        <section className="bg-muted py-20">
-          <div className="container mx-auto px-4">
-            <div className="text-center mb-12">
-              <h2 className="text-4xl font-bold mb-4">Our Impact by the Numbers</h2>
-            </div>
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl mx-auto">
-              {stats.map((stat, index) => (
-                <Card key={index} className="text-center hover:shadow-lg transition-shadow">
-                  <CardContent className="p-8">
-                    <div className={`inline-flex items-center justify-center w-16 h-16 rounded-full bg-muted mb-4 ${stat.color}`}>
-                      <stat.icon className="w-8 h-8" />
-                    </div>
-                    <div className="text-4xl font-bold text-primary mb-2">{stat.value}</div>
-                    <div className="text-sm text-muted-foreground">{stat.label}</div>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-          </div>
         </section>
 
         {/* Material Practices */}

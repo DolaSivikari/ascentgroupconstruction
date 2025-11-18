@@ -22,13 +22,6 @@ const packageItems = [
   { icon: Clock, label: "Response Standards", desc: "48-72 hour site walks, clear communication protocols" },
 ];
 
-const stats = [
-  { value: "15+", label: "Years Experience" },
-  { value: "10", label: "Crew Members" },
-  { value: "10+", label: "Projects Completed" },
-  { value: "GTA", label: "Service Area" },
-];
-
 const PrequalPackage = () => {
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -75,14 +68,6 @@ const PrequalPackage = () => {
         <SectionBadge icon={FileText} text="Vendor Package" />
         <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-6 leading-tight">Vendor Information Package</h2>
         <p className="text-xl md:text-2xl text-muted-foreground leading-relaxed">Request our comprehensive vendor information package for qualification and RFP processes.</p>
-      </div>
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12">
-        {stats.map((stat, index) => (
-          <div key={index} className="text-center p-4 rounded-lg bg-muted/30 border border-border/50 hover:bg-muted/40 hover:border-border/70 transition-all duration-300">
-            <div className="text-3xl md:text-4xl font-bold text-construction-orange mb-1">{stat.value}</div>
-            <div className="text-sm font-medium text-muted-foreground">{stat.label}</div>
-          </div>
-        ))}
       </div>
       <Card className="border-2 border-construction-orange/20 shadow-[var(--shadow-lg)] overflow-hidden bg-gradient-to-br from-background to-muted/30">
         <div className="grid lg:grid-cols-2 gap-0">

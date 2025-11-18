@@ -331,36 +331,6 @@ const OurProcess = () => {
         </div>
       </section>
 
-      {/* Stats Section */}
-      <section className="py-20 bg-gradient-to-br from-primary to-primary/80 text-primary-foreground">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold mb-4">Results That Speak for Themselves</h2>
-            <p className="text-primary-foreground/90 text-lg">Over 15 years of consistent excellence across the GTA</p>
-          </div>
-
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-5xl mx-auto">
-            <div className="text-center">
-              <div className="text-5xl md:text-6xl font-bold mb-2 text-secondary">15+</div>
-              <div className="text-lg text-muted-foreground">Years Team Experience</div>
-              <div className="text-primary-foreground/80">Completed Projects</div>
-            </div>
-            <div className="text-center">
-              <div className="text-5xl md:text-6xl font-bold mb-2 text-secondary">98%</div>
-              <div className="text-primary-foreground/80">On-Time Delivery</div>
-            </div>
-            <div className="text-center">
-              <div className="text-5xl md:text-6xl font-bold mb-2 text-secondary">15+</div>
-              <div className="text-primary-foreground/80">Years Experience</div>
-            </div>
-            <div className="text-center">
-              <div className="text-5xl md:text-6xl font-bold mb-2 text-secondary">97%</div>
-              <div className="text-primary-foreground/80">Client Satisfaction</div>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* FAQ Section */}
       <section className="py-20 bg-background">
         <div className="container mx-auto px-4 max-w-4xl">

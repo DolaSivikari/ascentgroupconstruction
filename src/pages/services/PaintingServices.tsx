@@ -13,13 +13,6 @@ import { CTA_TEXT } from "@/design-system/constants";
 import { ScrollReveal } from "@/components/animations/ScrollReveal";
 
 const PaintingServices = () => {
-  const stats = [
-    { value: '2M+', label: 'SF Painted' },
-    { value: '300+', label: 'Projects' },
-    { value: '100%', label: 'Eco-Friendly Coatings' },
-    { value: '15 Years', label: 'Experience' }
-  ];
-
   const deliverables = [
     {
       icon: Building2,

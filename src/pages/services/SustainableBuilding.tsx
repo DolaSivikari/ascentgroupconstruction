@@ -13,13 +13,6 @@ import { CTA_TEXT } from "@/design-system/constants";
 import { ScrollReveal } from "@/components/animations/ScrollReveal";
 
 const SustainableBuilding = () => {
-  const stats = [
-    { value: '50+', label: 'LEED Projects' },
-    { value: '30%', label: 'Avg Energy Reduction' },
-    { value: '100%', label: 'Sustainable Material Use' },
-    { value: '10 Years', label: 'Green Building Experience' }
-  ];
-
   const deliverables = [
     {
       icon: Award,
