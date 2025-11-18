@@ -14,11 +14,11 @@ interface ClientSegmentCardProps {
 
 const ClientSegmentCard = ({ icon: Icon, title, services, ctaText, ctaUrl }: ClientSegmentCardProps) => {
   return (
-    <Card className="group h-full p-6 rounded-xl bg-gradient-to-br from-background to-muted/30 border-2 border-construction-orange/20 hover:border-construction-orange/40 hover:shadow-lg transition-all duration-500 hover:scale-[1.02]">
+    <Card className="group h-full p-6 rounded-[var(--radius-lg)] bg-gradient-to-br from-background to-muted/30 border-2 border-construction-orange/20 hover:border-construction-orange/40 hover:shadow-lg transition-all duration-300 hover:scale-[1.02]">
       <div className="h-full flex flex-col">
         {/* Icon & Title */}
         <div className="flex items-center gap-3 mb-4">
-          <div className="w-12 h-12 rounded-xl bg-construction-orange/10 flex items-center justify-center flex-shrink-0 group-hover:bg-construction-orange/20 transition-colors duration-300">
+          <div className="w-12 h-12 rounded-[var(--radius-lg)] bg-construction-orange/10 flex items-center justify-center flex-shrink-0 group-hover:bg-construction-orange/20 transition-colors duration-300">
             <Icon className="w-6 h-6 text-construction-orange" />
           </div>
           <h3 className="text-xl font-bold text-foreground leading-tight">

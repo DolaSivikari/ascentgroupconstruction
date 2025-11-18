@@ -22,7 +22,7 @@ const QuoteWidget = () => {
   };
 
   return (
-    <Card className="shadow-elegant border-primary/20">
+    <Card className="shadow-[var(--shadow-md)] border-primary/20">
       <CardHeader className="bg-gradient-to-br from-primary/5 to-primary/10">
         <CardTitle className="flex items-center gap-2">
           <Calculator className="h-6 w-6 text-primary" />

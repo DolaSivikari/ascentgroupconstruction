@@ -125,7 +125,7 @@ const SEOChecklist = ({ completedItems = [] }: SEOChecklistProps) => {
             </div>
             <div className="w-full bg-muted rounded-full h-3 overflow-hidden">
               <div 
-                className="bg-primary h-full transition-all duration-500 rounded-full"
+                className="bg-primary h-full transition-all duration-300 rounded-full"
                 style={{ width: `${progressPercent}%` }}
               />
             </div>
@@ -138,7 +138,7 @@ const SEOChecklist = ({ completedItems = [] }: SEOChecklistProps) => {
             </div>
             <div className="w-full bg-muted rounded-full h-3 overflow-hidden">
               <div 
-                className="bg-destructive h-full transition-all duration-500 rounded-full"
+                className="bg-destructive h-full transition-all duration-300 rounded-full"
                 style={{ width: `${criticalProgress}%` }}
               />
             </div>

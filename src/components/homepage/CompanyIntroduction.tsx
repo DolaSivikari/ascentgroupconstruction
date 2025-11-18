@@ -39,7 +39,7 @@ export default function CompanyIntroduction() {
           <div 
             ref={headerRef}
             className={cn(
-              "max-w-4xl mb-12 transition-all duration-700",
+              "max-w-4xl mb-12 transition-all duration-300",
               headerVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
             )}
           >
@@ -47,7 +47,7 @@ export default function CompanyIntroduction() {
               icon={Building} 
               text="About Ascent Group" 
               className={cn(
-                "transition-all duration-700",
+                "transition-all duration-300",
                 headerVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
               )}
             />
@@ -63,7 +63,7 @@ export default function CompanyIntroduction() {
           <div 
             ref={contentRef}
             className={cn(
-              "mb-16 transition-all duration-700",
+              "mb-16 transition-all duration-300",
               contentVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
             )}
             style={{ transitionDelay: '100ms' }}
@@ -161,7 +161,7 @@ export default function CompanyIntroduction() {
                   </div>
                 </div>
                 <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 rounded-xl bg-construction-orange/10 flex items-center justify-center flex-shrink-0">
+                  <div className="w-12 h-12 rounded-[var(--radius-lg)] bg-construction-orange/10 flex items-center justify-center flex-shrink-0">
                     <Clock className="w-6 h-6 text-construction-orange" />
                   </div>
                   <div>

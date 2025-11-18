@@ -48,18 +48,18 @@ export const ServiceCategoryCard = ({
     <button
       onClick={onClick}
       className={cn(
-        "group relative bg-card rounded-2xl p-8 cursor-pointer overflow-hidden",
-        "hover:-translate-y-3 border-2 transition-all duration-500",
+        "group relative bg-card rounded-[var(--radius-lg)] p-8 cursor-pointer overflow-hidden",
+        "hover:-translate-y-3 border-2 transition-all duration-300",
         "border-border hover:border-primary/30 hover:shadow-[0_20px_60px_-15px_rgba(var(--primary),0.2)]",
         "text-left w-full animate-fade-in h-full"
       )}
     >
       {/* Gradient glow effect on hover */}
-      <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+      <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
       
       {/* Icon with magnetic effect */}
       <div className={cn(
-        "relative w-20 h-20 rounded-2xl flex items-center justify-center mb-6 transition-all duration-500",
+        "relative w-20 h-20 rounded-[var(--radius-lg)] flex items-center justify-center mb-6 transition-all duration-300",
         "bg-gradient-to-br shadow-lg mx-auto",
         colors.iconBg,
         "group-hover:scale-110 group-hover:rotate-3 group-hover:shadow-xl"
