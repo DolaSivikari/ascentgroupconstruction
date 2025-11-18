@@ -5,8 +5,7 @@ import ascentLogoVerticalDark from "@/assets/ascent-logo-vertical-dark.png";
 import SEO from "@/components/SEO";
 import { Skeleton } from "@/components/ui/skeleton";
 import { supabase } from "@/integrations/supabase/client";
-import { TrustBadgeBar } from "@/components/footer/TrustBadgeBar";
-import { ProfessionalFooter } from "./footer/ProfessionalFooter";
+import { SimpleModernFooter } from "./footer/SimpleModernFooter";
 
 const Footer = () => {
   const [siteSettings, setSiteSettings] = useState<any>(null);
@@ -114,13 +113,10 @@ const Footer = () => {
     <>
       <SEO structuredData={citationSchema} />
       <footer className="w-full bg-secondary text-secondary-foreground border-t border-border">
-        <div className="container mx-auto px-6 py-16 md:py-20 lg:py-24">
-          <ProfessionalFooter
-            companyLinks={companyLinks}
-            services={services}
-            contactInfo={{ phone, email, address }}
+        <div className="container mx-auto px-6 py-16 md:py-20">
+          <SimpleModernFooter
             logoUrl={ascentLogoVerticalDark}
-            serviceAreaText="Serving Toronto, Mississauga, Brampton, Vaughan, Markham & the Greater Toronto Area"
+            contactInfo={{ phone, email }}
             linkedinUrl={linkedinUrl}
             foundedYear={siteSettings?.founded_year || 2025}
           />
