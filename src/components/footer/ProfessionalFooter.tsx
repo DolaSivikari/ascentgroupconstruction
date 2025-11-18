@@ -185,7 +185,7 @@ export const ProfessionalFooter = ({
             <span>•</span>
             <span>WSIB Compliant</span>
             <span>•</span>
-            <span>$5M+ Insured</span>
+            <span>$2M CGL Coverage</span>
           </div>
         </div>
 

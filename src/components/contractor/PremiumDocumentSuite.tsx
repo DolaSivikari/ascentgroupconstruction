@@ -92,13 +92,12 @@ export const PremiumDocumentSuite = () => {
             
             <div className="grid md:grid-cols-2 gap-4">
               {[
-                { name: "Certificate of Insurance", size: "2MB", expiry: "Valid until Dec 2025" },
+                { name: "Certificate of Insurance", size: "2MB", expiry: "$2M CGL - Valid Dec 2025" },
                 { name: "WSIB Clearance", size: "1MB", expiry: "Updated monthly" },
-                { name: "Bonding Letter", size: "500KB", expiry: "$10M capacity" },
                 { name: "Business License", size: "1MB", expiry: "Valid 2025" },
                 { name: "Company Profile", size: "5MB", expiry: "2024 Edition" },
-                { name: "Safety Manual", size: "3MB", expiry: "COR Standards" },
-                { name: "Project References", size: "2MB", expiry: "Current clients" },
+                { name: "Safety Manual", size: "3MB", expiry: "Working toward COR" },
+                { name: "Project References", size: "2MB", expiry: "Available on request" },
                 { name: "Equipment List", size: "2MB", expiry: "Updated 2024" }
               ].map((doc, index) => (
                 <Card 
