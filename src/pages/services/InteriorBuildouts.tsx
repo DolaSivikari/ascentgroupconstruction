@@ -166,28 +166,6 @@ const InteriorBuildouts = () => {
         </div>
       </section>
 
-      {/* Case Studies */}
-      <section className="py-20 bg-muted/30">
-        <div className="container mx-auto px-4">
-          <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center">Selected Interior Projects</h2>
-          <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-            {[
-              { title: 'Corporate Office Buildout', detail: '25,000 SF tenant improvement, Downtown Toronto' },
-              { title: 'Medical Clinic Suite', detail: 'Complete buildout with specialty finishes, Mississauga' },
-              { title: 'Retail Space Conversion', detail: 'Adaptive reuse from office to retail, Vaughan' }
-            ].map((project, index) => (
-              <UnifiedCard key={index} variant="elevated">
-                <h3 className="text-xl font-bold mb-2">{project.title}</h3>
-                <p className="text-muted-foreground mb-4">{project.detail}</p>
-                <Button variant="link" className="p-0 h-auto" asChild>
-                  <Link to="/projects">View Project <ArrowRight className="w-4 h-4 ml-2" /></Link>
-                </Button>
-              </UnifiedCard>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* City-Specific SEO Section */}
       <ServiceCitySection
         serviceName="Interior Buildouts & Tenant Improvements"

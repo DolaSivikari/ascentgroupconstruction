@@ -170,27 +170,6 @@ const Waterproofing = () => {
         </div>
       </section>
 
-      {/* Case Studies */}
-      <section className="py-20 bg-muted/30">
-        <div className="container mx-auto px-4">
-          <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center">Selected Waterproofing Projects</h2>
-          <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-            {[
-              { title: 'Residential Tower Foundation', detail: '45,000 SF below-grade membrane, Toronto' },
-              { title: 'Civic Plaza Deck', detail: 'Complete plaza waterproofing and landscaping, Mississauga' },
-              { title: 'Hospital Parking Structure', detail: 'Traffic deck waterproofing system, Brampton' }
-            ].map((project, index) => (
-              <UnifiedCard key={index} variant="elevated">
-                <h3 className="text-xl font-bold mb-2">{project.title}</h3>
-                <p className="text-muted-foreground mb-4">{project.detail}</p>
-                <Button variant="link" className="p-0 h-auto" asChild>
-                  <Link to="/projects">View Project <ArrowRight className="w-4 h-4 ml-2" /></Link>
-                </Button>
-              </UnifiedCard>
-            ))}
-          </div>
-        </div>
-      </section>
       
       {/* Specialty Contractor Advantage */}
       <section className="py-16 bg-muted/30">
