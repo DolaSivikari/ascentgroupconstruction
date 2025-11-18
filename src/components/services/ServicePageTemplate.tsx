@@ -165,7 +165,7 @@ export const ServicePageTemplate = ({ service }: ServicePageTemplateProps) => {
       </section>
 
       {/* Service Overview */}
-      <section className="container mx-auto px-4 py-12 md:py-16">
+      <section className="container mx-auto px-4 py-16 md:py-20 lg:py-24">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Main Description */}
           <div className="lg:col-span-2 space-y-6">

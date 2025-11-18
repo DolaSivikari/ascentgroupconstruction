@@ -63,7 +63,7 @@ export const FeaturedServicesGrid = () => {
 
   if (loading) {
     return (
-      <section className="py-20 bg-background">
+      <section className="py-16 md:py-20 lg:py-24 bg-background">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
             <div className="h-8 bg-muted animate-pulse rounded w-64 mx-auto mb-4" />
@@ -75,7 +75,7 @@ export const FeaturedServicesGrid = () => {
   }
 
   return (
-    <section className="py-20 bg-gradient-to-b from-background to-muted/20">
+    <section className="py-16 md:py-20 lg:py-24 bg-gradient-to-b from-background to-muted/20">
       <div className="container mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: 20 }}

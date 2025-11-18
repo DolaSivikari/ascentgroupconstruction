@@ -103,7 +103,7 @@ const ServicesPreview = () => {
   return (
     <section
       ref={sectionRef}
-      className={`py-20 bg-gradient-to-b from-background to-muted/20 ${
+      className={`py-16 md:py-20 lg:py-24 bg-gradient-to-b from-background to-muted/20 ${
         prefersReducedMotion ? 'opacity-100' : `transition-opacity duration-1000 ${isVisible ? "opacity-100" : "opacity-0"}`
       }`}
     >
@@ -135,7 +135,7 @@ const ServicesPreview = () => {
                 <Card
                   key={config.slug}
                   variant="elevated"
-                  className="group overflow-hidden h-full hover:shadow-xl transition-all duration-300"
+                  className="group overflow-hidden h-full hover:shadow-[var(--shadow-lg)] transition-all duration-300"
                 >
                   <div className="relative h-48 overflow-hidden">
                     <OptimizedImage
