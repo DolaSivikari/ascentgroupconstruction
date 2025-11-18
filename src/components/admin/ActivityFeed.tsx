@@ -57,13 +57,16 @@ const ActivityFeed = ({ submissions, newCount }: ActivityFeedProps) => {
                   submission.status === 'new' ? 'bg-primary/5 border-primary/30' : 'bg-background'
                 }`}
                 onClick={() => {
-                  if (submission.submission_type === 'prequal_request') {
-                    navigate("/admin/prequalifications");
-                  } else if (submission.submission_type === 'resume') {
-                    navigate("/admin/resume-submissions");
-                  } else {
-                    navigate("/admin/contacts");
-                  }
+                  // Navigate directly to Unified Inbox with proper tab
+                  let tab = 'all';
+                  if (submission.submission_type === 'prequal_request') tab = 'prequalifications';
+                  else if (submission.submission_type === 'resume') tab = 'resume';
+                  else if (submission.submission_type === 'quote') tab = 'quote';
+                  else if (submission.submission_type === 'rfp') tab = 'rfp';
+                  else if (submission.submission_type === 'newsletter') tab = 'newsletter';
+                  else tab = 'contact';
+                  
+                  navigate(`/admin/inbox?tab=${tab}`);
                 }}
               >
                 <div className={`mt-1 p-2 rounded-full ${
