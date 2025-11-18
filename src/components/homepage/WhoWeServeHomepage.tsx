@@ -54,7 +54,8 @@ const WhoWeServeHomepage = () => {
 
   return (
     <Section size="major" className="bg-background">
-      <div className="max-w-4xl mb-12">
+      <div className="relative z-10">
+        <div className="max-w-4xl mb-12">
         <SectionBadge icon={Users} text="Who We Serve" />
         <h2 className="text-3xl md:text-5xl font-bold text-foreground mb-6 leading-tight tracking-tight">
           Trusted Envelope & Restoration Partner
@@ -75,6 +76,7 @@ const WhoWeServeHomepage = () => {
             examples={segment.examples}
           />
         ))}
+      </div>
       </div>
     </Section>
   );

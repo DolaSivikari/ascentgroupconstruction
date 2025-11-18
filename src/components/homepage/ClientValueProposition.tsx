@@ -10,7 +10,8 @@ const ClientValueProposition = () => {
 
   return (
     <Section size="major" className="bg-background">
-      <div className="max-w-4xl mb-12">
+      <div className="relative z-10">
+        <div className="max-w-4xl mb-12">
         <SectionBadge icon={Award} text="Why Choose Us" />
         <h2 className="text-3xl md:text-5xl font-bold text-foreground mb-6 leading-tight tracking-tight">
           Why Clients Choose Us
@@ -107,6 +108,7 @@ const ClientValueProposition = () => {
             ctaText="Request Site Assessment"
           />
         </div>
+      </div>
       </div>
     </Section>
   );
