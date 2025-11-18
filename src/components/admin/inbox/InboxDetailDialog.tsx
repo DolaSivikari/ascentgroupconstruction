@@ -18,8 +18,9 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
-import { Mail, Phone, Building, Calendar, FileText, Download } from "lucide-react";
+import { Mail, Phone, Building, Calendar, FileText, Download, Trash2 } from "lucide-react";
 import { format } from "date-fns";
+import { ConfirmDialog } from "@/components/admin/ConfirmDialog";
 
 interface InboxDetailDialogProps {
   item: any;
@@ -32,6 +33,7 @@ export const InboxDetailDialog = ({ item, open, onClose, onUpdate }: InboxDetail
   const [status, setStatus] = useState(item.status || "new");
   const [adminNotes, setAdminNotes] = useState(item.admin_notes || "");
   const [isSaving, setIsSaving] = useState(false);
+  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
   const { toast } = useToast();
 
   const handleSave = async () => {
@@ -59,6 +61,35 @@ export const InboxDetailDialog = ({ item, open, onClose, onUpdate }: InboxDetail
       toast({
         title: "Error",
         description: "Failed to update item",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSaving(false);
+    }
+  };
+
+  const handleDelete = async () => {
+    setIsSaving(true);
+    try {
+      const { error } = await supabase
+        .from(item.table)
+        .delete()
+        .eq("id", item.id);
+
+      if (error) throw error;
+
+      toast({
+        title: "Success",
+        description: "Item deleted successfully",
+      });
+
+      onUpdate();
+      onClose();
+    } catch (error) {
+      console.error("Error deleting item:", error);
+      toast({
+        title: "Error",
+        description: "Failed to delete item",
         variant: "destructive",
       });
     } finally {
@@ -233,18 +264,39 @@ export const InboxDetailDialog = ({ item, open, onClose, onUpdate }: InboxDetail
           )}
 
           {/* Actions */}
-          <div className="flex justify-end gap-2 pt-4 border-t">
-            <Button variant="outline" onClick={onClose}>
-              Cancel
+          <div className="flex justify-between items-center gap-2 pt-4 border-t">
+            <Button 
+              variant="destructive" 
+              onClick={() => setShowDeleteConfirm(true)} 
+              disabled={isSaving}
+            >
+              <Trash2 className="mr-2 h-4 w-4" />
+              Delete
             </Button>
-            {item.type !== "Newsletter" && (
-              <Button onClick={handleSave} disabled={isSaving}>
-                {isSaving ? "Saving..." : "Save Changes"}
+            <div className="flex gap-2">
+              <Button variant="outline" onClick={onClose} disabled={isSaving}>
+                Cancel
               </Button>
-            )}
+              {item.type !== "Newsletter" && (
+                <Button onClick={handleSave} disabled={isSaving}>
+                  {isSaving ? "Saving..." : "Save Changes"}
+                </Button>
+              )}
+            </div>
           </div>
         </div>
       </DialogContent>
+
+      <ConfirmDialog
+        open={showDeleteConfirm}
+        onOpenChange={setShowDeleteConfirm}
+        onConfirm={handleDelete}
+        title="Delete Item"
+        description="Are you sure you want to delete this item? This action cannot be undone."
+        confirmText="Delete"
+        cancelText="Cancel"
+        variant="destructive"
+      />
     </Dialog>
   );
 };

@@ -19,10 +19,11 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Eye, Mail, Phone, Search } from "lucide-react";
+import { Eye, Mail, Phone, Search, Trash2 } from "lucide-react";
 import { format } from "date-fns";
 import { InboxDetailDialog } from "./InboxDetailDialog";
 import { useToast } from "@/hooks/use-toast";
+import { ConfirmDialog } from "@/components/admin/ConfirmDialog";
 
 interface InboxTableProps {
   type: "all" | "rfp" | "contact" | "resume" | "prequal" | "quote" | "newsletter";
@@ -32,6 +33,7 @@ export const InboxTable = ({ type }: InboxTableProps) => {
   const [searchQuery, setSearchQuery] = useState("");
   const [statusFilter, setStatusFilter] = useState<string>("all");
   const [selectedItem, setSelectedItem] = useState<any>(null);
+  const [deleteItem, setDeleteItem] = useState<any>(null);
   const { toast } = useToast();
 
   const { data: items, isLoading, refetch } = useQuery({
@@ -166,6 +168,34 @@ export const InboxTable = ({ type }: InboxTableProps) => {
       channels.forEach((channel) => supabase.removeChannel(channel));
     };
   }, [type, refetch, toast]);
+
+  const handleDelete = async () => {
+    if (!deleteItem) return;
+
+    try {
+      const { error } = await supabase
+        .from(deleteItem.table)
+        .delete()
+        .eq("id", deleteItem.id);
+
+      if (error) throw error;
+
+      toast({
+        title: "Success",
+        description: "Item deleted successfully",
+      });
+
+      refetch();
+      setDeleteItem(null);
+    } catch (error) {
+      console.error("Error deleting item:", error);
+      toast({
+        title: "Error",
+        description: "Failed to delete item",
+        variant: "destructive",
+      });
+    }
+  };
 
   const filteredItems = items?.filter((item) => {
     const searchLower = searchQuery.toLowerCase();
@@ -318,6 +348,14 @@ export const InboxTable = ({ type }: InboxTableProps) => {
                           </a>
                         </Button>
                       )}
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        onClick={() => setDeleteItem(item)}
+                        className="text-destructive hover:text-destructive"
+                      >
+                        <Trash2 className="h-4 w-4" />
+                      </Button>
                     </div>
                   </TableCell>
                 </TableRow>
@@ -341,6 +379,17 @@ export const InboxTable = ({ type }: InboxTableProps) => {
           onUpdate={refetch}
         />
       )}
+
+      <ConfirmDialog
+        open={!!deleteItem}
+        onOpenChange={(open) => !open && setDeleteItem(null)}
+        onConfirm={handleDelete}
+        title="Delete Item"
+        description="Are you sure you want to delete this item? This action cannot be undone."
+        confirmText="Delete"
+        cancelText="Cancel"
+        variant="destructive"
+      />
     </div>
   );
 };
