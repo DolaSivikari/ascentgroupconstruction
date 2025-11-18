@@ -20,7 +20,6 @@ import {
 } from "@/components/ui/accordion";
 import { PremiumDocumentSuite } from "@/components/contractor/PremiumDocumentSuite";
 import { InsuranceCalculator } from "@/components/calculators/InsuranceCalculator";
-import { BondingCapacityVisualizer } from "@/components/calculators/BondingCapacityVisualizer";
 import { ProjectTimelineEstimator } from "@/components/calculators/ProjectTimelineEstimator";
 import { CertificationBadges } from "@/components/shared/CertificationBadges";
 import { AnimatedCounter } from "@/components/shared/AnimatedCounter";
@@ -44,7 +43,6 @@ const ContractorPortal = () => {
   const documents = [
     { name: "Certificate of Insurance", icon: Shield, size: "2MB", description: "Current liability coverage" },
     { name: "WSIB Clearance Certificate", icon: CheckCircle2, size: "1MB", description: "Valid workplace safety clearance" },
-    { name: "Bonding Letter", icon: Award, size: "500KB", description: "Bonding capacity confirmation" },
     { name: "Business License", icon: FileText, size: "1MB", description: "Current business registration" },
     { name: "Company Profile & Capabilities", icon: Building2, size: "5MB", description: "Detailed company overview" },
     { name: "Safety Manual & Certifications", icon: HardHat, size: "3MB", description: "Safety policies and COR certification" },
@@ -275,9 +273,8 @@ const ContractorPortal = () => {
           {/* Interactive Calculators */}
           <section className="bg-muted/30 rounded-lg p-8">
             <h2 className="text-3xl font-bold text-foreground mb-8 text-center">Project Planning Tools</h2>
-            <div className="grid md:grid-cols-3 gap-6">
+            <div className="grid md:grid-cols-2 gap-6">
               <InsuranceCalculator />
-              <BondingCapacityVisualizer />
               <ProjectTimelineEstimator />
             </div>
           </section>

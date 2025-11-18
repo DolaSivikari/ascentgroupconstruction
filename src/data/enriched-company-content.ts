@@ -33,7 +33,7 @@ For now, we're focused on doing excellent work, one project at a time, and build
   stats: [
     { value: '15+', label: 'Years Combined Experience' },
     { value: '85%', label: 'Self-Performed Work' },
-    { value: '$5M', label: 'CGL Liability Coverage' },
+    { value: '$2M', label: 'CGL Liability Coverage' },
     { value: '10+', label: 'Core Team Members' },
     { value: '100%', label: 'WSIB Compliant' },
     { value: 'COR-Ready', label: 'Safety Certification Path' }
@@ -65,10 +65,10 @@ export const whyChooseAscent = {
     },
     {
       title: 'Professional Standards & Safety',
-      description: 'We follow the same safety protocols, quality standards, and professional practices we learned working on major GTA projects. WSIB compliant, $5M+ liability coverage, and full commitment to safe work practices on every job site.',
+      description: 'We follow the same safety protocols, quality standards, and professional practices we learned working on major GTA projects. WSIB compliant, $2M CGL liability coverage, and full commitment to safe work practices on every job site.',
       proofPoints: [
         'WSIB compliant operations',
-        '$5M+ liability coverage',
+        '$2M CGL liability coverage',
         'Working toward COR certification'
       ]
     },

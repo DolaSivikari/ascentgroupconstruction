@@ -281,7 +281,7 @@ export function UnifiedFooter({
             <div className="hidden md:flex items-center gap-2 text-xs text-muted-foreground">
               <span>WSIB Compliant</span>
               <span>•</span>
-              <span>$5M+ Insured</span>
+              <span>Fully Insured</span>
             </div>
           </div>
           <div className="flex items-center gap-6">
@@ -313,7 +313,7 @@ export function UnifiedFooter({
         <div className="md:hidden flex items-center gap-2 text-xs text-muted-foreground mt-3">
           <span>WSIB Compliant</span>
           <span>•</span>
-          <span>$5M+ Insured</span>
+          <span>Fully Insured</span>
         </div>
       </div>
     </div>

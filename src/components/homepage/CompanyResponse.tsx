@@ -30,9 +30,9 @@ const responses = [
   },
   {
     icon: DollarSign,
-    value: "$5M+",
-    label: "Liability Coverage",
-    description: "Comprehensive insurance and WSIB compliance",
+    value: "$2M",
+    label: "CGL Coverage",
+    description: "Professional liability insurance and WSIB compliance",
     linkText: "Contact Us",
     linkUrl: "/contact"
   }

@@ -25,9 +25,10 @@ const defaultCertifications: Certification[] = [
     verified: true
   },
   {
-    name: "$10M Bonding",
-    icon: Award,
-    description: "Bonding capacity up to $10M per project",
+    name: "$2M CGL",
+    icon: FileCheck,
+    description: "Commercial general liability insurance coverage",
+    validUntil: "Current",
     verified: true
   },
   {
@@ -35,12 +36,6 @@ const defaultCertifications: Certification[] = [
     icon: CheckCircle2,
     description: "Current Workplace Safety & Insurance Board clearance certificate",
     validUntil: "Valid",
-    verified: true
-  },
-  {
-    name: "$5M Liability",
-    icon: FileCheck,
-    description: "Commercial general liability insurance coverage",
     verified: true
   },
   {
@@ -52,7 +47,7 @@ const defaultCertifications: Certification[] = [
   {
     name: "Safety Excellence",
     icon: HardHat,
-    description: "Zero lost-time incidents for 3+ years",
+    description: "Professional safety standards and protocols",
     verified: true
   }
 ];

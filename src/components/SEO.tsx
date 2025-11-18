@@ -131,7 +131,7 @@ const SEO = ({
     award: [
       "WSIB Compliant Contractor",
       "Licensed Building Envelope Contractor Ontario",
-      "$5M+ Liability Coverage"
+      "Fully Insured & WSIB Compliant"
     ],
     // Aggregate rating removed until verified reviews are collected
     hasOfferCatalog: {

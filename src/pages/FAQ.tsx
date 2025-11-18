@@ -37,7 +37,7 @@ const FAQ = () => {
         },
         {
           question: "Are you licensed and insured?",
-          answer: "Yes, we are fully licensed, bonded, and insured with comprehensive liability coverage ($5M), workers' compensation (WSIB), and bonding capacity up to $10M per project. We can provide proof of insurance upon request and maintain all Ontario construction certifications."
+          answer: "Yes, we are fully licensed and insured with $2M commercial general liability (CGL) coverage and full WSIB compliance for workers' compensation. We maintain comprehensive insurance and follow all Ontario construction regulations. Payment and performance bonds can be arranged through our surety partners for projects requiring them. We can provide proof of insurance and clearance certificates upon request."
         },
         {
           question: "How do I know if you're the right contractor for my project?",

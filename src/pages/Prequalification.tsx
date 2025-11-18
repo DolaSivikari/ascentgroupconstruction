@@ -44,7 +44,7 @@ const categoryIcons: Record<string, any> = {
 const companyHighlights = [
   { icon: Calendar, label: "Team Experience", value: "15+ Years", desc: "Combined hands-on experience in GTA market" },
   { icon: Building2, label: "Company Status", value: "Est. 2025", desc: "New incorporation, experienced crew" },
-  { icon: Shield, label: "Insurance Coverage", value: "$5M CGL", desc: "General liability + WSIB compliant" },
+  { icon: Shield, label: "Insurance Coverage", value: "$2M CGL", desc: "General liability + WSIB compliant" },
   { icon: Award, label: "Safety Commitment", value: "COR-Ready", desc: "Working toward COR certification" },
   { icon: DollarSign, label: "Project Range", value: "$25K-$500K", desc: "Building portfolio of specialty work" },
   { icon: Users, label: "Core Crew", value: "10 Skilled", desc: "Self-perform team + trusted partners" },
@@ -214,14 +214,14 @@ const Prequalification = () => {
     <div className="min-h-screen">
       <SEO
         title="Vendor Pre-Qualification Package - Main Specialty Contractor | Ascent Group Construction"
-        description="Pre-qualification package for Ascent Group Construction - 15+ years team experience in building envelope, EIFS, masonry, interior trades. WSIB compliant, $5M CGL coverage. Serving GCs, property managers, and building owners in Ontario."
+        description="Pre-qualification package for Ascent Group Construction - 15+ years team experience in building envelope, EIFS, masonry, interior trades. WSIB compliant, $2M CGL coverage. Serving GCs, property managers, and building owners in Ontario."
         keywords="specialty contractor prequalification, building envelope contractor Ontario, EIFS contractor GTA, masonry restoration Toronto, vendor prequalification package, subcontractor services"
       />
       <Navigation />
       
       <PageHeader
         title="Vendor Pre-Qualification Package"
-        description="15+ Years Combined Team Experience • Building Envelope & Interior Trades Specialist • WSIB Compliant • $5M CGL Coverage • Serving Commercial, Multi-Family & Residential Markets"
+        description="15+ Years Combined Team Experience • Building Envelope & Interior Trades Specialist • WSIB Compliant • $2M CGL Coverage • Serving Commercial, Multi-Family & Residential Markets"
         backgroundImage={heroImage}
         breadcrumbs={[
           { label: "Home", href: "/" },
@@ -331,7 +331,7 @@ const Prequalification = () => {
                       <TrendingUp className="w-12 h-12 text-primary mb-4" />
                       <h3 className="font-bold text-lg mb-2">Financial Stability</h3>
                       <p className="text-muted-foreground text-sm">
-                        $5M bonding capacity, strong credit references, and audited financial statements available upon request.
+                        Strong credit references and financial documentation available upon request. Payment and performance bonds can be arranged through surety partners for projects requiring them.
                       </p>
                     </CardContent>
                   </Card>

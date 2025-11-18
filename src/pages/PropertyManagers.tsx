@@ -30,7 +30,7 @@ const PropertyManagers = () => {
     {
       icon: ShieldCheck,
       title: "Full Compliance",
-      description: "$5M CGL coverage, active WSIB registration, and comprehensive site safety protocols"
+      description: "$2M CGL coverage, active WSIB registration, and comprehensive site safety protocols"
     },
     {
       icon: Timer,

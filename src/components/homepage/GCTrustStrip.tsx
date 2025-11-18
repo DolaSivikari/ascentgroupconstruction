@@ -12,8 +12,8 @@ const trustMetrics = [
     icon: Building2,
   },
   {
-    value: "$5M+",
-    label: "Liability Coverage",
+    value: "$2M",
+    label: "CGL Coverage",
     icon: Shield,
   },
   {
@@ -66,7 +66,7 @@ const GCTrustStrip = () => {
           <div className="hidden sm:block w-px h-4 bg-border" />
           <div className="flex items-center gap-2 text-sm text-muted-foreground">
             <Shield className="h-4 w-4 text-primary" />
-            <span className="font-semibold">$5M+ Liability Coverage</span>
+            <span className="font-semibold">$2M CGL Coverage</span>
           </div>
           <div className="hidden sm:block w-px h-4 bg-border" />
           <div className="flex items-center gap-2 text-sm text-muted-foreground">
