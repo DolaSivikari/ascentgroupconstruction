@@ -195,10 +195,10 @@ const RedirectsManager = () => {
               <div className="flex items-start justify-between">
                 <div className="flex-1">
                   <div className="flex items-center gap-2 mb-2">
-                    <Badge variant={redirect.is_active ? "default" : "secondary"}>
+                    <Badge variant={redirect.is_active ? "success" : "secondary"}>
                       {redirect.is_active ? "Active" : "Inactive"}
                     </Badge>
-                    <Badge variant="outline">{redirect.redirect_type}</Badge>
+                    <Badge variant="info">{redirect.redirect_type}</Badge>
                     {redirect.hit_count > 0 && (
                       <Badge variant="secondary">{redirect.hit_count} hits</Badge>
                     )}

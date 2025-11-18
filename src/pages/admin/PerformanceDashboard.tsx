@@ -216,11 +216,11 @@ export default function PerformanceDashboard() {
 
   const getPriorityColor = (priority: string) => {
     switch (priority) {
-      case 'critical': return 'destructive';
-      case 'high': return 'destructive';
-      case 'medium': return 'default';
+      case 'critical': return 'danger';
+      case 'high': return 'warning';
+      case 'medium': return 'info';
       case 'low': return 'secondary';
-      default: return 'default';
+      default: return 'secondary';
     }
   };
 
@@ -450,7 +450,7 @@ export default function PerformanceDashboard() {
                         <Badge variant={getPriorityColor(rec.priority) as any}>
                           {rec.priority}
                         </Badge>
-                        <Badge variant="outline">{rec.status}</Badge>
+                        <Badge variant="secondary">{rec.status}</Badge>
                       </div>
                       <p className="text-sm text-muted-foreground mb-2">{rec.description}</p>
                       <p className="text-xs text-muted-foreground">

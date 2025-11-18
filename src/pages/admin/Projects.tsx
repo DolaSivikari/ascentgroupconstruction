@@ -189,9 +189,9 @@ const Projects = () => {
 
   const getStatusColor = (status: string) => {
     switch (status) {
-      case "published": return "default";
-      case "draft": return "secondary";
-      case "archived": return "outline";
+      case "published": return "success";
+      case "draft": return "warning";
+      case "archived": return "secondary";
       default: return "secondary";
     }
   };
@@ -331,7 +331,7 @@ const Projects = () => {
                     <div>Location: {project.location}</div>
                   )}
                   {project.category && (
-                    <Badge variant="outline">{project.category}</Badge>
+                    <Badge variant="info">{project.category}</Badge>
                   )}
                   {project.services && project.services.length > 0 && (
                     <div style={{ 

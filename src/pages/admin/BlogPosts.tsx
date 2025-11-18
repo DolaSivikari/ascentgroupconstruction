@@ -79,9 +79,9 @@ const BlogPosts = () => {
 
   const getStatusColor = (status: string) => {
     switch (status) {
-      case "published": return "default";
-      case "draft": return "secondary";
-      case "archived": return "outline";
+      case "published": return "success";
+      case "draft": return "warning";
+      case "archived": return "secondary";
       default: return "secondary";
     }
   };
@@ -156,7 +156,7 @@ const BlogPosts = () => {
                       {post.publish_state}
                     </Badge>
                     {post.content_type === "case-study" && (
-                      <Badge variant="outline">Case Study</Badge>
+                      <Badge variant="info">Case Study</Badge>
                     )}
                   </div>
                   <p className="text-muted-foreground mb-4">{post.summary || post.seo_description}</p>
@@ -177,7 +177,7 @@ const BlogPosts = () => {
                   {post.tags && post.tags.length > 0 && (
                     <div className="flex gap-2 mt-2">
                       {post.tags.map((tag: string) => (
-                        <Badge key={tag} variant="outline" className="text-xs">
+                        <Badge key={tag} variant="secondary" className="text-xs">
                           {tag}
                         </Badge>
                       ))}

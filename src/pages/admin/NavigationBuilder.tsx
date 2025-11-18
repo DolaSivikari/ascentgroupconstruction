@@ -108,10 +108,10 @@ const SortableItem = ({ item, onEdit, onDelete, depth }: SortableItemProps) => {
               <Badge variant="secondary" size="sm">{item.badge}</Badge>
             )}
             {item.is_mega_menu && (
-              <Badge variant="glass" size="sm">Mega Menu</Badge>
+              <Badge variant="info" size="sm">Mega Menu</Badge>
             )}
             {!item.is_active && (
-              <Badge variant="outline" size="sm">Inactive</Badge>
+              <Badge variant="secondary" size="sm">Inactive</Badge>
             )}
           </div>
           <div className="flex items-center gap-2 text-sm text-muted-foreground">

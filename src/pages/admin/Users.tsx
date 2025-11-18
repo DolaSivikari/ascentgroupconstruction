@@ -146,7 +146,7 @@ const Users = () => {
             </ul>
           </div>
           <div className="p-3 border border-border rounded-lg">
-            <Badge className="mb-2 bg-orange-600">Admin</Badge>
+            <Badge variant="warning" className="mb-2">Admin</Badge>
             <p className="text-muted-foreground mb-2">Content & inbox management</p>
             <ul className="text-xs space-y-1 text-muted-foreground">
               <li>✓ All content operations</li>
@@ -156,7 +156,7 @@ const Users = () => {
             </ul>
           </div>
           <div className="p-3 border border-border rounded-lg">
-            <Badge className="mb-2 bg-primary">Editor</Badge>
+            <Badge variant="primary" className="mb-2">Editor</Badge>
             <p className="text-muted-foreground mb-2">Content editing</p>
             <ul className="text-xs space-y-1 text-muted-foreground">
               <li>✓ Edit existing content</li>
@@ -242,9 +242,9 @@ const Users = () => {
                         </SelectContent>
                       </Select>
                     ) : (
-                      <Badge variant="outline">No Role</Badge>
+                      <Badge variant="secondary">No Role</Badge>
                     )}
-                    <Badge variant="active" className="w-20 justify-center">
+                    <Badge variant="success" className="w-20 justify-center">
                       Active
                     </Badge>
                   </div>
