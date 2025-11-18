@@ -1,5 +1,6 @@
 import { Button } from "@/ui/Button";
 import { ArrowLeft, Save, Eye, Clock, CheckCircle2 } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 import { formatDistanceToNow } from "date-fns";
 
@@ -9,6 +10,7 @@ interface ProjectEditorHeaderProps {
   isSaving: boolean;
   lastSaved: Date | null;
   completionPercentage: number;
+  publishState?: string;
   onBack: () => void;
   onSave: () => void;
   onPreview: () => void;
@@ -20,10 +22,21 @@ export const ProjectEditorHeader = ({
   isSaving,
   lastSaved,
   completionPercentage,
+  publishState = "draft",
   onBack,
   onSave,
   onPreview,
 }: ProjectEditorHeaderProps) => {
+  const getStatusBadge = () => {
+    switch (publishState) {
+      case "published":
+        return <Badge variant="default" className="bg-green-600">✅ Published</Badge>;
+      case "archived":
+        return <Badge variant="secondary">📦 Archived</Badge>;
+      default:
+        return <Badge variant="outline">📝 Draft</Badge>;
+    }
+  };
   return (
     <header className="sticky top-0 z-10 border-b bg-background shadow-sm">
       <div className="container mx-auto px-4 py-4">
@@ -34,9 +47,12 @@ export const ProjectEditorHeader = ({
               Back
             </Button>
             <div>
-              <h1 className="text-2xl font-bold">
-                {isNew ? "New Project" : "Edit Project"}
-              </h1>
+              <div className="flex items-center gap-3">
+                <h1 className="text-2xl font-bold">
+                  {isNew ? "New Project" : "Edit Project"}
+                </h1>
+                {!isNew && getStatusBadge()}
+              </div>
               <div className="flex items-center gap-3 mt-1">
                 {/* Completion Status */}
                 <div className="flex items-center gap-2 text-sm">
