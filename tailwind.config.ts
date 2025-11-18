@@ -112,6 +112,19 @@ export default {
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
         },
+        admin: {
+          "bg-darker": "hsl(var(--admin-bg-darker))",
+          "bg-dark": "hsl(var(--admin-bg-dark))",
+          "bg-card": "hsl(var(--admin-bg-card))",
+          "bg-hover": "hsl(var(--admin-bg-hover))",
+          "text-primary": "hsl(var(--admin-text-primary))",
+          "text-secondary": "hsl(var(--admin-text-secondary))",
+          "text-muted": "hsl(var(--admin-text-muted))",
+          border: "hsl(var(--admin-border))",
+          "nav-active-bg": "hsl(var(--admin-nav-active-bg))",
+          "nav-active-text": "hsl(var(--admin-nav-active-text))",
+          "nav-active-border": "hsl(var(--admin-nav-active-border))",
+        },
         // Sustainability accent colors (use sparingly in eco-related sections only)
         sustainability: {
           light: "hsl(80 25% 70%)",  // Sage green

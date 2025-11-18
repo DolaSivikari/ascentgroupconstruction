@@ -79,19 +79,20 @@
   --space-9: 56px;
   --space-10: 72px;
 
-  /* Admin Dark Theme Tokens - References base design system */
+  /* Admin Dark Theme Tokens - Improved readability & contrast */
   --admin-bg-darker: 222 47% 4%;       /* Deep background */
-  --admin-bg-dark: 222 47% 11%;        /* Card background */
-  --admin-bg-card: 215 25% 17%;        /* Glass card */
-  --admin-bg-hover: 215 20% 27%;       /* Hover state */
+  --admin-bg-dark: 222 47% 11%;        /* Card background - solid */
+  --admin-bg-card: 222 47% 13%;        /* Card background - slightly lighter */
+  --admin-bg-hover: 215 25% 20%;       /* Hover state - more visible */
   
-  --admin-text-primary: 0 0% 100%;     /* White text */
-  --admin-text-secondary: 214 20% 78%; /* Secondary text */
-  --admin-text-muted: 215 14% 64%;     /* Muted text */
+  --admin-text-primary: 0 0% 98%;      /* Almost white - main text */
+  --admin-text-secondary: 215 20% 75%; /* Lighter gray - readable labels */
+  --admin-text-muted: 215 15% 55%;     /* Medium gray - hints */
   
-  --admin-border: 215 20% 27%;         /* Border color */
-  --admin-glass-bg: 215 25% 17% / 0.95;     /* Glass background */
-  --admin-glass-border: 215 14% 64% / 0.1;  /* Glass border */
+  --admin-border: 215 25% 22%;         /* Border color - more visible */
+  --admin-nav-active-bg: 221 83% 25%;  /* Active nav background - darker blue */
+  --admin-nav-active-text: 210 100% 85%; /* Active nav text - light blue */
+  --admin-nav-active-border: 221 83% 53%; /* Active nav border indicator */
   
   /* Admin uses base brand colors */
   --admin-primary: var(--brand-primary);

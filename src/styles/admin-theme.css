@@ -53,16 +53,15 @@
   z-index: 0;
 }
 
-/* Sidebar */
+/* Sidebar - Solid background for better readability */
 .business-sidebar {
   position: fixed;
   left: 0;
   top: 0;
   height: 100vh;
   width: var(--business-sidebar-width);
-  background: var(--business-glass-bg);
-  backdrop-filter: blur(20px);
-  border-right: 1px solid var(--business-glass-border);
+  background: hsl(var(--admin-bg-dark));
+  border-right: 1px solid hsl(var(--admin-border));
   display: flex;
   flex-direction: column;
   z-index: 100;
@@ -183,8 +182,9 @@
 }
 
 .business-nav-item.active {
-  background: rgba(37, 99, 235, 0.15);
-  color: #60a5fa;
+  background: hsl(var(--admin-nav-active-bg));
+  color: hsl(var(--admin-nav-active-text));
+  border-left: 3px solid hsl(var(--admin-nav-active-border));
 }
 
 .business-nav-icon {
