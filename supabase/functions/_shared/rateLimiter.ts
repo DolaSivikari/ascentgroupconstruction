@@ -1,4 +1,4 @@
-import { SupabaseClient } from "https://esm.sh/@supabase/supabase-js@2.7.1";
+import { SupabaseClient } from "https://esm.sh/@supabase/supabase-js@2.74.0";
 
 export interface RateLimitResult {
   allowed: boolean;
