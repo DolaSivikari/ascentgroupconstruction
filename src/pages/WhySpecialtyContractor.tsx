@@ -36,7 +36,7 @@ const iconMap = {
 };
 
 const WhySpecialtyContractor = () => {
-  const { hero, introduction, comparisonTable, scenarios, costBreakdown, projectOutcomes, faqs, testimonials, finalCTA } = specialtyContractorComparison;
+  const { hero, introduction, comparisonTable, scenarios, costBreakdown, ourVision, projectOutcomes, faqs, testimonials, finalCTA } = specialtyContractorComparison;
 
   const faqSchema = generateFAQSchema(faqs);
 
@@ -164,12 +164,12 @@ const WhySpecialtyContractor = () => {
       <Section>
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-12">
-            <h2 className="mb-4">When You Need a Specialty Contractor</h2>
-            <p className="text-xl text-muted-foreground">Project types that require specialized building envelope expertise</p>
+            <h2 className="mb-4">Understanding Different Project Approaches</h2>
+            <p className="text-xl text-muted-foreground">When to use specialty contractors, general contractors, or hybrid approaches</p>
           </div>
 
           <ScrollReveal direction="up">
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid md:grid-cols-3 gap-6">
             {scenarios.map((scenario, index) => {
               const IconComponent = iconMap[scenario.icon as keyof typeof iconMap];
               return (
@@ -179,16 +179,14 @@ const WhySpecialtyContractor = () => {
                   </div>
                   <h3 className="text-xl font-bold mb-3">{scenario.title}</h3>
                   <p className="text-sm text-muted-foreground mb-4">{scenario.description}</p>
-                  <div className="space-y-3">
-                    <div className="p-3 bg-primary/5 rounded-lg">
-                      <p className="text-xs font-semibold text-primary mb-1">Why Specialty Contractor:</p>
-                      <p className="text-xs">{scenario.whySpecialty}</p>
-                    </div>
-                    <div className="p-3 bg-destructive/5 rounded-lg">
-                      <p className="text-xs font-semibold text-destructive mb-1">General Contractor Risk:</p>
-                      <p className="text-xs text-muted-foreground">{scenario.generalContractorRisk}</p>
-                    </div>
-                  </div>
+                  <ul className="space-y-2">
+                    {scenario.examples.map((example, idx) => (
+                      <li key={idx} className="text-sm flex items-start gap-2">
+                        <CheckCircle2 className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />
+                        <span>{example}</span>
+                      </li>
+                    ))}
+                  </ul>
                 </Card>
               );
             })}
@@ -202,7 +200,6 @@ const WhySpecialtyContractor = () => {
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-12">
             <h2 className="mb-4">{costBreakdown.title}</h2>
-            <p className="text-xl text-muted-foreground">{costBreakdown.subtitle}</p>
           </div>
 
           <div className="grid md:grid-cols-2 gap-8 mb-8">
@@ -212,10 +209,10 @@ const WhySpecialtyContractor = () => {
               <div className="space-y-4 mb-8">
                 {costBreakdown.generalContractorModel.steps.map((step, index) => (
                   <div key={index} className="relative">
-                    <div className={`p-4 rounded-lg border-2 ${step.highlight ? 'border-destructive bg-destructive/5' : 'border-border'}`}>
+                    <div className={`p-4 rounded-lg border-2 ${step.highlight ? 'border-primary bg-primary/5' : 'border-border'}`}>
                       <div className="flex items-center justify-between mb-2">
                         <span className="font-semibold">{step.layer}</span>
-                        <span className={`text-2xl font-bold ${step.highlight ? 'text-destructive' : ''}`}>
+                        <span className={`text-2xl font-bold ${step.highlight ? 'text-primary' : ''}`}>
                           {step.percentage}%
                         </span>
                       </div>
@@ -229,16 +226,16 @@ const WhySpecialtyContractor = () => {
                   </div>
                 ))}
               </div>
-              <div className="p-4 bg-destructive/10 rounded-lg">
+              <div className="p-4 bg-primary/10 rounded-lg">
                 <p className="font-semibold mb-3 flex items-center gap-2">
-                  <TrendingDown className="w-5 h-5 text-destructive" />
-                  Problems with this model:
+                  <CheckCircle2 className="w-5 h-5 text-primary" />
+                  Benefits of this model:
                 </p>
                 <ul className="space-y-2">
-                  {costBreakdown.generalContractorModel.problems.map((problem, index) => (
+                  {costBreakdown.generalContractorModel.benefits.map((benefit, index) => (
                     <li key={index} className="text-sm flex items-start gap-2">
-                      <XCircle className="w-4 h-4 text-destructive flex-shrink-0 mt-0.5" />
-                      <span>{problem}</span>
+                      <CheckCircle2 className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />
+                      <span>{benefit}</span>
                     </li>
                   ))}
                 </ul>
@@ -289,6 +286,67 @@ const WhySpecialtyContractor = () => {
             <p className="text-xl font-bold text-primary">
               Result: 25-30% more value delivered per construction dollar with specialty contractor model
             </p>
+          </div>
+        </div>
+      </Section>
+
+      {/* Our Vision Section - NEW */}
+      <Section className="bg-gradient-to-br from-primary/5 to-secondary/5">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-12">
+            <h2 className="mb-4">{ourVision.title}</h2>
+            <p className="text-xl text-muted-foreground">{ourVision.subtitle}</p>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-8 mb-12">
+            {/* Current State */}
+            <Card className="p-8">
+              <h3 className="text-2xl font-bold mb-3 text-primary">{ourVision.currentState.title}</h3>
+              <p className="text-muted-foreground mb-6">{ourVision.currentState.description}</p>
+              <ul className="space-y-3">
+                {ourVision.currentState.capabilities.map((capability, index) => (
+                  <li key={index} className="flex items-start gap-2 text-sm">
+                    <CheckCircle2 className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
+                    <span>{capability}</span>
+                  </li>
+                ))}
+              </ul>
+            </Card>
+
+            {/* Future State */}
+            <Card className="p-8 border-2 border-primary">
+              <h3 className="text-2xl font-bold mb-3 text-primary">{ourVision.futureState.title}</h3>
+              <p className="text-muted-foreground mb-6">{ourVision.futureState.description}</p>
+              
+              <div className="space-y-6">
+                {ourVision.futureState.roadmap.map((phase, index) => (
+                  <div key={index} className="border-l-2 border-primary pl-4">
+                    <h4 className="font-bold mb-2">{phase.phase}</h4>
+                    <ul className="space-y-1">
+                      {phase.milestones.map((milestone, idx) => (
+                        <li key={idx} className="text-sm text-muted-foreground flex items-start gap-2">
+                          <ArrowRight className="w-4 h-4 flex-shrink-0 mt-0.5" />
+                          <span>{milestone}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                ))}
+              </div>
+            </Card>
+          </div>
+
+          {/* Why This Path */}
+          <div className="text-center mb-8">
+            <h3 className="text-2xl font-bold mb-6">{ourVision.whyThisPath.title}</h3>
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+              {ourVision.whyThisPath.reasons.map((reason, index) => (
+                <Card key={index} className="p-6">
+                  <h4 className="font-bold mb-2 text-primary">{reason.title}</h4>
+                  <p className="text-sm text-muted-foreground">{reason.description}</p>
+                </Card>
+              ))}
+            </div>
           </div>
         </div>
       </Section>
