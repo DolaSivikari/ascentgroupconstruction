@@ -5,7 +5,7 @@ import ascentLogoVerticalDark from "@/assets/ascent-logo-vertical-dark.png";
 import SEO from "@/components/SEO";
 import { Skeleton } from "@/components/ui/skeleton";
 import { supabase } from "@/integrations/supabase/client";
-import { SimpleModernFooter } from "./footer/SimpleModernFooter";
+import { UnifiedFooter } from "./footer/UnifiedFooter";
 
 const Footer = () => {
   const [siteSettings, setSiteSettings] = useState<any>(null);
@@ -112,13 +112,14 @@ const Footer = () => {
   return (
     <>
       <SEO structuredData={citationSchema} />
-      <footer className="w-full bg-secondary text-secondary-foreground border-t border-border">
-        <div className="container mx-auto px-6 py-16 md:py-20">
-          <SimpleModernFooter
+      <footer className="w-full bg-background border-t border-border">
+        <div className="container mx-auto px-6 py-8 md:py-10">
+          <UnifiedFooter
             logoUrl={ascentLogoVerticalDark}
-            contactInfo={{ phone, email }}
+            contactInfo={{ phone, email, address }}
             linkedinUrl={linkedinUrl}
             foundedYear={siteSettings?.founded_year || 2025}
+            services={services}
           />
         </div>
       </footer>
