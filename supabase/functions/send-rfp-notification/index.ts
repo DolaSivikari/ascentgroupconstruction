@@ -88,7 +88,7 @@ const handler = async (req: Request): Promise<Response> => {
               
               <ul style="list-style: none; padding: 0;">
                 <li>📧 Email: rfp@ascentgroupconstruction.com</li>
-                <li>📞 Phone: (416) 647-5286</li>
+                <li>📞 Phone: +1 (647) 528-6804</li>
               </ul>
               
               <p>We look forward to the opportunity to work with ${data.company_name} on this project.</p>
@@ -121,7 +121,7 @@ const handler = async (req: Request): Promise<Response> => {
       },
       body: JSON.stringify({
         from: "RFP System <onboarding@resend.dev>",
-      to: ["admin@ascentgroupconstruction.com"],
+      to: ["info@ascentgroupconstruction.com"],
       subject: `New RFP: ${data.project_name} - ${data.company_name}`,
       html: `
         <h2>🚨 New RFP Submission</h2>

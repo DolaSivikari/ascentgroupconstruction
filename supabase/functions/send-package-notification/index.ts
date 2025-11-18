@@ -194,12 +194,12 @@ const handler = async (req: Request): Promise<Response> => {
               <li>Get a detailed quote tailored to your needs</li>
             </ul>
           </div>
-          <p>If you have any immediate questions, please call us at <strong>(416) 555-PAINT</strong></p>
+          <p>If you have any immediate questions, please call us at <strong>+1 (647) 528-6804</strong></p>
           <hr style="border: none; border-top: 1px solid #ddd; margin: 30px 0;">
           <p style="color: #666; font-size: 14px;">
             <strong>Ascent Group Construction</strong><br>
-            123 Industrial Parkway, Mississauga, ON L5T 1A1<br>
-            Phone: (416) 555-PAINT | Email: info@ascentgroupconstruction.com
+            2 Jody Ave, North York, ON M3N 1H1<br>
+            Phone: +1 (647) 528-6804 | Email: info@ascentgroupconstruction.com
           </p>
         </div>
       `,
