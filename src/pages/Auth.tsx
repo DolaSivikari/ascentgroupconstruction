@@ -82,40 +82,6 @@ const Auth = () => {
     }
   };
 
-  const handleCreateAdmin = async () => {
-    setIsLoading(true);
-    
-    try {
-      const { data, error } = await supabase.functions.invoke('create-admin-user', {
-        body: { 
-          email: 'hebunisik5@hotmail.com',
-          password: '2519166@Hebun'
-        }
-      });
-
-      if (error) {
-        throw error;
-      }
-
-      if (data.success) {
-        toast({
-          title: "Success!",
-          description: data.message || "Admin account created. You can now sign in.",
-        });
-      } else {
-        throw new Error(data.error || 'Failed to create admin account');
-      }
-    } catch (error: any) {
-      console.error('Admin creation error:', error);
-      toast({
-        title: "Error",
-        description: error.message || "Failed to create admin account",
-        variant: "destructive",
-      });
-    } finally {
-      setIsLoading(false);
-    }
-  };
 
 
   return (
@@ -157,20 +123,6 @@ const Auth = () => {
               {isLoading ? "Signing in..." : "Sign In"}
             </Button>
           </form>
-          <div className="pt-4 border-t border-border">
-            <Button 
-              type="button"
-              variant="outline" 
-              className="w-full" 
-              onClick={handleCreateAdmin}
-              disabled={isLoading}
-            >
-              🔧 One-Time Setup: Create Admin Account
-            </Button>
-            <p className="text-xs text-muted-foreground text-center mt-2">
-              Click once to create your admin account, then use Sign In above
-            </p>
-          </div>
         </CardContent>
       </Card>
     </div>
