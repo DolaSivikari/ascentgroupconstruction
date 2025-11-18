@@ -3,7 +3,7 @@ import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
 import PageHeader from "@/components/PageHeader";
 import { Section } from "@/components/sections/Section";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/ui/Button";
 import { Badge } from "@/components/ui/badge";
 import { 
@@ -14,10 +14,8 @@ import {
   Square, 
   Shield,
   CheckCircle,
-  Calendar,
   DollarSign,
   Phone,
-  Mail,
   ClipboardCheck,
   Award,
   Clock
@@ -25,9 +23,11 @@ import {
 import { Link } from "react-router-dom";
 import { ScrollReveal } from "@/components/animations/ScrollReveal";
 import { StaggerContainer } from "@/components/animations/StaggerContainer";
-import { ParallaxSection } from "@/components/animations/ParallaxSection";
 import heroImage from "@/assets/heroes/hero-painting.jpg";
 import { usePageAnalytics } from "@/hooks/usePageAnalytics";
+import { ResidentialServiceCard } from "@/components/homeowners/ResidentialServiceCard";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import { H2 } from "@/design-system/components/Typography";
 
 const Homeowners = () => {
   usePageAnalytics('homeowners');
@@ -224,59 +224,30 @@ const Homeowners = () => {
       </Section>
 
       {/* Residential Services Grid */}
-      <Section className="bg-accent">
+      <Section className="bg-gradient-to-br from-muted/30 via-muted/20 to-muted/30">
         <ScrollReveal>
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">Our Residential Services</h2>
+            <H2 className="mb-4">Our Residential Services</H2>
             <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
               From simple repairs to complete renovations, we handle a wide range of residential construction services with professional execution and fair pricing.
             </p>
           </div>
         </ScrollReveal>
 
-        <StaggerContainer className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {residentialServices.map((service, index) => {
-            const Icon = service.icon;
-            return (
-              <ScrollReveal key={index}>
-                <Card className="h-full">
-                  <CardHeader>
-                    <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
-                      <Icon className="w-6 h-6 text-primary" />
-                    </div>
-                    <CardTitle className="text-xl">{service.title}</CardTitle>
-                    <CardDescription>{service.description}</CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="space-y-4">
-                      <div>
-                        <h4 className="font-semibold text-sm mb-2">Typical Scope:</h4>
-                        <ul className="space-y-1">
-                          {service.scope.map((item, idx) => (
-                            <li key={idx} className="text-sm text-muted-foreground flex items-start gap-2">
-                              <CheckCircle className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
-                              <span>{item}</span>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                      <div className="pt-4 border-t flex items-center justify-between text-sm">
-                        <div>
-                          <span className="text-muted-foreground">Typical Cost:</span>
-                          <p className="font-semibold text-primary">{service.typical}</p>
-                        </div>
-                        <div className="text-right">
-                          <span className="text-muted-foreground">Timeline:</span>
-                          <p className="font-semibold">{service.timeline}</p>
-                        </div>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              </ScrollReveal>
-            );
-          })}
-        </StaggerContainer>
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {residentialServices.map((service, index) => (
+            <ScrollReveal key={index} delay={index * 0.1}>
+              <ResidentialServiceCard
+                icon={service.icon}
+                title={service.title}
+                description={service.description}
+                scope={service.scope}
+                typical={service.typical}
+                timeline={service.timeline}
+              />
+            </ScrollReveal>
+          ))}
+        </div>
 
         <ScrollReveal>
           <div className="text-center mt-12">
@@ -327,74 +298,76 @@ const Homeowners = () => {
       <Section className="bg-accent">
         <ScrollReveal>
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">Common Questions from Homeowners</h2>
+            <H2 className="mb-4">Common Questions from Homeowners</H2>
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              Everything you need to know before getting started
+            </p>
           </div>
         </ScrollReveal>
 
-        <div className="max-w-3xl mx-auto space-y-6">
+        <div className="max-w-3xl mx-auto">
           <ScrollReveal>
-            <Card>
-              <CardHeader>
-                <CardTitle className="text-lg">Do you provide free estimates?</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground">
+            <Accordion type="single" collapsible className="space-y-4">
+              <AccordionItem value="item-1" className="border border-border rounded-lg px-6 bg-card">
+                <AccordionTrigger className="hover:no-underline py-4">
+                  <div className="flex items-center gap-3 text-left">
+                    <DollarSign className="w-5 h-5 text-construction-orange flex-shrink-0" />
+                    <span className="font-semibold">Do you provide free estimates?</span>
+                  </div>
+                </AccordionTrigger>
+                <AccordionContent className="text-muted-foreground pb-4">
                   Yes. We provide free, no-obligation written estimates for all residential projects. After our site visit, you'll receive a detailed quote within 2-3 business days.
-                </p>
-              </CardContent>
-            </Card>
-          </ScrollReveal>
+                </AccordionContent>
+              </AccordionItem>
 
-          <ScrollReveal>
-            <Card>
-              <CardHeader>
-                <CardTitle className="text-lg">Are you insured and licensed?</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground">
+              <AccordionItem value="item-2" className="border border-border rounded-lg px-6 bg-card">
+                <AccordionTrigger className="hover:no-underline py-4">
+                  <div className="flex items-center gap-3 text-left">
+                    <Shield className="w-5 h-5 text-construction-orange flex-shrink-0" />
+                    <span className="font-semibold">Are you insured and licensed?</span>
+                  </div>
+                </AccordionTrigger>
+                <AccordionContent className="text-muted-foreground pb-4">
                   Yes. We carry $2M commercial general liability (CGL) insurance and are fully WSIB compliant. We can provide certificates of insurance upon request.
-                </p>
-              </CardContent>
-            </Card>
-          </ScrollReveal>
+                </AccordionContent>
+              </AccordionItem>
 
-          <ScrollReveal>
-            <Card>
-              <CardHeader>
-                <CardTitle className="text-lg">How long will my project take?</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground">
+              <AccordionItem value="item-3" className="border border-border rounded-lg px-6 bg-card">
+                <AccordionTrigger className="hover:no-underline py-4">
+                  <div className="flex items-center gap-3 text-left">
+                    <Clock className="w-5 h-5 text-construction-orange flex-shrink-0" />
+                    <span className="font-semibold">How long will my project take?</span>
+                  </div>
+                </AccordionTrigger>
+                <AccordionContent className="text-muted-foreground pb-4">
                   Most residential painting projects take 3-7 days. Tile and flooring installations typically take 3-8 days depending on size. Full renovations can range from 1-4 weeks. We'll provide a detailed timeline with your estimate.
-                </p>
-              </CardContent>
-            </Card>
-          </ScrollReveal>
+                </AccordionContent>
+              </AccordionItem>
 
-          <ScrollReveal>
-            <Card>
-              <CardHeader>
-                <CardTitle className="text-lg">Do you offer warranties?</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground">
+              <AccordionItem value="item-4" className="border border-border rounded-lg px-6 bg-card">
+                <AccordionTrigger className="hover:no-underline py-4">
+                  <div className="flex items-center gap-3 text-left">
+                    <Award className="w-5 h-5 text-construction-orange flex-shrink-0" />
+                    <span className="font-semibold">Do you offer warranties?</span>
+                  </div>
+                </AccordionTrigger>
+                <AccordionContent className="text-muted-foreground pb-4">
                   Yes. We provide workmanship warranties on all residential services (typically 1-2 years depending on scope). Materials carry manufacturer warranties. Full warranty details are included in your contract.
-                </p>
-              </CardContent>
-            </Card>
-          </ScrollReveal>
+                </AccordionContent>
+              </AccordionItem>
 
-          <ScrollReveal>
-            <Card>
-              <CardHeader>
-                <CardTitle className="text-lg">What areas do you serve?</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground">
+              <AccordionItem value="item-5" className="border border-border rounded-lg px-6 bg-card">
+                <AccordionTrigger className="hover:no-underline py-4">
+                  <div className="flex items-center gap-3 text-left">
+                    <Home className="w-5 h-5 text-construction-orange flex-shrink-0" />
+                    <span className="font-semibold">What areas do you serve?</span>
+                  </div>
+                </AccordionTrigger>
+                <AccordionContent className="text-muted-foreground pb-4">
                   We serve Toronto and the Greater Toronto Area, including Mississauga, Brampton, Vaughan, Markham, Richmond Hill, Oakville, Burlington, and surrounding communities. Contact us to confirm service in your area.
-                </p>
-              </CardContent>
-            </Card>
+                </AccordionContent>
+              </AccordionItem>
+            </Accordion>
           </ScrollReveal>
         </div>
       </Section>
