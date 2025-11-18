@@ -34,27 +34,7 @@ const QuickActions = () => {
   const [actions, setActions] = useState<QuickAction[]>(DEFAULT_ACTIONS);
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
 
-  useEffect(() => {
-    loadQuickActions();
-  }, []);
-
-  const loadQuickActions = async () => {
-    try {
-      const { data, error } = await supabase
-        .from('site_settings')
-        .select('admin_quick_actions')
-        .eq('is_active', true)
-        .single();
-
-      if (!error && Array.isArray(data?.admin_quick_actions) && data.admin_quick_actions.length > 0) {
-        setActions(data.admin_quick_actions as any as QuickAction[]);
-      } else {
-        setActions(DEFAULT_ACTIONS);
-      }
-    } catch (e) {
-      // Use defaults if no custom settings found
-    }
-  };
+  // Quick actions use defaults - customization removed (site_settings.admin_quick_actions column doesn't exist)
 
   const saveQuickActions = async () => {
     try {

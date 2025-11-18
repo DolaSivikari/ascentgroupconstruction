@@ -217,9 +217,9 @@ export const UnifiedSidebar = ({ collapsed, onToggle, mobileOpen, onMobileClose,
               <NavItem to="/admin/homepage-builder" icon={Layout} label="Homepage Builder" />
               <NavItem to="/admin/hero-images" icon={ImageIcon} label="Hero Slides" />
               <NavItem to="/admin/navigation" icon={Menu} label="Navigation" />
-              <NavItem to="/admin/footer-settings" icon={Layout} label="Footer Settings" />
-              <NavItem to="/admin/about-page" icon={FileText} label="About Page" />
-              <NavItem to="/admin/contact-page-settings" icon={Mail} label="Contact Page" />
+              <NavItem to="/admin/settings?tab=footer" icon={Layout} label="Footer Settings" />
+              <NavItem to="/admin/settings?tab=about" icon={FileText} label="About Page" />
+              <NavItem to="/admin/settings?tab=contact" icon={Mail} label="Contact Page" />
             </nav>
           </CollapsibleContent>
         </Collapsible>
@@ -228,27 +228,6 @@ export const UnifiedSidebar = ({ collapsed, onToggle, mobileOpen, onMobileClose,
         <nav style={{ marginBottom: '1.5rem' }} data-tour="inbox">
           <NavItem to="/admin/inbox" icon={Mail} label="📬 Unified Inbox" />
         </nav>
-
-        <Collapsible open={inboxOpen} onOpenChange={setInboxOpen}>
-          <CollapsibleTrigger className="business-nav-group-label">
-            {!collapsed && (
-              <>
-                <Mail size={16} />
-                <span>Direct Access</span>
-              </>
-            )}
-          </CollapsibleTrigger>
-          <CollapsibleContent>
-            <nav className="business-nav-group">
-              <NavItem to="/admin/contacts" icon={Mail} label="Contact Forms" />
-              <NavItem to="/admin/resumes" icon={FileCheck} label="Resumes" />
-              <NavItem to="/admin/prequalifications" icon={Package} label="Prequal" />
-              <NavItem to="/admin/rfp-submissions" icon={FileText} label="RFP Submissions" />
-              <NavItem to="/admin/newsletter-subscribers" icon={Mail} label="Newsletter" />
-              <NavItem to="/admin/partner-permissions" icon={Shield} label="Partner Logos" />
-            </nav>
-          </CollapsibleContent>
-        </Collapsible>
 
         {/* Business Tools Section */}
         {/* Tools Section (NEW) */}
@@ -268,7 +247,7 @@ export const UnifiedSidebar = ({ collapsed, onToggle, mobileOpen, onMobileClose,
               <NavItem to="/admin/structured-data" icon={Database} label="Structured Data" />
               <NavItem to="/admin/performance-dashboard" icon={Activity} label="Performance" />
               <NavItem to="/admin/search-analytics" icon={Search} label="Search Analytics" />
-              <NavItem to="/admin/settings-health" icon={Wrench} label="Settings Health" />
+              <NavItem to="/admin/settings?tab=health" icon={Wrench} label="Settings Health" />
             </nav>
           </CollapsibleContent>
         </Collapsible>

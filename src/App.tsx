@@ -277,20 +277,24 @@ const App = () => (
                     <Route path="services-manager" element={<ServicesManager />} />
                     <Route path="projects" element={<AdminProjects />} />
                     <Route path="projects/:id" element={<ProjectEditor />} />
-                    <Route path="contacts" element={<Navigate to="/admin/inbox?tab=contact" replace />} />
                     <Route path="blog" element={<AdminBlogPosts />} />
                     <Route path="blog-posts" element={<AdminBlogPosts />} />
                     <Route path="blog/:id" element={<BlogPostEditor />} />
-                    <Route path="prequalifications" element={<Navigate to="/admin/inbox?tab=prequalifications" replace />} />
                     <Route path="media" element={<MediaLibrary />} />
                     <Route path="media-library" element={<MediaLibrary />} />
                     <Route path="users" element={<Users />} />
                     <Route path="stats" element={<StatsManager />} />
                     <Route path="testimonials" element={<TestimonialsManager />} />
-                    <Route path="rfp" element={<Navigate to="/admin/inbox?tab=rfp" replace />} />
-                    <Route path="rfp-submissions" element={<Navigate to="/admin/inbox?tab=rfp" replace />} />
                     <Route path="documents-library" element={<DocumentsLibrary />} />
-                    <Route path="newsletter-subscribers" element={<Navigate to="/admin/inbox?tab=newsletter" replace />} />
+                    
+                    {/* Old inbox routes - redirect to unified inbox */}
+                    <Route path="contacts" element={<Navigate to="/admin/inbox" replace />} />
+                    <Route path="resumes" element={<Navigate to="/admin/inbox" replace />} />
+                    <Route path="prequalifications" element={<Navigate to="/admin/inbox" replace />} />
+                    <Route path="rfp" element={<Navigate to="/admin/inbox" replace />} />
+                    <Route path="rfp-submissions" element={<Navigate to="/admin/inbox" replace />} />
+                    <Route path="newsletter-subscribers" element={<Navigate to="/admin/inbox" replace />} />
+                    <Route path="quote-requests" element={<Navigate to="/admin/inbox" replace />} />
                     
                     {/* Settings - Consolidated */}
                     <Route path="settings" element={<Settings />} />
