@@ -33,7 +33,8 @@ import {
   Quote,
   FolderOpen,
   Menu,
-  ImageIcon
+  ImageIcon,
+  History
 } from 'lucide-react';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { useState, useEffect } from 'react';
@@ -103,6 +104,9 @@ export const UnifiedSidebar = ({ collapsed, onToggle, mobileOpen, onMobileClose,
     { title: "Redirects", url: "/admin/redirects", icon: ArrowRightLeft },
     { title: "Performance", url: "/admin/performance-dashboard", icon: Activity },
     { title: "Search Analytics", url: "/admin/search-analytics", icon: Database },
+    { title: "Audit Log", url: "/admin/audit", icon: Shield },
+    { title: "Monitoring", url: "/admin/monitoring", icon: AlertTriangle },
+    { title: "Versions", url: "/admin/content-versions", icon: History },
   ];
 
   const adminItems = [
