@@ -136,7 +136,7 @@ const Users = () => {
         </p>
         <div className="grid md:grid-cols-3 gap-4 text-sm mb-6">
           <div className="p-3 border border-border rounded-lg">
-            <Badge className="mb-2 bg-red-600">Super Admin</Badge>
+            <Badge variant="danger" className="mb-2">Super Admin</Badge>
             <p className="text-muted-foreground mb-2">Full system access</p>
             <ul className="text-xs space-y-1 text-muted-foreground">
               <li>✓ User management</li>
@@ -166,7 +166,7 @@ const Users = () => {
             </ul>
           </div>
           <div className="p-3 border border-border rounded-lg">
-            <Badge className="mb-2 bg-blue-600">Contributor</Badge>
+            <Badge variant="info" className="mb-2">Contributor</Badge>
             <p className="text-muted-foreground mb-2">Limited creation</p>
             <ul className="text-xs space-y-1 text-muted-foreground">
               <li>✓ Create drafts</li>

@@ -117,7 +117,7 @@ export function ServiceAnalyticsDashboard() {
                     </div>
                     {service.conversions > 0 && (
                       <div className="text-center">
-                        <Badge variant="default" className="bg-green-600">
+                        <Badge variant="success">
                           {service.conversions} Conv
                         </Badge>
                       </div>

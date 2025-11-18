@@ -96,7 +96,7 @@ export default function Monitoring() {
               </div>
               <div>
                 <p className="text-sm text-muted-foreground">System Status</p>
-                <Badge className="bg-green-500 mt-1">Healthy</Badge>
+                <Badge variant="success" className="mt-1">Healthy</Badge>
               </div>
             </div>
           </Card>

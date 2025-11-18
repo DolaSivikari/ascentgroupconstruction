@@ -185,37 +185,37 @@ export const InboxTable = ({ type }: InboxTableProps) => {
     );
   });
 
-  const getStatusColor = (status: string) => {
+  const getStatusVariant = (status: string) => {
     switch (status) {
       case "new":
-        return "bg-red-100 text-red-800 dark:bg-red-900/20 dark:text-red-400";
+        return "new" as const;
       case "in_progress":
       case "contacted":
-        return "bg-yellow-100 text-yellow-800 dark:bg-yellow-900/20 dark:text-yellow-400";
+        return "warning" as const;
       case "completed":
       case "resolved":
-        return "bg-green-100 text-green-800 dark:bg-green-900/20 dark:text-green-400";
+        return "success" as const;
       default:
-        return "bg-gray-100 text-gray-800 dark:bg-gray-900/20 dark:text-gray-400";
+        return "secondary" as const;
     }
   };
 
-  const getTypeColor = (type: string) => {
+  const getTypeVariant = (type: string) => {
     switch (type) {
       case "RFP":
-        return "bg-red-100 text-red-800 dark:bg-red-900/20 dark:text-red-400";
+        return "danger" as const;
       case "Contact":
-        return "bg-blue-100 text-blue-800 dark:bg-blue-900/20 dark:text-blue-400";
+        return "info" as const;
       case "Resume":
-        return "bg-green-100 text-green-800 dark:bg-green-900/20 dark:text-green-400";
+        return "success" as const;
       case "Prequal":
-        return "bg-purple-100 text-purple-800 dark:bg-purple-900/20 dark:text-purple-400";
+        return "primary" as const;
       case "Quote":
-        return "bg-yellow-100 text-yellow-800 dark:bg-yellow-900/20 dark:text-yellow-400";
+        return "warning" as const;
       case "Newsletter":
-        return "bg-indigo-100 text-indigo-800 dark:bg-indigo-900/20 dark:text-indigo-400";
+        return "info" as const;
       default:
-        return "bg-gray-100 text-gray-800 dark:bg-gray-900/20 dark:text-gray-400";
+        return "secondary" as const;
     }
   };
 
@@ -272,7 +272,7 @@ export const InboxTable = ({ type }: InboxTableProps) => {
               filteredItems.map((item) => (
                 <TableRow key={`${item.type}-${item.id}`} className="hover:bg-muted/50">
                   <TableCell>
-                    <Badge className={getTypeColor(item.type)}>{item.type}</Badge>
+                    <Badge variant={getTypeVariant(item.type)}>{item.type}</Badge>
                   </TableCell>
                   <TableCell className="font-medium">
                     {item.contact_name || item.name || item.applicant_name || item.company_name}
@@ -281,7 +281,7 @@ export const InboxTable = ({ type }: InboxTableProps) => {
                   <TableCell>{item.phone || "-"}</TableCell>
                   {type !== "newsletter" && (
                     <TableCell>
-                      <Badge className={getStatusColor(item.status || "new")}>
+                      <Badge variant={getStatusVariant(item.status || "new")}>
                         {item.status || "new"}
                       </Badge>
                     </TableCell>
