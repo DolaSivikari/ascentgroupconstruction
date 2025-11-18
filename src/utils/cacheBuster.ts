@@ -90,7 +90,7 @@ export const checkForDeploymentUpdate = async (): Promise<boolean> => {
 };
 
 /**
- * Clear all caches and force reload
+ * Clear all caches without reloading (caller handles reload)
  */
 export const clearAllCaches = async (): Promise<void> => {
   try {
@@ -113,8 +113,7 @@ export const clearAllCaches = async (): Promise<void> => {
     localStorage.removeItem(VERSION_KEY);
     localStorage.removeItem(LAST_CHECK_KEY);
 
-    // Force hard reload
-    window.location.reload();
+    console.log('[Cache Buster] All caches cleared');
   } catch (error) {
     console.error('[Cache Buster] Error clearing caches:', error);
   }
