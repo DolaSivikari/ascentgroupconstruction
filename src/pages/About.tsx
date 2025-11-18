@@ -116,8 +116,8 @@ const About = () => {
     {
       icon: Home,
       title: "Homeowners",
-      description: "Emergency and maintenance requests only.",
-      priority: "Limited"
+      description: "Residential painting, tile/flooring, stucco repair, basement finishing, and general renovations. Commercial-grade quality for your home.",
+      priority: "Growing"
     }
   ];
 
