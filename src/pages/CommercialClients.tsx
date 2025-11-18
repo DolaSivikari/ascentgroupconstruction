@@ -65,16 +65,16 @@ const CommercialClients = () => {
   return (
     <div className="min-h-screen">
       <SEO 
-        title="Commercial Construction Services - Business & Industrial"
-        description="Professional commercial construction services for offices, retail, industrial, and institutional facilities. After-hours scheduling, minimal disruption, and quality results."
-        keywords="commercial construction, office construction, retail construction, industrial construction, business construction, GTA"
+        title="Commercial Building Envelope & Restoration Services - Toronto & GTA"
+        description="Envelope repairs, waterproofing, and restoration for office buildings, retail properties, and industrial facilities. After-hours scheduling. Minimal disruption. 15+ years experience serving commercial clients."
+        keywords="commercial envelope contractor, office building restoration, retail property repairs, industrial waterproofing, commercial facade repair GTA, Toronto commercial contractor"
       />
       <Navigation />
       
       <PageHeader
         eyebrow="For Commercial Clients"
-        title="Keep Your Business Running While We Work"
-        description="Professional commercial construction and project management services designed around your operations. We deliver quality results with minimal disruption to your business."
+        title="Envelope & Restoration for Commercial Properties"
+        description="Office buildings, retail strips, industrial properties—façade repairs, waterproofing, and interior finishes. After-hours scheduling available to minimize business disruption."
         backgroundImage={heroImage}
         breadcrumbs={[
           { label: "Home", href: "/" },
@@ -90,8 +90,8 @@ const CommercialClients = () => {
       <main>
 
         <BenefitsSection
-          title="Why Businesses Choose Ascent"
-          description="We understand that downtime costs money. Our commercial services are built for efficiency."
+          title="Why Commercial Clients Choose Ascent"
+          description="Envelope and restoration services designed to protect your building investment with minimal business disruption."
           benefits={benefits.map(b => ({ icon: b.icon, title: b.title, description: b.description }))}
         />
 

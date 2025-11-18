@@ -16,6 +16,7 @@ import InsightsFeed from "@/components/insights/InsightsFeed";
 import ValuePillars from "@/components/homepage/ValuePillars";
 import SplashScreen from "@/components/SplashScreen";
 import { TrustBadgeBar } from "@/components/homepage/TrustBadgeBar";
+import WhoWeServeHomepage from "@/components/homepage/WhoWeServeHomepage";
 
 import { personalization } from "@/utils/personalization";
 import { initializeTests } from "@/utils/ab-testing";
@@ -194,9 +195,9 @@ const Index = () => {
         <SkipLink />
         
         <SEO
-        title="Specialty Contractor Ontario | Building Envelope, Cladding Systems & Interior Construction"
-        description="Specialty contractor for building envelope, complete cladding systems, masonry restoration, interior construction, and sustainable building. Self-performed quality with 15+ years expertise serving Toronto, GTA, and Ontario."
-        keywords="specialty contractor Ontario, building envelope contractor, cladding systems, metal panels, EIFS contractor, masonry restoration, interior construction, sustainable building, LEED consulting, Toronto contractor"
+        title="Building Envelope & Restoration Specialists | Emerging Specialty Contractor Ontario & GTA"
+        description="Emerging specialty contractor in Ontario & GTA delivering façade remediation, waterproofing, EIFS, masonry, parking garage restoration. 15+ years crew experience, 85% self-performed. Building toward full GC capabilities. WSIB compliant, $2M CGL."
+        keywords="specialty contractor Ontario, building envelope contractor GTA, facade remediation Toronto, waterproofing contractor, EIFS contractor, masonry restoration, parking garage repair, envelope restoration, emerging contractor"
         structuredData={[specialtyContractorSchema, howToChooseContractor, whatDoesAscentDo, whyChooseUsSchema, siteSearchSchema]} 
         includeRating={true} 
         />
@@ -220,6 +221,10 @@ const Index = () => {
         
         <ScrollReveal direction="right" delay={100}>
           <ClientValueProposition />
+        </ScrollReveal>
+        
+        <ScrollReveal direction="up" delay={0}>
+          <WhoWeServeHomepage />
         </ScrollReveal>
         
         <ParallaxSection speed="medium">
