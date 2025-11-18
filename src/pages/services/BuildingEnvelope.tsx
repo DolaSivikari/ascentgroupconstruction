@@ -78,30 +78,6 @@ const BuildingEnvelope = () => {
     "Expansion Joint Systems"
   ];
 
-  const caseStudies = [
-    {
-      title: "High-Rise Envelope Restoration",
-      location: "Toronto, ON",
-      size: "200,000 sq ft",
-      duration: "18 months",
-      description: "Complete envelope rehabilitation including EIFS replacement, window upgrades, and balcony waterproofing for 25-story residential tower."
-    },
-    {
-      title: "Commercial Office Enclosure",
-      location: "Mississauga, ON",
-      size: "60,000 sq ft",
-      duration: "12 months",
-      description: "New metal panel rainscreen system with continuous insulation achieving LEED Silver thermal performance targets."
-    },
-    {
-      title: "Institutional Building Retrofit",
-      location: "Vaughan, ON",
-      size: "85,000 sq ft",
-      duration: "14 months",
-      description: "Heritage masonry restoration with modern air barrier integration and below-grade waterproofing remediation."
-    }
-  ];
-
   const serviceConfig = SERVICE_SCHEMAS["building-envelope"];
   const siteUrl = window.location.origin;
   
@@ -282,45 +258,6 @@ const BuildingEnvelope = () => {
                   </p>
                 </UnifiedCard>
               </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Selected Case Studies */}
-        <section className="py-20 bg-background">
-          <div className="container mx-auto px-4">
-            <div className="text-center mb-12">
-              <h2 className="text-foreground mb-4">Envelope Project Showcase</h2>
-              <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-                Recent envelope projects demonstrating our technical capabilities and quality standards.
-              </p>
-            </div>
-
-            <div className="grid md:grid-cols-3 gap-6 max-w-6xl mx-auto">
-              {caseStudies.map((project, index) => (
-                <UnifiedCard key={index} variant="interactive" className="p-6">
-                  <h3 className="text-lg font-bold mb-3">{project.title}</h3>
-                  <div className="flex flex-wrap gap-2 mb-3">
-                    <span className="text-xs bg-primary/10 text-primary px-2 py-1 rounded">
-                      {project.location}
-                    </span>
-                    <span className="text-xs bg-accent/10 text-accent px-2 py-1 rounded">
-                      {project.size}
-                    </span>
-                  </div>
-                  <p className="text-sm text-muted-foreground mb-3">{project.description}</p>
-                  <div className="flex items-center gap-2 text-xs text-muted-foreground">
-                    <Clock className="w-3 h-3" />
-                    <span>Completed in {project.duration}</span>
-                  </div>
-                </UnifiedCard>
-              ))}
-            </div>
-
-            <div className="text-center mt-8">
-              <Button asChild variant="outline" size="lg">
-                <Link to="/projects">View All Envelope Projects</Link>
-              </Button>
             </div>
           </div>
         </section>

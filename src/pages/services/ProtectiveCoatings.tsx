@@ -69,30 +69,6 @@ const ProtectiveCoatings = () => {
     }
   ];
 
-  const caseStudies = [
-    {
-      title: "Industrial Warehouse Coating",
-      location: "Brampton, ON",
-      size: "150,000 sq ft",
-      duration: "6 weeks",
-      description: "High-performance epoxy floor coating system for manufacturing facility with chemical resistance and forklift traffic."
-    },
-    {
-      title: "Transit Station Anti-Graffiti",
-      location: "Toronto, ON",
-      size: "Multiple locations",
-      duration: "3 months",
-      description: "Permanent anti-graffiti coating program across subway station walls and structural elements for TTC maintenance."
-    },
-    {
-      title: "Heritage Building Restoration",
-      location: "Old Toronto",
-      size: "Historic 4-story brick",
-      duration: "4 months",
-      description: "Breathable mineral coating system on heritage masonry meeting conservation standards while providing weather protection."
-    }
-  ];
-
   return (
     <div className="min-h-screen">
       <SEO
@@ -171,45 +147,6 @@ const ProtectiveCoatings = () => {
                   </ul>
                 </UnifiedCard>
               ))}
-            </div>
-          </div>
-        </section>
-
-        {/* Selected Case Studies */}
-        <section className="py-20 bg-background">
-          <div className="container mx-auto px-4">
-            <div className="text-center mb-12">
-              <h2 className="text-foreground mb-4">Selected Case Studies</h2>
-              <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-                Recent coating projects demonstrating our technical expertise across diverse substrates and applications.
-              </p>
-            </div>
-
-            <div className="grid md:grid-cols-3 gap-6 max-w-6xl mx-auto">
-              {caseStudies.map((project, index) => (
-                <UnifiedCard key={index} variant="interactive">
-                  <h3 className="text-lg font-semibold mb-2">{project.title}</h3>
-                  <div className="flex flex-wrap gap-2 mb-3">
-                    <span className="text-xs bg-primary/10 text-primary px-2 py-1 rounded">
-                      {project.location}
-                    </span>
-                    <span className="text-xs bg-accent/10 text-accent px-2 py-1 rounded">
-                      {project.size}
-                    </span>
-                  </div>
-                  <p className="text-sm text-muted-foreground mb-3">{project.description}</p>
-                  <div className="flex items-center gap-2 text-xs text-muted-foreground">
-                    <Clock className="w-3 h-3" />
-                    <span>Completed in {project.duration}</span>
-                  </div>
-                </UnifiedCard>
-              ))}
-            </div>
-
-            <div className="text-center mt-8">
-              <Button asChild variant="outline" size="lg">
-                <Link to="/projects">View All Projects</Link>
-              </Button>
             </div>
           </div>
         </section>
