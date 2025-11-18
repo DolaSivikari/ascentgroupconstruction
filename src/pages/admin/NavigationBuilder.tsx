@@ -3,6 +3,7 @@ import { Card } from '@/components/ui/card';
 import { Button } from '@/ui/Button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { migrateNavigationData } from '@/utils/migrateNavigationData';
 import {
   Select,
   SelectContent,
@@ -28,7 +29,9 @@ import {
   ChevronRight,
   Save,
   FolderTree,
-  ExternalLink
+  ExternalLink,
+  Database,
+  Download
 } from 'lucide-react';
 import {
   DndContext,
@@ -160,6 +163,7 @@ const SortableItem = ({ item, onEdit, onDelete, depth }: SortableItemProps) => {
 const NavigationBuilder = () => {
   const [items, setItems] = useState<MenuItem[]>([]);
   const [loading, setLoading] = useState(true);
+  const [migrating, setMigrating] = useState(false);
   const [editDialog, setEditDialog] = useState(false);
   const [currentItem, setCurrentItem] = useState<Partial<MenuItem>>({
     menu_type: 'primary',
@@ -309,6 +313,29 @@ const NavigationBuilder = () => {
     setEditDialog(true);
   };
 
+  const handleMigration = async () => {
+    if (!confirm('Import navigation structure from hardcoded data? This will add ~35 menu items to the database.')) {
+      return;
+    }
+
+    setMigrating(true);
+    try {
+      const result = await migrateNavigationData();
+      
+      if (result.success) {
+        toast.success(result.message || 'Navigation structure imported successfully!');
+        loadNavigationItems();
+      } else {
+        toast.error(result.error || 'Failed to import navigation structure');
+      }
+    } catch (error: any) {
+      console.error('Migration error:', error);
+      toast.error(error.message || 'Failed to import navigation structure');
+    } finally {
+      setMigrating(false);
+    }
+  };
+
   if (loading) {
     return (
       <div className="p-8">
@@ -367,13 +394,32 @@ const NavigationBuilder = () => {
         </Card>
       </div>
 
+      {items.length === 0 && (
+        <Card className="p-6 mb-6 border-primary/20 bg-primary/5">
+          <div className="flex items-start gap-4">
+            <Database className="h-6 w-6 text-primary mt-1" />
+            <div className="flex-1">
+              <h3 className="font-semibold mb-2">Import Navigation Structure</h3>
+              <p className="text-sm text-muted-foreground mb-4">
+                Your navigation database is empty. Import the default navigation structure 
+                (~35 menu items) to get started with database-driven navigation management.
+              </p>
+              <Button onClick={handleMigration} disabled={migrating}>
+                <Download className="h-4 w-4 mr-2" />
+                {migrating ? 'Importing...' : 'Import Navigation Structure'}
+              </Button>
+            </div>
+          </div>
+        </Card>
+      )}
+
       <Card className="p-6">
         {items.length === 0 ? (
           <div className="text-center py-12">
             <FolderTree className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
             <h3 className="text-lg font-semibold mb-2">No Navigation Items</h3>
             <p className="text-muted-foreground mb-4">
-              Get started by adding your first menu item
+              Get started by importing the navigation structure or adding items manually
             </p>
             <Button onClick={() => setEditDialog(true)}>
               <Plus className="h-4 w-4 mr-2" />
