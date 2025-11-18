@@ -67,7 +67,7 @@ export const BasicInfoTab = ({ formData, slugStatus, onFormChange }: BasicInfoTa
           />
           <div className="flex items-center justify-between text-sm">
             <p className="text-muted-foreground">
-              URL: /blog/<span className="font-semibold text-foreground">{formData.slug || "..."}</span>
+              URL: /projects/<span className="font-semibold text-foreground">{formData.slug || "..."}</span>
             </p>
             {formData.slug && (
               <p className={cn(

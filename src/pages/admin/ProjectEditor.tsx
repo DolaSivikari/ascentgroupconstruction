@@ -108,7 +108,16 @@ const ProjectEditor = () => {
   }, [formData.slug, id]);
 
   useEffect(() => {
-    if (id && id !== "new") loadProject();
+    if (id && id !== "new") {
+      loadProject();
+    } else if (id === "new") {
+      // Show reminder for new projects
+      toast({
+        title: "📝 Remember to publish",
+        description: "Set Publication Status to 'Published' in the SEO tab to make your project visible on the website.",
+        duration: 6000,
+      });
+    }
   }, [id]);
 
   const loadProject = async () => {
@@ -239,7 +248,7 @@ const ProjectEditor = () => {
     }
     const token = generatePreviewToken();
     await supabase.from("projects").update({ preview_token: token, preview_token_expires_at: new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString() }).eq("id", id);
-    window.open(`/blog/${formData.slug}?preview=${token}`, "_blank");
+    window.open(`/projects/${formData.slug}?preview=${token}`, "_blank");
   };
 
   return (
@@ -258,6 +267,7 @@ const ProjectEditor = () => {
           isSaving={isSaving}
           lastSaved={lastSaved}
           completionPercentage={completion.overall.percentage}
+          publishState={formData.publish_state}
           onBack={() => navigate("/admin/projects")}
           onSave={() => handleSubmit({} as any)}
           onPreview={handlePreview}

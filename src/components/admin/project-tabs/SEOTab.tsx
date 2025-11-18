@@ -94,6 +94,25 @@ export const SEOTab = ({ formData, onFormChange }: SEOTabProps) => {
       </div>
 
       {/* Publication Status Alerts */}
+      {formData.publish_state === "draft" && (
+        <div className="bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded-lg p-4">
+          <div className="flex items-start gap-3">
+            <div className="text-2xl">⚠️</div>
+            <div className="flex-1">
+              <h4 className="font-semibold text-yellow-900 dark:text-yellow-100 mb-1">
+                This project is not visible to the public
+              </h4>
+              <p className="text-sm text-yellow-800 dark:text-yellow-200 mb-2">
+                Your project is currently in <strong>Draft</strong> mode. It won't appear on the website until you change the status to <strong>Published</strong>.
+              </p>
+              <p className="text-xs text-yellow-700 dark:text-yellow-300">
+                💡 <strong>To make it live:</strong> Select "Published" from the dropdown above and save your changes.
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
+      
       {formData.publish_state === "published" && (
         <div className="bg-green-50 dark:bg-green-950/20 border-2 border-green-500 dark:border-green-700 rounded-lg p-4">
           <p className="text-sm font-medium text-green-900 dark:text-green-100">
