@@ -58,13 +58,13 @@ interface Service {
 // Map service slugs to hero images
 const serviceHeroImages: Record<string, string> = {
   'basement-finishing': '/src/assets/heroes/hero-tenant-improvements.jpg',
-  'carpentry-trim-work': '/src/assets/heroes/hero-painting.jpg',
+  'carpentry-trim-work': '/src/assets/heroes/hero-tenant-improvements.jpg',
   'interior-buildouts-finishing': '/src/assets/heroes/hero-tenant-improvements.jpg',
   'suite-renovations': '/src/assets/heroes/hero-tenant-improvements.jpg',
   'painting-services': '/src/assets/heroes/hero-painting.jpg',
-  'general-repairs-maintenance': '/src/assets/heroes/hero-painting.jpg',
+  'general-repairs-maintenance': '/src/assets/heroes/hero-general-contracting.jpg',
   'kitchen-bathroom-renovations': '/src/assets/heroes/hero-tile-flooring.jpg',
-  'protective-architectural-coatings': '/src/assets/heroes/hero-painting.jpg',
+  'protective-architectural-coatings': '/src/assets/heroes/hero-protective-coatings.jpg',
 };
 
 const ServiceDetail = () => {
