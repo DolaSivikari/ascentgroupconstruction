@@ -196,8 +196,8 @@ const ProjectEditor = () => {
     setHasUnsavedChanges(true);
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleSubmit = async (e?: React.FormEvent) => {
+    e?.preventDefault();
     if (!slugStatus.isAvailable) {
       toast({ title: "Error", description: "Please choose a unique slug", variant: "destructive" });
       return;
@@ -269,7 +269,7 @@ const ProjectEditor = () => {
           completionPercentage={completion.overall.percentage}
           publishState={formData.publish_state}
           onBack={() => navigate("/admin/projects")}
-          onSave={() => handleSubmit({} as any)}
+          onSave={() => handleSubmit()}
           onPreview={handlePreview}
         />
         
