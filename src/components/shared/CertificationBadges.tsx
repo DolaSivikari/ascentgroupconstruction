@@ -85,7 +85,7 @@ export const CertificationBadges = ({
               <TooltipTrigger asChild>
                 <div
                   className={cn(
-                    "relative rounded-2xl border-2 border-border bg-card hover:border-primary/50 transition-all hover:scale-110 hover:shadow-xl cursor-pointer flex items-center justify-center animate-fade-in",
+                    "relative rounded-[var(--radius-lg)] border-2 border-border bg-card hover:border-primary/50 transition-all hover:scale-110 hover:shadow-[var(--shadow-lg)] cursor-pointer flex items-center justify-center animate-fade-in",
                     sizeClasses[size]
                   )}
                   style={{ animationDelay: `${index * 100}ms` }}

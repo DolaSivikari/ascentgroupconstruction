@@ -114,7 +114,7 @@ export const OnboardingTour = ({ onComplete }: OnboardingTourProps) => {
         {/* Spotlight */}
         {targetPosition.width > 0 && (
           <div
-            className="absolute border-4 border-primary rounded-lg shadow-2xl pointer-events-auto"
+            className="absolute border-4 border-primary rounded-lg shadow-[var(--shadow-lg)] pointer-events-auto"
             style={{
               top: targetPosition.top - 8,
               left: targetPosition.left - 8,
@@ -128,7 +128,7 @@ export const OnboardingTour = ({ onComplete }: OnboardingTourProps) => {
 
       {/* Tooltip */}
       <Card
-        className="fixed z-[9999] w-80 shadow-2xl"
+        className="fixed z-[9999] w-80 shadow-[var(--shadow-lg)]"
         style={{
           top: tooltipPosition.top,
           left: tooltipPosition.left,

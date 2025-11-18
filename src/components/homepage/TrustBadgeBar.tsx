@@ -59,7 +59,7 @@ export const TrustBadgeBar = () => {
                   "bg-white/60 dark:bg-slate-900/60 backdrop-blur-md",
                   "border border-construction-orange/20",
                   "transition-all duration-300 hover:scale-105 hover:border-construction-orange/40",
-                  "hover:shadow-xl hover:shadow-construction-orange/20",
+                  "hover:shadow-[var(--shadow-lg)] hover:shadow-construction-orange/20",
                   isVisible ? "opacity-100" : "opacity-0"
                 )}
                 style={{

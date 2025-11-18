@@ -208,7 +208,7 @@ export const ServicesExplorer = () => {
         {loading ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {[...Array(6)].map((_, i) => (
-              <div key={i} className="h-72 bg-card/50 backdrop-blur-sm animate-pulse rounded-xl border border-border/50" />
+              <div key={i} className="h-72 bg-card/50 backdrop-blur-sm animate-pulse rounded-[var(--radius-lg)] border border-border/50" />
             ))}
           </div>
         ) : filteredServices.length === 0 ? (
@@ -269,7 +269,7 @@ export const ServicesExplorer = () => {
 
             {filteredServices.length > visibleServices.length && (
               <div className="text-center mt-12">
-                <Button onClick={handleLoadMore} size="lg" className="shadow-lg hover:shadow-xl transition-all">
+                <Button onClick={handleLoadMore} size="lg" className="shadow-lg hover:shadow-[var(--shadow-lg)] transition-all">
                   Load More Services
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
@@ -280,8 +280,8 @@ export const ServicesExplorer = () => {
 
         {/* Enhanced CTA Section */}
         <div className="relative mt-20">
-          <div className="absolute inset-0 bg-gradient-to-r from-primary/10 via-primary/5 to-secondary/10 rounded-2xl blur-3xl" />
-          <div className="relative text-center p-8 md:p-12 rounded-2xl bg-card/80 backdrop-blur-sm border-2 border-border/50">
+          <div className="absolute inset-0 bg-gradient-to-r from-primary/10 via-primary/5 to-secondary/10 rounded-[var(--radius-lg)] blur-3xl" />
+          <div className="relative text-center p-8 md:p-12 rounded-[var(--radius-lg)] bg-card/80 backdrop-blur-sm border-2 border-border/50">
             <div className="max-w-2xl mx-auto">
               <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-medium mb-4">
                 <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
@@ -298,7 +298,7 @@ export const ServicesExplorer = () => {
               
               <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
                 <Link to="/contact">
-                  <Button size="lg" className="group shadow-lg hover:shadow-xl transition-all w-full sm:w-auto">
+                  <Button size="lg" className="group shadow-lg hover:shadow-[var(--shadow-lg)] transition-all w-full sm:w-auto">
                     Request Site Assessment
                     <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
                   </Button>

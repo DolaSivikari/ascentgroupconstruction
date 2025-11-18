@@ -58,7 +58,7 @@ export const ProjectCompletionTicker = ({
         {duplicatedProjects.map((project, index) => (
           <div
             key={index}
-            className="flex-shrink-0 w-80 bg-background rounded-xl border-2 border-border p-4 hover:border-primary/30 transition-all hover:shadow-lg"
+            className="flex-shrink-0 w-80 bg-background rounded-[var(--radius-lg)] border-2 border-border p-4 hover:border-primary/30 transition-all hover:shadow-[var(--shadow-lg)]"
           >
             <div className="space-y-2">
               <h5 className="font-semibold text-foreground line-clamp-1">{project.name}</h5>

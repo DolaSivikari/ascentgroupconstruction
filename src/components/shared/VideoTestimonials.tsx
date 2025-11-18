@@ -37,7 +37,7 @@ export const VideoTestimonials = ({
             className="text-left group animate-fade-in"
             style={{ animationDelay: `${index * 100}ms` }}
           >
-            <Card className="overflow-hidden border-2 hover:border-primary/50 transition-all hover:shadow-xl">
+            <Card className="overflow-hidden border-2 hover:border-primary/50 transition-all hover:shadow-[var(--shadow-lg)]">
               <div className="relative aspect-video bg-muted">
                 <img
                   src={testimonial.thumbnail}

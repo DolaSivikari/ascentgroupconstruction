@@ -168,7 +168,7 @@ export const ServiceCard3D = ({
 
           {/* Shadow Layer */}
           <div
-            className="absolute -inset-1 bg-gradient-to-br from-primary/20 via-accent/20 to-transparent rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity -z-10"
+            className="absolute -inset-1 bg-gradient-to-br from-primary/20 via-accent/20 to-transparent rounded-[var(--radius-lg)] blur-xl opacity-0 group-hover:opacity-100 transition-opacity -z-10"
             style={{
               transform: "translateZ(-40px)",
             }}

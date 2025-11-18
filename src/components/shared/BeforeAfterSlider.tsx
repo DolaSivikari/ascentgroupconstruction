@@ -62,7 +62,7 @@ export const BeforeAfterSlider = ({
     <div
       ref={containerRef}
       className={cn(
-        "relative w-full aspect-video overflow-hidden rounded-xl border-2 border-border cursor-ew-resize select-none",
+        "relative w-full aspect-video overflow-hidden rounded-[var(--radius-lg)] border-2 border-border cursor-ew-resize select-none",
         className
       )}
       onMouseDown={handleMouseDown}
@@ -103,7 +103,7 @@ export const BeforeAfterSlider = ({
         style={{ left: `${sliderPosition}%`, opacity: isDragging ? 1 : 0.7 }}
       >
         {/* Slider Handle */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-12 h-12 bg-white rounded-full shadow-xl flex items-center justify-center border-2 border-primary">
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-12 h-12 bg-white rounded-full shadow-[var(--shadow-lg)] flex items-center justify-center border-2 border-primary">
           <ChevronLeft className="w-4 h-4 text-primary absolute left-1" />
           <ChevronRight className="w-4 h-4 text-primary absolute right-1" />
         </div>

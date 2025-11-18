@@ -59,7 +59,7 @@ const AnimatedProcessTimeline = ({ steps }: AnimatedProcessTimelineProps) => {
             className={cn(
               "absolute inset-y-0 left-0 bg-gradient-to-r from-primary via-primary/80 to-primary rounded-full",
               !prefersReducedMotion && "[box-shadow:var(--shadow-glow)]",
-              "transition-all duration-700 ease-out"
+              "transition-all duration-500 ease-out"
             )}
             style={{ width: `${progress}%` }}
           />
@@ -78,7 +78,7 @@ const AnimatedProcessTimeline = ({ steps }: AnimatedProcessTimelineProps) => {
         
         {/* Active Progress Line */}
         <div
-          className="absolute left-8 md:left-1/2 top-0 w-0.5 bg-gradient-to-b from-primary to-primary/60 -translate-x-1/2 [box-shadow:var(--shadow-glow)] transition-all duration-700 ease-out"
+          className="absolute left-8 md:left-1/2 top-0 w-0.5 bg-gradient-to-b from-primary to-primary/60 -translate-x-1/2 [box-shadow:var(--shadow-glow)] transition-all duration-500 ease-out"
           style={{ height: `${(activeStep / (steps.length - 1)) * 100}%` }}
         />
 

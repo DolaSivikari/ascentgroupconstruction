@@ -108,7 +108,7 @@ export function PartnerCaseStudies({ background = "default" }: PartnerCaseStudie
             {caseStudies.map((study, index) => (
               <Card 
                 key={index} 
-                className="overflow-hidden hover:shadow-2xl transition-all border-2"
+                className="overflow-hidden hover:shadow-[var(--shadow-lg)] transition-all border-2"
               >
                 <div className="grid lg:grid-cols-[300px_1fr] gap-0">
                   {/* Partner Info Sidebar */}

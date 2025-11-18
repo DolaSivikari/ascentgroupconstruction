@@ -62,7 +62,7 @@ export const ServiceCategoryCard = ({
         "relative w-20 h-20 rounded-[var(--radius-lg)] flex items-center justify-center mb-6 transition-all duration-300",
         "bg-gradient-to-br shadow-lg mx-auto",
         colors.iconBg,
-        "group-hover:scale-110 group-hover:rotate-3 group-hover:shadow-xl"
+        "group-hover:scale-110 group-hover:rotate-3 group-hover:shadow-[var(--shadow-lg)]"
       )}>
         <CategoryIcon className={cn("w-10 h-10", colors.iconColor)} />
       </div>

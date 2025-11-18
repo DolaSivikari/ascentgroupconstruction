@@ -29,7 +29,7 @@ export const ServiceCardTier1 = ({
     <Card variant="interactive" className="h-full border-2">
       <CardHeader className="pb-4">
         <div className="flex items-start justify-between gap-4 mb-4">
-          <div className="w-16 h-16 rounded-xl bg-primary/10 flex items-center justify-center">
+          <div className="w-16 h-16 rounded-[var(--radius-lg)] bg-primary/10 flex items-center justify-center">
             <Building2 className="w-8 h-8 text-primary" />
           </div>
           <div className="flex flex-wrap gap-2 justify-end">

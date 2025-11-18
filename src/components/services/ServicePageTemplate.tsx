@@ -268,7 +268,7 @@ export const ServicePageTemplate = ({ service }: ServicePageTemplateProps) => {
               return (
                 <Card
                   key={index}
-                  className="group hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 animate-fade-in"
+                  className="group hover:shadow-[var(--shadow-lg)] hover:-translate-y-2 transition-all duration-500 animate-fade-in"
                   style={{ animationDelay: `${index * 100}ms` }}
                 >
                   <CardContent className="p-6 md:p-8">

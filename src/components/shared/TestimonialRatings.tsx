@@ -58,7 +58,7 @@ export const TestimonialRatings = ({
         {testimonials.map((testimonial, index) => (
           <Card
             key={index}
-            className="animate-fade-in hover:shadow-xl transition-all border-2 hover:border-primary/30"
+            className="animate-fade-in hover:shadow-[var(--shadow-lg)] transition-all border-2 hover:border-primary/30"
             style={{ animationDelay: `${index * 100}ms` }}
           >
             <CardContent className="p-6 space-y-4">

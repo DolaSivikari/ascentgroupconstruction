@@ -67,7 +67,7 @@ export function TrustedPartners({
   );
 
   const PartnerCard = ({ partner }: { partner: Partner }) => (
-    <Card className="group hover:shadow-xl hover:border-primary/30 transition-all h-full overflow-hidden">
+    <Card className="group hover:shadow-[var(--shadow-lg)] hover:border-primary/30 transition-all h-full overflow-hidden">
       <CardContent className="p-0">
         <a
           href={partner.url}
