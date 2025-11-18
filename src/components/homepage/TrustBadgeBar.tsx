@@ -30,8 +30,8 @@ const trustBadges = [
   },
   {
     icon: Award,
-    label: "98% Satisfaction",
-    detail: "Client Rated",
+    label: "WSIB Compliant",
+    detail: "Active Clearance",
   },
 ];
 

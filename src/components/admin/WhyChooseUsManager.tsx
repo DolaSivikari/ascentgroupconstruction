@@ -90,7 +90,7 @@ export const WhyChooseUsManager = () => {
               <Input
                 value={formData.title}
                 onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-                placeholder="e.g., Licensed & Bonded"
+                placeholder="e.g., Licensed & Insured"
               />
             </div>
             <div>

@@ -2,8 +2,9 @@ import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Package, Download, CheckCircle2, FileText, Eye } from "lucide-react";
+import { Package, Mail, CheckCircle2, FileText } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { Link } from "react-router-dom";
 
 export const PremiumDocumentSuite = () => {
   const [isFlipped, setIsFlipped] = useState(false);
@@ -38,8 +39,8 @@ export const PremiumDocumentSuite = () => {
                   <div className="w-20 h-20 mx-auto mb-4 rounded-full bg-primary/10 flex items-center justify-center">
                     <Package className="w-10 h-10 text-primary" />
                   </div>
-                  <CardTitle className="text-3xl mb-2">Premium Contractor Package</CardTitle>
-                  <p className="text-muted-foreground">Everything you need in one comprehensive suite</p>
+                  <CardTitle className="text-3xl mb-2">Pre-Qualification Package</CardTitle>
+                  <p className="text-muted-foreground">Complete documentation suite for your RFP</p>
                 </CardHeader>
                 <CardContent>
                   <div className="grid grid-cols-2 gap-3 mb-6">
@@ -52,13 +53,13 @@ export const PremiumDocumentSuite = () => {
                   </div>
                   <div className="text-center">
                     <Badge variant="outline" className="text-lg px-6 py-2">
-                      ZIP File • ~15MB
+                      Available Upon Request
                     </Badge>
                   </div>
                 </CardContent>
               </Card>
 
-              {/* Back of card - Exploding view */}
+              {/* Back of card - Request view */}
               <Card className="absolute inset-0 backface-hidden rotate-y-180 border-2 border-primary shadow-[var(--shadow-lg)] bg-gradient-to-br from-primary/10 to-primary/5">
                 <CardContent className="h-full flex flex-col items-center justify-center p-8">
                   <div className="grid grid-cols-2 gap-4 mb-6">
@@ -73,62 +74,67 @@ export const PremiumDocumentSuite = () => {
                       </div>
                     ))}
                   </div>
-                  <Button size="lg" className="gap-2 shadow-[var(--shadow-lg)] hover:shadow-[var(--shadow-lg)]">
-                    <Download className="w-5 h-5" />
-                    Download Complete Package
-                  </Button>
+                  <Link to="/contact">
+                    <Button size="lg" className="gap-2 shadow-[var(--shadow-lg)] hover:shadow-[var(--shadow-lg)]">
+                      <Mail className="w-5 h-5" />
+                      Request Document Package
+                    </Button>
+                  </Link>
                   <p className="text-xs text-muted-foreground mt-4">
-                    Updated monthly • Valid through 2025
+                    Documents updated monthly • Sent within 24 hours
                   </p>
                 </CardContent>
               </Card>
             </div>
           </div>
 
-          {/* Individual Documents Grid */}
+          {/* Individual Documents List */}
           <div>
-            <h2 className="text-3xl font-bold mb-2">Individual Documents</h2>
-            <p className="text-muted-foreground mb-8">Download specific documents as needed</p>
+            <h2 className="text-3xl font-bold mb-2">What's Included</h2>
+            <p className="text-muted-foreground mb-8">Complete pre-qualification documentation for your RFP</p>
             
             <div className="grid md:grid-cols-2 gap-4">
               {[
-                { name: "Certificate of Insurance", size: "2MB", expiry: "$2M CGL - Valid Dec 2025" },
-                { name: "WSIB Clearance", size: "1MB", expiry: "Updated monthly" },
-                { name: "Business License", size: "1MB", expiry: "Valid 2025" },
-                { name: "Company Profile", size: "5MB", expiry: "2024 Edition" },
-                { name: "Safety Manual", size: "3MB", expiry: "Working toward COR" },
-                { name: "Project References", size: "2MB", expiry: "Available on request" },
-                { name: "Equipment List", size: "2MB", expiry: "Updated 2024" }
+                { name: "Certificate of Insurance", description: "$2M CGL - Valid Dec 2025" },
+                { name: "WSIB Clearance", description: "Updated monthly" },
+                { name: "Business License", description: "Current Ontario registration" },
+                { name: "Company Profile", description: "Capabilities & experience" },
+                { name: "Safety Manual", description: "Working toward COR certification" },
+                { name: "Project References", description: "Recent completed projects" },
+                { name: "Equipment Inventory", description: "Tools & equipment list" }
               ].map((doc, index) => (
                 <Card 
                   key={doc.name}
-                  className="group relative overflow-hidden border-2 hover:border-primary/50 transition-all duration-300 hover:-translate-y-1 hover:shadow-[var(--shadow-lg)] animate-fade-in"
+                  className="group relative overflow-hidden border-2 hover:border-primary/50 transition-all duration-300 animate-fade-in"
                   style={{ animationDelay: `${index * 75}ms` }}
                 >
                   <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
                   <CardContent className="p-6 relative">
-                    <div className="flex items-start justify-between mb-4">
+                    <div className="flex items-start gap-4">
+                      <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
+                        <FileText className="w-5 h-5 text-primary" />
+                      </div>
                       <div>
                         <h3 className="font-semibold text-lg mb-1">{doc.name}</h3>
-                        <p className="text-sm text-muted-foreground">{doc.expiry}</p>
+                        <p className="text-sm text-muted-foreground">{doc.description}</p>
                       </div>
-                      <Badge variant="outline" className="text-xs">
-                        {doc.size}
-                      </Badge>
-                    </div>
-                    <div className="flex gap-2">
-                      <Button size="sm" variant="outline" className="flex-1 gap-2">
-                        <Eye className="w-4 h-4" />
-                        Preview
-                      </Button>
-                      <Button size="sm" className="flex-1 gap-2">
-                        <Download className="w-4 h-4" />
-                        Download
-                      </Button>
                     </div>
                   </CardContent>
                 </Card>
               ))}
+            </div>
+
+            {/* CTA Button */}
+            <div className="text-center mt-8">
+              <Link to="/contact">
+                <Button size="lg" className="gap-2">
+                  <Mail className="w-5 h-5" />
+                  Request Complete Package
+                </Button>
+              </Link>
+              <p className="text-sm text-muted-foreground mt-4">
+                We'll send all documents within 24 hours of your request
+              </p>
             </div>
           </div>
         </div>
