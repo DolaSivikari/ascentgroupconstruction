@@ -1,31 +1,47 @@
-import { useEffect } from "react";
+import { useEffect } from 'react';
 
-interface KeyboardShortcut {
+interface ShortcutConfig {
   key: string;
   ctrl?: boolean;
+  meta?: boolean; // Support meta key for Mac compatibility
   shift?: boolean;
-  meta?: boolean;
-  callback: () => void;
+  alt?: boolean;
+  handler?: (e: KeyboardEvent) => void;
+  callback?: () => void; // Support callback for compatibility
+  preventDefault?: boolean;
 }
 
-export const useKeyboardShortcuts = (shortcuts: KeyboardShortcut[]) => {
+export const useKeyboardShortcuts = (shortcuts: ShortcutConfig[]) => {
   useEffect(() => {
-    const handleKeyDown = (event: KeyboardEvent) => {
-      for (const shortcut of shortcuts) {
-        const metaMatch = shortcut.meta ? event.metaKey || event.ctrlKey : true;
-        const ctrlMatch = shortcut.ctrl ? event.ctrlKey : true;
-        const shiftMatch = shortcut.shift ? event.shiftKey : true;
-        const keyMatch = event.key.toLowerCase() === shortcut.key.toLowerCase();
-
-        if (metaMatch && ctrlMatch && shiftMatch && keyMatch) {
-          event.preventDefault();
-          shortcut.callback();
-          break;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      shortcuts.forEach(shortcut => {
+        // Support both ctrl and meta (for Mac)
+        const ctrlMatch = (shortcut.ctrl || shortcut.meta) 
+          ? (e.ctrlKey || e.metaKey) 
+          : !e.ctrlKey && !e.metaKey;
+        const shiftMatch = shortcut.shift ? e.shiftKey : !e.shiftKey;
+        const altMatch = shortcut.alt ? e.altKey : !e.altKey;
+        
+        if (
+          e.key.toLowerCase() === shortcut.key.toLowerCase() &&
+          ctrlMatch &&
+          shiftMatch &&
+          altMatch
+        ) {
+          if (shortcut.preventDefault !== false) {
+            e.preventDefault();
+          }
+          // Support both handler and callback
+          if (shortcut.handler) {
+            shortcut.handler(e);
+          } else if (shortcut.callback) {
+            shortcut.callback();
+          }
         }
-      }
+      });
     };
 
-    window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
   }, [shortcuts]);
 };

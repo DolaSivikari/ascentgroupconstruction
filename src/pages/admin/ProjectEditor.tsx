@@ -1,19 +1,24 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
-import { Button } from "@/ui/Button";
-import { ArrowLeft, Save, Eye } from "lucide-react";
 import { generatePreviewToken } from "@/utils/routeHelpers";
 import { useUnsavedChanges } from "@/hooks/useUnsavedChanges";
+import { useAutoSave } from "@/hooks/useAutoSave";
+import { useFormCompletion } from "@/hooks/useFormCompletion";
+import { useKeyboardShortcuts } from "@/hooks/useKeyboardShortcuts";
 import { ConfirmDialog } from "@/components/admin/ConfirmDialog";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Badge } from "@/components/ui/badge";
+import { ProjectEditorHeader } from "@/components/admin/ProjectEditorHeader";
+import { CompletionChecklist } from "@/components/admin/CompletionChecklist";
 import { BasicInfoTab } from "@/components/admin/project-tabs/BasicInfoTab";
 import { ImagesTab } from "@/components/admin/project-tabs/ImagesTab";
 import { ProjectDetailsTab } from "@/components/admin/project-tabs/ProjectDetailsTab";
 import { ServicesTab } from "@/components/admin/project-tabs/ServicesTab";
 import { MetricsTab } from "@/components/admin/project-tabs/MetricsTab";
 import { SEOTab } from "@/components/admin/project-tabs/SEOTab";
+import { cn } from "@/lib/utils";
 
 interface ProjectImage {
   id: string;
@@ -127,6 +132,56 @@ const ProjectEditor = () => {
     setIsLoading(false);
   };
 
+  // Form completion tracking
+  const completion = useFormCompletion(formData);
+
+  // Auto-save functionality
+  const autoSaveHandler = useCallback(async (data: any) => {
+    if (!id || id === "new") return;
+    const { project_images, service_ids, ...projectData } = data;
+    await supabase.from("projects").update(projectData).eq("id", id);
+  }, [id]);
+
+  const { lastSaved, isSaving, loadFromLocalStorage, clearLocalStorage } = useAutoSave(
+    formData,
+    autoSaveHandler,
+    { 
+      interval: 30000, 
+      enabled: id !== "new",
+      storageKey: `project-draft-${id}` 
+    }
+  );
+
+  // Keyboard shortcuts
+  useKeyboardShortcuts([
+    {
+      key: 's',
+      ctrl: true,
+      handler: (e) => {
+        e.preventDefault();
+        handleSubmit(e as any);
+      }
+    }
+  ]);
+
+  // Restore draft on mount
+  useEffect(() => {
+    if (id && id !== "new") {
+      const draft = loadFromLocalStorage();
+      if (draft && draft.data) {
+        const draftAge = Date.now() - new Date(draft.timestamp).getTime();
+        // Only restore if draft is less than 24 hours old
+        if (draftAge < 24 * 60 * 60 * 1000) {
+          toast({
+            title: "Draft Restored",
+            description: "Your unsaved changes have been restored",
+          });
+          setFormData(draft.data);
+        }
+      }
+    }
+  }, [id]);
+
   const handleFormChange = (updates: any) => {
     setFormData((prev: any) => ({ ...prev, ...updates }));
     setHasUnsavedChanges(true);
@@ -197,37 +252,72 @@ const ProjectEditor = () => {
         description={message}
       />
       <div className="min-h-screen bg-muted/30">
-        <header className="sticky top-0 z-10 border-b bg-background shadow-sm">
-          <div className="container mx-auto px-4 py-4 flex justify-between items-center">
-            <div className="flex items-center gap-4">
-              <Button variant="ghost" size="sm" onClick={() => navigate("/admin/projects")}><ArrowLeft className="h-4 w-4 mr-2" />Back</Button>
-              <h1 className="text-2xl font-bold">{id === "new" ? "New Project" : "Edit Project"}</h1>
+        <ProjectEditorHeader
+          isNew={id === "new"}
+          isLoading={isLoading}
+          isSaving={isSaving}
+          lastSaved={lastSaved}
+          completionPercentage={completion.overall.percentage}
+          onBack={() => navigate("/admin/projects")}
+          onSave={() => handleSubmit({} as any)}
+          onPreview={handlePreview}
+        />
+        
+        <main className="container mx-auto px-4 py-8">
+          <div className="flex gap-6">
+            {/* Main Content */}
+            <div className="flex-1">
+              <Tabs defaultValue="basic" className="space-y-6">
+                <TabsList className="grid w-full grid-cols-6 lg:w-auto lg:inline-grid">
+                  <TabsTrigger value="basic" className="relative">
+                    Basic Info
+                    {completion.tabs.basic && completion.tabs.basic.percentage === 100 && (
+                      <Badge variant="secondary" className="ml-2 h-4 w-4 p-0 rounded-full bg-green-500" />
+                    )}
+                  </TabsTrigger>
+                  <TabsTrigger value="images" className="relative">
+                    Images
+                    {completion.tabs.images && completion.tabs.images.percentage === 100 && (
+                      <Badge variant="secondary" className="ml-2 h-4 w-4 p-0 rounded-full bg-green-500" />
+                    )}
+                  </TabsTrigger>
+                  <TabsTrigger value="details" className="relative">
+                    Details
+                    {completion.tabs.details && completion.tabs.details.percentage === 100 && (
+                      <Badge variant="secondary" className="ml-2 h-4 w-4 p-0 rounded-full bg-green-500" />
+                    )}
+                  </TabsTrigger>
+                  <TabsTrigger value="services" className="relative">
+                    Services
+                    {completion.tabs.services && completion.tabs.services.percentage === 100 && (
+                      <Badge variant="secondary" className="ml-2 h-4 w-4 p-0 rounded-full bg-green-500" />
+                    )}
+                  </TabsTrigger>
+                  <TabsTrigger value="metrics">Metrics</TabsTrigger>
+                  <TabsTrigger value="seo" className="relative">
+                    SEO
+                    {completion.tabs.seo && completion.tabs.seo.percentage === 100 && (
+                      <Badge variant="secondary" className="ml-2 h-4 w-4 p-0 rounded-full bg-green-500" />
+                    )}
+                  </TabsTrigger>
+                </TabsList>
+                
+                <div className="bg-background rounded-lg border p-6">
+                  <TabsContent value="basic" className="mt-0"><BasicInfoTab formData={formData} slugStatus={slugStatus} onFormChange={handleFormChange} /></TabsContent>
+                  <TabsContent value="images" className="mt-0"><ImagesTab projectId={id} formData={formData} onFormChange={handleFormChange} /></TabsContent>
+                  <TabsContent value="details" className="mt-0"><ProjectDetailsTab formData={formData} onFormChange={handleFormChange} /></TabsContent>
+                  <TabsContent value="services" className="mt-0"><ServicesTab formData={formData} onFormChange={handleFormChange} /></TabsContent>
+                  <TabsContent value="metrics" className="mt-0"><MetricsTab formData={formData} onFormChange={handleFormChange} /></TabsContent>
+                  <TabsContent value="seo" className="mt-0"><SEOTab formData={formData} onFormChange={handleFormChange} /></TabsContent>
+                </div>
+              </Tabs>
             </div>
-            <div className="flex gap-2">
-              {id !== "new" && <Button variant="outline" onClick={handlePreview}><Eye className="h-4 w-4 mr-2" />Preview</Button>}
-              <Button onClick={handleSubmit} disabled={isLoading}><Save className="h-4 w-4 mr-2" />{isLoading ? "Saving..." : "Save"}</Button>
+
+            {/* Sidebar - Completion Checklist */}
+            <div className="hidden xl:block w-80">
+              <CompletionChecklist completion={completion} />
             </div>
           </div>
-        </header>
-        <main className="container mx-auto px-4 py-8">
-          <Tabs defaultValue="basic" className="space-y-6">
-            <TabsList className="grid w-full grid-cols-6 lg:w-auto lg:inline-grid">
-              <TabsTrigger value="basic">Basic Info</TabsTrigger>
-              <TabsTrigger value="images">Images</TabsTrigger>
-              <TabsTrigger value="details">Details</TabsTrigger>
-              <TabsTrigger value="services">Services</TabsTrigger>
-              <TabsTrigger value="metrics">Metrics</TabsTrigger>
-              <TabsTrigger value="seo">SEO</TabsTrigger>
-            </TabsList>
-            <div className="bg-background rounded-lg border p-6">
-              <TabsContent value="basic" className="mt-0"><BasicInfoTab formData={formData} slugStatus={slugStatus} onFormChange={handleFormChange} /></TabsContent>
-              <TabsContent value="images" className="mt-0"><ImagesTab projectId={id} formData={formData} onFormChange={handleFormChange} /></TabsContent>
-              <TabsContent value="details" className="mt-0"><ProjectDetailsTab formData={formData} onFormChange={handleFormChange} /></TabsContent>
-              <TabsContent value="services" className="mt-0"><ServicesTab formData={formData} onFormChange={handleFormChange} /></TabsContent>
-              <TabsContent value="metrics" className="mt-0"><MetricsTab formData={formData} onFormChange={handleFormChange} /></TabsContent>
-              <TabsContent value="seo" className="mt-0"><SEOTab formData={formData} onFormChange={handleFormChange} /></TabsContent>
-            </div>
-          </Tabs>
         </main>
       </div>
     </>
