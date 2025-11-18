@@ -6,7 +6,7 @@ import SEO from "@/components/SEO";
 import { Skeleton } from "@/components/ui/skeleton";
 import { supabase } from "@/integrations/supabase/client";
 import { TrustBadgeBar } from "@/components/footer/TrustBadgeBar";
-import { UnifiedFooter } from "./footer/UnifiedFooter";
+import { ProfessionalFooter } from "./footer/ProfessionalFooter";
 
 const Footer = () => {
   const [siteSettings, setSiteSettings] = useState<any>(null);
@@ -113,17 +113,11 @@ const Footer = () => {
   return (
     <>
       <SEO structuredData={citationSchema} />
-      <footer className="w-full bg-background border-t border-border">
-        {/* Footer Layout - Unified Design */}
-        <div className="container mx-auto px-4 py-8 md:py-10">
-          <UnifiedFooter
+      <footer className="w-full bg-[hsl(222,47%,11%)] text-slate-100 border-t border-slate-800">
+        <div className="container mx-auto px-4 py-12 md:py-16 lg:py-20">
+          <ProfessionalFooter
             companyLinks={companyLinks}
             services={services}
-            marketLinks={marketLinks}
-            projectLinks={projectLinks}
-            certifications={certifications}
-            displayTrustItems={displayTrustItems}
-            trustBarItems={trustBarItems}
             contactInfo={{ phone, email, address }}
             logoUrl={ascentLogoVerticalDark}
             serviceAreaText="Serving Toronto, Mississauga, Brampton, Vaughan, Markham & the Greater Toronto Area"
