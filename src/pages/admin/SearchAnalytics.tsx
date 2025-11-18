@@ -152,7 +152,7 @@ const SearchAnalytics = () => {
                       className="flex items-center justify-between p-3 bg-muted/50 rounded-lg"
                     >
                       <div className="flex items-center gap-3">
-                        <Badge variant="outline" className="w-8 h-8 flex items-center justify-center">
+                        <Badge variant="info" className="w-8 h-8 flex items-center justify-center">
                           {index + 1}
                         </Badge>
                         <div>
@@ -192,7 +192,7 @@ const SearchAnalytics = () => {
                     >
                       <div className="flex items-center justify-between">
                         <span className="font-medium">{search.search_query}</span>
-                        <Badge variant="outline">{search.results_count} results</Badge>
+                        <Badge variant="info">{search.results_count} results</Badge>
                       </div>
                       {search.clicked_result_name && (
                         <div className="text-xs text-green-600 dark:text-green-400">

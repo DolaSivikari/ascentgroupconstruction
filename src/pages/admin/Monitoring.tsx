@@ -190,7 +190,7 @@ export default function Monitoring() {
                       </TableCell>
                       <TableCell className="font-medium">{metric.metric_name}</TableCell>
                       <TableCell>
-                        <Badge variant="outline">{metric.metric_type}</Badge>
+                        <Badge variant="info">{metric.metric_type}</Badge>
                       </TableCell>
                       <TableCell className="font-mono">{Number(metric.value).toFixed(2)}</TableCell>
                       <TableCell className="text-muted-foreground">{metric.unit || "N/A"}</TableCell>

@@ -851,8 +851,8 @@ Disallow: /auth`;
                       <div className="flex items-start justify-between gap-3">
                         <div className="flex-1 min-w-0">
                           <div className="flex items-center gap-2 mb-1">
-                            <Badge variant="outline" className="text-xs">{item.type}</Badge>
-                            <Badge variant={item.seoScore >= 80 ? 'default' : item.seoScore >= 60 ? 'secondary' : 'destructive'}>
+                            <Badge variant="info" className="text-xs">{item.type}</Badge>
+                            <Badge variant={item.seoScore >= 80 ? 'success' : item.seoScore >= 60 ? 'warning' : 'danger'}>
                               {item.seoScore}/100
                             </Badge>
                           </div>
