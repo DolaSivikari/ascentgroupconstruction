@@ -301,7 +301,7 @@ const Contact = () => {
                             </div>
                             
                             {/* Privacy Notice */}
-                            <div className="bg-gradient-to-br from-muted/50 to-muted/30 border-2 border-border rounded-xl p-6 mt-6">
+                            <div className="bg-gradient-to-br from-muted/50 to-muted/30 border-2 border-border rounded-[var(--radius-lg)] p-6 mt-6">
                               <p className="text-sm text-muted-foreground leading-relaxed text-center">
                                 <strong className="text-foreground text-base">Privacy Notice:</strong> Your information is secure and will only be used to respond to your inquiry. We never share your data with third parties.
                               </p>
@@ -385,11 +385,11 @@ const Contact = () => {
                   
                   <div style={{ position: 'absolute', left: '-9999px' }} aria-hidden="true"><Label htmlFor="website">Website</Label><Input id="website" name="honeypot" type="text" tabIndex={-1} autoComplete="off" value={formData.honeypot} onChange={handleChange} /></div>
                   <RippleEffect>
-                    <Button type="submit" size="lg" className="w-full h-16 text-lg gap-3 hover:scale-[1.02] transition-all shadow-lg hover:shadow-xl" disabled={isSubmitting}>
+                    <Button type="submit" size="lg" className="w-full h-16 text-lg gap-3 hover:scale-[1.02] transition-all shadow-[var(--shadow-lg)] hover:shadow-[var(--shadow-lg)]" disabled={isSubmitting}>
                       {isSubmitting ? (<><Loader2 className="w-6 h-6 animate-spin" />Sending...</>) : (<>Submit Request<ArrowRight className="w-6 h-6" /></>)}
                     </Button>
                   </RippleEffect>
-                  <div className="bg-gradient-to-br from-muted/50 to-muted/30 border-2 border-border rounded-xl p-6 text-center"><p className="text-sm text-muted-foreground leading-relaxed"><strong className="text-foreground text-base">Privacy Notice:</strong> Your information is secure and will only be used to respond to your inquiry. We never share your data with third parties.</p></div>
+                  <div className="bg-gradient-to-br from-muted/50 to-muted/30 border-2 border-border rounded-[var(--radius-lg)] p-6 text-center"><p className="text-sm text-muted-foreground leading-relaxed"><strong className="text-foreground text-base">Privacy Notice:</strong> Your information is secure and will only be used to respond to your inquiry. We never share your data with third parties.</p></div>
                   </form>
                 )}
               </div>
@@ -410,7 +410,7 @@ const Contact = () => {
       <section className="py-20 bg-gradient-to-b from-muted/50 to-background">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12 animate-fade-in-up"><h2 className="text-4xl font-bold mb-4">Visit Our Office</h2><p className="text-lg text-muted-foreground">Located in Mississauga, proudly serving the Greater Toronto Area</p></div>
-          <div className="relative aspect-video bg-card rounded-2xl overflow-hidden shadow-2xl border-2 border-border hover:border-primary/30 transition-all"><iframe src={mapEmbedUrl} width="100%" height="100%" style={{ border: 0 }} allowFullScreen loading="lazy" referrerPolicy="no-referrer-when-downgrade" title="Ascent Group Construction Service Area - Greater Toronto Area" /></div>
+          <div className="relative aspect-video bg-card rounded-[var(--radius-lg)] overflow-hidden shadow-[var(--shadow-lg)] border-2 border-border hover:border-primary/30 transition-all"><iframe src={mapEmbedUrl} width="100%" height="100%" style={{ border: 0 }} allowFullScreen loading="lazy" referrerPolicy="no-referrer-when-downgrade" title="Ascent Group Construction Service Area - Greater Toronto Area" /></div>
         </div>
       </section>
 

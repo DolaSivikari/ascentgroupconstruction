@@ -225,7 +225,7 @@ const ServiceDetail = () => {
                 <img 
                   src={service.featured_image} 
                   alt={service.name}
-                  className="w-full rounded-lg shadow-xl"
+                  className="w-full rounded-lg shadow-[var(--shadow-lg)]"
                 />
               </div>
             </div>

@@ -158,7 +158,7 @@ const BuildingEnvelope = () => {
                 const Icon = item.icon;
                 return (
                   <ScrollReveal key={index} direction="up" delay={index * 100}>
-                    <UnifiedCard variant="elevated" className="p-6 hover:shadow-xl transition-all duration-300">
+                    <UnifiedCard variant="elevated" className="p-6 hover:shadow-[var(--shadow-lg)] transition-all duration-300">
                       <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-3">
                         <Icon className="w-6 h-6 text-primary" />
                       </div>
@@ -184,7 +184,7 @@ const BuildingEnvelope = () => {
               </div>
 
               <ScrollReveal direction="up">
-                <UnifiedCard variant="base" className="p-6 hover:shadow-xl transition-all duration-300">
+                <UnifiedCard variant="base" className="p-6 hover:shadow-[var(--shadow-lg)] transition-all duration-300">
                   <div className="grid md:grid-cols-2 gap-4">
                     {systemsWeInstall.map((system, index) => (
                       <div key={index} className="flex items-start gap-3">

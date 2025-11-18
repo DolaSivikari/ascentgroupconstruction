@@ -127,7 +127,7 @@ const CommercialClients = () => {
 
             <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
               {industries.map((industry, index) => (
-                <Card key={index} className="hover:shadow-xl transition-all">
+                <Card key={index} className="hover:shadow-[var(--shadow-lg)] transition-all">
                   <CardContent className="p-8">
                     <div className="flex items-start gap-3 mb-3">
                       <Building2 className="w-6 h-6 text-primary flex-shrink-0 mt-1" />
