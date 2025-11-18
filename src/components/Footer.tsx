@@ -113,8 +113,8 @@ const Footer = () => {
   return (
     <>
       <SEO structuredData={citationSchema} />
-      <footer className="w-full bg-[hsl(222,47%,11%)] text-slate-100 border-t border-slate-800">
-        <div className="container mx-auto px-4 py-12 md:py-16 lg:py-20">
+      <footer className="w-full bg-secondary text-secondary-foreground border-t border-border">
+        <div className="container mx-auto px-6 py-16 md:py-20 lg:py-24">
           <ProfessionalFooter
             companyLinks={companyLinks}
             services={services}
