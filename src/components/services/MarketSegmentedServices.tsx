@@ -1,11 +1,10 @@
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
-import { ServiceCardTier1 } from "./ServiceCardTier1";
-import { ServiceCardTier2 } from "./ServiceCardTier2";
-import { ServiceCardTier3 } from "./ServiceCardTier3";
+import { UnifiedServiceCard } from "./UnifiedServiceCard";
+import { MarketSegmentHeader } from "./MarketSegmentHeader";
+import { CardGrid } from "@/components/shared/CardGrid";
 import { Section } from "@/components/sections/Section";
-import { ScrollReveal } from "@/components/animations/ScrollReveal";
-import { Building2, Home, Briefcase } from "lucide-react";
+import { Building2, Home, Layers, LucideIcon } from "lucide-react";
 
 interface Service {
   id: string;
@@ -20,9 +19,9 @@ interface Service {
 interface MarketSegment {
   title: string;
   description: string;
-  icon: typeof Building2;
+  icon: LucideIcon;
   services: Service[];
-  color: string;
+  segment: 'commercial' | 'residential' | 'both';
 }
 
 export const MarketSegmentedServices = () => {
@@ -62,68 +61,38 @@ export const MarketSegmentedServices = () => {
       setSegments([
         {
           title: "Commercial Services",
-          description: "Building envelope, restoration, and commercial construction for multi-family and institutional properties",
+          description: "Specialized solutions for commercial, industrial, and institutional buildings",
           icon: Building2,
           services: commercial,
-          color: "primary"
+          segment: 'commercial',
         },
         {
           title: "Residential Services",
-          description: "Home renovations, finishing, and upgrades for homeowners and condo owners",
+          description: "Expert craftsmanship for multi-family residential projects",
           icon: Home,
           services: residential,
-          color: "terracotta"
+          segment: 'residential',
         },
         {
           title: "Both Markets",
-          description: "Services for commercial properties and residential clients",
-          icon: Briefcase,
+          description: "Core services spanning commercial and residential applications",
+          icon: Layers,
           services: both,
-          color: "secondary"
-        }
+          segment: 'both',
+        },
       ]);
     }
     setIsLoading(false);
   };
 
-  const renderServiceCard = (service: Service) => {
-    if (service.service_tier === 'PRIME_SPECIALTY') {
-      return (
-        <ServiceCardTier1
-          key={service.id}
-          id={service.id}
-          name={service.name}
-          slug={service.slug}
-          short_description={service.short_description}
-          icon_name={service.icon_name}
-          challenge_tags={service.challenge_tags}
-          service_tier={service.service_tier}
-        />
-      );
-    } else if (service.service_tier === 'TRADE_PACKAGE') {
-      return (
-        <ServiceCardTier2
-          key={service.id}
-          id={service.id}
-          name={service.name}
-          slug={service.slug}
-          short_description={service.short_description}
-          icon_name={service.icon_name}
-          challenge_tags={service.challenge_tags}
-          service_tier={service.service_tier}
-        />
-      );
-    } else {
-      return (
-        <ServiceCardTier3
-          key={service.id}
-          id={service.id}
-          name={service.name}
-          slug={service.slug}
-          short_description={service.short_description}
-          challenge_tags={service.challenge_tags}
-        />
-      );
+  const getSegmentBackground = (segment: 'commercial' | 'residential' | 'both') => {
+    switch (segment) {
+      case 'commercial':
+        return 'bg-background';
+      case 'residential':
+        return 'bg-muted/20';
+      case 'both':
+        return 'bg-secondary/5';
     }
   };
 
@@ -136,26 +105,33 @@ export const MarketSegmentedServices = () => {
   }
 
   return (
-    <>
-      {segments.map((segment, idx) => (
-        <Section key={segment.title} className={idx % 2 === 0 ? "bg-background" : "bg-muted/30"}>
-          <ScrollReveal>
-            <div className="mb-12 text-center">
-              <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-primary/10 mb-4">
-                <segment.icon className="w-8 h-8 text-primary" />
-              </div>
-              <h2 className="text-3xl md:text-4xl font-bold mb-4">{segment.title}</h2>
-              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-                {segment.description}
-              </p>
-            </div>
-          </ScrollReveal>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {segment.services.map((service) => renderServiceCard(service))}
-          </div>
+    <div className="space-y-0">
+      {segments.map((segment) => (
+        <Section key={segment.title} className={getSegmentBackground(segment.segment)}>
+          <MarketSegmentHeader
+            title={segment.title}
+            description={segment.description}
+            icon={segment.icon}
+            serviceCount={segment.services.length}
+            segment={segment.segment}
+          />
+          
+          <CardGrid columns={3} gap="lg" stagger="standard">
+            {segment.services.map((service) => (
+              <UnifiedServiceCard
+                key={service.id}
+                id={service.id}
+                name={service.name}
+                slug={service.slug}
+                short_description={service.short_description}
+                service_tier={service.service_tier}
+                challenge_tags={service.challenge_tags}
+                marketSegment={segment.segment}
+              />
+            ))}
+          </CardGrid>
         </Section>
       ))}
-    </>
+    </div>
   );
 };
