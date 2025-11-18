@@ -893,7 +893,7 @@ Disallow: /auth`;
                     {checkingConnection ? (
                       <Loader2 className="h-4 w-4 animate-spin" />
                     ) : isConnected ? (
-                      <Badge className="bg-green-500 hover:bg-green-600">
+                      <Badge variant="success">
                         <CheckCircle className="h-3 w-3 mr-1" />
                         Connected
                       </Badge>

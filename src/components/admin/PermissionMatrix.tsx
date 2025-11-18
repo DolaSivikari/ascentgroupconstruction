@@ -36,19 +36,19 @@ export const PermissionMatrix = () => {
                 Permission
               </th>
               <th className="text-center py-3 px-2">
-                <Badge className="bg-red-600">Super Admin</Badge>
+                <Badge variant="danger">Super Admin</Badge>
               </th>
               <th className="text-center py-3 px-2">
-                <Badge className="bg-orange-600">Admin</Badge>
+                <Badge variant="warning">Admin</Badge>
               </th>
               <th className="text-center py-3 px-2">
-                <Badge className="bg-primary">Editor</Badge>
+                <Badge variant="primary">Editor</Badge>
               </th>
               <th className="text-center py-3 px-2">
-                <Badge className="bg-blue-600">Contributor</Badge>
+                <Badge variant="info">Contributor</Badge>
               </th>
               <th className="text-center py-3 px-2">
-                <Badge className="bg-slate-600">Viewer</Badge>
+                <Badge variant="secondary">Viewer</Badge>
               </th>
             </tr>
           </thead>

@@ -282,32 +282,32 @@ const ProjectEditor = () => {
                   <TabsTrigger value="basic" className="relative">
                     Basic Info
                     {completion.tabs.basic && completion.tabs.basic.percentage === 100 && (
-                      <Badge variant="secondary" className="ml-2 h-4 w-4 p-0 rounded-full bg-green-500" />
+                      <Badge variant="success" className="ml-2 h-4 w-4 p-0 rounded-full" />
                     )}
                   </TabsTrigger>
                   <TabsTrigger value="images" className="relative">
                     Images
                     {completion.tabs.images && completion.tabs.images.percentage === 100 && (
-                      <Badge variant="secondary" className="ml-2 h-4 w-4 p-0 rounded-full bg-green-500" />
+                      <Badge variant="success" className="ml-2 h-4 w-4 p-0 rounded-full" />
                     )}
                   </TabsTrigger>
                   <TabsTrigger value="details" className="relative">
                     Details
                     {completion.tabs.details && completion.tabs.details.percentage === 100 && (
-                      <Badge variant="secondary" className="ml-2 h-4 w-4 p-0 rounded-full bg-green-500" />
+                      <Badge variant="success" className="ml-2 h-4 w-4 p-0 rounded-full" />
                     )}
                   </TabsTrigger>
                   <TabsTrigger value="services" className="relative">
                     Services
                     {completion.tabs.services && completion.tabs.services.percentage === 100 && (
-                      <Badge variant="secondary" className="ml-2 h-4 w-4 p-0 rounded-full bg-green-500" />
+                      <Badge variant="success" className="ml-2 h-4 w-4 p-0 rounded-full" />
                     )}
                   </TabsTrigger>
                   <TabsTrigger value="metrics">Metrics</TabsTrigger>
                   <TabsTrigger value="seo" className="relative">
                     SEO
                     {completion.tabs.seo && completion.tabs.seo.percentage === 100 && (
-                      <Badge variant="secondary" className="ml-2 h-4 w-4 p-0 rounded-full bg-green-500" />
+                      <Badge variant="success" className="ml-2 h-4 w-4 p-0 rounded-full" />
                     )}
                   </TabsTrigger>
                 </TabsList>

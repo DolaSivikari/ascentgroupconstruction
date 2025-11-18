@@ -30,7 +30,7 @@ export const ProjectEditorHeader = ({
   const getStatusBadge = () => {
     switch (publishState) {
       case "published":
-        return <Badge variant="default" className="bg-green-600">✅ Published</Badge>;
+        return <Badge variant="success">✅ Published</Badge>;
       case "archived":
         return <Badge variant="secondary">📦 Archived</Badge>;
       default:
