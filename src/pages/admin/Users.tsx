@@ -7,6 +7,8 @@ import { Shield, Users as UsersIcon } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { useAdminAuth } from "@/hooks/useAdminAuth";
 import { InviteUserDialog } from "@/components/admin/InviteUserDialog";
+import { PermissionMatrix } from "@/components/admin/PermissionMatrix";
+import { RoleDistributionCard } from "@/components/admin/RoleDistributionCard";
 import {
   Select,
   SelectContent,
@@ -132,24 +134,64 @@ const Users = () => {
         <p className="text-sm text-muted-foreground mb-4">
           Control access levels and permissions for team members
         </p>
-        <div className="grid md:grid-cols-2 gap-4 text-sm">
+        <div className="grid md:grid-cols-3 gap-4 text-sm mb-6">
           <div className="p-3 border border-border rounded-lg">
             <Badge className="mb-2 bg-red-600">Super Admin</Badge>
-            <p className="text-muted-foreground">Full access + user management</p>
+            <p className="text-muted-foreground mb-2">Full system access</p>
+            <ul className="text-xs space-y-1 text-muted-foreground">
+              <li>✓ User management</li>
+              <li>✓ All content operations</li>
+              <li>✓ System settings</li>
+              <li>✓ Analytics access</li>
+            </ul>
           </div>
           <div className="p-3 border border-border rounded-lg">
-            <Badge className="mb-2 bg-secondary">Admin</Badge>
-            <p className="text-muted-foreground">Content management + project creation</p>
+            <Badge className="mb-2 bg-orange-600">Admin</Badge>
+            <p className="text-muted-foreground mb-2">Content & inbox management</p>
+            <ul className="text-xs space-y-1 text-muted-foreground">
+              <li>✓ All content operations</li>
+              <li>✓ Inbox management</li>
+              <li>✓ Analytics access</li>
+              <li>✗ User management</li>
+            </ul>
           </div>
           <div className="p-3 border border-border rounded-lg">
             <Badge className="mb-2 bg-primary">Editor</Badge>
-            <p className="text-muted-foreground">Content editing + task management</p>
+            <p className="text-muted-foreground mb-2">Content editing</p>
+            <ul className="text-xs space-y-1 text-muted-foreground">
+              <li>✓ Edit existing content</li>
+              <li>✓ Manage drafts</li>
+              <li>✗ Publish content</li>
+              <li>✗ Settings access</li>
+            </ul>
           </div>
           <div className="p-3 border border-border rounded-lg">
             <Badge className="mb-2 bg-blue-600">Contributor</Badge>
-            <p className="text-muted-foreground">Limited content creation</p>
+            <p className="text-muted-foreground mb-2">Limited creation</p>
+            <ul className="text-xs space-y-1 text-muted-foreground">
+              <li>✓ Create drafts</li>
+              <li>✓ Submit for review</li>
+              <li>✗ Publish content</li>
+              <li>✗ Edit others' work</li>
+            </ul>
+          </div>
+          <div className="p-3 border border-border rounded-lg">
+            <Badge className="mb-2 bg-slate-600">Viewer</Badge>
+            <p className="text-muted-foreground mb-2">Read-only access</p>
+            <ul className="text-xs space-y-1 text-muted-foreground">
+              <li>✓ View content</li>
+              <li>✓ View analytics</li>
+              <li>✗ Edit anything</li>
+              <li>✗ Create content</li>
+            </ul>
           </div>
         </div>
+        
+        <PermissionMatrix />
+      </div>
+
+      <div className="mb-6">
+        <RoleDistributionCard users={users} />
       </div>
 
       {isLoading ? (
@@ -196,6 +238,7 @@ const Users = () => {
                           <SelectItem value="admin">Admin</SelectItem>
                           <SelectItem value="editor">Editor</SelectItem>
                           <SelectItem value="contributor">Contributor</SelectItem>
+                          <SelectItem value="viewer">Viewer</SelectItem>
                         </SelectContent>
                       </Select>
                     ) : (

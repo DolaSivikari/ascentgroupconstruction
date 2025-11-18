@@ -144,6 +144,7 @@ export const InviteUserDialog = ({ onUserCreated }: InviteUserDialogProps) => {
                 <SelectItem value="admin">Admin</SelectItem>
                 <SelectItem value="editor">Editor</SelectItem>
                 <SelectItem value="contributor">Contributor</SelectItem>
+                <SelectItem value="viewer">Viewer</SelectItem>
               </SelectContent>
             </Select>
           </div>
