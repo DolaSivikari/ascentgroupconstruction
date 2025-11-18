@@ -52,12 +52,9 @@ export function UnifiedFooter({
     <div className="w-full">
       {/* Mobile: Accordion Layout */}
       <div className="md:hidden space-y-2">
-        {/* Logo */}
+        {/* Tagline */}
         <div className="mb-6">
-          <Link to="/">
-            <img src={logoUrl} alt="Ascent Group Construction" className="h-12 w-auto" />
-          </Link>
-          <p className="text-sm text-muted-foreground mt-3 leading-relaxed">
+          <p className="text-sm text-muted-foreground leading-relaxed">
             Building envelope & restoration contractor serving Ontario & GTA
           </p>
         </div>
@@ -166,9 +163,6 @@ export function UnifiedFooter({
       <div className="hidden md:grid md:grid-cols-12 gap-6">
         {/* Column 1-3: Company (25%) */}
         <div className="col-span-3 space-y-3">
-          <Link to="/">
-            <img src={logoUrl} alt="Ascent Group Construction" className="h-12 w-auto mb-4" />
-          </Link>
           <h3 className="flex items-center gap-2 text-sm font-bold text-foreground">
             <Building2 className="h-5 w-5 text-primary" />
             Company
