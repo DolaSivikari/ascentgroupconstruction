@@ -121,13 +121,13 @@
   --admin-bg-card: 222 47% 14%;        /* Card background - slightly lighter gray */
   --admin-bg-hover: 215 25% 20%;       /* Hover state - more visible */
   
-  --admin-text-primary: 0 0% 98%;      /* Almost white - main text */
-  --admin-text-secondary: 215 20% 75%; /* Lighter gray - readable labels */
-  --admin-text-muted: 215 15% 55%;     /* Medium gray - hints */
+  --admin-text-primary: 0 0% 100%;      /* Pure white - maximum contrast for main text */
+  --admin-text-secondary: 210 20% 85%; /* Light blue-gray - high contrast labels */
+  --admin-text-muted: 210 15% 70%;     /* Medium blue-gray - still readable hints */
   
-  --admin-border: 215 25% 22%;         /* Border color - more visible */
-  --admin-nav-active-bg: 221 83% 25%;  /* Active nav background - darker blue */
-  --admin-nav-active-text: 210 100% 85%; /* Active nav text - light blue */
+  --admin-border: 215 25% 25%;         /* Border color - more visible */
+  --admin-nav-active-bg: 221 83% 28%;  /* Active nav background - darker blue */
+  --admin-nav-active-text: 210 100% 90%; /* Active nav text - very light blue */
   --admin-nav-active-border: 221 83% 53%; /* Active nav border indicator */
   
   /* Admin uses base brand colors */
