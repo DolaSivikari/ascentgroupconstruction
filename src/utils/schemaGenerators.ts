@@ -126,20 +126,20 @@ export const generateLocalBusinessSchema = () => {
     "@id": `${siteUrl}/#localbusiness`,
     name: "Ascent Group Construction",
     image: `${siteUrl}/og-image.jpg`,
-    telephone: "+1-647-123-4567",
+    telephone: "+1-647-528-6804",
     email: "info@ascentgroupconstruction.com",
     address: {
       "@type": "PostalAddress",
-      streetAddress: "Greater Toronto Area",
-      addressLocality: "Toronto",
+      streetAddress: "2 Jody Ave",
+      addressLocality: "North York",
       addressRegion: "ON",
-      postalCode: "M5H 2N2",
+      postalCode: "M3N 1H1",
       addressCountry: "CA"
     },
     geo: {
       "@type": "GeoCoordinates",
-      latitude: "43.6532",
-      longitude: "-79.3832"
+      latitude: "43.7428",
+      longitude: "-79.4561"
     },
     url: siteUrl,
     priceRange: "$$-$$$",

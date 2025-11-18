@@ -155,7 +155,7 @@ const handler = async (req: Request): Promise<Response> => {
     // Send notification to admin
     const adminEmail = await resend.emails.send({
       from: "Ascent Group Careers <onboarding@resend.dev>",
-      to: ["hr@ascentgroupconstruction.com"], // Replace with actual HR email
+      to: ["info@ascentgroupconstruction.com"], // Replace with actual HR email
       subject: `New Resume Submission${jobTitle ? ` for ${jobTitle}` : ''} - ${applicantName}`,
       html: `
         <h2>New Resume Submission</h2>
@@ -195,7 +195,7 @@ const handler = async (req: Request): Promise<Response> => {
           <hr style="border: none; border-top: 1px solid #ddd; margin: 30px 0;">
           <p style="color: #666; font-size: 14px;">
             <strong>Ascent Group Construction</strong><br>
-            123 Industrial Parkway, Mississauga, ON L5T 1A1<br>
+            2 Jody Ave, North York, ON M3N 1H1<br>
             careers@ascentgroupconstruction.com
           </p>
         </div>
