@@ -2592,217 +2592,46 @@ body:has(.business-sidebar.mobile-open) {
 }
 
 /* ============================================================================
-   UNIVERSAL WHITE TEXT OVERRIDE - COMPREHENSIVE
+   ADMIN COMPONENT IMPROVEMENTS - NO FORCED OVERRIDES
    ============================================================================ */
 
-/* Force ALL text elements to white */
-.admin-dark-theme *:not(svg):not(path):not(circle):not(rect):not(line):not(polyline):not(polygon) {
-  color: white !important;
+/* Let components manage their own colors naturally */
+/* Cards - solid backgrounds with clear borders */
+.admin-dark-theme .card,
+.admin-dark-theme [class*="Card"] {
+  background: hsl(var(--admin-bg-card)) !important;
+  border: 1px solid hsl(var(--admin-border)) !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
 }
 
-/* Override all Tailwind text utility classes */
-.admin-dark-theme .text-muted-foreground,
-.admin-dark-theme .text-foreground,
-.admin-dark-theme .text-slate-200,
-.admin-dark-theme .text-slate-300,
-.admin-dark-theme .text-slate-400,
-.admin-dark-theme .text-gray-200,
-.admin-dark-theme .text-gray-300,
-.admin-dark-theme .text-gray-400,
-.admin-dark-theme .text-sm,
-.admin-dark-theme .text-xs,
-.admin-dark-theme .text-base,
-.admin-dark-theme .text-lg,
-.admin-dark-theme .text-xl,
-.admin-dark-theme .text-2xl {
-  color: white !important;
+/* Card headers with better spacing */
+.admin-dark-theme .card > div:first-child {
+  padding: 1.5rem;
 }
 
-/* Card components - force white text */
-.admin-dark-theme [class*="CardTitle"],
-.admin-dark-theme [class*="CardDescription"],
-.admin-dark-theme .card-title,
-.admin-dark-theme .card-description {
-  color: white !important;
+/* Card content with consistent padding */
+.admin-dark-theme .card-content {
+  padding: 1.5rem;
 }
 
-/* Badge components - force white text */
-.admin-dark-theme [class*="badge"],
-.admin-dark-theme [class*="Badge"] {
-  color: white !important;
-}
-
-/* Alert components */
-.admin-dark-theme [class*="alert"],
-.admin-dark-theme [class*="Alert"] {
-  color: white !important;
-}
-
-/* Tab components */
-.admin-dark-theme [role="tab"],
-.admin-dark-theme [class*="tab"] {
-  color: white !important;
-}
-
-/* Dialog/Modal components */
-.admin-dark-theme [role="dialog"] *,
-.admin-dark-theme [class*="dialog"] *,
-.admin-dark-theme [class*="Dialog"] * {
-  color: white !important;
-}
-
-/* Table components */
-.admin-dark-theme table,
-.admin-dark-theme thead,
-.admin-dark-theme tbody,
-.admin-dark-theme tr,
-.admin-dark-theme th,
-.admin-dark-theme td {
-  color: white !important;
-}
-
-/* FORCE white text on all form inputs - override any inline classes */
-.admin-dark-theme input,
-.admin-dark-theme textarea,
-.admin-dark-theme select,
-.admin-dark-theme input[type="text"],
-.admin-dark-theme input[type="email"],
-.admin-dark-theme input[type="tel"],
-.admin-dark-theme input[type="number"],
-.admin-dark-theme input[type="password"],
-.admin-dark-theme input[type="url"],
-.admin-dark-theme input[type="search"] {
-  background-color: hsl(217 33% 17%) !important; /* slate-800 */
-  border-color: hsl(215 25% 27%) !important;     /* slate-700 */
-  color: white !important;                       /* PURE WHITE TEXT */
-}
-
-/* Force white placeholder text */
-.admin-dark-theme input::placeholder,
-.admin-dark-theme textarea::placeholder {
-  color: rgba(255, 255, 255, 0.5) !important;    /* white with opacity */
-}
-
-/* Force white text on select trigger (the displayed value) */
-.admin-dark-theme [role="combobox"],
-.admin-dark-theme button[role="combobox"] {
-  color: white !important;                       /* PURE WHITE TEXT */
-}
-
-/* Force white text inside select dropdown options */
-.admin-dark-theme [role="option"] {
-  color: white !important;                       /* PURE WHITE TEXT */
-}
-
-/* Ensure all Cards in admin have dark backgrounds and white text */
-.admin-dark-theme .card {
-  background-color: hsl(217 33% 17%) !important; /* slate-800 */
-  border-color: hsl(215 25% 27%) !important;     /* slate-700 */
-  color: white !important;                       /* PURE WHITE TEXT */
-}
-
-/* Force white text on all heading and paragraph elements in admin */
-.admin-dark-theme h1,
-.admin-dark-theme h2,
-.admin-dark-theme h3,
-.admin-dark-theme h4,
-.admin-dark-theme h5,
-.admin-dark-theme h6,
-.admin-dark-theme p,
-.admin-dark-theme span,
-.admin-dark-theme div {
-  color: white !important;                       /* PURE WHITE TEXT */
-}
-
-/* Ensure labels are white */
-.admin-dark-theme label {
-  color: white !important;                       /* PURE WHITE TEXT */
-}
-
-/* Extra specificity for inputs with inline bg classes */
-.admin-dark-theme input.bg-slate-800,
-.admin-dark-theme textarea.bg-slate-800,
-.admin-dark-theme input[class*="bg-slate"],
-.admin-dark-theme textarea[class*="bg-slate"] {
-  color: hsl(210 40% 98%) !important;
-  background-color: hsl(217 33% 17%) !important;
-  border-color: hsl(215 25% 27%) !important;
-}
-
-/* Force white text on Select components with bg classes */
-.admin-dark-theme button[role="combobox"].bg-slate-800,
-.admin-dark-theme button[class*="bg-slate"][role="combobox"] {
-  color: hsl(210 40% 98%) !important;
-  background-color: hsl(217 33% 17%) !important;
-}
-
-/* Ensure SelectContent and options are readable and on top */
-.admin-dark-theme [data-radix-select-content],
+/* Select dropdowns - solid background, high z-index */
 .admin-dark-theme [role="listbox"] {
-  background-color: hsl(217 33% 17%) !important;
-  border: 1px solid hsl(215 25% 27%) !important;
-  color: hsl(210 40% 98%) !important;
-  z-index: 100 !important;
-}
-
-.admin-dark-theme [role="option"],
-.admin-dark-theme [role="listbox"] > *,
-.admin-dark-theme [data-radix-select-content] * {
-  color: hsl(210 40% 98%) !important;
-}
-
-/* Fallback: any dark slate background inside admin gets white text */
-.admin-dark-theme [class*="bg-slate-8"],
-.admin-dark-theme [class*="bg-slate-9"] {
-  color: hsl(210 40% 98%) !important;
-}
-
-/* Admin portal: body-level variables for portals */
-body.admin-dark-portal {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif !important;
-  --background: 222 47% 11%;        /* slate-900 */
-  --foreground: 0 0% 100%;          /* PURE WHITE */
-  --card: 217 33% 17%;              /* slate-800 */
-  --card-foreground: 0 0% 100%;     /* PURE WHITE */
-  --popover: 217 33% 17%;           /* slate-800 */
-  --popover-foreground: 0 0% 100%;  /* PURE WHITE */
-  --input: 215 25% 27%;             /* slate-700 */
-  --muted: 215 25% 27%;             /* slate-700 */
-  --muted-foreground: 0 0% 100%;    /* PURE WHITE */
-  --border: 215 25% 27%;            /* slate-700 */
-  --ring: 217 91% 60%;              /* blue-400 */
-}
-
-/* Force Inter font on portal elements */
-body.admin-dark-portal,
-body.admin-dark-portal * {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif !important;
-}
-
-/* Portals: dropdowns/menus/popovers should be opaque and on top */
-body.admin-dark-portal [data-radix-select-content],
-body.admin-dark-portal [data-radix-popper-content-wrapper],
-body.admin-dark-portal [role="listbox"],
-body.admin-dark-portal .radix-select-content,
-body.admin-dark-portal .radix-popover-content,
-body.admin-dark-portal .radix-dropdown-menu-content {
-  background-color: hsl(217 33% 17%) !important;
-  color: white !important;                       /* PURE WHITE TEXT */
-  border: 1px solid hsl(215 25% 27%) !important;
+  background: hsl(var(--admin-bg-dark)) !important;
+  border: 1px solid hsl(var(--admin-border)) !important;
   z-index: 9999 !important;
-  backdrop-filter: blur(8px);
 }
 
-/* Ensure options inside portals are white */
-body.admin-dark-portal [role="option"],
-body.admin-dark-portal [role="menuitem"],
-body.admin-dark-portal [data-radix-select-content] *,
-body.admin-dark-portal .radix-dropdown-menu-content * {
-  color: white !important;                       /* PURE WHITE TEXT */
+/* Dialog/Modal - solid backgrounds */
+.admin-dark-theme [role="dialog"] {
+  background: hsl(var(--admin-bg-card)) !important;
+  border: 1px solid hsl(var(--admin-border)) !important;
 }
 
-/* Portal universal white text override */
-body.admin-dark-portal *:not(svg):not(path):not(circle):not(rect):not(line):not(polyline):not(polygon) {
-  color: white !important;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif !important;
+/* Table alternating rows */
+.admin-dark-theme .admin-inbox-table tbody tr {
+  background-color: hsl(var(--admin-bg-card));
+}
+
+.admin-dark-theme .admin-inbox-table tbody tr:hover {
+  background-color: hsl(var(--admin-bg-hover));
 }
