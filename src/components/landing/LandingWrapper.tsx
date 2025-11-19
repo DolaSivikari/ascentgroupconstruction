@@ -5,6 +5,11 @@ import { cn } from '@/lib/utils';
 
 export const LandingWrapper = () => {
   const [showLanding, setShowLanding] = useState(() => {
+    // Skip landing page on mobile devices (under 768px)
+    if (typeof window !== 'undefined' && window.innerWidth < 768) {
+      return false;
+    }
+    
     // Check if user has entered site this session
     return !sessionStorage.getItem('landing-completed');
   });
