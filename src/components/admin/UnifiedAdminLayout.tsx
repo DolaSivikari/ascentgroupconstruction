@@ -10,7 +10,8 @@ import { NotificationBellInbox } from './NotificationBellInbox';
 import '@/styles/admin-theme.css';
 
 export const UnifiedAdminLayout = () => {
-  const { isLoading, isAdmin } = useAdminAuth();
+  const { isLoading, isAdmin, retry } = useAdminAuth();
+  const [loadingTime, setLoadingTime] = useState(0);
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [user, setUser] = useState<any>(null);
@@ -42,6 +43,7 @@ export const UnifiedAdminLayout = () => {
   };
 
   // Apply body-level dark theme variables for portal-based components (Radix portals)
+  // Apply body-level dark theme variables for portal-based components (Radix portals)
   useEffect(() => {
     document.body.classList.add('admin-dark-portal');
     return () => {
@@ -49,17 +51,41 @@ export const UnifiedAdminLayout = () => {
     };
   }, []);
 
+  // Track loading time
+  useEffect(() => {
+    if (isLoading) {
+      const startTime = Date.now();
+      const interval = setInterval(() => {
+        setLoadingTime(Date.now() - startTime);
+      }, 100);
+      return () => clearInterval(interval);
+    } else {
+      setLoadingTime(0);
+    }
+  }, [isLoading]);
+
   if (isLoading) {
     return (
-      <div style={{
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        minHeight: '100vh',
-        background: '#020617',
-        color: '#f1f5f9'
-      }}>
-        <div>Loading...</div>
+      <div className="flex flex-col items-center justify-center min-h-screen bg-slate-950 text-slate-100">
+        <div className="flex flex-col items-center gap-4 max-w-md text-center px-4">
+          <div className="relative">
+            <div className="w-12 h-12 border-4 border-slate-700 border-t-blue-500 rounded-full animate-spin" />
+          </div>
+          <div className="space-y-2">
+            <p className="text-lg font-medium">Verifying access...</p>
+            {loadingTime > 3000 && (
+              <p className="text-sm text-yellow-500">Taking longer than usual...</p>
+            )}
+            {loadingTime > 5000 && (
+              <button 
+                onClick={retry}
+                className="mt-4 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-md transition-colors"
+              >
+                Try Again
+              </button>
+            )}
+          </div>
+        </div>
       </div>
     );
   }
