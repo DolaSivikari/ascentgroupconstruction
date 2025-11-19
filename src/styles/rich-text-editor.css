@@ -1,0 +1,112 @@
+/* Rich Text Editor Styles */
+.rich-text-editor .ql-container {
+  border: none !important;
+  font-family: inherit;
+}
+
+.rich-text-editor .ql-editor {
+  min-height: 150px;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  padding: 12px;
+}
+
+.rich-text-editor .ql-editor.ql-blank::before {
+  color: hsl(var(--muted-foreground));
+  font-style: normal;
+  opacity: 0.6;
+}
+
+.rich-text-editor .ql-toolbar {
+  border: none !important;
+  border-bottom: 1px solid hsl(var(--border)) !important;
+  background: hsl(var(--muted) / 0.3);
+  padding: 8px;
+}
+
+.rich-text-editor .ql-toolbar button {
+  width: 28px;
+  height: 28px;
+  border-radius: 4px;
+}
+
+.rich-text-editor .ql-toolbar button:hover {
+  background: hsl(var(--accent));
+  color: hsl(var(--accent-foreground));
+}
+
+.rich-text-editor .ql-toolbar button.ql-active {
+  background: hsl(var(--primary));
+  color: hsl(var(--primary-foreground));
+}
+
+.rich-text-editor .ql-toolbar .ql-stroke {
+  stroke: hsl(var(--foreground));
+}
+
+.rich-text-editor .ql-toolbar .ql-fill {
+  fill: hsl(var(--foreground));
+}
+
+.rich-text-editor .ql-toolbar button:hover .ql-stroke {
+  stroke: hsl(var(--accent-foreground));
+}
+
+.rich-text-editor .ql-toolbar button:hover .ql-fill {
+  fill: hsl(var(--accent-foreground));
+}
+
+.rich-text-editor .ql-toolbar button.ql-active .ql-stroke {
+  stroke: hsl(var(--primary-foreground));
+}
+
+.rich-text-editor .ql-toolbar button.ql-active .ql-fill {
+  fill: hsl(var(--primary-foreground));
+}
+
+/* Editor content styles */
+.rich-text-editor .ql-editor h1,
+.rich-text-editor .ql-editor h2,
+.rich-text-editor .ql-editor h3 {
+  font-weight: 600;
+  margin-top: 1em;
+  margin-bottom: 0.5em;
+}
+
+.rich-text-editor .ql-editor h1 {
+  font-size: 1.875rem;
+}
+
+.rich-text-editor .ql-editor h2 {
+  font-size: 1.5rem;
+}
+
+.rich-text-editor .ql-editor h3 {
+  font-size: 1.25rem;
+}
+
+.rich-text-editor .ql-editor ul,
+.rich-text-editor .ql-editor ol {
+  padding-left: 1.5em;
+  margin: 0.5em 0;
+}
+
+.rich-text-editor .ql-editor li {
+  margin-bottom: 0.25em;
+}
+
+.rich-text-editor .ql-editor a {
+  color: hsl(var(--primary));
+  text-decoration: underline;
+}
+
+.rich-text-editor .ql-editor strong {
+  font-weight: 600;
+}
+
+/* Dark mode adjustments */
+@media (prefers-color-scheme: dark) {
+  .rich-text-editor .ql-editor {
+    color: hsl(var(--foreground));
+  }
+}

@@ -5,6 +5,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Button } from "@/ui/Button";
 import { RefreshCw } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { RichTextEditor } from "@/components/admin/RichTextEditor";
 
 interface BasicInfoTabProps {
   formData: any;
@@ -107,16 +108,15 @@ export const BasicInfoTab = ({ formData, slugStatus, onFormChange }: BasicInfoTa
       </div>
 
       {/* Description */}
-      <div className="space-y-2">
-        <Label htmlFor="description">Full Description</Label>
-        <Textarea
-          id="description"
-          value={formData.description}
-          onChange={(e) => onFormChange({ description: e.target.value })}
-          placeholder="Detailed project description"
-          rows={6}
-        />
-      </div>
+      <RichTextEditor
+        id="description"
+        label="Full Description"
+        value={formData.description || ''}
+        onChange={(value) => onFormChange({ description: value })}
+        placeholder="Detailed project description with rich formatting..."
+        minHeight="250px"
+        maxLength={10000}
+      />
 
       {/* Category, Status, Featured */}
       <div className="grid md:grid-cols-3 gap-6">

@@ -415,6 +415,21 @@ export default function ProjectDetail() {
                 </section>
               )}
 
+              {/* Full Description (Rich Text) */}
+              {project.description && (
+                <section>
+                  <h2 className="text-2xl md:text-3xl font-bold mb-4">Project Description</h2>
+                  <Card>
+                    <CardContent className="p-6">
+                      <div 
+                        className="prose prose-lg max-w-none text-muted-foreground"
+                        dangerouslySetInnerHTML={{ __html: sanitizeAndValidate(project.description || '').sanitized }}
+                      />
+                    </CardContent>
+                  </Card>
+                </section>
+              )}
+
               {/* Scope of Work */}
               {project.scope_of_work && (
                 <section>
