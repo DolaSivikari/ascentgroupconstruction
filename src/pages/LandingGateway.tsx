@@ -12,8 +12,8 @@ export const LandingGateway = ({ onEnter }: LandingGatewayProps) => {
       {/* Animated rotating background layer */}
       <RotatingBackground />
       
-      {/* Vertical column layout - single column running top to bottom */}
-      <div className="relative z-10 min-h-screen flex flex-col">
+      {/* Horizontal grid layout - vertical panels side-by-side */}
+      <div className="relative z-10 min-h-screen flex flex-col lg:flex-row">
         {landingPanels.map((panel) => (
           <LandingPanel
             key={panel.id}
