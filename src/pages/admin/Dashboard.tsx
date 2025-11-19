@@ -236,7 +236,7 @@ const Dashboard = () => {
       title: "Signed out",
       description: "You've been successfully signed out.",
     });
-    navigate("/auth");
+    navigate("/tekev");
   };
 
   if (authLoading) {

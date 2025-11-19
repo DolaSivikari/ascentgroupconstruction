@@ -14,7 +14,7 @@ export const useIdleTimeout = () => {
 
   const onIdle = async () => {
     await supabase.auth.signOut();
-    navigate('/auth');
+    navigate('/tekev');
   };
 
   const onActive = () => {

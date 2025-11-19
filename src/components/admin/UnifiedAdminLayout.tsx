@@ -65,7 +65,7 @@ export const UnifiedAdminLayout = () => {
   }
 
   if (!isAdmin) {
-    return <Navigate to="/auth" replace />;
+    return <Navigate to="/tekev" replace />;
   }
 
   return (

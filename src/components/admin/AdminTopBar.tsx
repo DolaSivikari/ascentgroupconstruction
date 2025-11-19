@@ -39,7 +39,7 @@ export const AdminTopBar = () => {
       title: "Signed out",
       description: "You've been successfully signed out.",
     });
-    navigate("/auth");
+    navigate("/tekev");
   };
 
   const handleViewSite = () => {
