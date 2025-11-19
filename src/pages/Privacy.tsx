@@ -2,6 +2,7 @@ import { Helmet } from "react-helmet-async";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import BackToTop from "@/components/BackToTop";
+import { AscentEmailLink } from "@/components/EmailLink";
 
 const Privacy = () => {
   return (
@@ -207,7 +208,7 @@ const Privacy = () => {
                 <h3 className="text-lg font-medium mb-2">How to Exercise Your Rights</h3>
                 <p className="mb-2">To exercise any of these rights, contact us at:</p>
                 <ul className="list-none space-y-1">
-                  <li><strong>Email:</strong> info@ascentgroupconstruction.com</li>
+                  <li><strong>Email:</strong> <AscentEmailLink className="inline" showIcon={false} /></li>
                   <li><strong>Phone:</strong> 647-528-6804</li>
                   <li><strong>Mail:</strong> Ascent Group Construction, Privacy Officer, 2 Jody Ave, North York, ON M3N 1H1</li>
                 </ul>
@@ -262,7 +263,7 @@ const Privacy = () => {
                 <div className="space-y-2">
                   <p><strong>Ascent Group Construction</strong></p>
                   <p>Privacy Officer</p>
-                  <p>Email: <a href="mailto:info@ascentgroupconstruction.com" className="text-primary hover:underline">info@ascentgroupconstruction.com</a></p>
+                  <p>Email: <AscentEmailLink className="text-primary hover:underline inline" showIcon={false} /></p>
                   <p>Phone: <a href="tel:647-528-6804" className="text-primary hover:underline">647-528-6804</a></p>
                   <p className="mt-4 text-sm text-muted-foreground">
                     If you are not satisfied with our response, you may file a complaint with the Office of the Privacy Commissioner of Canada: <a href="https://www.priv.gc.ca" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">www.priv.gc.ca</a>

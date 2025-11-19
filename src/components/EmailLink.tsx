@@ -41,6 +41,19 @@ export const EmailLink = ({
     e.preventDefault();
     if (email) {
       setIsRevealed(true);
+      
+      // Track email click in analytics
+      if (typeof window !== 'undefined' && (window as any).gtag) {
+        (window as any).gtag('event', 'email_click', {
+          event_category: 'contact',
+          event_label: 'Email Link',
+          value: email
+        });
+      }
+      
+      // Track in console for debugging (remove in production if needed)
+      console.log('[Analytics] Email link clicked:', email);
+      
       window.location.href = `mailto:${email}`;
     }
   };

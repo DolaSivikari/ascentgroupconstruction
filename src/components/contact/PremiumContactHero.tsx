@@ -1,6 +1,7 @@
 import { MapPin, Phone, Mail, Clock, HardHat, Ruler, ClipboardCheck } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { EmailLink } from "../EmailLink";
 
 interface ContactInfo {
   officeAddress: string;
@@ -82,15 +83,15 @@ export const PremiumContactHero = ({ contactInfo, loading }: Props) => {
               <CardTitle className="text-lg">Email</CardTitle>
             </CardHeader>
             <CardContent className="space-y-2">
-              <a href={`mailto:${contactInfo.generalEmail}`} className="block text-xs text-muted-foreground hover:text-primary transition-colors break-all">
-                <span className="font-medium">General:</span> {contactInfo.generalEmail}
-              </a>
-              <a href={`mailto:${contactInfo.projectsEmail}`} className="block text-xs text-muted-foreground hover:text-primary transition-colors break-all">
-                <span className="font-medium">Projects:</span> {contactInfo.projectsEmail}
-              </a>
-              <a href={`mailto:${contactInfo.careersEmail}`} className="block text-xs text-muted-foreground hover:text-primary transition-colors break-all">
-                <span className="font-medium">Careers:</span> {contactInfo.careersEmail}
-              </a>
+              <div className="block text-xs text-muted-foreground break-all">
+                <span className="font-medium">General:</span> <EmailLink encoded={btoa(contactInfo.generalEmail)} className="hover:text-primary transition-colors inline" showIcon={false} />
+              </div>
+              <div className="block text-xs text-muted-foreground break-all">
+                <span className="font-medium">Projects:</span> <EmailLink encoded={btoa(contactInfo.projectsEmail)} className="hover:text-primary transition-colors inline" showIcon={false} />
+              </div>
+              <div className="block text-xs text-muted-foreground break-all">
+                <span className="font-medium">Careers:</span> <EmailLink encoded={btoa(contactInfo.careersEmail)} className="hover:text-primary transition-colors inline" showIcon={false} />
+              </div>
             </CardContent>
           </Card>
 

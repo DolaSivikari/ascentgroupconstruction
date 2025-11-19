@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import BackToTop from "@/components/BackToTop";
+import { AscentEmailLink } from "@/components/EmailLink";
 
 const Accessibility = () => {
   return (
@@ -188,7 +189,7 @@ const Accessibility = () => {
                   <h3 className="text-xl font-medium mb-2">How to Request Assistance</h3>
                   <p className="mb-2">Contact our accessibility team:</p>
                   <div className="ml-6 space-y-2">
-                    <p><strong>Email:</strong> <a href="mailto:info@ascentgroupconstruction.com" className="text-primary hover:underline">info@ascentgroupconstruction.com</a></p>
+                    <p><strong>Email:</strong> <AscentEmailLink className="text-primary hover:underline inline" showIcon={false} /></p>
                     <p><strong>Phone:</strong> <a href="tel:647-528-6804" className="text-primary hover:underline">647-528-6804</a></p>
                     <p><strong>Response Time:</strong> We aim to respond within 2 business days</p>
                   </div>
@@ -219,7 +220,7 @@ const Accessibility = () => {
                   <h3 className="text-lg font-medium mb-2">Contact Information</h3>
                   <div className="space-y-2 text-sm">
                     <p><strong>Accessibility Coordinator</strong></p>
-                    <p>Email: <a href="mailto:info@ascentgroupconstruction.com" className="text-primary hover:underline">info@ascentgroupconstruction.com</a></p>
+                    <p>Email: <AscentEmailLink className="text-primary hover:underline inline" showIcon={false} /></p>
                     <p>Phone: <a href="tel:647-528-6804" className="text-primary hover:underline">647-528-6804</a></p>
                     <p>Or use our <Link to="/contact" className="text-primary hover:underline">contact form</Link> (Subject: "Accessibility Feedback")</p>
                   </div>
@@ -318,7 +319,7 @@ const Accessibility = () => {
               </p>
               <div className="space-y-2">
                 <p><strong>Ascent Group Construction - Accessibility Team</strong></p>
-                <p>Email: <a href="mailto:info@ascentgroupconstruction.com" className="text-primary hover:underline">info@ascentgroupconstruction.com</a></p>
+                <p>Email: <AscentEmailLink className="text-primary hover:underline inline" showIcon={false} /></p>
                 <p>Phone: <a href="tel:647-528-6804" className="text-primary hover:underline">647-528-6804</a></p>
                 <p>Contact Form: <Link to="/contact" className="text-primary hover:underline">ascentgroupconstruction.com/contact</Link></p>
               </div>

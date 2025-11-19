@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import BackToTop from "@/components/BackToTop";
+import { AscentEmailLink } from "@/components/EmailLink";
 
 const Terms = () => {
   return (
@@ -315,7 +316,7 @@ const Terms = () => {
                 <div className="space-y-2">
                   <p><strong>Ascent Group Construction</strong></p>
                   <p>Legal Department</p>
-                  <p>Email: <a href="mailto:info@ascentgroupconstruction.com" className="text-primary hover:underline">info@ascentgroupconstruction.com</a></p>
+                  <p>Email: <AscentEmailLink className="text-primary hover:underline inline" showIcon={false} /></p>
                   <p>Phone: <a href="tel:647-528-6804" className="text-primary hover:underline">647-528-6804</a></p>
                 </div>
               </div>

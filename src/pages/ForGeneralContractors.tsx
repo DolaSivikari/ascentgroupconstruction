@@ -2,6 +2,7 @@ import SEO from "@/components/SEO";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import PageHeader from "@/components/PageHeader";
+import { EmailLink } from "@/components/EmailLink";
 import { Card } from "@/design-system/components/Card";
 import { Section } from "@/components/sections/Section";
 import { CardGrid } from "@/components/shared/CardGrid";
@@ -324,9 +325,11 @@ const ForGeneralContractors = () => {
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center text-muted-foreground">
               <div className="flex items-center gap-2">
                 <Mail className="w-4 h-4" />
-                <a href="mailto:projects@ascentgroupconstruction.com" className="hover:text-primary transition-colors">
-                  projects@ascentgroupconstruction.com
-                </a>
+                <EmailLink 
+                  encoded={btoa('projects@ascentgroupconstruction.com')} 
+                  className="hover:text-primary transition-colors inline" 
+                  showIcon={false} 
+                />
               </div>
               <div className="hidden sm:block text-muted-foreground/50">|</div>
               <div className="flex items-center gap-2">
