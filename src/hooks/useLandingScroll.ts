@@ -17,10 +17,12 @@ export const useLandingScroll = (sectionsCount: number) => {
   }, [sectionsCount]);
   
   const scrollToSection = (index: number) => {
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const targetPosition = index * window.innerHeight;
+    
     window.scrollTo({
       top: targetPosition,
-      behavior: 'smooth'
+      behavior: prefersReducedMotion ? 'auto' : 'smooth'
     });
   };
   

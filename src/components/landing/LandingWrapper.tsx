@@ -18,7 +18,7 @@ export const LandingWrapper = () => {
     
     // Scroll to top after transition
     setTimeout(() => {
-      window.scrollTo({ top: 0, behavior: 'instant' });
+      window.scrollTo({ top: 0, behavior: 'instant' as ScrollBehavior });
     }, 100);
   };
 
