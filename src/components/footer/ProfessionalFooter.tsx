@@ -3,6 +3,7 @@ import { Facebook, Instagram, Linkedin, Youtube, Mail, Phone, MapPin } from "luc
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import ascentLogoVerticalDark from "@/assets/ascent-logo-vertical-dark.png";
 import OptimizedImage from "../OptimizedImage";
+import { AscentEmailLink } from "../EmailLink";
 
 interface ProfessionalFooterProps {
   companyLinks: { label: string; href: string }[];
@@ -71,13 +72,10 @@ export const ProfessionalFooter = ({
                   Lead specialty contractor for building envelope, interior trades, and restoration.
                 </p>
                 <div className="space-y-3 text-sm">
-                  <a 
-                    href={`mailto:${contactInfo.email}`} 
-                    className="flex items-center gap-3 text-muted-foreground hover:text-primary transition-colors"
-                  >
+                  <div className="flex items-center gap-3 text-muted-foreground">
                     <Mail className="h-4 w-4" />
-                    <span>{contactInfo.email}</span>
-                  </a>
+                    <AscentEmailLink className="hover:text-primary transition-colors" showIcon={false} />
+                  </div>
                   <a 
                     href={`tel:${contactInfo.phone}`} 
                     className="flex items-center gap-3 text-muted-foreground hover:text-primary transition-colors"
@@ -173,11 +171,10 @@ export const ProfessionalFooter = ({
             Lead specialty contractor for building envelope, interior trades, and restoration serving commercial, multi-family, and residential properties across the Greater Toronto Area.
           </p>
           <div className="space-y-3">
-            <a 
-              href={`mailto:${contactInfo.email}`} 
-              className="flex items-center gap-3 text-sm text-muted-foreground hover:text-primary transition-colors group"
-            >
+            <div className="flex items-center gap-3 text-sm text-muted-foreground group">
               <Mail className="h-4 w-4" />
+              <AscentEmailLink className="hover:text-primary transition-colors" showIcon={false} />
+            </div>
               <span className="group-hover:underline">{contactInfo.email}</span>
             </a>
             <a 

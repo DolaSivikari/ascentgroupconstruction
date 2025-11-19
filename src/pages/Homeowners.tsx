@@ -2,6 +2,7 @@ import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
 import PageHeader from "@/components/PageHeader";
+import { AscentEmailLink } from "@/components/EmailLink";
 import { Section } from "@/components/sections/Section";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/ui/Button";
@@ -404,7 +405,7 @@ const Homeowners = () => {
               </Button>
             </div>
             <p className="text-sm text-white/80 mt-6">
-              Or email us at <a href="mailto:info@ascentgroupconstruction.com" className="underline hover:text-white">info@ascentgroupconstruction.com</a>
+              Or email us at <AscentEmailLink className="underline hover:text-white inline text-white/80" showIcon={false} />
             </p>
           </div>
           </ScrollReveal>

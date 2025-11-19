@@ -6,6 +6,7 @@ import { Button } from "@/ui/Button";
 import { toast } from "sonner";
 import { CheckCircle, XCircle, Loader2 } from "lucide-react";
 import { Link } from "react-router-dom";
+import { AscentEmailLink } from "@/components/EmailLink";
 
 const Unsubscribe = () => {
   const [searchParams] = useSearchParams();
@@ -136,9 +137,7 @@ const Unsubscribe = () => {
                   {error?.includes("Invalid") && (
                     <p className="text-sm text-muted-foreground">
                       If you're having trouble unsubscribing, please contact us at{" "}
-                      <a href="mailto:info@ascentgroupconstruction.com" className="text-primary hover:underline">
-                        info@ascentgroupconstruction.com
-                      </a>
+                      <AscentEmailLink className="text-primary hover:underline inline" showIcon={false} />
                     </p>
                   )}
                   <Button

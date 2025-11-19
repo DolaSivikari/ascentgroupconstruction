@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { Mail, Phone, Linkedin } from "lucide-react";
+import { AscentEmailLink } from "../EmailLink";
 
 interface SimpleModernFooterProps {
   logoUrl: string;
@@ -68,13 +69,10 @@ export function SimpleModernFooter({
           </h3>
           <div className="space-y-3">
             {email && (
-              <a
-                href={`mailto:${email}`}
-                className="flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors duration-[150ms]"
-              >
-                <Mail className="h-4 w-4 flex-shrink-0" />
-                <span className="break-all">{email}</span>
-              </a>
+              <div className="flex items-center gap-2">
+                <Mail className="h-4 w-4 flex-shrink-0 text-muted-foreground" />
+                <AscentEmailLink className="text-sm text-muted-foreground hover:text-primary transition-colors duration-[150ms] break-all" showIcon={false} />
+              </div>
             )}
             {phone && (
               <a

@@ -5,6 +5,7 @@ import PageHeader from "@/components/PageHeader";
 import { Section } from "@/components/sections/Section";
 import { ServiceSelector } from "@/components/tools/ServiceSelector";
 import heroImage from "@/assets/heroes/hero-facade-remediation.jpg";
+import { AscentEmailLink } from "@/components/EmailLink";
 
 /**
  * Service Selector Tool Page
@@ -49,12 +50,9 @@ const ServiceSelectorPage = () => {
               >
                 Call: (647) 999-5545
               </a>
-              <a
-                href="mailto:info@ascentgroupconstruction.com"
-                className="inline-flex items-center justify-center rounded-[var(--radius-lg)] px-6 py-3 text-sm font-semibold text-foreground border-2 border-border hover:border-primary transition-colors"
-              >
-                Email Us
-              </a>
+              <div className="inline-flex items-center justify-center rounded-[var(--radius-lg)] px-6 py-3 text-sm font-semibold text-foreground border-2 border-border hover:border-primary transition-colors">
+                <AscentEmailLink showIcon={false}>Email Us</AscentEmailLink>
+              </div>
             </div>
           </div>
         </Section>

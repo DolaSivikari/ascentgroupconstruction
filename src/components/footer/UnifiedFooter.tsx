@@ -6,6 +6,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { AscentEmailLink } from "../EmailLink";
 
 interface Service {
   name: string;
@@ -120,15 +121,12 @@ export function UnifiedFooter({
         {/* Contact Info */}
         <div className="mt-6 space-y-3">
           <h3 className="text-sm font-bold text-foreground">Contact</h3>
-          {email && (
-            <a
-              href={`mailto:${email}`}
-              className="flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors"
-            >
-              <Mail className="h-4 w-4 flex-shrink-0" />
-              <span className="break-all">{email}</span>
-            </a>
-          )}
+            {email && (
+              <div className="flex items-center gap-2">
+                <Mail className="h-4 w-4 flex-shrink-0 text-muted-foreground" />
+                <AscentEmailLink className="text-sm text-muted-foreground hover:text-primary transition-colors break-all" showIcon={false} />
+              </div>
+            )}
           {phone && (
             <a
               href={`tel:${phone.replace(/\s/g, '')}`}
@@ -243,14 +241,11 @@ export function UnifiedFooter({
 
           {/* Contact Info */}
           <div className="space-y-3">
-            {email && (
-              <a
-                href={`mailto:${email}`}
-                className="flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors"
-              >
-                <Mail className="h-4 w-4 flex-shrink-0" />
-                <span className="break-all">{email}</span>
-              </a>
+          {email && (
+              <div className="flex items-center gap-2">
+                <Mail className="h-4 w-4 flex-shrink-0 text-muted-foreground" />
+                <AscentEmailLink className="text-sm text-muted-foreground hover:text-primary transition-colors break-all" showIcon={false} />
+              </div>
             )}
             {phone && (
               <a

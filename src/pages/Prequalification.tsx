@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import PageHeader from "@/components/PageHeader";
+import { EmailLink } from "@/components/EmailLink";
 import { Button } from "@/ui/Button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -431,9 +432,11 @@ const Prequalification = () => {
                           </div>
                           <div>
                             <p className="font-semibold mb-1">Email</p>
-                            <a href="mailto:info@ascentgroup.ca" className="text-muted-foreground hover:text-primary transition-colors">
-                              info@ascentgroup.ca
-                            </a>
+                            <EmailLink 
+                              encoded={btoa('info@ascentgroup.ca')} 
+                              className="text-muted-foreground hover:text-primary transition-colors inline" 
+                              showIcon={false} 
+                            />
                           </div>
                         </div>
                       </CardContent>
