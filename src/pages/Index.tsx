@@ -30,8 +30,21 @@ import { StaggerContainer } from "@/components/animations/StaggerContainer";
 import { usePageAnalytics } from "@/hooks/usePageAnalytics";
 
 const Index = () => {
-  const [showSplash, setShowSplash] = useState(true);
-  const [splashComplete, setSplashComplete] = useState(false);
+  // Determine splash screen visibility on initialization
+  const [showSplash, setShowSplash] = useState(() => {
+    const hasSeenSplash = localStorage.getItem("ascent-splash-seen");
+    const lastSeen = hasSeenSplash ? parseInt(hasSeenSplash) : 0;
+    const now = Date.now();
+    const twentyFourHours = 24 * 60 * 60 * 1000;
+    
+    // Skip splash on mobile, reduced motion preference, or recently seen
+    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    
+    return !isMobile && !prefersReducedMotion && (now - lastSeen >= twentyFourHours);
+  });
+  
+  const [splashComplete, setSplashComplete] = useState(!showSplash);
 
   // Analytics tracking
   usePageAnalytics('homepage');
@@ -41,32 +54,18 @@ const Index = () => {
     personalization.initialize();
     initializeTests();
   }, []);
-  // Remove loading classes when hero is ready
-  useEffect(() => {
-    let timeoutId: NodeJS.Timeout;
-    
-    const handleHeroReady = () => {
-      // Reduced delay for faster transition (100ms -> 50ms)
-      timeoutId = setTimeout(() => {
-        document.documentElement.classList.remove('loading');
-        document.documentElement.classList.remove('page-loading');
-      }, 50);
-    };
 
-    window.addEventListener('hero-ready', handleHeroReady);
-    
-    // Maximum timeout to ensure classes are removed even if hero-ready never fires
-    const maxTimeout = setTimeout(() => {
-      document.documentElement.classList.remove('loading');
-      document.documentElement.classList.remove('page-loading');
-    }, 500);
-    
-    return () => {
-      window.removeEventListener('hero-ready', handleHeroReady);
-      clearTimeout(timeoutId);
-      clearTimeout(maxTimeout);
-    };
-  }, []);
+  // Remove loading classes after splash completes
+  useEffect(() => {
+    if (splashComplete) {
+      // Small delay for smooth transition
+      const timeoutId = setTimeout(() => {
+        document.documentElement.classList.remove('loading', 'page-loading');
+      }, 100);
+      
+      return () => clearTimeout(timeoutId);
+    }
+  }, [splashComplete]);
 
   // AEO/GEO Structured Data
   const howToChooseContractor = createHowToSchema({

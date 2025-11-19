@@ -34,14 +34,23 @@ reportWebVitals();
 // Initialize error logging
 initErrorLogging();
 
-// Check for deployment updates
-checkForDeploymentUpdate().then(async (hasUpdate) => {
-  if (hasUpdate) {
-    console.log('[Cache Buster] New deployment detected, clearing caches...');
-    await clearAllCaches();
-    safeReload();
+// Check for deployment updates - only in production and after initial load
+if (import.meta.env.PROD) {
+  const hasCheckedThisSession = sessionStorage.getItem('deployment-check-done');
+  
+  if (!hasCheckedThisSession) {
+    // Wait 30 seconds before checking to avoid interfering with initial load
+    setTimeout(() => {
+      checkForDeploymentUpdate().then(async (hasUpdate) => {
+        if (hasUpdate) {
+          sessionStorage.setItem('deployment-check-done', 'true');
+          console.log('[Cache Buster] Update available. Will apply on next visit.');
+          // Update will be applied on next page load, not immediately
+        }
+      });
+    }, 30000);
   }
-});
+}
 
 // Register service worker for offline support
 if ('serviceWorker' in navigator && import.meta.env.PROD) {
@@ -57,22 +66,13 @@ if ('serviceWorker' in navigator && import.meta.env.PROD) {
           if (newWorker) {
             newWorker.addEventListener('statechange', () => {
               if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
-                console.log('[Service Worker] New version available, clearing caches...');
+                console.log('[Service Worker] Update ready, will apply on next visit');
                 
-                // Clear all caches before activating new worker
-                if ('caches' in window) {
-                  caches.keys().then((names) => {
-                    Promise.all(names.map(name => caches.delete(name)))
-                      .then(() => {
-                          // Ask current controller to clear caches
-                          if (navigator.serviceWorker.controller) {
-                            navigator.serviceWorker.controller.postMessage({ type: 'CLEAR_CACHE' });
-                          }
-                          // Send skip waiting message (will trigger controllerchange)
-                          newWorker.postMessage({ type: 'SKIP_WAITING' });
-                      });
-                  });
-                }
+                // Store update flag for next page load
+                sessionStorage.setItem('sw-update-ready', 'true');
+                
+                // Send skip waiting message
+                newWorker.postMessage({ type: 'SKIP_WAITING' });
               }
             });
           }
@@ -96,9 +96,13 @@ if ('serviceWorker' in navigator) {
       return;
     }
     
-    // Only reload if this is a genuine update (not initial page load)
-    console.log('[Service Worker] New version activated');
-    safeReload();
+    // Only clear caches and reload if SW update flag is set
+    const hasUpdate = sessionStorage.getItem('sw-update-ready');
+    if (hasUpdate) {
+      console.log('[Service Worker] Applying update...');
+      sessionStorage.removeItem('sw-update-ready');
+      clearAllCaches().then(() => safeReload());
+    }
   });
 }
 

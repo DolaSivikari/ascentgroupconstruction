@@ -25,6 +25,8 @@ const ValuePillars = () => {
       if (error) throw error;
       return data as ValuePillar[];
     },
+    staleTime: 5 * 60 * 1000, // Cache for 5 minutes
+    refetchOnWindowFocus: false, // Don't refetch when window gains focus
   });
 
   if (isLoading) {
