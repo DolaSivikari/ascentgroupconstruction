@@ -7,6 +7,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import { useKeyboardShortcuts } from "@/hooks/useKeyboardShortcuts";
 import { bustCache } from "@/utils/cacheBuster";
+import OptimizedImage from "../OptimizedImage";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -51,7 +52,15 @@ export const AdminTopBar = () => {
         <div className="flex items-center justify-between">
           {/* Left: Logo + Title */}
           <div className="flex items-center gap-3">
-            <img src={ascentLogoHorizontalDark} alt="Ascent Group Construction" width={160} height={40} className="h-10" />
+            <OptimizedImage
+              src={ascentLogoHorizontalDark}
+              alt="Ascent Group Construction"
+              width={160}
+              height={40}
+              aspectRatio="4/1"
+              generateSrcSet={true}
+              className="h-10"
+            />
             <div>
               <h1 className="text-xl font-bold" style={{ fontFamily: 'Playfair Display, serif' }}>
                 Ascent Group Construction
