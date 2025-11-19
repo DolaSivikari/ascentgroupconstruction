@@ -158,19 +158,21 @@ export function UnifiedFooter({
         </div>
       </div>
 
-      {/* Desktop: 12-Column Grid Layout */}
-      <div className="hidden md:grid md:grid-cols-12 gap-6">
-        {/* Column 1: Logo */}
-        <div className="col-span-1 flex items-start justify-center">
+      {/* Desktop: Flex Layout with Logo Outside Grid */}
+      <div className="hidden md:flex gap-8 items-start">
+        {/* Logo - Positioned to far left, outside normal boundaries */}
+        <div className="flex-shrink-0 -ml-6">
           <img 
             src={ascentLogoVerticalWhite} 
             alt="Ascent Group Construction Logo" 
-            className="h-28 w-auto object-contain"
+            className="h-32 w-auto object-contain"
           />
         </div>
 
-        {/* Column 2-4: Company */}
-        <div className="col-span-3 space-y-3">
+        {/* Content Grid - Takes remaining space */}
+        <div className="flex-1 grid grid-cols-11 gap-6">
+          {/* Column 1-3: Company */}
+          <div className="col-span-3 space-y-3">
           <h3 className="flex items-center gap-2 text-sm font-bold text-foreground">
             <Building2 className="h-5 w-5 text-primary" />
             Company
@@ -191,8 +193,8 @@ export function UnifiedFooter({
           </nav>
         </div>
 
-        {/* Column 5-9: Services */}
-        <div className="col-span-5 space-y-3">
+          {/* Column 4-8: Services */}
+          <div className="col-span-5 space-y-3">
           <h3 className="flex items-center gap-2 text-sm font-bold text-foreground">
             <Wrench className="h-5 w-5 text-primary" />
             Services
@@ -222,8 +224,8 @@ export function UnifiedFooter({
           </nav>
         </div>
 
-        {/* Column 10-12: Get Started + Contact */}
-        <div className="col-span-3 space-y-6">
+          {/* Column 9-11: Get Started + Contact */}
+          <div className="col-span-3 space-y-6">
           {/* Get Started CTA */}
           <div className="space-y-3">
             <h3 className="flex items-center gap-2 text-sm font-bold text-foreground">
@@ -274,6 +276,7 @@ export function UnifiedFooter({
             )}
           </div>
         </div>
+      </div>
       </div>
 
       {/* Bottom Bar */}
