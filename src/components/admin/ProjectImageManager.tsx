@@ -1,6 +1,23 @@
 import React, { useState, useCallback } from 'react';
-import { Upload, X, Image as ImageIcon, Grid, List, Eye, Trash2, Star, Move } from 'lucide-react';
+import { Upload, X, Image as ImageIcon, Grid, List, Eye, Trash2, Star, GripVertical } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
+import {
+  DndContext,
+  closestCenter,
+  KeyboardSensor,
+  PointerSensor,
+  useSensor,
+  useSensors,
+  DragEndEvent,
+} from '@dnd-kit/core';
+import {
+  arrayMove,
+  SortableContext,
+  sortableKeyboardCoordinates,
+  useSortable,
+  rectSortingStrategy,
+} from '@dnd-kit/sortable';
+import { CSS } from '@dnd-kit/utilities';
 
 interface ProjectImage {
   id: string;
@@ -16,6 +33,140 @@ interface ProjectImageManagerProps {
   images: ProjectImage[];
   onImagesUpdate: (images: ProjectImage[]) => void;
 }
+
+interface SortableImageCardProps {
+  image: ProjectImage;
+  viewMode: 'grid' | 'list';
+  categories: Array<{ value: string; label: string; color: string; icon: string }>;
+  onPreview: (image: ProjectImage) => void;
+  onToggleFeatured: (imageId: string) => void;
+  onDelete: (imageId: string, imageUrl: string) => void;
+  onUpdateCaption: (imageId: string, caption: string) => void;
+  onMoveCategory: (imageId: string, newCategory: string) => void;
+}
+
+const SortableImageCard: React.FC<SortableImageCardProps> = ({
+  image,
+  viewMode,
+  categories,
+  onPreview,
+  onToggleFeatured,
+  onDelete,
+  onUpdateCaption,
+  onMoveCategory,
+}) => {
+  const {
+    attributes,
+    listeners,
+    setNodeRef,
+    transform,
+    transition,
+    isDragging,
+  } = useSortable({ id: image.id });
+
+  const style = {
+    transform: CSS.Transform.toString(transform),
+    transition,
+    opacity: isDragging ? 0.5 : 1,
+  };
+
+  return (
+    <div
+      ref={setNodeRef}
+      style={style}
+      className={`group relative bg-card rounded-lg overflow-hidden shadow-md hover:shadow-[var(--shadow-lg)] transition-all ${
+        viewMode === 'list' ? 'flex items-center gap-4 p-3' : ''
+      } ${isDragging ? 'z-50' : ''}`}
+    >
+      {/* Drag Handle */}
+      <div
+        {...attributes}
+        {...listeners}
+        className="absolute top-2 left-2 z-10 bg-background/90 p-1.5 rounded cursor-move hover:bg-accent transition-colors"
+        title="Drag to reorder"
+      >
+        <GripVertical className="w-4 h-4 text-muted-foreground" />
+      </div>
+
+      {/* Featured Star */}
+      {image.featured && (
+        <div className="absolute top-2 left-10 z-10 bg-yellow-400 p-1.5 rounded-full shadow-lg">
+          <Star className="w-4 h-4 fill-yellow-400" />
+        </div>
+      )}
+
+      {/* Category Badge */}
+      <div className={`absolute top-2 right-2 z-10 px-2 py-1 rounded-full text-xs font-medium ${
+        categories.find(c => c.value === image.category)?.color
+      } text-[hsl(var(--bg))]`}>
+        {categories.find(c => c.value === image.category)?.label}
+      </div>
+
+      {/* Image */}
+      <div className={viewMode === 'grid' ? 'aspect-square' : 'w-24 h-24'}>
+        <img
+          src={image.url}
+          alt={image.caption || 'Project image'}
+          className="w-full h-full object-cover cursor-pointer"
+          onClick={() => onPreview(image)}
+        />
+      </div>
+
+      {/* Actions Overlay */}
+      <div className={`${
+        viewMode === 'grid' 
+          ? 'absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100' 
+          : 'flex-1'
+      } flex items-center justify-center gap-2 transition-opacity`}>
+        <button
+          onClick={() => onPreview(image)}
+          className="p-2 bg-background rounded-full hover:bg-accent transition-colors"
+          title="Preview"
+        >
+          <Eye className="w-4 h-4 text-primary" />
+        </button>
+        <button
+          onClick={() => onToggleFeatured(image.id)}
+          className="p-2 bg-background rounded-full hover:bg-accent transition-colors"
+          title="Toggle Featured"
+        >
+          <Star className={`w-4 h-4 ${image.featured ? 'fill-yellow-400 text-yellow-400' : 'text-muted-foreground'}`} />
+        </button>
+        <button
+          onClick={() => onDelete(image.id, image.url)}
+          className="p-2 bg-background rounded-full hover:bg-destructive/10 transition-colors"
+          title="Delete"
+        >
+          <Trash2 className="w-4 h-4 text-destructive" />
+        </button>
+      </div>
+
+      {/* Caption Input (List View) */}
+      {viewMode === 'list' && (
+        <div className="flex-1">
+          <input
+            type="text"
+            value={image.caption || ''}
+            onChange={(e) => onUpdateCaption(image.id, e.target.value)}
+            placeholder="Add caption..."
+            className="w-full px-3 py-2 border border-input rounded-lg bg-background focus:ring-2 focus:ring-ring focus:border-transparent"
+          />
+          <select
+            value={image.category}
+            onChange={(e) => onMoveCategory(image.id, e.target.value)}
+            className="mt-2 w-full px-3 py-1 text-sm border border-input rounded-lg bg-background focus:ring-2 focus:ring-ring"
+          >
+            {categories.filter(c => c.value !== 'all').map(cat => (
+              <option key={cat.value} value={cat.value}>
+                {cat.icon} {cat.label}
+              </option>
+            ))}
+          </select>
+        </div>
+      )}
+    </div>
+  );
+};
 
 export const ProjectImageManager: React.FC<ProjectImageManagerProps> = ({
   projectId,
@@ -169,6 +320,39 @@ export const ProjectImageManager: React.FC<ProjectImageManagerProps> = ({
     );
   };
 
+  // Drag and drop sensors
+  const sensors = useSensors(
+    useSensor(PointerSensor),
+    useSensor(KeyboardSensor, {
+      coordinateGetter: sortableKeyboardCoordinates,
+    })
+  );
+
+  // Handle drag end
+  const handleDragEnd = (event: DragEndEvent) => {
+    const { active, over } = event;
+
+    if (over && active.id !== over.id) {
+      const oldIndex = filteredImages.findIndex((img) => img.id === active.id);
+      const newIndex = filteredImages.findIndex((img) => img.id === over.id);
+
+      const reorderedFiltered = arrayMove(filteredImages, oldIndex, newIndex);
+      
+      // Update order values
+      const updatedFiltered = reorderedFiltered.map((img, index) => ({
+        ...img,
+        order: index,
+      }));
+
+      // Merge with non-filtered images
+      const otherImages = images.filter(
+        (img) => selectedCategory !== 'all' && img.category !== selectedCategory
+      );
+      
+      onImagesUpdate([...otherImages, ...updatedFiltered]);
+    }
+  };
+
   return (
     <div className="space-y-6">
       {/* Header with Stats */}
@@ -275,105 +459,44 @@ export const ProjectImageManager: React.FC<ProjectImageManagerProps> = ({
       )}
 
       {/* Images Grid/List */}
-      <div className={
-        viewMode === 'grid'
-          ? 'grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4'
-          : 'space-y-3'
-      }>
-        {filteredImages.length === 0 ? (
-          <div className="col-span-full text-center py-12 text-muted-foreground">
-            <ImageIcon className="w-16 h-16 mx-auto mb-4 opacity-50" />
-            <p className="text-lg">No images in this category yet</p>
-            <p className="text-sm">Upload images using the drop zones above</p>
-          </div>
-        ) : (
-          filteredImages.map((image) => (
-            <div
-              key={image.id}
-              className={`group relative bg-card rounded-lg overflow-hidden shadow-md hover:shadow-[var(--shadow-lg)] transition-all ${
-                viewMode === 'list' ? 'flex items-center gap-4 p-3' : ''
-              }`}
-            >
-              {/* Featured Star */}
-              {image.featured && (
-                <div className="absolute top-2 left-2 z-10 bg-yellow-400 p-1.5 rounded-full shadow-lg">
-                  <Star className="w-4 h-4 fill-yellow-400" />
-                </div>
-              )}
-
-              {/* Category Badge */}
-              <div className={`absolute top-2 right-2 z-10 px-2 py-1 rounded-full text-xs font-medium ${
-                categories.find(c => c.value === image.category)?.color
-              } text-[hsl(var(--bg))]`}>
-                {categories.find(c => c.value === image.category)?.label}
+      <DndContext
+        sensors={sensors}
+        collisionDetection={closestCenter}
+        onDragEnd={handleDragEnd}
+      >
+        <SortableContext
+          items={filteredImages.map((img) => img.id)}
+          strategy={rectSortingStrategy}
+        >
+          <div className={
+            viewMode === 'grid'
+              ? 'grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4'
+              : 'space-y-3'
+          }>
+            {filteredImages.length === 0 ? (
+              <div className="col-span-full text-center py-12 text-muted-foreground">
+                <ImageIcon className="w-16 h-16 mx-auto mb-4 opacity-50" />
+                <p className="text-lg">No images in this category yet</p>
+                <p className="text-sm">Upload images using the drop zones above</p>
               </div>
-
-              {/* Image */}
-              <div className={viewMode === 'grid' ? 'aspect-square' : 'w-24 h-24'}>
-                <img
-                  src={image.url}
-                  alt={image.caption || 'Project image'}
-                  className="w-full h-full object-cover cursor-pointer"
-                  onClick={() => setPreviewImage(image)}
+            ) : (
+              filteredImages.map((image) => (
+                <SortableImageCard
+                  key={image.id}
+                  image={image}
+                  viewMode={viewMode}
+                  categories={categories}
+                  onPreview={setPreviewImage}
+                  onToggleFeatured={handleToggleFeatured}
+                  onDelete={handleDelete}
+                  onUpdateCaption={handleUpdateCaption}
+                  onMoveCategory={handleMoveCategory}
                 />
-              </div>
-
-              {/* Actions Overlay */}
-              <div className={`${
-                viewMode === 'grid' 
-                  ? 'absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100' 
-                  : 'flex-1'
-              } flex items-center justify-center gap-2 transition-opacity`}>
-                <button
-                  onClick={() => setPreviewImage(image)}
-                  className="p-2 bg-background rounded-full hover:bg-accent transition-colors"
-                  title="Preview"
-                >
-                  <Eye className="w-4 h-4 text-primary" />
-                </button>
-                <button
-                  onClick={() => handleToggleFeatured(image.id)}
-                  className="p-2 bg-background rounded-full hover:bg-accent transition-colors"
-                  title="Toggle Featured"
-                >
-                  <Star className={`w-4 h-4 ${image.featured ? 'fill-yellow-400 text-yellow-400' : 'text-muted-foreground'}`} />
-                </button>
-                <button
-                  onClick={() => handleDelete(image.id, image.url)}
-                  className="p-2 bg-background rounded-full hover:bg-destructive/10 transition-colors"
-                  title="Delete"
-                >
-                  <Trash2 className="w-4 h-4 text-destructive" />
-                </button>
-              </div>
-
-              {/* Caption Input (List View) */}
-              {viewMode === 'list' && (
-                <div className="flex-1">
-                  <input
-                    type="text"
-                    value={image.caption || ''}
-                    onChange={(e) => handleUpdateCaption(image.id, e.target.value)}
-                    placeholder="Add caption..."
-                    className="w-full px-3 py-2 border border-input rounded-lg bg-background focus:ring-2 focus:ring-ring focus:border-transparent"
-                  />
-                  <select
-                    value={image.category}
-                    onChange={(e) => handleMoveCategory(image.id, e.target.value)}
-                    className="mt-2 w-full px-3 py-1 text-sm border border-input rounded-lg bg-background focus:ring-2 focus:ring-ring"
-                  >
-                    {categories.filter(c => c.value !== 'all').map(cat => (
-                      <option key={cat.value} value={cat.value}>
-                        {cat.icon} {cat.label}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-              )}
-            </div>
-          ))
-        )}
-      </div>
+              ))
+            )}
+          </div>
+        </SortableContext>
+      </DndContext>
 
       {/* Image Preview Modal */}
       {previewImage && (
