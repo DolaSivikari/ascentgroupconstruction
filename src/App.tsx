@@ -9,7 +9,7 @@ import ScrollToTop from "./components/ScrollToTop";
 import { trackPageView } from "@/lib/analytics";
 
 // Eager load public pages (critical path)
-import Index from "./pages/Index";
+import { LandingWrapper } from "./components/landing/LandingWrapper";
 import About from "./pages/About";
 import Services from "./pages/Services";
 import Projects from "./pages/Projects";
@@ -191,7 +191,7 @@ const App = () => (
               <Suspense fallback={<PageLoader />}>
                 <Routes>
                   {/* Public pages - eagerly loaded */}
-                  <Route path="/" element={<Index />} />
+                  <Route path="/" element={<LandingWrapper />} />
                   <Route path="/about" element={<About />} />
                   <Route path="/why-specialty-contractor" element={<WhySpecialtyContractor />} />
                   <Route path="/prequalification" element={<Prequalification />} />
