@@ -359,7 +359,7 @@ Add-ons:
       if (error instanceof z.ZodError) {
         toast({
           title: "Validation Error",
-          description: error.errors[0].message,
+          description: error.issues[0].message,
           variant: "destructive",
         });
       } else if (error instanceof Error && error.message.includes("timeout")) {
