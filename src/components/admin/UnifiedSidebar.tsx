@@ -1,4 +1,4 @@
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { 
   LayoutDashboard, 
   Briefcase, 
@@ -34,12 +34,15 @@ import {
   FolderOpen,
   Menu,
   ImageIcon,
-  History
+  History,
+  LogOut
 } from 'lucide-react';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { GlobalSearch } from './GlobalSearch';
+import { supabase } from '@/integrations/supabase/client';
+import { useToast } from '@/hooks/use-toast';
 
 interface UnifiedSidebarProps {
   collapsed: boolean;
@@ -52,6 +55,17 @@ interface UnifiedSidebarProps {
 export const UnifiedSidebar = ({ collapsed, onToggle, mobileOpen, onMobileClose, onRestartOnboarding }: UnifiedSidebarProps) => {
   const location = useLocation();
   const currentPath = location.pathname;
+  const { toast } = useToast();
+  const navigate = useNavigate();
+
+  const handleSignOut = async () => {
+    await supabase.auth.signOut();
+    toast({
+      title: "Signed out",
+      description: "You've been successfully signed out.",
+    });
+    navigate("/auth");
+  };
 
   // Close mobile menu on route change
   useEffect(() => {
@@ -260,6 +274,17 @@ export const UnifiedSidebar = ({ collapsed, onToggle, mobileOpen, onMobileClose,
         {/* Admin Section */}
         <nav style={{ marginBottom: '1.5rem' }}>
           <NavItem to="/admin/users" icon={Shield} label="👥 User Management" />
+        </nav>
+
+        {/* Logout Section */}
+        <nav style={{ marginBottom: '1.5rem' }}>
+          <button
+            onClick={handleSignOut}
+            className="business-nav-item text-destructive hover:bg-destructive/10"
+          >
+            <LogOut className="business-nav-icon" />
+            {!collapsed && <span>Sign Out</span>}
+          </button>
         </nav>
 
         {onRestartOnboarding && !collapsed && (
