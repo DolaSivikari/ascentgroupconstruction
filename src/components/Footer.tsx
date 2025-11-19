@@ -114,7 +114,7 @@ const Footer = () => {
       <SEO structuredData={citationSchema} />
       <footer className="relative w-full bg-background border-t border-border">
         {/* Logo - Absolutely positioned on left */}
-        <div className="hidden md:block absolute left-[156px] top-1/2 -translate-y-1/2">
+        <div className="hidden md:block absolute left-[156px] top-[calc(50%-38px)] -translate-y-1/2">
           <img 
             src={ascentLogoVerticalDark}
             alt="Ascent Group Construction Logo"
