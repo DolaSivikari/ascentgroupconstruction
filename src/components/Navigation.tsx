@@ -7,6 +7,8 @@ import { useCompanySettings } from "@/hooks/useCompanySettings";
 import { supabase } from "@/integrations/supabase/client";
 import { MegaMenuWithSections } from "./navigation/MegaMenuWithSections";
 import { MobileNavSheet } from "./navigation/MobileNavSheet";
+import ascentLogoHorizontalDark from "@/assets/ascent-logo-horizontal-dark.png";
+import ascentLogoHorizontalLight from "@/assets/ascent-logo-horizontal-light.png";
 
 import { megaMenuDataEnhanced } from "@/data/navigation-structure-enhanced";
 import { cn } from "@/lib/utils";
@@ -156,7 +158,17 @@ const Navigation = () => {
         <div className="hidden md:flex items-center justify-between w-full h-20">
           {/* Left: Logo + Company Name */}
           <div className="flex items-center">
-            {/* Logo removed */}
+            <Link 
+              to="/" 
+              className="flex-shrink-0 group"
+              aria-label="Ascent Group Construction - Home"
+            >
+              <img
+                src={isHeroPage && isAtTop ? ascentLogoHorizontalLight : ascentLogoHorizontalDark}
+                alt="Ascent Group Construction Logo"
+                className="h-14 md:h-16 lg:h-18 w-auto hover-scale-icon transition-all duration-500"
+              />
+            </Link>
           </div>
 
           {/* Center: Main Navigation */}
