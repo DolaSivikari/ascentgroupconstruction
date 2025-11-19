@@ -14,6 +14,7 @@ import { MultiImageUpload } from "@/components/admin/MultiImageUpload";
 import { generatePreviewToken } from "@/utils/routeHelpers";
 import { useUnsavedChanges } from "@/hooks/useUnsavedChanges";
 import { ConfirmDialog } from "@/components/admin/ConfirmDialog";
+import { RichTextEditor } from "@/components/admin/RichTextEditor";
 
 const BlogPostEditor = () => {
   const { id } = useParams();
@@ -326,26 +327,16 @@ const BlogPostEditor = () => {
                 </p>
               </div>
 
-              <div>
-                <Label htmlFor="content">Content *</Label>
-                <Textarea
-                  id="content"
-                  value={formData.content}
-                  onChange={(e) => setFormData({ ...formData, content: e.target.value })}
-                  rows={15}
-                  required
-                  placeholder="Write your blog post content here..."
-                />
-                <p className="text-xs text-muted-foreground mt-1">
-                  {formData.content.length.toLocaleString()} / 50,000 characters
-                  {formData.content.length > 45000 && (
-                    <span className="text-warning ml-2">⚠️ Approaching limit</span>
-                  )}
-                  {formData.content.length >= 50000 && (
-                    <span className="text-destructive ml-2">⛔ Maximum reached</span>
-                  )}
-                </p>
-              </div>
+              <RichTextEditor
+                id="content"
+                label="Content *"
+                value={formData.content || ''}
+                onChange={(value) => setFormData({ ...formData, content: value })}
+                placeholder="Write your blog post content here..."
+                required
+                minHeight="300px"
+                maxLength={50000}
+              />
 
               <div className="grid grid-cols-2 gap-4">
               <div>
@@ -580,38 +571,35 @@ const BlogPostEditor = () => {
                   />
                 </div>
 
-                <div>
-                  <Label htmlFor="challenge">Challenge</Label>
-                  <Textarea
-                    id="challenge"
-                    value={formData.challenge}
-                    onChange={(e) => setFormData({ ...formData, challenge: e.target.value })}
-                    rows={3}
-                    placeholder="What was the main challenge?"
-                  />
-                </div>
+                <RichTextEditor
+                  id="challenge"
+                  label="Challenge"
+                  value={formData.challenge || ''}
+                  onChange={(value) => setFormData({ ...formData, challenge: value })}
+                  placeholder="What was the main challenge?"
+                  minHeight="150px"
+                  maxLength={2000}
+                />
 
-                <div>
-                  <Label htmlFor="solution">Solution</Label>
-                  <Textarea
-                    id="solution"
-                    value={formData.solution}
-                    onChange={(e) => setFormData({ ...formData, solution: e.target.value })}
-                    rows={3}
-                    placeholder="How did you solve it?"
-                  />
-                </div>
+                <RichTextEditor
+                  id="solution"
+                  label="Solution"
+                  value={formData.solution || ''}
+                  onChange={(value) => setFormData({ ...formData, solution: value })}
+                  placeholder="How did you solve it?"
+                  minHeight="150px"
+                  maxLength={2000}
+                />
 
-                <div>
-                  <Label htmlFor="results">Results</Label>
-                  <Textarea
-                    id="results"
-                    value={formData.results}
-                    onChange={(e) => setFormData({ ...formData, results: e.target.value })}
-                    rows={3}
-                    placeholder="What were the outcomes?"
-                  />
-                </div>
+                <RichTextEditor
+                  id="results"
+                  label="Results"
+                  value={formData.results || ''}
+                  onChange={(value) => setFormData({ ...formData, results: value })}
+                  placeholder="What were the outcomes?"
+                  minHeight="150px"
+                  maxLength={2000}
+                />
               </CardContent>
             </Card>
           )}

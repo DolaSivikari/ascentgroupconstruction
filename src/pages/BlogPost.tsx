@@ -91,9 +91,19 @@ const BlogPost = () => {
         year: 'numeric'
       });
 
-  // Convert content to HTML (simple version for database content)
+  // Convert content to HTML (handle both plain text and rich HTML)
   const formatContent = (content: string) => {
     if (!content) return '';
+    
+    // Check if content already contains HTML tags (rich text)
+    const hasHTMLTags = /<[a-z][\s\S]*>/i.test(content);
+    
+    if (hasHTMLTags) {
+      // Content is already HTML from rich text editor
+      return content;
+    }
+    
+    // Convert plain text to paragraphs
     return content
       .split('\n\n')
       .map((paragraph, idx) => `<p key="${idx}" class="text-foreground/90 leading-relaxed mb-4">${paragraph}</p>`)
