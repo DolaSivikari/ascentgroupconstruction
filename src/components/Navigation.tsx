@@ -161,8 +161,9 @@ const Navigation = () => {
             <OptimizedImage
               src={isHeroPage && isAtTop ? ascentLogoHorizontalLight : ascentLogoHorizontalDark}
               alt="Ascent Group Construction Logo"
-              width={240}
-              height={60}
+              width={250}
+              height={100}
+              aspectRatio="5/2"
               className="h-14 md:h-18 lg:h-20 w-auto hover-scale-icon transition-all duration-300"
               priority
             />
