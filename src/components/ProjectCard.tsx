@@ -54,93 +54,96 @@ const ProjectCard = ({
       variant="interactive"
       hover
       size="sm"
-      className="group cursor-pointer overflow-hidden"
+      className="group cursor-pointer overflow-hidden h-full"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       onClick={() => onViewDetails(slug)}
     >
-      {/* Image Container - PCL style with entrance animation */}
-      <div className={cn("relative overflow-hidden", ASPECT_RATIOS.card)}>
+      {/* Image Container - Modern compact aspect ratio */}
+      <div className="relative overflow-hidden aspect-[16/10]">
         <ScrollReveal direction="up" threshold={0.2}>
           <OptimizedImage
             src={resolveAssetPath(image) || "/placeholder.svg"}
             alt={title}
-            aspectRatio="4:3"
+            aspectRatio="16:10"
             generateSrcSet
             className={cn(
-              "w-full h-full object-cover object-center transition-transform duration-300 animate-fade-in",
-              isHovered && "scale-[1.15]"
+              "w-full h-full object-cover object-center transition-all duration-500 animate-fade-in",
+              isHovered && "scale-105 brightness-90"
             )}
           />
         </ScrollReveal>
         
-        {/* Clean overlay on hover */}
+        {/* Subtle gradient overlay */}
+        <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-background/20 to-transparent opacity-60" />
+        
+        {/* Elegant hover overlay */}
         <div className={cn(
-          "absolute inset-0 bg-primary/90 flex items-center justify-center transition-opacity duration-300",
+          "absolute inset-0 bg-gradient-to-br from-primary/95 via-primary/90 to-primary-foreground/95 flex items-center justify-center transition-all duration-500",
           isHovered ? "opacity-100" : "opacity-0"
         )}>
-          <div className="text-center px-6">
-            <Button variant="secondary" size="sm">
-              <Eye className="w-4 h-4 mr-2" />
+          <div className="text-center px-4 transform transition-transform duration-500" style={{ transform: isHovered ? 'translateY(0)' : 'translateY(10px)' }}>
+            <Button variant="secondary" size="sm" className="shadow-lg">
+              <Eye className="w-3.5 h-3.5 mr-1.5" />
               View Project
             </Button>
           </div>
         </div>
         
-        {/* Simple category badge */}
-        <div className="absolute top-4 right-4">
-          <Badge variant="primary" size="sm">{category}</Badge>
+        {/* Refined category badge */}
+        <div className="absolute top-3 right-3">
+          <Badge variant="primary" size="sm" className="backdrop-blur-sm bg-primary/90">{category}</Badge>
         </div>
       </div>
       
-      {/* Card Content - Clean PCL style */}
-      <CardContent className="p-6">
-        <h3 className="text-lg font-bold mb-3 line-clamp-2">{title}</h3>
+      {/* Card Content - Elegant and compact */}
+      <CardContent className="p-4">
+        <h3 className="text-base font-semibold mb-2 line-clamp-2 group-hover:text-primary transition-colors">{title}</h3>
         
-        {/* Compact stats */}
-        <div className="flex items-center gap-4 text-sm text-muted-foreground mb-3">
+        {/* Refined metadata */}
+        <div className="flex items-center gap-3 text-xs text-muted-foreground mb-2.5">
           <div className="flex items-center gap-1">
-            <MapPin className="w-4 h-4" />
+            <MapPin className="w-3.5 h-3.5" />
             <span>{location}</span>
           </div>
           <div className="flex items-center gap-1">
-            <Calendar className="w-4 h-4" />
+            <Calendar className="w-3.5 h-3.5" />
             <span>{year}</span>
           </div>
         </div>
         
-        {/* GC Metrics Badges */}
+        {/* Compact GC Metrics Badges */}
         {(project_value || your_role || on_time_completion !== undefined || on_budget !== undefined || safety_incidents !== undefined) && (
-          <div className="flex flex-wrap gap-1.5 mb-3">
+          <div className="flex flex-wrap gap-1 mb-2">
             {project_value && (
-              <Badge variant="outline" size="sm">
+              <Badge variant="outline" size="sm" className="text-xs px-2 py-0">
                 ${(project_value / 100 / 1000000).toFixed(1)}M
               </Badge>
             )}
             {your_role && (
-              <Badge variant="outline" size="sm">
+              <Badge variant="outline" size="sm" className="text-xs px-2 py-0">
                 {your_role}
               </Badge>
             )}
             {on_time_completion && (
-              <Badge variant="success" size="sm" icon={CheckCircle2}>
+              <Badge variant="success" size="sm" icon={CheckCircle2} className="text-xs px-2 py-0">
                 On-Time
               </Badge>
             )}
             {on_budget && (
-              <Badge variant="success" size="sm" icon={DollarSign}>
+              <Badge variant="success" size="sm" icon={DollarSign} className="text-xs px-2 py-0">
                 On-Budget
               </Badge>
             )}
             {safety_incidents === 0 && (
-              <Badge variant="success" size="sm" icon={Shield}>
+              <Badge variant="success" size="sm" icon={Shield} className="text-xs px-2 py-0">
                 Zero Incidents
               </Badge>
             )}
           </div>
         )}
         
-        <p className="text-sm text-muted-foreground line-clamp-2">{description}</p>
+        <p className="text-xs text-muted-foreground line-clamp-2 leading-relaxed">{description}</p>
       </CardContent>
     </Card>
   );
