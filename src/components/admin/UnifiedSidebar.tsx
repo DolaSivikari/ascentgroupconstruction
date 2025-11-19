@@ -98,33 +98,31 @@ export const UnifiedSidebar = ({ collapsed, onToggle, mobileOpen, onMobileClose,
   );
 
   const contentItems = [
-    { title: "Services", url: "/admin/services-manager", icon: Wrench },
     { title: "Projects", url: "/admin/projects", icon: Building },
-    { title: "Blog Posts", url: "/admin/blog-posts", icon: FileText },
-    { title: "Testimonials", url: "/admin/testimonials", icon: Quote },
+    { title: "Services", url: "/admin/services", icon: Wrench },
+    { title: "Blog Posts", url: "/admin/blog", icon: FileText },
+    { title: "Testimonials", url: "/admin/testimonials", icon: MessageSquare },
     { title: "Stats & Badges", url: "/admin/stats", icon: Award },
-    { title: "Documents", url: "/admin/documents-library", icon: FolderOpen },
-    { title: "Media Library", url: "/admin/media-library", icon: Image },
+    { title: "Documents", url: "/admin/documents-library", icon: FileCheck },
+    { title: "Media Library", url: "/admin/media", icon: Image },
   ];
 
   const appearanceItems = [
     { title: "Homepage", url: "/admin/homepage-builder", icon: Layout },
     { title: "Hero Slides", url: "/admin/hero-images", icon: ImageIcon },
-    { title: "Navigation", url: "/admin/navigation-builder", icon: Menu },
+    { title: "Navigation", url: "/admin/navigation", icon: Navigation },
+    { title: "Footer Settings", url: "/admin/settings?tab=footer", icon: Layout },
+    { title: "About Page", url: "/admin/settings?tab=about", icon: BookOpen },
+    { title: "Contact Page", url: "/admin/settings?tab=contact", icon: Mail },
   ];
 
   const toolsItems = [
-    { title: "SEO Dashboard", url: "/admin/seo-dashboard", icon: BarChart },
+    { title: "SEO Dashboard", url: "/admin/seo-dashboard", icon: Search },
     { title: "Redirects", url: "/admin/redirects", icon: ArrowRightLeft },
     { title: "Performance", url: "/admin/performance-dashboard", icon: Activity },
-    { title: "Search Analytics", url: "/admin/search-analytics", icon: Database },
-    { title: "Audit Log", url: "/admin/audit", icon: Shield },
-    { title: "Monitoring", url: "/admin/monitoring", icon: AlertTriangle },
-    { title: "Versions", url: "/admin/content-versions", icon: History },
-  ];
-
-  const adminItems = [
-    { title: "Users", url: "/admin/users", icon: Shield },
+    { title: "Search Analytics", url: "/admin/search-analytics", icon: BarChart },
+    { title: "Structured Data", url: "/admin/structured-data", icon: Database },
+    { title: "Settings Health", url: "/admin/settings?tab=health", icon: AlertTriangle },
   ];
 
   return (
@@ -188,12 +186,12 @@ export const UnifiedSidebar = ({ collapsed, onToggle, mobileOpen, onMobileClose,
           </div>
         )}
 
-        {/* Main Dashboard */}
+        {/* 1. Dashboard - Primary Entry Point */}
         <nav style={{ marginBottom: '1.5rem' }}>
           <NavItem to="/admin" icon={LayoutDashboard} label="Dashboard" />
         </nav>
 
-        {/* Content Management Section */}
+        {/* 2. Content Management - Core Business Data */}
         <Collapsible open={contentOpen} onOpenChange={setContentOpen} data-tour="content">
           <CollapsibleTrigger className="business-nav-group-label">
             {!collapsed && (
@@ -205,18 +203,14 @@ export const UnifiedSidebar = ({ collapsed, onToggle, mobileOpen, onMobileClose,
           </CollapsibleTrigger>
           <CollapsibleContent>
             <nav className="business-nav-group">
-              <NavItem to="/admin/projects" icon={Folder} label="Projects" />
-              <NavItem to="/admin/services" icon={Package} label="Services" />
-              <NavItem to="/admin/blog" icon={FileText} label="Blog Posts" />
-              <NavItem to="/admin/testimonials" icon={MessageSquare} label="Testimonials" />
-              <NavItem to="/admin/stats" icon={BarChart} label="Stats & Badges" />
-              <NavItem to="/admin/documents-library" icon={FileCheck} label="Documents" />
-              <NavItem to="/admin/media" icon={Image} label="Media Library" />
+              {contentItems.map((item) => (
+                <NavItem key={item.url} to={item.url} icon={item.icon} label={item.title} />
+              ))}
             </nav>
           </CollapsibleContent>
         </Collapsible>
 
-        {/* Appearance Section (NEW) */}
+        {/* 3. Appearance - Visual Design & Layout */}
         <Collapsible open={appearanceOpen} onOpenChange={setAppearanceOpen} data-tour="appearance">
           <CollapsibleTrigger className="business-nav-group-label">
             {!collapsed && (
@@ -228,55 +222,48 @@ export const UnifiedSidebar = ({ collapsed, onToggle, mobileOpen, onMobileClose,
           </CollapsibleTrigger>
           <CollapsibleContent>
             <nav className="business-nav-group">
-              <NavItem to="/admin/homepage-builder" icon={Layout} label="Homepage Builder" />
-              <NavItem to="/admin/hero-images" icon={ImageIcon} label="Hero Slides" />
-              <NavItem to="/admin/navigation" icon={Menu} label="Navigation" />
-              <NavItem to="/admin/settings?tab=footer" icon={Layout} label="Footer Settings" />
-              <NavItem to="/admin/settings?tab=about" icon={FileText} label="About Page" />
-              <NavItem to="/admin/settings?tab=contact" icon={Mail} label="Contact Page" />
+              {appearanceItems.map((item) => (
+                <NavItem key={item.url} to={item.url} icon={item.icon} label={item.title} />
+              ))}
             </nav>
           </CollapsibleContent>
         </Collapsible>
 
-        {/* Inbox Section */}
+        {/* 4. Inbox - Communications Hub */}
         <nav style={{ marginBottom: '1.5rem' }} data-tour="inbox">
-          <NavItem to="/admin/inbox" icon={Mail} label="📬 Unified Inbox" />
+          <NavItem to="/admin/inbox" icon={Mail} label="Inbox" />
         </nav>
 
-        {/* Business Tools Section */}
-        {/* Tools Section (NEW) */}
+        {/* 5. Tools - Analytics & Optimization */}
         <Collapsible open={toolsOpen} onOpenChange={setToolsOpen} data-tour="tools">
           <CollapsibleTrigger className="business-nav-group-label">
             {!collapsed && (
               <>
-                <Search size={16} />
+                <Wrench size={16} />
                 <span>Tools</span>
               </>
             )}
           </CollapsibleTrigger>
           <CollapsibleContent>
             <nav className="business-nav-group">
-              <NavItem to="/admin/seo-dashboard" icon={Search} label="SEO Dashboard" />
-              <NavItem to="/admin/redirects" icon={ArrowRightLeft} label="Redirects" />
-              <NavItem to="/admin/structured-data" icon={Database} label="Structured Data" />
-              <NavItem to="/admin/performance-dashboard" icon={Activity} label="Performance" />
-              <NavItem to="/admin/search-analytics" icon={Search} label="Search Analytics" />
-              <NavItem to="/admin/settings?tab=health" icon={Wrench} label="Settings Health" />
+              {toolsItems.map((item) => (
+                <NavItem key={item.url} to={item.url} icon={item.icon} label={item.title} />
+              ))}
             </nav>
           </CollapsibleContent>
         </Collapsible>
 
-        {/* Settings - Top Level */}
+        {/* 6. Settings - Configuration */}
         <nav style={{ marginBottom: '1.5rem' }} data-tour="settings">
-          <NavItem to="/admin/settings" icon={Settings} label="⚙️ Settings" />
+          <NavItem to="/admin/settings" icon={Settings} label="Settings" />
         </nav>
 
-        {/* Admin Section */}
+        {/* 7. User Management - Admin Control */}
         <nav style={{ marginBottom: '1.5rem' }}>
-          <NavItem to="/admin/users" icon={Shield} label="👥 User Management" />
+          <NavItem to="/admin/users" icon={Users} label="User Management" />
         </nav>
 
-        {/* Logout Section */}
+        {/* 8. Sign Out - Authentication */}
         <nav style={{ marginBottom: '1.5rem' }}>
           <button
             onClick={handleSignOut}
@@ -287,6 +274,7 @@ export const UnifiedSidebar = ({ collapsed, onToggle, mobileOpen, onMobileClose,
           </button>
         </nav>
 
+        {/* 9. Restart Tour - Help Feature */}
         {onRestartOnboarding && !collapsed && (
           <button 
             onClick={onRestartOnboarding}
