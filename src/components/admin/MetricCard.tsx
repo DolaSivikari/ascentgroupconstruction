@@ -42,16 +42,16 @@ const MetricCard = ({ title, value, icon: Icon, trend, badge, onClick }: MetricC
       <CardContent>
         <div className="flex items-end justify-between">
           <div className="space-y-2">
-            <div className="text-4xl font-bold text-foreground tracking-tight group-hover:text-primary transition-colors duration-300">
+            <div className="text-4xl font-bold text-black tracking-tight transition-colors duration-300">
               {value}
             </div>
             {trend && (
               <div className={cn(
-                "inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium",
+                "inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium text-black",
                 "transition-all duration-300 group-hover:scale-105",
                 trend.isPositive 
-                  ? 'bg-green-500/10 text-green-700 dark:text-green-400' 
-                  : 'bg-red-500/10 text-red-700 dark:text-red-400'
+                  ? 'bg-green-500/10' 
+                  : 'bg-red-500/10'
               )}>
                 {trend.isPositive ? (
                   <TrendingUp className="h-3.5 w-3.5" />
