@@ -12,7 +12,7 @@ export const LandingPanel = ({ title, subtitle, link, onNavigate }: LandingPanel
     <Link
       to={link}
       onClick={onNavigate}
-      className="relative group flex-1 min-h-screen flex flex-col items-center justify-end pb-12 px-8 border-b-2 lg:border-b-0 lg:border-r-2 border-white/30 last:border-b-0 last:border-r-0 transition-all duration-500"
+      className="relative group flex-1 min-h-screen flex flex-col items-center justify-end pb-12 px-8 border-b-2 lg:border-b-0 lg:border-r-2 border-white/60 last:border-b-0 last:border-r-0 transition-all duration-500"
     >
       {/* Semi-transparent overlay - dark by default, orange on hover */}
       <div className="absolute inset-0 bg-black/60 group-hover:bg-[hsl(20,95%,50%)]/85 transition-all duration-500" />
