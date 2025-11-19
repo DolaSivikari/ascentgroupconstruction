@@ -84,6 +84,17 @@ if ('serviceWorker' in navigator && import.meta.env.PROD) {
   });
 }
 
+// Track user activity for smart reload timing
+let lastActivity = Date.now();
+const updateActivity = () => {
+  lastActivity = Date.now();
+  sessionStorage.setItem('last-activity', lastActivity.toString());
+};
+
+['mousedown', 'keydown', 'scroll', 'touchstart'].forEach(event => {
+  window.addEventListener(event, updateActivity, { passive: true });
+});
+
 // Listen for controller changes to ensure new SW takes control
 if ('serviceWorker' in navigator) {
   let isFirstControllerChange = true;
@@ -99,9 +110,31 @@ if ('serviceWorker' in navigator) {
     // Only clear caches and reload if SW update flag is set
     const hasUpdate = sessionStorage.getItem('sw-update-ready');
     if (hasUpdate) {
-      console.log('[Service Worker] Applying update...');
-      sessionStorage.removeItem('sw-update-ready');
-      clearAllCaches().then(() => safeReload());
+      console.log('[Service Worker] Update detected');
+      
+      // Check if user has been inactive for 5+ seconds
+      const timeSinceActivity = Date.now() - lastActivity;
+      
+      if (timeSinceActivity > 5000) {
+        // User is idle, safe to reload
+        console.log('[Service Worker] User idle, applying update...');
+        sessionStorage.removeItem('sw-update-ready');
+        clearAllCaches().then(() => safeReload());
+      } else {
+        // User is active, defer reload
+        console.log('[Service Worker] User active, deferring update...');
+        sessionStorage.setItem('deferred-reload', 'true');
+        
+        // Check again in 10 seconds
+        setTimeout(() => {
+          const stillHasUpdate = sessionStorage.getItem('deferred-reload');
+          if (stillHasUpdate) {
+            sessionStorage.removeItem('deferred-reload');
+            sessionStorage.removeItem('sw-update-ready');
+            clearAllCaches().then(() => safeReload());
+          }
+        }, 10000);
+      }
     }
   });
 }
