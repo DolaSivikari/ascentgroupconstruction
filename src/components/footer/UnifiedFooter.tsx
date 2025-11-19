@@ -24,6 +24,7 @@ interface UnifiedFooterProps {
   linkedinUrl?: string;
   foundedYear: number;
   services: Service[];
+  showLogo?: boolean;
 }
 
 export function UnifiedFooter({
@@ -32,6 +33,7 @@ export function UnifiedFooter({
   linkedinUrl,
   foundedYear,
   services,
+  showLogo = true,
 }: UnifiedFooterProps) {
   const currentYear = new Date().getFullYear();
   const { phone, email, address } = contactInfo;
@@ -161,13 +163,15 @@ export function UnifiedFooter({
       {/* Desktop: Flex Layout with Logo Outside Grid */}
       <div className="hidden md:flex gap-8 items-start">
         {/* Logo - Positioned to far left, outside normal boundaries */}
-        <div className="flex-shrink-0 -ml-16">
-          <img 
-            src={ascentLogoVerticalWhite} 
-            alt="Ascent Group Construction Logo" 
-            className="h-32 w-auto object-contain"
-          />
-        </div>
+        {showLogo && (
+          <div className="flex-shrink-0 -ml-16">
+            <img 
+              src={ascentLogoVerticalWhite} 
+              alt="Ascent Group Construction Logo" 
+              className="h-32 w-auto object-contain"
+            />
+          </div>
+        )}
 
         {/* Content Grid - Takes remaining space */}
         <div className="flex-1 grid grid-cols-11 gap-6">
