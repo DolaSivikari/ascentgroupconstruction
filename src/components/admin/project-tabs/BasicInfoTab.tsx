@@ -131,6 +131,7 @@ export const BasicInfoTab = ({ formData, slugStatus, onFormChange }: BasicInfoTa
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="Commercial">Commercial</SelectItem>
+              <SelectItem value="Residential">Residential</SelectItem>
               <SelectItem value="Multi-Family">Multi-Family</SelectItem>
               <SelectItem value="Institutional">Institutional</SelectItem>
               <SelectItem value="Industrial">Industrial</SelectItem>
