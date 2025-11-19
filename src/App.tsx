@@ -252,7 +252,7 @@ const App = () => (
                   <Route path="/our-process" element={<OurProcess />} />
                   <Route path="/sustainability" element={<Sustainability />} />
                   <Route path="/faq" element={<FAQ />} />
-                  <Route path="/auth" element={<Auth />} />
+                  <Route path="/tekev" element={<Auth />} />
                   <Route path="/company/certifications-insurance" element={<CertificationsInsurance />} />
                   <Route path="/company/equipment-resources" element={<EquipmentResources />} />
                   <Route path="/company/developers" element={<Developers />} />

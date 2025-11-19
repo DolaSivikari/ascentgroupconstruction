@@ -64,7 +64,7 @@ export const UnifiedSidebar = ({ collapsed, onToggle, mobileOpen, onMobileClose,
       title: "Signed out",
       description: "You've been successfully signed out.",
     });
-    navigate("/auth");
+    navigate("/tekev");
   };
 
   // Close mobile menu on route change

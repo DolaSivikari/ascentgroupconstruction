@@ -143,7 +143,7 @@ export default function SEODashboard() {
     const { data: { session } } = await supabase.auth.getSession();
     
     if (!session) {
-      navigate('/auth');
+      navigate('/tekev');
       return;
     }
 

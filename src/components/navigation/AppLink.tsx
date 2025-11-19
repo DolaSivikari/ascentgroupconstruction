@@ -37,6 +37,7 @@ const KNOWN_ROUTES = [
   "/company/developers",
   "/resources/service-areas",
   "/resources/contractor-portal",
+  "/tekev",
   "/admin",
 ];
 
