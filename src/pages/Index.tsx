@@ -135,12 +135,8 @@ const Index = () => {
       "LEED consulting",
       "commercial construction",
       "multi-family construction"
-    ],
-    "aggregateRating": {
-      "@type": "AggregateRating",
-      "ratingValue": "4.9",
-      "reviewCount": "150"
-    }
+    ]
+    // Note: aggregateRating removed - real ratings will be added via useAggregateRating hook
   };
 
   // Why Choose Us Structured Data

@@ -3,12 +3,18 @@ interface OrganizationSchemaOptions {
   description?: string;
   url?: string;
   logo?: string;
+  aggregateRating?: {
+    ratingValue: string;
+    reviewCount: string;
+    bestRating?: string;
+    worstRating?: string;
+  };
 }
 
 export const organizationSchema = (options?: OrganizationSchemaOptions) => {
   const siteUrl = typeof window !== "undefined" ? window.location.origin : "";
   
-  return {
+  const schema: any = {
     "@context": "https://schema.org",
     "@type": "GeneralContractor",
     name: options?.name || "Ascent Group Construction",
@@ -39,6 +45,19 @@ export const organizationSchema = (options?: OrganizationSchemaOptions) => {
     ],
     priceRange: "$$$$",
   };
+
+  // Only add aggregateRating if there are real reviews
+  if (options?.aggregateRating && parseInt(options.aggregateRating.reviewCount) > 0) {
+    schema.aggregateRating = {
+      "@type": "AggregateRating",
+      ratingValue: options.aggregateRating.ratingValue,
+      reviewCount: options.aggregateRating.reviewCount,
+      bestRating: options.aggregateRating.bestRating || "5",
+      worstRating: options.aggregateRating.worstRating || "1",
+    };
+  }
+
+  return schema;
 };
 
 interface ServiceSchemaOptions {

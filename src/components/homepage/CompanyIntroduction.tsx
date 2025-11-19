@@ -6,16 +6,21 @@ import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { cn } from "@/lib/utils";
 import { SectionBadge } from "@/components/ui/SectionBadge";
 import { Section } from "@/components/sections/Section";
+import { useAggregateRating } from "@/hooks/useAggregateRating";
 
 export default function CompanyIntroduction() {
   const { ref: headerRef, isVisible: headerVisible } = useScrollReveal({ threshold: 0.2 });
   const { ref: contentRef, isVisible: contentVisible } = useScrollReveal({ threshold: 0.1 });
   const { ref: highlightsRef, isVisible: highlightsVisible } = useScrollReveal({ threshold: 0.1 });
   
+  // Fetch real aggregate rating
+  const { aggregateRating, hasRatings } = useAggregateRating();
+  
   const schema = organizationSchema({
     name: "Ascent Group Construction",
     description: "Lead/specialty contractor for building envelope & restoration in Toronto (GTA) — façade remediation, waterproofing, sealants, EIFS/stucco, masonry, concrete & parking-garage repair.",
     url: typeof window !== "undefined" ? window.location.origin : "",
+    aggregateRating: hasRatings ? aggregateRating : undefined,
   });
 
   return (
