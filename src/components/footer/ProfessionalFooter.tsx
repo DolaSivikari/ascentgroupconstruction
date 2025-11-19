@@ -64,9 +64,9 @@ export const ProfessionalFooter = ({
                 <OptimizedImage
                   src={logoUrl}
                   alt="Ascent Group Construction"
-                  width={200}
-                  height={80}
-                  aspectRatio="5/2"
+                  width={120}
+                  height={180}
+                  aspectRatio="2/3"
                   className="h-16 w-auto"
                 />
                 <p className="text-sm text-muted-foreground leading-relaxed">
@@ -170,9 +170,9 @@ export const ProfessionalFooter = ({
           <OptimizedImage
             src={logoUrl}
             alt="Ascent Group Construction"
-            width={200}
-            height={80}
-            aspectRatio="5/2"
+            width={133}
+            height={200}
+            aspectRatio="2/3"
             generateSrcSet={true}
             className="h-20 w-auto"
           />
