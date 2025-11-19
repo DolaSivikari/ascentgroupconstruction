@@ -11,6 +11,7 @@ import silverstone from "@/assets/partners/silverstone.png";
 import durmusGroup from "@/assets/partners/durmus-group.png";
 import skocc from "@/assets/partners/skocc.jpg";
 import musiadCanada from "@/assets/partners/musiad-canada.svg";
+import studiosHoldings from "@/assets/partners/studios-holdings.png";
 
 interface Partner {
   name: string;
@@ -36,6 +37,7 @@ const partners: Partner[] = [
   { name: "Durmus Group", url: "https://www.durmusgroup.ca/", category: "fabrication", logo: durmusGroup },
   { name: "SKOCC", url: "https://skocc.ca/", category: "fabrication", logo: skocc },
   { name: "MÜSİAD Canada", url: "https://musiadcanada.org/", category: "affiliations", logo: musiadCanada },
+  { name: "Studios Holdings", url: "https://www.studiosholdings.com/", category: "affiliations", logo: studiosHoldings },
 ];
 
 const categoryConfig = {
