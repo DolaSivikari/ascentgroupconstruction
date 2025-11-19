@@ -1,8 +1,13 @@
+import { useState } from "react";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Sparkles } from "lucide-react";
+import { useToast } from "@/hooks/use-toast";
+import { supabase } from "@/integrations/supabase/client";
 
 interface SEOTabProps {
   formData: any;
@@ -10,12 +15,74 @@ interface SEOTabProps {
 }
 
 export const SEOTab = ({ formData, onFormChange }: SEOTabProps) => {
+  const [isGenerating, setIsGenerating] = useState(false);
+  const { toast } = useToast();
+
+  const canGenerate = formData.title && (formData.subtitle || formData.summary || formData.description);
+
+  const handleGenerateSEO = async () => {
+    if (!canGenerate) return;
+
+    setIsGenerating(true);
+    try {
+      const { data, error } = await supabase.functions.invoke('generate-seo-content', {
+        body: {
+          title: formData.title,
+          subtitle: formData.subtitle || '',
+          summary: formData.summary || '',
+          description: formData.description || ''
+        }
+      });
+
+      if (error) throw error;
+
+      // Update form with generated content
+      onFormChange({
+        seo_title: data.seo_title,
+        seo_description: data.seo_description
+      });
+
+      toast({
+        title: "SEO Content Generated",
+        description: "Review and adjust the generated content as needed"
+      });
+    } catch (error: any) {
+      console.error('SEO generation error:', error);
+      toast({
+        title: "Generation Failed",
+        description: error.message || "Failed to generate SEO content",
+        variant: "destructive"
+      });
+    } finally {
+      setIsGenerating(false);
+    }
+  };
+
   return (
     <div className="space-y-6">
       <div className="bg-muted/50 p-4 rounded-lg">
         <h3 className="font-semibold text-lg mb-2">SEO & Publishing</h3>
         <p className="text-sm text-muted-foreground">
           Optimize for search engines and manage publication status
+        </p>
+      </div>
+
+      {/* Generate Button */}
+      <div className="flex items-center gap-3">
+        <Button
+          type="button"
+          variant="outline"
+          onClick={handleGenerateSEO}
+          disabled={isGenerating || !canGenerate}
+          className="flex-shrink-0"
+        >
+          <Sparkles className="w-4 h-4 mr-2" />
+          {isGenerating ? "Generating..." : "Generate SEO Content"}
+        </Button>
+        <p className="text-xs text-muted-foreground">
+          {canGenerate 
+            ? "AI will analyze your project details to create search-optimized content" 
+            : "Fill in title and at least one description field in Basic Info to enable"}
         </p>
       </div>
 
