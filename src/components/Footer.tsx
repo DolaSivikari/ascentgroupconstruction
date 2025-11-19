@@ -118,7 +118,7 @@ const Footer = () => {
           <img 
             src={ascentLogoVerticalDark}
             alt="Ascent Group Construction Logo"
-            className="h-80 w-auto object-contain"
+            className="h-[345px] w-auto object-contain"
           />
         </div>
         
