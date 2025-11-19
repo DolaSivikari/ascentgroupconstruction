@@ -28,8 +28,17 @@ import { ScrollToTop } from "@/components/ui/scroll-to-top";
 import { ParallaxSection } from "@/components/animations/ParallaxSection";
 import { StaggerContainer } from "@/components/animations/StaggerContainer";
 import { usePageAnalytics } from "@/hooks/usePageAnalytics";
+import { LoadingProgress } from "@/components/LoadingProgress";
+import { usePerformanceMonitoring } from "@/hooks/usePerformanceMonitoring";
+import { useHomepageData } from "@/hooks/useHomepageData";
 
 const Index = () => {
+  // Performance monitoring
+  usePerformanceMonitoring('homepage');
+
+  // Prefetch homepage data for faster loading
+  useHomepageData();
+
   // Determine splash screen visibility on initialization
   const [showSplash, setShowSplash] = useState(() => {
     const hasSeenSplash = localStorage.getItem("ascent-splash-seen");
@@ -201,6 +210,7 @@ const Index = () => {
 
   return (
     <>
+      <LoadingProgress isLoading={!splashComplete} duration={2000} />
       {showSplash && (
         <SplashScreen
           onComplete={() => {
