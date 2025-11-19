@@ -161,7 +161,7 @@ export function UnifiedFooter({
       {/* Desktop: Flex Layout with Logo Outside Grid */}
       <div className="hidden md:flex gap-8 items-start">
         {/* Logo - Positioned to far left, outside normal boundaries */}
-        <div className="flex-shrink-0 -ml-6">
+        <div className="flex-shrink-0 -ml-16">
           <img 
             src={ascentLogoVerticalWhite} 
             alt="Ascent Group Construction Logo" 
