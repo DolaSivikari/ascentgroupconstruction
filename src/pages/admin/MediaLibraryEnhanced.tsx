@@ -8,6 +8,7 @@ import { Label } from "@/components/ui/label";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Image } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import OptimizedImage from "@/components/OptimizedImage";
 import { Badge } from "@/components/ui/badge";
 
 interface MediaAsset {
@@ -111,7 +112,17 @@ const MediaLibraryEnhanced = () => {
           {assets.map((asset) => (
             <Card key={asset.id} className="p-3 cursor-pointer hover:border-primary" onClick={() => handleEditAsset(asset)}>
               <div className="aspect-square bg-muted rounded mb-2 overflow-hidden">
-                {asset.file_url && <img src={asset.file_url} alt={asset.alt_text || asset.title} width={400} height={400} className="w-full h-full object-cover" />}
+                {asset.file_url && (
+                  <OptimizedImage
+                    src={asset.file_url}
+                    alt={asset.alt_text || asset.title}
+                    width={400}
+                    height={400}
+                    aspectRatio="1/1"
+                    generateSrcSet={true}
+                    className="w-full h-full object-cover"
+                  />
+                )}
               </div>
               <p className="text-sm font-medium truncate">{asset.title}</p>
               <div className="flex gap-2 text-xs text-muted-foreground mt-1">
@@ -133,7 +144,15 @@ const MediaLibraryEnhanced = () => {
               <div>
                 <Label>Focal Point (Click to set)</Label>
                 <div className="relative aspect-video bg-muted rounded overflow-hidden cursor-crosshair mt-2" onClick={handleImageClick}>
-                  <img src={editingAsset.file_url} alt={editingAsset.title} width={400} height={400} className="w-full h-full object-cover" />
+                  <OptimizedImage
+                    src={editingAsset.file_url}
+                    alt={editingAsset.title}
+                    width={800}
+                    height={450}
+                    aspectRatio="16/9"
+                    generateSrcSet={true}
+                    className="w-full h-full object-cover"
+                  />
                   <div
                     className="absolute w-4 h-4 bg-primary rounded-full border-2 border-white shadow-lg transform -translate-x-1/2 -translate-y-1/2"
                     style={{ left: `${focalPoint.x * 100}%`, top: `${focalPoint.y * 100}%` }}

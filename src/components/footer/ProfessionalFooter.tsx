@@ -166,7 +166,15 @@ export const ProfessionalFooter = ({
       <div className="hidden lg:grid lg:grid-cols-5 lg:gap-12">
         {/* Column 1: Brand & Contact */}
         <div className="lg:col-span-2 space-y-6">
-          <img src={logoUrl} alt="Ascent Group Construction" className="h-20 w-auto" />
+          <OptimizedImage
+            src={logoUrl}
+            alt="Ascent Group Construction"
+            width={200}
+            height={50}
+            aspectRatio="4/1"
+            generateSrcSet={true}
+            className="h-20 w-auto"
+          />
           <p className="text-sm text-muted-foreground leading-relaxed max-w-md">
             Lead specialty contractor for building envelope, interior trades, and restoration serving commercial, multi-family, and residential properties across the Greater Toronto Area.
           </p>

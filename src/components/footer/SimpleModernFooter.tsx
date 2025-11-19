@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { Mail, Phone, Linkedin } from "lucide-react";
 import { AscentEmailLink } from "../EmailLink";
+import OptimizedImage from "../OptimizedImage";
 
 interface SimpleModernFooterProps {
   logoUrl: string;
@@ -27,7 +28,15 @@ export function SimpleModernFooter({
       <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-8">
         {/* Brand Section */}
         <div className="space-y-4">
-          <img src={logoUrl} alt="Ascent Group Construction" className="h-12 w-auto" />
+          <OptimizedImage
+            src={logoUrl}
+            alt="Ascent Group Construction"
+            width={120}
+            height={48}
+            aspectRatio="5/2"
+            generateSrcSet={true}
+            className="h-12 w-auto"
+          />
           <p className="text-sm text-muted-foreground max-w-xs leading-relaxed">
             Building envelope & restoration contractor serving Ontario & GTA
           </p>
