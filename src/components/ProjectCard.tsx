@@ -6,6 +6,8 @@ import { MapPin, Calendar, Ruler, Eye, CheckCircle2, DollarSign, Shield } from "
 import { cn } from "@/lib/utils";
 import { resolveAssetPath } from "@/utils/assetResolver";
 import { ScrollReveal } from "@/components/animations/ScrollReveal";
+import OptimizedImage from "./OptimizedImage";
+import { ASPECT_RATIOS } from "@/design-system/image-system";
 
 interface ProjectCardProps {
   title: string;
@@ -58,15 +60,13 @@ const ProjectCard = ({
       onClick={() => onViewDetails(slug)}
     >
       {/* Image Container - PCL style with entrance animation */}
-      <div className="relative aspect-[4/3] overflow-hidden">
+      <div className={cn("relative overflow-hidden", ASPECT_RATIOS.card)}>
         <ScrollReveal direction="up" threshold={0.2}>
-          <img
+          <OptimizedImage
             src={resolveAssetPath(image) || "/placeholder.svg"}
             alt={title}
-            loading="lazy"
-            onError={(e) => {
-              e.currentTarget.src = "/placeholder.svg";
-            }}
+            aspectRatio="4:3"
+            generateSrcSet
             className={cn(
               "w-full h-full object-cover object-center transition-transform duration-300 animate-fade-in",
               isHovered && "scale-[1.15]"

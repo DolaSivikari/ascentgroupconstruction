@@ -3,6 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/ui/Button";
 import ascentLogoHorizontalDark from "@/assets/ascent-logo-horizontal-dark.png";
 import ascentLogoHorizontalLight from "@/assets/ascent-logo-horizontal-light.png";
+import OptimizedImage from "./OptimizedImage";
 import { ChevronDown, Shield, Phone, ArrowRight, FileText } from "lucide-react";
 import { useCompanySettings } from "@/hooks/useCompanySettings";
 import { supabase } from "@/integrations/supabase/client";
@@ -157,10 +158,13 @@ const Navigation = () => {
         <div className="hidden md:flex items-center justify-between w-full h-20">
           {/* Left: Logo + Company Name */}
           <Link to="/" className="flex items-center group" aria-label="Ascent Group Construction - Home">
-            <img 
-              src={isHeroPage && isAtTop ? ascentLogoHorizontalLight : ascentLogoHorizontalDark} 
-              alt="Ascent Group Construction Logo" 
+            <OptimizedImage
+              src={isHeroPage && isAtTop ? ascentLogoHorizontalLight : ascentLogoHorizontalDark}
+              alt="Ascent Group Construction Logo"
+              width={240}
+              height={60}
               className="h-14 md:h-18 lg:h-20 w-auto hover-scale-icon transition-all duration-300"
+              priority
             />
           </Link>
 

@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom";
-import { Mail, Phone, Linkedin } from "lucide-react";
+import { Facebook, Instagram, Linkedin, Youtube, Mail, Phone, MapPin } from "lucide-react";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import ascentLogoVerticalDark from "@/assets/ascent-logo-vertical-dark.png";
+import OptimizedImage from "../OptimizedImage";
 
 interface ProfessionalFooterProps {
   companyLinks: { label: string; href: string }[];
@@ -58,7 +60,13 @@ export const ProfessionalFooter = ({
             </AccordionTrigger>
             <AccordionContent>
               <div className="space-y-6 pt-2">
-                <img src={logoUrl} alt="Ascent Group Construction" className="h-16 w-auto" />
+                <OptimizedImage
+                  src={logoUrl}
+                  alt="Ascent Group Construction"
+                  width={160}
+                  height={160}
+                  className="h-16 w-auto"
+                />
                 <p className="text-sm text-muted-foreground leading-relaxed">
                   Lead specialty contractor for building envelope, interior trades, and restoration.
                 </p>

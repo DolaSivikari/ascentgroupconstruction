@@ -6,12 +6,13 @@ import {
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-
 import QuickFacts from '@/components/seo/QuickFacts';
 import PeopleAlsoAsk from '@/components/seo/PeopleAlsoAsk';
 import SEO from '@/components/SEO';
 import { createServiceSchema } from '@/utils/schema-injector';
 import { breadcrumbSchema } from '@/utils/structured-data';
+import { ScrollReveal } from "@/components/animations/ScrollReveal";
+import OptimizedImage from "../OptimizedImage";
 
 interface ServiceBenefit {
   icon: React.ComponentType<{ className?: string }>;
@@ -132,9 +133,12 @@ export const ServicePageTemplate = ({ service }: ServicePageTemplateProps) => {
       >
         <div className="absolute inset-0 bg-gradient-to-br from-primary/95 via-primary/90 to-primary/80 z-10" />
         {service.heroImage && (
-          <img 
-            src={service.heroImage} 
+          <OptimizedImage
+            src={service.heroImage}
             alt={service.name}
+            aspectRatio="16:9"
+            generateSrcSet
+            priority
             className="absolute inset-0 w-full h-full object-cover"
           />
         )}
