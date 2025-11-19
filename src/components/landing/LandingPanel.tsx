@@ -38,6 +38,13 @@ export const LandingPanel = ({ title, subtitle, link, onNavigate }: LandingPanel
             {subtitle}
           </p>
         )}
+        
+        {/* Learn More Button - Appears on hover */}
+        <div className="mt-6 opacity-0 translate-y-4 scale-95 group-hover:opacity-100 group-hover:translate-y-0 group-hover:scale-100 transition-all duration-300">
+          <div className="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold text-sm hover:bg-white/10 transition-colors duration-200">
+            Learn More
+          </div>
+        </div>
       </div>
     </Link>
   );
