@@ -19,7 +19,7 @@ export const useAdminAuth = () => {
       const { data: { session }, error: sessionError } = await supabase.auth.getSession();
       
       if (sessionError || !session) {
-        navigate("/tekev");
+        navigate("/");
         return;
       }
 
@@ -46,7 +46,7 @@ export const useAdminAuth = () => {
       if (import.meta.env.DEV) {
         console.error("Admin auth check failed:", error);
       }
-      navigate("/tekev");
+      navigate("/");
     } finally {
       setIsLoading(false);
     }
