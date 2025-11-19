@@ -183,8 +183,6 @@ export const ProfessionalFooter = ({
               <Mail className="h-4 w-4" />
               <AscentEmailLink className="hover:text-primary transition-colors" showIcon={false} />
             </div>
-              <span className="group-hover:underline">{contactInfo.email}</span>
-            </a>
             <a 
               href={`tel:${contactInfo.phone}`} 
               className="flex items-center gap-3 text-sm text-muted-foreground hover:text-primary transition-colors group"
