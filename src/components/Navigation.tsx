@@ -155,7 +155,7 @@ const Navigation = () => {
         )}
       >
         <div className="w-full max-w-none px-6 md:px-8 lg:px-16 xl:px-20">
-        <div className="hidden md:flex items-center justify-between w-full h-20">
+        <div className="hidden md:flex items-center justify-between w-full h-20 md:h-22 lg:h-28">
           {/* Left: Logo + Company Name */}
           <div className="flex items-center">
             <Link 
