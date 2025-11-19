@@ -56,15 +56,53 @@ export const inferServiceFromReview = (reviewText: string): { name: string; type
 };
 
 /**
- * Get consistent aggregate rating across the site
- * @returns Standardized rating object
+ * Get consistent aggregate rating across the site from database
+ * This function should be used with the useAggregateRating hook for async data
+ * @returns Standardized rating object with zeros as default
  */
 export const getConsistentAggregateRating = () => {
-  // Returns zeros until real reviews are collected
+  // Returns zeros by default - use useAggregateRating hook for real data
   return {
     ratingValue: "0",
     reviewCount: "0",
     bestRating: "5",
     worstRating: "1"
+  };
+};
+
+/**
+ * Calculate aggregate rating from testimonial data
+ * @param testimonials - Array of published testimonials with ratings
+ * @returns Aggregate rating object
+ */
+export const calculateAggregateRating = (testimonials: Array<{ rating: number }>) => {
+  if (!testimonials || testimonials.length === 0) {
+    return {
+      ratingValue: "0",
+      reviewCount: "0",
+      bestRating: "5",
+      worstRating: "1"
+    };
+  }
+
+  const ratings = testimonials.map(t => t.rating).filter(r => r > 0);
+  if (ratings.length === 0) {
+    return {
+      ratingValue: "0",
+      reviewCount: "0",
+      bestRating: "5",
+      worstRating: "1"
+    };
+  }
+
+  const avgRating = ratings.reduce((sum, r) => sum + r, 0) / ratings.length;
+  const minRating = Math.min(...ratings);
+  const maxRating = Math.max(...ratings);
+
+  return {
+    ratingValue: avgRating.toFixed(1),
+    reviewCount: ratings.length.toString(),
+    bestRating: maxRating.toString(),
+    worstRating: minRating.toString()
   };
 };

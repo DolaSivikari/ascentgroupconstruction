@@ -1,4 +1,6 @@
 import { Helmet } from "react-helmet-async";
+import { useAggregateRating } from "@/hooks/useAggregateRating";
+import { useMemo } from "react";
 
 interface SEOProps {
   title?: string;
@@ -22,13 +24,17 @@ const SEO = ({
   const fullTitle = title ? `${title} | Ascent Group Construction` : 'Ascent Group Construction - Ontario Building Envelope & Restoration Specialists';
   const siteUrl = 'https://ascentgroupconstruction.com';
   
+  // Fetch real aggregate rating from database
+  const { aggregateRating, hasRatings } = useAggregateRating();
+  
   // PHASE 1 FIX: Ensure single canonical URL (non-www, HTTPS)
   // Remove any www prefix and force HTTPS
   const cleanPath = window.location.pathname;
   const currentUrl = canonical || `${siteUrl}${cleanPath}`;
 
   // Enhanced organization schema with comprehensive service catalog + AEO/GEO optimization
-  const defaultSchema = {
+  const defaultSchema = useMemo(() => {
+    const schema: any = {
     "@context": "https://schema.org",
     "@type": ["GeneralContractor", "LocalBusiness"],
     "@id": `${siteUrl}/#organization`,
@@ -197,6 +203,20 @@ const SEO = ({
       ]
     }
   };
+
+  // Add aggregate rating if includeRating is true and there are real ratings
+  if (includeRating && hasRatings && parseInt(aggregateRating.reviewCount) > 0) {
+    schema.aggregateRating = {
+      "@type": "AggregateRating",
+      ratingValue: aggregateRating.ratingValue,
+      reviewCount: aggregateRating.reviewCount,
+      bestRating: aggregateRating.bestRating,
+      worstRating: aggregateRating.worstRating
+    };
+  }
+
+  return schema;
+}, [description, includeRating, hasRatings, aggregateRating]);
 
   // Combine schemas if custom structured data is provided
   const schemas = structuredData
