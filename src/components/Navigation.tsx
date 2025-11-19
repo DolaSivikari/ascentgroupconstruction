@@ -1,8 +1,6 @@
 import { useState, useEffect, useCallback } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/ui/Button";
-import ascentLogoHorizontalDark from "@/assets/ascent-logo-horizontal-dark.png";
-import ascentLogoHorizontalLight from "@/assets/ascent-logo-horizontal-light.png";
 import OptimizedImage from "./OptimizedImage";
 import { ChevronDown, Shield, Phone, ArrowRight, FileText } from "lucide-react";
 import { useCompanySettings } from "@/hooks/useCompanySettings";
@@ -157,17 +155,9 @@ const Navigation = () => {
         <div className="w-full max-w-none px-6 md:px-8 lg:px-16 xl:px-20">
         <div className="hidden md:flex items-center justify-between w-full h-20">
           {/* Left: Logo + Company Name */}
-          <Link to="/" className="flex items-center group" aria-label="Ascent Group Construction - Home">
-            <OptimizedImage
-              src={isHeroPage && isAtTop ? ascentLogoHorizontalLight : ascentLogoHorizontalDark}
-              alt="Ascent Group Construction Logo"
-              width={240}
-              height={60}
-              aspectRatio="4/1"
-              className="h-14 md:h-18 lg:h-20 w-auto hover-scale-icon transition-all duration-300"
-              priority
-            />
-          </Link>
+          <div className="flex items-center">
+            {/* Logo removed */}
+          </div>
 
           {/* Center: Main Navigation */}
           <nav className="flex items-center gap-7 lg:gap-9 xl:gap-11" aria-label="Main navigation">
@@ -664,13 +654,9 @@ const Navigation = () => {
 
         {/* Mobile Layout */}
         <div className="flex md:hidden items-center justify-between h-20">
-          <Link to="/" className="flex items-center group relative z-navigation" aria-label="Ascent Group Construction - Home">
-            <img 
-              src={isHeroPage && isAtTop ? ascentLogoHorizontalLight : ascentLogoHorizontalDark} 
-              alt="Ascent Group Construction Logo"
-              className="h-14 w-auto transition-transform group-hover:scale-105"
-            />
-          </Link>
+          <div className="flex items-center">
+            {/* Logo removed */}
+          </div>
 
           {/* Mobile Menu Button - Optimized Touch Target & Animation */}
           <button
