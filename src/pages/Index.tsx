@@ -17,6 +17,8 @@ import ValuePillars from "@/components/homepage/ValuePillars";
 import SplashScreen from "@/components/SplashScreen";
 import { TrustBadgeBar } from "@/components/homepage/TrustBadgeBar";
 import WhoWeServeHomepage from "@/components/homepage/WhoWeServeHomepage";
+import { videoSchema } from "@/utils/structured-data";
+import { getHomepageVideos } from "@/data/video-metadata";
 
 import { personalization } from "@/utils/personalization";
 import { initializeTests } from "@/utils/ab-testing";
@@ -187,6 +189,17 @@ const Index = () => {
 
   const siteSearchSchema = createSiteSearchSchema("https://ascentgroupconstruction.com");
 
+  // Video schemas for rich snippets in search results
+  const homepageVideos = getHomepageVideos();
+  const videoSchemas = homepageVideos.map(video => videoSchema({
+    name: video.name,
+    description: video.description,
+    thumbnailUrl: `${window.location.origin}${video.thumbnailUrl}`,
+    uploadDate: video.uploadDate,
+    contentUrl: `${window.location.origin}${video.contentUrl}`,
+    duration: video.duration
+  }));
+
   return (
     <>
       {showSplash && (
@@ -204,7 +217,7 @@ const Index = () => {
         title="Building Envelope & Restoration Specialists | Emerging Specialty Contractor Ontario & GTA"
         description="Emerging specialty contractor in Ontario & GTA delivering façade remediation, waterproofing, EIFS, masonry, parking garage restoration. 15+ years crew experience, 85% self-performed. Building toward full GC capabilities. WSIB compliant, $2M CGL."
         keywords="specialty contractor Ontario, building envelope contractor GTA, facade remediation Toronto, waterproofing contractor, EIFS contractor, masonry restoration, parking garage repair, envelope restoration, emerging contractor"
-        structuredData={[specialtyContractorSchema, howToChooseContractor, whatDoesAscentDo, whyChooseUsSchema, siteSearchSchema]} 
+        structuredData={[specialtyContractorSchema, howToChooseContractor, whatDoesAscentDo, whyChooseUsSchema, siteSearchSchema, ...videoSchemas]} 
         includeRating={true} 
         />
         <Navigation />
