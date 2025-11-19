@@ -26,23 +26,36 @@ export const companyInfoSchema = z.object({
 });
 
 // Step 2: Project Details
-const projectTypeValues = ["Commercial Construction", "Multi-Family Residential", "Institutional", "Industrial", "Renovation/Retrofit", "Building Envelope Restoration", "Other"] as const;
-const estimatedValueValues = ["Under $500K", "$500K - $1M", "$1M - $5M", "$5M - $10M", "$10M - $25M", "$25M+", "To Be Determined"] as const;
-
 export const projectDetailsSchema = z.object({
   project_name: z.string()
     .trim()
     .min(3, "Project name must be at least 3 characters")
     .max(300, "Project name must be less than 300 characters"),
-  project_type: z.enum(projectTypeValues, { required_error: "Please select a project type" }),
+  project_type: z.string()
+    .refine((val) => [
+      "Commercial Construction",
+      "Multi-Family Residential",
+      "Institutional",
+      "Industrial",
+      "Renovation/Retrofit",
+      "Building Envelope Restoration",
+      "Other"
+    ].includes(val), { message: "Please select a valid project type" }),
   project_location: z.string()
     .trim()
     .min(3, "Project location must be at least 3 characters")
     .max(500, "Project location must be less than 500 characters"),
-  estimated_value_range: z.enum(estimatedValueValues, { required_error: "Please select an estimated value range" }),
+  estimated_value_range: z.string()
+    .refine((val) => [
+      "Under $500K",
+      "$500K - $1M",
+      "$1M - $5M",
+      "$5M - $10M",
+      "$10M - $25M",
+      "$25M+",
+      "To Be Determined"
+    ].includes(val), { message: "Please select a valid estimated value range" }),
 });
-
-const deliveryMethodValues = ["Specialty Contracting", "Design-Assist", "Multi-Trade Integration", "To Be Determined"] as const;
 
 // Step 3: Timeline & Requirements
 export const timelineRequirementsSchema = z.object({
@@ -55,7 +68,13 @@ export const timelineRequirementsSchema = z.object({
     .regex(/^\d{4}-\d{2}-\d{2}$/, "Invalid date format")
     .optional()
     .or(z.literal("")),
-  delivery_method: z.enum(deliveryMethodValues, { required_error: "Please select a delivery method" }),
+  delivery_method: z.string()
+    .refine((val) => [
+      "Specialty Contracting",
+      "Design-Assist",
+      "Multi-Trade Integration",
+      "To Be Determined"
+    ].includes(val), { message: "Please select a valid delivery method" }),
   bonding_required: z.boolean().default(false),
   prequalification_complete: z.boolean().default(false),
 });
