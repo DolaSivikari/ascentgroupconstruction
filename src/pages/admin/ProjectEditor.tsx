@@ -233,7 +233,7 @@ const ProjectEditor = () => {
         await supabase.from("project_services").insert(formData.service_ids.map((serviceId: string) => ({ project_id: projectId, service_id: serviceId })));
       }
       toast({ title: "Success", description: id === "new" ? "Project created" : "Project updated" });
-      if (id === "new") navigate(`/admin/projects/edit/${projectId}`);
+      if (id === "new") navigate(`/admin/projects/${projectId}`);
     } catch (error) {
       toast({ title: "Error", description: "An unexpected error occurred", variant: "destructive" });
     } finally {
