@@ -1,4 +1,5 @@
 import { createClient } from 'npm:@supabase/supabase-js@2';
+import { checkRateLimit, getClientIdentifier, createRateLimitResponse } from '../_shared/rateLimiter.ts';
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
@@ -12,6 +13,10 @@ interface NotificationRequest {
   referenceId: string;
 }
 
+const VALID_NOTIFICATION_TYPES = ['contact', 'rfp', 'quote', 'resume', 'prequal'];
+const MAX_TITLE_LENGTH = 200;
+const MAX_MESSAGE_LENGTH = 1000;
+
 Deno.serve(async (req) => {
   if (req.method === 'OPTIONS') {
     return new Response(null, { headers: corsHeaders });
@@ -23,7 +28,44 @@ Deno.serve(async (req) => {
       Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!
     );
 
+    // Rate limiting: 10 requests per minute per IP
+    const identifier = getClientIdentifier(req);
+    const rateLimit = await checkRateLimit(supabase, identifier, 'send-admin-notification', 10, 1);
+
+    if (!rateLimit.allowed) {
+      return createRateLimitResponse(rateLimit.retry_after_seconds || 60, corsHeaders);
+    }
+
     const { type, title, message, referenceId }: NotificationRequest = await req.json();
+
+    // Strict input validation
+    if (!type || !VALID_NOTIFICATION_TYPES.includes(type)) {
+      return new Response(
+        JSON.stringify({ error: 'Invalid notification type' }),
+        { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
+    }
+
+    if (!title || title.length > MAX_TITLE_LENGTH) {
+      return new Response(
+        JSON.stringify({ error: 'Invalid title length' }),
+        { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
+    }
+
+    if (!message || message.length > MAX_MESSAGE_LENGTH) {
+      return new Response(
+        JSON.stringify({ error: 'Invalid message length' }),
+        { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
+    }
+
+    if (!referenceId || typeof referenceId !== 'string') {
+      return new Response(
+        JSON.stringify({ error: 'Invalid reference ID' }),
+        { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
+    }
 
     console.log(`Sending admin notification: ${type} - ${title}`);
 
