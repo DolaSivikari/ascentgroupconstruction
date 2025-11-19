@@ -190,22 +190,22 @@ export default function ProjectDetail() {
         ogImage={project.featured_image}
       />
       
-      <div className="min-h-screen flex flex-col pt-24">
+      <div className="min-h-screen flex flex-col">
         <Navigation />
         
         {/* Breadcrumb */}
-        <div className="border-b border-border/50 bg-muted/30">
-          <div className="container mx-auto px-4 py-3">
+        <div className="border-b border-border/50 bg-muted/20 mt-24">
+          <div className="container mx-auto px-6 py-6 md:py-8">
             <div className="flex items-center gap-2 text-sm text-muted-foreground">
-              <button onClick={() => navigate("/")} className="hover:text-foreground transition-colors">
+              <button onClick={() => navigate("/")} className="hover:text-foreground transition-colors font-medium">
                 Home
               </button>
-              <ChevronRight className="h-4 w-4" />
-              <button onClick={() => navigate("/projects")} className="hover:text-foreground transition-colors">
+              <ChevronRight className="h-4 w-4 opacity-50" />
+              <button onClick={() => navigate("/projects")} className="hover:text-foreground transition-colors font-medium">
                 Projects
               </button>
-              <ChevronRight className="h-4 w-4" />
-              <span className="text-foreground">{project.title}</span>
+              <ChevronRight className="h-4 w-4 opacity-50" />
+              <span className="text-foreground font-semibold">{project.title}</span>
             </div>
           </div>
         </div>
