@@ -69,7 +69,7 @@ const ProjectCard = ({
             generateSrcSet
             className={cn(
               "w-full h-full object-cover object-center transition-all duration-500 animate-fade-in",
-              isHovered && "scale-105 brightness-90"
+              isHovered && "scale-[1.15]"
             )}
           />
         </ScrollReveal>
@@ -97,11 +97,11 @@ const ProjectCard = ({
       </div>
       
       {/* Card Content - Elegant and compact */}
-      <CardContent className="p-4">
-        <h3 className="text-base font-semibold mb-2 line-clamp-2 group-hover:text-primary transition-colors">{title}</h3>
+      <CardContent className="p-6">
+        <h3 className="text-lg font-semibold mb-2 line-clamp-2 group-hover:text-primary transition-colors">{title}</h3>
         
         {/* Refined metadata */}
-        <div className="flex items-center gap-3 text-xs text-muted-foreground mb-2.5">
+        <div className="flex items-center gap-3 text-sm text-muted-foreground mb-2.5">
           <div className="flex items-center gap-1">
             <MapPin className="w-3.5 h-3.5" />
             <span>{location}</span>
@@ -143,7 +143,7 @@ const ProjectCard = ({
           </div>
         )}
         
-        <p className="text-xs text-muted-foreground line-clamp-2 leading-relaxed">{description}</p>
+        <p className="text-sm text-muted-foreground line-clamp-2 leading-relaxed">{description}</p>
       </CardContent>
     </Card>
   );
