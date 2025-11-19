@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { Mail, Phone, MapPin, Linkedin, Building2, Wrench, Sparkles, ChevronRight } from "lucide-react";
+import ascentLogoVerticalWhite from "@/assets/ascent-logo-vertical-white.png";
 import {
   Accordion,
   AccordionContent,
@@ -212,8 +213,8 @@ export function UnifiedFooter({
           </nav>
         </div>
 
-        {/* Column 9-12: Get Started + Contact (33%) */}
-        <div className="col-span-4 space-y-6">
+        {/* Column 9-11: Get Started + Contact */}
+        <div className="col-span-3 space-y-6">
           {/* Get Started CTA */}
           <div className="space-y-3">
             <h3 className="flex items-center gap-2 text-sm font-bold text-foreground">
@@ -263,6 +264,15 @@ export function UnifiedFooter({
               </div>
             )}
           </div>
+        </div>
+
+        {/* Column 12: Logo */}
+        <div className="col-span-1 flex items-start justify-center">
+          <img 
+            src={ascentLogoVerticalWhite} 
+            alt="Ascent Group Construction Logo" 
+            className="h-28 w-auto object-contain"
+          />
         </div>
       </div>
 
