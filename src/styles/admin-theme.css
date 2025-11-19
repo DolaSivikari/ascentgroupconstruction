@@ -29,46 +29,6 @@
   --business-header-height: var(--admin-header-height);
 }
 
-/* ============================================================================
-   DARK THEME OVERRIDES
-   ============================================================================ */
-
-.admin-dark-theme,
-.admin-dark-portal {
-  --admin-bg-primary: 222 47% 11%;          /* Dark slate - main background */
-  --admin-bg-secondary: 217 33% 17%;        /* Lighter slate - secondary surfaces */
-  --admin-bg-card: 217 33% 17%;             /* Card background */
-  --admin-bg-hover: 217 33% 22%;            /* Hover state */
-  
-  --admin-text-primary: 210 40% 98%;        /* Nearly white - main text */
-  --admin-text-secondary: 217 20% 80%;      /* Light gray - secondary text */
-  --admin-text-muted: 217 20% 60%;          /* Muted gray - tertiary text */
-  
-  --admin-border: 217 33% 22%;              /* Subtle border */
-  --admin-nav-bg: 222 47% 11%;              /* Dark sidebar */
-  --admin-nav-text: 210 40% 98%;            /* White text on dark */
-  --admin-nav-hover: 217 33% 17%;           /* Lighter on hover */
-  --admin-nav-active-bg: 217 33% 22%;       /* Active background */
-  --admin-nav-active-text: 24 95% 53%;      /* Orange active text */
-}
-
-/* Apply dark theme colors to business tokens */
-.admin-dark-theme {
-  --business-bg-primary: var(--admin-bg-primary);
-  --business-bg-secondary: var(--admin-bg-secondary);
-  --business-bg-card: var(--admin-bg-card);
-  --business-bg-hover: var(--admin-bg-hover);
-  
-  --business-text-primary: var(--admin-text-primary);
-  --business-text-secondary: var(--admin-text-secondary);
-  --business-text-muted: var(--admin-text-muted);
-  
-  --business-border: var(--admin-border);
-  --business-nav-bg: var(--admin-nav-bg);
-  --business-nav-text: var(--admin-nav-text);
-  --business-nav-hover: var(--admin-nav-hover);
-}
-
 /* ===== BASE CONTAINER ===== */
 
 .business-admin-container {
