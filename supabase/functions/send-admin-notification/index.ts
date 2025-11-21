@@ -1,5 +1,6 @@
 import { createClient } from 'npm:@supabase/supabase-js@2';
 import { checkRateLimit, getClientIdentifier, createRateLimitResponse } from '../_shared/rateLimiter.ts';
+import { createErrorResponse } from '../_shared/errorHandler.ts';
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
@@ -40,30 +41,38 @@ Deno.serve(async (req) => {
 
     // Strict input validation
     if (!type || !VALID_NOTIFICATION_TYPES.includes(type)) {
-      return new Response(
-        JSON.stringify({ error: 'Invalid notification type' }),
-        { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      return createErrorResponse(
+        new Error('Invalid notification type'),
+        'Invalid notification type',
+        400,
+        'send-admin-notification'
       );
     }
 
     if (!title || title.length > MAX_TITLE_LENGTH) {
-      return new Response(
-        JSON.stringify({ error: 'Invalid title length' }),
-        { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      return createErrorResponse(
+        new Error('Invalid title length'),
+        'Invalid title length',
+        400,
+        'send-admin-notification'
       );
     }
 
     if (!message || message.length > MAX_MESSAGE_LENGTH) {
-      return new Response(
-        JSON.stringify({ error: 'Invalid message length' }),
-        { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      return createErrorResponse(
+        new Error('Invalid message length'),
+        'Invalid message length',
+        400,
+        'send-admin-notification'
       );
     }
 
     if (!referenceId || typeof referenceId !== 'string') {
-      return new Response(
-        JSON.stringify({ error: 'Invalid reference ID' }),
-        { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      return createErrorResponse(
+        new Error('Invalid reference ID'),
+        'Invalid reference ID',
+        400,
+        'send-admin-notification'
       );
     }
 
@@ -118,12 +127,11 @@ Deno.serve(async (req) => {
     );
   } catch (error: any) {
     console.error('Notification error:', error);
-    return new Response(
-      JSON.stringify({ error: error.message }),
-      { 
-        status: 500, 
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' } 
-      }
+    return createErrorResponse(
+      error,
+      'Failed to send notification',
+      500,
+      'send-admin-notification'
     );
   }
 });
