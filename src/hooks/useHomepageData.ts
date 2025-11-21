@@ -48,7 +48,7 @@ const fetchHomepageSettings = async (): Promise<HomepageSettings | null> => {
     .from("homepage_settings")
     .select("*")
     .eq("is_active", true)
-    .single();
+    .maybeSingle();
 
   if (error) {
     console.error("Error fetching homepage settings:", error);
