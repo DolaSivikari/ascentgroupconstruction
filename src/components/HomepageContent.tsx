@@ -13,7 +13,7 @@ const HomepageContent = () => {
         .from("homepage_settings")
         .select("*")
         .eq("is_active", true)
-        .single();
+        .maybeSingle();
 
       return data || {
         headline: "Building Envelope & Interior Trades Specialist",
