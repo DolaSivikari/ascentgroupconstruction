@@ -188,11 +188,11 @@ const EnhancedHero = ({ splashComplete = true }: { splashComplete?: boolean }) =
 
   const handleTouchStart = (e: React.TouchEvent) => {
     setTouchEnd(null);
-    setTouchStart(e.targetTouches[0].clientX);
+    setTouchStart(e.targetTouches[0]?.clientX ?? 0);
   };
 
   const handleTouchMove = (e: React.TouchEvent) => {
-    setTouchEnd(e.targetTouches[0].clientX);
+    setTouchEnd(e.targetTouches[0]?.clientX ?? 0);
   };
 
   const handleTouchEnd = () => {

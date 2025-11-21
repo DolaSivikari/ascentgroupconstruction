@@ -31,9 +31,13 @@ export const RichTextEditor = ({
 
   useEffect(() => {
     // Dynamically import React Quill to avoid SSR issues
-    import('react-quill').then((module) => {
-      setReactQuill(() => module.default);
-    });
+    import('react-quill')
+      .then((module) => {
+        setReactQuill(() => module.default);
+      })
+      .catch((error) => {
+        console.error('Failed to load React Quill editor:', error);
+      });
   }, []);
 
   const modules = {

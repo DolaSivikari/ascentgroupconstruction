@@ -91,7 +91,7 @@ Ballpark Range: ${serviceMessage.ballparkRange || "Custom pricing"}
       if (error instanceof z.ZodError) {
         toast({
           title: "Validation Error",
-          description: error.issues[0].message,
+          description: error.issues[0]?.message || "Validation failed",
           variant: "destructive",
         });
       } else {
