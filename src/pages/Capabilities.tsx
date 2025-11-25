@@ -9,6 +9,7 @@ import SEO from "@/components/SEO";
 import { CTA_TEXT } from "@/design-system/constants";
 import { ScrollReveal } from "@/components/animations/ScrollReveal";
 import heroImage from "@/assets/heroes/hero-general-contracting.jpg";
+import { PartnershipModelsSection } from "@/components/partnerships/PartnershipModelsSection";
 
 const Capabilities = () => {
   const deliveryMethods = [
@@ -103,6 +104,9 @@ const Capabilities = () => {
 
       <main className="py-16">
         <div className="container mx-auto px-4 max-w-7xl">
+          {/* Partnership Models */}
+          <PartnershipModelsSection />
+
           {/* Project Delivery */}
           <section className="mb-16">
             <h2 className="text-3xl font-bold mb-8 text-center">Project Delivery Methods</h2>

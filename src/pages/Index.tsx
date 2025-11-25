@@ -31,6 +31,7 @@ import { usePageAnalytics } from "@/hooks/usePageAnalytics";
 import { LoadingProgress } from "@/components/LoadingProgress";
 import { usePerformanceMonitoring } from "@/hooks/usePerformanceMonitoring";
 import { useHomepageData } from "@/hooks/useHomepageData";
+import { PartnershipCarousel } from "@/components/homepage/PartnershipCarousel";
 
 const Index = () => {
   // Performance monitoring
@@ -253,6 +254,10 @@ const Index = () => {
         
         <ScrollReveal direction="up" delay={0}>
           <WhoWeServeHomepage />
+        </ScrollReveal>
+        
+        <ScrollReveal direction="up" delay={0}>
+          <PartnershipCarousel />
         </ScrollReveal>
         
         <ParallaxSection speed="medium">
