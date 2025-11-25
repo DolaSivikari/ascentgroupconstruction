@@ -1,6 +1,7 @@
 export interface DiagramNode {
   id: string;
   label: string;
+  subtitle?: string;
   type: 'owner' | 'contractor' | 'consultant' | 'ascent' | 'subtrade' | 'gc';
   position: { x: number; y: number };
   highlighted?: boolean;
@@ -39,16 +40,16 @@ export const partnershipModels: PartnershipModel[] = [
     shortDescription: "Direct accountability for envelope restoration scopes with consultant coordination",
     diagram: {
       nodes: [
-        { id: "owner", label: "Property Owner", type: "owner", position: { x: 50, y: 10 } },
-        { id: "consultant", label: "Building Consultant/EOR", type: "consultant", position: { x: 50, y: 30 } },
-        { id: "ascent", label: "Ascent Group\n(Prime Contractor)", type: "ascent", position: { x: 50, y: 55 }, highlighted: true },
-        { id: "access", label: "Access\nEquipment", type: "subtrade", position: { x: 20, y: 80 } },
-        { id: "materials", label: "Materials\nSupply", type: "subtrade", position: { x: 50, y: 80 } },
-        { id: "qa", label: "QA/QC\nDocs", type: "subtrade", position: { x: 80, y: 80 } },
+        { id: "owner", label: "Owner", type: "owner", position: { x: 50, y: 12 } },
+        { id: "consultant", label: "Consultant", type: "consultant", position: { x: 50, y: 32 } },
+        { id: "ascent", label: "ASCENT GROUP", subtitle: "Prime Contractor", type: "ascent", position: { x: 50, y: 58 }, highlighted: true },
+        { id: "access", label: "Access", type: "subtrade", position: { x: 20, y: 88 } },
+        { id: "materials", label: "Materials", type: "subtrade", position: { x: 50, y: 88 } },
+        { id: "qa", label: "QA/QC", type: "subtrade", position: { x: 80, y: 88 } },
       ],
       edges: [
         { from: "owner", to: "consultant" },
-        { from: "consultant", to: "ascent", label: "Technical Direction" },
+        { from: "consultant", to: "ascent" },
         { from: "ascent", to: "access" },
         { from: "ascent", to: "materials" },
         { from: "ascent", to: "qa" },
@@ -80,17 +81,15 @@ export const partnershipModels: PartnershipModel[] = [
     shortDescription: "Specialty envelope contractor partnering with general contractors on larger projects",
     diagram: {
       nodes: [
-        { id: "owner", label: "Property Owner", type: "owner", position: { x: 50, y: 10 } },
-        { id: "gc", label: "General Contractor", type: "gc", position: { x: 50, y: 35 } },
-        { id: "ascent", label: "Ascent Group\n(Envelope Trade)", type: "ascent", position: { x: 30, y: 65 }, highlighted: true },
-        { id: "other", label: "Other Trades", type: "subtrade", position: { x: 70, y: 65 } },
-        { id: "self", label: "Self-Performed\nScope", type: "subtrade", position: { x: 30, y: 90 } },
+        { id: "owner", label: "Owner", type: "owner", position: { x: 50, y: 15 } },
+        { id: "gc", label: "General Contractor", type: "gc", position: { x: 50, y: 42 } },
+        { id: "ascent", label: "ASCENT GROUP", subtitle: "Trade Partner", type: "ascent", position: { x: 35, y: 72 }, highlighted: true },
+        { id: "other", label: "Other Trades", type: "subtrade", position: { x: 65, y: 72 } },
       ],
       edges: [
         { from: "owner", to: "gc" },
-        { from: "gc", to: "ascent", label: "Envelope Package" },
+        { from: "gc", to: "ascent" },
         { from: "gc", to: "other" },
-        { from: "ascent", to: "self" },
       ],
     },
     bestFor: [
@@ -119,18 +118,13 @@ export const partnershipModels: PartnershipModel[] = [
     shortDescription: "Engineer/consultant directs strategy, we execute under technical oversight",
     diagram: {
       nodes: [
-        { id: "owner", label: "Property Owner", type: "owner", position: { x: 50, y: 10 } },
-        { id: "consultant", label: "Engineer/\nConsultant", type: "consultant", position: { x: 30, y: 40 } },
-        { id: "ascent", label: "Ascent Group\n(Executor)", type: "ascent", position: { x: 70, y: 40 }, highlighted: true },
-        { id: "inspection", label: "Site\nInspection", type: "subtrade", position: { x: 30, y: 70 } },
-        { id: "execution", label: "Physical\nExecution", type: "subtrade", position: { x: 70, y: 70 } },
+        { id: "owner", label: "Strata / Owner", type: "owner", position: { x: 50, y: 18 } },
+        { id: "consultant", label: "Engineer", type: "consultant", position: { x: 50, y: 48 } },
+        { id: "ascent", label: "ASCENT GROUP", subtitle: "Execution", type: "ascent", position: { x: 50, y: 78 }, highlighted: true },
       ],
       edges: [
         { from: "owner", to: "consultant" },
-        { from: "owner", to: "ascent" },
-        { from: "consultant", to: "inspection", label: "Oversight" },
-        { from: "consultant", to: "ascent", label: "Technical Direction" },
-        { from: "ascent", to: "execution" },
+        { from: "consultant", to: "ascent" },
       ],
     },
     bestFor: [
@@ -159,17 +153,13 @@ export const partnershipModels: PartnershipModel[] = [
     shortDescription: "Complete project management for residential and small commercial clients",
     diagram: {
       nodes: [
-        { id: "owner", label: "Property Owner", type: "owner", position: { x: 50, y: 20 } },
-        { id: "ascent", label: "Ascent Group\n(Full Service)", type: "ascent", position: { x: 50, y: 50 }, highlighted: true },
-        { id: "envelope", label: "Envelope\nWork", type: "subtrade", position: { x: 20, y: 80 } },
-        { id: "interior", label: "Interior\nFinishes", type: "subtrade", position: { x: 50, y: 80 } },
-        { id: "warranty", label: "Warranty\nService", type: "subtrade", position: { x: 80, y: 80 } },
+        { id: "owner", label: "Property Owner", type: "owner", position: { x: 50, y: 25 } },
+        { id: "ascent", label: "ASCENT GROUP", subtitle: "Full Service", type: "ascent", position: { x: 50, y: 60 }, highlighted: true },
+        { id: "execution", label: "Execution", type: "subtrade", position: { x: 50, y: 88 } },
       ],
       edges: [
-        { from: "owner", to: "ascent", label: "Direct Relationship" },
-        { from: "ascent", to: "envelope" },
-        { from: "ascent", to: "interior" },
-        { from: "ascent", to: "warranty" },
+        { from: "owner", to: "ascent" },
+        { from: "ascent", to: "execution" },
       ],
     },
     bestFor: [
