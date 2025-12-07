@@ -16,6 +16,7 @@ export const LAYOUT = {
 
 // Unified CTA Text
 export const CTA_TEXT = {
+  // Commercial/Professional CTAs
   primary: 'Request Site Assessment',
   secondary: 'View Services',
   gc: 'For GCs: Request Unit Pricing',
@@ -23,6 +24,14 @@ export const CTA_TEXT = {
   contact: 'Contact Us',
   viewProjects: 'View Projects',
   learnMore: 'Learn More',
+  
+  // Homeowner-Friendly CTAs
+  freeQuote: 'Get Free Quote',
+  freeEstimate: 'Get Free Estimate',
+  homeConsultation: 'Book Home Consultation',
+  residentialServices: 'View Residential Services',
+  startProject: 'Start Your Project',
+  callNow: 'Call Us Today',
 } as const;
 
 // Card & Component Styling
