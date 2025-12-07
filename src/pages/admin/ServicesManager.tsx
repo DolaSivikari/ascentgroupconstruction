@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { List, BarChart, Star, Megaphone } from "lucide-react";
 import { ServiceAnalyticsDashboard } from "@/components/admin/ServiceAnalyticsDashboard";
 import { FeaturedServicesManager } from "@/components/admin/FeaturedServicesManager";
@@ -13,8 +12,8 @@ const ServicesManager = () => {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-3xl font-bold tracking-tight">Services Manager</h1>
-        <p className="text-muted-foreground mt-2">
+        <h1 className="business-page-title">Services Manager</h1>
+        <p className="business-page-subtitle">
           Manage all services - content, analytics, featured services, and promotions
         </p>
       </div>
@@ -40,59 +39,59 @@ const ServicesManager = () => {
         </TabsList>
 
         <TabsContent value="list" className="space-y-4">
-          <Card>
-            <CardHeader>
-              <CardTitle>Services List</CardTitle>
-              <CardDescription>
+          <div className="business-glass-card">
+            <div className="p-6 border-b border-border">
+              <h3 className="business-section-title">Services List</h3>
+              <p className="business-section-subtitle">
                 Create, edit, and manage all service offerings
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
+              </p>
+            </div>
+            <div className="p-6">
               <ServicesListManager />
-            </CardContent>
-          </Card>
+            </div>
+          </div>
         </TabsContent>
 
         <TabsContent value="analytics" className="space-y-4">
-          <Card>
-            <CardHeader>
-              <CardTitle>Service Analytics</CardTitle>
-              <CardDescription>
+          <div className="business-glass-card">
+            <div className="p-6 border-b border-border">
+              <h3 className="business-section-title">Service Analytics</h3>
+              <p className="business-section-subtitle">
                 Track service performance, engagement, and user interactions
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
+              </p>
+            </div>
+            <div className="p-6">
               <ServiceAnalyticsDashboard />
-            </CardContent>
-          </Card>
+            </div>
+          </div>
         </TabsContent>
 
         <TabsContent value="featured" className="space-y-4">
-          <Card>
-            <CardHeader>
-              <CardTitle>Featured Services</CardTitle>
-              <CardDescription>
+          <div className="business-glass-card">
+            <div className="p-6 border-b border-border">
+              <h3 className="business-section-title">Featured Services</h3>
+              <p className="business-section-subtitle">
                 Manage featured services displayed on the homepage
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
+              </p>
+            </div>
+            <div className="p-6">
               <FeaturedServicesManager />
-            </CardContent>
-          </Card>
+            </div>
+          </div>
         </TabsContent>
 
         <TabsContent value="promotions" className="space-y-4">
-          <Card>
-            <CardHeader>
-              <CardTitle>Service Promotions</CardTitle>
-              <CardDescription>
+          <div className="business-glass-card">
+            <div className="p-6 border-b border-border">
+              <h3 className="business-section-title">Service Promotions</h3>
+              <p className="business-section-subtitle">
                 Create and manage promotional campaigns for services
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
+              </p>
+            </div>
+            <div className="p-6">
               <PromotionsManager />
-            </CardContent>
-          </Card>
+            </div>
+          </div>
         </TabsContent>
       </Tabs>
     </div>

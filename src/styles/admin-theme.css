@@ -357,6 +357,19 @@
   transform: translateY(-2px);
 }
 
+/* Glass Card - Standard admin card with subtle depth */
+.business-glass-card {
+  background: white;
+  border: 1px solid hsl(var(--business-border));
+  border-radius: var(--admin-radius);
+  box-shadow: 0 1px 3px hsl(var(--brand-primary) / 0.05);
+  transition: all 0.2s ease;
+}
+
+.business-glass-card:hover {
+  box-shadow: 0 4px 12px hsl(var(--brand-primary) / 0.08);
+}
+
 .business-card-header {
   border-bottom: 1px solid hsl(var(--business-border));
   padding-bottom: 1rem;
@@ -373,6 +386,53 @@
 .business-card-description {
   color: hsl(var(--business-text-secondary));
   font-size: 0.875rem;
+}
+
+/* Page Title Styles */
+.business-page-title {
+  font-size: 1.875rem;
+  font-weight: 700;
+  color: hsl(var(--business-text-primary));
+  line-height: 1.25;
+  margin-bottom: 0.5rem;
+  letter-spacing: -0.025em;
+}
+
+.business-page-subtitle {
+  font-size: 0.9375rem;
+  color: hsl(var(--business-text-secondary));
+  line-height: 1.5;
+}
+
+/* Section Title Styles */
+.business-section-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: hsl(var(--business-text-primary));
+  margin-bottom: 0.25rem;
+}
+
+.business-section-subtitle {
+  font-size: 0.875rem;
+  color: hsl(var(--business-text-secondary));
+}
+
+/* Input Styles */
+.business-input {
+  background: white;
+  border: 1px solid hsl(var(--business-border));
+  color: hsl(var(--business-text-primary));
+  border-radius: var(--admin-radius);
+  padding: 0.625rem 0.75rem;
+  font-size: 0.875rem;
+  min-height: 44px;
+  transition: all 0.15s ease;
+}
+
+.business-input:focus {
+  border-color: hsl(var(--business-accent-orange));
+  outline: none;
+  box-shadow: 0 0 0 3px hsl(var(--business-accent-orange) / 0.1);
 }
 
 /* ===== FORMS ===== */

@@ -125,29 +125,29 @@ const BlogPosts = () => {
               <SelectItem value="case-study">Case Studies</SelectItem>
             </SelectContent>
           </Select>
-          <Button className="business-btn-primary" onClick={() => navigate("/admin/blog/new")}>
+          <button className="business-btn business-btn-primary" onClick={() => navigate("/admin/blog/new")}>
             <Plus className="h-4 w-4 mr-2" />
             New Post
-          </Button>
+          </button>
         </div>
       </div>
 
       {isLoading ? (
         <div className="text-center py-12">Loading blog posts...</div>
       ) : posts.length === 0 ? (
-        <div className="business-glass-card p-12 text-center">
-          <p className="text-muted-foreground mb-4">No blog posts yet. Create your first post to get started.</p>
-          <Button className="business-btn-primary" onClick={() => navigate("/admin/blog/new")}>
+        <div className="business-glass-card text-center" style={{ padding: '3rem' }}>
+          <p className="mb-4" style={{ color: 'var(--business-text-secondary)' }}>No blog posts yet. Create your first post to get started.</p>
+          <button className="business-btn business-btn-primary" onClick={() => navigate("/admin/blog/new")}>
             <Plus className="h-4 w-4 mr-2" />
             Create Blog Post
-          </Button>
+          </button>
         </div>
       ) : (
         <div className="grid gap-6">
           {posts
             .filter(post => contentTypeFilter === "all" || post.content_type === contentTypeFilter)
             .map((post) => (
-            <div key={post.id} className="business-glass-card p-6 hover:shadow-lg transition-shadow">
+            <div key={post.id} className="business-glass-card" style={{ padding: '1.5rem' }}>
               <div className="flex items-start justify-between">
                 <div className="flex-1">
                   <div className="flex items-center gap-3 mb-2">
@@ -185,28 +185,28 @@ const BlogPosts = () => {
                   )}
                 </div>
                 <div className="flex gap-2">
-                  <Button 
-                    variant="outline" 
-                    size="sm"
+                  <button 
+                    className="business-btn business-btn-ghost"
+                    style={{ padding: '0.5rem' }}
                     onClick={() => handleViewPost(post)}
                     title={post.publish_state === 'published' ? 'View published post' : 'Preview draft'}
                   >
                     <Eye className="h-4 w-4" />
-                  </Button>
-                  <Button
-                    variant="outline" 
-                    size="sm"
+                  </button>
+                  <button
+                    className="business-btn business-btn-ghost"
+                    style={{ padding: '0.5rem' }}
                     onClick={() => navigate(`/admin/blog/${post.id}`)}
                   >
                     <Edit className="h-4 w-4" />
-                  </Button>
-                  <Button 
-                    variant="outline" 
-                    size="sm"
+                  </button>
+                  <button 
+                    className="business-btn business-btn-ghost"
+                    style={{ padding: '0.5rem' }}
                     onClick={() => handleDeleteClick(post.id)}
                   >
                     <Trash2 className="h-4 w-4" />
-                  </Button>
+                  </button>
                 </div>
               </div>
             </div>

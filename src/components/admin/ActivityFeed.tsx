@@ -1,6 +1,4 @@
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/ui/Button";
 import { Bell, Mail, AlertCircle, Clock, CheckCircle } from "lucide-react";
 import { format } from "date-fns";
 import { useNavigate } from "react-router-dom";
@@ -31,12 +29,12 @@ const ActivityFeed = ({ submissions, newCount }: ActivityFeedProps) => {
   };
 
   return (
-    <Card>
-      <CardHeader>
+    <div className="business-glass-card">
+      <div className="p-6 border-b border-border">
         <div className="flex items-center justify-between">
           <div>
-            <CardTitle>Recent Activity</CardTitle>
-            <CardDescription>Latest submissions and updates</CardDescription>
+            <h3 className="business-section-title">Recent Activity</h3>
+            <p className="business-section-subtitle">Latest submissions and updates</p>
           </div>
           {newCount > 0 && (
             <Badge variant="danger" size="sm" icon={Bell}>
@@ -44,8 +42,8 @@ const ActivityFeed = ({ submissions, newCount }: ActivityFeedProps) => {
             </Badge>
           )}
         </div>
-      </CardHeader>
-      <CardContent>
+      </div>
+      <div className="p-6">
         {submissions.length === 0 ? (
           <p className="text-sm text-muted-foreground py-4 text-center">No recent activity</p>
         ) : (
@@ -96,17 +94,16 @@ const ActivityFeed = ({ submissions, newCount }: ActivityFeedProps) => {
                 </div>
               </div>
             ))}
-            <Button
-              variant="outline"
-              className="w-full mt-2 hover:bg-primary hover:text-[hsl(var(--bg))] transition-colors"
-              onClick={() => navigate("/admin/contacts")}
+            <button
+              className="business-btn business-btn-ghost w-full mt-2"
+              onClick={() => navigate("/admin/inbox")}
             >
               View All Activity
-            </Button>
+            </button>
           </div>
         )}
-      </CardContent>
-    </Card>
+      </div>
+    </div>
   );
 };
 

@@ -9,7 +9,7 @@ export default function UnifiedInbox() {
 
   return (
     <AdminPageLayout
-      title="📬 Unified Inbox"
+      title="Unified Inbox"
       description="All communications in one place - RFPs, contacts, resumes, and more"
     >
       <div className="space-y-6">
