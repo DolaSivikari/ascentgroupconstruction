@@ -3,10 +3,11 @@ import { Link } from "react-router-dom";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import PageHeader from "@/components/PageHeader";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/design-system/components/Card";
+import { Section } from "@/components/sections/Section";
 import { Button } from "@/ui/Button";
 import SEO from "@/components/SEO";
-import { CTA_TEXT } from "@/design-system/constants";
+import { CTA_TEXT, TYPOGRAPHY_STYLES } from "@/design-system/constants";
 import { ScrollReveal } from "@/components/animations/ScrollReveal";
 import heroImage from "@/assets/heroes/hero-general-contracting.jpg";
 import { PartnershipModelsSection } from "@/components/partnerships/PartnershipModelsSection";
@@ -102,14 +103,15 @@ const Capabilities = () => {
         ]}
       />
 
-      <main className="py-16">
-        <div className="container mx-auto px-4 max-w-7xl">
-          {/* Partnership Models */}
+      <main>
+        {/* Partnership Models */}
+        <Section size="major">
           <PartnershipModelsSection />
+        </Section>
 
-          {/* Project Delivery */}
-          <section className="mb-16">
-            <h2 className="text-3xl font-bold mb-8 text-center">Project Delivery Methods</h2>
+        {/* Project Delivery */}
+        <Section size="major" className="bg-muted/30">
+          <h2 className={`${TYPOGRAPHY_STYLES.sectionTitle} mb-8 text-center`}>Project Delivery Methods</h2>
             <ScrollReveal direction="up">
               <div className="grid md:grid-cols-3 gap-6">
               {deliveryMethods.map((method, index) => {
@@ -138,11 +140,11 @@ const Capabilities = () => {
               })}
             </div>
             </ScrollReveal>
-          </section>
+        </Section>
 
-          {/* Service Categories */}
-          <section className="mb-16">
-            <h2 className="text-3xl font-bold mb-8 text-center">Service Categories</h2>
+        {/* Service Categories */}
+        <Section size="major">
+          <h2 className={`${TYPOGRAPHY_STYLES.sectionTitle} mb-8 text-center`}>Service Categories</h2>
             <ScrollReveal direction="up">
               <div className="grid md:grid-cols-3 gap-6">
                 {marketSectors.map((sector, index) => (
@@ -169,11 +171,11 @@ const Capabilities = () => {
                 ))}
               </div>
             </ScrollReveal>
-          </section>
+        </Section>
 
-          {/* Self-Perform */}
-          <section className="mb-16">
-            <h2 className="text-3xl font-bold mb-4 text-center">Self-Perform Capabilities</h2>
+        {/* Self-Perform */}
+        <Section size="major" className="bg-muted/30">
+          <h2 className={`${TYPOGRAPHY_STYLES.sectionTitle} mb-4 text-center`}>Self-Perform Capabilities</h2>
             <div className="text-center mb-8 max-w-3xl mx-auto">
               <p className="text-muted-foreground">
                 Our 10-person crew directly executes 85% of project scope—EIFS, masonry, sealant, painting, and coatings. 
@@ -211,15 +213,14 @@ const Capabilities = () => {
                       </li>
                     ))}
                   </ul>
-                </CardContent>
+              </CardContent>
               </Card>
             </div>
-          </section>
+        </Section>
 
-
-          {/* Project Size */}
-          <section>
-            <h2 className="text-3xl font-bold mb-8 text-center">Project Size & Capacity</h2>
+        {/* Project Size */}
+        <Section size="major">
+          <h2 className={`${TYPOGRAPHY_STYLES.sectionTitle} mb-8 text-center`}>Project Size & Capacity</h2>
             <div className="grid md:grid-cols-3 gap-6">
               <Card>
                 <CardHeader>
@@ -252,8 +253,7 @@ const Capabilities = () => {
                 </CardContent>
               </Card>
             </div>
-          </section>
-        </div>
+        </Section>
       </main>
 
       <Footer />

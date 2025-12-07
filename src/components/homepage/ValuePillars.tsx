@@ -1,8 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
-import { Card, CardContent } from "@/components/ui/card";
+import { Card, CardContent } from "@/design-system/components/Card";
 import * as LucideIcons from "lucide-react";
 import { LucideIcon } from "lucide-react";
+import { LAYOUT } from "@/design-system/constants";
 
 interface ValuePillar {
   id: string;
@@ -30,10 +31,10 @@ const ValuePillars = () => {
   });
 
   if (isLoading) {
-  return (
-    <section className="py-12 md:py-16 bg-background">
-      <div className="container mx-auto px-4 md:px-6 max-w-7xl">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+    return (
+      <section className={`${LAYOUT.sectionSpacing.subsection} bg-background`}>
+        <div className={`container mx-auto ${LAYOUT.containerPadding} ${LAYOUT.maxWidth}`}>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {[1, 2, 3].map((i) => (
               <div key={i} className="h-48 bg-muted rounded-lg animate-pulse" />
             ))}
@@ -46,8 +47,8 @@ const ValuePillars = () => {
   if (!pillars || pillars.length === 0) return null;
 
   return (
-    <section className="py-12 md:py-16 bg-gradient-to-b from-background via-construction-orange/5 to-background">
-      <div className="container mx-auto px-4 md:px-6 max-w-7xl">
+    <section className={`${LAYOUT.sectionSpacing.subsection} bg-gradient-to-b from-background via-construction-orange/5 to-background`}>
+      <div className={`container mx-auto ${LAYOUT.containerPadding} ${LAYOUT.maxWidth}`}>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {pillars.map((pillar) => {
             const IconComponent = pillar.icon_name

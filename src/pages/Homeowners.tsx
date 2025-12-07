@@ -4,7 +4,7 @@ import SEO from "@/components/SEO";
 import PageHeader from "@/components/PageHeader";
 import { AscentEmailLink } from "@/components/EmailLink";
 import { Section } from "@/components/sections/Section";
-import { Card, CardContent } from "@/components/ui/card";
+import { Card, CardContent } from "@/design-system/components/Card";
 import { Button } from "@/ui/Button";
 import { Badge } from "@/components/ui/badge";
 import { 

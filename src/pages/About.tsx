@@ -258,19 +258,17 @@ const About = () => {
       </Section>
 
       {/* Where We Work */}
-      <section className="py-24 bg-background">
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto text-center">
-            <MapPin className="w-16 h-16 text-primary mx-auto mb-6" />
-            <h2 className="text-3xl md:text-5xl font-bold mb-6 tracking-tight">Where We Work</h2>
-            <p className="text-xl text-muted-foreground leading-relaxed">
-              We serve <strong>Ontario & the Greater Toronto Area</strong>, with emphasis on the GTA and 
-              Golden Horseshoe: Toronto, Mississauga, Brampton, Vaughan/Markham, Oakville/Burlington, 
-              and Hamilton. We consider broader Ontario for the right project.
-            </p>
-          </div>
+      <Section size="major">
+        <div className="max-w-4xl mx-auto text-center">
+          <MapPin className="w-16 h-16 text-primary mx-auto mb-6" />
+          <h2 className="text-3xl md:text-5xl font-bold mb-6 tracking-tight">Where We Work</h2>
+          <p className="text-xl text-muted-foreground leading-relaxed">
+            We serve <strong>Ontario & the Greater Toronto Area</strong>, with emphasis on the GTA and 
+            Golden Horseshoe: Toronto, Mississauga, Brampton, Vaughan/Markham, Oakville/Burlington, 
+            and Hamilton. We consider broader Ontario for the right project.
+          </p>
         </div>
-      </section>
+      </Section>
 
       {/* Our Vision */}
       <Section size="major" maxWidth="narrow" className="bg-primary/5">
