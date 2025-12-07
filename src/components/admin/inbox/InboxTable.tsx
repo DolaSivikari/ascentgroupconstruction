@@ -29,6 +29,16 @@ interface InboxTableProps {
   type: "all" | "rfp" | "contact" | "resume" | "prequal" | "quote" | "newsletter";
 }
 
+// Map tables to their date column names
+const dateColumnMap: Record<string, string> = {
+  'rfp_submissions': 'created_at',
+  'contact_submissions': 'created_at',
+  'resume_submissions': 'created_at',
+  'prequalification_downloads': 'downloaded_at',
+  'quote_requests': 'created_at',
+  'newsletter_subscribers': 'created_at',
+};
+
 export const InboxTable = ({ type }: InboxTableProps) => {
   const [searchQuery, setSearchQuery] = useState("");
   const [statusFilter, setStatusFilter] = useState<string>("all");
@@ -44,31 +54,42 @@ export const InboxTable = ({ type }: InboxTableProps) => {
       const fetchFromTable = async (
         table: string,
         typeLabel: string,
-        selectFields: string
+        selectFields: string,
+        dateColumn: string = 'created_at'
       ) => {
-        // Use type assertion to handle dynamic table queries
-        const baseQuery: any = supabase.from(table as any);
-        let query = baseQuery.select(selectFields).order("created_at", { ascending: false });
-        
-        if (statusFilter !== "all" && table !== "newsletter_subscribers") {
-          query = query.eq("status", statusFilter);
+        try {
+          const baseQuery: any = supabase.from(table as any);
+          let query = baseQuery.select(selectFields).order(dateColumn, { ascending: false });
+          
+          if (statusFilter !== "all" && table !== "newsletter_subscribers") {
+            query = query.eq("status", statusFilter);
+          }
+
+          const { data, error } = await query;
+          if (error) {
+            console.error(`Error fetching from ${table}:`, error);
+            return [];
+          }
+
+          return data?.map((item: any) => ({
+            ...item,
+            // Normalize the date column to created_at for consistent sorting/display
+            created_at: item[dateColumn] || item.created_at,
+            type: typeLabel,
+            table: table,
+          })) || [];
+        } catch (error) {
+          console.error(`Error fetching from ${table}:`, error);
+          return [];
         }
-
-        const { data, error } = await query;
-        if (error) throw error;
-
-        return data?.map((item: any) => ({
-          ...item,
-          type: typeLabel,
-          table: table,
-        })) || [];
       };
 
       if (type === "all" || type === "rfp") {
         const rfps = await fetchFromTable(
           "rfp_submissions",
           "RFP",
-          "id, contact_name, company_name, email, phone, project_name, status, created_at, estimated_value_range"
+          "id, contact_name, company_name, email, phone, project_name, status, created_at, estimated_value_range",
+          dateColumnMap['rfp_submissions']
         );
         allItems.push(...rfps);
       }
@@ -77,7 +98,8 @@ export const InboxTable = ({ type }: InboxTableProps) => {
         const contacts = await fetchFromTable(
           "contact_submissions",
           "Contact",
-          "id, name, email, phone, company, message, status, created_at, submission_type"
+          "id, name, email, phone, company, message, status, created_at, submission_type",
+          dateColumnMap['contact_submissions']
         );
         allItems.push(...contacts);
       }
@@ -86,7 +108,8 @@ export const InboxTable = ({ type }: InboxTableProps) => {
         const resumes = await fetchFromTable(
           "resume_submissions",
           "Resume",
-          "id, applicant_name, email, phone, status, created_at, resume_url"
+          "id, applicant_name, email, phone, status, created_at, resume_url",
+          dateColumnMap['resume_submissions']
         );
         allItems.push(...resumes);
       }
@@ -95,7 +118,8 @@ export const InboxTable = ({ type }: InboxTableProps) => {
         const prequals = await fetchFromTable(
           "prequalification_downloads",
           "Prequal",
-          "id, contact_name, company_name, email, phone, status, created_at, project_type"
+          "id, contact_name, company_name, email, phone, status, downloaded_at, project_type",
+          dateColumnMap['prequalification_downloads']
         );
         allItems.push(...prequals);
       }
@@ -104,7 +128,8 @@ export const InboxTable = ({ type }: InboxTableProps) => {
         const quotes = await fetchFromTable(
           "quote_requests",
           "Quote",
-          "id, name, email, phone, company, status, created_at, quote_type, priority"
+          "id, name, email, phone, company, status, created_at, quote_type, priority",
+          dateColumnMap['quote_requests']
         );
         allItems.push(...quotes);
       }
@@ -113,7 +138,8 @@ export const InboxTable = ({ type }: InboxTableProps) => {
         const newsletters = await fetchFromTable(
           "newsletter_subscribers",
           "Newsletter",
-          "id, email, created_at, is_active, source"
+          "id, email, created_at, is_active, source",
+          dateColumnMap['newsletter_subscribers']
         );
         allItems.push(...newsletters);
       }
@@ -126,7 +152,7 @@ export const InboxTable = ({ type }: InboxTableProps) => {
 
   // Realtime subscriptions
   useEffect(() => {
-    const channels = [];
+    const channels: any[] = [];
 
     const tables = type === "all" 
       ? ["rfp_submissions", "contact_submissions", "resume_submissions", "prequalification_downloads", "quote_requests"]
@@ -191,7 +217,7 @@ export const InboxTable = ({ type }: InboxTableProps) => {
       console.error("Error deleting item:", error);
       toast({
         title: "Error",
-        description: "Failed to delete item",
+        description: "Failed to delete item. Please try again.",
         variant: "destructive",
       });
     }
@@ -317,7 +343,7 @@ export const InboxTable = ({ type }: InboxTableProps) => {
                     </TableCell>
                   )}
                   <TableCell>
-                    {format(new Date(item.created_at), "MMM d, yyyy HH:mm")}
+                    {item.created_at ? format(new Date(item.created_at), "MMM d, yyyy HH:mm") : "-"}
                   </TableCell>
                   <TableCell>
                     <div className="flex items-center gap-2">
