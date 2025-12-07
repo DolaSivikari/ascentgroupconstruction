@@ -60,7 +60,7 @@ const CompanyOverviewHub = () => {
   return (
     <section
       ref={sectionRef}
-      className="py-16 md:py-20 lg:py-24 px-4 bg-gradient-to-b from-background to-muted/30"
+      className="py-20 md:py-28 lg:py-32 px-4 bg-gradient-to-b from-background to-muted/30"
     >
       <div className="container mx-auto max-w-7xl">
         {/* Header */}

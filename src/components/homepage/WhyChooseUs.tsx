@@ -4,6 +4,7 @@ import { Button } from "@/ui/Button";
 import { Link } from "react-router-dom";
 import { useWhyChooseUs } from "@/hooks/useWhyChooseUs";
 import { GRID } from "@/design-system/layouts";
+import { LAYOUT } from "@/design-system/constants";
 
 // Fallback data with construction-specific icons
 const fallbackDifferentiators = [
@@ -27,7 +28,7 @@ const WhyChooseUs = () => {
       }))
     : fallbackDifferentiators;
   return (
-    <section className="py-16 md:py-20 lg:py-24 bg-muted/30">
+    <section className={`${LAYOUT.sectionSpacing.major} bg-muted/30`}>
       <div className="container mx-auto px-6 md:px-8 lg:px-12 max-w-7xl">
         
         {/* Section Header - Enterprise Style */}

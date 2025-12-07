@@ -41,7 +41,7 @@ export const PartnershipCarousel = () => {
   }, [pause, play]);
 
   return (
-    <section className="py-16 md:py-20 lg:py-24 bg-gradient-to-b from-background to-background/50">
+    <section className="py-20 md:py-28 lg:py-32 bg-gradient-to-b from-background to-background/50">
       <div className="mx-auto max-w-7xl px-6">
         {/* Header */}
         <div className="text-center mb-12">

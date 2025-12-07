@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { ChevronLeft, ChevronRight, MapPin, Award } from "lucide-react";
-import { useCountUp } from "@/hooks/useCountUp";
 
 interface HeroProject {
   title: string;
@@ -18,9 +17,6 @@ interface Props {
 export const PremiumProjectHero = ({ featuredProjects }: Props) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
-  const projectCount = useCountUp(500, 2000);
-  const totalValue = useCountUp(2, 2000);
-  const satisfaction = useCountUp(98, 2000);
 
   // Start autoplay after initial page load is stable (15 seconds)
   useEffect(() => {
@@ -85,25 +81,19 @@ export const PremiumProjectHero = ({ featuredProjects }: Props) => {
               {currentProject?.category || "Professional Project Execution"}
             </p>
 
-            {/* Animated statistics dashboard */}
-            <div className="flex flex-wrap gap-8 mb-8">
-              <div className="text-center">
-                <div className="text-3xl md:text-4xl font-bold text-primary-foreground mb-1">
-                  {projectCount}+
-                </div>
-                <div className="text-sm text-primary-foreground/80">Projects</div>
+            {/* Qualitative Value Proposition - No Inflated Numbers */}
+            <div className="flex flex-wrap gap-6 mb-8">
+              <div className="flex items-center gap-2 bg-primary-foreground/10 backdrop-blur-sm rounded-full px-4 py-2">
+                <Award className="w-5 h-5 text-primary-foreground" />
+                <span className="text-sm font-medium text-primary-foreground">Quality Craftsmanship</span>
               </div>
-              <div className="text-center">
-                <div className="text-3xl md:text-4xl font-bold text-primary-foreground mb-1">
-                  ${totalValue}B+
-                </div>
-                <div className="text-sm text-primary-foreground/80">Total Value</div>
+              <div className="flex items-center gap-2 bg-primary-foreground/10 backdrop-blur-sm rounded-full px-4 py-2">
+                <Award className="w-5 h-5 text-primary-foreground" />
+                <span className="text-sm font-medium text-primary-foreground">On-Time Delivery</span>
               </div>
-              <div className="text-center">
-                <div className="text-3xl md:text-4xl font-bold text-primary-foreground mb-1">
-                  {satisfaction}%
-                </div>
-                <div className="text-sm text-primary-foreground/80">Satisfaction</div>
+              <div className="flex items-center gap-2 bg-primary-foreground/10 backdrop-blur-sm rounded-full px-4 py-2">
+                <Award className="w-5 h-5 text-primary-foreground" />
+                <span className="text-sm font-medium text-primary-foreground">Safety-First Approach</span>
               </div>
             </div>
 
