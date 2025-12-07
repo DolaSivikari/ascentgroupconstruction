@@ -109,8 +109,8 @@ export default function CompanyIntroduction() {
                 },
                 {
                   icon: HardHat,
-                  title: "Proven Track Record",
-                  description: "15+ years of experience with proven on-time, on-budget delivery serving developers, property managers, and institutional clients across the Greater Toronto Area.",
+                  title: "Building Our Track Record",
+                  description: "15+ years combined team experience delivering envelope and restoration projects. Committed to on-time, on-budget delivery for developers, property managers, and clients across the GTA.",
                   color: "construction-orange"
                 },
                 {

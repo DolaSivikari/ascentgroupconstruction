@@ -125,9 +125,9 @@ const About = () => {
   return (
     <div className="min-h-screen">
       <SEO 
-        title="About Us - Ontario's Building Envelope & Restoration Specialist"
-        description="Ascent Group Construction delivers accountable, prime-scope execution for building envelope and exterior restoration projects. Learn about our approach, values, and vision."
-        keywords="about Ascent Group, building envelope contractor, specialty contractor Ontario, restoration company, GTA contractor"
+        title="About Us - Building Envelope & Restoration Services | Ontario & GTA"
+        description="Emerging specialty contractor delivering accountable envelope and restoration services across Ontario. Learn about our approach, values, and vision for becoming a trusted GC partner."
+        keywords="about Ascent Group, building envelope contractor, specialty contractor Ontario, restoration company, GTA contractor, emerging contractor"
       />
       <Navigation />
       

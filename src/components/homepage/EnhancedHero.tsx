@@ -339,7 +339,7 @@ const EnhancedHero = ({ splashComplete = true }: { splashComplete?: boolean }) =
               </div>
             </div>
 
-            {/* Zero Incidents Badge */}
+            {/* Safety-First Badge */}
             <div 
               className={`group relative overflow-hidden rounded-[var(--radius-lg)] bg-white/10 backdrop-blur-xl border border-white/20 px-5 py-4 shadow-[var(--shadow-lg)] hover:shadow-blue-500/20 hover:scale-105 transition-all duration-300 ${animationsEnabled && !prefersReducedMotion ? 'animate-fade-in' : ''}`}
             >
@@ -348,7 +348,7 @@ const EnhancedHero = ({ splashComplete = true }: { splashComplete?: boolean }) =
                 <div className="p-2 rounded-lg bg-blue-500/20">
                   <CheckCircle2 className="h-5 w-5 text-blue-400" />
                 </div>
-                <span className="text-sm font-bold text-white whitespace-nowrap">Zero Incidents</span>
+                <span className="text-sm font-bold text-white whitespace-nowrap">Safety-First Operations</span>
               </div>
             </div>
           </div>

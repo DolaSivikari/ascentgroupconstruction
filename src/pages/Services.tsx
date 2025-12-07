@@ -114,7 +114,7 @@ const Services = () => {
           <div className="text-center mb-12">
             <h2 className="text-4xl font-bold mb-4">Why Choose Ascent Group</h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Ontario's trusted specialty construction partner
+              Your reliable specialty construction partner in Ontario & GTA
             </p>
           </div>
 
