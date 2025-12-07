@@ -117,8 +117,8 @@ const Users = () => {
   }
 
   return (
-    <div>
-      <div className="flex justify-between items-center mb-6">
+    <div className="space-y-6">
+      <div className="flex justify-between items-center">
         <div>
           <h1 className="business-page-title">User Management</h1>
           <p className="business-page-subtitle">Manage user accounts and roles</p>
@@ -126,12 +126,12 @@ const Users = () => {
         <InviteUserDialog onUserCreated={loadUsers} />
       </div>
 
-      <div className="business-glass-card p-6 mb-6">
+      <div className="business-glass-card p-6">
         <div className="flex items-center gap-2 mb-4">
           <Shield className="h-5 w-5 text-primary" />
-          <h2 className="text-lg font-semibold">Role Definitions</h2>
+          <h2 className="business-section-title">Role Definitions</h2>
         </div>
-        <p className="text-sm text-muted-foreground mb-4">
+        <p className="business-section-subtitle mb-4">
           Control access levels and permissions for team members
         </p>
         <div className="grid md:grid-cols-3 gap-4 text-sm mb-6">
@@ -190,18 +190,16 @@ const Users = () => {
         <PermissionMatrix />
       </div>
 
-      <div className="mb-6">
-        <RoleDistributionCard users={users} />
-      </div>
+      <RoleDistributionCard users={users} />
 
       {isLoading ? (
-        <div className="text-center py-12">Loading users...</div>
+        <div className="text-center py-12 text-muted-foreground">Loading users...</div>
       ) : (
         <div className="business-glass-card">
           <div className="p-6 border-b border-border">
             <div className="flex items-center gap-2">
               <UsersIcon className="h-5 w-5" />
-              <h2 className="text-lg font-semibold">Team Members ({users.length})</h2>
+              <h2 className="business-section-title">Team Members ({users.length})</h2>
             </div>
           </div>
           <div className="p-6">
