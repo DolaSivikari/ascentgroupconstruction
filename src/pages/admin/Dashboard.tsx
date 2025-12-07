@@ -294,53 +294,50 @@ const Dashboard = () => {
           </div>
         </div>
       ) : (
-        <StaggerContainer type="fade" className="business-stats-grid">
-          <MetricCard
-            title="Published Projects"
-            value={stats.projects}
-            icon={Briefcase}
-            trend={{ value: `${stats.draftProjects} drafts`, isPositive: false }}
-            onClick={() => navigate("/admin/projects")}
-          />
-          <MetricCard
-            title="Published Blog Posts"
-            value={stats.blogPosts}
-            icon={FileText}
-            trend={{ value: `${stats.draftPosts} drafts`, isPositive: false }}
-            onClick={() => navigate("/admin/blog")}
-          />
-          <MetricCard
-            title="Contact Forms"
-            value={stats.contactSubmissions}
-            icon={Mail}
-            badge={stats.newSubmissions}
-            onClick={() => navigate("/admin/inbox")}
-          />
-          <MetricCard
-            title="Services"
-            value={stats.services}
-            icon={TrendingUp}
-            onClick={() => navigate("/admin/services-manager")}
-          />
-        </StaggerContainer>
-      )}
+        <>
+          {/* Primary Metrics */}
+          <StaggerContainer type="fade" className="business-stats-grid">
+            <MetricCard
+              title="Published Projects"
+              value={stats.projects}
+              icon={Briefcase}
+              trend={{ value: `${stats.draftProjects} drafts`, isPositive: false }}
+              onClick={() => navigate("/admin/projects")}
+            />
+            <MetricCard
+              title="Published Blog Posts"
+              value={stats.blogPosts}
+              icon={FileText}
+              trend={{ value: `${stats.draftPosts} drafts`, isPositive: false }}
+              onClick={() => navigate("/admin/blog")}
+            />
+            <MetricCard
+              title="Contact Forms"
+              value={stats.contactSubmissions}
+              icon={Mail}
+              badge={stats.newSubmissions}
+              onClick={() => navigate("/admin/inbox")}
+            />
+            <MetricCard
+              title="Services"
+              value={stats.services}
+              icon={TrendingUp}
+              onClick={() => navigate("/admin/services-manager")}
+            />
+          </StaggerContainer>
 
-      {/* Secondary Metrics */}
-      <StaggerContainer type="fade" className="business-stats-grid">
-        <MetricCard
-          title="Services"
-          value={stats.services}
-          icon={TrendingUp}
-          onClick={() => navigate("/admin/services")}
-        />
-        <MetricCard
-          title="Prequalification Requests"
-          value={stats.prequalRequests}
-          icon={Package}
-          badge={stats.newPrequalRequests}
-          onClick={() => navigate("/admin/prequalifications")}
-        />
-      </StaggerContainer>
+          {/* Secondary Metrics */}
+          <StaggerContainer type="fade" className="business-stats-grid">
+            <MetricCard
+              title="Prequalification Requests"
+              value={stats.prequalRequests}
+              icon={Package}
+              badge={stats.newPrequalRequests}
+              onClick={() => navigate("/admin/prequalifications")}
+            />
+          </StaggerContainer>
+        </>
+      )}
 
       {/* Quick Actions & Activity Feed */}
       <ScrollReveal direction="up">
