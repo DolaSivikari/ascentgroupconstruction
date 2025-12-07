@@ -3,10 +3,11 @@ import { Building, HardHat, ArrowRight, CheckCircle2, Wrench, Hammer, Ruler } fr
 import { Button } from "@/ui/Button";
 import { Card } from "@/components/ui/card";
 import { GRID } from "@/design-system/layouts";
+import { LAYOUT } from "@/design-system/constants";
 
 const WhoWeServe = () => {
   return (
-    <section className="py-16 md:py-20 lg:py-24 bg-background">
+    <section className={`${LAYOUT.sectionSpacing.major} bg-background`}>
       <div className="container mx-auto px-6 md:px-8 lg:px-12 max-w-7xl">
         {/* Section Header - Enterprise Style */}
         <div className="max-w-3xl mb-16">

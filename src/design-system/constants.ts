@@ -3,15 +3,32 @@
  * Single source of truth for all design decisions across the site
  */
 
-// Layout Standards
+// Layout Standards - Enterprise-Grade Spacing
 export const LAYOUT = {
   maxWidth: 'max-w-7xl',
   sectionSpacing: {
-    major: 'py-16 md:py-20 lg:py-24',       // 96-150px - Major sections
-    subsection: 'py-12 md:py-16',           // 72-96px - Subsections
-    tight: 'py-8 md:py-12',                 // 48-72px - Compact sections
+    major: 'py-20 md:py-28 lg:py-32',       // 128-200px - Major sections (increased)
+    subsection: 'py-16 md:py-20',           // 96-128px - Subsections (increased)
+    tight: 'py-12 md:py-16',                // 64-96px - Compact sections (increased)
   },
   containerPadding: 'px-4 sm:px-6 lg:px-8',
+} as const;
+
+// Typography Hierarchy - Professional Scale
+export const TYPOGRAPHY_STYLES = {
+  // Page titles - bold, commanding
+  pageTitle: 'text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight',
+  // Section headings - clear hierarchy
+  sectionTitle: 'text-3xl md:text-4xl font-bold tracking-tight',
+  // Subsection headings
+  subsectionTitle: 'text-2xl md:text-3xl font-semibold',
+  // Card titles
+  cardTitle: 'text-xl md:text-2xl font-semibold',
+  // Body text
+  bodyLarge: 'text-lg md:text-xl leading-relaxed',
+  bodyDefault: 'text-base md:text-lg leading-relaxed',
+  // Labels and small text
+  label: 'text-sm font-medium uppercase tracking-wider',
 } as const;
 
 // Unified CTA Text
