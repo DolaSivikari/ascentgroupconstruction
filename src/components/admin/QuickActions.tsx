@@ -1,11 +1,8 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Button } from "@/ui/Button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { FileText, Briefcase, Image, Users, Search, Activity, ExternalLink, Settings } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import { supabase } from "@/integrations/supabase/client";
-import { useToast } from "@/hooks/use-toast";
 import { ADMIN_ROUTES } from "@/utils/routeHelpers";
 
 interface QuickAction {
@@ -30,34 +27,8 @@ const ICON_MAP: Record<string, any> = {
 
 const QuickActions = () => {
   const navigate = useNavigate();
-  const { toast } = useToast();
-  const [actions, setActions] = useState<QuickAction[]>(DEFAULT_ACTIONS);
+  const [actions] = useState<QuickAction[]>(DEFAULT_ACTIONS);
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
-
-  // Quick actions use defaults - customization removed (site_settings.admin_quick_actions column doesn't exist)
-
-  const saveQuickActions = async () => {
-    try {
-      const { error } = await supabase
-        .from('site_settings')
-        .update({ admin_quick_actions: actions as any })
-        .eq('is_active', true);
-
-      if (error) throw error;
-
-      toast({
-        title: "Quick Actions Updated",
-        description: "Your shortcuts have been saved.",
-      });
-      setIsEditDialogOpen(false);
-    } catch (e: any) {
-      toast({
-        title: "Error",
-        description: "Failed to save Quick Actions settings.",
-        variant: "destructive",
-      });
-    }
-  };
 
   const handleNavigate = (path: string) => {
     if (path === "/" || path.startsWith("http")) {
@@ -68,11 +39,11 @@ const QuickActions = () => {
   };
 
   return (
-    <Card>
-      <CardHeader className="flex flex-row items-center justify-between">
+    <div className="business-glass-card">
+      <div className="p-6 flex flex-row items-center justify-between border-b border-border">
         <div>
-          <CardTitle>Quick Actions</CardTitle>
-          <CardDescription>Your most-used shortcuts</CardDescription>
+          <h3 className="business-section-title">Quick Actions</h3>
+          <p className="business-section-subtitle">Your most-used shortcuts</p>
         </div>
         <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
           <DialogTrigger asChild>
@@ -105,27 +76,26 @@ const QuickActions = () => {
             </div>
           </DialogContent>
         </Dialog>
-      </CardHeader>
-      <CardContent>
+      </div>
+      <div className="p-6">
         <div className="grid grid-cols-2 gap-3">
           {actions.map((action) => {
             const IconComponent = ICON_MAP[action.icon] || Briefcase;
             return (
-              <Button
+              <button
                 key={action.label}
-                variant="outline"
-                className="justify-start h-auto py-4 hover:bg-muted hover:border-primary transition-all"
+                className="business-btn business-btn-ghost justify-start h-auto py-4"
                 onClick={() => handleNavigate(action.path)}
                 aria-label={`${action.label} - Navigate to ${action.path}`}
               >
                 <IconComponent className={`h-5 w-5 mr-3 ${action.color}`} />
                 <span className="text-sm font-medium">{action.label}</span>
-              </Button>
+              </button>
             );
           })}
         </div>
-      </CardContent>
-    </Card>
+      </div>
+    </div>
   );
 };
 

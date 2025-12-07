@@ -2,7 +2,6 @@ import { useState } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/ui/Button";
-import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
@@ -94,23 +93,28 @@ const MediaLibraryEnhanced = () => {
   };
 
   return (
-    <div className="p-8">
+    <div>
       <div className="mb-8">
-        <h1 className="text-3xl font-bold mb-2">Media Library</h1>
-        <p className="text-muted-foreground">Enhanced media management with focal points and alt text</p>
+        <h1 className="business-page-title">Media Library</h1>
+        <p className="business-page-subtitle">Enhanced media management with focal points and alt text</p>
       </div>
 
       {isLoading ? (
-        <p>Loading...</p>
+        <p style={{ color: 'var(--business-text-secondary)' }}>Loading...</p>
       ) : assets.length === 0 ? (
-        <Card className="p-12 text-center">
-          <Image className="w-16 h-16 mx-auto mb-4 text-muted-foreground" />
-          <p className="text-muted-foreground">No media assets found</p>
-        </Card>
+        <div className="business-glass-card text-center" style={{ padding: '3rem' }}>
+          <Image className="w-16 h-16 mx-auto mb-4" style={{ color: 'var(--business-text-secondary)' }} />
+          <p style={{ color: 'var(--business-text-secondary)' }}>No media assets found</p>
+        </div>
       ) : (
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
           {assets.map((asset) => (
-            <Card key={asset.id} className="p-3 cursor-pointer hover:border-primary" onClick={() => handleEditAsset(asset)}>
+            <div 
+              key={asset.id} 
+              className="business-glass-card cursor-pointer hover:border-primary" 
+              style={{ padding: '0.75rem' }}
+              onClick={() => handleEditAsset(asset)}
+            >
               <div className="aspect-square bg-muted rounded mb-2 overflow-hidden">
                 {asset.file_url && (
                   <OptimizedImage
@@ -124,12 +128,12 @@ const MediaLibraryEnhanced = () => {
                   />
                 )}
               </div>
-              <p className="text-sm font-medium truncate">{asset.title}</p>
-              <div className="flex gap-2 text-xs text-muted-foreground mt-1">
+              <p className="text-sm font-medium truncate" style={{ color: 'var(--business-text-primary)' }}>{asset.title}</p>
+              <div className="flex gap-2 text-xs mt-1" style={{ color: 'var(--business-text-secondary)' }}>
                 <span>{formatFileSize(asset.file_size)}</span>
                 {asset.alt_text && <Badge variant="secondary" className="text-xs">ALT</Badge>}
               </div>
-            </Card>
+            </div>
           ))}
         </div>
       )}
@@ -164,8 +168,8 @@ const MediaLibraryEnhanced = () => {
                 <Input value={altText} onChange={(e) => setAltText(e.target.value)} placeholder="Describe the image" />
               </div>
               <div className="flex gap-2">
-                <Button onClick={handleSave}>Save</Button>
-                <Button variant="outline" onClick={() => setEditingAsset(null)}>Cancel</Button>
+                <button className="business-btn business-btn-primary" onClick={handleSave}>Save</button>
+                <button className="business-btn business-btn-ghost" onClick={() => setEditingAsset(null)}>Cancel</button>
               </div>
             </div>
           )}
