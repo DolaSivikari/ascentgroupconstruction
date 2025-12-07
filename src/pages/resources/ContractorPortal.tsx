@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Shield, FileText, Download, Package, CheckCircle2, Award, Building2, Truck, Users, HardHat } from "lucide-react";
+import { Shield, FileText, Download, Package, CheckCircle2, Award, Building2, Truck, Users, HardHat, Clock } from "lucide-react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import PageHeader from "@/components/PageHeader";
@@ -322,31 +322,87 @@ const ContractorPortal = () => {
           </section>
 
           {/* FAQ Section */}
-          <section>
-            <h2 className="text-3xl font-bold text-foreground mb-8">Frequently Asked Questions</h2>
-            <Accordion type="single" collapsible className="max-w-3xl">
-              <AccordionItem value="item-1">
-                <AccordionTrigger>How current are these documents?</AccordionTrigger>
-                <AccordionContent>
+          <section className="bg-gradient-to-br from-muted/30 to-muted/10 rounded-2xl p-8 md:p-12 border border-border/50">
+            <div className="text-center mb-10">
+              <span className="inline-block px-4 py-1.5 bg-primary/10 text-primary text-sm font-semibold rounded-full mb-4">
+                Got Questions?
+              </span>
+              <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-3">
+                Frequently Asked Questions
+              </h2>
+              <p className="text-muted-foreground max-w-2xl mx-auto">
+                Everything you need to know about working with Ascent Group Construction
+              </p>
+            </div>
+            
+            <Accordion type="single" collapsible className="max-w-3xl mx-auto space-y-4">
+              <AccordionItem value="item-1" className="bg-background/80 backdrop-blur-sm rounded-xl border border-border/50 px-6 overflow-hidden data-[state=open]:shadow-lg transition-all duration-300">
+                <AccordionTrigger className="text-left font-semibold text-foreground hover:text-primary py-5 hover:no-underline">
+                  <div className="flex items-center gap-3">
+                    <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
+                      <FileText className="h-4 w-4 text-primary" />
+                    </div>
+                    <span>How current are these documents?</span>
+                  </div>
+                </AccordionTrigger>
+                <AccordionContent className="text-muted-foreground pb-5 pl-11">
                   All documents are updated monthly. Insurance certificates and WSIB clearances are always current. We recommend downloading fresh copies for each RFP submission.
                 </AccordionContent>
               </AccordionItem>
-              <AccordionItem value="item-2">
-                <AccordionTrigger>Do you provide project-specific documentation?</AccordionTrigger>
-                <AccordionContent>
+              
+              <AccordionItem value="item-2" className="bg-background/80 backdrop-blur-sm rounded-xl border border-border/50 px-6 overflow-hidden data-[state=open]:shadow-lg transition-all duration-300">
+                <AccordionTrigger className="text-left font-semibold text-foreground hover:text-primary py-5 hover:no-underline">
+                  <div className="flex items-center gap-3">
+                    <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
+                      <Package className="h-4 w-4 text-primary" />
+                    </div>
+                    <span>Do you provide project-specific documentation?</span>
+                  </div>
+                </AccordionTrigger>
+                <AccordionContent className="text-muted-foreground pb-5 pl-11">
                   Yes! Use the custom package request form to specify your project requirements. We can provide tailored documentation including project-specific references, equipment lists, and safety plans.
                 </AccordionContent>
               </AccordionItem>
-              <AccordionItem value="item-3">
-                <AccordionTrigger>What's your typical response time for RFPs?</AccordionTrigger>
-                <AccordionContent>
+              
+              <AccordionItem value="item-3" className="bg-background/80 backdrop-blur-sm rounded-xl border border-border/50 px-6 overflow-hidden data-[state=open]:shadow-lg transition-all duration-300">
+                <AccordionTrigger className="text-left font-semibold text-foreground hover:text-primary py-5 hover:no-underline">
+                  <div className="flex items-center gap-3">
+                    <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
+                      <Clock className="h-4 w-4 text-primary" />
+                    </div>
+                    <span>What's your typical response time for RFPs?</span>
+                  </div>
+                </AccordionTrigger>
+                <AccordionContent className="text-muted-foreground pb-5 pl-11">
                   We typically respond to RFPs within 3-5 business days. For urgent bids, we can accommodate faster turnarounds with advance notice.
                 </AccordionContent>
               </AccordionItem>
-              <AccordionItem value="item-4">
-                <AccordionTrigger>Do you offer design-build services?</AccordionTrigger>
-                <AccordionContent>
+              
+              <AccordionItem value="item-4" className="bg-background/80 backdrop-blur-sm rounded-xl border border-border/50 px-6 overflow-hidden data-[state=open]:shadow-lg transition-all duration-300">
+                <AccordionTrigger className="text-left font-semibold text-foreground hover:text-primary py-5 hover:no-underline">
+                  <div className="flex items-center gap-3">
+                    <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
+                      <Building2 className="h-4 w-4 text-primary" />
+                    </div>
+                    <span>Do you offer design-build services?</span>
+                  </div>
+                </AccordionTrigger>
+                <AccordionContent className="text-muted-foreground pb-5 pl-11">
                   Yes, we provide full design-build services for painting, restoration, and building envelope projects. Our team can work with your specifications or develop complete solutions from concept to completion.
+                </AccordionContent>
+              </AccordionItem>
+              
+              <AccordionItem value="item-5" className="bg-background/80 backdrop-blur-sm rounded-xl border border-border/50 px-6 overflow-hidden data-[state=open]:shadow-lg transition-all duration-300">
+                <AccordionTrigger className="text-left font-semibold text-foreground hover:text-primary py-5 hover:no-underline">
+                  <div className="flex items-center gap-3">
+                    <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
+                      <Shield className="h-4 w-4 text-primary" />
+                    </div>
+                    <span>What safety certifications do you hold?</span>
+                  </div>
+                </AccordionTrigger>
+                <AccordionContent className="text-muted-foreground pb-5 pl-11">
+                  We are actively working toward COR Certification and maintain an excellent safety record with zero lost-time incidents. All team members complete comprehensive safety training and we maintain current WSIB clearances.
                 </AccordionContent>
               </AccordionItem>
             </Accordion>
