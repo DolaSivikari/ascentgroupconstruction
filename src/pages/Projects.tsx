@@ -8,6 +8,7 @@ import Breadcrumb from "@/components/Breadcrumb";
 import FilterBar from "@/components/FilterBar";
 import ProjectCard from "@/components/ProjectCard";
 import ProjectFeaturedCard from "@/components/ProjectFeaturedCard";
+import { Section } from "@/components/sections/Section";
 import { Building2, Home, School, Factory } from "lucide-react";
 import { Button } from "@/ui/Button";
 import { supabase } from "@/integrations/supabase/client";
@@ -20,6 +21,7 @@ import { ProjectQuickView } from "@/components/projects/ProjectQuickView";
 import { VideoTestimonials } from "@/components/shared/VideoTestimonials";
 import { ScrollToTop } from "@/components/ui/scroll-to-top";
 import { usePageAnalytics } from "@/hooks/usePageAnalytics";
+import { TYPOGRAPHY_STYLES } from "@/design-system/constants";
 
 
 const categories = [
@@ -208,20 +210,18 @@ const Projects = () => {
 
       {/* Featured Projects Spotlight */}
       {featuredProjects.length > 0 && (
-        <section className="py-20 bg-muted/30">
-          <div className="container mx-auto px-4">
+        <Section size="major" className="bg-muted/30">
           <div className="text-center mb-8">
-            <h2 className="text-3xl md:text-4xl font-bold mb-2 text-foreground">Featured Projects</h2>
+            <h2 className={`${TYPOGRAPHY_STYLES.sectionTitle} mb-2 text-foreground`}>Featured Projects</h2>
             <p className="text-muted-foreground">Showcasing our most notable work</p>
           </div>
-            
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {featuredProjects.map((project) => (
-                <ProjectFeaturedCard key={project.slug} {...project} />
-              ))}
-            </div>
+          
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {featuredProjects.map((project) => (
+              <ProjectFeaturedCard key={project.slug} {...project} />
+            ))}
           </div>
-        </section>
+        </Section>
       )}
 
       {/* Filter Bar with Advanced Filters */}
@@ -286,8 +286,7 @@ const Projects = () => {
       />
 
       {/* Projects Grid */}
-      <section className="py-20 bg-background">
-        <div className="container mx-auto px-4">
+      <Section size="major">
           {isLoading ? (
             <div className="text-center py-16">
               <p className="text-muted-foreground">Loading projects...</p>
@@ -343,8 +342,7 @@ const Projects = () => {
               )}
             </>
           )}
-        </div>
-      </section>
+      </Section>
 
       {/* Video Testimonials - Removed pending verified testimonial collection */}
 

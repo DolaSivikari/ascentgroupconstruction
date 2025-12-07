@@ -12,7 +12,7 @@ import { CheckCircle2, Users, Building, Briefcase, Home, Shield, Award, HardHat 
 import { WhoWeServeCard, WhoWeServeSection, FeatureCard } from "@/components/unified";
 import { CardGrid } from "@/components/shared/CardGrid";
 import { Section } from "@/components/sections/Section";
-import { CTA_TEXT } from "@/design-system/constants";
+import { CTA_TEXT, TYPOGRAPHY_STYLES } from "@/design-system/constants";
 import { ScrollReveal } from "@/components/animations/ScrollReveal";
 import heroServicesImage from "@/assets/heroes/hero-general-contracting.jpg";
 import { usePageAnalytics } from "@/hooks/usePageAnalytics";
@@ -91,28 +91,24 @@ const Services = () => {
         <ServicePromotionsSection />
 
         {/* Specialty Contractor Information */}
-        <section className="py-16 bg-muted/30">
-          <div className="container mx-auto px-4 text-center">
-            <div className="max-w-3xl mx-auto">
-              <h3 className="text-2xl font-bold mb-4">Why Work with a Specialty Contractor?</h3>
-              <p className="text-muted-foreground">
-                Specialty contractors like Ascent Group bring focused expertise, specialized equipment, and proven methodologies to complex construction challenges. We self-perform our work, ensuring quality control and accountability on every project.
-              </p>
-            </div>
+        <Section size="subsection" className="bg-muted/30">
+          <div className="max-w-3xl mx-auto text-center">
+            <h3 className={`${TYPOGRAPHY_STYLES.subsectionTitle} mb-4`}>Why Work with a Specialty Contractor?</h3>
+            <p className="text-muted-foreground">
+              Specialty contractors like Ascent Group bring focused expertise, specialized equipment, and proven methodologies to complex construction challenges. We self-perform our work, ensuring quality control and accountability on every project.
+            </p>
           </div>
-        </section>
+        </Section>
 
         {/* Certifications Section */}
-        <section className="py-16 bg-background">
-          <div className="container mx-auto px-4">
-            <CertificationBadges />
-          </div>
-        </section>
+        <Section size="subsection">
+          <CertificationBadges />
+        </Section>
 
         {/* Why Choose Us */}
-        <Section className="bg-muted/30">
+        <Section size="major" className="bg-muted/30">
           <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold mb-4">Why Choose Ascent Group</h2>
+            <h2 className={`${TYPOGRAPHY_STYLES.sectionTitle} mb-4`}>Why Choose Ascent Group</h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
               Your reliable specialty construction partner in Ontario & GTA
             </p>
@@ -143,26 +139,24 @@ const Services = () => {
         </Section>
 
         {/* Final CTA Section */}
-        <section className="py-20 bg-gradient-to-br from-primary/10 via-accent/10 to-primary/10">
-          <div className="container mx-auto px-4 text-center">
-            <div className="max-w-3xl mx-auto">
-              <h2 className="text-4xl md:text-5xl font-bold mb-6">
-                Ready to Start Your Project?
-              </h2>
-              <p className="text-xl text-muted-foreground mb-8">
-                Let's discuss how our specialized services can bring your construction vision to life
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button asChild size="lg" className="text-lg px-8">
-                  <Link to="/contact">Request a Consultation</Link>
-                </Button>
-                <Button asChild variant="outline" size="lg" className="text-lg px-8">
-                  <Link to="/projects">View Our Projects</Link>
-                </Button>
-              </div>
+        <Section size="major" className="bg-gradient-to-br from-primary/10 via-accent/10 to-primary/10">
+          <div className="max-w-3xl mx-auto text-center">
+            <h2 className={`${TYPOGRAPHY_STYLES.pageTitle} mb-6`}>
+              Ready to Start Your Project?
+            </h2>
+            <p className="text-xl text-muted-foreground mb-8">
+              Let's discuss how our specialized services can bring your construction vision to life
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Button asChild size="lg" className="text-lg px-8">
+                <Link to="/contact">Request a Consultation</Link>
+              </Button>
+              <Button asChild variant="outline" size="lg" className="text-lg px-8">
+                <Link to="/projects">View Our Projects</Link>
+              </Button>
             </div>
           </div>
-        </section>
+        </Section>
 
         {/* Market-Segmented Services Display */}
         <MarketSegmentedServices />

@@ -181,8 +181,7 @@ const Contact = () => {
       />
 
       {/* Premium Contact Form Section */}
-      <section className="py-20 relative">
-        <div className="container mx-auto px-4">
+      <Section size="major" disableAnimation>
           <div className="max-w-4xl mx-auto">
             <div className="flex justify-center gap-4 mb-8">
               <Button
@@ -395,8 +394,7 @@ const Contact = () => {
               </div>
             </Card>
           </div>
-        </div>
-      </section>
+      </Section>
 
       {/* Testimonials Section - Removed pending verified testimonial collection */}
 

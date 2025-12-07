@@ -1,12 +1,14 @@
 import { useState } from "react";
-import { Search, Sparkles, TrendingUp, MessageCircle } from "lucide-react";
+import { Search, Sparkles, TrendingUp, MessageCircle, Briefcase, DollarSign, Clock, Palette, HardHat, Building2, Shield, MapPin } from "lucide-react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
 import PageHeader from "@/components/PageHeader";
+import { Section } from "@/components/sections/Section";
 import { Input } from "@/components/ui/input";
-import { Card, CardContent } from "@/components/ui/card";
+import { Card, CardContent } from "@/design-system/components/Card";
 import { Badge } from "@/components/ui/badge";
+import { TYPOGRAPHY_STYLES } from "@/design-system/constants";
 import { generateFAQSchema, generateHowToSchema } from "@/utils/faq-schema";
 import { CTA_TEXT } from "@/design-system/constants";
 import { ScrollReveal } from "@/components/animations/ScrollReveal";
@@ -24,7 +26,7 @@ const FAQ = () => {
   const faqCategories = [
     {
       category: "General Questions",
-      icon: "💼",
+      iconComponent: Briefcase,
       count: 8,
       questions: [
         {
@@ -47,7 +49,7 @@ const FAQ = () => {
     },
     {
       category: "Pricing & Estimates",
-      icon: "💰",
+      iconComponent: DollarSign,
       count: 12,
       questions: [
         {
@@ -78,7 +80,7 @@ const FAQ = () => {
     },
     {
       category: "Project Timeline & Process",
-      icon: "⏱️",
+      iconComponent: Clock,
       count: 11,
       questions: [
         {
@@ -109,7 +111,7 @@ const FAQ = () => {
     },
     {
       category: "Materials & Quality",
-      icon: "🎨",
+      iconComponent: Palette,
       count: 10,
       questions: [
         {
@@ -140,7 +142,7 @@ const FAQ = () => {
     },
     {
       category: "Specific Services",
-      icon: "🏗️",
+      iconComponent: HardHat,
       count: 13,
       questions: [
         {
@@ -175,7 +177,7 @@ const FAQ = () => {
     },
     {
       category: "Property Management",
-      icon: "🏢",
+      iconComponent: Building2,
       count: 9,
       questions: [
         {
@@ -198,7 +200,7 @@ const FAQ = () => {
     },
     {
       category: "Safety & Compliance",
-      icon: "⚠️",
+      iconComponent: Shield,
       count: 7,
       questions: [
         {
@@ -221,7 +223,7 @@ const FAQ = () => {
     },
     {
       category: "Toronto & GTA Specific",
-      icon: "🗺️",
+      iconComponent: MapPin,
       count: 8,
       questions: [
         {
@@ -346,15 +348,20 @@ const FAQ = () => {
             {!searchQuery && (
               <ScrollReveal direction="up">
                 <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-12">
-                {faqCategories.map((cat, idx) => (
-                  <Card key={idx} className="hover:shadow-md transition-shadow cursor-pointer" onClick={() => document.getElementById(`category-${idx}`)?.scrollIntoView({ behavior: 'smooth' })}>
-                    <CardContent className="p-6 text-center">
-                      <div className="text-4xl mb-3">{cat.icon}</div>
-                      <h3 className="font-semibold mb-1">{cat.category}</h3>
-                      <Badge variant="secondary">{cat.count} questions</Badge>
-                    </CardContent>
-                  </Card>
-                ))}
+                {faqCategories.map((cat, idx) => {
+                  const IconComponent = cat.iconComponent;
+                  return (
+                    <Card key={idx} className="hover:shadow-md transition-shadow cursor-pointer" onClick={() => document.getElementById(`category-${idx}`)?.scrollIntoView({ behavior: 'smooth' })}>
+                      <CardContent className="p-6 text-center">
+                        <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-3">
+                          <IconComponent className="w-6 h-6 text-primary" />
+                        </div>
+                        <h3 className="font-semibold mb-1">{cat.category}</h3>
+                        <Badge variant="secondary">{cat.count} questions</Badge>
+                      </CardContent>
+                    </Card>
+                  );
+                })}
               </div>
               </ScrollReveal>
             )}
@@ -362,17 +369,21 @@ const FAQ = () => {
 
           {/* FAQ Categories */}
           <div className="max-w-7xl mx-auto space-y-8">
-            {filteredFAQs.map((category, idx) => (
-              <div key={idx} id={`category-${idx}`} className="scroll-mt-8">
-                <div className="flex items-center gap-3 mb-6">
-                  <span className="text-4xl">{category.icon}</span>
-                  <div>
-                    <h2 className="text-3xl font-bold text-foreground">
-                      {category.category}
-                    </h2>
-                    <p className="text-sm text-muted-foreground">{category.count} questions answered</p>
+            {filteredFAQs.map((category, idx) => {
+              const IconComponent = category.iconComponent;
+              return (
+                <div key={idx} id={`category-${idx}`} className="scroll-mt-8">
+                  <div className="flex items-center gap-3 mb-6">
+                    <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
+                      <IconComponent className="w-6 h-6 text-primary" />
+                    </div>
+                    <div>
+                      <h2 className={`${TYPOGRAPHY_STYLES.sectionTitle} text-foreground`}>
+                        {category.category}
+                      </h2>
+                      <p className="text-sm text-muted-foreground">{category.count} questions answered</p>
+                    </div>
                   </div>
-                </div>
                 
                 <Card className="border-2">
                   <CardContent className="p-6">
@@ -393,9 +404,10 @@ const FAQ = () => {
                       ))}
                     </Accordion>
                   </CardContent>
-                </Card>
-              </div>
-            ))}
+              </Card>
+            </div>
+              );
+            })}
 
             {filteredFAQs.length === 0 && (
               <div className="text-center py-16">
