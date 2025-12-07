@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/ui/Button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+// Card components replaced with business-glass-card CSS class
 import { 
   LayoutDashboard, 
   FileText, 
@@ -248,9 +248,9 @@ const Dashboard = () => {
   }
 
   return (
-    <div>
+    <div className="space-y-6">
       {/* Welcome Section */}
-      <div style={{ marginBottom: '2rem' }}>
+      <div>
         <h1 className="business-page-title">
           Good {new Date().getHours() < 12 ? 'morning' : new Date().getHours() < 18 ? 'afternoon' : 'evening'}!
         </h1>
@@ -263,7 +263,7 @@ const Dashboard = () => {
       {!statsLoaded ? (
         <div className="business-stats-grid">
           {[1, 2, 3, 4].map((i) => (
-            <div key={i} className="business-glass-card" style={{ padding: '1.5rem' }}>
+            <div key={i} className="business-glass-card p-6">
               <Skeleton className="h-4 w-24 mb-4" />
               <Skeleton className="h-8 w-16 mb-2" />
               <Skeleton className="h-3 w-20" />
@@ -271,12 +271,12 @@ const Dashboard = () => {
           ))}
         </div>
       ) : statsLoaded && stats.projects === 0 && stats.blogPosts === 0 && stats.services === 0 ? (
-        <div className="business-glass-card" style={{ padding: '2rem' }}>
+        <div className="business-glass-card p-8">
           <div className="text-center space-y-4 py-8">
-            <Briefcase className="h-16 w-16 mx-auto" style={{ color: 'var(--business-text-secondary)' }} />
+            <Briefcase className="h-16 w-16 mx-auto text-muted-foreground" />
             <div>
-              <h3 className="text-xl font-semibold mb-2" style={{ color: 'var(--business-text-primary)' }}>No content yet</h3>
-              <p className="mb-6" style={{ color: 'var(--business-text-secondary)' }}>
+              <h3 className="business-section-title mb-2">No content yet</h3>
+              <p className="business-section-subtitle mb-6">
                 Get started by creating your first project, blog post, or service
               </p>
               <div className="flex gap-3 justify-center flex-wrap">
@@ -326,27 +326,25 @@ const Dashboard = () => {
       )}
 
       {/* Secondary Metrics */}
-      <div style={{ marginBottom: '2rem' }}>
-        <StaggerContainer type="fade" className="business-stats-grid">
-          <MetricCard
-            title="Services"
-            value={stats.services}
-            icon={TrendingUp}
-            onClick={() => navigate("/admin/services")}
-          />
-          <MetricCard
-            title="Prequalification Requests"
-            value={stats.prequalRequests}
-            icon={Package}
-            badge={stats.newPrequalRequests}
-            onClick={() => navigate("/admin/prequalifications")}
-          />
-        </StaggerContainer>
-      </div>
+      <StaggerContainer type="fade" className="business-stats-grid">
+        <MetricCard
+          title="Services"
+          value={stats.services}
+          icon={TrendingUp}
+          onClick={() => navigate("/admin/services")}
+        />
+        <MetricCard
+          title="Prequalification Requests"
+          value={stats.prequalRequests}
+          icon={Package}
+          badge={stats.newPrequalRequests}
+          onClick={() => navigate("/admin/prequalifications")}
+        />
+      </StaggerContainer>
 
       {/* Quick Actions & Activity Feed */}
       <ScrollReveal direction="up">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6" style={{ marginBottom: '2rem' }}>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           <QuickActions />
           <ActivityFeed 
             submissions={recentSubmissions} 
@@ -356,76 +354,59 @@ const Dashboard = () => {
       </ScrollReveal>
 
       {/* Settings & Tools Card */}
-      <div className="business-glass-card" style={{ padding: '1.5rem' }}>
-        <h2 style={{ 
-          fontSize: '1.25rem', 
-          fontWeight: '700', 
-          color: 'var(--business-text-primary)',
-          marginBottom: '0.5rem'
-        }}>
-          Settings & Tools
-        </h2>
-        <p style={{ 
-          fontSize: '0.875rem', 
-          color: 'var(--business-text-secondary)',
-          marginBottom: '1rem'
-        }}>
+      <div className="business-glass-card p-6">
+        <h2 className="business-section-title mb-1">Settings & Tools</h2>
+        <p className="business-section-subtitle mb-4">
           Manage content, users, and site configuration
         </p>
         <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
           <button
-            className="business-btn business-btn-ghost"
-            style={{ justifyContent: 'flex-start', height: 'auto', padding: '1rem' }}
+            className="business-btn business-btn-ghost justify-start h-auto p-4"
             onClick={() => navigate("/admin/homepage-builder")}
             aria-label="Homepage Builder"
           >
-            <Layout size={20} style={{ marginRight: '0.75rem', color: 'var(--business-primary)' }} />
-            <span style={{ fontSize: '0.875rem', fontWeight: '600' }}>Homepage Builder</span>
+            <Layout size={20} className="mr-3 text-primary" />
+            <span className="text-sm font-semibold">Homepage Builder</span>
           </button>
           <button
-            className="business-btn business-btn-ghost"
-            style={{ justifyContent: 'flex-start', height: 'auto', padding: '1rem' }}
+            className="business-btn business-btn-ghost justify-start h-auto p-4"
             onClick={() => navigate("/admin/navigation-builder")}
             aria-label="Navigation Builder"
           >
-            <Navigation size={20} style={{ marginRight: '0.75rem', color: 'var(--business-primary)' }} />
-            <span style={{ fontSize: '0.875rem', fontWeight: '600' }}>Navigation</span>
+            <Navigation size={20} className="mr-3 text-primary" />
+            <span className="text-sm font-semibold">Navigation</span>
           </button>
           <button
-            className="business-btn business-btn-ghost"
-            style={{ justifyContent: 'flex-start', height: 'auto', padding: '1rem' }}
+            className="business-btn business-btn-ghost justify-start h-auto p-4"
             onClick={() => navigate("/admin/seo-dashboard")}
             aria-label="Open SEO Dashboard"
           >
-            <Search size={20} style={{ marginRight: '0.75rem', color: 'var(--business-primary)' }} />
-            <span style={{ fontSize: '0.875rem', fontWeight: '600' }}>SEO Tools</span>
+            <Search size={20} className="mr-3 text-primary" />
+            <span className="text-sm font-semibold">SEO Tools</span>
           </button>
           <button
-            className="business-btn business-btn-ghost"
-            style={{ justifyContent: 'flex-start', height: 'auto', padding: '1rem' }}
+            className="business-btn business-btn-ghost justify-start h-auto p-4"
             onClick={() => navigate("/admin/media")}
             aria-label="Open Media Library"
           >
-            <Image size={20} style={{ marginRight: '0.75rem', color: 'var(--business-primary)' }} />
-            <span style={{ fontSize: '0.875rem', fontWeight: '600' }}>Media Library</span>
+            <Image size={20} className="mr-3 text-primary" />
+            <span className="text-sm font-semibold">Media Library</span>
           </button>
           <button
-            className="business-btn business-btn-ghost"
-            style={{ justifyContent: 'flex-start', height: 'auto', padding: '1rem' }}
+            className="business-btn business-btn-ghost justify-start h-auto p-4"
             onClick={() => navigate("/admin/users")}
             aria-label="Manage Users"
           >
-            <Users size={20} style={{ marginRight: '0.75rem', color: 'var(--business-primary)' }} />
-            <span style={{ fontSize: '0.875rem', fontWeight: '600' }}>Users</span>
+            <Users size={20} className="mr-3 text-primary" />
+            <span className="text-sm font-semibold">Users</span>
           </button>
           <button
-            className="business-btn business-btn-ghost"
-            style={{ justifyContent: 'flex-start', height: 'auto', padding: '1rem' }}
+            className="business-btn business-btn-ghost justify-start h-auto p-4"
             onClick={() => navigate("/admin/site-settings")}
             aria-label="Open Site Settings"
           >
-            <Settings size={20} style={{ marginRight: '0.75rem', color: 'var(--business-primary)' }} />
-            <span style={{ fontSize: '0.875rem', fontWeight: '600' }}>Site Settings</span>
+            <Settings size={20} className="mr-3 text-primary" />
+            <span className="text-sm font-semibold">Site Settings</span>
           </button>
         </div>
       </div>

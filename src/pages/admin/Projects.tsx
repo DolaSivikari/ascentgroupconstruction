@@ -205,8 +205,8 @@ const Projects = () => {
   }
 
   return (
-    <div>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
+    <div className="space-y-6">
+      <div className="flex justify-between items-center">
         <div>
           <h1 className="business-page-title">Projects</h1>
           <p className="business-page-subtitle">Manage your portfolio projects</p>
@@ -219,16 +219,15 @@ const Projects = () => {
 
       {/* Service Filter */}
       {services.length > 0 && (
-        <div className="business-glass-card" style={{ padding: '1rem', marginBottom: '1.5rem' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', flexWrap: 'wrap' }}>
-            <label style={{ fontWeight: '500', color: 'var(--business-text-primary)' }}>
+        <div className="business-glass-card p-4">
+          <div className="flex items-center gap-4 flex-wrap">
+            <label className="font-medium text-foreground">
               Filter by Service:
             </label>
             <select
               value={selectedService}
               onChange={(e) => setSelectedService(e.target.value)}
-              className="business-input"
-              style={{ maxWidth: '300px' }}
+              className="business-input max-w-xs"
             >
               <option value="all">All Services ({projects.length})</option>
               {services.map(service => {
@@ -253,10 +252,10 @@ const Projects = () => {
 
       <div>
         {isLoading ? (
-          <div className="text-center py-12" style={{ color: 'var(--business-text-secondary)' }}>Loading projects...</div>
+          <div className="text-center py-12 text-muted-foreground">Loading projects...</div>
         ) : filteredProjects.length === 0 ? (
-          <div className="business-glass-card" style={{ padding: '2rem', textAlign: 'center' }}>
-            <p style={{ color: 'var(--business-text-secondary)', marginBottom: '1rem' }}>
+          <div className="business-glass-card p-8 text-center">
+            <p className="text-muted-foreground mb-4">
               {selectedService === 'all' 
                 ? 'No projects yet. Create your first project to get started.'
                 : 'No projects found with this service. Try a different filter.'}
@@ -275,22 +274,20 @@ const Projects = () => {
         ) : (
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             {filteredProjects.map((project) => (
-              <div key={project.id} className="business-glass-card" style={{ padding: '1.5rem' }}>
-                <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: '0.75rem' }}>
+              <div key={project.id} className="business-glass-card p-6">
+                <div className="flex items-start justify-between mb-3">
                   <Badge variant={getStatusColor(project.publish_state)}>
                     {project.publish_state}
                   </Badge>
-                  <div style={{ display: 'flex', gap: '0.5rem' }}>
+                  <div className="flex gap-2">
                     <button 
-                      className="business-btn business-btn-ghost"
-                      style={{ padding: '0.5rem' }}
+                      className="business-btn business-btn-ghost p-2"
                       onClick={() => navigate(`/admin/projects/${project.id}`)}
                     >
                       <Edit className="h-4 w-4" />
                     </button>
                     <button 
-                      className="business-btn business-btn-ghost"
-                      style={{ padding: '0.5rem' }}
+                      className="business-btn business-btn-ghost p-2"
                       onClick={() => {
                         setProjectToDelete(project.id);
                         setDeleteDialogOpen(true);
@@ -300,30 +297,13 @@ const Projects = () => {
                     </button>
                   </div>
                 </div>
-                <h3 style={{ 
-                  fontSize: '1.125rem', 
-                  fontWeight: '700', 
-                  color: 'var(--business-text-primary)',
-                  marginBottom: '0.5rem'
-                }}>
-                  {project.title}
-                </h3>
+                <h3 className="text-lg font-bold text-foreground mb-2">{project.title}</h3>
                 {project.subtitle && (
-                  <p style={{ 
-                    fontSize: '0.875rem', 
-                    color: 'var(--business-text-secondary)',
-                    marginBottom: '1rem'
-                  }}>
+                  <p className="text-sm text-muted-foreground mb-4">
                     {project.subtitle}
                   </p>
                 )}
-                <div style={{ 
-                  display: 'flex',
-                  flexDirection: 'column',
-                  gap: '0.5rem',
-                  fontSize: '0.875rem',
-                  color: 'var(--business-text-secondary)'
-                }}>
+                <div className="flex flex-col gap-2 text-sm text-muted-foreground">
                   {project.client_name && (
                     <div>Client: {project.client_name}</div>
                   )}
@@ -334,17 +314,12 @@ const Projects = () => {
                     <Badge variant="info">{project.category}</Badge>
                   )}
                   {project.services && project.services.length > 0 && (
-                    <div style={{ 
-                      display: 'flex', 
-                      flexWrap: 'wrap', 
-                      gap: '0.5rem',
-                      marginTop: '0.5rem'
-                    }}>
+                    <div className="flex flex-wrap gap-2 mt-2">
                       {project.services.map((service: any) => (
                         <Badge 
                           key={service.id} 
                           variant="secondary"
-                          style={{ fontSize: '0.75rem' }}
+                          className="text-xs"
                         >
                           {service.name}
                         </Badge>
