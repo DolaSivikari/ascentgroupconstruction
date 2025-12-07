@@ -22,6 +22,22 @@ export const enrichedHeroSlides = [
   {
     video: buildingVideo,
     poster: buildingPoster,
+    stat: "Free",
+    statLabel: "Estimates",
+    headline: "Quality Residential Services for Ontario Homeowners",
+    subheadline: "Professional painting, tile & flooring, renovations, stucco repair, and more. Our experienced crew brings commercial-grade quality to your home with fair pricing and honest communication. Free estimates—no obligation.",
+    primaryCTA: {
+      label: "Get Free Estimate",
+      href: "/contact",
+    },
+    secondaryCTA: {
+      label: "View Residential Services",
+      href: "/homeowners",
+    },
+  },
+  {
+    video: buildingVideo,
+    poster: buildingPoster,
     stat: "85%",
     statLabel: "Self-Performed",
     headline: "Direct Execution. Clear Accountability.",

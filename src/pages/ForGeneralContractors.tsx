@@ -196,9 +196,9 @@ const ForGeneralContractors = () => {
         {/* We're Building Our Track Record Section */}
         <Section size="major" className="bg-primary/5">
           <Card variant="elevated" size="lg" className="border-l-4 border-l-primary max-w-4xl mx-auto">
-            <h3 className="text-2xl md:text-3xl font-semibold mb-4">We're Building Our Track Record</h3>
+            <h3 className="text-2xl md:text-3xl font-semibold mb-4">We're Building Our Track Record—Pilot Projects Welcome</h3>
             <p className="text-lg text-muted-foreground mb-6">
-              As a newly incorporated company, we understand GCs need proven reliability. Here's what we bring:
+              As a newly incorporated company, we understand GCs need proven reliability. We're open to competitive pilot projects to demonstrate our capabilities. Here's what we bring:
             </p>
             <div className="grid md:grid-cols-2 gap-4 mb-6">
               <div className="flex items-start gap-3">
@@ -212,7 +212,7 @@ const ForGeneralContractors = () => {
                 <CheckCircle className="w-5 h-5 text-primary flex-shrink-0 mt-1" />
                 <div>
                   <strong className="text-foreground">Registered on bidding platforms</strong>
-                  <p className="text-sm text-muted-foreground">DataBid, ConstructConnect</p>
+                  <p className="text-sm text-muted-foreground">DataBid, ConstructConnect, and more</p>
                 </div>
               </div>
               <div className="flex items-start gap-3">
@@ -239,13 +239,13 @@ const ForGeneralContractors = () => {
               <div className="flex items-start gap-3">
                 <CheckCircle className="w-5 h-5 text-primary flex-shrink-0 mt-1" />
                 <div>
-                  <strong className="text-foreground">Competitive pricing</strong>
-                  <p className="text-sm text-muted-foreground">with transparent unit rates</p>
+                  <strong className="text-foreground">Competitive pilot pricing</strong>
+                  <p className="text-sm text-muted-foreground">transparent unit rates for first projects</p>
                 </div>
               </div>
             </div>
             <p className="text-muted-foreground italic">
-              We know we need to earn your trust through professional execution, responsive communication, and quality work. Every project is an opportunity to prove we're the trade partner you can rely on.
+              We know we need to earn your trust through professional execution, responsive communication, and quality work. Every project is an opportunity to prove we're the trade partner you can rely on. Let's start with a pilot project—we'll demonstrate our value.
             </p>
           </Card>
         </Section>

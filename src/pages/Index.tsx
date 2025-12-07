@@ -179,13 +179,13 @@ const Index = () => {
         "@type": "ListItem",
         "position": 4,
         "name": "On-Time, On-Budget Project Delivery",
-        "description": "95% on-time completion rate with transparent pricing, itemized estimates, and dedicated project management across Ontario."
+        "description": "Commitment to schedule adherence with transparent pricing, itemized estimates, and dedicated project management across Ontario."
       },
       {
         "@type": "ListItem",
         "position": 5,
         "name": "Safety-First Approach to Every Project",
-        "description": "OSHA certified crews with zero-incident safety record, comprehensive protocols, and full liability coverage."
+        "description": "Trained crews with comprehensive safety protocols, site-specific safety plans, and full liability coverage."
       },
       {
         "@type": "ListItem",
