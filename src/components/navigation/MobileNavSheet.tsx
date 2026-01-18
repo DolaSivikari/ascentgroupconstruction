@@ -60,7 +60,7 @@ export function MobileNavSheet({ open, onOpenChange }: MobileNavSheetProps) {
     onOpenChange(false);
   });
 
-  const allCategories = ["All", "Services", "Projects", "Company", "Who We Serve", "Resources"];
+  const allCategories = ["All", "Services", "Company", "Who We Serve", "Resources"];
 
   // Get all service items for Show More/Less functionality
   const allServiceItems = megaMenuDataEnhanced.services.flatMap(section => 
