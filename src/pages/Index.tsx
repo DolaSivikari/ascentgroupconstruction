@@ -14,7 +14,6 @@ import { getHomepageVideos } from "@/data/video-metadata";
 
 import { personalization } from "@/utils/personalization";
 import { initializeTests } from "@/utils/ab-testing";
-import { ScrollReveal } from "@/components/animations/ScrollReveal";
 import { ScrollToTop } from "@/components/ui/scroll-to-top";
 import { usePageAnalytics } from "@/hooks/usePageAnalytics";
 import { usePerformanceMonitoring } from "@/hooks/usePerformanceMonitoring";
@@ -173,21 +172,15 @@ const Index = () => {
           <TrustBadgeBar />
           
           {/* Who We Serve - Commercial & Residential Split */}
-          <ScrollReveal direction="up" delay={0}>
-            <WhoWeServeHomepage />
-          </ScrollReveal>
+          <WhoWeServeHomepage />
           
-          {/* Featured Services */}
-          <ScrollReveal direction="up" delay={0}>
-            <div className="py-16">
-              <ServicesExplorer />
-            </div>
-          </ScrollReveal>
+          {/* Featured Services - No wrapper animation, content animates itself */}
+          <div className="py-16">
+            <ServicesExplorer />
+          </div>
           
           {/* CTA Section */}
-          <ScrollReveal direction="up" delay={0}>
-            <PrequalPackage />
-          </ScrollReveal>
+          <PrequalPackage />
         </main>
         
         <Footer />

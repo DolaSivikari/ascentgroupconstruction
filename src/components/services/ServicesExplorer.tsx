@@ -100,17 +100,15 @@ export const ServicesExplorer = () => {
 
   return (
     <section className="relative py-16 md:py-20 lg:py-24 overflow-hidden">
-      {/* Background Treatment */}
-      <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-background to-secondary/5" />
-      <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiMwMDAiIGZpbGwtb3BhY2l0eT0iMC4wMyI+PHBhdGggZD0iTTM2IDM0djItaDJ2LTJoLTJ6bTAtNHYyaDJ2LTJoLTJ6bS0yIDJ2Mmgydi0yaC0yem0wLTJ2Mmgydi0yaC0yem0yLTJ2Mmgydi0yaC0yem0wLTJ2Mmgydi0yaC0yem0tMiAydjJoMnYtMmgtMnptMC0ydjJoMnYtMmgtMnptMi0ydjJoMnYtMmgtMnptMC0ydjJoMnYtMmgtMnoiLz48L2c+PC9nPjwvc3ZnPg==')] opacity-40" />
+      {/* Background Treatment - Simplified */}
+      <div className="absolute inset-0 bg-gradient-to-b from-muted/30 via-background to-muted/20" />
       
       <div className="container mx-auto px-4 md:px-6 max-w-7xl relative z-10">
-        {/* Section Header with Stats */}
+        {/* Section Header - Clean */}
         <div className="text-center max-w-3xl mx-auto mb-12">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-medium mb-4">
-            <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
+          <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-medium mb-4">
             Specialty Contractor Services
-          </div>
+          </span>
           
           <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-4 tracking-tight">
             Complete Building Solutions
@@ -156,18 +154,9 @@ export const ServicesExplorer = () => {
                 variant={activeFilters.includes(filter) ? "default" : "outline"}
                 size="lg"
                 onClick={() => handleFilterToggle(filter)}
-                className={`
-                  min-w-[120px] capitalize font-medium transition-all
-                  ${activeFilters.includes(filter) 
-                    ? "shadow-lg shadow-primary/25 scale-105" 
-                    : "hover:scale-105 hover:border-primary/50"
-                  }
-                `}
+                className="min-w-[120px] capitalize font-medium transition-colors"
               >
                 {filter}
-                {activeFilters.includes(filter) && (
-                  <span className="ml-2 w-2 h-2 rounded-full bg-background animate-pulse" />
-                )}
               </Button>
             ))}
             {activeFilterCount > 0 && (
@@ -261,15 +250,12 @@ export const ServicesExplorer = () => {
           </>
         )}
 
-        {/* Enhanced CTA Section */}
-        <div className="relative mt-20">
-          <div className="absolute inset-0 bg-gradient-to-r from-primary/10 via-primary/5 to-secondary/10 rounded-[var(--radius-lg)] blur-3xl" />
-          <div className="relative text-center p-8 md:p-12 rounded-[var(--radius-lg)] bg-card/80 backdrop-blur-sm border-2 border-border/50">
-            <div className="max-w-2xl mx-auto">
-              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-medium mb-4">
-                <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
-                Free Consultation
-              </div>
+        {/* CTA Section - Simplified */}
+        <div className="mt-20 text-center p-8 md:p-12 rounded-[var(--radius-lg)] bg-card border border-border">
+          <div className="max-w-2xl mx-auto">
+            <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-medium mb-4">
+              Free Consultation
+            </span>
               
               <h3 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
                 Ready to Start Your Project?
@@ -279,24 +265,23 @@ export const ServicesExplorer = () => {
                 Get a detailed site assessment and project proposal from our team of building envelope specialists. We'll evaluate your needs and provide transparent pricing.
               </p>
               
-              <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-                <Link to="/contact">
-                  <Button size="lg" className="group shadow-lg hover:shadow-[var(--shadow-lg)] transition-all w-full sm:w-auto">
-                    Request Site Assessment
-                    <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
-                  </Button>
-                </Link>
-                <Link to="/services">
-                  <Button size="lg" variant="outline" className="w-full sm:w-auto">
-                    View All Services
-                  </Button>
-                </Link>
-              </div>
-              
-              <p className="text-xs text-muted-foreground mt-6">
-                ✓ No obligation consultation  •  ✓ Licensed & Insured  •  ✓ 15+ Years Experience
-              </p>
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+              <Link to="/contact">
+                <Button size="lg" className="group w-full sm:w-auto">
+                  Request Site Assessment
+                  <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                </Button>
+              </Link>
+              <Link to="/services">
+                <Button size="lg" variant="outline" className="w-full sm:w-auto">
+                  View All Services
+                </Button>
+              </Link>
             </div>
+            
+            <p className="text-xs text-muted-foreground mt-6">
+              ✓ No obligation  •  ✓ Licensed & Insured  •  ✓ 15+ Years Experience
+            </p>
           </div>
         </div>
       </div>
