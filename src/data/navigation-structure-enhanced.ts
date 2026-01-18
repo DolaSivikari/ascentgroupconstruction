@@ -1,4 +1,5 @@
-import { LucideIcon } from "lucide-react";
+// Simplified Navigation Structure for Professional Appearance
+// Goal: Clean, organized navigation like enterprise construction sites
 
 export interface SubItem {
   name: string;
@@ -23,6 +24,7 @@ export interface MegaMenuDataEnhanced {
   [key: string]: Section[];
 }
 
+// Simplified mega menu - fewer items, cleaner organization
 export const megaMenuDataEnhanced: MegaMenuDataEnhanced = {
   services: [
     {
@@ -30,128 +32,73 @@ export const megaMenuDataEnhanced: MegaMenuDataEnhanced = {
       sectionLink: "/services",
       categories: [
         {
-          title: "Building Envelope Systems",
-          description: "Complete exterior envelope and cladding solutions",
+          title: "Building Envelope",
           subItems: [
-            { name: "Building Envelope Solutions", link: "/services/building-envelope", description: "Comprehensive envelope systems", badge: "popular" },
-            { name: "Cladding Systems", link: "/services/cladding-systems", description: "Metal panels, EIFS, stucco & rainscreen", badge: "new" },
-            { name: "Masonry Restoration", link: "/services/masonry-restoration", description: "Brick, stone & concrete repair" },
-            { name: "Waterproofing", link: "/services/waterproofing", description: "Complete waterproofing solutions" },
-            { name: "Protective & Architectural Coatings", link: "/services/protective-coatings", description: "Interior/exterior protective systems" },
+            { name: "Envelope Solutions", link: "/services/building-envelope", description: "Complete envelope systems" },
+            { name: "Waterproofing", link: "/services/waterproofing", description: "Foundation to roof protection" },
+            { name: "Cladding Systems", link: "/services/cladding-systems", description: "Metal panel installation" },
+            { name: "Masonry Restoration", link: "/services/masonry-restoration", description: "Brick and stone repair" },
           ],
         },
         {
-          title: "Interior Construction",
-          description: "Commercial interior construction and finishing",
+          title: "Interior & Coatings",
           subItems: [
-            { name: "Interior Buildouts & Finishing", link: "/services/interior-buildouts", description: "Tenant improvements & fit-outs" },
-            { name: "Painting Services", link: "/services/painting-services", description: "Commercial, multi-family & residential", badge: "new" },
-            { name: "Tile & Flooring", link: "/services/tile-flooring", description: "Ceramic, porcelain, LVT & specialty", badge: "new" },
-          ],
-        },
-        {
-          title: "Specialty Services",
-          description: "Sustainable building and specialty solutions",
-          subItems: [
-            { name: "Sustainable Building", link: "/services/sustainable-construction", description: "LEED & green building solutions", badge: "new" },
+            { name: "Painting Services", link: "/services/painting-services", description: "Commercial & residential" },
+            { name: "Tile & Flooring", link: "/services/tile-flooring", description: "Professional installation" },
+            { name: "Protective Coatings", link: "/services/protective-coatings", description: "Surface protection" },
+            { name: "View All Services", link: "/services", description: "Complete service list" },
           ],
         },
       ],
     },
   ],
-  projects: [
-    {
-      sectionTitle: "Projects",
-      sectionLink: "/projects",
-      categories: [
-        {
-          title: "Browse by Type",
-          description: "View projects by category and client type",
-          subItems: [
-            { name: "All Projects", link: "/projects" },
-            { name: "Residential Projects", link: "/projects?client_type=homeowner" },
-            { name: "Commercial Projects", link: "/projects?client_type=commercial" },
-            { name: "Multi-Unit Projects", link: "/projects?client_type=developer", badge: "popular" },
-            { name: "Blog & Case Studies", link: "/blog" },
-          ],
-        },
-      ],
-    },
-  ],
+  
   company: [
     {
       sectionTitle: "About Ascent Group",
       sectionLink: "/about",
       categories: [
         {
-          title: "Our Company",
-          description: "Learn about our team and values",
+          title: "Company",
           subItems: [
             { name: "About Us", link: "/about", description: "Our story and values" },
-            { name: "Leadership Team", link: "/about#team", description: "Meet our experienced team" },
-            { name: "Our Process", link: "/our-process", description: "How we deliver projects" },
-          ],
-        },
-        {
-          title: "Credentials & Compliance",
-          description: "Qualifications and certifications",
-          subItems: [
-            { name: "Pre-Qualification Package", link: "/prequalification", description: "Download contractor qualifications", badge: "important" },
-            { name: "Capabilities Overview", link: "/capabilities", description: "Project delivery methods", badge: "new" },
-            { name: "Certifications & Insurance", link: "/company/certifications-insurance", description: "Licenses and coverage" },
-          ],
-        },
-        {
-          title: "Company Info",
-          description: "Additional information and opportunities",
-          subItems: [
-            { name: "Why Specialty Contractor?", link: "/why-specialty-contractor", description: "Specialty vs general contractor comparison", badge: "new" },
-            { name: "Equipment & Resources", link: "/company/equipment-resources", description: "Our self-perform capabilities" },
-            { name: "For Developers", link: "/company/developers", description: "Partnership opportunities" },
-            { name: "Sustainability", link: "/sustainability", description: "Environmental commitment" },
+            { name: "Our Process", link: "/our-process", description: "How we work" },
+            { name: "Certifications & Insurance", link: "/company/certifications-insurance", description: "Licenses & coverage" },
             { name: "Careers", link: "/careers", description: "Join our team" },
           ],
         },
       ],
     },
   ],
+  
   partners: [
     {
       sectionTitle: "Who We Serve",
       categories: [
         {
-          title: "Our Client Types",
-          description: "Specialized services for every client",
+          title: "Our Clients",
           subItems: [
-            { name: "Homeowners", link: "/homeowners", description: "Residential services & renovations", badge: "new" },
-            { name: "Property Managers", link: "/property-managers", description: "Building maintenance & restoration" },
-            { name: "Commercial Clients", link: "/commercial-clients", description: "Direct commercial projects" },
-            { name: "General Contractors", link: "/for-general-contractors", description: "Trade partnership opportunities", badge: "important" },
+            { name: "General Contractors", link: "/for-general-contractors", description: "Trade partnerships", badge: "important" },
+            { name: "Property Managers", link: "/property-managers", description: "Building maintenance" },
+            { name: "Homeowners", link: "/homeowners", description: "Residential services" },
+            { name: "Commercial Clients", link: "/commercial-clients", description: "Business properties" },
           ],
         },
       ],
     },
   ],
+  
   resources: [
     {
-      sectionTitle: "Support & Resources",
+      sectionTitle: "Resources",
       categories: [
         {
-          title: "Resources",
-          description: "Help center and knowledge base",
+          title: "Information",
           subItems: [
-            { name: "FAQ", link: "/faq", description: "Frequently asked questions" },
-            { name: "Service Areas", link: "/resources/service-areas", description: "Where we work" },
-            { name: "Blog & Insights", link: "/blog", description: "Industry knowledge" },
-          ],
-        },
-        {
-          title: "For Professionals",
-          description: "Tools for contractors and partners",
-          subItems: [
-            { name: "Contractor Portal", link: "/resources/contractor-portal", description: "Trade partner resources", badge: "important" },
+            { name: "Projects Portfolio", link: "/projects", description: "Our completed work" },
+            { name: "Prequalification Package", link: "/prequalification", description: "GC qualification docs", badge: "important" },
             { name: "Submit RFP", link: "/submit-rfp", description: "Request for proposal" },
-            { name: "Request Proposal", link: "/estimate", description: "Get detailed estimate" },
+            { name: "FAQ", link: "/faq", description: "Common questions" },
           ],
         },
       ],

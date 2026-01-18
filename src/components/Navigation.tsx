@@ -171,23 +171,8 @@ const Navigation = () => {
             </Link>
           </div>
 
-          {/* Center: Main Navigation */}
-          <nav className="flex items-center gap-7 lg:gap-9 xl:gap-11" aria-label="Main navigation">
-            <Link
-              to="/"
-              aria-current={isActive("/") ? "page" : undefined}
-              className={cn(
-                "text-base font-semibold relative py-2 px-1 transition-all duration-300 ease-out",
-                "after:absolute after:bottom-0 after:left-0 after:w-full after:h-[2px] after:bg-gradient-to-r after:from-primary after:to-primary/60",
-                "after:scale-x-0 after:origin-left hover:after:scale-x-100 after:transition-transform after:duration-300",
-                "hover:scale-105 hover:drop-shadow-sm",
-                isActive("/") ? "text-primary after:scale-x-100" : (isHeroPage && isAtTop ? "text-white" : "text-foreground"),
-                !isActive("/") && "hover:text-primary hover:brightness-110"
-              )}
-            >
-              Home
-            </Link>
-            
+          {/* Center: Main Navigation - Simplified to 6 items */}
+          <nav className="flex items-center gap-6 lg:gap-8" aria-label="Main navigation">
             {/* Services Mega-Menu */}
             <div
               className="relative"
@@ -197,20 +182,17 @@ const Navigation = () => {
               <Link
                 to="/services"
                 className={cn(
-                  "px-2 py-2 text-base font-semibold inline-flex items-center gap-1.5 transition-all duration-300 ease-out",
+                  "px-2 py-2 text-base font-semibold inline-flex items-center gap-1.5 transition-all duration-300",
                   "relative after:absolute after:bottom-0 after:left-0 after:w-full after:h-[2px]",
-                  "after:bg-gradient-to-r after:from-primary after:to-primary/60 after:scale-x-0 after:origin-left",
-                  "hover:after:scale-x-100 after:transition-transform after:duration-300",
-                  "hover:scale-105 hover:drop-shadow-sm hover:brightness-110",
-                  activeMegaMenu === "services" ? "text-primary scale-105 after:scale-x-100" : (isHeroPage && isAtTop ? "text-white" : "text-foreground"),
+                  "after:bg-primary after:scale-x-0 after:origin-left hover:after:scale-x-100 after:transition-transform after:duration-300",
+                  activeMegaMenu === "services" ? "text-primary after:scale-x-100" : (isHeroPage && isAtTop ? "text-white" : "text-foreground"),
                   activeMegaMenu !== "services" && "hover:text-primary"
                 )}
                 aria-expanded={activeMegaMenu === "services"}
-                aria-controls="services-mega-menu"
               >
                 Services
                 <ChevronDown className={cn(
-                  "w-4 h-4 transition-all duration-300 ease-out",
+                  "w-4 h-4 transition-all duration-300",
                   activeMegaMenu === "services" && "rotate-180"
                 )} />
               </Link>
@@ -225,11 +207,9 @@ const Navigation = () => {
             <Link
               to="/projects"
               className={cn(
-                "px-2 py-2 text-base font-semibold relative transition-all duration-300 ease-out",
+                "px-2 py-2 text-base font-semibold relative transition-all duration-300",
                 "after:absolute after:bottom-0 after:left-0 after:w-full after:h-[2px]",
-                "after:bg-gradient-to-r after:from-primary after:to-primary/60 after:scale-x-0 after:origin-left",
-                "hover:after:scale-x-100 after:transition-transform after:duration-300",
-                "hover:scale-105 hover:drop-shadow-sm hover:brightness-110",
+                "after:bg-primary after:scale-x-0 after:origin-left hover:after:scale-x-100 after:transition-transform after:duration-300",
                 isActive("/projects") ? "text-primary after:scale-x-100" : (isHeroPage && isAtTop ? "text-white" : "text-foreground"),
                 !isActive("/projects") && "hover:text-primary"
               )}
@@ -237,109 +217,55 @@ const Navigation = () => {
               Projects
             </Link>
 
-            {/* Company Mega-Menu */}
-            <div
-              className="relative"
-              onMouseEnter={() => handleMegaMenuEnter("company")}
-              onMouseLeave={handleMegaMenuLeave}
+            {/* About */}
+            <Link
+              to="/about"
+              className={cn(
+                "px-2 py-2 text-base font-semibold relative transition-all duration-300",
+                "after:absolute after:bottom-0 after:left-0 after:w-full after:h-[2px]",
+                "after:bg-primary after:scale-x-0 after:origin-left hover:after:scale-x-100 after:transition-transform after:duration-300",
+                isActive("/about") ? "text-primary after:scale-x-100" : (isHeroPage && isAtTop ? "text-white" : "text-foreground"),
+                !isActive("/about") && "hover:text-primary"
+              )}
             >
-              <button
-                className={cn(
-                  "px-2 py-2 text-base font-semibold inline-flex items-center gap-1.5 transition-all duration-300 ease-out",
-                  "relative after:absolute after:bottom-0 after:left-0 after:w-full after:h-[2px]",
-                  "after:bg-gradient-to-r after:from-primary after:to-primary/60 after:scale-x-0 after:origin-left",
-                  "hover:after:scale-x-100 after:transition-transform after:duration-300",
-                  "hover:scale-105 hover:drop-shadow-sm hover:brightness-110",
-                  activeMegaMenu === "company" ? "text-primary scale-105 after:scale-x-100" : (isHeroPage && isAtTop ? "text-white" : "text-foreground"),
-                  activeMegaMenu !== "company" && "hover:text-primary"
-                )}
-                aria-expanded={activeMegaMenu === "company"}
-                aria-controls="company-mega-menu"
-              >
-                Company
-                <ChevronDown className={cn(
-                  "w-4 h-4 transition-all duration-300 ease-out",
-                  activeMegaMenu === "company" && "rotate-180"
-                )} />
-              </button>
-              <MegaMenuWithSections
-                sections={megaMenuDataEnhanced.company}
-                isOpen={activeMegaMenu === "company"}
-                onClose={closeMegaMenu}
-              />
-            </div>
+              About
+            </Link>
 
-            {/* Partners Mega-Menu */}
-            <div
-              className="relative"
-              onMouseEnter={() => handleMegaMenuEnter("partners")}
-              onMouseLeave={handleMegaMenuLeave}
+            {/* For GCs */}
+            <Link
+              to="/for-general-contractors"
+              className={cn(
+                "px-2 py-2 text-base font-semibold relative transition-all duration-300",
+                "after:absolute after:bottom-0 after:left-0 after:w-full after:h-[2px]",
+                "after:bg-primary after:scale-x-0 after:origin-left hover:after:scale-x-100 after:transition-transform after:duration-300",
+                isActive("/for-general-contractors") ? "text-primary after:scale-x-100" : (isHeroPage && isAtTop ? "text-white" : "text-foreground"),
+                !isActive("/for-general-contractors") && "hover:text-primary"
+              )}
             >
-              <button
-                className={cn(
-                  "px-2 py-2 text-base font-semibold inline-flex items-center gap-1.5 transition-all duration-300 ease-out",
-                  "relative after:absolute after:bottom-0 after:left-0 after:w-full after:h-[2px]",
-                  "after:bg-gradient-to-r after:from-primary after:to-primary/60 after:scale-x-0 after:origin-left",
-                  "hover:after:scale-x-100 after:transition-transform after:duration-300",
-                  "hover:scale-105 hover:drop-shadow-sm hover:brightness-110",
-                  activeMegaMenu === "partners" ? "text-primary scale-105 after:scale-x-100" : (isHeroPage && isAtTop ? "text-white" : "text-foreground"),
-                  activeMegaMenu !== "partners" && "hover:text-primary"
-                )}
-                aria-expanded={activeMegaMenu === "partners"}
-                aria-controls="partners-mega-menu"
-              >
-                Who We Serve
-                <ChevronDown className={cn(
-                  "w-4 h-4 transition-all duration-300 ease-out",
-                  activeMegaMenu === "partners" && "rotate-180"
-                )} />
-              </button>
-              <MegaMenuWithSections
-                sections={megaMenuDataEnhanced.partners}
-                isOpen={activeMegaMenu === "partners"}
-                onClose={closeMegaMenu}
-              />
-            </div>
+              For GCs
+            </Link>
 
-            {/* Resources Mega-Menu */}
-            <div
-              className="relative"
-              onMouseEnter={() => handleMegaMenuEnter("resources")}
-              onMouseLeave={handleMegaMenuLeave}
+            {/* Homeowners */}
+            <Link
+              to="/homeowners"
+              className={cn(
+                "px-2 py-2 text-base font-semibold relative transition-all duration-300",
+                "after:absolute after:bottom-0 after:left-0 after:w-full after:h-[2px]",
+                "after:bg-primary after:scale-x-0 after:origin-left hover:after:scale-x-100 after:transition-transform after:duration-300",
+                isActive("/homeowners") ? "text-primary after:scale-x-100" : (isHeroPage && isAtTop ? "text-white" : "text-foreground"),
+                !isActive("/homeowners") && "hover:text-primary"
+              )}
             >
-              <button
-                className={cn(
-                  "px-2 py-2 text-base font-semibold inline-flex items-center gap-1.5 transition-all duration-300 ease-out",
-                  "relative after:absolute after:bottom-0 after:left-0 after:w-full after:h-[2px]",
-                  "after:bg-gradient-to-r after:from-primary after:to-primary/60 after:scale-x-0 after:origin-left",
-                  "hover:after:scale-x-100 after:transition-transform after:duration-300",
-                  "hover:scale-105 hover:drop-shadow-sm hover:brightness-110",
-                  activeMegaMenu === "resources" ? "text-primary scale-105 after:scale-x-100" : (isHeroPage && isAtTop ? "text-white" : "text-foreground"),
-                  activeMegaMenu !== "resources" && "hover:text-primary"
-                )}
-                aria-expanded={activeMegaMenu === "resources"}
-                aria-controls="resources-mega-menu"
-              >
-                Resources
-                <ChevronDown className={cn(
-                  "w-4 h-4 transition-all duration-300 ease-out",
-                  activeMegaMenu === "resources" && "rotate-180"
-                )} />
-              </button>
-              <MegaMenuWithSections
-                sections={megaMenuDataEnhanced.resources}
-                isOpen={activeMegaMenu === "resources"}
-                onClose={closeMegaMenu}
-              />
-            </div>
+              Homeowners
+            </Link>
 
+            {/* Contact */}
             <Link
               to="/contact"
               className={cn(
-                "text-base font-semibold relative py-2 px-1 transition-all duration-300 ease-out",
-                "after:absolute after:bottom-0 after:left-0 after:w-full after:h-[2px] after:bg-gradient-to-r after:from-primary after:to-primary/60",
-                "after:scale-x-0 after:origin-left hover:after:scale-x-100 after:transition-transform after:duration-300",
-                "hover:scale-105 hover:drop-shadow-sm hover:brightness-110",
+                "px-2 py-2 text-base font-semibold relative transition-all duration-300",
+                "after:absolute after:bottom-0 after:left-0 after:w-full after:h-[2px]",
+                "after:bg-primary after:scale-x-0 after:origin-left hover:after:scale-x-100 after:transition-transform after:duration-300",
                 isActive("/contact") ? "text-primary after:scale-x-100" : (isHeroPage && isAtTop ? "text-white" : "text-foreground"),
                 !isActive("/contact") && "hover:text-primary"
               )}

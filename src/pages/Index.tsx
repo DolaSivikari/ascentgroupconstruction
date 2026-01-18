@@ -1,20 +1,12 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import EnhancedHero from "@/components/homepage/EnhancedHero";
-import CompanyIntroduction from "@/components/homepage/CompanyIntroduction";
 import { ServicesExplorer } from "@/components/services/ServicesExplorer";
 import SEO from "@/components/SEO";
-import CompanyOverviewHub from "@/components/homepage/CompanyOverviewHub";
-import ClientValueProposition from "@/components/homepage/ClientValueProposition";
-import CertificationsBar from "@/components/homepage/CertificationsBar";
 import PrequalPackage from "@/components/homepage/PrequalPackage";
 import SkipLink from "@/components/SkipLink";
-import ContentHub from "@/components/homepage/ContentHub";
 import { createHowToSchema, createQASchema, createSiteSearchSchema } from "@/utils/schema-injector";
-import InsightsFeed from "@/components/insights/InsightsFeed";
-import ValuePillars from "@/components/homepage/ValuePillars";
-import SplashScreen from "@/components/SplashScreen";
 import { TrustBadgeBar } from "@/components/homepage/TrustBadgeBar";
 import WhoWeServeHomepage from "@/components/homepage/WhoWeServeHomepage";
 import { videoSchema } from "@/utils/structured-data";
@@ -22,16 +14,11 @@ import { getHomepageVideos } from "@/data/video-metadata";
 
 import { personalization } from "@/utils/personalization";
 import { initializeTests } from "@/utils/ab-testing";
-import { CTA_TEXT } from "@/design-system/constants";
 import { ScrollReveal } from "@/components/animations/ScrollReveal";
 import { ScrollToTop } from "@/components/ui/scroll-to-top";
-import { ParallaxSection } from "@/components/animations/ParallaxSection";
-import { StaggerContainer } from "@/components/animations/StaggerContainer";
 import { usePageAnalytics } from "@/hooks/usePageAnalytics";
-import { LoadingProgress } from "@/components/LoadingProgress";
 import { usePerformanceMonitoring } from "@/hooks/usePerformanceMonitoring";
 import { useHomepageData } from "@/hooks/useHomepageData";
-import { PartnershipCarousel } from "@/components/homepage/PartnershipCarousel";
 
 const Index = () => {
   // Performance monitoring
@@ -40,22 +27,6 @@ const Index = () => {
   // Prefetch homepage data for faster loading
   useHomepageData();
 
-  // Determine splash screen visibility on initialization
-  const [showSplash, setShowSplash] = useState(() => {
-    const hasSeenSplash = localStorage.getItem("ascent-splash-seen");
-    const lastSeen = hasSeenSplash ? parseInt(hasSeenSplash) : 0;
-    const now = Date.now();
-    const twentyFourHours = 24 * 60 * 60 * 1000;
-    
-    // Skip splash on mobile, reduced motion preference, or recently seen
-    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    
-    return !isMobile && !prefersReducedMotion && (now - lastSeen >= twentyFourHours);
-  });
-  
-  const [splashComplete, setSplashComplete] = useState(!showSplash);
-
   // Analytics tracking
   usePageAnalytics('homepage');
 
@@ -63,19 +34,9 @@ const Index = () => {
   useEffect(() => {
     personalization.initialize();
     initializeTests();
+    // Remove loading classes immediately (no splash screen)
+    document.documentElement.classList.remove('loading', 'page-loading');
   }, []);
-
-  // Remove loading classes after splash completes
-  useEffect(() => {
-    if (splashComplete) {
-      // Small delay for smooth transition
-      const timeoutId = setTimeout(() => {
-        document.documentElement.classList.remove('loading', 'page-loading');
-      }, 100);
-      
-      return () => clearTimeout(timeoutId);
-    }
-  }, [splashComplete]);
 
   // AEO/GEO Structured Data
   const howToChooseContractor = createHowToSchema({
@@ -147,7 +108,6 @@ const Index = () => {
       "commercial construction",
       "multi-family construction"
     ]
-    // Note: aggregateRating removed - real ratings will be added via useAggregateRating hook
   };
 
   // Why Choose Us Structured Data
@@ -155,43 +115,25 @@ const Index = () => {
     "@context": "https://schema.org",
     "@type": "ItemList",
     "name": "Why Choose Ascent Group Construction",
-    "description": "Six key reasons to choose Ascent Group Construction for your Toronto and GTA construction projects",
+    "description": "Key reasons to choose Ascent Group Construction for your Toronto and GTA construction projects",
     "itemListElement": [
       {
         "@type": "ListItem",
         "position": 1,
         "name": "Licensed Construction Excellence Across Ontario",
-        "description": "Fully licensed and insured with $2M CGL liability coverage, active WSIB registration, working toward COR certification. Professional execution backed by comprehensive safety protocols."
+        "description": "Fully licensed and insured with $2M CGL liability coverage, active WSIB registration, working toward COR certification."
       },
       {
         "@type": "ListItem",
         "position": 2,
         "name": "Comprehensive Construction Services Under One Roof",
-        "description": "Comprehensive construction services including commercial construction, masonry repair, EIFS installation, metal cladding, and parking garage restoration throughout Toronto and the GTA."
+        "description": "Complete construction services including masonry repair, EIFS installation, metal cladding, and parking garage restoration."
       },
       {
         "@type": "ListItem",
         "position": 3,
         "name": "Premium Materials & Manufacturer Warranties",
-        "description": "Benjamin Moore and Sherwin-Williams authorized contractor using premium materials backed by extended manufacturer warranties."
-      },
-      {
-        "@type": "ListItem",
-        "position": 4,
-        "name": "On-Time, On-Budget Project Delivery",
-        "description": "Commitment to schedule adherence with transparent pricing, itemized estimates, and dedicated project management across Ontario."
-      },
-      {
-        "@type": "ListItem",
-        "position": 5,
-        "name": "Safety-First Approach to Every Project",
-        "description": "Trained crews with comprehensive safety protocols, site-specific safety plans, and full liability coverage."
-      },
-      {
-        "@type": "ListItem",
-        "position": 6,
-        "name": "24/7 Emergency Response Services",
-        "description": "Same-day emergency assessment and response throughout Greater Toronto Area with dedicated rapid response team."
+        "description": "Benjamin Moore and Sherwin-Williams authorized contractor using premium materials backed by extended warranties."
       }
     ]
   };
@@ -211,67 +153,43 @@ const Index = () => {
 
   return (
     <>
-      <LoadingProgress isLoading={!splashComplete} duration={2000} />
-      {showSplash && (
-        <SplashScreen
-          onComplete={() => {
-            setShowSplash(false);
-            setSplashComplete(true);
-          }}
-        />
-      )}
       <div className="min-h-screen relative">
         <SkipLink />
         
         <SEO
-        title="Building Envelope & Restoration Specialists | Emerging Specialty Contractor Ontario & GTA"
-        description="Emerging specialty contractor in Ontario & GTA delivering façade remediation, waterproofing, EIFS, masonry, parking garage restoration. 15+ years crew experience, 85% self-performed. Building toward full GC capabilities. WSIB compliant, $2M CGL."
-        keywords="specialty contractor Ontario, building envelope contractor GTA, facade remediation Toronto, waterproofing contractor, EIFS contractor, masonry restoration, parking garage repair, envelope restoration, emerging contractor"
-        structuredData={[specialtyContractorSchema, howToChooseContractor, whatDoesAscentDo, whyChooseUsSchema, siteSearchSchema, ...videoSchemas]} 
-        includeRating={true} 
+          title="Building Envelope & Restoration Specialists | Specialty Contractor Ontario & GTA"
+          description="Specialty contractor in Ontario & GTA delivering façade remediation, waterproofing, EIFS, masonry, restoration. 15+ years crew experience, 85% self-performed. WSIB compliant, $2M CGL."
+          keywords="specialty contractor Ontario, building envelope contractor GTA, facade remediation Toronto, waterproofing contractor, EIFS contractor, masonry restoration, parking garage repair"
+          structuredData={[specialtyContractorSchema, howToChooseContractor, whatDoesAscentDo, whyChooseUsSchema, siteSearchSchema, ...videoSchemas]} 
+          includeRating={true} 
         />
         <Navigation />
-      <main id="main-content" role="main">
-        <ParallaxSection speed="slow">
-          <EnhancedHero splashComplete={splashComplete} />
-        </ParallaxSection>
         
-        <ScrollReveal direction="up" delay={0}>
+        <main id="main-content" role="main">
+          {/* Hero Section */}
+          <EnhancedHero />
+          
+          {/* Trust Indicators - 3 key badges */}
           <TrustBadgeBar />
-        </ScrollReveal>
-
-        <ScrollReveal direction="left" delay={100}>
-          <ValuePillars />
-        </ScrollReveal>
-
-        <ScrollReveal direction="up" delay={0}>
-          <CompanyIntroduction />
-        </ScrollReveal>
-        
-        <ScrollReveal direction="right" delay={100}>
-          <ClientValueProposition />
-        </ScrollReveal>
-        
-        <ScrollReveal direction="up" delay={0}>
-          <WhoWeServeHomepage />
-        </ScrollReveal>
-        
-        <ScrollReveal direction="up" delay={0}>
-          <PartnershipCarousel />
-        </ScrollReveal>
-        
-        <ParallaxSection speed="medium">
+          
+          {/* Who We Serve - Commercial & Residential Split */}
           <ScrollReveal direction="up" delay={0}>
-            <div className="py-24">
+            <WhoWeServeHomepage />
+          </ScrollReveal>
+          
+          {/* Featured Services */}
+          <ScrollReveal direction="up" delay={0}>
+            <div className="py-16">
               <ServicesExplorer />
             </div>
           </ScrollReveal>
-        </ParallaxSection>
+          
+          {/* CTA Section */}
+          <ScrollReveal direction="up" delay={0}>
+            <PrequalPackage />
+          </ScrollReveal>
+        </main>
         
-        <ScrollReveal direction="left" delay={100}>
-          <PrequalPackage />
-        </ScrollReveal>
-      </main>
         <Footer />
         <ScrollToTop />
       </div>

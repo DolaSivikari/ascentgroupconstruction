@@ -240,7 +240,7 @@ const EnhancedHero = ({ splashComplete = true }: { splashComplete?: boolean }) =
   const posterUrl = slide.poster;
   const PrimaryIcon = slide.primaryCTA.icon;
   const primaryCTA = slide.primaryCTA;
-  const secondaryCTA = slide.secondaryCTA;
+  const secondaryCTA = (slide as any).secondaryCTA;
 
   return (
     <section 
@@ -334,8 +334,8 @@ const EnhancedHero = ({ splashComplete = true }: { splashComplete?: boolean }) =
             </Button>
             
             <Button asChild size="lg" variant="outline" className="bg-white/10 hover:bg-white/20 border-2 border-white/30 hover:border-white/50 text-white backdrop-blur-sm transition-all duration-300">
-              <Link to={secondaryCTA.href}>
-                {secondaryCTA.label}
+              <Link to="/services">
+                View Services
               </Link>
             </Button>
           </div>

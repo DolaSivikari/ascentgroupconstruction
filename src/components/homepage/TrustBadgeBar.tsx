@@ -1,32 +1,17 @@
-import { Shield, Award, Users, Clock, Building2, Phone } from "lucide-react";
-import { useScrollReveal } from "@/hooks/useScrollReveal";
+import { Shield, Users, Award } from "lucide-react";
 import { cn } from "@/lib/utils";
 
+// Reduced to 3 key trust indicators for cleaner UX
 const trustBadges = [
   {
     icon: Shield,
-    label: "Licensed Business",
-    detail: "Registered & Insured",
+    label: "$2M Insured",
+    detail: "CGL Coverage",
   },
   {
     icon: Users,
-    label: "10-Person Crew",
-    detail: "Self-Performed",
-  },
-  {
-    icon: Phone,
-    label: "24/7 Emergency",
-    detail: "Rapid Response",
-  },
-  {
-    icon: Building2,
-    label: "10+ Projects",
-    detail: "Completed",
-  },
-  {
-    icon: Clock,
     label: "15+ Years",
-    detail: "Experience",
+    detail: "Crew Experience",
   },
   {
     icon: Award,
@@ -36,45 +21,27 @@ const trustBadges = [
 ];
 
 export const TrustBadgeBar = () => {
-  const { ref, isVisible } = useScrollReveal({ threshold: 0.1 });
-
   return (
-    <section
-      ref={ref}
-      className={cn(
-        "py-8 bg-gradient-to-r from-construction-orange/10 via-background/50 to-construction-orange/10 border-y border-construction-orange/20",
-        "transition-all duration-500",
-        isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
-      )}
-    >
+    <section className="py-6 bg-muted/30 border-y border-border/50">
       <div className="container mx-auto px-4">
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 md:gap-6">
+        <div className="flex flex-wrap justify-center items-center gap-8 md:gap-16">
           {trustBadges.map((badge, index) => {
             const Icon = badge.icon;
             return (
               <div
                 key={index}
-                className={cn(
-                  "group flex flex-col items-center text-center p-4 rounded-[var(--radius-lg)] relative overflow-hidden",
-                  "bg-white/60 dark:bg-slate-900/60 backdrop-blur-md",
-                  "border border-construction-orange/20",
-                  "transition-all duration-300 hover:scale-105 hover:border-construction-orange/40",
-                  "hover:shadow-[var(--shadow-lg)] hover:shadow-construction-orange/20",
-                  isVisible ? "opacity-100" : "opacity-0"
-                )}
-                style={{
-                  transitionDelay: `${index * 100}ms`,
-                }}
+                className="flex items-center gap-3 text-center"
               >
-                <div className="absolute inset-0 bg-gradient-to-br from-construction-orange/0 to-construction-orange/0 group-hover:from-construction-orange/10 group-hover:to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                <div className="relative z-10 mb-2 p-2 rounded-[var(--radius-lg)] bg-construction-orange/15 group-hover:bg-construction-orange/20 transition-colors duration-300">
-                  <Icon className="w-6 h-6 text-construction-orange" />
+                <div className="p-2 rounded-full bg-primary/10">
+                  <Icon className="w-5 h-5 text-primary" />
                 </div>
-                <div className="relative z-10 font-semibold text-sm text-foreground">
-                  {badge.label}
-                </div>
-                <div className="relative z-10 text-xs text-muted-foreground mt-1">
-                  {badge.detail}
+                <div className="text-left">
+                  <div className="font-semibold text-sm text-foreground">
+                    {badge.label}
+                  </div>
+                  <div className="text-xs text-muted-foreground">
+                    {badge.detail}
+                  </div>
                 </div>
               </div>
             );
