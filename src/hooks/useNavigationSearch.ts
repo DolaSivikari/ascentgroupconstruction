@@ -14,71 +14,24 @@ export interface SearchResult {
 export const getAllNavigationItems = (): SearchResult[] => {
   const items: SearchResult[] = [];
 
-  // Extract items from services
-  megaMenuDataEnhanced.services.forEach((section) => {
-    section.categories.forEach((category) => {
-      if (category.subItems) {
-        category.subItems.forEach((item) => {
-          items.push({
-            name: item.name,
-            link: item.link,
-            category: category.title,
-            section: "Services",
-            badge: item.badge as "new" | "popular" | "important" | undefined,
+  // Dynamically iterate over all navigation sections
+  Object.entries(megaMenuDataEnhanced).forEach(([sectionKey, sections]) => {
+    if (!sections || !Array.isArray(sections)) return;
+    
+    sections.forEach((section) => {
+      section.categories.forEach((category) => {
+        if (category.subItems) {
+          category.subItems.forEach((item) => {
+            items.push({
+              name: item.name,
+              link: item.link,
+              category: category.title,
+              section: section.sectionTitle,
+              badge: item.badge as "new" | "popular" | "important" | undefined,
+            });
           });
-        });
-      }
-    });
-  });
-
-  // Extract items from projects
-  megaMenuDataEnhanced.projects.forEach((section) => {
-    section.categories.forEach((category) => {
-      if (category.subItems) {
-        category.subItems.forEach((item) => {
-          items.push({
-            name: item.name,
-            link: item.link,
-            category: "Projects",
-            section: "Projects",
-            badge: item.badge as "new" | "popular" | "important" | undefined,
-          });
-        });
-      }
-    });
-  });
-
-  // Extract items from company
-  megaMenuDataEnhanced.company.forEach((section) => {
-    section.categories.forEach((category) => {
-      if (category.subItems) {
-        category.subItems.forEach((item) => {
-          items.push({
-            name: item.name,
-            link: item.link,
-            category: section.sectionTitle,
-            section: "Company",
-            badge: item.badge as "new" | "popular" | "important" | undefined,
-          });
-        });
-      }
-    });
-  });
-
-  // Extract items from resources
-  megaMenuDataEnhanced.resources.forEach((section) => {
-    section.categories.forEach((category) => {
-      if (category.subItems) {
-        category.subItems.forEach((item) => {
-          items.push({
-            name: item.name,
-            link: item.link,
-            category: section.sectionTitle,
-            section: "Resources",
-            badge: item.badge as "new" | "popular" | "important" | undefined,
-          });
-        });
-      }
+        }
+      });
     });
   });
 
