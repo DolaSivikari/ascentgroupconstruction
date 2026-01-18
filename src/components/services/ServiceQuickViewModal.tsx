@@ -91,7 +91,7 @@ export const ServiceQuickViewModal = ({ isOpen, onClose, service }: ServiceQuick
           <div className="flex flex-col sm:flex-row gap-3 pt-4 border-t border-border">
             <Button asChild className="flex-1" size="lg">
               <Link to="/estimate">
-                Get Free Quote
+                Request Proposal
                 <ArrowRight className="w-4 h-4 ml-2" />
               </Link>
             </Button>
@@ -108,7 +108,7 @@ export const ServiceQuickViewModal = ({ isOpen, onClose, service }: ServiceQuick
           {/* Trust Indicator */}
           <div className="text-center pt-4 border-t border-border">
             <p className="text-sm text-muted-foreground">
-              <span className="font-semibold text-foreground">Free consultation</span> • 
+              <span className="font-semibold text-foreground">Complimentary consultation</span> • 
               <span className="font-semibold text-foreground"> 24-hour response</span> • 
               <span className="font-semibold text-foreground"> No obligation</span>
             </p>
