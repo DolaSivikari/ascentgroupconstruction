@@ -250,40 +250,6 @@ export const ServicesExplorer = () => {
           </>
         )}
 
-        {/* CTA Section - Simplified */}
-        <div className="mt-20 text-center p-8 md:p-12 rounded-[var(--radius-lg)] bg-card border border-border">
-          <div className="max-w-2xl mx-auto">
-            <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-medium mb-4">
-              Free Consultation
-            </span>
-              
-              <h3 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-                Ready to Start Your Project?
-              </h3>
-              
-              <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
-                Get a detailed site assessment and project proposal from our team of building envelope specialists. We'll evaluate your needs and provide transparent pricing.
-              </p>
-              
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <Link to="/contact">
-                <Button size="lg" className="group w-full sm:w-auto">
-                  Request Site Assessment
-                  <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
-                </Button>
-              </Link>
-              <Link to="/services">
-                <Button size="lg" variant="outline" className="w-full sm:w-auto">
-                  View All Services
-                </Button>
-              </Link>
-            </div>
-            
-            <p className="text-xs text-muted-foreground mt-6">
-              ✓ No obligation  •  ✓ Licensed & Insured  •  ✓ 15+ Years Experience
-            </p>
-          </div>
-        </div>
       </div>
     </section>
   );
