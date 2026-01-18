@@ -1,7 +1,7 @@
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
-import { Card, CardContent } from "@/design-system/components/Card";
+import { Card } from "@/design-system/components/Card";
 import { Section } from "@/components/sections/Section";
 import PageHeader from "@/components/PageHeader";
 import { Button } from "@/ui/Button";
@@ -12,22 +12,15 @@ import {
   Target, 
   CheckCircle, 
   MapPin, 
-  TrendingUp,
-  Phone,
-  Mail,
-  FileText,
   Award,
   HardHat,
   Home,
-  Factory
+  Factory,
+  FileText
 } from "lucide-react";
 import { Link } from "react-router-dom";
-import { ScrollReveal } from "@/components/animations/ScrollReveal";
 import heroImage from "@/assets/heroes/hero-about-company.jpg";
 import { usePageAnalytics } from "@/hooks/usePageAnalytics";
-import { ParallaxSection } from "@/components/animations/ParallaxSection";
-import { StaggerContainer } from "@/components/animations/StaggerContainer";
-import { UnifiedPageHero } from "@/components/sections/UnifiedPageHero";
 import { WhoWeServeCard, WhoWeServeSection } from "@/components/unified";
 
 const About = () => {
@@ -131,66 +124,58 @@ const About = () => {
       />
       <Navigation />
       
-      <ParallaxSection speed="slow">
-        <PageHeader
-          title="Building Envelope & Restoration Specialists"
-          description="An emerging specialty contractor delivering reliable envelope solutions across Ontario's GTA—building trust, project by project."
-          backgroundImage={heroImage}
-          cta={{ label: CTA_TEXT.contact, href: "/contact" }}
-          breadcrumbs={[
-            { label: "Home", href: "/" },
-            { label: "About Us" }
-          ]}
-        />
-      </ParallaxSection>
+      <PageHeader
+        title="Building Envelope & Restoration Specialists"
+        description="An emerging specialty contractor delivering reliable envelope solutions across Ontario's GTA—building trust, project by project."
+        backgroundImage={heroImage}
+        cta={{ label: CTA_TEXT.contact, href: "/contact" }}
+        breadcrumbs={[
+          { label: "Home", href: "/" },
+          { label: "About Us" }
+        ]}
+      />
 
       {/* Main Introduction */}
       <Section size="major" maxWidth="narrow">
-        <ScrollReveal direction="left" delay={100}>
-          <div className="prose prose-lg max-w-none">
-            <p className="text-lg md:text-xl leading-relaxed mb-6">
-              Ascent Group Construction is an emerging specialty contractor focused on building envelope and restoration 
-              work across Ontario's Greater Toronto Area. We're in the early stages of building our company—establishing 
-              systems, earning trust, and delivering quality work that speaks for itself.
-            </p>
-            <p className="text-base md:text-lg text-muted-foreground leading-relaxed mb-8">
-              Right now, we specialize in façade remediation, sealant replacement, concrete & parking garage repair, 
-              EIFS/stucco, masonry restoration, waterproofing, and protective coatings. Our goal is clear: become the 
-              most reliable specialty contractor in our market, then expand into full general contracting capabilities 
-              over the next 3–5 years. Every project we complete, every relationship we build, and every lesson we 
-              learn moves us toward that vision.
-            </p>
-          </div>
-        </ScrollReveal>
+        <div className="prose prose-lg max-w-none">
+          <p className="text-lg md:text-xl leading-relaxed mb-6">
+            Ascent Group Construction is an emerging specialty contractor focused on building envelope and restoration 
+            work across Ontario's Greater Toronto Area. We're in the early stages of building our company—establishing 
+            systems, earning trust, and delivering quality work that speaks for itself.
+          </p>
+          <p className="text-base md:text-lg text-muted-foreground leading-relaxed mb-8">
+            Right now, we specialize in façade remediation, sealant replacement, concrete & parking garage repair, 
+            EIFS/stucco, masonry restoration, waterproofing, and protective coatings. Our goal is clear: become the 
+            most reliable specialty contractor in our market, then expand into full general contracting capabilities 
+            over the next 3–5 years. Every project we complete, every relationship we build, and every lesson we 
+            learn moves us toward that vision.
+          </p>
+        </div>
 
-        {/* Founder Story with parallax */}
-        <ParallaxSection speed="medium">
-          <ScrollReveal direction="right" delay={150}>
-            <Card variant="elevated" size="lg" className="mt-12 border-l-4 border-primary">
-            <h3 className="text-2xl md:text-3xl font-semibold mb-4">Proven Expertise. New Name.</h3>
-            <p className="text-base md:text-lg text-muted-foreground leading-relaxed mb-6">
-              Ascent Group Construction represents over 15 years of combined experience in building envelope and interior trades work across the Greater Toronto Area—formalized under a new company name in 2025.
-            </p>
-            <p className="text-base md:text-lg text-muted-foreground leading-relaxed mb-6">
-              Our team has delivered hundreds of envelope restoration, EIFS installation, masonry repair, waterproofing, and interior finishing projects on buildings ranging from residential walk-ups to 30-story towers. We've worked as trusted trade partners for general contractors, property managers, building consultants, and institutional clients who demand professional execution and reliable results.
-            </p>
-            <p className="text-base md:text-lg text-muted-foreground leading-relaxed mb-6">
-              We founded Ascent Group to bring this proven capability directly to clients who need specialty trade expertise without the complexity of layered subcontracting. Our focus is simple: deliver high-quality envelope and interior work, maintain professional safety and communication standards, and build lasting relationships through accountable performance.
-            </p>
-            <blockquote className="text-xl italic mb-4 border-l-2 border-primary/50 pl-6">
-              "We're building Ascent Group methodically—professional systems, quality execution, and honest client relationships. 
-              Our long-term vision is to expand into general contracting capabilities, but right now we're laser-focused on being 
-              the most reliable envelope and interior trade specialist in the GTA."
-            </blockquote>
-            <div className="flex items-center gap-4 mt-6">
-              <div>
-                <p className="font-semibold text-primary text-lg">Hebun Isik</p>
-                <p className="text-muted-foreground">Founder & Principal</p>
-              </div>
+        {/* Founder Story */}
+        <Card variant="elevated" size="lg" className="mt-12 border-l-4 border-primary">
+          <h3 className="text-2xl md:text-3xl font-semibold mb-4">Proven Expertise. New Name.</h3>
+          <p className="text-base md:text-lg text-muted-foreground leading-relaxed mb-6">
+            Ascent Group Construction represents over 15 years of combined experience in building envelope and interior trades work across the Greater Toronto Area—formalized under a new company name in 2025.
+          </p>
+          <p className="text-base md:text-lg text-muted-foreground leading-relaxed mb-6">
+            Our team has delivered hundreds of envelope restoration, EIFS installation, masonry repair, waterproofing, and interior finishing projects on buildings ranging from residential walk-ups to 30-story towers. We've worked as trusted trade partners for general contractors, property managers, building consultants, and institutional clients who demand professional execution and reliable results.
+          </p>
+          <p className="text-base md:text-lg text-muted-foreground leading-relaxed mb-6">
+            We founded Ascent Group to bring this proven capability directly to clients who need specialty trade expertise without the complexity of layered subcontracting. Our focus is simple: deliver high-quality envelope and interior work, maintain professional safety and communication standards, and build lasting relationships through accountable performance.
+          </p>
+          <blockquote className="text-xl italic mb-4 border-l-2 border-primary/50 pl-6">
+            "We're building Ascent Group methodically—professional systems, quality execution, and honest client relationships. 
+            Our long-term vision is to expand into general contracting capabilities, but right now we're laser-focused on being 
+            the most reliable envelope and interior trade specialist in the GTA."
+          </blockquote>
+          <div className="flex items-center gap-4 mt-6">
+            <div>
+              <p className="font-semibold text-primary text-lg">Hebun Isik</p>
+              <p className="text-muted-foreground">Founder & Principal</p>
             </div>
-          </Card>
-          </ScrollReveal>
-        </ParallaxSection>
+          </div>
+        </Card>
       </Section>
 
       {/* Who We Serve - Using Unified Components */}

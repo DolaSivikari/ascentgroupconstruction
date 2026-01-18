@@ -13,11 +13,8 @@ import { WhoWeServeCard, WhoWeServeSection, FeatureCard } from "@/components/uni
 import { CardGrid } from "@/components/shared/CardGrid";
 import { Section } from "@/components/sections/Section";
 import { CTA_TEXT, TYPOGRAPHY_STYLES } from "@/design-system/constants";
-import { ScrollReveal } from "@/components/animations/ScrollReveal";
 import heroServicesImage from "@/assets/heroes/hero-general-contracting.jpg";
 import { usePageAnalytics } from "@/hooks/usePageAnalytics";
-import { ParallaxSection } from "@/components/animations/ParallaxSection";
-import { ArrowRight } from "lucide-react";
 
 const Services = () => {
   const [isQuizOpen, setIsQuizOpen] = useState(false);
@@ -35,18 +32,16 @@ const Services = () => {
       />
       <Navigation />
       
-      <ParallaxSection speed="slow">
-        <PageHeader
-          title="Our Services"
-          description="Main specialty contractor for building envelope, interior trades, and residential renovations. Serving commercial properties, multi-family buildings, and homeowners across Ontario with 15+ years team experience."
-          backgroundImage={heroServicesImage}
-          cta={{ label: CTA_TEXT.primary, href: "/estimate" }}
-          breadcrumbs={[
-            { label: "Home", href: "/" },
-            { label: "Services" }
-          ]}
-        />
-      </ParallaxSection>
+      <PageHeader
+        title="Our Services"
+        description="Main specialty contractor for building envelope, interior trades, and residential renovations. Serving commercial properties, multi-family buildings, and homeowners across Ontario with 15+ years team experience."
+        backgroundImage={heroServicesImage}
+        cta={{ label: CTA_TEXT.primary, href: "/estimate" }}
+        breadcrumbs={[
+          { label: "Home", href: "/" },
+          { label: "Services" }
+        ]}
+      />
 
       <main className="flex-1 relative">
 

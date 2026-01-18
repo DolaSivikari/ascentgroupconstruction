@@ -10,7 +10,7 @@ import { Ruler, Shield, Clock, CheckCircle2, ArrowRight, Sparkles } from 'lucide
 import heroImage from '@/assets/heroes/hero-tile-flooring.jpg';
 import { ServiceCitySection } from "@/components/services/ServiceCitySection";
 import { CTA_TEXT } from "@/design-system/constants";
-import { ScrollReveal } from "@/components/animations/ScrollReveal";
+// Animation cleanup - removed ScrollReveal for cleaner UX
 
 const TileFlooring = () => {
   const deliverables = [

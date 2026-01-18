@@ -12,7 +12,6 @@ import { Button } from "@/ui/Button";
 import { CTA_TEXT } from "@/design-system/constants";
 import { CheckCircle, Clock, Shield, FileText, Users, Wrench, Download, Mail, Phone } from "lucide-react";
 import { Link } from "react-router-dom";
-import { ScrollReveal } from "@/components/animations/ScrollReveal";
 import heroImage from "@/assets/heroes/hero-construction-management.jpg";
 
 const ForGeneralContractors = () => {
@@ -182,14 +181,13 @@ const ForGeneralContractors = () => {
 
           <div className="max-w-4xl mx-auto space-y-4">
             {processSteps.map((step, index) => (
-              <ScrollReveal key={index} direction="left" delay={index * 100}>
-                <ProcessStepCard
-                  step={step.step}
-                  title={step.title}
-                  description={step.description}
-                  icon={step.icon}
-                />
-              </ScrollReveal>
+              <ProcessStepCard
+                key={index}
+                step={step.step}
+                title={step.title}
+                description={step.description}
+                icon={step.icon}
+              />
             ))}
           </div>
         </Section>
