@@ -1,5 +1,5 @@
 import { FileText, Download, CheckCircle, ArrowRight, Shield, Award, Users, Building2, Clock } from "lucide-react";
-import { Card } from "@/components/ui/card";
+import { Card } from "@/design-system/components/Card";
 import { Button } from "@/ui/Button";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
@@ -69,7 +69,7 @@ const PrequalPackage = () => {
         <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-6 leading-tight">Vendor Information Package</h2>
         <p className="text-xl md:text-2xl text-muted-foreground leading-relaxed">Request our comprehensive vendor information package for qualification and RFP processes.</p>
       </div>
-      <Card className="border-2 border-construction-orange/20 shadow-[var(--shadow-lg)] overflow-hidden bg-gradient-to-br from-background to-muted/30">
+      <Card variant="elevated" size="lg" className="border-2 border-construction-orange/20 overflow-hidden bg-gradient-to-br from-background to-muted/30">
         <div className="grid lg:grid-cols-2 gap-0">
           <div className="p-8 space-y-4">
             <h3 className="text-2xl md:text-3xl font-bold text-foreground mb-6">Package Contents</h3>
@@ -77,7 +77,7 @@ const PrequalPackage = () => {
               {packageItems.map((item, index) => {
                 const Icon = item.icon;
                 return (
-                  <div key={index} className="flex gap-3 p-4 rounded-lg bg-muted/30 border border-border/50 hover:bg-muted/40 hover:border-border/70 transition-all duration-300">
+                  <div key={index} className="flex gap-3 p-4 rounded-lg bg-muted/30 border border-border/50 hover:bg-muted/50 transition-colors">
                     <Icon className="w-5 h-5 text-construction-orange flex-shrink-0 mt-1" />
                     <div>
                       <div className="font-semibold text-foreground text-base mb-1">{item.label}</div>

@@ -51,21 +51,21 @@ export const CTA_TEXT = {
   callNow: 'Call Us Today',
 } as const;
 
-// Card & Component Styling
+// Card & Component Styling - Standardized
 export const CARD_STYLES = {
   base: 'rounded-[var(--radius-lg)] border border-border bg-card',
   elevated: 'rounded-[var(--radius-lg)] border border-border bg-card shadow-[var(--shadow-md)]',
-  hover: 'transition-all duration-300 hover:shadow-[var(--shadow-lg)] hover:-translate-y-2',
-  interactive: 'cursor-pointer transition-all duration-300 hover:shadow-[var(--shadow-lg)] hover:-translate-y-2 active:scale-[0.98]',
+  hover: 'transition-all duration-200 hover:shadow-[var(--shadow-lg)] hover:-translate-y-1',
+  interactive: 'cursor-pointer transition-all duration-200 hover:shadow-[var(--shadow-lg)] hover:-translate-y-1',
 } as const;
 
-// Unified Hover States
+// Unified Hover States - Simplified & Consistent
 export const HOVER_STATES = {
-  card: 'hover:-translate-y-2 hover:shadow-[var(--shadow-lg)] transition-all duration-300',
-  button: 'hover:opacity-90 transition-opacity duration-[150ms]',
-  link: 'hover:text-primary transition-colors duration-[150ms]',
-  scale: 'hover:scale-105 transition-transform duration-300',
-  lift: 'hover:-translate-y-1 transition-transform duration-300',
+  card: 'hover:-translate-y-1 hover:shadow-[var(--shadow-lg)] transition-all duration-200',
+  button: 'hover:opacity-90 transition-opacity duration-150',
+  link: 'hover:text-primary transition-colors duration-150',
+  scale: 'hover:scale-[1.02] transition-transform duration-200',
+  lift: 'hover:-translate-y-1 transition-transform duration-200',
 } as const;
 
 // Animation Presets
