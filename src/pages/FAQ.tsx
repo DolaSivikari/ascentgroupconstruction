@@ -43,7 +43,7 @@ const FAQ = () => {
         },
         {
           question: "How do I know if you're the right contractor for my project?",
-          answer: "We specialize in general contracting, commercial construction, multi-family construction, design-build, stucco/EIFS systems, masonry restoration, and building envelope work. If your project involves construction management, exterior or interior finishing, waterproofing, or building systems in the GTA, we're likely a perfect fit. Schedule a free consultation to discuss your specific needs."
+          answer: "We specialize in general contracting, commercial construction, multi-family construction, design-build, stucco/EIFS systems, masonry restoration, and building envelope work. If your project involves construction management, exterior or interior finishing, waterproofing, or building systems in the GTA, we're likely a perfect fit. Schedule a consultation to discuss your specific needs."
         },
       ],
     },
@@ -54,15 +54,15 @@ const FAQ = () => {
       questions: [
         {
           question: "How much does commercial construction cost in Toronto?",
-          answer: "Commercial construction in Toronto varies widely by project scope. Tenant improvements range from $50-$200 per square foot, while new construction can exceed $250-$500 per square foot depending on complexity, finishes, and building systems. A 10,000 sq ft buildout averages $500,000-$1.5M. We provide detailed free estimates with line-item breakdowns."
+          answer: "Commercial construction in Toronto varies widely by project scope. Tenant improvements range from $50-$200 per square foot, while new construction can exceed $250-$500 per square foot depending on complexity, finishes, and building systems. A 10,000 sq ft buildout averages $500,000-$1.5M. We provide detailed estimates with line-item breakdowns."
         },
         {
           question: "What's included in your construction estimates?",
           answer: "Our estimates include all materials, labor, equipment, permits, project management, insurance, and warranty. We break down costs by scope so you understand exactly what you're paying for. No hidden fees."
         },
         {
-          question: "Do you offer free estimates?",
-          answer: "Yes! We provide free, no-obligation estimates for all projects. For residential projects, we can often provide ballpark quotes with photos. For commercial projects, we conduct on-site visits to provide accurate, detailed estimates within 3-5 business days."
+          question: "Do you offer project estimates?",
+          answer: "Yes! We provide no-obligation estimates for all projects. For residential projects, we can often provide ballpark quotes with photos. For commercial projects, we conduct on-site visits to provide accurate, detailed estimates within 3-5 business days."
         },
         {
           question: "How much does it cost to renovate a condo unit in Mississauga?",
