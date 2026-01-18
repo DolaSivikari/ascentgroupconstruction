@@ -4,6 +4,7 @@ import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import BackToTop from "@/components/BackToTop";
 import { AscentEmailLink } from "@/components/EmailLink";
+import { PhoneLink } from "@/components/shared/PhoneLink";
 
 const Accessibility = () => {
   return (
@@ -190,7 +191,7 @@ const Accessibility = () => {
                   <p className="mb-2">Contact our accessibility team:</p>
                   <div className="ml-6 space-y-2">
                     <p><strong>Email:</strong> <AscentEmailLink className="text-primary hover:underline inline" showIcon={false} /></p>
-                    <p><strong>Phone:</strong> <a href="tel:647-528-6804" className="text-primary hover:underline">647-528-6804</a></p>
+                    <p><strong>Phone:</strong> <PhoneLink showIcon={false} className="text-primary hover:underline inline" /></p>
                     <p><strong>Response Time:</strong> We aim to respond within 2 business days</p>
                   </div>
                 </div>
@@ -221,7 +222,7 @@ const Accessibility = () => {
                   <div className="space-y-2 text-sm">
                     <p><strong>Accessibility Coordinator</strong></p>
                     <p>Email: <AscentEmailLink className="text-primary hover:underline inline" showIcon={false} /></p>
-                    <p>Phone: <a href="tel:647-528-6804" className="text-primary hover:underline">647-528-6804</a></p>
+                    <p>Phone: <PhoneLink showIcon={false} className="text-primary hover:underline inline" /></p>
                     <p>Or use our <Link to="/contact" className="text-primary hover:underline">contact form</Link> (Subject: "Accessibility Feedback")</p>
                   </div>
                 </div>

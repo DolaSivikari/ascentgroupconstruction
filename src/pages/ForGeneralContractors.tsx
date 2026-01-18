@@ -3,6 +3,7 @@ import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import PageHeader from "@/components/PageHeader";
 import { EmailLink } from "@/components/EmailLink";
+import { PhoneLink } from "@/components/shared/PhoneLink";
 import { Card } from "@/design-system/components/Card";
 import { Section } from "@/components/sections/Section";
 import { CardGrid } from "@/components/shared/CardGrid";
@@ -303,9 +304,7 @@ const ForGeneralContractors = () => {
             <Card variant="interactive" hover size="md" className="text-center">
               <Phone className="w-8 h-8 text-primary mx-auto mb-4" />
               <h3 className="text-xl font-semibold mb-2">Call Us</h3>
-              <a href="tel:+14373290029" className="text-primary hover:underline">
-                +1 (437) 329-0029
-              </a>
+              <PhoneLink showIcon={false} className="text-primary hover:underline" />
             </Card>
 
             <Card variant="interactive" hover size="md" className="text-center">
@@ -334,9 +333,7 @@ const ForGeneralContractors = () => {
               <div className="hidden sm:block text-muted-foreground/50">|</div>
               <div className="flex items-center gap-2">
                 <Phone className="w-4 h-4" />
-                <a href="tel:647-528-6804" className="hover:text-primary transition-colors">
-                  647-528-6804
-                </a>
+                <PhoneLink showIcon={false} className="hover:text-primary transition-colors" />
               </div>
             </div>
           </div>
