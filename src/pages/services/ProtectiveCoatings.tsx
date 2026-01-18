@@ -10,7 +10,7 @@ import SEO from "@/components/SEO";
 import { CTA_TEXT } from "@/design-system/constants";
 import heroImage from "@/assets/heroes/hero-protective-coatings.jpg";
 import { ServiceCitySection } from "@/components/services/ServiceCitySection";
-import { ScrollReveal } from "@/components/animations/ScrollReveal";
+// Animation cleanup - removed ScrollReveal for cleaner UX
 
 const ProtectiveCoatings = () => {
   const whatWeDeliver = [

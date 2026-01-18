@@ -11,7 +11,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Building2, Shield, Layers, Wind, CheckCircle2, ArrowRight } from 'lucide-react';
 import heroImage from '@/assets/heroes/hero-cladding.jpg';
 import { ServiceCitySection } from "@/components/services/ServiceCitySection";
-import { ScrollReveal } from "@/components/animations/ScrollReveal";
+// Animation cleanup - removed ScrollReveal for cleaner UX
 
 const CladdingSystems = () => {
   const advantages = [

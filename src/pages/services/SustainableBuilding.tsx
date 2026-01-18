@@ -10,7 +10,7 @@ import { Leaf, Sun, Droplet, Recycle, CheckCircle2, Award, ArrowRight } from 'lu
 import heroImage from '@/assets/heroes/hero-sustainable.jpg';
 import { ServiceCitySection } from "@/components/services/ServiceCitySection";
 import { CTA_TEXT } from "@/design-system/constants";
-import { ScrollReveal } from "@/components/animations/ScrollReveal";
+// Animation cleanup - removed ScrollReveal for cleaner UX
 
 const SustainableBuilding = () => {
   const deliverables = [

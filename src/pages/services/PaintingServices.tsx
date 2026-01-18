@@ -10,7 +10,7 @@ import { Paintbrush, Building2, Home, Shield, CheckCircle2, Clock, ArrowRight } 
 import heroImage from '@/assets/heroes/hero-painting.jpg';
 import { ServiceCitySection } from "@/components/services/ServiceCitySection";
 import { CTA_TEXT } from "@/design-system/constants";
-import { ScrollReveal } from "@/components/animations/ScrollReveal";
+// Animation cleanup - removed ScrollReveal for cleaner UX
 
 const PaintingServices = () => {
   const deliverables = [

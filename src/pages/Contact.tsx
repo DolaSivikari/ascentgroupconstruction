@@ -28,7 +28,7 @@ import { TrustedPartners } from "@/components/partners/TrustedPartners";
 import { PartnerCaseStudies } from "@/components/partners/PartnerCaseStudies";
 import { Link } from "react-router-dom";
 import { CTA_TEXT } from "@/design-system/constants";
-import { ScrollReveal } from "@/components/animations/ScrollReveal";
+// Animation imports removed for cleaner UX
 import heroImage from "@/assets/heroes/hero-about-company.jpg";
 
 // Input validation schema

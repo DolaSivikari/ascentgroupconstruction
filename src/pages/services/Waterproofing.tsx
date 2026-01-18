@@ -11,7 +11,7 @@ import { generateServiceSchema, generateBreadcrumbSchema, SERVICE_SCHEMAS } from
 import heroImage from '@/assets/hero-waterproofing.jpg';
 import { ServiceCitySection } from "@/components/services/ServiceCitySection";
 import { CTA_TEXT } from "@/design-system/constants";
-import { ScrollReveal } from "@/components/animations/ScrollReveal";
+// Animation cleanup - removed ScrollReveal for cleaner UX
 
 const Waterproofing = () => {
   const serviceConfig = SERVICE_SCHEMAS["waterproofing"];
