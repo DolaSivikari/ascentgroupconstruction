@@ -11,7 +11,7 @@ interface UnifiedServiceCardProps {
   short_description: string | null;
   service_tier?: string | null;
   challenge_tags?: string[] | null;
-  marketSegment: 'commercial' | 'residential' | 'both';
+  marketSegment?: 'commercial' | 'residential' | 'both';
 }
 
 const getIconForTier = (tier: string | null) => {
@@ -68,7 +68,7 @@ export const UnifiedServiceCard = ({
   short_description,
   service_tier,
   challenge_tags,
-  marketSegment,
+  marketSegment = 'commercial',
 }: UnifiedServiceCardProps) => {
   const Icon = getIconForTier(service_tier);
   const iconColors = getIconColors(marketSegment);

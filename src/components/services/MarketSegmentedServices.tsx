@@ -1,10 +1,9 @@
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { UnifiedServiceCard } from "./UnifiedServiceCard";
-import { MarketSegmentHeader } from "./MarketSegmentHeader";
 import { CardGrid } from "@/components/shared/CardGrid";
 import { Section } from "@/components/sections/Section";
-import { Building2, Home, Layers, LucideIcon } from "lucide-react";
+import { Building2, Home, Sparkles, LucideIcon } from "lucide-react";
 
 interface Service {
   id: string;
@@ -13,92 +12,72 @@ interface Service {
   short_description: string | null;
   icon_name: string | null;
   service_tier: string;
+  category: string | null;
   challenge_tags?: string[] | null;
 }
 
-interface MarketSegment {
+interface CategoryConfig {
   title: string;
   description: string;
   icon: LucideIcon;
-  services: Service[];
-  segment: 'commercial' | 'residential' | 'both';
+  dbCategory: string;
 }
 
+const CATEGORY_CONFIG: CategoryConfig[] = [
+  {
+    title: "Building Envelope",
+    description: "Exterior envelope systems, waterproofing, and cladding solutions",
+    icon: Building2,
+    dbCategory: "Building Envelope",
+  },
+  {
+    title: "Interior Construction",
+    description: "Complete interior buildouts, finishing, and renovation services",
+    icon: Home,
+    dbCategory: "Interior Construction",
+  },
+  {
+    title: "Specialized Services",
+    description: "Expert specialty solutions for unique project requirements",
+    icon: Sparkles,
+    dbCategory: "Specialized Services",
+  },
+];
+
 export const MarketSegmentedServices = () => {
-  const [segments, setSegments] = useState<MarketSegment[]>([]);
+  const [services, setServices] = useState<Service[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    loadMarketSegments();
+    loadServices();
   }, []);
 
-  const loadMarketSegments = async () => {
+  const loadServices = async () => {
     const { data } = await supabase
       .from('services')
-      .select('*')
+      .select('id, name, slug, short_description, icon_name, service_tier, category, challenge_tags')
       .eq('publish_state', 'published')
       .order('service_tier', { ascending: false })
       .order('name', { ascending: true });
 
     if (data) {
-      // Define market segmentation logic
-      const commercial = data.filter(s => 
-        ['Building Envelope Solutions', 'Masonry Restoration', 'Waterproofing Systems', 
-         'Protective & Architectural Coatings', 'Sustainable Building', 'Cladding Systems',
-         'Interior Buildouts & Finishing'].includes(s.name)
-      );
-
-      const residential = data.filter(s =>
-        ['Kitchen & Bathroom Renovations', 'Basement Finishing', 'Suite Renovations',
-         'EIFS & Stucco Systems'].includes(s.name)
-      );
-
-      const both = data.filter(s =>
-        ['Painting Services', 'Tile & Flooring', 'Carpentry & Trim Work',
-         'Drywall & Finishing', 'General Repairs & Maintenance'].includes(s.name)
-      );
-
-      setSegments([
-        {
-          title: "Commercial Services",
-          description: "Specialized solutions for commercial, industrial, and institutional buildings",
-          icon: Building2,
-          services: commercial,
-          segment: 'commercial',
-        },
-        {
-          title: "Residential Services",
-          description: "Expert craftsmanship for multi-family residential projects",
-          icon: Home,
-          services: residential,
-          segment: 'residential',
-        },
-        {
-          title: "Both Markets",
-          description: "Core services spanning commercial and residential applications",
-          icon: Layers,
-          services: both,
-          segment: 'both',
-        },
-      ]);
+      setServices(data);
     }
     setIsLoading(false);
   };
 
-  const getSegmentBackground = (segment: 'commercial' | 'residential' | 'both') => {
-    switch (segment) {
-      case 'commercial':
-        return 'bg-background';
-      case 'residential':
-        return 'bg-muted/20';
-      case 'both':
-        return 'bg-secondary/5';
-    }
+  const getServicesForCategory = (dbCategory: string) => {
+    return services.filter(s => s.category === dbCategory);
+  };
+
+  const getCategoryBackground = (index: number) => {
+    const backgrounds = ['bg-background', 'bg-muted/20', 'bg-muted/10'];
+    return backgrounds[index % backgrounds.length];
   };
 
   if (isLoading) {
     return (
-      <Section className="py-24">
+      <Section className="py-16">
         <div className="text-center text-muted-foreground">Loading services...</div>
       </Section>
     );
@@ -106,32 +85,47 @@ export const MarketSegmentedServices = () => {
 
   return (
     <div className="space-y-0">
-      {segments.map((segment) => (
-        <Section key={segment.title} className={getSegmentBackground(segment.segment)}>
-          <MarketSegmentHeader
-            title={segment.title}
-            description={segment.description}
-            icon={segment.icon}
-            serviceCount={segment.services.length}
-            segment={segment.segment}
-          />
-          
-          <CardGrid columns={3} gap="lg" stagger="standard">
-            {segment.services.map((service) => (
-              <UnifiedServiceCard
-                key={service.id}
-                id={service.id}
-                name={service.name}
-                slug={service.slug}
-                short_description={service.short_description}
-                service_tier={service.service_tier}
-                challenge_tags={service.challenge_tags}
-                marketSegment={segment.segment}
-              />
-            ))}
-          </CardGrid>
-        </Section>
-      ))}
+      {CATEGORY_CONFIG.map((category, index) => {
+        const categoryServices = getServicesForCategory(category.dbCategory);
+        
+        if (categoryServices.length === 0) return null;
+
+        const Icon = category.icon;
+
+        return (
+          <Section key={category.dbCategory} className={getCategoryBackground(index)}>
+            {/* Category Header */}
+            <div className="mb-8">
+              <div className="flex items-center gap-3 mb-3">
+                <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
+                  <Icon className="w-5 h-5 text-primary" />
+                </div>
+                <div>
+                  <h2 className="text-2xl font-bold text-foreground">{category.title}</h2>
+                  <span className="text-sm text-muted-foreground">
+                    {categoryServices.length} service{categoryServices.length !== 1 ? 's' : ''}
+                  </span>
+                </div>
+              </div>
+              <p className="text-muted-foreground max-w-2xl">{category.description}</p>
+            </div>
+            
+            <CardGrid columns={3} gap="lg">
+              {categoryServices.map((service) => (
+                <UnifiedServiceCard
+                  key={service.id}
+                  id={service.id}
+                  name={service.name}
+                  slug={service.slug}
+                  short_description={service.short_description}
+                  service_tier={service.service_tier}
+                  challenge_tags={service.challenge_tags}
+                />
+              ))}
+            </CardGrid>
+          </Section>
+        );
+      })}
     </div>
   );
 };
