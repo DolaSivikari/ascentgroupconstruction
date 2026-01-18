@@ -32,20 +32,20 @@ All colors MUST be HSL.
 @layer base {
   :root {
     --background: 0 0% 100%;   /* White background */
-    --foreground: 210 100% 20%;     /* Navy blue text */
+    --foreground: 200 18% 26%;     /* Charcoal #36454F for body text */
 
     --card: 0 0% 100%;          /* White cards */
-    --card-foreground: 210 100% 20%; /* Navy blue on cards */
+    --card-foreground: 200 18% 26%; /* Charcoal on cards */
 
     --popover: 0 0% 100%;
-    --popover-foreground: 210 100% 20%;
+    --popover-foreground: 200 18% 26%;
 
-    /* Corporate Color Palette */
-    --primary: 0 0% 10%;            /* Deep Black #1A1A1A */
+    /* Corporate Color Palette - Audit Aligned */
+    --primary: 210 100% 20%;        /* Navy Blue #003366 */
     --primary-foreground: 0 0% 100%; /* White */
-    --primary-light: 0 0% 20%;
-    --primary-dark: 0 0% 5%;
-    --primary-glow: 0 0% 15%;
+    --primary-light: 210 100% 30%;
+    --primary-dark: 210 100% 15%;
+    --primary-glow: 210 100% 25%;
     
     --secondary: 0 0% 40%;          /* Medium Gray #666666 */
     --secondary-foreground: 0 0% 100%; /* White on gray */
@@ -73,13 +73,22 @@ All colors MUST be HSL.
 
     --radius: 0.5rem;
     
-    /* Gradients */
-    --gradient-hero: linear-gradient(135deg, hsl(0 0% 10%) 0%, hsl(0 0% 20%) 100%);
+    /* Spacing System - Audit Aligned */
+    --section-padding-sm: 48px;
+    --section-padding-md: 64px;
+    --section-padding-lg: 96px;
+    --component-gap-sm: 24px;
+    --component-gap-md: 32px;
+    --component-gap-lg: 48px;
+    --card-padding: 24px;
+    
+    /* Gradients - Updated for Navy Blue Primary */
+    --gradient-hero: linear-gradient(135deg, hsl(210 100% 20%) 0%, hsl(210 100% 30%) 100%);
     --gradient-accent: linear-gradient(135deg, hsl(25 100% 50%) 0%, hsl(25 100% 60%) 100%);
-    --gradient-overlay: linear-gradient(180deg, transparent 0%, hsl(0 0% 10% / 0.9) 100%);
-    --shadow-soft: 0 2px 10px hsl(0 0% 10% / 0.1);
-    --shadow-medium: 0 4px 20px hsl(0 0% 10% / 0.15);
-    --shadow-strong: 0 10px 40px -10px hsl(0 0% 10% / 0.25);
+    --gradient-overlay: linear-gradient(180deg, transparent 0%, hsl(210 100% 15% / 0.9) 100%);
+    --shadow-soft: 0 2px 10px hsl(210 100% 20% / 0.1);
+    --shadow-medium: 0 4px 20px hsl(210 100% 20% / 0.15);
+    --shadow-strong: 0 10px 40px -10px hsl(210 100% 20% / 0.25);
     --shadow-accent: 0 8px 30px -8px hsl(25 100% 50% / 0.4);
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     

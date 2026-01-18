@@ -31,24 +31,39 @@ export const TYPOGRAPHY_STYLES = {
   label: 'text-sm font-medium uppercase tracking-wider',
 } as const;
 
-// Unified CTA Text
+// Unified CTA Text - Professional Language
 export const CTA_TEXT = {
   // Commercial/Professional CTAs
   primary: 'Request Site Assessment',
   secondary: 'View Services',
   gc: 'For GCs: Request Unit Pricing',
   project: 'Request Project Quote',
-  contact: 'Contact Us',
+  contact: 'Start Your Project',
   viewProjects: 'View Projects',
   learnMore: 'Learn More',
+  proposal: 'Request Proposal',
   
-  // Homeowner-Friendly CTAs
-  freeQuote: 'Get Free Quote',
-  freeEstimate: 'Get Free Estimate',
+  // Homeowner-Friendly CTAs (professional but approachable)
   homeConsultation: 'Book Home Consultation',
   residentialServices: 'View Residential Services',
   startProject: 'Start Your Project',
   callNow: 'Call Us Today',
+  getEstimate: 'Request Estimate',
+} as const;
+
+// Spacing System - Audit Aligned (48px, 64px, 96px)
+export const SPACING = {
+  sectionPadding: {
+    sm: '48px',   // py-12
+    md: '64px',   // py-16
+    lg: '96px',   // py-24
+  },
+  componentGap: {
+    sm: '24px',   // gap-6
+    md: '32px',   // gap-8
+    lg: '48px',   // gap-12
+  },
+  cardPadding: '24px',  // p-6
 } as const;
 
 // Card & Component Styling - Standardized

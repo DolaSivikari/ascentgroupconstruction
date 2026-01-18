@@ -14,8 +14,7 @@ export default {
     },
     extend: {
       fontFamily: {
-        sans: ['Barlow', 'system-ui', '-apple-system', 'sans-serif'],
-        barlow: ['Barlow', 'sans-serif'],
+        sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
       },
       fontSize: {
         'xs': 'var(--text-xs)',

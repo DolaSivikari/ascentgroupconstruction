@@ -386,9 +386,9 @@ Add-ons:
   return (
     <div className="min-h-screen flex flex-col">
       <SEO
-        title="Get a Free Estimate | Ascen Group Construction"
+        title="Request Project Estimate | Ascent Group Construction"
         description="Get an instant estimate for your painting or stucco project. Fast, accurate pricing with no obligation. Licensed and insured contractors serving the GTA."
-        keywords="construction estimate, painting quote, stucco quote, free estimate, GTA contractors"
+        keywords="construction estimate, painting quote, stucco quote, project estimate, GTA contractors"
       />
       <Navigation />
 
@@ -397,7 +397,7 @@ Add-ons:
           <div className="max-w-4xl mx-auto">
             {/* Enhanced Header */}
             <div className="text-center mb-8 animate-fade-in-up">
-              <h1 className="text-4xl md:text-5xl font-bold mb-4 text-primary">Get Your Free Estimate</h1>
+              <h1 className="text-4xl md:text-5xl font-bold mb-4 text-primary">Request Your Estimate</h1>
               <p className="text-lg text-muted-foreground">Answer a few quick questions to receive an instant estimate</p>
             </div>
 
