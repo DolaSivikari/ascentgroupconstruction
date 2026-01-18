@@ -142,7 +142,7 @@ const Homeowners = () => {
       number: "01",
       title: "Request a Quote",
       description: "Fill out our estimate form or call us directly. Describe your project and upload photos if available.",
-      cta: "Get Free Estimate"
+      cta: "Start Your Project"
     },
     {
       number: "02",
@@ -168,7 +168,7 @@ const Homeowners = () => {
     <div className="min-h-screen">
       <SEO 
         title="Residential Services for Homeowners | Painting, Renovations, Tile, Flooring | Ascent Group Construction"
-        description="Professional residential construction services in Toronto and the GTA. Interior/exterior painting, stucco repair, tile & flooring, renovations, waterproofing. 15+ years experience, fully insured. Free estimates."
+        description="Professional residential construction services in Toronto and the GTA. Interior/exterior painting, stucco repair, tile & flooring, renovations, waterproofing. 15+ years experience, fully insured. Serving Toronto & GTA."
         keywords="residential painting Toronto, home renovation GTA, tile installation Toronto, flooring contractor, stucco repair homeowners, basement finishing, bathroom renovation, EIFS repair residential"
       />
 
@@ -176,7 +176,7 @@ const Homeowners = () => {
 
       <PageHeader
         title="Residential Services for Homeowners"
-        description="Professional Painting, Renovations, Tile, Flooring & More • 15+ Years Experience • Fully Insured • Free Estimates • Serving Toronto & GTA"
+        description="Professional Painting, Renovations, Tile, Flooring & More • 15+ Years Experience • Fully Insured • Serving Toronto & GTA"
         backgroundImage={heroImage}
         breadcrumbs={[
           { label: "Home", href: "/" },
@@ -256,7 +256,7 @@ const Homeowners = () => {
               <strong>Note:</strong> Costs and timelines are estimates based on typical residential projects. Your actual project will be priced after a site visit.
             </p>
             <Button asChild size="lg">
-              <Link to="/estimate">Get Your Free Estimate</Link>
+              <Link to="/estimate">Start Your Project</Link>
             </Button>
           </div>
         </ScrollReveal>
@@ -313,11 +313,11 @@ const Homeowners = () => {
                 <AccordionTrigger className="hover:no-underline py-4">
                   <div className="flex items-center gap-3 text-left">
                     <DollarSign className="w-5 h-5 text-construction-orange flex-shrink-0" />
-                    <span className="font-semibold">Do you provide free estimates?</span>
+                    <span className="font-semibold">Do you provide estimates?</span>
                   </div>
                 </AccordionTrigger>
                 <AccordionContent className="text-muted-foreground pb-4">
-                  Yes. We provide free, no-obligation written estimates for all residential projects. After our site visit, you'll receive a detailed quote within 2-3 business days.
+                  Yes. We provide no-obligation written estimates for all residential projects. After our site visit, you'll receive a detailed quote within 2-3 business days.
                 </AccordionContent>
               </AccordionItem>
 
@@ -388,13 +388,13 @@ const Homeowners = () => {
               Ready to Start Your Home Project?
             </h2>
             <p className="text-xl mb-8 text-white/90">
-              Get a free, detailed estimate in 2-3 days. No pressure, no obligation—just professional advice and transparent pricing.
+              Get a detailed estimate in 2-3 days. No pressure, no obligation—just professional advice and transparent pricing.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button asChild size="lg" variant="default">
                 <Link to="/estimate">
                   <ClipboardCheck className="w-5 h-5 mr-2" />
-                  Get Free Estimate
+                  Start Your Project
                 </Link>
               </Button>
               <Button asChild size="lg" variant="secondary">

@@ -47,7 +47,7 @@ export const blogFAQs: Record<string, Array<{ question: string; answer: string }
     },
     {
       question: "What's the average cost for a 2-bedroom condo renovation in the GTA?",
-      answer: "Renovating a 2-bedroom condo in the GTA typically costs $40,000-$80,000 for a moderate renovation, depending on finishes, scope, and unit size. This includes kitchen, bathrooms, flooring, and finishes. Ascent Group Construction offers free estimates for condo renovations in Toronto, Mississauga, Brampton, and Vaughan."
+      answer: "Renovating a 2-bedroom condo in the GTA typically costs $40,000-$80,000 for a moderate renovation, depending on finishes, scope, and unit size. This includes kitchen, bathrooms, flooring, and finishes. Ascent Group Construction provides estimates for condo renovations in Toronto, Mississauga, Brampton, and Vaughan."
     }
   ],
   "stucco-repair-guide": [

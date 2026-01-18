@@ -290,11 +290,11 @@ const Navigation = () => {
               </a>
             )}
             
-            {/* Primary CTA - Get Free Quote */}
+            {/* Primary CTA - Request Proposal */}
             <Button asChild variant="primary" size="sm" className="shadow-lg">
               <Link to="/submit-rfp" className="gap-2">
                 <FileText className="w-4 h-4" />
-                Get Free Quote
+                Request Proposal
               </Link>
             </Button>
             

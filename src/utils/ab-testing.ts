@@ -132,7 +132,7 @@ export const initializeTests = () => {
   abTesting.createTest({
     id: 'cta_button',
     name: 'CTA Button Text',
-    variants: ['Get Free Quote', 'Request Estimate', 'Start Your Project'],
+    variants: ['Request Site Assessment', 'Request Proposal', 'Start Your Project'],
   });
 
   abTesting.createTest({

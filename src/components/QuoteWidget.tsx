@@ -29,7 +29,7 @@ const QuoteWidget = () => {
           Quick Quote Request
         </CardTitle>
         <CardDescription>
-          Get a free estimate in under 24 hours
+          Get an estimate in under 24 hours
         </CardDescription>
       </CardHeader>
       <CardContent className="pt-6">

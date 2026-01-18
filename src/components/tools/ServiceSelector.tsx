@@ -108,7 +108,7 @@ export const ServiceSelector = () => {
           "Bathroom & Kitchen Renovations",
           "Drywall & Finishing",
         ],
-        cta: "Request Free Estimate",
+        cta: "Start Your Project",
         link: "/homeowners",
         icon: Home,
       };
