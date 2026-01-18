@@ -3,6 +3,7 @@ import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import BackToTop from "@/components/BackToTop";
 import { AscentEmailLink } from "@/components/EmailLink";
+import { PhoneLink } from "@/components/shared/PhoneLink";
 
 const Privacy = () => {
   return (
@@ -209,7 +210,7 @@ const Privacy = () => {
                 <p className="mb-2">To exercise any of these rights, contact us at:</p>
                 <ul className="list-none space-y-1">
                   <li><strong>Email:</strong> <AscentEmailLink className="inline" showIcon={false} /></li>
-                  <li><strong>Phone:</strong> 647-528-6804</li>
+                  <li><strong>Phone:</strong> <PhoneLink showIcon={false} className="inline" /></li>
                   <li><strong>Mail:</strong> Ascent Group Construction, Privacy Officer, 2 Jody Ave, North York, ON M3N 1H1</li>
                 </ul>
                 <p className="mt-2 text-sm">We will respond to your request within 30 days as required by PIPEDA.</p>
@@ -264,7 +265,7 @@ const Privacy = () => {
                   <p><strong>Ascent Group Construction</strong></p>
                   <p>Privacy Officer</p>
                   <p>Email: <AscentEmailLink className="text-primary hover:underline inline" showIcon={false} /></p>
-                  <p>Phone: <a href="tel:647-528-6804" className="text-primary hover:underline">647-528-6804</a></p>
+                  <p>Phone: <PhoneLink showIcon={false} className="text-primary hover:underline inline" /></p>
                   <p className="mt-4 text-sm text-muted-foreground">
                     If you are not satisfied with our response, you may file a complaint with the Office of the Privacy Commissioner of Canada: <a href="https://www.priv.gc.ca" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">www.priv.gc.ca</a>
                   </p>

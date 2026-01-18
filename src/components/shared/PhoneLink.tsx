@@ -16,7 +16,8 @@ export const PhoneLink = ({
   variant = "text",
   children 
 }: PhoneLinkProps) => {
-  const { data: settings } = useSettingsData('company_settings');
+  // Use site_settings table (correct table name)
+  const { data: settings } = useSettingsData('site_settings');
   const phone = settings?.phone || "647-528-6804";
 
   const handleClick = () => {
@@ -43,3 +44,12 @@ export const PhoneLink = ({
     </a>
   );
 };
+
+// Convenience component for consistent usage
+export const AscentPhoneLink = ({ 
+  className, 
+  showIcon = true,
+  variant = "text"
+}: Omit<PhoneLinkProps, 'children'>) => (
+  <PhoneLink className={className} showIcon={showIcon} variant={variant} />
+);
