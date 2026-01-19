@@ -5,13 +5,19 @@ import { Badge } from "@/components/ui/badge";
 import { CheckCircle2, XCircle, AlertTriangle, RefreshCw } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 
+interface HealthCheck {
+  name: string;
+  status: 'success' | 'warning' | 'error';
+  message: string;
+}
+
 export const HealthCheckTab = () => {
-  const [checks, setChecks] = useState<any[]>([]);
+  const [checks, setChecks] = useState<HealthCheck[]>([]);
   const [isChecking, setIsChecking] = useState(false);
 
   const runHealthChecks = async () => {
     setIsChecking(true);
-    const results = [];
+    const results: HealthCheck[] = [];
 
     // Check 1: Database Connection
     try {
@@ -21,7 +27,7 @@ export const HealthCheckTab = () => {
         status: error ? "error" : "success",
         message: error ? error.message : "Connected successfully",
       });
-    } catch (error) {
+    } catch {
       results.push({
         name: "Database Connection",
         status: "error",
@@ -37,7 +43,7 @@ export const HealthCheckTab = () => {
         status: error || !data || data.length === 0 ? "warning" : "success",
         message: error ? error.message : data?.length === 0 ? "No active settings found" : "Configured",
       });
-    } catch (error) {
+    } catch {
       results.push({
         name: "Site Settings",
         status: "error",
@@ -53,7 +59,7 @@ export const HealthCheckTab = () => {
         status: error || !data || data.length === 0 ? "warning" : "success",
         message: error ? error.message : data?.length === 0 ? "No active settings found" : "Configured",
       });
-    } catch (error) {
+    } catch {
       results.push({
         name: "Footer Settings",
         status: "error",
@@ -69,7 +75,7 @@ export const HealthCheckTab = () => {
         status: error || !data || data.length === 0 ? "warning" : "success",
         message: error ? error.message : data?.length === 0 ? "No active settings found" : "Configured",
       });
-    } catch (error) {
+    } catch {
       results.push({
         name: "Contact Page Settings",
         status: "error",
@@ -85,7 +91,7 @@ export const HealthCheckTab = () => {
         status: error || !data || data.length === 0 ? "warning" : "success",
         message: error ? error.message : data?.length === 0 ? "No active settings found" : "Configured",
       });
-    } catch (error) {
+    } catch {
       results.push({
         name: "About Page Settings",
         status: "error",
@@ -101,9 +107,57 @@ export const HealthCheckTab = () => {
         status: error || !data || data.length === 0 ? "warning" : "success",
         message: error ? error.message : data?.length === 0 ? "No active settings found" : "Configured",
       });
-    } catch (error) {
+    } catch {
       results.push({
         name: "Security Settings",
+        status: "error",
+        message: "Failed to check",
+      });
+    }
+
+    // Check 7: Documents Library
+    try {
+      const { count, error } = await supabase.from("documents_library").select("*", { count: 'exact', head: true }).eq("is_active", true);
+      results.push({
+        name: "Documents Library",
+        status: error ? "error" : count && count > 0 ? "success" : "warning",
+        message: error ? error.message : `${count || 0} active documents`,
+      });
+    } catch {
+      results.push({
+        name: "Documents Library",
+        status: "error",
+        message: "Failed to check",
+      });
+    }
+
+    // Check 8: Storage Bucket
+    try {
+      const { error } = await supabase.storage.from('project-images').list('', { limit: 1 });
+      results.push({
+        name: "Storage Bucket",
+        status: error ? "error" : "success",
+        message: error ? error.message : "Accessible",
+      });
+    } catch {
+      results.push({
+        name: "Storage Bucket",
+        status: "warning",
+        message: "Could not verify",
+      });
+    }
+
+    // Check 9: Admin Users
+    try {
+      const { count, error } = await supabase.from("user_roles").select("*", { count: 'exact', head: true }).in('role', ['admin', 'super_admin']);
+      results.push({
+        name: "Admin Users",
+        status: error ? "error" : count && count >= 1 ? "success" : "warning",
+        message: error ? error.message : `${count || 0} admin users configured`,
+      });
+    } catch {
+      results.push({
+        name: "Admin Users",
         status: "error",
         message: "Failed to check",
       });
@@ -131,12 +185,18 @@ export const HealthCheckTab = () => {
   };
 
   const getStatusBadge = (status: string) => {
-    const variants: any = {
+    const variants: Record<string, "default" | "secondary" | "destructive" | "outline"> = {
       success: "default",
       warning: "secondary",
       error: "destructive",
     };
     return <Badge variant={variants[status] || "outline"}>{status}</Badge>;
+  };
+
+  const stats = {
+    success: checks.filter(c => c.status === 'success').length,
+    warning: checks.filter(c => c.status === 'warning').length,
+    error: checks.filter(c => c.status === 'error').length,
   };
 
   return (
@@ -156,6 +216,24 @@ export const HealthCheckTab = () => {
         </div>
       </CardHeader>
       <CardContent>
+        {/* Summary Stats */}
+        {checks.length > 0 && (
+          <div className="grid grid-cols-3 gap-4 mb-6">
+            <div className="text-center p-3 bg-green-500/10 rounded-lg border border-green-500/20">
+              <div className="text-2xl font-bold text-green-500">{stats.success}</div>
+              <div className="text-xs text-muted-foreground">Passed</div>
+            </div>
+            <div className="text-center p-3 bg-yellow-500/10 rounded-lg border border-yellow-500/20">
+              <div className="text-2xl font-bold text-yellow-500">{stats.warning}</div>
+              <div className="text-xs text-muted-foreground">Warnings</div>
+            </div>
+            <div className="text-center p-3 bg-red-500/10 rounded-lg border border-red-500/20">
+              <div className="text-2xl font-bold text-red-500">{stats.error}</div>
+              <div className="text-xs text-muted-foreground">Errors</div>
+            </div>
+          </div>
+        )}
+
         <div className="space-y-3">
           {checks.map((check, index) => (
             <div

@@ -141,6 +141,9 @@ const Notifications = lazy(() => import("./pages/admin/Notifications").catch(() 
 const EmailTemplates = lazy(() => import("./pages/admin/EmailTemplates").catch(() => ({
   default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Email Templates</p></div>
 })));
+const Testing = lazy(() => import("./pages/admin/Testing").catch(() => ({
+  default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Testing Dashboard</p></div>
+})));
 
 // Unified Admin Layout
 const UnifiedAdminLayout = lazy(() => import("./components/admin/UnifiedAdminLayout").then(m => ({ default: m.UnifiedAdminLayout })).catch(() => ({
@@ -330,6 +333,7 @@ const App = () => (
                     {/* Notifications & Email Templates */}
                     <Route path="notifications" element={<Notifications />} />
                     <Route path="email-templates" element={<EmailTemplates />} />
+                    <Route path="testing" element={<Testing />} />
                     
                     {/* Homepage Builder - Consolidated */}
                     <Route path="homepage-builder" element={<HomepageBuilder />} />

@@ -14,7 +14,8 @@ import {
   Car,
   Droplets,
   ArrowRight,
-  FileDown
+  FileDown,
+  Loader2
 } from "lucide-react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
@@ -27,6 +28,7 @@ import { useToast } from "@/hooks/use-toast";
 import SEO from "@/components/SEO";
 import { supabase } from "@/integrations/supabase/client";
 import heroImage from "@/assets/hero-building-envelope.jpg";
+import { useDocument, useTrackDownload, downloadDocument } from "@/hooks/useDocuments";
 
 const ContractorPortal = () => {
   const { toast } = useToast();
@@ -40,6 +42,10 @@ const ContractorPortal = () => {
     message: "",
     honeypot: ""
   });
+
+  // Fetch vendor packet from documents library
+  const { data: vendorPacket, isLoading: vendorLoading } = useDocument('vendor');
+  const trackDownload = useTrackDownload();
 
   const whyPartnerCards = [
     {
@@ -262,12 +268,23 @@ const ContractorPortal = () => {
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <Button className="w-full gap-2" asChild>
-                    <a href="/documents/vendor-packet.pdf" download>
+                  <Button 
+                    className="w-full gap-2" 
+                    onClick={() => vendorPacket && downloadDocument(vendorPacket, (id) => trackDownload.mutate(id))}
+                    disabled={vendorLoading || !vendorPacket}
+                  >
+                    {vendorLoading ? (
+                      <Loader2 className="w-4 h-4 animate-spin" />
+                    ) : (
                       <Download className="w-4 h-4" />
-                      Download PDF
-                    </a>
+                    )}
+                    Download PDF
                   </Button>
+                  {!vendorLoading && !vendorPacket && (
+                    <p className="text-xs text-muted-foreground mt-2 text-center">
+                      Document not available
+                    </p>
+                  )}
                 </CardContent>
               </Card>
 
