@@ -172,7 +172,7 @@ const Navigation = () => {
           </div>
 
           {/* Center: Main Navigation - Simplified to 6 items */}
-          <nav className="flex items-center gap-6 lg:gap-8" aria-label="Main navigation">
+          <nav className="flex items-center gap-4 lg:gap-6" aria-label="Main navigation">
             {/* Services Mega-Menu */}
             <div
               className="relative"
@@ -203,6 +203,35 @@ const Navigation = () => {
               />
             </div>
 
+            {/* Markets / Who We Serve Mega-Menu */}
+            <div
+              className="relative"
+              onMouseEnter={() => handleMegaMenuEnter("markets")}
+              onMouseLeave={handleMegaMenuLeave}
+            >
+              <button
+                className={cn(
+                  "px-2 py-2 text-base font-semibold inline-flex items-center gap-1.5 transition-all duration-300",
+                  "relative after:absolute after:bottom-0 after:left-0 after:w-full after:h-[2px]",
+                  "after:bg-primary after:scale-x-0 after:origin-left hover:after:scale-x-100 after:transition-transform after:duration-300",
+                  activeMegaMenu === "markets" ? "text-primary after:scale-x-100" : (isHeroPage && isAtTop ? "text-white" : "text-foreground"),
+                  activeMegaMenu !== "markets" && "hover:text-primary"
+                )}
+                aria-expanded={activeMegaMenu === "markets"}
+              >
+                Who We Serve
+                <ChevronDown className={cn(
+                  "w-4 h-4 transition-all duration-300",
+                  activeMegaMenu === "markets" && "rotate-180"
+                )} />
+              </button>
+              <MegaMenuWithSections
+                sections={megaMenuDataEnhanced.markets}
+                isOpen={activeMegaMenu === "markets"}
+                onClose={closeMegaMenu}
+              />
+            </div>
+
             {/* Projects */}
             <Link
               to="/projects"
@@ -217,33 +246,64 @@ const Navigation = () => {
               Projects
             </Link>
 
-            {/* About */}
-            <Link
-              to="/about"
-              className={cn(
-                "px-2 py-2 text-base font-semibold relative transition-all duration-300",
-                "after:absolute after:bottom-0 after:left-0 after:w-full after:h-[2px]",
-                "after:bg-primary after:scale-x-0 after:origin-left hover:after:scale-x-100 after:transition-transform after:duration-300",
-                isActive("/about") ? "text-primary after:scale-x-100" : (isHeroPage && isAtTop ? "text-white" : "text-foreground"),
-                !isActive("/about") && "hover:text-primary"
-              )}
+            {/* Company Mega-Menu */}
+            <div
+              className="relative"
+              onMouseEnter={() => handleMegaMenuEnter("company")}
+              onMouseLeave={handleMegaMenuLeave}
             >
-              About
-            </Link>
+              <Link
+                to="/about"
+                className={cn(
+                  "px-2 py-2 text-base font-semibold inline-flex items-center gap-1.5 transition-all duration-300",
+                  "relative after:absolute after:bottom-0 after:left-0 after:w-full after:h-[2px]",
+                  "after:bg-primary after:scale-x-0 after:origin-left hover:after:scale-x-100 after:transition-transform after:duration-300",
+                  activeMegaMenu === "company" ? "text-primary after:scale-x-100" : (isHeroPage && isAtTop ? "text-white" : "text-foreground"),
+                  activeMegaMenu !== "company" && "hover:text-primary"
+                )}
+                aria-expanded={activeMegaMenu === "company"}
+              >
+                Company
+                <ChevronDown className={cn(
+                  "w-4 h-4 transition-all duration-300",
+                  activeMegaMenu === "company" && "rotate-180"
+                )} />
+              </Link>
+              <MegaMenuWithSections
+                sections={megaMenuDataEnhanced.company}
+                isOpen={activeMegaMenu === "company"}
+                onClose={closeMegaMenu}
+              />
+            </div>
 
-            {/* Contractors */}
-            <Link
-              to="/for-general-contractors"
-              className={cn(
-                "px-2 py-2 text-base font-semibold relative transition-all duration-300",
-                "after:absolute after:bottom-0 after:left-0 after:w-full after:h-[2px]",
-                "after:bg-primary after:scale-x-0 after:origin-left hover:after:scale-x-100 after:transition-transform after:duration-300",
-                isActive("/for-general-contractors") ? "text-primary after:scale-x-100" : (isHeroPage && isAtTop ? "text-white" : "text-foreground"),
-                !isActive("/for-general-contractors") && "hover:text-primary"
-              )}
+            {/* Resources Mega-Menu */}
+            <div
+              className="relative"
+              onMouseEnter={() => handleMegaMenuEnter("resources")}
+              onMouseLeave={handleMegaMenuLeave}
             >
-              Contractors
-            </Link>
+              <button
+                className={cn(
+                  "px-2 py-2 text-base font-semibold inline-flex items-center gap-1.5 transition-all duration-300",
+                  "relative after:absolute after:bottom-0 after:left-0 after:w-full after:h-[2px]",
+                  "after:bg-primary after:scale-x-0 after:origin-left hover:after:scale-x-100 after:transition-transform after:duration-300",
+                  activeMegaMenu === "resources" ? "text-primary after:scale-x-100" : (isHeroPage && isAtTop ? "text-white" : "text-foreground"),
+                  activeMegaMenu !== "resources" && "hover:text-primary"
+                )}
+                aria-expanded={activeMegaMenu === "resources"}
+              >
+                Resources
+                <ChevronDown className={cn(
+                  "w-4 h-4 transition-all duration-300",
+                  activeMegaMenu === "resources" && "rotate-180"
+                )} />
+              </button>
+              <MegaMenuWithSections
+                sections={megaMenuDataEnhanced.resources}
+                isOpen={activeMegaMenu === "resources"}
+                onClose={closeMegaMenu}
+              />
+            </div>
 
             {/* Contact */}
             <Link
