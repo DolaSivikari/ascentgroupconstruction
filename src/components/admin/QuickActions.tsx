@@ -15,10 +15,10 @@ interface QuickAction {
 const DEFAULT_ACTIONS: QuickAction[] = [
   { label: "New Project", icon: "Briefcase", path: "/admin/projects/new", color: "text-primary" },
   { label: "New Blog Post", icon: "FileText", path: "/admin/blog/new", color: "text-secondary" },
-  { label: "Media Library", icon: "Image", path: ADMIN_ROUTES.media, color: "text-blue-600" },
-  { label: "Manage Users", icon: "Users", path: ADMIN_ROUTES.users, color: "text-purple-600" },
-  { label: "SEO Dashboard", icon: "Search", path: ADMIN_ROUTES.seoDashboard, color: "text-green-600" },
-  { label: "View Site", icon: "ExternalLink", path: "/", color: "text-orange-600" },
+  { label: "Media Library", icon: "Image", path: ADMIN_ROUTES.media, color: "text-[hsl(var(--steel-blue))]" },
+  { label: "Manage Users", icon: "Users", path: ADMIN_ROUTES.users, color: "text-primary" },
+  { label: "SEO Dashboard", icon: "Search", path: ADMIN_ROUTES.seoDashboard, color: "text-[hsl(var(--steel-blue))]" },
+  { label: "View Site", icon: "ExternalLink", path: "/", color: "text-accent" },
 ];
 
 const ICON_MAP: Record<string, any> = {

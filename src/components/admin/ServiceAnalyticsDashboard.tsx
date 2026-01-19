@@ -33,7 +33,7 @@ export function ServiceAnalyticsDashboard() {
       value: analytics.summary.impressions.toLocaleString(),
       icon: Eye,
       description: "Total views",
-      color: "text-blue-600",
+      color: "text-primary",
     },
     {
       title: "Clicks",
@@ -47,14 +47,14 @@ export function ServiceAnalyticsDashboard() {
       value: analytics.summary.conversions.toLocaleString(),
       icon: Target,
       description: `${analytics.summary.conversionRate}% rate`,
-      color: "text-green-600",
+      color: "text-[hsl(var(--steel-blue))]",
     },
     {
       title: "Performance",
       value: analytics.servicePerformance.length,
       icon: TrendingUp,
       description: "Services tracked",
-      color: "text-purple-600",
+      color: "text-primary",
     },
   ];
 

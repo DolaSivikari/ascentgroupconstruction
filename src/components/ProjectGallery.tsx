@@ -196,10 +196,10 @@ export const ProjectGallery: React.FC<ProjectGalleryProps> = ({
 
             {/* Category Badge */}
             <div className={`absolute top-3 right-3 px-3 py-1 rounded-full text-xs font-semibold shadow-lg ${
-              image.category === 'before' ? 'bg-blue-600 text-[hsl(var(--bg))]' :
-              image.category === 'after' ? 'bg-green-600 text-[hsl(var(--bg))]' :
-              image.category === 'process' ? 'bg-yellow-600 text-[hsl(var(--bg))]' :
-              'bg-purple-600 text-[hsl(var(--bg))]'
+              image.category === 'before' ? 'bg-primary text-primary-foreground' :
+              image.category === 'after' ? 'bg-[hsl(var(--steel-blue))] text-white' :
+              image.category === 'process' ? 'bg-accent text-accent-foreground' :
+              'bg-secondary text-secondary-foreground'
             }`}>
               {image.category.charAt(0).toUpperCase() + image.category.slice(1)}
             </div>

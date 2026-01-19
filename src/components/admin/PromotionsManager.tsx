@@ -57,10 +57,10 @@ export function PromotionsManager() {
   };
 
   const promotionTypeColors: Record<string, string> = {
-    seasonal: 'bg-blue-600',
-    campaign: 'bg-purple-600',
-    urgent: 'bg-red-600',
-    new: 'bg-green-600',
+    seasonal: 'bg-primary',
+    campaign: 'bg-[hsl(var(--steel-blue))]',
+    urgent: 'bg-accent',
+    new: 'bg-primary',
   };
 
   return (

@@ -93,11 +93,11 @@ export function MobileSearchResults({ results, searchQuery, onLinkClick }: Mobil
 
   const getSectionColor = (section: string) => {
     const colors: Record<string, string> = {
-      Services: 'bg-orange-100 text-orange-700 dark:bg-orange-900/30 dark:text-orange-400',
-      Markets: 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400',
-      Projects: 'bg-teal-100 text-teal-700 dark:bg-teal-900/30 dark:text-teal-400',
-      Company: 'bg-indigo-100 text-indigo-700 dark:bg-indigo-900/30 dark:text-indigo-400',
-      Resources: 'bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-400',
+      Services: 'bg-accent/10 text-accent',
+      Markets: 'bg-[hsl(var(--steel-blue)/0.1)] text-[hsl(var(--steel-blue))]',
+      Projects: 'bg-primary/10 text-primary',
+      Company: 'bg-primary/10 text-primary',
+      Resources: 'bg-[hsl(var(--steel-blue)/0.1)] text-[hsl(var(--steel-blue))]',
     };
     return colors[section] || 'bg-muted text-muted-foreground';
   };
