@@ -427,7 +427,7 @@ All colors MUST be HSL.
   
   /* Mega-menu container with sections */
   .mega-menu-sections {
-    @apply absolute left-1/2 -translate-x-1/2 w-[600px] max-w-[90vw];
+    @apply absolute left-1/2 -translate-x-1/2 w-[800px] max-w-[90vw];
     @apply bg-background/95 backdrop-blur-lg rounded-lg border border-border/50;
     @apply opacity-0 invisible scale-y-95;
     @apply transition-all duration-300 ease-out origin-top;
@@ -441,8 +441,8 @@ All colors MUST be HSL.
   }
 
   .mega-menu-sections-wrapper {
-    @apply p-4;
-    max-height: 400px;
+    @apply p-6;
+    max-height: 480px;
     overflow-y: auto;
     scrollbar-width: thin;
     scrollbar-color: hsl(var(--border)) transparent;
@@ -470,7 +470,7 @@ All colors MUST be HSL.
   }
 
   .mega-menu-section-categories {
-    @apply flex flex-col gap-1.5;
+    @apply grid grid-cols-3 gap-4;
   }
 
   /* Accordion category styles */

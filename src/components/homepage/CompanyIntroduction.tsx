@@ -195,7 +195,7 @@ export default function CompanyIntroduction() {
             </Button>
             <Button asChild size="lg" variant="outline" className="border-construction-orange/30 hover:border-construction-orange/50">
               <Link to="/for-general-contractors">
-                For GCs: Request Unit Pricing
+                Contractors: Request Unit Pricing
               </Link>
             </Button>
           </div>

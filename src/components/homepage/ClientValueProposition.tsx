@@ -61,7 +61,7 @@ const ClientValueProposition = () => {
               <Link to="/services">View Services</Link>
             </Button>
             <Button asChild size="lg" variant="outline">
-            <Link to="/contact">For GCs: Request Unit Pricing</Link>
+            <Link to="/contact">Contractors: Request Unit Pricing</Link>
           </Button>
         </div>
       </div>
