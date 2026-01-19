@@ -10,8 +10,13 @@ import { Section } from "@/components/sections/Section";
 import { CTA_TEXT } from "@/design-system/constants";
 import { mainPageHeroes } from "@/data/hero-images";
 import { usePageAnalytics } from "@/hooks/usePageAnalytics";
+import { generateBreadcrumbSchema } from "@/utils/seo";
 
 const Services = () => {
+  const breadcrumbSchema = generateBreadcrumbSchema([
+    { name: "Home", url: "/" },
+    { name: "Services", url: "/services" }
+  ]);
   usePageAnalytics('services');
 
   return (
@@ -21,6 +26,7 @@ const Services = () => {
         description="Ascent Group Construction — Main specialty contractor for building envelope, interior trades, and residential renovations. Serving commercial properties, multi-family buildings, and homeowners across Ontario. Self-performed work with 15+ years team experience."
         keywords="specialty contractor services, building envelope contractor, residential renovation, interior trades, painting contractor, tile flooring, EIFS contractor, masonry repair, waterproofing contractor"
         canonical="https://ascentgroupconstruction.com/services"
+        structuredData={[breadcrumbSchema]}
       />
       <Navigation />
       

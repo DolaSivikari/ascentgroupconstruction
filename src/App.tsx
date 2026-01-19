@@ -39,6 +39,7 @@ import FAQ from "./pages/FAQ";
 import CertificationsInsurance from "./pages/company/CertificationsInsurance";
 import ContractorPortal from "./pages/resources/ContractorPortal";
 import ServiceAreas from "./pages/resources/ServiceAreas";
+import LocationPage from "./pages/resources/LocationPage";
 import EquipmentResources from "./pages/company/EquipmentResources";
 import Developers from "./pages/company/Developers";
 import ForGeneralContractors from "./pages/ForGeneralContractors";
@@ -270,6 +271,7 @@ const App = () => (
                   
                   <Route path="/resources/contractor-portal" element={<ContractorPortal />} />
                   <Route path="/resources/service-areas" element={<ServiceAreas />} />
+                  <Route path="/service-areas/:city" element={<LocationPage />} />
                   
                   {/* Heavy content pages - lazy loaded */}
                   <Route path="/blog" element={<Blog />} />

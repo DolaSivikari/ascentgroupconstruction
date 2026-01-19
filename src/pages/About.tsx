@@ -22,10 +22,29 @@ import { Link } from "react-router-dom";
 import { mainPageHeroes } from "@/data/hero-images";
 import { usePageAnalytics } from "@/hooks/usePageAnalytics";
 import { WhoWeServeCard, WhoWeServeSection } from "@/components/unified";
+import { generateBreadcrumbSchema, generateHowToSchema, COMPANY_FACTS } from "@/utils/seo";
 
 const About = () => {
   // Analytics tracking
   usePageAnalytics('about');
+
+  // SEO Structured Data
+  const breadcrumbSchema = generateBreadcrumbSchema([
+    { name: "Home", url: "/" },
+    { name: "About Us", url: "/about" }
+  ]);
+
+  const processSchema = generateHowToSchema({
+    name: "Ascent Group Construction 5-Step Project Process",
+    description: "Our proven approach to delivering reliable building envelope and restoration projects",
+    steps: [
+      { name: "Site Walk & Assessment", text: "We meet on site to understand the issue, constraints, and access. For urgent matters, we aim to attend within 48–72 hours." },
+      { name: "Scope & Proposal", text: "You receive a clear, itemized scope with drawings/photos as needed, alternates where helpful, and unit rates for repetitive work." },
+      { name: "Mobilize & Execute", text: "We coordinate permits, access, logistics, and occupant notices. A dedicated lead oversees daily safety, quality, and schedule." },
+      { name: "Quality Assurance & Reporting", text: "Field checks, photo logs, and inspection records ensure work follows specifications and manufacturer guidance." },
+      { name: "Closeout & Warranty", text: "Final walkthrough, punch completion, turnover package with photos and product data, and applicable warranty." }
+    ]
+  });
 
   const services = [
     "Façade Remediation & Cladding Repairs",
@@ -121,6 +140,7 @@ const About = () => {
         title="About Us - Building Envelope & Restoration Services | Ontario & GTA"
         description="Emerging specialty contractor delivering accountable envelope and restoration services across Ontario. Learn about our approach, values, and vision for becoming a trusted GC partner."
         keywords="about Ascent Group, building envelope contractor, specialty contractor Ontario, restoration company, GTA contractor, emerging contractor"
+        structuredData={[breadcrumbSchema, processSchema]}
       />
       <Navigation />
       

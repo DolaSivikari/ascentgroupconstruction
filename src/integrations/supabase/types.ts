@@ -2298,6 +2298,54 @@ export type Database = {
           },
         ]
       }
+      seo_keywords: {
+        Row: {
+          category: string | null
+          created_at: string | null
+          current_position: number | null
+          difficulty: number | null
+          id: string
+          intent: string | null
+          keyword: string
+          last_checked: string | null
+          position_change: number | null
+          primary_keyword: boolean | null
+          search_volume: number | null
+          target_page: string | null
+          updated_at: string | null
+        }
+        Insert: {
+          category?: string | null
+          created_at?: string | null
+          current_position?: number | null
+          difficulty?: number | null
+          id?: string
+          intent?: string | null
+          keyword: string
+          last_checked?: string | null
+          position_change?: number | null
+          primary_keyword?: boolean | null
+          search_volume?: number | null
+          target_page?: string | null
+          updated_at?: string | null
+        }
+        Update: {
+          category?: string | null
+          created_at?: string | null
+          current_position?: number | null
+          difficulty?: number | null
+          id?: string
+          intent?: string | null
+          keyword?: string
+          last_checked?: string | null
+          position_change?: number | null
+          primary_keyword?: boolean | null
+          search_volume?: number | null
+          target_page?: string | null
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
       service_promotions: {
         Row: {
           badge_color: string | null
