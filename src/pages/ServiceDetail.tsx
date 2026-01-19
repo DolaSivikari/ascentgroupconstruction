@@ -3,7 +3,7 @@ import { useParams, Navigate } from "react-router-dom";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
-import PageHeader from "@/components/PageHeader";
+import PageHero from "@/components/shared/PageHero";
 import Breadcrumb from "@/components/Breadcrumb";
 import { supabase } from "@/integrations/supabase/client";
 import { Card, CardContent } from "@/components/ui/card";
@@ -194,16 +194,18 @@ const ServiceDetail = () => {
       />
       <Navigation />
       
-      <PageHeader
+      <PageHero
         title={service.name}
         description={service.short_description || ""}
-        backgroundImage={serviceHeroImages[service.slug]}
-        cta={{ label: CTA_TEXT.primary, href: "/contact" }}
+        image={serviceHeroImages[service.slug]}
+        imageAlt={`${service.name} services`}
+        primaryCta={{ text: CTA_TEXT.primary, href: "/contact" }}
         breadcrumbs={[
           { label: "Home", href: "/" },
           { label: "Services", href: "/services" },
           { label: service.name }
         ]}
+        height="medium"
       />
       
       <main className="min-h-screen">

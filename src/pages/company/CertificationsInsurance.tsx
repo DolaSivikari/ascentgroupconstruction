@@ -1,12 +1,12 @@
 import { Shield, Award, CheckCircle2, Building2, Download, FileText } from "lucide-react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
-import PageHeader from "@/components/PageHeader";
+import PageHero from "@/components/shared/PageHero";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import SEO from "@/components/SEO";
 import { useSettingsData } from "@/hooks/useSettingsData";
-import heroCertificationsImage from "@/assets/heroes/hero-certifications.jpg";
+import { companyHeroes } from "@/data/hero-images";
 import { Link } from "react-router-dom";
 
 interface License {
@@ -86,9 +86,12 @@ const CertificationsInsurance = () => {
         />
         <div className="min-h-screen bg-background">
           <Navigation />
-          <PageHeader
+          <PageHero
             title="Certifications & Insurance Coverage"
             description="Licensed, Bonded, and Fully Insured for Your Peace of Mind"
+            image={companyHeroes["certifications-insurance"]}
+            imageAlt="Certifications and insurance documentation"
+            height="medium"
           />
           <main id="main-content" className="container mx-auto px-4 py-12">
             <div className="text-center">Loading...</div>
@@ -109,10 +112,17 @@ const CertificationsInsurance = () => {
       <div className="min-h-screen bg-background">
         <Navigation />
         
-          <PageHeader
+          <PageHero
             title="Certifications & Insurance Coverage"
             description="Licensed, Bonded, and Fully Insured for Your Peace of Mind"
-            backgroundImage={heroCertificationsImage}
+            image={companyHeroes["certifications-insurance"]}
+            imageAlt="Certifications and insurance documentation"
+            breadcrumbs={[
+              { label: "Home", href: "/" },
+              { label: "Company", href: "/about" },
+              { label: "Certifications & Insurance" }
+            ]}
+            height="medium"
           />
 
         <main id="main-content" className="container mx-auto px-4 py-12 space-y-16">
