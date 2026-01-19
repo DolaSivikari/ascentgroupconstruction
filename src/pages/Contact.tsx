@@ -1,14 +1,14 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef } from "react";
 import { z } from "zod";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
-import PageHeader from "@/components/PageHeader";
+import { PageHero } from "@/components/shared/PageHero";
 import { Card } from "@/design-system/components/Card";
 import { Section } from "@/components/sections/Section";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
-import { trackFormSubmit, trackConversion } from "@/lib/analytics";
+import { trackFormSubmit } from "@/lib/analytics";
 import { trackABTestConversion } from "@/hooks/useABTest";
 import { Button } from "@/ui/Button";
 import { Input } from "@/ui/Input";
@@ -28,8 +28,7 @@ import { TrustedPartners } from "@/components/partners/TrustedPartners";
 import { PartnerCaseStudies } from "@/components/partners/PartnerCaseStudies";
 import { Link } from "react-router-dom";
 import { CTA_TEXT } from "@/design-system/constants";
-// Animation imports removed for cleaner UX
-import heroImage from "@/assets/heroes/hero-about-company.jpg";
+import { mainPageHeroes } from "@/data/hero-images";
 
 // Input validation schema
 const contactSchema = z.object({
@@ -169,11 +168,13 @@ const Contact = () => {
       <SEO title="Contact Us - Request Proposal | Ascent Group" description="Ascent Group Construction — Ontario's prime specialty contractor for building envelope & restoration. Self-performed façade remediation, parking garage restoration, EIFS, masonry repair, and waterproofing. Serving commercial, multi-family, and institutional projects across the GTA." canonical="https://ascentgroupconstruction.com/contact" />
       <Navigation />
 
-      <PageHeader
+      <PageHero
         title="Contact Us"
         description="Get expert building envelope and restoration services across Ontario. Our specialized crews are ready to discuss your project."
-        backgroundImage={heroImage}
-        cta={{ label: CTA_TEXT.project, href: "/estimate" }}
+        image={mainPageHeroes.contact}
+        imageAlt="Contact Ascent Group Construction"
+        height="medium"
+        primaryCta={{ text: CTA_TEXT.project, href: "/estimate" }}
         breadcrumbs={[
           { label: "Home", href: "/" },
           { label: "Contact" }

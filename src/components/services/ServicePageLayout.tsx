@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
-import PageHeader from "@/components/PageHeader";
+import { PageHero } from "@/components/shared/PageHero";
 import { Button } from "@/ui/Button";
 import { Section } from "@/components/sections/Section";
 import { ArrowRight } from "lucide-react";
@@ -58,11 +58,13 @@ export const ServicePageLayout = ({
       />
       <Navigation />
       
-      <PageHeader
+      <PageHero
         title={heroTitle}
         description={heroDescription}
-        backgroundImage={heroImage}
-        cta={{ label: CTA_TEXT.primary, href: "/contact" }}
+        image={heroImage}
+        imageAlt={`${heroTitle} services by Ascent Group Construction`}
+        height="medium"
+        primaryCta={{ text: CTA_TEXT.primary, href: "/contact" }}
         breadcrumbs={[
           { label: "Home", href: "/" },
           { label: "Services", href: "/services" },

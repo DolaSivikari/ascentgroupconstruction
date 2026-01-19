@@ -3,16 +3,15 @@ import { Search, Sparkles, TrendingUp, MessageCircle, Briefcase, DollarSign, Clo
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
-import PageHeader from "@/components/PageHeader";
+import { PageHero } from "@/components/shared/PageHero";
 import { Section } from "@/components/sections/Section";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/design-system/components/Card";
 import { Badge } from "@/components/ui/badge";
-import { TYPOGRAPHY_STYLES } from "@/design-system/constants";
 import { generateFAQSchema, generateHowToSchema } from "@/utils/faq-schema";
 import { CTA_TEXT } from "@/design-system/constants";
 import { ScrollReveal } from "@/components/animations/ScrollReveal";
-import heroImage from "@/assets/heroes/hero-about-company.jpg";
+import { mainPageHeroes } from "@/data/hero-images";
 import {
   Accordion,
   AccordionContent,
@@ -296,11 +295,14 @@ const FAQ = () => {
       
       <Navigation />
 
-      <PageHeader
+      <PageHero
         title="Frequently Asked Questions"
         description="Everything you need to know about construction, painting, EIFS, stucco, and restoration services across the GTA."
-        backgroundImage={heroImage}
-        cta={{ label: CTA_TEXT.contact, href: "/contact" }}
+        image={mainPageHeroes.faq}
+        imageAlt="Construction FAQ and answers"
+        height="medium"
+        variant="centered"
+        primaryCta={{ text: CTA_TEXT.contact, href: "/contact" }}
         breadcrumbs={[
           { label: "Home", href: "/" },
           { label: "FAQ" }
@@ -378,7 +380,7 @@ const FAQ = () => {
                       <IconComponent className="w-6 h-6 text-primary" />
                     </div>
                     <div>
-                      <h2 className={`${TYPOGRAPHY_STYLES.sectionTitle} text-foreground`}>
+                      <h2 className="text-2xl font-bold text-foreground">
                         {category.category}
                       </h2>
                       <p className="text-sm text-muted-foreground">{category.count} questions answered</p>
