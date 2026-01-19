@@ -2,12 +2,12 @@ import { useState } from "react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
-import PageHeader from "@/components/PageHeader";
+import PageHero from "@/components/shared/PageHero";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Link } from "react-router-dom";
-import heroImage from "@/assets/heroes/hero-sustainable.jpg";
+import { companyHeroes } from "@/data/hero-images";
 import { 
   Leaf,
   Recycle, 
@@ -83,19 +83,18 @@ const Sustainability = () => {
       />
       <Navigation />
 
-      <div className="bg-background">
-        <PageHeader
-          eyebrow="Sustainability"
-          title="Building a Greener Future"
-          description="Our commitment to environmental responsibility through sustainable practices and eco-friendly solutions"
-          backgroundImage={heroImage}
-          breadcrumbs={[
-            { label: "Home", href: "/" },
-            { label: "Sustainability" }
-          ]}
-          variant="standard"
-        />
-      </div>
+      <PageHero
+        eyebrow="Sustainability"
+        title="Building a Greener Future"
+        description="Our commitment to environmental responsibility through sustainable practices and eco-friendly solutions"
+        image={companyHeroes.sustainability}
+        imageAlt="Sustainable building practices"
+        breadcrumbs={[
+          { label: "Home", href: "/" },
+          { label: "Sustainability" }
+        ]}
+        height="medium"
+      />
       
       <main>
 

@@ -3,8 +3,8 @@ import Footer from "@/components/Footer";
 import InsightsFeed from "@/components/insights/InsightsFeed";
 import SEO from "@/components/SEO";
 import SkipLink from "@/components/SkipLink";
-import PageHeader from "@/components/PageHeader";
-import heroImage from "@/assets/heroes/hero-about-company.jpg";
+import PageHero from "@/components/shared/PageHero";
+import { mainPageHeroes } from "@/data/hero-images";
 
 const Insights = () => {
   return (
@@ -19,18 +19,17 @@ const Insights = () => {
       <Navigation />
       
       <main id="main-content">
-        {/* Hero Section with PageHeader */}
-        <section>
-          <PageHeader
-            title="Industry Insights"
-            description="Stay informed with expert analysis, project updates, and construction industry trends from our team of professionals."
-            backgroundImage={heroImage}
-            breadcrumbs={[
-              { label: 'Home', href: '/' },
-              { label: 'Insights' }
-            ]}
-          />
-        </section>
+        <PageHero
+          title="Industry Insights"
+          description="Stay informed with expert analysis, project updates, and construction industry trends from our team of professionals."
+          image={mainPageHeroes.insights}
+          imageAlt="Construction industry insights"
+          breadcrumbs={[
+            { label: 'Home', href: '/' },
+            { label: 'Insights' }
+          ]}
+          height="medium"
+        />
 
         {/* Insights Feed */}
         <InsightsFeed 

@@ -1,6 +1,6 @@
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
-import PageHeader from "@/components/PageHeader";
+import PageHero from "@/components/shared/PageHero";
 import SEO from "@/components/SEO";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -16,7 +16,7 @@ import {
   Users,
   Clock
 } from "lucide-react";
-import heroDevelopersImage from "@/assets/heroes/hero-developers.jpg";
+import { audienceHeroes } from "@/data/hero-images";
 
 const Developers = () => {
   const benefits = [
@@ -99,21 +99,19 @@ const Developers = () => {
 
         <Navigation />
         
-        <PageHeader
+        <PageHero
           eyebrow="For Developers & GCs"
           title="Build With a Trusted Partner"
           description="Reliable subcontracting for painting, EIFS, stucco, and building envelope systems on projects of any scale"
-          backgroundImage={heroDevelopersImage}
+          image={audienceHeroes.developers}
+          imageAlt="Development and construction partnership"
           breadcrumbs={[
             { label: "Home", href: "/" },
             { label: "Company", href: "/about" },
             { label: "Developers" }
           ]}
-          variant="with-cta"
-          cta={{
-            label: "Request Prequalification Package",
-            href: "/resources/contractor-portal"
-          }}
+          primaryCta={{ text: "Request Prequalification Package", href: "/resources/contractor-portal" }}
+          height="medium"
         />
 
         <main id="main-content">

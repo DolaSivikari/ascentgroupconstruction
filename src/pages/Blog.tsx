@@ -3,13 +3,13 @@ import { Link } from "react-router-dom";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
-import PageHeader from "@/components/PageHeader";
+import PageHero from "@/components/shared/PageHero";
 import BlogCard from "@/components/blog/BlogCard";
 import NewsletterSection from "@/components/blog/NewsletterSection";
 import { Button } from "@/ui/Button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { supabase } from "@/integrations/supabase/client";
-import heroImage from "@/assets/heroes/hero-about-company.jpg";
+import { mainPageHeroes } from "@/data/hero-images";
 
 interface BlogPost {
   id: string;
@@ -102,15 +102,16 @@ const Blog = () => {
       ) : (
       <main className="relative overflow-hidden">
         <div className="absolute top-0 left-0 w-[500px] h-[500px] bg-gradient-to-br from-primary/5 to-secondary/5 rounded-full blur-3xl -z-10" />
-        <PageHeader
+        <PageHero
           title="Blog & Case Studies"
           description="Expert insights, success stories, and real-world projects from industry professionals"
-          backgroundImage={heroImage}
+          image={mainPageHeroes.blog}
+          imageAlt="Construction insights and case studies"
           breadcrumbs={[
             { label: "Home", href: "/" },
             { label: "Blog & Case Studies" }
           ]}
-          variant="standard"
+          height="medium"
         />
 
         {/* Enhanced Featured Posts */}
