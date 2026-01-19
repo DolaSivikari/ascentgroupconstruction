@@ -425,24 +425,24 @@ All colors MUST be HSL.
 
   /* === Multi-Level Mega-Menu with Sections === */
   
-  /* Mega-menu container with sections */
+  /* Mega-menu container with sections - Variable width via inline style */
   .mega-menu-sections {
-    @apply absolute left-1/2 -translate-x-1/2 w-[900px] max-w-[95vw];
+    @apply absolute left-1/2 -translate-x-1/2 max-w-[95vw];
     @apply bg-background backdrop-blur-xl rounded-lg border border-border/50;
-    @apply opacity-0 invisible scale-y-95;
-    @apply transition-all duration-300 ease-out origin-top;
+    @apply opacity-0 invisible pointer-events-none;
+    @apply origin-top;
     @apply top-full mt-2;
     z-index: var(--z-mega-menu);
-    box-shadow: 0 10px 40px -10px hsl(var(--foreground) / 0.15);
-  }
-
-  /* 4-column mega menu variant for Markets */
-  .mega-menu-sections--wide {
-    @apply w-[1000px];
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    /* Animation: fade-in 200ms ease-out on open, fade-out 150ms ease-in on close */
+    transition: opacity 200ms ease-out, visibility 200ms ease-out, transform 200ms ease-out;
+    transform: translateX(-50%) translateY(-4px);
   }
 
   .mega-menu-sections--open {
-    @apply opacity-100 visible scale-y-100;
+    @apply opacity-100 visible pointer-events-auto;
+    transform: translateX(-50%) translateY(0);
+    transition: opacity 200ms ease-out, visibility 200ms ease-out, transform 200ms ease-out;
   }
 
   .mega-menu-sections-wrapper {

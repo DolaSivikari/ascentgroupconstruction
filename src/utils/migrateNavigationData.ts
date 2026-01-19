@@ -27,8 +27,11 @@ export const migrateNavigationData = async () => {
     let displayOrder = 0;
 
     // Process each top-level menu (services, markets, projects, company, resources)
-    for (const [menuKey, sections] of Object.entries(megaMenuDataEnhanced)) {
+    for (const [menuKey, config] of Object.entries(megaMenuDataEnhanced)) {
       console.log(`Processing menu: ${menuKey}`);
+      
+      // Access the sections array from the config
+      const sections = config.sections || [];
       
       for (const section of sections) {
         displayOrder++;
@@ -72,6 +75,7 @@ export const migrateNavigationData = async () => {
               url: subItem.link,
               description: subItem.description,
               badge: subItem.badge,
+              icon_name: subItem.icon,
               display_order: displayOrder,
               is_active: true,
               is_mega_menu: false,
