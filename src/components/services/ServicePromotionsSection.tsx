@@ -24,8 +24,12 @@ export const ServicePromotionsSection = () => {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {promotions.map((promotion) => (
-          <Card key={promotion.id} className="h-full hover:shadow-lg transition-all duration-200 hover:-translate-y-1 border-primary/20">
+        {promotions.map((promotion, index) => (
+          <Card 
+            key={promotion.id} 
+            className="h-full hover:shadow-lg transition-all duration-200 ease-out hover:-translate-y-0.5 border-primary/20 animate-fade-in"
+            style={{ animationDelay: `${index * 50}ms` }}
+          >
             <CardHeader>
               <div className="flex items-start justify-between mb-2">
                 <CardTitle className="text-xl">{promotion.title}</CardTitle>
@@ -56,7 +60,7 @@ export const ServicePromotionsSection = () => {
               <Button asChild className="w-full group">
                 <Link to={promotion.service_link}>
                   View Service
-                  <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                  <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform duration-200 ease-out" />
                 </Link>
               </Button>
             </CardContent>

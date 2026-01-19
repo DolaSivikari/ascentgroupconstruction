@@ -192,9 +192,13 @@ const ContractorPortal = () => {
 
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
               {whyPartnerCards.map((card, index) => (
-                <Card key={index} className="group hover:shadow-lg hover:-translate-y-1 transition-all duration-300 border-2 hover:border-primary/30">
+                <Card 
+                  key={index} 
+                  className="group hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200 ease-out border-2 hover:border-primary/30 animate-fade-in"
+                  style={{ animationDelay: `${index * 50}ms` }}
+                >
                   <CardContent className="p-6">
-                    <div className="w-14 h-14 bg-gradient-to-br from-primary to-primary/70 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
+                    <div className="w-14 h-14 bg-gradient-to-br from-primary to-primary/70 rounded-xl flex items-center justify-center mb-4 group-hover:scale-105 transition-transform duration-200 ease-out">
                       <card.icon className="h-7 w-7 text-primary-foreground" />
                     </div>
                     <h3 className="text-lg font-bold text-foreground mb-2">{card.title}</h3>
@@ -220,7 +224,8 @@ const ContractorPortal = () => {
               {capabilities.map((cap, index) => (
                 <div 
                   key={index}
-                  className="flex items-start gap-4 p-4 bg-background rounded-xl border border-border hover:border-primary/30 transition-colors"
+                  className="flex items-start gap-4 p-4 bg-background rounded-xl border border-border hover:border-primary/30 transition-all duration-200 ease-out animate-fade-in"
+                  style={{ animationDelay: `${index * 50}ms` }}
                 >
                   <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
                     <cap.icon className="h-6 w-6 text-primary" />

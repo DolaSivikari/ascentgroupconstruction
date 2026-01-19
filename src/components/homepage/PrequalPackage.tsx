@@ -98,7 +98,7 @@ const PrequalPackage = () => {
             </div>
             <Dialog open={open} onOpenChange={setOpen}>
               <DialogTrigger asChild>
-                <Button size="lg" className="w-full sm:w-auto bg-construction-orange hover:bg-construction-orange/90 shadow-[var(--shadow-lg)] hover:shadow-[var(--shadow-lg)] transition-all duration-300">
+                <Button size="lg" className="w-full sm:w-auto bg-construction-orange hover:bg-construction-orange/90 shadow-[var(--shadow-lg)] hover:shadow-[var(--shadow-lg)] transition-all duration-200 ease-out">
                   <Download className="w-4 h-4 mr-2" />Request Vendor Packet
                 </Button>
               </DialogTrigger>
@@ -120,7 +120,7 @@ const PrequalPackage = () => {
                 </form>
               </DialogContent>
             </Dialog>
-            <Button size="lg" variant="outline" asChild className="w-full sm:w-auto border-construction-orange/30 hover:border-construction-orange/50 transition-all duration-300">
+            <Button size="lg" variant="outline" asChild className="w-full sm:w-auto border-construction-orange/30 hover:border-construction-orange/50 transition-all duration-200 ease-out">
               <Link to="/prequalification">View Detailed Information<ArrowRight className="ml-2 w-4 h-4" /></Link>
             </Button>
           </div>
@@ -131,7 +131,7 @@ const PrequalPackage = () => {
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
           {[{ icon: Building2, label: "View Projects", href: "/projects" }, { icon: Shield, label: "Capabilities", href: "/capabilities" }, { icon: FileText, label: "Contact Us", href: "/contact" }, { icon: Award, label: "About Us", href: "/about" }].map((link, index) => {
             const Icon = link.icon;
-            return (<Button key={index} asChild variant="outline" className="h-auto py-4 flex flex-col items-center gap-2 border-construction-orange/30 hover:border-construction-orange/50 hover:bg-construction-orange/5 transition-all duration-300"><Link to={link.href}><Icon className="w-5 h-5 text-construction-orange" /><span className="text-sm font-medium">{link.label}</span></Link></Button>);
+            return (<Button key={index} asChild variant="outline" className="h-auto py-4 flex flex-col items-center gap-2 border-construction-orange/30 hover:border-construction-orange/50 hover:bg-construction-orange/5 transition-all duration-200 ease-out" style={{ animationDelay: `${index * 50}ms` }}><Link to={link.href}><Icon className="w-5 h-5 text-construction-orange" /><span className="text-sm font-medium">{link.label}</span></Link></Button>);
           })}
         </div>
       </div>

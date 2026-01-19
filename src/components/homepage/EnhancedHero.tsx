@@ -373,9 +373,9 @@ const EnhancedHero = ({ splashComplete = true }: { splashComplete?: boolean }) =
 
       {/* Scroll Indicator */}
       {!prefersReducedMotion && (
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
+        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-fade-in">
           <div className="w-6 h-10 border-2 border-[hsl(var(--bg))]/30 rounded-full flex justify-center pt-2">
-            <div className="w-1 h-3 bg-[hsl(var(--bg))]/60 rounded-full animate-slide-up" />
+            <div className="w-1 h-3 bg-[hsl(var(--bg))]/60 rounded-full" />
           </div>
         </div>
       )}
