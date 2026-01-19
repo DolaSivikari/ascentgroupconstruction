@@ -37,7 +37,8 @@ import {
   MailOpen,
   History,
   Database,
-  AlertTriangle
+  AlertTriangle,
+  TestTube
 } from 'lucide-react';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { useState, useEffect } from 'react';
@@ -325,6 +326,7 @@ export const UnifiedSidebar = ({ collapsed, onToggle, mobileOpen, onMobileClose,
             <NavItem to="/admin/users" icon={Users} label="Users & Roles" />
             <NavItem to="/admin/email-templates" icon={MailOpen} label="Email Templates" />
             <NavItem to="/admin/documents-library" icon={FileCheck} label="Documents Library" />
+            <NavItem to="/admin/testing" icon={TestTube} label="Testing Dashboard" />
           </nav>
 
           {/* Spacer */}
