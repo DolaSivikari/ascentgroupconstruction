@@ -1,7 +1,7 @@
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
-import PageHeader from "@/components/PageHeader";
+import { PageHero } from "@/components/shared/PageHero";
 import { AscentEmailLink } from "@/components/EmailLink";
 import { Section } from "@/components/sections/Section";
 import { Card, CardContent } from "@/design-system/components/Card";
@@ -24,7 +24,7 @@ import {
 import { Link } from "react-router-dom";
 import { ScrollReveal } from "@/components/animations/ScrollReveal";
 import { StaggerContainer } from "@/components/animations/StaggerContainer";
-import heroImage from "@/assets/heroes/hero-painting.jpg";
+import { audienceHeroes } from "@/data/hero-images";
 import { usePageAnalytics } from "@/hooks/usePageAnalytics";
 import { ResidentialServiceCard } from "@/components/homeowners/ResidentialServiceCard";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
@@ -174,10 +174,11 @@ const Homeowners = () => {
 
       <Navigation />
 
-      <PageHeader
+      <PageHero
         title="Residential Services for Homeowners"
         description="Professional Painting, Renovations, Tile, Flooring & More • 15+ Years Experience • Fully Insured • Serving Toronto & GTA"
-        backgroundImage={heroImage}
+        image={audienceHeroes["homeowners"]}
+        imageAlt="Quality home improvement services"
         breadcrumbs={[
           { label: "Home", href: "/" },
           { label: "Homeowners" }
@@ -377,7 +378,7 @@ const Homeowners = () => {
       <div className="relative py-20 overflow-hidden">
         <div 
           className="absolute inset-0 bg-cover bg-center bg-no-repeat" 
-          style={{ backgroundImage: `url(${heroImage})` }}
+          style={{ backgroundImage: `url(${audienceHeroes["homeowners"]})` }}
         >
           <div className="absolute inset-0 bg-black/60" />
         </div>

@@ -2,14 +2,14 @@ import { Building2, Users, Layers, TrendingUp } from "lucide-react";
 import { Link } from "react-router-dom";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
-import PageHeader from "@/components/PageHeader";
+import { PageHero } from "@/components/shared/PageHero";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/design-system/components/Card";
 import { Section } from "@/components/sections/Section";
 import { Button } from "@/ui/Button";
 import SEO from "@/components/SEO";
 import { CTA_TEXT, TYPOGRAPHY_STYLES } from "@/design-system/constants";
 import { ScrollReveal } from "@/components/animations/ScrollReveal";
-import heroImage from "@/assets/heroes/hero-general-contracting.jpg";
+import { companyHeroes } from "@/data/hero-images";
 import { PartnershipModelsSection } from "@/components/partnerships/PartnershipModelsSection";
 
 const Capabilities = () => {
@@ -92,11 +92,12 @@ const Capabilities = () => {
       />
       <Navigation />
       
-      <PageHeader
+      <PageHero
         title="What We Deliver: Building Envelope & Interior Trades"
         description="Self-performed specialty work with direct accountability. Serving commercial, multi-family, and residential clients across Ontario's GTA."
-        backgroundImage={heroImage}
-        cta={{ label: CTA_TEXT.primary, href: "/contact" }}
+        image={companyHeroes["capabilities"]}
+        imageAlt="Construction capabilities and services"
+        primaryCta={{ text: CTA_TEXT.primary, href: "/contact" }}
         breadcrumbs={[
           { label: "Home", href: "/" },
           { label: "Capabilities" }

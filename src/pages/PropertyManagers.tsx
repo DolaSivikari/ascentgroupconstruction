@@ -1,14 +1,14 @@
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
-import PageHeader from "@/components/PageHeader";
+import { PageHero } from "@/components/shared/PageHero";
 import { UnifiedCard } from "@/components/shared/UnifiedCard";
 import { Section } from "@/components/sections/Section";
 import { Button } from "@/ui/Button";
 import { Link } from "react-router-dom";
 import { Building2, TrendingUp, Users, Calendar, ShieldCheck, Timer, CheckCircle, CreditCard } from "lucide-react";
 import { CTA_TEXT } from "@/design-system/constants";
-import heroImage from "@/assets/heroes/hero-multi-family.jpg";
+import { audienceHeroes } from "@/data/hero-images";
 
 const PropertyManagers = () => {
   const benefits = [
@@ -81,12 +81,13 @@ const PropertyManagers = () => {
       />
       <Navigation />
       
-      <PageHeader
+      <PageHero
         eyebrow="For Property Managers"
         title="Envelope & Restoration Partner for Multi-Residential Properties"
         description="Façade remediation, parking garage repairs, and unit turnovers for 10-30 story condominiums across the GTA. Fast response, clear documentation, reserve fund study-aligned work."
-        backgroundImage={heroImage}
-        cta={{ label: "Request Site Assessment", href: "/estimate" }}
+        image={audienceHeroes["property-managers"]}
+        imageAlt="Property management construction services"
+        primaryCta={{ text: "Request Site Assessment", href: "/estimate" }}
         breadcrumbs={[
           { label: "Home", href: "/" },
           { label: "Property Managers" }

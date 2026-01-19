@@ -18,8 +18,8 @@ import { RFPStep3Timeline } from "@/components/rfp/RFPStep3Timeline";
 import { trackConversion } from "@/lib/analytics";
 import { trackABTestConversion } from "@/hooks/useABTest";
 import { RFPStep4Scope } from "@/components/rfp/RFPStep4Scope";
-import PageHeader from "@/components/PageHeader";
-import heroImage from "@/assets/heroes/hero-general-contracting.jpg";
+import { PageHero } from "@/components/shared/PageHero";
+import { resourceHeroes } from "@/data/hero-images";
 import { PhoneLink } from "@/components/shared/PhoneLink";
 import { AscentEmailLink } from "@/components/EmailLink";
 
@@ -176,10 +176,12 @@ export default function SubmitRFPNew() {
       />
       <Navigation />
 
-      <PageHeader
+      <PageHero
         title="Submit Your RFP"
         description="Complete our 4-step form to receive a detailed construction proposal"
-        backgroundImage={heroImage}
+        image={resourceHeroes["submit-rfp"]}
+        imageAlt="Submit your construction RFP"
+        height="small"
         breadcrumbs={[
           { label: "Home", href: "/" },
           { label: "Submit RFP" }

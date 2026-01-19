@@ -1,7 +1,7 @@
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
-import PageHeader from "@/components/PageHeader";
+import { PageHero } from "@/components/shared/PageHero";
 import { Button } from "@/ui/Button";
 import { Badge } from "@/components/ui/badge";
 import { CTA_TEXT } from "@/design-system/constants";
@@ -24,7 +24,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import AnimatedProcessTimeline from "@/components/timeline/AnimatedProcessTimeline";
-import heroImage from "@/assets/heroes/hero-general-contracting.jpg";
+import { companyHeroes } from "@/data/hero-images";
 
 const processSteps = [
   {
@@ -277,20 +277,17 @@ const OurProcess = () => {
 
       <Navigation />
 
-      <PageHeader
+      <PageHero
         eyebrow="Our Process"
         title="4 Steps to Exceptional Results"
         description="Our proven process ensures quality, transparency, and complete satisfaction from initial consultation to final warranty"
-        backgroundImage={heroImage}
+        image={companyHeroes["our-process"]}
+        imageAlt="Professional construction process"
+        primaryCta={{ text: "Start Your Project", href: "/estimate" }}
         breadcrumbs={[
           { label: "Home", href: "/" },
           { label: "How We Work" }
         ]}
-        variant="with-cta"
-        cta={{
-          label: "Start Your Project",
-          href: "/estimate"
-        }}
       />
 
       {/* Trust Badges */}

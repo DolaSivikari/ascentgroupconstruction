@@ -1,14 +1,14 @@
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
-import PageHeader from "@/components/PageHeader";
+import { PageHero } from "@/components/shared/PageHero";
 import BenefitsSection from "@/components/sections/BenefitsSection";
 import CTASection from "@/components/sections/CTASection";
 import { Card, CardContent } from "@/components/ui/card";
 import { Link } from "react-router-dom";
 import { Timer, ShieldCheck, Users, Moon, CheckCircle, Building2, Zap } from "lucide-react";
 import { CTA_TEXT } from "@/design-system/constants";
-import heroImage from "@/assets/heroes/hero-commercial.jpg";
+import { audienceHeroes } from "@/data/hero-images";
 
 const CommercialClients = () => {
   const benefits = [
@@ -71,20 +71,17 @@ const CommercialClients = () => {
       />
       <Navigation />
       
-      <PageHeader
+      <PageHero
         eyebrow="For Commercial Clients"
         title="Envelope & Restoration for Commercial Properties"
         description="Office buildings, retail strips, industrial properties—façade repairs, waterproofing, and interior finishes. After-hours scheduling available to minimize business disruption."
-        backgroundImage={heroImage}
+        image={audienceHeroes["commercial-clients"]}
+        imageAlt="Commercial construction services"
+        primaryCta={{ text: "Request Commercial Quote", href: "/estimate" }}
         breadcrumbs={[
           { label: "Home", href: "/" },
           { label: "Commercial Clients" }
         ]}
-        variant="with-cta"
-        cta={{
-          label: "Request Commercial Quote",
-          href: "/estimate"
-        }}
       />
       
       <main>

@@ -1,7 +1,7 @@
 import SEO from "@/components/SEO";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
-import PageHeader from "@/components/PageHeader";
+import { PageHero } from "@/components/shared/PageHero";
 import { EmailLink } from "@/components/EmailLink";
 import { PhoneLink } from "@/components/shared/PhoneLink";
 import { Card } from "@/design-system/components/Card";
@@ -12,7 +12,7 @@ import { Button } from "@/ui/Button";
 import { CTA_TEXT } from "@/design-system/constants";
 import { CheckCircle, Clock, Shield, FileText, Users, Wrench, Download, Mail, Phone } from "lucide-react";
 import { Link } from "react-router-dom";
-import heroImage from "@/assets/heroes/hero-construction-management.jpg";
+import { audienceHeroes } from "@/data/hero-images";
 
 const ForGeneralContractors = () => {
   const tradePackages = [
@@ -102,11 +102,13 @@ const ForGeneralContractors = () => {
       />
       <Navigation />
       
-      <PageHeader
+      <PageHero
         title="Reliable Trade Partner for General Contractors"
         description="Subcontractor services for building envelope and interior trades. Self-performed work, fast quotes, professional execution. Serving GCs across commercial, multi-family, and institutional projects."
-        backgroundImage={heroImage}
-        cta={{ label: CTA_TEXT.gc, href: "#contact" }}
+        image={audienceHeroes["for-general-contractors"]}
+        imageAlt="Construction management for general contractors"
+        height="large"
+        primaryCta={{ text: CTA_TEXT.gc, href: "#contact" }}
         breadcrumbs={[
           { label: "Home", href: "/" },
           { label: "For General Contractors" }
