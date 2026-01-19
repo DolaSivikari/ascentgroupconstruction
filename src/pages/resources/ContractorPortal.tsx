@@ -1,131 +1,123 @@
 import { useState } from "react";
-import { Shield, FileText, Download, Package, CheckCircle2, Award, Building2, Truck, Users, HardHat, Clock } from "lucide-react";
+import { Link } from "react-router-dom";
+import { 
+  Shield, 
+  FileText, 
+  Download, 
+  Clock, 
+  CheckCircle2, 
+  Wrench, 
+  Building2, 
+  Users, 
+  HardHat,
+  Layers,
+  Car,
+  Droplets,
+  ArrowRight,
+  FileDown
+} from "lucide-react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
-import PageHeader from "@/components/PageHeader";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
 import SEO from "@/components/SEO";
 import { supabase } from "@/integrations/supabase/client";
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
-import { PremiumDocumentSuite } from "@/components/contractor/PremiumDocumentSuite";
-import { InsuranceCalculator } from "@/components/calculators/InsuranceCalculator";
-import { ProjectTimelineEstimator } from "@/components/calculators/ProjectTimelineEstimator";
-import { CertificationBadges } from "@/components/shared/CertificationBadges";
-import { AnimatedCounter } from "@/components/shared/AnimatedCounter";
-import heroContractorImage from "@/assets/heroes/hero-contractor-portal.jpg";
+import heroImage from "@/assets/hero-building-envelope.jpg";
 
 const ContractorPortal = () => {
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
-    name: "",
-    company: "",
+    companyName: "",
+    contactName: "",
     email: "",
     phone: "",
-    projectDetails: "",
-    documents: [] as string[],
-    honeypot: "" // Honeypot for bot detection
+    tradeScope: "",
+    message: "",
+    honeypot: ""
   });
 
-  const [lastSubmitTime, setLastSubmitTime] = useState<number>(0);
-
-  const documents = [
-    { name: "Certificate of Insurance", icon: Shield, size: "2MB", description: "Current liability coverage" },
-    { name: "WSIB Clearance Certificate", icon: CheckCircle2, size: "1MB", description: "Valid workplace safety clearance" },
-    { name: "Business License", icon: FileText, size: "1MB", description: "Current business registration" },
-    { name: "Company Profile & Capabilities", icon: Building2, size: "5MB", description: "Detailed company overview" },
-    { name: "Safety Manual & Certifications", icon: HardHat, size: "3MB", description: "Safety policies and COR certification" },
-    { name: "Project References List", icon: Users, size: "2MB", description: "Recent project references" },
-    { name: "Equipment Inventory", icon: Truck, size: "2MB", description: "Available equipment and resources" },
+  const whyPartnerCards = [
+    {
+      icon: Wrench,
+      title: "Self-Performed Envelope Work",
+      description: "85% of our building envelope scope is executed in-house with our own crews. Direct control means quality and schedule certainty."
+    },
+    {
+      icon: Clock,
+      title: "48-Hour Estimate Turnaround",
+      description: "Receive detailed unit rates and lump sum pricing within 2 business days of scope review. Fast response for tight bid deadlines."
+    },
+    {
+      icon: Shield,
+      title: "WSIB Compliant, $2M CGL",
+      description: "Fully compliant with all Ontario workplace safety requirements. $2M commercial general liability coverage per occurrence."
+    },
+    {
+      icon: Users,
+      title: "Scalable Crews for Multi-Phase",
+      description: "Flexible workforce deployment for concurrent or phased projects. We can scale from single crews to multiple teams across sites."
+    }
   ];
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const capabilities = [
+    { icon: Layers, name: "EIFS & Stucco Systems", description: "New installation, repairs, and complete system replacement" },
+    { icon: Building2, name: "Façade Remediation", description: "Assessment, repair, and restoration of building exteriors" },
+    { icon: Car, name: "Parking Garage Restoration", description: "Concrete repair, membrane systems, and traffic coatings" },
+    { icon: Shield, name: "Sealant Replacement Programs", description: "Building-wide joint sealant maintenance and replacement" },
+    { icon: Droplets, name: "Waterproofing Systems", description: "Below-grade, plaza deck, and foundation waterproofing" },
+    { icon: HardHat, name: "Masonry Restoration", description: "Brick repair, tuckpointing, and stone restoration" }
+  ];
+
+  const handleUnitRateSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
-    // Client-side rate limiting
-    const now = Date.now();
-    if (now - lastSubmitTime < 10000) {
-      toast({
-        title: "Slow down!",
-        description: "Please wait a moment before submitting again.",
-        variant: "destructive",
-      });
-      return;
-    }
-
+    
+    if (formData.honeypot) return;
+    
     setIsSubmitting(true);
 
     try {
-      // Format documents list
-      const documentsRequested = formData.documents.length > 0
-        ? `Requested Documents:\n${formData.documents.map(doc => `• ${doc}`).join('\n')}`
-        : "Complete package requested";
-
-      // Combine project details with documents
-      const fullMessage = formData.projectDetails
-        ? `${formData.projectDetails}\n\n${documentsRequested}`
-        : documentsRequested;
-
-      // Submit via edge function with bot protection
       const { error } = await supabase.functions.invoke('submit-form', {
         body: {
-          formType: 'prequalification',
+          formType: 'rfp',
           data: {
-            contactName: formData.name,
-            companyName: formData.company,
+            companyName: formData.companyName,
+            contactName: formData.contactName,
             email: formData.email,
             phone: formData.phone,
-            projectType: "custom_package",
-            message: fullMessage
+            projectName: "Unit Rate Request",
+            projectType: "subcontractor_partnership",
+            scopeOfWork: `Trade Scope: ${formData.tradeScope}\n\n${formData.message}`
           },
           honeypot: formData.honeypot
         }
       });
 
-      if (error) {
-        if (error.message?.includes('Rate limit exceeded')) {
-          toast({
-            title: "Too many submissions",
-            description: "Please try again in a few minutes.",
-            variant: "destructive",
-          });
-          return;
-        }
-        throw error;
-      }
+      if (error) throw error;
 
       toast({
-        title: "Request submitted!",
-        description: "We'll send your custom package within 24 hours.",
+        title: "Request Submitted",
+        description: "We'll send unit rates within 48 hours.",
       });
 
-      // Reset form
       setFormData({
-        name: "",
-        company: "",
+        companyName: "",
+        contactName: "",
         email: "",
         phone: "",
-        projectDetails: "",
-        documents: [],
+        tradeScope: "",
+        message: "",
         honeypot: ""
       });
-      setLastSubmitTime(now);
     } catch (error) {
-      console.error("Error submitting request:", error);
+      console.error("Error submitting:", error);
       toast({
         title: "Submission failed",
-        description: "Please try again or contact us directly.",
+        description: "Please try again or call us directly.",
         variant: "destructive",
       });
     } finally {
@@ -133,280 +125,331 @@ const ContractorPortal = () => {
     }
   };
 
-  const toggleDocument = (docName: string) => {
-    setFormData(prev => ({
-      ...prev,
-      documents: prev.documents.includes(docName)
-        ? prev.documents.filter(d => d !== docName)
-        : [...prev.documents, docName]
-    }));
-  };
-
   return (
     <>
       <SEO 
-        title="Contractor Portal | Ascent Group Construction"
-        description="Access our complete contractor documentation package including insurance certificates, WSIB clearance, bonding letters, and company profile."
-        keywords="contractor portal, bid documents, insurance certificates, WSIB, bonding, subcontractor"
+        title="Partner With Ascent | Contractor Portal | Ascent Group Construction"
+        description="Trade partner for building envelope & restoration packages. Access our vendor packet, request unit rates, and partner with Ontario's envelope specialists."
+        keywords="contractor portal, trade partner, subcontractor, building envelope, restoration, vendor packet, unit rates"
       />
-      <div className="min-h-screen bg-background relative overflow-hidden">
-        {/* Background decorations */}
-        <div className="fixed inset-0 -z-10 overflow-hidden pointer-events-none">
-          <div className="absolute top-1/3 -right-40 w-[600px] h-[600px] bg-primary/5 rounded-full blur-3xl animate-pulse" />
-          <div className="absolute bottom-1/3 -left-40 w-[600px] h-[600px] bg-secondary/5 rounded-full blur-3xl animate-pulse delay-1000" />
-        </div>
-
+      <div className="min-h-screen bg-background">
         <Navigation />
         
-        <PageHeader
-          title="Contractor Portal"
-          description="Everything you need to bid with confidence"
-          backgroundImage={heroContractorImage}
-        />
-
-        <main id="main-content" className="container mx-auto px-4 py-12 space-y-12">
-          {/* Introduction */}
-          <section className="text-center max-w-3xl mx-auto">
-            <p className="text-lg text-muted-foreground">
-              Download our complete contractor package or request specific documents for your RFP. All documentation is current and updated regularly.
-            </p>
-          </section>
-
-          <PremiumDocumentSuite />
-
-          {/* Request Custom Package Form */}
-          <section className="bg-muted/30 rounded-lg p-8">
-            <h2 className="text-3xl font-bold text-foreground mb-2">Request Custom Package</h2>
-            <p className="text-muted-foreground mb-8">Need specific documents for your RFP? Let us know what you need.</p>
+        {/* Hero Section */}
+        <section className="relative h-[60vh] min-h-[500px] flex items-center justify-center overflow-hidden">
+          <div className="absolute inset-0">
+            <img 
+              src={heroImage} 
+              alt="Building envelope restoration work" 
+              className="w-full h-full object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-r from-slate-900/90 via-slate-900/70 to-slate-900/50" />
+          </div>
+          
+          <div className="relative z-10 container mx-auto px-4 text-center">
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/20 backdrop-blur-sm rounded-full border border-primary/30 mb-6">
+              <Building2 className="w-4 h-4 text-primary" />
+              <span className="text-sm font-medium text-primary">For General Contractors & Property Managers</span>
+            </div>
             
-            <form onSubmit={handleSubmit} className="space-y-6 max-w-2xl">
-              <div className="grid md:grid-cols-2 gap-4">
-                <div>
-                  <Label htmlFor="name">Name *</Label>
-                  <Input
-                    id="name"
-                    value={formData.name}
-                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                    required
-                  />
-                </div>
-                <div>
-                  <Label htmlFor="company">Company *</Label>
-                  <Input
-                    id="company"
-                    value={formData.company}
-                    onChange={(e) => setFormData({ ...formData, company: e.target.value })}
-                    required
-                  />
-                </div>
-              </div>
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">
+              Partner With Ascent
+            </h1>
+            
+            <p className="text-xl md:text-2xl text-white/90 max-w-3xl mx-auto mb-8">
+              Trade partner for building envelope & restoration packages
+            </p>
 
-              <div className="grid md:grid-cols-2 gap-4">
-                <div>
-                  <Label htmlFor="email">Email *</Label>
-                  <Input
-                    id="email"
-                    type="email"
-                    value={formData.email}
-                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                    required
-                  />
-                </div>
-                <div>
-                  <Label htmlFor="phone">Phone</Label>
-                  <Input
-                    id="phone"
-                    type="tel"
-                    value={formData.phone}
-                    onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                  />
-                </div>
-              </div>
-
-              <div>
-                <Label htmlFor="projectDetails">Project Details</Label>
-                <Textarea
-                  id="projectDetails"
-                  value={formData.projectDetails}
-                  onChange={(e) => setFormData({ ...formData, projectDetails: e.target.value })}
-                  placeholder="Tell us about your project and timeline..."
-                  rows={4}
-                />
-              </div>
-
-              <div>
-                <Label className="mb-3 block">Documents Needed</Label>
-                <div className="grid md:grid-cols-2 gap-3">
-                  {documents.map((doc) => (
-                    <div key={doc.name} className="flex items-center space-x-2">
-                      <Checkbox
-                        id={doc.name}
-                        checked={formData.documents.includes(doc.name)}
-                        onCheckedChange={() => toggleDocument(doc.name)}
-                      />
-                      <Label htmlFor={doc.name} className="text-sm cursor-pointer">
-                        {doc.name}
-                      </Label>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* Honeypot field - hidden from users */}
-              <div style={{ position: 'absolute', left: '-9999px' }} aria-hidden="true">
-                <Input
-                  type="text"
-                  name="website"
-                  tabIndex={-1}
-                  autoComplete="off"
-                  value={formData.honeypot}
-                  onChange={(e) => setFormData({ ...formData, honeypot: e.target.value })}
-                />
-              </div>
-
-              <Button type="submit" size="lg" className="w-full md:w-auto" disabled={isSubmitting}>
-                {isSubmitting ? "Submitting..." : "Submit Request"}
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Button size="lg" className="gap-2" asChild>
+                <a href="#download-section">
+                  <Download className="w-5 h-5" />
+                  Download Vendor Packet
+                </a>
               </Button>
-            </form>
-          </section>
-
-          {/* Interactive Calculators */}
-          <section className="bg-muted/30 rounded-lg p-8">
-            <h2 className="text-3xl font-bold text-foreground mb-8 text-center">Project Planning Tools</h2>
-            <div className="grid md:grid-cols-2 gap-6">
-              <InsuranceCalculator />
-              <ProjectTimelineEstimator />
+              <Button size="lg" variant="outline" className="gap-2 bg-white/10 border-white/30 text-white hover:bg-white/20" asChild>
+                <a href="#unit-rate-form">
+                  <FileText className="w-5 h-5" />
+                  Request Unit Rates
+                </a>
+              </Button>
             </div>
-          </section>
+          </div>
+        </section>
 
-          {/* Certifications */}
-          <section className="text-center">
-            <h2 className="text-3xl font-bold mb-8">Our Credentials</h2>
-            <CertificationBadges size="lg" />
-          </section>
-
-          {/* Why Partner Section */}
+        <main id="main-content" className="container mx-auto px-4 py-16 space-y-20">
+          
+          {/* Why Partner With Us */}
           <section>
-            <h2 className="text-3xl font-bold text-foreground mb-8 text-center">Why Partner With Us</h2>
-            <div className="grid md:grid-cols-3 gap-8">
-              <Card className="hover:shadow-[var(--shadow-lg)] hover:-translate-y-2 transition-all duration-300 group border-2 hover:border-primary/30 animate-fade-in-up">
-                <CardContent className="p-6 text-center">
-                  <div className="w-16 h-16 bg-gradient-to-br from-primary to-primary/70 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
-                    <CheckCircle2 className="h-8 w-8 text-secondary" />
-                  </div>
-                  <h3 className="text-xl font-semibold text-foreground mb-2">Proven Track Record</h3>
-                  <p className="text-muted-foreground">
-                    <AnimatedCounter target={1000} suffix="+" className="font-bold text-2xl text-primary" /> units completed annually with consistent quality
-                  </p>
-                </CardContent>
-              </Card>
-              <Card className="hover:shadow-[var(--shadow-lg)] hover:-translate-y-2 transition-all duration-300 group border-2 hover:border-primary/30 animate-fade-in-up" style={{ animationDelay: '100ms' }}>
-                <CardContent className="p-6 text-center">
-                  <div className="w-16 h-16 bg-gradient-to-br from-primary to-primary/70 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
-                    <Award className="h-8 w-8 text-secondary" />
-                  </div>
-                  <h3 className="text-xl font-semibold text-foreground mb-2">Financial Strength</h3>
-                  <p className="text-muted-foreground">$5M liability, $10M bonding capacity per project</p>
-                </CardContent>
-              </Card>
-              <Card className="hover:shadow-[var(--shadow-lg)] hover:-translate-y-2 transition-all duration-300 group border-2 hover:border-primary/30 animate-fade-in-up" style={{ animationDelay: '200ms' }}>
-                <CardContent className="p-6 text-center">
-                  <div className="w-16 h-16 bg-gradient-to-br from-primary to-primary/70 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
-                    <Shield className="h-8 w-8 text-secondary" />
-                  </div>
-                  <h3 className="text-xl font-semibold text-foreground mb-2">Safety First</h3>
-                  <p className="text-muted-foreground">Working Toward COR Certification - Zero Lost-Time Incidents</p>
-                </CardContent>
-              </Card>
-            </div>
-          </section>
-
-          {/* FAQ Section */}
-          <section className="bg-gradient-to-br from-muted/30 to-muted/10 rounded-2xl p-8 md:p-12 border border-border/50">
-            <div className="text-center mb-10">
-              <span className="inline-block px-4 py-1.5 bg-primary/10 text-primary text-sm font-semibold rounded-full mb-4">
-                Got Questions?
-              </span>
-              <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-3">
-                Frequently Asked Questions
+            <div className="text-center mb-12">
+              <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+                Why Partner With Us
               </h2>
-              <p className="text-muted-foreground max-w-2xl mx-auto">
-                Everything you need to know about working with Ascent Group Construction
+              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+                Reliable envelope trade partner with in-house capabilities and financial stability
               </p>
             </div>
-            
-            <Accordion type="single" collapsible className="max-w-3xl mx-auto space-y-4">
-              <AccordionItem value="item-1" className="bg-background/80 backdrop-blur-sm rounded-xl border border-border/50 px-6 overflow-hidden data-[state=open]:shadow-lg transition-all duration-300">
-                <AccordionTrigger className="text-left font-semibold text-foreground hover:text-primary py-5 hover:no-underline">
-                  <div className="flex items-center gap-3">
-                    <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
-                      <FileText className="h-4 w-4 text-primary" />
+
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+              {whyPartnerCards.map((card, index) => (
+                <Card key={index} className="group hover:shadow-lg hover:-translate-y-1 transition-all duration-300 border-2 hover:border-primary/30">
+                  <CardContent className="p-6">
+                    <div className="w-14 h-14 bg-gradient-to-br from-primary to-primary/70 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
+                      <card.icon className="h-7 w-7 text-primary-foreground" />
                     </div>
-                    <span>How current are these documents?</span>
-                  </div>
-                </AccordionTrigger>
-                <AccordionContent className="text-muted-foreground pb-5 pl-11">
-                  All documents are updated monthly. Insurance certificates and WSIB clearances are always current. We recommend downloading fresh copies for each RFP submission.
-                </AccordionContent>
-              </AccordionItem>
-              
-              <AccordionItem value="item-2" className="bg-background/80 backdrop-blur-sm rounded-xl border border-border/50 px-6 overflow-hidden data-[state=open]:shadow-lg transition-all duration-300">
-                <AccordionTrigger className="text-left font-semibold text-foreground hover:text-primary py-5 hover:no-underline">
-                  <div className="flex items-center gap-3">
-                    <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
-                      <Package className="h-4 w-4 text-primary" />
-                    </div>
-                    <span>Do you provide project-specific documentation?</span>
-                  </div>
-                </AccordionTrigger>
-                <AccordionContent className="text-muted-foreground pb-5 pl-11">
-                  Yes! Use the custom package request form to specify your project requirements. We can provide tailored documentation including project-specific references, equipment lists, and safety plans.
-                </AccordionContent>
-              </AccordionItem>
-              
-              <AccordionItem value="item-3" className="bg-background/80 backdrop-blur-sm rounded-xl border border-border/50 px-6 overflow-hidden data-[state=open]:shadow-lg transition-all duration-300">
-                <AccordionTrigger className="text-left font-semibold text-foreground hover:text-primary py-5 hover:no-underline">
-                  <div className="flex items-center gap-3">
-                    <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
-                      <Clock className="h-4 w-4 text-primary" />
-                    </div>
-                    <span>What's your typical response time for RFPs?</span>
-                  </div>
-                </AccordionTrigger>
-                <AccordionContent className="text-muted-foreground pb-5 pl-11">
-                  We typically respond to RFPs within 3-5 business days. For urgent bids, we can accommodate faster turnarounds with advance notice.
-                </AccordionContent>
-              </AccordionItem>
-              
-              <AccordionItem value="item-4" className="bg-background/80 backdrop-blur-sm rounded-xl border border-border/50 px-6 overflow-hidden data-[state=open]:shadow-lg transition-all duration-300">
-                <AccordionTrigger className="text-left font-semibold text-foreground hover:text-primary py-5 hover:no-underline">
-                  <div className="flex items-center gap-3">
-                    <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
-                      <Building2 className="h-4 w-4 text-primary" />
-                    </div>
-                    <span>Do you offer design-build services?</span>
-                  </div>
-                </AccordionTrigger>
-                <AccordionContent className="text-muted-foreground pb-5 pl-11">
-                  Yes, we provide full design-build services for painting, restoration, and building envelope projects. Our team can work with your specifications or develop complete solutions from concept to completion.
-                </AccordionContent>
-              </AccordionItem>
-              
-              <AccordionItem value="item-5" className="bg-background/80 backdrop-blur-sm rounded-xl border border-border/50 px-6 overflow-hidden data-[state=open]:shadow-lg transition-all duration-300">
-                <AccordionTrigger className="text-left font-semibold text-foreground hover:text-primary py-5 hover:no-underline">
-                  <div className="flex items-center gap-3">
-                    <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
-                      <Shield className="h-4 w-4 text-primary" />
-                    </div>
-                    <span>What safety certifications do you hold?</span>
-                  </div>
-                </AccordionTrigger>
-                <AccordionContent className="text-muted-foreground pb-5 pl-11">
-                  We are actively working toward COR Certification and maintain an excellent safety record with zero lost-time incidents. All team members complete comprehensive safety training and we maintain current WSIB clearances.
-                </AccordionContent>
-              </AccordionItem>
-            </Accordion>
+                    <h3 className="text-lg font-bold text-foreground mb-2">{card.title}</h3>
+                    <p className="text-muted-foreground text-sm">{card.description}</p>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
           </section>
+
+          {/* Our Capabilities */}
+          <section className="bg-muted/30 rounded-2xl p-8 md:p-12">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+                Our Capabilities
+              </h2>
+              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+                Specialized trade scopes available for subcontract or joint venture
+              </p>
+            </div>
+
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {capabilities.map((cap, index) => (
+                <div 
+                  key={index}
+                  className="flex items-start gap-4 p-4 bg-background rounded-xl border border-border hover:border-primary/30 transition-colors"
+                >
+                  <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                    <cap.icon className="h-6 w-6 text-primary" />
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-foreground mb-1">{cap.name}</h3>
+                    <p className="text-sm text-muted-foreground">{cap.description}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </section>
+
+          {/* Downloadable Resources */}
+          <section id="download-section">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+                Downloadable Resources
+              </h2>
+              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+                Access our complete vendor package for bid submissions
+              </p>
+            </div>
+
+            <div className="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+              <Card className="text-center hover:shadow-lg transition-shadow">
+                <CardHeader>
+                  <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <FileDown className="h-8 w-8 text-primary" />
+                  </div>
+                  <CardTitle>Vendor Packet</CardTitle>
+                  <CardDescription>
+                    Complete prequalification package with company profile, insurance, and capabilities
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <Button className="w-full gap-2" asChild>
+                    <a href="/documents/vendor-packet.pdf" download>
+                      <Download className="w-4 h-4" />
+                      Download PDF
+                    </a>
+                  </Button>
+                </CardContent>
+              </Card>
+
+              <Card className="text-center hover:shadow-lg transition-shadow">
+                <CardHeader>
+                  <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <Shield className="h-8 w-8 text-primary" />
+                  </div>
+                  <CardTitle>Insurance Certificates</CardTitle>
+                  <CardDescription>
+                    Current COI, WSIB clearance, and bonding capacity letter
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <Button variant="outline" className="w-full gap-2" asChild>
+                    <Link to="/company/certifications-insurance">
+                      View Credentials
+                      <ArrowRight className="w-4 h-4" />
+                    </Link>
+                  </Button>
+                </CardContent>
+              </Card>
+
+              <Card className="text-center hover:shadow-lg transition-shadow">
+                <CardHeader>
+                  <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <FileText className="h-8 w-8 text-primary" />
+                  </div>
+                  <CardTitle>Request Unit Rates</CardTitle>
+                  <CardDescription>
+                    Get detailed pricing for your specific trade scope requirements
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <Button variant="outline" className="w-full gap-2" asChild>
+                    <a href="#unit-rate-form">
+                      Request Quote
+                      <ArrowRight className="w-4 h-4" />
+                    </a>
+                  </Button>
+                </CardContent>
+              </Card>
+            </div>
+          </section>
+
+          {/* Unit Rate Request Form */}
+          <section id="unit-rate-form" className="bg-gradient-to-br from-primary/5 via-background to-secondary/5 rounded-2xl p-8 md:p-12 border border-border">
+            <div className="max-w-2xl mx-auto">
+              <div className="text-center mb-10">
+                <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+                  Request Unit Rates
+                </h2>
+                <p className="text-lg text-muted-foreground">
+                  Tell us about your project scope and we'll provide detailed unit pricing within 48 hours
+                </p>
+              </div>
+
+              <form onSubmit={handleUnitRateSubmit} className="space-y-6">
+                <div className="grid md:grid-cols-2 gap-4">
+                  <div>
+                    <Label htmlFor="companyName">Company Name *</Label>
+                    <Input
+                      id="companyName"
+                      value={formData.companyName}
+                      onChange={(e) => setFormData({ ...formData, companyName: e.target.value })}
+                      placeholder="Your company"
+                      required
+                    />
+                  </div>
+                  <div>
+                    <Label htmlFor="contactName">Contact Name *</Label>
+                    <Input
+                      id="contactName"
+                      value={formData.contactName}
+                      onChange={(e) => setFormData({ ...formData, contactName: e.target.value })}
+                      placeholder="Your name"
+                      required
+                    />
+                  </div>
+                </div>
+
+                <div className="grid md:grid-cols-2 gap-4">
+                  <div>
+                    <Label htmlFor="email">Email *</Label>
+                    <Input
+                      id="email"
+                      type="email"
+                      value={formData.email}
+                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                      placeholder="email@company.com"
+                      required
+                    />
+                  </div>
+                  <div>
+                    <Label htmlFor="phone">Phone</Label>
+                    <Input
+                      id="phone"
+                      type="tel"
+                      value={formData.phone}
+                      onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                      placeholder="(416) 555-0123"
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <Label htmlFor="tradeScope">Trade Scope Required *</Label>
+                  <Input
+                    id="tradeScope"
+                    value={formData.tradeScope}
+                    onChange={(e) => setFormData({ ...formData, tradeScope: e.target.value })}
+                    placeholder="e.g., EIFS repair, sealant replacement, parking membrane"
+                    required
+                  />
+                </div>
+
+                <div>
+                  <Label htmlFor="message">Project Details</Label>
+                  <Textarea
+                    id="message"
+                    value={formData.message}
+                    onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                    placeholder="Describe the project, quantities, timeline, and any specific requirements..."
+                    rows={5}
+                  />
+                </div>
+
+                {/* Honeypot */}
+                <div className="sr-only" aria-hidden="true">
+                  <Input
+                    type="text"
+                    name="website"
+                    tabIndex={-1}
+                    autoComplete="off"
+                    value={formData.honeypot}
+                    onChange={(e) => setFormData({ ...formData, honeypot: e.target.value })}
+                  />
+                </div>
+
+                <Button type="submit" size="lg" className="w-full" disabled={isSubmitting}>
+                  {isSubmitting ? "Submitting..." : "Submit Unit Rate Request"}
+                </Button>
+
+                <p className="text-sm text-muted-foreground text-center">
+                  We typically respond within 48 hours with detailed unit pricing
+                </p>
+              </form>
+            </div>
+          </section>
+
+          {/* Bottom CTAs */}
+          <section className="bg-gradient-to-r from-primary to-primary/80 rounded-2xl p-8 md:p-12 text-center">
+            <h2 className="text-3xl md:text-4xl font-bold text-primary-foreground mb-4">
+              Ready to Partner?
+            </h2>
+            <p className="text-xl text-primary-foreground/90 max-w-2xl mx-auto mb-8">
+              Download our vendor packet or request unit rates for your next project
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Button size="lg" variant="secondary" className="gap-2" asChild>
+                <a href="/documents/vendor-packet.pdf" download>
+                  <Download className="w-5 h-5" />
+                  Download Vendor Packet
+                </a>
+              </Button>
+              <Button size="lg" variant="outline" className="gap-2 bg-transparent border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10" asChild>
+                <a href="#unit-rate-form">
+                  <FileText className="w-5 h-5" />
+                  Request Unit Rates
+                </a>
+              </Button>
+            </div>
+          </section>
+
+          {/* Full RFP Link */}
+          <section className="text-center py-8 border-t border-border">
+            <p className="text-muted-foreground mb-4">
+              Have a larger project scope? Submit a complete Request for Proposal.
+            </p>
+            <Button variant="outline" size="lg" className="gap-2" asChild>
+              <Link to="/submit-rfp">
+                Submit Full RFP
+                <ArrowRight className="w-4 h-4" />
+              </Link>
+            </Button>
+          </section>
+
         </main>
 
         <Footer />
