@@ -369,7 +369,7 @@ const OurProcess = () => {
               Ready to Experience the Ascent Difference?
             </h2>
             <p className="text-muted-foreground mb-8 text-lg">
-              Get a free consultation and detailed quote. No pressure, just honest advice and transparent pricing.
+              Request a consultation and detailed proposal. No pressure, just honest advice and transparent pricing.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button asChild size="lg" className="gap-2">

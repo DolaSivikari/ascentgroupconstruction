@@ -76,7 +76,7 @@ class PersonalizationEngine {
     if (this.profile!.deviceType === 'mobile') {
       content.ctaText = 'Call Now';
     } else {
-      content.ctaText = 'Request Free Consultation';
+      content.ctaText = 'Request Consultation';
     }
 
     // Personalize based on visit count

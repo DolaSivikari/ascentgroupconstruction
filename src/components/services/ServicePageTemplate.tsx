@@ -422,7 +422,7 @@ export const ServicePageTemplate = ({ service }: ServicePageTemplateProps) => {
               Ready to Start Your Project?
             </h2>
             <p className="text-lg md:text-xl text-muted-foreground">
-              Contact us today for a free consultation and project quote
+              Request a complimentary consultation and project proposal today
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button size="lg" className="hover:scale-105 transition-transform" asChild>

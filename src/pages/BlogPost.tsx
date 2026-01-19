@@ -283,7 +283,7 @@ const BlogPost = () => {
                 </Link>
                 <Link to="/contact">
                   <Button size="lg" variant="outline">
-                    Contact Us
+                    Start Your Project
                   </Button>
                 </Link>
               </div>
