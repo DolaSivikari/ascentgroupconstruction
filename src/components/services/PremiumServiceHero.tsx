@@ -77,8 +77,8 @@ export const PremiumServiceHero = () => {
         </div>
       </div>
 
-      {/* Animated Scroll Indicator */}
-      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-20 animate-bounce">
+      {/* Scroll Indicator */}
+      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-20 animate-fade-in">
         <ChevronDown className="w-10 h-10 text-primary-foreground" />
       </div>
     </section>

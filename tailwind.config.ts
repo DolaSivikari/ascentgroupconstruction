@@ -198,47 +198,28 @@ export default {
           "0%": { transform: "scale(1)", opacity: "1" },
           "100%": { transform: "scale(0.95)", opacity: "0" },
         },
-        float: {
-          "0%, 100%": { transform: "translateY(0px)" },
-          "50%": { transform: "translateY(-20px)" },
-        },
+        // Removed distracting animations: float, bounce, pulse-glow
         shimmer: {
           "0%": { backgroundPosition: "-1000px 0" },
           "100%": { backgroundPosition: "1000px 0" },
-        },
-        bounce: {
-          "0%, 100%": { transform: "translateY(0)" },
-          "50%": { transform: "translateY(-10px)" },
         },
         rotate: {
           "0%": { transform: "rotate(0deg)" },
           "100%": { transform: "rotate(360deg)" },
         },
-        "pulse-glow": {
-          "0%, 100%": { opacity: "1", boxShadow: "0 0 20px hsl(var(--secondary) / 0.4)" },
-          "50%": { opacity: "0.8", boxShadow: "0 0 40px hsl(var(--secondary) / 0.6)" },
-        },
-        "zoom-rotate": {
-          "0%": { transform: "scale(1) rotate(0deg)" },
-          "100%": { transform: "scale(1.1) rotate(3deg)" },
-        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
-        "fade-in": "fade-in 0.5s ease-out",
+        "fade-in": "fade-in 0.3s ease-out",
         "fade-out": "fade-out 0.3s ease-out",
-        "slide-up": "slide-up 0.6s ease-out",
+        "slide-up": "slide-up 0.3s ease-out",
         "slide-in-right": "slide-in-right 0.3s ease-out",
         "slide-out-right": "slide-out-right 0.3s ease-out",
-        "scale-in": "scale-in 0.4s ease-out",
+        "scale-in": "scale-in 0.3s ease-out",
         "scale-out": "scale-out 0.2s ease-out",
-        float: "float 3s ease-in-out infinite",
         shimmer: "shimmer 2s linear infinite",
-        bounce: "bounce 2s ease-in-out infinite",
         rotate: "rotate 20s linear infinite",
-        "pulse-glow": "pulse-glow 2s ease-in-out infinite",
-        "zoom-rotate": "zoom-rotate 0.3s ease-out forwards",
       },
       zIndex: {
         base: "0",
