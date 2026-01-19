@@ -70,10 +70,10 @@ export default function AuditDashboard() {
 
   const getActionColor = (action: string) => {
     switch (action) {
-      case "INSERT": return "bg-green-500";
-      case "UPDATE": return "bg-blue-500";
-      case "DELETE": return "bg-red-500";
-      default: return "bg-gray-500";
+      case "INSERT": return "bg-[hsl(var(--steel-blue))]";
+      case "UPDATE": return "bg-primary";
+      case "DELETE": return "bg-accent";
+      default: return "bg-secondary";
     }
   };
 

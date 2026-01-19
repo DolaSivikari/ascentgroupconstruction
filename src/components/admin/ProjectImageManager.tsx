@@ -181,11 +181,11 @@ export const ProjectImageManager: React.FC<ProjectImageManagerProps> = ({
 
   // Category configurations with colors and icons
   const categories = [
-    { value: 'all', label: 'All Images', color: 'bg-gray-500', icon: '📷' },
-    { value: 'before', label: 'Before', color: 'bg-blue-500', icon: '🔵' },
-    { value: 'after', label: 'After', color: 'bg-green-500', icon: '🟢' },
-    { value: 'process', label: 'Process', color: 'bg-yellow-500', icon: '🟡' },
-    { value: 'gallery', label: 'Gallery', color: 'bg-purple-500', icon: '🟣' },
+    { value: 'all', label: 'All Images', color: 'bg-secondary', icon: '📷' },
+    { value: 'before', label: 'Before', color: 'bg-primary', icon: '🔵' },
+    { value: 'after', label: 'After', color: 'bg-[hsl(var(--steel-blue))]', icon: '🟢' },
+    { value: 'process', label: 'Process', color: 'bg-accent', icon: '🟡' },
+    { value: 'gallery', label: 'Gallery', color: 'bg-primary', icon: '🟣' },
   ];
 
   // Filter images by category
@@ -507,7 +507,7 @@ export const ProjectImageManager: React.FC<ProjectImageManagerProps> = ({
           <div className="max-w-6xl max-h-[90vh] relative" onClick={(e) => e.stopPropagation()}>
             <button
               onClick={() => setPreviewImage(null)}
-              className="absolute -top-12 right-0 p-2 bg-[hsl(var(--bg))] rounded-full hover:bg-gray-100"
+              className="absolute -top-12 right-0 p-2 bg-background rounded-full hover:bg-muted"
             >
               <X className="w-6 h-6" />
             </button>
@@ -527,25 +527,25 @@ export const ProjectImageManager: React.FC<ProjectImageManagerProps> = ({
       <div className="bg-card p-4 rounded-lg border border-border shadow-sm">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
           <div>
-            <p className="text-2xl font-bold text-blue-600">
+            <p className="text-2xl font-bold text-primary">
               {images.filter(img => img.category === 'before').length}
             </p>
             <p className="text-sm text-muted-foreground">Before Images</p>
           </div>
           <div>
-            <p className="text-2xl font-bold text-green-600">
+            <p className="text-2xl font-bold text-[hsl(var(--steel-blue))]">
               {images.filter(img => img.category === 'after').length}
             </p>
             <p className="text-sm text-muted-foreground">After Images</p>
           </div>
           <div>
-            <p className="text-2xl font-bold text-yellow-600">
+            <p className="text-2xl font-bold text-accent">
               {images.filter(img => img.category === 'process').length}
             </p>
             <p className="text-sm text-muted-foreground">Process Images</p>
           </div>
           <div>
-            <p className="text-2xl font-bold text-purple-600">
+            <p className="text-2xl font-bold text-primary">
               {images.filter(img => img.category === 'gallery').length}
             </p>
             <p className="text-sm text-muted-foreground">Gallery Images</p>

@@ -104,9 +104,9 @@ const InsightsFeed = ({
 
   const getSectorColor = (sector: string) => {
     const colors: Record<string, string> = {
-      Infrastructure: "bg-blue-500/10 text-blue-600 dark:text-blue-400 border-blue-500/20",
-      Buildings: "bg-green-500/10 text-green-600 dark:text-green-400 border-green-500/20",
-      Both: "bg-purple-500/10 text-purple-600 dark:text-purple-400 border-purple-500/20",
+      Infrastructure: "bg-primary/10 text-primary border-primary/20",
+      Buildings: "bg-[hsl(var(--steel-blue)/0.1)] text-[hsl(var(--steel-blue))] border-[hsl(var(--steel-blue)/0.2)]",
+      Both: "bg-accent/10 text-accent border-accent/20",
       General: "bg-muted text-muted-foreground border-border",
     };
     return colors[sector] || colors.General;

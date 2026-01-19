@@ -15,11 +15,11 @@ export const RoleDistributionCard = ({ users }: RoleDistributionCardProps) => {
   }, {} as Record<string, number>);
 
   const roleColors: Record<string, string> = {
-    super_admin: "bg-red-600",
-    admin: "bg-orange-600",
+    super_admin: "bg-accent",
+    admin: "bg-accent",
     editor: "bg-primary",
-    contributor: "bg-blue-600",
-    viewer: "bg-slate-600",
+    contributor: "bg-[hsl(var(--steel-blue))]",
+    viewer: "bg-secondary",
   };
 
   const roleLabels: Record<string, string> = {

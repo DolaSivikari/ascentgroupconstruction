@@ -27,11 +27,11 @@ export function RecentlyViewed({ items, onLinkClick }: RecentlyViewedProps) {
 
   const getCategoryColor = (category: string) => {
     const colors: Record<string, string> = {
-      services: 'text-orange-600 dark:text-orange-400',
-      markets: 'text-blue-600 dark:text-blue-400',
-      projects: 'text-teal-600 dark:text-teal-400',
-      company: 'text-indigo-600 dark:text-indigo-400',
-      resources: 'text-purple-600 dark:text-purple-400',
+      services: 'text-accent',
+      markets: 'text-[hsl(var(--steel-blue))]',
+      projects: 'text-primary',
+      company: 'text-primary',
+      resources: 'text-[hsl(var(--steel-blue))]',
     };
     return colors[category.toLowerCase()] || 'text-muted-foreground';
   };

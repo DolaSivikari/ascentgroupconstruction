@@ -55,8 +55,8 @@ export default function Monitoring() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
           <Card className="p-6">
             <div className="flex items-center gap-3">
-              <div className="p-3 bg-red-100 dark:bg-red-900/20 rounded-lg">
-                <AlertCircle className="h-5 w-5 text-red-600" />
+              <div className="p-3 bg-accent/10 rounded-lg">
+                <AlertCircle className="h-5 w-5 text-accent" />
               </div>
               <div>
                 <p className="text-sm text-muted-foreground">Total Errors</p>
@@ -67,8 +67,8 @@ export default function Monitoring() {
 
           <Card className="p-6">
             <div className="flex items-center gap-3">
-              <div className="p-3 bg-orange-100 dark:bg-orange-900/20 rounded-lg">
-                <TrendingUp className="h-5 w-5 text-orange-600" />
+              <div className="p-3 bg-accent/10 rounded-lg">
+                <TrendingUp className="h-5 w-5 text-accent" />
               </div>
               <div>
                 <p className="text-sm text-muted-foreground">Today's Errors</p>
@@ -91,8 +91,8 @@ export default function Monitoring() {
 
           <Card className="p-6">
             <div className="flex items-center gap-3">
-              <div className="p-3 bg-green-100 dark:bg-green-900/20 rounded-lg">
-                <Zap className="h-5 w-5 text-green-600" />
+              <div className="p-3 bg-[hsl(var(--steel-blue)/0.1)] rounded-lg">
+                <Zap className="h-5 w-5 text-[hsl(var(--steel-blue))]" />
               </div>
               <div>
                 <p className="text-sm text-muted-foreground">System Status</p>
@@ -159,7 +159,7 @@ export default function Monitoring() {
         <Card>
           <div className="p-6 border-b border-border">
             <div className="flex items-center gap-2">
-              <Activity className="h-5 w-5 text-blue-500" />
+              <Activity className="h-5 w-5 text-primary" />
               <h3 className="text-lg font-semibold">Performance Metrics</h3>
             </div>
             <p className="text-sm text-muted-foreground">Application performance data</p>

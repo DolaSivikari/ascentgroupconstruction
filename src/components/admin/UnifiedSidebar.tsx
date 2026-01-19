@@ -154,7 +154,7 @@ export const UnifiedSidebar = ({ collapsed, onToggle, mobileOpen, onMobileClose,
             <div style={{ 
               fontSize: '1.5rem', 
               fontWeight: '700', 
-              background: 'linear-gradient(135deg, #2563eb 0%, #f97316 100%)',
+              background: 'linear-gradient(135deg, hsl(210 100% 20%) 0%, hsl(25 100% 50%) 100%)',
               WebkitBackgroundClip: 'text',
               WebkitTextFillColor: 'transparent',
               textAlign: 'center'
@@ -166,7 +166,7 @@ export const UnifiedSidebar = ({ collapsed, onToggle, mobileOpen, onMobileClose,
               <div style={{ 
                 fontSize: '1.5rem', 
                 fontWeight: '700', 
-                background: 'linear-gradient(135deg, #2563eb 0%, #f97316 100%)',
+                background: 'linear-gradient(135deg, hsl(210 100% 20%) 0%, hsl(25 100% 50%) 100%)',
                 WebkitBackgroundClip: 'text',
                 WebkitTextFillColor: 'transparent'
               }}>

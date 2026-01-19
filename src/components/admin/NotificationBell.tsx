@@ -123,15 +123,15 @@ export const NotificationBell = () => {
           )}
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end" className="w-80 bg-slate-900 border-slate-700 text-[hsl(var(--bg))]">
-        <div className="flex items-center justify-between p-2 border-b border-slate-700">
-          <span className="font-semibold text-[hsl(var(--bg))]">Notifications</span>
+      <DropdownMenuContent align="end" className="w-80 bg-primary border-primary/80 text-primary-foreground">
+        <div className="flex items-center justify-between p-2 border-b border-primary/60">
+          <span className="font-semibold text-primary-foreground">Notifications</span>
           {unreadCount > 0 && (
             <Button 
               variant="ghost" 
               size="sm" 
               onClick={markAllAsRead}
-              className="text-slate-300 hover:text-[hsl(var(--bg))] hover:bg-slate-800"
+              className="text-primary-foreground/70 hover:text-primary-foreground hover:bg-primary/80"
             >
               Mark all read
             </Button>
@@ -139,29 +139,29 @@ export const NotificationBell = () => {
         </div>
         <div className="max-h-96 overflow-y-auto">
           {notifications.length === 0 ? (
-            <div className="p-4 text-center text-slate-400">
+            <div className="p-4 text-center text-primary-foreground/60">
               No notifications
             </div>
           ) : (
             notifications.map((notification) => (
               <DropdownMenuItem
                 key={notification.id}
-                className={`p-3 cursor-pointer hover:bg-slate-800 ${
-                  !notification.read ? 'bg-slate-800/50' : ''
+                className={`p-3 cursor-pointer hover:bg-primary/80 ${
+                  !notification.read ? 'bg-primary/70' : ''
                 }`}
                 onClick={() => markAsRead(notification.id, notification.link)}
               >
                 <div className="flex flex-col gap-1 w-full">
                   <div className="flex items-center justify-between">
-                    <span className="font-medium text-sm text-[hsl(var(--bg))]">{notification.title}</span>
+                    <span className="font-medium text-sm text-primary-foreground">{notification.title}</span>
                     {!notification.read && (
-                      <span className="h-2 w-2 bg-primary rounded-full" />
+                      <span className="h-2 w-2 bg-accent rounded-full" />
                     )}
                   </div>
-                  <p className="text-xs text-slate-400">
+                  <p className="text-xs text-primary-foreground/60">
                     {notification.message}
                   </p>
-                  <span className="text-xs text-slate-500">
+                  <span className="text-xs text-primary-foreground/50">
                     {format(new Date(notification.created_at), 'MMM dd, HH:mm')}
                   </span>
                 </div>

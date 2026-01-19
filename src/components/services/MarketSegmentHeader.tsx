@@ -22,12 +22,12 @@ const getSegmentStyles = (segment: 'commercial' | 'residential' | 'both') => {
       };
     case 'residential':
       return {
-        bg: 'bg-orange-500/5',
-        iconBg: 'bg-gradient-to-br from-orange-500/20 to-orange-500/10',
-        iconText: 'text-orange-500',
-        border: 'border-t-2 border-orange-500/20',
-        badgeBg: 'bg-orange-500/10',
-        badgeText: 'text-orange-500',
+        bg: 'bg-accent/5',
+        iconBg: 'bg-gradient-to-br from-accent/20 to-accent/10',
+        iconText: 'text-accent',
+        border: 'border-t-2 border-accent/20',
+        badgeBg: 'bg-accent/10',
+        badgeText: 'text-accent',
       };
     case 'both':
       return {

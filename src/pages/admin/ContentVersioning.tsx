@@ -43,11 +43,11 @@ export default function ContentVersioning() {
 
   const getEntityTypeBadge = (type: string) => {
     const colors: Record<string, string> = {
-      blog_posts: "bg-blue-500",
-      projects: "bg-purple-500",
-      services: "bg-green-500",
+      blog_posts: "bg-primary",
+      projects: "bg-[hsl(var(--steel-blue))]",
+      services: "bg-accent",
     };
-    return colors[type] || "bg-gray-500";
+    return colors[type] || "bg-secondary";
   };
 
   return (
