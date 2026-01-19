@@ -427,13 +427,18 @@ All colors MUST be HSL.
   
   /* Mega-menu container with sections */
   .mega-menu-sections {
-    @apply absolute left-1/2 -translate-x-1/2 w-[800px] max-w-[90vw];
-    @apply bg-background/95 backdrop-blur-lg rounded-lg border border-border/50;
+    @apply absolute left-1/2 -translate-x-1/2 w-[900px] max-w-[95vw];
+    @apply bg-background backdrop-blur-xl rounded-lg border border-border/50;
     @apply opacity-0 invisible scale-y-95;
     @apply transition-all duration-300 ease-out origin-top;
     @apply top-full mt-2;
     z-index: var(--z-mega-menu);
     box-shadow: 0 10px 40px -10px hsl(var(--foreground) / 0.15);
+  }
+
+  /* 4-column mega menu variant for Markets */
+  .mega-menu-sections--wide {
+    @apply w-[1000px];
   }
 
   .mega-menu-sections--open {
@@ -442,7 +447,7 @@ All colors MUST be HSL.
 
   .mega-menu-sections-wrapper {
     @apply p-6;
-    max-height: 480px;
+    max-height: 520px;
     overflow-y: auto;
     scrollbar-width: thin;
     scrollbar-color: hsl(var(--border)) transparent;
@@ -458,19 +463,25 @@ All colors MUST be HSL.
   }
 
   .mega-menu-section-header {
-    @apply text-xs font-bold text-primary mb-3;
+    @apply text-xs font-bold text-primary mb-4;
     @apply uppercase tracking-wider;
   }
 
   .mega-menu-section-header-link {
-    @apply inline-block text-xs font-bold text-primary mb-3;
+    @apply inline-block text-xs font-bold text-primary mb-4;
     @apply uppercase tracking-wider;
     @apply transition-colors duration-200;
     @apply hover:text-primary/80;
   }
 
+  /* Dynamic grid columns */
   .mega-menu-section-categories {
-    @apply grid grid-cols-3 gap-4;
+    @apply grid gap-5;
+  }
+
+  /* Column header for each category */
+  .mega-menu-column-header {
+    @apply text-xs font-semibold uppercase tracking-wide text-muted-foreground mb-3 pb-2 border-b border-border/50;
   }
 
   /* Accordion category styles */

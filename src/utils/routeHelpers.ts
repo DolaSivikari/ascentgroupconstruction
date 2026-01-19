@@ -85,9 +85,13 @@ export const VALID_PUBLIC_ROUTES = [
   '/estimate',
   '/prequalification',
   '/submit-rfp',
-  
   '/sustainability',
   '/faq',
+  '/insights',
+  '/homeowners',
+  '/for-general-contractors',
+  '/why-specialty-contractor',
+  '/service-selector',
   '/company/certifications-insurance',
   '/company/equipment-resources',
   '/company/developers',
@@ -97,6 +101,11 @@ export const VALID_PUBLIC_ROUTES = [
   '/commercial-clients',
   '/resources/service-areas',
   '/resources/contractor-portal',
+  '/resources/documents',
+  // Restoration services
+  '/services/facade-remediation',
+  '/services/parking-garage-restoration',
+  '/services/sealant-programs',
 ] as const;
 
 /**

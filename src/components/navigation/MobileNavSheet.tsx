@@ -464,24 +464,24 @@ export function MobileNavSheet({ open, onOpenChange }: MobileNavSheetProps) {
                   </AccordionContent>
                 </AccordionItem>
 
-                {/* Partners Section */}
-                <AccordionItem value="partners" className="border border-border rounded-lg overflow-hidden transition-all duration-200 hover:border-accent/30 hover:shadow-sm">
+                {/* Markets / Who We Serve Section */}
+                <AccordionItem value="markets" className="border border-border rounded-lg overflow-hidden transition-all duration-200 hover:border-accent/30 hover:shadow-sm">
                   <AccordionTrigger 
                     className="px-3 py-2.5 hover:no-underline bg-transparent hover:bg-muted/30 transition-colors [&[data-state=open]]:bg-muted/50 [&[data-state=open]]:text-foreground touch-manipulation"
-                    aria-label="Partners menu"
+                    aria-label="Who We Serve menu"
                   >
                     <NavCategoryCard
                       icon={Users}
-                      title="Partners"
-                      itemCount={megaMenuDataEnhanced.partners.reduce((acc, section) => acc + section.categories.length, 0)}
+                      title="Who We Serve"
+                      itemCount={megaMenuDataEnhanced.markets?.reduce((acc, section) => acc + section.categories.length, 0) || 0}
                       gradient="bg-gradient-to-br from-primary to-primary-light"
                       iconColor="text-primary-foreground"
                     >
-                      <span className="text-sm font-semibold">Partners</span>
+                      <span className="text-sm font-semibold">Who We Serve</span>
                     </NavCategoryCard>
                   </AccordionTrigger>
                   <AccordionContent className="px-4 pb-4 pt-2">
-                    {megaMenuDataEnhanced.partners.map((section, sectionIndex) => (
+                    {megaMenuDataEnhanced.markets?.map((section, sectionIndex) => (
                       <div key={section.sectionTitle} className="mb-3">
                         {sectionIndex > 0 && <Separator className="my-3" />}
                         <h4 className="text-xs font-bold text-muted-foreground uppercase tracking-wide mb-2 px-2">
@@ -490,11 +490,12 @@ export function MobileNavSheet({ open, onOpenChange }: MobileNavSheetProps) {
                         <div className="space-y-1">
                           {section.categories.map((category) => (
                             <div key={category.title} className="ml-1">
+                              <div className="font-semibold text-sm py-1.5 px-2 text-foreground/90">{category.title}</div>
                               {category.subItems && (
-                                <div className="space-y-0.5">
-                                  {category.subItems.map((item, itemIndex) => {
-                                    const IconComponent = getIcon(NAVIGATION_ICONS[item.link] || "ChevronRight");
-                                    const description = NAVIGATION_DESCRIPTIONS[item.link];
+                                <div className="ml-2 space-y-0.5">
+                                  {category.subItems.map((item) => {
+                                    const IconComponent = getIcon(item.icon || NAVIGATION_ICONS[item.link] || "ChevronRight");
+                                    const description = item.description || NAVIGATION_DESCRIPTIONS[item.link];
                                     
                                     return (
                                       <Link
@@ -502,7 +503,7 @@ export function MobileNavSheet({ open, onOpenChange }: MobileNavSheetProps) {
                                         to={item.link}
                                         onClick={handleLinkClick}
                                         onMouseDown={addRipple}
-                        className="group flex items-center gap-2 py-2 px-3 min-h-[44px] text-sm text-foreground border-l-2 border-transparent hover:text-accent hover:bg-muted/30 hover:border-l-accent hover:pl-4 active:scale-[0.98] transition-all duration-200 touch-manipulation"
+                                        className="group flex items-center gap-2 py-2 px-3 min-h-[44px] text-sm text-foreground border-l-2 border-transparent hover:text-accent hover:bg-muted/30 hover:border-l-accent hover:pl-4 active:scale-[0.98] transition-all duration-200 touch-manipulation"
                                         aria-label={`${item.name}${description ? `: ${description}` : ""}`}
                                       >
                                         <IconComponent className="h-4 w-4 flex-shrink-0 text-muted-foreground" aria-hidden="true" />
@@ -512,11 +513,6 @@ export function MobileNavSheet({ open, onOpenChange }: MobileNavSheetProps) {
                                             <span className="text-xs text-muted-foreground/70 block">{description}</span>
                                           )}
                                         </div>
-                                        {item.badge === "new" && (
-                                          <Badge variant="secondary" size="xs" className="ml-2">
-                                            <Sparkles className="h-3 w-3" aria-hidden="true" />
-                                          </Badge>
-                                        )}
                                         {item.badge === "important" && (
                                           <Badge variant="default" size="xs" className="ml-2">
                                             <Star className="h-3 w-3" aria-hidden="true" />
