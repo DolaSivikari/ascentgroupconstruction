@@ -134,6 +134,14 @@ const ServicesManager = lazy(() => import("./pages/admin/ServicesManager").catch
   default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Services Manager</p></div>
 })));
 
+// New admin pages
+const Notifications = lazy(() => import("./pages/admin/Notifications").catch(() => ({
+  default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Notifications</p></div>
+})));
+const EmailTemplates = lazy(() => import("./pages/admin/EmailTemplates").catch(() => ({
+  default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Email Templates</p></div>
+})));
+
 // Unified Admin Layout
 const UnifiedAdminLayout = lazy(() => import("./components/admin/UnifiedAdminLayout").then(m => ({ default: m.UnifiedAdminLayout })).catch(() => ({
   default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Admin Layout</p></div>
@@ -318,6 +326,10 @@ const App = () => (
                     
                     {/* Inbox */}
                     <Route path="inbox" element={<UnifiedInbox />} />
+                    
+                    {/* Notifications & Email Templates */}
+                    <Route path="notifications" element={<Notifications />} />
+                    <Route path="email-templates" element={<EmailTemplates />} />
                     
                     {/* Homepage Builder - Consolidated */}
                     <Route path="homepage-builder" element={<HomepageBuilder />} />

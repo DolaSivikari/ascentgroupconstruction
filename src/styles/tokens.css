@@ -115,37 +115,55 @@
   --touch-md: 44px;        /* Standard buttons, inputs */
   --touch-lg: 48px;        /* Large buttons */
 
-  /* Admin Light Theme Tokens - Corporate Colors */
+  /* ============================================================================
+     ADMIN PANEL DESIGN TOKENS - Aligned with Main Site Design System
+     ============================================================================ */
+  
+  /* Admin Background Colors */
   --admin-bg-primary: 0 0% 100%;           /* White - main background */
   --admin-bg-secondary: 210 20% 98%;       /* Soft blue-gray - secondary surfaces */
+  --admin-bg-tertiary: 210 15% 96%;        /* Slightly darker - hover states */
   --admin-bg-card: 0 0% 100%;              /* White - cards */
   --admin-bg-hover: 210 20% 95%;           /* Light hover state */
   
-  --admin-text-primary: 210 100% 20%;      /* Navy blue - main text */
-  --admin-text-secondary: 200 18% 26%;     /* Charcoal gray - secondary text */
-  --admin-text-muted: 200 18% 46%;         /* Lighter gray - muted text */
+  /* Admin Text Colors */
+  --admin-text-primary: 200 18% 26%;       /* Charcoal gray - main text (body text) */
+  --admin-text-secondary: 200 10% 40%;     /* Medium gray - secondary text */
+  --admin-text-muted: 200 5% 60%;          /* Light gray - muted text */
+  --admin-text-heading: 210 100% 20%;      /* Navy blue - headings */
   
-  --admin-border: 210 20% 90%;             /* Light border */
-  --admin-nav-bg: 210 100% 20%;            /* Navy blue sidebar */
-  --admin-nav-text: 0 0% 100%;             /* White text on navy */
+  /* Admin Border Colors */
+  --admin-border: 210 15% 90%;             /* Light border */
+  --admin-border-focus: 210 100% 20%;      /* Navy focus ring */
+  
+  /* Admin Navigation Colors (Navy Sidebar) */
+  --admin-nav-bg: 210 100% 20%;            /* Navy blue sidebar #003366 */
+  --admin-nav-text: 0 0% 95%;              /* Off-white text on navy */
   --admin-nav-hover: 210 100% 25%;         /* Lighter navy on hover */
-  --admin-nav-active-bg: 210 100% 25%;     /* Active background */
-  --admin-nav-active-text: 24 95% 53%;     /* Orange active text */
-  --admin-nav-active-border: 24 95% 53%;   /* Orange border indicator */
+  --admin-nav-active-bg: 25 100% 50%;      /* Orange active background #FF6600 */
+  --admin-nav-active-text: 0 0% 100%;      /* White text on orange */
+  --admin-nav-active-border: 0 0% 100%;    /* White left border indicator */
+  --admin-nav-section-label: 0 0% 50%;     /* Muted gray for section labels */
   
-  /* Admin brand colors */
-  --admin-primary: var(--brand-primary);
-  --admin-accent: var(--brand-accent);
-  --admin-success: var(--success);
-  --admin-warning: var(--warning);
-  --admin-danger: var(--danger);
+  /* Admin Brand Colors - Inherit from main site */
+  --admin-primary: 210 100% 20%;           /* Navy #003366 */
+  --admin-accent: 25 100% 50%;             /* Orange #FF6600 */
+  --admin-success: 142 76% 36%;            /* Green */
+  --admin-warning: 38 92% 50%;             /* Amber */
+  --admin-danger: 0 84% 60%;               /* Red */
+  --admin-info: 199 89% 48%;               /* Blue */
   
-  /* Admin layout tokens */
-  --admin-sidebar-width: 280px;
-  --admin-sidebar-collapsed: 80px;
-  --admin-header-height: 70px;
+  /* Admin Layout Tokens */
+  --admin-sidebar-width: 260px;
+  --admin-sidebar-collapsed: 72px;
+  --admin-header-height: 64px;
   
-  /* Admin transitions use base system */
+  /* Admin Shadows */
+  --admin-shadow-sm: 0 1px 2px hsl(210 100% 20% / 0.05);
+  --admin-shadow-md: 0 4px 6px hsl(210 100% 20% / 0.1);
+  --admin-shadow-lg: 0 10px 15px hsl(210 100% 20% / 0.1);
+  
+  /* Admin Transitions & Radius */
   --admin-transition: var(--transition-base);
   --admin-radius: var(--radius-md);
 }
