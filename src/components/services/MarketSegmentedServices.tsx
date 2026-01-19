@@ -3,7 +3,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { UnifiedServiceCard } from "./UnifiedServiceCard";
 import { CardGrid } from "@/components/shared/CardGrid";
 import { Section } from "@/components/sections/Section";
-import { Building2, Home, Sparkles, LucideIcon } from "lucide-react";
+import { Building2, Home, Hammer, LucideIcon } from "lucide-react";
 
 interface Service {
   id: string;
@@ -25,22 +25,22 @@ interface CategoryConfig {
 
 const CATEGORY_CONFIG: CategoryConfig[] = [
   {
-    title: "Building Envelope",
-    description: "Exterior envelope systems, waterproofing, and cladding solutions",
+    title: "Commercial Envelope",
+    description: "Exterior envelope systems, waterproofing, cladding, and masonry solutions for commercial properties",
     icon: Building2,
-    dbCategory: "Building Envelope",
+    dbCategory: "Commercial Envelope",
   },
   {
-    title: "Interior Construction",
-    description: "Complete interior buildouts, finishing, and renovation services",
+    title: "Restoration Services",
+    description: "Facade remediation, parking garage restoration, and sealant replacement programs",
+    icon: Hammer,
+    dbCategory: "Restoration Services",
+  },
+  {
+    title: "Residential Services",
+    description: "Interior finishing, renovations, architectural coatings, and flooring for residential projects",
     icon: Home,
-    dbCategory: "Interior Construction",
-  },
-  {
-    title: "Specialized Services",
-    description: "Expert specialty solutions for unique project requirements",
-    icon: Sparkles,
-    dbCategory: "Specialized Services",
+    dbCategory: "Residential Services",
   },
 ];
 
