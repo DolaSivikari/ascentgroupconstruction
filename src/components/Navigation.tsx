@@ -197,9 +197,10 @@ const Navigation = () => {
                 )} />
               </Link>
               <MegaMenuWithSections
-                sections={megaMenuDataEnhanced.services}
+                sections={megaMenuDataEnhanced.services.sections}
                 isOpen={activeMegaMenu === "services"}
                 onClose={closeMegaMenu}
+                config={megaMenuDataEnhanced.services}
               />
             </div>
 
@@ -226,9 +227,10 @@ const Navigation = () => {
                 )} />
               </button>
               <MegaMenuWithSections
-                sections={megaMenuDataEnhanced.markets}
+                sections={megaMenuDataEnhanced.markets.sections}
                 isOpen={activeMegaMenu === "markets"}
                 onClose={closeMegaMenu}
+                config={megaMenuDataEnhanced.markets}
               />
             </div>
 
@@ -270,9 +272,10 @@ const Navigation = () => {
                 )} />
               </Link>
               <MegaMenuWithSections
-                sections={megaMenuDataEnhanced.company}
+                sections={megaMenuDataEnhanced.company.sections}
                 isOpen={activeMegaMenu === "company"}
                 onClose={closeMegaMenu}
+                config={megaMenuDataEnhanced.company}
               />
             </div>
 
@@ -299,9 +302,10 @@ const Navigation = () => {
                 )} />
               </button>
               <MegaMenuWithSections
-                sections={megaMenuDataEnhanced.resources}
+                sections={megaMenuDataEnhanced.resources.sections}
                 isOpen={activeMegaMenu === "resources"}
                 onClose={closeMegaMenu}
+                config={megaMenuDataEnhanced.resources}
               />
             </div>
 

@@ -63,7 +63,7 @@ export function MobileNavSheet({ open, onOpenChange }: MobileNavSheetProps) {
   const allCategories = ["All", "Services", "Company", "Who We Serve", "Resources"];
 
   // Get all service items for Show More/Less functionality
-  const allServiceItems = megaMenuDataEnhanced.services.flatMap(section => 
+  const allServiceItems = megaMenuDataEnhanced.services.sections.flatMap(section => 
     section.categories.flatMap(cat => cat.subItems || [])
   );
   const visibleServiceItems = showMoreServices ? allServiceItems : allServiceItems.slice(0, 8);
@@ -326,7 +326,7 @@ export function MobileNavSheet({ open, onOpenChange }: MobileNavSheetProps) {
                     <NavCategoryCard
                       icon={Wrench}
                       title="Services"
-                      itemCount={megaMenuDataEnhanced.services.reduce((acc, section) => acc + section.categories.length, 0)}
+                      itemCount={megaMenuDataEnhanced.services.sections.reduce((acc, section) => acc + section.categories.length, 0)}
                       gradient="bg-gradient-to-br from-[hsl(24,95%,53%)] to-[hsl(20,91%,48%)]"
                       iconColor="text-white"
                     >
@@ -339,7 +339,7 @@ export function MobileNavSheet({ open, onOpenChange }: MobileNavSheetProps) {
                       <div className="scroll-fade-top" aria-hidden="true" />
                     )}
                     
-                    {megaMenuDataEnhanced.services.map((section, sectionIndex) => (
+                    {megaMenuDataEnhanced.services.sections.map((section, sectionIndex) => (
                       <div key={section.sectionTitle} className="mb-3">
                         {sectionIndex > 0 && <Separator className="my-3" />}
                         <h4 className="text-xs font-bold text-muted-foreground uppercase tracking-wide mb-2 px-2">
@@ -402,7 +402,7 @@ export function MobileNavSheet({ open, onOpenChange }: MobileNavSheetProps) {
                     <NavCategoryCard
                       icon={Users}
                       title="Company"
-                      itemCount={megaMenuDataEnhanced.company.reduce((acc, section) => acc + section.categories.length, 0)}
+                      itemCount={megaMenuDataEnhanced.company.sections.reduce((acc, section) => acc + section.categories.length, 0)}
                       gradient="bg-gradient-to-br from-steel-blue to-steel-blue"
                       iconColor="text-steel-blue-foreground"
                     >
@@ -410,7 +410,7 @@ export function MobileNavSheet({ open, onOpenChange }: MobileNavSheetProps) {
                     </NavCategoryCard>
                   </AccordionTrigger>
                   <AccordionContent className="px-4 pb-4 pt-2">
-                    {megaMenuDataEnhanced.company.map((section, sectionIndex) => (
+                    {megaMenuDataEnhanced.company.sections.map((section, sectionIndex) => (
                       <div key={section.sectionTitle} className="mb-3">
                         {sectionIndex > 0 && <Separator className="my-3" />}
                         <h4 className="text-xs font-bold text-muted-foreground uppercase tracking-wide mb-2 px-2">
@@ -473,7 +473,7 @@ export function MobileNavSheet({ open, onOpenChange }: MobileNavSheetProps) {
                     <NavCategoryCard
                       icon={Users}
                       title="Who We Serve"
-                      itemCount={megaMenuDataEnhanced.markets?.reduce((acc, section) => acc + section.categories.length, 0) || 0}
+                      itemCount={megaMenuDataEnhanced.markets?.sections.reduce((acc, section) => acc + section.categories.length, 0) || 0}
                       gradient="bg-gradient-to-br from-primary to-primary-light"
                       iconColor="text-primary-foreground"
                     >
@@ -481,7 +481,7 @@ export function MobileNavSheet({ open, onOpenChange }: MobileNavSheetProps) {
                     </NavCategoryCard>
                   </AccordionTrigger>
                   <AccordionContent className="px-4 pb-4 pt-2">
-                    {megaMenuDataEnhanced.markets?.map((section, sectionIndex) => (
+                    {megaMenuDataEnhanced.markets?.sections.map((section, sectionIndex) => (
                       <div key={section.sectionTitle} className="mb-3">
                         {sectionIndex > 0 && <Separator className="my-3" />}
                         <h4 className="text-xs font-bold text-muted-foreground uppercase tracking-wide mb-2 px-2">
@@ -540,7 +540,7 @@ export function MobileNavSheet({ open, onOpenChange }: MobileNavSheetProps) {
                     <NavCategoryCard
                       icon={Building}
                       title="Resources"
-                      itemCount={megaMenuDataEnhanced.resources.reduce((acc, section) => acc + section.categories.length, 0)}
+                      itemCount={megaMenuDataEnhanced.resources.sections.reduce((acc, section) => acc + section.categories.length, 0)}
                       gradient="bg-gradient-to-br from-secondary to-secondary"
                       iconColor="text-secondary-foreground"
                     >
@@ -548,7 +548,7 @@ export function MobileNavSheet({ open, onOpenChange }: MobileNavSheetProps) {
                     </NavCategoryCard>
                   </AccordionTrigger>
                   <AccordionContent className="px-4 pb-4 pt-2">
-                    {megaMenuDataEnhanced.resources.map((section, sectionIndex) => (
+                    {megaMenuDataEnhanced.resources.sections.map((section, sectionIndex) => (
                       <div key={section.sectionTitle} className="mb-3">
                         {sectionIndex > 0 && <Separator className="my-3" />}
                         <h4 className="text-xs font-bold text-muted-foreground uppercase tracking-wide mb-2 px-2">
