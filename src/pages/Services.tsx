@@ -2,13 +2,13 @@ import { Link } from "react-router-dom";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
-import PageHeader from "@/components/PageHeader";
+import { PageHero } from "@/components/shared/PageHero";
 import { Button } from "@/ui/Button";
 import { MarketSegmentedServices } from "@/components/services/MarketSegmentedServices";
 import { ServicePromotionsSection } from "@/components/services/ServicePromotionsSection";
 import { Section } from "@/components/sections/Section";
-import { CTA_TEXT, TYPOGRAPHY_STYLES } from "@/design-system/constants";
-import heroServicesImage from "@/assets/heroes/hero-general-contracting.jpg";
+import { CTA_TEXT } from "@/design-system/constants";
+import { mainPageHeroes } from "@/data/hero-images";
 import { usePageAnalytics } from "@/hooks/usePageAnalytics";
 
 const Services = () => {
@@ -24,11 +24,13 @@ const Services = () => {
       />
       <Navigation />
       
-      <PageHeader
+      <PageHero
         title="Our Services"
         description="Specialty contractor for building envelope, interior trades, and renovations. Self-performed work across commercial, multi-family, and residential projects in Ontario."
-        backgroundImage={heroServicesImage}
-        cta={{ label: CTA_TEXT.primary, href: "/estimate" }}
+        image={mainPageHeroes.services}
+        imageAlt="Professional construction services"
+        height="large"
+        primaryCta={{ text: CTA_TEXT.primary, href: "/estimate" }}
         breadcrumbs={[
           { label: "Home", href: "/" },
           { label: "Services" }

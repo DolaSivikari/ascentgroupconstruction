@@ -2,14 +2,13 @@ import { useState } from "react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
-import PageHeader from "@/components/PageHeader";
+import { PageHero } from "@/components/shared/PageHero";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/ui/Button";
 import { Link } from "react-router-dom";
 import ResumeSubmissionDialog from "@/components/ResumeSubmissionDialog";
-import { CTA_TEXT } from "@/design-system/constants";
 import { ScrollReveal } from "@/components/animations/ScrollReveal";
-import heroImage from "@/assets/heroes/hero-team.jpg";
+import { mainPageHeroes } from "@/data/hero-images";
 import { 
   Heart,
   Award, 
@@ -104,11 +103,13 @@ const Careers = () => {
       />
       <Navigation />
 
-      <PageHeader
+      <PageHero
         title="Join Our Team"
         description="Build your career with a company that values quality, safety, and professional growth across the Greater Toronto Area."
-        backgroundImage={heroImage}
-        cta={{ label: "View Open Positions", href: "#open-positions" }}
+        image={mainPageHeroes.careers}
+        imageAlt="Join the Ascent Group Construction team"
+        height="medium"
+        primaryCta={{ text: "View Open Positions", href: "#open-positions" }}
         breadcrumbs={[
           { label: "Home", href: "/" },
           { label: "Careers" }

@@ -3,7 +3,7 @@ import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
 import { Card } from "@/design-system/components/Card";
 import { Section } from "@/components/sections/Section";
-import PageHeader from "@/components/PageHeader";
+import { PageHero } from "@/components/shared/PageHero";
 import { Button } from "@/ui/Button";
 import { CTA_TEXT } from "@/design-system/constants";
 import { 
@@ -19,7 +19,7 @@ import {
   FileText
 } from "lucide-react";
 import { Link } from "react-router-dom";
-import heroImage from "@/assets/heroes/hero-about-company.jpg";
+import { mainPageHeroes } from "@/data/hero-images";
 import { usePageAnalytics } from "@/hooks/usePageAnalytics";
 import { WhoWeServeCard, WhoWeServeSection } from "@/components/unified";
 
@@ -124,11 +124,13 @@ const About = () => {
       />
       <Navigation />
       
-      <PageHeader
+      <PageHero
         title="Building Envelope & Restoration Specialists"
         description="An emerging specialty contractor delivering reliable envelope solutions across Ontario's GTA—building trust, project by project."
-        backgroundImage={heroImage}
-        cta={{ label: CTA_TEXT.contact, href: "/contact" }}
+        image={mainPageHeroes.about}
+        imageAlt="Ascent Group Construction team at work"
+        height="large"
+        primaryCta={{ text: CTA_TEXT.contact, href: "/contact" }}
         breadcrumbs={[
           { label: "Home", href: "/" },
           { label: "About Us" }
