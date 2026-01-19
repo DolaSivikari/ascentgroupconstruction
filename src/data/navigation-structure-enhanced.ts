@@ -24,7 +24,7 @@ export interface MegaMenuDataEnhanced {
   [key: string]: Section[];
 }
 
-// Simplified mega menu - fewer items, cleaner organization
+// Updated mega menu with 3-column Services structure
 export const megaMenuDataEnhanced: MegaMenuDataEnhanced = {
   services: [
     {
@@ -32,20 +32,29 @@ export const megaMenuDataEnhanced: MegaMenuDataEnhanced = {
       sectionLink: "/services",
       categories: [
         {
-          title: "Building Envelope",
+          title: "Commercial Envelope",
           subItems: [
-            { name: "Envelope Solutions", link: "/services/building-envelope", description: "Complete envelope systems" },
-            { name: "Waterproofing", link: "/services/waterproofing", description: "Foundation to roof protection" },
-            { name: "Cladding Systems", link: "/services/cladding-systems", description: "Metal panel installation" },
+            { name: "Building Envelope Solutions", link: "/services/building-envelope-solutions", description: "Complete envelope systems" },
+            { name: "Cladding Systems", link: "/services/cladding-systems", description: "Metal panel & ACM installation" },
             { name: "Masonry Restoration", link: "/services/masonry-restoration", description: "Brick and stone repair" },
+            { name: "Waterproofing Systems", link: "/services/waterproofing-systems", description: "Foundation to roof protection" },
+            { name: "EIFS & Stucco", link: "/services/eifs-stucco-systems", description: "Exterior insulation systems" },
           ],
         },
         {
-          title: "Interior & Coatings",
+          title: "Restoration Services",
           subItems: [
-            { name: "Painting Services", link: "/services/painting-services", description: "Commercial & residential" },
+            { name: "Façade Remediation", link: "/services/facade-remediation", description: "Exterior restoration" },
+            { name: "Parking Garage Restoration", link: "/services/parking-garage-restoration", description: "Structural concrete repair" },
+            { name: "Sealant Programs", link: "/services/sealant-programs", description: "Joint maintenance programs" },
+          ],
+        },
+        {
+          title: "Residential",
+          subItems: [
+            { name: "Interior Finishing", link: "/services/interior-finishing-renovations", description: "Complete interior renovations" },
+            { name: "Architectural Coatings", link: "/services/painting-services", description: "Commercial & residential painting" },
             { name: "Tile & Flooring", link: "/services/tile-flooring", description: "Professional installation" },
-            { name: "Protective Coatings", link: "/services/protective-coatings", description: "Surface protection" },
             { name: "View All Services", link: "/services", description: "Complete service list" },
           ],
         },
@@ -96,7 +105,7 @@ export const megaMenuDataEnhanced: MegaMenuDataEnhanced = {
           title: "Information",
           subItems: [
             { name: "Projects Portfolio", link: "/projects", description: "Our completed work" },
-            { name: "Prequalification Package", link: "/prequalification", description: "GC qualification docs", badge: "important" },
+            { name: "Contractor Portal", link: "/resources/contractor-portal", description: "GC resources & documents", badge: "important" },
             { name: "Submit RFP", link: "/submit-rfp", description: "Request for proposal" },
             { name: "FAQ", link: "/faq", description: "Common questions" },
           ],

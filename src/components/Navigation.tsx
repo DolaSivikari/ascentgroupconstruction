@@ -231,7 +231,7 @@ const Navigation = () => {
               About
             </Link>
 
-            {/* For GCs */}
+            {/* Contractors */}
             <Link
               to="/for-general-contractors"
               className={cn(
@@ -242,21 +242,7 @@ const Navigation = () => {
                 !isActive("/for-general-contractors") && "hover:text-primary"
               )}
             >
-              For GCs
-            </Link>
-
-            {/* Homeowners */}
-            <Link
-              to="/homeowners"
-              className={cn(
-                "px-2 py-2 text-base font-semibold relative transition-all duration-300",
-                "after:absolute after:bottom-0 after:left-0 after:w-full after:h-[2px]",
-                "after:bg-primary after:scale-x-0 after:origin-left hover:after:scale-x-100 after:transition-transform after:duration-300",
-                isActive("/homeowners") ? "text-primary after:scale-x-100" : (isHeroPage && isAtTop ? "text-white" : "text-foreground"),
-                !isActive("/homeowners") && "hover:text-primary"
-              )}
-            >
-              Homeowners
+              Contractors
             </Link>
 
             {/* Contact */}
