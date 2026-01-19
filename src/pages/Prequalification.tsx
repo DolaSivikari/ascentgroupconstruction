@@ -3,7 +3,7 @@ import { Download, FileText, Shield, CheckCircle2, ArrowRight, Award, Building2,
 import { Link } from "react-router-dom";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
-import PageHeader from "@/components/PageHeader";
+import { PageHero } from "@/components/shared/PageHero";
 import { EmailLink } from "@/components/EmailLink";
 import { Button } from "@/ui/Button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -12,7 +12,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import SEO from "@/components/SEO";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
-import heroImage from "@/assets/heroes/hero-certifications.jpg";
+import { resourceHeroes } from "@/data/hero-images";
 
 interface Document {
   id: string;
@@ -220,15 +220,15 @@ const Prequalification = () => {
       />
       <Navigation />
       
-      <PageHeader
+      <PageHero
         title="Vendor Pre-Qualification Package"
         description="15+ Years Combined Team Experience • Building Envelope & Interior Trades Specialist • WSIB Compliant • $2M CGL Coverage • Serving Commercial, Multi-Family & Residential Markets"
-        backgroundImage={heroImage}
+        image={resourceHeroes["prequalification"]}
+        imageAlt="Pre-qualification and certifications"
         breadcrumbs={[
           { label: "Home", href: "/" },
           { label: "Pre-Qualification" }
         ]}
-        variant="standard"
       />
 
       <main className="py-16">

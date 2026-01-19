@@ -1,12 +1,12 @@
 import { MapPin, Clock, Phone, CheckCircle2 } from "lucide-react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
-import PageHeader from "@/components/PageHeader";
+import { PageHero } from "@/components/shared/PageHero";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/ui/Button";
 import SEO from "@/components/SEO";
 import { serviceAreaCities, primaryServiceCities } from "@/data/service-area-cities";
-import heroServiceAreasImage from "@/assets/heroes/hero-service-areas.jpg";
+import { resourceHeroes } from "@/data/hero-images";
 import { Link } from "react-router-dom";
 import { CTA_TEXT } from "@/design-system/constants";
 
@@ -50,10 +50,16 @@ const ServiceAreas = () => {
 
         <Navigation />
         
-        <PageHeader
+        <PageHero
           title="Service Areas"
           description="Serving Ontario with Excellence"
-          backgroundImage={heroServiceAreasImage}
+          image={resourceHeroes["service-areas"]}
+          imageAlt="Service coverage areas across Ontario"
+          breadcrumbs={[
+            { label: "Home", href: "/" },
+            { label: "Resources" },
+            { label: "Service Areas" }
+          ]}
         />
 
         <main id="main-content" className="container mx-auto px-4 py-12 space-y-16">

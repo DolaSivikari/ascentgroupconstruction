@@ -1,4 +1,4 @@
-import PageHeader from "@/components/PageHeader";
+import { PageHero } from "@/components/shared/PageHero";
 import { Section } from "@/components/sections/Section";
 import SEO from "@/components/SEO";
 import Navigation from "@/components/Navigation";
@@ -24,7 +24,7 @@ import {
   TrendingUp
 } from "lucide-react";
 import { generateFAQSchema } from "@/utils/faq-schema";
-import heroImage from "@/assets/heroes/hero-general-contracting.jpg";
+import { companyHeroes } from "@/data/hero-images";
 
 const iconMap = {
   Building2,
@@ -70,11 +70,12 @@ const WhySpecialtyContractor = () => {
 
       <Navigation />
 
-      <PageHeader
+      <PageHero
         title={hero.title}
         description={hero.subtitle}
-        backgroundImage={heroImage}
-        cta={{ label: CTA_TEXT.contact, href: "/contact" }}
+        image={companyHeroes["why-specialty-contractor"]}
+        imageAlt="Specialty contractor services"
+        primaryCta={{ text: CTA_TEXT.contact, href: "/contact" }}
         breadcrumbs={[
           { label: "Home", href: "/" },
           { label: "Why Specialty Contractor" }

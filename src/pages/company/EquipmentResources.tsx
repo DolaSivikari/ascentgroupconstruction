@@ -1,12 +1,12 @@
 import { Truck, Wrench, HardHat, Building2, Zap, Users } from "lucide-react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
-import PageHeader from "@/components/PageHeader";
+import { PageHero } from "@/components/shared/PageHero";
 import { Card, CardContent } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
 import SEO from "@/components/SEO";
-import heroEquipmentImage from "@/assets/heroes/hero-equipment.jpg";
+import { companyHeroes } from "@/data/hero-images";
 import { Link } from "react-router-dom";
 
 const EquipmentResources = () => {
@@ -73,10 +73,11 @@ const EquipmentResources = () => {
       <div className="min-h-screen bg-background">
         <Navigation />
         
-        <PageHeader
+        <PageHero
           title="Equipment & Resources"
           description="Industrial-Grade Tools for Projects of Any Scale"
-          backgroundImage={heroEquipmentImage}
+          image={companyHeroes["equipment-resources"]}
+          imageAlt="Construction equipment and resources"
           breadcrumbs={[
             { label: "Home", href: "/" },
             { label: "Company" },
