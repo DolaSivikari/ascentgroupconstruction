@@ -344,7 +344,7 @@ export const ServiceSelector = () => {
 
             <div className="text-center">
               <p className="text-sm text-muted-foreground">
-                Not sure? <Link to="/contact" className="text-primary hover:underline">Contact us</Link> for a free consultation.
+                Not sure? <Link to="/contact" className="text-primary hover:underline">Start your project</Link> with a complimentary consultation.
               </p>
             </div>
           </div>

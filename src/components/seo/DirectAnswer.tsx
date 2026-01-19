@@ -69,7 +69,7 @@ const DirectAnswer = ({ children, className = "" }: DirectAnswerProps) => {
           <div className="lg:sticky lg:top-24 w-full lg:w-80 bg-muted/30 border border-border rounded-[var(--radius-lg)] p-6 space-y-4">
             <h3 className="text-xl font-bold text-foreground">Ready to Start Your Project?</h3>
             <p className="text-sm text-muted-foreground">
-              Get a detailed estimate tailored to your construction needs. Free consultation included.
+              Request a detailed estimate tailored to your construction needs. Complimentary consultation included.
             </p>
             
             <div className="space-y-3 pt-2">
@@ -82,7 +82,7 @@ const DirectAnswer = ({ children, className = "" }: DirectAnswerProps) => {
               
               <Button size="lg" variant="outline" className="w-full" asChild>
                 <Link to="/contact">
-                  Contact Us
+                  Start Your Project
                 </Link>
               </Button>
 

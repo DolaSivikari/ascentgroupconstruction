@@ -202,7 +202,7 @@ const ServiceAreas = () => {
               <Button size="lg" asChild>
                 <Link to="/contact">
                   <Phone className="mr-2 h-5 w-5" />
-                  Contact Us
+                  Start Your Project
                 </Link>
               </Button>
               <Button size="lg" variant="outline" asChild>

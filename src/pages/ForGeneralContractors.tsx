@@ -291,7 +291,7 @@ const ForGeneralContractors = () => {
         <Section size="major" maxWidth="narrow" className="scroll-mt-20" data-section="contact">
           <div className="text-center mb-8">
             <h2 className="text-3xl md:text-4xl font-bold mb-4">
-              Get Started
+              Start Your Project
             </h2>
             <p className="text-lg md:text-xl text-muted-foreground mb-8">
               Add us to your bidders list or request unit pricing on active tenders

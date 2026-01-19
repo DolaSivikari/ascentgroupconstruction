@@ -228,16 +228,16 @@ export function UnifiedFooter({
           </nav>
         </div>
 
-          {/* Column 9-11: Get Started + Contact */}
+          {/* Column 9-11: Start Your Project + Contact */}
           <div className="col-span-3 space-y-6">
-          {/* Get Started CTA */}
+          {/* Start Your Project CTA */}
           <div className="space-y-3">
             <h3 className="flex items-center gap-2 text-sm font-bold text-foreground">
               <Sparkles className="h-5 w-5 text-primary" />
-              Get Started
+              Start Your Project
             </h3>
             <p className="text-sm text-muted-foreground leading-relaxed">
-              Ready to discuss your project? Contact us for a site assessment.
+              Ready to discuss your project? Request a site assessment.
             </p>
             <div className="flex flex-col gap-2">
               <Link
