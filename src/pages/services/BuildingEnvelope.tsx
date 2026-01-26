@@ -3,6 +3,8 @@ import { UnifiedCard } from "@/components/shared/UnifiedCard";
 import { Section } from "@/components/sections/Section";
 import { ServicePageLayout } from "@/components/services/ServicePageLayout";
 import { generateServiceSchema, generateBreadcrumbSchema, SERVICE_SCHEMAS } from "@/utils/schemaGenerators";
+import { generateFAQSchema } from "@/utils/seo";
+import VoiceFAQ from "@/components/seo/VoiceFAQ";
 import heroImage from "@/assets/hero-building-envelope.jpg";
 
 const BuildingEnvelope = () => {
@@ -167,6 +169,13 @@ const BuildingEnvelope = () => {
               </ul>
             </UnifiedCard>
           ))}
+        </div>
+      </Section>
+
+      {/* Voice FAQs for AEO */}
+      <Section size="major" className="bg-muted/30">
+        <div className="max-w-4xl mx-auto">
+          <VoiceFAQ category="services" limit={4} />
         </div>
       </Section>
     </ServicePageLayout>

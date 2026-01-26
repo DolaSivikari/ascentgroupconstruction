@@ -27,7 +27,9 @@ import {
   Eye,
   XCircle,
   Save,
+  Bot,
 } from 'lucide-react';
+import AIVisibilitySection from '@/components/admin/seo/AIVisibilitySection';
 import { LineChart, Line, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 
 interface SEOSettings {
@@ -770,6 +772,10 @@ Disallow: /auth`;
           <TabsTrigger value="overview">Overview</TabsTrigger>
           <TabsTrigger value="analytics">Search Analytics</TabsTrigger>
           <TabsTrigger value="content">Content SEO</TabsTrigger>
+          <TabsTrigger value="ai-visibility">
+            <Bot className="h-4 w-4 mr-1" />
+            AI Visibility
+          </TabsTrigger>
           <TabsTrigger value="settings">Settings</TabsTrigger>
         </TabsList>
 
@@ -1194,6 +1200,11 @@ Disallow: /auth`;
               </Button>
             </CardContent>
           </Card>
+        </TabsContent>
+
+        {/* AI Visibility Tab */}
+        <TabsContent value="ai-visibility" className="space-y-6">
+          <AIVisibilitySection />
         </TabsContent>
 
         {/* Settings Tab */}
