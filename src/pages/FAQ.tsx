@@ -12,6 +12,8 @@ import { generateFAQSchema, generateHowToSchema } from "@/utils/faq-schema";
 import { CTA_TEXT } from "@/design-system/constants";
 import { ScrollReveal } from "@/components/animations/ScrollReveal";
 import { mainPageHeroes } from "@/data/hero-images";
+import VoiceFAQ from "@/components/seo/VoiceFAQ";
+import { VOICE_OPTIMIZED_FAQS } from "@/utils/seo/ai-content";
 import {
   Accordion,
   AccordionContent,
@@ -270,6 +272,12 @@ const FAQ = () => {
     }))
   );
 
+  // Include voice FAQs in schema
+  const voiceFaqsForSchema = VOICE_OPTIMIZED_FAQS.map(faq => ({
+    question: faq.question,
+    answer: faq.answer
+  }));
+
   // Add HowTo schema for "How to Choose a Contractor"
   const howToSchema = generateHowToSchema({
     name: "How to Choose a Painting Contractor in Ontario",
@@ -290,7 +298,7 @@ const FAQ = () => {
         title="Frequently Asked Questions - Painting & Construction | Ascent Group"
         description="Get answers to 85+ questions about construction costs, timelines, processes, and services in Toronto and the GTA. Expert guidance for property owners and managers."
         keywords="painting FAQ Toronto, construction questions GTA, painting costs Ontario, EIFS repair, property management painting, commercial painting questions"
-        structuredData={[generateFAQSchema(allFAQs), howToSchema]}
+        structuredData={[generateFAQSchema([...allFAQs, ...voiceFaqsForSchema]), howToSchema]}
       />
       
       <Navigation />
@@ -422,6 +430,11 @@ const FAQ = () => {
                 </p>
               </div>
             )}
+          </div>
+
+          {/* Voice-Optimized FAQs for AI/Voice Search */}
+          <div className="mt-12 max-w-7xl mx-auto">
+            <VoiceFAQ limit={10} className="mb-12" />
           </div>
 
           {/* Contact CTA */}
