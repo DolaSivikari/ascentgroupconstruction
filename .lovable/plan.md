@@ -1,80 +1,109 @@
 
 
-# Fix: Show All Services in Project Admin Multi-Select
+# Service Names Review & SEO Alignment Plan
 
 ## Problem Summary
-The "Services Provided" dropdown when adding/editing projects only shows **published** services (12 out of 20). Archived and draft services (8 total) are hidden, which prevents you from properly tagging projects with the full range of services offered.
+After analyzing your services database, I found several naming issues that hurt discoverability and confuse potential clients:
 
-## Solution
-Modify the `ServiceMultiSelect` component to show **all services** in the admin context, while visually indicating their publish state.
+| Current Name | Problem | Client Search Terms |
+|-------------|---------|---------------------|
+| **Architectural Coatings** | Technical jargon; clients search for "painting" | "painting contractor", "commercial painting" |
+| **Interior Buildouts & Finishing** | Vague; could mean many things | "tenant improvements", "commercial renovations" |
+| **Interior Finishing & Renovations** | Overlaps with above; redundant | Same as above |
+| **Sealant Replacement Programs** | Program vs. Service confusion | "caulking replacement", "joint sealant repair" |
+| **EIFS & Stucco Systems** | Technical acronym; homeowners don't know "EIFS" | "stucco repair", "synthetic stucco" |
+| **Façade Remediation** | Technical term | "building facade repair", "exterior restoration" |
+
+## Recommended Name Changes
+
+### High Priority (Immediate Impact)
+
+| Current Name | Recommended Name | Reason |
+|-------------|------------------|--------|
+| Architectural Coatings | **Painting Services** | Matches slug, SEO keywords, and client searches |
+| Interior Buildouts & Finishing | **Tenant Improvements** | Industry-standard term for commercial interior work |
+| Sealant Replacement Programs | **Caulking & Sealant Services** | Clearer action-oriented name |
+
+### Medium Priority (Consider Updating)
+
+| Current Name | Recommended Name | Reason |
+|-------------|------------------|--------|
+| EIFS & Stucco Systems | **Stucco & EIFS Repair** | Lead with common term, include technical for pros |
+| Façade Remediation | **Exterior Facade Repair** | More accessible while keeping technical accuracy |
+
+### Keep As-Is (Good Names)
+- Building Envelope Solutions ✓
+- Cladding Systems ✓
+- Masonry Restoration ✓
+- Waterproofing Systems ✓
+- Tile & Flooring ✓
+- Parking Garage Restoration ✓
 
 ## Implementation Details
 
-### Changes to `src/components/admin/ServiceMultiSelect.tsx`
+### Database Updates Required
+I'll update the `services` table to change:
 
-1. **Remove the `publish_state = 'published'` filter** when fetching services
-   - Currently: `.eq('publish_state', 'published')`
-   - Change to: Fetch all services
-
-2. **Add visual indicators for service status**
-   - Published services: Normal display
-   - Draft services: Show "(Draft)" badge in muted color
-   - Archived services: Show "(Archived)" badge in muted color
-
-3. **Optionally add a toggle** to show/hide archived services
-   - Default: Show all services
-   - Toggle: "Hide archived services" checkbox
-
-### Updated Query
-```typescript
-const { data, error } = await supabase
-  .from('services')
-  .select('id, name, category, publish_state')
-  .order('category')
-  .order('name');
+```text
+1. "Architectural Coatings" → "Painting Services"
+2. "Interior Buildouts & Finishing" → "Tenant Improvements"  
+3. "Interior Finishing & Renovations" → "Interior Renovations" (simplified)
+4. "Sealant Replacement Programs" → "Caulking & Sealant Services"
+5. "EIFS & Stucco Systems" → "Stucco & EIFS Repair"
 ```
 
-### Visual Changes
-- Add `publish_state` to the Service interface
-- Display a small badge next to non-published services:
-  - Draft: `<Badge variant="outline" className="text-xs">Draft</Badge>`
-  - Archived: `<Badge variant="secondary" className="text-xs text-muted-foreground">Archived</Badge>`
+### Category Cleanup
+Current categories are inconsistent. I recommend simplifying to:
 
-## Result After Fix
-You'll see all 20 services organized by category:
+| Current Categories | Proposed Categories |
+|-------------------|---------------------|
+| Commercial Envelope | **Building Envelope** |
+| Residential Services | **Interior Construction** |
+| Restoration Services | **Restoration & Repair** |
+| Interior Construction (archived) | Merge into Interior Construction |
+| Specialized Services | Merge into appropriate category |
 
-**Commercial Envelope (5)**
-- Building Envelope Solutions
-- Cladding Systems
-- EIFS & Stucco Systems
-- Masonry Restoration
-- Waterproofing Systems
+### What Won't Change
+- Slugs remain the same (no broken links)
+- Page content remains the same
+- SEO meta tags already optimized
+- Navigation structure unchanged
 
-**Interior Construction (6)** *(currently hidden)*
-- Basement Finishing (Archived)
-- Carpentry & Trim Work (Archived)
-- Drywall & Finishing (Archived)
-- General Repairs & Maintenance (Archived)
-- Kitchen & Bathroom Renovations (Archived)
-- Suite Renovations (Archived)
+## Duplicate Service Concern
+I noticed potential overlap between:
+- "Interior Buildouts & Finishing" (published)
+- "Interior Finishing & Renovations" (published)
 
-**Residential Services (4)**
-- Architectural Coatings
-- Interior Buildouts & Finishing
-- Interior Finishing & Renovations
-- Tile & Flooring
+Both seem to cover similar scopes. Consider consolidating into one comprehensive service or differentiating clearly:
+- **Option A**: Merge into "Interior Construction" (comprehensive)
+- **Option B**: Split clearly - "Commercial Tenant Improvements" + "Residential Renovations"
 
-**Restoration Services (3)**
-- Façade Remediation
-- Parking Garage Restoration
-- Sealant Replacement Programs
+## Technical Implementation
 
-**Specialized Services (2)** *(currently hidden)*
-- Protective & Architectural Coatings (Archived)
-- Sustainable Building (Draft)
+1. **Update service names via SQL migration**
+   - Change `name` field for 5 services
+   - Optionally update `category` field for consistency
 
-## Technical Notes
-- This change only affects the admin project editor
-- The public-facing service navigation (`DynamicServicesMegaMenu.tsx`) will still only show published services
-- Existing project-service relationships will be preserved
+2. **Verify navigation renders correctly**
+   - `DynamicServicesMegaMenu.tsx` pulls names from database
+   - No code changes needed
+
+3. **Update SEO keywords table**
+   - Align target pages with new service names
+
+## Files Affected
+- **Database only** - No code file changes required
+- Navigation automatically reflects database names
+- Service pages use `ServicePageLayout` with hardcoded titles (already SEO-optimized)
+
+## Questions Before Proceeding
+
+1. **Painting Services**: Confirm you want "Architectural Coatings" renamed to "Painting Services"?
+
+2. **Duplicate Services**: How should I handle "Interior Buildouts & Finishing" vs "Interior Finishing & Renovations"?
+   - Merge into one service?
+   - Keep both with clearer differentiation?
+   - Archive one?
+
+3. **Category Simplification**: Should I also update categories for cleaner organization?
 
