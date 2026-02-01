@@ -20,38 +20,42 @@ import {
 } from "lucide-react";
 
 const SERVICE_ICON_MAP: Record<string, LucideIcon> = {
-  // Building Envelope & Exterior
+  // Building Envelope
   'building envelope solutions': Building2,
   'building envelope': Building2,
   'cladding systems': Warehouse,
   'waterproofing systems': Droplet,
   'waterproofing': Droplet,
-  'eifs & stucco systems': Building,
+  'stucco & eifs repair': Building,
   'masonry restoration': Wrench,
   
-  // Protective & Coatings
-  'protective & architectural coatings': Shield,
-  'protective coatings': Shield,
-  'protective architectural coatings': Shield,
-  
   // Interior Construction
+  'commercial tenant improvements': Layers,
+  'residential renovations': Home,
+  'painting services': Paintbrush,
+  'tile & flooring': Grid3x3,
+  
+  // Restoration & Repair
+  'caulking & sealant services': Shield,
+  'parking garage restoration': Warehouse,
+  'façade remediation': Building2,
+  
+  // Legacy mappings (for backwards compatibility)
+  'eifs & stucco systems': Building,
   'interior buildouts & finishing': Layers,
-  'interior buildouts': Layers,
+  'interior finishing & renovations': Home,
+  'sealant replacement programs': Shield,
+  'architectural coatings': Paintbrush,
+  'protective & architectural coatings': Shield,
+  
+  // Archived services
   'basement finishing': Home,
   'suite renovations': Building,
   'drywall & finishing': PanelTop,
   'carpentry & trim work': Hammer,
-  
-  // Specialty Finishing
-  'painting services': Paintbrush,
-  'tile & flooring': Grid3x3,
-  'tile flooring': Grid3x3,
   'kitchen & bathroom renovations': Bath,
-  
-  // General Services
   'general repairs & maintenance': Settings,
   'sustainable building': Leaf,
-  'sustainable construction': Leaf,
 };
 
 export const getIconForService = (serviceName: string): LucideIcon => {
