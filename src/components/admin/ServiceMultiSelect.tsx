@@ -11,6 +11,7 @@ interface Service {
   id: string;
   name: string;
   category: string;
+  publish_state: 'published' | 'draft' | 'archived';
 }
 
 interface ServiceMultiSelectProps {
@@ -35,13 +36,12 @@ export const ServiceMultiSelect: React.FC<ServiceMultiSelectProps> = ({
     setIsLoading(true);
     const { data, error } = await supabase
       .from('services')
-      .select('id, name, category')
-      .eq('publish_state', 'published')
+      .select('id, name, category, publish_state')
       .order('category')
       .order('name');
 
     if (data && !error) {
-      setServices(data);
+      setServices(data as Service[]);
       // Auto-expand all categories by default
       const categories = new Set(data.map(s => s.category).filter(Boolean));
       setExpandedCategories(categories);
@@ -158,14 +158,27 @@ export const ServiceMultiSelect: React.FC<ServiceMultiSelectProps> = ({
                           key={service.id}
                           className={cn(
                             "flex items-center gap-3 p-2 rounded-lg cursor-pointer transition-colors hover:bg-accent",
-                            selectedServiceIds.includes(service.id) && "bg-accent/50"
+                            selectedServiceIds.includes(service.id) && "bg-accent/50",
+                            service.publish_state === 'archived' && "opacity-70"
                           )}
                         >
                           <Checkbox
                             checked={selectedServiceIds.includes(service.id)}
                             onCheckedChange={() => handleToggleService(service.id)}
                           />
-                          <span className="text-sm flex-1">{service.name}</span>
+                          <span className="text-sm flex-1 flex items-center gap-2">
+                            {service.name}
+                            {service.publish_state === 'draft' && (
+                              <Badge variant="outline" className="text-xs px-1.5 py-0">
+                                Draft
+                              </Badge>
+                            )}
+                            {service.publish_state === 'archived' && (
+                              <Badge variant="secondary" className="text-xs px-1.5 py-0 text-muted-foreground">
+                                Archived
+                              </Badge>
+                            )}
+                          </span>
                         </label>
                       ))}
                     </div>
