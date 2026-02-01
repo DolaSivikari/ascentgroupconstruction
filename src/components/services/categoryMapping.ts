@@ -12,14 +12,16 @@ export interface ServiceCategory {
 export const SERVICE_CATEGORIES: ServiceCategory[] = [
   {
     id: "building-envelope",
-    name: "Building Envelope Systems",
+    name: "Building Envelope",
     description: "Comprehensive exterior envelope solutions",
     icon: Building2,
     color: "primary",
     serviceNames: [
       "Building Envelope Solutions",
       "Cladding Systems",
-      "Masonry"
+      "Masonry Restoration",
+      "Stucco & EIFS Repair",
+      "Waterproofing Systems"
     ]
   },
   {
@@ -29,20 +31,22 @@ export const SERVICE_CATEGORIES: ServiceCategory[] = [
     icon: Home,
     color: "terracotta",
     serviceNames: [
-      "Interior Buildouts & Finishing",
+      "Commercial Tenant Improvements",
+      "Residential Renovations",
       "Tile & Flooring",
       "Painting Services"
     ]
   },
   {
-    id: "specialized-services",
-    name: "Specialized Services",
-    description: "Expert specialty solutions",
+    id: "restoration-repair",
+    name: "Restoration & Repair",
+    description: "Expert restoration and repair solutions",
     icon: Sparkles,
     color: "primary",
     serviceNames: [
-      "Protective & Architectural Coatings",
-      "Sustainable Building"
+      "Caulking & Sealant Services",
+      "Parking Garage Restoration",
+      "Façade Remediation"
     ]
   }
 ];
