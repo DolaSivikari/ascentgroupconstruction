@@ -1,109 +1,125 @@
 
 
-# Service Names Review & SEO Alignment Plan
+# Why Your Site Still Doesn't Feel Like PCL or Turner -- Honest Diagnosis
 
-## Problem Summary
-After analyzing your services database, I found several naming issues that hurt discoverability and confuse potential clients:
+## The Core Issue
 
-| Current Name | Problem | Client Search Terms |
-|-------------|---------|---------------------|
-| **Architectural Coatings** | Technical jargon; clients search for "painting" | "painting contractor", "commercial painting" |
-| **Interior Buildouts & Finishing** | Vague; could mean many things | "tenant improvements", "commercial renovations" |
-| **Interior Finishing & Renovations** | Overlaps with above; redundant | Same as above |
-| **Sealant Replacement Programs** | Program vs. Service confusion | "caulking replacement", "joint sealant repair" |
-| **EIFS & Stucco Systems** | Technical acronym; homeowners don't know "EIFS" | "stucco repair", "synthetic stucco" |
-| **Façade Remediation** | Technical term | "building facade repair", "exterior restoration" |
+The previous professionalization audit addressed the *right problems* (removing splash screens, reducing trust badges, simplifying animations), but it was mostly **surface-level cleanup**. The deeper issues that separate your site from enterprise construction firms remain untouched. Here's what's still off:
 
-## Recommended Name Changes
+---
 
-### High Priority (Immediate Impact)
+## Problem 1: Stock Video + Same Video on Every Slide
 
-| Current Name | Recommended Name | Reason |
-|-------------|------------------|--------|
-| Architectural Coatings | **Painting Services** | Matches slug, SEO keywords, and client searches |
-| Interior Buildouts & Finishing | **Tenant Improvements** | Industry-standard term for commercial interior work |
-| Sealant Replacement Programs | **Caulking & Sealant Services** | Clearer action-oriented name |
+**What PCL does:** Each hero slide shows a *real completed project* -- a restaurant they built, a hospital, a stadium. The imagery tells a story about their *actual work*.
 
-### Medium Priority (Consider Updating)
+**What your site does:** All 3 hero slides use the exact same stock construction video (`hero-clipchamp.mp4`). The video shows a generic building under construction with cranes -- it could be any company's site. When a visitor clicks through the slides, the background never changes. This is the single biggest "template" signal.
 
-| Current Name | Recommended Name | Reason |
-|-------------|------------------|--------|
-| EIFS & Stucco Systems | **Stucco & EIFS Repair** | Lead with common term, include technical for pros |
-| Façade Remediation | **Exterior Facade Repair** | More accessible while keeping technical accuracy |
+**Fix:** Replace with 2-3 short clips or high-quality photos of *your actual projects*. Even phone-shot drone footage of a real job site is more credible than polished stock video.
 
-### Keep As-Is (Good Names)
-- Building Envelope Solutions ✓
-- Cladding Systems ✓
-- Masonry Restoration ✓
-- Waterproofing Systems ✓
-- Tile & Flooring ✓
-- Parking Garage Restoration ✓
+---
 
-## Implementation Details
+## Problem 2: Hero Content is Center-Aligned and Generic
 
-### Database Updates Required
-I'll update the `services` table to change:
+**What PCL does:** Text is left-aligned, uses a *project-specific* headline ("Crafting a World-Class Dining Experience"), and has a minimal "READ THE STORY" link. Clean, editorial, confident.
 
-```text
-1. "Architectural Coatings" → "Painting Services"
-2. "Interior Buildouts & Finishing" → "Tenant Improvements"  
-3. "Interior Finishing & Renovations" → "Interior Renovations" (simplified)
-4. "Sealant Replacement Programs" → "Caulking & Sealant Services"
-5. "EIFS & Stucco Systems" → "Stucco & EIFS Repair"
-```
+**What your site does:** Center-aligned headline ("Building Excellence Across Ontario"), a pill badge, two CTA buttons, stat numbers, slide dots, a play/pause button, and a scroll indicator -- all competing for attention on one screen. This is visual clutter.
 
-### Category Cleanup
-Current categories are inconsistent. I recommend simplifying to:
+**Fix:**
+- Left-align hero content
+- Remove the "Building Envelope & Restoration Specialists" pill badge (redundant with the headline)
+- Remove the scroll indicator (unnecessary)
+- Reduce to 1 CTA button (the primary one)
+- Remove stat numbers from hero (move them to a dedicated section)
 
-| Current Categories | Proposed Categories |
-|-------------------|---------------------|
-| Commercial Envelope | **Building Envelope** |
-| Residential Services | **Interior Construction** |
-| Restoration Services | **Restoration & Repair** |
-| Interior Construction (archived) | Merge into Interior Construction |
-| Specialized Services | Merge into appropriate category |
+---
+
+## Problem 3: The Services Section Has Search/Filter UI on the Homepage
+
+Enterprise sites show 4-6 curated service cards on the homepage. Your homepage shows a full search bar, filter pills, a "12 of 14 services" counter bar, and a results grid. This is an *application interface*, not a marketing page.
+
+**Fix:** On the homepage, show a curated grid of 6 featured services (no search, no filters, no counter). Save the full explorer for `/services`.
+
+---
+
+## Problem 4: Too Many Sections Competing
+
+Your homepage has 5 sections: Hero, Trust Badges, Who We Serve (4 cards), Services Explorer (full search UI), and Vendor Package (complex form + 6 items + 4 related links). Each section tries to do too much.
+
+**PCL's homepage:** Hero (project story) then a clean grid of 3-4 content blocks, then a simple CTA. That's it.
+
+**Fix:** 
+- Remove Trust Badge Bar as a standalone section (integrate those 3 data points into the hero or footer)
+- Simplify Vendor Package to a 2-line CTA band ("Need our vendor packet? Request it here.")
+- Remove "Related Resources" grid from the CTA section (it's redundant with navigation)
+
+---
+
+## Problem 5: Card Styling is Too Rounded and "App-Like"
+
+Your cards use `border-radius: 16px` (--radius-lg), gradient overlays on hover, backdrop-blur effects, and translateY lift animations. Enterprise construction sites use flat cards with minimal or no border-radius (4-8px max), no blur effects, and minimal hover states.
+
+**Fix:**
+- Reduce card border-radius to 8px
+- Remove backdrop-blur from cards
+- Remove gradient hover overlays from service cards
+- Reduce hover lift from -translate-y-1 to -translate-y-0.5 or remove it
+
+---
+
+## Problem 6: Orange Accent is Overused
+
+Orange icons, orange bullets, orange borders, orange gradients, orange hover states, orange buttons -- it's everywhere. Enterprise sites use their accent color sparingly (PCL uses green only for their logo and occasional small accents).
+
+**Fix:** Use orange only for primary CTAs and the logo. All other icons and accents should use the navy/charcoal palette.
+
+---
+
+## Implementation Plan
+
+### Phase 1: Hero Overhaul
+- Left-align hero content
+- Remove the pill badge, scroll indicator, and stat numbers
+- Keep only 1 CTA button (primary)
+- Add a "View Our Work" text link as secondary action
+- Keep the slide system but note that real project imagery is needed (manual upload by you)
+
+### Phase 2: Homepage Simplification
+- Replace `ServicesExplorer` on homepage with a simple `FeaturedServicesGrid` (6 cards, no search/filters)
+- Remove TrustBadgeBar as a standalone section; move data points into footer or a subtle line in the hero
+- Simplify PrequalPackage to a clean CTA band (title + description + 1 button)
+
+### Phase 3: Visual Refinement
+- Reduce --radius-lg from 16px to 8px
+- Remove backdrop-blur from service cards
+- Remove gradient hover overlays
+- Tone down orange usage: icons in Who We Serve cards change to navy, bullet points change to charcoal
+- Reduce hover lift animations
+
+### Phase 4: Typography and Spacing Polish
+- Ensure section headers are left-aligned (not centered) to match enterprise editorial style
+- Reduce the "SectionBadge" pill components (enterprise sites don't use colored pills above every heading)
+
+---
+
+## Technical Details
+
+### Files to Modify
+1. **`src/components/homepage/EnhancedHero.tsx`** -- Left-align, remove clutter, simplify CTAs
+2. **`src/pages/Index.tsx`** -- Remove `TrustBadgeBar`, replace `ServicesExplorer` with simpler grid, simplify `PrequalPackage`
+3. **`src/components/homepage/PrequalPackage.tsx`** -- Reduce to minimal CTA band
+4. **`src/styles/tokens.css`** -- Reduce `--radius-lg` from 16px to 8px, `--radius-xl` from 20px to 12px
+5. **`src/components/services/TieredServicesGrid.tsx`** -- Remove backdrop-blur, gradient overlay, reduce hover effects
+6. **`src/components/homepage/WhoWeServeHomepage.tsx`** -- Left-align header, change icon colors from orange to navy
+7. **`src/components/unified/ClientSegmentCard.tsx`** -- Change icon background from orange to navy tones
+8. **`src/components/homepage/TrustBadgeBar.tsx`** -- May be removed or integrated elsewhere
+
+### What You Need to Provide
+- 2-3 real project photos or short video clips (even phone quality is fine)
+- These replace the stock video and immediately elevate credibility
 
 ### What Won't Change
-- Slugs remain the same (no broken links)
-- Page content remains the same
-- SEO meta tags already optimized
-- Navigation structure unchanged
-
-## Duplicate Service Concern
-I noticed potential overlap between:
-- "Interior Buildouts & Finishing" (published)
-- "Interior Finishing & Renovations" (published)
-
-Both seem to cover similar scopes. Consider consolidating into one comprehensive service or differentiating clearly:
-- **Option A**: Merge into "Interior Construction" (comprehensive)
-- **Option B**: Split clearly - "Commercial Tenant Improvements" + "Residential Renovations"
-
-## Technical Implementation
-
-1. **Update service names via SQL migration**
-   - Change `name` field for 5 services
-   - Optionally update `category` field for consistency
-
-2. **Verify navigation renders correctly**
-   - `DynamicServicesMegaMenu.tsx` pulls names from database
-   - No code changes needed
-
-3. **Update SEO keywords table**
-   - Align target pages with new service names
-
-## Files Affected
-- **Database only** - No code file changes required
-- Navigation automatically reflects database names
-- Service pages use `ServicePageLayout` with hardcoded titles (already SEO-optimized)
-
-## Questions Before Proceeding
-
-1. **Painting Services**: Confirm you want "Architectural Coatings" renamed to "Painting Services"?
-
-2. **Duplicate Services**: How should I handle "Interior Buildouts & Finishing" vs "Interior Finishing & Renovations"?
-   - Merge into one service?
-   - Keep both with clearer differentiation?
-   - Archive one?
-
-3. **Category Simplification**: Should I also update categories for cleaner organization?
+- Navigation structure (already professional)
+- Footer (already well-structured)
+- Design tokens and color palette (fundamentally sound)
+- All service pages and internal pages
 
