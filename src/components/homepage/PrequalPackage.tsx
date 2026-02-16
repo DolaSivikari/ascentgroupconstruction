@@ -1,5 +1,4 @@
-import { FileText, Download, CheckCircle, ArrowRight, Shield, Award, Users, Building2, Clock } from "lucide-react";
-import { Card } from "@/design-system/components/Card";
+import { FileText, Download, ArrowRight } from "lucide-react";
 import { Button } from "@/ui/Button";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
@@ -10,17 +9,6 @@ import { useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import { Link } from "react-router-dom";
-import { SectionBadge } from "@/components/ui/SectionBadge";
-import { Section } from "@/components/sections/Section";
-
-const packageItems = [
-  { icon: Shield, label: "Insurance & Licensing", desc: "WSIB registration in progress, business liability coverage" },
-  { icon: Users, label: "Crew & Trade Capabilities", desc: "10-person self-performed crew for envelope trades" },
-  { icon: Building2, label: "Project Examples", desc: "Completed envelope & restoration work in GTA" },
-  { icon: CheckCircle, label: "Work Documentation", desc: "Photo logs, submittal tracking, punch-list closeout" },
-  { icon: FileText, label: "Scope-Specific Qualifications", desc: "Trade certifications and manufacturer training as applicable" },
-  { icon: Clock, label: "Response Standards", desc: "48-72 hour site walks, clear communication protocols" },
-];
 
 const PrequalPackage = () => {
   const [open, setOpen] = useState(false);
@@ -63,43 +51,24 @@ const PrequalPackage = () => {
   };
 
   return (
-    <Section size="major" className="bg-gradient-to-b from-background via-muted/20 to-background">
-      <div className="max-w-3xl mb-12">
-        <SectionBadge icon={FileText} text="Vendor Package" />
-        <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-6 leading-tight">Vendor Information Package</h2>
-        <p className="text-xl md:text-2xl text-muted-foreground leading-relaxed">Request our comprehensive vendor information package for qualification and RFP processes.</p>
-      </div>
-      <Card variant="elevated" size="lg" className="border-2 border-construction-orange/20 overflow-hidden bg-gradient-to-br from-background to-muted/30">
-        <div className="grid lg:grid-cols-2 gap-0">
-          <div className="p-8 space-y-4">
-            <h3 className="text-2xl md:text-3xl font-bold text-foreground mb-6">Package Contents</h3>
-            <div className="space-y-3">
-              {packageItems.map((item, index) => {
-                const Icon = item.icon;
-                return (
-                  <div key={index} className="flex gap-3 p-4 rounded-lg bg-muted/30 border border-border/50 hover:bg-muted/50 transition-colors">
-                    <Icon className="w-5 h-5 text-construction-orange flex-shrink-0 mt-1" />
-                    <div>
-                      <div className="font-semibold text-foreground text-base mb-1">{item.label}</div>
-                      <div className="text-sm text-muted-foreground leading-relaxed">{item.desc}</div>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
+    <section className="py-16 md:py-20 border-t border-border/30">
+      <div className="container mx-auto px-6 md:px-8 max-w-5xl">
+        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+          <div className="max-w-xl">
+            <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-2">
+              Vendor Information Package
+            </h2>
+            <p className="text-muted-foreground leading-relaxed">
+              Request our comprehensive vendor packet for qualification and RFP processes.
+            </p>
           </div>
-          <div className="p-8 flex flex-col justify-center items-center text-center space-y-6 lg:border-l lg:border-border/30">
-            <div className="w-20 h-20 rounded-[var(--radius-lg)] bg-construction-orange/10 flex items-center justify-center mb-2 hover:bg-construction-orange/20 transition-colors duration-300">
-              <FileText className="w-10 h-10 text-construction-orange" />
-            </div>
-            <div>
-              <h3 className="text-2xl md:text-3xl font-bold text-foreground mb-3">Request Vendor Packet</h3>
-              <p className="text-base md:text-lg text-muted-foreground mb-6 leading-relaxed">Get comprehensive company information for your qualification process.</p>
-            </div>
+          
+          <div className="flex items-center gap-4 flex-shrink-0">
             <Dialog open={open} onOpenChange={setOpen}>
               <DialogTrigger asChild>
-                <Button size="lg" className="w-full sm:w-auto bg-construction-orange hover:bg-construction-orange/90 shadow-[var(--shadow-lg)] hover:shadow-[var(--shadow-lg)] transition-all duration-200 ease-out">
-                  <Download className="w-4 h-4 mr-2" />Request Vendor Packet
+                <Button size="lg" variant="primary">
+                  <Download className="w-4 h-4 mr-2" />
+                  Request Packet
                 </Button>
               </DialogTrigger>
               <DialogContent className="max-w-md">
@@ -116,26 +85,21 @@ const PrequalPackage = () => {
                   <div><Label htmlFor="projectValueRange">Estimated Project Value</Label><Select value={formData.projectValueRange} onValueChange={(value) => setFormData({ ...formData, projectValueRange: value })}><SelectTrigger><SelectValue placeholder="Select value range" /></SelectTrigger><SelectContent><SelectItem value="under-50k">Under $50,000</SelectItem><SelectItem value="50k-100k">$50,000 - $100,000</SelectItem><SelectItem value="100k-250k">$100,000 - $250,000</SelectItem><SelectItem value="250k-500k">$250,000 - $500,000</SelectItem><SelectItem value="over-500k">Over $500,000</SelectItem></SelectContent></Select></div>
                   <div><Label htmlFor="message">Additional Information</Label><Textarea id="message" rows={3} value={formData.message} onChange={(e) => setFormData({ ...formData, message: e.target.value })} placeholder="Any specific requirements or questions?" /></div>
                   <input type="text" name="honeypot" value={formData.honeypot} onChange={(e) => setFormData({ ...formData, honeypot: e.target.value })} className="hidden" tabIndex={-1} autoComplete="off" />
-                  <Button type="submit" disabled={loading} className="w-full bg-construction-orange hover:bg-construction-orange/90">{loading ? "Submitting..." : "Submit Request"}</Button>
+                  <Button type="submit" disabled={loading} className="w-full" variant="primary">{loading ? "Submitting..." : "Submit Request"}</Button>
                 </form>
               </DialogContent>
             </Dialog>
-            <Button size="lg" variant="outline" asChild className="w-full sm:w-auto border-construction-orange/30 hover:border-construction-orange/50 transition-all duration-200 ease-out">
-              <Link to="/prequalification">View Detailed Information<ArrowRight className="ml-2 w-4 h-4" /></Link>
+            
+            <Button asChild variant="outline" size="lg">
+              <Link to="/prequalification">
+                Learn More
+                <ArrowRight className="ml-2 w-4 h-4" />
+              </Link>
             </Button>
           </div>
         </div>
-      </Card>
-      <div className="mt-12 pt-12 border-t border-border/30">
-        <h3 className="text-xl md:text-2xl font-bold text-foreground mb-6 text-center">Related Resources</h3>
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-          {[{ icon: Building2, label: "View Projects", href: "/projects" }, { icon: Shield, label: "Capabilities", href: "/capabilities" }, { icon: FileText, label: "Start Your Project", href: "/contact" }, { icon: Award, label: "About Us", href: "/about" }].map((link, index) => {
-            const Icon = link.icon;
-            return (<Button key={index} asChild variant="outline" className="h-auto py-4 flex flex-col items-center gap-2 border-construction-orange/30 hover:border-construction-orange/50 hover:bg-construction-orange/5 transition-all duration-200 ease-out" style={{ animationDelay: `${index * 50}ms` }}><Link to={link.href}><Icon className="w-5 h-5 text-construction-orange" /><span className="text-sm font-medium">{link.label}</span></Link></Button>);
-          })}
-        </div>
       </div>
-    </Section>
+    </section>
   );
 };
 

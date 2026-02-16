@@ -1,5 +1,4 @@
 import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 import { getIconForService } from "@/utils/serviceIcons";
@@ -31,21 +30,18 @@ export const TieredServicesGrid = ({ services }: TieredServicesGridProps) => {
         return (
           <Card 
             key={service.id} 
-            className="group relative overflow-hidden hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border-border/50 hover:border-primary/20 bg-card/80 backdrop-blur-sm"
+            className="group relative overflow-hidden border-border/50 hover:border-primary/20 bg-card transition-colors duration-200"
           >
-            {/* Gradient overlay on hover */}
-            <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-secondary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-            
             <CardContent className="relative p-6">
-              {/* Icon with enhanced styling */}
+              {/* Icon */}
               <div className="mb-4">
-                <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-primary/20 to-primary/10 flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-sm">
-                  <IconComponent className="w-7 h-7 text-primary" />
+                <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center">
+                  <IconComponent className="w-6 h-6 text-primary" />
                 </div>
               </div>
 
               {/* Service Name */}
-              <h3 className="text-xl font-bold text-foreground mb-3 group-hover:text-primary transition-colors leading-tight">
+              <h3 className="text-lg font-bold text-foreground mb-3 group-hover:text-primary transition-colors leading-tight">
                 {service.name}
               </h3>
 
@@ -59,14 +55,13 @@ export const TieredServicesGrid = ({ services }: TieredServicesGridProps) => {
               {/* Timeline Badge */}
               {service.typical_timeline && (
                 <div className="mb-4">
-                  <span className="inline-flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-full bg-secondary/20 text-foreground/80 font-medium border border-border/50">
-                    <span className="w-1.5 h-1.5 rounded-full bg-primary" />
+                  <span className="inline-flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-md bg-muted/50 text-muted-foreground font-medium border border-border/30">
                     {service.typical_timeline}
                   </span>
                 </div>
               )}
 
-              {/* CTA with enhanced styling */}
+              {/* CTA */}
               <Link 
                 to={`/services/${service.slug}`} 
                 className="inline-flex items-center gap-2 text-sm font-medium text-primary hover:text-primary/80 transition-colors group/link mt-2"
