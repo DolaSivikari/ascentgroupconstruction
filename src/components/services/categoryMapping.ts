@@ -34,7 +34,7 @@ export const SERVICE_CATEGORIES: ServiceCategory[] = [
       "Commercial Tenant Improvements",
       "Residential Renovations",
       "Tile & Flooring",
-      "Painting Services"
+      "Architectural Coatings"
     ]
   },
   {

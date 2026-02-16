@@ -32,7 +32,7 @@ const SERVICE_ICON_MAP: Record<string, LucideIcon> = {
   // Interior Construction
   'commercial tenant improvements': Layers,
   'residential renovations': Home,
-  'painting services': Paintbrush,
+  'architectural coatings': Paintbrush,
   'tile & flooring': Grid3x3,
   
   // Restoration & Repair
@@ -45,7 +45,6 @@ const SERVICE_ICON_MAP: Record<string, LucideIcon> = {
   'interior buildouts & finishing': Layers,
   'interior finishing & renovations': Home,
   'sealant replacement programs': Shield,
-  'architectural coatings': Paintbrush,
   'protective & architectural coatings': Shield,
   
   // Archived services
