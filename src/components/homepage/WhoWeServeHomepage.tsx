@@ -1,5 +1,6 @@
 import { Building2, Users, Home, Briefcase } from "lucide-react";
 import { Section } from "@/components/sections/Section";
+import { SectionBadge } from "@/components/ui/SectionBadge";
 import { ClientSegmentCard } from "@/components/unified";
 import { GRID } from "@/design-system/layouts";
 
@@ -55,26 +56,27 @@ const WhoWeServeHomepage = () => {
     <Section size="major" className="bg-background">
       <div className="relative z-10">
         <div className="max-w-4xl mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4 leading-tight tracking-tight">
-            Who We Serve
-          </h2>
-          <p className="text-lg text-muted-foreground leading-relaxed">
-            From general contractors seeking reliable trade partners to property managers protecting their portfolios—we deliver specialized envelope and restoration solutions across Ontario.
-          </p>
-        </div>
+        <SectionBadge icon={Users} text="Who We Serve" />
+        <h2 className="text-3xl md:text-5xl font-bold text-foreground mb-6 leading-tight tracking-tight">
+          Trusted Envelope & Restoration Partner
+        </h2>
+        <p className="text-xl md:text-2xl text-muted-foreground leading-relaxed">
+          From general contractors seeking reliable trade partners to property managers protecting their portfolios—we deliver specialized envelope and restoration solutions across Ontario and the GTA.
+        </p>
+      </div>
 
-        <div className={GRID.cards4}>
-          {clientSegments.map((segment, index) => (
-            <ClientSegmentCard
-              key={index}
-              icon={segment.icon}
-              title={segment.title}
-              description={segment.description}
-              link={segment.link}
-              examples={segment.examples}
-            />
-          ))}
-        </div>
+      <div className={GRID.cards4}>
+        {clientSegments.map((segment, index) => (
+          <ClientSegmentCard
+            key={index}
+            icon={segment.icon}
+            title={segment.title}
+            description={segment.description}
+            link={segment.link}
+            examples={segment.examples}
+          />
+        ))}
+      </div>
       </div>
     </Section>
   );
