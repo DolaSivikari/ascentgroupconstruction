@@ -172,7 +172,7 @@ export const specialtyContractorComparison = {
         "10-person core crew self-performing envelope and interior trades",
         "15+ years combined team experience on major GTA projects",
         "$2-5M annual project capacity across multiple concurrent projects",
-        "WSIB compliant with $5M liability coverage",
+        "WSIB compliant with $2M CGL liability coverage",
         "Strong relationships with trade partners for complementary work",
         "Direct-to-owner and subcontractor-to-GC project delivery"
       ]

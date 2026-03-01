@@ -91,9 +91,8 @@ export const migrateAboutPageSettings = async () => {
           { type: "General Contractor License", number: "GC-123456", issuer: "Province of Ontario" }
         ],
         insurance: {
-          liability: "$5,000,000 General Liability",
+          liability: "$2,000,000 General Liability",
           workers_comp: "Full WSIB Coverage",
-          bonding: "Available up to $10,000,000"
         },
         memberships: [
           "Ontario General Contractors Association",
