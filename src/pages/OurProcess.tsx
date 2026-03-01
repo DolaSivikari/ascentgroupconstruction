@@ -84,8 +84,7 @@ const processSteps = [
       "Walkthrough of maintenance recommendations",
       "Provision of warranty documentation and care instructions"
     ],
-    deliverables: ["Final Walkthrough", "Warranty Certificate", "Care Guide"],
-    image: "/src/assets/project-industrial.jpg"
+    deliverables: ["Final Walkthrough", "Warranty Certificate", "Care Guide"]
   }
 ];
 
