@@ -72,7 +72,7 @@ export const migrateAboutPageSettings = async () => {
         safety_commitment: "Safety is not just a priority—it's a core value that guides everything we do. We maintain rigorous safety protocols and invest in continuous training to ensure every team member returns home safely.",
         safety_stats: [
           { label: "Safety Training Hours", value: "10,000+" },
-          { label: "OSHA Compliance", value: "100%" },
+          { label: "Ontario OHSA Compliance", value: "100%" },
           { label: "Safety Record", value: "Excellent" }
         ],
         safety_programs: [

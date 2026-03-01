@@ -12,7 +12,7 @@ const fallbackDifferentiators = [
   { icon: "Building", title: "Comprehensive Services", desc: "Complete construction solutions from envelope restoration to specialty trades. Single point of contact eliminates coordination complexity and streamlines project delivery.", stats: "21+ Service Offerings" },
   { icon: "Award", title: "Premium Materials", desc: "Authorized contractor for industry-leading brands with extended manufacturer warranties. Premium materials and proven installation methods ensure lasting quality and performance.", stats: "Extended Warranties" },
   { icon: "Calendar", title: "On-Time Delivery", desc: "Dedicated project management with transparent pricing and detailed estimates. Our systematic approach maintains a 95% on-time completion rate across all projects.", stats: "WSIB Compliant" },
-  { icon: "HardHat", title: "Expert Team", desc: "OSHA certified crews with continuous training and comprehensive safety protocols backed by full liability coverage on every project.", stats: "Ontario Safety Standards" },
+  { icon: "HardHat", title: "Expert Team", desc: "Certified safety-trained crews with continuous training and comprehensive safety protocols backed by full liability coverage on every project.", stats: "Ontario Safety Standards" },
   { icon: "Hammer", title: "Quality Standards", desc: "Rigorous quality control processes and industry-leading best practices ensure exceptional results. Every project meets or exceeds regulatory requirements and client expectations.", stats: "" },
 ];
 
