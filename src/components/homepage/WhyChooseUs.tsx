@@ -8,12 +8,12 @@ import { LAYOUT } from "@/design-system/constants";
 
 // Fallback data with construction-specific icons
 const fallbackDifferentiators = [
-  { icon: "Shield", title: "Licensed & Certified", desc: "Fully licensed and insured with $2M CGL liability coverage, active WSIB registration, and working toward COR certification. Professional execution backed by comprehensive insurance and safety protocols.", stats: "Established 2025" },
+  { icon: "Shield", title: "Licensed & Certified", desc: "Fully licensed and insured with $2M CGL liability coverage, active WSIB registration, and working toward COR certification. Professional execution backed by comprehensive insurance and safety protocols.", stats: "$2M CGL Insured" },
   { icon: "Building", title: "Comprehensive Services", desc: "Complete construction solutions from envelope restoration to specialty trades. Single point of contact eliminates coordination complexity and streamlines project delivery.", stats: "21+ Service Offerings" },
   { icon: "Award", title: "Premium Materials", desc: "Authorized contractor for industry-leading brands with extended manufacturer warranties. Premium materials and proven installation methods ensure lasting quality and performance.", stats: "Extended Warranties" },
-  { icon: "Calendar", title: "On-Time Delivery", desc: "Dedicated project management with transparent pricing and detailed estimates. Our systematic approach maintains a 95% on-time completion rate across all projects.", stats: "95% On-Time Rate" },
-  { icon: "HardHat", title: "Expert Team", desc: "OSHA certified crews with continuous training and comprehensive safety protocols. Zero-incident safety record backed by full liability coverage on every project.", stats: "OSHA Certified" },
-  { icon: "Hammer", title: "Quality Standards", desc: "Rigorous quality control processes and industry-leading best practices ensure exceptional results. Every project meets or exceeds regulatory requirements and client expectations.", stats: "ISO-Compliant Processes" },
+  { icon: "Calendar", title: "On-Time Delivery", desc: "Dedicated project management with transparent pricing and detailed estimates. Our systematic approach maintains a 95% on-time completion rate across all projects.", stats: "WSIB Compliant" },
+  { icon: "HardHat", title: "Expert Team", desc: "Certified safety-trained crews with continuous training and comprehensive safety protocols backed by full liability coverage on every project.", stats: "Ontario Safety Standards" },
+  { icon: "Hammer", title: "Quality Standards", desc: "Rigorous quality control processes and industry-leading best practices ensure exceptional results. Every project meets or exceeds regulatory requirements and client expectations.", stats: "" },
 ];
 
 const WhyChooseUs = () => {
@@ -37,7 +37,7 @@ const WhyChooseUs = () => {
             Why Property Owners Choose Us
           </h2>
           <p className="text-lg md:text-xl text-muted-foreground leading-relaxed">
-            With over 15 years of proven expertise serving Ontario, we deliver exceptional construction results through licensed professionals, complete services, and unwavering commitment to quality.
+            Our team brings 15+ years of combined experience in building envelope and interior trades across Ontario, delivering exceptional construction results through licensed professionals, complete services, and unwavering commitment to quality.
           </p>
         </div>
 
@@ -96,7 +96,7 @@ const WhyChooseUs = () => {
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Button asChild size="lg" variant="primary" className="min-w-[200px]">
-                  <Link to="/contact">Request Site Assessment</Link>
+                  <Link to="/contact">Request a Proposal</Link>
                 </Button>
                 <Button asChild size="lg" variant="secondary" className="min-w-[200px]">
                   <Link to="/projects">View Portfolio</Link>

@@ -55,7 +55,7 @@ const ClientValueProposition = () => {
         {/* CTAs */}
         <div className="flex flex-col sm:flex-row flex-wrap gap-4">
             <Button asChild size="lg" className="bg-construction-orange hover:bg-construction-orange/90">
-              <Link to="/contact">Request Site Assessment</Link>
+              <Link to="/contact">Request a Proposal</Link>
             </Button>
             <Button asChild size="lg" variant="outline">
               <Link to="/services">View Services</Link>
@@ -105,7 +105,7 @@ const ClientValueProposition = () => {
               "Capital planning & phased rehabilitation",
               "Occupied‑building expertise",
             ]}
-            ctaText="Request Site Assessment"
+            ctaText="Request a Proposal"
           />
         </div>
       </div>

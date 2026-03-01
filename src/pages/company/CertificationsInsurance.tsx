@@ -30,35 +30,11 @@ interface AboutPageSettings {
 const CertificationsInsurance = () => {
   const { data: aboutSettings, loading } = useSettingsData<AboutPageSettings>('about_page_settings');
 
-  // Parse insurance data from database
-  const insuranceCoverage = aboutSettings?.insurance ? [
-    { 
-      label: "Commercial General Liability", 
-      value: aboutSettings.insurance.liability || "$5,000,000", 
-      icon: Shield 
-    },
-    { 
-      label: "WSIB Coverage", 
-      value: aboutSettings.insurance.wsib || "Fully Compliant", 
-      icon: CheckCircle2 
-    },
-    { 
-      label: "Umbrella Policy", 
-      value: "$10,000,000", 
-      icon: Shield 
-    },
-    { 
-      label: "Professional Liability", 
-      value: "$2,000,000", 
-      icon: Building2 
-    },
-  ] : [];
-
-  const bondingCapacity = aboutSettings?.insurance?.bonding ? [
-    { label: "Single Project Bonding", value: "Up to $10M", icon: Award },
-    { label: "Aggregate Bonding", value: "Up to $25M", icon: Award },
-    { label: "Surety Company", value: "A-Rated Provider", icon: CheckCircle2 },
-  ] : [];
+  // Insurance coverage — accurate values only
+  const insuranceCoverage = [
+    { label: "Commercial General Liability", value: "$2,000,000", icon: Shield },
+    { label: "WSIB Coverage", value: "Fully Compliant", icon: CheckCircle2 },
+  ];
 
   // Use licenses from database
   const licenses = aboutSettings?.licenses || [];

@@ -284,7 +284,7 @@ export const ProfessionalFooter = ({
             © {currentYear} Ascent Group Construction. All rights reserved.
           </p>
           <div className="flex flex-wrap items-center gap-4 text-sm">
-            <Link to="/privacy-policy" className="text-muted-foreground hover:text-primary transition-colors">
+            <Link to="/privacy" className="text-muted-foreground hover:text-primary transition-colors">
               Privacy Policy
             </Link>
             <span className="text-muted-foreground/40">•</span>

@@ -244,7 +244,7 @@ export function UnifiedFooter({
                 to="/contact"
                 className="inline-flex items-center justify-center rounded-md px-4 py-3 text-sm font-semibold text-white bg-primary hover:bg-primary/90 transition-colors"
               >
-                Request Site Assessment
+                Request a Proposal
               </Link>
               <Link
                 to="/services"
@@ -298,7 +298,7 @@ export function UnifiedFooter({
           </div>
           <div className="flex items-center gap-6">
             <Link
-              to="/privacy-policy"
+              to="/privacy"
               className="text-xs md:text-sm text-muted-foreground hover:text-primary transition-colors"
             >
               Privacy Policy

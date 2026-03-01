@@ -44,7 +44,7 @@ export const paintingVariants = [
     quickFacts: {
       projectTypes: ['Office Buildings', 'Retail Spaces', 'Warehouses', 'Medical Facilities', 'Educational Institutions'],
       timeline: '2-6 weeks depending on scope',
-      certifications: ['WSIB Certified', 'OSHA Compliant', 'Commercial Insurance']
+      certifications: ['WSIB Certified', 'Ontario OHSA Compliant', 'Commercial Insurance']
     }
   },
   {

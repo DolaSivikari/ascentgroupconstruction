@@ -63,7 +63,7 @@ export const PremiumServiceHero = () => {
               asChild
               className="w-full sm:w-auto min-w-[220px] text-lg h-14 shadow-[var(--shadow-lg)] hover:shadow-[var(--shadow-lg)] hover:scale-105 transition-all"
             >
-              <Link to="/contact">Request Site Assessment</Link>
+              <Link to="/contact">Request a Proposal</Link>
             </Button>
             <Button 
               size="lg" 

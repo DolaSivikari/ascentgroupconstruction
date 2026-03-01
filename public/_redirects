@@ -22,15 +22,13 @@ http://ascentgroupconstruction.com/*       https://ascentgroupconstruction.com/:
 # Consolidated service redirects
 /services/residential-painting  /services/exterior-envelope         301
 /services/commercial-painting   /services/general-contracting       301
-/services/condo-multi-unit      /markets/multi-family               301
+
 /services/exterior-siding       /services/exterior-cladding#siding  301
 /services/metal-cladding        /services/exterior-cladding#metal-cladding  301
 /services/suite-buildouts       /services/interior-buildouts#buildouts  301
 /services/drywall-finishing     /services/interior-buildouts#drywall    301
 
-# Residential/homeowner pages redirect
-/homeowners                     /markets/multi-family               301
-/residential                    /markets/multi-family               301
+# Old short-URL redirects
 /free-quote                     /contact                            301
 /get-estimate                   /contact                            301
 

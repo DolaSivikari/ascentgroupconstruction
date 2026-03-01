@@ -69,7 +69,7 @@ const Careers = () => {
       location: "Greater Toronto Area",
       type: "Full-time",
       description: "Lead on-site construction operations for commercial and multi-family projects. Coordinate trades, manage schedules, ensure quality and safety compliance.",
-      requirements: ["5+ years construction supervision experience", "Strong leadership and communication skills", "Knowledge of Ontario Building Code and safety regulations", "Experience with commercial or multi-family projects", "OSHA/COR certification preferred"]
+      requirements: ["5+ years construction supervision experience", "Strong leadership and communication skills", "Knowledge of Ontario Building Code and safety regulations", "Experience with commercial or multi-family projects", "COR/Working at Heights certification preferred"]
     },
     {
       title: "Construction Project Coordinator",

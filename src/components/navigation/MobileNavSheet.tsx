@@ -615,7 +615,7 @@ export function MobileNavSheet({ open, onOpenChange }: MobileNavSheetProps) {
           >
             <Link to="/contact" onClick={handleLinkClick} aria-label="Request a site assessment for your project">
               <Phone className="h-5 w-5" aria-hidden="true" />
-              <span>Request Site Assessment</span>
+              <span>Request a Proposal</span>
             </Link>
           </Button>
         </div>

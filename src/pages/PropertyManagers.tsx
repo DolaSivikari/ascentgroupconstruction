@@ -87,7 +87,7 @@ const PropertyManagers = () => {
         description="Façade remediation, parking garage repairs, and unit turnovers for 10-30 story condominiums across the GTA. Fast response, clear documentation, reserve fund study-aligned work."
         image={audienceHeroes["property-managers"]}
         imageAlt="Property management construction services"
-        primaryCta={{ text: "Request Site Assessment", href: "/estimate" }}
+        primaryCta={{ text: "Request a Proposal", href: "/estimate" }}
         breadcrumbs={[
           { label: "Home", href: "/" },
           { label: "Property Managers" }
