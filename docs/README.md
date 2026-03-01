@@ -10,20 +10,25 @@ This folder contains all essential documentation for the Ascent Group Constructi
 - **[DEPLOYMENT.md](./DEPLOYMENT.md)** - Deployment procedures and configuration
 - **[DATABASE_ERD.md](./DATABASE_ERD.md)** - Database schema and entity relationships
 
+### Design & Brand
+- **[DESIGN_SYSTEM.md](./DESIGN_SYSTEM.md)** - Design system, components, and usage patterns
+- **[BRAND_GUIDELINES.md](./BRAND_GUIDELINES.md)** - Brand assets and design system
+
 ### Admin & Business Features
 - **[ADMIN_GUIDE.md](./ADMIN_GUIDE.md)** - Admin panel usage and management
 - **[BUSINESS_MODULE_GUIDE.md](./BUSINESS_MODULE_GUIDE.md)** - Business features and workflows
 - **[COMPANY_SETTINGS.md](./COMPANY_SETTINGS.md)** - Configuration and settings management
+- **[SERVICES_MANAGEMENT.md](./SERVICES_MANAGEMENT.md)** - Service categories and management
 
 ### Quality & Standards
 - **[PERFORMANCE_OPTIMIZATION_2025.md](./PERFORMANCE_OPTIMIZATION_2025.md)** - Performance optimization guide
 - **[RLS_AUDIT_RESULTS.md](./RLS_AUDIT_RESULTS.md)** - Row-level security policies and audit
 - **[RESPONSIVE_TESTING_RESULTS.md](./RESPONSIVE_TESTING_RESULTS.md)** - Mobile and responsive design guide
 - **[ACCESSIBILITY.md](./ACCESSIBILITY.md)** - Accessibility standards and compliance
-- **[BRAND_GUIDELINES.md](./BRAND_GUIDELINES.md)** - Brand assets and design system
+- **[VIDEO_OPTIMIZATION_GUIDE.md](./VIDEO_OPTIMIZATION_GUIDE.md)** - Video optimization best practices
 
-### Implementation Records
-- **[AUDIT_IMPLEMENTATION_COMPLETE.md](./AUDIT_IMPLEMENTATION_COMPLETE.md)** - Comprehensive audit summary and completed phases
+### Historical Reference
+- **[AUDIT_IMPLEMENTATION_COMPLETE.md](./AUDIT_IMPLEMENTATION_COMPLETE.md)** - Comprehensive audit summary
 
 ## 🎯 Quick Start
 
@@ -38,10 +43,7 @@ This folder contains all essential documentation for the Ascent Group Constructi
 - Keep documentation up-to-date with code changes
 - Use clear headings and examples
 - Include code snippets where applicable
-- Link between related documentation files
 
 ## 🔄 Maintenance
 
-This documentation is actively maintained. Last major cleanup: 2025-11-13
-
-For questions or updates, please contact the development team.
+Last major cleanup: 2026-03-01 (removed 20+ outdated phase reports and unused files)
