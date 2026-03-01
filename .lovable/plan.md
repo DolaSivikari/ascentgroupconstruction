@@ -1,109 +1,162 @@
 
 
-# Service Names Review & SEO Alignment Plan
+# Project Cleanup & Documentation Audit Plan
 
-## Problem Summary
-After analyzing your services database, I found several naming issues that hurt discoverability and confuse potential clients:
+## Scope
+Identify and remove unused files, duplicates, and outdated documentation. Ensure remaining docs reflect the current state of the website.
 
-| Current Name | Problem | Client Search Terms |
-|-------------|---------|---------------------|
-| **Architectural Coatings** | Technical jargon; clients search for "painting" | "painting contractor", "commercial painting" |
-| **Interior Buildouts & Finishing** | Vague; could mean many things | "tenant improvements", "commercial renovations" |
-| **Interior Finishing & Renovations** | Overlaps with above; redundant | Same as above |
-| **Sealant Replacement Programs** | Program vs. Service confusion | "caulking replacement", "joint sealant repair" |
-| **EIFS & Stucco Systems** | Technical acronym; homeowners don't know "EIFS" | "stucco repair", "synthetic stucco" |
-| **Façade Remediation** | Technical term | "building facade repair", "exterior restoration" |
+---
 
-## Recommended Name Changes
+## Part 1: Unused Source Files to Delete
 
-### High Priority (Immediate Impact)
+### Unused Components (0 imports found)
+| File | Reason |
+|------|--------|
+| `src/components/SEOChecklist.tsx` | Never imported |
+| `src/components/ServicesPreview.tsx` | Never imported |
+| `src/components/HomepageContent.tsx` | Never imported |
+| `src/components/LoadingProgress.tsx` | Never imported |
+| `src/components/SplashScreen.tsx` | Never imported (references missing asset) |
+| `src/components/ProcessTimeline.tsx` | Never imported (AnimatedProcessTimeline used instead) |
+| `src/components/shared/ConfettiWrapper.tsx` | Never imported |
+| `src/components/shared/TiltCard.tsx` | Never imported |
+| `src/components/shared/VideoTestimonials.tsx` | Duplicate -- `advanced/VideoTestimonials.tsx` also exists; shared version imported by Projects.tsx but advanced version is orphaned |
+| `src/components/advanced/InteractiveProjectMap.tsx` | Never imported by any page |
+| `src/components/advanced/VideoTestimonials.tsx` | Duplicate of shared version, never imported |
+| `src/components/calculators/InsuranceCalculator.tsx` | Never imported |
+| `src/components/calculators/ProjectTimelineEstimator.tsx` | Never imported |
 
-| Current Name | Recommended Name | Reason |
-|-------------|------------------|--------|
-| Architectural Coatings | **Painting Services** | Matches slug, SEO keywords, and client searches |
-| Interior Buildouts & Finishing | **Tenant Improvements** | Industry-standard term for commercial interior work |
-| Sealant Replacement Programs | **Caulking & Sealant Services** | Clearer action-oriented name |
+### Unused Hooks
+| File | Reason |
+|------|--------|
+| `src/hooks/useMousePosition.ts` | Never imported |
+| `src/hooks/useParallax.ts` | Never imported |
+| `src/hooks/useWebGLSupport.ts` | Never imported |
+| `src/hooks/useCountUp.ts` | Never imported (useCountUpOnView is used) |
+| `src/hooks/useVideoPreloader.ts` | Duplicate of `.tsx` version; check which is imported |
 
-### Medium Priority (Consider Updating)
+### Unused Utils
+| File | Reason |
+|------|--------|
+| `src/utils/navigationSync.ts` | Never imported |
 
-| Current Name | Recommended Name | Reason |
-|-------------|------------------|--------|
-| EIFS & Stucco Systems | **Stucco & EIFS Repair** | Lead with common term, include technical for pros |
-| Façade Remediation | **Exterior Facade Repair** | More accessible while keeping technical accuracy |
+### Unused Pages
+| File | Reason |
+|------|--------|
+| `src/pages/ServiceSelector.tsx` | Never imported in App.tsx; `ServiceSelectorPage.tsx` is the actual routed page |
+| `src/pages/services/Waterproofing.tsx` | Never imported or routed |
 
-### Keep As-Is (Good Names)
-- Building Envelope Solutions ✓
-- Cladding Systems ✓
-- Masonry Restoration ✓
-- Waterproofing Systems ✓
-- Tile & Flooring ✓
-- Parking Garage Restoration ✓
+### Unused Admin Page
+| File | Reason |
+|------|--------|
+| `src/pages/admin/DatabaseMigrations.tsx` | Never imported or routed -- one-time migration tool, no longer needed |
 
-## Implementation Details
+### Unused Data Files
+| File | Reason |
+|------|--------|
+| `src/data/priority-services-data.ts` | Never imported |
+| `src/data/.deprecated-notice.md` | Documentation artifact inside src |
 
-### Database Updates Required
-I'll update the `services` table to change:
+### Unused Assets (images in src/assets not referenced)
+| File | Reason |
+|------|--------|
+| `src/assets/case-heritage-building.jpg` | Never imported |
+| `src/assets/project-commercial.jpg` | Never imported |
+| `src/assets/project-industrial.jpg` | Never imported |
+| `src/assets/project-institutional.jpg` | Never imported |
+| `src/assets/team-work.jpg` | Never imported |
 
-```text
-1. "Architectural Coatings" → "Painting Services"
-2. "Interior Buildouts & Finishing" → "Tenant Improvements"  
-3. "Interior Finishing & Renovations" → "Interior Renovations" (simplified)
-4. "Sealant Replacement Programs" → "Caulking & Sealant Services"
-5. "EIFS & Stucco Systems" → "Stucco & EIFS Repair"
-```
+### Duplicate Files
+| Keep | Delete | Reason |
+|------|--------|--------|
+| `src/components/shared/BeforeAfterSlider.tsx` | Neither -- both are used. `components/BeforeAfterSlider.tsx` is used by ProjectDetail, ProjectGallery, BlogPost | Consolidate later |
 
-### Category Cleanup
-Current categories are inconsistent. I recommend simplifying to:
+### Root-Level Stray Files
+| File | Reason |
+|------|--------|
+| `IMAGE_OPTIMIZATION_GUIDE.md` | Should be in docs/ or deleted |
+| `netlify.toml` | Project deploys via Lovable, not Netlify |
+| `lighthouserc.json` | Duplicate of `.lighthouserc.js` |
+| `bun.lock` | Project uses npm (package-lock.json exists) |
 
-| Current Categories | Proposed Categories |
-|-------------------|---------------------|
-| Commercial Envelope | **Building Envelope** |
-| Residential Services | **Interior Construction** |
-| Restoration Services | **Restoration & Repair** |
-| Interior Construction (archived) | Merge into Interior Construction |
-| Specialized Services | Merge into appropriate category |
+### Scripts to Review
+| File | Action |
+|------|--------|
+| `scripts/complete-migration.js` | One-time migration, likely safe to delete |
+| `scripts/cleanup-archived-services.ts` | One-time cleanup, likely safe to delete |
+| `scripts/auto-fix-imports.js` | Utility -- keep or delete based on preference |
+| `scripts/convert-images.js` | Utility -- keep or delete based on preference |
 
-### What Won't Change
-- Slugs remain the same (no broken links)
-- Page content remains the same
-- SEO meta tags already optimized
-- Navigation structure unchanged
+---
 
-## Duplicate Service Concern
-I noticed potential overlap between:
-- "Interior Buildouts & Finishing" (published)
-- "Interior Finishing & Renovations" (published)
+## Part 2: Documentation Audit
 
-Both seem to cover similar scopes. Consider consolidating into one comprehensive service or differentiating clearly:
-- **Option A**: Merge into "Interior Construction" (comprehensive)
-- **Option B**: Split clearly - "Commercial Tenant Improvements" + "Residential Renovations"
+### Delete -- Outdated Phase Reports (historical, no longer actionable)
+These are implementation logs from completed work. They add no ongoing value:
 
-## Technical Implementation
+| File | Content |
+|------|---------|
+| `docs/PHASE_1_COMPLETE.md` | Phase 1 completion log |
+| `docs/PHASE_2_COMPLETE.md` | Phase 2 completion log |
+| `docs/PHASE_3_COMPLETE.md` | Phase 3 completion log |
+| `docs/PHASE_4_COMPLETE.md` | Phase 4 completion log |
+| `docs/PHASE_5_COMPLETE.md` | Phase 5 completion log |
+| `docs/PHASE_6_COMPLETE.md` | Phase 6 completion log |
+| `docs/PHASE_6_SUMMARY.md` | Duplicate of Phase 6 report |
+| `docs/PHASE_6_FINAL_REPORT.md` | Duplicate of Phase 6 report |
+| `docs/IMPLEMENTATION_PROGRESS.md` | Superseded by STATUS |
+| `docs/IMPLEMENTATION_STATUS.md` | Now 100%, no longer needed |
+| `docs/COMPLETE_IMPLEMENTATION_REPORT.md` | Historical |
+| `docs/FULL_IMPLEMENTATION_COMPLETE.md` | Historical |
+| `docs/CONSTRUCTION_BRAND_TRANSFORMATION.md` | Historical branding log |
+| `docs/AGGREGATE_RATING_FIX.md` | One-time fix record |
+| `docs/SEO_IMPLEMENTATION_COMPLETE.md` | Historical |
+| `docs/VIDEO_SCHEMA_IMPLEMENTATION.md` | Historical |
+| `docs/WEEK_1_IMPLEMENTATION_COMPLETE.md` | Historical |
+| `docs/WEEK_1_IMPLEMENTATION_PLAN.md` | Historical |
+| `docs/UNIFIED_COMPONENTS_GUIDE.md` | Merged into DESIGN_SYSTEM.md |
+| `docs/DESIGN_SYSTEM_USAGE_GUIDE.md` | Merged into DESIGN_SYSTEM.md |
+| `.lovable/plan.md` | Stale plan from previous session |
 
-1. **Update service names via SQL migration**
-   - Change `name` field for 5 services
-   - Optionally update `category` field for consistency
+**That is 20 doc files to delete.**
 
-2. **Verify navigation renders correctly**
-   - `DynamicServicesMegaMenu.tsx` pulls names from database
-   - No code changes needed
+### Keep & Update
+| File | Action |
+|------|---------|
+| `docs/README.md` | Update index to reflect remaining docs only |
+| `docs/ARCHITECTURE_OVERVIEW.md` | Review for accuracy |
+| `docs/DEVELOPER_ONBOARDING.md` | Review for accuracy |
+| `docs/DEPLOYMENT.md` | Keep |
+| `docs/DATABASE_ERD.md` | Keep |
+| `docs/ADMIN_GUIDE.md` | Keep |
+| `docs/BUSINESS_MODULE_GUIDE.md` | Keep |
+| `docs/COMPANY_SETTINGS.md` | Keep |
+| `docs/DESIGN_SYSTEM.md` | Keep (consolidate usage guide into it) |
+| `docs/BRAND_GUIDELINES.md` | Keep |
+| `docs/PERFORMANCE_OPTIMIZATION_2025.md` | Keep |
+| `docs/RLS_AUDIT_RESULTS.md` | Keep |
+| `docs/RESPONSIVE_TESTING_RESULTS.md` | Keep |
+| `docs/ACCESSIBILITY.md` | Keep |
+| `docs/SERVICES_MANAGEMENT.md` | Keep -- update with new service names |
+| `docs/VIDEO_OPTIMIZATION_GUIDE.md` | Keep |
+| `docs/AUDIT_IMPLEMENTATION_COMPLETE.md` | Keep as historical summary |
+| `README.md` | Update to reflect current service names and cleanup |
 
-3. **Update SEO keywords table**
-   - Align target pages with new service names
+---
 
-## Files Affected
-- **Database only** - No code file changes required
-- Navigation automatically reflects database names
-- Service pages use `ServicePageLayout` with hardcoded titles (already SEO-optimized)
+## Part 3: Implementation Steps
 
-## Questions Before Proceeding
+1. **Delete ~30 unused source files** (components, hooks, utils, pages, assets)
+2. **Delete ~20 outdated doc files** and stale plan
+3. **Delete root-level stray files** (netlify.toml, bun.lock, lighthouserc.json, IMAGE_OPTIMIZATION_GUIDE.md)
+4. **Update `docs/README.md`** to list only remaining docs
+5. **Update `docs/SERVICES_MANAGEMENT.md`** with current service names
+6. **Clear `.lovable/plan.md`** content
+7. **Verify build passes** after deletions
 
-1. **Painting Services**: Confirm you want "Architectural Coatings" renamed to "Painting Services"?
-
-2. **Duplicate Services**: How should I handle "Interior Buildouts & Finishing" vs "Interior Finishing & Renovations"?
-   - Merge into one service?
-   - Keep both with clearer differentiation?
-   - Archive one?
-
-3. **Category Simplification**: Should I also update categories for cleaner organization?
+### Estimated Impact
+- ~50+ files removed
+- ~5 unused image assets removed (~several MB)
+- Documentation reduced from 37 files to ~16 actionable docs
+- Cleaner repository, faster cloning, less confusion
 
