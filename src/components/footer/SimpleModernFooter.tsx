@@ -112,7 +112,7 @@ export function SimpleModernFooter({
         <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-4 text-sm text-muted-foreground">
           <p>© {currentYear} Ascent Group Construction. All rights reserved.</p>
           <div className="flex gap-6">
-            <Link to="/privacy-policy" className="hover:text-primary transition-colors duration-[150ms]">
+            <Link to="/privacy" className="hover:text-primary transition-colors duration-[150ms]">
               Privacy Policy
             </Link>
             <Link to="/terms" className="hover:text-primary transition-colors duration-[150ms]">
