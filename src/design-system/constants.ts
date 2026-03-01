@@ -34,7 +34,7 @@ export const TYPOGRAPHY_STYLES = {
 // Unified CTA Text - Professional Language
 export const CTA_TEXT = {
   // Commercial/Professional CTAs
-  primary: 'Request Site Assessment',
+  primary: 'Request a Proposal',
   secondary: 'View Services',
   gc: 'For GCs: Request Unit Pricing',
   project: 'Request Project Quote',

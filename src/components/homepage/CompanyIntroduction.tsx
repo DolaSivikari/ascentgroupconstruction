@@ -184,7 +184,7 @@ export default function CompanyIntroduction() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button asChild size="lg" className="bg-construction-orange hover:bg-construction-orange/90 group">
               <Link to="/contact" className="inline-flex items-center gap-2">
-                Request Site Assessment
+                Request a Proposal
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </Link>
             </Button>

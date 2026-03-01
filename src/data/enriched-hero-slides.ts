@@ -11,7 +11,7 @@ export const enrichedHeroSlides = [
     headline: "Envelope & Restoration Specialists",
     subheadline: "Prime contractor for facade remediation, parking garage restoration & sealant programs across Ontario.",
     primaryCTA: {
-      label: "Request Site Assessment",
+      label: "Request a Proposal",
       href: "/contact",
     },
   },

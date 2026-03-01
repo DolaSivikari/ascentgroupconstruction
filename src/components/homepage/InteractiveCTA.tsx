@@ -288,7 +288,7 @@ const InteractiveCTA = () => {
                   "Sending..."
                 ) : (
                   <>
-                    Request Site Assessment
+                    Request a Proposal
                     <ArrowRight className="ml-2 w-4 h-4" />
                   </>
                 )}

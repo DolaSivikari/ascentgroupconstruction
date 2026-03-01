@@ -51,7 +51,7 @@ export const megaMenuDataEnhanced: MegaMenuDataEnhanced = {
       {
         sectionTitle: "Our Services",
         sectionLink: "/services",
-        cta: { text: "Request Site Assessment", link: "/contact", variant: "primary" },
+        cta: { text: "Request a Proposal", link: "/contact", variant: "primary" },
         categories: [
           {
             title: "Commercial Envelope",

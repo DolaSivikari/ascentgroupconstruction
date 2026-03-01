@@ -111,7 +111,7 @@ const Stats = ({ stats }: StatsProps) => {
   );
 };
 
-const CTAs = ({ primaryText = "Request Site Assessment", primaryHref = "/contact", secondaryText, secondaryHref }: CTAsProps) => {
+const CTAs = ({ primaryText = "Request a Proposal", primaryHref = "/contact", secondaryText, secondaryHref }: CTAsProps) => {
   return (
     <div className="flex flex-wrap items-center gap-4">
       <Button asChild size="lg">

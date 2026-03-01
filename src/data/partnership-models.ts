@@ -71,7 +71,7 @@ export const partnershipModels: PartnershipModel[] = [
       "Consultant/EOR-aligned execution",
       "Documented QA/QC and warranty delivery",
     ],
-    cta: { text: "Request Site Assessment", link: "/contact" },
+    cta: { text: "Request a Proposal", link: "/contact" },
   },
   {
     id: "trade-partner",

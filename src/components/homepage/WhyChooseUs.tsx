@@ -96,7 +96,7 @@ const WhyChooseUs = () => {
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Button asChild size="lg" variant="primary" className="min-w-[200px]">
-                  <Link to="/contact">Request Site Assessment</Link>
+                  <Link to="/contact">Request a Proposal</Link>
                 </Button>
                 <Button asChild size="lg" variant="secondary" className="min-w-[200px]">
                   <Link to="/projects">View Portfolio</Link>

@@ -244,7 +244,7 @@ export function UnifiedFooter({
                 to="/contact"
                 className="inline-flex items-center justify-center rounded-md px-4 py-3 text-sm font-semibold text-white bg-primary hover:bg-primary/90 transition-colors"
               >
-                Request Site Assessment
+                Request a Proposal
               </Link>
               <Link
                 to="/services"

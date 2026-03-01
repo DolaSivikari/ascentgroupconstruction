@@ -70,7 +70,7 @@ export const ServiceSelector = () => {
           "EIFS & Stucco Repair",
           "Concrete & Parking Garage Rehabilitation",
         ],
-        cta: "Request Site Assessment",
+        cta: "Request a Proposal",
         link: "/services/building-envelope",
         icon: Building2,
       };
