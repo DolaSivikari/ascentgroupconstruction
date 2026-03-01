@@ -351,6 +351,7 @@ const App = () => (
                     <Route path="navigation-builder" element={<NavigationBuilder />} />
                   </Route>
                   
+                  <Route path="/404" element={<NotFound />} />
                   {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
                   <Route path="*" element={<NotFound />} />
                 </Routes>

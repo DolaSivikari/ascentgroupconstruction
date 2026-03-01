@@ -47,6 +47,12 @@ export function useSettingsData<T = any>(
         }
       }
       
+      if (!result) {
+        const missingError = new Error(`No active settings found in ${tableName}`);
+        setError(missingError);
+        console.warn(missingError.message);
+      }
+
       setData(result as T);
     } catch (err) {
       setError(err as Error);

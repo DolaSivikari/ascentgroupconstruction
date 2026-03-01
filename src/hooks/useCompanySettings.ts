@@ -89,6 +89,10 @@ export function useCompanySettings(): UseCompanySettingsResult {
             metaTitle: settingsData.meta_title || 'Ascent Group Construction - Professional Painting & Restoration',
             metaDescription: settingsData.meta_description || 'Leading construction and project management services across the GTA',
           });
+        } else {
+          const missingError = new Error('No active site_settings row found; components will use local fallbacks');
+          setError(missingError);
+          console.warn(missingError.message);
         }
       } catch (err) {
         setError(err as Error);

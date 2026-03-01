@@ -1,43 +1,36 @@
 # ============================================================================
-# PHASE 1: CRITICAL SEO FIX - URL Canonicalization
-# Force HTTPS and non-www redirect (prevents duplicate content)
+# Canonicalization
 # ============================================================================
 https://www.ascentgroupconstruction.com/*  https://ascentgroupconstruction.com/:splat  301!
 http://www.ascentgroupconstruction.com/*   https://ascentgroupconstruction.com/:splat  301!
 http://ascentgroupconstruction.com/*       https://ascentgroupconstruction.com/:splat  301!
 
-# 301 redirects for old service URLs to new database slugs
-/services/stucco          /services/exterior-envelope#stucco-eifs         301
-/services/stucco-eifs     /services/exterior-envelope#stucco-eifs         301
-/services/sealants        /services/exterior-envelope#sealants            301
-/services/sealants-caulking /services/exterior-envelope#sealants          301
-/services/building-envelope /services/exterior-envelope                   301
-/services/painting        /services/exterior-envelope                     301
-/services/parking-garage  /services/painting#parking-garage               301
-/services/commercial      /services/general-contracting                   301
-/services/condo           /services/painting#multi-unit                   301
-/services/popcorn-ceiling /services/popcorn-ceiling-removal               301
-/services/masonry         /services/masonry-restoration                   301
+# Legacy service URL redirects to active routes
+/services/stucco                   /services/cladding-systems        301
+/services/stucco-eifs              /services/cladding-systems        301
+/services/sealants                 /services/building-envelope       301
+/services/sealants-caulking        /services/building-envelope       301
+/services/painting                 /services/painting-services       301
+/services/parking-garage           /services/building-envelope       301
+/services/commercial               /services                         301
+/services/condo                    /services/painting-services       301
+/services/masonry                  /services/masonry-restoration     301
+/services/residential-painting     /services/painting-services       301
+/services/commercial-painting      /services                         301
+/services/exterior-siding          /services/cladding-systems        301
+/services/metal-cladding           /services/cladding-systems        301
+/services/suite-buildouts          /services/interior-buildouts      301
+/services/drywall-finishing        /services/interior-buildouts      301
 
-# Consolidated service redirects
-/services/residential-painting  /services/exterior-envelope         301
-/services/commercial-painting   /services/general-contracting       301
+# Legacy short URLs
+/free-quote                        /contact                          301
+/get-estimate                      /contact                          301
 
-/services/exterior-siding       /services/exterior-cladding#siding  301
-/services/metal-cladding        /services/exterior-cladding#metal-cladding  301
-/services/suite-buildouts       /services/interior-buildouts#buildouts  301
-/services/drywall-finishing     /services/interior-buildouts#drywall    301
+# Legacy case-study URLs
+/case-studies                      /blog                             301
+/case-study/*                      /blog/:splat                      301
 
-# Old short-URL redirects
-/free-quote                     /contact                            301
-/get-estimate                   /contact                            301
-
-# 301 redirects for old case study URLs to blog
-/case-studies             /blog                         301
-/case-study/*             /blog/:splat                  301
-/projects/*               /blog/:splat                  301
-
-# Redirect all routes to index.html for client-side routing
-/blog/*        /index.html  200
-/services/*    /index.html  200
-/*             /index.html  200
+# SPA fallback
+/blog/*                            /index.html                       200
+/services/*                        /index.html                       200
+/*                                 /index.html                       200
