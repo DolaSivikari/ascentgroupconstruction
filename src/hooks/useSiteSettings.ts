@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
-import { supabase } from '@/integrations/supabase/client';
 import type { Json } from '@/integrations/supabase/types';
+import { fetchActiveSettingsRow } from '@/hooks/useActiveSettings';
 
 export interface SiteSettings {
   id: string;
@@ -27,14 +27,11 @@ export function useSiteSettings() {
   return useQuery({
     queryKey: ['site-settings'],
     queryFn: async () => {
-      const { data, error } = await supabase
-        .from('site_settings')
-        .select('*')
-        .eq('is_active', true)
-        .maybeSingle();
-      
-      if (error) throw error;
-      return data as SiteSettings | null;
+      const result = await fetchActiveSettingsRow<SiteSettings>('site_settings');
+      if (result.warning) {
+        console.warn(result.warning);
+      }
+      return result.data;
     },
     staleTime: 5 * 60 * 1000, // Cache for 5 minutes
   });
