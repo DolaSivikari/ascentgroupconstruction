@@ -81,6 +81,7 @@ const BlogPost = lazyWithFallback(() => import("@/pages/BlogPost"), 'Blog Post')
 const ProjectDetail = lazyWithFallback(() => import("@/pages/ProjectDetail"), 'Project Detail');
 
 const serviceRoutes = (
+const ServiceRouteGroup = () => (
   <>
     <Route path="/services" element={<Services />} />
     <Route path="/services/interior-buildouts" element={<InteriorBuildouts />} />
@@ -120,6 +121,7 @@ const serviceRoutes = (
 );
 
 const adminRoutes = (
+const AdminRouteGroup = () => (
   <Route path="/admin" element={<UnifiedAdminLayout />}>
     <Route index element={<Dashboard />} />
     <Route path="services" element={<Navigate to="/admin/services-manager" replace />} />
@@ -171,6 +173,9 @@ const adminRoutes = (
     <Route path="hero-images" element={<Navigate to="/admin/homepage-builder?tab=hero" replace />} />
     <Route path="navigation" element={<NavigationBuilder />} />
     <Route path="navigation-builder" element={<Navigate to="/admin/navigation" replace />} />
+    <Route path="hero-images" element={<HeroSlidesManager />} />
+    <Route path="navigation" element={<NavigationBuilder />} />
+    <Route path="navigation-builder" element={<NavigationBuilder />} />
   </Route>
 );
 
@@ -185,6 +190,7 @@ export const AppRoutes = () => (
     <Route path="/service-selector" element={<ServiceSelectorPage />} />
 
     {serviceRoutes}
+    <ServiceRouteGroup />
 
     <Route path="/projects" element={<Projects />} />
     <Route path="/contact" element={<Contact />} />
@@ -216,6 +222,7 @@ export const AppRoutes = () => (
     <Route path="/projects/:slug" element={<ProjectDetail />} />
 
     {adminRoutes}
+    <AdminRouteGroup />
 
     <Route path="/404" element={<NotFound />} />
     <Route path="*" element={<NotFound />} />
