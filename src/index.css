@@ -1,9 +1,9 @@
+@import './styles/rich-text-editor.css';
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Rich Text Editor Styles */
-@import './styles/rich-text-editor.css';
 
 /* Mobile Layout Guards */
 html,

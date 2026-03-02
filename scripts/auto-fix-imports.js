@@ -150,7 +150,7 @@ class ImportMigrator {
 
     Object.entries(SPACING_MAPPINGS).forEach(([oldSpacing, newSpacing]) => {
       // Match the spacing class with word boundaries
-      const regex = new RegExp(`\\b${oldSpacing}\\b`, 'g);
+      const regex = new RegExp(`\\b${oldSpacing}\\b`, 'g');
       const matches = newContent.match(regex);
       
       if (matches) {

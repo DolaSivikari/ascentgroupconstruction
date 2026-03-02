@@ -35,7 +35,10 @@ const MediaLibraryEnhanced = () => {
     queryFn: async () => {
       const { data, error } = await supabase
         .from("documents_library" as any)
+        // documents_library is currently the canonical asset source; restrict to image mime-types
         .select("id, title, file_url, file_name, file_type, file_size, alt_text, focal_point_x, focal_point_y, created_at")
+        .not("file_type", "is", null)
+        .like("file_type", "image/%")
         .order("created_at", { ascending: false })
         .limit(100);
       if (error) throw error;
@@ -49,7 +52,7 @@ const MediaLibraryEnhanced = () => {
 
   const updateMutation = useMutation({
     mutationFn: async ({ id, updates }: { id: string; updates: any }) => {
-      const { error } = await supabase.from("documents_library" as any).update(updates).eq("id", id);
+      const { error } = await supabase.from("documents_library" as any).update(updates).eq("id", id); // keep table target aligned with image-filtered query source
       if (error) throw error;
     },
     onSuccess: () => {

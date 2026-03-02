@@ -56,11 +56,11 @@ export const megaMenuDataEnhanced: MegaMenuDataEnhanced = {
           {
             title: "Commercial Envelope",
             subItems: [
-              { name: "Building Envelope Solutions", link: "/services/building-envelope-solutions", description: "Complete envelope systems", icon: "Building2" },
+              { name: "Building Envelope Solutions", link: "/services/building-envelope", description: "Complete envelope systems", icon: "Building2" },
               { name: "Cladding Systems", link: "/services/cladding-systems", description: "Metal panel & ACM installation", icon: "Layers" },
               { name: "Masonry Restoration", link: "/services/masonry-restoration", description: "Brick and stone repair", icon: "Landmark" },
-              { name: "Waterproofing Systems", link: "/services/waterproofing-systems", description: "Foundation to roof protection", icon: "Droplets" },
-              { name: "EIFS & Stucco", link: "/services/eifs-stucco-systems", description: "Exterior insulation systems", icon: "Square" },
+              { name: "Waterproofing Systems", link: "/services/building-envelope", description: "Foundation to roof protection", icon: "Droplets" },
+              { name: "EIFS & Stucco", link: "/services/cladding-systems", description: "Exterior insulation systems", icon: "Square" },
             ],
           },
           {
@@ -68,13 +68,13 @@ export const megaMenuDataEnhanced: MegaMenuDataEnhanced = {
             subItems: [
               { name: "Façade Remediation", link: "/services/facade-remediation", description: "Exterior restoration", icon: "Hammer" },
               { name: "Parking Garage Restoration", link: "/services/parking-garage-restoration", description: "Structural concrete repair", icon: "Car" },
-              { name: "Sealant Programs", link: "/services/sealant-programs", description: "Joint maintenance programs", icon: "Wrench" },
+              { name: "Sealant Programs", link: "/services/building-envelope", description: "Joint maintenance programs", icon: "Wrench" },
             ],
           },
           {
             title: "Residential Services",
             subItems: [
-              { name: "Interior Finishing", link: "/services/interior-finishing-renovations", description: "Complete interior renovations", icon: "Home" },
+              { name: "Interior Finishing", link: "/services/interior-buildouts", description: "Complete interior renovations", icon: "Home" },
               { name: "Architectural Coatings", link: "/services/painting-services", description: "Commercial & residential painting", icon: "Paintbrush" },
               { name: "Tile & Flooring", link: "/services/tile-flooring", description: "Professional installation", icon: "Grid2X2" },
             ],
@@ -198,7 +198,7 @@ export const megaMenuDataEnhanced: MegaMenuDataEnhanced = {
             subItems: [
               { name: "Contractor Portal", link: "/resources/contractor-portal", description: "Access your documents", icon: "Layout", isFeatured: true, badge: "important" },
               { name: "Prequalification", link: "/prequalification", description: "Vendor prequalification", icon: "FileCheck", isFeatured: true, badge: "important" },
-              { name: "Documents Library", link: "/resources/documents", description: "Downloadable resources", icon: "FolderOpen" },
+              { name: "Documents Library", link: "/resources/contractor-portal", description: "Downloadable resources", icon: "FolderOpen" },
             ],
           },
           {

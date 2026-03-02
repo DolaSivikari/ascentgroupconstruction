@@ -25,7 +25,7 @@ interface ValuePillar {
   is_active: boolean;
 }
 
-interface HeroSlide {
+export interface HeroSlide {
   id: string;
   headline: string;
   subheadline: string;
@@ -71,7 +71,7 @@ const fetchValuePillars = async (): Promise<ValuePillar[]> => {
   return data as ValuePillar[];
 };
 
-const fetchHeroSlides = async (): Promise<HeroSlide[]> => {
+export const fetchHeroSlides = async (): Promise<HeroSlide[]> => {
   const { data, error } = await supabase
     .from("hero_slides")
     .select("*")
