@@ -1,45 +1,6 @@
 import { Link, LinkProps } from "react-router-dom";
 import { ReactNode } from "react";
-
-// Known route patterns - add more as routes are added
-const KNOWN_ROUTES = [
-  "/",
-  "/about",
-  "/services",
-  "/services/:slug",
-  "/services/building-envelope",
-  "/services/cladding-systems",
-  "/services/protective-coatings",
-  "/services/waterproofing",
-  "/services/interior-buildouts",
-  "/services/painting-services",
-  "/services/tile-flooring",
-  "/services/sustainable-construction",
-  "/projects",
-  
-  "/blog",
-  "/blog/:slug",
-  "/contact",
-  "/estimate",
-  "/careers",
-  "/faq",
-  "/prequalification",
-  "/capabilities",
-  "/sustainability",
-  "/how-we-work",
-  "/our-process",
-  "/commercial-clients",
-  "/property-managers",
-  "/for-general-contractors",
-  "/homeowners",
-  "/company/certifications-insurance",
-  "/company/equipment-resources",
-  "/company/developers",
-  "/resources/service-areas",
-  "/resources/contractor-portal",
-  "/tekev",
-  "/admin",
-];
+import { ALL_KNOWN_ROUTE_PATTERNS, isKnownRoute } from "@/routes/registry";
 
 interface AppLinkProps extends Omit<LinkProps, "to"> {
   to: string;
@@ -47,17 +8,12 @@ interface AppLinkProps extends Omit<LinkProps, "to"> {
 }
 
 /**
- * Safe link wrapper with route validation in dev mode
+ * Safe link wrapper with route validation in dev mode.
  */
 export const AppLink = ({ to, children, ...props }: AppLinkProps) => {
-  // Validate internal links in development
-  if (process.env.NODE_ENV === "development" && to.startsWith("/")) {
-    const isKnown = KNOWN_ROUTES.some(route => {
-      const pattern = route.replace(/:[\w]+/g, "[^/]+");
-      return new RegExp(`^${pattern}$`).test(to);
-    });
-    
-    if (!isKnown) {
+  if (import.meta.env.DEV && to.startsWith("/")) {
+    const normalized = (to.split('#')[0] ?? '').split('?')[0] ?? '';
+    if (normalized && !isKnownRoute(normalized, ALL_KNOWN_ROUTE_PATTERNS)) {
       console.warn(`[AppLink] Unknown route: ${to}`);
     }
   }

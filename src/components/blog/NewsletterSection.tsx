@@ -1,19 +1,64 @@
 import { useState } from "react";
+import { z } from "zod";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
+import { supabase } from "@/integrations/supabase/client";
 
 const NewsletterSection = () => {
   const [email, setEmail] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const { toast } = useToast();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    toast({
-      title: "Thanks for subscribing!",
-      description: "You'll receive our latest updates and tips.",
-    });
-    setEmail("");
+
+    if (isSubmitting) return;
+
+    const parsedEmail = z.string().trim().email().safeParse(email);
+    if (!parsedEmail.success) {
+      toast({
+        title: "Invalid email",
+        description: "Please enter a valid email address.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    setIsSubmitting(true);
+
+    try {
+      const normalizedEmail = parsedEmail.data.toLowerCase();
+
+      const { error } = await supabase
+        .from("newsletter_subscribers")
+        .upsert({
+          email: normalizedEmail,
+          source: "blog_newsletter",
+          is_active: true,
+          subscribed_at: new Date().toISOString(),
+          consent_timestamp: new Date().toISOString(),
+          consent_method: "website_form",
+          unsubscribed_at: null,
+        }, { onConflict: "email" });
+
+      if (error) throw error;
+
+      toast({
+        title: "Subscription confirmed",
+        description: "You're now subscribed to updates and insights.",
+      });
+      setEmail("");
+    } catch (error) {
+      console.error("Newsletter subscription failed:", error);
+      toast({
+        title: "Subscription failed",
+        description: "We couldn't save your subscription. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -35,8 +80,8 @@ const NewsletterSection = () => {
               required
               className="flex-1 bg-white text-primary"
             />
-            <Button type="submit" className="bg-secondary hover:bg-secondary/90 text-primary font-bold">
-              Subscribe
+            <Button type="submit" disabled={isSubmitting} className="bg-secondary hover:bg-secondary/90 text-primary font-bold">
+              {isSubmitting ? "Subscribing..." : "Subscribe"}
             </Button>
           </form>
         </div>

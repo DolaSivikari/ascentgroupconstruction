@@ -1,15 +1,9 @@
-import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 import { createClient } from "npm:@supabase/supabase-js@2";
 import { z } from "https://deno.land/x/zod@v3.22.4/mod.ts";
-import { checkRateLimit, getClientIdentifier, createRateLimitResponse } from "../_shared/rateLimiter.ts";
+import { getClientIdentifier } from "../_shared/rateLimiter.ts";
 import { createErrorResponse } from "../_shared/errorHandler.ts";
+import { corsHeaders, handleCors, jsonResponse } from "../_shared/http.ts";
 
-const corsHeaders = {
-  'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
-};
-
-// Validation schemas
 const contactSchema = z.object({
   name: z.string().min(1).max(100),
   email: z.string().email().max(255),
@@ -37,55 +31,44 @@ const prequalificationSchema = z.object({
   message: z.string().max(2000).optional().nullable(),
 });
 
-interface FormSubmission {
-  formType: 'contact' | 'resume' | 'prequalification';
-  data: any;
-  honeypot?: string;
-}
+type ContactPayload = z.infer<typeof contactSchema>;
+type ResumePayload = z.infer<typeof resumeSchema>;
+type PrequalificationPayload = z.infer<typeof prequalificationSchema>;
 
-serve(async (req) => {
-  // Handle CORS preflight
-  if (req.method === 'OPTIONS') {
-    return new Response(null, { headers: corsHeaders });
-  }
+type FormSubmission =
+  | { formType: 'contact'; data: ContactPayload; honeypot?: string }
+  | { formType: 'resume'; data: ResumePayload; honeypot?: string }
+  | { formType: 'prequalification'; data: PrequalificationPayload; honeypot?: string };
+
+Deno.serve(async (req) => {
+  const cors = handleCors(req);
+  if (cors) return cors;
 
   const supabaseUrl = Deno.env.get('SUPABASE_URL')!;
   const supabaseKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!;
   const supabase = createClient(supabaseUrl, supabaseKey);
 
   try {
-    const { formType, data, honeypot }: FormSubmission = await req.json();
+    const payload = (await req.json()) as FormSubmission;
+    const { formType, honeypot } = payload;
 
-    // Get client identifier
     const clientId = getClientIdentifier(req);
 
-    // Check honeypot (if filled, reject silently)
     if (honeypot && honeypot.trim().length > 0) {
       console.log(`[Bot Detection] Honeypot triggered from ${clientId}`);
-      // Return success to avoid alerting bots
-      return new Response(
-        JSON.stringify({ success: true, message: 'Submission received' }),
-        { headers: { ...corsHeaders, 'Content-Type': 'application/json' }, status: 200 }
-      );
+      return jsonResponse({ success: true, message: 'Submission received' });
     }
 
-    // Validate form type
     if (!['contact', 'resume', 'prequalification'].includes(formType)) {
-      return createErrorResponse(
-        new Error('Invalid form type'),
-        'Invalid form type',
-        400,
-        'submit-form'
-      );
+      return createErrorResponse(new Error('Invalid form type'), 'Invalid form type', 400, 'submit-form');
     }
 
-    // Validate input and process submission based on form type
     let insertResult;
-    
+
     try {
       switch (formType) {
         case 'contact': {
-          const validatedData = contactSchema.parse(data);
+          const validatedData = contactSchema.parse(payload.data);
           insertResult = await supabase
             .from('contact_submissions')
             .insert({
@@ -99,9 +82,8 @@ serve(async (req) => {
             });
           break;
         }
-
         case 'resume': {
-          const validatedData = resumeSchema.parse(data);
+          const validatedData = resumeSchema.parse(payload.data);
           insertResult = await supabase
             .from('resume_submissions')
             .insert({
@@ -114,9 +96,8 @@ serve(async (req) => {
             });
           break;
         }
-
         case 'prequalification': {
-          const validatedData = prequalificationSchema.parse(data);
+          const validatedData = prequalificationSchema.parse(payload.data);
           insertResult = await supabase
             .from('prequalification_downloads')
             .insert({
@@ -131,44 +112,20 @@ serve(async (req) => {
             });
           break;
         }
-
-        default:
-          throw new Error('Invalid form type');
       }
     } catch (validationError) {
       console.error('[Validation Error]', validationError);
-      return createErrorResponse(
-        validationError,
-        'Invalid form data',
-        400,
-        'submit-form'
-      );
+      return createErrorResponse(validationError, 'Invalid form data', 400, 'submit-form');
     }
 
-    if (insertResult.error) {
+    if (insertResult?.error) {
       throw insertResult.error;
     }
 
     console.log(`[Success] ${formType} submission from ${clientId}`);
-
-    return new Response(
-      JSON.stringify({ 
-        success: true, 
-        message: 'Submission received successfully' 
-      }),
-      { 
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-        status: 200 
-      }
-    );
-
+    return jsonResponse({ success: true, message: 'Submission received successfully' });
   } catch (error) {
     console.error('[Error]', error);
-    return createErrorResponse(
-      error,
-      'Failed to process submission',
-      500,
-      'submit-form'
-    );
+    return createErrorResponse(error, 'Failed to process submission', 500, 'submit-form');
   }
 });
