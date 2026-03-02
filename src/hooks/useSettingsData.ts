@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { fetchActiveSettingsRow } from '@/hooks/useActiveSettings';
 
 interface UseSettingsDataResult<T> {
@@ -16,7 +16,7 @@ export function useSettingsData<T = unknown>(
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<Error | null>(null);
 
-  const fetchData = async () => {
+  const fetchData = useCallback(async () => {
     try {
       setLoading(true);
       setError(null);
@@ -38,12 +38,11 @@ export function useSettingsData<T = unknown>(
     } finally {
       setLoading(false);
     }
-  };
+  }, [tableName, selectQuery]);
 
   useEffect(() => {
     fetchData();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [fetchData]);
 
   return { data, loading, error, refetch: fetchData };
 }
