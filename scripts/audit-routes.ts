@@ -94,6 +94,12 @@ if (!appPath) {
   process.exit(1);
 }
 
+
+if (!appPath) {
+  console.error('❌ Could not find route declaration file for extraction');
+  process.exit(1);
+}
+
 const appContent = fs.readFileSync(appPath, 'utf-8');
 const routes = extractRoutes(appContent);
 const foundLinks = findLinks(SRC_DIR);
