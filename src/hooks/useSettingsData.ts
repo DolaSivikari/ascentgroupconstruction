@@ -8,7 +8,7 @@ interface UseSettingsDataResult<T> {
   refetch: () => Promise<void>;
 }
 
-export function useSettingsData<T = unknown>(
+export function useSettingsData<T = any>(
   tableName: string,
   selectQuery: string = '*'
 ): UseSettingsDataResult<T> {
@@ -32,14 +32,6 @@ export function useSettingsData<T = unknown>(
       }
 
       setData(result.data);
-      
-      if (!result) {
-        const missingError = new Error(`No active settings found in ${tableName}`);
-        setError(missingError);
-        console.warn(missingError.message);
-      }
-
-      setData(result as T);
     } catch (err) {
       setError(err as Error);
       console.error(`Error fetching ${tableName}:`, err);

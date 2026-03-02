@@ -44,40 +44,6 @@ export const generatePreviewToken = (): string => {
 };
 
 export const VALID_PUBLIC_ROUTES = [...PUBLIC_ROUTE_PATTERNS] as const;
-/**
- * Known valid public routes
- */
-export const VALID_PUBLIC_ROUTES = [
-  '/',
-  '/about',
-  '/services',
-  '/projects',
-  '/contact',
-  '/careers',
-  '/blog',
-  '/estimate',
-  '/prequalification',
-  '/submit-rfp',
-  '/sustainability',
-  '/faq',
-  '/insights',
-  '/homeowners',
-  '/for-general-contractors',
-  '/why-specialty-contractor',
-  '/service-selector',
-  '/company/certifications-insurance',
-  '/company/equipment-resources',
-  '/company/developers',
-  '/our-process',
-  '/capabilities',
-  '/property-managers',
-  '/commercial-clients',
-  '/resources/service-areas',
-  '/resources/contractor-portal',
-  // Restoration services
-  '/services/facade-remediation',
-  '/services/parking-garage-restoration',
-] as const;
 
 export const isValidPublicRoute = (path: string): boolean => {
   const normalized = path.split('#')[0].split('?')[0];
