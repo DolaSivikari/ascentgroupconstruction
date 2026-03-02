@@ -447,37 +447,5 @@
     </div>
     <script type="module" src="/src/main.tsx"></script>
     
-    <!-- Service Worker Registration with Update Check -->
-    <script>
-      if ('serviceWorker' in navigator) {
-        window.addEventListener('load', () => {
-          navigator.serviceWorker.register('/service-worker.js', { scope: '/' })
-            .then(registration => {
-              console.log('[SW] Registered:', registration.scope);
-              
-              // Check for updates every 6 hours
-              setInterval(() => {
-                registration.update();
-              }, 6 * 60 * 60 * 1000);
-              
-              // Listen for new SW waiting
-              registration.addEventListener('updatefound', () => {
-                const newWorker = registration.installing;
-                newWorker.addEventListener('statechange', () => {
-                  if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
-                    // New SW ready, notify user
-                    console.log('[SW] Update available. Reload to activate.');
-                    // Optional: Show update notification to user
-                    window.dispatchEvent(new Event('sw-update-available'));
-                  }
-                });
-              });
-            })
-            .catch(error => {
-              console.error('[SW] Registration failed:', error);
-            });
-        });
-      }
-    </script>
   </body>
 </html>
