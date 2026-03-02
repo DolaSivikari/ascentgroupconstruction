@@ -15,6 +15,7 @@ import { generatePreviewToken } from "@/utils/routeHelpers";
 import { useUnsavedChanges } from "@/hooks/useUnsavedChanges";
 import { ConfirmDialog } from "@/components/admin/ConfirmDialog";
 import { RichTextEditor } from "@/components/admin/RichTextEditor";
+import DOMPurify from "dompurify";
 
 const BlogPostEditor = () => {
   const { id } = useParams();
@@ -53,6 +54,7 @@ const BlogPostEditor = () => {
     before_images: [] as any[],
     after_images: [] as any[],
     process_steps: [] as any[],
+    published_at: null as string | null,
   });
 
   useEffect(() => {
@@ -115,6 +117,7 @@ const BlogPostEditor = () => {
         before_images: Array.isArray(data.before_images) ? data.before_images : [],
         after_images: Array.isArray(data.after_images) ? data.after_images : [],
         process_steps: Array.isArray(data.process_steps) ? data.process_steps : [],
+        published_at: data.published_at || null,
       });
     }
   };
@@ -159,7 +162,7 @@ const BlogPostEditor = () => {
       title: formData.title,
       slug: formData.slug || generateSlug(formData.title),
       summary: formData.summary,
-      content: formData.content,
+      content: DOMPurify.sanitize(formData.content),
       category: formData.category,
       tags: formData.tags.split(",").map(t => t.trim()).filter(Boolean),
       featured_image: formData.featured_image,
@@ -168,7 +171,9 @@ const BlogPostEditor = () => {
       seo_keywords: formData.seo_keywords.split(",").map(k => k.trim()).filter(Boolean),
       read_time_minutes: formData.read_time_minutes,
       publish_state: formData.publish_state,
-      published_at: formData.publish_state === "published" ? new Date().toISOString() : null,
+      published_at: formData.publish_state === "published"
+        ? (formData.published_at || new Date().toISOString())
+        : null,
       content_type: formData.content_type,
       ...(formData.content_type === "case-study" && {
         project_location: formData.project_location,

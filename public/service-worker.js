@@ -3,7 +3,7 @@
  * Ensures fresh HTML + cached assets never mix versions
  */
 
-const CACHE_VERSION = '1.0.4';
+const CACHE_VERSION = '1.0.5';
 const PRECACHE_NAME = `app-precache-${CACHE_VERSION}`;
 const RUNTIME_CACHE = `app-runtime-${CACHE_VERSION}`;
 const API_CACHE = `app-api-${CACHE_VERSION}`;
@@ -22,8 +22,6 @@ self.addEventListener('install', event => {
     '/hero-poster-4.webp',
     '/hero-poster-5.webp',
     '/hero-poster-6.webp',
-    '/hero-poster-7.webp',
-    '/hero-poster-8.webp',
   ];
   
   event.waitUntil(
@@ -146,23 +144,20 @@ self.addEventListener('fetch', event => {
     return;
   }
 
-  // JS/CSS: Stale-while-revalidate (serve cached, fetch fresh in background)
+  // JS/CSS: network-first to avoid serving stale bundles after deploys
   if (request.destination === 'script' || request.destination === 'style') {
     event.respondWith(
-      caches.match(request)
-        .then(cached => {
-          const fetchPromise = fetch(request).then(response => {
-            if (response.ok) {
-              const responseToCache = response.clone();
-              caches.open(RUNTIME_CACHE)
-                .then(cache => cache.put(request, responseToCache))
-                .catch(err => console.warn('[SW] Script cache failed:', err));
-            }
-            return response;
-          }).catch(() => cached);
-          
-          return cached || fetchPromise;
+      fetch(request, { cache: 'no-cache' })
+        .then(response => {
+          if (response.ok) {
+            const responseToCache = response.clone();
+            caches.open(RUNTIME_CACHE)
+              .then(cache => cache.put(request, responseToCache))
+              .catch(err => console.warn('[SW] Script/style cache failed:', err));
+          }
+          return response;
         })
+        .catch(() => caches.match(request))
     );
     return;
   }
