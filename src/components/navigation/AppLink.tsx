@@ -10,7 +10,6 @@ const KNOWN_ROUTES = [
   "/services/building-envelope",
   "/services/cladding-systems",
   "/services/protective-coatings",
-  "/services/waterproofing",
   "/services/interior-buildouts",
   "/services/painting-services",
   "/services/tile-flooring",
@@ -26,8 +25,14 @@ const KNOWN_ROUTES = [
   "/prequalification",
   "/capabilities",
   "/sustainability",
-  "/how-we-work",
   "/our-process",
+  "/why-specialty-contractor",
+  "/service-selector",
+  "/insights",
+  "/privacy",
+  "/terms",
+  "/accessibility",
+  "/submit-rfp",
   "/commercial-clients",
   "/property-managers",
   "/for-general-contractors",
@@ -51,7 +56,7 @@ interface AppLinkProps extends Omit<LinkProps, "to"> {
  */
 export const AppLink = ({ to, children, ...props }: AppLinkProps) => {
   // Validate internal links in development
-  if (process.env.NODE_ENV === "development" && to.startsWith("/")) {
+  if (import.meta.env.DEV && to.startsWith("/")) {
     const isKnown = KNOWN_ROUTES.some(route => {
       const pattern = route.replace(/:[\w]+/g, "[^/]+");
       return new RegExp(`^${pattern}$`).test(to);

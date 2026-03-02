@@ -101,11 +101,9 @@ export const VALID_PUBLIC_ROUTES = [
   '/commercial-clients',
   '/resources/service-areas',
   '/resources/contractor-portal',
-  '/resources/documents',
   // Restoration services
   '/services/facade-remediation',
   '/services/parking-garage-restoration',
-  '/services/sealant-programs',
 ] as const;
 
 /**
