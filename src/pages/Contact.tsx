@@ -105,6 +105,7 @@ const Contact = () => {
 
       // Tracking already done above
 
+      let notificationWarning = false;
       try {
         const timeoutPromise = new Promise((_, reject) => setTimeout(() => reject(new Error('Email notification timeout')), 10000));
         await Promise.race([
@@ -119,17 +120,23 @@ const Contact = () => {
           body: {
             email: validatedData.email,
             clientName: validatedData.name,
-            templateName: 'default-review-request',
+            templateName: 'review_request_day_0',
           },
         });
       } catch (emailError) {
+        notificationWarning = true;
         console.error('Email notification failed:', emailError);
       }
 
       // Phase 3: Track A/B test conversion
       await trackABTestConversion('homepage-hero-2024', 1);
 
-      toast({ title: "Message sent!", description: "We'll get back to you within 24 hours. Check your email for confirmation." });
+      toast({
+        title: "Message sent!",
+        description: notificationWarning
+          ? "Your request was saved, but email notifications are delayed. Our team will still follow up."
+          : "We'll get back to you within 24 hours. Check your email for confirmation.",
+      });
       setFormData({ name: "", email: "", phone: "", company: "", message: "", honeypot: "", consent: false, newsletterConsent: false });
       setLastSubmitTime(now);
     } catch (error) {

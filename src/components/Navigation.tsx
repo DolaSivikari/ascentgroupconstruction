@@ -447,7 +447,7 @@ const Navigation = () => {
                   </DropdownMenuItem>
                   <DropdownMenuItem asChild className="p-0 focus:bg-transparent focus:text-inherit">
                     <Link 
-                      to="/admin/awards" 
+                      to="/admin/settings?tab=about" 
                       onClick={() => setAdminDropdownOpen(false)}
                       className="block w-full px-4 py-2 text-sm text-muted-foreground rounded-[var(--radius-xs)] menu-item-hover border-l-2 border-transparent hover:bg-muted/30 hover:text-primary hover:pl-5 hover:border-l-primary focus:bg-muted/30 focus:text-primary"
                     >
@@ -456,7 +456,7 @@ const Navigation = () => {
                   </DropdownMenuItem>
                   <DropdownMenuItem asChild className="p-0 focus:bg-transparent focus:text-inherit">
                     <Link 
-                      to="/admin/leadership-team" 
+                      to="/admin/settings?tab=about" 
                       onClick={() => setAdminDropdownOpen(false)}
                       className="block w-full px-4 py-2 text-sm text-muted-foreground rounded-[var(--radius-xs)] menu-item-hover border-l-2 border-transparent hover:bg-muted/30 hover:text-primary hover:pl-5 hover:border-l-primary focus:bg-muted/30 focus:text-primary"
                     >
@@ -480,7 +480,7 @@ const Navigation = () => {
                   
                   <DropdownMenuItem asChild className="p-0 focus:bg-transparent focus:text-inherit">
                     <Link 
-                      to="/admin/landing-menu" 
+                      to="/admin/homepage-builder?tab=hero" 
                       onClick={() => setAdminDropdownOpen(false)}
                       className="block w-full px-4 py-2 text-sm text-muted-foreground rounded-[var(--radius-xs)] menu-item-hover border-l-2 border-transparent hover:bg-muted/30 hover:text-primary hover:pl-5 hover:border-l-primary focus:bg-muted/30 focus:text-primary"
                     >
@@ -600,7 +600,7 @@ const Navigation = () => {
                   </DropdownMenuItem>
                   <DropdownMenuItem asChild className="p-0 focus:bg-transparent focus:text-inherit">
                     <Link 
-                      to="/admin/security-center" 
+                      to="/admin/settings?tab=security" 
                       onClick={() => setAdminDropdownOpen(false)}
                       className="block w-full px-4 py-2 text-sm text-muted-foreground rounded-md transition-all border-l-2 border-transparent hover:bg-muted/30 hover:text-primary hover:pl-5 hover:border-l-primary focus:bg-muted/30 focus:text-primary"
                     >
