@@ -95,6 +95,8 @@ if (!appPath) {
 }
 
 const appContent = fs.readFileSync(appPath, 'utf-8');
+
+const appContent = fs.readFileSync(appPath, 'utf-8');
 if (!fs.existsSync(APP_PATH)) {
   console.error('❌ Could not find src/App.tsx for route extraction');
   process.exit(1);

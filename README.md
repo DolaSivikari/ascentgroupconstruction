@@ -127,6 +127,7 @@ VITE_SUPABASE_PROJECT_ID=...
 ```bash
 npm run dev
 npm run build
+npm run build:optimized   # requires sharp + svgo installed and ENABLE_IMAGE_OPTIMIZATION=true
 npm run preview
 npm run lint
 npm run validate:sw
@@ -155,6 +156,7 @@ npm run lint
 Notes:
 - `smoke-test.sh` is SPA-focused and does **not** rely on nonexistent local `/api/*` endpoints.
 - Supabase edge function reachability in smoke is conditional on `VITE_SUPABASE_PROJECT_ID`.
+- Image optimization is opt-in for CI stability. Use `npm run build:optimized` only when `sharp` and `svgo` are available.
 
 ---
 

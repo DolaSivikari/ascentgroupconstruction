@@ -49,6 +49,8 @@ jobs:
           fi
 
       - name: Check bundle size
+        env:
+          ENABLE_IMAGE_OPTIMIZATION: "false"
         run: |
           echo "Checking bundle size..."
           if [ -f package.json ]; then
