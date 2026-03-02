@@ -25,6 +25,7 @@ status_code() {
     code="000"
   fi
   echo "$code"
+  curl -s -o /dev/null -w "%{http_code}" "$1"
 }
 
 echo "🚀 Starting smoke tests for: $BASE_URL"
