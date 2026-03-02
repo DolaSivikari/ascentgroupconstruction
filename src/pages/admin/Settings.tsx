@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Settings as SettingsIcon, Shield, MapPin, Info, Activity, FileText } from "lucide-react";
 import { GeneralSettingsTab } from "@/components/admin/settings/GeneralSettingsTab";
@@ -9,7 +10,31 @@ import { SecuritySettingsTab } from "@/components/admin/settings/SecuritySetting
 import { HealthCheckTab } from "@/components/admin/settings/HealthCheckTab";
 
 const Settings = () => {
-  const [activeTab, setActiveTab] = useState("general");
+  const [searchParams, setSearchParams] = useSearchParams();
+  const allowedTabs = new Set(["general", "footer", "contact", "about", "security", "health"]);
+  const queryTab = searchParams.get("tab") || "general";
+  const initialTab = allowedTabs.has(queryTab) ? queryTab : "general";
+
+  const [activeTab, setActiveTab] = useState(initialTab);
+
+  useEffect(() => {
+    const nextTab = new Set(["general", "footer", "contact", "about", "security", "health"]).has(queryTab) ? queryTab : "general";
+    setActiveTab(nextTab);
+  }, [queryTab]);
+
+  const handleTabChange = (tab: string) => {
+    setActiveTab(tab);
+    const nextParams = new URLSearchParams(searchParams);
+
+    if (tab === "general") {
+      nextParams.delete("tab");
+      setSearchParams(nextParams, { replace: true });
+      return;
+    }
+
+    nextParams.set("tab", tab);
+    setSearchParams(nextParams, { replace: true });
+  };
 
   return (
     <div className="space-y-6">
@@ -20,7 +45,7 @@ const Settings = () => {
         </p>
       </div>
 
-      <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
+      <Tabs value={activeTab} onValueChange={handleTabChange} className="space-y-6">
         <TabsList className="grid w-full grid-cols-6">
           <TabsTrigger value="general" className="flex items-center gap-2">
             <SettingsIcon className="h-4 w-4" />

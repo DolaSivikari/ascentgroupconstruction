@@ -240,6 +240,7 @@ export default function DocumentsLibrary() {
               <p className="text-muted-foreground">Manage downloadable documents and resources</p>
             </div>
       <Dialog open={dialogOpen} onOpenChange={(open) => { setDialogOpen(open); if (!open) resetForm(); }}>
+        <Dialog open={dialogOpen} onOpenChange={(open) => { setDialogOpen(open); if (!open) resetForm(); }}>
               <DialogTrigger asChild>
                 <Button><Plus className="w-4 h-4 mr-2" />Upload Document</Button>
               </DialogTrigger>
