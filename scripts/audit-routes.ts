@@ -14,6 +14,7 @@ const APP_PATHS = [
   path.join(process.cwd(), 'src', 'routes', 'AppRoutes.tsx'),
   path.join(process.cwd(), 'src', 'App.tsx'),
 ];
+const APP_PATH = path.join(process.cwd(), 'src', 'App.tsx');
 const SRC_DIR = path.join(process.cwd(), 'src');
 
 function extractRoutes(appContent: string): string[] {
@@ -94,6 +95,14 @@ if (!appPath) {
 }
 
 const appContent = fs.readFileSync(appPath, 'utf-8');
+
+const appContent = fs.readFileSync(appPath, 'utf-8');
+if (!fs.existsSync(APP_PATH)) {
+  console.error('❌ Could not find src/App.tsx for route extraction');
+  process.exit(1);
+}
+
+const appContent = fs.readFileSync(APP_PATH, 'utf-8');
 const routes = extractRoutes(appContent);
 const foundLinks = findLinks(SRC_DIR);
 
