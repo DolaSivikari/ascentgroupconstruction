@@ -11,7 +11,7 @@ import { Switch } from "@/components/ui/switch";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
-import { ArrowLeft, Plus, Pencil, Trash2, Star } from "lucide-react";
+import { ArrowLeft, Plus, Pencil, Trash2, Star, AlertTriangle } from "lucide-react";
 import { useAdminAuth } from "@/hooks/useAdminAuth";
 import { ConfirmDialog } from "@/components/admin/ConfirmDialog";
 
@@ -145,6 +145,11 @@ const TestimonialsManager = () => {
               Add Testimonial
             </Button>
           </div>
+        </div>
+
+        <div className="rounded-lg border border-amber-500/30 bg-amber-500/10 p-3 text-sm text-amber-200 flex items-start gap-2 mb-6">
+          <AlertTriangle className="h-4 w-4 mt-0.5" />
+          <span>Truth label: testimonials managed here only appear on public pages that actively query the <code className="mx-1">testimonials</code> table.</span>
         </div>
 
         <Card>

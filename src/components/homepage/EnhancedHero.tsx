@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+import { useQuery } from "@tanstack/react-query";
 import { Link } from "react-router-dom";
 import { ArrowRight, Building2, Shield, Play, Pause } from "lucide-react";
 import { Button } from "@/ui/Button";
@@ -6,28 +7,36 @@ import { Button } from "@/ui/Button";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 import { useVideoPreloader } from "@/hooks/useVideoPreloader";
 import { enrichedHeroSlides } from "@/data/enriched-hero-slides";
+import { fetchHeroSlides, type HeroSlide as AdminHeroSlide } from "@/hooks/useHomepageData";
 
-// Use enriched hero slides with expanded SEO-optimized descriptions
-const heroSlides = enrichedHeroSlides.map(slide => ({
-  ...slide,
-  primaryCTA: { ...slide.primaryCTA, icon: Building2 },
+const fallbackHeroSlides = enrichedHeroSlides.map((slide, index) => ({
+  id: `fallback-${index}`,
+  headline: slide.headline,
+  subheadline: slide.subheadline,
+  stat: slide.stat,
+  statLabel: slide.statLabel,
+  video: slide.video,
+  poster: slide.poster,
+  primaryCTA: {
+    ...slide.primaryCTA,
+    icon: Building2,
+  },
 }));
 
-interface HeroSlide {
-  id: string;
-  headline: string;
-  subheadline: string;
-  description?: string;
-  stat_number?: string;
-  stat_label?: string;
-  primary_cta_text: string;
-  primary_cta_url: string;
-  primary_cta_icon?: string;
-  secondary_cta_text?: string;
-  secondary_cta_url?: string;
-  video_url?: string;
-  poster_url?: string;
-}
+const mapAdminSlideToHero = (slide: AdminHeroSlide, fallbackMedia: (typeof fallbackHeroSlides)[number], index: number) => ({
+  id: slide.id || `admin-${index}`,
+  headline: slide.headline?.trim() || fallbackMedia.headline,
+  subheadline: slide.subheadline?.trim() || fallbackMedia.subheadline,
+  stat: slide.stat_number?.trim() || fallbackMedia.stat,
+  statLabel: slide.stat_label?.trim() || fallbackMedia.statLabel,
+  video: slide.video_url?.trim() || fallbackMedia.video,
+  poster: slide.poster_url?.trim() || fallbackMedia.poster,
+  primaryCTA: {
+    label: slide.primary_cta_text?.trim() || fallbackMedia.primaryCTA.label,
+    href: slide.primary_cta_url?.trim() || fallbackMedia.primaryCTA.href,
+    icon: Building2,
+  },
+});
 
 const EnhancedHero = ({ splashComplete = true }: { splashComplete?: boolean }) => {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -43,8 +52,16 @@ const EnhancedHero = ({ splashComplete = true }: { splashComplete?: boolean }) =
   const autoplayIntervalRef = useRef<NodeJS.Timeout | null>(null);
   const heroReadyRef = useRef(false);
 
-  // Use enriched hero slides only
-  const activeSlides = heroSlides;
+  const { data: adminHeroSlides = [] } = useQuery({
+    queryKey: ["hero-slides"],
+    queryFn: fetchHeroSlides,
+    staleTime: 10 * 60 * 1000,
+  });
+
+  const hasUsableAdminSlides = adminHeroSlides.length > 0;
+  const activeSlides = hasUsableAdminSlides
+    ? adminHeroSlides.map((slide, index) => mapAdminSlideToHero(slide, fallbackHeroSlides[index % fallbackHeroSlides.length], index))
+    : fallbackHeroSlides;
 
   // Extract video URLs and set up preloading
   const videoUrls = activeSlides.map(slide => slide.video);
