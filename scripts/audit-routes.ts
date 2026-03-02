@@ -95,6 +95,19 @@ if (!appPath) {
 }
 
 const appContent = fs.readFileSync(appPath, 'utf-8');
+const routes = extractRoutes(appContent);
+const foundLinks = findLinks(SRC_DIR);
+
+const unknown = new Map<string, Set<string>>();
+for (const { link, file } of foundLinks) {
+  if (!matchesRoute(link, routes)) {
+    if (!unknown.has(link)) unknown.set(link, new Set<string>());
+    unknown.get(link)!.add(file);
+  }
+}
+
+
+const appContent = fs.readFileSync(appPath, 'utf-8');
 
 const appContent = fs.readFileSync(appPath, 'utf-8');
 if (!fs.existsSync(APP_PATH)) {
