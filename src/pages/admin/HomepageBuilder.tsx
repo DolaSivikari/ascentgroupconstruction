@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { AlertTriangle } from "lucide-react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Layout, Home, Sparkles, Award } from "lucide-react";
 import HeroSlidesManager from "./HeroSlidesManager";
@@ -89,7 +90,11 @@ const HomepageBuilder = () => {
                 Manage company statistics and certification badges displayed on the homepage
               </CardDescription>
             </CardHeader>
-            <CardContent>
+            <CardContent className="space-y-4">
+              <div className="rounded-lg border border-amber-500/30 bg-amber-500/10 p-3 text-sm text-amber-200 flex items-start gap-2">
+                <AlertTriangle className="h-4 w-4 mt-0.5" />
+                <span>Truth label: Stats content is not currently displayed on the public homepage composition.</span>
+              </div>
               <StatsManager />
             </CardContent>
           </Card>

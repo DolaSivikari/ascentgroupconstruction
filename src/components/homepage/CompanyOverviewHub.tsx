@@ -209,7 +209,7 @@ const CompanyOverviewHub = () => {
             <ArrowRight className="h-5 w-5" />
           </Link>
           <Link
-            to="/how-we-work"
+            to="/our-process"
             className="inline-flex items-center gap-2 px-8 py-4 border-2 border-primary text-primary rounded-lg hover:bg-primary hover:text-primary-foreground transition-all font-semibold"
           >
             Learn Our Process
