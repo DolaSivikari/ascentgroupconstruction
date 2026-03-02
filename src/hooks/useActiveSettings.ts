@@ -9,11 +9,11 @@ export const fetchActiveSettingsRow = async <T>(
   tableName: string,
   selectQuery: string = '*'
 ): Promise<ActiveSettingsFetchResult<T>> => {
-  const { data: result, error } = await supabase
-    .from(tableName)
+  const { data: result, error } = await (supabase
+    .from(tableName as any)
     .select(selectQuery)
     .eq('is_active', true)
-    .maybeSingle();
+    .maybeSingle());
 
   if (error) {
     throw error;
@@ -23,13 +23,13 @@ export const fetchActiveSettingsRow = async <T>(
     return { data: result as T };
   }
 
-  const { data: latestResult, error: latestError } = await supabase
-    .from(tableName)
+  const { data: latestResult, error: latestError } = await (supabase
+    .from(tableName as any)
     .select(selectQuery)
     .eq('is_active', true)
     .order('updated_at', { ascending: false })
     .limit(1)
-    .maybeSingle();
+    .maybeSingle());
 
   if (latestError) {
     throw latestError;
