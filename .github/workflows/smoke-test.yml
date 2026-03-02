@@ -45,6 +45,7 @@ jobs:
           if [ -f scripts/audit-routes.ts ]; then
             echo "Running route audit..."
             npx tsx scripts/audit-routes.ts
+            npx ts-node scripts/audit-routes.ts
           fi
 
       - name: Check bundle size
