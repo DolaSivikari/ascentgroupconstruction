@@ -378,7 +378,6 @@ export default function DocumentsLibrary() {
               </Table>
             </CardContent>
       </Card>
-          </Card>
     </div>
   );
 }
