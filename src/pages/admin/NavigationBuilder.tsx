@@ -356,6 +356,7 @@ const NavigationBuilder = () => {
           <div className="rounded-lg border border-amber-500/30 bg-amber-500/10 p-3 text-sm text-amber-200 flex items-start gap-2 mt-4 max-w-2xl">
             <AlertTriangle className="h-4 w-4 mt-0.5" />
             <span>Internal tool only: this builder is not the authoritative source for live site navigation output.</span>
+            <span>Truth label: this builder is not currently wired as the authoritative source for live site navigation.</span>
           </div>
         </div>
         <Button onClick={() => {

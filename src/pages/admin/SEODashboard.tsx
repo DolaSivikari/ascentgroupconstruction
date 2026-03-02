@@ -108,7 +108,7 @@ export default function SEODashboard() {
       .eq('user_id', session.user.id)
       .single();
 
-    if (!roleData || !['admin', 'super_admin', 'editor'].includes(roleData.role)) {
+    if (!roleData || !['admin', 'super_admin'].includes(roleData.role)) {
       navigate('/admin');
       toast({
         variant: 'destructive',
@@ -1078,6 +1078,9 @@ Disallow: /auth`;
               <div className="rounded-lg border border-amber-500/30 bg-amber-500/10 p-3 text-sm text-amber-200 flex items-start gap-2">
                 <AlertCircle className="h-4 w-4 mt-0.5" />
                 <span>Internal control: this editor saves <code className="mx-1">site_settings.robots_txt</code>, but live robots output depends on deployment/runtime wiring. Verify production robots behavior before relying on changes.</span>
+                <span>
+                  Truth label: this editor saves robots text to <code className="mx-1">site_settings.robots_txt</code>, but live robots output depends on deployment/runtime wiring. Verify production robots behavior after changes.
+                </span>
               </div>
               <p className="text-xs text-muted-foreground">
                 ⚠️ Changes will be stored in the database and applied to your live site on next deployment.
