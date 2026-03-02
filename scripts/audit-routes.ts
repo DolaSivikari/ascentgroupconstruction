@@ -94,6 +94,7 @@ if (!appPath) {
   process.exit(1);
 }
 
+const appContent = fs.readFileSync(appPath, 'utf-8');
 
 if (!appPath) {
   console.error('❌ Could not find route declaration file for extraction');

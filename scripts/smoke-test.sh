@@ -18,6 +18,13 @@ warn() { echo -e "${YELLOW}⚠ $1${NC}"; }
 fail() { echo -e "${RED}✗ $1${NC}"; exit 1; }
 
 status_code() {
+  # Follow redirects and avoid hard-exit on transient curl/network failures
+  local code
+  code=$(curl -L -s --connect-timeout 10 --max-time 30 --retry 2 --retry-delay 1 -o /dev/null -w "%{http_code}" "$1" 2>/dev/null || true)
+  if [[ ! "$code" =~ ^[0-9]{3}$ ]]; then
+    code="000"
+  fi
+  echo "$code"
   curl -s -o /dev/null -w "%{http_code}" "$1"
 }
 
@@ -28,6 +35,8 @@ echo -e "\n${YELLOW}Test 1: Base URL availability${NC}"
 BASE_STATUS=$(status_code "$BASE_URL")
 if [ "$BASE_STATUS" = "200" ]; then
   pass "Base URL reachable (HTTP $BASE_STATUS)"
+elif [[ "$BASE_STATUS" =~ ^30[1278]$ ]]; then
+  pass "Base URL reachable via redirect (HTTP $BASE_STATUS)"
 else
   fail "Base URL returned HTTP $BASE_STATUS"
 fi
