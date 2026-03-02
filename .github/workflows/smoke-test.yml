@@ -17,17 +17,25 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Install dependencies
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install system dependencies
         run: |
           sudo apt-get update
           sudo apt-get install -y curl jq bc
+
+      - name: Install project dependencies
+        run: npm ci
 
       - name: Make smoke test script executable
         run: chmod +x scripts/smoke-test.sh
 
       - name: Run smoke tests (Production)
         env:
-          VITE_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}
           VITE_SUPABASE_PROJECT_ID: ${{ secrets.VITE_SUPABASE_PROJECT_ID }}
         run: |
           ./scripts/smoke-test.sh https://ascentgroupconstruction.com
@@ -36,14 +44,14 @@ jobs:
         run: |
           if [ -f scripts/audit-routes.ts ]; then
             echo "Running route audit..."
-            npx ts-node scripts/audit-routes.ts || echo "Route audit completed with warnings"
+            npx tsx scripts/audit-routes.ts
           fi
 
       - name: Check bundle size
         run: |
           echo "Checking bundle size..."
           if [ -f package.json ]; then
-            npm run build 2>&1 | tee build.log || true
+            npm run build 2>&1 | tee build.log
             if [ -f dist/index.html ]; then
               DIST_SIZE=$(du -sh dist | cut -f1)
               echo "📦 Build size: $DIST_SIZE"

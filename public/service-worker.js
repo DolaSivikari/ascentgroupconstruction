@@ -22,8 +22,6 @@ self.addEventListener('install', event => {
     '/hero-poster-4.webp',
     '/hero-poster-5.webp',
     '/hero-poster-6.webp',
-    '/hero-poster-7.webp',
-    '/hero-poster-8.webp',
   ];
   
   event.waitUntil(
