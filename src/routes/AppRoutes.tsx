@@ -168,6 +168,9 @@ const AdminRouteGroup = () => (
     <Route path="homepage-why-choose-us" element={<Navigate to="/admin/homepage-builder?tab=why-choose" replace />} />
     <Route path="homepage-company-overview" element={<Navigate to="/admin/homepage-builder?tab=overview" replace />} />
     <Route path="hero-slides" element={<Navigate to="/admin/homepage-builder?tab=hero" replace />} />
+    <Route path="hero-images" element={<Navigate to="/admin/homepage-builder?tab=hero" replace />} />
+    <Route path="navigation" element={<NavigationBuilder />} />
+    <Route path="navigation-builder" element={<Navigate to="/admin/navigation" replace />} />
     <Route path="hero-images" element={<HeroSlidesManager />} />
     <Route path="navigation" element={<NavigationBuilder />} />
     <Route path="navigation-builder" element={<NavigationBuilder />} />

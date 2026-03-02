@@ -12,7 +12,7 @@ import { Switch } from "@/components/ui/switch";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { Plus, Edit, Trash2, Download, FileText, Calendar, Eye } from "lucide-react";
+import { Plus, Edit, Trash2, Download, FileText, Calendar } from "lucide-react";
 import { format } from "date-fns";
 
 interface Document {
@@ -239,6 +239,7 @@ export default function DocumentsLibrary() {
               <h1 className="text-3xl font-bold">Documents Library</h1>
               <p className="text-muted-foreground">Manage downloadable documents and resources</p>
             </div>
+      <Dialog open={dialogOpen} onOpenChange={(open) => { setDialogOpen(open); if (!open) resetForm(); }}>
         <Dialog open={dialogOpen} onOpenChange={(open) => { setDialogOpen(open); if (!open) resetForm(); }}>
               <DialogTrigger asChild>
                 <Button><Plus className="w-4 h-4 mr-2" />Upload Document</Button>
@@ -309,9 +310,9 @@ export default function DocumentsLibrary() {
                 </form>
               </DialogContent>
             </Dialog>
-          </div>
+      </div>
 
-          <Card>
+      <Card>
             <CardHeader>
               <CardTitle>Documents ({documents.length})</CardTitle>
             </CardHeader>
@@ -376,6 +377,7 @@ export default function DocumentsLibrary() {
                 </TableBody>
               </Table>
             </CardContent>
+      </Card>
           </Card>
     </div>
   );

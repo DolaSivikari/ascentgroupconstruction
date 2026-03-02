@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { AlertTriangle } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { AlertTriangle } from "lucide-react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Layout, Home, Sparkles, Award } from "lucide-react";
 import HeroSlidesManager from "./HeroSlidesManager";
@@ -118,6 +119,7 @@ const HomepageBuilder = () => {
             <CardContent className="space-y-4">
               <div className="rounded-lg border border-amber-500/30 bg-amber-500/10 p-3 text-sm text-amber-200 flex items-start gap-2">
                 <AlertTriangle className="h-4 w-4 mt-0.5" />
+                <span>Truth label: Stats content is not currently displayed on the public homepage composition.</span>
                 <span>
                   Truth label: Stats content is not currently rendered on the public homepage in the active page composition.
                 </span>

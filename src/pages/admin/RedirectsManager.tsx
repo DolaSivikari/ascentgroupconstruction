@@ -113,6 +113,10 @@ const RedirectsManager = () => {
       <div className="mb-8">
         <h1 className="text-3xl font-bold mb-2">Redirects Manager</h1>
         <p className="text-muted-foreground">Manage URL redirects (301/302) for SEO and site structure changes</p>
+        <div className="rounded-lg border border-amber-500/30 bg-amber-500/10 p-3 text-sm text-amber-200 flex items-start gap-2 mt-4">
+          <AlertTriangle className="h-4 w-4 mt-0.5" />
+          <span>Internal tool only: redirect entries are saved in the database but are not automatically deployed to hosting/CDN redirect rules.</span>
+        </div>
       <div className="rounded-lg border border-amber-500/30 bg-amber-500/10 p-3 text-sm text-amber-200 flex items-start gap-2 mt-4">
         <AlertTriangle className="h-4 w-4 mt-0.5" />
         <span>Truth label: Redirect entries are stored in the admin database only and are not automatically deployed to edge/CDN redirect rules in this workflow.</span>
