@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { supabase } from '@/integrations/supabase/client';
+import { fetchActiveSettingsRow } from '@/hooks/useActiveSettings';
 
 export interface CompanySettings {
   companyName: string;
@@ -22,6 +22,19 @@ export interface CompanySettings {
   metaDescription: string;
 }
 
+
+interface SiteSettingsRow {
+  company_name?: string;
+  phone?: string;
+  email?: string;
+  address?: string;
+  business_hours?: Record<string, string> | null;
+  social_links?: Record<string, string> | null;
+  certifications?: string[] | null;
+  meta_title?: string;
+  meta_description?: string;
+}
+
 interface UseCompanySettingsResult {
   settings: CompanySettings | null;
   loading: boolean;
@@ -39,35 +52,16 @@ export function useCompanySettings(): UseCompanySettingsResult {
         setLoading(true);
         setError(null);
         
-        // Try maybeSingle first
-        const { data, error: fetchError } = await supabase
-          .from('site_settings')
-          .select('*')
-          .eq('is_active', true)
-          .maybeSingle();
-
-        if (fetchError) throw fetchError;
-
-        // If no result, try getting the latest
-        let settingsData = data;
-        if (!settingsData) {
-          const { data: latestData } = await supabase
-            .from('site_settings')
-            .select('*')
-            .eq('is_active', true)
-            .order('updated_at', { ascending: false })
-            .limit(1)
-            .maybeSingle();
-          
-          if (latestData) {
-            console.warn('Multiple active rows in site_settings, using latest');
-            settingsData = latestData;
-          }
+        const result = await fetchActiveSettingsRow<SiteSettingsRow>('site_settings');
+        if (result.warning) {
+          console.warn(result.warning);
         }
 
+        const settingsData = result.data;
+
         if (settingsData) {
-          const businessHours = settingsData.business_hours as any;
-          const socialLinks = settingsData.social_links as any;
+          const businessHours = settingsData.business_hours || null;
+          const socialLinks = settingsData.social_links || null;
           
           setSettings({
             companyName: settingsData.company_name || 'Ascent Group Construction',

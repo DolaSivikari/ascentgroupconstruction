@@ -1,5 +1,6 @@
 import { Link, LinkProps } from "react-router-dom";
 import { ReactNode } from "react";
+import { ALL_KNOWN_ROUTE_PATTERNS, isKnownRoute } from "@/routes/registry";
 
 // Known route patterns - add more as routes are added
 const KNOWN_ROUTES = [
@@ -52,9 +53,12 @@ interface AppLinkProps extends Omit<LinkProps, "to"> {
 }
 
 /**
- * Safe link wrapper with route validation in dev mode
+ * Safe link wrapper with route validation in dev mode.
  */
 export const AppLink = ({ to, children, ...props }: AppLinkProps) => {
+  if (import.meta.env.DEV && to.startsWith("/")) {
+    const normalized = to.split('#')[0].split('?')[0];
+    if (normalized && !isKnownRoute(normalized, ALL_KNOWN_ROUTE_PATTERNS)) {
   // Validate internal links in development
   if (import.meta.env.DEV && to.startsWith("/")) {
     const isKnown = KNOWN_ROUTES.some(route => {
