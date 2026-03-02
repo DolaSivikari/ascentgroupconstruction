@@ -9,7 +9,7 @@ import { Switch } from "@/components/ui/switch";
 import { Card } from "@/components/ui/card";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { toast } from "sonner";
-import { Plus, Pencil, GripVertical, Eye, EyeOff, Trash2 } from "lucide-react";
+import { Plus, Pencil, GripVertical, Eye, EyeOff, Trash2, AlertTriangle } from "lucide-react";
 import { DndContext, closestCenter, KeyboardSensor, PointerSensor, useSensor, useSensors, DragEndEvent } from '@dnd-kit/core';
 import { arrayMove, SortableContext, sortableKeyboardCoordinates, useSortable, verticalListSortingStrategy } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
@@ -297,6 +297,10 @@ const HeroSlidesManager = () => {
         <div className="space-y-4">
           <div className="text-sm text-muted-foreground mb-4">
             Drag slides to reorder. Toggle the eye icon to show/hide slides on the homepage.
+          </div>
+          <div className="rounded-lg border border-amber-500/30 bg-amber-500/10 p-3 text-sm text-amber-200 flex items-start gap-2 mb-4">
+            <AlertTriangle className="h-4 w-4 mt-0.5" />
+            <span>Truth label: Hero slide records are currently an admin-managed dataset and may not be the active data source used by the live homepage renderer.</span>
           </div>
 
           <DndContext
