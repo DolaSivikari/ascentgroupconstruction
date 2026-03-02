@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import { useAdminAuth } from "@/hooks/useAdminAuth";
-import { UnifiedSidebar } from "@/components/admin/UnifiedSidebar";
 import { Button } from "@/ui/Button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -234,16 +233,13 @@ export default function DocumentsLibrary() {
   }
 
   return (
-    <div className="flex h-screen bg-background">
-      <UnifiedSidebar collapsed={false} onToggle={() => {}} />
-      <div className="flex-1 overflow-auto">
-        <div className="p-8">
-          <div className="flex justify-between items-center mb-8">
+    <div className="p-8">
+      <div className="flex justify-between items-center mb-8">
             <div>
               <h1 className="text-3xl font-bold">Documents Library</h1>
               <p className="text-muted-foreground">Manage downloadable documents and resources</p>
             </div>
-            <Dialog open={dialogOpen} onOpenChange={(open) => { setDialogOpen(open); if (!open) resetForm(); }}>
+        <Dialog open={dialogOpen} onOpenChange={(open) => { setDialogOpen(open); if (!open) resetForm(); }}>
               <DialogTrigger asChild>
                 <Button><Plus className="w-4 h-4 mr-2" />Upload Document</Button>
               </DialogTrigger>
@@ -381,8 +377,6 @@ export default function DocumentsLibrary() {
               </Table>
             </CardContent>
           </Card>
-        </div>
-      </div>
     </div>
   );
 }

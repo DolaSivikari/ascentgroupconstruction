@@ -13,6 +13,7 @@ interface AppLinkProps extends Omit<LinkProps, "to"> {
 export const AppLink = ({ to, children, ...props }: AppLinkProps) => {
   if (import.meta.env.DEV && to.startsWith("/")) {
     const normalized = (to.split('#')[0] ?? '').split('?')[0] ?? '';
+    const normalized = to.split('#')[0].split('?')[0];
     if (normalized && !isKnownRoute(normalized, ALL_KNOWN_ROUTE_PATTERNS)) {
       console.warn(`[AppLink] Unknown route: ${to}`);
     }
