@@ -10,6 +10,10 @@
 import * as fs from 'fs';
 import * as path from 'path';
 
+const APP_PATHS = [
+  path.join(process.cwd(), 'src', 'routes', 'AppRoutes.tsx'),
+  path.join(process.cwd(), 'src', 'App.tsx'),
+];
 const APP_PATH = path.join(process.cwd(), 'src', 'App.tsx');
 const SRC_DIR = path.join(process.cwd(), 'src');
 
@@ -83,6 +87,14 @@ function matchesRoute(link: string, routes: string[]): boolean {
   });
 }
 
+const appPath = APP_PATHS.find((candidate) => fs.existsSync(candidate));
+
+if (!appPath) {
+  console.error('❌ Could not find route declaration file for extraction');
+  process.exit(1);
+}
+
+const appContent = fs.readFileSync(appPath, 'utf-8');
 if (!fs.existsSync(APP_PATH)) {
   console.error('❌ Could not find src/App.tsx for route extraction');
   process.exit(1);

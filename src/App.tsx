@@ -2,176 +2,22 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route, Navigate, useLocation } from "react-router-dom";
-import { lazy, Suspense, useEffect } from "react";
+import { BrowserRouter, useLocation } from "react-router-dom";
+import { Suspense, useEffect } from "react";
 import ErrorBoundary from "./components/ErrorBoundary";
 import ScrollToTop from "./components/ScrollToTop";
-import { trackPageView } from "@/lib/analytics";
-
-// Eager load public pages (critical path)
-import { LandingWrapper } from "./components/landing/LandingWrapper";
-import About from "./pages/About";
-import Services from "./pages/Services";
-import Projects from "./pages/Projects";
-import Contact from "./pages/Contact";
-import Estimate from "./pages/Estimate";
-import Auth from "./pages/Auth";
-import NotFound from "./pages/NotFound";
-import PropertyManagers from "./pages/PropertyManagers";
-import Homeowners from "./pages/Homeowners";
-import CommercialClients from "./pages/CommercialClients";
-import OurProcess from "./pages/OurProcess";
-import Sustainability from "./pages/Sustainability";
-
-import Prequalification from "./pages/Prequalification";
-import Capabilities from "./pages/Capabilities";
-import Careers from "./pages/Careers";
-
-import ServiceDetail from "./pages/ServiceDetail";
-import InteriorBuildouts from "./pages/services/InteriorBuildouts";
-import BuildingEnvelope from "./pages/services/BuildingEnvelope";
-import ProtectiveCoatings from "./pages/services/ProtectiveCoatings";
-import CladdingSystems from "./pages/services/CladdingSystems";
-import TileFlooring from "./pages/services/TileFlooring";
-import PaintingServices from "./pages/services/PaintingServices";
-import SustainableBuilding from "./pages/services/SustainableBuilding";
-import FAQ from "./pages/FAQ";
-import CertificationsInsurance from "./pages/company/CertificationsInsurance";
-import ContractorPortal from "./pages/resources/ContractorPortal";
-import ServiceAreas from "./pages/resources/ServiceAreas";
-import LocationPage from "./pages/resources/LocationPage";
-import EquipmentResources from "./pages/company/EquipmentResources";
-import Developers from "./pages/company/Developers";
-import ForGeneralContractors from "./pages/ForGeneralContractors";
-import SubmitRFPNew from "./pages/SubmitRFPNew";
-import Insights from "./pages/Insights";
-import Privacy from "./pages/Privacy";
-import Terms from "./pages/Terms";
-import Accessibility from "./pages/Accessibility";
-import Unsubscribe from "./pages/Unsubscribe";
 import CookieBanner from "./components/CookieBanner";
-// Removed NewsletterSubscribers - consolidated into UnifiedInbox
-import DynamicSpecialtyPage from "./pages/DynamicSpecialtyPage";
-import WhySpecialtyContractor from "./pages/WhySpecialtyContractor";
-import ServiceSelectorPage from "./pages/ServiceSelectorPage";
-
-// Lazy load admin pages (not critical for initial load) with error handling
-const Dashboard = lazy(() => import("./pages/admin/Dashboard").catch(() => ({
-  default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Dashboard</p></div>
-})));
-const AdminProjects = lazy(() => import("./pages/admin/Projects").catch(() => ({
-  default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Projects</p></div>
-})));
-const ServiceEditor = lazy(() => import("./pages/admin/ServiceEditor").catch(() => ({
-  default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Service Editor</p></div>
-})));
-const ProjectEditor = lazy(() => import("./pages/admin/ProjectEditor").catch(() => ({
-  default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Project Editor</p></div>
-})));
-const TestimonialsManager = lazy(() => import("./pages/admin/TestimonialsManager").catch(() => ({
-  default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Testimonials Manager</p></div>
-})));
-const StatsManager = lazy(() => import("./pages/admin/StatsManager").catch(() => ({
-  default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Stats Manager</p></div>
-})));
-const DocumentsLibrary = lazy(() => import("./pages/admin/DocumentsLibrary").catch(() => ({
-  default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Documents Library</p></div>
-})));
-const AdminBlogPosts = lazy(() => import("./pages/admin/BlogPosts").catch(() => ({
-  default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Blog Posts</p></div>
-})));
-const BlogPostEditor = lazy(() => import("./pages/admin/BlogPostEditor").catch(() => ({
-  default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Blog Post Editor</p></div>
-})));
-const MediaLibrary = lazy(() => import("./pages/admin/MediaLibraryEnhanced").catch(() => ({
-  default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Media Library</p></div>
-})));
-const Users = lazy(() => import("./pages/admin/Users").catch(() => ({
-  default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Users</p></div>
-})));
-const PerformanceDashboard = lazy(() => import("./pages/admin/PerformanceDashboard").catch(() => ({
-  default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Performance Dashboard</p></div>
-})));
-const UnifiedInbox = lazy(() => import("./pages/admin/UnifiedInbox").catch(() => ({
-  default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Unified Inbox</p></div>
-})));
-const AuditDashboard = lazy(() => import("./pages/admin/AuditDashboard").catch(() => ({
-  default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Audit Dashboard</p></div>
-})));
-const ContentVersioning = lazy(() => import("./pages/admin/ContentVersioning").catch(() => ({
-  default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Content Versioning</p></div>
-})));
-const Monitoring = lazy(() => import("./pages/admin/Monitoring").catch(() => ({
-  default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Monitoring</p></div>
-})));
-
-import "./index.css";
-import "./styles/typography.css";
-import "./styles/textures.css";
-
-const NavigationBuilder = lazy(() => import("./pages/admin/NavigationBuilder").catch(() => ({
-  default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Navigation Builder</p></div>
-})));
-const RedirectsManager = lazy(() => import("./pages/admin/RedirectsManager").catch(() => ({
-  default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Redirects Manager</p></div>
-})));
-const HeroSlidesManager = lazy(() => import("./pages/admin/HeroSlidesManager").catch(() => ({
-  default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Hero Slides Manager</p></div>
-})));
-const SEODashboard = lazy(() => import("./pages/admin/SEODashboard").catch(() => ({
-  default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load SEO Dashboard</p></div>
-})));
-const SearchAnalytics = lazy(() => import("./pages/admin/SearchAnalytics").catch(() => ({
-  default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Search Analytics</p></div>
-})));
-
-const HomepageBuilder = lazy(() => import("./pages/admin/HomepageBuilder").catch(() => ({
-  default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Homepage Builder</p></div>
-})));
-const Settings = lazy(() => import("./pages/admin/Settings").catch(() => ({
-  default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Settings</p></div>
-})));
-const ServicesManager = lazy(() => import("./pages/admin/ServicesManager").catch(() => ({
-  default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Services Manager</p></div>
-})));
-
-// New admin pages
-const Notifications = lazy(() => import("./pages/admin/Notifications").catch(() => ({
-  default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Notifications</p></div>
-})));
-const EmailTemplates = lazy(() => import("./pages/admin/EmailTemplates").catch(() => ({
-  default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Email Templates</p></div>
-})));
-const Testing = lazy(() => import("./pages/admin/Testing").catch(() => ({
-  default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Testing Dashboard</p></div>
-})));
-
-// Unified Admin Layout
-const UnifiedAdminLayout = lazy(() => import("./components/admin/UnifiedAdminLayout").then(m => ({ default: m.UnifiedAdminLayout })).catch(() => ({
-  default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Admin Layout</p></div>
-})));
-
-// Lazy load heavy content pages with error handling
-const Blog = lazy(() => import("./pages/Blog").catch(() => ({
-  default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Blog</p></div>
-})));
-const BlogPost = lazy(() => import("./pages/BlogPost").catch(() => ({
-  default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Blog Post</p></div>
-})));
-const ProjectDetail = lazy(() => import("./pages/ProjectDetail").catch(() => ({
-  default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Project Detail</p></div>
-})));
+import { trackPageView } from "@/lib/analytics";
+import { AppRoutes } from "@/routes/AppRoutes";
 
 const queryClient = new QueryClient();
 
-// Loading component for lazy loaded routes
 const PageLoader = () => (
   <div className="min-h-screen flex items-center justify-center">
-    <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
+    <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary" />
   </div>
 );
 
-// Route tracking wrapper
 const RouteTracker = ({ children }: { children: React.ReactNode }) => {
   const location = useLocation();
 
@@ -189,6 +35,22 @@ const App = () => (
         <Toaster />
         <Sonner />
         <BrowserRouter>
+          <ScrollToTop />
+          <RouteTracker>
+            <CookieBanner />
+            <a
+              href="#main-content"
+              className="fixed top-0 left-0 -translate-y-full focus:translate-y-0 z-[100] bg-primary text-primary-foreground px-6 py-3 font-semibold transition-transform focus:outline-none focus:ring-4 focus:ring-primary/50"
+              aria-label="Skip to main content"
+            >
+              Skip to main content
+            </a>
+            <Suspense fallback={<PageLoader />}>
+              <AppRoutes />
+            </Suspense>
+          </RouteTracker>
+        </BrowserRouter>
+      </TooltipProvider>
             <ScrollToTop />
             <RouteTracker>
               <CookieBanner />

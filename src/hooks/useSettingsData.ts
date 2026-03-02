@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import { fetchActiveSettingsRow } from '@/hooks/useActiveSettings';
+import type { Database } from '@/integrations/supabase/types';
 
 interface UseSettingsDataResult<T> {
   data: T | null;
@@ -8,8 +9,8 @@ interface UseSettingsDataResult<T> {
   refetch: () => Promise<void>;
 }
 
-export function useSettingsData<T = any>(
-  tableName: string,
+export function useSettingsData<T = unknown>(
+  tableName: keyof Database['public']['Tables'],
   selectQuery: string = '*'
 ): UseSettingsDataResult<T> {
   const [data, setData] = useState<T | null>(null);
