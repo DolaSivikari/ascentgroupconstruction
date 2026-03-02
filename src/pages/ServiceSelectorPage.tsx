@@ -45,10 +45,10 @@ const ServiceSelectorPage = () => {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <a
-                href="tel:+16479995545"
+                href="tel:+16475286804"
                 className="inline-flex items-center justify-center rounded-[var(--radius-lg)] px-6 py-3 text-sm font-semibold text-white bg-primary hover:bg-primary/90 transition-colors"
               >
-                Call: (647) 999-5545
+                Call: (647) 528-6804
               </a>
               <div className="inline-flex items-center justify-center rounded-[var(--radius-lg)] px-6 py-3 text-sm font-semibold text-foreground border-2 border-border hover:border-primary transition-colors">
                 <AscentEmailLink showIcon={false}>Email Us</AscentEmailLink>

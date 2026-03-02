@@ -1,0 +1,20 @@
+{
+  "extends": "./tsconfig.app.json",
+  "compilerOptions": {
+    "strict": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "noUncheckedIndexedAccess": true
+  },
+  "include": [],
+  "files": [
+    "src/vite-env.d.ts",
+    "src/routes/registry.ts",
+    "src/components/navigation/AppLink.tsx",
+    "src/utils/routeHelpers.ts",
+    "src/hooks/useActiveSettings.ts",
+    "src/hooks/useSettingsData.ts",
+    "src/pages/admin/seo/types.ts",
+    "src/hooks/admin/useSeoOverviewStats.ts"
+  ]
+}
