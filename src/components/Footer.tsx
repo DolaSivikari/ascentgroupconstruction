@@ -54,8 +54,8 @@ const Footer = () => {
   const sectorsLinks = toFooterLinks(footerSettings?.sectors_links);
   const trustBarItems = toFooterLinks(footerSettings?.trust_bar_items);
   
-  const contactInfo = footerSettings?.contact_info || {};
-  const socialMedia = footerSettings?.social_media || {};
+  const contactInfo = (footerSettings?.contact_info || {}) as any;
+  const socialMedia = (footerSettings?.social_media || {}) as any;
   
   // Primary source: site_settings, fallback to footer_settings
   const address = siteSettings?.address || contactInfo.address || '';

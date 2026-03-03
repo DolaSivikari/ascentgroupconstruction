@@ -34,11 +34,11 @@ const categories = [
 
 const years = ["All", "2024", "2023", "2022", "2021"];
 
-type ProjectRecord = Record<string, unknown>;
+type ProjectRecord = Record<string, any>;
 type ProjectViewModel = {
   title: string; category: string; location: string; year: string; size: string; duration: string; image: string;
-  images: unknown[]; tags: string[]; description: string; highlights: string[]; slug: string; featured: boolean; id: string; rawData: ProjectRecord;
-  project_value?: number | null; your_role?: string | null; on_time_completion?: boolean | null; on_budget?: boolean | null; safety_incidents?: number | null;
+  images: any[]; tags: string[]; description: string; highlights: string[]; slug: string; featured: boolean; id: string; rawData: ProjectRecord;
+  project_value?: any; your_role?: string | null; on_time_completion?: boolean | null; on_budget?: boolean | null; safety_incidents?: number | null;
 };
 
 const Projects = () => {
@@ -87,14 +87,14 @@ const Projects = () => {
           size: project.project_size || "N/A",
           duration: project.duration || "N/A",
           image: resolveImagePath(project.featured_image),
-          images: project.gallery || [],
+          images: (project.gallery || []) as any[],
           tags: project.tags || [project.category, project.duration, project.project_size].filter(Boolean),
           description: project.description || project.summary || "",
           highlights: project.summary ? [project.summary] : [],
           slug: project.slug,
           featured: project.featured,
           id: project.id,
-          rawData: project,
+          rawData: project as any,
           // GC Metrics
           project_value: project.project_value,
           your_role: project.your_role,
@@ -111,11 +111,11 @@ const Projects = () => {
   }, []);
 
   // Enable realtime subscription for instant updates
-  const realtimeProjects = useRealtimeProjects(allProjects.map(p => p.rawData));
+  const realtimeProjects = useRealtimeProjects(allProjects.map(p => p.rawData) as any[]);
   
   useEffect(() => {
     if (realtimeProjects.length > 0) {
-      const transformed = realtimeProjects.map((project) => ({
+      const transformed = realtimeProjects.map((project: any) => ({
         title: project.title,
         category: project.category || "General",
         location: project.location || "N/A",

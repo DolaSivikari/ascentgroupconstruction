@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/ui/Card';
-import { Button } from '@/ui/Button';
-import { Input } from '@/ui/Input';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -168,7 +168,7 @@ export default function SEODashboard() {
     }
   };
 
-  const calculateSEOScore = (item: SEOScorableItem, type: string) => {
+  const calculateSEOScore = (item: any, type: string) => {
     let score = 0;
     const recommendations: string[] = [];
 
@@ -255,7 +255,7 @@ export default function SEODashboard() {
       ]);
 
       // Process content items with SEO scores
-      const items: SEOScorableItem[] = [];
+      const items: any[] = [];
 
       if (blogRes.data) {
         blogRes.data.forEach((post) => {
@@ -359,7 +359,7 @@ Sitemap: ${window.location.origin}/sitemap.xml`);
       toast({
         variant: 'destructive',
         title: 'Error',
-        description: error.message || 'Failed to generate keywords',
+        description: (error as any).message || 'Failed to generate keywords',
       });
     } finally {
       setGeneratingKeywords(false);
@@ -483,7 +483,7 @@ Disallow: /auth`;
         title: 'Success',
         description: `Sitemap generated with ${data.url_count} URLs`,
       });
-    } catch (error: unknown) {
+    } catch (error: any) {
       await supabase.from('sitemap_logs').insert({
         url_count: 0,
         status: 'error',
@@ -521,7 +521,7 @@ Disallow: /auth`;
           description: 'Failed to get authorization URL',
         });
       }
-    } catch (error: unknown) {
+    } catch (error: any) {
       console.error('Error connecting to Google Search Console:', error);
       toast({
         variant: 'destructive',
@@ -572,7 +572,7 @@ Disallow: /auth`;
       });
 
       await loadSearchConsoleData();
-    } catch (error: unknown) {
+    } catch (error: any) {
       toast({
         variant: 'destructive',
         title: 'Error',

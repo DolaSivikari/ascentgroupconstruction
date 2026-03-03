@@ -119,9 +119,9 @@ const Estimate = () => {
     // Special handling for service selection
     if (field === "service" && value) {
       // Check if this service requires a quote instead of estimate
-      if (requiresQuote(value)) {
-        const serviceMessage = getServiceMessage(value);
-        const serviceName = value
+      if (requiresQuote(value as string)) {
+        const serviceMessage = getServiceMessage(value as string);
+        const serviceName = (value as string)
           .split("_")
           .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
           .join(" ");
