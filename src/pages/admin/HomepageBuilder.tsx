@@ -1,7 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useSearchParams } from "react-router-dom";
+import { AlertTriangle } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { AlertTriangle } from "lucide-react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/ui/Card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Layout, Home, Sparkles, Award } from "lucide-react";
 import HeroSlidesManager from "./HeroSlidesManager";
 import StatsManager from "./StatsManager";
@@ -9,7 +12,31 @@ import { WhyChooseUsManager } from "@/components/admin/WhyChooseUsManager";
 import { CompanyOverviewManager } from "@/components/admin/CompanyOverviewManager";
 
 const HomepageBuilder = () => {
-  const [activeTab, setActiveTab] = useState("hero");
+  const [searchParams, setSearchParams] = useSearchParams();
+  const allowedTabs = new Set(["hero", "why-choose", "overview", "stats"]);
+  const queryTab = searchParams.get("tab") || "hero";
+  const initialTab = allowedTabs.has(queryTab) ? queryTab : "hero";
+
+  const [activeTab, setActiveTab] = useState(initialTab);
+
+  useEffect(() => {
+    const nextTab = new Set(["hero", "why-choose", "overview", "stats"]).has(queryTab) ? queryTab : "hero";
+    setActiveTab(nextTab);
+  }, [queryTab]);
+
+  const handleTabChange = (tab: string) => {
+    setActiveTab(tab);
+    const nextParams = new URLSearchParams(searchParams);
+
+    if (tab === "hero") {
+      nextParams.delete("tab");
+      setSearchParams(nextParams, { replace: true });
+      return;
+    }
+
+    nextParams.set("tab", tab);
+    setSearchParams(nextParams, { replace: true });
+  };
 
   return (
     <div className="space-y-6">
@@ -20,7 +47,7 @@ const HomepageBuilder = () => {
         </p>
       </div>
 
-      <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
+      <Tabs value={activeTab} onValueChange={handleTabChange} className="space-y-6">
         <TabsList className="grid w-full grid-cols-4">
           <TabsTrigger value="hero" className="flex items-center gap-2">
             <Layout className="h-4 w-4" />
