@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Card, CardContent } from '@/components/ui/card';
+import { Card, CardContent } from '@/ui/Card';
 import { Check, ChevronDown } from 'lucide-react';
 import { cn } from '@/lib/utils';
 

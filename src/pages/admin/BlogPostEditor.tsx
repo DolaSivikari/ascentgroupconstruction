@@ -2,10 +2,10 @@ import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { useNavigate, useParams } from "react-router-dom";
 import { Button } from "@/ui/Button";
-import { Input } from "@/components/ui/input";
+import { Input } from "@/ui/Input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/ui/Card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { ArrowLeft, Save, Eye } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
@@ -51,6 +51,9 @@ const BlogPostEditor = () => {
     results: "",
     client_name: "",
     budget_range: "",
+    before_images: [] as unknown[],
+    after_images: [] as unknown[],
+    process_steps: [] as unknown[],
     before_images: [] as any[],
     after_images: [] as any[],
     process_steps: [] as any[],
@@ -101,9 +104,9 @@ const BlogPostEditor = () => {
         seo_description: data.seo_description || "",
         seo_keywords: data.seo_keywords?.join(", ") || "",
         read_time_minutes: data.read_time_minutes || 5,
-        publish_state: (data.publish_state as any) || "draft",
+        publish_state: (data.publish_state as typeof formData.publish_state) || "draft",
         content_type: data.content_type || "article",
-        sector: (data.sector as any) || "General",
+        sector: (data.sector as typeof formData.sector) || "General",
         source: data.source || "",
         is_pinned: data.is_pinned || false,
         project_location: data.project_location || "",
@@ -348,7 +351,7 @@ const BlogPostEditor = () => {
                 <Label htmlFor="content_type">Content Type</Label>
                 <Select 
                   value={formData.content_type} 
-                  onValueChange={(value: any) => setFormData({ ...formData, content_type: value })}
+                  onValueChange={(value: typeof formData.content_type) => setFormData({ ...formData, content_type: value })}
                 >
                   <SelectTrigger>
                     <SelectValue />
@@ -386,7 +389,7 @@ const BlogPostEditor = () => {
                 <Label htmlFor="sector">Sector</Label>
                 <Select 
                   value={formData.sector} 
-                  onValueChange={(value: any) => setFormData({ ...formData, sector: value })}
+                  onValueChange={(value: typeof formData.sector) => setFormData({ ...formData, sector: value })}
                 >
                   <SelectTrigger>
                     <SelectValue placeholder="Select sector" />
@@ -458,14 +461,14 @@ const BlogPostEditor = () => {
                 <div className="flex items-center gap-2">
                   <Label htmlFor="publish_state">Publishing Status</Label>
                   <span className="text-xs text-muted-foreground">
-                    {(formData.publish_state as any) === 'draft' && '(Not visible to public)'}
-                    {(formData.publish_state as any) === 'review' && '(Awaiting approval)'}
-                    {(formData.publish_state as any) === 'published' && '(Live on site)'}
+                    {formData.publish_state === 'draft' && '(Not visible to public)'}
+                    {formData.publish_state === 'review' && '(Awaiting approval)'}
+                    {formData.publish_state === 'published' && '(Live on site)'}
                   </span>
                 </div>
                 <Select 
                   value={formData.publish_state} 
-                  onValueChange={(value: any) => setFormData({ ...formData, publish_state: value as any })}
+                  onValueChange={(value: typeof formData.publish_state) => setFormData({ ...formData, publish_state: value })}
                 >
                   <SelectTrigger>
                     <SelectValue />

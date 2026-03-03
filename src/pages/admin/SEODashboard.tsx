@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/ui/Card';
 import { Button } from '@/ui/Button';
-import { Input } from '@/components/ui/input';
+import { Input } from '@/ui/Input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -168,7 +168,7 @@ export default function SEODashboard() {
     }
   };
 
-  const calculateSEOScore = (item: any, type: string) => {
+  const calculateSEOScore = (item: SEOScorableItem, type: string) => {
     let score = 0;
     const recommendations: string[] = [];
 
@@ -255,7 +255,7 @@ export default function SEODashboard() {
       ]);
 
       // Process content items with SEO scores
-      const items: any[] = [];
+      const items: SEOScorableItem[] = [];
 
       if (blogRes.data) {
         blogRes.data.forEach((post) => {
@@ -320,7 +320,7 @@ export default function SEODashboard() {
 Allow: /
 Sitemap: ${window.location.origin}/sitemap.xml`);
       }
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error('Error loading SEO data:', error);
       toast({
         variant: 'destructive',
@@ -355,7 +355,7 @@ Sitemap: ${window.location.origin}/sitemap.xml`);
         title: 'Keywords Generated',
         description: `Found ${data.keywords?.length || 0} relevant keywords`,
       });
-    } catch (error: any) {
+    } catch (error: unknown) {
       toast({
         variant: 'destructive',
         title: 'Error',
@@ -402,7 +402,7 @@ Sitemap: ${window.location.origin}/sitemap.xml`);
         title: 'Success',
         description: 'Robots.txt updated successfully! Changes will be live after next deployment.',
       });
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error('Error saving robots.txt:', error);
       toast({
         variant: 'destructive',
@@ -483,7 +483,7 @@ Disallow: /auth`;
         title: 'Success',
         description: `Sitemap generated with ${data.url_count} URLs`,
       });
-    } catch (error: any) {
+    } catch (error: unknown) {
       await supabase.from('sitemap_logs').insert({
         url_count: 0,
         status: 'error',
@@ -521,7 +521,7 @@ Disallow: /auth`;
           description: 'Failed to get authorization URL',
         });
       }
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error('Error connecting to Google Search Console:', error);
       toast({
         variant: 'destructive',
@@ -572,7 +572,7 @@ Disallow: /auth`;
       });
 
       await loadSearchConsoleData();
-    } catch (error: any) {
+    } catch (error: unknown) {
       toast({
         variant: 'destructive',
         title: 'Error',

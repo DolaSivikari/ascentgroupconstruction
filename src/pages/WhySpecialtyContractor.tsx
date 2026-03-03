@@ -3,7 +3,7 @@ import { Section } from "@/components/sections/Section";
 import SEO from "@/components/SEO";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
-import { Card } from "@/components/ui/card";
+import { Card } from "@/ui/Card";
 import { Button } from "@/ui/Button";
 import { Link } from "react-router-dom";
 import { CTA_TEXT } from "@/design-system/constants";

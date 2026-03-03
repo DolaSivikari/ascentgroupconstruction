@@ -4,7 +4,7 @@ import SEO from "@/components/SEO";
 import { PageHero } from "@/components/shared/PageHero";
 import BenefitsSection from "@/components/sections/BenefitsSection";
 import CTASection from "@/components/sections/CTASection";
-import { Card, CardContent } from "@/components/ui/card";
+import { Card, CardContent } from "@/ui/Card";
 import { Link } from "react-router-dom";
 import { Timer, ShieldCheck, Users, Moon, CheckCircle, Building2, Zap } from "lucide-react";
 import { CTA_TEXT } from "@/design-system/constants";

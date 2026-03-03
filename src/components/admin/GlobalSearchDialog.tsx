@@ -8,7 +8,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
+import { Input } from "@/ui/Input";
 import { Badge } from "@/components/ui/badge";
 import { Search, FileText, Folder, Mail, Users } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";

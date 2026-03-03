@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/ui/Card";
+import { Button } from "@/ui/Button";
 import { Badge } from "@/components/ui/badge";
 import { Package, Mail, CheckCircle2, FileText } from "lucide-react";
 import { cn } from "@/lib/utils";

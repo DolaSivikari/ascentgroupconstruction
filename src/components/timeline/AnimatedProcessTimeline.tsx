@@ -1,9 +1,9 @@
 import { useState, useRef } from "react";
 import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
-import { Card, CardContent } from "@/components/ui/card";
+import { Card, CardContent } from "@/ui/Card";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/ui/Button";
 import { CheckCircle2, Circle, Clock, ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
 import OptimizedImage from "@/components/OptimizedImage";

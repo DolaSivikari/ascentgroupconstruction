@@ -4,8 +4,8 @@ import {
   Check, Phone, Mail, MapPin, Clock, Award, 
   ChevronRight, ChevronDown, ArrowRight 
 } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/ui/Button';
+import { Card, CardContent, CardHeader, CardTitle } from '@/ui/Card';
 import QuickFacts from '@/components/seo/QuickFacts';
 import PeopleAlsoAsk from '@/components/seo/PeopleAlsoAsk';
 import SEO from '@/components/SEO';

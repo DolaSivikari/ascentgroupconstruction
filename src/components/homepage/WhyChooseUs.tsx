@@ -1,5 +1,5 @@
 import * as LucideIcons from "lucide-react";
-import { Card } from "@/components/ui/card";
+import { Card } from "@/ui/Card";
 import { Button } from "@/ui/Button";
 import { Link } from "react-router-dom";
 import { useWhyChooseUs } from "@/hooks/useWhyChooseUs";

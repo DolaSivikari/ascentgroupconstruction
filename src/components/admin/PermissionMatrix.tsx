@@ -1,4 +1,4 @@
-import { Card } from "@/components/ui/card";
+import { Card } from "@/ui/Card";
 import { Badge } from "@/components/ui/badge";
 import { Check, X } from "lucide-react";
 

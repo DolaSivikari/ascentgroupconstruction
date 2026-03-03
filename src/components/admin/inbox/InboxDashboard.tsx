@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
-import { Card } from "@/components/ui/card";
+import { Card } from "@/ui/Card";
 import { FileText, Mail, FileUser, Download, DollarSign, Newspaper } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
 

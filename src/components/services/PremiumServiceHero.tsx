@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/ui/Button";
 import { ChevronDown, Award, Shield, Clock } from "lucide-react";
 
 export const PremiumServiceHero = () => {

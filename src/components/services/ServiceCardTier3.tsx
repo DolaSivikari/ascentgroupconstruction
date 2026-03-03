@@ -1,4 +1,4 @@
-import { Card, CardContent } from "@/components/ui/card";
+import { Card, CardContent } from "@/ui/Card";
 import { ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import { getChallengeColor } from "./challengeMapping";

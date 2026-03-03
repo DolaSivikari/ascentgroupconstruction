@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
-import { Card } from '@/components/ui/card';
+import { Card } from '@/ui/Card';
 import { Button } from '@/ui/Button';
-import { Input } from '@/components/ui/input';
+import { Input } from '@/ui/Input';
 import { Label } from '@/components/ui/label';
 import { migrateNavigationData } from '@/utils/migrateNavigationData';
 import {

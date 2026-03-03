@@ -34,6 +34,10 @@ const estimateSchema = z.object({
   consent: z.boolean().refine((val) => val === true, { message: "You must consent to be contacted" }),
 });
 
+type EstimateFormData = {
+  [key: string]: string | boolean | string[];
+};
+
 const Estimate = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
@@ -111,7 +115,7 @@ const Estimate = () => {
     message: ReturnType<typeof getServiceMessage>;
   } | null>(null);
 
-  const handleInputChange = (field: string, value: any) => {
+  const handleInputChange = (field: keyof EstimateFormData, value: EstimateFormData[keyof EstimateFormData]) => {
     // Special handling for service selection
     if (field === "service" && value) {
       // Check if this service requires a quote instead of estimate
@@ -298,8 +302,8 @@ Add-ons:
         setTimeout(() => reject(new Error("Database request timeout")), 10000)
       );
 
-      const { error } = await Promise.race([insertPromise, timeoutPromise]) as any;
-      if (error) throw error;
+      const insertResult = await Promise.race([insertPromise, timeoutPromise as Promise<never>]);
+      if (insertResult.error) throw insertResult.error;
 
       // Also insert into quote_requests table
       if (formData.quoteType) {

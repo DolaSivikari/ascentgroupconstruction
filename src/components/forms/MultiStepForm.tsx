@@ -1,5 +1,5 @@
 import { useState, ReactNode } from "react";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/ui/Button";
 import { Progress } from "@/components/ui/progress";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { cn } from "@/lib/utils";
