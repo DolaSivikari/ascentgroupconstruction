@@ -2,19 +2,33 @@
 
 # Build Error Fix Plan
 
-Two files have syntax errors preventing the build:
+Your website can't publish because several files have duplicate/overlapping code causing build failures. Here are the fixes needed:
 
-## 1. `src/components/navigation/AppLink.tsx` - Duplicate/Malformed Code
+## 1. `src/App.tsx` -- Delete duplicate route tree (lines 54-226)
 
-The file contains two overlapping route validation blocks (lines 59-71) - the newer `isKnownRoute` check and the older `KNOWN_ROUTES.some()` check are tangled together, and the function is missing its closing brace. 
+Lines 31-53 contain the correct App component using `<AppRoutes />`. Lines 54-226 are a stale duplicate with inline routes and references to components that aren't imported. Delete lines 54-226 entirely, keeping only the clean version that properly closes all JSX tags.
 
-**Fix:** Remove the duplicate legacy validation block and properly close the `if` statement and function. The file should use only the `isKnownRoute` check from `@/routes/registry`, making the hardcoded `KNOWN_ROUTES` array and the old validation block unnecessary.
+## 2. `src/hooks/useActiveSettings.ts` -- Consolidate duplicate function
 
-## 2. `src/data/service-faqs-enriched.ts` - Unescaped Apostrophes in String
+The file has two overlapping `fetchActiveSettingsRow` declarations tangled together. Rewrite as a single clean function using `tableName as any` cast.
 
-Line 36 contains a massive single-quoted string (~7000+ chars) with unescaped apostrophes (e.g., `team's`, `don't`) that break the string literal at column 6753+.
+## 3. `src/routes/AppRoutes.tsx` -- Fix duplicate declarations
 
-**Fix:** Escape all apostrophes in the line 36 answer string (replace `'` with `\'` inside the string), or convert it to use backtick template literals to avoid escaping issues entirely.
+Lines 83-84 have `const serviceRoutes = (` immediately followed by `const ServiceRouteGroup = () => (` -- two overlapping declarations. Same issue at lines 123-124 with admin routes. And lines 192-193 and 224-225 reference both old and new names. Fix: keep only the component versions (`ServiceRouteGroup`, `AdminRouteGroup`) and remove the stale `const` variable assignments and their duplicate references.
 
-Both are straightforward syntax fixes with no logic changes.
+## 4. `src/data/service-faqs-enriched.ts` -- Remove duplicate answer property
+
+Lines 35-37 have two `answer:` properties for the same FAQ object -- one using backticks (line 36) and one using single quotes (line 37). Remove the backtick version (line 36) and keep the escaped single-quote version (line 37) which is syntactically correct.
+
+## 5. `src/pages/admin/DocumentsLibrary.tsx` -- Remove duplicate JSX tags
+
+Line 243 is a duplicate `<Dialog>` opening tag (line 242 already has it). Remove line 243.
+
+## 6. `supabase/functions/_shared/errorHandler.ts` -- Fix `unknown` type access
+
+All `error` parameters typed as `unknown` need casting. Change `error: unknown` to `error: any` in all three functions (`sanitizeErrorMessage`, `createErrorResponse`, `logSecurityError`) to resolve the 11 TS2339 property-access errors.
+
+---
+
+All fixes are duplicate-line removals or simple type changes with no logic changes.
 
