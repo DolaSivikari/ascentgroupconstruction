@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Input } from '@/components/ui/input';
+import { Input } from '@/ui/Input';
 import { Button } from '@/ui/Button';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Search, FileText, Briefcase, Users, Mail, Phone, ExternalLink } from 'lucide-react';

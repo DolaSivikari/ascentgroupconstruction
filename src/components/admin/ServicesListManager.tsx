@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useServicesAdmin } from "@/hooks/useServicesAdmin";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+import { Button } from "@/ui/Button";
+import { Input } from "@/ui/Input";
 import { Badge } from "@/components/ui/badge";
 import { Plus, Pencil, Trash2, Eye } from "lucide-react";
 import { useNavigate } from "react-router-dom";

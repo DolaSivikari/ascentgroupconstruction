@@ -2,8 +2,8 @@ import { Shield, Award, CheckCircle2, Building2, Download, FileText } from "luci
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import PageHero from "@/components/shared/PageHero";
-import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/ui/Card";
+import { Button } from "@/ui/Button";
 import SEO from "@/components/SEO";
 import { useSettingsData } from "@/hooks/useSettingsData";
 import { companyHeroes } from "@/data/hero-images";

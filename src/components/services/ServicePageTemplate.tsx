@@ -4,8 +4,8 @@ import {
   Check, Phone, Mail, MapPin, Clock, Award, 
   ChevronRight, ChevronDown, ArrowRight 
 } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/ui/Button';
+import { Card, CardContent, CardHeader, CardTitle } from '@/ui/Card';
 import QuickFacts from '@/components/seo/QuickFacts';
 import PeopleAlsoAsk from '@/components/seo/PeopleAlsoAsk';
 import SEO from '@/components/SEO';
@@ -235,11 +235,11 @@ export const ServicePageTemplate = ({ service }: ServicePageTemplateProps) => {
 
                 <div className="pt-6 border-t space-y-3">
                   <a
-                    href="tel:+16471234567"
+                    href="tel:+16475286804"
                     className="flex items-center gap-3 text-primary hover:text-primary/80 font-semibold transition-colors"
                   >
                     <Phone className="w-5 h-5" />
-                    <span>(647) 123-4567</span>
+                    <span>(647) 528-6804</span>
                   </a>
                   <Button variant="outline" className="w-full" asChild>
                     <Link to="/contact">
@@ -431,7 +431,7 @@ export const ServicePageTemplate = ({ service }: ServicePageTemplateProps) => {
                 </Link>
               </Button>
               <Button size="lg" variant="outline" className="hover:scale-105 transition-transform" asChild>
-                <a href="tel:+16471234567">
+                <a href="tel:+16475286804">
                   <Phone className="w-5 h-5 mr-2" />
                   Call Now
                 </a>

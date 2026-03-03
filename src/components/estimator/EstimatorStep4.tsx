@@ -1,4 +1,4 @@
-import { Card } from "@/components/ui/card";
+import { Card } from "@/ui/Card";
 import { CheckCircle2 } from "lucide-react";
 import { formatCurrency, EstimateResult } from "@/utils/estimator";
 

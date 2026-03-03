@@ -7,7 +7,7 @@ import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
 import ContentPageHeader from "@/components/ContentPageHeader";
 import ShareMenu from "@/components/blog/ShareMenu";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/ui/Button";
 import { Badge } from "@/components/ui/badge";
 import { CTA_TEXT } from "@/design-system/constants";
 import OptimizedImage from "@/components/OptimizedImage";

@@ -22,7 +22,6 @@ export const NAVIGATION_ICONS: Record<string, string> = {
   '/company/developers': 'Code',
   '/about': 'Info',
   '/careers': 'UserPlus',
-  '/how-we-work': 'Workflow',
   '/our-process': 'GitBranch',
   
   // Client Types

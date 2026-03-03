@@ -1,5 +1,5 @@
 import { MapPin, Phone, Mail, Clock, HardHat, Ruler, ClipboardCheck } from "lucide-react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/ui/Card";
 import { Badge } from "@/components/ui/badge";
 import { EmailLink } from "../EmailLink";
 

@@ -1,4 +1,4 @@
-import { Card, CardContent } from "@/components/ui/card";
+import { Card, CardContent } from "@/ui/Card";
 import { Badge } from "@/components/ui/badge";
 import { CheckCircle2, TrendingUp, Users, Calendar } from "lucide-react";
 import { cn } from "@/lib/utils";

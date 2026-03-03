@@ -1,7 +1,7 @@
-import { Input } from "@/components/ui/input";
+import { Input } from "@/ui/Input";
 import { Badge } from "@/components/ui/badge";
 import { Search, X } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/ui/Button";
 
 interface SearchBarProps {
   searchQuery: string;

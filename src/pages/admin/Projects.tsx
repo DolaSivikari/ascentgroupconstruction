@@ -15,7 +15,7 @@ import { useTableFilters } from '@/hooks/useTableFilters';
 import { useTableSort } from '@/hooks/useTableSort';
 import { useTablePagination } from '@/hooks/useTablePagination';
 import { Checkbox } from '@/components/ui/checkbox';
-import { Input } from '@/components/ui/input';
+import { Input } from '@/ui/Input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import {
   Pagination,
