@@ -347,7 +347,7 @@ Add-ons:
           body: {
             email: validatedData.email,
             clientName: validatedData.name,
-            templateName: 'default-review-request',
+            templateName: 'review_request_day_0',
           },
         });
       } catch (reviewError) {

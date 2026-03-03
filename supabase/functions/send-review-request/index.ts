@@ -1,6 +1,11 @@
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 import { corsHeaders, handleCors } from '../_shared/http.ts';
 
+const DEFAULT_TEMPLATE_NAME = 'review_request_day_0';
+const LEGACY_TEMPLATE_ALIASES: Record<string, string> = {
+  'default-review-request': DEFAULT_TEMPLATE_NAME,
+};
+
 Deno.serve(async (req) => {
   const cors = handleCors(req);
   if (cors) return cors;
@@ -13,6 +18,8 @@ Deno.serve(async (req) => {
     const supabase = createClient(supabaseUrl, supabaseServiceKey);
 
     const { email, clientName, projectId, templateName } = await req.json();
+    const requestedTemplateName = typeof templateName === 'string' ? templateName : '';
+    const normalizedTemplateName = LEGACY_TEMPLATE_ALIASES[requestedTemplateName] || requestedTemplateName || DEFAULT_TEMPLATE_NAME;
 
     if (!email || !clientName) {
       return new Response(
@@ -25,14 +32,14 @@ Deno.serve(async (req) => {
     const { data: template, error: templateError } = await supabase
       .from('email_templates')
       .select('*')
-      .eq('name', templateName || 'review_request_day_0')
+      .eq('name', normalizedTemplateName)
       .eq('is_active', true)
       .single();
 
     if (templateError || !template) {
       console.error('Template fetch error:', templateError);
       return new Response(
-        JSON.stringify({ error: 'Email template not found' }),
+        JSON.stringify({ error: 'Email template not found', requestedTemplateName: normalizedTemplateName }),
         { status: 404, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
       );
     }

@@ -54,6 +54,9 @@ const BlogPostEditor = () => {
     before_images: [] as unknown[],
     after_images: [] as unknown[],
     process_steps: [] as unknown[],
+    before_images: [] as any[],
+    after_images: [] as any[],
+    process_steps: [] as any[],
     published_at: null as string | null,
   });
 
