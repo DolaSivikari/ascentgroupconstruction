@@ -8,6 +8,8 @@ import PrequalPackage from "@/components/homepage/PrequalPackage";
 import SkipLink from "@/components/SkipLink";
 import { createHowToSchema, createQASchema, createSiteSearchSchema } from "@/utils/schema-injector";
 import { TrustBadgeBar } from "@/components/homepage/TrustBadgeBar";
+import WhyChooseUs from "@/components/homepage/WhyChooseUs";
+import CompanyOverviewHub from "@/components/homepage/CompanyOverviewHub";
 import WhoWeServeHomepage from "@/components/homepage/WhoWeServeHomepage";
 import { videoSchema } from "@/utils/structured-data";
 import { getHomepageVideos } from "@/data/video-metadata";
@@ -173,6 +175,12 @@ const Index = () => {
           
           {/* Who We Serve - Commercial & Residential Split */}
           <WhoWeServeHomepage />
+
+          {/* Admin-managed differentiators with safe fallback */}
+          <WhyChooseUs />
+
+          {/* Admin-managed company overview with safe fallback */}
+          <CompanyOverviewHub />
           
           {/* Featured Services - No wrapper animation, content animates itself */}
           <div className="py-16">

@@ -5,12 +5,28 @@ import ascentLogoVerticalDark from "@/assets/ascent-logo-vertical-dark.png";
 import SEO from "@/components/SEO";
 import { Skeleton } from "@/components/ui/skeleton";
 import { supabase } from "@/integrations/supabase/client";
+import type { Database } from "@/integrations/supabase/types";
 import { UnifiedFooter } from "./footer/UnifiedFooter";
 
+
+type SiteSettingsRow = Database['public']['Tables']['site_settings']['Row'];
+type FooterSettingsRow = Database['public']['Tables']['footer_settings']['Row'];
+type ServiceLink = Pick<Database['public']['Tables']['services']['Row'], 'name' | 'slug' | 'service_tier'>;
+type FooterLink = { label: string; href: string };
+
+const toFooterLinks = (value: unknown): FooterLink[] => {
+  if (!Array.isArray(value)) return [];
+  return value.filter((item): item is FooterLink => {
+    if (!item || typeof item !== 'object') return false;
+    const rec = item as Record<string, unknown>;
+    return typeof rec.label === 'string' && typeof rec.href === 'string';
+  });
+};
+
 const Footer = () => {
-  const [siteSettings, setSiteSettings] = useState<any>(null);
-  const [footerSettings, setFooterSettings] = useState<any>(null);
-  const [services, setServices] = useState<any[]>([]);
+  const [siteSettings, setSiteSettings] = useState<SiteSettingsRow | null>(null);
+  const [footerSettings, setFooterSettings] = useState<FooterSettingsRow | null>(null);
+  const [services, setServices] = useState<ServiceLink[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -34,9 +50,9 @@ const Footer = () => {
   }, []);
 
   // Get data from admin-managed settings
-  const quickLinks = (footerSettings?.quick_links as any[]) || [];
-  const sectorsLinks = (footerSettings?.sectors_links as any[]) || [];
-  const trustBarItems = (footerSettings?.trust_bar_items as any[]) || [];
+  const quickLinks = toFooterLinks(footerSettings?.quick_links);
+  const sectorsLinks = toFooterLinks(footerSettings?.sectors_links);
+  const trustBarItems = toFooterLinks(footerSettings?.trust_bar_items);
   
   const contactInfo = footerSettings?.contact_info || {};
   const socialMedia = footerSettings?.social_media || {};

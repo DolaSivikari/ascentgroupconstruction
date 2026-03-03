@@ -3,9 +3,10 @@ import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/ui/Button";
 import { useToast } from "@/hooks/use-toast";
 import { useAdminAuth } from "@/hooks/useAdminAuth";
+import DOMPurify from "dompurify";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Badge } from "@/components/ui/badge";
-import { Input } from "@/components/ui/input";
+import { Input } from "@/ui/Input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Switch } from "@/components/ui/switch";
@@ -511,8 +512,8 @@ const EmailTemplates = () => {
               <hr className="my-4" />
               <div 
                 className="prose prose-sm max-w-none"
-                dangerouslySetInnerHTML={{ 
-                  __html: (currentTemplate.body_html || '').replace(/{(\w+)}/g, '<span class="text-primary">[Sample $1]</span>')
+                dangerouslySetInnerHTML={{
+                  __html: DOMPurify.sanitize((currentTemplate.body_html || '').replace(/{(\w+)}/g, '<span class="text-primary">[Sample $1]</span>'))
                 }}
               />
             </div>

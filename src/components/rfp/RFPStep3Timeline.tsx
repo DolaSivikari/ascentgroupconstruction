@@ -1,9 +1,9 @@
 import { UseFormReturn } from "react-hook-form";
-import { Input } from "@/components/ui/input";
+import { Input } from "@/ui/Input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Card, CardContent } from "@/components/ui/card";
+import { Card, CardContent } from "@/ui/Card";
 import { Calendar, Clock, Shield } from "lucide-react";
 import { RFPSubmission } from "@/schemas/rfp-validation";
 

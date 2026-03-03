@@ -4,7 +4,7 @@ import { Button } from '@/ui/Button';
 import { Input } from '@/ui/Input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/ui/Textarea';
-import { Card } from '@/components/ui/card';
+import { Card } from '@/ui/Card';
 import { ImageUploadField } from './ImageUploadField';
 import {
   DndContext,

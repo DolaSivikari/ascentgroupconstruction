@@ -29,7 +29,7 @@ const validateInput = (data: PackageNotificationRequest): string | null => {
   if (name.length > 100) {
     return "Name must be less than 100 characters";
   }
-  if (!/^[a-zA-Z\s\-'\.]+$/.test(name)) {
+  if (!/^[a-zA-Z\s-'.]+$/.test(name)) {
     return "Name contains invalid characters";
   }
 
@@ -41,7 +41,7 @@ const validateInput = (data: PackageNotificationRequest): string | null => {
   }
 
   if (phone && phone.length > 0) {
-    if (!/^[\d\s\-\+\(\)]+$/.test(phone)) {
+    if (!/^[\d\s()+-]+$/.test(phone)) {
       return "Phone number contains invalid characters";
     }
     if (phone.length > 20) {

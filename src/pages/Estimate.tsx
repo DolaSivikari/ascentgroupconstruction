@@ -34,13 +34,18 @@ const estimateSchema = z.object({
   consent: z.boolean().refine((val) => val === true, { message: "You must consent to be contacted" }),
 });
 
+type EstimateFormData = {
+  [key: string]: string | boolean | string[];
+};
+
 const Estimate = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
   const [currentStep, setCurrentStep] = useState(0);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const isSubmittingRef = useRef(false);
-  const totalSteps = 6;
+  const finalStep = 6;
+  const totalSteps = finalStep + 1;
 
   const [formData, setFormData] = useState({
     // Step 0
@@ -110,7 +115,7 @@ const Estimate = () => {
     message: ReturnType<typeof getServiceMessage>;
   } | null>(null);
 
-  const handleInputChange = (field: string, value: any) => {
+  const handleInputChange = (field: keyof EstimateFormData, value: EstimateFormData[keyof EstimateFormData]) => {
     // Special handling for service selection
     if (field === "service" && value) {
       // Check if this service requires a quote instead of estimate
@@ -223,7 +228,7 @@ const Estimate = () => {
   };
 
   const handleNext = () => {
-    if (canProceed() && currentStep < totalSteps) {
+    if (canProceed() && currentStep < finalStep) {
       if (currentStep === 0) {
         trackConversion('quote_form_started', { quote_type: formData.quoteType });
       }
@@ -297,8 +302,8 @@ Add-ons:
         setTimeout(() => reject(new Error("Database request timeout")), 10000)
       );
 
-      const { error } = await Promise.race([insertPromise, timeoutPromise]) as any;
-      if (error) throw error;
+      const insertResult = await Promise.race([insertPromise, timeoutPromise as Promise<never>]);
+      if (insertResult.error) throw insertResult.error;
 
       // Also insert into quote_requests table
       if (formData.quoteType) {
@@ -336,6 +341,7 @@ Add-ons:
       });
 
       // Phase 2: Send review request
+      let notificationWarning = false;
       try {
         await supabase.functions.invoke("send-review-request", {
           body: {
@@ -345,11 +351,20 @@ Add-ons:
           },
         });
       } catch (reviewError) {
+        notificationWarning = true;
         console.error("Review request failed:", reviewError);
       }
 
       // Phase 3: Track A/B test conversion
       await trackABTestConversion('homepage-hero-2024', 3);
+
+      if (notificationWarning) {
+        toast({
+          title: "Saved with notification delay",
+          description: "Your request was submitted successfully, but email notification is temporarily unavailable.",
+          variant: "default",
+        });
+      }
 
       // Redirect to thank you or home page
       setTimeout(() => navigate("/"), 2000);
@@ -410,13 +425,13 @@ Add-ons:
             <div className="mb-8">
               <div className="flex justify-between items-center mb-2">
                 <span className="text-sm font-medium text-muted-foreground">
-                  Step {currentStep} of {totalSteps}
+                  Step {currentStep + 1} of {totalSteps}
                 </span>
                 <span className="text-sm font-medium text-primary">
-                  {Math.round((currentStep / totalSteps) * 100)}% Complete
+                  {Math.round(((currentStep + 1) / totalSteps) * 100)}% Complete
                 </span>
               </div>
-              <Progress value={(currentStep / totalSteps) * 100} className="h-2" />
+              <Progress value={((currentStep + 1) / totalSteps) * 100} className="h-2" />
             </div>
 
             {/* Enhanced Step Content */}
@@ -443,7 +458,7 @@ Add-ons:
                 Back
               </Button>
 
-              {currentStep < totalSteps ? (
+              {currentStep < finalStep ? (
                 <Button
                   size="lg"
                   onClick={handleNext}

@@ -1,5 +1,5 @@
 import { Star, Quote } from "lucide-react";
-import { Card, CardContent } from "@/components/ui/card";
+import { Card, CardContent } from "@/ui/Card";
 import { cn } from "@/lib/utils";
 
 interface Testimonial {

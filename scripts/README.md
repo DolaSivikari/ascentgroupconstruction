@@ -1,38 +1,34 @@
-# Cleanup Scripts
+# Scripts Reference
 
-## Cleanup Archived Services
+This folder contains operational and developer utility scripts used by CI and local verification.
 
-This script removes archived service definitions and cross-references from `src/data/priority-services-data.ts`.
+## Active scripts
 
-### Usage
+- `scripts/smoke-test.sh`
+  - Production-oriented SPA smoke checks (availability, route fallback, core assets, optional Supabase function reachability).
 
-```bash
-# Run the cleanup script
-npx tsx scripts/cleanup-archived-services.ts
-```
+- `scripts/audit-routes.ts`
+  - Route integrity audit; extracts route paths from `src/App.tsx` and checks internal `to`/`href` links in `src/`.
 
-### What it does
+- `scripts/validate-sw.js`
+  - Validates that the built service worker contains required lifecycle handlers.
 
-1. **Removes Service Definitions**: Deletes the complete definitions for archived services:
-   - design-build
-   - preconstruction-services
-   - virtual-design-construction
-   - (and any other archived services in the list)
+- `scripts/verify-headers.js`
+  - Verifies `_headers` syntax/consistency.
 
-2. **Removes Cross-References**: Cleans up all references to archived services in `relatedServices` arrays across all remaining service definitions
+- `scripts/check-console-errors.js`
+  - Optional browser-based console error scanner for a running URL.
 
-3. **Cleans Formatting**: Removes trailing commas, double commas, and extra blank lines
+- `scripts/design-audit.js`, `scripts/design-lint.js`
+  - Optional design-system consistency checks.
 
-### Safety
+- `scripts/convert-images.js`
+  - Optional image conversion utility.
 
-- Creates a backup before running (recommended to version control first)
-- Provides detailed logging of all changes
-- Can be run multiple times safely (idempotent)
+- `scripts/auto-fix-imports.js`
+  - Optional codemod utility for import and class migration (dry-run by default).
 
-### Output
+## Notes
 
-The script will show:
-- Each archived service found and marked for removal
-- Line numbers for service definitions
-- Cross-references detected and removed
-- Summary statistics of changes made
+- Some scripts are optional tooling and are not part of required CI gates.
+- CI-required checks are defined in `.github/workflows/*.yml`.

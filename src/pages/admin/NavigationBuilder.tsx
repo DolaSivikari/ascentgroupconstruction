@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
-import { Card } from '@/components/ui/card';
+import { Card } from '@/ui/Card';
 import { Button } from '@/ui/Button';
-import { Input } from '@/components/ui/input';
+import { Input } from '@/ui/Input';
 import { Label } from '@/components/ui/label';
 import { migrateNavigationData } from '@/utils/migrateNavigationData';
 import {
@@ -31,7 +31,8 @@ import {
   FolderTree,
   ExternalLink,
   Database,
-  Download
+  Download,
+  AlertTriangle
 } from 'lucide-react';
 import {
   DndContext,
@@ -352,6 +353,10 @@ const NavigationBuilder = () => {
           <p className="text-muted-foreground">
             Drag to reorder, click to edit menu items
           </p>
+          <div className="rounded-lg border border-amber-500/30 bg-amber-500/10 p-3 text-sm text-amber-200 flex items-start gap-2 mt-4 max-w-2xl">
+            <AlertTriangle className="h-4 w-4 mt-0.5" />
+            <span>Internal tool only: this builder is not the authoritative source for live site navigation output.</span>
+          </div>
         </div>
         <Button onClick={() => {
           setCurrentItem({

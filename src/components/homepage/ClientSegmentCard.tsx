@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import { Card } from "@/components/ui/card";
+import { Card } from "@/ui/Card";
 import { Button } from "@/ui/Button";
 import { Link } from "react-router-dom";
 import { CheckCircle2, LucideIcon } from "lucide-react";

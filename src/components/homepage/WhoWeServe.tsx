@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { Building, HardHat, ArrowRight, CheckCircle2, Wrench, Hammer, Ruler } from "lucide-react";
 import { Button } from "@/ui/Button";
-import { Card } from "@/components/ui/card";
+import { Card } from "@/ui/Card";
 import { GRID } from "@/design-system/layouts";
 import { LAYOUT } from "@/design-system/constants";
 

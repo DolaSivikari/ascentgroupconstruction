@@ -34,6 +34,13 @@ const categories = [
 
 const years = ["All", "2024", "2023", "2022", "2021"];
 
+type ProjectRecord = Record<string, unknown>;
+type ProjectViewModel = {
+  title: string; category: string; location: string; year: string; size: string; duration: string; image: string;
+  images: unknown[]; tags: string[]; description: string; highlights: string[]; slug: string; featured: boolean; id: string; rawData: ProjectRecord;
+  project_value?: number | null; your_role?: string | null; on_time_completion?: boolean | null; on_budget?: boolean | null; safety_incidents?: number | null;
+};
+
 const Projects = () => {
   const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState("");
@@ -41,9 +48,9 @@ const Projects = () => {
   const [selectedYear, setSelectedYear] = useState("All");
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
   const [visibleCount, setVisibleCount] = useState(6);
-  const [allProjects, setAllProjects] = useState<any[]>([]);
+  const [allProjects, setAllProjects] = useState<ProjectViewModel[]>([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [quickViewProject, setQuickViewProject] = useState<any>(null);
+  const [quickViewProject, setQuickViewProject] = useState<ProjectViewModel | null>(null);
   
   // Analytics tracking
   usePageAnalytics('projects');
@@ -72,7 +79,7 @@ const Projects = () => {
         console.error("Error fetching projects:", error);
       } else if (data) {
         // Transform database projects to component format
-        const projects = data.map((project: any) => ({
+        const projects = data.map((project) => ({
           title: project.title,
           category: project.category || "General",
           location: project.location || "N/A",
@@ -108,7 +115,7 @@ const Projects = () => {
   
   useEffect(() => {
     if (realtimeProjects.length > 0) {
-      const transformed = realtimeProjects.map((project: any) => ({
+      const transformed = realtimeProjects.map((project) => ({
         title: project.title,
         category: project.category || "General",
         location: project.location || "N/A",

@@ -1,7 +1,7 @@
 import { ReactNode } from "react";
 import { FilterX } from "lucide-react";
 import { Button } from "@/ui/Button";
-import { Card } from "@/components/ui/card";
+import { Card } from "@/ui/Card";
 import { Separator } from "@/components/ui/separator";
 
 interface FilterBarProps {

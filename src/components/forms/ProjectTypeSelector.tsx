@@ -1,6 +1,6 @@
 import { Building2, Home, School, Factory, Hotel, ShoppingCart, Hospital, Building } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { Card } from "@/components/ui/card";
+import { Card } from "@/ui/Card";
 
 interface ProjectType {
   id: string;

@@ -1,10 +1,10 @@
 import { Label } from "@/components/ui/label";
-import { Input } from "@/components/ui/input";
+import { Input } from "@/ui/Input";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Button } from "@/ui/Button";
 import { Plus, Trash2 } from "lucide-react";
-import { Card } from "@/components/ui/card";
+import { Card } from "@/ui/Card";
 
 interface MetricsTabProps {
   formData: any;
