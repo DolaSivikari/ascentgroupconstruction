@@ -123,24 +123,24 @@ export default function ProjectDetail() {
           .select("service_id, services(id, name, slug, category)")
           .eq("project_id", data.id);
 
-        const projectData: ProjectData = {
+        const projectData = {
           ...data,
-          before_images: (data.before_images as unknown[]) || [],
-          after_images: (data.after_images as unknown[]) || [],
-          content_blocks: (data.content_blocks as unknown[]) || [],
+          before_images: (data.before_images as any[]) || [],
+          after_images: (data.after_images as any[]) || [],
+          content_blocks: (data.content_blocks as any[]) || [],
           seo_keywords: (data.seo_keywords as string[]) || [],
-          project_images: images?.map((img) => ({
+          project_images: (images?.map((img) => ({
             id: img.id,
             url: img.url,
-            category: img.category,
+            category: img.category as any,
             caption: img.caption,
             order: img.display_order,
             featured: img.featured
-          })) || [],
+          })) || []) as any[],
           services: projectServices?.map((ps) => ps.services).filter(Boolean) || []
         };
 
-        setProject(projectData);
+        setProject(projectData as any);
       } catch (error: unknown) {
         console.error("Error fetching project:", error);
         toast.error("Failed to load project");
@@ -493,7 +493,7 @@ export default function ProjectDetail() {
                 <section>
                   <h2 className="text-2xl md:text-3xl font-bold mb-6">Before & After</h2>
                   <div className="space-y-8">
-                    {project.before_images.map((beforeImg: unknown, index: number) => {
+                    {project.before_images.map((beforeImg: any, index: number) => {
                       const afterImg = project.after_images?.[index];
                       if (!afterImg) return null;
                       

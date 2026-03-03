@@ -9,8 +9,8 @@ interface UseSettingsDataResult<T> {
   refetch: () => Promise<void>;
 }
 
-export function useSettingsData<T = unknown>(
-  tableName: keyof Database['public']['Tables'],
+export function useSettingsData<T = any>(
+  tableName: string,
   selectQuery: string = '*'
 ): UseSettingsDataResult<T> {
   const [data, setData] = useState<T | null>(null);

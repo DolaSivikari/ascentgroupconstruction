@@ -51,9 +51,6 @@ const BlogPostEditor = () => {
     results: "",
     client_name: "",
     budget_range: "",
-    before_images: [] as unknown[],
-    after_images: [] as unknown[],
-    process_steps: [] as unknown[],
     before_images: [] as any[],
     after_images: [] as any[],
     process_steps: [] as any[],
@@ -462,7 +459,7 @@ const BlogPostEditor = () => {
                   <Label htmlFor="publish_state">Publishing Status</Label>
                   <span className="text-xs text-muted-foreground">
                     {formData.publish_state === 'draft' && '(Not visible to public)'}
-                    {formData.publish_state === 'review' && '(Awaiting approval)'}
+                    {(formData.publish_state as string) === 'review' && '(Awaiting approval)'}
                     {formData.publish_state === 'published' && '(Live on site)'}
                   </span>
                 </div>

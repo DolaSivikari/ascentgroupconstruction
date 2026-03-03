@@ -14,7 +14,7 @@ interface ErrorResponse {
  * @param context - Optional context for logging
  * @returns Sanitized error message safe for client
  */
-export const sanitizeErrorMessage = (error: unknown, context?: string): string => {
+export const sanitizeErrorMessage = (error: any, context?: string): string => {
   const errorMessage = error?.message || error?.toString() || 'Unknown error';
   
   // Remove database-specific details
@@ -54,7 +54,7 @@ export const sanitizeErrorMessage = (error: unknown, context?: string): string =
  * @returns Response object with CORS headers
  */
 export const createErrorResponse = (
-  error: unknown,
+  error: any,
   defaultMessage: string = 'Internal server error',
   statusCode: number = 500,
   context?: string
@@ -109,7 +109,7 @@ export const createErrorResponse = (
  */
 export const logSecurityError = (
   errorType: string,
-  error: unknown,
+  error: any,
   metadata?: Record<string, unknown>
 ): void => {
   console.error(`[SECURITY:${errorType.toUpperCase()}]`, {

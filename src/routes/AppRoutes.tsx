@@ -80,7 +80,6 @@ const Blog = lazyWithFallback(() => import("@/pages/Blog"), 'Blog');
 const BlogPost = lazyWithFallback(() => import("@/pages/BlogPost"), 'Blog Post');
 const ProjectDetail = lazyWithFallback(() => import("@/pages/ProjectDetail"), 'Project Detail');
 
-const serviceRoutes = (
 const ServiceRouteGroup = () => (
   <>
     <Route path="/services" element={<Services />} />
@@ -120,7 +119,6 @@ const ServiceRouteGroup = () => (
   </>
 );
 
-const adminRoutes = (
 const AdminRouteGroup = () => (
   <Route path="/admin" element={<UnifiedAdminLayout />}>
     <Route index element={<Dashboard />} />
@@ -189,7 +187,6 @@ export const AppRoutes = () => (
     <Route path="/careers" element={<Careers />} />
     <Route path="/service-selector" element={<ServiceSelectorPage />} />
 
-    {serviceRoutes}
     <ServiceRouteGroup />
 
     <Route path="/projects" element={<Projects />} />
@@ -221,7 +218,6 @@ export const AppRoutes = () => (
     <Route path="/case-study/:slug" element={<BlogPost />} />
     <Route path="/projects/:slug" element={<ProjectDetail />} />
 
-    {adminRoutes}
     <AdminRouteGroup />
 
     <Route path="/404" element={<NotFound />} />
