@@ -187,7 +187,7 @@ export const AppRoutes = () => (
     <Route path="/careers" element={<Careers />} />
     <Route path="/service-selector" element={<ServiceSelectorPage />} />
 
-    <ServiceRouteGroup />
+    {ServiceRouteGroup()}
 
     <Route path="/projects" element={<Projects />} />
     <Route path="/contact" element={<Contact />} />
@@ -218,7 +218,7 @@ export const AppRoutes = () => (
     <Route path="/case-study/:slug" element={<BlogPost />} />
     <Route path="/projects/:slug" element={<ProjectDetail />} />
 
-    <AdminRouteGroup />
+    {AdminRouteGroup()}
 
     <Route path="/404" element={<NotFound />} />
     <Route path="*" element={<NotFound />} />
