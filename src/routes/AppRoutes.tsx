@@ -187,7 +187,7 @@ export const AppRoutes = () => (
     <Route path="/careers" element={<Careers />} />
     <Route path="/service-selector" element={<ServiceSelectorPage />} />
 
-    <ServiceRouteGroup />
+    {ServiceRouteGroup()}
 
     <Route path="/projects" element={<Projects />} />
     <Route path="/contact" element={<Contact />} />
