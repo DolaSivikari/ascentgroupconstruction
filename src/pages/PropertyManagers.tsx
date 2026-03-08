@@ -2,7 +2,7 @@ import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
 import { PageHero } from "@/components/shared/PageHero";
-import { UnifiedCard } from "@/components/shared/UnifiedCard";
+import { Card } from "@/design-system/components/Card";
 import { Section } from "@/components/sections/Section";
 import { Button } from "@/ui/Button";
 import { Link } from "react-router-dom";
@@ -107,13 +107,13 @@ const PropertyManagers = () => {
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
             {benefits.map((benefit, index) => (
-              <UnifiedCard key={index} variant="interactive">
+              <Card key={index} variant="interactive" size="md">
                 <div className="w-14 h-14 bg-gradient-to-br from-primary to-primary/70 rounded-[var(--radius-lg)] flex items-center justify-center mb-4 shadow-[var(--shadow-lg)]">
                   <benefit.icon className="w-7 h-7 text-secondary" />
                 </div>
                 <h3 className="text-xl font-bold mb-2">{benefit.title}</h3>
                 <p className="text-muted-foreground">{benefit.description}</p>
-              </UnifiedCard>
+              </Card>
             ))}
           </div>
 
@@ -130,7 +130,7 @@ const PropertyManagers = () => {
 
           <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
             {services.map((service, index) => (
-              <UnifiedCard key={index} variant="elevated" className="border-l-4 border-l-primary">
+              <Card key={index} variant="elevated" size="md" className="border-l-4 border-l-primary">
                 <div className="flex items-start justify-between mb-3">
                   <h3 className="text-2xl font-bold text-primary">{service.title}</h3>
                   <TrendingUp className="w-6 h-6 text-secondary flex-shrink-0" />
@@ -139,7 +139,7 @@ const PropertyManagers = () => {
                 <div className="inline-block px-4 py-2 bg-secondary/10 rounded-lg">
                   <span className="text-sm font-bold text-primary">{service.roi}</span>
                 </div>
-              </UnifiedCard>
+              </Card>
             ))}
           </div>
         </Section>
@@ -158,13 +158,13 @@ const PropertyManagers = () => {
                 { step: "3", title: "Execution", desc: "Professional work with daily updates" },
                 { step: "4", title: "Completion", desc: "Final inspection and documentation" }
               ].map((item, index) => (
-                <UnifiedCard key={index} variant="elevated" className="text-center">
+                <Card key={index} variant="elevated" size="md" className="text-center">
                   <div className="w-12 h-12 bg-primary text-white rounded-full flex items-center justify-center mx-auto mb-4 text-xl font-bold">
                     {item.step}
                   </div>
                   <h3 className="font-bold mb-2">{item.title}</h3>
                   <p className="text-sm text-muted-foreground">{item.desc}</p>
-                </UnifiedCard>
+                </Card>
               ))}
             </div>
           </div>

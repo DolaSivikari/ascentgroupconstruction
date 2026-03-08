@@ -2,6 +2,8 @@ import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
 import { Card } from "@/design-system/components/Card";
+import { SectionHeader } from "@/design-system/components/SectionHeader";
+import { ProofStrip } from "@/design-system/components/ProofStrip";
 import { Section } from "@/components/sections/Section";
 import { PageHero } from "@/components/shared/PageHero";
 import { Button } from "@/ui/Button";
@@ -200,6 +202,20 @@ const About = () => {
         </Card>
       </Section>
 
+      {/* Proof Strip — Key credentials */}
+      <Section size="tight">
+        <ProofStrip
+          items={[
+            { value: "15+", label: "Years Team Experience" },
+            { value: "$2M", label: "CGL Coverage" },
+            { value: "100%", label: "WSIB Compliant" },
+            { value: "85%", label: "Self-Performed" },
+          ]}
+          variant="dark"
+          columns={4}
+        />
+      </Section>
+
       {/* Who We Serve - Using Unified Components */}
       <WhoWeServeSection
         title="Who We Serve"
@@ -221,12 +237,10 @@ const About = () => {
 
       {/* What We Self-Perform */}
       <Section size="major">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-5xl font-bold mb-4 tracking-tight">What We Self-Perform</h2>
-          <p className="text-lg md:text-xl text-muted-foreground">
-            Each scope is planned for minimal disruption, clear sequencing, and documented QA/QC
-          </p>
-        </div>
+        <SectionHeader
+          title="What We Self-Perform"
+          description="Each scope is planned for minimal disruption, clear sequencing, and documented QA/QC"
+        />
 
         <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
           {services.map((service, index) => (
@@ -240,12 +254,10 @@ const About = () => {
 
       {/* Our 5-Step Approach */}
       <Section size="major">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-5xl font-bold mb-4 tracking-tight">Our 5-Step Approach</h2>
-          <p className="text-lg md:text-xl text-muted-foreground">
-            A proven process for reliable project delivery
-          </p>
-        </div>
+        <SectionHeader
+          title="Our 5-Step Approach"
+          description="A proven process for reliable project delivery"
+        />
 
         <div className="space-y-6 max-w-5xl mx-auto">
           {processSteps.map((step, index) => (
