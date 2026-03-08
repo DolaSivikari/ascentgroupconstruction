@@ -1,34 +1,51 @@
 
 
-# Build Error Fix Plan
+# Pre-Phase 4 Correction Pass
 
-Your website can't publish because several files have duplicate/overlapping code causing build failures. Here are the fixes needed:
+## 3 Surgical Fixes
 
-## 1. `src/App.tsx` -- Delete duplicate route tree (lines 54-226)
+### Fix 1: Condo & Multi-Unit pillar mismatch
+**File:** `src/data/service-pillars.ts` (lines 55-61)
 
-Lines 31-53 contain the correct App component using `<AppRoutes />`. Lines 54-226 are a stale duplicate with inline routes and references to components that aren't imported. Delete lines 54-226 entirely, keeping only the clean version that properly closes all JSX tags.
+The pillar currently routes to `/services/painting-services`, which is misleading — a user clicking "Condo & Multi-Unit Work" expects coordinated multi-trade work, not just painting.
 
-## 2. `src/hooks/useActiveSettings.ts` -- Consolidate duplicate function
+**Best option:** Route to `/services/interior-buildouts` instead. That page covers drywall, framing, millwork, and finish carpentry for commercial and multi-unit spaces — a much stronger match for "coordinated trade packages for occupied condominiums." Also tighten the description to align with interior buildout scopes rather than implying full-building coordination.
 
-The file has two overlapping `fetchActiveSettingsRow` declarations tangled together. Rewrite as a single clean function using `tableName as any` cast.
+Change:
+- `route`: `/services/painting-services` → `/services/interior-buildouts`
+- `description`: "Coordinated trade packages for occupied condominiums, apartment buildings, and multi-unit residential properties." → "Interior finishing and turnover packages for occupied condominiums, apartment buildings, and multi-unit residential properties."
+- `scopes[0]`: "Occupied-unit painting programs" → "Suite turnover finishing"
 
-## 3. `src/routes/AppRoutes.tsx` -- Fix duplicate declarations
+This is truthful — interior buildouts is the closest real page, and the revised description matches what that page delivers.
 
-Lines 83-84 have `const serviceRoutes = (` immediately followed by `const ServiceRouteGroup = () => (` -- two overlapping declarations. Same issue at lines 123-124 with admin routes. And lines 192-193 and 224-225 reference both old and new names. Fix: keep only the component versions (`ServiceRouteGroup`, `AdminRouteGroup`) and remove the stale `const` variable assignments and their duplicate references.
+### Fix 2: Verify Developers link
+**Result:** `/company/developers` exists. Route is in `AppRoutes.tsx` (line 208), component is `src/pages/company/Developers.tsx`, it's in the sitemap, navigation, and registry. **No change needed.**
 
-## 4. `src/data/service-faqs-enriched.ts` -- Remove duplicate answer property
+### Fix 3: Soften oversized-GC wording
+**File:** `src/components/homepage/CompanyOverviewHub.tsx` (line 68)
 
-Lines 35-37 have two `answer:` properties for the same FAQ object -- one using backticks (line 36) and one using single quotes (line 37). Remove the backtick version (line 36) and keep the escaped single-quote version (line 37) which is syntactically correct.
+Change:
+- `"Your Complete Construction Partner Across Ontario"` → `"Your Envelope, Restoration & Interior Trades Partner Across Ontario"`
 
-## 5. `src/pages/admin/DocumentsLibrary.tsx` -- Remove duplicate JSX tags
+Also soften the support copy on line 71-72 slightly to stay consistent — current copy already says "envelope systems to specialty restoration" which is fine, but the phrase "comprehensive solutions" can be tightened to "focused trade execution."
 
-Line 243 is a duplicate `<Dialog>` opening tag (line 242 already has it). Remove line 243.
+### Files to change
+| File | Change |
+|---|---|
+| `src/data/service-pillars.ts` | Fix pillar 7 route + description + first scope |
+| `src/components/homepage/CompanyOverviewHub.tsx` | Soften H2 and one phrase in support copy |
 
-## 6. `supabase/functions/_shared/errorHandler.ts` -- Fix `unknown` type access
+### Not changing in this pass
+- Orphaned `ServicesExplorer` / `PrequalPackage` cleanup (low priority)
+- Generic `WhyChooseUs` fallback wording (low priority)
+- DB-dependent route guards for masonry/renovations (medium, but stable records)
+- `DirectAnswer.tsx` "complete construction partner" reference (SEO component, lower visibility, can be addressed later)
+- `GeneralSettingsTab.tsx` placeholder text (admin-only, not public)
 
-All `error` parameters typed as `unknown` need casting. Change `error: unknown` to `error: any` in all three functions (`sanitizeErrorMessage`, `createErrorResponse`, `logSecurityError`) to resolve the 11 TS2339 property-access errors.
-
----
-
-All fixes are duplicate-line removals or simple type changes with no logic changes.
+### Checks
+1. Build passes with no errors
+2. Homepage renders correctly with new H2
+3. `/services` page pillar grid still renders 8 cards
+4. Condo pillar card now links to `/services/interior-buildouts`
+5. No other files reference the old condo→painting-services mapping (the shared data file is the single source of truth)
 
