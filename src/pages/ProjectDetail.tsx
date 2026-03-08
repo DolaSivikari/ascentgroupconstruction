@@ -312,11 +312,11 @@ export default function ProjectDetail() {
                   <CardContent className="p-6 space-y-4">
                     <h3 className="font-bold text-lg border-b pb-2">Project Metrics</h3>
                     
-                    {project.project_value && (
+                    {formatProjectValue(project.project_value, 'full') && (
                       <div>
                         <p className="text-sm text-muted-foreground mb-1">Contract Value</p>
                         <p className="font-semibold text-lg">
-                          ${(project.project_value / 100).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                          {formatProjectValue(project.project_value, 'full')}
                         </p>
                       </div>
                     )}
