@@ -158,7 +158,7 @@ const PropertyManagers = () => {
                 { step: "3", title: "Execution", desc: "Professional work with daily updates" },
                 { step: "4", title: "Completion", desc: "Final inspection and documentation" }
               ].map((item, index) => (
-                <UnifiedCard key={index} variant="elevated" className="text-center">
+                <Card key={index} variant="elevated" size="md" className="text-center">
                   <div className="w-12 h-12 bg-primary text-white rounded-full flex items-center justify-center mx-auto mb-4 text-xl font-bold">
                     {item.step}
                   </div>
