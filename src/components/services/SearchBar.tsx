@@ -28,6 +28,8 @@ export const SearchBar = ({
       <div className="relative max-w-2xl mx-auto">
         <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
         <Input
+          id="services-searchbar"
+          name="services-searchbar"
           type="text"
           placeholder="Search services..."
           value={searchQuery}
