@@ -29,7 +29,6 @@ import CertificationsInsurance from "@/pages/company/CertificationsInsurance";
 import ContractorPortal from "@/pages/resources/ContractorPortal";
 import ServiceAreas from "@/pages/resources/ServiceAreas";
 import LocationPage from "@/pages/resources/LocationPage";
-import EquipmentResources from "@/pages/company/EquipmentResources";
 import TechnologyInnovation from "@/pages/company/TechnologyInnovation";
 import Developers from "@/pages/company/Developers";
 import ForGeneralContractors from "@/pages/ForGeneralContractors";
