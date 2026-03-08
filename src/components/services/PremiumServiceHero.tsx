@@ -27,7 +27,7 @@ export const PremiumServiceHero = () => {
             </div>
             <div className="flex items-center gap-2 bg-primary-foreground/10 backdrop-blur-sm px-4 py-2 rounded-full border border-primary-foreground/20">
               <Clock className="w-4 h-4" />
-              <span className="text-sm font-medium">24/7 Support</span>
+              <span className="text-sm font-medium">Responsive Support</span>
             </div>
           </div>
 
