@@ -49,7 +49,7 @@ const Careers = () => {
     {
       icon: Shield,
       title: "Safety First",
-      description: "Industry-leading safety equipment, training, and protocols to protect our team"
+      description: "Professional safety equipment, training, and protocols to protect our team"
     },
     {
       icon: Calendar,
