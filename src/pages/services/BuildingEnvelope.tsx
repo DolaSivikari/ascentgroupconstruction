@@ -167,7 +167,7 @@ const BuildingEnvelope = () => {
                   </li>
                 ))}
               </ul>
-            </UnifiedCard>
+            </Card>
           ))}
         </div>
       </Section>

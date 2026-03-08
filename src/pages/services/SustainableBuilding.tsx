@@ -79,7 +79,7 @@ const SustainableBuilding = () => {
               <item.icon className="h-12 w-12 mb-4 text-primary" />
               <h3 className="text-xl font-semibold mb-2">{item.title}</h3>
               <p className="text-muted-foreground">{item.description}</p>
-            </UnifiedCard>
+            </Card>
           ))}
         </div>
       </Section>

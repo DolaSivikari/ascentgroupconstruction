@@ -116,7 +116,7 @@ const ProtectiveCoatings = () => {
                   </li>
                 ))}
               </ul>
-            </UnifiedCard>
+            </Card>
           ))}
         </div>
       </Section>
