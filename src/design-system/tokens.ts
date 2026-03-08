@@ -157,7 +157,7 @@ export const INTERACTION = {
 } as const;
 
 // ============================================
-// GRID SYSTEM
+// GRID SYSTEM (Canonical — replaces layouts.ts)
 // ============================================
 export const GRID = {
   cols: {
@@ -172,6 +172,26 @@ export const GRID = {
     lg: 'gap-8',
     xl: 'gap-12',
   },
+} as const;
+
+// Named grid patterns for common layouts
+export const GRID_PATTERNS = {
+  /** 2-column card grid */
+  cards2: 'grid grid-cols-1 md:grid-cols-2 gap-8',
+  /** 3-column card grid — MOST COMMON */
+  cards3: 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8',
+  /** 4-column card grid */
+  cards4: 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6',
+  /** 2-column feature grid with larger gap */
+  features2: 'grid grid-cols-1 md:grid-cols-2 gap-12',
+  /** 3-column feature grid with larger gap */
+  features3: 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12',
+  /** Content + Sidebar (8/4 split) */
+  contentSidebar: 'grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12',
+  /** 50/50 split */
+  split50: 'grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12',
+  /** Stats row */
+  stats: 'grid grid-cols-2 md:grid-cols-4 gap-6',
 } as const;
 
 // ============================================
