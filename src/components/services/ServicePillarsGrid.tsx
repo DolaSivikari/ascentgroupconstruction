@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { Card } from "@/design-system/components/Card";
 import { Section } from "@/components/sections/Section";
 import { TYPOGRAPHY_STYLES } from "@/design-system/constants";
-import { ArrowRight, Building2, Layers, Brick, Hammer, Paintbrush, Grid3X3, Home, Wrench } from "lucide-react";
+import { ArrowRight, Building2, Layers, Blocks, Hammer, Paintbrush, Grid3X3, Home, Wrench } from "lucide-react";
 
 const SERVICE_PILLARS = [
   {
