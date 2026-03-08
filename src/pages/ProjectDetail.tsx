@@ -451,9 +451,9 @@ export default function ProjectDetail() {
                 solution={project.description ? sanitizeAndValidate(project.description).sanitized : undefined}
                 results={project.results ? sanitizeAndValidate(project.results).sanitized : undefined}
                 metrics={[
-                  ...(project.project_value ? [{
+                  ...(formatProjectValue(project.project_value, 'full') ? [{
                     label: "Contract Value",
-                    value: `$${(project.project_value / 100).toLocaleString('en-US', { minimumFractionDigits: 0 })}`,
+                    value: formatProjectValue(project.project_value, 'full')!,
                   }] : []),
                   ...(project.square_footage ? [{
                     label: "Square Footage",

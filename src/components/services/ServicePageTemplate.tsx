@@ -424,12 +424,9 @@ export const ServicePageTemplate = ({ service }: ServicePageTemplateProps) => {
                   Request Project Proposal
                 </Link>
               </Button>
-              <Button size="lg" variant="outline" className="hover:scale-105 transition-transform" asChild>
-                <a href="tel:+16475286804">
-                  <Phone className="w-5 h-5 mr-2" />
-                  Call Now
-                </a>
-              </Button>
+              <PhoneLink className="inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-11 px-8 hover:scale-105 transition-transform">
+                Call Now
+              </PhoneLink>
               <Button size="lg" variant="secondary" className="hover:scale-105 transition-transform" asChild>
                 <Link to="/projects">
                   View Projects

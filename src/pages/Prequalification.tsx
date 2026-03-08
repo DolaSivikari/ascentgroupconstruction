@@ -416,9 +416,7 @@ const Prequalification = () => {
                           </div>
                           <div>
                             <p className="font-semibold mb-1">Phone</p>
-                            <a href="tel:647-528-6804" className="text-muted-foreground hover:text-primary transition-colors">
-                              647-528-6804
-                            </a>
+                            <PhoneLink showIcon={false} className="text-muted-foreground hover:text-primary transition-colors" />
                           </div>
                         </div>
                       </CardContent>

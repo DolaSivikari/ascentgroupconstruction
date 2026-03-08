@@ -81,7 +81,7 @@ const DocumentListBlock = ({
               variant="outline"
               size="sm"
             >
-              <a href={`mailto:hebun.isik.ca@gmail.com?subject=${encodeURIComponent(doc.subject || doc.title)}`}>
+              <a href={`mailto:info@ascentgroupconstruction.com?subject=${encodeURIComponent(doc.subject || doc.title)}`}>
                 <Mail className="h-4 w-4 mr-2" />
                 Request by Email
               </a>

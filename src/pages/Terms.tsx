@@ -317,7 +317,7 @@ const Terms = () => {
                   <p><strong>Ascent Group Construction</strong></p>
                   <p>Legal Department</p>
                   <p>Email: <AscentEmailLink className="text-primary hover:underline inline" showIcon={false} /></p>
-                  <p>Phone: <a href="tel:647-528-6804" className="text-primary hover:underline">647-528-6804</a></p>
+                  <p>Phone: <PhoneLink showIcon={false} className="text-primary hover:underline inline" /></p>
                 </div>
               </div>
             </section>

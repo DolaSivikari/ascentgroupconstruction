@@ -171,9 +171,6 @@ const AdminRouteGroup = () => (
     <Route path="hero-images" element={<Navigate to="/admin/homepage-builder?tab=hero" replace />} />
     <Route path="navigation" element={<NavigationBuilder />} />
     <Route path="navigation-builder" element={<Navigate to="/admin/navigation" replace />} />
-    <Route path="hero-images" element={<HeroSlidesManager />} />
-    <Route path="navigation" element={<NavigationBuilder />} />
-    <Route path="navigation-builder" element={<NavigationBuilder />} />
   </Route>
 );
 

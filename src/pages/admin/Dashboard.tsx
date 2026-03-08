@@ -289,7 +289,7 @@ const Dashboard = () => {
                 <button className="business-btn business-btn-ghost" onClick={() => navigate("/admin/blog")}>
                   Write Blog Post
                 </button>
-                <button className="business-btn business-btn-ghost" onClick={() => navigate("/admin/services")}>
+                <button className="business-btn business-btn-ghost" onClick={() => navigate("/admin/services-manager")}>
                   Add Service
                 </button>
               </div>

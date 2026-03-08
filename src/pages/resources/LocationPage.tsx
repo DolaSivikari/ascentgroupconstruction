@@ -253,7 +253,7 @@ const LocationPage = () => {
               <Phone className="w-6 h-6 text-primary" />
               <div>
                 <p className="font-semibold">Call Us</p>
-                <a href="tel:647-528-6804" className="text-primary hover:underline">647-528-6804</a>
+                <PhoneLink showIcon={false} className="text-primary hover:underline" />
               </div>
             </div>
             <div className="flex items-center gap-3">

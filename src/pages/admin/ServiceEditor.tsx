@@ -281,7 +281,7 @@ const ServiceEditor = () => {
               <Save className="h-4 w-4 mr-2" />
               {isLoading ? "Saving..." : "Save Service"}
             </Button>
-            <Button type="button" variant="outline" onClick={() => navigate("/admin/services")}>
+            <Button type="button" variant="outline" onClick={() => navigate("/admin/services-manager")}>
               Cancel
             </Button>
           </div>

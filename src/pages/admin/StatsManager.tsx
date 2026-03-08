@@ -159,6 +159,10 @@ const StatsManager = () => {
   return (
     <div className="min-h-screen bg-background p-8">
       <div className="max-w-6xl mx-auto">
+        <div className="rounded-lg border border-amber-500/30 bg-amber-500/10 p-3 text-sm text-amber-200 flex items-start gap-2 mb-6">
+          <AlertTriangle className="h-4 w-4 mt-0.5" />
+          <span>Saved to database only. Stats are not currently displayed on the public site.</span>
+        </div>
         <div className="flex items-center justify-between mb-8">
           <div className="flex items-center gap-4">
             <h1 className="text-3xl font-bold">Manage Statistics</h1>

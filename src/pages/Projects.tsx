@@ -210,7 +210,7 @@ const Projects = () => {
           location: p.location,
           category: p.category,
           image: p.image,
-          value: p.project_value ? `$${(p.project_value / 100000000).toFixed(1)}M` : undefined
+          value: formatProjectValue(p.project_value) ?? undefined
         }))}
       />
 
