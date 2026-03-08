@@ -306,7 +306,7 @@ const FAQ = () => {
 
       <PageHero
         title="Frequently Asked Questions"
-        description="Everything you need to know about construction, painting, EIFS, stucco, and restoration services across the GTA."
+        description="Everything you need to know about building envelope, restoration, and specialty trade services across Ontario and the GTA."
         image={mainPageHeroes.faq}
         imageAlt="Construction FAQ and answers"
         height="medium"

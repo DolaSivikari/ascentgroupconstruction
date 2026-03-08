@@ -504,6 +504,8 @@ Add-ons:
                 </Button>
               )}
             </div>
+            </>
+            )}
           </div>
         </div>
       </main>

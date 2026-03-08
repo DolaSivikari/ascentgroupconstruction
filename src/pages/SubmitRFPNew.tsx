@@ -281,6 +281,8 @@ export default function SubmitRFPNew() {
           </Card>
         </div>
       </main>
+      </>
+      )}
 
       <Footer />
     </div>
