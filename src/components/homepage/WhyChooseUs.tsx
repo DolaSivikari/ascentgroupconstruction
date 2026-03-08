@@ -84,27 +84,6 @@ const WhyChooseUs = () => {
         </div>
         )}
 
-        {/* Bottom CTA Section - Professional Design */}
-        <div className="max-w-4xl mx-auto">
-          <Card className="border-primary/20 bg-background">
-            <div className="p-8 lg:p-12 text-center">
-              <h3 className="text-2xl md:text-3xl font-bold mb-4 text-foreground">
-                Ready to Start Your Project?
-              </h3>
-              <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
-                Get a detailed proposal for your construction project with transparent pricing and comprehensive scope documentation.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button asChild size="lg" variant="primary" className="min-w-[200px]">
-                  <Link to="/contact">Request a Proposal</Link>
-                </Button>
-                <Button asChild size="lg" variant="secondary" className="min-w-[200px]">
-                  <Link to="/projects">View Portfolio</Link>
-                </Button>
-              </div>
-            </div>
-          </Card>
-        </div>
       </div>
     </section>
   );
