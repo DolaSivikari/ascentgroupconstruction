@@ -1,6 +1,6 @@
 import { lazy, type ComponentType } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
-import { LandingWrapper } from "@/components/landing/LandingWrapper";
+import Index from "@/pages/Index";
 import About from "@/pages/About";
 import Services from "@/pages/Services";
 import Projects from "@/pages/Projects";
@@ -179,7 +179,7 @@ const AdminRouteGroup = () => (
 
 export const AppRoutes = () => (
   <Routes>
-    <Route path="/" element={<LandingWrapper />} />
+    <Route path="/" element={<Index />} />
     <Route path="/about" element={<About />} />
     <Route path="/why-specialty-contractor" element={<WhySpecialtyContractor />} />
     <Route path="/prequalification" element={<Prequalification />} />
