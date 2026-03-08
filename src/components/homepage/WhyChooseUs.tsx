@@ -1,7 +1,6 @@
 import * as LucideIcons from "lucide-react";
 import { Card } from "@/ui/Card";
 import { useWhyChooseUs } from "@/hooks/useWhyChooseUs";
-import { useWhyChooseUs } from "@/hooks/useWhyChooseUs";
 import { GRID } from "@/design-system/layouts";
 import { LAYOUT } from "@/design-system/constants";
 
