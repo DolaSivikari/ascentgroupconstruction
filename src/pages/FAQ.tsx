@@ -99,7 +99,7 @@ const FAQ = () => {
         },
         {
           question: "Can you work evenings or weekends to avoid disrupting my business?",
-          answer: "Yes! We offer flexible scheduling for commercial clients including after-hours (6PM-6AM), weekends, and holiday work. After-hours work incurs a 20-30% premium but ensures zero disruption to your operations. We've painted hundreds of businesses without impacting their hours."
+          answer: "Yes! We offer flexible scheduling for commercial clients including after-hours (6PM-6AM), weekends, and holiday work. After-hours work incurs a 20-30% premium but ensures zero disruption to your operations. Our team members have extensive experience working after-hours in occupied commercial buildings across the GTA."
         },
         {
           question: "Do I need to move furniture before you start?",
