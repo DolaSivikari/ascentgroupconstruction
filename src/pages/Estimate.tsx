@@ -396,8 +396,8 @@ Add-ons:
     <div className="min-h-screen flex flex-col">
       <SEO
         title="Request Project Estimate | Ascent Group Construction"
-        description="Get an instant estimate for your painting or stucco project. Fast, accurate pricing with no obligation. Licensed and insured contractors serving the GTA."
-        keywords="construction estimate, painting quote, stucco quote, project estimate, GTA contractors"
+        description="Request a project estimate for building envelope, restoration, or specialty trade work. Fast, accurate pricing with no obligation. Licensed and insured contractors serving Ontario."
+        keywords="construction estimate, building envelope quote, restoration estimate, project estimate, GTA contractors"
       />
       <Navigation />
 
