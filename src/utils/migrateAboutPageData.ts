@@ -83,7 +83,7 @@ export const migrateAboutPageSettings = async () => {
         sustainability_headline: "Sustainability Commitment",
         sustainability_commitment: "We're dedicated to sustainable building practices that reduce environmental impact while delivering long-term value for our clients and communities.",
         sustainability_initiatives: [
-          { title: "Green Building", description: "LEED-certified construction expertise" },
+          { title: "Sustainable Practices", description: "Energy-efficient envelope systems and low-VOC materials" },
           { title: "Waste Reduction", description: "Comprehensive recycling and waste management programs" },
           { title: "Energy Efficiency", description: "Integration of energy-efficient systems and materials" }
         ],
