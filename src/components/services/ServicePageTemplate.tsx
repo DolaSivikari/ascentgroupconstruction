@@ -111,6 +111,48 @@ export const ServicePageTemplate = ({ service }: ServicePageTemplateProps) => {
     { label: "Project Types", value: service.quickFacts.projectTypes[0] + " and more" },
   ];
 
+  // Fetch related projects via project_services join
+  useEffect(() => {
+    const fetchRelatedProjects = async () => {
+      try {
+        // First get the service ID by slug
+        const { data: svcData } = await supabase
+          .from("services")
+          .select("id")
+          .eq("slug", service.slug)
+          .single();
+        
+        if (!svcData) return;
+        
+        // Then get projects linked to this service
+        const { data: projectLinks } = await supabase
+          .from("project_services")
+          .select("project_id")
+          .eq("service_id", svcData.id);
+        
+        if (!projectLinks || projectLinks.length === 0) return;
+        
+        const projectIds = projectLinks.map(pl => pl.project_id).filter(Boolean);
+        
+        const { data: projects } = await supabase
+          .from("projects")
+          .select("id, title, slug, category, featured_image")
+          .in("id", projectIds)
+          .eq("publish_state", "published")
+          .order("featured", { ascending: false })
+          .limit(3);
+        
+        if (projects) {
+          setRelatedProjects(projects as any);
+        }
+      } catch {
+        // Silently fail — section just won't render
+      }
+    };
+    
+    fetchRelatedProjects();
+  }, [service.slug]);
+
   return (
     <div className="min-h-screen bg-background pt-24">
       <SEO
