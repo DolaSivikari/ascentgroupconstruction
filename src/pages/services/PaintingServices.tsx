@@ -64,7 +64,7 @@ const PaintingServices = () => {
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {deliverables.map((item, index) => (
-            <UnifiedCard key={index} variant="elevated">
+            <Card key={index} variant="elevated" size="md">
               <item.icon className="h-12 w-12 mb-4 text-primary" />
               <h3 className="text-xl font-semibold mb-2">{item.title}</h3>
               <p className="text-muted-foreground">{item.description}</p>
