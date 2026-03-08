@@ -1,40 +1,34 @@
 
 
-# Fix: `forwardRef` Crash on Published Site
+# Build Error Fix Plan
 
-## Root Cause — Confirmed
+Your website can't publish because several files have duplicate/overlapping code causing build failures. Here are the fixes needed:
 
-The console error says it all:
+## 1. `src/App.tsx` -- Delete duplicate route tree (lines 54-226)
 
-```
-Uncaught TypeError: Cannot read properties of undefined (reading 'forwardRef')
-    at vendor-ui-core-BXN8F…js:1:2930
-```
+Lines 31-53 contain the correct App component using `<AppRoutes />`. Lines 54-226 are a stale duplicate with inline routes and references to components that aren't imported. Delete lines 54-226 entirely, keeping only the clean version that properly closes all JSX tags.
 
-The `manualChunks` configuration in `vite.config.ts` splits React into `vendor-react` and Radix UI into `vendor-ui-core`. Rollup does **not guarantee chunk load order**. When `vendor-ui-core` executes before `vendor-react`, the React module is `undefined`, and every `React.forwardRef()` call in Radix crashes immediately. The app never mounts.
+## 2. `src/hooks/useActiveSettings.ts` -- Consolidate duplicate function
 
-This is the exact bug introduced by the earlier chunking changes. The preview works because Vite dev uses esbuild (no manual chunks), but the production build uses Rollup with these broken splits.
+The file has two overlapping `fetchActiveSettingsRow` declarations tangled together. Rewrite as a single clean function using `tableName as any` cast.
 
-## Plan
+## 3. `src/routes/AppRoutes.tsx` -- Fix duplicate declarations
 
-### 1. Remove `manualChunks` entirely from `vite.config.ts`
-Delete lines 51-69 (the entire `manualChunks` block). Vite/Rollup's default automatic code-splitting handles chunk ordering correctly. Manual chunks that separate a library from its peer dependency (React) are fundamentally broken.
+Lines 83-84 have `const serviceRoutes = (` immediately followed by `const ServiceRouteGroup = () => (` -- two overlapping declarations. Same issue at lines 123-124 with admin routes. And lines 192-193 and 224-225 reference both old and new names. Fix: keep only the component versions (`ServiceRouteGroup`, `AdminRouteGroup`) and remove the stale `const` variable assignments and their duplicate references.
 
-### 2. Simplify output file naming
-Replace the `Date.now()` timestamp pattern with standard `[name]-[hash]` — the content hash already provides cache busting.
+## 4. `src/data/service-faqs-enriched.ts` -- Remove duplicate answer property
 
-### 3. Remove stale preload links from `index.html`
-The preload warnings for `hero-clipchamp.mp4` and `hero-poster-1.webp` indicate these are preloaded in `<head>` but React renders conditionally. Remove or change these to `prefetch` to eliminate the warnings.
+Lines 35-37 have two `answer:` properties for the same FAQ object -- one using backticks (line 36) and one using single quotes (line 37). Remove the backtick version (line 36) and keep the escaped single-quote version (line 37) which is syntactically correct.
 
-### 4. Bump service worker cache version to `4.0.0`
-Force cache invalidation again since the previous deploys cached the broken bundles.
+## 5. `src/pages/admin/DocumentsLibrary.tsx` -- Remove duplicate JSX tags
 
-## Files Changed
+Line 243 is a duplicate `<Dialog>` opening tag (line 242 already has it). Remove line 243.
 
-- **`vite.config.ts`** — Remove `manualChunks`, simplify output naming
-- **`index.html`** — Change hero asset preloads to prefetch
-- **`public/service-worker.js`** — Bump `CACHE_VERSION` to `4.0.0`
+## 6. `supabase/functions/_shared/errorHandler.ts` -- Fix `unknown` type access
 
-## After Implementation
-Click **Publish > Update**, then hard-refresh the live site (Ctrl+Shift+R).
+All `error` parameters typed as `unknown` need casting. Change `error: unknown` to `error: any` in all three functions (`sanitizeErrorMessage`, `createErrorResponse`, `logSecurityError`) to resolve the 11 TS2339 property-access errors.
+
+---
+
+All fixes are duplicate-line removals or simple type changes with no logic changes.
 
