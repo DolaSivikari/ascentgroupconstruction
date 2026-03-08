@@ -170,12 +170,6 @@ export const generateLocalBusinessSchema = () => {
 
 // Service-specific schema configurations
 export const SERVICE_SCHEMAS = {
-  "general-contracting": {
-    name: "General Contracting Services",
-    description: "Full-service general contracting with single-source accountability, fixed-price certainty, and proven delivery across commercial, multi-family, and institutional projects.",
-    serviceType: "GeneralContractor",
-    areaServed: ["Toronto", "Mississauga", "Brampton", "Vaughan", "Markham", "Ontario"]
-  },
   "building-envelope": {
     name: "Building Envelope Systems",
     description: "Comprehensive building envelope solutions including façade restoration, weatherproofing, and thermal performance optimization for commercial and residential buildings.",
