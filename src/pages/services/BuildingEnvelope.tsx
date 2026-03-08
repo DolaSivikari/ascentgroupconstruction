@@ -152,7 +152,7 @@ const BuildingEnvelope = () => {
 
         <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
           {howWeWork.map((phase, index) => (
-            <UnifiedCard key={index} variant="elevated" className="p-6">
+            <Card key={index} variant="elevated" size="md">
               <div className="flex items-center gap-3 mb-4">
                 <div className="w-10 h-10 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-bold">
                   {index + 1}
