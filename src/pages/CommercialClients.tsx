@@ -172,6 +172,18 @@ const CommercialClients = () => {
           </div>
         </Section>
 
+        {/* Operational Proof */}
+        <OperationalProofBar
+          items={[
+            DEFAULT_PROOF_ITEMS[3], // Schedule Coordination
+            DEFAULT_PROOF_ITEMS[0], // Self-Performed Scopes
+            DEFAULT_PROOF_ITEMS[1], // WSIB & CGL
+            DEFAULT_PROOF_ITEMS[4], // Documentation & Closeout
+          ]}
+          title="Operational Standards"
+          description="Built for commercial project requirements"
+        />
+
         {/* CTA */}
         <CTABand
           title="Ready to Elevate Your Facility?"

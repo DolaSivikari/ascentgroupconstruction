@@ -465,34 +465,51 @@ export const ServicePageTemplate = ({ service }: ServicePageTemplateProps) => {
         </section>
       )}
 
-      {/* Final CTA */}
-      <section className="py-12 md:py-16 bg-card">
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto text-center space-y-6 md:space-y-8">
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground">
-              Ready to Start Your Project?
-            </h2>
-            <p className="text-lg md:text-xl text-muted-foreground">
-              Request a complimentary consultation and project proposal today
+      {/* Related Projects — only renders when real data exists */}
+      {relatedProjects.length > 0 && (
+        <section className="py-12 md:py-16">
+          <div className="container mx-auto px-4">
+            <h2 className="text-3xl md:text-4xl font-bold text-center mb-4">Related Projects</h2>
+            <p className="text-lg text-muted-foreground text-center mb-8">
+              Recent {service.name.toLowerCase()} projects we've completed
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button size="lg" className="hover:scale-105 transition-transform" asChild>
-                <Link to="/contact">
-                  Request Project Proposal
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+              {relatedProjects.map((project) => (
+                <Link key={project.id} to={`/projects/${project.slug}`}>
+                  <Card className="hover:shadow-lg transition-all group overflow-hidden">
+                    {project.featured_image && (
+                      <div className="aspect-video overflow-hidden">
+                        <img
+                          src={project.featured_image}
+                          alt={project.title}
+                          className="w-full h-full object-cover transition-transform group-hover:scale-105"
+                        />
+                      </div>
+                    )}
+                    <CardContent className="p-4">
+                      {project.category && (
+                        <Badge variant="secondary" className="mb-2">{project.category}</Badge>
+                      )}
+                      <h3 className="font-bold group-hover:text-primary transition-colors">
+                        {project.title}
+                      </h3>
+                    </CardContent>
+                  </Card>
                 </Link>
-              </Button>
-              <PhoneLink className="inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-11 px-8 hover:scale-105 transition-transform">
-                Call Now
-              </PhoneLink>
-              <Button size="lg" variant="secondary" className="hover:scale-105 transition-transform" asChild>
-                <Link to="/projects">
-                  View Projects
-                </Link>
-              </Button>
+              ))}
             </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
+
+      {/* Final CTA */}
+      <CTABand
+        title="Ready to Start Your Project?"
+        description="Request a consultation and project proposal today"
+        primaryCta={{ text: "Request Project Proposal", href: "/contact" }}
+        secondaryCta={{ text: "View Projects", href: "/projects" }}
+        variant="dark"
+      />
     </div>
   );
 };

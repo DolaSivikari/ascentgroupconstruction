@@ -159,6 +159,18 @@ const PropertyManagers = () => {
           </div>
         </Section>
 
+        {/* Operational Proof */}
+        <OperationalProofBar
+          items={[
+            DEFAULT_PROOF_ITEMS[2], // Occupied-Building Experience
+            DEFAULT_PROOF_ITEMS[4], // Documentation & Closeout
+            DEFAULT_PROOF_ITEMS[3], // Schedule Coordination
+            DEFAULT_PROOF_ITEMS[1], // WSIB & CGL
+          ]}
+          title="Why Property Managers Trust Us"
+          description="Operational capabilities built around occupied-building requirements"
+        />
+
         {/* CTA */}
         <CTABand
           title="Let's Discuss Your Property Needs"
