@@ -234,13 +234,7 @@ export const ServicePageTemplate = ({ service }: ServicePageTemplateProps) => {
                 )}
 
                 <div className="pt-6 border-t space-y-3">
-                  <a
-                    href="tel:+16475286804"
-                    className="flex items-center gap-3 text-primary hover:text-primary/80 font-semibold transition-colors"
-                  >
-                    <Phone className="w-5 h-5" />
-                    <span>(647) 528-6804</span>
-                  </a>
+                  <PhoneLink className="flex items-center gap-3 text-primary hover:text-primary/80 font-semibold transition-colors" />
                   <Button variant="outline" className="w-full" asChild>
                     <Link to="/contact">
                       <Mail className="w-5 h-5 mr-2" />
