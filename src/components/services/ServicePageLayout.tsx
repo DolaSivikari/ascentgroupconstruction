@@ -1,12 +1,8 @@
 import { ReactNode } from "react";
-import { Link } from "react-router-dom";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
 import { PageHero } from "@/components/shared/PageHero";
-import { Button } from "@/ui/Button";
-import { Section } from "@/components/sections/Section";
-import { ArrowRight } from "lucide-react";
 import { RelatedServices } from "./RelatedServices";
 import { CTABand } from "@/design-system/components/CTABand";
 import { CTA_TEXT } from "@/design-system/constants";
