@@ -3,6 +3,7 @@ import { Navigate, Route, Routes } from "react-router-dom";
 import Index from "@/pages/Index";
 import About from "@/pages/About";
 import Services from "@/pages/Services";
+import Markets from "@/pages/Markets";
 import Projects from "@/pages/Projects";
 import Contact from "@/pages/Contact";
 import Estimate from "@/pages/Estimate";
@@ -12,7 +13,6 @@ import PropertyManagers from "@/pages/PropertyManagers";
 import Homeowners from "@/pages/Homeowners";
 import CommercialClients from "@/pages/CommercialClients";
 import OurProcess from "@/pages/OurProcess";
-import Sustainability from "@/pages/Sustainability";
 import Prequalification from "@/pages/Prequalification";
 import Capabilities from "@/pages/Capabilities";
 import Careers from "@/pages/Careers";
@@ -33,13 +33,11 @@ import EquipmentResources from "@/pages/company/EquipmentResources";
 import Developers from "@/pages/company/Developers";
 import ForGeneralContractors from "@/pages/ForGeneralContractors";
 import SubmitRFPNew from "@/pages/SubmitRFPNew";
-import Insights from "@/pages/Insights";
 import Privacy from "@/pages/Privacy";
 import Terms from "@/pages/Terms";
 import Accessibility from "@/pages/Accessibility";
 import Unsubscribe from "@/pages/Unsubscribe";
 import WhySpecialtyContractor from "@/pages/WhySpecialtyContractor";
-import ServiceSelectorPage from "@/pages/ServiceSelectorPage";
 
 const lazyWithFallback = (importer: () => Promise<{ default: ComponentType }>, name: string) =>
   lazy(() => importer().catch(() => ({
@@ -178,11 +176,16 @@ export const AppRoutes = () => (
   <Routes>
     <Route path="/" element={<Index />} />
     <Route path="/about" element={<About />} />
+    <Route path="/markets" element={<Markets />} />
     <Route path="/why-specialty-contractor" element={<WhySpecialtyContractor />} />
     <Route path="/prequalification" element={<Prequalification />} />
     <Route path="/capabilities" element={<Capabilities />} />
     <Route path="/careers" element={<Careers />} />
-    <Route path="/service-selector" element={<ServiceSelectorPage />} />
+
+    {/* Phase 4 redirects: consolidated pages */}
+    <Route path="/sustainability" element={<Navigate to="/services/sustainable-construction" replace />} />
+    <Route path="/insights" element={<Navigate to="/blog" replace />} />
+    <Route path="/service-selector" element={<Navigate to="/services" replace />} />
 
     {ServiceRouteGroup()}
 
@@ -191,7 +194,6 @@ export const AppRoutes = () => (
     <Route path="/estimate" element={<Estimate />} />
     <Route path="/submit-rfp" element={<SubmitRFPNew />} />
     <Route path="/for-general-contractors" element={<ForGeneralContractors />} />
-    <Route path="/insights" element={<Insights />} />
     <Route path="/privacy" element={<Privacy />} />
     <Route path="/terms" element={<Terms />} />
     <Route path="/accessibility" element={<Accessibility />} />
@@ -200,7 +202,6 @@ export const AppRoutes = () => (
     <Route path="/homeowners" element={<Homeowners />} />
     <Route path="/commercial-clients" element={<CommercialClients />} />
     <Route path="/our-process" element={<OurProcess />} />
-    <Route path="/sustainability" element={<Sustainability />} />
     <Route path="/faq" element={<FAQ />} />
     <Route path="/tekev" element={<Auth />} />
     <Route path="/company/certifications-insurance" element={<CertificationsInsurance />} />

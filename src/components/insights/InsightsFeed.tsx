@@ -280,7 +280,7 @@ const InsightsFeed = ({
 
         {/* View All CTA */}
         <div className="text-center mt-8">
-          <Link to="/insights">
+          <Link to="/blog">
             <Button size="lg" className="group">
               View All Insights
               <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />

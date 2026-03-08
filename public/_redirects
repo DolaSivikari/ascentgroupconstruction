@@ -30,6 +30,11 @@ http://ascentgroupconstruction.com/*       https://ascentgroupconstruction.com/:
 /case-studies                      /blog                             301
 /case-study/*                      /blog/:splat                      301
 
+# Phase 4: Consolidated page redirects
+/sustainability                    /services/sustainable-construction 301
+/insights                          /blog                             301
+/service-selector                  /services                         301
+
 # SPA fallback
 /blog/*                            /index.html                       200
 /services/*                        /index.html                       200
