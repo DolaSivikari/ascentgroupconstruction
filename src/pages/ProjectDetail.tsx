@@ -17,7 +17,7 @@ import { InteractiveLightbox } from "@/components/InteractiveLightbox";
 
 import { ProjectGallery } from "@/components/ProjectGallery";
 import { ProjectCaseStudy } from "@/components/projects/ProjectCaseStudy";
-import { ArrowRight, ChevronRight } from "lucide-react";
+import { ChevronRight } from "lucide-react";
 import { toast } from "sonner";
 import { formatProjectValue } from "@/utils/formatProjectValue";
 import OptimizedImage from "@/components/OptimizedImage";
