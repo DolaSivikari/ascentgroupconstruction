@@ -28,6 +28,10 @@ interface ProjectCardProps {
   on_time_completion?: boolean;
   on_budget?: boolean;
   safety_incidents?: number;
+  /** Client type badge (e.g. "Property Manager", "General Contractor") */
+  client_type?: string;
+  /** Short challenge one-liner */
+  challenge?: string;
 }
 
 const ProjectCard = ({
