@@ -1,11 +1,12 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { 
   Check, Phone, Mail, MapPin, Clock, Award, 
   ChevronRight, ChevronDown, ArrowRight 
 } from 'lucide-react';
 import { Button } from '@/ui/Button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/ui/Card';
+import { Card, CardContent, CardHeader, CardTitle } from '@/design-system/components/Card';
+import { CTABand } from '@/design-system/components/CTABand';
 import { PhoneLink } from '@/components/shared/PhoneLink';
 import QuickFacts from '@/components/seo/QuickFacts';
 import PeopleAlsoAsk from '@/components/seo/PeopleAlsoAsk';
@@ -14,6 +15,8 @@ import { createServiceSchema } from '@/utils/schema-injector';
 import { breadcrumbSchema } from '@/utils/structured-data';
 import { ScrollReveal } from "@/components/animations/ScrollReveal";
 import OptimizedImage from "../OptimizedImage";
+import { supabase } from "@/integrations/supabase/client";
+import { Badge } from "@/components/ui/badge";
 
 interface ServiceBenefit {
   icon: React.ComponentType<{ className?: string }>;
