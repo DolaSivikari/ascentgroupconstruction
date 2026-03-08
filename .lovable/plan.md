@@ -1,91 +1,158 @@
-# Phase 2: Content Truth Hardening — Complete
 
-## Files Changed (22 files)
 
-| File | Changes |
+# Phase 5B — Revised Plan with Tightening Notes Applied
+
+## Files to Change (5)
+
+| File | Change Summary |
 |---|---|
-| `src/components/homepage/InteractiveCTA.tsx` | Removed 98% story card → replaced with $2M CGL; headline → "Your Envelope, Restoration & Trades Partner"; "24/7 Support" → "Responsive Support" |
-| `src/components/services/PremiumServiceHero.tsx` | H1 → "Envelope, Restoration & Interior Trades"; stats: removed 98%/25+, replaced with 15+/85%/$2M; "24/7 Support" → "Responsive Support" |
-| `src/components/homepage/QuickFactsSidebar.tsx` | Removed 95% on-time → $2M CGL Coverage; removed 98% satisfaction → 100% WSIB Compliant; "24/7 Emergency" → "Urgent Response" |
-| `src/components/homepage/WhyChooseUs.tsx` | "Comprehensive Services" → "Envelope & Trades Expertise"; "21+ Service Offerings" → "Self-Performed Core Scopes"; "industry-leading brands" → "trusted manufacturer brands"; removed 95% on-time claim |
-| `src/components/seo/DirectAnswer.tsx` | "Ontario's Trusted Construction Partner" → "GTA Specialty Contractor"; "Ontario's complete construction partner" → specialty contractor description |
-| `src/components/services/ServiceStats.tsx` | "24/7 Emergency Response" → "Rapid Response Available" |
-| `src/components/services/ServicesTrustBar.tsx` | "Ontario-Wide Coverage" → "GTA & Southern Ontario" |
-| `src/components/contact/PremiumContactHero.tsx` | "Available 24/7" → "Responsive & Available" |
-| `src/pages/OurProcess.tsx` | Removed CM and Design-Build contract types; added T&M; "Client Portal Access" → "Project Documentation" via cloud folders; "24/7 emergency line" → "Emergency contact for urgent issues"; fixed "hundreds of" |
-| `src/pages/FAQ.tsx` | "Our team holds COR" → "working toward COR"; "perfect safety record" → "strong safety protocols"; "zero outstanding claims" → "good standing with WSIB"; fixed "hundreds of" (×2); "industry-leading" → "trusted" |
-| `src/pages/Homeowners.tsx` | "worked on hundreds of" → "brings hands-on experience from a wide range of" |
-| `src/pages/About.tsx` | "delivered hundreds of" → "bring hands-on experience from a wide range of" |
-| `src/pages/Index.tsx` | Removed "LEED consulting" from schema; "Comprehensive Services Under One Roof" → "Specialty Trade Services" |
-| `src/pages/Contact.tsx` | Removed `<PartnerCaseStudies>` import and render |
-| `src/pages/services/SustainableBuilding.tsx` | Full rewrite: removed LEED consulting, Passive House, Green Globes claims; replaced with energy-efficient envelope, sustainable materials, waste diversion |
-| `src/pages/resources/ServiceAreas.tsx` | Outer regions "24-hour response" → "Next business day response"; "Available 24/7 within GTA core" → "Available for urgent repairs within GTA core for active leaks and envelope failures" |
-| `src/utils/migrateHomepageData.ts` | "Ontario's Trusted General Contractor" → "Building Envelope & Restoration Specialists"; removed "500+ Projects", "98% Client Satisfaction"; "Award-winning general contractor" → specialty contractor description |
-| `src/utils/migrateAboutPageData.ts` | Fixed story content, total_projects 500→10, satisfaction_rate 98→null; "LEED-certified construction expertise" → "Sustainable Practices"; removed design-build FAQ |
-| `src/pages/admin/StatsManager.tsx` | Replaced 8 inflated templates ($50M, 500+, 50+ trades, 98%) with 6 realistic ones (15+ yrs, 85% self-perform, $2M CGL, 10+ crew, 10+ projects, 100% WSIB) |
-| `src/data/enriched-company-content.ts` | Standardized 3 "hundreds of" instances to team-career framing |
-| `src/data/service-faqs-enriched.ts` | Fixed "95% on-time" claims, "24/7" references, "hundreds of" language, "100+ envelope failures" claim |
-| `src/utils/personalization.ts` | "24/7 Emergency Service Available" → "Urgent Response Available for Active Issues" |
+| `src/pages/PropertyManagers.tsx` | Migrate benefits to `CapabilityCard`, headers to `SectionHeader`, process to `Section`, CTA to `CTABand` |
+| `src/pages/CommercialClients.tsx` | Replace `BenefitsSection`/`CTASection`/`@/ui/Card` with design-system equivalents; build real 4-step process; fix SEO truth |
+| `src/pages/Homeowners.tsx` | Migrate WhyChooseUs cards to `CapabilityCard`, process cards to `CapabilityCard`, final CTA to `CTABand`; keep `ResidentialServiceCard`, FAQ, animations, residential warmth |
+| `src/pages/company/Developers.tsx` | Remove decorative blurs; replace `@/ui/Card`+`@/ui/Button` with design-system; remove hover animations; fix truth claims; replace CTA with `CTABand`; extra truth scan |
+| `src/pages/ForGeneralContractors.tsx` | Lightest touch — migrate headers to `SectionHeader`, replace `FeatureCard` with `CapabilityCard`; keep everything else |
 
-## Claims Intentionally Left Because Evidence Supports Them
+---
 
-| Claim | Basis |
+## Revised CTA Table (per tightening note #1)
+
+| Page | Primary CTA | Route | Secondary CTA | Route |
+|---|---|---|---|---|
+| PropertyManagers | "Contact Us" | `/contact` | "Request a Proposal" | `/contact` |
+| CommercialClients | "Request an Estimate" | `/estimate` | "Contact Us" | `/contact` |
+| Homeowners | "Request an Estimate" | `/estimate` | "Contact Us" | `/contact` |
+| Developers | "Contact Us" | `/contact` | "Submit an RFP" | `/contact` |
+| ForGeneralContractors | *(keep existing contact section as-is)* | — | — | — |
+
+Key changes from original plan:
+- **PropertyManagers**: Both CTAs go to `/contact` (not `/estimate`) — property management scopes are consultation-led, not simple estimate requests
+- **Developers**: Secondary changed from "Access Contractor Portal" to "Submit an RFP" — developers are clients, not portal users
+- **Homeowners**: Changed "Start Your Project" to "Request an Estimate" for system-wide CTA consistency
+
+---
+
+## Homeowners Differentiation (tightening note #2)
+
+The Homeowners page will **remain visually distinct** from commercial pages:
+- **Keep** `ResidentialServiceCard` with pricing ranges and timelines
+- **Keep** `ScrollReveal` and `StaggerContainer` animations (residential warmth)
+- **Keep** FAQ accordion with all 5 questions
+- **Keep** `Badge` in intro section
+- **Keep** `H2` typography component usage
+- **Keep** the residential-specific copy tone throughout
+- Only migrate: WhyChooseUs cards → `CapabilityCard`, process step cards → `CapabilityCard`, final CTA → `CTABand`
+- The `construction-orange` color tokens in FAQ icons will be changed to `primary` for design-system consistency (minor visual alignment, not structural)
+
+---
+
+## Developers Truth Scan (tightening note #3)
+
+Flagged items to fix:
+1. **Line 31**: "15+ years partnering with GTA developers" → "15+ years of combined team experience across GTA commercial projects"
+2. **Line 155**: "Full-scope painting and building envelope solutions" → "Painting and building envelope services for new construction"
+3. **Line 26**: "15+ years combined team experience with proven execution on large-scale developments" — "proven execution on large-scale" is overclaim for a new company. Fix to: "15+ years of combined team experience in commercial and multi-unit construction"
+4. **SEO description line 91**: "15+ years experience and proven delivery on multi-unit residential and commercial builds" → "15+ years combined team experience supporting multi-unit residential and commercial projects"
+5. **Hero line 104-105**: "Reliable subcontracting for painting, EIFS, stucco, and building envelope systems on projects of any scale" — "any scale" is overclaim → "on mid-rise and commercial projects"
+6. **Line 125**: "Financial strength, technical expertise, and track record you can trust" — "financial strength" and "track record" are overclaims for a new company → "Technical capability and professional standards you can count on"
+
+---
+
+## Commercial Clients 4-Step Process (tightening note #4)
+
+Replace the thin link to `/our-process` with a concrete 4-step section:
+
+1. **Site Review & Scope Definition** — "We visit your facility to assess condition, identify priorities, and define scope around your operational schedule"
+2. **Proposal & Scheduling** — "Detailed proposal with phased approach, material specifications, and scheduling options that minimize business disruption"
+3. **Coordinated Execution** — "After-hours and weekend work where needed. Daily progress updates and direct communication with your facility manager"
+4. **Closeout & Documentation** — "Final walkthrough, deficiency resolution, warranty documentation, and maintenance recommendations"
+
+---
+
+## Exact Changes Per Page
+
+### PropertyManagers.tsx
+- Benefits section: replace bespoke gradient-icon `Card variant="interactive"` with `SectionHeader` + `CapabilityCard` grid
+- Services with ROI section: replace manual header with `SectionHeader`; keep the `Card variant="elevated"` + `border-l-4` pattern (it's purposeful for ROI display)
+- Process section: wrap in `Section` component, replace manual header with `SectionHeader`
+- CTA section: replace bespoke `Section` + manual buttons with `CTABand variant="dark"`
+
+### CommercialClients.tsx
+- Remove `BenefitsSection` import; replace with `Section` + `SectionHeader` + `CapabilityCard` grid
+- Remove `CTASection` import; replace with `CTABand`
+- Remove `@/ui/Card` import; replace industries section with `Section` + `SectionHeader` + design-system `Card`
+- Replace thin process link with real 4-step process section using `Section` + `SectionHeader` + design-system `Card`
+- Fix SEO description: "15+ years experience serving commercial clients" → "15+ years of combined team experience in commercial construction"
+
+### Homeowners.tsx
+- WhyChooseUs cards (lines 207-224): replace `Card`/`CardContent` with `CapabilityCard`
+- Process steps (lines 277-296): replace `Card`/`CardContent` with `CapabilityCard` (keep step numbers in layout)
+- Final CTA (lines 378-413): replace bespoke background-image section with `CTABand variant="dark"`
+- FAQ icons: change `text-construction-orange` to `text-primary` (5 instances)
+- CTA text: "Start Your Project" → "Request an Estimate" in final CTA and process step 1
+
+### Developers.tsx
+- Remove fixed decorative blur backgrounds (lines 95-98)
+- Remove `@/ui/Card` and `@/ui/Button` imports; use design-system `Card` and `@/ui/Button` (canonical path)
+- Remove all `hover:-translate-y-2`, `group-hover:scale-110`, `group-hover:rotate-6` animations
+- Remove `animate-fade-in-up` and `animationDelay` inline styles
+- Wrap all sections in `Section` component
+- Replace manual headers with `SectionHeader`
+- Benefits section: replace with `CapabilityCard` grid
+- Services section: use design-system `Card` (keep checklist format)
+- Process section: use design-system `Card` (keep step number format)
+- Documentation section: use design-system `Card` (keep current layout — it's purposeful)
+- Contact CTA: replace bespoke section with `CTABand`
+- Apply all 6 truth fixes listed above
+
+### ForGeneralContractors.tsx
+- Replace 3 manual `<h2>/<p>` header blocks with `SectionHeader`
+- Replace `FeatureCard` import with `CapabilityCard` import
+- Replace `FeatureCard` render (6 items) with `CapabilityCard` (map `description` → `description`, drop `stats` if unused)
+- Keep: `ProcessStepCard`, pilot projects section, prequalification section, contact section, `CardGrid`
+
+---
+
+## Legacy Removals
+
+| Component | Removed From |
 |---|---|
-| 15+ years (team/leadership experience) | Founder career history |
-| 10+ projects completed | Modest, plausible |
-| $2M CGL coverage | Stated consistently, verifiable |
-| WSIB compliant | Consistently stated |
-| "Working toward COR" | Honest aspirational |
-| 85% self-performed | Periodic verification flagged |
-| 10-person crew | Consistent |
-| GTA service area | Supported by city list |
-| Benjamin Moore / Sherwin-Williams | Manufacturer relationships |
+| `BenefitsSection` | CommercialClients |
+| `CTASection` | CommercialClients |
+| `@/ui/Card` + `@/ui/CardContent` | CommercialClients, Developers |
+| `@/ui/Button` | Developers (switch to `@/ui/Button` canonical — same path, just confirming) |
+| `FeatureCard` | ForGeneralContractors |
+| Bespoke gradient-icon cards | PropertyManagers |
+| Decorative blur backgrounds | Developers |
+| `construction-orange` color tokens | Homeowners FAQ, FeatureCard (via replacement) |
 
-## Intentionally Left Untouched
+---
 
-- `PartnerCaseStudies.tsx` component file — kept in codebase, removed from public rendering
-- `ForGeneralContractors.tsx` — accurate subcontractor description
-- `specialty-contractor-comparison.ts` — educational data
-- Individual service detail pages — describe actual capabilities
-- Legal pages — no false claims
-- Navigation links to `/services/sustainable-building` — page stays with honest content
+## Intentionally NOT Changed
 
-## Checks Run
+- `ResidentialServiceCard` — purpose-built, strong
+- `ProcessStepCard` — clean, used on GC page
+- FAQ accordion — well-structured
+- GC pilot projects section — honest, strong
+- GC prequalification section — useful
+- GC contact section — purpose-built CTA
+- PropertyManagers services-with-ROI card pattern (border-l-4) — works well for that context
+- Homepage, Services, About — Phase 5A scope
+- Routes, navigation, admin — out of scope
 
-- [x] Grep "98%" — only in PartnerCaseStudies (not rendered) and tailwind config (CSS)
-- [x] Grep "95%" — only in OurProcess closeout process (legitimate "95%+ completion" threshold), service-faqs (fixed), CSS values
-- [x] Grep "500+" — only in admin placeholders (text, not values) and FAQ "3,500+ colors" (legitimate)
-- [x] Grep "LEED consulting" — zero matches ✅
-- [x] Grep "industry-leading" — zero matches in public components ✅
-- [x] Grep "perfect safety" — zero matches ✅
-- [x] Grep "24/7" — zero matches in public components ✅
-- [x] Grep "hundreds of" — zero matches in public components ✅
-- [x] PartnerCaseStudies not rendered on any public page ✅
-- [x] SustainableBuilding.tsx no longer claims LEED consulting ✅
-- [x] Build passes ✅
-- [x] Console: pre-existing forwardRef warning only (not related to Phase 2) ✅
+---
 
-## What Still Requires Manual Verification
+## Checks
 
-- Whether a staffed 24/7 emergency line actually exists (if yes, claims can be restored)
-- Whether partner case studies represent real projects (if yes, component can be re-enabled with real data)
-- Whether a client portal actually exists and functions
-- Whether "10+ projects completed" is accurate as of current date
+1. TypeScript build passes
+2. All 5 pages render without console errors
+3. No remaining `BenefitsSection` or `CTASection` imports
+4. No remaining `@/ui/Card` imports in modified files
+5. No remaining `FeatureCard` imports in modified files
+6. All `SectionHeader` instances render correctly
+7. All `CapabilityCard` instances render correctly
+8. All `CTABand` instances render correctly
+9. Decorative blur backgrounds removed from Developers
+10. Grep for truth issues: "15+ years partnering", "Full-scope", "proven 6-step", "any scale", "financial strength"
+11. CTA text/routes match revised table
+12. Homeowners FAQ icons use `text-primary` not `text-construction-orange`
 
-## Merge Readiness: ✅ READY
-
-**Suggested PR title:** `feat: Phase 2 — Content truth hardening`
-
-**Suggested PR description:**
-Hardens all public-facing messaging for accuracy and supportability:
-- Remove fabricated stats (98% satisfaction, 95% on-time, 500+ projects, 25+ years)
-- Replace with verifiable metrics ($2M CGL, WSIB compliant, 85% self-performed, 15+ team experience)
-- Remove PartnerCaseStudies from Contact page (fabricated case studies with fake budgets/outcomes)
-- Rewrite SustainableBuilding page: remove LEED consulting, Passive House, Green Globes claims; focus on energy-efficient envelope and sustainable materials
-- Remove CM and Design-Build contract types from OurProcess
-- Standardize "hundreds of projects" → team-career framing across 8 files
-- Remove all unsupported "24/7" emergency claims across 9 surfaces
-- Fix COR/safety overclaims: "holds COR" → "working toward", "perfect safety record" → "strong protocols"
-- Fix geographic overclaim: "Ontario-Wide" → "GTA & Southern Ontario"
-- Fix seed data in migrateHomepageData and migrateAboutPageData
-- Replace inflated admin stat templates with realistic values
