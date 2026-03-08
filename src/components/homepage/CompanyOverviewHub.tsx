@@ -1,6 +1,5 @@
 import { useState, useRef } from "react";
-import { Link } from "react-router-dom";
-import { ArrowRight, CheckCircle, Target } from "lucide-react";
+import { CheckCircle, Target } from "lucide-react";
 import * as LucideIcons from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
@@ -190,31 +189,6 @@ const CompanyOverviewHub = () => {
           </TabsContent>
         </Tabs>
 
-        {/* Smart CTAs */}
-        <div className="mt-12 flex flex-col sm:flex-row items-center justify-center gap-4">
-          <Link
-            to="/contact"
-            className={`inline-flex items-center gap-2 px-8 py-4 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 font-semibold shadow-[var(--shadow-lg)] hover:shadow-[var(--shadow-lg)] group ${!prefersReducedMotion && 'hover-scale'}`}
-            style={{ transition: prefersReducedMotion ? 'box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1)' : 'var(--card-transition), box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1)' }}
-          >
-            Start Your Project
-            <ArrowRight className="h-5 w-5 hover-translate-arrow" />
-          </Link>
-          <Link
-            to="/projects"
-            className="inline-flex items-center gap-2 px-8 py-4 bg-secondary text-secondary-foreground rounded-lg hover:bg-secondary/90 font-semibold"
-            style={{ transition: 'var(--transition-colors)' }}
-          >
-            View Our Work
-            <ArrowRight className="h-5 w-5" />
-          </Link>
-          <Link
-            to="/our-process"
-            className="inline-flex items-center gap-2 px-8 py-4 border-2 border-primary text-primary rounded-lg hover:bg-primary hover:text-primary-foreground transition-all font-semibold"
-          >
-            Learn Our Process
-          </Link>
-        </div>
       </div>
     </section>
   );
