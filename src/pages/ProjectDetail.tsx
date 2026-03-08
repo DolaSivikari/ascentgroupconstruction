@@ -5,7 +5,7 @@ import { sanitizeAndValidate } from '@/utils/sanitize';
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
-import { Button } from "@/ui/Button"; // kept for potential future use
+
 import { Card, CardContent } from "@/design-system/components/Card";
 import { CTABand } from "@/design-system/components/CTABand";
 import { Badge } from "@/components/ui/badge";
