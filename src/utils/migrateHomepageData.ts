@@ -95,16 +95,16 @@ export const migrateHeroSlides = async () => {
     const { error } = await supabase
       .from("hero_slides")
       .insert([{
-        headline: "Building Ontario's Future",
-        subheadline: "Excellence in Commercial & Institutional Construction",
-        description: "Award-winning general contractor specializing in design-build, construction management, and comprehensive project delivery across Ontario.",
+        headline: "Envelope, Restoration & Interior Trades",
+        subheadline: "Specialty Contractor for the Greater Toronto Area",
+        description: "Specialty contractor delivering building envelope restoration, EIFS, masonry, waterproofing, and interior trades across the GTA. 15+ years of team experience, 85% self-performed.",
         primary_cta_text: "Submit RFP",
         primary_cta_url: "/submit-rfp",
         primary_cta_icon: "FileText",
         secondary_cta_text: "View Projects",
         secondary_cta_url: "/projects",
-        stat_number: "500+",
-        stat_label: "Projects Completed",
+        stat_number: "15+",
+        stat_label: "Years Team Experience",
         display_order: 0,
         is_active: true
       }]);

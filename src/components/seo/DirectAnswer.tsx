@@ -32,10 +32,9 @@ const DirectAnswer = ({ children, className = "" }: DirectAnswerProps) => {
               {children || (
                 <div className="space-y-4">
                   <p className="text-lg leading-relaxed">
-                    <strong className="text-foreground">Ascent Group Construction is Ontario's complete construction partner</strong>, 
-                    specializing in commercial construction, multi-family construction, institutional projects, and exterior building systems 
-                    across the Greater Toronto Area. Our comprehensive services include stucco installation and repair, EIFS systems, 
-                    masonry restoration, metal cladding, parking garage restoration, waterproofing, and specialty construction services.
+                    <strong className="text-foreground">Ascent Group Construction is a specialty contractor for building envelope, restoration, and interior trades in the Greater Toronto Area</strong>. 
+                    We deliver stucco installation and repair, EIFS systems, masonry restoration, metal cladding, parking garage restoration, 
+                    waterproofing, protective coatings, and interior finishing services for commercial, multi-family, and institutional properties.
                   </p>
                   
                   <p className="text-base leading-relaxed text-muted-foreground">

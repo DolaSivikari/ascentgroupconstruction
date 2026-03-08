@@ -89,7 +89,7 @@ export const founderBio = {
   title: 'Founder & Principal',
   bio: `Hebun established Ascent Group Construction in 2025 to bring 15+ years of proven building envelope and interior trades expertise directly to commercial, multi-family, and residential clients across Ontario.
 
-Throughout his career, Hebun has worked on hundreds of envelope restoration, EIFS installation, masonry repair, and interior finishing projects—from 3-story walk-ups to 30-story high-rises, from retail renovations to institutional maintenance programs.
+Throughout his career, Hebun has worked on a wide range of envelope restoration, EIFS installation, masonry repair, and interior finishing projects—from 3-story walk-ups to 30-story high-rises, from retail renovations to institutional maintenance programs.
 
 This depth of hands-on experience revealed a clear need in the market: property managers, building owners, consultants, and general contractors all need reliable specialty trade partners who combine technical expertise, professional execution, and direct accountability—without the complexity of layered subcontracting or the inflated margins of multiple middlemen.
 

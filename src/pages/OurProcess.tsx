@@ -224,7 +224,7 @@ const faqs = [
   },
   {
     question: "Can you work evenings or weekends for commercial projects?",
-    answer: "Absolutely! We offer flexible scheduling including after-hours (6PM-6AM), weekends, and holiday work for commercial clients to minimize business disruption. After-hours work incurs a 20-30% premium but ensures zero impact on your operations. We've completed hundreds of commercial projects this way."
+    answer: "Absolutely! We offer flexible scheduling including after-hours (6PM-6AM), weekends, and holiday work for commercial clients to minimize business disruption. After-hours work incurs a 20-30% premium but ensures zero impact on your operations. Our team members bring experience from a wide range of commercial after-hours projects across the GTA."
   },
   {
     question: "What happens if I'm not satisfied with the work?",

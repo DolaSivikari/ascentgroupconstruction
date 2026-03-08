@@ -14,8 +14,8 @@ const TRUST_ITEMS = [
   },
   {
     icon: MapPin,
-    label: "Ontario-Wide Coverage",
-    detail: "GTA, Southern & Eastern Ontario",
+    label: "GTA & Southern Ontario",
+    detail: "Toronto, Mississauga, Brampton & beyond",
   },
   {
     icon: Building2,

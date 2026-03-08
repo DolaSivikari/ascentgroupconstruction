@@ -174,7 +174,7 @@ const ServiceAreas = () => {
                     <Clock className="h-7 w-7 text-secondary" />
                   </div>
                   <h3 className="text-lg font-semibold text-foreground mb-2">Emergency Services</h3>
-                  <p className="text-sm text-muted-foreground">Available 24/7 within GTA core for urgent repairs and emergency situations</p>
+                  <p className="text-sm text-muted-foreground">Available for urgent repairs within GTA core for active leaks and envelope failures</p>
                 </CardContent>
               </Card>
               <Card className="hover:shadow-[var(--shadow-lg)] hover:-translate-y-1 transition-all duration-300 group border-2 hover:border-primary/30 animate-fade-in-up" style={{ animationDelay: '100ms' }}>

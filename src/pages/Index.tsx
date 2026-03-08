@@ -83,7 +83,7 @@ const Index = () => {
     "description": "Key reasons to choose Ascent Group Construction for your Toronto and GTA construction projects",
     "itemListElement": [
       { "@type": "ListItem", "position": 1, "name": "Licensed Construction Excellence Across Ontario", "description": "Fully licensed and insured with $2M CGL liability coverage, active WSIB registration, working toward COR certification." },
-      { "@type": "ListItem", "position": 2, "name": "Comprehensive Construction Services Under One Roof", "description": "Complete construction services including masonry repair, EIFS installation, metal cladding, and parking garage restoration." },
+      { "@type": "ListItem", "position": 2, "name": "Specialty Trade Services", "description": "Envelope and interior trade services including masonry repair, EIFS installation, metal cladding, and parking garage restoration." },
       { "@type": "ListItem", "position": 3, "name": "Premium Materials & Manufacturer Warranties", "description": "Benjamin Moore and Sherwin-Williams authorized contractor using premium materials backed by extended warranties." },
     ],
   };

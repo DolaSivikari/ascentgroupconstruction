@@ -123,7 +123,7 @@ const Homeowners = () => {
     {
       icon: Award,
       title: "15+ Years Team Experience",
-      description: "Our crew has worked on hundreds of residential and commercial projects across the GTA."
+      description: "Our crew brings hands-on experience from a wide range of residential and commercial projects across the GTA."
     },
     {
       icon: CheckCircle,

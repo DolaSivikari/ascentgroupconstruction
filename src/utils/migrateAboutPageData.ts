@@ -106,15 +106,15 @@ export const migrateAboutPageSettings = async () => {
         faq_items: [
           {
             question: "What types of projects do you specialize in?",
-            answer: "We specialize in commercial, multi-family residential, and institutional projects including office buildings, retail spaces, apartment complexes, schools, and healthcare facilities."
+            answer: "We specialize in building envelope restoration, EIFS/stucco, masonry, waterproofing, protective coatings, and interior finishing for commercial, multi-family, and institutional properties."
           },
           {
             question: "What is your typical project timeline?",
             answer: "Project timelines vary based on scope and complexity. We provide detailed schedules during the planning phase and maintain transparent communication throughout the construction process."
           },
           {
-            question: "Do you offer design-build services?",
-            answer: "Yes, we offer comprehensive design-build services, working with trusted architects and engineers to deliver integrated project solutions from concept to completion."
+            question: "What contract types do you work with?",
+            answer: "We work with lump sum, cost-plus, unit price, and time & materials contracts depending on the project scope and client preference."
           }
         ],
         is_active: true

@@ -41,17 +41,16 @@ export const PremiumServiceHero = () => {
           {/* Stats display */}
           <div className="flex flex-wrap justify-center gap-8 mb-12">
             <div className="text-center">
-              <div className="text-4xl md:text-5xl font-bold mb-2">2025</div>
-              <div className="text-sm text-muted-foreground uppercase tracking-wider">Established</div>
-              <div className="text-sm md:text-base text-primary-foreground/80">Projects Completed</div>
+              <div className="text-4xl md:text-5xl font-bold mb-2">15+</div>
+              <div className="text-sm md:text-base text-primary-foreground/80">Years Team Experience</div>
             </div>
             <div className="text-center">
-              <div className="text-4xl md:text-5xl font-bold mb-2">98%</div>
-              <div className="text-sm md:text-base text-primary-foreground/80">Client Satisfaction</div>
+              <div className="text-4xl md:text-5xl font-bold mb-2">85%</div>
+              <div className="text-sm md:text-base text-primary-foreground/80">Self-Performed Work</div>
             </div>
             <div className="text-center">
-              <div className="text-4xl md:text-5xl font-bold mb-2">25+</div>
-              <div className="text-sm md:text-base text-primary-foreground/80">Years Experience</div>
+              <div className="text-4xl md:text-5xl font-bold mb-2">$2M</div>
+              <div className="text-sm md:text-base text-primary-foreground/80">CGL Coverage</div>
             </div>
           </div>
 

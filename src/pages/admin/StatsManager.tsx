@@ -133,14 +133,12 @@ const StatsManager = () => {
   };
 
   const gcStatTemplates = [
-    { label: 'Total Project Value', value: 50000000, suffix: 'M+', description: 'Million in completed projects', icon_name: 'DollarSign' },
-    { label: 'Square Footage', value: 2000000, suffix: '+', description: 'Sq ft of construction completed', icon_name: 'Building2' },
-    { label: 'Active Projects', value: 12, suffix: '', description: 'Currently under construction', icon_name: 'Hammer' },
-    { label: 'Safety Record', value: 500, suffix: '+', description: 'Days without incident', icon_name: 'Shield' },
-    { label: 'Projects Completed', value: 500, suffix: '+', description: 'Successfully delivered projects', icon_name: 'CheckCircle' },
-    { label: 'Client Satisfaction', value: 98, suffix: '%', description: 'Client satisfaction rate', icon_name: 'Award' },
-    { label: 'Years in Business', value: 15, suffix: '+', description: 'Years serving the GTA', icon_name: 'TrendingUp' },
-    { label: 'Licensed Trades', value: 50, suffix: '+', description: 'Certified tradespeople', icon_name: 'Users' },
+    { label: 'Years Team Experience', value: 15, suffix: '+', description: 'Combined team experience in trades', icon_name: 'TrendingUp' },
+    { label: 'Self-Performed Work', value: 85, suffix: '%', description: 'Work performed by our own crew', icon_name: 'Hammer' },
+    { label: 'CGL Coverage', value: 2, suffix: 'M', description: 'Commercial general liability insurance', icon_name: 'Shield' },
+    { label: 'Core Team Members', value: 10, suffix: '+', description: 'Dedicated crew members', icon_name: 'Users' },
+    { label: 'Projects Completed', value: 10, suffix: '+', description: 'Projects delivered as Ascent Group', icon_name: 'CheckCircle' },
+    { label: 'WSIB Compliant', value: 100, suffix: '%', description: 'Full WSIB compliance', icon_name: 'Award' },
   ];
 
   const applyTemplate = (template: any) => {

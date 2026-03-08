@@ -102,7 +102,7 @@ export const QuickFactsSidebar = () => {
               10-Person Crew
             </span>
             <span className="px-2 py-1 text-xs rounded-md bg-background/80 border border-border">
-              24/7 Emergency
+              Urgent Response
             </span>
             <span className="px-2 py-1 text-xs rounded-md bg-background/80 border border-border">
               WSIB In Progress

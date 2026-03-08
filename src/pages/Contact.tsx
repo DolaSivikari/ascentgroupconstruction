@@ -25,7 +25,7 @@ import { ProjectTypeSelector } from "@/components/forms/ProjectTypeSelector";
 import { TestimonialRatings } from "@/components/shared/TestimonialRatings";
 import { RippleEffect } from "@/components/shared/RippleEffect";
 import { TrustedPartners } from "@/components/partners/TrustedPartners";
-import { PartnerCaseStudies } from "@/components/partners/PartnerCaseStudies";
+
 import { Link } from "react-router-dom";
 import { CTA_TEXT } from "@/design-system/constants";
 import { mainPageHeroes } from "@/data/hero-images";

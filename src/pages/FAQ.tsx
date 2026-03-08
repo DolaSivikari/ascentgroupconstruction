@@ -211,7 +211,7 @@ const FAQ = () => {
         },
         {
           question: "What safety certifications does your team have?",
-          answer: "Our team holds: COR (Certificate of Recognition), JHSC (Joint Health & Safety Committee) certification, Working at Heights certification, WHMIS 2015, Fall Protection, Confined Space Entry, and First Aid/CPR. We conduct monthly safety training and maintain perfect safety record."
+          answer: "Our team is working toward COR (Certificate of Recognition) certification. Team members hold: JHSC (Joint Health & Safety Committee) certification, Working at Heights certification, WHMIS 2015, Fall Protection, Confined Space Entry, and First Aid/CPR. We conduct regular safety training and maintain strong safety protocols on every project."
         },
         {
           question: "How do you handle lead paint in older buildings?",
