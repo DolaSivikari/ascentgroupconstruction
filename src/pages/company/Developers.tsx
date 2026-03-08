@@ -28,7 +28,7 @@ const Developers = () => {
     {
       icon: Award,
       title: "Proven Track Record",
-      description: "15+ years partnering with major GTA developers on 100+ multi-unit projects"
+      description: "15+ years partnering with GTA developers on multi-unit projects across the region"
     },
     {
       icon: Calendar,

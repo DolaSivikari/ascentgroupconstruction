@@ -45,9 +45,9 @@ export function UnifiedFooter({
   // Company links
   const companyLinks = [
     { label: "About", href: "/about" },
-    { label: "Why Specialty Contractor", href: "/why-specialty-contractor" },
     { label: "Our Process", href: "/our-process" },
-    { label: "Safety", href: "/about#safety" },
+    { label: "Markets", href: "/markets" },
+    { label: "Trade Partners", href: "/for-general-contractors" },
     { label: "Careers", href: "/careers" },
     { label: "Contact", href: "/contact" },
   ];
@@ -241,10 +241,10 @@ export function UnifiedFooter({
             </p>
             <div className="flex flex-col gap-2">
               <Link
-                to="/contact"
+                to="/submit-rfp"
                 className="inline-flex items-center justify-center rounded-md px-4 py-3 text-sm font-semibold text-white bg-primary hover:bg-primary/90 transition-colors"
               >
-                Request a Proposal
+                Submit RFP
               </Link>
               <Link
                 to="/services"
