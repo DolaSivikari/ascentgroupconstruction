@@ -464,29 +464,35 @@ export function MobileNavSheet({ open, onOpenChange }: MobileNavSheetProps) {
                   </AccordionContent>
                 </AccordionItem>
 
-                {/* Markets / Who We Serve Section */}
+                {/* Markets Section */}
                 <AccordionItem value="markets" className="border border-border rounded-lg overflow-hidden transition-all duration-200 hover:border-accent/30 hover:shadow-sm">
                   <AccordionTrigger 
                     className="px-3 py-2.5 hover:no-underline bg-transparent hover:bg-muted/30 transition-colors [&[data-state=open]]:bg-muted/50 [&[data-state=open]]:text-foreground touch-manipulation"
-                    aria-label="Who We Serve menu"
+                    aria-label="Markets menu"
                   >
                     <NavCategoryCard
                       icon={Users}
-                      title="Who We Serve"
+                      title="Markets"
                       itemCount={megaMenuDataEnhanced.markets?.sections.reduce((acc, section) => acc + section.categories.length, 0) || 0}
                       gradient="bg-gradient-to-br from-primary to-primary-light"
                       iconColor="text-primary-foreground"
                     >
-                      <span className="text-sm font-semibold">Who We Serve</span>
+                      <span className="text-sm font-semibold">Markets</span>
                     </NavCategoryCard>
                   </AccordionTrigger>
                   <AccordionContent className="px-4 pb-4 pt-2">
+                    {/* View All Markets link */}
+                    <Link
+                      to="/markets"
+                      onClick={handleLinkClick}
+                      className="flex items-center gap-2 py-2 px-3 mb-2 text-sm font-semibold text-primary hover:bg-muted/30 rounded-md transition-colors"
+                    >
+                      View All Markets
+                      <ChevronRight className="h-4 w-4" />
+                    </Link>
                     {megaMenuDataEnhanced.markets?.sections.map((section, sectionIndex) => (
                       <div key={section.sectionTitle} className="mb-3">
                         {sectionIndex > 0 && <Separator className="my-3" />}
-                        <h4 className="text-xs font-bold text-muted-foreground uppercase tracking-wide mb-2 px-2">
-                          {section.sectionTitle}
-                        </h4>
                         <div className="space-y-1">
                           {section.categories.map((category) => (
                             <div key={category.title} className="ml-1">
