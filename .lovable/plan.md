@@ -1,91 +1,85 @@
-# Phase 2: Content Truth Hardening — Complete
 
-## Files Changed (22 files)
 
-| File | Changes |
+# Phase 7B — Documentation, CTA Cleanup, and Future Roadmap
+
+## Summary
+
+Phase 7B is primarily a **documentation and cleanup phase**, not a feature build. It delivers three things:
+
+1. **Update `.lovable/plan.md`** with Phase 3-7A completion records and a structured future roadmap
+2. **Clean up remaining CTA inconsistencies** that Phase 7A missed (6 files still use "Start Your Project" in public-facing components)
+3. **Add `/company/technology` to the route registry** (missed in 7A)
+4. **Replace the bespoke CTA in `ServiceDetail.tsx`** with `CTABand` (missed in 7A)
+
+## Files to Change (4)
+
+| File | Action |
 |---|---|
-| `src/components/homepage/InteractiveCTA.tsx` | Removed 98% story card → replaced with $2M CGL; headline → "Your Envelope, Restoration & Trades Partner"; "24/7 Support" → "Responsive Support" |
-| `src/components/services/PremiumServiceHero.tsx` | H1 → "Envelope, Restoration & Interior Trades"; stats: removed 98%/25+, replaced with 15+/85%/$2M; "24/7 Support" → "Responsive Support" |
-| `src/components/homepage/QuickFactsSidebar.tsx` | Removed 95% on-time → $2M CGL Coverage; removed 98% satisfaction → 100% WSIB Compliant; "24/7 Emergency" → "Urgent Response" |
-| `src/components/homepage/WhyChooseUs.tsx` | "Comprehensive Services" → "Envelope & Trades Expertise"; "21+ Service Offerings" → "Self-Performed Core Scopes"; "industry-leading brands" → "trusted manufacturer brands"; removed 95% on-time claim |
-| `src/components/seo/DirectAnswer.tsx` | "Ontario's Trusted Construction Partner" → "GTA Specialty Contractor"; "Ontario's complete construction partner" → specialty contractor description |
-| `src/components/services/ServiceStats.tsx` | "24/7 Emergency Response" → "Rapid Response Available" |
-| `src/components/services/ServicesTrustBar.tsx` | "Ontario-Wide Coverage" → "GTA & Southern Ontario" |
-| `src/components/contact/PremiumContactHero.tsx` | "Available 24/7" → "Responsive & Available" |
-| `src/pages/OurProcess.tsx` | Removed CM and Design-Build contract types; added T&M; "Client Portal Access" → "Project Documentation" via cloud folders; "24/7 emergency line" → "Emergency contact for urgent issues"; fixed "hundreds of" |
-| `src/pages/FAQ.tsx` | "Our team holds COR" → "working toward COR"; "perfect safety record" → "strong safety protocols"; "zero outstanding claims" → "good standing with WSIB"; fixed "hundreds of" (×2); "industry-leading" → "trusted" |
-| `src/pages/Homeowners.tsx` | "worked on hundreds of" → "brings hands-on experience from a wide range of" |
-| `src/pages/About.tsx` | "delivered hundreds of" → "bring hands-on experience from a wide range of" |
-| `src/pages/Index.tsx` | Removed "LEED consulting" from schema; "Comprehensive Services Under One Roof" → "Specialty Trade Services" |
-| `src/pages/Contact.tsx` | Removed `<PartnerCaseStudies>` import and render |
-| `src/pages/services/SustainableBuilding.tsx` | Full rewrite: removed LEED consulting, Passive House, Green Globes claims; replaced with energy-efficient envelope, sustainable materials, waste diversion |
-| `src/pages/resources/ServiceAreas.tsx` | Outer regions "24-hour response" → "Next business day response"; "Available 24/7 within GTA core" → "Available for urgent repairs within GTA core for active leaks and envelope failures" |
-| `src/utils/migrateHomepageData.ts` | "Ontario's Trusted General Contractor" → "Building Envelope & Restoration Specialists"; removed "500+ Projects", "98% Client Satisfaction"; "Award-winning general contractor" → specialty contractor description |
-| `src/utils/migrateAboutPageData.ts` | Fixed story content, total_projects 500→10, satisfaction_rate 98→null; "LEED-certified construction expertise" → "Sustainable Practices"; removed design-build FAQ |
-| `src/pages/admin/StatsManager.tsx` | Replaced 8 inflated templates ($50M, 500+, 50+ trades, 98%) with 6 realistic ones (15+ yrs, 85% self-perform, $2M CGL, 10+ crew, 10+ projects, 100% WSIB) |
-| `src/data/enriched-company-content.ts` | Standardized 3 "hundreds of" instances to team-career framing |
-| `src/data/service-faqs-enriched.ts` | Fixed "95% on-time" claims, "24/7" references, "hundreds of" language, "100+ envelope failures" claim |
-| `src/utils/personalization.ts` | "24/7 Emergency Service Available" → "Urgent Response Available for Active Issues" |
+| `.lovable/plan.md` | Full rewrite — document Phases 3-7A completion, add structured future roadmap |
+| `src/routes/registry.ts` | Add `/company/technology` to `PUBLIC_ROUTE_PATTERNS` |
+| `src/pages/ServiceDetail.tsx` | Replace bespoke CTA section (lines 392-423) with `CTABand` |
+| `src/pages/ForGeneralContractors.tsx` | Change "Start Your Project" heading to "Work With Us" |
 
-## Claims Intentionally Left Because Evidence Supports Them
+## Issues Found
 
-| Claim | Basis |
-|---|---|
-| 15+ years (team/leadership experience) | Founder career history |
-| 10+ projects completed | Modest, plausible |
-| $2M CGL coverage | Stated consistently, verifiable |
-| WSIB compliant | Consistently stated |
-| "Working toward COR" | Honest aspirational |
-| 85% self-performed | Periodic verification flagged |
-| 10-person crew | Consistent |
-| GTA service area | Supported by city list |
-| Benjamin Moore / Sherwin-Williams | Manufacturer relationships |
+1. **`plan.md`** still only contains Phase 2 — Phases 3-7A are undocumented
+2. **`registry.ts`** missing `/company/technology` route added in 7A
+3. **`ServiceDetail.tsx`** lines 392-410 still has a bespoke gradient CTA with "Ready to Start Your Project?" — was not migrated to `CTABand`
+4. **`ForGeneralContractors.tsx`** line 298 still says "Start Your Project" as a section heading for the GC contact area — should be "Work With Us" or "Get in Touch"
+5. **Remaining "Start Your Project" in footer, PrequalPackage, ServiceSelector, BlogPost, ServiceAreas, PartnerCaseStudies** — these are lower priority (footer is branding, PartnerCaseStudies is not rendered, others are navigation labels). Document as future cleanup, not this phase.
 
-## Intentionally Left Untouched
+## Exact Changes
 
-- `PartnerCaseStudies.tsx` component file — kept in codebase, removed from public rendering
-- `ForGeneralContractors.tsx` — accurate subcontractor description
-- `specialty-contractor-comparison.ts` — educational data
-- Individual service detail pages — describe actual capabilities
-- Legal pages — no false claims
-- Navigation links to `/services/sustainable-building` — page stays with honest content
+### 1. `.lovable/plan.md` — Full Rewrite
 
-## Checks Run
+Replace Phase 2-only content with a structured document covering:
+- **Completed phases summary** (Phase 2-7A, one paragraph each with key outcomes)
+- **Future roadmap** organized into:
+  - **7B-1: Segmented Intake** — role-based form field adaptation (estimate/RFP forms show different fields per visitor role)
+  - **7B-2: Remaining CTA/UI Cleanup** — migrate remaining 87 files from `@/ui/Card` to design-system (admin files low priority); footer/blog CTA text
+  - **7B-3: Feature Enhancements** — scope selector widget, service-area map, project filters, simple estimator aids
+  - **7B-4: Security Hardening** — 18 RLS policy warnings, storage bucket audit
+  - **7B-5: Content Population** — testimonials, blog posts, project case study data entry
+  - **7B-6: Analytics & Conversion** — conversion tracking, A/B testing, form funnel analysis
+  - **7B-7: EquipmentResources.tsx Deprecation** — replace with link to TechnologyInnovation page
+- **Manual verification checklist** (items flagged across phases)
+- **Content claims requiring business confirmation**
 
-- [x] Grep "98%" — only in PartnerCaseStudies (not rendered) and tailwind config (CSS)
-- [x] Grep "95%" — only in OurProcess closeout process (legitimate "95%+ completion" threshold), service-faqs (fixed), CSS values
-- [x] Grep "500+" — only in admin placeholders (text, not values) and FAQ "3,500+ colors" (legitimate)
-- [x] Grep "LEED consulting" — zero matches ✅
-- [x] Grep "industry-leading" — zero matches in public components ✅
-- [x] Grep "perfect safety" — zero matches ✅
-- [x] Grep "24/7" — zero matches in public components ✅
-- [x] Grep "hundreds of" — zero matches in public components ✅
-- [x] PartnerCaseStudies not rendered on any public page ✅
-- [x] SustainableBuilding.tsx no longer claims LEED consulting ✅
-- [x] Build passes ✅
-- [x] Console: pre-existing forwardRef warning only (not related to Phase 2) ✅
+### 2. `registry.ts` — Add Missing Route
 
-## What Still Requires Manual Verification
+Add `'/company/technology'` to `PUBLIC_ROUTE_PATTERNS`.
 
-- Whether a staffed 24/7 emergency line actually exists (if yes, claims can be restored)
-- Whether partner case studies represent real projects (if yes, component can be re-enabled with real data)
-- Whether a client portal actually exists and functions
-- Whether "10+ projects completed" is accurate as of current date
+### 3. `ServiceDetail.tsx` — Replace Bespoke CTA
 
-## Merge Readiness: ✅ READY
+Replace lines 392-423 (gradient section with manual buttons) with:
+```tsx
+<CTABand
+  title="Ready to Discuss Your Project?"
+  description="Get a detailed proposal from our team"
+  primaryCta={{ text: CTA_TEXT.project, href: "/estimate" }}
+  secondaryCta={{ text: CTA_TEXT.contact, href: "/contact" }}
+  variant="dark"
+/>
+```
 
-**Suggested PR title:** `feat: Phase 2 — Content truth hardening`
+### 4. `ForGeneralContractors.tsx` — Fix Section Heading
 
-**Suggested PR description:**
-Hardens all public-facing messaging for accuracy and supportability:
-- Remove fabricated stats (98% satisfaction, 95% on-time, 500+ projects, 25+ years)
-- Replace with verifiable metrics ($2M CGL, WSIB compliant, 85% self-performed, 15+ team experience)
-- Remove PartnerCaseStudies from Contact page (fabricated case studies with fake budgets/outcomes)
-- Rewrite SustainableBuilding page: remove LEED consulting, Passive House, Green Globes claims; focus on energy-efficient envelope and sustainable materials
-- Remove CM and Design-Build contract types from OurProcess
-- Standardize "hundreds of projects" → team-career framing across 8 files
-- Remove all unsupported "24/7" emergency claims across 9 surfaces
-- Fix COR/safety overclaims: "holds COR" → "working toward", "perfect safety record" → "strong protocols"
-- Fix geographic overclaim: "Ontario-Wide" → "GTA & Southern Ontario"
-- Fix seed data in migrateHomepageData and migrateAboutPageData
-- Replace inflated admin stat templates with realistic values
+Line 298: "Start Your Project" → "Work With Us"
+
+## What Will NOT Be Changed
+
+- **87 files with `@/ui/Card`** — most are admin components; full migration is documented as future work, not this phase
+- **Footer "Start Your Project"** — this is a branded section label in the footer layout; documented for future review
+- **`ServiceSelector.tsx`** — navigation label, not a CTA band
+- **`BlogPost.tsx`** — low-traffic CTA; documented for future cleanup
+- **No new features** — this phase is documentation + residual cleanup only
+
+## Checks
+
+1. TypeScript build passes
+2. `/company/technology` appears in route registry
+3. `ServiceDetail.tsx` uses `CTABand` instead of bespoke gradient CTA
+4. `ForGeneralContractors.tsx` no longer says "Start Your Project"
+5. `plan.md` contains structured roadmap with all phases documented
+6. No console errors on modified pages
+
