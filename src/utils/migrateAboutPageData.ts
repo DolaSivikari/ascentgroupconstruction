@@ -44,8 +44,8 @@ export const migrateAboutPageSettings = async () => {
           }
         ],
         years_in_business: 15,
-        total_projects: 500,
-        satisfaction_rate: 98,
+        total_projects: 10,
+        satisfaction_rate: null,
         values: [
           {
             title: "Integrity",
