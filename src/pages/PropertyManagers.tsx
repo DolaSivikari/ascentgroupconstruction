@@ -2,7 +2,7 @@ import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
 import { PageHero } from "@/components/shared/PageHero";
-import { UnifiedCard } from "@/components/shared/UnifiedCard";
+import { Card } from "@/design-system/components/Card";
 import { Section } from "@/components/sections/Section";
 import { Button } from "@/ui/Button";
 import { Link } from "react-router-dom";
