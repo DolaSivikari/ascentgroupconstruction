@@ -54,9 +54,9 @@ export const SERVICE_PILLARS: readonly ServicePillar[] = [
   },
   {
     title: "Condo & Multi-Unit Work",
-    description: "Coordinated trade packages for occupied condominiums, apartment buildings, and multi-unit residential properties.",
-    scopes: ["Occupied-unit painting programs", "Corridor & amenity upgrades", "Phased multi-floor execution"],
-    route: "/services/painting-services",
+    description: "Interior finishing and turnover packages for occupied condominiums, apartment buildings, and multi-unit residential properties.",
+    scopes: ["Suite turnover finishing", "Corridor & amenity upgrades", "Phased multi-floor execution"],
+    route: "/services/interior-buildouts",
     icon: Home,
   },
   {

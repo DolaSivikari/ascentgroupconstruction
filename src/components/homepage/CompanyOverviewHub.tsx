@@ -65,10 +65,10 @@ const CompanyOverviewHub = () => {
         {/* Header */}
         <div className={`text-center mb-12 ${!prefersReducedMotion && 'animate-fade-in'}`}>
           <h2 className="text-4xl md:text-5xl font-bold mb-4 text-foreground">
-            Your Complete Construction Partner Across Ontario
+            Your Envelope, Restoration & Interior Trades Partner Across Ontario
           </h2>
           <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-            From building envelope systems to specialty restoration, we deliver comprehensive solutions 
+            From building envelope systems to specialty restoration, we deliver focused trade execution 
             with the expertise, safety standards, and quality you expect from a trusted envelope & restoration contractor.
           </p>
         </div>
