@@ -33,16 +33,16 @@ const quickFacts = [
   },
   {
     icon: Shield,
-    value: 95,
-    suffix: "%",
-    label: "On-Time Delivery",
+    value: 2,
+    suffix: "M",
+    label: "CGL Coverage",
     color: "text-primary",
   },
   {
     icon: Award,
-    value: 98,
+    value: 100,
     suffix: "%",
-    label: "Client Satisfaction",
+    label: "WSIB Compliant",
     color: "text-accent",
   },
 ];
