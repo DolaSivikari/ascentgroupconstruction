@@ -179,7 +179,7 @@ const AdminRouteGroup = () => (
 
 export const AppRoutes = () => (
   <Routes>
-    <Route path="/" element={<LandingWrapper />} />
+    <Route path="/" element={<Index />} />
     <Route path="/about" element={<About />} />
     <Route path="/why-specialty-contractor" element={<WhySpecialtyContractor />} />
     <Route path="/prequalification" element={<Prequalification />} />
