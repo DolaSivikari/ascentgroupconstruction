@@ -207,7 +207,7 @@ const FAQ = () => {
       questions: [
         {
           question: "Do you have WSIB coverage?",
-          answer: "Yes, we maintain full WSIB (Workplace Safety & Insurance Board) clearance for all employees and subcontractors. We provide updated clearance certificates with every project proposal. Our WSIB account is in good standing with zero outstanding claims."
+          answer: "Yes, we maintain full WSIB (Workplace Safety & Insurance Board) clearance for all employees and subcontractors. We provide updated clearance certificates with every project proposal. Our WSIB account is in good standing."
         },
         {
           question: "What safety certifications does your team have?",
