@@ -461,7 +461,7 @@ Add-ons:
               {currentStep === 4 && (<EstimatorStep4 estimate={estimate} formData={formData} />)}
               {currentStep === 5 && (<EstimatorStep3 data={{ scaffolding: formData.scaffolding, colorConsultation: formData.colorConsultation, rushScheduling: formData.rushScheduling, warrantyExtension: formData.warrantyExtension, siteCleanup: formData.siteCleanup }} sqft={parseInt(formData.sqft) || 0} onChange={handleInputChange} />)}
               {currentStep === 6 && (<EstimatorStep5 data={{ name: formData.name, email: formData.email, phone: formData.phone, address: formData.address, preferredContact: formData.preferredContact, notes: formData.notes, consent: formData.consent }} onChange={handleInputChange} />)}
-            </UnifiedCard>
+            </Card>
 
             {/* Navigation Buttons */}
             <div className="flex justify-between gap-4">
