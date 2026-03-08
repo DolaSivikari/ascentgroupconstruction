@@ -2,9 +2,10 @@ import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
 import { PageHero } from "@/components/shared/PageHero";
-import { AscentEmailLink } from "@/components/EmailLink";
 import { Section } from "@/components/sections/Section";
-import { Card, CardContent } from "@/design-system/components/Card";
+import { SectionHeader } from "@/design-system/components/SectionHeader";
+import { CapabilityCard } from "@/design-system/components/CapabilityCard";
+import { CTABand } from "@/design-system/components/CTABand";
 import { Button } from "@/ui/Button";
 import { Badge } from "@/components/ui/badge";
 import { 
@@ -16,8 +17,6 @@ import {
   Shield,
   CheckCircle,
   DollarSign,
-  Phone,
-  ClipboardCheck,
   Award,
   Clock
 } from "lucide-react";
@@ -139,28 +138,24 @@ const Homeowners = () => {
 
   const processSteps = [
     {
-      number: "01",
-      title: "Request a Quote",
-      description: "Fill out our estimate form or call us directly. Describe your project and upload photos if available.",
-      cta: "Start Your Project"
+      icon: DollarSign,
+      title: "Request an Estimate",
+      description: "Fill out our estimate form or call us directly. Describe your project and upload photos if available."
     },
     {
-      number: "02",
+      icon: Home,
       title: "Site Visit & Estimate",
-      description: "We'll visit your home to assess the work, take measurements, and answer your questions. You'll receive a detailed written estimate within 2-3 days.",
-      cta: null
+      description: "We'll visit your home to assess the work, take measurements, and answer your questions. You'll receive a detailed written estimate within 2-3 days."
     },
     {
-      number: "03",
+      icon: Hammer,
       title: "Schedule & Execute",
-      description: "Once you approve the estimate, we'll schedule your project (typically 1-3 weeks out). We arrive on time, work cleanly, and communicate throughout.",
-      cta: null
+      description: "Once you approve the estimate, we'll schedule your project (typically 1-3 weeks out). We arrive on time, work cleanly, and communicate throughout."
     },
     {
-      number: "04",
+      icon: CheckCircle,
       title: "Final Walkthrough",
-      description: "We'll walk through the completed work with you, address any concerns, and provide care instructions and warranty information.",
-      cta: null
+      description: "We'll walk through the completed work with you, address any concerns, and provide care instructions and warranty information."
     }
   ];
 
@@ -205,28 +200,21 @@ const Homeowners = () => {
         {/* Why Choose Us */}
         <StaggerContainer>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
-            {whyChooseUs.map((item, index) => {
-              const Icon = item.icon;
-              return (
-                <ScrollReveal key={index}>
-                  <Card className="text-center h-full">
-                    <CardContent className="pt-6">
-                      <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
-                        <Icon className="w-6 h-6 text-primary" />
-                      </div>
-                      <h3 className="text-lg font-semibold mb-2">{item.title}</h3>
-                      <p className="text-sm text-muted-foreground">{item.description}</p>
-                    </CardContent>
-                  </Card>
-                </ScrollReveal>
-              );
-            })}
+            {whyChooseUs.map((item, index) => (
+              <ScrollReveal key={index}>
+                <CapabilityCard
+                  icon={item.icon}
+                  title={item.title}
+                  description={item.description}
+                />
+              </ScrollReveal>
+            ))}
           </div>
         </StaggerContainer>
       </Section>
 
       {/* Residential Services Grid */}
-      <Section className="bg-gradient-to-br from-muted/30 via-muted/20 to-muted/30">
+      <Section className="bg-muted/30">
         <ScrollReveal>
           <div className="text-center mb-12">
             <H2 className="mb-4">Our Residential Services</H2>
@@ -257,7 +245,7 @@ const Homeowners = () => {
               <strong>Note:</strong> Costs and timelines are estimates based on typical residential projects. Your actual project will be priced after a site visit.
             </p>
             <Button asChild size="lg">
-              <Link to="/estimate">Start Your Project</Link>
+              <Link to="/estimate">Request an Estimate</Link>
             </Button>
           </div>
         </ScrollReveal>
@@ -266,31 +254,20 @@ const Homeowners = () => {
       {/* How It Works */}
       <Section>
         <ScrollReveal>
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">How It Works</h2>
-            <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-              We've made it simple to get started. Here's what you can expect when working with Ascent Group Construction.
-            </p>
-          </div>
+          <SectionHeader
+            title="How It Works"
+            description="We've made it simple to get started. Here's what you can expect when working with Ascent Group Construction."
+          />
         </ScrollReveal>
 
         <StaggerContainer className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
           {processSteps.map((step, index) => (
             <ScrollReveal key={index}>
-              <Card className="text-center h-full">
-                <CardContent className="pt-6">
-                  <div className="w-16 h-16 rounded-full bg-primary text-primary-foreground flex items-center justify-center text-2xl font-bold mx-auto mb-4">
-                    {step.number}
-                  </div>
-                  <h3 className="text-xl font-semibold mb-3">{step.title}</h3>
-                  <p className="text-sm text-muted-foreground mb-4">{step.description}</p>
-                  {step.cta && (
-                    <Button asChild size="sm" variant="outline">
-                      <Link to="/estimate">{step.cta}</Link>
-                    </Button>
-                  )}
-                </CardContent>
-              </Card>
+              <CapabilityCard
+                icon={step.icon}
+                title={step.title}
+                description={step.description}
+              />
             </ScrollReveal>
           ))}
         </StaggerContainer>
@@ -313,7 +290,7 @@ const Homeowners = () => {
               <AccordionItem value="item-1" className="border border-border rounded-lg px-6 bg-card">
                 <AccordionTrigger className="hover:no-underline py-4">
                   <div className="flex items-center gap-3 text-left">
-                    <DollarSign className="w-5 h-5 text-construction-orange flex-shrink-0" />
+                    <DollarSign className="w-5 h-5 text-primary flex-shrink-0" />
                     <span className="font-semibold">Do you provide estimates?</span>
                   </div>
                 </AccordionTrigger>
@@ -325,7 +302,7 @@ const Homeowners = () => {
               <AccordionItem value="item-2" className="border border-border rounded-lg px-6 bg-card">
                 <AccordionTrigger className="hover:no-underline py-4">
                   <div className="flex items-center gap-3 text-left">
-                    <Shield className="w-5 h-5 text-construction-orange flex-shrink-0" />
+                    <Shield className="w-5 h-5 text-primary flex-shrink-0" />
                     <span className="font-semibold">Are you insured and licensed?</span>
                   </div>
                 </AccordionTrigger>
@@ -337,7 +314,7 @@ const Homeowners = () => {
               <AccordionItem value="item-3" className="border border-border rounded-lg px-6 bg-card">
                 <AccordionTrigger className="hover:no-underline py-4">
                   <div className="flex items-center gap-3 text-left">
-                    <Clock className="w-5 h-5 text-construction-orange flex-shrink-0" />
+                    <Clock className="w-5 h-5 text-primary flex-shrink-0" />
                     <span className="font-semibold">How long will my project take?</span>
                   </div>
                 </AccordionTrigger>
@@ -349,7 +326,7 @@ const Homeowners = () => {
               <AccordionItem value="item-4" className="border border-border rounded-lg px-6 bg-card">
                 <AccordionTrigger className="hover:no-underline py-4">
                   <div className="flex items-center gap-3 text-left">
-                    <Award className="w-5 h-5 text-construction-orange flex-shrink-0" />
+                    <Award className="w-5 h-5 text-primary flex-shrink-0" />
                     <span className="font-semibold">Do you offer warranties?</span>
                   </div>
                 </AccordionTrigger>
@@ -361,7 +338,7 @@ const Homeowners = () => {
               <AccordionItem value="item-5" className="border border-border rounded-lg px-6 bg-card">
                 <AccordionTrigger className="hover:no-underline py-4">
                   <div className="flex items-center gap-3 text-left">
-                    <Home className="w-5 h-5 text-construction-orange flex-shrink-0" />
+                    <Home className="w-5 h-5 text-primary flex-shrink-0" />
                     <span className="font-semibold">What areas do you serve?</span>
                   </div>
                 </AccordionTrigger>
@@ -375,43 +352,13 @@ const Homeowners = () => {
       </Section>
 
       {/* Final CTA */}
-      <div className="relative py-20 overflow-hidden">
-        <div 
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat" 
-          style={{ backgroundImage: `url(${audienceHeroes["homeowners"]})` }}
-        >
-          <div className="absolute inset-0 bg-black/60" />
-        </div>
-        <div className="relative z-10">
-          <ScrollReveal>
-          <div className="max-w-3xl mx-auto text-center text-white">
-            <h2 className="text-3xl md:text-4xl font-bold mb-6">
-              Ready to Start Your Home Project?
-            </h2>
-            <p className="text-xl mb-8 text-white/90">
-              Get a detailed estimate in 2-3 days. No pressure, no obligation—just professional advice and transparent pricing.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button asChild size="lg" variant="default">
-                <Link to="/estimate">
-                  <ClipboardCheck className="w-5 h-5 mr-2" />
-                  Start Your Project
-                </Link>
-              </Button>
-              <Button asChild size="lg" variant="secondary">
-                <Link to="/contact">
-                  <Phone className="w-5 h-5 mr-2" />
-                  Call Us Today
-                </Link>
-              </Button>
-            </div>
-            <p className="text-sm text-white/80 mt-6">
-              Or email us at <AscentEmailLink className="underline hover:text-white inline text-white/80" showIcon={false} />
-            </p>
-          </div>
-          </ScrollReveal>
-        </div>
-      </div>
+      <CTABand
+        title="Ready to Start Your Home Project?"
+        description="Get a detailed estimate in 2-3 days. No pressure, no obligation—just professional advice and transparent pricing."
+        primaryCta={{ text: "Request an Estimate", href: "/estimate" }}
+        secondaryCta={{ text: "Contact Us", href: "/contact" }}
+        variant="dark"
+      />
 
       <Footer />
     </div>

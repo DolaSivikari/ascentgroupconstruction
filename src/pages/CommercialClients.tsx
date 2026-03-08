@@ -2,12 +2,12 @@ import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
 import { PageHero } from "@/components/shared/PageHero";
-import BenefitsSection from "@/components/sections/BenefitsSection";
-import CTASection from "@/components/sections/CTASection";
-import { Card, CardContent } from "@/ui/Card";
-import { Link } from "react-router-dom";
-import { Timer, ShieldCheck, Users, Moon, CheckCircle, Building2, Zap } from "lucide-react";
-import { CTA_TEXT } from "@/design-system/constants";
+import { Section } from "@/components/sections/Section";
+import { SectionHeader } from "@/design-system/components/SectionHeader";
+import { CapabilityCard } from "@/design-system/components/CapabilityCard";
+import { CTABand } from "@/design-system/components/CTABand";
+import { Card } from "@/design-system/components/Card";
+import { Timer, ShieldCheck, Users, Moon, CheckCircle, Building2, Zap, ClipboardCheck, FileText, Wrench, FolderCheck } from "lucide-react";
 import { audienceHeroes } from "@/data/hero-images";
 
 const CommercialClients = () => {
@@ -25,7 +25,7 @@ const CommercialClients = () => {
     {
       icon: ShieldCheck,
       title: "Fully Insured",
-      description: "$2M CGL liability coverage and WSIB compliance - your business is protected"
+      description: "$2M CGL liability coverage and WSIB compliance—your business is protected"
     },
     {
       icon: Users,
@@ -62,11 +62,34 @@ const CommercialClients = () => {
     }
   ];
 
+  const processSteps = [
+    {
+      icon: ClipboardCheck,
+      title: "Site Review & Scope Definition",
+      description: "We visit your facility to assess condition, identify priorities, and define scope around your operational schedule"
+    },
+    {
+      icon: FileText,
+      title: "Proposal & Scheduling",
+      description: "Detailed proposal with phased approach, material specifications, and scheduling options that minimize business disruption"
+    },
+    {
+      icon: Wrench,
+      title: "Coordinated Execution",
+      description: "After-hours and weekend work where needed. Daily progress updates and direct communication with your facility manager"
+    },
+    {
+      icon: FolderCheck,
+      title: "Closeout & Documentation",
+      description: "Final walkthrough, deficiency resolution, warranty documentation, and maintenance recommendations"
+    }
+  ];
+
   return (
     <div className="min-h-screen">
       <SEO 
         title="Commercial Building Envelope & Restoration Services - Toronto & GTA"
-        description="Envelope repairs, waterproofing, and restoration for office buildings, retail properties, and industrial facilities. After-hours scheduling. Minimal disruption. 15+ years experience serving commercial clients."
+        description="Envelope repairs, waterproofing, and restoration for office buildings, retail properties, and industrial facilities. After-hours scheduling. Minimal disruption. 15+ years of combined team experience in commercial construction."
         keywords="commercial envelope contractor, office building restoration, retail property repairs, industrial waterproofing, commercial facade repair GTA, Toronto commercial contractor"
       />
       <Navigation />
@@ -77,7 +100,7 @@ const CommercialClients = () => {
         description="Office buildings, retail strips, industrial properties—façade repairs, waterproofing, and interior finishes. After-hours scheduling available to minimize business disruption."
         image={audienceHeroes["commercial-clients"]}
         imageAlt="Commercial construction services"
-        primaryCta={{ text: "Request Commercial Quote", href: "/estimate" }}
+        primaryCta={{ text: "Request an Estimate", href: "/estimate" }}
         breadcrumbs={[
           { label: "Home", href: "/" },
           { label: "Commercial Clients" }
@@ -85,65 +108,76 @@ const CommercialClients = () => {
       />
       
       <main>
-
-        <BenefitsSection
-          title="Why Commercial Clients Choose Ascent"
-          description="Envelope and restoration services designed to protect your building investment with minimal business disruption."
-          benefits={benefits.map(b => ({ icon: b.icon, title: b.title, description: b.description }))}
-        />
+        {/* Benefits */}
+        <Section size="major">
+          <SectionHeader
+            title="Why Commercial Clients Choose Ascent"
+            description="Envelope and restoration services designed to protect your building investment with minimal business disruption."
+          />
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {benefits.map((b, index) => (
+              <CapabilityCard
+                key={index}
+                icon={b.icon}
+                title={b.title}
+                description={b.description}
+              />
+            ))}
+          </div>
+        </Section>
 
         {/* Industries */}
-        <section className="py-16 bg-background">
-          <div className="container mx-auto px-4">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold mb-4">Industries We Serve</h2>
-              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-                Specialized solutions for every commercial sector
-              </p>
-            </div>
-
-            <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-              {industries.map((industry, index) => (
-                <Card key={index} className="hover:shadow-[var(--shadow-lg)] transition-all">
-                  <CardContent className="p-8">
-                    <div className="flex items-start gap-3 mb-3">
-                      <Building2 className="w-6 h-6 text-primary flex-shrink-0 mt-1" />
-                      <h3 className="text-2xl font-bold text-primary">{industry.title}</h3>
-                    </div>
-                    <p className="text-muted-foreground mb-4">{industry.description}</p>
-                    <ul className="space-y-2">
-                      {industry.features.map((feature, idx) => (
-                        <li key={idx} className="flex items-center gap-2">
-                          <CheckCircle className="w-4 h-4 text-primary flex-shrink-0" />
-                          <span className="text-sm">{feature}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
+        <Section size="major" className="bg-muted/30">
+          <SectionHeader
+            title="Industries We Serve"
+            description="Specialized solutions for every commercial sector"
+          />
+          <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+            {industries.map((industry, index) => (
+              <Card key={index} variant="elevated" size="lg">
+                <div className="flex items-start gap-3 mb-3">
+                  <Building2 className="w-6 h-6 text-primary flex-shrink-0 mt-1" />
+                  <h3 className="text-2xl font-bold text-primary">{industry.title}</h3>
+                </div>
+                <p className="text-muted-foreground mb-4">{industry.description}</p>
+                <ul className="space-y-2">
+                  {industry.features.map((feature, idx) => (
+                    <li key={idx} className="flex items-center gap-2">
+                      <CheckCircle className="w-4 h-4 text-primary flex-shrink-0" />
+                      <span className="text-sm">{feature}</span>
+                    </li>
+                  ))}
+                </ul>
+              </Card>
+            ))}
           </div>
-        </section>
+        </Section>
 
-        {/* Process Overview */}
-        <section className="py-16 bg-muted/30">
-          <div className="container mx-auto px-4 text-center">
-            <h2 className="text-3xl font-bold mb-4">Our Commercial Approach</h2>
-            <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
-              We follow a proven 6-step process to ensure your commercial project is completed on time, within budget, and to the highest standards.
-            </p>
-            <Link to="/our-process" className="inline-flex items-center gap-2 text-primary font-semibold hover:underline">
-              View Our Detailed Process <CheckCircle className="w-4 h-4" />
-            </Link>
+        {/* Process */}
+        <Section size="major">
+          <SectionHeader
+            title="Our Commercial Approach"
+            description="A clear process designed around your facility's operational needs"
+          />
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl mx-auto">
+            {processSteps.map((step, index) => (
+              <CapabilityCard
+                key={index}
+                icon={step.icon}
+                title={step.title}
+                description={step.description}
+              />
+            ))}
           </div>
-        </section>
+        </Section>
 
-        <CTASection
+        {/* CTA */}
+        <CTABand
           title="Ready to Elevate Your Facility?"
           description="Get a comprehensive commercial quote with flexible scheduling options"
-          primaryCTA={{ label: CTA_TEXT.primary, href: "/estimate" }}
-          secondaryCTA={{ label: "Schedule Consultation", href: "/contact" }}
+          primaryCta={{ text: "Request an Estimate", href: "/estimate" }}
+          secondaryCta={{ text: "Contact Us", href: "/contact" }}
+          variant="dark"
         />
       </main>
       
