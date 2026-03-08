@@ -6,6 +6,7 @@ import { EmailLink } from "@/components/EmailLink";
 import { PhoneLink } from "@/components/shared/PhoneLink";
 import { Card } from "@/design-system/components/Card";
 import { Section } from "@/components/sections/Section";
+import { OperationalProofBar, DEFAULT_PROOF_ITEMS } from "@/components/proof/OperationalProofBar";
 import { SectionHeader } from "@/design-system/components/SectionHeader";
 import { CapabilityCard } from "@/design-system/components/CapabilityCard";
 import { CardGrid } from "@/components/shared/CardGrid";
