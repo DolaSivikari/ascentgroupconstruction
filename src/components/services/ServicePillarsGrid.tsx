@@ -24,7 +24,7 @@ const SERVICE_PILLARS = [
     description: "Structural and cosmetic masonry restoration, tuckpointing, and concrete rehabilitation.",
     scopes: ["Brick replacement & tuckpointing", "Concrete spall repair", "Parging & stone restoration"],
     route: "/services/masonry-restoration",
-    icon: Brick,
+    icon: Blocks,
   },
   {
     title: "Interior Buildouts & Finish Trades",
