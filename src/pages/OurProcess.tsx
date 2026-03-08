@@ -178,13 +178,13 @@ const communicationReporting = [
     icon: "📸"
   },
   {
-    title: "Client Portal Access",
-    description: "Online dashboard to view schedules, invoices, change orders, and project documents.",
+    title: "Project Documentation",
+    description: "Project documents shared via secure cloud folders—schedules, invoices, change orders, and reports.",
     icon: "💻"
   },
   {
     title: "Emergency Contact",
-    description: "24/7 emergency line for urgent issues (water infiltration, safety concerns).",
+    description: "Emergency contact available for urgent issues (water infiltration, safety concerns).",
     icon: "🚨"
   }
 ];
