@@ -47,14 +47,14 @@ const Markets = () => {
       <SEO
         title="Markets We Serve | Ascent Group Construction"
         description="Ascent Group Construction serves property managers, commercial clients, homeowners, developers, and general contractors across Ontario and the GTA."
-        canonicalUrl="https://ascentgroupconstruction.com/markets"
+        canonical="https://ascentgroupconstruction.com/markets"
       />
       <Navigation />
 
       <PageHero
         title="Markets We Serve"
         subtitle="Specialty construction services tailored to your sector"
-        backgroundImage={audienceHeroes?.commercial}
+        image={companyHeroes?.about}
       />
 
       <section className="py-16 md:py-24">
