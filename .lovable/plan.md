@@ -1,25 +1,77 @@
-# Phases 1–3 Audit Reconciliation
+# Phase 4: Lead Flow Hardening + SEO Cleanup — Complete
 
-## 1. Audit Findings Resolved
+## Files Changed
 
-| Issue | File | Fix | Status |
-|---|---|---|---|
-| Condo & Multi-Unit pillar → `/services/painting-services` | `src/data/service-pillars.ts` | Route → `/services/interior-buildouts`; description & scope updated | ✅ Resolved |
-| "Your Complete Construction Partner" oversized-GC wording | `src/components/homepage/CompanyOverviewHub.tsx` | H2 → "Your Envelope, Restoration & Interior Trades Partner Across Ontario"; "comprehensive solutions" → "focused trade execution" | ✅ Resolved |
-| `/company/developers` link may be dead | N/A | Verified live — route, component, registry all present | ✅ Resolved |
+| File | Changes |
+|---|---|
+| `src/pages/Estimate.tsx` | Replaced auto-redirect with in-place success panel; fixed SEO description/keywords; consolidated notification toast |
+| `src/pages/SubmitRFPNew.tsx` | Replaced immediate redirect with in-place success panel; added `consent` to step 4 validation; added notification failure user feedback |
+| `src/pages/Contact.tsx` | Fixed SEO title → "Contact Us \| Ascent Group Construction"; shortened meta description to ~155 chars |
+| `src/pages/FAQ.tsx` | Fixed SEO title → "Building Envelope & Restoration"; updated hero description and keywords |
 
-## 2. Open Items (Non-Blocking, Deferrable)
+## Lead Flow Fixes Made
 
-| Issue | Severity | Requires |
+| Fix | Page | Detail |
 |---|---|---|
-| DB-dependent slugs (`masonry-restoration`, `interior-finishing-renovations`) lack static fallback | Medium | Code — deferrable |
-| Orphaned `ServicesExplorer` / `PrequalPackage` components | Low | Cleanup |
-| Generic `WhyChooseUs` fallback wording | Low | Code |
-| `DirectAnswer.tsx` positioning reference | Low | Code |
-| Stats/Testimonials admin truth labels | Low | Manual verification |
-| DNS/SSL/hosting config | N/A | External |
-| `$NaN` project metrics visual check | Low | Manual verification |
+| In-place success state | `/estimate` | Removed `navigate("/")` redirect, shows success panel with "Return Home" + "Submit an RFP" CTAs |
+| In-place success state | `/submit-rfp` | Removed `navigate("/")` redirect, shows success panel with "Return Home" + "Contact Us" CTAs |
+| Notification failure feedback | `/estimate` | Consolidated two sequential toasts into single conditional toast |
+| Notification failure feedback | `/submit-rfp` | Added `notificationWarning` flag with conditional success message |
+| Consent validation | `/submit-rfp` | Added `"consent"` to step 4 `fieldsToValidate` array |
+| No change needed | `/contact` | Already uses best pattern (conditional toast, form reset, no redirect) |
 
-## 3. Phase 4 Readiness: ✅ PASS
+## SEO/Metadata Fixes Made
 
-No blockers. All high-severity items resolved. Proceed to Phase 4.
+| Page | Field | Before | After |
+|---|---|---|---|
+| `/estimate` | description | "painting or stucco project" | "building envelope, restoration, or specialty trade work" |
+| `/estimate` | keywords | "painting quote, stucco quote" | "building envelope quote, restoration estimate" |
+| `/contact` | title | "Contact Us - Request Proposal \| Ascent Group" | "Contact Us \| Ascent Group Construction" |
+| `/contact` | description | 250+ chars | ~155 chars, focused on action |
+| `/faq` | title | "Painting & Construction \| Ascent Group" | "Building Envelope & Restoration" |
+| `/faq` | hero description | "painting, EIFS, stucco" | "building envelope, restoration, and specialty trade" |
+| `/faq` | keywords | "painting FAQ Toronto" | "construction FAQ Toronto, building envelope questions" |
+
+## H1 Sanity Check — All Clean
+
+| Page | H1 | Status |
+|---|---|---|
+| `/estimate` | "Request Your Estimate" | ✅ |
+| `/contact` | "Contact Us" | ✅ |
+| `/submit-rfp` | "Submit Your RFP" | ✅ |
+| `/faq` | "Frequently Asked Questions" | ✅ |
+
+## Newsletter — Verified Real, No Changes
+
+Both `NewsletterSection.tsx` (blog) and `NewsletterBackend.tsx` (footer) persist to `newsletter_subscribers` table with consent handling and duplicate detection.
+
+## Checks
+
+- [x] Build passes — no TypeScript errors
+- [x] No console errors
+- [x] SEO metadata updated on all 4 pages
+- [x] RFP consent validated before submission
+- [x] Notification failure shows user-facing feedback on both `/estimate` and `/submit-rfp`
+- [x] No automatic redirects after form submission
+
+## Manual Post-Deploy Verification
+
+- Submit estimate form → confirm success panel appears (no redirect)
+- Submit RFP form → confirm success panel appears (no redirect)
+- Submit contact form → confirm toast + form reset (existing behavior)
+- View page source on `/estimate`, `/contact`, `/faq` → confirm updated meta tags
+- Confirm RFP blocks submission without consent checkbox
+
+## Merge Readiness: ✅ READY
+
+**Suggested PR title:** `feat: Phase 4 — Lead flow hardening + SEO cleanup`
+
+**Suggested PR description:**
+Improves conversion reliability and SEO hygiene across lead-flow pages:
+- Replace auto-redirects with in-place success states on `/estimate` and `/submit-rfp`
+- Add notification failure user feedback on both forms
+- Add consent validation to RFP step 4
+- Fix narrow/inconsistent SEO titles and descriptions on `/estimate`, `/contact`, `/faq`
+- Broaden metadata from "painting/stucco" to "building envelope, restoration, specialty trades"
+- Verify newsletter flows are real (no changes needed)
+- H1 sanity check across all 4 lead pages (all clean)
