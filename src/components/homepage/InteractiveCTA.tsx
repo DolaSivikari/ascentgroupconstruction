@@ -21,20 +21,20 @@ const stories = [
   {
     stat: "15+",
     statLabel: "Years Team Experience",
-    label: "Projects Completed",
-    detail: "From small renovations to major restorations",
+    label: "Years Team Experience",
+    detail: "Our crew brings hands-on experience from envelope, restoration, and interior trades projects across the GTA.",
     icon: CheckCircle2,
   },
   {
-    stat: "15+",
-    label: "Years Experience",
+    stat: "85%",
+    label: "Self-Performed Work",
     detail: "New company. Experienced team. Building trust project by project.",
     icon: Clock,
   },
   {
-    stat: "98%",
-    label: "Client Satisfaction",
-    detail: "Based on verified reviews and repeat business",
+    stat: "$2M",
+    label: "CGL Coverage",
+    detail: "Fully insured with comprehensive liability coverage on every project.",
     icon: Shield,
   },
 ];
