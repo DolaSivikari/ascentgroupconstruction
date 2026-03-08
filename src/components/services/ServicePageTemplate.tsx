@@ -7,6 +7,7 @@ import {
 import { Button } from '@/ui/Button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/design-system/components/Card';
 import { CTABand } from '@/design-system/components/CTABand';
+import { CTA_TEXT } from '@/design-system/constants';
 import { PhoneLink } from '@/components/shared/PhoneLink';
 import QuickFacts from '@/components/seo/QuickFacts';
 import PeopleAlsoAsk from '@/components/seo/PeopleAlsoAsk';

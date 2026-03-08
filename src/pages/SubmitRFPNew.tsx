@@ -130,7 +130,7 @@ export default function SubmitRFPNew() {
       const attachmentUrls = await uploadAttachments();
 
       // Insert RFP submission with required fields
-      const submissionData: Record<string, unknown> = {
+      const submissionData = {
         company_name: data.company_name,
         contact_name: data.contact_name,
         email: data.email,
