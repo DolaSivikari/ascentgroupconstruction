@@ -614,9 +614,9 @@ export function MobileNavSheet({ open, onOpenChange }: MobileNavSheetProps) {
             size="lg"
             className="w-full gap-2 min-h-[48px] text-sm font-semibold active:scale-[0.98] transition-all duration-200 bg-accent hover:bg-accent/90 hover:shadow-lg text-accent-foreground touch-manipulation"
           >
-            <Link to="/contact" onClick={handleLinkClick} aria-label="Request a site assessment for your project">
-              <Phone className="h-5 w-5" aria-hidden="true" />
-              <span>Request a Proposal</span>
+            <Link to="/submit-rfp" onClick={handleLinkClick} aria-label="Submit an RFP">
+              <FileText className="h-5 w-5" aria-hidden="true" />
+              <span>Submit RFP</span>
             </Link>
           </Button>
         </div>
