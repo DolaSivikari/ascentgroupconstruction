@@ -5,7 +5,7 @@ import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
 import { Button } from "@/ui/Button";
-import { UnifiedCard } from "@/components/shared/UnifiedCard";
+import { Card } from "@/design-system/components/Card";
 import { Progress } from "@/components/ui/progress";
 import { ChevronLeft, ChevronRight, CheckCircle, Home, FileText } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
