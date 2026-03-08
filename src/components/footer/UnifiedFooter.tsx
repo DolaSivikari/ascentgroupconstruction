@@ -45,9 +45,9 @@ export function UnifiedFooter({
   // Company links
   const companyLinks = [
     { label: "About", href: "/about" },
-    { label: "Why Specialty Contractor", href: "/why-specialty-contractor" },
     { label: "Our Process", href: "/our-process" },
-    { label: "Safety", href: "/about#safety" },
+    { label: "Markets", href: "/markets" },
+    { label: "Trade Partners", href: "/for-general-contractors" },
     { label: "Careers", href: "/careers" },
     { label: "Contact", href: "/contact" },
   ];
