@@ -79,13 +79,6 @@ export const megaMenuDataEnhanced: MegaMenuDataEnhanced = {
               { name: "Tile & Flooring", link: "/services/tile-flooring", description: "Professional installation", icon: "Grid2X2" },
             ],
           },
-          {
-            title: "Quick Links",
-            subItems: [
-              { name: "Service Selector", link: "/service-selector", description: "Find the right service", icon: "Compass", isFeatured: true, badge: "popular" },
-              { name: "View All Services", link: "/services", description: "Complete service list", icon: "ArrowRight" },
-            ],
-          },
         ],
       },
     ],
