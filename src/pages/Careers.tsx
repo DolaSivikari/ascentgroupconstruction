@@ -59,7 +59,7 @@ const Careers = () => {
     {
       icon: HardHat,
       title: "Competitive Pay",
-      description: "Industry-leading wages with performance bonuses and profit sharing"
+      description: "Competitive wages with performance bonuses and profit sharing"
     }
   ];
 

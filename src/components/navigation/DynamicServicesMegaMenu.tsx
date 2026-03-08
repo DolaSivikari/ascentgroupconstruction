@@ -110,10 +110,10 @@ export const DynamicServicesMegaMenu = ({ isOpen, onClose }: DynamicServicesMega
               Why Ascent
             </div>
             <div className="text-sm font-semibold text-foreground leading-tight">
-              GC + Self-Perform = Schedule Certainty
+              Self-Perform = Schedule Certainty
             </div>
             <p className="text-xs text-muted-foreground leading-relaxed">
-              By delivering both general contracting and self-perform trades, we control quality, timelines, and costs.
+              By self-performing our specialty trades, we control quality, timelines, and costs — no subcontractor layers.
             </p>
             <Link
               to="/about"

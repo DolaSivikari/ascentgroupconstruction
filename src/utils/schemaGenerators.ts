@@ -176,18 +176,6 @@ export const SERVICE_SCHEMAS = {
     serviceType: "ConstructionService",
     areaServed: ["Toronto", "Mississauga", "Brampton", "Vaughan", "Markham", "Ontario"]
   },
-  "construction-management": {
-    name: "Construction Management Services",
-    description: "Professional construction management providing schedule control, budget oversight, and quality assurance for projects of all sizes.",
-    serviceType: "ConstructionService",
-    areaServed: ["Toronto", "Mississauga", "Brampton", "Vaughan", "Markham", "Ontario"]
-  },
-  "design-build": {
-    name: "Design-Build Services",
-    description: "Integrated design-build delivery combining architectural design, engineering, and construction under one contract for streamlined project execution.",
-    serviceType: "ConstructionService",
-    areaServed: ["Toronto", "Mississauga", "Brampton", "Vaughan", "Markham", "Ontario"]
-  },
   "eifs-stucco": {
     name: "EIFS & Stucco Services",
     description: "Expert EIFS and stucco installation, repair, and restoration for commercial and residential buildings throughout the GTA.",

@@ -367,7 +367,7 @@ export function generateLocationSchema(location: {
 }) {
   return {
     "@context": "https://schema.org",
-    "@type": "GeneralContractor",
+    "@type": "HomeAndConstructionBusiness",
     "name": `${COMPANY.name} - ${location.city}`,
     "url": `${SITE_URL}/service-areas/${location.city.toLowerCase().replace(/\s+/g, '-')}`,
     "telephone": COMPANY.phone,

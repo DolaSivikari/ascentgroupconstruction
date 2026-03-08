@@ -59,7 +59,7 @@ export const COMPANY_FACTS = {
 export const AI_PAGE_DESCRIPTIONS: Record<string, string> = {
   home: `Ascent Group Construction is a specialty contractor based in Ontario, Canada, specializing in building envelope and restoration services. Founded by Hebun Isik, the company serves the Greater Toronto Area and Ontario with services including facade remediation, waterproofing, EIFS, masonry restoration, and protective coatings. They self-perform 85% of their work and hold $2M CGL coverage. Contact: 647-528-6804.`,
   
-  services: `Ascent Group Construction offers building envelope services including facade remediation, waterproofing systems, EIFS and stucco installation, masonry restoration, cladding systems, and parking garage restoration. They serve commercial and residential clients across Ontario and the Greater Toronto Area as a specialty prime contractor.`,
+  services: `Ascent Group Construction offers building envelope services including facade remediation, waterproofing systems, EIFS and stucco installation, masonry restoration, cladding systems, and parking garage restoration. They serve commercial and residential clients across Ontario and the Greater Toronto Area as a specialty lead contractor.`,
   
   about: `Ascent Group Construction was founded by Hebun Isik, a Construction Engineering Technician graduate from George Brown College. The company operates as a specialty contractor focused on building envelope and restoration work, serving general contractors, property managers, developers, and homeowners across Ontario. The team brings 15+ years of combined experience.`,
   

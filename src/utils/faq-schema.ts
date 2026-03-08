@@ -30,7 +30,7 @@ export const generateServiceSchema = (options: {
     serviceType: options.name,
     description: options.description,
     provider: {
-      "@type": "GeneralContractor",
+      "@type": "HomeAndConstructionBusiness",
       name: "Ascent Group Construction",
       url: "https://ascentgroupconstruction.com",
     },
