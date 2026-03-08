@@ -56,7 +56,7 @@ export const whyChooseAscent = {
     },
     {
       title: 'Proven Team Experience',
-      description: 'Our team brings 15+ years of combined hands-on experience from highrise and commercial building envelope and interior trades projects across the GTA. We know how to work safely, follow specifications, and deliver professional results because we\'ve done it hundreds of times before.',
+      description: 'Our team brings 15+ years of combined hands-on experience from highrise and commercial building envelope and interior trades projects across the GTA. We know how to work safely, follow specifications, and deliver professional results through years of proven field experience.',
       proofPoints: [
         '15+ years combined team experience',
         'Highrise and commercial project background',
