@@ -13,6 +13,7 @@ import { CTA_TEXT } from "@/design-system/constants";
 import { ScrollReveal } from "@/components/animations/ScrollReveal";
 import { mainPageHeroes } from "@/data/hero-images";
 import VoiceFAQ from "@/components/seo/VoiceFAQ";
+import { PhoneLink } from "@/components/shared/PhoneLink";
 import { VOICE_OPTIMIZED_FAQS } from "@/utils/seo/ai-content";
 import {
   Accordion,
@@ -455,12 +456,12 @@ const FAQ = () => {
                   >
                     Contact Us
                   </a>
-                  <a
-                    href="tel:647-528-6804"
+                  <PhoneLink 
+                    showIcon={false} 
                     className="inline-flex items-center justify-center px-8 py-4 bg-primary-foreground/20 backdrop-blur-sm text-primary-foreground rounded-lg font-semibold hover:bg-primary-foreground/30 transition-colors text-lg"
                   >
                     Call 647-528-6804
-                  </a>
+                  </PhoneLink>
                 </div>
               </CardContent>
             </Card>

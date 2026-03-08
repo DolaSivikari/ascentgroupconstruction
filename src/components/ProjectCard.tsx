@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { formatProjectValue } from "@/utils/formatProjectValue";
 import { Card, CardContent } from "@/design-system/components/Card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/ui/Button";
@@ -112,9 +113,9 @@ const ProjectCard = ({
         {/* GC Metrics Badges */}
         {(project_value || your_role || on_time_completion !== undefined || on_budget !== undefined || safety_incidents !== undefined) && (
           <div className="flex flex-wrap gap-1.5 mb-3">
-            {project_value && (
+            {formatProjectValue(project_value) && (
               <Badge variant="outline" size="sm">
-                ${(project_value / 100 / 1000000).toFixed(1)}M
+                {formatProjectValue(project_value)}
               </Badge>
             )}
             {your_role && (

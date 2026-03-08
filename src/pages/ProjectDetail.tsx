@@ -18,6 +18,7 @@ import { ProjectGallery } from "@/components/ProjectGallery";
 import { ProjectCaseStudy } from "@/components/projects/ProjectCaseStudy";
 import { ArrowRight, ChevronRight } from "lucide-react";
 import { toast } from "sonner";
+import { formatProjectValue } from "@/utils/formatProjectValue";
 import OptimizedImage from "@/components/OptimizedImage";
 
 interface ProcessStep {
@@ -312,11 +313,11 @@ export default function ProjectDetail() {
                   <CardContent className="p-6 space-y-4">
                     <h3 className="font-bold text-lg border-b pb-2">Project Metrics</h3>
                     
-                    {project.project_value && (
+                    {formatProjectValue(project.project_value, 'full') && (
                       <div>
                         <p className="text-sm text-muted-foreground mb-1">Contract Value</p>
                         <p className="font-semibold text-lg">
-                          ${(project.project_value / 100).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                          {formatProjectValue(project.project_value, 'full')}
                         </p>
                       </div>
                     )}
@@ -451,9 +452,9 @@ export default function ProjectDetail() {
                 solution={project.description ? sanitizeAndValidate(project.description).sanitized : undefined}
                 results={project.results ? sanitizeAndValidate(project.results).sanitized : undefined}
                 metrics={[
-                  ...(project.project_value ? [{
+                  ...(formatProjectValue(project.project_value, 'full') ? [{
                     label: "Contract Value",
-                    value: `$${(project.project_value / 100).toLocaleString('en-US', { minimumFractionDigits: 0 })}`,
+                    value: formatProjectValue(project.project_value, 'full')!,
                   }] : []),
                   ...(project.square_footage ? [{
                     label: "Square Footage",

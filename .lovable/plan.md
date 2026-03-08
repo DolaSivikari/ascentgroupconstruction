@@ -1,70 +1,34 @@
 
 
-# Phase 1: Trust & Integrity Restoration — Implementation Plan
+# Build Error Fix Plan
 
-**Status: Approved. Ready to implement.**
+Your website can't publish because several files have duplicate/overlapping code causing build failures. Here are the fixes needed:
 
-## Key finding from DB verification
+## 1. `src/App.tsx` -- Delete duplicate route tree (lines 54-226)
 
-`project_value` is a **text column**. Actual stored values:
-- Empty strings `""` (most projects)
-- Comma-separated numbers like `"40,000,000"` (no dollar sign, no cents)
+Lines 31-53 contain the correct App component using `<AppRoutes />`. Lines 54-226 are a stale duplicate with inline routes and references to components that aren't imported. Delete lines 54-226 entirely, keeping only the clean version that properly closes all JSX tags.
 
-The existing code does `project_value / 100 / 1000000` on a string → `NaN`. The utility must strip commas, parse as float, and treat the value as **whole dollars** (not cents).
+## 2. `src/hooks/useActiveSettings.ts` -- Consolidate duplicate function
 
-## Files to change (23 files)
+The file has two overlapping `fetchActiveSettingsRow` declarations tangled together. Rewrite as a single clean function using `tableName as any` cast.
 
-### Contact: Gmail → business email (2 files)
-- **`src/pages/Index.tsx`** line 86: `"email": "mailto:hebun.isik.ca@gmail.com"` → `"mailto:info@ascentgroupconstruction.com"` (JSON-LD schema, not a React component context — static string is correct here)
-- **`src/pages/DynamicSpecialtyPage.tsx`** line 84: same Gmail → `info@ascentgroupconstruction.com`
+## 3. `src/routes/AppRoutes.tsx` -- Fix duplicate declarations
 
-### Contact: hardcoded phone → PhoneLink (7 files)
-- **`src/pages/Terms.tsx`** line 320
-- **`src/pages/Accessibility.tsx`** line 324
-- **`src/pages/FAQ.tsx`** line ~459
-- **`src/pages/Prequalification.tsx`** line ~419
-- **`src/pages/resources/LocationPage.tsx`** line ~256
-- **`src/pages/ServiceSelectorPage.tsx`** line ~48
-- **`src/components/services/ServicePageTemplate.tsx`** lines ~238, ~434
+Lines 83-84 have `const serviceRoutes = (` immediately followed by `const ServiceRouteGroup = () => (` -- two overlapping declarations. Same issue at lines 123-124 with admin routes. And lines 192-193 and 224-225 reference both old and new names. Fix: keep only the component versions (`ServiceRouteGroup`, `AdminRouteGroup`) and remove the stale `const` variable assignments and their duplicate references.
 
-### $NaN fix (5 files)
-- **`src/utils/formatProjectValue.ts`** — NEW utility:
-  - Input: `unknown` (string, number, null, undefined)
-  - Strip `$`, commas, whitespace; parse as float
-  - Two modes: `compact` → `"$5.0M"` / `"$750K"`, `full` → `"$5,000,000"`
-  - Returns `null` if invalid/empty/NaN → caller hides the element
-- **`src/components/ProjectCard.tsx`** line 117 — use utility
-- **`src/components/projects/ProjectQuickView.tsx`** line 84 — use utility
-- **`src/pages/Projects.tsx`** line 213 — use utility
-- **`src/pages/ProjectDetail.tsx`** lines 319, 456 — use utility
+## 4. `src/data/service-faqs-enriched.ts` -- Remove duplicate answer property
 
-### Admin truth labels (5 files)
-- **`src/pages/admin/NavigationBuilder.tsx`** lines 356-360: two `<span>`s → single: "Saved to database only. Not currently wired to live site navigation."
-- **`src/pages/admin/RedirectsManager.tsx`** lines 116-123: two banners → single: "Saved to database only. Not automatically deployed to hosting/CDN redirect rules."
-- **`src/pages/admin/SEODashboard.tsx`** lines 1078-1083: two `<span>`s → single consolidated message
-- **`src/pages/admin/TestimonialsManager.tsx`** lines 150-154: two `<span>`s → single: "Testimonials saved here only appear on public pages that actively query the testimonials table."
-- **`src/pages/admin/StatsManager.tsx`** after line 164: ADD amber banner: "Saved to database only. Stats are not currently displayed on the public site."
+Lines 35-37 have two `answer:` properties for the same FAQ object -- one using backticks (line 36) and one using single quotes (line 37). Remove the backtick version (line 36) and keep the escaped single-quote version (line 37) which is syntactically correct.
 
-### Route cleanup (1 file)
-- **`src/routes/AppRoutes.tsx`** lines 174-176: remove duplicate `hero-images`, `navigation`, and `navigation-builder` routes (already handled by lines 170-173)
+## 5. `src/pages/admin/DocumentsLibrary.tsx` -- Remove duplicate JSX tags
 
-### Service nav fix (2 files)
-- **`src/pages/admin/ServiceEditor.tsx`** lines 122, 148, 284: `navigate("/admin/services")` → `navigate("/admin/services-manager")`
-- **`src/pages/admin/Dashboard.tsx`** line 292: same fix
+Line 243 is a duplicate `<Dialog>` opening tag (line 242 already has it). Remove line 243.
 
-### Copyright (1 file)
-- **`index.html`** line 231: `© 2024` → `© 2025`
+## 6. `supabase/functions/_shared/errorHandler.ts` -- Fix `unknown` type access
 
-## What is intentionally untouched
-- `src/utils/seo/ai-content.ts` — correctly uses static strings for crawler metadata
-- `src/utils/seo/structured-data.ts` — already uses `info@ascentgroupconstruction.com`
-- `src/components/seo/DirectAnswer.tsx`, `InteractiveCTA.tsx` — already use `useCompanySettings()` with phone fallback
-- Tab deep-links (Settings, Inbox, HomepageBuilder) — verified working correctly
-- Homepage layout, /services rebuild, marketing copy — Phase 2+
+All `error` parameters typed as `unknown` need casting. Change `error: unknown` to `error: any` in all three functions (`sanitizeErrorMessage`, `createErrorResponse`, `logSecurityError`) to resolve the 11 TS2339 property-access errors.
 
-## What requires external verification (not code)
-- DNS A records for apex and www → `185.158.133.1`
-- Both domains added in Lovable project settings → Domains
-- SSL certificates for both
-- Any legacy hosting provider still serving old content
+---
+
+All fixes are duplicate-line removals or simple type changes with no logic changes.
 

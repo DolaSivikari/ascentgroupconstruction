@@ -6,6 +6,7 @@ import {
 } from 'lucide-react';
 import { Button } from '@/ui/Button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/ui/Card';
+import { PhoneLink } from '@/components/shared/PhoneLink';
 import QuickFacts from '@/components/seo/QuickFacts';
 import PeopleAlsoAsk from '@/components/seo/PeopleAlsoAsk';
 import SEO from '@/components/SEO';
@@ -234,13 +235,7 @@ export const ServicePageTemplate = ({ service }: ServicePageTemplateProps) => {
                 )}
 
                 <div className="pt-6 border-t space-y-3">
-                  <a
-                    href="tel:+16475286804"
-                    className="flex items-center gap-3 text-primary hover:text-primary/80 font-semibold transition-colors"
-                  >
-                    <Phone className="w-5 h-5" />
-                    <span>(647) 528-6804</span>
-                  </a>
+                  <PhoneLink className="flex items-center gap-3 text-primary hover:text-primary/80 font-semibold transition-colors" />
                   <Button variant="outline" className="w-full" asChild>
                     <Link to="/contact">
                       <Mail className="w-5 h-5 mr-2" />
@@ -430,12 +425,9 @@ export const ServicePageTemplate = ({ service }: ServicePageTemplateProps) => {
                   Request Project Proposal
                 </Link>
               </Button>
-              <Button size="lg" variant="outline" className="hover:scale-105 transition-transform" asChild>
-                <a href="tel:+16475286804">
-                  <Phone className="w-5 h-5 mr-2" />
-                  Call Now
-                </a>
-              </Button>
+              <PhoneLink className="inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-11 px-8 hover:scale-105 transition-transform">
+                Call Now
+              </PhoneLink>
               <Button size="lg" variant="secondary" className="hover:scale-105 transition-transform" asChild>
                 <Link to="/projects">
                   View Projects
