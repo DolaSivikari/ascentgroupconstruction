@@ -81,7 +81,7 @@ const DirectAnswer = ({ children, className = "" }: DirectAnswerProps) => {
               
               <Button size="lg" variant="outline" className="w-full" asChild>
                 <Link to="/contact">
-                  Start Your Project
+                  Contact Us
                 </Link>
               </Button>
 

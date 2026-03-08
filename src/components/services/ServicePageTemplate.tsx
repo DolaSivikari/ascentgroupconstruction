@@ -504,10 +504,10 @@ export const ServicePageTemplate = ({ service }: ServicePageTemplateProps) => {
 
       {/* Final CTA */}
       <CTABand
-        title="Ready to Start Your Project?"
+        title="Ready to Discuss Your Project?"
         description="Request a consultation and project proposal today"
-        primaryCta={{ text: "Request Project Proposal", href: "/contact" }}
-        secondaryCta={{ text: "View Projects", href: "/projects" }}
+        primaryCta={{ text: CTA_TEXT.primary, href: "/contact" }}
+        secondaryCta={{ text: CTA_TEXT.viewProjects, href: "/projects" }}
         variant="dark"
       />
     </div>

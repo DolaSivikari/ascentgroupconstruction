@@ -207,6 +207,7 @@ export const AppRoutes = () => (
     <Route path="/tekev" element={<Auth />} />
     <Route path="/company/certifications-insurance" element={<CertificationsInsurance />} />
     <Route path="/company/equipment-resources" element={<EquipmentResources />} />
+    <Route path="/company/technology" element={<TechnologyInnovation />} />
     <Route path="/company/developers" element={<Developers />} />
     <Route path="/resources/contractor-portal" element={<ContractorPortal />} />
     <Route path="/resources/service-areas" element={<ServiceAreas />} />

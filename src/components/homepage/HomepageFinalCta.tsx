@@ -32,7 +32,7 @@ const HomepageFinalCta = () => {
       <div className={`container mx-auto ${LAYOUT.containerPadding} ${LAYOUT.maxWidth}`}>
         <div className="text-center mb-12">
           <h2 className={`${TYPOGRAPHY_STYLES.sectionTitle} text-foreground mb-4`}>
-            Ready to Start Your Project?
+            Ready to Discuss Your Project?
           </h2>
           <p className={`${TYPOGRAPHY_STYLES.bodyDefault} text-muted-foreground max-w-2xl mx-auto`}>
             Whether you have drawings ready or need to discuss scope, we're here to help move your project forward.

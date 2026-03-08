@@ -33,8 +33,8 @@ export const CTA_TEXT = {
   primary: 'Request a Proposal',
   secondary: 'View Services',
   gc: 'For GCs: Request Unit Pricing',
-  project: 'Request Project Quote',
-  contact: 'Start Your Project',
+  project: 'Request an Estimate',
+  contact: 'Contact Us',
   viewProjects: 'View Projects',
   learnMore: 'Learn More',
   proposal: 'Request Proposal',
@@ -43,6 +43,7 @@ export const CTA_TEXT = {
   startProject: 'Start Your Project',
   callNow: 'Call Us Today',
   getEstimate: 'Request Estimate',
+  consultation: 'Request Consultation',
 } as const;
 
 // Card Styling Presets — utility classes for inline card styling

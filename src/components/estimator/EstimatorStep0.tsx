@@ -146,8 +146,9 @@ const EstimatorStep0 = ({ data, onChange }: EstimatorStep0Props) => {
                 <SelectContent>
                   <SelectItem value="owner">Building Owner</SelectItem>
                   <SelectItem value="developer">Developer</SelectItem>
-                  <SelectItem value="gc">Building Owner</SelectItem>
+                  <SelectItem value="gc">General Contractor</SelectItem>
                   <SelectItem value="pm">Property Manager</SelectItem>
+                  <SelectItem value="homeowner">Homeowner</SelectItem>
                   <SelectItem value="consultant">Consultant / Engineer</SelectItem>
                   <SelectItem value="other">Other</SelectItem>
                 </SelectContent>
