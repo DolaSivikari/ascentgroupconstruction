@@ -2,6 +2,8 @@ import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
 import { Card } from "@/design-system/components/Card";
+import { SectionHeader } from "@/design-system/components/SectionHeader";
+import { ProofStrip } from "@/design-system/components/ProofStrip";
 import { Section } from "@/components/sections/Section";
 import { PageHero } from "@/components/shared/PageHero";
 import { Button } from "@/ui/Button";
