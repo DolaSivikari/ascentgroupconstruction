@@ -83,7 +83,7 @@ const InteriorBuildouts = () => {
 
         <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
           {deliverables.map((item, index) => (
-            <UnifiedCard key={index} variant="elevated" className="p-8">
+            <Card key={index} variant="elevated" size="lg">
               <item.icon className="w-12 h-12 text-primary mb-4" />
               <h3 className="text-xl font-bold mb-3">{item.title}</h3>
               <p className="text-muted-foreground">{item.description}</p>
