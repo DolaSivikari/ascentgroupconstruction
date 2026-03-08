@@ -1,6 +1,5 @@
 import { useState, useRef } from "react";
-import { Link } from "react-router-dom";
-import { ArrowRight, CheckCircle, Target } from "lucide-react";
+import { CheckCircle, Target } from "lucide-react";
 import * as LucideIcons from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
