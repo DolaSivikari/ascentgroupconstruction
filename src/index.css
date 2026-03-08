@@ -447,7 +447,7 @@ All colors MUST be HSL.
 
   .mega-menu-sections-wrapper {
     @apply p-6;
-    max-height: 520px;
+    max-height: 80vh;
     overflow-y: auto;
     scrollbar-width: thin;
     scrollbar-color: hsl(var(--border)) transparent;
