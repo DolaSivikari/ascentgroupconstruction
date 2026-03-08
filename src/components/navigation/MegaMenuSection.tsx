@@ -64,7 +64,7 @@ export const MegaMenuSection = ({
                       to={item.link}
                       onClick={onLinkClick}
                       className={cn(
-                        "group flex items-start gap-2.5 px-2 py-2 rounded-md transition-all duration-200",
+                        "group flex items-center gap-2 px-2 py-1.5 rounded-md transition-all duration-200",
                         "text-foreground hover:text-primary hover:bg-muted/50",
                         item.isFeatured && "bg-accent/10 border border-accent/20 hover:bg-accent/20"
                       )}
@@ -72,27 +72,20 @@ export const MegaMenuSection = ({
                       {IconComponent && (
                         <IconComponent 
                           className={cn(
-                            "w-4 h-4 mt-0.5 flex-shrink-0 transition-colors",
+                            "w-4 h-4 flex-shrink-0 transition-colors",
                             item.isFeatured ? "text-accent" : "text-muted-foreground group-hover:text-primary"
                           )} 
                         />
                       )}
-                      <div className="flex-1 min-w-0">
-                        <span className={cn(
-                          "text-sm font-medium block",
-                          item.isFeatured && "text-accent"
-                        )}>
-                          {item.name}
-                          {item.badge && (
-                            <NavBadge variant={item.badge} className="ml-2" />
-                          )}
-                        </span>
-                        {item.description && (
-                          <span className="text-xs text-muted-foreground block mt-0.5">
-                            {item.description}
-                          </span>
+                      <span className={cn(
+                        "text-sm font-medium",
+                        item.isFeatured && "text-accent"
+                      )}>
+                        {item.name}
+                        {item.badge && (
+                          <NavBadge variant={item.badge} className="ml-2" />
                         )}
-                      </div>
+                      </span>
                     </Link>
                   </li>
                 );

@@ -179,7 +179,7 @@ export const megaMenuDataEnhanced: MegaMenuDataEnhanced = {
   // RESOURCES MEGA MENU (600px, 3 columns)
   // ============================================
   resources: {
-    width: 600,
+    width: 520,
     columns: 3,
     sections: [
       {
