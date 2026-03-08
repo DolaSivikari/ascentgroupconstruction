@@ -130,6 +130,7 @@ export default function SubmitRFPNew() {
       if (insertError) throw insertError;
 
       // Send notification email
+      let notificationWarning = false;
       try {
         await supabase.functions.invoke("send-rfp-notification", {
           body: {
@@ -143,18 +144,21 @@ export default function SubmitRFPNew() {
           },
         });
       } catch (emailError) {
+        notificationWarning = true;
         console.error("Email notification failed:", emailError);
-        // Don't fail submission if email fails
       }
 
       toast.success("RFP Submitted Successfully", {
-        description: "We'll review your request and contact you within 2 business days.",
+        description: notificationWarning
+          ? "Your proposal was saved successfully. Our team will review and follow up within 2 business days."
+          : "We'll review your request and contact you within 2 business days.",
       });
 
       // Phase 3: Track A/B test conversion
       await trackABTestConversion('homepage-hero-2024', 5);
       
-      navigate("/");
+      setSubmitted(true);
+      window.scrollTo({ top: 0, behavior: "smooth" });
     } catch (error: any) {
       console.error("Submission error:", error);
       toast.error("Submission Failed", {
