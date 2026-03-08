@@ -132,7 +132,7 @@ export const organizationSchema = {
 // 2. LOCAL BUSINESS SCHEMA
 export const localBusinessSchema = {
   "@context": "https://schema.org",
-  "@type": "GeneralContractor",
+  "@type": "HomeAndConstructionBusiness",
   "@id": `${SITE_URL}/#localbusiness`,
   "name": COMPANY.name,
   "image": `${SITE_URL}/og-image.jpg`,
