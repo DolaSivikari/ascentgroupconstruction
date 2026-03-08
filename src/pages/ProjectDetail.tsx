@@ -450,6 +450,7 @@ export default function ProjectDetail() {
               {/* Enhanced Case Study Component */}
               <ProjectCaseStudy
                 challenge={project.challenge ? sanitizeAndValidate(project.challenge).sanitized : undefined}
+                scopeDelivered={project.scope_of_work ? sanitizeAndValidate(project.scope_of_work).sanitized : undefined}
                 solution={project.description ? sanitizeAndValidate(project.description).sanitized : undefined}
                 results={project.results ? sanitizeAndValidate(project.results).sanitized : undefined}
                 metrics={[
