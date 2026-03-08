@@ -85,7 +85,7 @@ const ServiceRouteGroup = () => (
     <Route path="/services" element={<Services />} />
     <Route path="/services/interior-buildouts" element={<InteriorBuildouts />} />
     <Route path="/services/building-envelope" element={<BuildingEnvelope />} />
-    <Route path="/services/masonry-restoration" element={<Navigate to="/services/building-envelope" replace />} />
+    {/* masonry-restoration falls through to /services/:slug → ServiceDetail (published DB record) */}
     <Route path="/services/protective-coatings" element={<ProtectiveCoatings />} />
     <Route path="/services/cladding-systems" element={<CladdingSystems />} />
     <Route path="/services/tile-flooring" element={<TileFlooring />} />
