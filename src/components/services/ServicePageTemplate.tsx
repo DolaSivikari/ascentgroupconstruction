@@ -88,6 +88,7 @@ export interface ServicePageTemplateProps {
 
 export const ServicePageTemplate = ({ service }: ServicePageTemplateProps) => {
   const [expandedStep, setExpandedStep] = useState<number | null>(null);
+  const [relatedProjects, setRelatedProjects] = useState<Array<{id: string; title: string; slug: string; category: string; featured_image: string}>>([]);
 
   // Structured data for SEO
   const serviceSchema = createServiceSchema({
