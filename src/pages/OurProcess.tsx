@@ -129,18 +129,11 @@ const contractTypes = [
     bestFor: "Sealant replacement, window installation, floor coatings"
   },
   {
-    name: "Construction Management (CM)",
-    description: "We manage all trades and subcontractors on your behalf for a fee (typically 3-8% of construction value).",
-    pros: ["Expert oversight", "Single point of contact", "Schedule & quality control"],
-    cons: ["Additional fee layer", "Client still holds contracts", "Requires active involvement"],
-    bestFor: "Large commercial projects, multi-trade coordination, owner-led developments"
-  },
-  {
-    name: "Design-Build",
-    description: "Single contract for both design and construction. Ascent Group handles everything from concept to completion.",
-    pros: ["Streamlined process", "Single accountability", "Faster project delivery"],
-    cons: ["Less competitive bidding", "Client has less design control", "Harder to compare pricing"],
-    bestFor: "Turnkey solutions, facade upgrades, building envelope restoration"
+    name: "Time & Materials (T&M)",
+    description: "Hourly labor rates plus material costs. Best for small or exploratory scopes where full scope isn't known upfront.",
+    pros: ["Flexible scope", "No upfront scope commitment", "Pay for actual work done"],
+    cons: ["Less budget certainty", "Requires trust and oversight", "Can be more expensive if scope grows"],
+    bestFor: "Investigation work, small repairs, emergency response, exploratory scopes"
   }
 ];
 
