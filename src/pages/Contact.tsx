@@ -409,8 +409,7 @@ const Contact = () => {
       {/* Trusted Partners */}
       <TrustedPartners variant="simple" background="muted" showDescription={false} />
 
-      {/* Partner Case Studies */}
-      <PartnerCaseStudies background="default" />
+
 
       {/* Enhanced Map Section */}
       <section className="py-20 bg-gradient-to-b from-muted/50 to-background">
