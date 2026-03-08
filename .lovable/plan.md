@@ -1,91 +1,171 @@
-# Phase 2: Content Truth Hardening — Complete
 
-## Files Changed (22 files)
 
-| File | Changes |
+# Phase 7A — Conversion Architecture, Innovation Layer
+
+## Files to Create/Change (11)
+
+| File | Action |
 |---|---|
-| `src/components/homepage/InteractiveCTA.tsx` | Removed 98% story card → replaced with $2M CGL; headline → "Your Envelope, Restoration & Trades Partner"; "24/7 Support" → "Responsive Support" |
-| `src/components/services/PremiumServiceHero.tsx` | H1 → "Envelope, Restoration & Interior Trades"; stats: removed 98%/25+, replaced with 15+/85%/$2M; "24/7 Support" → "Responsive Support" |
-| `src/components/homepage/QuickFactsSidebar.tsx` | Removed 95% on-time → $2M CGL Coverage; removed 98% satisfaction → 100% WSIB Compliant; "24/7 Emergency" → "Urgent Response" |
-| `src/components/homepage/WhyChooseUs.tsx` | "Comprehensive Services" → "Envelope & Trades Expertise"; "21+ Service Offerings" → "Self-Performed Core Scopes"; "industry-leading brands" → "trusted manufacturer brands"; removed 95% on-time claim |
-| `src/components/seo/DirectAnswer.tsx` | "Ontario's Trusted Construction Partner" → "GTA Specialty Contractor"; "Ontario's complete construction partner" → specialty contractor description |
-| `src/components/services/ServiceStats.tsx` | "24/7 Emergency Response" → "Rapid Response Available" |
-| `src/components/services/ServicesTrustBar.tsx` | "Ontario-Wide Coverage" → "GTA & Southern Ontario" |
-| `src/components/contact/PremiumContactHero.tsx` | "Available 24/7" → "Responsive & Available" |
-| `src/pages/OurProcess.tsx` | Removed CM and Design-Build contract types; added T&M; "Client Portal Access" → "Project Documentation" via cloud folders; "24/7 emergency line" → "Emergency contact for urgent issues"; fixed "hundreds of" |
-| `src/pages/FAQ.tsx` | "Our team holds COR" → "working toward COR"; "perfect safety record" → "strong safety protocols"; "zero outstanding claims" → "good standing with WSIB"; fixed "hundreds of" (×2); "industry-leading" → "trusted" |
-| `src/pages/Homeowners.tsx` | "worked on hundreds of" → "brings hands-on experience from a wide range of" |
-| `src/pages/About.tsx` | "delivered hundreds of" → "bring hands-on experience from a wide range of" |
-| `src/pages/Index.tsx` | Removed "LEED consulting" from schema; "Comprehensive Services Under One Roof" → "Specialty Trade Services" |
-| `src/pages/Contact.tsx` | Removed `<PartnerCaseStudies>` import and render |
-| `src/pages/services/SustainableBuilding.tsx` | Full rewrite: removed LEED consulting, Passive House, Green Globes claims; replaced with energy-efficient envelope, sustainable materials, waste diversion |
-| `src/pages/resources/ServiceAreas.tsx` | Outer regions "24-hour response" → "Next business day response"; "Available 24/7 within GTA core" → "Available for urgent repairs within GTA core for active leaks and envelope failures" |
-| `src/utils/migrateHomepageData.ts` | "Ontario's Trusted General Contractor" → "Building Envelope & Restoration Specialists"; removed "500+ Projects", "98% Client Satisfaction"; "Award-winning general contractor" → specialty contractor description |
-| `src/utils/migrateAboutPageData.ts` | Fixed story content, total_projects 500→10, satisfaction_rate 98→null; "LEED-certified construction expertise" → "Sustainable Practices"; removed design-build FAQ |
-| `src/pages/admin/StatsManager.tsx` | Replaced 8 inflated templates ($50M, 500+, 50+ trades, 98%) with 6 realistic ones (15+ yrs, 85% self-perform, $2M CGL, 10+ crew, 10+ projects, 100% WSIB) |
-| `src/data/enriched-company-content.ts` | Standardized 3 "hundreds of" instances to team-career framing |
-| `src/data/service-faqs-enriched.ts` | Fixed "95% on-time" claims, "24/7" references, "hundreds of" language, "100+ envelope failures" claim |
-| `src/utils/personalization.ts` | "24/7 Emergency Service Available" → "Urgent Response Available for Active Issues" |
+| `src/pages/company/TechnologyInnovation.tsx` | **New** — truthful digital capability page |
+| `src/routes/AppRoutes.tsx` | Add `/company/technology` route + import |
+| `src/components/rfp/RFPStep4Scope.tsx` | Add `FileUploadZone` for drawings/specs; migrate `@/ui/Card` → design-system; add `onFilesChange` callback |
+| `src/pages/SubmitRFPNew.tsx` | Upload files to storage on submit; add `attachment_urls` to DB column; migrate `@/ui/Card` → design-system |
+| `src/design-system/constants.ts` | Standardize `CTA_TEXT` — replace vague entries |
+| `src/components/services/ServicePageTemplate.tsx` | Update final CTA text to use `CTA_TEXT` constants |
+| `src/components/services/ServicePageLayout.tsx` | Replace bespoke CTA section with `CTABand`; use `CTA_TEXT` |
+| `src/components/estimator/EstimatorStep0.tsx` | Fix `gc` duplicate label; add `homeowner` role |
+| `src/components/homepage/CompanyResponse.tsx` | Fix "Start Your Project" → "Contact Us" |
+| `src/components/seo/DirectAnswer.tsx` | Fix CTA text to "Contact Us" |
+| `src/components/homepage/HomepageFinalCta.tsx` | Fix heading text |
 
-## Claims Intentionally Left Because Evidence Supports Them
+**Database migration:**
+1. Add `attachment_urls text[]` column to `rfp_submissions`
+2. Create `rfp-attachments` storage bucket (private) with RLS for anonymous INSERT
 
-| Claim | Basis |
-|---|---|
-| 15+ years (team/leadership experience) | Founder career history |
-| 10+ projects completed | Modest, plausible |
-| $2M CGL coverage | Stated consistently, verifiable |
-| WSIB compliant | Consistently stated |
-| "Working toward COR" | Honest aspirational |
-| 85% self-performed | Periodic verification flagged |
-| 10-person crew | Consistent |
-| GTA service area | Supported by city list |
-| Benjamin Moore / Sherwin-Williams | Manufacturer relationships |
+## Issues Found
 
-## Intentionally Left Untouched
+1. **EstimatorStep0 line 149**: `gc` role shows "Building Owner" — duplicate of `owner` on line 147. No "Homeowner" option exists.
+2. **RFP form has no file upload** despite `plans_available` checkbox and `FileUploadZone` component existing elsewhere.
+3. **`rfp_submissions` table** has no attachment column — needs `attachment_urls text[]`.
+4. **No `rfp-attachments` storage bucket** — only `project-images` exists.
+5. **CTA text inconsistency** across 14+ files — "Start Your Project", "Request Project Proposal", "Request Consultation", "Ready to Start Your Project?" used interchangeably.
+6. **EquipmentResources.tsx** claims Procore, Autodesk Construction Cloud, BIM 360, GPS Fleet Tracking as current tools without qualification. Fleet size "25+" and equipment quantities are unverifiable.
+7. **No `/company/technology` route** — no dedicated innovation/technology page.
+8. **ServicePageLayout** uses a bespoke CTA section instead of `CTABand`.
+9. **`SubmitRFPNew.tsx`** imports `Card`/`CardContent` from `@/ui/Card` (legacy).
 
-- `PartnerCaseStudies.tsx` component file — kept in codebase, removed from public rendering
-- `ForGeneralContractors.tsx` — accurate subcontractor description
-- `specialty-contractor-comparison.ts` — educational data
-- Individual service detail pages — describe actual capabilities
-- Legal pages — no false claims
-- Navigation links to `/services/sustainable-building` — page stays with honest content
+## Exact Changes
 
-## Checks Run
+### 1. Database Migration
 
-- [x] Grep "98%" — only in PartnerCaseStudies (not rendered) and tailwind config (CSS)
-- [x] Grep "95%" — only in OurProcess closeout process (legitimate "95%+ completion" threshold), service-faqs (fixed), CSS values
-- [x] Grep "500+" — only in admin placeholders (text, not values) and FAQ "3,500+ colors" (legitimate)
-- [x] Grep "LEED consulting" — zero matches ✅
-- [x] Grep "industry-leading" — zero matches in public components ✅
-- [x] Grep "perfect safety" — zero matches ✅
-- [x] Grep "24/7" — zero matches in public components ✅
-- [x] Grep "hundreds of" — zero matches in public components ✅
-- [x] PartnerCaseStudies not rendered on any public page ✅
-- [x] SustainableBuilding.tsx no longer claims LEED consulting ✅
-- [x] Build passes ✅
-- [x] Console: pre-existing forwardRef warning only (not related to Phase 2) ✅
+```sql
+-- Add attachment column to rfp_submissions
+ALTER TABLE public.rfp_submissions 
+ADD COLUMN attachment_urls text[] DEFAULT '{}';
 
-## What Still Requires Manual Verification
+-- Create rfp-attachments storage bucket (private)
+INSERT INTO storage.buckets (id, name, public) 
+VALUES ('rfp-attachments', 'rfp-attachments', false);
 
-- Whether a staffed 24/7 emergency line actually exists (if yes, claims can be restored)
-- Whether partner case studies represent real projects (if yes, component can be re-enabled with real data)
-- Whether a client portal actually exists and functions
-- Whether "10+ projects completed" is accurate as of current date
+-- Allow anonymous uploads to rfp-attachments
+CREATE POLICY "Anyone can upload RFP attachments"
+ON storage.objects FOR INSERT
+WITH CHECK (bucket_id = 'rfp-attachments');
 
-## Merge Readiness: ✅ READY
+-- Allow authenticated admins to read RFP attachments
+CREATE POLICY "Admins can read RFP attachments"
+ON storage.objects FOR SELECT
+USING (bucket_id = 'rfp-attachments' AND EXISTS (
+  SELECT 1 FROM public.user_roles 
+  WHERE user_id = auth.uid() AND role IN ('admin', 'super_admin')
+));
+```
 
-**Suggested PR title:** `feat: Phase 2 — Content truth hardening`
+### 2. CTA Standardization (`constants.ts`)
 
-**Suggested PR description:**
-Hardens all public-facing messaging for accuracy and supportability:
-- Remove fabricated stats (98% satisfaction, 95% on-time, 500+ projects, 25+ years)
-- Replace with verifiable metrics ($2M CGL, WSIB compliant, 85% self-performed, 15+ team experience)
-- Remove PartnerCaseStudies from Contact page (fabricated case studies with fake budgets/outcomes)
-- Rewrite SustainableBuilding page: remove LEED consulting, Passive House, Green Globes claims; focus on energy-efficient envelope and sustainable materials
-- Remove CM and Design-Build contract types from OurProcess
-- Standardize "hundreds of projects" → team-career framing across 8 files
-- Remove all unsupported "24/7" emergency claims across 9 surfaces
-- Fix COR/safety overclaims: "holds COR" → "working toward", "perfect safety record" → "strong protocols"
-- Fix geographic overclaim: "Ontario-Wide" → "GTA & Southern Ontario"
-- Fix seed data in migrateHomepageData and migrateAboutPageData
-- Replace inflated admin stat templates with realistic values
+Replace vague CTA entries:
+- `contact`: "Start Your Project" → "Contact Us"
+- `project`: "Request Project Quote" → "Request an Estimate"  
+- Keep `primary` as "Request a Proposal" (used in heroes)
+- Keep `startProject` for residential-only contexts
+
+### 3. RFP File Upload (`RFPStep4Scope.tsx` + `SubmitRFPNew.tsx`)
+
+- Add `onFilesChange` prop to `RFPStep4Scope`
+- Render `FileUploadZone` when `plans_available` is checked (conditional — only show upload zone when user indicates plans exist)
+- Accept: PDF, DOC, DOCX, DWG, images (max 20MB each, max 5 files)
+- In `SubmitRFPNew.tsx`: on submit, upload files to `rfp-attachments` bucket, collect URLs, store in `attachment_urls` column
+- Migrate both files from `@/ui/Card` to design-system `Card`
+
+### 4. EstimatorStep0 Fixes
+
+- Line 149: Change `gc` label from "Building Owner" to "General Contractor"
+- Add new option: `<SelectItem value="homeowner">Homeowner</SelectItem>`
+
+### 5. ServicePageTemplate CTA (line 505-511)
+
+Replace:
+```
+title="Ready to Start Your Project?"
+primaryCta={{ text: "Request Project Proposal", href: "/contact" }}
+```
+With:
+```
+title="Ready to Discuss Your Project?"
+primaryCta={{ text: CTA_TEXT.primary, href: "/contact" }}
+```
+
+### 6. ServicePageLayout CTA (lines 82-100)
+
+Replace bespoke `Section` + manual buttons with `CTABand` component:
+```tsx
+<CTABand
+  title={ctaTitle}
+  description={ctaDescription}
+  primaryCta={{ text: "Request Consultation", href: "/contact" }}
+  secondaryCta={{ text: "View Projects", href: "/projects" }}
+  variant="dark"
+/>
+```
+
+### 7. TechnologyInnovation.tsx (New Page)
+
+Sections:
+- **How We Work Digitally** — intro explaining Ascent uses digital tools to improve coordination, documentation, and quality
+- **Current Practice** — using `CapabilityCard` grid:
+  - "Digital Markup & Plan Review" — "We use Bluebeam for takeoffs, document markup, and collaborative plan review"
+  - "Photo Documentation" — "Systematic progress photos and condition documentation on every project"
+  - "Digital Reporting" — "Daily reports, progress tracking, and client-facing project updates"
+  - "Closeout Packages" — "Digital assembly of warranty docs, product data sheets, as-builts, and lien releases"
+- **Coordination Capabilities** — what the team can integrate with:
+  - "BIM & 3D Coordination" — "Our team has experience working within BIM workflows and 3D coordination processes on GC-led projects. We can receive, interpret, and work from BIM models when provided."
+  - "Project Management Platforms" — "We integrate with Procore, BIM 360, and other PM platforms when required by the project team"
+- **Future Investment** — clearly labeled:
+  - "We are actively evaluating expanded digital capabilities including drone-based progress monitoring, digital twin documentation, and advanced scheduling integration. These represent our development roadmap, not current standard practice."
+- CTA: `CTABand` with "Contact Us" → `/contact`
+- SEO: truthful title/description, no overclaims
+- Uses `Section`, `SectionHeader`, `CapabilityCard`, `CTABand`
+
+### 8. CompanyResponse, DirectAnswer, HomepageFinalCta
+
+- CompanyResponse line 36: "Start Your Project" → "Contact Us"
+- DirectAnswer line 69: "Ready to Start Your Project?" → "Ready to Discuss Your Project?"
+- DirectAnswer line 84: "Start Your Project" → "Contact Us"
+- HomepageFinalCta line 35: "Ready to Start Your Project?" → "Ready to Discuss Your Project?"
+
+## What Will NOT Be Changed
+
+- **Full segmented intake** (form field adaptation per role) — Phase 7B
+- **Staged rollout framework** — site is live, no in-code deployment pipeline
+- **EquipmentResources.tsx** — will NOT be modified in this phase; the new Technology page provides the truthful alternative. EquipmentResources can be deprecated in a future phase.
+- **Homepage, About, admin panel** — out of scope
+- **Service-area widget, scope selector** — future enhancements
+- **Footer CTA links** — the footer uses "Start Your Project" as a link label in PrequalPackage and ServiceSelector, but these are in components not directly touched; CTA_TEXT constant change will enable future cleanup
+
+## Content Dependencies
+
+- Technology page: tools qualified as "team experience" not "company standard on every project" — manual verification needed for Bluebeam, Procore, BIM 360 actual adoption status
+- No invented metrics or testimonials
+
+## Manual/External Verification Needed
+
+1. Actual current tool adoption (Bluebeam, Procore, BIM 360) — copy is qualified but should be verified
+2. Storage bucket RLS working for anonymous uploads (test upload flow)
+3. File size limits appropriate for construction drawings (20MB per file)
+4. Visual review of technology page copy for truth alignment
+5. Visual review of CTA text changes across service/market pages
+
+## Checks
+
+1. TypeScript build passes
+2. `/company/technology` route renders correctly
+3. RFP file upload section appears when "Plans Available" is checked
+4. File upload to `rfp-attachments` bucket works on submission
+5. `attachment_urls` stored in `rfp_submissions` after upload
+6. RFP success state remains in-place (no redirect)
+7. EstimatorStep0 shows "General Contractor" for `gc`, has "Homeowner" option
+8. CTA text consistent: no "Start Your Project" in service/market CTA bands
+9. No `@/ui/Card` imports in `SubmitRFPNew.tsx` or `RFPStep4Scope.tsx`
+10. No overclaims on technology page
+11. No console errors on modified pages
+
