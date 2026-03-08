@@ -1,34 +1,77 @@
+# Phase 4: Lead Flow Hardening + SEO Cleanup — Complete
 
+## Files Changed
 
-# Update All npm Dependencies
+| File | Changes |
+|---|---|
+| `src/pages/Estimate.tsx` | Replaced auto-redirect with in-place success panel; fixed SEO description/keywords; consolidated notification toast |
+| `src/pages/SubmitRFPNew.tsx` | Replaced immediate redirect with in-place success panel; added `consent` to step 4 validation; added notification failure user feedback |
+| `src/pages/Contact.tsx` | Fixed SEO title → "Contact Us \| Ascent Group Construction"; shortened meta description to ~155 chars |
+| `src/pages/FAQ.tsx` | Fixed SEO title → "Building Envelope & Restoration"; updated hero description and keywords |
 
-## Approach
+## Lead Flow Fixes Made
 
-Review every dependency in `package.json` and bump version specifiers to the latest compatible releases. Key considerations:
+| Fix | Page | Detail |
+|---|---|---|
+| In-place success state | `/estimate` | Removed `navigate("/")` redirect, shows success panel with "Return Home" + "Submit an RFP" CTAs |
+| In-place success state | `/submit-rfp` | Removed `navigate("/")` redirect, shows success panel with "Return Home" + "Contact Us" CTAs |
+| Notification failure feedback | `/estimate` | Consolidated two sequential toasts into single conditional toast |
+| Notification failure feedback | `/submit-rfp` | Added `notificationWarning` flag with conditional success message |
+| Consent validation | `/submit-rfp` | Added `"consent"` to step 4 `fieldsToValidate` array |
+| No change needed | `/contact` | Already uses best pattern (conditional toast, form reset, no redirect) |
 
-- **React** stays at 18.x (React 19 would require migration work across many libraries)
-- **Vite** stays at 5.x (6.x has breaking changes)
-- **Tailwind** stays at 3.x (4.x is a full rewrite)
-- All other packages get bumped to latest within their current major version range
-- Packages already on latest will be left as-is
+## SEO/Metadata Fixes Made
 
-## Notable Updates Expected
-
-| Package | Current | Target | Notes |
+| Page | Field | Before | After |
 |---|---|---|---|
-| `lucide-react` | ^0.554.0 | latest 0.x | Frequent releases |
-| `@tanstack/react-query` | ^5.90.10 | latest 5.x | |
-| `framer-motion` | ^12.23.24 | latest 12.x | |
-| `date-fns` | ^3.6.0 | latest 3.x or 4.x | Check breaking changes |
-| `zod` | ^4.1.12 | latest 4.x | |
-| `react-hook-form` | ^7.66.1 | latest 7.x | |
-| `sonner` | ^1.7.4 | latest 1.x | |
-| `recharts` | ^3.4.1 | latest 3.x | |
-| DevDeps (`eslint`, `typescript`, etc.) | current | latest compatible | |
+| `/estimate` | description | "painting or stucco project" | "building envelope, restoration, or specialty trade work" |
+| `/estimate` | keywords | "painting quote, stucco quote" | "building envelope quote, restoration estimate" |
+| `/contact` | title | "Contact Us - Request Proposal \| Ascent Group" | "Contact Us \| Ascent Group Construction" |
+| `/contact` | description | 250+ chars | ~155 chars, focused on action |
+| `/faq` | title | "Painting & Construction \| Ascent Group" | "Building Envelope & Restoration" |
+| `/faq` | hero description | "painting, EIFS, stucco" | "building envelope, restoration, and specialty trade" |
+| `/faq` | keywords | "painting FAQ Toronto" | "construction FAQ Toronto, building envelope questions" |
 
-Since all versions use `^` (caret ranges), `npm install` already resolves to latest compatible. The actual change is bumping the **minimum** specifier in `package.json` to document current baseline and catch any issues.
+## H1 Sanity Check — All Clean
 
-## Risk
+| Page | H1 | Status |
+|---|---|---|
+| `/estimate` | "Request Your Estimate" | ✅ |
+| `/contact` | "Contact Us" | ✅ |
+| `/submit-rfp` | "Submit Your RFP" | ✅ |
+| `/faq` | "Frequently Asked Questions" | ✅ |
 
-Low — all updates stay within semver-compatible ranges. The build will validate that nothing breaks.
+## Newsletter — Verified Real, No Changes
 
+Both `NewsletterSection.tsx` (blog) and `NewsletterBackend.tsx` (footer) persist to `newsletter_subscribers` table with consent handling and duplicate detection.
+
+## Checks
+
+- [x] Build passes — no TypeScript errors
+- [x] No console errors
+- [x] SEO metadata updated on all 4 pages
+- [x] RFP consent validated before submission
+- [x] Notification failure shows user-facing feedback on both `/estimate` and `/submit-rfp`
+- [x] No automatic redirects after form submission
+
+## Manual Post-Deploy Verification
+
+- Submit estimate form → confirm success panel appears (no redirect)
+- Submit RFP form → confirm success panel appears (no redirect)
+- Submit contact form → confirm toast + form reset (existing behavior)
+- View page source on `/estimate`, `/contact`, `/faq` → confirm updated meta tags
+- Confirm RFP blocks submission without consent checkbox
+
+## Merge Readiness: ✅ READY
+
+**Suggested PR title:** `feat: Phase 4 — Lead flow hardening + SEO cleanup`
+
+**Suggested PR description:**
+Improves conversion reliability and SEO hygiene across lead-flow pages:
+- Replace auto-redirects with in-place success states on `/estimate` and `/submit-rfp`
+- Add notification failure user feedback on both forms
+- Add consent validation to RFP step 4
+- Fix narrow/inconsistent SEO titles and descriptions on `/estimate`, `/contact`, `/faq`
+- Broaden metadata from "painting/stucco" to "building envelope, restoration, specialty trades"
+- Verify newsletter flows are real (no changes needed)
+- H1 sanity check across all 4 lead pages (all clean)
