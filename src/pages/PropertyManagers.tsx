@@ -113,7 +113,7 @@ const PropertyManagers = () => {
                 </div>
                 <h3 className="text-xl font-bold mb-2">{benefit.title}</h3>
                 <p className="text-muted-foreground">{benefit.description}</p>
-              </UnifiedCard>
+              </Card>
             ))}
           </div>
 
