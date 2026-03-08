@@ -1,39 +1,34 @@
 
 
-# Diagnosis: Published Site Blank Page
+# Build Error Fix Plan
 
-## Root Cause Found
+Your website can't publish because several files have duplicate/overlapping code causing build failures. Here are the fixes needed:
 
-I fetched both published URLs (`ascentgroupconstruction.lovable.app` and `www.ascentgroupconstruction.com`) -- both return a **blank white page**. The preview works perfectly.
+## 1. `src/App.tsx` -- Delete duplicate route tree (lines 54-226)
 
-The published HTML has `<div id="root"></div>` (empty) with the static fallback hidden by `display: none !important` CSS. When the React JS bundle fails to load or execute, **there is nothing visible**. The page is blank because:
+Lines 31-53 contain the correct App component using `<AppRoutes />`. Lines 54-226 are a stale duplicate with inline routes and references to components that aren't imported. Delete lines 54-226 entirely, keeping only the clean version that properly closes all JSX tags.
 
-1. **The service worker** (`public/service-worker.js`) may be caching a stale/broken version of the HTML or JS assets from a previous deploy, preventing the new build from loading
-2. **The `index.html` has no visible fallback** when JS fails -- the `#root` is empty and `.static-content` is hidden by inline CSS
+## 2. `src/hooks/useActiveSettings.ts` -- Consolidate duplicate function
 
-## Plan
+The file has two overlapping `fetchActiveSettingsRow` declarations tangled together. Rewrite as a single clean function using `tableName as any` cast.
 
-### 1. Add a visible loading indicator inside `#root`
-Add a simple CSS-only loading spinner inside `<div id="root">` so users see *something* while React loads. React's `createRoot().render()` will replace this content automatically.
+## 3. `src/routes/AppRoutes.tsx` -- Fix duplicate declarations
 
-### 2. Bump the service worker cache version
-Update `CACHE_VERSION` in `public/service-worker.js` to force cache invalidation on next visit. This ensures stale cached assets from broken deploys are cleared.
+Lines 83-84 have `const serviceRoutes = (` immediately followed by `const ServiceRouteGroup = () => (` -- two overlapping declarations. Same issue at lines 123-124 with admin routes. And lines 192-193 and 224-225 reference both old and new names. Fix: keep only the component versions (`ServiceRouteGroup`, `AdminRouteGroup`) and remove the stale `const` variable assignments and their duplicate references.
 
-### 3. Clean up leftover landing gateway files
-Delete `src/components/landing/LandingWrapper.tsx`, `src/pages/LandingGateway.tsx`, and related files that are no longer referenced in routing.
+## 4. `src/data/service-faqs-enriched.ts` -- Remove duplicate answer property
 
-### 4. Remove `page-loading` CSS that blocks all rendering
-The `page-loading` class on `<html>` sets `animation: none !important` on ALL elements. If the class is never removed (because React/JS fails to mount), nothing animates or transitions -- contributing to the "stuck" appearance.  Add a small inline script in `index.html` that removes this class after a timeout as a safety net.
+Lines 35-37 have two `answer:` properties for the same FAQ object -- one using backticks (line 36) and one using single quotes (line 37). Remove the backtick version (line 36) and keep the escaped single-quote version (line 37) which is syntactically correct.
 
-## Technical Details
+## 5. `src/pages/admin/DocumentsLibrary.tsx` -- Remove duplicate JSX tags
 
-**`index.html` changes:**
-- Add a loading spinner inside `<div id="root">` (replaced when React mounts)
-- Add `<script>setTimeout(() => document.documentElement.classList.remove('loading','page-loading'), 3000)</script>` as safety net
-- Keep the `<noscript>` static fallback for SEO crawlers
+Line 243 is a duplicate `<Dialog>` opening tag (line 242 already has it). Remove line 243.
 
-**`public/service-worker.js` changes:**
-- Change `CACHE_VERSION` from current value to a new version string to bust all cached assets
+## 6. `supabase/functions/_shared/errorHandler.ts` -- Fix `unknown` type access
 
-After implementing, you will need to click **Publish > Update** to deploy the fixed version. If the service worker is still serving the old cached page, users may need to hard-refresh (Ctrl+Shift+R) or wait for the SW update cycle.
+All `error` parameters typed as `unknown` need casting. Change `error: unknown` to `error: any` in all three functions (`sanitizeErrorMessage`, `createErrorResponse`, `logSecurityError`) to resolve the 11 TS2339 property-access errors.
+
+---
+
+All fixes are duplicate-line removals or simple type changes with no logic changes.
 
