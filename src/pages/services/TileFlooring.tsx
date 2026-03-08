@@ -64,7 +64,7 @@ const TileFlooring = () => {
         </div>
         <div className="grid md:grid-cols-2 gap-8">
           {deliverables.map((item, index) => (
-            <UnifiedCard key={index} variant="elevated">
+            <Card key={index} variant="elevated" size="md">
               <item.icon className="w-12 h-12 text-primary mb-4" />
               <h3 className="text-xl font-semibold mb-3">{item.title}</h3>
               <p className="text-muted-foreground">{item.description}</p>
