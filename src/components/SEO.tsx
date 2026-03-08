@@ -36,7 +36,7 @@ const SEO = ({
   const defaultSchema = useMemo(() => {
     const schema: any = {
     "@context": "https://schema.org",
-    "@type": ["GeneralContractor", "LocalBusiness"],
+    "@type": ["HomeAndConstructionBusiness", "LocalBusiness"],
     "@id": `${siteUrl}/#organization`,
     name: "Ascent Group Construction",
     alternateName: "Ascent Group",
