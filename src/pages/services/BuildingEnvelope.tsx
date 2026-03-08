@@ -140,7 +140,7 @@ const BuildingEnvelope = () => {
                 </div>
               ))}
             </div>
-          </UnifiedCard>
+          </Card>
         </div>
       </Section>
 
