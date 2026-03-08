@@ -385,6 +385,53 @@ export const ServicePageTemplate = ({ service }: ServicePageTemplateProps) => {
                 )}
               </Card>
             ))}
+
+            {/* Process cross-link */}
+            <div className="text-center pt-4">
+              <Link 
+                to="/our-process" 
+                className="inline-flex items-center gap-2 text-sm text-primary hover:underline font-medium"
+              >
+                Learn about our full process <ArrowRight className="w-4 h-4" />
+              </Link>
+            </div>
+          </div>
+                  onClick={() => setExpandedStep(
+                    expandedStep === step.step ? null : step.step
+                  )}
+                  className="w-full p-4 md:p-6 flex items-center justify-between hover:bg-muted/50 transition-all duration-300 text-left group"
+                  aria-expanded={expandedStep === step.step}
+                  aria-controls={`step-${step.step}-content`}
+                >
+                  <div className="flex items-center gap-4">
+                    <div className="w-10 h-10 md:w-12 md:h-12 bg-primary text-primary-foreground rounded-full flex items-center justify-center font-bold text-base md:text-lg flex-shrink-0 group-hover:scale-110 transition-transform">
+                      {step.step}
+                    </div>
+                    <div>
+                      <h3 className="text-base md:text-xl font-bold text-foreground">
+                        {step.title}
+                      </h3>
+                      <p className="text-sm md:text-base text-muted-foreground">{step.description}</p>
+                    </div>
+                  </div>
+                  <ChevronDown
+                    className={`w-5 h-5 md:w-6 md:h-6 text-muted-foreground transition-transform flex-shrink-0 ml-4 ${
+                      expandedStep === step.step ? 'rotate-180' : ''
+                    }`}
+                  />
+                </button>
+                {expandedStep === step.step && (
+                  <div 
+                    id={`step-${step.step}-content`}
+                    className="px-4 md:px-6 pb-4 md:pb-6 animate-fade-in"
+                  >
+                    <div className="ml-0 md:ml-16 p-4 md:p-6 bg-muted/50 rounded-lg">
+                      <p className="text-sm md:text-base text-muted-foreground">{step.details}</p>
+                    </div>
+                  </div>
+                )}
+              </Card>
+            ))}
           </div>
         </div>
       </section>
