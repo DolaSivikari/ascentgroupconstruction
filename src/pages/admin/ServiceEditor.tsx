@@ -119,7 +119,7 @@ const ServiceEditor = () => {
         title: "Success",
         description: `Service ${id === "new" ? "created" : "updated"} successfully`,
       });
-      navigate("/admin/services");
+      navigate("/admin/services-manager");
     }
     setIsLoading(false);
   };
@@ -145,7 +145,7 @@ const ServiceEditor = () => {
       <header className="border-b bg-background">
         <div className="container mx-auto px-4 py-4 flex justify-between items-center">
           <div className="flex items-center gap-4">
-            <Button variant="ghost" size="sm" onClick={() => navigate("/admin/services")}>
+            <Button variant="ghost" size="sm" onClick={() => navigate("/admin/services-manager")}>
               <ArrowLeft className="h-4 w-4 mr-2" />
               Back to Services
             </Button>
