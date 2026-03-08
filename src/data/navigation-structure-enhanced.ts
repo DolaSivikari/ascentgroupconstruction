@@ -45,8 +45,8 @@ export const megaMenuDataEnhanced: MegaMenuDataEnhanced = {
   // SERVICES MEGA MENU (900px, 4 columns)
   // ============================================
   services: {
-    width: 800,
-    columns: 4,
+    width: 580,
+    columns: 3,
     sections: [
       {
         sectionTitle: "Our Services",
@@ -79,13 +79,6 @@ export const megaMenuDataEnhanced: MegaMenuDataEnhanced = {
               { name: "Tile & Flooring", link: "/services/tile-flooring", description: "Professional installation", icon: "Grid2X2" },
             ],
           },
-          {
-            title: "Quick Links",
-            subItems: [
-              { name: "Service Selector", link: "/service-selector", description: "Find the right service", icon: "Compass", isFeatured: true, badge: "popular" },
-              { name: "View All Services", link: "/services", description: "Complete service list", icon: "ArrowRight" },
-            ],
-          },
         ],
       },
     ],
@@ -95,7 +88,7 @@ export const megaMenuDataEnhanced: MegaMenuDataEnhanced = {
   // MARKETS / WHO WE SERVE MEGA MENU (800px, 4 columns)
   // ============================================
   markets: {
-    width: 800,
+    width: 680,
     columns: 4,
     sections: [
       {
@@ -143,7 +136,7 @@ export const megaMenuDataEnhanced: MegaMenuDataEnhanced = {
   // COMPANY MEGA MENU (700px, 3 columns)
   // ============================================
   company: {
-    width: 700,
+    width: 580,
     columns: 3,
     sections: [
       {
@@ -186,7 +179,7 @@ export const megaMenuDataEnhanced: MegaMenuDataEnhanced = {
   // RESOURCES MEGA MENU (600px, 3 columns)
   // ============================================
   resources: {
-    width: 600,
+    width: 520,
     columns: 3,
     sections: [
       {

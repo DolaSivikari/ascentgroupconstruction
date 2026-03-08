@@ -446,7 +446,7 @@ All colors MUST be HSL.
   }
 
   .mega-menu-sections-wrapper {
-    @apply p-6;
+    @apply p-4;
     max-height: 80vh;
     overflow-y: auto;
     scrollbar-width: thin;
@@ -476,7 +476,7 @@ All colors MUST be HSL.
 
   /* Dynamic grid columns */
   .mega-menu-section-categories {
-    @apply grid gap-5;
+    @apply grid gap-4;
   }
 
   /* Column header for each category */
