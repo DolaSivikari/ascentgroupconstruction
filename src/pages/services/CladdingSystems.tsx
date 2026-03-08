@@ -68,11 +68,11 @@ const CladdingSystems = () => {
           <TabsContent value="eifs">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {eifsStucco.map((item, index) => (
-                <UnifiedCard key={index} variant="elevated">
+                <Card key={index} variant="elevated" size="md">
                   <Layers className="h-10 w-10 mb-4 text-primary" />
                   <h3 className="text-xl font-semibold mb-2">{item.title}</h3>
                   <p className="text-muted-foreground">{item.description}</p>
-                </UnifiedCard>
+                </Card>
               ))}
             </div>
           </TabsContent>
