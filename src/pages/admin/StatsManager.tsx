@@ -179,10 +179,9 @@ const StatsManager = () => {
           </div>
         </div>
 
-        {/* GC-Specific Templates */}
         <Card className="mb-6">
           <CardHeader>
-            <CardTitle>Contractor Stat Templates</CardTitle>
+            <CardTitle>Specialty Contractor Stat Templates</CardTitle>
           </CardHeader>
           <CardContent>
             <p className="text-sm text-muted-foreground mb-4">
