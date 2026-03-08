@@ -14,7 +14,7 @@ import BeforeAfterSlider from "@/components/BeforeAfterSlider";
 import ProcessTimelineStep from "@/components/ProcessTimelineStep";
 import { ProjectSidebar } from "@/components/ProjectSidebar";
 import { InteractiveLightbox } from "@/components/InteractiveLightbox";
-import { CTA_TEXT } from "@/design-system/constants";
+
 import { ProjectGallery } from "@/components/ProjectGallery";
 import { ProjectCaseStudy } from "@/components/projects/ProjectCaseStudy";
 import { ArrowRight, ChevronRight } from "lucide-react";
