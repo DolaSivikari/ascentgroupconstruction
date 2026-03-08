@@ -296,9 +296,9 @@ const FAQ = () => {
   return (
     <>
       <SEO
-        title="Frequently Asked Questions - Painting & Construction | Ascent Group"
-        description="Get answers to 85+ questions about construction costs, timelines, processes, and services in Toronto and the GTA. Expert guidance for property owners and managers."
-        keywords="painting FAQ Toronto, construction questions GTA, painting costs Ontario, EIFS repair, property management painting, commercial painting questions"
+        title="Frequently Asked Questions | Building Envelope & Restoration"
+        description="Get answers to 85+ questions about building envelope, restoration, and specialty trade costs, timelines, and services in Ontario and the GTA."
+        keywords="construction FAQ Toronto, building envelope questions GTA, restoration costs Ontario, EIFS repair, commercial construction questions"
         structuredData={[generateFAQSchema([...allFAQs, ...voiceFaqsForSchema]), howToSchema]}
       />
       
