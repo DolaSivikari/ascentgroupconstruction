@@ -33,7 +33,7 @@ const FAQ = () => {
       questions: [
         {
           question: "How long has Ascent Group Construction been in business?",
-          answer: "Ascent Group Construction was established in 2025 by construction professionals with 15+ years of combined experience in building envelope and interior trades work. While we're a new company, our team brings proven expertise from hundreds of highrise and commercial projects across the Greater Toronto Area."
+          answer: "Ascent Group Construction was established in 2025 by construction professionals with 15+ years of combined experience in building envelope and interior trades work. While we're a new company, our team members bring hands-on expertise from a wide range of highrise and commercial projects across the Greater Toronto Area."
         },
         {
           question: "What areas do you serve in Ontario?",
