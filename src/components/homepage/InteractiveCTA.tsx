@@ -161,7 +161,7 @@ const InteractiveCTA = () => {
           <div className="text-[hsl(var(--bg))] space-y-8">
             <div>
               <h2 className="text-4xl md:text-5xl font-bold mb-4 leading-tight">
-                Your Construction Partner For Success
+                Your Envelope, Restoration & Trades Partner
               </h2>
               <p className="text-xl text-[hsl(var(--bg))]/90 leading-relaxed">
                 From concept to completion, we deliver exceptional results with transparent communication and expert craftsmanship.
