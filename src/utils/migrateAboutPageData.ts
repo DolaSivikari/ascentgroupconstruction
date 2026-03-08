@@ -36,11 +36,11 @@ export const migrateAboutPageSettings = async () => {
         story_content: [
           {
             type: "paragraph",
-            content: "Founded in 2009, Ascent Group Construction has grown from a small local contractor to one of Ontario's most trusted construction management firms. Our journey has been built on a foundation of integrity, excellence, and a deep commitment to our clients' success."
+            content: "Ascent Group Construction was established in 2025 by construction professionals with 15+ years of combined experience in building envelope and interior trades work across the Greater Toronto Area."
           },
           {
             type: "paragraph",
-            content: "Today, we specialize in commercial, multi-family, and institutional projects, bringing together experienced professionals who share our passion for quality construction and innovative solutions."
+            content: "We specialize in building envelope restoration, EIFS/stucco systems, masonry, waterproofing, and interior finishing for commercial, multi-family, and institutional properties."
           }
         ],
         years_in_business: 15,
