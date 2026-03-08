@@ -453,7 +453,7 @@ Add-ons:
             </div>
 
             {/* Enhanced Step Content */}
-            <UnifiedCard variant="elevated" className="mb-6 animate-fade-in-up">
+            <Card variant="elevated" size="md" className="mb-6 animate-fade-in-up">
               {currentStep === 0 && (<EstimatorStep0 data={{ quoteType: formData.quoteType, company: formData.company, role: formData.role, nteBudget: formData.nteBudget, scopeCategories: formData.scopeCategories }} onChange={handleInputChange} />)}
               {currentStep === 1 && (<EstimatorStep1 data={{ service: formData.service, sqft: formData.sqft, stories: formData.stories }} onChange={handleInputChange} />)}
               {currentStep === 2 && (<EstimatorStep2Enhanced service={formData.service} data={{ prepComplexity: formData.prepComplexity, finishQuality: formData.finishQuality, region: formData.region, buildingType: formData.buildingType, accessibility: formData.accessibility, businessHoursConstraint: formData.businessHoursConstraint, unitCount: formData.unitCount, includeCommonAreas: formData.includeCommonAreas, materialType: formData.materialType }} onChange={handleInputChange} />)}
