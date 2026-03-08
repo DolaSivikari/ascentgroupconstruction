@@ -7,6 +7,8 @@ interface SearchInputProps {
   onChange: (value: string) => void;
   placeholder?: string;
   className?: string;
+  id?: string;
+  name?: string;
 }
 
 export const SearchInput = ({ value, onChange, placeholder = "Search...", className }: SearchInputProps) => {
