@@ -39,7 +39,7 @@ Deno.serve(async (req) => {
       { path: '/prequalification', priority: '0.6', changefreq: 'monthly' },
       { path: '/estimate', priority: '0.8', changefreq: 'monthly' },
       { path: '/submit-rfp', priority: '0.6', changefreq: 'monthly' },
-      { path: '/sustainability', priority: '0.7', changefreq: 'monthly' },
+      { path: '/markets', priority: '0.8', changefreq: 'monthly' },
       { path: '/faq', priority: '0.7', changefreq: 'weekly' },
       { path: '/our-process', priority: '0.7', changefreq: 'monthly' },
       { path: '/why-specialty-contractor', priority: '0.7', changefreq: 'monthly' },
