@@ -88,7 +88,7 @@ export const megaMenuDataEnhanced: MegaMenuDataEnhanced = {
   // MARKETS / WHO WE SERVE MEGA MENU (800px, 4 columns)
   // ============================================
   markets: {
-    width: 800,
+    width: 680,
     columns: 4,
     sections: [
       {
