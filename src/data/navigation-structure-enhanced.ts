@@ -136,7 +136,7 @@ export const megaMenuDataEnhanced: MegaMenuDataEnhanced = {
   // COMPANY MEGA MENU (700px, 3 columns)
   // ============================================
   company: {
-    width: 700,
+    width: 580,
     columns: 3,
     sections: [
       {
