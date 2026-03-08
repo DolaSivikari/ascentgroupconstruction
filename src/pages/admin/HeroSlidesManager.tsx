@@ -379,7 +379,7 @@ const HeroSlidesManager = () => {
                     id="stat_number"
                     value={editingSlide?.stat_number || ''}
                     onChange={(e) => setEditingSlide(s => s ? { ...s, stat_number: e.target.value } : null)}
-                    placeholder="500+"
+                    placeholder="10+"
                   />
                 </div>
                 <div>
