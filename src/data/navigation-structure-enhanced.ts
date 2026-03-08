@@ -45,7 +45,7 @@ export const megaMenuDataEnhanced: MegaMenuDataEnhanced = {
   // SERVICES MEGA MENU (900px, 4 columns)
   // ============================================
   services: {
-    width: 900,
+    width: 800,
     columns: 4,
     sections: [
       {
