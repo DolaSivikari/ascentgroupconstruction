@@ -130,7 +130,7 @@ const PropertyManagers = () => {
 
           <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
             {services.map((service, index) => (
-              <UnifiedCard key={index} variant="elevated" className="border-l-4 border-l-primary">
+              <Card key={index} variant="elevated" size="md" className="border-l-4 border-l-primary">
                 <div className="flex items-start justify-between mb-3">
                   <h3 className="text-2xl font-bold text-primary">{service.title}</h3>
                   <TrendingUp className="w-6 h-6 text-secondary flex-shrink-0" />
