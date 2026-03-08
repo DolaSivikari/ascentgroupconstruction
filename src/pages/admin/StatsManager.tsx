@@ -185,7 +185,7 @@ const StatsManager = () => {
           </CardHeader>
           <CardContent>
             <p className="text-sm text-muted-foreground mb-4">
-              Click a template to quickly add GC-specific metrics to your homepage
+              Click a template to quickly add specialty contractor metrics to your homepage
             </p>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
               {gcStatTemplates.map((template, idx) => (

@@ -118,7 +118,7 @@ const FAQ = () => {
       questions: [
         {
           question: "What brands and materials do you use?",
-          answer: "We use commercial-grade materials from trusted suppliers including Benjamin Moore paints, Sherwin-Williams coatings, Dryvit EIFS systems, Hardie siding, and industry-leading building envelope products. We select materials based on your project requirements, durability needs, and budget. All products meet or exceed Ontario Building Code standards."
+          answer: "We use commercial-grade materials from trusted suppliers including Benjamin Moore paints, Sherwin-Williams coatings, Dryvit EIFS systems, Hardie siding, and trusted building envelope products. We select materials based on your project requirements, durability needs, and budget. All products meet or exceed Ontario Building Code standards."
         },
         {
           question: "Can I choose my own paint colors?",
