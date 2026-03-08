@@ -404,6 +404,30 @@ Add-ons:
       <main className="flex-1 pt-24 pb-16 bg-background">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
+            {isSubmitted ? (
+              /* Success State */
+              <div className="text-center py-16 animate-fade-in-up">
+                <div className="w-20 h-20 rounded-full bg-secondary/10 flex items-center justify-center mx-auto mb-6">
+                  <CheckCircle className="w-10 h-10 text-secondary" />
+                </div>
+                <h1 className="text-3xl md:text-4xl font-bold mb-4 text-primary">Estimate Request Submitted</h1>
+                <p className="text-lg text-muted-foreground mb-2 max-w-lg mx-auto">
+                  Thank you for your request. Our team will review your project details and contact you within 24 hours to discuss next steps.
+                </p>
+                <p className="text-sm text-muted-foreground mb-8">
+                  A confirmation has been sent to your email address.
+                </p>
+                <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                  <Button asChild variant="default" size="lg">
+                    <Link to="/"><Home className="w-4 h-4 mr-2" />Return Home</Link>
+                  </Button>
+                  <Button asChild variant="outline" size="lg">
+                    <Link to="/submit-rfp"><FileText className="w-4 h-4 mr-2" />Submit an RFP</Link>
+                  </Button>
+                </div>
+              </div>
+            ) : (
+            <>
             {/* Enhanced Header */}
             <div className="text-center mb-8 animate-fade-in-up">
               <h1 className="text-4xl md:text-5xl font-bold mb-4 text-primary">Request Your Estimate</h1>
