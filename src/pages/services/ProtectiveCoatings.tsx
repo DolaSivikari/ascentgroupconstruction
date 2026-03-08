@@ -81,7 +81,7 @@ const ProtectiveCoatings = () => {
           {whatWeDeliver.map((item, index) => {
             const Icon = item.icon;
             return (
-              <UnifiedCard key={index} variant="elevated">
+              <Card key={index} variant="elevated" size="md">
                 <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-3">
                   <Icon className="w-6 h-6 text-primary" />
                 </div>
