@@ -107,7 +107,7 @@ const PropertyManagers = () => {
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
             {benefits.map((benefit, index) => (
-              <UnifiedCard key={index} variant="interactive">
+              <Card key={index} variant="interactive" size="md">
                 <div className="w-14 h-14 bg-gradient-to-br from-primary to-primary/70 rounded-[var(--radius-lg)] flex items-center justify-center mb-4 shadow-[var(--shadow-lg)]">
                   <benefit.icon className="w-7 h-7 text-secondary" />
                 </div>
