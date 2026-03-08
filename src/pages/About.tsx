@@ -202,6 +202,20 @@ const About = () => {
         </Card>
       </Section>
 
+      {/* Proof Strip — Key credentials */}
+      <Section size="tight">
+        <ProofStrip
+          items={[
+            { value: "15+", label: "Years Team Experience" },
+            { value: "$2M", label: "CGL Coverage" },
+            { value: "100%", label: "WSIB Compliant" },
+            { value: "85%", label: "Self-Performed" },
+          ]}
+          variant="dark"
+          columns={4}
+        />
+      </Section>
+
       {/* Who We Serve - Using Unified Components */}
       <WhoWeServeSection
         title="Who We Serve"
