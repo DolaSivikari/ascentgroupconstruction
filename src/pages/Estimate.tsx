@@ -335,11 +335,6 @@ Add-ons:
         }
       }
 
-      toast({
-        title: "Estimate Request Submitted!",
-        description: "We'll contact you within 24 hours to schedule a site visit.",
-      });
-
       // Phase 2: Send review request
       let notificationWarning = false;
       try {
@@ -358,16 +353,15 @@ Add-ons:
       // Phase 3: Track A/B test conversion
       await trackABTestConversion('homepage-hero-2024', 3);
 
-      if (notificationWarning) {
-        toast({
-          title: "Saved with notification delay",
-          description: "Your request was submitted successfully, but email notification is temporarily unavailable.",
-          variant: "default",
-        });
-      }
+      toast({
+        title: "Estimate Request Submitted!",
+        description: notificationWarning
+          ? "Your request was saved successfully. Our team will follow up within 24 hours."
+          : "We'll contact you within 24 hours to discuss your project.",
+      });
 
-      // Redirect to thank you or home page
-      setTimeout(() => navigate("/"), 2000);
+      setIsSubmitted(true);
+      window.scrollTo({ top: 0, behavior: "smooth" });
     } catch (error) {
       console.error("Error submitting estimate:", error);
       
