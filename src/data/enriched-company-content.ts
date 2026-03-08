@@ -17,7 +17,7 @@ This keeps our overhead low, our accountability high, and our focus where it bel
 
 **What We Bring**
 
-- **Real Experience**: Our team has hands-on experience from hundreds of envelope restoration, EIFS installation, masonry repair, and interior finish projects across the GTA
+- **Real Experience**: Our team members bring hands-on experience from a wide range of envelope restoration, EIFS installation, masonry repair, and interior finish projects across the GTA
 - **Professional Standards**: We follow manufacturer specifications, building code requirements, and safety protocols developed through years of working alongside engineers, consultants, and general contractors
 - **Clear Communication**: No surprises, no excuses. We provide detailed scopes, realistic schedules, and proactive updates throughout every project
 - **Full Accountability**: When you work with Ascent Group, you're working directly with the people who will be on your site doing the work
