@@ -46,7 +46,7 @@ export const COMPANY_FACTS = {
   uniqueSellingPoints: [
     "85% self-performed work",
     "15+ years crew experience",
-    "Specialty prime contractor",
+    "Specialty lead contractor",
     "Full project management",
     "Ontario-wide service",
     "48-hour quote turnaround",
