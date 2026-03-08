@@ -25,7 +25,7 @@ const DirectAnswer = ({ children, className = "" }: DirectAnswerProps) => {
           <div className="space-y-6">
             <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/5 border border-primary/10 rounded-full">
               <CheckCircle2 className="h-4 w-4 text-primary" />
-              <span className="text-sm font-semibold text-primary">Ontario's Trusted Construction Partner</span>
+              <span className="text-sm font-semibold text-primary">GTA Specialty Contractor</span>
             </div>
             
             <div className="prose prose-lg max-w-none text-foreground">
