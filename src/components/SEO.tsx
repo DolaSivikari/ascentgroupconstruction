@@ -36,7 +36,7 @@ const SEO = ({
   const defaultSchema = useMemo(() => {
     const schema: any = {
     "@context": "https://schema.org",
-    "@type": ["GeneralContractor", "LocalBusiness"],
+    "@type": ["HomeAndConstructionBusiness", "LocalBusiness"],
     "@id": `${siteUrl}/#organization`,
     name: "Ascent Group Construction",
     alternateName: "Ascent Group",
@@ -54,16 +54,16 @@ const SEO = ({
     email: "info@ascentgroupconstruction.com",
     address: {
       "@type": "PostalAddress",
-      streetAddress: "Greater Toronto Area",
-      addressLocality: "Toronto",
+      streetAddress: "2 Jody Ave",
+      addressLocality: "North York",
       addressRegion: "ON",
-      postalCode: "M5H 2N2",
+      postalCode: "M3N 1H1",
       addressCountry: "CA",
     },
     geo: {
       "@type": "GeoCoordinates",
-      latitude: "43.6532",
-      longitude: "-79.3832"
+      latitude: "43.7615",
+      longitude: "-79.4111"
     },
     areaServed: [
       {
@@ -124,64 +124,42 @@ const SEO = ({
     currenciesAccepted: "CAD",
     foundingDate: "2025",
     knowsAbout: [
-      "Specialty Contracting",
       "Building Envelope Systems",
-      "Commercial Construction",
-      "Multi-Family Construction",
-      "Institutional Construction",
-      "Exterior Systems",
-      "Interior Construction",
-      "Construction Project Management",
-      "Sustainable Construction"
+      "Façade Remediation",
+      "Waterproofing Systems",
+      "EIFS & Stucco Systems",
+      "Masonry Restoration",
+      "Cladding Systems",
+      "Protective Coatings",
+      "Commercial Painting",
+      "Interior Finishing"
     ],
-    award: [
-      "WSIB Compliant Contractor",
-      "Licensed Building Envelope Contractor Ontario",
-      "Fully Insured & WSIB Compliant"
-    ],
-    // Aggregate rating removed until verified reviews are collected
     hasOfferCatalog: {
       "@type": "OfferCatalog",
-      name: "Construction & Building Services",
+      name: "Building Envelope & Specialty Trade Services",
       itemListElement: [
         {
           "@type": "Offer",
           itemOffered: {
             "@type": "Service",
-            name: "Commercial Construction",
-            description: "Professional commercial construction services for offices, retail spaces, and industrial facilities"
+            name: "Building Envelope Solutions",
+            description: "Façade remediation, waterproofing, and exterior envelope systems for commercial and multi-family buildings"
           }
         },
         {
           "@type": "Offer",
           itemOffered: {
             "@type": "Service",
-            name: "Residential Construction & Renovation",
-            description: "Expert interior and exterior residential construction services"
+            name: "EIFS & Stucco Systems",
+            description: "Professional EIFS and stucco installation, repair, and restoration"
           }
         },
         {
           "@type": "Offer",
           itemOffered: {
             "@type": "Service",
-            name: "Multi-Family Building Construction",
-            description: "Specialized multi-family and condo building construction services"
-          }
-        },
-        {
-          "@type": "Offer",
-          itemOffered: {
-            "@type": "Service",
-            name: "Stucco & EIFS",
-            description: "Professional stucco and EIFS installation and repair"
-          }
-        },
-        {
-          "@type": "Offer",
-          itemOffered: {
-            "@type": "Service",
-            name: "Masonry Repair",
-            description: "Expert masonry restoration and repair services"
+            name: "Masonry Restoration",
+            description: "Brick repair, stone restoration, tuckpointing, and structural masonry work"
           }
         },
         {
@@ -197,7 +175,15 @@ const SEO = ({
           itemOffered: {
             "@type": "Service",
             name: "Parking Garage Restoration",
-            description: "Comprehensive parking garage restoration and waterproofing"
+            description: "Concrete repair, waterproofing membrane, traffic coatings, and structural rehabilitation"
+          }
+        },
+        {
+          "@type": "Offer",
+          itemOffered: {
+            "@type": "Service",
+            name: "Protective & Architectural Coatings",
+            description: "Commercial painting and protective coating systems for building exteriors and interiors"
           }
         }
       ]

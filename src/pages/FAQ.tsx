@@ -45,7 +45,7 @@ const FAQ = () => {
         },
         {
           question: "How do I know if you're the right contractor for my project?",
-          answer: "We specialize in general contracting, commercial construction, multi-family construction, design-build, stucco/EIFS systems, masonry restoration, and building envelope work. If your project involves construction management, exterior or interior finishing, waterproofing, or building systems in the GTA, we're likely a perfect fit. Schedule a consultation to discuss your specific needs."
+          answer: "We specialize in building envelope systems, EIFS/stucco, masonry restoration, waterproofing, cladding, protective coatings, commercial painting, and interior finishing. If your project involves exterior restoration, envelope remediation, or interior trade work in the GTA, we're likely a great fit. Schedule a consultation to discuss your specific needs."
         },
       ],
     },

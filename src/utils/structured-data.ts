@@ -16,9 +16,9 @@ export const organizationSchema = (options?: OrganizationSchemaOptions) => {
   
   const schema: any = {
     "@context": "https://schema.org",
-    "@type": "GeneralContractor",
+    "@type": "HomeAndConstructionBusiness",
     name: options?.name || "Ascent Group Construction",
-    description: options?.description || "Professional construction management services in Ontario. Specializing in commercial, industrial, and institutional projects with LEED certification support.",
+    description: options?.description || "Specialty contractor in Ontario delivering building envelope, façade remediation, waterproofing, and restoration services across the GTA.",
     url: options?.url || siteUrl,
     logo: options?.logo || `${siteUrl}/logo.png`,
     address: {

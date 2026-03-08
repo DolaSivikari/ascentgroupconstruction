@@ -193,7 +193,7 @@ const LocationPage = () => {
   // LocalBusiness schema for this location
   const localBusinessSchema = {
     "@context": "https://schema.org",
-    "@type": "GeneralContractor",
+    "@type": "HomeAndConstructionBusiness",
     "@id": `https://ascentgroupconstruction.com/service-areas/${location.slug}#business`,
     "name": `Ascent Group Construction - ${location.name}`,
     "description": `Building envelope and restoration contractor serving ${location.name}, ${location.region}`,

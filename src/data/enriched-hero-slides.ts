@@ -9,7 +9,7 @@ export const enrichedHeroSlides = [
     stat: "15+",
     statLabel: "Years Experience",
     headline: "Envelope & Restoration Specialists",
-    subheadline: "Prime contractor for facade remediation, parking garage restoration & sealant programs across Ontario.",
+    subheadline: "Specialty contractor for facade remediation, parking garage restoration & sealant programs across Ontario.",
     primaryCTA: {
       label: "Request a Proposal",
       href: "/contact",
@@ -19,12 +19,12 @@ export const enrichedHeroSlides = [
     video: buildingVideo,
     poster: buildingPoster,
     stat: "Free",
-    statLabel: "Consultations",
-    headline: "Quality Home Services",
-    subheadline: "Professional painting, renovations, tile & flooring. Commercial-grade quality for homeowners.",
+    statLabel: "Site Assessments",
+    headline: "Building Envelope Experts",
+    subheadline: "Professional EIFS, waterproofing, masonry restoration & protective coatings for commercial and multi-family buildings.",
     primaryCTA: {
-      label: "Start Your Project",
-      href: "/homeowners",
+      label: "Explore Services",
+      href: "/services",
     },
   },
   {
