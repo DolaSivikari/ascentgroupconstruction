@@ -3,12 +3,13 @@ import { createErrorResponse, logSecurityError } from '../_shared/errorHandler.t
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
+  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type, x-supabase-client-platform, x-supabase-client-platform-version, x-supabase-client-runtime, x-supabase-client-runtime-version',
 };
 
 interface LoginAttemptRequest {
   email: string;
   success: boolean;
+  checkOnly?: boolean;
 }
 
 Deno.serve(async (req) => {
@@ -18,10 +19,10 @@ Deno.serve(async (req) => {
 
   try {
     const supabaseUrl = Deno.env.get('SUPABASE_URL')!;
-    const supabaseKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!;
-    const supabase = createClient(supabaseUrl, supabaseKey);
+    const supabaseServiceKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!;
+    const supabase = createClient(supabaseUrl, supabaseServiceKey);
 
-    const { email, success }: LoginAttemptRequest = await req.json();
+    const { email, success, checkOnly }: LoginAttemptRequest = await req.json();
 
     if (!email) {
       return createErrorResponse(
@@ -58,7 +59,65 @@ Deno.serve(async (req) => {
       );
     }
 
-    if (!success) {
+    // If checkOnly, just return lockout status without recording anything
+    if (checkOnly) {
+      return new Response(
+        JSON.stringify({ locked: false }),
+        { status: 200, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
+    }
+
+    if (success) {
+      // SECURITY: Only allow clearing failed attempts when the caller has a valid JWT
+      // and the authenticated user's email matches the email being cleared.
+      const authHeader = req.headers.get('Authorization');
+      if (!authHeader?.startsWith('Bearer ')) {
+        // Unauthenticated callers cannot clear failed attempts — silently ignore
+        return new Response(
+          JSON.stringify({ success: true }),
+          { status: 200, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+        );
+      }
+
+      const anonKey = Deno.env.get('SUPABASE_ANON_KEY')!;
+      const userClient = createClient(supabaseUrl, anonKey, {
+        global: { headers: { Authorization: authHeader } },
+      });
+
+      const { data: claimsData, error: claimsError } = await userClient.auth.getClaims(
+        authHeader.replace('Bearer ', '')
+      );
+
+      if (claimsError || !claimsData?.claims) {
+        // Invalid token — silently ignore, don't clear attempts
+        return new Response(
+          JSON.stringify({ success: true }),
+          { status: 200, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+        );
+      }
+
+      const authenticatedEmail = claimsData.claims.email;
+      if (authenticatedEmail?.toLowerCase() !== email.toLowerCase()) {
+        // Authenticated user doesn't match — don't clear another user's attempts
+        return new Response(
+          JSON.stringify({ success: true }),
+          { status: 200, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+        );
+      }
+
+      // Verified: clear failed attempts for the authenticated user
+      await supabase
+        .from('auth_failed_attempts')
+        .delete()
+        .eq('user_identifier', email);
+
+      console.log(`Successful login for ${email}, cleared failed attempts`);
+
+      return new Response(
+        JSON.stringify({ success: true }),
+        { status: 200, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
+    } else {
       // Record failed attempt
       await supabase.from('auth_failed_attempts').insert({
         user_identifier: email,
@@ -82,7 +141,7 @@ Deno.serve(async (req) => {
 
       // Lock account after 5 failed attempts
       if (attemptCount >= 5) {
-        const lockedUntil = new Date(Date.now() + 30 * 60 * 1000).toISOString(); // 30 minutes
+        const lockedUntil = new Date(Date.now() + 30 * 60 * 1000).toISOString();
         
         await supabase.from('auth_account_lockouts').insert({
           user_identifier: email,
@@ -90,12 +149,11 @@ Deno.serve(async (req) => {
           reason: `Account locked due to ${attemptCount} failed login attempts`,
         });
 
-        // Create security alert
         await supabase.from('security_alerts').insert({
           alert_type: 'account_lockout',
           severity: 'high',
-          description: `Account ${email} locked after ${attemptCount} failed login attempts from IP ${ipAddress}`,
-          metadata: { email, ip_address: ipAddress, attempt_count: attemptCount },
+          description: `Account locked after ${attemptCount} failed login attempts from IP ${ipAddress}`,
+          metadata: { ip_address: ipAddress, attempt_count: attemptCount },
         });
 
         console.log(`Account locked for ${email} after ${attemptCount} failed attempts`);
@@ -111,7 +169,6 @@ Deno.serve(async (req) => {
         );
       }
 
-      // Return remaining attempts
       const attemptsRemaining = 5 - attemptCount;
       console.log(`Failed attempt for ${email}. ${attemptsRemaining} attempts remaining.`);
 
@@ -121,19 +178,6 @@ Deno.serve(async (req) => {
           attempts_remaining: attemptsRemaining,
           warning: attemptsRemaining <= 2 ? `Only ${attemptsRemaining} attempts remaining before account lockout` : null
         }),
-        { status: 200, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
-      );
-    } else {
-      // Successful login - clear failed attempts
-      await supabase
-        .from('auth_failed_attempts')
-        .delete()
-        .eq('user_identifier', email);
-
-      console.log(`Successful login for ${email}, cleared failed attempts`);
-
-      return new Response(
-        JSON.stringify({ success: true }),
         { status: 200, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
       );
     }
