@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { z } from "zod";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
@@ -7,7 +7,7 @@ import SEO from "@/components/SEO";
 import { Button } from "@/ui/Button";
 import { UnifiedCard } from "@/components/shared/UnifiedCard";
 import { Progress } from "@/components/ui/progress";
-import { ChevronLeft, ChevronRight, CheckCircle } from "lucide-react";
+import { ChevronLeft, ChevronRight, CheckCircle, Home, FileText } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import EstimatorStep0 from "@/components/estimator/EstimatorStep0";
@@ -39,10 +39,10 @@ type EstimateFormData = {
 };
 
 const Estimate = () => {
-  const navigate = useNavigate();
   const { toast } = useToast();
   const [currentStep, setCurrentStep] = useState(0);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
   const isSubmittingRef = useRef(false);
   const finalStep = 6;
   const totalSteps = finalStep + 1;
@@ -335,11 +335,6 @@ Add-ons:
         }
       }
 
-      toast({
-        title: "Estimate Request Submitted!",
-        description: "We'll contact you within 24 hours to schedule a site visit.",
-      });
-
       // Phase 2: Send review request
       let notificationWarning = false;
       try {
@@ -358,16 +353,15 @@ Add-ons:
       // Phase 3: Track A/B test conversion
       await trackABTestConversion('homepage-hero-2024', 3);
 
-      if (notificationWarning) {
-        toast({
-          title: "Saved with notification delay",
-          description: "Your request was submitted successfully, but email notification is temporarily unavailable.",
-          variant: "default",
-        });
-      }
+      toast({
+        title: "Estimate Request Submitted!",
+        description: notificationWarning
+          ? "Your request was saved successfully. Our team will follow up within 24 hours."
+          : "We'll contact you within 24 hours to discuss your project.",
+      });
 
-      // Redirect to thank you or home page
-      setTimeout(() => navigate("/"), 2000);
+      setIsSubmitted(true);
+      window.scrollTo({ top: 0, behavior: "smooth" });
     } catch (error) {
       console.error("Error submitting estimate:", error);
       
@@ -402,14 +396,38 @@ Add-ons:
     <div className="min-h-screen flex flex-col">
       <SEO
         title="Request Project Estimate | Ascent Group Construction"
-        description="Get an instant estimate for your painting or stucco project. Fast, accurate pricing with no obligation. Licensed and insured contractors serving the GTA."
-        keywords="construction estimate, painting quote, stucco quote, project estimate, GTA contractors"
+        description="Request a project estimate for building envelope, restoration, or specialty trade work. Fast, accurate pricing with no obligation. Licensed and insured contractors serving Ontario."
+        keywords="construction estimate, building envelope quote, restoration estimate, project estimate, GTA contractors"
       />
       <Navigation />
 
       <main className="flex-1 pt-24 pb-16 bg-background">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
+            {isSubmitted ? (
+              /* Success State */
+              <div className="text-center py-16 animate-fade-in-up">
+                <div className="w-20 h-20 rounded-full bg-secondary/10 flex items-center justify-center mx-auto mb-6">
+                  <CheckCircle className="w-10 h-10 text-secondary" />
+                </div>
+                <h1 className="text-3xl md:text-4xl font-bold mb-4 text-primary">Estimate Request Submitted</h1>
+                <p className="text-lg text-muted-foreground mb-2 max-w-lg mx-auto">
+                  Thank you for your request. Our team will review your project details and contact you within 24 hours to discuss next steps.
+                </p>
+                <p className="text-sm text-muted-foreground mb-8">
+                  A confirmation has been sent to your email address.
+                </p>
+                <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                  <Button asChild variant="default" size="lg">
+                    <Link to="/"><Home className="w-4 h-4 mr-2" />Return Home</Link>
+                  </Button>
+                  <Button asChild variant="outline" size="lg">
+                    <Link to="/submit-rfp"><FileText className="w-4 h-4 mr-2" />Submit an RFP</Link>
+                  </Button>
+                </div>
+              </div>
+            ) : (
+            <>
             {/* Enhanced Header */}
             <div className="text-center mb-8 animate-fade-in-up">
               <h1 className="text-4xl md:text-5xl font-bold mb-4 text-primary">Request Your Estimate</h1>
@@ -486,6 +504,8 @@ Add-ons:
                 </Button>
               )}
             </div>
+            </>
+            )}
           </div>
         </div>
       </main>

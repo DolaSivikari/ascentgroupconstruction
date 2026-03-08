@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Navigation from "@/components/Navigation";
@@ -10,7 +10,7 @@ import { Card, CardContent } from "@/ui/Card";
 import { Progress } from "@/components/ui/progress";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
-import { ArrowRight, ArrowLeft, CheckCircle2, Send } from "lucide-react";
+import { ArrowRight, ArrowLeft, CheckCircle2, Send, Home, Phone } from "lucide-react";
 import { rfpSubmissionSchema, type RFPSubmission } from "@/schemas/rfp-validation";
 import { RFPStep1Company } from "@/components/rfp/RFPStep1Company";
 import { RFPStep2Project } from "@/components/rfp/RFPStep2Project";
@@ -24,9 +24,9 @@ import { PhoneLink } from "@/components/shared/PhoneLink";
 import { AscentEmailLink } from "@/components/EmailLink";
 
 export default function SubmitRFPNew() {
-  const navigate = useNavigate();
   const [currentStep, setCurrentStep] = useState(1);
   const [submitting, setSubmitting] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
 
   const form = useForm<RFPSubmission>({
     resolver: zodResolver(rfpSubmissionSchema),
@@ -77,7 +77,7 @@ export default function SubmitRFPNew() {
         fieldsToValidate = ["estimated_timeline", "delivery_method"];
         break;
       case 4:
-        fieldsToValidate = ["scope_of_work"];
+        fieldsToValidate = ["scope_of_work", "consent"];
         break;
     }
 
@@ -130,6 +130,7 @@ export default function SubmitRFPNew() {
       if (insertError) throw insertError;
 
       // Send notification email
+      let notificationWarning = false;
       try {
         await supabase.functions.invoke("send-rfp-notification", {
           body: {
@@ -143,18 +144,21 @@ export default function SubmitRFPNew() {
           },
         });
       } catch (emailError) {
+        notificationWarning = true;
         console.error("Email notification failed:", emailError);
-        // Don't fail submission if email fails
       }
 
       toast.success("RFP Submitted Successfully", {
-        description: "We'll review your request and contact you within 2 business days.",
+        description: notificationWarning
+          ? "Your proposal was saved successfully. Our team will review and follow up within 2 business days."
+          : "We'll review your request and contact you within 2 business days.",
       });
 
       // Phase 3: Track A/B test conversion
       await trackABTestConversion('homepage-hero-2024', 5);
       
-      navigate("/");
+      setSubmitted(true);
+      window.scrollTo({ top: 0, behavior: "smooth" });
     } catch (error: any) {
       console.error("Submission error:", error);
       toast.error("Submission Failed", {
@@ -188,6 +192,32 @@ export default function SubmitRFPNew() {
         ]}
       />
 
+      {submitted ? (
+        /* Success State */
+        <main className="flex-1 py-16">
+          <div className="container mx-auto px-4 max-w-2xl text-center animate-fade-in-up">
+            <div className="w-20 h-20 rounded-full bg-secondary/10 flex items-center justify-center mx-auto mb-6">
+              <CheckCircle2 className="w-10 h-10 text-secondary" />
+            </div>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-primary">Your RFP Has Been Submitted</h2>
+            <p className="text-lg text-muted-foreground mb-2 max-w-lg mx-auto">
+              Thank you for your proposal. Our team will review your project details and respond within 2 business days.
+            </p>
+            <p className="text-sm text-muted-foreground mb-8">
+              A confirmation has been sent to your email address.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Button asChild>
+                <Link to="/"><Home className="w-4 h-4 mr-2" />Return Home</Link>
+              </Button>
+              <Button asChild variant="secondary">
+                <Link to="/contact"><Phone className="w-4 h-4 mr-2" />Contact Us</Link>
+              </Button>
+            </div>
+          </div>
+        </main>
+      ) : (
+      <>
       {/* Enhanced Progress */}
       <section className="py-8 bg-background">
         <div className="container mx-auto px-4 max-w-4xl">
@@ -251,6 +281,8 @@ export default function SubmitRFPNew() {
           </Card>
         </div>
       </main>
+      </>
+      )}
 
       <Footer />
     </div>

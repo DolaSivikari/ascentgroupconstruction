@@ -172,7 +172,7 @@ const Contact = () => {
 
   return (
     <div className="min-h-screen flex flex-col bg-background">
-      <SEO title="Contact Us - Request Proposal | Ascent Group" description="Ascent Group Construction — Ontario's prime specialty contractor for building envelope & restoration. Self-performed façade remediation, parking garage restoration, EIFS, masonry repair, and waterproofing. Serving commercial, multi-family, and institutional projects across the GTA." canonical="https://ascentgroupconstruction.com/contact" />
+      <SEO title="Contact Us | Ascent Group Construction" description="Contact Ascent Group Construction for building envelope, restoration, and specialty trade services across Ontario. Request a consultation or get a project quote." canonical="https://ascentgroupconstruction.com/contact" />
       <Navigation />
 
       <PageHero
