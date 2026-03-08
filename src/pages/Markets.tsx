@@ -54,7 +54,7 @@ const Markets = () => {
       <PageHero
         title="Markets We Serve"
         subtitle="Specialty construction services tailored to your sector"
-        image={companyHeroes?.about}
+        image={mainPageHeroes?.projects}
       />
 
       <section className="py-16 md:py-24">
