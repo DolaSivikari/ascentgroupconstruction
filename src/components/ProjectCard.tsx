@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { formatProjectValue } from "@/utils/formatProjectValue";
 import { Card, CardContent } from "@/design-system/components/Card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/ui/Button";

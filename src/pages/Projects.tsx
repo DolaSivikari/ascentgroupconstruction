@@ -13,6 +13,7 @@ import { Building2, Home, School, Factory } from "lucide-react";
 import { Button } from "@/ui/Button";
 import { supabase } from "@/integrations/supabase/client";
 import { useRealtimeProjects } from "@/hooks/useRealtimeProjects";
+import { formatProjectValue } from "@/utils/formatProjectValue";
 import { resolveImagePath } from "@/utils/imageResolver";
 import { PremiumProjectHero } from "@/components/projects/PremiumProjectHero";
 import { FilterDrawer } from "@/components/projects/FilterDrawer";

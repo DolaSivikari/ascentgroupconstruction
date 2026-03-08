@@ -6,6 +6,7 @@ import {
 } from 'lucide-react';
 import { Button } from '@/ui/Button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/ui/Card';
+import { PhoneLink } from '@/components/shared/PhoneLink';
 import QuickFacts from '@/components/seo/QuickFacts';
 import PeopleAlsoAsk from '@/components/seo/PeopleAlsoAsk';
 import SEO from '@/components/SEO';

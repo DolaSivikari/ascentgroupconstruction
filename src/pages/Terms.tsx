@@ -4,6 +4,7 @@ import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import BackToTop from "@/components/BackToTop";
 import { AscentEmailLink } from "@/components/EmailLink";
+import { PhoneLink } from "@/components/shared/PhoneLink";
 
 const Terms = () => {
   return (
