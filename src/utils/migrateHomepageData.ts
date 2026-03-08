@@ -30,18 +30,18 @@ export const migrateHomepageSettings = async () => {
     const { error } = await supabase
       .from("homepage_settings")
       .insert([{
-        headline: "Ontario's Trusted General Contractor",
-        subheadline: "Delivering commercial, multi-family, and institutional projects on-time and on-budget since 2009",
-        hero_description: "With 15+ years of construction management expertise across Ontario, Ascent Group Construction specializes in design-build, general contracting, and construction management for commercial, institutional, and multi-family projects.",
+        headline: "Building Envelope & Restoration Specialists",
+        subheadline: "Specialty contractor delivering envelope, restoration, and interior trade services across the GTA",
+        hero_description: "With 15+ years of combined team experience across Ontario, Ascent Group Construction specializes in building envelope restoration, EIFS/stucco, masonry, waterproofing, and interior trades for commercial, institutional, and multi-family projects.",
         cta_primary_text: "Submit RFP",
         cta_primary_url: "/submit-rfp",
         cta_secondary_text: "Request Proposal",
         cta_secondary_url: "/contact",
         cta_tertiary_text: "View Projects",
         cta_tertiary_url: "/projects",
-        value_prop_1: "Licensed & Bonded",
-        value_prop_2: "500+ Projects Completed",
-        value_prop_3: "98% Client Satisfaction",
+        value_prop_1: "Licensed & Insured",
+        value_prop_2: "$2M CGL Coverage",
+        value_prop_3: "WSIB Compliant",
         is_active: true
       }]);
 
