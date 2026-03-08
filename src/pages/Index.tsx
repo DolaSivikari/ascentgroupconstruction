@@ -71,8 +71,8 @@ const Index = () => {
     "knowsAbout": [
       "building envelope systems", "cladding systems", "metal panels", "EIFS and stucco",
       "masonry restoration", "protective coatings", "interior construction", "painting services",
-      "tile and flooring", "sustainable building", "LEED consulting", "commercial construction",
-      "multi-family construction",
+      "tile and flooring", "sustainable building practices", "energy-efficient envelope systems",
+      "commercial construction", "multi-family construction",
     ],
   };
 
