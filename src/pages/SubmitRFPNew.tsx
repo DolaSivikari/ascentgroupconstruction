@@ -10,7 +10,7 @@ import { Card, CardContent } from "@/ui/Card";
 import { Progress } from "@/components/ui/progress";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
-import { ArrowRight, ArrowLeft, CheckCircle2, Send } from "lucide-react";
+import { ArrowRight, ArrowLeft, CheckCircle2, Send, Home, Phone } from "lucide-react";
 import { rfpSubmissionSchema, type RFPSubmission } from "@/schemas/rfp-validation";
 import { RFPStep1Company } from "@/components/rfp/RFPStep1Company";
 import { RFPStep2Project } from "@/components/rfp/RFPStep2Project";
