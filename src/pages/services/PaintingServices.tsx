@@ -1,5 +1,5 @@
 import { Building2, Home, Shield, Clock, CheckCircle2 } from 'lucide-react';
-import { UnifiedCard } from "@/components/shared/UnifiedCard";
+import { Card } from "@/design-system/components/Card";
 import { Section } from "@/components/sections/Section";
 import { ServicePageLayout } from "@/components/services/ServicePageLayout";
 import heroImage from '@/assets/heroes/hero-painting.jpg';
