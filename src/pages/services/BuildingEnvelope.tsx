@@ -118,7 +118,7 @@ const BuildingEnvelope = () => {
                 </div>
                 <h3 className="text-lg font-bold mb-2">{item.title}</h3>
                 <p className="text-sm text-muted-foreground">{item.description}</p>
-              </UnifiedCard>
+              </Card>
             );
           })}
         </div>
