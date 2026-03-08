@@ -54,16 +54,16 @@ const SEO = ({
     email: "info@ascentgroupconstruction.com",
     address: {
       "@type": "PostalAddress",
-      streetAddress: "Greater Toronto Area",
-      addressLocality: "Toronto",
+      streetAddress: "2 Jody Ave",
+      addressLocality: "North York",
       addressRegion: "ON",
-      postalCode: "M5H 2N2",
+      postalCode: "M3N 1H1",
       addressCountry: "CA",
     },
     geo: {
       "@type": "GeoCoordinates",
-      latitude: "43.6532",
-      longitude: "-79.3832"
+      latitude: "43.7615",
+      longitude: "-79.4111"
     },
     areaServed: [
       {
