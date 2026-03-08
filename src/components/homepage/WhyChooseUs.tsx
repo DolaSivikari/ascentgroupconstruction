@@ -1,8 +1,8 @@
 import * as LucideIcons from "lucide-react";
-import { Card } from "@/ui/Card";
 import { useWhyChooseUs } from "@/hooks/useWhyChooseUs";
+import { SectionHeader, CapabilityCard } from "@/design-system/components";
+import { Section } from "@/components/sections/Section";
 import { GRID } from "@/design-system/layouts";
-import { LAYOUT } from "@/design-system/constants";
 
 // Fallback data with construction-specific icons
 const fallbackDifferentiators = [
@@ -25,65 +25,36 @@ const WhyChooseUs = () => {
         stats: item.stats_badge || "",
       }))
     : fallbackDifferentiators;
+
   return (
-    <section className={`${LAYOUT.sectionSpacing.major} bg-muted/30`}>
-      <div className="container mx-auto px-6 md:px-8 lg:px-12 max-w-7xl">
-        
-        {/* Section Header - Enterprise Style */}
-        <div className="max-w-3xl mb-16">
-          <h2 className="text-3xl md:text-5xl font-bold text-foreground mb-6 leading-tight tracking-tight">
-            Why Property Owners Choose Us
-          </h2>
-          <p className="text-lg md:text-xl text-muted-foreground leading-relaxed">
-            Our team brings 15+ years of combined experience in building envelope and interior trades across Ontario, delivering exceptional construction results through licensed professionals, complete services, and unwavering commitment to quality.
-          </p>
-        </div>
+    <Section size="major" className="bg-muted/30">
+      <SectionHeader
+        badge="Why Choose Us"
+        title="Why Clients Choose Us"
+        description="Our team brings 15+ years of combined experience in building envelope and interior trades across Ontario, delivering exceptional construction results through licensed professionals, complete services, and unwavering commitment to quality."
+        align="left"
+        maxWidth="lg"
+      />
 
-        {/* Cards Grid - Clean 3-Column Layout */}
-        {isLoading ? (
-          <div className="text-center py-12">Loading...</div>
-        ) : (
-          <div className={GRID.cards3}>
-            {differentiators.map((item, index) => {
-              const Icon = (LucideIcons as any)[item.icon] || LucideIcons.BadgeCheck;
-              return (
-              <Card
+      {isLoading ? (
+        <div className="text-center py-12">Loading...</div>
+      ) : (
+        <div className={GRID.cards3}>
+          {differentiators.map((item, index) => {
+            const Icon = (LucideIcons as any)[item.icon] || LucideIcons.BadgeCheck;
+            return (
+              <CapabilityCard
                 key={index}
-                variant="elevated"
-                className="h-full hover-subtle group"
-              >
-                <div className="p-8 h-full flex flex-col">
-                  {/* Icon with Steel Blue Accent */}
-                  <div className="w-14 h-14 rounded-lg bg-steel-blue/10 flex items-center justify-center mb-6 group-hover:bg-steel-blue/20 transition-colors hover-scale-icon">
-                    <Icon className="w-7 h-7 text-steel-blue" />
-                  </div>
-
-                  {/* Content */}
-                  <div className="flex-1">
-                    <h3 className="text-xl md:text-2xl font-bold mb-4 text-foreground leading-tight">
-                      {item.title}
-                    </h3>
-                    
-                    <p className="text-base text-muted-foreground mb-6 leading-relaxed">
-                      {item.desc}
-                    </p>
-                  </div>
-
-                  {/* Stats Badge */}
-                  <div className="pt-6 border-t border-border">
-                    <div className="inline-flex items-center gap-2 text-sm font-semibold text-steel-blue">
-                      {item.stats}
-                    </div>
-                  </div>
-                </div>
-              </Card>
+                icon={Icon}
+                title={item.title}
+                description={item.desc}
+                stat={item.stats || undefined}
+              />
             );
           })}
         </div>
-        )}
-
-      </div>
-    </section>
+      )}
+    </Section>
   );
 };
 

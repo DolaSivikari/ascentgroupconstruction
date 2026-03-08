@@ -1,5 +1,5 @@
 import { Section } from "@/components/sections/Section";
-import { TYPOGRAPHY_STYLES } from "@/design-system/constants";
+import { SectionHeader, CapabilityCard } from "@/design-system/components";
 import { Hammer, ShieldCheck, CalendarCheck, Layers, ClipboardCheck, FileCheck } from "lucide-react";
 
 const CAPABILITIES = [
@@ -38,31 +38,23 @@ const CAPABILITIES = [
 export const OperationalCapabilities = () => {
   return (
     <Section size="major" className="bg-muted/30">
-      <div className="mb-12">
-        <p className={`${TYPOGRAPHY_STYLES.label} text-accent mb-3`}>How We Work</p>
-        <h2 className={`${TYPOGRAPHY_STYLES.sectionTitle} text-foreground mb-4`}>
-          Operational Capability
-        </h2>
-        <p className={`${TYPOGRAPHY_STYLES.bodyDefault} text-muted-foreground max-w-3xl`}>
-          We don't just bid — we build. These are the operational disciplines that define how we deliver, from mobilization through closeout.
-        </p>
-      </div>
+      <SectionHeader
+        badge="How We Work"
+        title="Operational Capability"
+        description="We don't just bid — we build. These are the operational disciplines that define how we deliver, from mobilization through closeout."
+        align="left"
+        maxWidth="lg"
+      />
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {CAPABILITIES.map((cap) => {
-          const Icon = cap.icon;
-          return (
-            <div key={cap.title} className="flex items-start gap-4">
-              <div className="w-11 h-11 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
-                <Icon className="w-5 h-5 text-primary" />
-              </div>
-              <div>
-                <h3 className="text-base font-semibold text-foreground mb-1.5">{cap.title}</h3>
-                <p className="text-sm text-muted-foreground leading-relaxed">{cap.description}</p>
-              </div>
-            </div>
-          );
-        })}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {CAPABILITIES.map((cap) => (
+          <CapabilityCard
+            key={cap.title}
+            icon={cap.icon}
+            title={cap.title}
+            description={cap.description}
+          />
+        ))}
       </div>
     </Section>
   );
