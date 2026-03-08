@@ -66,7 +66,7 @@ const DirectAnswer = ({ children, className = "" }: DirectAnswerProps) => {
 
           {/* CTA Card */}
           <div className="lg:sticky lg:top-24 w-full lg:w-80 bg-muted/30 border border-border rounded-[var(--radius-lg)] p-6 space-y-4">
-            <h3 className="text-xl font-bold text-foreground">Ready to Start Your Project?</h3>
+            <h3 className="text-xl font-bold text-foreground">Ready to Discuss Your Project?</h3>
             <p className="text-sm text-muted-foreground">
               Request a detailed estimate tailored to your construction needs. Complimentary consultation included.
             </p>
