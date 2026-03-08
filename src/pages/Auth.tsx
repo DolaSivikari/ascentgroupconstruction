@@ -30,9 +30,9 @@ const Auth = () => {
     setIsLoading(true);
 
     try {
-      // Check if account is locked before attempting login
+      // Check if account is locked before attempting login (checkOnly - no recording)
       const lockoutCheck = await supabase.functions.invoke('check-login-attempt', {
-        body: { email, success: false },
+        body: { email, checkOnly: true },
       });
 
       if (lockoutCheck.data?.locked) {
@@ -51,7 +51,7 @@ const Auth = () => {
       });
 
       if (error) {
-        // Record failed attempt
+        // Record failed attempt (no auth needed for failures)
         await supabase.functions.invoke('check-login-attempt', {
           body: { email, success: false },
         });
@@ -59,7 +59,7 @@ const Auth = () => {
         throw error;
       }
 
-      // Record successful login
+      // Record successful login - JWT is automatically sent by supabase client
       await supabase.functions.invoke('check-login-attempt', {
         body: { email, success: true },
       });
