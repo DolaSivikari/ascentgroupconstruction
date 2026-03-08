@@ -77,7 +77,7 @@ export default function SubmitRFPNew() {
         fieldsToValidate = ["estimated_timeline", "delivery_method"];
         break;
       case 4:
-        fieldsToValidate = ["scope_of_work"];
+        fieldsToValidate = ["scope_of_work", "consent"];
         break;
     }
 
