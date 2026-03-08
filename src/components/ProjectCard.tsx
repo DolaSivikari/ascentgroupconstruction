@@ -51,6 +51,8 @@ const ProjectCard = ({
   on_time_completion,
   on_budget,
   safety_incidents,
+  client_type,
+  challenge,
 }: ProjectCardProps) => {
   const [isHovered, setIsHovered] = useState(false);
 
