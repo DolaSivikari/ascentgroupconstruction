@@ -39,10 +39,10 @@ type EstimateFormData = {
 };
 
 const Estimate = () => {
-  const navigate = useNavigate();
   const { toast } = useToast();
   const [currentStep, setCurrentStep] = useState(0);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
   const isSubmittingRef = useRef(false);
   const finalStep = 6;
   const totalSteps = finalStep + 1;
