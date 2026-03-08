@@ -139,7 +139,7 @@ const PropertyManagers = () => {
                 <div className="inline-block px-4 py-2 bg-secondary/10 rounded-lg">
                   <span className="text-sm font-bold text-primary">{service.roi}</span>
                 </div>
-              </UnifiedCard>
+              </Card>
             ))}
           </div>
         </Section>
