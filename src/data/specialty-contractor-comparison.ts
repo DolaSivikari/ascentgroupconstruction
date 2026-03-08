@@ -300,26 +300,8 @@ export const specialtyContractorComparison = {
     }
   ],
 
-  testimonials: [
-    {
-      client: "Michael Stevens",
-      role: "Property Manager, Residential Portfolio",
-      quote: "Ascent's specialty contractor approach works perfectly for our envelope maintenance programs. Their crews know these buildings inside and out, and having direct accountability from estimate to warranty makes project management much simpler. When we need broader renovation work, we bring in a GC—but for envelope scope, Ascent's focused expertise is exactly what we need.",
-      project: "Multi-building EIFS and balcony restoration"
-    },
-    {
-      client: "Jennifer Park, P.Eng",
-      role: "Building Envelope Consultant",
-      quote: "I work with both GCs and specialty contractors depending on project scope. Ascent brings deep envelope expertise that helps my consulting work—they understand building science and can problem-solve technical challenges in the field. Their team's hands-on knowledge complements our engineering recommendations perfectly.",
-      project: "High-rise façade remediation technical advisory"
-    },
-    {
-      client: "David Kumar",
-      role: "Facilities Director, Commercial Property",
-      quote: "For our building's envelope emergency, Ascent's direct-execution model was invaluable—their crews were on site within hours with the right equipment and expertise. For our recent interior renovation requiring MEP work, we hired a GC who brought in their own trades. Different projects need different approaches, and knowing which contractor model fits the scope is key.",
-      project: "Emergency envelope repair and interior renovation"
-    }
-  ],
+  // Real testimonials to be populated from DB when available
+  testimonials: [],
 
   finalCTA: {
     title: "Let's Discuss Your Project Needs",

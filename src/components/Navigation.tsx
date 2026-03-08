@@ -59,7 +59,7 @@ const Navigation = () => {
     '/capabilities',
     '/company/certifications-insurance',
     '/company/developers',
-    '/company/equipment-resources',
+    '/company/technology',
     '/resources/contractor-portal',
     '/resources/service-areas',
     '/contact',

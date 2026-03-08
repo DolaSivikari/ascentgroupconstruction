@@ -44,7 +44,7 @@ Deno.serve(async (req) => {
       { path: '/our-process', priority: '0.7', changefreq: 'monthly' },
       { path: '/why-specialty-contractor', priority: '0.7', changefreq: 'monthly' },
       { path: '/company/certifications-insurance', priority: '0.7', changefreq: 'monthly' },
-      { path: '/company/equipment-resources', priority: '0.6', changefreq: 'monthly' },
+      { path: '/company/technology', priority: '0.6', changefreq: 'monthly' },
       { path: '/company/developers', priority: '0.7', changefreq: 'monthly' },
       // Audience pages
       { path: '/for-general-contractors', priority: '0.8', changefreq: 'weekly' },

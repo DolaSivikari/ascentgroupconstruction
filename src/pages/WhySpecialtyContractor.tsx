@@ -436,24 +436,26 @@ const WhySpecialtyContractor = () => {
         </div>
       </Section>
 
-      {/* Testimonials Section */}
-      <Section>
-        <div className="max-w-7xl mx-auto">
-          <h2 className="text-center mb-12">What Our Clients Say</h2>
-          <div className="grid md:grid-cols-3 gap-6">
-            {testimonials.map((testimonial, index) => (
-              <Card key={index} className="p-6">
-                <p className="text-sm italic mb-4 leading-relaxed">"{testimonial.quote}"</p>
-                <div className="border-t pt-4">
-                  <p className="font-bold">{testimonial.client}</p>
-                  <p className="text-sm text-muted-foreground mb-2">{testimonial.role}</p>
-                  <p className="text-xs text-primary">{testimonial.project}</p>
-                </div>
-              </Card>
-            ))}
+      {/* Testimonials Section — only rendered when real testimonials exist */}
+      {testimonials.length > 0 && (
+        <Section>
+          <div className="max-w-7xl mx-auto">
+            <h2 className="text-center mb-12">What Our Clients Say</h2>
+            <div className="grid md:grid-cols-3 gap-6">
+              {testimonials.map((testimonial, index) => (
+                <Card key={index} className="p-6">
+                  <p className="text-sm italic mb-4 leading-relaxed">"{testimonial.quote}"</p>
+                  <div className="border-t pt-4">
+                    <p className="font-bold">{testimonial.client}</p>
+                    <p className="text-sm text-muted-foreground mb-2">{testimonial.role}</p>
+                    <p className="text-xs text-primary">{testimonial.project}</p>
+                  </div>
+                </Card>
+              ))}
+            </div>
           </div>
-        </div>
-      </Section>
+        </Section>
+      )}
 
       {/* Final CTA Section */}
       <Section>

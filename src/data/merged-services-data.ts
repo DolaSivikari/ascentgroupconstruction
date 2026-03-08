@@ -287,7 +287,7 @@ export const interiorbuildoutsVariants = [
     description: 'Ground-up interior construction for commercial and residential spaces. From framing to finishes, we deliver turnkey suite buildouts.',
     benefits: [
       'Complete project management',
-      'Design-build capabilities',
+      'Full-scope coordination',
       'Coordination with trades',
       'On-time, on-budget delivery',
       'Code compliance expertise',
