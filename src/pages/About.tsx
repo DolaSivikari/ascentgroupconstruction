@@ -4,33 +4,25 @@ import SEO from "@/components/SEO";
 import { Card } from "@/design-system/components/Card";
 import { SectionHeader } from "@/design-system/components/SectionHeader";
 import { ProofStrip } from "@/design-system/components/ProofStrip";
+import { CTABand } from "@/design-system/components/CTABand";
 import { Section } from "@/components/sections/Section";
 import { PageHero } from "@/components/shared/PageHero";
-import { Button } from "@/ui/Button";
 import { CTA_TEXT } from "@/design-system/constants";
 import { 
-  Building2, 
   Shield, 
   Target, 
   CheckCircle, 
   MapPin, 
   Award,
   HardHat,
-  Home,
-  Factory,
-  FileText
 } from "lucide-react";
-import { Link } from "react-router-dom";
 import { mainPageHeroes } from "@/data/hero-images";
 import { usePageAnalytics } from "@/hooks/usePageAnalytics";
-import { WhoWeServeCard, WhoWeServeSection } from "@/components/unified";
-import { generateBreadcrumbSchema, generateHowToSchema, COMPANY_FACTS } from "@/utils/seo";
+import { generateBreadcrumbSchema, generateHowToSchema } from "@/utils/seo";
 
 const About = () => {
-  // Analytics tracking
   usePageAnalytics('about');
 
-  // SEO Structured Data
   const breadcrumbSchema = generateBreadcrumbSchema([
     { name: "Home", url: "/" },
     { name: "About Us", url: "/about" }
@@ -106,33 +98,6 @@ const About = () => {
       number: "05",
       title: "Closeout & Warranty",
       description: "Final walkthrough, punch completion, turnover package (photos, product data, care guidance), and applicable warranty."
-    }
-  ];
-
-  const clientTypes = [
-    {
-      icon: Building2,
-      title: "Property Managers & Building Owners/Developers",
-      description: "Condos, multi-residential, commercial, and institutional properties seeking dependable prime execution for envelope and restoration scopes.",
-      priority: "Primary"
-    },
-    {
-      icon: FileText,
-      title: "Envelope/Building Consultants",
-      description: "A responsive specialty partner who follows details and documents work thoroughly.",
-      priority: "Primary"
-    },
-    {
-      icon: Factory,
-      title: "General Contractors",
-      description: "Unit-rate and tender support for envelope trade packages (EIFS/stucco, sealants, coatings, masonry, garage rehab, waterproofing).",
-      priority: "Secondary"
-    },
-    {
-      icon: Home,
-      title: "Homeowners",
-      description: "Residential painting, tile/flooring, stucco repair, basement finishing, and general renovations. Commercial-grade quality for your home.",
-      priority: "Growing"
     }
   ];
 
@@ -216,25 +181,6 @@ const About = () => {
         />
       </Section>
 
-      {/* Who We Serve - Using Unified Components */}
-      <WhoWeServeSection
-        title="Who We Serve"
-        description="Trusted partners across Ontario's construction ecosystem"
-        columns={2}
-        background="muted"
-      >
-        {clientTypes.map((client) => (
-          <WhoWeServeCard
-            key={client.title}
-            icon={client.icon}
-            title={client.title}
-            description={client.description}
-            link={`/${client.title.toLowerCase().replace(/\s+/g, '-')}`}
-            variant="simple"
-          />
-        ))}
-      </WhoWeServeSection>
-
       {/* What We Self-Perform */}
       <Section size="major">
         <SectionHeader
@@ -289,27 +235,14 @@ const About = () => {
         </div>
       </Section>
 
-      {/* Our Vision */}
-      <Section size="major" maxWidth="narrow" className="bg-primary/5">
-        <Card variant="elevated" size="lg" className="text-center border-2 border-primary/20">
-          <h2 className="text-3xl md:text-5xl font-bold mb-4 tracking-tight">Ready to Discuss Your Project?</h2>
-          <p className="text-lg md:text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
-            Whether you need trade pricing for an active tender or want to discuss a restoration project, 
-            we're here to provide professional service and competitive rates.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button asChild size="lg">
-              <Link to="/contact">{CTA_TEXT.contact}</Link>
-            </Button>
-            <Button asChild variant="outline" size="lg">
-              <Link to="/services">View Services</Link>
-            </Button>
-            <Button asChild variant="outline" size="lg">
-              <Link to="/projects">View Projects</Link>
-            </Button>
-          </div>
-        </Card>
-      </Section>
+      {/* CTA with Markets bridge */}
+      <CTABand
+        title="Ready to Discuss Your Project?"
+        description="Whether you need trade pricing for an active tender or want to discuss a restoration project, we're here to help."
+        primaryCta={{ text: "Contact Us", href: "/contact" }}
+        secondaryCta={{ text: "Explore Our Markets", href: "/markets" }}
+        variant="dark"
+      />
 
       <Footer />
     </div>
