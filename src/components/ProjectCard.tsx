@@ -28,6 +28,10 @@ interface ProjectCardProps {
   on_time_completion?: boolean;
   on_budget?: boolean;
   safety_incidents?: number;
+  /** Client type badge (e.g. "Property Manager", "General Contractor") */
+  client_type?: string;
+  /** Short challenge one-liner */
+  challenge?: string;
 }
 
 const ProjectCard = ({
@@ -47,6 +51,8 @@ const ProjectCard = ({
   on_time_completion,
   on_budget,
   safety_incidents,
+  client_type,
+  challenge,
 }: ProjectCardProps) => {
   const [isHovered, setIsHovered] = useState(false);
 
@@ -111,8 +117,13 @@ const ProjectCard = ({
         </div>
         
         {/* GC Metrics Badges */}
-        {(project_value || your_role || on_time_completion !== undefined || on_budget !== undefined || safety_incidents !== undefined) && (
+        {(project_value || your_role || client_type || on_time_completion !== undefined || on_budget !== undefined || safety_incidents !== undefined) && (
           <div className="flex flex-wrap gap-1.5 mb-3">
+            {client_type && (
+              <Badge variant="outline" size="sm">
+                {client_type}
+              </Badge>
+            )}
             {formatProjectValue(project_value) && (
               <Badge variant="outline" size="sm">
                 {formatProjectValue(project_value)}
@@ -139,6 +150,10 @@ const ProjectCard = ({
               </Badge>
             )}
           </div>
+        )}
+
+        {challenge && (
+          <p className="text-sm italic text-muted-foreground line-clamp-1 mb-2">{challenge}</p>
         )}
         
         <p className="text-sm text-muted-foreground line-clamp-2">{description}</p>

@@ -6,6 +6,7 @@ import { EmailLink } from "@/components/EmailLink";
 import { PhoneLink } from "@/components/shared/PhoneLink";
 import { Card } from "@/design-system/components/Card";
 import { Section } from "@/components/sections/Section";
+import { OperationalProofBar, DEFAULT_PROOF_ITEMS } from "@/components/proof/OperationalProofBar";
 import { SectionHeader } from "@/design-system/components/SectionHeader";
 import { CapabilityCard } from "@/design-system/components/CapabilityCard";
 import { CardGrid } from "@/components/shared/CardGrid";
@@ -278,6 +279,18 @@ const ForGeneralContractors = () => {
             </Button>
           </Card>
         </Section>
+
+        {/* Operational Proof */}
+        <OperationalProofBar
+          items={[
+            DEFAULT_PROOF_ITEMS[0], // Self-Performed Scopes
+            DEFAULT_PROOF_ITEMS[3], // Schedule Coordination
+            DEFAULT_PROOF_ITEMS[4], // Documentation & Closeout
+            DEFAULT_PROOF_ITEMS[1], // WSIB & CGL
+          ]}
+          title="What We Bring to Your Project"
+          description="Operational capabilities that matter on-site"
+        />
 
         {/* Contact Section */}
         <Section size="major" maxWidth="narrow" className="scroll-mt-20" data-section="contact">

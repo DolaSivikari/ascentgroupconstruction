@@ -7,6 +7,7 @@ import { SectionHeader } from "@/design-system/components/SectionHeader";
 import { CapabilityCard } from "@/design-system/components/CapabilityCard";
 import { CTABand } from "@/design-system/components/CTABand";
 import { Card } from "@/design-system/components/Card";
+import { OperationalProofBar, DEFAULT_PROOF_ITEMS } from "@/components/proof/OperationalProofBar";
 import { Building2, TrendingUp, Users, Calendar, ShieldCheck, Timer, CreditCard } from "lucide-react";
 import { audienceHeroes } from "@/data/hero-images";
 
@@ -157,6 +158,18 @@ const PropertyManagers = () => {
             ))}
           </div>
         </Section>
+
+        {/* Operational Proof */}
+        <OperationalProofBar
+          items={[
+            DEFAULT_PROOF_ITEMS[2], // Occupied-Building Experience
+            DEFAULT_PROOF_ITEMS[4], // Documentation & Closeout
+            DEFAULT_PROOF_ITEMS[3], // Schedule Coordination
+            DEFAULT_PROOF_ITEMS[1], // WSIB & CGL
+          ]}
+          title="Why Property Managers Trust Us"
+          description="Operational capabilities built around occupied-building requirements"
+        />
 
         {/* CTA */}
         <CTABand

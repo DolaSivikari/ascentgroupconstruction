@@ -7,6 +7,7 @@ import { SectionHeader } from "@/design-system/components/SectionHeader";
 import { CapabilityCard } from "@/design-system/components/CapabilityCard";
 import { CTABand } from "@/design-system/components/CTABand";
 import { Card } from "@/design-system/components/Card";
+import { OperationalProofBar, DEFAULT_PROOF_ITEMS } from "@/components/proof/OperationalProofBar";
 import { Timer, ShieldCheck, Users, Moon, CheckCircle, Building2, Zap, ClipboardCheck, FileText, Wrench, FolderCheck } from "lucide-react";
 import { audienceHeroes } from "@/data/hero-images";
 
@@ -170,6 +171,18 @@ const CommercialClients = () => {
             ))}
           </div>
         </Section>
+
+        {/* Operational Proof */}
+        <OperationalProofBar
+          items={[
+            DEFAULT_PROOF_ITEMS[3], // Schedule Coordination
+            DEFAULT_PROOF_ITEMS[0], // Self-Performed Scopes
+            DEFAULT_PROOF_ITEMS[1], // WSIB & CGL
+            DEFAULT_PROOF_ITEMS[4], // Documentation & Closeout
+          ]}
+          title="Operational Standards"
+          description="Built for commercial project requirements"
+        />
 
         {/* CTA */}
         <CTABand

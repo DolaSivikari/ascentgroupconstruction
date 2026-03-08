@@ -1,7 +1,7 @@
-import { Card, CardContent } from "@/ui/Card";
+import { Card, CardContent } from "@/design-system/components/Card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/ui/Button";
-import { Quote, CheckCircle, TrendingUp, Users, ArrowRight } from "lucide-react";
+import { Quote, CheckCircle, TrendingUp, Users, ArrowRight, Clipboard, Settings, AlertTriangle } from "lucide-react";
 import { Link } from "react-router-dom";
 
 interface CaseStudyMetric {
@@ -35,6 +35,12 @@ interface ProjectCaseStudyProps {
   testimonial?: Testimonial;
   relatedProjects?: RelatedProject[];
   keyOutcomes?: string[];
+  /** Scope of work delivered — renders between Challenge and Solution */
+  scopeDelivered?: string;
+  /** How the project was executed — renders after Solution */
+  executionApproach?: string;
+  /** Project constraints — renders as badge list */
+  constraints?: string[];
 }
 
 export const ProjectCaseStudy = ({
@@ -44,7 +50,10 @@ export const ProjectCaseStudy = ({
   metrics = [],
   testimonial,
   relatedProjects = [],
-  keyOutcomes = []
+  keyOutcomes = [],
+  scopeDelivered,
+  executionApproach,
+  constraints = [],
 }: ProjectCaseStudyProps) => {
   return (
     <div className="space-y-12">
@@ -68,6 +77,45 @@ export const ProjectCaseStudy = ({
         </section>
       )}
 
+      {/* Scope Delivered — between Challenge and Solution */}
+      {scopeDelivered && (
+        <section>
+          <div className="flex items-center gap-3 mb-6">
+            <div className="p-3 rounded-lg bg-primary/10 border border-primary/20">
+              <Clipboard className="w-6 h-6 text-primary" />
+            </div>
+            <h2 className="text-3xl font-bold">Scope Delivered</h2>
+          </div>
+          <Card className="border-l-4 border-l-primary">
+            <CardContent className="p-6">
+              <div 
+                className="prose prose-lg max-w-none text-muted-foreground leading-relaxed"
+                dangerouslySetInnerHTML={{ __html: scopeDelivered }}
+              />
+            </CardContent>
+          </Card>
+        </section>
+      )}
+
+      {/* Constraints */}
+      {constraints.length > 0 && (
+        <section>
+          <div className="flex items-center gap-3 mb-6">
+            <div className="p-3 rounded-lg bg-muted border border-border">
+              <AlertTriangle className="w-6 h-6 text-muted-foreground" />
+            </div>
+            <h2 className="text-3xl font-bold">Project Constraints</h2>
+          </div>
+          <div className="flex flex-wrap gap-2">
+            {constraints.map((constraint, index) => (
+              <Badge key={index} variant="outline" className="text-sm py-1.5 px-3">
+                {constraint}
+              </Badge>
+            ))}
+          </div>
+        </section>
+      )}
+
       {/* Solution Section */}
       {solution && (
         <section>
@@ -82,6 +130,26 @@ export const ProjectCaseStudy = ({
               <div 
                 className="prose prose-lg max-w-none text-muted-foreground leading-relaxed"
                 dangerouslySetInnerHTML={{ __html: solution }}
+              />
+            </CardContent>
+          </Card>
+        </section>
+      )}
+
+      {/* Execution Approach — after Solution */}
+      {executionApproach && (
+        <section>
+          <div className="flex items-center gap-3 mb-6">
+            <div className="p-3 rounded-lg bg-secondary/10 border border-secondary/20">
+              <Settings className="w-6 h-6 text-secondary-foreground" />
+            </div>
+            <h2 className="text-3xl font-bold">Execution Approach</h2>
+          </div>
+          <Card className="border-l-4 border-l-secondary">
+            <CardContent className="p-6">
+              <div 
+                className="prose prose-lg max-w-none text-muted-foreground leading-relaxed"
+                dangerouslySetInnerHTML={{ __html: executionApproach }}
               />
             </CardContent>
           </Card>
@@ -174,7 +242,7 @@ export const ProjectCaseStudy = ({
                 <Quote className="w-12 h-12 text-accent flex-shrink-0 opacity-50" />
                 <div>
                   <p className="text-xl italic text-foreground leading-relaxed mb-6">
-                    "{testimonial.quote}"
+                    &ldquo;{testimonial.quote}&rdquo;
                   </p>
                   <div className="flex items-center gap-4">
                     {testimonial.image && (
