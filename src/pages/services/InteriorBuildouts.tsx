@@ -1,5 +1,5 @@
 import { Ruler, Layers, PaintBucket, Building2, CheckCircle2 } from 'lucide-react';
-import { UnifiedCard } from "@/components/shared/UnifiedCard";
+import { Card } from "@/design-system/components/Card";
 import { Section } from "@/components/sections/Section";
 import { ServicePageLayout } from "@/components/services/ServicePageLayout";
 import { createServiceSchema } from '@/utils/schema-injector';
