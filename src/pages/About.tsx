@@ -223,12 +223,10 @@ const About = () => {
 
       {/* What We Self-Perform */}
       <Section size="major">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-5xl font-bold mb-4 tracking-tight">What We Self-Perform</h2>
-          <p className="text-lg md:text-xl text-muted-foreground">
-            Each scope is planned for minimal disruption, clear sequencing, and documented QA/QC
-          </p>
-        </div>
+        <SectionHeader
+          title="What We Self-Perform"
+          description="Each scope is planned for minimal disruption, clear sequencing, and documented QA/QC"
+        />
 
         <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
           {services.map((service, index) => (
