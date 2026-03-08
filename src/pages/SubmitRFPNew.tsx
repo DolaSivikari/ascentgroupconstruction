@@ -24,9 +24,9 @@ import { PhoneLink } from "@/components/shared/PhoneLink";
 import { AscentEmailLink } from "@/components/EmailLink";
 
 export default function SubmitRFPNew() {
-  const navigate = useNavigate();
   const [currentStep, setCurrentStep] = useState(1);
   const [submitting, setSubmitting] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
 
   const form = useForm<RFPSubmission>({
     resolver: zodResolver(rfpSubmissionSchema),
