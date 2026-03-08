@@ -32,10 +32,10 @@ export const PremiumServiceHero = () => {
           </div>
 
           <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
-            Complete Construction <span className="text-primary-foreground/90">Solutions</span>
+            Envelope, Restoration & <span className="text-primary-foreground/90">Interior Trades</span>
           </h1>
           <p className="text-xl md:text-2xl lg:text-3xl mb-10 text-primary-foreground/90 max-w-3xl mx-auto">
-            From concept to completion, we deliver excellence across Ontario
+            Specialty trade expertise across the Greater Toronto Area
           </p>
 
           {/* Stats display */}
