@@ -1,5 +1,5 @@
 import { Building2, Shield, Layers, Wind, CheckCircle2 } from 'lucide-react';
-import { UnifiedCard } from "@/components/shared/UnifiedCard";
+import { Card } from "@/design-system/components/Card";
 import { Section } from "@/components/sections/Section";
 import { ServicePageLayout } from "@/components/services/ServicePageLayout";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
