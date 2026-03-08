@@ -122,7 +122,7 @@ export const generateLocalBusinessSchema = () => {
   
   return {
     "@context": "https://schema.org",
-    "@type": "GeneralContractor",
+    "@type": "HomeAndConstructionBusiness",
     "@id": `${siteUrl}/#localbusiness`,
     name: "Ascent Group Construction",
     image: `${siteUrl}/og-image.jpg`,
