@@ -4,7 +4,7 @@ import PageHero from "@/components/shared/PageHero";
 import SEO from "@/components/SEO";
 import { SectionHeader, SegmentCard, CTABand } from "@/design-system/components";
 import { Building2, Briefcase, Home, HardHat, Building } from "lucide-react";
-import { companyHeroes } from "@/data/hero-images";
+import { mainPageHeroes } from "@/data/hero-images";
 
 const segments = [
   {
