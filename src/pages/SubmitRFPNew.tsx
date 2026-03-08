@@ -192,6 +192,32 @@ export default function SubmitRFPNew() {
         ]}
       />
 
+      {submitted ? (
+        /* Success State */
+        <main className="flex-1 py-16">
+          <div className="container mx-auto px-4 max-w-2xl text-center animate-fade-in-up">
+            <div className="w-20 h-20 rounded-full bg-secondary/10 flex items-center justify-center mx-auto mb-6">
+              <CheckCircle2 className="w-10 h-10 text-secondary" />
+            </div>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-primary">Your RFP Has Been Submitted</h2>
+            <p className="text-lg text-muted-foreground mb-2 max-w-lg mx-auto">
+              Thank you for your proposal. Our team will review your project details and respond within 2 business days.
+            </p>
+            <p className="text-sm text-muted-foreground mb-8">
+              A confirmation has been sent to your email address.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Button asChild>
+                <Link to="/"><Home className="w-4 h-4 mr-2" />Return Home</Link>
+              </Button>
+              <Button asChild variant="secondary">
+                <Link to="/contact"><Phone className="w-4 h-4 mr-2" />Contact Us</Link>
+              </Button>
+            </div>
+          </div>
+        </main>
+      ) : (
+      <>
       {/* Enhanced Progress */}
       <section className="py-8 bg-background">
         <div className="container mx-auto px-4 max-w-4xl">
