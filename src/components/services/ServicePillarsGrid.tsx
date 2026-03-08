@@ -1,22 +1,20 @@
 import { Link } from "react-router-dom";
 import { Card } from "@/design-system/components/Card";
 import { Section } from "@/components/sections/Section";
-import { TYPOGRAPHY_STYLES } from "@/design-system/constants";
+import { SectionHeader } from "@/design-system/components/SectionHeader";
 import { ArrowRight } from "lucide-react";
 import { SERVICE_PILLARS } from "@/data/service-pillars";
 
 export const ServicePillarsGrid = () => {
   return (
     <Section size="major">
-      <div className="mb-12">
-        <p className={`${TYPOGRAPHY_STYLES.label} text-accent mb-3`}>What We Do</p>
-        <h2 className={`${TYPOGRAPHY_STYLES.sectionTitle} text-foreground mb-4`}>
-          Core Service Pillars
-        </h2>
-        <p className={`${TYPOGRAPHY_STYLES.bodyDefault} text-muted-foreground max-w-3xl`}>
-          Eight focused trade categories covering the building envelope, interior finishes, and renovation scopes we deliver across Ontario.
-        </p>
-      </div>
+      <SectionHeader
+        badge="What We Do"
+        title="Core Service Pillars"
+        description="Eight focused trade categories covering the building envelope, interior finishes, and renovation scopes we deliver across Ontario."
+        align="left"
+        maxWidth="lg"
+      />
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         {SERVICE_PILLARS.map((pillar) => {

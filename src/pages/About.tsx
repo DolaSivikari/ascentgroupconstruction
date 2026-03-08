@@ -240,12 +240,10 @@ const About = () => {
 
       {/* Our 5-Step Approach */}
       <Section size="major">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-5xl font-bold mb-4 tracking-tight">Our 5-Step Approach</h2>
-          <p className="text-lg md:text-xl text-muted-foreground">
-            A proven process for reliable project delivery
-          </p>
-        </div>
+        <SectionHeader
+          title="Our 5-Step Approach"
+          description="A proven process for reliable project delivery"
+        />
 
         <div className="space-y-6 max-w-5xl mx-auto">
           {processSteps.map((step, index) => (
