@@ -29,7 +29,6 @@ import CertificationsInsurance from "@/pages/company/CertificationsInsurance";
 import ContractorPortal from "@/pages/resources/ContractorPortal";
 import ServiceAreas from "@/pages/resources/ServiceAreas";
 import LocationPage from "@/pages/resources/LocationPage";
-import EquipmentResources from "@/pages/company/EquipmentResources";
 import TechnologyInnovation from "@/pages/company/TechnologyInnovation";
 import Developers from "@/pages/company/Developers";
 import ForGeneralContractors from "@/pages/ForGeneralContractors";
@@ -206,7 +205,7 @@ export const AppRoutes = () => (
     <Route path="/faq" element={<FAQ />} />
     <Route path="/tekev" element={<Auth />} />
     <Route path="/company/certifications-insurance" element={<CertificationsInsurance />} />
-    <Route path="/company/equipment-resources" element={<EquipmentResources />} />
+    <Route path="/company/equipment-resources" element={<Navigate to="/company/technology" replace />} />
     <Route path="/company/technology" element={<TechnologyInnovation />} />
     <Route path="/company/developers" element={<Developers />} />
     <Route path="/resources/contractor-portal" element={<ContractorPortal />} />

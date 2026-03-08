@@ -147,7 +147,7 @@ export const megaMenuDataEnhanced: MegaMenuDataEnhanced = {
             title: "Credentials",
             subItems: [
               { name: "Certifications & Insurance", link: "/company/certifications-insurance", description: "Credentials", icon: "Shield" },
-              { name: "Equipment & Resources", link: "/company/equipment-resources", description: "Our fleet", icon: "Wrench" },
+              { name: "Technology & Innovation", link: "/company/technology", description: "Our digital workflow", icon: "Laptop" },
               { name: "Service Areas", link: "/resources/service-areas", description: "Where we work", icon: "MapPin" },
             ],
           },

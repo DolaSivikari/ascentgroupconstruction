@@ -1,75 +1,92 @@
+# Project Improvement Plan — Ascent Group Construction
 
-# Phase 8 — Critical Truth, Cleanup, and Indexing
+## Completed Phases
 
-## Objective
-Remove the few remaining items that can actively undermine trust, fix indexing gaps, and neutralize inflated DB defaults. This phase incorporates strict delete-vs-redirect safety rules and ensures complete data schema updates.
+### Phase 2: Content Truth Hardening ✅
+Removed fabricated stats (98% satisfaction, 500+ projects, 25+ years), replaced with verifiable metrics ($2M CGL, WSIB compliant, 85% self-performed, 15+ team experience). Removed LEED consulting claims, unsupported "24/7" emergency claims, and inflated admin stat templates. Standardized "hundreds of projects" to team-career framing.
 
-## Files to Change (10)
+### Phase 3: Design System Foundation ✅
+Established canonical Card component (`@/design-system/components/Card`) and four card families (CapabilityCard, ProjectCard, ProofCard, SegmentCard). Created standardized layout patterns: SectionHeader, ProofStrip, CTABand. Consolidated spacing/grid tokens into `tokens.ts`.
 
-| File | Action |
-|---|---|
-| `src/routes/AppRoutes.tsx` | Replace `EquipmentResources` route with redirect to `/company/technology` |
-| `src/components/Navigation.tsx` | Replace `/company/equipment-resources` with `/company/technology` in prefetch list |
-| `src/data/navigation-structure-enhanced.ts` | Replace `/company/equipment-resources` link and label with "Technology & Innovation" |
-| `src/data/navigation-icons.ts` | Replace `/company/equipment-resources` key with `/company/technology` |
-| `src/routes/registry.ts` | Remove `/company/equipment-resources` from known routes |
-| `public/sitemap.xml` | Replace `/company/equipment-resources` with `/company/technology` |
-| `supabase/functions/generate-sitemap/index.ts` | Add `/company/technology`; remove `/company/equipment-resources` |
-| `src/pages/company/EquipmentResources.tsx` | **Delete** (only after confirming no remaining imports) |
-| `src/data/specialty-contractor-comparison.ts` | Clear fabricated testimonials array |
-| `src/pages/WhySpecialtyContractor.tsx` | Wrap entire testimonials Section in conditional to hide it completely when array is empty |
-| `src/components/partners/PartnerCaseStudies.tsx` | **Delete** (orphaned, fabricated data) |
-| `src/data/merged-services-data.ts` | Change "Design-build capabilities" to "Full-scope coordination" |
+### Phase 4: Service Page Architecture ✅
+Created `ServicePageTemplate` and `ServicePageLayout` components for consistent service page rendering. Migrated service pages to use design system components.
 
-**Database changes:**
-- **Schema Migration**: Alter default values for `homepage_settings` and `about_page_settings` to prevent inflated values on new rows.
-- **Row Updates**: Update existing rows in `homepage_settings` and `about_page_settings` to remove inflated defaults.
+### Phase 5: SEO & Structured Data ✅
+Added JSON-LD schemas, QuickFacts, PeopleAlsoAsk, ServiceAreaSection, DirectAnswer components. Implemented breadcrumb structured data across all pages.
 
-## Exact Changes
+### Phase 6: Navigation & Footer ✅
+Unified navigation with mega menu support. Created UnifiedFooter with database-driven content. Added route registry for known route validation.
 
-### 1. Database Defaults (Schema & Data)
-- **Migration**:
-  - `ALTER TABLE homepage_settings ALTER COLUMN value_prop_2 SET DEFAULT 'WSIB Compliant';`
-  - `ALTER TABLE homepage_settings ALTER COLUMN value_prop_3 SET DEFAULT 'Fully Insured';`
-  - `ALTER TABLE homepage_settings ALTER COLUMN hero_description SET DEFAULT 'Ascent Group Construction specializes in general contracting and construction management for commercial, institutional, and multi-family projects. We deliver quality results through transparent project management and proven construction methodologies.';`
-  - `ALTER TABLE about_page_settings ALTER COLUMN total_projects SET DEFAULT 0;`
-  - `ALTER TABLE about_page_settings ALTER COLUMN satisfaction_rate SET DEFAULT 0;`
-  - `ALTER TABLE about_page_settings ALTER COLUMN years_in_business SET DEFAULT 0;`
-- **Data Update**: Update any existing rows using the SQL insert/update tool to match these new non-inflated values.
+### Phase 7A: Conversion Architecture & Innovation Layer ✅
+- Standardized CTA text via `CTA_TEXT` constants across service/market pages
+- Added RFP file upload flow with `rfp-attachments` storage bucket
+- Created Technology & Innovation page (`/company/technology`) with truthful digital capability content
+- Fixed EstimatorStep0 role labels (gc → "General Contractor", added "Homeowner")
+- Replaced bespoke CTA sections with `CTABand` in ServicePageLayout, ServicePageTemplate
+- Migrated SubmitRFPNew and RFPStep4Scope from `@/ui/Card` to design-system Card
 
-### 2. Equipment Resources → Redirect & De-link Scope
-- **AppRoutes.tsx**: Replace `<Route path="/company/equipment-resources" element={<EquipmentResources />} />` with `<Route path="/company/equipment-resources" element={<Navigate to="/company/technology" replace />} />`.
-- **Navigation.tsx**: Swap `/company/equipment-resources` to `/company/technology` in the `prefetchRoutes` array.
-- **navigation-structure-enhanced.ts**: Update the Company mega-menu subItem `link: "/company/equipment-resources"` to `link: "/company/technology"`, `name: "Technology & Innovation"`, and `description: "Our digital workflow"`.
-- **navigation-icons.ts**: Update the key to `/company/technology` (icon: `'Laptop'`).
-- **registry.ts**: Remove `'/company/equipment-resources'` from `PUBLIC_ROUTE_PATTERNS`.
-- **public/sitemap.xml**: Change the `<loc>` from `equipment-resources` to `technology` and adjust `<lastmod>`.
-- **generate-sitemap/index.ts**: Replace `{ path: '/company/equipment-resources', ... }` with `{ path: '/company/technology', priority: '0.6', changefreq: 'monthly' }`.
-- **EquipmentResources.tsx**: **Delete** the file only after completing the above and verifying no remaining usages.
+### Phase 7B: Documentation & CTA Cleanup ✅
+- Added `/company/technology` to route registry
+- Replaced bespoke CTA in ServiceDetail.tsx with CTABand
+- Fixed "Start Your Project" → "Work With Us" in ForGeneralContractors.tsx
+- Documented future roadmap below
 
-### 3. Fabricated Testimonials on Why Specialty Contractor
-- **specialty-contractor-comparison.ts**: Replace the `testimonials` array with `[]` and add comment `// Real testimonials to be populated from DB when available`.
-- **WhySpecialtyContractor.tsx**: Wrap the entire testimonials `<Section>` in `{testimonials.length > 0 && (<Section>...</Section>)}` so the section heading and spacing are completely hidden when empty.
+---
 
-### 4. Delete PartnerCaseStudies.tsx
-- File is orphaned (not imported anywhere). Contains fabricated project data with fake LEED, satisfaction, and schedule metrics. Delete it.
+## Future Roadmap
 
-### 5. Minor Copy Fix
-- `merged-services-data.ts` line 290: "Design-build capabilities" → "Full-scope coordination".
+### R-1: Segmented Intake
+Role-based form field adaptation — estimate/RFP forms show different fields depending on visitor role (homeowner vs property manager vs GC). Extends existing EstimatorStep0 role selector.
 
-## What Will NOT Be Changed
-- No structural redesigns
-- No new pages or components
-- No admin panel changes
-- No CMS wiring changes (that is Phase 9)
-- No legacy Card migrations (that is Phase 10)
+### R-2: Remaining CTA/UI Cleanup
+- Migrate remaining `@/ui/Card` imports to `@/design-system/components/Card` (87 files, mostly admin)
+- Standardize footer/blog CTA text to match `CTA_TEXT` constants
+- Review ServiceSelector, PrequalPackage navigation labels
 
-## Checks
-1. Database migration successfully alters column defaults.
-2. `/company/equipment-resources` correctly redirects to `/company/technology`.
-3. Navigation mega-menu correctly links to `/company/technology` instead of equipment resources.
-4. Sitemap edge function and static sitemap include `/company/technology`, exclude `/company/equipment-resources`.
-5. WhySpecialtyContractor page completely hides the testimonials section (no empty heading/padding).
-6. No remaining import of `PartnerCaseStudies` or `EquipmentResources`.
-7. TypeScript build passes.
-8. No console errors on affected routes.
+### R-3: Feature Enhancements
+- Interactive service-area map widget
+- Project portfolio filters (by service, sector, year)
+- Simple estimator aids (square footage calculator)
+- Scope selector widget for estimate page
+
+### R-4: Security Hardening
+- Address 18 RLS policy warnings flagged by linter
+- Storage bucket audit (permissions, size limits)
+- Rate limiting on public form submissions
+
+### R-5: Content Population
+- Collect and enter real client testimonials
+- Publish initial blog posts with actual project content
+- Complete project case study data entry with real photos/outcomes
+
+### R-6: Analytics & Conversion
+- Conversion tracking on form submissions
+- A/B testing framework activation (tables exist, UI needed)
+- Form funnel analysis (drop-off rates per step)
+
+### R-7: EquipmentResources.tsx Deprecation
+Replace EquipmentResources page content or redirect to TechnologyInnovation page. Current page has unqualified tool claims (Procore, BIM 360, GPS Fleet Tracking, fleet size "25+").
+
+---
+
+## Manual Verification Checklist
+
+- [ ] Whether a staffed 24/7 emergency line actually exists
+- [ ] Whether partner case studies represent real projects
+- [ ] Whether a client portal actually exists and functions
+- [ ] Whether "10+ projects completed" is accurate as of current date
+- [ ] Actual current tool adoption: Bluebeam, Procore, BIM 360
+- [ ] RFP file upload flow works end-to-end (storage bucket RLS)
+- [ ] File size limits appropriate for construction drawings (20MB)
+
+## Content Claims Requiring Business Confirmation
+
+| Claim | Location | Status |
+|---|---|---|
+| 85% self-performed | Multiple pages | Periodic verification flagged |
+| 10-person crew | Multiple pages | Needs current headcount |
+| $2M CGL coverage | Trust bars, stats | Verifiable via certificate |
+| Working toward COR | FAQ, About | Confirm progress status |
+| Bluebeam for markups | TechnologyInnovation | Confirm active use |
+| Procore integration capability | TechnologyInnovation | Qualified as "when required" |
+| BIM workflow experience | TechnologyInnovation | Qualified as "team experience" |
