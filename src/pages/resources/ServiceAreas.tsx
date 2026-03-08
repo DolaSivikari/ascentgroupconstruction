@@ -20,17 +20,17 @@ const ServiceAreas = () => {
     {
       name: "Durham Region",
       cities: ["Pickering", "Ajax", "Whitby", "Oshawa"],
-      responseTime: "24-hour response",
+      responseTime: "Next business day response",
     },
     {
       name: "York Region",
       cities: ["Newmarket", "Aurora", "King City"],
-      responseTime: "24-hour response",
+      responseTime: "Next business day response",
     },
     {
       name: "Halton Region",
       cities: ["Oakville", "Burlington", "Milton"],
-      responseTime: "24-hour response",
+      responseTime: "Next business day response",
     },
   ];
 
