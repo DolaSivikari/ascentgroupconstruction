@@ -2053,6 +2053,7 @@ export type Database = {
         Row: {
           additional_requirements: string | null
           admin_notes: string | null
+          attachment_urls: string[] | null
           bonding_required: boolean | null
           company_name: string
           consent_ip: string | null
@@ -2082,6 +2083,7 @@ export type Database = {
         Insert: {
           additional_requirements?: string | null
           admin_notes?: string | null
+          attachment_urls?: string[] | null
           bonding_required?: boolean | null
           company_name: string
           consent_ip?: string | null
@@ -2111,6 +2113,7 @@ export type Database = {
         Update: {
           additional_requirements?: string | null
           admin_notes?: string | null
+          attachment_urls?: string[] | null
           bonding_required?: boolean | null
           company_name?: string
           consent_ip?: string | null

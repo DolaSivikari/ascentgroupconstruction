@@ -30,6 +30,7 @@ import ContractorPortal from "@/pages/resources/ContractorPortal";
 import ServiceAreas from "@/pages/resources/ServiceAreas";
 import LocationPage from "@/pages/resources/LocationPage";
 import EquipmentResources from "@/pages/company/EquipmentResources";
+import TechnologyInnovation from "@/pages/company/TechnologyInnovation";
 import Developers from "@/pages/company/Developers";
 import ForGeneralContractors from "@/pages/ForGeneralContractors";
 import SubmitRFPNew from "@/pages/SubmitRFPNew";
@@ -206,6 +207,7 @@ export const AppRoutes = () => (
     <Route path="/tekev" element={<Auth />} />
     <Route path="/company/certifications-insurance" element={<CertificationsInsurance />} />
     <Route path="/company/equipment-resources" element={<EquipmentResources />} />
+    <Route path="/company/technology" element={<TechnologyInnovation />} />
     <Route path="/company/developers" element={<Developers />} />
     <Route path="/resources/contractor-portal" element={<ContractorPortal />} />
     <Route path="/resources/service-areas" element={<ServiceAreas />} />

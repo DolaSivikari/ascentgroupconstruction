@@ -6,7 +6,7 @@ import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
 import { Button } from "@/ui/Button";
-import { Card, CardContent } from "@/ui/Card";
+import { Card, CardContent } from "@/design-system/components/Card";
 import { Progress } from "@/components/ui/progress";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
@@ -27,6 +27,7 @@ export default function SubmitRFPNew() {
   const [currentStep, setCurrentStep] = useState(1);
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [attachmentFiles, setAttachmentFiles] = useState<File[]>([]);
 
   const form = useForm<RFPSubmission>({
     resolver: zodResolver(rfpSubmissionSchema),
@@ -96,10 +97,38 @@ export default function SubmitRFPNew() {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
+  const uploadAttachments = async (): Promise<string[]> => {
+    if (attachmentFiles.length === 0) return [];
+
+    const uploadedUrls: string[] = [];
+
+    for (const file of attachmentFiles) {
+      const timestamp = Date.now();
+      const safeName = file.name.replace(/[^a-zA-Z0-9._-]/g, "_");
+      const filePath = `${timestamp}-${safeName}`;
+
+      const { error } = await supabase.storage
+        .from("rfp-attachments")
+        .upload(filePath, file);
+
+      if (error) {
+        console.error("File upload error:", error);
+        continue;
+      }
+
+      uploadedUrls.push(filePath);
+    }
+
+    return uploadedUrls;
+  };
+
   const handleSubmit = async (data: RFPSubmission) => {
     setSubmitting(true);
 
     try {
+      // Upload attachments first
+      const attachmentUrls = await uploadAttachments();
+
       // Insert RFP submission with required fields
       const submissionData = {
         company_name: data.company_name,
@@ -121,6 +150,7 @@ export default function SubmitRFPNew() {
         plans_available: data.plans_available,
         site_visit_required: data.site_visit_required,
         consent_timestamp: new Date().toISOString(),
+        attachment_urls: attachmentUrls.length > 0 ? attachmentUrls : undefined,
       };
 
       const { error: insertError } = await supabase
@@ -193,7 +223,7 @@ export default function SubmitRFPNew() {
       />
 
       {submitted ? (
-        /* Success State */
+        /* Success State — in-place, no redirect */
         <main className="flex-1 py-16">
           <div className="container mx-auto px-4 max-w-2xl text-center animate-fade-in-up">
             <div className="w-20 h-20 rounded-full bg-secondary/10 flex items-center justify-center mx-auto mb-6">
@@ -203,6 +233,11 @@ export default function SubmitRFPNew() {
             <p className="text-lg text-muted-foreground mb-2 max-w-lg mx-auto">
               Thank you for your proposal. Our team will review your project details and respond within 2 business days.
             </p>
+            {attachmentFiles.length > 0 && (
+              <p className="text-sm text-muted-foreground mb-2">
+                {attachmentFiles.length} file{attachmentFiles.length > 1 ? "s" : ""} uploaded successfully.
+              </p>
+            )}
             <p className="text-sm text-muted-foreground mb-8">
               A confirmation has been sent to your email address.
             </p>
@@ -242,7 +277,11 @@ export default function SubmitRFPNew() {
         <div className="container mx-auto px-4 max-w-4xl">
           {/* Form */}
           <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-6 animate-fade-in-up">
-            <CurrentStepComponent form={form} />
+            {currentStep === 4 ? (
+              <RFPStep4Scope form={form} onFilesChange={setAttachmentFiles} />
+            ) : (
+              <CurrentStepComponent form={form} />
+            )}
 
             {/* Navigation Buttons */}
             <Card>

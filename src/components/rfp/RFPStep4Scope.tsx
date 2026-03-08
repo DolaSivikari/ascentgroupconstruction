@@ -2,16 +2,18 @@ import { UseFormReturn } from "react-hook-form";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Card, CardContent } from "@/ui/Card";
-import { FileText, Clipboard, Eye, MapPin } from "lucide-react";
+import { Card, CardContent } from "@/design-system/components/Card";
+import { FileText, Clipboard, MapPin, Upload } from "lucide-react";
 import { Link } from "react-router-dom";
 import { RFPSubmission } from "@/schemas/rfp-validation";
+import { FileUploadZone } from "@/components/forms/FileUploadZone";
 
 interface RFPStep4ScopeProps {
   form: UseFormReturn<RFPSubmission>;
+  onFilesChange?: (files: File[]) => void;
 }
 
-export const RFPStep4Scope = ({ form }: RFPStep4ScopeProps) => {
+export const RFPStep4Scope = ({ form, onFilesChange }: RFPStep4ScopeProps) => {
   const { register, setValue, watch, formState: { errors } } = form;
   
   const plansAvailable = watch("plans_available");
@@ -96,6 +98,25 @@ export const RFPStep4Scope = ({ form }: RFPStep4ScopeProps) => {
               </p>
             </div>
           </div>
+
+          {/* Conditional file upload when plans are available */}
+          {plansAvailable && onFilesChange && (
+            <div className="ml-6 animate-fade-in">
+              <div className="flex items-center gap-2 mb-3">
+                <Upload className="w-4 h-4 text-primary" />
+                <Label className="text-sm font-medium">Upload Drawings & Specifications</Label>
+              </div>
+              <FileUploadZone
+                onFilesChange={onFilesChange}
+                maxFiles={5}
+                maxSizeMB={20}
+                acceptedTypes={["application/pdf", ".doc", ".docx", ".dwg", "image/*"]}
+              />
+              <p className="text-xs text-muted-foreground mt-2">
+                Accepted formats: PDF, DOC, DOCX, DWG, and image files. Max 20MB per file.
+              </p>
+            </div>
+          )}
 
           <div className="flex items-start gap-3">
             <Checkbox 
