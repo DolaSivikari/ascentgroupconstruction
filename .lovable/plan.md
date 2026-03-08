@@ -1,85 +1,92 @@
+# Project Improvement Plan — Ascent Group Construction
 
+## Completed Phases
 
-# Phase 7B — Documentation, CTA Cleanup, and Future Roadmap
+### Phase 2: Content Truth Hardening ✅
+Removed fabricated stats (98% satisfaction, 500+ projects, 25+ years), replaced with verifiable metrics ($2M CGL, WSIB compliant, 85% self-performed, 15+ team experience). Removed LEED consulting claims, unsupported "24/7" emergency claims, and inflated admin stat templates. Standardized "hundreds of projects" to team-career framing.
 
-## Summary
+### Phase 3: Design System Foundation ✅
+Established canonical Card component (`@/design-system/components/Card`) and four card families (CapabilityCard, ProjectCard, ProofCard, SegmentCard). Created standardized layout patterns: SectionHeader, ProofStrip, CTABand. Consolidated spacing/grid tokens into `tokens.ts`.
 
-Phase 7B is primarily a **documentation and cleanup phase**, not a feature build. It delivers three things:
+### Phase 4: Service Page Architecture ✅
+Created `ServicePageTemplate` and `ServicePageLayout` components for consistent service page rendering. Migrated service pages to use design system components.
 
-1. **Update `.lovable/plan.md`** with Phase 3-7A completion records and a structured future roadmap
-2. **Clean up remaining CTA inconsistencies** that Phase 7A missed (6 files still use "Start Your Project" in public-facing components)
-3. **Add `/company/technology` to the route registry** (missed in 7A)
-4. **Replace the bespoke CTA in `ServiceDetail.tsx`** with `CTABand` (missed in 7A)
+### Phase 5: SEO & Structured Data ✅
+Added JSON-LD schemas, QuickFacts, PeopleAlsoAsk, ServiceAreaSection, DirectAnswer components. Implemented breadcrumb structured data across all pages.
 
-## Files to Change (4)
+### Phase 6: Navigation & Footer ✅
+Unified navigation with mega menu support. Created UnifiedFooter with database-driven content. Added route registry for known route validation.
 
-| File | Action |
-|---|---|
-| `.lovable/plan.md` | Full rewrite — document Phases 3-7A completion, add structured future roadmap |
-| `src/routes/registry.ts` | Add `/company/technology` to `PUBLIC_ROUTE_PATTERNS` |
-| `src/pages/ServiceDetail.tsx` | Replace bespoke CTA section (lines 392-423) with `CTABand` |
-| `src/pages/ForGeneralContractors.tsx` | Change "Start Your Project" heading to "Work With Us" |
+### Phase 7A: Conversion Architecture & Innovation Layer ✅
+- Standardized CTA text via `CTA_TEXT` constants across service/market pages
+- Added RFP file upload flow with `rfp-attachments` storage bucket
+- Created Technology & Innovation page (`/company/technology`) with truthful digital capability content
+- Fixed EstimatorStep0 role labels (gc → "General Contractor", added "Homeowner")
+- Replaced bespoke CTA sections with `CTABand` in ServicePageLayout, ServicePageTemplate
+- Migrated SubmitRFPNew and RFPStep4Scope from `@/ui/Card` to design-system Card
 
-## Issues Found
+### Phase 7B: Documentation & CTA Cleanup ✅
+- Added `/company/technology` to route registry
+- Replaced bespoke CTA in ServiceDetail.tsx with CTABand
+- Fixed "Start Your Project" → "Work With Us" in ForGeneralContractors.tsx
+- Documented future roadmap below
 
-1. **`plan.md`** still only contains Phase 2 — Phases 3-7A are undocumented
-2. **`registry.ts`** missing `/company/technology` route added in 7A
-3. **`ServiceDetail.tsx`** lines 392-410 still has a bespoke gradient CTA with "Ready to Start Your Project?" — was not migrated to `CTABand`
-4. **`ForGeneralContractors.tsx`** line 298 still says "Start Your Project" as a section heading for the GC contact area — should be "Work With Us" or "Get in Touch"
-5. **Remaining "Start Your Project" in footer, PrequalPackage, ServiceSelector, BlogPost, ServiceAreas, PartnerCaseStudies** — these are lower priority (footer is branding, PartnerCaseStudies is not rendered, others are navigation labels). Document as future cleanup, not this phase.
+---
 
-## Exact Changes
+## Future Roadmap
 
-### 1. `.lovable/plan.md` — Full Rewrite
+### R-1: Segmented Intake
+Role-based form field adaptation — estimate/RFP forms show different fields depending on visitor role (homeowner vs property manager vs GC). Extends existing EstimatorStep0 role selector.
 
-Replace Phase 2-only content with a structured document covering:
-- **Completed phases summary** (Phase 2-7A, one paragraph each with key outcomes)
-- **Future roadmap** organized into:
-  - **7B-1: Segmented Intake** — role-based form field adaptation (estimate/RFP forms show different fields per visitor role)
-  - **7B-2: Remaining CTA/UI Cleanup** — migrate remaining 87 files from `@/ui/Card` to design-system (admin files low priority); footer/blog CTA text
-  - **7B-3: Feature Enhancements** — scope selector widget, service-area map, project filters, simple estimator aids
-  - **7B-4: Security Hardening** — 18 RLS policy warnings, storage bucket audit
-  - **7B-5: Content Population** — testimonials, blog posts, project case study data entry
-  - **7B-6: Analytics & Conversion** — conversion tracking, A/B testing, form funnel analysis
-  - **7B-7: EquipmentResources.tsx Deprecation** — replace with link to TechnologyInnovation page
-- **Manual verification checklist** (items flagged across phases)
-- **Content claims requiring business confirmation**
+### R-2: Remaining CTA/UI Cleanup
+- Migrate remaining `@/ui/Card` imports to `@/design-system/components/Card` (87 files, mostly admin)
+- Standardize footer/blog CTA text to match `CTA_TEXT` constants
+- Review ServiceSelector, PrequalPackage navigation labels
 
-### 2. `registry.ts` — Add Missing Route
+### R-3: Feature Enhancements
+- Interactive service-area map widget
+- Project portfolio filters (by service, sector, year)
+- Simple estimator aids (square footage calculator)
+- Scope selector widget for estimate page
 
-Add `'/company/technology'` to `PUBLIC_ROUTE_PATTERNS`.
+### R-4: Security Hardening
+- Address 18 RLS policy warnings flagged by linter
+- Storage bucket audit (permissions, size limits)
+- Rate limiting on public form submissions
 
-### 3. `ServiceDetail.tsx` — Replace Bespoke CTA
+### R-5: Content Population
+- Collect and enter real client testimonials
+- Publish initial blog posts with actual project content
+- Complete project case study data entry with real photos/outcomes
 
-Replace lines 392-423 (gradient section with manual buttons) with:
-```tsx
-<CTABand
-  title="Ready to Discuss Your Project?"
-  description="Get a detailed proposal from our team"
-  primaryCta={{ text: CTA_TEXT.project, href: "/estimate" }}
-  secondaryCta={{ text: CTA_TEXT.contact, href: "/contact" }}
-  variant="dark"
-/>
-```
+### R-6: Analytics & Conversion
+- Conversion tracking on form submissions
+- A/B testing framework activation (tables exist, UI needed)
+- Form funnel analysis (drop-off rates per step)
 
-### 4. `ForGeneralContractors.tsx` — Fix Section Heading
+### R-7: EquipmentResources.tsx Deprecation
+Replace EquipmentResources page content or redirect to TechnologyInnovation page. Current page has unqualified tool claims (Procore, BIM 360, GPS Fleet Tracking, fleet size "25+").
 
-Line 298: "Start Your Project" → "Work With Us"
+---
 
-## What Will NOT Be Changed
+## Manual Verification Checklist
 
-- **87 files with `@/ui/Card`** — most are admin components; full migration is documented as future work, not this phase
-- **Footer "Start Your Project"** — this is a branded section label in the footer layout; documented for future review
-- **`ServiceSelector.tsx`** — navigation label, not a CTA band
-- **`BlogPost.tsx`** — low-traffic CTA; documented for future cleanup
-- **No new features** — this phase is documentation + residual cleanup only
+- [ ] Whether a staffed 24/7 emergency line actually exists
+- [ ] Whether partner case studies represent real projects
+- [ ] Whether a client portal actually exists and functions
+- [ ] Whether "10+ projects completed" is accurate as of current date
+- [ ] Actual current tool adoption: Bluebeam, Procore, BIM 360
+- [ ] RFP file upload flow works end-to-end (storage bucket RLS)
+- [ ] File size limits appropriate for construction drawings (20MB)
 
-## Checks
+## Content Claims Requiring Business Confirmation
 
-1. TypeScript build passes
-2. `/company/technology` appears in route registry
-3. `ServiceDetail.tsx` uses `CTABand` instead of bespoke gradient CTA
-4. `ForGeneralContractors.tsx` no longer says "Start Your Project"
-5. `plan.md` contains structured roadmap with all phases documented
-6. No console errors on modified pages
-
+| Claim | Location | Status |
+|---|---|---|
+| 85% self-performed | Multiple pages | Periodic verification flagged |
+| 10-person crew | Multiple pages | Needs current headcount |
+| $2M CGL coverage | Trust bars, stats | Verifiable via certificate |
+| Working toward COR | FAQ, About | Confirm progress status |
+| Bluebeam for markups | TechnologyInnovation | Confirm active use |
+| Procore integration capability | TechnologyInnovation | Qualified as "when required" |
+| BIM workflow experience | TechnologyInnovation | Qualified as "team experience" |

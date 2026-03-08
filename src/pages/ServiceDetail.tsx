@@ -14,6 +14,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { sanitizeAndValidate } from "@/utils/sanitize";
 import QuickFacts from "@/components/seo/QuickFacts";
 import { CTA_TEXT } from "@/design-system/constants";
+import { CTABand } from "@/design-system/components/CTABand";
 import PeopleAlsoAsk from "@/components/seo/PeopleAlsoAsk";
 import ServiceAreaSection from "@/components/seo/ServiceAreaSection";
 import DirectAnswer from "@/components/seo/DirectAnswer";
@@ -389,30 +390,13 @@ const ServiceDetail = () => {
           </section>
         )}
 
-        {/* CTA Section */}
-        <section className="py-16 bg-gradient-to-br from-primary to-primary/80">
-          <div className="container mx-auto px-4">
-            <div className="max-w-4xl mx-auto text-center text-white">
-              <h2 className="text-4xl font-bold mb-4">Ready to Start Your Project?</h2>
-              <p className="text-xl mb-8 opacity-90">
-                Get a free, no-obligation estimate for your project
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button size="lg" variant="secondary" asChild>
-                  <Link to="/estimate">
-                    {CTA_TEXT.project}
-                  </Link>
-                </Button>
-                <Button size="lg" variant="outline" className="border-[hsl(var(--bg))] text-[hsl(var(--bg))] hover:bg-[hsl(var(--bg))] hover:text-[hsl(var(--brand-primary))]" asChild>
-                  <Link to="/contact">
-                    <Phone className="mr-2 w-5 h-5" />
-                    Contact Us
-                  </Link>
-                </Button>
-              </div>
-            </div>
-          </div>
-        </section>
+        <CTABand
+          title="Ready to Discuss Your Project?"
+          description="Get a detailed proposal from our team"
+          primaryCta={{ text: CTA_TEXT.project, href: "/estimate" }}
+          secondaryCta={{ text: CTA_TEXT.contact, href: "/contact" }}
+          variant="dark"
+        />
       </main>
       
       <Footer />
