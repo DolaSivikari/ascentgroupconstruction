@@ -8,6 +8,7 @@ import { Button } from "@/ui/Button";
 import { Section } from "@/components/sections/Section";
 import { ArrowRight } from "lucide-react";
 import { RelatedServices } from "./RelatedServices";
+import { CTABand } from "@/design-system/components/CTABand";
 import { CTA_TEXT } from "@/design-system/constants";
 
 interface ServicePageLayoutProps {
