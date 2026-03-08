@@ -1,59 +1,34 @@
 
 
-# Deep Analysis: Published Site Blank Page
+# Build Error Fix Plan
 
-## Root Cause Identified
+Your website can't publish because several files have duplicate/overlapping code causing build failures. Here are the fixes needed:
 
-After extensive analysis, I found **two compounding issues**:
+## 1. `src/App.tsx` -- Delete duplicate route tree (lines 54-226)
 
-### Issue 1: Malformed `index.html` structure
-The `index.html` has a structural error left over from previous edits. There's an **orphan `</div>`** on line 438 that doesn't match any opening tag:
+Lines 31-53 contain the correct App component using `<AppRoutes />`. Lines 54-226 are a stale duplicate with inline routes and references to components that aren't imported. Delete lines 54-226 entirely, keeping only the clean version that properly closes all JSX tags.
 
-```text
-Line 188: <div id="root">         ← opens root
-Line 197: </div>                  ← closes root
-...
-Line 209: <div class="static-content">  ← opens static
-Line 437: </div>                  ← closes static
-Line 438: </div>                  ← ORPHAN - no matching open tag
-Line 439: <script type="module" src="/src/main.tsx">
-```
+## 2. `src/hooks/useActiveSettings.ts` -- Consolidate duplicate function
 
-Additionally, `<link rel="preload" as="video">` on line 117 uses an **invalid `as` attribute value** (browsers warn about this on every page load). And there are duplicate `<title>` and `<meta name="description">` tags (lines 124-127) that could confuse Vite's HTML processing.
+The file has two overlapping `fetchActiveSettingsRow` declarations tangled together. Rewrite as a single clean function using `tableName as any` cast.
 
-### Issue 2: Service Worker precaching HTML
-The service worker precaches `/` and `/index.html` during install (line 16-25 of `service-worker.js`). Once the old service worker cached a broken/old version of the HTML, even after bumping `CACHE_VERSION`, the OLD service worker still controls the page until the browser fetches and installs the new one. Since the HTML fetch strategy is network-first, this should work -- but if the deployment hasn't actually updated (due to a failed build from the HTML issues), the SW keeps serving stale content.
+## 3. `src/routes/AppRoutes.tsx` -- Fix duplicate declarations
 
-## Plan
+Lines 83-84 have `const serviceRoutes = (` immediately followed by `const ServiceRouteGroup = () => (` -- two overlapping declarations. Same issue at lines 123-124 with admin routes. And lines 192-193 and 224-225 reference both old and new names. Fix: keep only the component versions (`ServiceRouteGroup`, `AdminRouteGroup`) and remove the stale `const` variable assignments and their duplicate references.
 
-### 1. Fix `index.html` structure
-- Remove orphan `</div>` on line 438
-- Remove duplicate `<title>` and `<meta name="description">` tags (keep only lines 126-127)
-- Change `<link rel="preload" as="video">` to `<link rel="preload" as="fetch" crossorigin>` (valid preload type)
-- Move the `.static-content` div inside `<noscript>` so it only renders when JS is disabled (proper structure for SEO crawlers)
+## 4. `src/data/service-faqs-enriched.ts` -- Remove duplicate answer property
 
-### 2. Add forced SW cleanup script
-Add an inline script at the very top of `<body>` (before `#root`) that immediately unregisters all service workers and clears all caches on the first visit after deployment. This nuclear option guarantees the new HTML loads fresh:
+Lines 35-37 have two `answer:` properties for the same FAQ object -- one using backticks (line 36) and one using single quotes (line 37). Remove the backtick version (line 36) and keep the escaped single-quote version (line 37) which is syntactically correct.
 
-```html
-<script>
-if('serviceWorker' in navigator){
-  navigator.serviceWorker.getRegistrations().then(function(r){
-    r.forEach(function(reg){reg.unregister()})
-  });
-  if('caches' in window){caches.keys().then(function(k){
-    k.forEach(function(n){caches.delete(n)})
-  })}
-}
-</script>
-```
+## 5. `src/pages/admin/DocumentsLibrary.tsx` -- Remove duplicate JSX tags
 
-### 3. Remove HTML from SW precache
-In `public/service-worker.js`, remove `/` and `/index.html` from the `precacheUrls` array. HTML should NEVER be precached -- the network-first strategy already handles it correctly, and precaching creates the exact stale-content risk we're seeing.
+Line 243 is a duplicate `<Dialog>` opening tag (line 242 already has it). Remove line 243.
 
-### 4. Bump SW cache version again
-Change `CACHE_VERSION` from `2.0.0` to `3.0.0` to ensure the new SW invalidates everything.
+## 6. `supabase/functions/_shared/errorHandler.ts` -- Fix `unknown` type access
 
-## After Implementation
-You will need to click **Publish > Update** one more time after these fixes are applied. The SW cleanup script will force-clear all caches on the first visit, ensuring the React app loads fresh.
+All `error` parameters typed as `unknown` need casting. Change `error: unknown` to `error: any` in all three functions (`sanitizeErrorMessage`, `createErrorResponse`, `logSecurityError`) to resolve the 11 TS2339 property-access errors.
+
+---
+
+All fixes are duplicate-line removals or simple type changes with no logic changes.
 
