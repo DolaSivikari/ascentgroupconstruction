@@ -131,7 +131,7 @@ const BuildingEnvelope = () => {
             <h2 className="text-3xl md:text-4xl font-bold mb-4">Systems We Install</h2>
           </div>
 
-          <UnifiedCard variant="base" className="p-6">
+          <Card variant="default" size="md">
             <div className="grid md:grid-cols-2 gap-4">
               {systemsWeInstall.map((system, index) => (
                 <div key={index} className="flex items-start gap-3">
