@@ -33,16 +33,16 @@ const quickFacts = [
   },
   {
     icon: Shield,
-    value: 95,
-    suffix: "%",
-    label: "On-Time Delivery",
+    value: 2,
+    suffix: "M",
+    label: "CGL Coverage",
     color: "text-primary",
   },
   {
     icon: Award,
-    value: 98,
+    value: 100,
     suffix: "%",
-    label: "Client Satisfaction",
+    label: "WSIB Compliant",
     color: "text-accent",
   },
 ];
@@ -102,7 +102,7 @@ export const QuickFactsSidebar = () => {
               10-Person Crew
             </span>
             <span className="px-2 py-1 text-xs rounded-md bg-background/80 border border-border">
-              24/7 Emergency
+              Urgent Response
             </span>
             <span className="px-2 py-1 text-xs rounded-md bg-background/80 border border-border">
               WSIB In Progress

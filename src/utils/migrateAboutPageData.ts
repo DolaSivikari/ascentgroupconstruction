@@ -36,16 +36,16 @@ export const migrateAboutPageSettings = async () => {
         story_content: [
           {
             type: "paragraph",
-            content: "Founded in 2009, Ascent Group Construction has grown from a small local contractor to one of Ontario's most trusted construction management firms. Our journey has been built on a foundation of integrity, excellence, and a deep commitment to our clients' success."
+            content: "Ascent Group Construction was established in 2025 by construction professionals with 15+ years of combined experience in building envelope and interior trades work across the Greater Toronto Area."
           },
           {
             type: "paragraph",
-            content: "Today, we specialize in commercial, multi-family, and institutional projects, bringing together experienced professionals who share our passion for quality construction and innovative solutions."
+            content: "We specialize in building envelope restoration, EIFS/stucco systems, masonry, waterproofing, and interior finishing for commercial, multi-family, and institutional properties."
           }
         ],
         years_in_business: 15,
-        total_projects: 500,
-        satisfaction_rate: 98,
+        total_projects: 10,
+        satisfaction_rate: null,
         values: [
           {
             title: "Integrity",
@@ -83,7 +83,7 @@ export const migrateAboutPageSettings = async () => {
         sustainability_headline: "Sustainability Commitment",
         sustainability_commitment: "We're dedicated to sustainable building practices that reduce environmental impact while delivering long-term value for our clients and communities.",
         sustainability_initiatives: [
-          { title: "Green Building", description: "LEED-certified construction expertise" },
+          { title: "Sustainable Practices", description: "Energy-efficient envelope systems and low-VOC materials" },
           { title: "Waste Reduction", description: "Comprehensive recycling and waste management programs" },
           { title: "Energy Efficiency", description: "Integration of energy-efficient systems and materials" }
         ],
@@ -106,15 +106,15 @@ export const migrateAboutPageSettings = async () => {
         faq_items: [
           {
             question: "What types of projects do you specialize in?",
-            answer: "We specialize in commercial, multi-family residential, and institutional projects including office buildings, retail spaces, apartment complexes, schools, and healthcare facilities."
+            answer: "We specialize in building envelope restoration, EIFS/stucco, masonry, waterproofing, protective coatings, and interior finishing for commercial, multi-family, and institutional properties."
           },
           {
             question: "What is your typical project timeline?",
             answer: "Project timelines vary based on scope and complexity. We provide detailed schedules during the planning phase and maintain transparent communication throughout the construction process."
           },
           {
-            question: "Do you offer design-build services?",
-            answer: "Yes, we offer comprehensive design-build services, working with trusted architects and engineers to deliver integrated project solutions from concept to completion."
+            question: "What contract types do you work with?",
+            answer: "We work with lump sum, cost-plus, unit price, and time & materials contracts depending on the project scope and client preference."
           }
         ],
         is_active: true

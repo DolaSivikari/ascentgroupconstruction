@@ -33,7 +33,7 @@ const FAQ = () => {
       questions: [
         {
           question: "How long has Ascent Group Construction been in business?",
-          answer: "Ascent Group Construction was established in 2025 by construction professionals with 15+ years of combined experience in building envelope and interior trades work. While we're a new company, our team brings proven expertise from hundreds of highrise and commercial projects across the Greater Toronto Area."
+          answer: "Ascent Group Construction was established in 2025 by construction professionals with 15+ years of combined experience in building envelope and interior trades work. While we're a new company, our team members bring hands-on expertise from a wide range of highrise and commercial projects across the Greater Toronto Area."
         },
         {
           question: "What areas do you serve in Ontario?",
@@ -99,7 +99,7 @@ const FAQ = () => {
         },
         {
           question: "Can you work evenings or weekends to avoid disrupting my business?",
-          answer: "Yes! We offer flexible scheduling for commercial clients including after-hours (6PM-6AM), weekends, and holiday work. After-hours work incurs a 20-30% premium but ensures zero disruption to your operations. We've painted hundreds of businesses without impacting their hours."
+          answer: "Yes! We offer flexible scheduling for commercial clients including after-hours (6PM-6AM), weekends, and holiday work. After-hours work incurs a 20-30% premium but ensures zero disruption to your operations. Our team members have extensive experience working after-hours in occupied commercial buildings across the GTA."
         },
         {
           question: "Do I need to move furniture before you start?",
@@ -118,7 +118,7 @@ const FAQ = () => {
       questions: [
         {
           question: "What brands and materials do you use?",
-          answer: "We use commercial-grade materials from trusted suppliers including Benjamin Moore paints, Sherwin-Williams coatings, Dryvit EIFS systems, Hardie siding, and industry-leading building envelope products. We select materials based on your project requirements, durability needs, and budget. All products meet or exceed Ontario Building Code standards."
+          answer: "We use commercial-grade materials from trusted suppliers including Benjamin Moore paints, Sherwin-Williams coatings, Dryvit EIFS systems, Hardie siding, and trusted building envelope products. We select materials based on your project requirements, durability needs, and budget. All products meet or exceed Ontario Building Code standards."
         },
         {
           question: "Can I choose my own paint colors?",
@@ -207,11 +207,11 @@ const FAQ = () => {
       questions: [
         {
           question: "Do you have WSIB coverage?",
-          answer: "Yes, we maintain full WSIB (Workplace Safety & Insurance Board) clearance for all employees and subcontractors. We provide updated clearance certificates with every project proposal. Our WSIB account is in good standing with zero outstanding claims."
+          answer: "Yes, we maintain full WSIB (Workplace Safety & Insurance Board) clearance for all employees and subcontractors. We provide updated clearance certificates with every project proposal. Our WSIB account is in good standing."
         },
         {
           question: "What safety certifications does your team have?",
-          answer: "Our team holds: COR (Certificate of Recognition), JHSC (Joint Health & Safety Committee) certification, Working at Heights certification, WHMIS 2015, Fall Protection, Confined Space Entry, and First Aid/CPR. We conduct monthly safety training and maintain perfect safety record."
+          answer: "Our team is working toward COR (Certificate of Recognition) certification. Team members hold: JHSC (Joint Health & Safety Committee) certification, Working at Heights certification, WHMIS 2015, Fall Protection, Confined Space Entry, and First Aid/CPR. We conduct regular safety training and maintain strong safety protocols on every project."
         },
         {
           question: "How do you handle lead paint in older buildings?",

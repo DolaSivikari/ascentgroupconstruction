@@ -129,18 +129,11 @@ const contractTypes = [
     bestFor: "Sealant replacement, window installation, floor coatings"
   },
   {
-    name: "Construction Management (CM)",
-    description: "We manage all trades and subcontractors on your behalf for a fee (typically 3-8% of construction value).",
-    pros: ["Expert oversight", "Single point of contact", "Schedule & quality control"],
-    cons: ["Additional fee layer", "Client still holds contracts", "Requires active involvement"],
-    bestFor: "Large commercial projects, multi-trade coordination, owner-led developments"
-  },
-  {
-    name: "Design-Build",
-    description: "Single contract for both design and construction. Ascent Group handles everything from concept to completion.",
-    pros: ["Streamlined process", "Single accountability", "Faster project delivery"],
-    cons: ["Less competitive bidding", "Client has less design control", "Harder to compare pricing"],
-    bestFor: "Turnkey solutions, facade upgrades, building envelope restoration"
+    name: "Time & Materials (T&M)",
+    description: "Hourly labor rates plus material costs. Best for small or exploratory scopes where full scope isn't known upfront.",
+    pros: ["Flexible scope", "No upfront scope commitment", "Pay for actual work done"],
+    cons: ["Less budget certainty", "Requires trust and oversight", "Can be more expensive if scope grows"],
+    bestFor: "Investigation work, small repairs, emergency response, exploratory scopes"
   }
 ];
 
@@ -185,13 +178,13 @@ const communicationReporting = [
     icon: "📸"
   },
   {
-    title: "Client Portal Access",
-    description: "Online dashboard to view schedules, invoices, change orders, and project documents.",
+    title: "Project Documentation",
+    description: "Project documents shared via secure cloud folders—schedules, invoices, change orders, and reports.",
     icon: "💻"
   },
   {
     title: "Emergency Contact",
-    description: "24/7 emergency line for urgent issues (water infiltration, safety concerns).",
+    description: "Emergency contact available for urgent issues (water infiltration, safety concerns).",
     icon: "🚨"
   }
 ];
@@ -231,7 +224,7 @@ const faqs = [
   },
   {
     question: "Can you work evenings or weekends for commercial projects?",
-    answer: "Absolutely! We offer flexible scheduling including after-hours (6PM-6AM), weekends, and holiday work for commercial clients to minimize business disruption. After-hours work incurs a 20-30% premium but ensures zero impact on your operations. We've completed hundreds of commercial projects this way."
+    answer: "Absolutely! We offer flexible scheduling including after-hours (6PM-6AM), weekends, and holiday work for commercial clients to minimize business disruption. After-hours work incurs a 20-30% premium but ensures zero impact on your operations. Our team members bring experience from a wide range of commercial after-hours projects across the GTA."
   },
   {
     question: "What happens if I'm not satisfied with the work?",

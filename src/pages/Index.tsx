@@ -48,7 +48,7 @@ const Index = () => {
 
   const whatDoesAscentDo = createQASchema(
     "What services does Ascent Group Construction provide?",
-    "Ascent Group Construction is a specialty contractor for building envelope and restoration across Ontario. We deliver complete cladding systems (metal panels, EIFS, stucco), building envelope solutions, masonry restoration, protective coatings, interior construction, painting services, tile & flooring, and sustainable building solutions including LEED consulting. With self-performed core trades and 15+ years of experience, we serve developers, property managers, and building owners across Toronto and the GTA."
+    "Ascent Group Construction is a specialty contractor for building envelope and restoration across Ontario. We deliver complete cladding systems (metal panels, EIFS, stucco), building envelope solutions, masonry restoration, protective coatings, interior construction, painting services, tile & flooring, and sustainable building practices. With self-performed core trades and 15+ years of team experience, we serve developers, property managers, and building owners across Toronto and the GTA."
   );
 
   const specialtyContractorSchema = {
@@ -71,8 +71,8 @@ const Index = () => {
     "knowsAbout": [
       "building envelope systems", "cladding systems", "metal panels", "EIFS and stucco",
       "masonry restoration", "protective coatings", "interior construction", "painting services",
-      "tile and flooring", "sustainable building", "LEED consulting", "commercial construction",
-      "multi-family construction",
+      "tile and flooring", "sustainable building practices", "energy-efficient envelope systems",
+      "commercial construction", "multi-family construction",
     ],
   };
 
@@ -83,7 +83,7 @@ const Index = () => {
     "description": "Key reasons to choose Ascent Group Construction for your Toronto and GTA construction projects",
     "itemListElement": [
       { "@type": "ListItem", "position": 1, "name": "Licensed Construction Excellence Across Ontario", "description": "Fully licensed and insured with $2M CGL liability coverage, active WSIB registration, working toward COR certification." },
-      { "@type": "ListItem", "position": 2, "name": "Comprehensive Construction Services Under One Roof", "description": "Complete construction services including masonry repair, EIFS installation, metal cladding, and parking garage restoration." },
+      { "@type": "ListItem", "position": 2, "name": "Specialty Trade Services", "description": "Envelope and interior trade services including masonry repair, EIFS installation, metal cladding, and parking garage restoration." },
       { "@type": "ListItem", "position": 3, "name": "Premium Materials & Manufacturer Warranties", "description": "Benjamin Moore and Sherwin-Williams authorized contractor using premium materials backed by extended warranties." },
     ],
   };

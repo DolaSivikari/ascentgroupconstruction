@@ -27,31 +27,30 @@ export const PremiumServiceHero = () => {
             </div>
             <div className="flex items-center gap-2 bg-primary-foreground/10 backdrop-blur-sm px-4 py-2 rounded-full border border-primary-foreground/20">
               <Clock className="w-4 h-4" />
-              <span className="text-sm font-medium">24/7 Support</span>
+              <span className="text-sm font-medium">Responsive Support</span>
             </div>
           </div>
 
           <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
-            Complete Construction <span className="text-primary-foreground/90">Solutions</span>
+            Envelope, Restoration & <span className="text-primary-foreground/90">Interior Trades</span>
           </h1>
           <p className="text-xl md:text-2xl lg:text-3xl mb-10 text-primary-foreground/90 max-w-3xl mx-auto">
-            From concept to completion, we deliver excellence across Ontario
+            Specialty trade expertise across the Greater Toronto Area
           </p>
 
           {/* Stats display */}
           <div className="flex flex-wrap justify-center gap-8 mb-12">
             <div className="text-center">
-              <div className="text-4xl md:text-5xl font-bold mb-2">2025</div>
-              <div className="text-sm text-muted-foreground uppercase tracking-wider">Established</div>
-              <div className="text-sm md:text-base text-primary-foreground/80">Projects Completed</div>
+              <div className="text-4xl md:text-5xl font-bold mb-2">15+</div>
+              <div className="text-sm md:text-base text-primary-foreground/80">Years Team Experience</div>
             </div>
             <div className="text-center">
-              <div className="text-4xl md:text-5xl font-bold mb-2">98%</div>
-              <div className="text-sm md:text-base text-primary-foreground/80">Client Satisfaction</div>
+              <div className="text-4xl md:text-5xl font-bold mb-2">85%</div>
+              <div className="text-sm md:text-base text-primary-foreground/80">Self-Performed Work</div>
             </div>
             <div className="text-center">
-              <div className="text-4xl md:text-5xl font-bold mb-2">25+</div>
-              <div className="text-sm md:text-base text-primary-foreground/80">Years Experience</div>
+              <div className="text-4xl md:text-5xl font-bold mb-2">$2M</div>
+              <div className="text-sm md:text-base text-primary-foreground/80">CGL Coverage</div>
             </div>
           </div>
 

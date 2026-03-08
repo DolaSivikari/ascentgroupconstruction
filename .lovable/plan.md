@@ -1,174 +1,91 @@
+# Phase 2: Content Truth Hardening — Complete
 
+## Files Changed (22 files)
 
-# Phase 2 — Content Truth Hardening (Revised Plan)
+| File | Changes |
+|---|---|
+| `src/components/homepage/InteractiveCTA.tsx` | Removed 98% story card → replaced with $2M CGL; headline → "Your Envelope, Restoration & Trades Partner"; "24/7 Support" → "Responsive Support" |
+| `src/components/services/PremiumServiceHero.tsx` | H1 → "Envelope, Restoration & Interior Trades"; stats: removed 98%/25+, replaced with 15+/85%/$2M; "24/7 Support" → "Responsive Support" |
+| `src/components/homepage/QuickFactsSidebar.tsx` | Removed 95% on-time → $2M CGL Coverage; removed 98% satisfaction → 100% WSIB Compliant; "24/7 Emergency" → "Urgent Response" |
+| `src/components/homepage/WhyChooseUs.tsx` | "Comprehensive Services" → "Envelope & Trades Expertise"; "21+ Service Offerings" → "Self-Performed Core Scopes"; "industry-leading brands" → "trusted manufacturer brands"; removed 95% on-time claim |
+| `src/components/seo/DirectAnswer.tsx` | "Ontario's Trusted Construction Partner" → "GTA Specialty Contractor"; "Ontario's complete construction partner" → specialty contractor description |
+| `src/components/services/ServiceStats.tsx` | "24/7 Emergency Response" → "Rapid Response Available" |
+| `src/components/services/ServicesTrustBar.tsx` | "Ontario-Wide Coverage" → "GTA & Southern Ontario" |
+| `src/components/contact/PremiumContactHero.tsx` | "Available 24/7" → "Responsive & Available" |
+| `src/pages/OurProcess.tsx` | Removed CM and Design-Build contract types; added T&M; "Client Portal Access" → "Project Documentation" via cloud folders; "24/7 emergency line" → "Emergency contact for urgent issues"; fixed "hundreds of" |
+| `src/pages/FAQ.tsx` | "Our team holds COR" → "working toward COR"; "perfect safety record" → "strong safety protocols"; "zero outstanding claims" → "good standing with WSIB"; fixed "hundreds of" (×2); "industry-leading" → "trusted" |
+| `src/pages/Homeowners.tsx` | "worked on hundreds of" → "brings hands-on experience from a wide range of" |
+| `src/pages/About.tsx` | "delivered hundreds of" → "bring hands-on experience from a wide range of" |
+| `src/pages/Index.tsx` | Removed "LEED consulting" from schema; "Comprehensive Services Under One Roof" → "Specialty Trade Services" |
+| `src/pages/Contact.tsx` | Removed `<PartnerCaseStudies>` import and render |
+| `src/pages/services/SustainableBuilding.tsx` | Full rewrite: removed LEED consulting, Passive House, Green Globes claims; replaced with energy-efficient envelope, sustainable materials, waste diversion |
+| `src/pages/resources/ServiceAreas.tsx` | Outer regions "24-hour response" → "Next business day response"; "Available 24/7 within GTA core" → "Available for urgent repairs within GTA core for active leaks and envelope failures" |
+| `src/utils/migrateHomepageData.ts` | "Ontario's Trusted General Contractor" → "Building Envelope & Restoration Specialists"; removed "500+ Projects", "98% Client Satisfaction"; "Award-winning general contractor" → specialty contractor description |
+| `src/utils/migrateAboutPageData.ts` | Fixed story content, total_projects 500→10, satisfaction_rate 98→null; "LEED-certified construction expertise" → "Sustainable Practices"; removed design-build FAQ |
+| `src/pages/admin/StatsManager.tsx` | Replaced 8 inflated templates ($50M, 500+, 50+ trades, 98%) with 6 realistic ones (15+ yrs, 85% self-perform, $2M CGL, 10+ crew, 10+ projects, 100% WSIB) |
+| `src/data/enriched-company-content.ts` | Standardized 3 "hundreds of" instances to team-career framing |
+| `src/data/service-faqs-enriched.ts` | Fixed "95% on-time" claims, "24/7" references, "hundreds of" language, "100+ envelope failures" claim |
+| `src/utils/personalization.ts` | "24/7 Emergency Service Available" → "Urgent Response Available for Active Issues" |
 
-## Revised Issues & File List
-
-### A. Fabricated Stats (HIGH)
-
-| Claim | Files | Action |
-|---|---|---|
-| 98% Client Satisfaction | `InteractiveCTA.tsx` L35, `PremiumServiceHero.tsx` L49 | Remove story card; replace stat |
-| 95% On-Time Delivery | `QuickFactsSidebar.tsx` L37, `WhyChooseUs.tsx` L12 fallback | Remove/replace with verifiable item |
-| 25+ Years Experience | `PremiumServiceHero.tsx` L53 | Fix to 15+ (team experience) |
-| 500+ Projects, "Award-winning GC" | `migrateHomepageData.ts` L33-44, L98-110 | Fix seed data |
-| $50M+, 500+ Projects, 50+ Trades, 98% templates | `StatsManager.tsx` L135-143 | Replace with realistic templates |
-
-### B. Fabricated Partner Case Studies (HIGH)
-
-`PartnerCaseStudies.tsx` — three detailed case studies with fabricated dollar values, LEED Gold, zero-incident claims. Used on Contact page only.
-
-**Action:** Remove `<PartnerCaseStudies>` from `Contact.tsx`. Keep component file but do not render it publicly. This is safer than trying to rewrite fabricated projects into "representative scenarios" — that still risks trust damage. The component can be re-enabled later if real case studies are added.
-
-### C. Unsupported LEED/Sustainable Building Page (HIGH)
-
-`SustainableBuilding.tsx` is a full public service page claiming LEED consulting, certification support, Passive House, Green Globes — none verifiable.
-
-**Action:** Rewrite the page to focus on what Ascent actually does: energy-efficient envelope assemblies, sustainable material sourcing, waste diversion practices. Remove all LEED consulting/certification claims. Remove Passive House and Green Globes certification claims. Keep "sustainable building practices" as an honest capability framing.
-
-Also fix LEED references in:
-- `Index.tsx` L51, L74 — schema QA answer and knowsAbout
-- `migrateAboutPageData.ts` L86 — "LEED-certified construction expertise" seed data
-
-### D. "Hundreds of" Projects — Standardized Fix (MEDIUM)
-
-Appears in 6 files. Standard replacement pattern: **"Our team members bring hands-on experience from a wide range of envelope, restoration, and interior trades projects across the GTA"** — clearly attributing to team career history, not Ascent's company portfolio.
-
-| File | Line | Current | Fix |
-|---|---|---|---|
-| `About.tsx` L184 | "Our team has delivered hundreds of..." | Rewrite with standard pattern |
-| `Homeowners.tsx` L126 | "worked on hundreds of residential..." | Rewrite with standard pattern |
-| `FAQ.tsx` L36 | "hundreds of highrise and commercial..." | Rewrite with standard pattern |
-| `FAQ.tsx` L102 | "painted hundreds of businesses" | Rewrite with standard pattern |
-| `OurProcess.tsx` L234 | "completed hundreds of commercial projects" | Rewrite with standard pattern |
-| `enriched-company-content.ts` L20, L59, L92 | Multiple "hundreds of" | Rewrite with standard pattern |
-
-### E. 24/7 Emergency Claims — Remove Unless Operationally Real (MEDIUM)
-
-Appears in 7 surfaces. Since we cannot verify a staffed 24/7 line, **remove all "24/7" claims** and replace with honest language:
-
-| File | Current | Replacement |
-|---|---|---|
-| `ServiceStats.tsx` L27 | "24/7" Emergency Response | "Rapid" Response Available |
-| `PremiumServiceHero.tsx` L30 | "24/7 Support" badge | "Responsive Support" |
-| `QuickFactsSidebar.tsx` L105 | "24/7 Emergency" credential | "Urgent Response" |
-| `InteractiveCTA.tsx` L224 | "24/7 Support" | "Responsive Support" |
-| `PremiumContactHero.tsx` L33 | "Available 24/7" badge | "Responsive & Available" |
-| `OurProcess.tsx` L194 | "24/7 emergency line" | "Emergency contact for urgent issues" |
-| `ServiceAreas.tsx` L177 | "Available 24/7 within GTA core" | "Available for urgent repairs within GTA core" |
-
-### F. Overclaiming Headlines & Copy (MEDIUM)
-
-| File | Current | Fix |
-|---|---|---|
-| `PremiumServiceHero.tsx` L35 | "Complete Construction Solutions" | "Envelope, Restoration & Interior Trades" |
-| `PremiumServiceHero.tsx` L38 | "From concept to completion, we deliver excellence across Ontario" | "Specialty trade expertise across the Greater Toronto Area" |
-| `DirectAnswer.tsx` L28 | "Ontario's Trusted Construction Partner" | "GTA Specialty Contractor" |
-| `DirectAnswer.tsx` L35 | "Ontario's complete construction partner" | "a specialty contractor for building envelope, restoration, and interior trades in the Greater Toronto Area" |
-| `InteractiveCTA.tsx` L164 | "Your Construction Partner For Success" | "Your Envelope, Restoration & Trades Partner" |
-| `WhyChooseUs.tsx` L10 fallback | "21+ Service Offerings" | Remove stats badge |
-| `WhyChooseUs.tsx` L11 fallback | "industry-leading brands" | "trusted manufacturer brands" |
-| `Index.tsx` L86 | "Comprehensive Services Under One Roof" schema | "Specialty Trade Services" |
-
-### G. Safety/Certification Overclaims (MEDIUM)
-
-| File | Current | Fix |
-|---|---|---|
-| `FAQ.tsx` L214 | "Our team holds COR" | "Our team is working toward COR certification" |
-| `FAQ.tsx` L214 | "maintain perfect safety record" | "maintain strong safety protocols" |
-| `FAQ.tsx` L210 | "zero outstanding claims" | "good standing with WSIB" |
-
-### H. Contract Types Still on OurProcess (MEDIUM)
-
-`OurProcess.tsx` L132-144 still lists "Construction Management (CM)" and "Design-Build" as available contract types — removed from estimator in Phase 1 but still visible here.
-
-**Action:** Remove CM and Design-Build entries. Keep Lump Sum, Cost Plus, Unit Price, T&M.
-
-### I. Client Portal Claim (LOW)
-
-`OurProcess.tsx` L189 — "Online dashboard to view schedules, invoices, change orders" — cannot verify this exists.
-
-**Action:** Replace with "Project documentation shared via secure cloud folders" — which is already described elsewhere and is credibly deliverable.
-
-### J. Response Time Claims (LOW)
-
-`ServiceAreas.tsx` L23/28/33 — "24-hour response" for Durham/York/Halton regions.
-
-**Action:** Change to "Next business day response" for outer regions. Keep "Same-day service available" for GTA Core as that is more defensible.
-
----
-
-## Complete Revised File List (19 files)
-
-| # | File | Changes |
-|---|---|---|
-| 1 | `src/components/homepage/QuickFactsSidebar.tsx` | Remove 95% on-time, 98% satisfaction; replace with verifiable items; "Urgent Response" not "24/7" |
-| 2 | `src/components/homepage/InteractiveCTA.tsx` | Remove 98% story card; soften headline; remove 24/7 |
-| 3 | `src/components/services/PremiumServiceHero.tsx` | Fix H1, stats (remove 98%, fix 25+→15+), remove 24/7 badge |
-| 4 | `src/components/homepage/WhyChooseUs.tsx` | Fix fallback: remove 95%, "industry-leading", "21+" |
-| 5 | `src/components/seo/DirectAnswer.tsx` | Rewrite to specialty contractor positioning |
-| 6 | `src/components/services/ServiceStats.tsx` | "24/7" → "Rapid" |
-| 7 | `src/components/services/ServicesTrustBar.tsx` | "Ontario-Wide" → "GTA & Southern Ontario" |
-| 8 | `src/components/contact/PremiumContactHero.tsx` | "Available 24/7" → "Responsive & Available" |
-| 9 | `src/pages/OurProcess.tsx` | Remove CM/Design-Build contracts; fix Client Portal claim; fix "hundreds"; fix 24/7 |
-| 10 | `src/pages/FAQ.tsx` | Fix COR, "perfect safety", "zero claims", "hundreds" |
-| 11 | `src/pages/Homeowners.tsx` | Standardize "hundreds" language |
-| 12 | `src/pages/About.tsx` | Standardize "hundreds" language |
-| 13 | `src/pages/Index.tsx` | Remove "LEED consulting" from schema; fix "Comprehensive Services" |
-| 14 | `src/pages/Contact.tsx` | Remove `<PartnerCaseStudies>` import and render |
-| 15 | `src/pages/services/SustainableBuilding.tsx` | Remove LEED/certification claims; rewrite to honest envelope sustainability focus |
-| 16 | `src/pages/resources/ServiceAreas.tsx` | Remove 24/7; soften outer-region response times |
-| 17 | `src/utils/migrateHomepageData.ts` | Fix seed data: remove 500+, 98%, GC, Award-winning |
-| 18 | `src/utils/migrateAboutPageData.ts` | Remove "LEED-certified construction expertise" |
-| 19 | `src/pages/admin/StatsManager.tsx` | Replace inflated templates with realistic values |
-| 20 | `src/data/enriched-company-content.ts` | Standardize "hundreds" language (3 instances) |
-
-## Intentionally Left Untouched
-
-- **`PartnerCaseStudies.tsx` component file** — kept in codebase but removed from public rendering. Can be re-enabled with real projects later.
-- **`ForGeneralContractors.tsx`** — accurately describes subcontractor relationship
-- **`specialty-contractor-comparison.ts`** — educational comparison data, not claiming GC status
-- **Individual service detail pages** (masonry, EIFS, cladding, etc.) — describe actual trade capabilities accurately
-- **Legal pages** (Privacy, Terms) — reviewed, no false claims found
-- **Contact page structure** — only removing PartnerCaseStudies, rest is accurate
-- **Navigation links to `/services/sustainable-building`** — page stays but with honest content; no route removal needed
-
-## Claims That Can Stay
+## Claims Intentionally Left Because Evidence Supports Them
 
 | Claim | Basis |
 |---|---|
 | 15+ years (team/leadership experience) | Founder career history |
-| 10+ projects completed | Modest, plausible for 2025 company |
+| 10+ projects completed | Modest, plausible |
 | $2M CGL coverage | Stated consistently, verifiable |
-| WSIB compliant | Consistently stated, clearance certs referenced |
-| "Working toward COR" | Honest aspirational framing |
-| 85% self-performed | Previously flagged for periodic verification |
+| WSIB compliant | Consistently stated |
+| "Working toward COR" | Honest aspirational |
+| 85% self-performed | Periodic verification flagged |
 | 10-person crew | Consistent |
 | GTA service area | Supported by city list |
-| Benjamin Moore / Sherwin-Williams | Manufacturer relationships stated consistently |
+| Benjamin Moore / Sherwin-Williams | Manufacturer relationships |
 
-Note on "10+ projects completed": this appears in `ServiceStats.tsx` and `QuickFactsSidebar.tsx`. It is modest enough to be plausible but cannot be independently verified from code. Leaving it because understating is better than overstating, and removing it would leave a gap. If the operator knows this is wrong, it should be corrected.
+## Intentionally Left Untouched
 
-## Checks After Implementation
+- `PartnerCaseStudies.tsx` component file — kept in codebase, removed from public rendering
+- `ForGeneralContractors.tsx` — accurate subcontractor description
+- `specialty-contractor-comparison.ts` — educational data
+- Individual service detail pages — describe actual capabilities
+- Legal pages — no false claims
+- Navigation links to `/services/sustainable-building` — page stays with honest content
 
-1. Grep for remaining "98%" in public-facing files
-2. Grep for remaining "95%" on-time claims
-3. Grep for "500+" project claims
-4. Grep for "LEED consulting" in public content/schema
-5. Grep for "complete construction" in headlines
-6. Grep for "industry-leading" in public copy
-7. Grep for "perfect safety" / "zero claims"
-8. Grep for "24/7" in public-facing components
-9. Grep for "hundreds of" — verify all instances use standardized team-career framing
-10. Verify `PartnerCaseStudies` is not rendered on any public page
-11. Verify `SustainableBuilding.tsx` no longer claims LEED consulting
-12. TypeScript build check
-13. Console error check
+## Checks Run
 
-## What Requires Manual Verification
+- [x] Grep "98%" — only in PartnerCaseStudies (not rendered) and tailwind config (CSS)
+- [x] Grep "95%" — only in OurProcess closeout process (legitimate "95%+ completion" threshold), service-faqs (fixed), CSS values
+- [x] Grep "500+" — only in admin placeholders (text, not values) and FAQ "3,500+ colors" (legitimate)
+- [x] Grep "LEED consulting" — zero matches ✅
+- [x] Grep "industry-leading" — zero matches in public components ✅
+- [x] Grep "perfect safety" — zero matches ✅
+- [x] Grep "24/7" — zero matches in public components ✅
+- [x] Grep "hundreds of" — zero matches in public components ✅
+- [x] PartnerCaseStudies not rendered on any public page ✅
+- [x] SustainableBuilding.tsx no longer claims LEED consulting ✅
+- [x] Build passes ✅
+- [x] Console: pre-existing forwardRef warning only (not related to Phase 2) ✅
 
-- Whether the 24/7 emergency line is actually staffed (if yes, claims can be restored)
-- Whether the partner case studies represent real projects (if yes, component can be re-enabled)
+## What Still Requires Manual Verification
+
+- Whether a staffed 24/7 emergency line actually exists (if yes, claims can be restored)
+- Whether partner case studies represent real projects (if yes, component can be re-enabled with real data)
 - Whether a client portal actually exists and functions
 - Whether "10+ projects completed" is accurate as of current date
 
+## Merge Readiness: ✅ READY
+
+**Suggested PR title:** `feat: Phase 2 — Content truth hardening`
+
+**Suggested PR description:**
+Hardens all public-facing messaging for accuracy and supportability:
+- Remove fabricated stats (98% satisfaction, 95% on-time, 500+ projects, 25+ years)
+- Replace with verifiable metrics ($2M CGL, WSIB compliant, 85% self-performed, 15+ team experience)
+- Remove PartnerCaseStudies from Contact page (fabricated case studies with fake budgets/outcomes)
+- Rewrite SustainableBuilding page: remove LEED consulting, Passive House, Green Globes claims; focus on energy-efficient envelope and sustainable materials
+- Remove CM and Design-Build contract types from OurProcess
+- Standardize "hundreds of projects" → team-career framing across 8 files
+- Remove all unsupported "24/7" emergency claims across 9 surfaces
+- Fix COR/safety overclaims: "holds COR" → "working toward", "perfect safety record" → "strong protocols"
+- Fix geographic overclaim: "Ontario-Wide" → "GTA & Southern Ontario"
+- Fix seed data in migrateHomepageData and migrateAboutPageData
+- Replace inflated admin stat templates with realistic values

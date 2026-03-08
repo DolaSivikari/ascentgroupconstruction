@@ -30,18 +30,18 @@ export const migrateHomepageSettings = async () => {
     const { error } = await supabase
       .from("homepage_settings")
       .insert([{
-        headline: "Ontario's Trusted General Contractor",
-        subheadline: "Delivering commercial, multi-family, and institutional projects on-time and on-budget since 2009",
-        hero_description: "With 15+ years of construction management expertise across Ontario, Ascent Group Construction specializes in design-build, general contracting, and construction management for commercial, institutional, and multi-family projects.",
+        headline: "Building Envelope & Restoration Specialists",
+        subheadline: "Specialty contractor delivering envelope, restoration, and interior trade services across the GTA",
+        hero_description: "With 15+ years of combined team experience across Ontario, Ascent Group Construction specializes in building envelope restoration, EIFS/stucco, masonry, waterproofing, and interior trades for commercial, institutional, and multi-family projects.",
         cta_primary_text: "Submit RFP",
         cta_primary_url: "/submit-rfp",
         cta_secondary_text: "Request Proposal",
         cta_secondary_url: "/contact",
         cta_tertiary_text: "View Projects",
         cta_tertiary_url: "/projects",
-        value_prop_1: "Licensed & Bonded",
-        value_prop_2: "500+ Projects Completed",
-        value_prop_3: "98% Client Satisfaction",
+        value_prop_1: "Licensed & Insured",
+        value_prop_2: "$2M CGL Coverage",
+        value_prop_3: "WSIB Compliant",
         is_active: true
       }]);
 
@@ -95,16 +95,16 @@ export const migrateHeroSlides = async () => {
     const { error } = await supabase
       .from("hero_slides")
       .insert([{
-        headline: "Building Ontario's Future",
-        subheadline: "Excellence in Commercial & Institutional Construction",
-        description: "Award-winning general contractor specializing in design-build, construction management, and comprehensive project delivery across Ontario.",
+        headline: "Envelope, Restoration & Interior Trades",
+        subheadline: "Specialty Contractor for the Greater Toronto Area",
+        description: "Specialty contractor delivering building envelope restoration, EIFS, masonry, waterproofing, and interior trades across the GTA. 15+ years of team experience, 85% self-performed.",
         primary_cta_text: "Submit RFP",
         primary_cta_url: "/submit-rfp",
         primary_cta_icon: "FileText",
         secondary_cta_text: "View Projects",
         secondary_cta_url: "/projects",
-        stat_number: "500+",
-        stat_label: "Projects Completed",
+        stat_number: "15+",
+        stat_label: "Years Team Experience",
         display_order: 0,
         is_active: true
       }]);
