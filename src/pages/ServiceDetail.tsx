@@ -14,6 +14,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { sanitizeAndValidate } from "@/utils/sanitize";
 import QuickFacts from "@/components/seo/QuickFacts";
 import { CTA_TEXT } from "@/design-system/constants";
+import { CTABand } from "@/design-system/components/CTABand";
 import PeopleAlsoAsk from "@/components/seo/PeopleAlsoAsk";
 import ServiceAreaSection from "@/components/seo/ServiceAreaSection";
 import DirectAnswer from "@/components/seo/DirectAnswer";

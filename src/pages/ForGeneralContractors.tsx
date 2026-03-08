@@ -295,7 +295,7 @@ const ForGeneralContractors = () => {
         {/* Contact Section */}
         <Section size="major" maxWidth="narrow" className="scroll-mt-20" data-section="contact">
           <SectionHeader
-            title="Start Your Project"
+            title="Work With Us"
             description="Add us to your bidders list or request unit pricing on active tenders"
           />
 
