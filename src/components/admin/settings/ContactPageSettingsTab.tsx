@@ -79,7 +79,7 @@ export const ContactPageSettingsTab = () => {
               <Input
                 value={formData.main_phone || ""}
                 onChange={(e) => setFormData({ ...formData, main_phone: e.target.value })}
-                placeholder="(555) 123-4567"
+                placeholder="(647) 528-6804"
               />
             </div>
             <div>
