@@ -300,7 +300,7 @@ const ServiceDetail = () => {
                 <h2 className="text-3xl font-bold mb-8">Typical Applications</h2>
                 <div className="grid md:grid-cols-2 gap-6">
                   {service.typical_applications.map((app, index) => (
-                    <Card key={index}>
+                    <Card key={index} className="p-0">
                       <CardContent className="p-6">
                         <p className="text-muted-foreground">{app}</p>
                       </CardContent>
