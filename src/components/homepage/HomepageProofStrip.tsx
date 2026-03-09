@@ -1,105 +1,30 @@
-import { Shield } from "lucide-react";
-import { useScrollFadeIn } from "@/hooks/useScrollFadeIn";
-import { useCountUpOnView } from "@/hooks/useCountUpOnView";
-import { useStaggerAnimation } from "@/hooks/useStaggerAnimation";
-import { useReducedMotion } from "@/hooks/useReducedMotion";
+import { Shield, Users, Award } from "lucide-react";
+
+const stats = [
+  { icon: Shield, value: "$2M Insured", label: "CGL Coverage" },
+  { icon: Users, value: "15+ Years", label: "Crew Experience" },
+  { icon: Award, value: "WSIB Compliant", label: "Active Clearance" },
+];
 
 export const HomepageProofStrip = () => {
-  const prefersReducedMotion = useReducedMotion();
-  const { ref: containerRef, isVisible, skipAnimation } = useScrollFadeIn({ threshold: 0.2 });
-  const delays = useStaggerAnimation({ itemCount: 4, staggerDelay: 100 });
-  const show = isVisible || skipAnimation || prefersReducedMotion;
-
-  const { ref: yearsRef, displayValue: yearsValue } = useCountUpOnView({
-    end: 15,
-    suffix: "+",
-    duration: 1800,
-  });
-
-  const { ref: selfPerfRef, displayValue: selfPerfValue } = useCountUpOnView({
-    end: 85,
-    suffix: "%",
-    duration: 1800,
-  });
-
-  const stats = [
-    {
-      value: yearsValue,
-      ref: yearsRef,
-      label: "Years Crew Experience",
-      isCountUp: true,
-    },
-    {
-      value: selfPerfValue,
-      ref: selfPerfRef,
-      label: "Self-Performed Trades",
-      isCountUp: true,
-    },
-    {
-      value: "$2M",
-      ref: null,
-      label: "CGL Coverage",
-      isCountUp: false,
-    },
-    {
-      value: null,
-      ref: null,
-      label: "WSIB Compliant",
-      isCountUp: false,
-      isIcon: true,
-    },
-  ];
-
   return (
-    <section className="bg-primary py-14 md:py-20">
-      <div className="container mx-auto px-4 max-w-6xl">
-        <div
-          ref={containerRef}
-          className="flex flex-wrap justify-center items-center gap-12 md:gap-20"
-        >
-          {stats.map((stat, index) => (
-            <div
-              key={index}
-              className="text-center"
-              style={{
-                opacity: show ? 1 : 0,
-                transform: show ? "translateY(0)" : "translateY(24px)",
-                transition: prefersReducedMotion
-                  ? "none"
-                  : `opacity 300ms ease-out, transform 300ms ease-out`,
-                transitionDelay: show ? `${delays[index] ?? 0}ms` : "0ms",
-              }}
-            >
-              {stat.isIcon ? (
-                <div className="flex flex-col items-center gap-3">
-                  <div className="w-14 h-14 rounded-full bg-white/10 flex items-center justify-center">
-                    <Shield className="w-7 h-7 text-white" />
-                  </div>
-                  <span className="text-sm font-semibold text-white/70 uppercase tracking-widest">
+    <section className="py-6">
+      <div className="container mx-auto px-4">
+        <div className="rounded-[var(--radius-lg)] py-8 px-6 bg-muted/50 border border-border">
+          <div className="grid gap-6 text-center grid-cols-1 sm:grid-cols-3">
+            {stats.map((stat, index) => {
+              const Icon = stat.icon;
+              return (
+                <div key={index} className="flex flex-col items-center gap-1">
+                  <Icon className="w-5 h-5 mb-1 text-primary" aria-hidden="true" />
+                  <p className="text-xl md:text-2xl font-bold">{stat.value}</p>
+                  <p className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
                     {stat.label}
-                  </span>
+                  </p>
                 </div>
-              ) : (
-                <>
-                  {stat.isCountUp ? (
-                    <span
-                      ref={stat.ref as React.Ref<HTMLSpanElement>}
-                      className="block text-4xl md:text-5xl font-bold text-white tabular-nums"
-                    >
-                      {stat.value}
-                    </span>
-                  ) : (
-                    <span className="block text-4xl md:text-5xl font-bold text-white">
-                      {stat.value}
-                    </span>
-                  )}
-                  <span className="mt-2 block text-sm font-semibold text-white/70 uppercase tracking-widest">
-                    {stat.label}
-                  </span>
-                </>
-              )}
-            </div>
-          ))}
+              );
+            })}
+          </div>
         </div>
       </div>
     </section>
