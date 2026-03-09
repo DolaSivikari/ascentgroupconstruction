@@ -399,7 +399,8 @@ const ConstellationSection = ({ rm }: { rm: boolean }) => {
   }));
 
   return (
-    <Section size="major" ref={sectionRef} disableAnimation>
+    <div ref={sectionRef}>
+    <Section size="major" disableAnimation>
       <SectionHeader
         badge="Our Digital Toolkit"
         title="Tools. Not excuses."
