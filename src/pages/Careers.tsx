@@ -168,59 +168,60 @@ const Careers = () => {
         </Section>
 
         {/* How to Connect */}
-        <section id="connect">
-        <Section className="bg-muted/30">
-          <div className="max-w-4xl mx-auto">
-            <div className="grid md:grid-cols-2 gap-8 items-center">
-              <div>
-                <h2 className="text-3xl font-bold mb-6">How to Connect</h2>
-                <div className="space-y-4 text-muted-foreground">
-                  <p>
-                    If you're a skilled tradesperson, coordinator, or estimator looking for a company that 
-                    values quality work and treats people with respect — we'd like to hear from you.
-                  </p>
-                  <p>
-                    Send us your resume and a brief note about your experience. We review every submission 
-                    and will reach out if there's a fit — now or in the future.
-                  </p>
-                  <ul className="space-y-2 text-sm">
-                    <li className="flex items-start gap-2">
-                      <span className="text-primary mt-1">•</span>
-                      Valid Working at Heights certification is an asset
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <span className="text-primary mt-1">•</span>
-                      Valid Ontario driver's license preferred for field roles
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <span className="text-primary mt-1">•</span>
-                      All experience levels considered — willingness to learn matters
-                    </li>
-                  </ul>
+        <div id="connect">
+          <Section className="bg-muted/30">
+            <div className="max-w-4xl mx-auto">
+              <div className="grid md:grid-cols-2 gap-8 items-center">
+                <div>
+                  <h2 className="text-3xl font-bold mb-6">How to Connect</h2>
+                  <div className="space-y-4 text-muted-foreground">
+                    <p>
+                      If you're a skilled tradesperson, coordinator, or estimator looking for a company that 
+                      values quality work and treats people with respect — we'd like to hear from you.
+                    </p>
+                    <p>
+                      Send us your resume and a brief note about your experience. We review every submission 
+                      and will reach out if there's a fit — now or in the future.
+                    </p>
+                    <ul className="space-y-2 text-sm">
+                      <li className="flex items-start gap-2">
+                        <span className="text-primary mt-1">•</span>
+                        Valid Working at Heights certification is an asset
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <span className="text-primary mt-1">•</span>
+                        Valid Ontario driver's license preferred for field roles
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <span className="text-primary mt-1">•</span>
+                        All experience levels considered — willingness to learn matters
+                      </li>
+                    </ul>
+                  </div>
                 </div>
+                
+                <Card className="bg-primary text-primary-foreground p-0">
+                  <CardContent className="p-8">
+                    <HardHat className="w-12 h-12 mb-6 text-secondary" />
+                    <h3 className="text-2xl font-bold mb-4">Introduce Yourself</h3>
+                    <p className="mb-6 opacity-90">
+                      Submit your resume and we'll keep you on file. When the right opportunity comes up, 
+                      we'll reach out directly.
+                    </p>
+                    <Button 
+                      size="lg" 
+                      className="w-full"
+                      onClick={() => setDialogOpen(true)}
+                    >
+                      Submit Your Resume
+                      <ArrowRight className="ml-2 w-4 h-4" />
+                    </Button>
+                  </CardContent>
+                </Card>
               </div>
-              
-              <Card className="bg-primary text-primary-foreground p-0">
-                <CardContent className="p-8">
-                  <HardHat className="w-12 h-12 mb-6 text-secondary" />
-                  <h3 className="text-2xl font-bold mb-4">Introduce Yourself</h3>
-                  <p className="mb-6 opacity-90">
-                    Submit your resume and we'll keep you on file. When the right opportunity comes up, 
-                    we'll reach out directly.
-                  </p>
-                  <Button 
-                    size="lg" 
-                    className="w-full"
-                    onClick={() => setDialogOpen(true)}
-                  >
-                    Submit Your Resume
-                    <ArrowRight className="ml-2 w-4 h-4" />
-                  </Button>
-                </CardContent>
-              </Card>
             </div>
-          </div>
-        </Section>
+          </Section>
+        </div>
       </main>
       
       <ResumeSubmissionDialog
