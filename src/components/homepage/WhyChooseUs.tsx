@@ -1,14 +1,13 @@
 import * as LucideIcons from "lucide-react";
 import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
 import { useWhyChooseUs } from "@/hooks/useWhyChooseUs";
 import { GRID } from "@/design-system/layouts";
 import { LAYOUT } from "@/design-system/constants";
 import { useScrollFadeIn } from "@/hooks/useScrollFadeIn";
-import { useStaggerAnimation } from "@/hooks/useStaggerAnimation";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 import { Button } from "@/ui/Button";
 
-// Fallback data with construction-specific icons
 const fallbackDifferentiators = [
   { icon: "Shield", title: "Licensed & Certified", desc: "Fully licensed and insured with $2M CGL liability coverage, active WSIB registration, and working toward COR certification. Professional execution backed by comprehensive insurance and safety protocols.", stats: "$2M CGL Insured" },
   { icon: "Building", title: "Envelope & Trades Expertise", desc: "Specialty services from building envelope restoration to interior trades. Single point of contact eliminates coordination complexity and streamlines project delivery.", stats: "Self-Performed Core Scopes" },
@@ -18,17 +17,15 @@ const fallbackDifferentiators = [
   { icon: "Hammer", title: "Quality Standards", desc: "Rigorous quality control processes and proven best practices ensure exceptional results. Every project meets or exceeds regulatory requirements and client expectations.", stats: "" },
 ];
 
+const springHover = { type: "spring" as const, stiffness: 300, damping: 20 };
+
 const WhyChooseUs = () => {
   const { data: items, isLoading } = useWhyChooseUs();
-  const prefersReducedMotion = useReducedMotion();
+  const rm = useReducedMotion();
   const { ref: headerRef, isVisible: headerVisible, skipAnimation: headerSkip } =
     useScrollFadeIn();
-  const { ref: gridRef, isVisible: gridVisible, skipAnimation: gridSkip } =
-    useScrollFadeIn({ threshold: 0.05 });
-  const delays = useStaggerAnimation({ itemCount: 6, staggerDelay: 50 });
 
-  const showHeader = headerVisible || headerSkip || prefersReducedMotion;
-  const showGrid = gridVisible || gridSkip || prefersReducedMotion;
+  const showHeader = headerVisible || headerSkip || rm;
 
   const differentiators = items && items.length > 0
     ? items.map(item => ({
@@ -50,7 +47,7 @@ const WhyChooseUs = () => {
           style={{
             opacity: showHeader ? 1 : 0,
             transform: showHeader ? "translateY(0)" : "translateY(24px)",
-            transition: prefersReducedMotion
+            transition: rm
               ? "none"
               : "opacity 300ms ease-out, transform 300ms ease-out",
           }}
@@ -67,26 +64,27 @@ const WhyChooseUs = () => {
         {isLoading ? (
           <div className="text-center py-12">Loading...</div>
         ) : (
-          <div ref={gridRef} className={GRID.cards3}>
+          <div className={GRID.cards3}>
             {differentiators.map((item, index) => {
               const Icon = (LucideIcons as any)[item.icon] || LucideIcons.BadgeCheck;
               return (
-                <div
+                <motion.div
                   key={index}
+                  initial={rm ? false : { opacity: 0, y: 24 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, amount: 0.1 }}
+                  transition={rm ? { duration: 0 } : { delay: index * 0.08, duration: 0.4 }}
+                  whileHover={rm ? {} : { y: -4, transition: springHover }}
                   className="bg-card border rounded-[var(--radius-lg)] h-full hover:shadow-lg transition-shadow group"
-                  style={{
-                    opacity: showGrid ? 1 : 0,
-                    transform: showGrid ? "translateY(0)" : "translateY(24px)",
-                    transition: prefersReducedMotion
-                      ? "none"
-                      : `opacity 300ms ease-out, transform 300ms ease-out`,
-                    transitionDelay: showGrid ? `${delays[index] ?? 0}ms` : "0ms",
-                  }}
                 >
                   <div className="p-8 h-full flex flex-col">
-                    <div className="w-14 h-14 rounded-lg bg-primary/10 flex items-center justify-center mb-6 group-hover:bg-primary/20 transition-colors">
+                    <motion.div
+                      className="w-14 h-14 rounded-lg bg-primary/10 flex items-center justify-center mb-6 group-hover:bg-primary/20 transition-colors"
+                      whileHover={rm ? {} : { scale: 1.1, rotate: 3 }}
+                      transition={springHover}
+                    >
                       <Icon className="w-7 h-7 text-primary" />
-                    </div>
+                    </motion.div>
                     <div className="flex-1">
                       <h3 className="text-xl md:text-2xl font-bold mb-4 text-foreground leading-tight">
                         {item.title}
@@ -103,7 +101,7 @@ const WhyChooseUs = () => {
                       </div>
                     )}
                   </div>
-                </div>
+                </motion.div>
               );
             })}
           </div>

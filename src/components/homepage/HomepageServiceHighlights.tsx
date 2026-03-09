@@ -10,9 +10,9 @@ import {
   Paintbrush,
   ArrowRight,
 } from "lucide-react";
+import { motion } from "framer-motion";
 import { GRID } from "@/design-system/layouts";
 import { useScrollFadeIn } from "@/hooks/useScrollFadeIn";
-import { useStaggerAnimation } from "@/hooks/useStaggerAnimation";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 
 const services = [
@@ -66,16 +66,14 @@ const services = [
   },
 ];
 
+const springHover = { type: "spring" as const, stiffness: 300, damping: 20 };
+
 export const HomepageServiceHighlights = () => {
-  const prefersReducedMotion = useReducedMotion();
+  const rm = useReducedMotion();
   const { ref: headerRef, isVisible: headerVisible, skipAnimation: headerSkip } =
     useScrollFadeIn();
-  const { ref: gridRef, isVisible: gridVisible, skipAnimation: gridSkip } =
-    useScrollFadeIn({ threshold: 0.05 });
-  const delays = useStaggerAnimation({ itemCount: services.length, staggerDelay: 50 });
 
-  const showHeader = headerVisible || headerSkip || prefersReducedMotion;
-  const showGrid = gridVisible || gridSkip || prefersReducedMotion;
+  const showHeader = headerVisible || headerSkip || rm;
 
   return (
     <section className="py-20 md:py-28 bg-background">
@@ -87,7 +85,7 @@ export const HomepageServiceHighlights = () => {
           style={{
             opacity: showHeader ? 1 : 0,
             transform: showHeader ? "translateY(0)" : "translateY(24px)",
-            transition: prefersReducedMotion
+            transition: rm
               ? "none"
               : "opacity 300ms ease-out, transform 300ms ease-out",
           }}
@@ -105,33 +103,37 @@ export const HomepageServiceHighlights = () => {
         </div>
 
         {/* Service cards */}
-        <div ref={gridRef} className={GRID.cards4}>
+        <div className={GRID.cards4}>
           {services.map((service, index) => {
             const Icon = service.icon;
             return (
-              <Link
+              <motion.div
                 key={index}
-                to={service.href}
-                className="group block p-6 rounded-xl border border-border/60 bg-card hover:border-primary/40 hover:shadow-md transition-all duration-300"
-                style={{
-                  opacity: showGrid ? 1 : 0,
-                  transform: showGrid ? "translateY(0)" : "translateY(24px)",
-                  transition: prefersReducedMotion
-                    ? "none"
-                    : `opacity 300ms ease-out, transform 300ms ease-out`,
-                  transitionDelay: showGrid ? `${delays[index] ?? 0}ms` : "0ms",
-                }}
+                initial={rm ? false : { opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.1 }}
+                transition={rm ? { duration: 0 } : { delay: index * 0.08, duration: 0.4 }}
+                whileHover={rm ? {} : { y: -6, transition: springHover }}
               >
-                <div className="w-11 h-11 rounded-lg bg-primary/10 flex items-center justify-center mb-4 group-hover:bg-primary/20 transition-colors duration-300">
-                  <Icon className="w-5 h-5 text-primary" />
-                </div>
-                <h3 className="text-base font-bold text-foreground mb-2 leading-snug">
-                  {service.title}
-                </h3>
-                <p className="text-sm text-muted-foreground leading-relaxed">
-                  {service.description}
-                </p>
-              </Link>
+                <Link
+                  to={service.href}
+                  className="group block p-6 rounded-xl border border-border/60 bg-card hover:border-primary/40 hover:shadow-md transition-all duration-300 h-full"
+                >
+                  <motion.div
+                    className="w-11 h-11 rounded-lg bg-primary/10 flex items-center justify-center mb-4 group-hover:bg-primary/20 transition-colors duration-300"
+                    whileHover={rm ? {} : { scale: 1.1 }}
+                    transition={springHover}
+                  >
+                    <Icon className="w-5 h-5 text-primary" />
+                  </motion.div>
+                  <h3 className="text-base font-bold text-foreground mb-2 leading-snug">
+                    {service.title}
+                  </h3>
+                  <p className="text-sm text-muted-foreground leading-relaxed">
+                    {service.description}
+                  </p>
+                </Link>
+              </motion.div>
             );
           })}
         </div>
