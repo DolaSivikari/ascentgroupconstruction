@@ -127,7 +127,7 @@ const CertificationsInsurance = () => {
               <h2 className="text-3xl font-bold text-foreground mb-8">Active Licenses</h2>
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {licenses.map((license, index) => (
-                  <Card key={index}>
+                  <Card key={index} className="p-0">
                     <CardContent className="p-6">
                       <Shield className="h-8 w-8 text-primary mb-4" />
                       <h3 className="text-lg font-semibold text-foreground mb-2">{license.name}</h3>
