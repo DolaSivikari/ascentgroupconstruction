@@ -103,9 +103,7 @@ const imagePositionClasses: Record<string, string> = {
 
 // Helper for staggered animation styles (respects prefers-reduced-motion via CSS)
 const staggerStyle = (delayMs: number): React.CSSProperties => ({
-  opacity: 0,
-  animationDelay: `${delayMs}ms`,
-  animationFillMode: 'both',
+  animation: `fade-in 0.5s ease-out ${delayMs}ms both`,
 });
 
 export function PageHero({
@@ -176,7 +174,7 @@ export function PageHero({
       <div className={cn("container mx-auto px-6 relative z-10 py-12 md:py-16", contentClassName)}>
         <div
           className={cn(
-            "flex flex-col",
+            "flex flex-col hero-stagger",
             maxWidthClasses[maxWidth],
             isCentered && "mx-auto text-center items-center",
             !isCentered && "items-start"
@@ -184,7 +182,7 @@ export function PageHero({
         >
           {/* Breadcrumbs */}
           {breadcrumbs && breadcrumbs.length > 0 && (
-            <nav aria-label="Breadcrumb" className="mb-4 md:mb-6 motion-safe:animate-fade-in" style={staggerStyle(0)}>
+            <nav aria-label="Breadcrumb" className="mb-4 md:mb-6" style={staggerStyle(0)}>
               <ol className="flex flex-wrap items-center gap-2 text-sm text-[hsl(var(--bg))]/80">
                 {breadcrumbs.map((crumb, index) => (
                   <li key={index} className="flex items-center gap-2">
@@ -211,7 +209,7 @@ export function PageHero({
           
           {/* Badge */}
           {badge && (
-            <div className="mb-4 motion-safe:animate-fade-in" style={staggerStyle(50)}>
+            <div className="mb-4" style={staggerStyle(50)}>
               <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wider bg-[hsl(var(--accent))]/20 text-[hsl(var(--accent))] border border-[hsl(var(--accent))]/30">
                 {badge}
               </span>
@@ -220,32 +218,32 @@ export function PageHero({
           
           {/* Eyebrow */}
           {eyebrow && (
-            <p className="text-sm md:text-base uppercase tracking-wider text-[hsl(var(--bg))]/80 font-semibold mb-2 motion-safe:animate-fade-in" style={staggerStyle(50)}>
+            <p className="text-sm md:text-base uppercase tracking-wider text-[hsl(var(--bg))]/80 font-semibold mb-2" style={staggerStyle(50)}>
               {eyebrow}
             </p>
           )}
           
           {/* Subtitle (above title) */}
           {subtitle && (
-            <p className="text-sm md:text-base uppercase tracking-wider text-[hsl(var(--accent))] font-semibold mb-2 motion-safe:animate-fade-in" style={staggerStyle(50)}>
+            <p className="text-sm md:text-base uppercase tracking-wider text-[hsl(var(--accent))] font-semibold mb-2" style={staggerStyle(50)}>
               {subtitle}
             </p>
           )}
           
           {/* Title */}
-          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-[hsl(var(--bg))] mb-4 leading-tight tracking-tight motion-safe:animate-fade-in" style={staggerStyle(100)}>
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-[hsl(var(--bg))] mb-4 leading-tight tracking-tight" style={staggerStyle(100)}>
             {title}
           </h1>
           
           {/* Accent Line (for left-aligned variants) */}
           {!isCentered && (
-            <div className="w-16 h-1 bg-[hsl(var(--accent))] mb-6 motion-safe:animate-fade-in" style={staggerStyle(150)} aria-hidden="true" />
+            <div className="w-16 h-1 bg-[hsl(var(--accent))] mb-6" style={staggerStyle(150)} aria-hidden="true" />
           )}
           
           {/* Description */}
           {description && (
             <p className={cn(
-              "text-base sm:text-lg md:text-xl text-[hsl(var(--bg))]/90 leading-relaxed motion-safe:animate-fade-in",
+              "text-base sm:text-lg md:text-xl text-[hsl(var(--bg))]/90 leading-relaxed",
               isCentered ? "max-w-3xl" : "max-w-2xl"
             )} style={staggerStyle(200)}>
               {description}
@@ -255,7 +253,7 @@ export function PageHero({
           {/* Stats */}
           {stats && stats.length > 0 && (
             <div className={cn(
-              "flex flex-wrap gap-6 md:gap-10 mt-8 p-6 rounded-lg motion-safe:animate-fade-in",
+              "flex flex-wrap gap-6 md:gap-10 mt-8 p-6 rounded-lg",
               "bg-[hsl(var(--bg))]/10 backdrop-blur-sm border border-[hsl(var(--bg))]/20"
             )} style={staggerStyle(250)}>
               {stats.map((stat, index) => (
@@ -274,7 +272,7 @@ export function PageHero({
           {/* CTAs */}
           {(primaryCta || secondaryCta) && (
             <div className={cn(
-              "flex flex-wrap gap-4 mt-8 motion-safe:animate-fade-in",
+              "flex flex-wrap gap-4 mt-8",
               isCentered && "justify-center"
             )} style={staggerStyle(300)}>
               {primaryCta && (
