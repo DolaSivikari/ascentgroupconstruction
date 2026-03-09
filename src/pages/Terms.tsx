@@ -26,7 +26,7 @@ const Terms = () => {
             <section>
               <h2 className="text-2xl font-semibold mb-4">1. Acceptance of Terms</h2>
               <p className="mb-4">
-                Welcome to the Ascent Group Construction website (the "Website"). By accessing or using this Website, you agree to be bound by these Terms of Use and our <Link to="/privacy" className="text-primary hover:underline">Privacy Policy</Link>. If you do not agree to these terms, please do not use this Website.
+                Welcome to the Ascent Group Construction website (the "Website"). By accessing or using this Website, you agree to be bound by these Terms of Use and our <Link to="/privacy-policy" className="text-primary hover:underline">Privacy Policy</Link>. If you do not agree to these terms, please do not use this Website.
               </p>
               <p>
                 These Terms of Use constitute a legally binding agreement between you and Ascent Group Construction ("Company," "we," "our," or "us").
