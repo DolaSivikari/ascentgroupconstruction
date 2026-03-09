@@ -3,7 +3,7 @@ import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
 import { PageHero } from "@/components/shared/PageHero";
-import { Card, CardContent } from "@/ui/Card";
+import { Card, CardContent } from "@/design-system/components/Card";
 import { Button } from "@/ui/Button";
 import { Link } from "react-router-dom";
 import ResumeSubmissionDialog from "@/components/ResumeSubmissionDialog";
@@ -131,7 +131,7 @@ const Careers = () => {
             <ScrollReveal direction="up">
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
               {benefits.map((benefit, index) => (
-                <Card key={index} className="hover:shadow-lg transition-shadow">
+                <Card key={index} className="hover:shadow-lg transition-shadow p-0">
                   <CardContent className="p-6">
                     <div className="w-14 h-14 bg-primary/10 rounded-[var(--radius-lg)] flex items-center justify-center mb-4">
                       <benefit.icon className="w-7 h-7 text-primary" />
@@ -158,7 +158,7 @@ const Careers = () => {
 
             <div className="max-w-7xl mx-auto space-y-6">
               {openPositions.map((position, index) => (
-                <Card key={index} className="hover:shadow-lg transition-all hover:border-primary/30">
+                <Card key={index} className="hover:shadow-lg transition-all hover:border-primary/30 p-0">
                   <CardContent className="p-6">
                     <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-4">
                       <div>
@@ -227,7 +227,7 @@ const Careers = () => {
                   </div>
                 </div>
                 
-                <Card className="bg-primary text-primary-foreground">
+                <Card className="bg-primary text-primary-foreground p-0">
                   <CardContent className="p-8">
                     <HardHat className="w-16 h-16 mb-6 text-secondary" />
                     <h3 className="text-2xl font-bold mb-4">Join Our Team Today</h3>

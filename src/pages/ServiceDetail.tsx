@@ -6,7 +6,7 @@ import SEO from "@/components/SEO";
 import PageHero from "@/components/shared/PageHero";
 import Breadcrumb from "@/components/Breadcrumb";
 import { supabase } from "@/integrations/supabase/client";
-import { Card, CardContent } from "@/ui/Card";
+import { Card, CardContent } from "@/design-system/components/Card";
 import { Button } from "@/ui/Button";
 import { Link } from "react-router-dom";
 import { Phone, CheckCircle } from "lucide-react";
@@ -253,7 +253,7 @@ const ServiceDetail = () => {
                 <h2 className="text-3xl font-bold mb-8">Our Process</h2>
                 <div className="space-y-6">
                   {service.process_steps.map((step, index) => (
-                    <Card key={index}>
+                    <Card key={index} className="p-0">
                       <CardContent className="p-6">
                         <div className="flex gap-4">
                           <div className="flex-shrink-0 w-10 h-10 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-bold">
@@ -300,7 +300,7 @@ const ServiceDetail = () => {
                 <h2 className="text-3xl font-bold mb-8">Typical Applications</h2>
                 <div className="grid md:grid-cols-2 gap-6">
                   {service.typical_applications.map((app, index) => (
-                    <Card key={index}>
+                    <Card key={index} className="p-0">
                       <CardContent className="p-6">
                         <p className="text-muted-foreground">{app}</p>
                       </CardContent>
@@ -320,7 +320,7 @@ const ServiceDetail = () => {
                 <h2 className="text-3xl font-bold mb-8">Key Benefits</h2>
                 <div className="grid md:grid-cols-2 gap-6">
                   {service.key_benefits.map((benefit, index) => (
-                    <Card key={index}>
+                    <Card key={index} className="p-0">
                       <CardContent className="p-6">
                         <div className="flex items-start gap-3">
                           <CheckCircle className="w-5 h-5 text-primary flex-shrink-0 mt-1" />
@@ -346,7 +346,7 @@ const ServiceDetail = () => {
                 <h2 className="text-3xl font-bold mb-8">Frequently Asked Questions</h2>
                 <div className="space-y-4">
                   {service.faq_items.map((faq, index) => (
-                    <Card key={index}>
+                    <Card key={index} className="p-0">
                       <CardContent className="p-6">
                         <h3 className="text-lg font-bold mb-2">{faq.question}</h3>
                         <p className="text-muted-foreground">{faq.answer}</p>
