@@ -237,7 +237,7 @@ export function PageHero({
           
           {/* Accent Line (for left-aligned variants) */}
           {!isCentered && (
-            <div className="w-16 h-1 bg-[hsl(var(--accent))] mb-6 motion-safe:animate-fade-in" style={staggerStyle(150)} aria-hidden="true" />
+            <div className="w-16 h-1 bg-[hsl(var(--accent))] mb-6" style={staggerStyle(150)} aria-hidden="true" />
           )}
           
           {/* Description */}
