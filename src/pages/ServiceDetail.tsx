@@ -6,7 +6,7 @@ import SEO from "@/components/SEO";
 import PageHero from "@/components/shared/PageHero";
 import Breadcrumb from "@/components/Breadcrumb";
 import { supabase } from "@/integrations/supabase/client";
-import { Card, CardContent } from "@/ui/Card";
+import { Card, CardContent } from "@/design-system/components/Card";
 import { Button } from "@/ui/Button";
 import { Link } from "react-router-dom";
 import { Phone, CheckCircle } from "lucide-react";

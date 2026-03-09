@@ -227,7 +227,7 @@ const Careers = () => {
                   </div>
                 </div>
                 
-                <Card className="bg-primary text-primary-foreground">
+                <Card className="bg-primary text-primary-foreground p-0">
                   <CardContent className="p-8">
                     <HardHat className="w-16 h-16 mb-6 text-secondary" />
                     <h3 className="text-2xl font-bold mb-4">Join Our Team Today</h3>

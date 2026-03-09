@@ -103,7 +103,7 @@ const BlogPreview = () => {
 
               return (
               <Link key={post.slug} to={`/blog/${post.slug}`}>
-                <Card variant="interactive" className="h-full overflow-hidden group">
+                <Card variant="interactive" className="h-full overflow-hidden group p-0">
                   <div className="relative h-48 overflow-hidden">
                     <OptimizedImage
                       src={resolveAssetPath(post.featured_image) || post.featured_image}

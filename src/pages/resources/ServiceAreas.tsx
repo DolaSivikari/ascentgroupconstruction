@@ -2,7 +2,7 @@ import { MapPin, Clock, Phone, CheckCircle2 } from "lucide-react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { PageHero } from "@/components/shared/PageHero";
-import { Card, CardContent } from "@/ui/Card";
+import { Card, CardContent } from "@/design-system/components/Card";
 import { Button } from "@/ui/Button";
 import SEO from "@/components/SEO";
 import { serviceAreaCities, primaryServiceCities } from "@/data/service-area-cities";

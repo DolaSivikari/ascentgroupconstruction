@@ -61,7 +61,8 @@ export const RelatedServices = ({ currentServiceSlug, currentCategory }: Related
           return (
             <Card 
               key={service.id} 
-              className="group hover:shadow-lg transition-all duration-200 hover:-translate-y-1"
+              variant="interactive"
+              className="group p-0"
             >
               <CardContent className="p-6">
                 <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">

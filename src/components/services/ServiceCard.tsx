@@ -38,7 +38,7 @@ export const ServiceCard = ({
 
   return (
     <Link to={`/services/${slug}`} className="group">
-      <Card variant="interactive" className="h-full relative overflow-hidden">
+      <Card variant="interactive" className="h-full relative overflow-hidden p-0">
         {featured && (
           <div className="absolute top-4 right-4 z-10">
             <Badge variant="warning" size="sm" icon={Star} className="animate-pulse">
