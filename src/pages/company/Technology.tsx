@@ -463,15 +463,11 @@ const ConstellationSection = ({ rm }: { rm: boolean }) => {
                     key={`pulse-${i}`}
                     r={0.5}
                     fill="hsl(var(--primary))"
-                    animate={
-                      showAnim
-                        ? {
-                            cx: [ax, bx, ax],
-                            cy: [ay, by, ay],
-                            opacity: [0, 0.9, 0.9, 0],
-                          }
-                        : {}
-                    }
+                    animate={{
+                      cx: [ax, bx, ax],
+                      cy: [ay, by, ay],
+                      opacity: [0, 0.9, 0.9, 0],
+                    }}
                     transition={{
                       duration: 2.5,
                       delay: 1 + i * 0.4,
