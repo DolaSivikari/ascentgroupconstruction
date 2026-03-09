@@ -218,7 +218,7 @@ export function PageHero({
           
           {/* Eyebrow */}
           {eyebrow && (
-            <p className="text-sm md:text-base uppercase tracking-wider text-[hsl(var(--bg))]/80 font-semibold mb-2 motion-safe:animate-fade-in" style={staggerStyle(50)}>
+            <p className="text-sm md:text-base uppercase tracking-wider text-[hsl(var(--bg))]/80 font-semibold mb-2" style={staggerStyle(50)}>
               {eyebrow}
             </p>
           )}
