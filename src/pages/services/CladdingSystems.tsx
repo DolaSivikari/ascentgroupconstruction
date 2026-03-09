@@ -1,5 +1,5 @@
 import { Building2, Shield, Layers, Wind, CheckCircle2 } from 'lucide-react';
-import { UnifiedCard } from "@/components/shared/UnifiedCard";
+import { Card } from "@/design-system/components/Card";
 import { Section } from "@/components/sections/Section";
 import { ServicePageLayout } from "@/components/services/ServicePageLayout";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -56,11 +56,11 @@ const CladdingSystems = () => {
           <TabsContent value="metal">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {metalPanels.map((item, index) => (
-                <UnifiedCard key={index} variant="elevated">
+                <Card key={index} variant="elevated" size="md">
                   <Building2 className="h-10 w-10 mb-4 text-primary" />
                   <h3 className="text-xl font-semibold mb-2">{item.title}</h3>
                   <p className="text-muted-foreground">{item.description}</p>
-                </UnifiedCard>
+                </Card>
               ))}
             </div>
           </TabsContent>
@@ -68,11 +68,11 @@ const CladdingSystems = () => {
           <TabsContent value="eifs">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {eifsStucco.map((item, index) => (
-                <UnifiedCard key={index} variant="elevated">
+                <Card key={index} variant="elevated" size="md">
                   <Layers className="h-10 w-10 mb-4 text-primary" />
                   <h3 className="text-xl font-semibold mb-2">{item.title}</h3>
                   <p className="text-muted-foreground">{item.description}</p>
-                </UnifiedCard>
+                </Card>
               ))}
             </div>
           </TabsContent>
@@ -80,11 +80,11 @@ const CladdingSystems = () => {
           <TabsContent value="other">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {otherSystems.map((item, index) => (
-                <UnifiedCard key={index} variant="elevated">
+                <Card key={index} variant="elevated" size="md">
                   <Shield className="h-10 w-10 mb-4 text-primary" />
                   <h3 className="text-xl font-semibold mb-2">{item.title}</h3>
                   <p className="text-muted-foreground">{item.description}</p>
-                </UnifiedCard>
+                </Card>
               ))}
             </div>
           </TabsContent>

@@ -122,7 +122,7 @@ export const generateLocalBusinessSchema = () => {
   
   return {
     "@context": "https://schema.org",
-    "@type": "GeneralContractor",
+    "@type": "HomeAndConstructionBusiness",
     "@id": `${siteUrl}/#localbusiness`,
     name: "Ascent Group Construction",
     image: `${siteUrl}/og-image.jpg`,
@@ -170,27 +170,9 @@ export const generateLocalBusinessSchema = () => {
 
 // Service-specific schema configurations
 export const SERVICE_SCHEMAS = {
-  "general-contracting": {
-    name: "General Contracting Services",
-    description: "Full-service general contracting with single-source accountability, fixed-price certainty, and proven delivery across commercial, multi-family, and institutional projects.",
-    serviceType: "GeneralContractor",
-    areaServed: ["Toronto", "Mississauga", "Brampton", "Vaughan", "Markham", "Ontario"]
-  },
   "building-envelope": {
     name: "Building Envelope Systems",
     description: "Comprehensive building envelope solutions including façade restoration, weatherproofing, and thermal performance optimization for commercial and residential buildings.",
-    serviceType: "ConstructionService",
-    areaServed: ["Toronto", "Mississauga", "Brampton", "Vaughan", "Markham", "Ontario"]
-  },
-  "construction-management": {
-    name: "Construction Management Services",
-    description: "Professional construction management providing schedule control, budget oversight, and quality assurance for projects of all sizes.",
-    serviceType: "ConstructionService",
-    areaServed: ["Toronto", "Mississauga", "Brampton", "Vaughan", "Markham", "Ontario"]
-  },
-  "design-build": {
-    name: "Design-Build Services",
-    description: "Integrated design-build delivery combining architectural design, engineering, and construction under one contract for streamlined project execution.",
     serviceType: "ConstructionService",
     areaServed: ["Toronto", "Mississauga", "Brampton", "Vaughan", "Markham", "Ontario"]
   },

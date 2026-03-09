@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { ChevronDown, ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { Card, CardContent } from "@/components/ui/card";
+import { Card, CardContent } from "@/ui/Card";
 
 interface Service {
   id: string;
@@ -110,10 +110,10 @@ export const DynamicServicesMegaMenu = ({ isOpen, onClose }: DynamicServicesMega
               Why Ascent
             </div>
             <div className="text-sm font-semibold text-foreground leading-tight">
-              GC + Self-Perform = Schedule Certainty
+              Self-Perform = Schedule Certainty
             </div>
             <p className="text-xs text-muted-foreground leading-relaxed">
-              By delivering both general contracting and self-perform trades, we control quality, timelines, and costs.
+              By self-performing our specialty trades, we control quality, timelines, and costs — no subcontractor layers.
             </p>
             <Link
               to="/about"

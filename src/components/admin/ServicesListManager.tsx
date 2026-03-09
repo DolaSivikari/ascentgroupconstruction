@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useServicesAdmin } from "@/hooks/useServicesAdmin";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+import { Button } from "@/ui/Button";
+import { Input } from "@/ui/Input";
 import { Badge } from "@/components/ui/badge";
 import { Plus, Pencil, Trash2, Eye } from "lucide-react";
 import { useNavigate } from "react-router-dom";
@@ -29,7 +29,7 @@ export const ServicesListManager = () => {
           onChange={(e) => setSearchQuery(e.target.value)}
           className="max-w-sm"
         />
-        <Button onClick={() => navigate("/admin/services-manager/new")}>
+        <Button onClick={() => navigate("/admin/services/new")}>
           <Plus className="h-4 w-4 mr-2" />
           Add Service
         </Button>
@@ -39,7 +39,7 @@ export const ServicesListManager = () => {
         {filteredServices.length === 0 ? (
           <div className="text-center py-12 text-muted-foreground">
             <p className="mb-4">No services found</p>
-            <Button onClick={() => navigate("/admin/services-manager/new")}>
+            <Button onClick={() => navigate("/admin/services/new")}>
               <Plus className="h-4 w-4 mr-2" />
               Create Your First Service
             </Button>
@@ -90,7 +90,7 @@ export const ServicesListManager = () => {
                 <Button
                   variant="ghost"
                   size="sm"
-                  onClick={() => navigate(`/admin/services-manager/${service.id}`)}
+                  onClick={() => navigate(`/admin/services/${service.id}`)}
                 >
                   <Pencil className="h-4 w-4" />
                 </Button>

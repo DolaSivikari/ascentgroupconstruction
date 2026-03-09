@@ -1,8 +1,7 @@
 import * as LucideIcons from "lucide-react";
-import { Card } from "@/components/ui/card";
-import { Button } from "@/ui/Button";
-import { Link } from "react-router-dom";
 import { useWhyChooseUs } from "@/hooks/useWhyChooseUs";
+import { SectionHeader, CapabilityCard } from "@/design-system/components";
+import { Section } from "@/components/sections/Section";
 import { GRID } from "@/design-system/layouts";
 import { LAYOUT } from "@/design-system/constants";
 import { useScrollFadeIn } from "@/hooks/useScrollFadeIn";
@@ -12,11 +11,11 @@ import { useReducedMotion } from "@/hooks/useReducedMotion";
 // Fallback data with construction-specific icons
 const fallbackDifferentiators = [
   { icon: "Shield", title: "Licensed & Certified", desc: "Fully licensed and insured with $2M CGL liability coverage, active WSIB registration, and working toward COR certification. Professional execution backed by comprehensive insurance and safety protocols.", stats: "$2M CGL Insured" },
-  { icon: "Building", title: "Comprehensive Services", desc: "Complete construction solutions from envelope restoration to specialty trades. Single point of contact eliminates coordination complexity and streamlines project delivery.", stats: "21+ Service Offerings" },
-  { icon: "Award", title: "Premium Materials", desc: "Authorized contractor for industry-leading brands with extended manufacturer warranties. Premium materials and proven installation methods ensure lasting quality and performance.", stats: "Extended Warranties" },
-  { icon: "Calendar", title: "On-Time Delivery", desc: "Dedicated project management with transparent pricing and detailed estimates. Our systematic approach maintains a 95% on-time completion rate across all projects.", stats: "WSIB Compliant" },
+  { icon: "Building", title: "Envelope & Trades Expertise", desc: "Specialty services from building envelope restoration to interior trades. Single point of contact eliminates coordination complexity and streamlines project delivery.", stats: "Self-Performed Core Scopes" },
+  { icon: "Award", title: "Trusted Manufacturer Brands", desc: "Working with trusted manufacturer brands including Benjamin Moore and Sherwin-Williams, with extended warranties. Proven installation methods ensure lasting quality and performance.", stats: "Extended Warranties" },
+  { icon: "Calendar", title: "Reliable Delivery", desc: "Dedicated project management with transparent pricing and detailed estimates. Our systematic approach and self-performed work keep projects on track.", stats: "WSIB Compliant" },
   { icon: "HardHat", title: "Expert Team", desc: "Certified safety-trained crews with continuous training and comprehensive safety protocols backed by full liability coverage on every project.", stats: "Ontario Safety Standards" },
-  { icon: "Hammer", title: "Quality Standards", desc: "Rigorous quality control processes and industry-leading best practices ensure exceptional results. Every project meets or exceeds regulatory requirements and client expectations.", stats: "" },
+  { icon: "Hammer", title: "Quality Standards", desc: "Rigorous quality control processes and proven best practices ensure exceptional results. Every project meets or exceeds regulatory requirements and client expectations.", stats: "" },
 ];
 
 const WhyChooseUs = () => {

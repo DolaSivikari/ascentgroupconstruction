@@ -1,7 +1,7 @@
-import { Input } from "@/components/ui/input";
+import { Input } from "@/ui/Input";
 import { Badge } from "@/components/ui/badge";
 import { Search, X } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/ui/Button";
 
 interface SearchBarProps {
   searchQuery: string;
@@ -28,6 +28,8 @@ export const SearchBar = ({
       <div className="relative max-w-2xl mx-auto">
         <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
         <Input
+          id="services-searchbar"
+          name="services-searchbar"
           type="text"
           placeholder="Search services..."
           value={searchQuery}

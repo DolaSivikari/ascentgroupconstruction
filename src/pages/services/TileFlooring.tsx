@@ -1,5 +1,5 @@
 import { Ruler, Shield, Clock, CheckCircle2, Sparkles } from 'lucide-react';
-import { UnifiedCard } from "@/components/shared/UnifiedCard";
+import { Card } from "@/design-system/components/Card";
 import { Section } from "@/components/sections/Section";
 import { ServicePageLayout } from "@/components/services/ServicePageLayout";
 import heroImage from '@/assets/heroes/hero-tile-flooring.jpg';
@@ -64,11 +64,11 @@ const TileFlooring = () => {
         </div>
         <div className="grid md:grid-cols-2 gap-8">
           {deliverables.map((item, index) => (
-            <UnifiedCard key={index} variant="elevated">
+            <Card key={index} variant="elevated" size="md">
               <item.icon className="w-12 h-12 text-primary mb-4" />
               <h3 className="text-xl font-semibold mb-3">{item.title}</h3>
               <p className="text-muted-foreground">{item.description}</p>
-            </UnifiedCard>
+            </Card>
           ))}
         </div>
       </Section>

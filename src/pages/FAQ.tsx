@@ -5,7 +5,7 @@ import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
 import { PageHero } from "@/components/shared/PageHero";
 import { Section } from "@/components/sections/Section";
-import { Input } from "@/components/ui/input";
+import { Input } from "@/ui/Input";
 import { Card, CardContent } from "@/design-system/components/Card";
 import { Badge } from "@/components/ui/badge";
 import { generateFAQSchema, generateHowToSchema } from "@/utils/faq-schema";
@@ -13,6 +13,7 @@ import { CTA_TEXT } from "@/design-system/constants";
 import { ScrollReveal } from "@/components/animations/ScrollReveal";
 import { mainPageHeroes } from "@/data/hero-images";
 import VoiceFAQ from "@/components/seo/VoiceFAQ";
+import { PhoneLink } from "@/components/shared/PhoneLink";
 import { VOICE_OPTIMIZED_FAQS } from "@/utils/seo/ai-content";
 import {
   Accordion,
@@ -32,7 +33,7 @@ const FAQ = () => {
       questions: [
         {
           question: "How long has Ascent Group Construction been in business?",
-          answer: "Ascent Group Construction was established in 2025 by construction professionals with 15+ years of combined experience in building envelope and interior trades work. While we're a new company, our team brings proven expertise from hundreds of highrise and commercial projects across the Greater Toronto Area."
+          answer: "Ascent Group Construction was established in 2025 by construction professionals with 15+ years of combined experience in building envelope and interior trades work. While we're a new company, our team members bring hands-on expertise from a wide range of highrise and commercial projects across the Greater Toronto Area."
         },
         {
           question: "What areas do you serve in Ontario?",
@@ -44,7 +45,7 @@ const FAQ = () => {
         },
         {
           question: "How do I know if you're the right contractor for my project?",
-          answer: "We specialize in general contracting, commercial construction, multi-family construction, design-build, stucco/EIFS systems, masonry restoration, and building envelope work. If your project involves construction management, exterior or interior finishing, waterproofing, or building systems in the GTA, we're likely a perfect fit. Schedule a consultation to discuss your specific needs."
+          answer: "We specialize in building envelope systems, EIFS/stucco, masonry restoration, waterproofing, cladding, protective coatings, commercial painting, and interior finishing. If your project involves exterior restoration, envelope remediation, or interior trade work in the GTA, we're likely a great fit. Schedule a consultation to discuss your specific needs."
         },
       ],
     },
@@ -98,7 +99,7 @@ const FAQ = () => {
         },
         {
           question: "Can you work evenings or weekends to avoid disrupting my business?",
-          answer: "Yes! We offer flexible scheduling for commercial clients including after-hours (6PM-6AM), weekends, and holiday work. After-hours work incurs a 20-30% premium but ensures zero disruption to your operations. We've painted hundreds of businesses without impacting their hours."
+          answer: "Yes! We offer flexible scheduling for commercial clients including after-hours (6PM-6AM), weekends, and holiday work. After-hours work incurs a 20-30% premium but ensures zero disruption to your operations. Our team members have extensive experience working after-hours in occupied commercial buildings across the GTA."
         },
         {
           question: "Do I need to move furniture before you start?",
@@ -117,7 +118,7 @@ const FAQ = () => {
       questions: [
         {
           question: "What brands and materials do you use?",
-          answer: "We use commercial-grade materials from trusted suppliers including Benjamin Moore paints, Sherwin-Williams coatings, Dryvit EIFS systems, Hardie siding, and industry-leading building envelope products. We select materials based on your project requirements, durability needs, and budget. All products meet or exceed Ontario Building Code standards."
+          answer: "We use commercial-grade materials from trusted suppliers including Benjamin Moore paints, Sherwin-Williams coatings, Dryvit EIFS systems, Hardie siding, and trusted building envelope products. We select materials based on your project requirements, durability needs, and budget. All products meet or exceed Ontario Building Code standards."
         },
         {
           question: "Can I choose my own paint colors?",
@@ -206,11 +207,11 @@ const FAQ = () => {
       questions: [
         {
           question: "Do you have WSIB coverage?",
-          answer: "Yes, we maintain full WSIB (Workplace Safety & Insurance Board) clearance for all employees and subcontractors. We provide updated clearance certificates with every project proposal. Our WSIB account is in good standing with zero outstanding claims."
+          answer: "Yes, we maintain full WSIB (Workplace Safety & Insurance Board) clearance for all employees and subcontractors. We provide updated clearance certificates with every project proposal. Our WSIB account is in good standing."
         },
         {
           question: "What safety certifications does your team have?",
-          answer: "Our team holds: COR (Certificate of Recognition), JHSC (Joint Health & Safety Committee) certification, Working at Heights certification, WHMIS 2015, Fall Protection, Confined Space Entry, and First Aid/CPR. We conduct monthly safety training and maintain perfect safety record."
+          answer: "Our team is working toward COR (Certificate of Recognition) certification. Team members hold: JHSC (Joint Health & Safety Committee) certification, Working at Heights certification, WHMIS 2015, Fall Protection, Confined Space Entry, and First Aid/CPR. We conduct regular safety training and maintain strong safety protocols on every project."
         },
         {
           question: "How do you handle lead paint in older buildings?",
@@ -295,9 +296,9 @@ const FAQ = () => {
   return (
     <>
       <SEO
-        title="Frequently Asked Questions - Painting & Construction | Ascent Group"
-        description="Get answers to 85+ questions about construction costs, timelines, processes, and services in Toronto and the GTA. Expert guidance for property owners and managers."
-        keywords="painting FAQ Toronto, construction questions GTA, painting costs Ontario, EIFS repair, property management painting, commercial painting questions"
+        title="Frequently Asked Questions | Building Envelope & Restoration"
+        description="Get answers to 85+ questions about building envelope, restoration, and specialty trade costs, timelines, and services in Ontario and the GTA."
+        keywords="construction FAQ Toronto, building envelope questions GTA, restoration costs Ontario, EIFS repair, commercial construction questions"
         structuredData={[generateFAQSchema([...allFAQs, ...voiceFaqsForSchema]), howToSchema]}
       />
       
@@ -305,7 +306,7 @@ const FAQ = () => {
 
       <PageHero
         title="Frequently Asked Questions"
-        description="Everything you need to know about construction, painting, EIFS, stucco, and restoration services across the GTA."
+        description="Everything you need to know about building envelope, restoration, and specialty trade services across Ontario and the GTA."
         image={mainPageHeroes.faq}
         imageAlt="Construction FAQ and answers"
         height="medium"
@@ -455,12 +456,12 @@ const FAQ = () => {
                   >
                     Contact Us
                   </a>
-                  <a
-                    href="tel:647-528-6804"
+                  <PhoneLink 
+                    showIcon={false} 
                     className="inline-flex items-center justify-center px-8 py-4 bg-primary-foreground/20 backdrop-blur-sm text-primary-foreground rounded-lg font-semibold hover:bg-primary-foreground/30 transition-colors text-lg"
                   >
                     Call 647-528-6804
-                  </a>
+                  </PhoneLink>
                 </div>
               </CardContent>
             </Card>

@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Card, CardContent } from "@/components/ui/card";
+import { Card, CardContent } from "@/design-system/components/Card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/ui/Button";
 import { Calendar, ArrowRight, FileText } from "lucide-react";
@@ -58,7 +58,7 @@ const BlogPreview = () => {
 
             return (
               <Link key={post.slug} to={`/blog/${post.slug}`} className="md:col-span-3">
-                <Card variant="featured" className="h-full overflow-hidden group">
+                <Card variant="elevated" className="h-full overflow-hidden group p-0">
                   <div className="grid md:grid-cols-2 gap-0">
                     <div className="relative h-64 md:h-full overflow-hidden">
                       <OptimizedImage
@@ -103,7 +103,7 @@ const BlogPreview = () => {
 
               return (
               <Link key={post.slug} to={`/blog/${post.slug}`}>
-                <Card variant="interactive" className="h-full overflow-hidden group">
+                <Card variant="interactive" className="h-full overflow-hidden group p-0">
                   <div className="relative h-48 overflow-hidden">
                     <OptimizedImage
                       src={resolveAssetPath(post.featured_image) || post.featured_image}

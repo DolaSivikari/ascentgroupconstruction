@@ -1,5 +1,5 @@
 import { MapPin, Phone, Mail, Clock, HardHat, Ruler, ClipboardCheck } from "lucide-react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/ui/Card";
 import { Badge } from "@/components/ui/badge";
 import { EmailLink } from "../EmailLink";
 
@@ -30,7 +30,7 @@ export const PremiumContactHero = ({ contactInfo, loading }: Props) => {
 
       <div className="container mx-auto px-4 relative z-10">
         <div className="max-w-4xl mx-auto text-center mb-12 animate-fade-in">
-          <Badge className="mb-4 text-sm px-4 py-1">Available 24/7</Badge>
+          <Badge className="mb-4 text-sm px-4 py-1">Responsive & Available</Badge>
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4">
             Let's Start Building <span className="text-primary">Together</span>
           </h1>

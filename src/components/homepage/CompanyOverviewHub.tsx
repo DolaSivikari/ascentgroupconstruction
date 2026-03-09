@@ -1,14 +1,12 @@
-import { useState, useRef } from "react";
-import { Link } from "react-router-dom";
-import { ArrowRight, CheckCircle, Target } from "lucide-react";
+import { useRef } from "react";
+import { CheckCircle, Target } from "lucide-react";
 import * as LucideIcons from "lucide-react";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 import { useCompanyOverview } from "@/hooks/useCompanyOverview";
 import { useScrollFadeIn } from "@/hooks/useScrollFadeIn";
 
-// Fallback data
+// Fallback data — preserved from CMS-wired implementation
 const fallbackApproach = [
   "Detailed site assessment and project planning",
   "Transparent pricing with no hidden costs",
@@ -28,12 +26,11 @@ const fallbackValues = [
 const fallbackPromise = [
   { title: "On-Time Delivery", description: "We respect your schedule with efficient project management and clear timelines." },
   { title: "Budget Certainty", description: "Detailed estimates upfront with no surprise costs or change orders." },
-  { title: "Quality Guarantee", description: "Comprehensive warranties backed by 15+ years of proven excellence." },
+  { title: "Quality Guarantee", description: "Comprehensive warranties backed by 15+ years of team experience." },
   { title: "Safety Compliance", description: "WSIB certified with strict adherence to all safety regulations." },
 ];
 
 const CompanyOverviewHub = () => {
-  const [activeTab, setActiveTab] = useState("approach");
   const sectionRef = useRef<HTMLDivElement>(null);
   const prefersReducedMotion = useReducedMotion();
   useIntersectionObserver(sectionRef, { threshold: 0.2 });
@@ -88,23 +85,15 @@ const CompanyOverviewHub = () => {
           </p>
         </div>
 
-        {/* Interactive Tabs */}
-        <Tabs
-          value={activeTab}
-          onValueChange={setActiveTab}
-          className="w-full"
-        >
-          <TabsList className="grid w-full grid-cols-3 mb-8 max-w-2xl mx-auto h-auto p-1">
-            <TabsTrigger value="approach" className="text-sm md:text-base py-3">
-              Our Approach
-            </TabsTrigger>
-            <TabsTrigger value="values" className="text-sm md:text-base py-3">
-              Our Values
-            </TabsTrigger>
-            <TabsTrigger value="promise" className="text-sm md:text-base py-3">
-              Our Promise
-            </TabsTrigger>
-          </TabsList>
+  return (
+    <div ref={sectionRef}>
+      <Section size="major" className="bg-gradient-to-b from-muted/40 to-background">
+        <SectionHeader
+          title="Your Envelope, Restoration & Interior Trades Partner"
+          description="From building envelope systems to specialty restoration, we deliver focused trade execution with the expertise, safety standards, and quality you expect."
+          align="left"
+          maxWidth="lg"
+        />
 
           {/* Our Approach Tab */}
           <TabsContent value="approach" className={!prefersReducedMotion ? 'animate-fade-in' : ''}>
@@ -132,8 +121,8 @@ const CompanyOverviewHub = () => {
                   ))}
                 </div>
               </div>
-            </div>
-          </TabsContent>
+            </Card>
+          )}
 
           {/* Our Values Tab */}
           <TabsContent value="values" className={!prefersReducedMotion ? 'animate-fade-in' : ''}>
@@ -171,11 +160,10 @@ const CompanyOverviewHub = () => {
                       </div>
                     </div>
                   );
-                  })}
-                </div>
+                })}
               </div>
-            </div>
-          </TabsContent>
+            </Card>
+          )}
 
           {/* Our Promise Tab */}
           <TabsContent value="promise" className={!prefersReducedMotion ? 'animate-fade-in' : ''}>
@@ -206,40 +194,14 @@ const CompanyOverviewHub = () => {
                         {promise.description}
                       </p>
                     </div>
-                  ))}
-                </div>
+                  </div>
+                ))}
               </div>
-            </div>
-          </TabsContent>
-        </Tabs>
-
-        {/* Smart CTAs */}
-        <div className="mt-12 flex flex-col sm:flex-row items-center justify-center gap-4">
-          <Link
-            to="/contact"
-            className={`inline-flex items-center gap-2 px-8 py-4 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 font-semibold shadow-[var(--shadow-lg)] hover:shadow-[var(--shadow-lg)] group ${!prefersReducedMotion && 'hover-scale'}`}
-            style={{ transition: prefersReducedMotion ? 'box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1)' : 'var(--card-transition), box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1)' }}
-          >
-            Start Your Project
-            <ArrowRight className="h-5 w-5 hover-translate-arrow" />
-          </Link>
-          <Link
-            to="/projects"
-            className="inline-flex items-center gap-2 px-8 py-4 bg-secondary text-secondary-foreground rounded-lg hover:bg-secondary/90 font-semibold"
-            style={{ transition: 'var(--transition-colors)' }}
-          >
-            View Our Work
-            <ArrowRight className="h-5 w-5" />
-          </Link>
-          <Link
-            to="/how-we-work"
-            className="inline-flex items-center gap-2 px-8 py-4 border-2 border-primary text-primary rounded-lg hover:bg-primary hover:text-primary-foreground transition-all font-semibold"
-          >
-            Learn Our Process
-          </Link>
+            </Card>
+          )}
         </div>
-      </div>
-    </section>
+      </Section>
+    </div>
   );
 };
 

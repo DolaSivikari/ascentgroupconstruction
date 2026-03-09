@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Card, CardContent } from "@/components/ui/card";
+import { Card, CardContent } from "@/design-system/components/Card";
 import { Badge } from "@/components/ui/badge";
 import { Calendar, Clock, FileText } from "lucide-react";
 
@@ -31,7 +31,7 @@ const BlogCard = ({ post }: BlogCardProps) => {
 
   return (
     <Link to={`/blog/${post.slug}`}>
-      <Card variant="interactive" className="h-full overflow-hidden group border-2 hover:border-primary">
+      <Card variant="interactive" className="h-full overflow-hidden group border-2 hover:border-primary p-0">
         <CardContent className="p-8">
           <div className="flex items-start gap-3 mb-4">
             <Badge variant="info" size="sm" icon={FileText} className="shrink-0">{post.category}</Badge>

@@ -3,9 +3,8 @@ import { useNavigate } from "react-router-dom";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
-import PageHeader from "@/components/PageHeader";
-import Breadcrumb from "@/components/Breadcrumb";
 import FilterBar from "@/components/FilterBar";
+import { CTABand } from "@/design-system/components/CTABand";
 import ProjectCard from "@/components/ProjectCard";
 import ProjectFeaturedCard from "@/components/ProjectFeaturedCard";
 import { Section } from "@/components/sections/Section";
@@ -13,6 +12,7 @@ import { Building2, Home, School, Factory } from "lucide-react";
 import { Button } from "@/ui/Button";
 import { supabase } from "@/integrations/supabase/client";
 import { useRealtimeProjects } from "@/hooks/useRealtimeProjects";
+import { formatProjectValue } from "@/utils/formatProjectValue";
 import { resolveImagePath } from "@/utils/imageResolver";
 import { PremiumProjectHero } from "@/components/projects/PremiumProjectHero";
 import { FilterDrawer } from "@/components/projects/FilterDrawer";
@@ -34,6 +34,13 @@ const categories = [
 
 const years = ["All", "2024", "2023", "2022", "2021"];
 
+type ProjectRecord = Record<string, any>;
+type ProjectViewModel = {
+  title: string; category: string; location: string; year: string; size: string; duration: string; image: string;
+  images: any[]; tags: string[]; description: string; highlights: string[]; slug: string; featured: boolean; id: string; rawData: ProjectRecord;
+  project_value?: any; your_role?: string | null; on_time_completion?: boolean | null; on_budget?: boolean | null; safety_incidents?: number | null;
+};
+
 const Projects = () => {
   const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState("");
@@ -41,9 +48,9 @@ const Projects = () => {
   const [selectedYear, setSelectedYear] = useState("All");
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
   const [visibleCount, setVisibleCount] = useState(6);
-  const [allProjects, setAllProjects] = useState<any[]>([]);
+  const [allProjects, setAllProjects] = useState<ProjectViewModel[]>([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [quickViewProject, setQuickViewProject] = useState<any>(null);
+  const [quickViewProject, setQuickViewProject] = useState<ProjectViewModel | null>(null);
   
   // Analytics tracking
   usePageAnalytics('projects');
@@ -72,7 +79,7 @@ const Projects = () => {
         console.error("Error fetching projects:", error);
       } else if (data) {
         // Transform database projects to component format
-        const projects = data.map((project: any) => ({
+        const projects = data.map((project) => ({
           title: project.title,
           category: project.category || "General",
           location: project.location || "N/A",
@@ -80,14 +87,14 @@ const Projects = () => {
           size: project.project_size || "N/A",
           duration: project.duration || "N/A",
           image: resolveImagePath(project.featured_image),
-          images: project.gallery || [],
+          images: (project.gallery || []) as any[],
           tags: project.tags || [project.category, project.duration, project.project_size].filter(Boolean),
           description: project.description || project.summary || "",
           highlights: project.summary ? [project.summary] : [],
           slug: project.slug,
           featured: project.featured,
           id: project.id,
-          rawData: project,
+          rawData: project as any,
           // GC Metrics
           project_value: project.project_value,
           your_role: project.your_role,
@@ -104,7 +111,7 @@ const Projects = () => {
   }, []);
 
   // Enable realtime subscription for instant updates
-  const realtimeProjects = useRealtimeProjects(allProjects.map(p => p.rawData));
+  const realtimeProjects = useRealtimeProjects(allProjects.map(p => p.rawData) as any[]);
   
   useEffect(() => {
     if (realtimeProjects.length > 0) {
@@ -203,7 +210,7 @@ const Projects = () => {
           location: p.location,
           category: p.category,
           image: p.image,
-          value: p.project_value ? `$${(p.project_value / 100000000).toFixed(1)}M` : undefined
+          value: formatProjectValue(p.project_value) ?? undefined
         }))}
       />
 
@@ -344,13 +351,19 @@ const Projects = () => {
           )}
       </Section>
 
-      {/* Video Testimonials - Removed pending verified testimonial collection */}
-
       {/* Quick View Modal */}
       <ProjectQuickView
         project={quickViewProject}
         open={!!quickViewProject}
         onOpenChange={(open) => !open && setQuickViewProject(null)}
+      />
+
+      <CTABand
+        title="Ready to Start Your Project?"
+        description="Get a detailed proposal with transparent pricing and a clear timeline for your building envelope or restoration project."
+        primaryCta={{ text: "Request a Quote", href: "/estimate" }}
+        secondaryCta={{ text: "Contact Us", href: "/contact" }}
+        variant="dark"
       />
 
       <ScrollToTop />

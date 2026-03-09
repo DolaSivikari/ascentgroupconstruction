@@ -18,11 +18,10 @@ export const NAVIGATION_ICONS: Record<string, string> = {
   
   // Company
   '/company/certifications-insurance': 'Award',
-  '/company/equipment-resources': 'Wrench',
+  '/company/technology': 'Laptop',
   '/company/developers': 'Code',
   '/about': 'Info',
   '/careers': 'UserPlus',
-  '/how-we-work': 'Workflow',
   '/our-process': 'GitBranch',
   
   // Client Types

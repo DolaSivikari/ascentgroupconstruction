@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/ui/Button";
 import { CheckCircle2, MapPin, Shield, ArrowRight, Phone } from "lucide-react";
 import { useCompanySettings } from "@/hooks/useCompanySettings";
 
@@ -25,17 +25,16 @@ const DirectAnswer = ({ children, className = "" }: DirectAnswerProps) => {
           <div className="space-y-6">
             <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/5 border border-primary/10 rounded-full">
               <CheckCircle2 className="h-4 w-4 text-primary" />
-              <span className="text-sm font-semibold text-primary">Ontario's Trusted Construction Partner</span>
+              <span className="text-sm font-semibold text-primary">GTA Specialty Contractor</span>
             </div>
             
             <div className="prose prose-lg max-w-none text-foreground">
               {children || (
                 <div className="space-y-4">
                   <p className="text-lg leading-relaxed">
-                    <strong className="text-foreground">Ascent Group Construction is Ontario's complete construction partner</strong>, 
-                    specializing in commercial construction, multi-family construction, institutional projects, and exterior building systems 
-                    across the Greater Toronto Area. Our comprehensive services include stucco installation and repair, EIFS systems, 
-                    masonry restoration, metal cladding, parking garage restoration, waterproofing, and specialty construction services.
+                    <strong className="text-foreground">Ascent Group Construction is a specialty contractor for building envelope, restoration, and interior trades in the Greater Toronto Area</strong>. 
+                    We deliver stucco installation and repair, EIFS systems, masonry restoration, metal cladding, parking garage restoration, 
+                    waterproofing, protective coatings, and interior finishing services for commercial, multi-family, and institutional properties.
                   </p>
                   
                   <p className="text-base leading-relaxed text-muted-foreground">
@@ -67,7 +66,7 @@ const DirectAnswer = ({ children, className = "" }: DirectAnswerProps) => {
 
           {/* CTA Card */}
           <div className="lg:sticky lg:top-24 w-full lg:w-80 bg-muted/30 border border-border rounded-[var(--radius-lg)] p-6 space-y-4">
-            <h3 className="text-xl font-bold text-foreground">Ready to Start Your Project?</h3>
+            <h3 className="text-xl font-bold text-foreground">Ready to Discuss Your Project?</h3>
             <p className="text-sm text-muted-foreground">
               Request a detailed estimate tailored to your construction needs. Complimentary consultation included.
             </p>
@@ -82,7 +81,7 @@ const DirectAnswer = ({ children, className = "" }: DirectAnswerProps) => {
               
               <Button size="lg" variant="outline" className="w-full" asChild>
                 <Link to="/contact">
-                  Start Your Project
+                  Contact Us
                 </Link>
               </Button>
 

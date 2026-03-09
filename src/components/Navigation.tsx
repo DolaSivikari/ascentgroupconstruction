@@ -33,7 +33,6 @@ const Navigation = () => {
   // Pages with hero backgrounds that should have transparent navigation
   const heroPages = [
     '/',
-    // Service pages - ALL services
     '/services',
     '/services/painting-services',
     '/services/building-envelope',
@@ -43,7 +42,7 @@ const Navigation = () => {
     '/services/tile-flooring',
     '/services/cladding-systems',
     '/services/protective-coatings',
-    '/services/sustainable-building',
+    '/services/sustainable-construction',
     '/services/basement-finishing',
     '/services/carpentry-trim-work',
     '/services/interior-buildouts-finishing',
@@ -55,17 +54,14 @@ const Navigation = () => {
     '/services/waterproofing-systems',
     '/services/eifs-stucco-systems',
     '/services/protective-architectural-coatings',
-    // Company pages
     '/about',
     '/careers',
     '/capabilities',
     '/company/certifications-insurance',
     '/company/developers',
-    '/company/equipment-resources',
-    // Resource pages
+    '/company/technology',
     '/resources/contractor-portal',
     '/resources/service-areas',
-    // Contact & General pages
     '/contact',
     '/why-specialty-contractor',
     '/prequalification',
@@ -75,10 +71,11 @@ const Navigation = () => {
     '/commercial-clients',
     '/homeowners',
     '/our-process',
-    '/sustainability',
+    '/markets',
     '/faq',
-    '/insights',
-    '/blog'
+    '/blog',
+    '/estimate',
+    '/projects'
   ];
   const isHeroPage = heroPages.includes(location.pathname);
   
@@ -141,14 +138,28 @@ const Navigation = () => {
     adminHover.scheduleAction(() => setAdminDropdownOpen(false), 300);
   }, [adminHover]);
 
+  // Nav link style helper
+  const navLinkClass = (menuKey?: string, path?: string) =>
+    cn(
+      "px-2 py-2 text-base font-semibold inline-flex items-center gap-1.5 transition-all duration-300",
+      "relative after:absolute after:bottom-0 after:left-0 after:w-full after:h-[2px]",
+      "after:bg-primary after:scale-x-0 after:origin-left hover:after:scale-x-100 after:transition-transform after:duration-300",
+      menuKey && activeMegaMenu === menuKey
+        ? "text-primary after:scale-x-100"
+        : path && isActive(path)
+          ? "text-primary after:scale-x-100"
+          : (isHeroPage && isAtTop ? "text-white" : "text-foreground"),
+      menuKey
+        ? activeMegaMenu !== menuKey && "hover:text-primary"
+        : path && !isActive(path) && "hover:text-primary"
+    );
+
   return (
     <>
       <nav
         className={cn(
           "fixed top-0 left-0 right-0 z-navigation transition-all duration-300",
-          // Hide when scrolling down, show when scrolling up or at top
           scrollDirection === "down" && !isAtTop ? "-translate-y-full" : "translate-y-0",
-          // Background changes based on hero page and scroll position
           isHeroPage && isAtTop
             ? "bg-transparent border-transparent shadow-none"
             : "bg-background/95 backdrop-blur-xl shadow-lg border-b border-border/50"
@@ -156,7 +167,7 @@ const Navigation = () => {
       >
         <div className="w-full max-w-none px-6 md:px-8 lg:px-16 xl:px-20">
         <div className="hidden md:flex items-center justify-between w-full h-20 md:h-22 lg:h-28">
-          {/* Left: Logo + Company Name */}
+          {/* Left: Logo */}
           <div className="flex items-center">
             <Link 
               to="/" 
@@ -171,8 +182,33 @@ const Navigation = () => {
             </Link>
           </div>
 
-          {/* Center: Main Navigation - Simplified to 6 items */}
+          {/* Center: Main Navigation — About → Services → Markets → Projects → Trade Partners → Contact */}
           <nav className="flex items-center gap-4 lg:gap-6" aria-label="Main navigation">
+            {/* About Mega-Menu */}
+            <div
+              className="relative"
+              onMouseEnter={() => handleMegaMenuEnter("company")}
+              onMouseLeave={handleMegaMenuLeave}
+            >
+              <Link
+                to="/about"
+                className={navLinkClass("company")}
+                aria-expanded={activeMegaMenu === "company"}
+              >
+                About
+                <ChevronDown className={cn(
+                  "w-4 h-4 transition-all duration-300",
+                  activeMegaMenu === "company" && "rotate-180"
+                )} />
+              </Link>
+              <MegaMenuWithSections
+                sections={megaMenuDataEnhanced.company.sections}
+                isOpen={activeMegaMenu === "company"}
+                onClose={closeMegaMenu}
+                config={megaMenuDataEnhanced.company}
+              />
+            </div>
+
             {/* Services Mega-Menu */}
             <div
               className="relative"
@@ -181,13 +217,7 @@ const Navigation = () => {
             >
               <Link
                 to="/services"
-                className={cn(
-                  "px-2 py-2 text-base font-semibold inline-flex items-center gap-1.5 transition-all duration-300",
-                  "relative after:absolute after:bottom-0 after:left-0 after:w-full after:h-[2px]",
-                  "after:bg-primary after:scale-x-0 after:origin-left hover:after:scale-x-100 after:transition-transform after:duration-300",
-                  activeMegaMenu === "services" ? "text-primary after:scale-x-100" : (isHeroPage && isAtTop ? "text-white" : "text-foreground"),
-                  activeMegaMenu !== "services" && "hover:text-primary"
-                )}
+                className={navLinkClass("services")}
                 aria-expanded={activeMegaMenu === "services"}
               >
                 Services
@@ -204,28 +234,23 @@ const Navigation = () => {
               />
             </div>
 
-            {/* Markets / Who We Serve Mega-Menu */}
+            {/* Markets Mega-Menu — links to /markets */}
             <div
               className="relative"
               onMouseEnter={() => handleMegaMenuEnter("markets")}
               onMouseLeave={handleMegaMenuLeave}
             >
-              <button
-                className={cn(
-                  "px-2 py-2 text-base font-semibold inline-flex items-center gap-1.5 transition-all duration-300",
-                  "relative after:absolute after:bottom-0 after:left-0 after:w-full after:h-[2px]",
-                  "after:bg-primary after:scale-x-0 after:origin-left hover:after:scale-x-100 after:transition-transform after:duration-300",
-                  activeMegaMenu === "markets" ? "text-primary after:scale-x-100" : (isHeroPage && isAtTop ? "text-white" : "text-foreground"),
-                  activeMegaMenu !== "markets" && "hover:text-primary"
-                )}
+              <Link
+                to="/markets"
+                className={navLinkClass("markets")}
                 aria-expanded={activeMegaMenu === "markets"}
               >
-                Who We Serve
+                Markets
                 <ChevronDown className={cn(
                   "w-4 h-4 transition-all duration-300",
                   activeMegaMenu === "markets" && "rotate-180"
                 )} />
-              </button>
+              </Link>
               <MegaMenuWithSections
                 sections={megaMenuDataEnhanced.markets.sections}
                 isOpen={activeMegaMenu === "markets"}
@@ -237,88 +262,40 @@ const Navigation = () => {
             {/* Projects */}
             <Link
               to="/projects"
-              className={cn(
-                "px-2 py-2 text-base font-semibold relative transition-all duration-300",
-                "after:absolute after:bottom-0 after:left-0 after:w-full after:h-[2px]",
-                "after:bg-primary after:scale-x-0 after:origin-left hover:after:scale-x-100 after:transition-transform after:duration-300",
-                isActive("/projects") ? "text-primary after:scale-x-100" : (isHeroPage && isAtTop ? "text-white" : "text-foreground"),
-                !isActive("/projects") && "hover:text-primary"
-              )}
+              className={navLinkClass(undefined, "/projects")}
             >
               Projects
             </Link>
 
-            {/* Company Mega-Menu */}
+            {/* Trade Partners Mega-Menu */}
             <div
               className="relative"
-              onMouseEnter={() => handleMegaMenuEnter("company")}
+              onMouseEnter={() => handleMegaMenuEnter("tradePartners")}
               onMouseLeave={handleMegaMenuLeave}
             >
               <Link
-                to="/about"
-                className={cn(
-                  "px-2 py-2 text-base font-semibold inline-flex items-center gap-1.5 transition-all duration-300",
-                  "relative after:absolute after:bottom-0 after:left-0 after:w-full after:h-[2px]",
-                  "after:bg-primary after:scale-x-0 after:origin-left hover:after:scale-x-100 after:transition-transform after:duration-300",
-                  activeMegaMenu === "company" ? "text-primary after:scale-x-100" : (isHeroPage && isAtTop ? "text-white" : "text-foreground"),
-                  activeMegaMenu !== "company" && "hover:text-primary"
-                )}
-                aria-expanded={activeMegaMenu === "company"}
+                to="/for-general-contractors"
+                className={navLinkClass("tradePartners")}
+                aria-expanded={activeMegaMenu === "tradePartners"}
               >
-                Company
+                Trade Partners
                 <ChevronDown className={cn(
                   "w-4 h-4 transition-all duration-300",
-                  activeMegaMenu === "company" && "rotate-180"
+                  activeMegaMenu === "tradePartners" && "rotate-180"
                 )} />
               </Link>
               <MegaMenuWithSections
-                sections={megaMenuDataEnhanced.company.sections}
-                isOpen={activeMegaMenu === "company"}
+                sections={megaMenuDataEnhanced.tradePartners.sections}
+                isOpen={activeMegaMenu === "tradePartners"}
                 onClose={closeMegaMenu}
-                config={megaMenuDataEnhanced.company}
-              />
-            </div>
-
-            {/* Resources Mega-Menu */}
-            <div
-              className="relative"
-              onMouseEnter={() => handleMegaMenuEnter("resources")}
-              onMouseLeave={handleMegaMenuLeave}
-            >
-              <button
-                className={cn(
-                  "px-2 py-2 text-base font-semibold inline-flex items-center gap-1.5 transition-all duration-300",
-                  "relative after:absolute after:bottom-0 after:left-0 after:w-full after:h-[2px]",
-                  "after:bg-primary after:scale-x-0 after:origin-left hover:after:scale-x-100 after:transition-transform after:duration-300",
-                  activeMegaMenu === "resources" ? "text-primary after:scale-x-100" : (isHeroPage && isAtTop ? "text-white" : "text-foreground"),
-                  activeMegaMenu !== "resources" && "hover:text-primary"
-                )}
-                aria-expanded={activeMegaMenu === "resources"}
-              >
-                Resources
-                <ChevronDown className={cn(
-                  "w-4 h-4 transition-all duration-300",
-                  activeMegaMenu === "resources" && "rotate-180"
-                )} />
-              </button>
-              <MegaMenuWithSections
-                sections={megaMenuDataEnhanced.resources.sections}
-                isOpen={activeMegaMenu === "resources"}
-                onClose={closeMegaMenu}
-                config={megaMenuDataEnhanced.resources}
+                config={megaMenuDataEnhanced.tradePartners}
               />
             </div>
 
             {/* Contact */}
             <Link
               to="/contact"
-              className={cn(
-                "px-2 py-2 text-base font-semibold relative transition-all duration-300",
-                "after:absolute after:bottom-0 after:left-0 after:w-full after:h-[2px]",
-                "after:bg-primary after:scale-x-0 after:origin-left hover:after:scale-x-100 after:transition-transform after:duration-300",
-                isActive("/contact") ? "text-primary after:scale-x-100" : (isHeroPage && isAtTop ? "text-white" : "text-foreground"),
-                !isActive("/contact") && "hover:text-primary"
-              )}
+              className={navLinkClass(undefined, "/contact")}
             >
               Contact
             </Link>
@@ -326,7 +303,7 @@ const Navigation = () => {
 
           {/* Right: Utility Items */}
           <div className="flex items-center gap-2">
-            {/* Phone Number - Clickable on Mobile */}
+            {/* Phone Number */}
             {settings?.phone && (
               <a
                 href={`tel:${settings.phone}`}
@@ -340,23 +317,13 @@ const Navigation = () => {
               </a>
             )}
             
-            {/* Primary CTA - Request Proposal */}
+            {/* Primary CTA — Submit RFP */}
             <Button asChild variant="primary" size="sm" className="shadow-lg">
               <Link to="/submit-rfp" className="gap-2">
                 <FileText className="w-4 h-4" />
-                Request Proposal
+                Submit RFP
               </Link>
             </Button>
-            
-            <Link 
-              to="/resources/contractor-portal" 
-              className={cn(
-                "text-sm font-medium hover:text-primary hover-scale whitespace-nowrap link-underline transition-colors duration-[150ms]",
-                isHeroPage && isAtTop ? "text-white" : "text-foreground"
-              )}
-            >
-              Client Portal
-            </Link>
 
             {/* Admin Dropdown - Only visible to admin users */}
             {isAdmin && (
@@ -447,7 +414,7 @@ const Navigation = () => {
                   </DropdownMenuItem>
                   <DropdownMenuItem asChild className="p-0 focus:bg-transparent focus:text-inherit">
                     <Link 
-                      to="/admin/awards" 
+                      to="/admin/settings?tab=about" 
                       onClick={() => setAdminDropdownOpen(false)}
                       className="block w-full px-4 py-2 text-sm text-muted-foreground rounded-[var(--radius-xs)] menu-item-hover border-l-2 border-transparent hover:bg-muted/30 hover:text-primary hover:pl-5 hover:border-l-primary focus:bg-muted/30 focus:text-primary"
                     >
@@ -456,7 +423,7 @@ const Navigation = () => {
                   </DropdownMenuItem>
                   <DropdownMenuItem asChild className="p-0 focus:bg-transparent focus:text-inherit">
                     <Link 
-                      to="/admin/leadership-team" 
+                      to="/admin/settings?tab=about" 
                       onClick={() => setAdminDropdownOpen(false)}
                       className="block w-full px-4 py-2 text-sm text-muted-foreground rounded-[var(--radius-xs)] menu-item-hover border-l-2 border-transparent hover:bg-muted/30 hover:text-primary hover:pl-5 hover:border-l-primary focus:bg-muted/30 focus:text-primary"
                     >
@@ -480,7 +447,7 @@ const Navigation = () => {
                   
                   <DropdownMenuItem asChild className="p-0 focus:bg-transparent focus:text-inherit">
                     <Link 
-                      to="/admin/landing-menu" 
+                      to="/admin/homepage-builder?tab=hero" 
                       onClick={() => setAdminDropdownOpen(false)}
                       className="block w-full px-4 py-2 text-sm text-muted-foreground rounded-[var(--radius-xs)] menu-item-hover border-l-2 border-transparent hover:bg-muted/30 hover:text-primary hover:pl-5 hover:border-l-primary focus:bg-muted/30 focus:text-primary"
                     >
@@ -600,7 +567,7 @@ const Navigation = () => {
                   </DropdownMenuItem>
                   <DropdownMenuItem asChild className="p-0 focus:bg-transparent focus:text-inherit">
                     <Link 
-                      to="/admin/security-center" 
+                      to="/admin/settings?tab=security" 
                       onClick={() => setAdminDropdownOpen(false)}
                       className="block w-full px-4 py-2 text-sm text-muted-foreground rounded-md transition-all border-l-2 border-transparent hover:bg-muted/30 hover:text-primary hover:pl-5 hover:border-l-primary focus:bg-muted/30 focus:text-primary"
                     >
@@ -646,7 +613,7 @@ const Navigation = () => {
             {/* Logo removed */}
           </div>
 
-          {/* Mobile Menu Button - Optimized Touch Target & Animation */}
+          {/* Mobile Menu Button */}
           <button
             className="md:hidden text-foreground relative flex items-center justify-center h-11 w-11 min-h-[44px] min-w-[44px] rounded-md hover:bg-muted active:bg-muted/70 active:scale-95 transition-all duration-[150ms] touch-manipulation"
             onClick={() => setIsOpen(!isOpen)}
@@ -654,10 +621,7 @@ const Navigation = () => {
             aria-expanded={isOpen}
             aria-controls="mobile-menu"
           >
-            {/* Ripple effect background */}
             <span className={`absolute inset-0 rounded-md bg-primary/10 transition-transform duration-300 ${isOpen ? 'scale-100' : 'scale-0'}`} />
-            
-            {/* Hamburger Icon with smooth animation */}
             <div className="flex flex-col gap-1.5 w-6 relative z-10">
               <span className={`h-0.5 w-full bg-current rounded-full transition-all duration-300 ease-out ${isOpen ? 'rotate-45 translate-y-2' : ''}`} />
               <span className={`h-0.5 w-full bg-current rounded-full transition-all duration-[150ms] ease-out ${isOpen ? 'opacity-0 scale-0' : 'opacity-100 scale-100'}`} />

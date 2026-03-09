@@ -123,14 +123,16 @@ export const UnifiedSidebar = ({ collapsed, onToggle, mobileOpen, onMobileClose,
   const isPagesActive = ['/admin/homepage-builder', '/admin/settings'].some(p => currentPath.startsWith(p));
   const isContentActive = ['/admin/projects', '/admin/services', '/admin/blog', '/admin/media', '/admin/testimonials'].some(p => currentPath.startsWith(p));
   const isLeadsActive = ['/admin/inbox'].some(p => currentPath.startsWith(p));
-  const isWebsiteActive = ['/admin/navigation', '/admin/hero-images', '/admin/stats', '/admin/redirects', '/admin/seo'].some(p => currentPath.startsWith(p));
+  const isWebsiteActive = ['/admin/hero-images', '/admin/seo-dashboard'].some(p => currentPath.startsWith(p));
   const isAnalyticsActive = ['/admin/performance', '/admin/search-analytics', '/admin/monitoring', '/admin/audit'].some(p => currentPath.startsWith(p));
+  const isInternalToolsActive = ['/admin/navigation', '/admin/redirects', '/admin/stats'].some(p => currentPath.startsWith(p));
 
   const [pagesOpen, setPagesOpen] = useState(isPagesActive);
   const [contentOpen, setContentOpen] = useState(isContentActive);
   const [leadsOpen, setLeadsOpen] = useState(isLeadsActive);
   const [websiteOpen, setWebsiteOpen] = useState(isWebsiteActive);
   const [analyticsOpen, setAnalyticsOpen] = useState(isAnalyticsActive);
+  const [internalToolsOpen, setInternalToolsOpen] = useState(isInternalToolsActive);
 
   const isActive = (path: string) => currentPath === path || currentPath.startsWith(path + '/');
 
@@ -304,12 +306,16 @@ export const UnifiedSidebar = ({ collapsed, onToggle, mobileOpen, onMobileClose,
           {/* ==================== WEBSITE ==================== */}
           <SectionLabel icon={Palette}>WEBSITE</SectionLabel>
           <nav className="mb-4">
-            <NavItem to="/admin/navigation" icon={Navigation} label="Navigation Builder" />
             <NavItem to="/admin/hero-images" icon={ImageIcon} label="Hero Slides" />
-            <NavItem to="/admin/stats" icon={Award} label="Stats & Numbers" />
-            <NavItem to="/admin/redirects" icon={ArrowRightLeft} label="Redirects" />
             <NavItem to="/admin/seo-dashboard" icon={Search} label="SEO Dashboard" />
           </nav>
+
+          {/* ==================== INTERNAL / NON-LIVE TOOLS ==================== */}
+          <NavSection label="Internal Tools" icon={Database} open={internalToolsOpen} onOpenChange={setInternalToolsOpen}>
+            <NavItem to="/admin/navigation" icon={Navigation} label="Navigation Builder (Internal)" />
+            <NavItem to="/admin/redirects" icon={ArrowRightLeft} label="Redirects (Internal)" />
+            <NavItem to="/admin/stats" icon={Award} label="Stats & Numbers (Not Live)" />
+          </NavSection>
 
           {/* ==================== ANALYTICS ==================== */}
           <NavSection label="Analytics" icon={BarChart} open={analyticsOpen} onOpenChange={setAnalyticsOpen}>

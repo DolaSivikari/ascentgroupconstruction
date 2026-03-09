@@ -1,15 +1,14 @@
-import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
+import { corsHeaders, handleCors } from '../_shared/http.ts';
 
-const corsHeaders = {
-  'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
+const DEFAULT_TEMPLATE_NAME = 'review_request_day_0';
+const LEGACY_TEMPLATE_ALIASES: Record<string, string> = {
+  'default-review-request': DEFAULT_TEMPLATE_NAME,
 };
 
-serve(async (req) => {
-  if (req.method === 'OPTIONS') {
-    return new Response(null, { headers: corsHeaders });
-  }
+Deno.serve(async (req) => {
+  const cors = handleCors(req);
+  if (cors) return cors;
 
   try {
     const supabaseUrl = Deno.env.get('SUPABASE_URL')!;
@@ -19,6 +18,8 @@ serve(async (req) => {
     const supabase = createClient(supabaseUrl, supabaseServiceKey);
 
     const { email, clientName, projectId, templateName } = await req.json();
+    const requestedTemplateName = typeof templateName === 'string' ? templateName : '';
+    const normalizedTemplateName = LEGACY_TEMPLATE_ALIASES[requestedTemplateName] || requestedTemplateName || DEFAULT_TEMPLATE_NAME;
 
     if (!email || !clientName) {
       return new Response(
@@ -31,14 +32,14 @@ serve(async (req) => {
     const { data: template, error: templateError } = await supabase
       .from('email_templates')
       .select('*')
-      .eq('name', templateName || 'review_request_day_0')
+      .eq('name', normalizedTemplateName)
       .eq('is_active', true)
       .single();
 
     if (templateError || !template) {
       console.error('Template fetch error:', templateError);
       return new Response(
-        JSON.stringify({ error: 'Email template not found' }),
+        JSON.stringify({ error: 'Email template not found', requestedTemplateName: normalizedTemplateName }),
         { status: 404, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
       );
     }
@@ -71,14 +72,14 @@ serve(async (req) => {
     const homestarsReviewLink = 'https://homestars.com/companies/YOUR_COMPANY_ID';
     const trustedprosReviewLink = 'https://trustedpros.ca/company/YOUR_COMPANY_ID';
 
-    let htmlBody = template.body_html
+    const htmlBody = template.body_html
       .replace(/{{client_name}}/g, clientName)
       .replace(/{{google_review_link}}/g, googleReviewLink)
       .replace(/{{homestars_review_link}}/g, homestarsReviewLink)
       .replace(/{{trustedpros_review_link}}/g, trustedprosReviewLink)
       .replace(/{{review_landing_page}}/g, reviewLandingPage);
 
-    let textBody = template.body_text
+    const textBody = template.body_text
       .replace(/{{client_name}}/g, clientName)
       .replace(/{{review_landing_page}}/g, reviewLandingPage);
 

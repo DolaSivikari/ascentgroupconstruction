@@ -16,7 +16,7 @@ export const companyInfoSchema = z.object({
     .max(255, "Email must be less than 255 characters"),
   phone: z.string()
     .trim()
-    .regex(/^[\d\s\-\(\)\+]+$/, "Invalid phone number format")
+    .regex(/^[\d\s()+-]+$/, "Invalid phone number format")
     .min(10, "Phone number must be at least 10 digits")
     .max(20, "Phone number must be less than 20 characters"),
   title: z.string()

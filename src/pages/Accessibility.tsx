@@ -321,7 +321,7 @@ const Accessibility = () => {
               <div className="space-y-2">
                 <p><strong>Ascent Group Construction - Accessibility Team</strong></p>
                 <p>Email: <AscentEmailLink className="text-primary hover:underline inline" showIcon={false} /></p>
-                <p>Phone: <a href="tel:647-528-6804" className="text-primary hover:underline">647-528-6804</a></p>
+                <p>Phone: <PhoneLink showIcon={false} className="text-primary hover:underline inline" /></p>
                 <p>Contact Form: <Link to="/contact" className="text-primary hover:underline">ascentgroupconstruction.com/contact</Link></p>
               </div>
             </section>

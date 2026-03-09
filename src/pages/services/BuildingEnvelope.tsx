@@ -1,5 +1,5 @@
 import { Shield, Droplets, Wind, ThermometerSun, CheckCircle2 } from "lucide-react";
-import { UnifiedCard } from "@/components/shared/UnifiedCard";
+import { Card } from "@/design-system/components/Card";
 import { Section } from "@/components/sections/Section";
 import { ServicePageLayout } from "@/components/services/ServicePageLayout";
 import { generateServiceSchema, generateBreadcrumbSchema, SERVICE_SCHEMAS } from "@/utils/schemaGenerators";
@@ -112,13 +112,13 @@ const BuildingEnvelope = () => {
           {whatWeDeliver.map((item, index) => {
             const Icon = item.icon;
             return (
-              <UnifiedCard key={index} variant="elevated" className="p-6">
+              <Card key={index} variant="elevated" size="md">
                 <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-3">
                   <Icon className="w-6 h-6 text-primary" />
                 </div>
                 <h3 className="text-lg font-bold mb-2">{item.title}</h3>
                 <p className="text-sm text-muted-foreground">{item.description}</p>
-              </UnifiedCard>
+              </Card>
             );
           })}
         </div>
@@ -131,7 +131,7 @@ const BuildingEnvelope = () => {
             <h2 className="text-3xl md:text-4xl font-bold mb-4">Systems We Install</h2>
           </div>
 
-          <UnifiedCard variant="base" className="p-6">
+          <Card variant="default" size="md">
             <div className="grid md:grid-cols-2 gap-4">
               {systemsWeInstall.map((system, index) => (
                 <div key={index} className="flex items-start gap-3">
@@ -140,7 +140,7 @@ const BuildingEnvelope = () => {
                 </div>
               ))}
             </div>
-          </UnifiedCard>
+          </Card>
         </div>
       </Section>
 
@@ -152,7 +152,7 @@ const BuildingEnvelope = () => {
 
         <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
           {howWeWork.map((phase, index) => (
-            <UnifiedCard key={index} variant="elevated" className="p-6">
+            <Card key={index} variant="elevated" size="md">
               <div className="flex items-center gap-3 mb-4">
                 <div className="w-10 h-10 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-bold">
                   {index + 1}
@@ -167,7 +167,7 @@ const BuildingEnvelope = () => {
                   </li>
                 ))}
               </ul>
-            </UnifiedCard>
+            </Card>
           ))}
         </div>
       </Section>

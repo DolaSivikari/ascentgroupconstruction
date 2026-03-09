@@ -2,112 +2,145 @@
 
 /**
  * Route Integrity Audit
- * Validates that all internal links point to valid routes
+ * - Extracts source-of-truth routes from src/App.tsx
+ * - Supports nested /admin child routes
+ * - Scans src for internal links (to/href)
  */
 
 import * as fs from 'fs';
 import * as path from 'path';
 
-const KNOWN_ROUTES = [
-  "/",
-  "/about",
-  "/services",
-  "/services/:slug",
-  "/services/general-contracting",
-  "/services/construction-management",
-  "/services/design-build",
-  "/services/building-envelope",
-  "/services/exterior-envelope",
-  "/services/parking-rehabilitation",
-  "/services/masonry-restoration",
-  "/services/eifs-stucco",
-  "/services/metal-cladding",
-  "/services/exterior-cladding",
-  "/services/waterproofing",
-  "/services/interior-buildouts",
-  "/projects",
-  "/case-study/:slug",
-  "/blog",
-  "/blog/:slug",
-  "/contact",
-  "/estimate",
-  "/careers",
-  "/faq",
-  "/safety",
-  "/sustainability",
-  "/how-we-work",
-  "/our-process",
-  "/values",
-  "/homeowners",
-  "/commercial-clients",
-  "/property-managers",
-  "/markets/multi-family",
-  "/markets/commercial",
-  "/markets/institutional",
-  "/markets/industrial",
-  "/markets/healthcare",
-  "/markets/education",
-  "/markets/retail",
-  "/markets/hospitality",
-  "/company/team",
-  "/company/certifications-insurance",
-  "/company/equipment-resources",
-  "/company/developers",
-  "/resources/service-areas",
-  "/resources/warranties",
-  "/resources/financing",
-  "/resources/contractor-portal",
-  "/admin",
+const APP_PATHS = [
+  path.join(process.cwd(), 'src', 'routes', 'AppRoutes.tsx'),
+  path.join(process.cwd(), 'src', 'App.tsx'),
 ];
+const APP_PATH = path.join(process.cwd(), 'src', 'App.tsx');
+const SRC_DIR = path.join(process.cwd(), 'src');
 
-function findLinks(dir: string): string[] {
-  const links: string[] = [];
-  
+function extractRoutes(appContent: string): string[] {
+  const routes = new Set<string>();
+
+  const routeRegex = /<Route\s+path="([^"]+)"/g;
+  let match: RegExpExecArray | null;
+  while ((match = routeRegex.exec(appContent)) !== null) {
+    const route = match[1];
+    if (route === '*') continue;
+
+    if (route.startsWith('/')) {
+      routes.add(route);
+    } else {
+      // In this app, non-absolute Route paths are nested under /admin
+      routes.add(`/admin/${route}`);
+    }
+  }
+
+  return [...routes];
+}
+
+function findLinks(dir: string): Array<{ link: string; file: string }> {
+  const links: Array<{ link: string; file: string }> = [];
+
   function walk(currentPath: string) {
     const entries = fs.readdirSync(currentPath, { withFileTypes: true });
 
     for (const entry of entries) {
       const fullPath = path.join(currentPath, entry.name);
 
-      if (entry.name.includes('node_modules') || entry.name.includes('.git')) {
-        continue;
-      }
+      if (entry.name.includes('node_modules') || entry.name.includes('.git')) continue;
 
       if (entry.isDirectory()) {
         walk(fullPath);
       } else if (entry.name.endsWith('.tsx') || entry.name.endsWith('.ts')) {
         const content = fs.readFileSync(fullPath, 'utf-8');
-        const matches = content.match(/to=["']([^"']+)["']/g);
-        if (matches) {
-          matches.forEach(match => {
-            const link = match.match(/to=["']([^"']+)["']/)?.[1];
-            if (link && link.startsWith('/')) {
-              links.push(link);
-            }
-          });
+        const patterns = [/to=["']([^"']+)["']/g, /href=["']([^"']+)["']/g];
+
+        for (const pattern of patterns) {
+          let m: RegExpExecArray | null;
+          while ((m = pattern.exec(content)) !== null) {
+            const raw = m[1];
+            if (!raw.startsWith('/')) continue;
+            if (raw.startsWith('//')) continue;
+            if (raw.startsWith('/assets/') || raw.startsWith('/images/')) continue;
+            if (raw.endsWith('.xml') || raw.endsWith('.txt') || raw.endsWith('.pdf')) continue;
+
+            const normalized = raw.split('#')[0].split('?')[0];
+            if (!normalized) continue;
+
+            links.push({ link: normalized, file: path.relative(process.cwd(), fullPath) });
+          }
         }
       }
     }
   }
 
   walk(dir);
-  return [...new Set(links)];
+  return links;
 }
 
-const srcDir = path.join(process.cwd(), 'src');
-const foundLinks = findLinks(srcDir);
+function matchesRoute(link: string, routes: string[]): boolean {
+  return routes.some((route) => {
+    const pattern = route
+      .replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+      .replace(/:[\w]+/g, '[^/]+');
 
-const unknownLinks = foundLinks.filter(link => {
-  return !KNOWN_ROUTES.some(route => {
-    const pattern = route.replace(/:[\w]+/g, '[^/]+');
     return new RegExp(`^${pattern}$`).test(link);
   });
-});
+}
 
-if (unknownLinks.length === 0) {
-  console.log('✅ Route audit passed - all links are valid');
+const appPath = APP_PATHS.find((candidate) => fs.existsSync(candidate));
+
+if (!appPath) {
+  console.error('❌ Could not find route declaration file for extraction');
+  process.exit(1);
+}
+
+const appContent = fs.readFileSync(appPath, 'utf-8');
+
+if (!appPath) {
+  console.error('❌ Could not find route declaration file for extraction');
+  process.exit(1);
+}
+
+const appContent = fs.readFileSync(appPath, 'utf-8');
+const routes = extractRoutes(appContent);
+const foundLinks = findLinks(SRC_DIR);
+
+const unknown = new Map<string, Set<string>>();
+for (const { link, file } of foundLinks) {
+  if (!matchesRoute(link, routes)) {
+    if (!unknown.has(link)) unknown.set(link, new Set<string>());
+    unknown.get(link)!.add(file);
+  }
+}
+
+
+const appContent = fs.readFileSync(appPath, 'utf-8');
+
+const appContent = fs.readFileSync(appPath, 'utf-8');
+if (!fs.existsSync(APP_PATH)) {
+  console.error('❌ Could not find src/App.tsx for route extraction');
+  process.exit(1);
+}
+
+const appContent = fs.readFileSync(APP_PATH, 'utf-8');
+const routes = extractRoutes(appContent);
+const foundLinks = findLinks(SRC_DIR);
+
+const unknown = new Map<string, Set<string>>();
+for (const { link, file } of foundLinks) {
+  if (!matchesRoute(link, routes)) {
+    if (!unknown.has(link)) unknown.set(link, new Set<string>());
+    unknown.get(link)!.add(file);
+  }
+}
+
+if (unknown.size === 0) {
+  console.log('✅ Route audit passed - all internal links map to declared routes');
 } else {
-  console.log(`\n⚠️  Found ${unknownLinks.length} unknown routes:\n`);
-  unknownLinks.forEach(link => console.log(`  - ${link}`));
-  console.log('\nConsider adding these to KNOWN_ROUTES or fixing the links.\n');
+  console.log(`\n⚠️  Found ${unknown.size} unresolved routes:\n`);
+  for (const [link, files] of [...unknown.entries()].sort((a, b) => a[0].localeCompare(b[0]))) {
+    const sample = [...files].slice(0, 2).join(', ');
+    console.log(`  - ${link}  (e.g. ${sample})`);
+  }
+  console.log('\nUpdate links or add route declarations in src/App.tsx.\n');
 }

@@ -6,8 +6,11 @@ import { EmailLink } from "@/components/EmailLink";
 import { PhoneLink } from "@/components/shared/PhoneLink";
 import { Card } from "@/design-system/components/Card";
 import { Section } from "@/components/sections/Section";
+import { OperationalProofBar, DEFAULT_PROOF_ITEMS } from "@/components/proof/OperationalProofBar";
+import { SectionHeader } from "@/design-system/components/SectionHeader";
+import { CapabilityCard } from "@/design-system/components/CapabilityCard";
 import { CardGrid } from "@/components/shared/CardGrid";
-import { FeatureCard, ProcessStepCard } from "@/components/unified";
+import { ProcessStepCard } from "@/components/unified";
 import { Button } from "@/ui/Button";
 import { CTA_TEXT } from "@/design-system/constants";
 import { CheckCircle, Clock, Shield, FileText, Users, Wrench, Download, Mail, Phone } from "lucide-react";
@@ -119,14 +122,10 @@ const ForGeneralContractors = () => {
 
         {/* Trade Packages Section */}
         <Section size="major" className="scroll-mt-20" data-section="trade-packages">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">
-              Trade Packages We Execute
-            </h2>
-            <p className="text-lg md:text-xl text-muted-foreground">
-              Specialized envelope and interior trades for commercial, multi-family, and institutional projects
-            </p>
-          </div>
+          <SectionHeader
+            title="Trade Packages We Execute"
+            description="Specialized envelope and interior trades for commercial, multi-family, and institutional projects"
+          />
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 max-w-5xl mx-auto">
             {tradePackages.map((pkg, index) => (
@@ -149,18 +148,14 @@ const ForGeneralContractors = () => {
 
         {/* Why Work With Us */}
         <Section size="major" className="bg-muted/30">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-5xl font-bold mb-4">
-              Why GCs Choose Ascent Group
-            </h2>
-            <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
-              Reliable envelope and interior trades partner—built on professional execution and direct accountability
-            </p>
-          </div>
+          <SectionHeader
+            title="Why GCs Choose Ascent Group"
+            description="Reliable envelope and interior trades partner—built on professional execution and direct accountability"
+          />
 
           <CardGrid columns={3} stagger="standard">
             {whyWorkWithUs.map((item, index) => (
-              <FeatureCard
+              <CapabilityCard
                 key={index}
                 icon={item.icon}
                 title={item.title}
@@ -172,14 +167,10 @@ const ForGeneralContractors = () => {
 
         {/* Our Process */}
         <Section size="major">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">
-              Our Process for GC Partners
-            </h2>
-            <p className="text-lg md:text-xl text-muted-foreground">
-              From tender review to project closeout—clear steps for seamless collaboration
-            </p>
-          </div>
+          <SectionHeader
+            title="Our Process for GC Partners"
+            description="From tender review to project closeout—clear steps for seamless collaboration"
+          />
 
           <div className="max-w-4xl mx-auto space-y-4">
             {processSteps.map((step, index) => (
@@ -289,16 +280,24 @@ const ForGeneralContractors = () => {
           </Card>
         </Section>
 
+        {/* Operational Proof */}
+        <OperationalProofBar
+          items={[
+            DEFAULT_PROOF_ITEMS[0], // Self-Performed Scopes
+            DEFAULT_PROOF_ITEMS[3], // Schedule Coordination
+            DEFAULT_PROOF_ITEMS[4], // Documentation & Closeout
+            DEFAULT_PROOF_ITEMS[1], // WSIB & CGL
+          ]}
+          title="What We Bring to Your Project"
+          description="Operational capabilities that matter on-site"
+        />
+
         {/* Contact Section */}
         <Section size="major" maxWidth="narrow" className="scroll-mt-20" data-section="contact">
-          <div className="text-center mb-8">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">
-              Start Your Project
-            </h2>
-            <p className="text-lg md:text-xl text-muted-foreground mb-8">
-              Add us to your bidders list or request unit pricing on active tenders
-            </p>
-          </div>
+          <SectionHeader
+            title="Work With Us"
+            description="Add us to your bidders list or request unit pricing on active tenders"
+          />
 
           <div className="grid md:grid-cols-2 gap-6 mb-8">
             <Card variant="interactive" hover size="md" className="text-center">

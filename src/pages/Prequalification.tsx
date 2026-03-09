@@ -1,18 +1,20 @@
 import { useState, useEffect } from "react";
 import { Download, FileText, Shield, CheckCircle2, ArrowRight, Award, Building2, TrendingUp, Users, Calendar, DollarSign, MapPin, Phone, Mail, ExternalLink } from "lucide-react";
+import { CTABand } from "@/design-system/components/CTABand";
 import { Link } from "react-router-dom";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { PageHero } from "@/components/shared/PageHero";
 import { EmailLink } from "@/components/EmailLink";
 import { Button } from "@/ui/Button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/ui/Card";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import SEO from "@/components/SEO";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import { resourceHeroes } from "@/data/hero-images";
+import { PhoneLink } from "@/components/shared/PhoneLink";
 
 interface Document {
   id: string;
@@ -221,10 +223,13 @@ const Prequalification = () => {
       <Navigation />
       
       <PageHero
+        eyebrow="Contractor Pre-Qualification"
         title="Vendor Pre-Qualification Package"
         description="15+ Years Combined Team Experience • Building Envelope & Interior Trades Specialist • WSIB Compliant • $2M CGL Coverage • Serving Commercial, Multi-Family & Residential Markets"
         image={resourceHeroes["prequalification"]}
         imageAlt="Pre-qualification and certifications"
+        primaryCta={{ text: "Contact Us", href: "/contact" }}
+        secondaryCta={{ text: "How We Deliver", href: "/capabilities" }}
         breadcrumbs={[
           { label: "Home", href: "/" },
           { label: "Pre-Qualification" }
@@ -416,9 +421,7 @@ const Prequalification = () => {
                           </div>
                           <div>
                             <p className="font-semibold mb-1">Phone</p>
-                            <a href="tel:647-528-6804" className="text-muted-foreground hover:text-primary transition-colors">
-                              647-528-6804
-                            </a>
+                            <PhoneLink showIcon={false} className="text-muted-foreground hover:text-primary transition-colors" />
                           </div>
                         </div>
                       </CardContent>
@@ -506,6 +509,14 @@ const Prequalification = () => {
           </Tabs>
         </div>
       </main>
+
+      <CTABand
+        title="Ready to Work Together?"
+        description="Contact our team to discuss your project scope, review our credentials, or request a detailed proposal."
+        primaryCta={{ text: "Request a Quote", href: "/estimate" }}
+        secondaryCta={{ text: "Contact Us", href: "/contact" }}
+        variant="dark"
+      />
 
       <Footer />
     </div>

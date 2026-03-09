@@ -2,7 +2,7 @@ import { useRef, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Section, MegaMenuConfig } from "@/data/navigation-structure-enhanced";
 import { MegaMenuSection } from "./MegaMenuSection";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/ui/Button";
 import { cn } from "@/lib/utils";
 
 interface MegaMenuWithSectionsProps {

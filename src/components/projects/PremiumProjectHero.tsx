@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/ui/Button";
 import { ChevronLeft, ChevronRight, MapPin, Award } from "lucide-react";
 
 interface HeroProject {

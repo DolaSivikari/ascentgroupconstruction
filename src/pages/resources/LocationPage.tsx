@@ -8,6 +8,7 @@ import { Card } from "@/design-system/components/Card";
 import { Button } from "@/ui/Button";
 import { CTA_TEXT } from "@/design-system/constants";
 import { MapPin, Phone, Clock, CheckCircle, Building2, Home, Factory, HardHat } from "lucide-react";
+import { PhoneLink } from "@/components/shared/PhoneLink";
 import { serviceAreaCities, primaryServiceCities } from "@/data/service-area-cities";
 import { 
   generateBreadcrumbSchema,
@@ -192,7 +193,7 @@ const LocationPage = () => {
   // LocalBusiness schema for this location
   const localBusinessSchema = {
     "@context": "https://schema.org",
-    "@type": "GeneralContractor",
+    "@type": "HomeAndConstructionBusiness",
     "@id": `https://ascentgroupconstruction.com/service-areas/${location.slug}#business`,
     "name": `Ascent Group Construction - ${location.name}`,
     "description": `Building envelope and restoration contractor serving ${location.name}, ${location.region}`,
@@ -253,7 +254,7 @@ const LocationPage = () => {
               <Phone className="w-6 h-6 text-primary" />
               <div>
                 <p className="font-semibold">Call Us</p>
-                <a href="tel:647-528-6804" className="text-primary hover:underline">647-528-6804</a>
+                <PhoneLink showIcon={false} className="text-primary hover:underline" />
               </div>
             </div>
             <div className="flex items-center gap-3">

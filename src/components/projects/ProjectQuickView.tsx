@@ -1,8 +1,9 @@
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/ui/Button";
 import { MapPin, Calendar, DollarSign, Users, CheckCircle2, ExternalLink } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { formatProjectValue } from "@/utils/formatProjectValue";
 
 interface Project {
   title: string;
@@ -77,11 +78,11 @@ export const ProjectQuickView = ({ project, open, onOpenChange }: ProjectQuickVi
 
           {/* Key Metrics */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-            {project.project_value && (
+            {formatProjectValue(project.project_value) && (
               <div className="p-3 bg-muted rounded-lg text-center">
                 <DollarSign className="w-5 h-5 mx-auto mb-1 text-primary" />
                 <p className="text-xs text-muted-foreground">Value</p>
-                <p className="font-bold">${(project.project_value / 100000000).toFixed(1)}M</p>
+                <p className="font-bold">{formatProjectValue(project.project_value)}</p>
               </div>
             )}
             {project.on_time_completion !== undefined && (

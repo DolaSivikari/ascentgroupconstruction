@@ -1,5 +1,5 @@
 import { Ruler, Layers, PaintBucket, Building2, CheckCircle2 } from 'lucide-react';
-import { UnifiedCard } from "@/components/shared/UnifiedCard";
+import { Card } from "@/design-system/components/Card";
 import { Section } from "@/components/sections/Section";
 import { ServicePageLayout } from "@/components/services/ServicePageLayout";
 import { createServiceSchema } from '@/utils/schema-injector';
@@ -83,11 +83,11 @@ const InteriorBuildouts = () => {
 
         <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
           {deliverables.map((item, index) => (
-            <UnifiedCard key={index} variant="elevated" className="p-8">
+            <Card key={index} variant="elevated" size="lg">
               <item.icon className="w-12 h-12 text-primary mb-4" />
               <h3 className="text-xl font-bold mb-3">{item.title}</h3>
               <p className="text-muted-foreground">{item.description}</p>
-            </UnifiedCard>
+            </Card>
           ))}
         </div>
       </Section>

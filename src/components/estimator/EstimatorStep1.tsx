@@ -8,7 +8,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Input } from "@/components/ui/input";
+import { Input } from "@/ui/Input";
 
 interface Step1Props {
   data: {
@@ -69,9 +69,6 @@ const EstimatorStep1 = ({ data, onChange }: Step1Props) => {
               <SelectItem value="suite_buildouts">Suite Buildouts</SelectItem>
               <SelectItem value="tile_flooring">Tile & Flooring</SelectItem>
               <SelectItem value="sustainable_building">Sustainable Building</SelectItem>
-              <SelectItem value="general_contracting">General Contracting</SelectItem>
-              <SelectItem value="design_build">Design-Build Services</SelectItem>
-              <SelectItem value="construction_management">Construction Management</SelectItem>
               <SelectItem value="preconstruction">Preconstruction Services</SelectItem>
             </SelectGroup>
           </SelectContent>

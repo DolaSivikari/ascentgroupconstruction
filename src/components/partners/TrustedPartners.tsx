@@ -1,5 +1,5 @@
 import { ExternalLink, Building2, Factory, Users } from "lucide-react";
-import { Card, CardContent } from "@/components/ui/card";
+import { Card, CardContent } from "@/ui/Card";
 import { cn } from "@/lib/utils";
 import nobleExteriors from "@/assets/partners/noble-exteriors.webp";
 import eagleContracting from "@/assets/partners/eagle-contracting.png";

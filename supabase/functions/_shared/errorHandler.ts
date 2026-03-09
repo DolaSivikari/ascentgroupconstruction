@@ -18,7 +18,7 @@ export const sanitizeErrorMessage = (error: any, context?: string): string => {
   const errorMessage = error?.message || error?.toString() || 'Unknown error';
   
   // Remove database-specific details
-  let sanitized = errorMessage
+  const sanitized = errorMessage
     // Remove table names (e.g., "public.users")
     .replace(/\b(public|auth|storage)\.\w+\b/g, '[table]')
     // Remove column names (e.g., "column 'email'")
@@ -110,7 +110,7 @@ export const createErrorResponse = (
 export const logSecurityError = (
   errorType: string,
   error: any,
-  metadata?: Record<string, any>
+  metadata?: Record<string, unknown>
 ): void => {
   console.error(`[SECURITY:${errorType.toUpperCase()}]`, {
     timestamp: new Date().toISOString(),

@@ -3,7 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import { Button } from "@/ui/Button";
-import { Input } from "@/components/ui/input";
+import { Input } from "@/ui/Input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -119,7 +119,7 @@ const ServiceEditor = () => {
         title: "Success",
         description: `Service ${id === "new" ? "created" : "updated"} successfully`,
       });
-      navigate("/admin/services");
+      navigate("/admin/services-manager");
     }
     setIsLoading(false);
   };
@@ -145,7 +145,7 @@ const ServiceEditor = () => {
       <header className="border-b bg-background">
         <div className="container mx-auto px-4 py-4 flex justify-between items-center">
           <div className="flex items-center gap-4">
-            <Button variant="ghost" size="sm" onClick={() => navigate("/admin/services")}>
+            <Button variant="ghost" size="sm" onClick={() => navigate("/admin/services-manager")}>
               <ArrowLeft className="h-4 w-4 mr-2" />
               Back to Services
             </Button>
@@ -281,7 +281,7 @@ const ServiceEditor = () => {
               <Save className="h-4 w-4 mr-2" />
               {isLoading ? "Saving..." : "Save Service"}
             </Button>
-            <Button type="button" variant="outline" onClick={() => navigate("/admin/services")}>
+            <Button type="button" variant="outline" onClick={() => navigate("/admin/services-manager")}>
               Cancel
             </Button>
           </div>
