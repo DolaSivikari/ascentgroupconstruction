@@ -779,6 +779,7 @@ const AudienceTabs = ({ rm }: { rm: boolean }) => {
         </motion.div>
       </AnimatePresence>
     </Section>
+    </div>
   );
 };
 
