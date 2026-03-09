@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Download, FileText, Shield, CheckCircle2, ArrowRight, Award, Building2, TrendingUp, Users, Calendar, DollarSign, MapPin, Phone, Mail, ExternalLink } from "lucide-react";
+import { CTABand } from "@/design-system/components/CTABand";
 import { Link } from "react-router-dom";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
