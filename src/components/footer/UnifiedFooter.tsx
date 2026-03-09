@@ -43,17 +43,21 @@ export function UnifiedFooter({
 
   const companyLinks = [
     { label: "About", href: "/about" },
+    { label: "Capabilities", href: "/capabilities" },
+    { label: "Why Specialty Contractor", href: "/why-specialty-contractor" },
     { label: "Our Process", href: "/our-process" },
     { label: "Markets", href: "/markets" },
     { label: "Trade Partners", href: "/for-general-contractors" },
     { label: "Careers", href: "/careers" },
     { label: "Contact", href: "/contact" },
+    { label: "Blog", href: "/blog" },
     { label: "FAQ", href: "/faq" },
   ];
 
   const resourceLinks = [
     { label: "Certifications & Insurance", href: "/company/certifications-insurance" },
     { label: "Technology", href: "/company/technology" },
+    { label: "Developers", href: "/company/developers" },
     { label: "Service Areas", href: "/resources/service-areas" },
     { label: "Contractor Portal", href: "/resources/contractor-portal" },
     { label: "Prequalification", href: "/prequalification" },
