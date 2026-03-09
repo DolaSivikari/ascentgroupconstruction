@@ -571,6 +571,7 @@ const ConstellationSection = ({ rm }: { rm: boolean }) => {
         </div>
       )}
     </Section>
+    </div>
   );
 };
 
