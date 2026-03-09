@@ -444,7 +444,8 @@ const ConstellationSection = ({ rm }: { rm: boolean }) => {
                   stroke="hsl(var(--border))"
                   strokeWidth="0.2"
                   initial={rm ? false : { pathLength: 0, opacity: 0 }}
-                  animate={showAnim ? { pathLength: 1, opacity: 0.6 } : {}}
+                  whileInView={{ pathLength: 1, opacity: 0.6 }}
+                  viewport={{ once: true, amount: 0.05 }}
                   transition={{ delay: 0.3 + i * 0.1, duration: 0.6 }}
                 />
               );
