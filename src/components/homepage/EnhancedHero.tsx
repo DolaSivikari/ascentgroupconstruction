@@ -6,6 +6,7 @@ import { Button } from "@/ui/Button";
 
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 import { useVideoPreloader } from "@/hooks/useVideoPreloader";
+import HeroGeometry from "@/components/homepage/HeroGeometry";
 import { enrichedHeroSlides } from "@/data/enriched-hero-slides";
 import { fetchHeroSlides, type HeroSlide as AdminHeroSlide } from "@/hooks/useHomepageData";
 
@@ -389,6 +390,13 @@ const EnhancedHero = ({ splashComplete = true }: { splashComplete?: boolean }) =
 
       {/* Gradient Overlay */}
       <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/60 to-black/80" />
+
+      {/* Construction Geometry Overlay */}
+      <HeroGeometry
+        slideIndex={currentSlide}
+        isFadingOut={isFadingOut}
+        prefersReducedMotion={prefersReducedMotion}
+      />
 
       {/* Content — parallax layer */}
       <div
