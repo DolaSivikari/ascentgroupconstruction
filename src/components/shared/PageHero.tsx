@@ -225,7 +225,7 @@ export function PageHero({
           
           {/* Subtitle (above title) */}
           {subtitle && (
-            <p className="text-sm md:text-base uppercase tracking-wider text-[hsl(var(--accent))] font-semibold mb-2 motion-safe:animate-fade-in" style={staggerStyle(50)}>
+            <p className="text-sm md:text-base uppercase tracking-wider text-[hsl(var(--accent))] font-semibold mb-2" style={staggerStyle(50)}>
               {subtitle}
             </p>
           )}
