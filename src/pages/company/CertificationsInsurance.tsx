@@ -109,7 +109,7 @@ const CertificationsInsurance = () => {
               {insuranceCoverage.map((item, index) => {
                 const Icon = item.icon;
                 return (
-                  <Card key={index}>
+                  <Card key={index} className="p-0">
                     <CardContent className="p-6 text-center">
                       <Icon className="h-12 w-12 text-primary mx-auto mb-4" />
                       <div className="text-2xl font-bold text-foreground mb-2">{item.value}</div>
