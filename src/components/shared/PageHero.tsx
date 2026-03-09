@@ -182,7 +182,7 @@ export function PageHero({
         >
           {/* Breadcrumbs */}
           {breadcrumbs && breadcrumbs.length > 0 && (
-            <nav aria-label="Breadcrumb" className="mb-4 md:mb-6 motion-safe:animate-fade-in" style={staggerStyle(0)}>
+            <nav aria-label="Breadcrumb" className="mb-4 md:mb-6" style={staggerStyle(0)}>
               <ol className="flex flex-wrap items-center gap-2 text-sm text-[hsl(var(--bg))]/80">
                 {breadcrumbs.map((crumb, index) => (
                   <li key={index} className="flex items-center gap-2">
