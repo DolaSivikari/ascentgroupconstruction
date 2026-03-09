@@ -698,7 +698,8 @@ const AudienceTabs = ({ rm }: { rm: boolean }) => {
   const TabIcon = tab.icon;
 
   return (
-    <Section size="major" disableAnimation ref={sectionRef}>
+    <div ref={sectionRef}>
+    <Section size="major" disableAnimation>
       <SectionHeader
         badge="Who We Work With"
         title="Digital coordination, tailored to your role."
