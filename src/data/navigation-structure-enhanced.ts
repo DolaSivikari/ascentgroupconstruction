@@ -66,8 +66,8 @@ export const megaMenuDataEnhanced: MegaMenuDataEnhanced = {
           {
             title: "Restoration Services",
             subItems: [
-              { name: "Façade Remediation", link: "/services/facade-remediation", description: "Exterior restoration", icon: "Hammer" },
-              { name: "Parking Garage Restoration", link: "/services/parking-garage-restoration", description: "Structural concrete repair", icon: "Car" },
+              { name: "Façade Remediation", link: "/services/building-envelope", description: "Exterior restoration", icon: "Hammer" },
+              { name: "Parking Garage Restoration", link: "/services/building-envelope", description: "Structural concrete repair", icon: "Car" },
               { name: "Sealant Programs", link: "/services/building-envelope", description: "Joint maintenance programs", icon: "Wrench" },
             ],
           },

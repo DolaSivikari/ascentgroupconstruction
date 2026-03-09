@@ -50,6 +50,7 @@ export function UnifiedFooter({
     { label: "Trade Partners", href: "/for-general-contractors" },
     { label: "Careers", href: "/careers" },
     { label: "Contact", href: "/contact" },
+    { label: "FAQ", href: "/faq" },
   ];
 
   return (
@@ -308,6 +309,12 @@ export function UnifiedFooter({
               className="text-xs md:text-sm text-muted-foreground hover:text-primary transition-colors"
             >
               Terms of Service
+            </Link>
+            <Link
+              to="/accessibility"
+              className="text-xs md:text-sm text-muted-foreground hover:text-primary transition-colors"
+            >
+              Accessibility
             </Link>
             {linkedinUrl && (
               <a
