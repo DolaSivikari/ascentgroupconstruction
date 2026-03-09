@@ -5,6 +5,9 @@ import { Link } from "react-router-dom";
 import { useWhyChooseUs } from "@/hooks/useWhyChooseUs";
 import { GRID } from "@/design-system/layouts";
 import { LAYOUT } from "@/design-system/constants";
+import { useScrollFadeIn } from "@/hooks/useScrollFadeIn";
+import { useStaggerAnimation } from "@/hooks/useStaggerAnimation";
+import { useReducedMotion } from "@/hooks/useReducedMotion";
 
 // Fallback data with construction-specific icons
 const fallbackDifferentiators = [
@@ -18,8 +21,17 @@ const fallbackDifferentiators = [
 
 const WhyChooseUs = () => {
   const { data: items, isLoading } = useWhyChooseUs();
-  
-  const differentiators = items && items.length > 0 
+  const prefersReducedMotion = useReducedMotion();
+  const { ref: headerRef, isVisible: headerVisible, skipAnimation: headerSkip } =
+    useScrollFadeIn();
+  const { ref: gridRef, isVisible: gridVisible, skipAnimation: gridSkip } =
+    useScrollFadeIn({ threshold: 0.05 });
+  const delays = useStaggerAnimation({ itemCount: 6, staggerDelay: 50 });
+
+  const showHeader = headerVisible || headerSkip || prefersReducedMotion;
+  const showGrid = gridVisible || gridSkip || prefersReducedMotion;
+
+  const differentiators = items && items.length > 0
     ? items.map(item => ({
         icon: item.icon_name || "BadgeCheck",
         title: item.title,
@@ -27,12 +39,23 @@ const WhyChooseUs = () => {
         stats: item.stats_badge || "",
       }))
     : fallbackDifferentiators;
+
   return (
     <section className={`${LAYOUT.sectionSpacing.major} bg-muted/30`}>
       <div className="container mx-auto px-6 md:px-8 lg:px-12 max-w-7xl">
-        
-        {/* Section Header - Enterprise Style */}
-        <div className="max-w-3xl mb-16">
+
+        {/* Section Header */}
+        <div
+          ref={headerRef}
+          className="max-w-3xl mb-16"
+          style={{
+            opacity: showHeader ? 1 : 0,
+            transform: showHeader ? "translateY(0)" : "translateY(24px)",
+            transition: prefersReducedMotion
+              ? "none"
+              : "opacity 300ms ease-out, transform 300ms ease-out",
+          }}
+        >
           <h2 className="text-3xl md:text-5xl font-bold text-foreground mb-6 leading-tight tracking-tight">
             Why Property Owners Choose Us
           </h2>
@@ -41,11 +64,11 @@ const WhyChooseUs = () => {
           </p>
         </div>
 
-        {/* Cards Grid - Clean 3-Column Layout */}
+        {/* Cards Grid */}
         {isLoading ? (
           <div className="text-center py-12">Loading...</div>
         ) : (
-          <div className={GRID.cards3}>
+          <div ref={gridRef} className={GRID.cards3}>
             {differentiators.map((item, index) => {
               const Icon = (LucideIcons as any)[item.icon] || LucideIcons.BadgeCheck;
               return (
@@ -53,6 +76,14 @@ const WhyChooseUs = () => {
                 key={index}
                 variant="elevated"
                 className="h-full hover-subtle group"
+                style={{
+                  opacity: showGrid ? 1 : 0,
+                  transform: showGrid ? "translateY(0)" : "translateY(24px)",
+                  transition: prefersReducedMotion
+                    ? "none"
+                    : `opacity 300ms ease-out, transform 300ms ease-out`,
+                  transitionDelay: showGrid ? `${delays[index] ?? 0}ms` : "0ms",
+                }}
               >
                 <div className="p-8 h-full flex flex-col">
                   {/* Icon with Steel Blue Accent */}
@@ -84,8 +115,8 @@ const WhyChooseUs = () => {
         </div>
         )}
 
-        {/* Bottom CTA Section - Professional Design */}
-        <div className="max-w-4xl mx-auto">
+        {/* Bottom CTA Section */}
+        <div className="max-w-4xl mx-auto mt-16">
           <Card className="border-primary/20 bg-background">
             <div className="p-8 lg:p-12 text-center">
               <h3 className="text-2xl md:text-3xl font-bold mb-4 text-foreground">

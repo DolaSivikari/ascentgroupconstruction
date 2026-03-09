@@ -6,6 +6,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 import { useCompanyOverview } from "@/hooks/useCompanyOverview";
+import { useScrollFadeIn } from "@/hooks/useScrollFadeIn";
 
 // Fallback data
 const fallbackApproach = [
@@ -36,6 +37,9 @@ const CompanyOverviewHub = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
   const prefersReducedMotion = useReducedMotion();
   useIntersectionObserver(sectionRef, { threshold: 0.2 });
+  const { ref: headerRef, isVisible: headerVisible, skipAnimation: headerSkip } =
+    useScrollFadeIn();
+  const showHeader = headerVisible || headerSkip || prefersReducedMotion;
   
   const { sections, items } = useCompanyOverview();
   
@@ -64,7 +68,17 @@ const CompanyOverviewHub = () => {
     >
       <div className="container mx-auto max-w-7xl">
         {/* Header */}
-        <div className={`text-center mb-12 ${!prefersReducedMotion && 'animate-fade-in'}`}>
+        <div
+          ref={headerRef}
+          className="text-center mb-12"
+          style={{
+            opacity: showHeader ? 1 : 0,
+            transform: showHeader ? "translateY(0)" : "translateY(24px)",
+            transition: prefersReducedMotion
+              ? "none"
+              : "opacity 300ms ease-out, transform 300ms ease-out",
+          }}
+        >
           <h2 className="text-4xl md:text-5xl font-bold mb-4 text-foreground">
             Your Complete Construction Partner Across Ontario
           </h2>
@@ -100,7 +114,7 @@ const CompanyOverviewHub = () => {
                   How We Deliver Excellence
                 </h3>
                 <p className="text-muted-foreground mb-8 text-lg">
-                  Our proven process ensures every project is completed to the highest standards, 
+                  Our proven process ensures every project is completed to the highest standards,
                   on time and within budget.
                 </p>
                 <div className="grid md:grid-cols-2 gap-4">
@@ -108,6 +122,9 @@ const CompanyOverviewHub = () => {
                     <div
                       key={index}
                       className="flex items-start gap-3 p-4 rounded-lg bg-muted/50 hover:bg-muted transition-colors"
+                      style={prefersReducedMotion ? undefined : {
+                        animationDelay: `${index * 80}ms`,
+                      }}
                     >
                       <CheckCircle className="w-6 h-6 text-primary flex-shrink-0 mt-0.5" />
                       <span className="text-foreground">{item}</span>
@@ -135,6 +152,9 @@ const CompanyOverviewHub = () => {
                       <div
                         key={index}
                         className="p-6 rounded-[var(--radius-lg)] bg-gradient-to-br from-muted/50 to-muted border hover:border-primary/50 transition-all hover:shadow-[var(--shadow-lg)] group"
+                        style={prefersReducedMotion ? undefined : {
+                          animationDelay: `${index * 100}ms`,
+                        }}
                       >
                         <div className="flex items-start gap-4">
                           <div className="p-3 rounded-lg bg-primary/10 group-hover:bg-primary/20 transition-colors">
@@ -172,6 +192,9 @@ const CompanyOverviewHub = () => {
                     <div
                       key={index}
                       className="p-6 rounded-[var(--radius-lg)] bg-muted/30 border hover:border-primary/50 transition-all hover:shadow-[var(--shadow-md)]"
+                      style={prefersReducedMotion ? undefined : {
+                        animationDelay: `${index * 100}ms`,
+                      }}
                     >
                       <div className="flex items-start gap-3 mb-3">
                         <Target className="w-5 h-5 text-primary flex-shrink-0 mt-1" />
