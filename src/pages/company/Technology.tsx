@@ -410,7 +410,8 @@ const ConstellationSection = ({ rm }: { rm: boolean }) => {
             <motion.div
               key={tool.id}
               initial={rm ? false : { opacity: 0, y: 20 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.1 }}
               transition={{ delay: rm ? 0 : i * 0.08, duration: 0.4 }}
               className="p-4 rounded-lg border border-border bg-muted/30"
             >
