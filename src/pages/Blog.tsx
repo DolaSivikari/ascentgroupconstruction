@@ -99,6 +99,26 @@ const Blog = () => {
       
       {loading ? (
         <div className="container mx-auto px-4 py-20 text-center"><div className="animate-pulse">Loading content...</div></div>
+      ) : posts.length === 0 ? (
+        <main className="relative overflow-hidden">
+          <PageHero
+            title="Blog & Case Studies"
+            description="Expert insights, success stories, and real-world projects from industry professionals"
+            image={mainPageHeroes.blog}
+            imageAlt="Construction insights and case studies"
+            breadcrumbs={[
+              { label: "Home", href: "/" },
+              { label: "Blog & Case Studies" }
+            ]}
+            height="medium"
+          />
+          <section className="container mx-auto px-4 py-20 text-center">
+            <h2 className="text-3xl font-bold mb-4">Coming Soon</h2>
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              We're launching our content library. Check back soon for insights on building envelope restoration, project planning, and specialty contracting.
+            </p>
+          </section>
+        </main>
       ) : (
       <main className="relative overflow-hidden">
         <PageHero
