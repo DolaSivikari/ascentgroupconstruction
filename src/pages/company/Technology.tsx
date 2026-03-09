@@ -660,18 +660,20 @@ const BeforeAfterSlider = ({ rm }: { rm: boolean }) => {
           style={{ touchAction: "none" }}
         >
           {/* Left panel — Industry Standard */}
-          <div className="absolute inset-0 bg-muted flex flex-col justify-center px-10 md:px-16">
-            <p className="text-xs font-mono text-muted-foreground uppercase tracking-widest mb-5">
-              Industry Standard
-            </p>
-            <ul className="space-y-3">
-              {BEFORE_AFTER.before.items.map((item, i) => (
-                <li key={i} className="flex items-start gap-3 text-sm text-foreground/70">
-                  <span className="w-4 h-4 rounded-full border border-border flex-shrink-0 mt-0.5" />
-                  {item}
-                </li>
-              ))}
-            </ul>
+          <div className="absolute inset-0 bg-muted flex flex-col justify-center">
+            <div className="w-1/2 px-8 md:px-12">
+              <p className="text-xs font-mono text-muted-foreground uppercase tracking-widest mb-5">
+                Industry Standard
+              </p>
+              <ul className="space-y-3">
+                {BEFORE_AFTER.before.items.map((item, i) => (
+                  <li key={i} className="flex items-start gap-3 text-sm text-foreground/70">
+                    <span className="w-4 h-4 rounded-full border border-border flex-shrink-0 mt-0.5" />
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
 
           {/* Right panel — Ascent Standard (clipped) */}
