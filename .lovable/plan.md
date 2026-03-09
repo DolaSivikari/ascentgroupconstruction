@@ -31,6 +31,26 @@ Unified navigation with mega menu support. Created UnifiedFooter with database-d
 - Fixed "Start Your Project" → "Work With Us" in ForGeneralContractors.tsx
 - Documented future roadmap below
 
+### Phase 8: Homepage CMS Defaults ✅
+- Neutralized inflated column defaults (value_prop_2 → "WSIB Compliant", value_prop_3 → "Fully Insured")
+- Zeroed out inflated about_page_settings stat defaults (total_projects, satisfaction_rate, years_in_business → 0)
+
+### Phase 10: Public Legacy Card Migration ✅
+Migrated 8 public-facing files from `@/ui/Card` to `@/design-system/components/Card`:
+- `ServiceCard.tsx`, `RelatedServices.tsx`, `BlogCard.tsx`, `BlogPreview.tsx`
+- `Careers.tsx`, `CertificationsInsurance.tsx`, `ServiceAreas.tsx`, `ServiceDetail.tsx`
+- Added `p-0` override on Card wrappers to prevent double-padding (design-system Card has default `size="md"` → `p-6`)
+- Mapped legacy `featured` → `elevated`, `interactive` → `interactive`
+- RelatedServices switched to `variant="interactive"` (was manual hover classes)
+- Testimonials.tsx excluded (not publicly mounted)
+
+---
+
+## Phase 11: Content Population — PENDING REVIEW
+
+Draft content proposals for published projects have been presented in chat.
+Awaiting user review and approval before any DB insertion.
+
 ---
 
 ## Future Roadmap
@@ -39,7 +59,7 @@ Unified navigation with mega menu support. Created UnifiedFooter with database-d
 Role-based form field adaptation — estimate/RFP forms show different fields depending on visitor role (homeowner vs property manager vs GC). Extends existing EstimatorStep0 role selector.
 
 ### R-2: Remaining CTA/UI Cleanup
-- Migrate remaining `@/ui/Card` imports to `@/design-system/components/Card` (87 files, mostly admin)
+- Migrate remaining `@/ui/Card` imports to `@/design-system/components/Card` (admin files)
 - Standardize footer/blog CTA text to match `CTA_TEXT` constants
 - Review ServiceSelector, PrequalPackage navigation labels
 
