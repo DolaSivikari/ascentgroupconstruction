@@ -174,7 +174,7 @@ export function PageHero({
       <div className={cn("container mx-auto px-6 relative z-10 py-12 md:py-16", contentClassName)}>
         <div
           className={cn(
-            "flex flex-col",
+            "flex flex-col hero-stagger",
             maxWidthClasses[maxWidth],
             isCentered && "mx-auto text-center items-center",
             !isCentered && "items-start"
