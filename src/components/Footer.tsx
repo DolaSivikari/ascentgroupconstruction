@@ -133,7 +133,6 @@ const Footer = () => {
         {/* Main footer content */}
         <div className="container mx-auto px-6 py-8 md:py-10">
           <UnifiedFooter
-            logoUrl={ascentLogoVerticalDark}
             contactInfo={{ phone, email, address }}
             linkedinUrl={linkedinUrl}
             foundedYear={siteSettings?.founded_year || 2025}
