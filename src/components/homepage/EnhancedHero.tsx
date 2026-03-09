@@ -517,7 +517,7 @@ const EnhancedHero = ({ splashComplete = true }: { splashComplete?: boolean }) =
           {/* Separator between headline and subheadline */}
           <div className="w-12 h-px bg-accent/60 mb-6" />
           <p
-            className={`text-lg md:text-xl lg:text-2xl text-white/90 mb-12 max-w-3xl leading-relaxed ${animationsEnabled && !prefersReducedMotion ? 'animate-fade-in' : ''}`}
+            className={`text-lg md:text-xl lg:text-2xl text-white/90 mb-12 max-w-3xl leading-relaxed ${isPageLoaded && !prefersReducedMotion ? 'animate-fade-in' : ''}`}
             style={{ 
               textShadow: '0 2px 20px rgba(0,0,0,0.4)'
             }}
