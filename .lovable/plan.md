@@ -1,112 +1,48 @@
-# Project Improvement Plan — Ascent Group Construction
 
-## Completed Phases
 
-### Phase 2: Content Truth Hardening ✅
-Removed fabricated stats (98% satisfaction, 500+ projects, 25+ years), replaced with verifiable metrics ($2M CGL, WSIB compliant, 85% self-performed, 15+ team experience). Removed LEED consulting claims, unsupported "24/7" emergency claims, and inflated admin stat templates. Standardized "hundreds of projects" to team-career framing.
+# Spread Hero Geometry Across Full Slide
 
-### Phase 3: Design System Foundation ✅
-Established canonical Card component (`@/design-system/components/Card`) and four card families (CapabilityCard, ProjectCard, ProofCard, SegmentCard). Created standardized layout patterns: SectionHeader, ProofStrip, CTABand. Consolidated spacing/grid tokens into `tokens.ts`.
+## Problem
+All geometry elements are clustered in the x=1500–1875 range of the 1920×1080 viewBox — everything sits on the far right. The geometry should surround the entire hero to create an atmospheric architectural layer.
 
-### Phase 4: Service Page Architecture ✅
-Created `ServicePageTemplate` and `ServicePageLayout` components for consistent service page rendering. Migrated service pages to use design system components.
+## Approach
+Redistribute elements across all four quadrants while keeping the right side populated. The text content occupies roughly x=100–900, y=300–700 (left-center), so geometry there should use lower opacity to avoid competing with CTAs/headlines.
 
-### Phase 5: SEO & Structured Data ✅
-Added JSON-LD schemas, QuickFacts, PeopleAlsoAsk, ServiceAreaSection, DirectAnswer components. Implemented breadcrumb structured data across all pages.
+## New Element Positions
 
-### Phase 6: Navigation & Footer ✅
-Unified navigation with mega menu support. Created UnifiedFooter with database-driven content. Added route registry for known route validation.
+### Slide 1 (Building Envelope)
+| Element | Current Position | New Position |
+|---------|-----------------|--------------|
+| A – Section cut line (vertical + ticks) | x≈1580, y=80–520 | **x≈120, y=80–520** (top-left) |
+| B – Facade grid (4×3) | x=1650–1830, y=340–580 | **x=1650–1830** (keep right) |
+| C – Datum mark (drifting) | x=1500–1720, y≈860 | **x=200–420, y≈920** (bottom-left) |
+| D – Diagonal grade line | x=1500–1820, y=600–700 | **x=1500–1820** (keep right) |
+| **New E** – Corner bracket | — | **x≈1750, y≈900** (bottom-right corner) |
+| **New F** – Horizontal datum | — | **x=80–350, y≈540** (left-center, low opacity) |
 
-### Phase 7A: Conversion Architecture & Innovation Layer ✅
-- Standardized CTA text via `CTA_TEXT` constants across service/market pages
-- Added RFP file upload flow with `rfp-attachments` storage bucket
-- Created Technology & Innovation page (`/company/technology`) with truthful digital capability content
-- Fixed EstimatorStep0 role labels (gc → "General Contractor", added "Homeowner")
-- Replaced bespoke CTA sections with `CTABand` in ServicePageLayout, ServicePageTemplate
-- Migrated SubmitRFPNew and RFPStep4Scope from `@/ui/Card` to design-system Card
+### Slide 2 (Precision)
+| Element | Current Position | New Position |
+|---------|-----------------|--------------|
+| Right-angle bracket | x=1700–1840, y=120–280 | **x=100–240, y=120–280** (top-left) |
+| Measurement ticks | x≈1760, y=440–640 | **x=1760** (keep right) |
+| Crosshair (drifting) | x=1580–1680, y≈820 | **x=250–350, y≈850** (bottom-left) |
+| Dimension arrows | x=1720–1820, y≈700 | **x=1720–1820** (keep right) |
+| **New E** – Small grid fragment | — | **x=80–200, y=500–620** (left-center, low opacity) |
 
-### Phase 7B: Documentation & CTA Cleanup ✅
-- Added `/company/technology` to route registry
-- Replaced bespoke CTA in ServiceDetail.tsx with CTABand
-- Fixed "Start Your Project" → "Work With Us" in ForGeneralContractors.tsx
-- Documented future roadmap below
+### Slide 3 (Network/Reach)
+| Element | Current Position | New Position |
+|---------|-----------------|--------------|
+| Dot cluster + lines | x=1620–1820, y=140–310 | **Split**: half at x=100–300, y=120–280 (top-left), half stays right |
+| Building silhouette | x=1660–1780, y=430–580 | Keep right |
+| Alignment mark (pulsing) | x=1700–1800, y≈880 | **x=150–250, y≈900** (bottom-left) |
+| Second silhouette | x=1800–1875, y=470–580 | **x=80–155, y=500–610** (left-center) |
+| **New E** – Connecting line across | — | **x=300→1600, y≈200** (subtle long horizontal, very low opacity ~15%) |
 
-### Phase 8: Homepage CMS Defaults ✅
-- Neutralized inflated column defaults (value_prop_2 → "WSIB Compliant", value_prop_3 → "Fully Insured")
-- Zeroed out inflated about_page_settings stat defaults (total_projects, satisfaction_rate, years_in_business → 0)
+## Opacity Strategy
+- Elements near text zone (x=100–900, y=300–700): use **15–20%** opacity to avoid competing
+- Elements in corners/edges away from text: keep **25–40%** as current
+- New spanning elements: **12–15%** opacity
 
-### Phase 10: Public Legacy Card Migration ✅
-Migrated 8 public-facing files from `@/ui/Card` to `@/design-system/components/Card`:
-- `ServiceCard.tsx`, `RelatedServices.tsx`, `BlogCard.tsx`, `BlogPreview.tsx`
-- `Careers.tsx`, `CertificationsInsurance.tsx`, `ServiceAreas.tsx`, `ServiceDetail.tsx`
-- Added `p-0` override on Card wrappers to prevent double-padding (design-system Card has default `size="md"` → `p-6`)
-- Mapped legacy `featured` → `elevated`, `interactive` → `interactive`
-- RelatedServices switched to `variant="interactive"` (was manual hover classes)
-- Testimonials.tsx excluded (not publicly mounted)
+## File Changed
+Only `src/components/homepage/HeroGeometry.tsx` — redistribute coordinates, add new corner/edge elements, adjust opacity for left-side placements.
 
----
-
-## Phase 11: Content Population — PENDING REVIEW
-
-Draft content proposals for published projects have been presented in chat.
-Awaiting user review and approval before any DB insertion.
-
----
-
-## Future Roadmap
-
-### R-1: Segmented Intake
-Role-based form field adaptation — estimate/RFP forms show different fields depending on visitor role (homeowner vs property manager vs GC). Extends existing EstimatorStep0 role selector.
-
-### R-2: Remaining CTA/UI Cleanup
-- Migrate remaining `@/ui/Card` imports to `@/design-system/components/Card` (admin files)
-- Standardize footer/blog CTA text to match `CTA_TEXT` constants
-- Review ServiceSelector, PrequalPackage navigation labels
-
-### R-3: Feature Enhancements
-- Interactive service-area map widget
-- Project portfolio filters (by service, sector, year)
-- Simple estimator aids (square footage calculator)
-- Scope selector widget for estimate page
-
-### R-4: Security Hardening
-- Address 18 RLS policy warnings flagged by linter
-- Storage bucket audit (permissions, size limits)
-- Rate limiting on public form submissions
-
-### R-5: Content Population
-- Collect and enter real client testimonials
-- Publish initial blog posts with actual project content
-- Complete project case study data entry with real photos/outcomes
-
-### R-6: Analytics & Conversion
-- Conversion tracking on form submissions
-- A/B testing framework activation (tables exist, UI needed)
-- Form funnel analysis (drop-off rates per step)
-
-### R-7: EquipmentResources.tsx Deprecation
-Replace EquipmentResources page content or redirect to TechnologyInnovation page. Current page has unqualified tool claims (Procore, BIM 360, GPS Fleet Tracking, fleet size "25+").
-
----
-
-## Manual Verification Checklist
-
-- [ ] Whether a staffed 24/7 emergency line actually exists
-- [ ] Whether partner case studies represent real projects
-- [ ] Whether a client portal actually exists and functions
-- [ ] Whether "10+ projects completed" is accurate as of current date
-- [ ] Actual current tool adoption: Bluebeam, Procore, BIM 360
-- [ ] RFP file upload flow works end-to-end (storage bucket RLS)
-- [ ] File size limits appropriate for construction drawings (20MB)
-
-## Content Claims Requiring Business Confirmation
-
-| Claim | Location | Status |
-|---|---|---|
-| 85% self-performed | Multiple pages | Periodic verification flagged |
-| 10-person crew | Multiple pages | Needs current headcount |
-| $2M CGL coverage | Trust bars, stats | Verifiable via certificate |
-| Working toward COR | FAQ, About | Confirm progress status |
-| Bluebeam for markups | TechnologyInnovation | Confirm active use |
-| Procore integration capability | TechnologyInnovation | Qualified as "when required" |
-| BIM workflow experience | TechnologyInnovation | Qualified as "team experience" |
