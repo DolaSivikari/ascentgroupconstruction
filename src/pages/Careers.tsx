@@ -158,7 +158,7 @@ const Careers = () => {
 
             <div className="max-w-7xl mx-auto space-y-6">
               {openPositions.map((position, index) => (
-                <Card key={index} className="hover:shadow-lg transition-all hover:border-primary/30">
+                <Card key={index} className="hover:shadow-lg transition-all hover:border-primary/30 p-0">
                   <CardContent className="p-6">
                     <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-4">
                       <div>
