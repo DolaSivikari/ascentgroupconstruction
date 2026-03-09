@@ -231,7 +231,7 @@ export function PageHero({
           )}
           
           {/* Title */}
-          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-[hsl(var(--bg))] mb-4 leading-tight tracking-tight motion-safe:animate-fade-in" style={staggerStyle(100)}>
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-[hsl(var(--bg))] mb-4 leading-tight tracking-tight" style={staggerStyle(100)}>
             {title}
           </h1>
           
