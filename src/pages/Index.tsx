@@ -118,31 +118,25 @@ const Index = () => {
           {/* 1. Hero */}
           <EnhancedHero />
 
-          {/* 2. Trust badges */}
-          <TrustBadgeBar />
-
-          {/* 3. Who We Serve */}
-          <WhoWeServeHomepage />
-
-          {/* 4. By the Numbers proof strip */}
+          {/* 2. Proof Strip */}
           <HomepageProofStrip />
 
-          {/* 5. Why Choose Us */}
-          <WhyChooseUs />
-
-          {/* 6. Company Overview */}
-          <CompanyOverviewHub />
-
-          {/* 7. How We Work process strip */}
-          <HomepageProcessStrip />
-
-          {/* 8. Service Highlights */}
+          {/* 3. Service Highlights */}
           <HomepageServiceHighlights />
 
-          {/* 9. Featured Projects */}
+          {/* 4. Who We Serve */}
+          <WhoWeServeHomepage />
+
+          {/* 5. Featured Projects */}
           <HomepageFeaturedProjects />
 
-          {/* 10. Final CTA */}
+          {/* 6. Why Choose Us */}
+          <WhyChooseUs />
+
+          {/* 7. How We Work */}
+          <HomepageProcessStrip />
+
+          {/* 8. Final CTA */}
           <HomepageFinalCta />
         </main>
 
