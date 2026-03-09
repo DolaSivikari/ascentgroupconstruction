@@ -1,9 +1,9 @@
 import { Link } from "react-router-dom";
 import { MessageSquare, FolderOpen, ClipboardList, ArrowRight } from "lucide-react";
+import { motion } from "framer-motion";
 import { GRID } from "@/design-system/layouts";
 import { Button } from "@/ui/Button";
 import { useScrollFadeIn } from "@/hooks/useScrollFadeIn";
-import { useStaggerAnimation } from "@/hooks/useStaggerAnimation";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 
 const ctaCards = [
@@ -36,16 +36,14 @@ const ctaCards = [
   },
 ];
 
+const springHover = { type: "spring" as const, stiffness: 300, damping: 20 };
+
 export const HomepageFinalCta = () => {
-  const prefersReducedMotion = useReducedMotion();
+  const rm = useReducedMotion();
   const { ref: headerRef, isVisible: headerVisible, skipAnimation: headerSkip } =
     useScrollFadeIn();
-  const { ref: gridRef, isVisible: gridVisible, skipAnimation: gridSkip } =
-    useScrollFadeIn({ threshold: 0.1 });
-  const delays = useStaggerAnimation({ itemCount: ctaCards.length, staggerDelay: 100 });
 
-  const showHeader = headerVisible || headerSkip || prefersReducedMotion;
-  const showGrid = gridVisible || gridSkip || prefersReducedMotion;
+  const showHeader = headerVisible || headerSkip || rm;
 
   return (
     <>
@@ -78,7 +76,7 @@ export const HomepageFinalCta = () => {
             style={{
               opacity: showHeader ? 1 : 0,
               transform: showHeader ? "translateY(0)" : "translateY(24px)",
-              transition: prefersReducedMotion
+              transition: rm
                 ? "none"
                 : "opacity 300ms ease-out, transform 300ms ease-out",
             }}
@@ -93,21 +91,18 @@ export const HomepageFinalCta = () => {
           </div>
 
           {/* CTA cards */}
-          <div ref={gridRef} className={GRID.cards3}>
+          <div className={GRID.cards3}>
             {ctaCards.map((card, index) => {
               const Icon = card.icon;
               return (
-                <div
+                <motion.div
                   key={index}
+                  initial={rm ? false : { opacity: 0, scale: 0.95, y: 24 }}
+                  whileInView={{ opacity: 1, scale: 1, y: 0 }}
+                  viewport={{ once: true, amount: 0.1 }}
+                  transition={rm ? { duration: 0 } : { delay: index * 0.08, duration: 0.4 }}
+                  whileHover={rm ? {} : { y: -4, scale: 1.02, transition: springHover }}
                   className="flex flex-col p-8 rounded-xl bg-white/10 border border-white/15 hover:bg-white/15 hover:border-white/25 transition-all duration-300"
-                  style={{
-                    opacity: showGrid ? 1 : 0,
-                    transform: showGrid ? "translateY(0)" : "translateY(24px)",
-                    transition: prefersReducedMotion
-                      ? "none"
-                      : `opacity 300ms ease-out, transform 300ms ease-out`,
-                    transitionDelay: showGrid ? `${delays[index] ?? 0}ms` : "0ms",
-                  }}
                 >
                   <div className="w-12 h-12 rounded-lg bg-white/15 flex items-center justify-center mb-5">
                     <Icon className="w-6 h-6 text-white" />
@@ -131,7 +126,7 @@ export const HomepageFinalCta = () => {
                       <ArrowRight className="w-4 h-4" />
                     </Link>
                   </Button>
-                </div>
+                </motion.div>
               );
             })}
           </div>

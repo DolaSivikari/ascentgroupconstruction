@@ -1,18 +1,20 @@
 import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
+import { motion } from "framer-motion";
 import { supabase } from "@/integrations/supabase/client";
 import { Card } from "@/design-system/components/Card";
 import { useScrollFadeIn } from "@/hooks/useScrollFadeIn";
-import { useStaggerAnimation } from "@/hooks/useStaggerAnimation";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 
+const springHover = { type: "spring" as const, stiffness: 300, damping: 20 };
+
 export const HomepageFeaturedProjects = () => {
-  const prefersReducedMotion = useReducedMotion();
+  const rm = useReducedMotion();
   const { ref: headerRef, isVisible: headerVisible, skipAnimation: headerSkip } =
     useScrollFadeIn();
-  const { ref: gridRef, isVisible: gridVisible, skipAnimation: gridSkip } =
-    useScrollFadeIn({ threshold: 0.1 });
+
+  const showHeader = headerVisible || headerSkip || rm;
 
   const { data: projects } = useQuery({
     queryKey: ["homepage-featured-projects"],
@@ -38,11 +40,6 @@ export const HomepageFeaturedProjects = () => {
     },
   });
 
-  const delays = useStaggerAnimation({ itemCount: projects?.length ?? 3, staggerDelay: 120 });
-
-  const showHeader = headerVisible || headerSkip || prefersReducedMotion;
-  const showGrid = gridVisible || gridSkip || prefersReducedMotion;
-
   if (!projects || projects.length === 0) return null;
 
   return (
@@ -55,7 +52,7 @@ export const HomepageFeaturedProjects = () => {
           style={{
             opacity: showHeader ? 1 : 0,
             transform: showHeader ? "translateY(0)" : "translateY(24px)",
-            transition: prefersReducedMotion
+            transition: rm
               ? "none"
               : "opacity 300ms ease-out, transform 300ms ease-out",
           }}
@@ -81,47 +78,44 @@ export const HomepageFeaturedProjects = () => {
         </div>
 
         {/* Project cards */}
-        <div ref={gridRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {projects.map((project, index) => (
-            <Link
+            <motion.div
               key={project.id}
-              to={`/projects/${project.slug}`}
-              className="group"
-              style={{
-                opacity: showGrid ? 1 : 0,
-                transform: showGrid ? "translateY(0)" : "translateY(24px)",
-                transition: prefersReducedMotion
-                  ? "none"
-                  : `opacity 300ms ease-out, transform 300ms ease-out`,
-                transitionDelay: showGrid ? `${delays[index] ?? 0}ms` : "0ms",
-              }}
+              initial={rm ? false : { opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.1 }}
+              transition={rm ? { duration: 0 } : { delay: index * 0.08, duration: 0.4 }}
+              whileHover={rm ? {} : { y: -6, transition: springHover }}
             >
-              <Card variant="elevated" hover className="overflow-hidden h-full flex flex-col p-0">
-                {project.featured_image && (
-                  <div className="aspect-[16/10] overflow-hidden">
-                    <img
-                      src={project.featured_image}
-                      alt={project.title}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                      loading="lazy"
-                    />
+              <Link to={`/projects/${project.slug}`} className="group">
+                <Card variant="elevated" hover className="overflow-hidden h-full flex flex-col p-0">
+                  {project.featured_image && (
+                    <div className="aspect-[16/10] overflow-hidden">
+                      <img
+                        src={project.featured_image}
+                        alt={project.title}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                        loading="lazy"
+                      />
+                    </div>
+                  )}
+                  <div className="p-6 flex flex-col flex-1">
+                    {project.category && (
+                      <span className="text-xs font-medium text-accent uppercase tracking-wider mb-2">
+                        {project.category}
+                      </span>
+                    )}
+                    <h3 className="text-lg font-semibold text-foreground mb-1 group-hover:text-primary transition-colors">
+                      {project.title}
+                    </h3>
+                    {project.location && (
+                      <p className="text-sm text-muted-foreground">{project.location}</p>
+                    )}
                   </div>
-                )}
-                <div className="p-6 flex flex-col flex-1">
-                  {project.category && (
-                    <span className="text-xs font-medium text-accent uppercase tracking-wider mb-2">
-                      {project.category}
-                    </span>
-                  )}
-                  <h3 className="text-lg font-semibold text-foreground mb-1 group-hover:text-primary transition-colors">
-                    {project.title}
-                  </h3>
-                  {project.location && (
-                    <p className="text-sm text-muted-foreground">{project.location}</p>
-                  )}
-                </div>
-              </Card>
-            </Link>
+                </Card>
+              </Link>
+            </motion.div>
           ))}
         </div>
       </div>
