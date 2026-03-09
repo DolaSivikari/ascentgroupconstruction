@@ -1,112 +1,81 @@
-# Project Improvement Plan — Ascent Group Construction
 
-## Completed Phases
 
-### Phase 2: Content Truth Hardening ✅
-Removed fabricated stats (98% satisfaction, 500+ projects, 25+ years), replaced with verifiable metrics ($2M CGL, WSIB compliant, 85% self-performed, 15+ team experience). Removed LEED consulting claims, unsupported "24/7" emergency claims, and inflated admin stat templates. Standardized "hundreds of projects" to team-career framing.
+# Hero System Improvement — Implementation Plan
 
-### Phase 3: Design System Foundation ✅
-Established canonical Card component (`@/design-system/components/Card`) and four card families (CapabilityCard, ProjectCard, ProofCard, SegmentCard). Created standardized layout patterns: SectionHeader, ProofStrip, CTABand. Consolidated spacing/grid tokens into `tokens.ts`.
+## Scope: 7 changes across 5 files
 
-### Phase 4: Service Page Architecture ✅
-Created `ServicePageTemplate` and `ServicePageLayout` components for consistent service page rendering. Migrated service pages to use design system components.
+### 1. Fix Markets Hero (`src/pages/Markets.tsx`)
+- Replace `mainPageHeroes.projects` with `sectorHeroes["markets-overview"]` (verified: `heroMarketsOverview` exists at `src/assets/heroes/hero-markets-overview.jpg`)
+- Add `breadcrumbs`: Home → Markets
+- Add `eyebrow`: "Our Markets"
+- Add `description` (move current subtitle text to description, write a proper subtitle)
+- Add `primaryCta`: "Submit RFP" → `/submit-rfp`
+- Add `secondaryCta`: "Contact Us" → `/contact`
+- Import `sectorHeroes` from hero-images
 
-### Phase 5: SEO & Structured Data ✅
-Added JSON-LD schemas, QuickFacts, PeopleAlsoAsk, ServiceAreaSection, DirectAnswer components. Implemented breadcrumb structured data across all pages.
+### 2. Fix Estimate Hero (`src/pages/Estimate.tsx`)
+- Replace `resourceHeroes.estimate` (currently `heroAboutCompany`) with `heroDesignBuild` — verified exists, relevant to planning/estimating
+- Update `resourceHeroes` in `hero-images.ts`: change `estimate` mapping from `heroAboutCompany` to `heroDesignBuild`
+- Add `eyebrow`: "Project Estimator"
+- Change height from `"small"` to `"medium"`
 
-### Phase 6: Navigation & Footer ✅
-Unified navigation with mega menu support. Created UnifiedFooter with database-driven content. Added route registry for known route validation.
+### 3. Fix Contact Hero image (`src/data/hero-images.ts`)
+- Change `mainPageHeroes.contact` from `heroAboutCompany` to `heroTeam` — more relevant (people/team = contact context). Already imported.
 
-### Phase 7A: Conversion Architecture & Innovation Layer ✅
-- Standardized CTA text via `CTA_TEXT` constants across service/market pages
-- Added RFP file upload flow with `rfp-attachments` storage bucket
-- Created Technology & Innovation page (`/company/technology`) with truthful digital capability content
-- Fixed EstimatorStep0 role labels (gc → "General Contractor", added "Homeowner")
-- Replaced bespoke CTA sections with `CTABand` in ServicePageLayout, ServicePageTemplate
-- Migrated SubmitRFPNew and RFPStep4Scope from `@/ui/Card` to design-system Card
+### 4. Fix Blog Hero image (`src/data/hero-images.ts`)
+- Change `mainPageHeroes.blog` from `heroAboutCompany` to `heroEducation` — editorial/insights-relevant. Already imported.
+- Also change `mainPageHeroes.insights` to `heroEducation` for consistency.
 
-### Phase 7B: Documentation & CTA Cleanup ✅
-- Added `/company/technology` to route registry
-- Replaced bespoke CTA in ServiceDetail.tsx with CTABand
-- Fixed "Start Your Project" → "Work With Us" in ForGeneralContractors.tsx
-- Documented future roadmap below
+### 5. Add staggered reveal to shared PageHero (`src/components/shared/PageHero.tsx`)
+- Add staggered `animate-fade-in` with `animation-delay` and `animation-fill-mode: both` to each content element:
+  - Breadcrumbs: 0ms
+  - Badge/Eyebrow/Subtitle: 50ms
+  - Title: 100ms
+  - Accent line: 150ms
+  - Description: 200ms
+  - Stats: 250ms
+  - CTAs: 300ms
+- Wrap in a `motion-safe:` media query via `@media (prefers-reduced-motion: no-preference)` approach — use inline styles with `opacity: 0` default + `animate-fade-in` class, so reduced-motion users see instant content
+- Implementation: add a helper style object and apply `animate-fade-in` class + `animationDelay` + `animationFillMode: 'both'` + initial `opacity: 0` via style prop on each element group
 
-### Phase 8: Homepage CMS Defaults ✅
-- Neutralized inflated column defaults (value_prop_2 → "WSIB Compliant", value_prop_3 → "Fully Insured")
-- Zeroed out inflated about_page_settings stat defaults (total_projects, satisfaction_rate, years_in_business → 0)
+### 6. Migrate BlogPost to shared PageHero (`src/pages/BlogPost.tsx`)
+- Replace `ContentPageHeader` import with `PageHero` from `@/components/shared/PageHero`
+- Replace the `<ContentPageHeader>` call with `<PageHero>` using:
+  - `title={post.title}`
+  - `subtitle={post.category + " · " + formattedDate + " · " + (post.read_time_minutes || 5) + " min read"}`
+  - `image={post.featured_image || '/placeholder.svg'}`
+  - `breadcrumbs` (same 4-item array)
+  - `height="small"`
 
-### Phase 10: Public Legacy Card Migration ✅
-Migrated 8 public-facing files from `@/ui/Card` to `@/design-system/components/Card`:
-- `ServiceCard.tsx`, `RelatedServices.tsx`, `BlogCard.tsx`, `BlogPreview.tsx`
-- `Careers.tsx`, `CertificationsInsurance.tsx`, `ServiceAreas.tsx`, `ServiceDetail.tsx`
-- Added `p-0` override on Card wrappers to prevent double-padding (design-system Card has default `size="md"` → `p-6`)
-- Mapped legacy `featured` → `elevated`, `interactive` → `interactive`
-- RelatedServices switched to `variant="interactive"` (was manual hover classes)
-- Testimonials.tsx excluded (not publicly mounted)
-
----
-
-## Phase 11: Content Population — PENDING REVIEW
-
-Draft content proposals for published projects have been presented in chat.
-Awaiting user review and approval before any DB insertion.
-
----
-
-## Future Roadmap
-
-### R-1: Segmented Intake
-Role-based form field adaptation — estimate/RFP forms show different fields depending on visitor role (homeowner vs property manager vs GC). Extends existing EstimatorStep0 role selector.
-
-### R-2: Remaining CTA/UI Cleanup
-- Migrate remaining `@/ui/Card` imports to `@/design-system/components/Card` (admin files)
-- Standardize footer/blog CTA text to match `CTA_TEXT` constants
-- Review ServiceSelector, PrequalPackage navigation labels
-
-### R-3: Feature Enhancements
-- Interactive service-area map widget
-- Project portfolio filters (by service, sector, year)
-- Simple estimator aids (square footage calculator)
-- Scope selector widget for estimate page
-
-### R-4: Security Hardening
-- Address 18 RLS policy warnings flagged by linter
-- Storage bucket audit (permissions, size limits)
-- Rate limiting on public form submissions
-
-### R-5: Content Population
-- Collect and enter real client testimonials
-- Publish initial blog posts with actual project content
-- Complete project case study data entry with real photos/outcomes
-
-### R-6: Analytics & Conversion
-- Conversion tracking on form submissions
-- A/B testing framework activation (tables exist, UI needed)
-- Form funnel analysis (drop-off rates per step)
-
-### R-7: EquipmentResources.tsx Deprecation
-Replace EquipmentResources page content or redirect to TechnologyInnovation page. Current page has unqualified tool claims (Procore, BIM 360, GPS Fleet Tracking, fleet size "25+").
+### 7. Migrate ServiceSelectorPage to shared PageHero (`src/pages/ServiceSelectorPage.tsx`)
+- Replace `PageHeader` import with `PageHero` from `@/components/shared/PageHero`
+- Replace the `<PageHeader>` call with `<PageHero>` using the same title, description, image (`heroImage`), and breadcrumbs
+- Add `height="small"`
 
 ---
 
-## Manual Verification Checklist
+## Navigation heroPages check
+- `/projects` is NOT in `heroPages[]` — the Projects page uses `PremiumProjectHero` which has its own dark background. Will verify visually whether it needs adding; will NOT add without confirmation.
 
-- [ ] Whether a staffed 24/7 emergency line actually exists
-- [ ] Whether partner case studies represent real projects
-- [ ] Whether a client portal actually exists and functions
-- [ ] Whether "10+ projects completed" is accurate as of current date
-- [ ] Actual current tool adoption: Bluebeam, Procore, BIM 360
-- [ ] RFP file upload flow works end-to-end (storage bucket RLS)
-- [ ] File size limits appropriate for construction drawings (20MB)
+## Files changed
+| File | Change |
+|------|--------|
+| `src/pages/Markets.tsx` | Hero props overhaul |
+| `src/pages/Estimate.tsx` | Eyebrow + height |
+| `src/data/hero-images.ts` | Fix 4 image mappings (contact, blog, insights, estimate) |
+| `src/components/shared/PageHero.tsx` | Add staggered fade-in animation |
+| `src/pages/BlogPost.tsx` | Migrate from ContentPageHeader → PageHero |
+| `src/pages/ServiceSelectorPage.tsx` | Migrate from PageHeader → PageHero |
 
-## Content Claims Requiring Business Confirmation
+## NOT touched
+- `PremiumProjectHero.tsx` — protected
+- `EnhancedHero.tsx` — protected
+- Homepage layout — no changes
+- Legacy components — NOT deleted yet (will report which are safe to remove after migrations)
 
-| Claim | Location | Status |
-|---|---|---|
-| 85% self-performed | Multiple pages | Periodic verification flagged |
-| 10-person crew | Multiple pages | Needs current headcount |
-| $2M CGL coverage | Trust bars, stats | Verifiable via certificate |
-| Working toward COR | FAQ, About | Confirm progress status |
-| Bluebeam for markups | TechnologyInnovation | Confirm active use |
-| Procore integration capability | TechnologyInnovation | Qualified as "when required" |
-| BIM workflow experience | TechnologyInnovation | Qualified as "team experience" |
+## Risk assessment
+- All changes are prop-level or import swaps on existing working components
+- Image assets are verified to exist in the codebase
+- Animation uses existing Tailwind `animate-fade-in` keyframe
+- No structural or routing changes
+
