@@ -150,7 +150,7 @@ const ServiceAreas = () => {
           <section>
             <h2 className="text-3xl font-bold text-foreground mb-2">Complete Coverage Area</h2>
             <p className="text-muted-foreground mb-8">All cities and municipalities we serve</p>
-            <Card>
+            <Card className="p-0">
               <CardContent className="p-8">
                 <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                   {serviceAreaCities.map((city) => (
