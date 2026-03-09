@@ -50,6 +50,7 @@ export function UnifiedFooter({
     { label: "Trade Partners", href: "/for-general-contractors" },
     { label: "Careers", href: "/careers" },
     { label: "Contact", href: "/contact" },
+    { label: "FAQ", href: "/faq" },
   ];
 
   return (
