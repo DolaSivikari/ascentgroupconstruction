@@ -1,7 +1,7 @@
 /**
  * HeroGeometry — Subtle architectural SVG overlay for hero slides.
  * Renders construction-themed line geometry (section cuts, facade grids,
- * datum marks) as an atmospheric layer.
+ * datum marks) as an atmospheric layer spread across the full viewport.
  */
 
 interface HeroGeometryProps {
@@ -66,7 +66,7 @@ const HeroGeometry = ({ slideIndex, isFadingOut, prefersReducedMotion }: HeroGeo
 function Slide1Geometry({ animated }: { animated: boolean }) {
   return (
     <g>
-      {/* Element A — Section cut line: vertical with horizontal ticks, top-right */}
+      {/* A — Section cut line: vertical with ticks, TOP-LEFT */}
       <g
         style={{
           opacity: 0.35,
@@ -80,14 +80,14 @@ function Slide1Geometry({ animated }: { animated: boolean }) {
             : {}),
         }}
       >
-        <line x1="1580" y1="80" x2="1580" y2="520" stroke="white" strokeWidth="2" strokeLinecap="round" />
-        <line x1="1568" y1="140" x2="1592" y2="140" stroke="white" strokeWidth="2" strokeLinecap="round" />
-        <line x1="1568" y1="260" x2="1592" y2="260" stroke="white" strokeWidth="2" strokeLinecap="round" />
-        <line x1="1568" y1="380" x2="1592" y2="380" stroke="white" strokeWidth="2" strokeLinecap="round" />
-        <line x1="1568" y1="500" x2="1592" y2="500" stroke="white" strokeWidth="2" strokeLinecap="round" />
+        <line x1="120" y1="80" x2="120" y2="520" stroke="white" strokeWidth="2" strokeLinecap="round" />
+        <line x1="108" y1="140" x2="132" y2="140" stroke="white" strokeWidth="2" strokeLinecap="round" />
+        <line x1="108" y1="260" x2="132" y2="260" stroke="white" strokeWidth="2" strokeLinecap="round" />
+        <line x1="108" y1="380" x2="132" y2="380" stroke="white" strokeWidth="2" strokeLinecap="round" />
+        <line x1="108" y1="500" x2="132" y2="500" stroke="white" strokeWidth="2" strokeLinecap="round" />
       </g>
 
-      {/* Element B — Facade grid fragment: 4x3 curtain wall pattern, right-center */}
+      {/* B — Facade grid fragment: 4x3 curtain wall, RIGHT-CENTER (keep) */}
       <g style={{ opacity: 0.25 }}>
         <line x1="1650" y1="340" x2="1650" y2="580" stroke="white" strokeWidth="1.5" strokeLinecap="round" />
         <line x1="1710" y1="340" x2="1710" y2="580" stroke="white" strokeWidth="1.5" strokeLinecap="round" />
@@ -99,7 +99,7 @@ function Slide1Geometry({ animated }: { animated: boolean }) {
         <line x1="1650" y1="580" x2="1830" y2="580" stroke="white" strokeWidth="1.5" strokeLinecap="round" />
       </g>
 
-      {/* Element C — Datum/alignment mark: bottom-right, drifts up */}
+      {/* C — Datum/alignment mark: BOTTOM-LEFT, drifts up */}
       <g
         style={{
           opacity: 0.40,
@@ -108,17 +108,32 @@ function Slide1Geometry({ animated }: { animated: boolean }) {
             : {}),
         }}
       >
-        <line x1="1500" y1="860" x2="1720" y2="860" stroke="white" strokeWidth="2" strokeLinecap="round" />
-        <line x1="1500" y1="848" x2="1500" y2="872" stroke="white" strokeWidth="2" strokeLinecap="round" />
-        <line x1="1720" y1="848" x2="1720" y2="872" stroke="white" strokeWidth="2" strokeLinecap="round" />
-        <line x1="1610" y1="852" x2="1610" y2="868" stroke="white" strokeWidth="1.5" strokeLinecap="round" />
+        <line x1="200" y1="920" x2="420" y2="920" stroke="white" strokeWidth="2" strokeLinecap="round" />
+        <line x1="200" y1="908" x2="200" y2="932" stroke="white" strokeWidth="2" strokeLinecap="round" />
+        <line x1="420" y1="908" x2="420" y2="932" stroke="white" strokeWidth="2" strokeLinecap="round" />
+        <line x1="310" y1="912" x2="310" y2="928" stroke="white" strokeWidth="1.5" strokeLinecap="round" />
       </g>
 
-      {/* Element D — Diagonal grade/slope reference line */}
+      {/* D — Diagonal grade/slope reference line, RIGHT (keep) */}
       <g style={{ opacity: 0.25 }}>
         <line x1="1500" y1="700" x2="1820" y2="600" stroke="white" strokeWidth="1.5" strokeLinecap="round" />
         <line x1="1500" y1="694" x2="1500" y2="706" stroke="white" strokeWidth="1.5" strokeLinecap="round" />
         <line x1="1820" y1="594" x2="1820" y2="606" stroke="white" strokeWidth="1.5" strokeLinecap="round" />
+      </g>
+
+      {/* E — Corner bracket, BOTTOM-RIGHT */}
+      <g style={{ opacity: 0.30 }}>
+        <line x1="1750" y1="950" x2="1750" y2="900" stroke="white" strokeWidth="2" strokeLinecap="round" />
+        <line x1="1750" y1="900" x2="1850" y2="900" stroke="white" strokeWidth="2" strokeLinecap="round" />
+        <rect x="1746" y="896" width="8" height="8" stroke="white" strokeWidth="1.5" fill="none" />
+      </g>
+
+      {/* F — Horizontal datum, LEFT-CENTER (low opacity, near text zone) */}
+      <g style={{ opacity: 0.15 }}>
+        <line x1="80" y1="540" x2="350" y2="540" stroke="white" strokeWidth="1.5" strokeLinecap="round" />
+        <line x1="80" y1="532" x2="80" y2="548" stroke="white" strokeWidth="1.5" strokeLinecap="round" />
+        <line x1="350" y1="532" x2="350" y2="548" stroke="white" strokeWidth="1.5" strokeLinecap="round" />
+        <line x1="215" y1="534" x2="215" y2="546" stroke="white" strokeWidth="1" strokeLinecap="round" />
       </g>
     </g>
   );
@@ -128,7 +143,7 @@ function Slide1Geometry({ animated }: { animated: boolean }) {
 function Slide2Geometry({ animated }: { animated: boolean }) {
   return (
     <g>
-      {/* Right-angle bracket, top-right */}
+      {/* Right-angle bracket, TOP-LEFT */}
       <g
         style={{
           opacity: 0.35,
@@ -142,11 +157,11 @@ function Slide2Geometry({ animated }: { animated: boolean }) {
             : {}),
         }}
       >
-        <polyline points="1700,120 1700,280 1840,280" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" fill="none" />
-        <rect x="1696" y="272" width="12" height="12" stroke="white" strokeWidth="1.5" fill="none" rx="0" />
+        <polyline points="100,120 100,280 240,280" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+        <rect x="96" y="272" width="12" height="12" stroke="white" strokeWidth="1.5" fill="none" rx="0" />
       </g>
 
-      {/* Offset measurement ticks, right-center */}
+      {/* Offset measurement ticks, RIGHT-CENTER (keep) */}
       <g style={{ opacity: 0.25 }}>
         <line x1="1760" y1="440" x2="1760" y2="640" stroke="white" strokeWidth="1.5" strokeLinecap="round" />
         <line x1="1748" y1="440" x2="1772" y2="440" stroke="white" strokeWidth="1.5" strokeLinecap="round" />
@@ -154,7 +169,7 @@ function Slide2Geometry({ animated }: { animated: boolean }) {
         <line x1="1748" y1="640" x2="1772" y2="640" stroke="white" strokeWidth="1.5" strokeLinecap="round" />
       </g>
 
-      {/* Alignment crosshair, bottom-right, slight drift */}
+      {/* Alignment crosshair, BOTTOM-LEFT, slight drift */}
       <g
         style={{
           opacity: 0.35,
@@ -163,21 +178,28 @@ function Slide2Geometry({ animated }: { animated: boolean }) {
             : {}),
         }}
       >
-        <line x1="1580" y1="820" x2="1680" y2="820" stroke="white" strokeWidth="1.5" strokeLinecap="round" />
-        <line x1="1630" y1="790" x2="1630" y2="850" stroke="white" strokeWidth="1.5" strokeLinecap="round" />
-        <circle cx="1630" cy="820" r="8" stroke="white" strokeWidth="1.5" fill="none" />
+        <line x1="250" y1="850" x2="350" y2="850" stroke="white" strokeWidth="1.5" strokeLinecap="round" />
+        <line x1="300" y1="820" x2="300" y2="880" stroke="white" strokeWidth="1.5" strokeLinecap="round" />
+        <circle cx="300" cy="850" r="8" stroke="white" strokeWidth="1.5" fill="none" />
       </g>
 
-      {/* Element D — Dimension arrow pair */}
+      {/* Dimension arrow pair, RIGHT (keep) */}
       <g style={{ opacity: 0.25 }}>
         <line x1="1720" y1="700" x2="1820" y2="700" stroke="white" strokeWidth="1.5" strokeLinecap="round" />
-        {/* Left arrowhead */}
         <polyline points="1726,696 1720,700 1726,704" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" fill="none" />
-        {/* Right arrowhead */}
         <polyline points="1814,696 1820,700 1814,704" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" fill="none" />
-        {/* End ticks */}
         <line x1="1720" y1="692" x2="1720" y2="708" stroke="white" strokeWidth="1.5" strokeLinecap="round" />
         <line x1="1820" y1="692" x2="1820" y2="708" stroke="white" strokeWidth="1.5" strokeLinecap="round" />
+      </g>
+
+      {/* E — Small grid fragment, LEFT-CENTER (low opacity, near text zone) */}
+      <g style={{ opacity: 0.15 }}>
+        <line x1="80" y1="500" x2="80" y2="620" stroke="white" strokeWidth="1.5" strokeLinecap="round" />
+        <line x1="140" y1="500" x2="140" y2="620" stroke="white" strokeWidth="1.5" strokeLinecap="round" />
+        <line x1="200" y1="500" x2="200" y2="620" stroke="white" strokeWidth="1.5" strokeLinecap="round" />
+        <line x1="80" y1="500" x2="200" y2="500" stroke="white" strokeWidth="1.5" strokeLinecap="round" />
+        <line x1="80" y1="560" x2="200" y2="560" stroke="white" strokeWidth="1.5" strokeLinecap="round" />
+        <line x1="80" y1="620" x2="200" y2="620" stroke="white" strokeWidth="1.5" strokeLinecap="round" />
       </g>
     </g>
   );
@@ -187,7 +209,7 @@ function Slide2Geometry({ animated }: { animated: boolean }) {
 function Slide3Geometry({ animated }: { animated: boolean }) {
   return (
     <g>
-      {/* Dot cluster with connecting segments, top-right */}
+      {/* Dot cluster — split: left group TOP-LEFT */}
       <g
         style={{
           opacity: 0.35,
@@ -201,23 +223,29 @@ function Slide3Geometry({ animated }: { animated: boolean }) {
             : {}),
         }}
       >
-        <line x1="1620" y1="160" x2="1740" y2="200" stroke="white" strokeWidth="1.5" strokeLinecap="round" />
-        <line x1="1740" y1="200" x2="1800" y2="140" stroke="white" strokeWidth="1.5" strokeLinecap="round" />
-        <line x1="1740" y1="200" x2="1700" y2="310" stroke="white" strokeWidth="1.5" strokeLinecap="round" />
-        <line x1="1700" y1="310" x2="1820" y2="290" stroke="white" strokeWidth="1.5" strokeLinecap="round" />
-        <circle cx="1620" cy="160" r="3.5" fill="white" />
-        <circle cx="1740" cy="200" r="4" fill="white" />
-        <circle cx="1800" cy="140" r="3" fill="white" />
-        <circle cx="1700" cy="310" r="3.5" fill="white" />
-        <circle cx="1820" cy="290" r="3" fill="white" />
+        {/* Left cluster */}
+        <line x1="120" y1="160" x2="240" y2="200" stroke="white" strokeWidth="1.5" strokeLinecap="round" />
+        <line x1="240" y1="200" x2="300" y2="140" stroke="white" strokeWidth="1.5" strokeLinecap="round" />
+        <line x1="240" y1="200" x2="200" y2="310" stroke="white" strokeWidth="1.5" strokeLinecap="round" />
+        <circle cx="120" cy="160" r="3.5" fill="white" />
+        <circle cx="240" cy="200" r="4" fill="white" />
+        <circle cx="300" cy="140" r="3" fill="white" />
+        <circle cx="200" cy="310" r="3.5" fill="white" />
+
+        {/* Right cluster */}
+        <line x1="1700" y1="180" x2="1820" y2="220" stroke="white" strokeWidth="1.5" strokeLinecap="round" />
+        <line x1="1820" y1="220" x2="1780" y2="310" stroke="white" strokeWidth="1.5" strokeLinecap="round" />
+        <circle cx="1700" cy="180" r="3" fill="white" />
+        <circle cx="1820" cy="220" r="3.5" fill="white" />
+        <circle cx="1780" cy="310" r="3" fill="white" />
       </g>
 
-      {/* Building silhouette fragments, right-center */}
+      {/* Building silhouette fragments, RIGHT-CENTER (keep) */}
       <g style={{ opacity: 0.20 }}>
         <polyline points="1660,580 1660,460 1700,460 1700,490 1740,490 1740,430 1780,430 1780,580" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" fill="none" />
       </g>
 
-      {/* Small alignment mark, bottom-right, fade pulse */}
+      {/* Alignment mark (pulsing), BOTTOM-LEFT */}
       <g
         style={{
           ...(animated
@@ -225,14 +253,21 @@ function Slide3Geometry({ animated }: { animated: boolean }) {
             : { opacity: 0.20 }),
         }}
       >
-        <line x1="1700" y1="880" x2="1800" y2="880" stroke="white" strokeWidth="1.5" strokeLinecap="round" />
-        <line x1="1700" y1="872" x2="1700" y2="888" stroke="white" strokeWidth="1.5" strokeLinecap="round" />
-        <line x1="1800" y1="872" x2="1800" y2="888" stroke="white" strokeWidth="1.5" strokeLinecap="round" />
+        <line x1="150" y1="900" x2="250" y2="900" stroke="white" strokeWidth="1.5" strokeLinecap="round" />
+        <line x1="150" y1="892" x2="150" y2="908" stroke="white" strokeWidth="1.5" strokeLinecap="round" />
+        <line x1="250" y1="892" x2="250" y2="908" stroke="white" strokeWidth="1.5" strokeLinecap="round" />
       </g>
 
-      {/* Element D — Second smaller building silhouette, offset skyline cluster */}
-      <g style={{ opacity: 0.18 }}>
-        <polyline points="1800,580 1800,500 1825,500 1825,520 1850,520 1850,470 1875,470 1875,580" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+      {/* Second building silhouette, LEFT-CENTER (low opacity, near text zone) */}
+      <g style={{ opacity: 0.15 }}>
+        <polyline points="80,610 80,530 105,530 105,550 130,550 130,500 155,500 155,610" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+      </g>
+
+      {/* E — Connecting line across top, subtle span */}
+      <g style={{ opacity: 0.12 }}>
+        <line x1="300" y1="200" x2="1600" y2="200" stroke="white" strokeWidth="1" strokeLinecap="round" />
+        <line x1="300" y1="194" x2="300" y2="206" stroke="white" strokeWidth="1" strokeLinecap="round" />
+        <line x1="1600" y1="194" x2="1600" y2="206" stroke="white" strokeWidth="1" strokeLinecap="round" />
       </g>
     </g>
   );
