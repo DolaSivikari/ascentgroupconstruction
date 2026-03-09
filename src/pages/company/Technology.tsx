@@ -510,7 +510,8 @@ const ConstellationSection = ({ rm }: { rm: boolean }) => {
                     r={1.2}
                     fill="hsl(var(--primary))"
                     initial={rm ? false : { scale: 0 }}
-                    animate={showAnim ? { scale: 1 } : {}}
+                    whileInView={{ scale: 1 }}
+                    viewport={{ once: true, amount: 0.05 }}
                     transition={{ delay: 0.6 + i * 0.12, duration: 0.3, type: "spring" }}
                     style={{ transformOrigin: `${cx}px ${cy}px` }}
                   />
