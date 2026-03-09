@@ -387,11 +387,7 @@ const ScrollytellingSection = ({ rm }: { rm: boolean }) => {
 
 const ConstellationSection = ({ rm }: { rm: boolean }) => {
   const [hovered, setHovered] = useState<number | null>(null);
-  const sectionRef = useRef<HTMLDivElement>(null);
-  const isInView = useInView(sectionRef, { once: true, amount: 0.2 });
   const isMobile = useIsMobile();
-
-  const showAnim = isInView && !rm;
 
   const nodeCoords = TOOLS.map((t) => ({
     cx: parseFloat(t.x),
@@ -399,7 +395,6 @@ const ConstellationSection = ({ rm }: { rm: boolean }) => {
   }));
 
   return (
-    <div ref={sectionRef}>
     <Section size="major" disableAnimation>
       <SectionHeader
         badge="Our Digital Toolkit"
@@ -415,7 +410,8 @@ const ConstellationSection = ({ rm }: { rm: boolean }) => {
             <motion.div
               key={tool.id}
               initial={rm ? false : { opacity: 0, y: 20 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.1 }}
               transition={{ delay: rm ? 0 : i * 0.08, duration: 0.4 }}
               className="p-4 rounded-lg border border-border bg-muted/30"
             >
@@ -448,7 +444,8 @@ const ConstellationSection = ({ rm }: { rm: boolean }) => {
                   stroke="hsl(var(--border))"
                   strokeWidth="0.2"
                   initial={rm ? false : { pathLength: 0, opacity: 0 }}
-                  animate={showAnim ? { pathLength: 1, opacity: 0.6 } : {}}
+                  whileInView={{ pathLength: 1, opacity: 0.6 }}
+                  viewport={{ once: true, amount: 0.05 }}
                   transition={{ delay: 0.3 + i * 0.1, duration: 0.6 }}
                 />
               );
@@ -466,15 +463,11 @@ const ConstellationSection = ({ rm }: { rm: boolean }) => {
                     key={`pulse-${i}`}
                     r={0.5}
                     fill="hsl(var(--primary))"
-                    animate={
-                      showAnim
-                        ? {
-                            cx: [ax, bx, ax],
-                            cy: [ay, by, ay],
-                            opacity: [0, 0.9, 0.9, 0],
-                          }
-                        : {}
-                    }
+                    animate={{
+                      cx: [ax, bx, ax],
+                      cy: [ay, by, ay],
+                      opacity: [0, 0.9, 0.9, 0],
+                    }}
                     transition={{
                       duration: 2.5,
                       delay: 1 + i * 0.4,
@@ -506,7 +499,8 @@ const ConstellationSection = ({ rm }: { rm: boolean }) => {
                     stroke="hsl(var(--primary))"
                     strokeWidth="0.15"
                     initial={rm ? false : { scale: 0, opacity: 0 }}
-                    animate={showAnim ? { scale: 1, opacity: 1 } : {}}
+                    whileInView={{ scale: 1, opacity: 1 }}
+                    viewport={{ once: true, amount: 0.05 }}
                     transition={{ delay: 0.5 + i * 0.12, duration: 0.4 }}
                     style={{ transformOrigin: `${cx}px ${cy}px` }}
                   />
@@ -516,7 +510,8 @@ const ConstellationSection = ({ rm }: { rm: boolean }) => {
                     r={1.2}
                     fill="hsl(var(--primary))"
                     initial={rm ? false : { scale: 0 }}
-                    animate={showAnim ? { scale: 1 } : {}}
+                    whileInView={{ scale: 1 }}
+                    viewport={{ once: true, amount: 0.05 }}
                     transition={{ delay: 0.6 + i * 0.12, duration: 0.3, type: "spring" }}
                     style={{ transformOrigin: `${cx}px ${cy}px` }}
                   />
@@ -528,7 +523,8 @@ const ConstellationSection = ({ rm }: { rm: boolean }) => {
                     fontSize="1.8"
                     fontWeight="600"
                     initial={rm ? false : { opacity: 0 }}
-                    animate={showAnim ? { opacity: 1 } : {}}
+                    whileInView={{ opacity: 1 }}
+                    viewport={{ once: true, amount: 0.05 }}
                     transition={{ delay: 0.8 + i * 0.1, duration: 0.3 }}
                   >
                     {tool.label}
@@ -540,7 +536,8 @@ const ConstellationSection = ({ rm }: { rm: boolean }) => {
                     fill="hsl(var(--muted-foreground))"
                     fontSize="1.4"
                     initial={rm ? false : { opacity: 0 }}
-                    animate={showAnim ? { opacity: 1 } : {}}
+                    whileInView={{ opacity: 1 }}
+                    viewport={{ once: true, amount: 0.05 }}
                     transition={{ delay: 0.9 + i * 0.1, duration: 0.3 }}
                   >
                     {tool.sublabel}
@@ -571,7 +568,6 @@ const ConstellationSection = ({ rm }: { rm: boolean }) => {
         </div>
       )}
     </Section>
-    </div>
   );
 };
 
