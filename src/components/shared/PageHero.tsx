@@ -103,9 +103,7 @@ const imagePositionClasses: Record<string, string> = {
 
 // Helper for staggered animation styles (respects prefers-reduced-motion via CSS)
 const staggerStyle = (delayMs: number): React.CSSProperties => ({
-  opacity: 0,
-  animationDelay: `${delayMs}ms`,
-  animationFillMode: 'both',
+  animation: `fade-in 0.5s ease-out ${delayMs}ms both`,
 });
 
 export function PageHero({
