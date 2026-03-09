@@ -1,112 +1,61 @@
-# Project Improvement Plan — Ascent Group Construction
 
-## Completed Phases
 
-### Phase 2: Content Truth Hardening ✅
-Removed fabricated stats (98% satisfaction, 500+ projects, 25+ years), replaced with verifiable metrics ($2M CGL, WSIB compliant, 85% self-performed, 15+ team experience). Removed LEED consulting claims, unsupported "24/7" emergency claims, and inflated admin stat templates. Standardized "hundreds of projects" to team-career framing.
+# Route Discoverability & Navigation Hygiene — Mini-Phase
 
-### Phase 3: Design System Foundation ✅
-Established canonical Card component (`@/design-system/components/Card`) and four card families (CapabilityCard, ProjectCard, ProofCard, SegmentCard). Created standardized layout patterns: SectionHeader, ProofStrip, CTABand. Consolidated spacing/grid tokens into `tokens.ts`.
+## Summary
 
-### Phase 4: Service Page Architecture ✅
-Created `ServicePageTemplate` and `ServicePageLayout` components for consistent service page rendering. Migrated service pages to use design system components.
-
-### Phase 5: SEO & Structured Data ✅
-Added JSON-LD schemas, QuickFacts, PeopleAlsoAsk, ServiceAreaSection, DirectAnswer components. Implemented breadcrumb structured data across all pages.
-
-### Phase 6: Navigation & Footer ✅
-Unified navigation with mega menu support. Created UnifiedFooter with database-driven content. Added route registry for known route validation.
-
-### Phase 7A: Conversion Architecture & Innovation Layer ✅
-- Standardized CTA text via `CTA_TEXT` constants across service/market pages
-- Added RFP file upload flow with `rfp-attachments` storage bucket
-- Created Technology & Innovation page (`/company/technology`) with truthful digital capability content
-- Fixed EstimatorStep0 role labels (gc → "General Contractor", added "Homeowner")
-- Replaced bespoke CTA sections with `CTABand` in ServicePageLayout, ServicePageTemplate
-- Migrated SubmitRFPNew and RFPStep4Scope from `@/ui/Card` to design-system Card
-
-### Phase 7B: Documentation & CTA Cleanup ✅
-- Added `/company/technology` to route registry
-- Replaced bespoke CTA in ServiceDetail.tsx with CTABand
-- Fixed "Start Your Project" → "Work With Us" in ForGeneralContractors.tsx
-- Documented future roadmap below
-
-### Phase 8: Homepage CMS Defaults ✅
-- Neutralized inflated column defaults (value_prop_2 → "WSIB Compliant", value_prop_3 → "Fully Insured")
-- Zeroed out inflated about_page_settings stat defaults (total_projects, satisfaction_rate, years_in_business → 0)
-
-### Phase 10: Public Legacy Card Migration ✅
-Migrated 8 public-facing files from `@/ui/Card` to `@/design-system/components/Card`:
-- `ServiceCard.tsx`, `RelatedServices.tsx`, `BlogCard.tsx`, `BlogPreview.tsx`
-- `Careers.tsx`, `CertificationsInsurance.tsx`, `ServiceAreas.tsx`, `ServiceDetail.tsx`
-- Added `p-0` override on Card wrappers to prevent double-padding (design-system Card has default `size="md"` → `p-6`)
-- Mapped legacy `featured` → `elevated`, `interactive` → `interactive`
-- RelatedServices switched to `variant="interactive"` (was manual hover classes)
-- Testimonials.tsx excluded (not publicly mounted)
+Small, focused cleanup: fix 2 mega-menu redirect links, remove 1 dead sitemap entry, add 2 footer links, and make page-level decisions on 2 weak pages. No new pages, no layout changes, no schema changes.
 
 ---
 
-## Phase 11: Content Population — PENDING REVIEW
+## Changes
 
-Draft content proposals for published projects have been presented in chat.
-Awaiting user review and approval before any DB insertion.
+### 1. Fix mega-menu redirect links
+**File:** `src/data/navigation-structure-enhanced.ts`
 
----
+Change two links in the Services mega menu "Restoration Services" category:
+- "Façade Remediation" link: `/services/facade-remediation` → `/services/building-envelope`
+- "Parking Garage Restoration" link: `/services/parking-garage-restoration` → `/services/building-envelope`
 
-## Future Roadmap
+This eliminates the silent redirect bounce when users click these items.
 
-### R-1: Segmented Intake
-Role-based form field adaptation — estimate/RFP forms show different fields depending on visitor role (homeowner vs property manager vs GC). Extends existing EstimatorStep0 role selector.
+### 2. Remove `/services/waterproofing` from sitemap
+**File:** `public/sitemap.xml`
 
-### R-2: Remaining CTA/UI Cleanup
-- Migrate remaining `@/ui/Card` imports to `@/design-system/components/Card` (admin files)
-- Standardize footer/blog CTA text to match `CTA_TEXT` constants
-- Review ServiceSelector, PrequalPackage navigation labels
+Delete the `<url>` block for `https://ascentgroupconstruction.com/services/waterproofing`. Confirmed: no published DB record with slug `waterproofing` exists. This is a dead sitemap entry.
 
-### R-3: Feature Enhancements
-- Interactive service-area map widget
-- Project portfolio filters (by service, sector, year)
-- Simple estimator aids (square footage calculator)
-- Scope selector widget for estimate page
+### 3. Add `/faq` to footer Company links
+**File:** `src/components/footer/UnifiedFooter.tsx`
 
-### R-4: Security Hardening
-- Address 18 RLS policy warnings flagged by linter
-- Storage bucket audit (permissions, size limits)
-- Rate limiting on public form submissions
+Add `{ label: "FAQ", href: "/faq" }` to the `companyLinks` array (after "Contact").
 
-### R-5: Content Population
-- Collect and enter real client testimonials
-- Publish initial blog posts with actual project content
-- Complete project case study data entry with real photos/outcomes
+### 4. Add `/accessibility` to footer legal bar
+**File:** `src/components/footer/UnifiedFooter.tsx`
 
-### R-6: Analytics & Conversion
-- Conversion tracking on form submissions
-- A/B testing framework activation (tables exist, UI needed)
-- Form funnel analysis (drop-off rates per step)
+Add an "Accessibility" link next to "Privacy Policy" and "Terms of Service" in the bottom bar (both mobile and desktop).
 
-### R-7: EquipmentResources.tsx Deprecation
-Replace EquipmentResources page content or redirect to TechnologyInnovation page. Current page has unqualified tool claims (Procore, BIM 360, GPS Fleet Tracking, fleet size "25+").
+### 5. `/why-specialty-contractor` — demote from sitemap
+**File:** `public/sitemap.xml`
+
+Remove the `<url>` block for `/why-specialty-contractor`. The page will remain routable for anyone with the direct URL, but will not be indexed or promoted. It has zero internal links and no clear discovery path. If you later decide to promote it, re-add to sitemap and link from About/Services.
+
+### 6. `/capabilities` — no change now
+This page has one CTA linking to it and is in the sitemap. It is not broken — just weakly discoverable. Recommend keeping it as-is for now and revisiting when content strategy is clearer. No code change.
 
 ---
 
-## Manual Verification Checklist
+## Files touched
 
-- [ ] Whether a staffed 24/7 emergency line actually exists
-- [ ] Whether partner case studies represent real projects
-- [ ] Whether a client portal actually exists and functions
-- [ ] Whether "10+ projects completed" is accurate as of current date
-- [ ] Actual current tool adoption: Bluebeam, Procore, BIM 360
-- [ ] RFP file upload flow works end-to-end (storage bucket RLS)
-- [ ] File size limits appropriate for construction drawings (20MB)
+| File | Change |
+|---|---|
+| `src/data/navigation-structure-enhanced.ts` | 2 link fixes (lines 69, 70) |
+| `public/sitemap.xml` | Remove 2 URL blocks (waterproofing, why-specialty-contractor) |
+| `src/components/footer/UnifiedFooter.tsx` | Add FAQ to company links, add Accessibility to legal bar |
 
-## Content Claims Requiring Business Confirmation
+## What is NOT done
+- No new pages or components
+- No admin changes
+- No database changes
+- No route additions or removals
+- No layout or styling changes beyond the footer additions
 
-| Claim | Location | Status |
-|---|---|---|
-| 85% self-performed | Multiple pages | Periodic verification flagged |
-| 10-person crew | Multiple pages | Needs current headcount |
-| $2M CGL coverage | Trust bars, stats | Verifiable via certificate |
-| Working toward COR | FAQ, About | Confirm progress status |
-| Bluebeam for markups | TechnologyInnovation | Confirm active use |
-| Procore integration capability | TechnologyInnovation | Qualified as "when required" |
-| BIM workflow experience | TechnologyInnovation | Qualified as "team experience" |
