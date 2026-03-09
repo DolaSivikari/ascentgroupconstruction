@@ -784,150 +784,71 @@ const AudienceTabs = ({ rm }: { rm: boolean }) => {
 // ─────────────────────────────────────────────────────────────────────────────
 
 const TimelineSection = ({ rm }: { rm: boolean }) => {
-  const isMobile = useIsMobile();
-  const roadmapRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: roadmapRef,
-    offset: ["start start", "end end"],
-  });
-  const x = useTransform(scrollYProgress, [0, 1], ["0%", "-62%"]);
-  const sectionHeaderRef = useRef<HTMLDivElement>(null);
-  const headerInView = useInView(sectionHeaderRef, { once: true, amount: 0.3 });
-
-  // Mobile or reduced motion — static vertical list
-  if (isMobile || rm) {
-    return (
-      <Section size="major" className="bg-muted/30">
-        <SectionHeader
-          badge="Project Timeline"
-          title="Every phase. Documented."
-          align="left"
-        />
-        <div className="relative max-w-2xl">
-          {/* Vertical timeline line */}
-          <div className="absolute left-[1.25rem] top-0 bottom-0 w-px bg-border" />
-
-          <div className="space-y-0">
-            {TIMELINE_NODES.map((node, i) => {
-              const Icon = node.icon;
-              const isLast = i === TIMELINE_NODES.length - 1;
-              return (
-                <div key={i} className="relative flex gap-5 pb-8">
-                  {/* Step number + icon column */}
-                  <div className="relative z-10 flex flex-col items-center flex-shrink-0">
-                    <div className="w-10 h-10 rounded-full bg-primary text-primary-foreground flex items-center justify-center text-sm font-bold shadow-sm">
-                      {String(i + 1).padStart(2, "0")}
-                    </div>
-                    {!isLast && (
-                      <div className="w-px flex-1 bg-border mt-2" />
-                    )}
-                  </div>
-
-                  {/* Content card */}
-                  <div className="flex-1 p-5 rounded-lg bg-background border border-border shadow-sm -mt-1">
-                    <div className="flex items-center gap-2 mb-2">
-                      <Icon className="w-4 h-4 text-primary" />
-                      <p className="text-xs font-medium text-primary uppercase tracking-wider">
-                        {node.phase}
-                      </p>
-                    </div>
-                    <h3 className="font-bold text-foreground mb-1.5">{node.title}</h3>
-                    <p className="text-sm text-muted-foreground leading-relaxed">
-                      {node.detail}
-                    </p>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-        <div className="mt-6">
-          <Button asChild size="lg">
-            <Link to="/our-process">
-              View Our Process <ArrowRight className="w-4 h-4 ml-2" />
-            </Link>
-          </Button>
-        </div>
-      </Section>
-    );
-  }
-
-  // Desktop — horizontal scroll
   return (
-    <div ref={roadmapRef} className="relative h-[300vh]">
-      <div className="sticky top-0 h-screen flex flex-col justify-center overflow-hidden bg-muted/30">
-        {/* Header */}
-        <div ref={sectionHeaderRef} className="max-w-6xl mx-auto px-6 mb-10">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={headerInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.5 }}
-          >
-            <p className="text-sm font-medium text-primary uppercase tracking-wider mb-3">
-              Project Timeline
-            </p>
-            <h2 className="text-4xl font-bold text-foreground">Every phase. Documented.</h2>
-          </motion.div>
-        </div>
+    <Section size="major" className="bg-muted/30">
+      <SectionHeader
+        badge="Project Timeline"
+        title="Every phase. Documented."
+        description="From pre-mobilization through closeout, every stage is backed by a clear documentation standard."
+        align="left"
+      />
 
-        {/* Horizontal strip */}
-        <div className="overflow-hidden">
-          <motion.div
-            style={{ x }}
-            className="flex gap-8 px-16"
-          >
-            {TIMELINE_NODES.map((node, i) => {
-              const Icon = node.icon;
-              return (
-                <div
-                  key={i}
-                  className="flex-shrink-0 w-80 bg-background border border-border rounded-lg p-8 hover:shadow-md transition-shadow duration-200"
-                >
-                  {/* Step indicator */}
-                  <div className="flex items-center gap-4 mb-6">
-                    <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center">
-                      <Icon className="w-6 h-6 text-primary" />
-                    </div>
-                    <div className="flex-1 h-px bg-border" />
-                    <span className="text-4xl font-bold text-foreground/10">
-                      {String(i + 1).padStart(2, "0")}
-                    </span>
-                  </div>
-
-                  <p className="text-xs font-medium text-primary uppercase tracking-wider mb-2">
-                    {node.phase}
-                  </p>
-                  <h3 className="text-lg font-bold text-foreground mb-3 leading-snug">
-                    {node.title}
-                  </h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed">{node.detail}</p>
+      {/* Timeline grid */}
+      <div className="grid md:grid-cols-5 gap-0 md:gap-0 border border-border rounded-lg overflow-hidden bg-background">
+        {TIMELINE_NODES.map((node, i) => {
+          const Icon = node.icon;
+          const isLast = i === TIMELINE_NODES.length - 1;
+          return (
+            <motion.div
+              key={i}
+              initial={rm ? false : { opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.1 }}
+              transition={{ delay: rm ? 0 : i * 0.08, duration: 0.4 }}
+              className={`relative p-6 md:p-5 lg:p-6 ${!isLast ? "border-b md:border-b-0 md:border-r border-border" : ""}`}
+            >
+              {/* Step number */}
+              <div className="flex items-center gap-3 mb-4">
+                <span className="text-3xl font-bold text-foreground/10 leading-none">
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+                <div className="flex-1 h-px bg-border" />
+                <div className="w-9 h-9 rounded-lg bg-primary/10 flex items-center justify-center">
+                  <Icon className="w-4.5 h-4.5 text-primary" />
                 </div>
-              );
-            })}
+              </div>
 
-            {/* CTA card at the end */}
-            <div className="flex-shrink-0 w-64 flex flex-col justify-center items-start gap-4 pl-8">
-              <p className="text-sm text-muted-foreground leading-relaxed">
-                See how this comes together in our 7-step delivery process.
+              {/* Phase label */}
+              <p className="text-xs font-medium text-primary uppercase tracking-wider mb-1.5">
+                {node.phase}
               </p>
-              <Button asChild size="lg">
-                <Link to="/our-process">
-                  View Our Process <ArrowRight className="w-4 h-4 ml-2" />
-                </Link>
-              </Button>
-            </div>
-          </motion.div>
-        </div>
 
-        {/* Progress bar at bottom */}
-        <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-border">
-          <motion.div
-            className="h-full bg-primary origin-left"
-            style={{ scaleX: scrollYProgress }}
-          />
-        </div>
+              {/* Title */}
+              <h3 className="text-sm font-bold text-foreground mb-2 leading-snug">
+                {node.title}
+              </h3>
+
+              {/* Detail */}
+              <p className="text-xs text-muted-foreground leading-relaxed">
+                {node.detail}
+              </p>
+            </motion.div>
+          );
+        })}
       </div>
-    </div>
+
+      {/* CTA */}
+      <div className="mt-8 flex items-center gap-4">
+        <Button asChild size="lg">
+          <Link to="/our-process">
+            View Our Process <ArrowRight className="w-4 h-4 ml-2" />
+          </Link>
+        </Button>
+        <span className="text-sm text-muted-foreground">
+          See how this maps to our 7-step delivery process.
+        </span>
+      </div>
+    </Section>
   );
 };
 
