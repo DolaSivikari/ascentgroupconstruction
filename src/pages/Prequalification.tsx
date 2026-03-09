@@ -223,10 +223,13 @@ const Prequalification = () => {
       <Navigation />
       
       <PageHero
+        eyebrow="Contractor Pre-Qualification"
         title="Vendor Pre-Qualification Package"
         description="15+ Years Combined Team Experience • Building Envelope & Interior Trades Specialist • WSIB Compliant • $2M CGL Coverage • Serving Commercial, Multi-Family & Residential Markets"
         image={resourceHeroes["prequalification"]}
         imageAlt="Pre-qualification and certifications"
+        primaryCta={{ text: "Contact Us", href: "/contact" }}
+        secondaryCta={{ text: "How We Deliver", href: "/capabilities" }}
         breadcrumbs={[
           { label: "Home", href: "/" },
           { label: "Pre-Qualification" }
