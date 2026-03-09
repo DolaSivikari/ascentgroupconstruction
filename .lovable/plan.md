@@ -1,112 +1,46 @@
-# Project Improvement Plan — Ascent Group Construction
 
-## Completed Phases
 
-### Phase 2: Content Truth Hardening ✅
-Removed fabricated stats (98% satisfaction, 500+ projects, 25+ years), replaced with verifiable metrics ($2M CGL, WSIB compliant, 85% self-performed, 15+ team experience). Removed LEED consulting claims, unsupported "24/7" emergency claims, and inflated admin stat templates. Standardized "hundreds of projects" to team-career framing.
+# Fix Technology Page Visual Issues
 
-### Phase 3: Design System Foundation ✅
-Established canonical Card component (`@/design-system/components/Card`) and four card families (CapabilityCard, ProjectCard, ProofCard, SegmentCard). Created standardized layout patterns: SectionHeader, ProofStrip, CTABand. Consolidated spacing/grid tokens into `tokens.ts`.
+## What's broken (from screenshots)
 
-### Phase 4: Service Page Architecture ✅
-Created `ServicePageTemplate` and `ServicePageLayout` components for consistent service page rendering. Migrated service pages to use design system components.
+### 1. Before/After Slider — Ascent Standard text is invisible
+The "Ascent Standard" (right panel) uses `clipPath: inset(0 0 0 ${sliderPos}%)` which clips from the left. But the text content is left-aligned (`px-10`) inside the panel. At 50% slider position, all the text sits in the clipped (hidden) region. The user sees a solid dark rectangle with no content.
 
-### Phase 5: SEO & Structured Data ✅
-Added JSON-LD schemas, QuickFacts, PeopleAlsoAsk, ServiceAreaSection, DirectAnswer components. Implemented breadcrumb structured data across all pages.
+**Fix**: Right-align the Ascent Standard content so it's always visible in the revealed portion, or use a different layout where each panel's text is positioned within its own visible half.
 
-### Phase 6: Navigation & Footer ✅
-Unified navigation with mega menu support. Created UnifiedFooter with database-driven content. Added route registry for known route validation.
+### 2. Scrollytelling — Stats are nearly invisible
+The stat numbers use `text-background/10` (10% opacity white on dark background), making "100%", "Bluebeam", "Day 1", "Daily" practically invisible. These are meant to be large watermark-style numbers but they're too faint to read.
 
-### Phase 7A: Conversion Architecture & Innovation Layer ✅
-- Standardized CTA text via `CTA_TEXT` constants across service/market pages
-- Added RFP file upload flow with `rfp-attachments` storage bucket
-- Created Technology & Innovation page (`/company/technology`) with truthful digital capability content
-- Fixed EstimatorStep0 role labels (gc → "General Contractor", added "Homeowner")
-- Replaced bespoke CTA sections with `CTABand` in ServicePageLayout, ServicePageTemplate
-- Migrated SubmitRFPNew and RFPStep4Scope from `@/ui/Card` to design-system Card
+**Fix**: Increase opacity to `text-background/20` or `/25` so they serve as visible background typography.
 
-### Phase 7B: Documentation & CTA Cleanup ✅
-- Added `/company/technology` to route registry
-- Replaced bespoke CTA in ServiceDetail.tsx with CTABand
-- Fixed "Start Your Project" → "Work With Us" in ForGeneralContractors.tsx
-- Documented future roadmap below
+### 3. Scrollytelling — Reduced motion fallback has invisible text
+When `useReducedMotion()` returns true, the stacked phase list (lines 373-388) renders outside the dark-bg wrapper, using `text-background` (white) on the default page background (also white/light). Titles and body text are completely invisible.
 
-### Phase 8: Homepage CMS Defaults ✅
-- Neutralized inflated column defaults (value_prop_2 → "WSIB Compliant", value_prop_3 → "Fully Insured")
-- Zeroed out inflated about_page_settings stat defaults (total_projects, satisfaction_rate, years_in_business → 0)
+**Fix**: Wrap the rm fallback in a container with `bg-foreground` or change text colors to `text-foreground`.
 
-### Phase 10: Public Legacy Card Migration ✅
-Migrated 8 public-facing files from `@/ui/Card` to `@/design-system/components/Card`:
-- `ServiceCard.tsx`, `RelatedServices.tsx`, `BlogCard.tsx`, `BlogPreview.tsx`
-- `Careers.tsx`, `CertificationsInsurance.tsx`, `ServiceAreas.tsx`, `ServiceDetail.tsx`
-- Added `p-0` override on Card wrappers to prevent double-padding (design-system Card has default `size="md"` → `p-6`)
-- Mapped legacy `featured` → `elevated`, `interactive` → `interactive`
-- RelatedServices switched to `variant="interactive"` (was manual hover classes)
-- Testimonials.tsx excluded (not publicly mounted)
+### 4. Empty visual feel across sections
+The constellation, scrollytelling, and slider sections lack any imagery, illustration, or visual weight. They're text-only on flat backgrounds, which makes them feel unfinished rather than "minimal."
 
----
+**Fix** (lightweight): Add subtle geometric/grid visual elements to fill empty space in the scrollytelling left column and constellation section, similar to the grid texture already used in the hero and manifesto sections.
 
-## Phase 11: Content Population — PENDING REVIEW
+## Implementation plan
 
-Draft content proposals for published projects have been presented in chat.
-Awaiting user review and approval before any DB insertion.
+### File: `src/pages/company/Technology.tsx`
 
----
+**A. Fix Before/After slider (lines 662-693)**
+- Change layout from overlapping absolute panels to a side-by-side approach where each panel occupies its half
+- Or: keep the clip approach but right-align the Ascent content using `text-right` and `items-end` / `flex-row-reverse` so content sits in the visible clipped area
 
-## Future Roadmap
+**B. Fix scrollytelling stat opacity (line 318)**
+- Change `text-background/10` to `text-background/20`
 
-### R-1: Segmented Intake
-Role-based form field adaptation — estimate/RFP forms show different fields depending on visitor role (homeowner vs property manager vs GC). Extends existing EstimatorStep0 role selector.
+**C. Fix reduced-motion fallback (lines 373-388)**
+- Add `bg-foreground` to the fallback container div, or change text classes from `text-background` to `text-foreground`
 
-### R-2: Remaining CTA/UI Cleanup
-- Migrate remaining `@/ui/Card` imports to `@/design-system/components/Card` (admin files)
-- Standardize footer/blog CTA text to match `CTA_TEXT` constants
-- Review ServiceSelector, PrequalPackage navigation labels
+**D. Add visual weight to scrollytelling left panel**
+- Add a subtle icon or geometric element behind the stat number to fill the empty space
 
-### R-3: Feature Enhancements
-- Interactive service-area map widget
-- Project portfolio filters (by service, sector, year)
-- Simple estimator aids (square footage calculator)
-- Scope selector widget for estimate page
+## Files modified
+- `src/pages/company/Technology.tsx` — 4 targeted fixes
 
-### R-4: Security Hardening
-- Address 18 RLS policy warnings flagged by linter
-- Storage bucket audit (permissions, size limits)
-- Rate limiting on public form submissions
-
-### R-5: Content Population
-- Collect and enter real client testimonials
-- Publish initial blog posts with actual project content
-- Complete project case study data entry with real photos/outcomes
-
-### R-6: Analytics & Conversion
-- Conversion tracking on form submissions
-- A/B testing framework activation (tables exist, UI needed)
-- Form funnel analysis (drop-off rates per step)
-
-### R-7: EquipmentResources.tsx Deprecation
-Replace EquipmentResources page content or redirect to TechnologyInnovation page. Current page has unqualified tool claims (Procore, BIM 360, GPS Fleet Tracking, fleet size "25+").
-
----
-
-## Manual Verification Checklist
-
-- [ ] Whether a staffed 24/7 emergency line actually exists
-- [ ] Whether partner case studies represent real projects
-- [ ] Whether a client portal actually exists and functions
-- [ ] Whether "10+ projects completed" is accurate as of current date
-- [ ] Actual current tool adoption: Bluebeam, Procore, BIM 360
-- [ ] RFP file upload flow works end-to-end (storage bucket RLS)
-- [ ] File size limits appropriate for construction drawings (20MB)
-
-## Content Claims Requiring Business Confirmation
-
-| Claim | Location | Status |
-|---|---|---|
-| 85% self-performed | Multiple pages | Periodic verification flagged |
-| 10-person crew | Multiple pages | Needs current headcount |
-| $2M CGL coverage | Trust bars, stats | Verifiable via certificate |
-| Working toward COR | FAQ, About | Confirm progress status |
-| Bluebeam for markups | TechnologyInnovation | Confirm active use |
-| Procore integration capability | TechnologyInnovation | Qualified as "when required" |
-| BIM workflow experience | TechnologyInnovation | Qualified as "team experience" |
