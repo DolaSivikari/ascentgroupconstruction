@@ -310,6 +310,12 @@ export function UnifiedFooter({
             >
               Terms of Service
             </Link>
+            <Link
+              to="/accessibility"
+              className="text-xs md:text-sm text-muted-foreground hover:text-primary transition-colors"
+            >
+              Accessibility
+            </Link>
             {linkedinUrl && (
               <a
                 href={linkedinUrl}
