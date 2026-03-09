@@ -315,7 +315,7 @@ const ScrollytellingSection = ({ rm }: { rm: boolean }) => {
                     <p className="text-primary/60 text-sm font-mono uppercase tracking-widest mb-4">
                       {phase.number} / 05
                     </p>
-                    <p className="text-6xl md:text-8xl font-bold text-background/10 leading-none mb-4">
+                    <p className="text-6xl md:text-8xl font-bold text-background/25 leading-none mb-4">
                       {phase.stat}
                     </p>
                     <p className="text-sm text-background/50 max-w-xs">{phase.statLabel}</p>
