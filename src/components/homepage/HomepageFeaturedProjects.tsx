@@ -9,6 +9,15 @@ import { useReducedMotion } from "@/hooks/useReducedMotion";
 
 const springHover = { type: "spring" as const, stiffness: 300, damping: 20 };
 
+function shuffleArray<T>(arr: T[]): T[] {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
 export const HomepageFeaturedProjects = () => {
   const rm = useReducedMotion();
   const { ref: headerRef, isVisible: headerVisible, skipAnimation: headerSkip } =
@@ -19,25 +28,38 @@ export const HomepageFeaturedProjects = () => {
   const { data: projects } = useQuery({
     queryKey: ["homepage-featured-projects"],
     queryFn: async () => {
+      const cols = "id, title, slug, category, location, featured_image, summary";
+
       const { data: featured } = await supabase
         .from("projects")
-        .select("id, title, slug, category, location, featured_image, summary")
+        .select(cols)
         .eq("publish_state", "published")
         .eq("featured", true)
         .order("created_at", { ascending: false })
-        .limit(3);
-
-      if (featured && featured.length >= 3) return featured;
+        .limit(12);
 
       const { data: latest } = await supabase
         .from("projects")
-        .select("id, title, slug, category, location, featured_image, summary")
+        .select(cols)
         .eq("publish_state", "published")
         .order("created_at", { ascending: false })
-        .limit(3);
+        .limit(12);
 
-      return latest ?? [];
+      // Merge featured first, then backfill with latest (deduplicated)
+      const seen = new Set<string>();
+      const pool: typeof featured = [];
+      for (const p of [...(featured ?? []), ...(latest ?? [])]) {
+        if (!seen.has(p.id)) {
+          seen.add(p.id);
+          pool.push(p);
+        }
+      }
+
+      if (pool.length <= 3) return pool;
+      return shuffleArray(pool).slice(0, 3);
     },
+    staleTime: 0,
+    gcTime: 0,
   });
 
   if (!projects || projects.length === 0) return null;
