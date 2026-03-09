@@ -371,7 +371,7 @@ const ScrollytellingSection = ({ rm }: { rm: boolean }) => {
 
       {/* Reduced motion: show all phases stacked */}
       {rm && (
-        <div className="max-w-3xl mx-auto px-6 space-y-12 mt-8">
+        <div className="bg-foreground rounded-2xl max-w-3xl mx-auto px-8 py-10 space-y-10 mt-8">
           {SCROLLYTELLING_PHASES.map((p, i) => {
             const Icon = p.icon;
             return (
