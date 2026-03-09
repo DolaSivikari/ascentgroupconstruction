@@ -151,10 +151,12 @@ const BlogPost = () => {
       )}
       
       <main>
-        <ContentPageHeader
+        <PageHero
           title={post.title}
           subtitle={`${post.category} · ${formattedDate} · ${post.read_time_minutes || 5} min read`}
-          imageUrl={post.featured_image || '/placeholder.svg'}
+          image={post.featured_image || '/placeholder.svg'}
+          imageAlt={post.title}
+          height="small"
           breadcrumbs={[
             { label: "Home", href: "/" },
             { label: "Blog", href: "/blog" },

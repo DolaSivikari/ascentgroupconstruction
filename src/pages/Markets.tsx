@@ -1,10 +1,10 @@
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
-import PageHero from "@/components/shared/PageHero";
+import { PageHero } from "@/components/shared/PageHero";
 import SEO from "@/components/SEO";
 import { SectionHeader, SegmentCard, CTABand } from "@/design-system/components";
 import { Building2, Briefcase, Home, HardHat, Building } from "lucide-react";
-import { mainPageHeroes } from "@/data/hero-images";
+import { sectorHeroes } from "@/data/hero-images";
 
 const segments = [
   {
@@ -53,8 +53,16 @@ const Markets = () => {
 
       <PageHero
         title="Markets We Serve"
-        subtitle="Specialty construction services tailored to your sector"
-        image={mainPageHeroes?.projects}
+        eyebrow="Our Markets"
+        description="Specialty construction services tailored to your sector — from property managers maintaining building envelopes to general contractors needing a reliable trade partner."
+        image={sectorHeroes["markets-overview"]}
+        imageAlt="Markets served by Ascent Group Construction"
+        breadcrumbs={[
+          { label: "Home", href: "/" },
+          { label: "Markets" },
+        ]}
+        primaryCta={{ text: "Submit RFP", href: "/submit-rfp" }}
+        secondaryCta={{ text: "Contact Us", href: "/contact" }}
       />
 
       <section className="py-16 md:py-24">

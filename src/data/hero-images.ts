@@ -132,7 +132,7 @@ export const resourceHeroes = {
   "prequalification": heroCertifications,
   "contractor-portal": heroContractorPortal,
   "service-areas": heroServiceAreas,
-  "estimate": heroAboutCompany,
+  "estimate": heroDesignBuild,
   "submit-rfp": heroGeneralContracting,
 } as const;
 
