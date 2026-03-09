@@ -87,7 +87,7 @@ export const ContactPageSettingsTab = () => {
               <Input
                 value={formData.toll_free_phone || ""}
                 onChange={(e) => setFormData({ ...formData, toll_free_phone: e.target.value })}
-                placeholder="1-800-123-4567"
+                placeholder="1-800-555-0199"
               />
             </div>
           </div>

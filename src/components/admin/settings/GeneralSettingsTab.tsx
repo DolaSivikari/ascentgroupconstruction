@@ -123,7 +123,7 @@ export const GeneralSettingsTab = () => {
               <Input
                 value={formData.phone || ""}
                 onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                placeholder="(555) 123-4567"
+                placeholder="(647) 528-6804"
               />
             </div>
             <div>

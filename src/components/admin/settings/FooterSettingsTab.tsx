@@ -102,7 +102,7 @@ export const FooterSettingsTab = () => {
                 <Input
                   value={formData.contact_info?.phone || ""}
                   onChange={(e) => setFormData({ ...formData, contact_info: { ...formData.contact_info, phone: e.target.value } })}
-                  placeholder="(555) 123-4567"
+                  placeholder="(647) 528-6804"
                 />
               </div>
               <div>
