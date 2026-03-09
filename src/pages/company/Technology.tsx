@@ -605,7 +605,8 @@ const BeforeAfterSlider = ({ rm }: { rm: boolean }) => {
   }, [handlePointerMove]);
 
   return (
-    <Section size="major" className="bg-muted/30" disableAnimation ref={sectionRef}>
+    <div ref={sectionRef}>
+    <Section size="major" className="bg-muted/30" disableAnimation>
       <SectionHeader
         badge="The Difference"
         title="Industry standard vs. Ascent standard."
