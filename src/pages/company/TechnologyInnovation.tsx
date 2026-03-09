@@ -9,8 +9,9 @@ import { CTABand } from "@/design-system/components/CTABand";
 import { resourceHeroes } from "@/data/hero-images";
 import {
   FileSearch, Camera, ClipboardList, FolderCheck,
-  Box, MonitorSmartphone, Rocket, Info,
+  Box, MonitorSmartphone, Rocket, Info, ArrowRight,
 } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const CURRENT_TOOLS = [
   {
@@ -78,7 +79,7 @@ const TechnologyInnovation = () => {
       <PageHero
         title="Technology & Digital Tools"
         description="How we use digital tools to improve coordination, documentation, and project quality"
-        image={resourceHeroes["submit-rfp"]}
+        image={resourceHeroes["service-areas"]}
         imageAlt="Digital tools used in construction project coordination"
         height="small"
         breadcrumbs={[
@@ -137,6 +138,36 @@ const TechnologyInnovation = () => {
                 description={cap.description}
               />
             ))}
+          </div>
+        </Section>
+
+        {/* Cross-links */}
+        <Section size="subsection" className="bg-muted/30">
+          <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+            <div className="p-6 bg-background rounded-lg border">
+              <h3 className="text-xl font-bold mb-3">See How We Apply These Tools</h3>
+              <p className="text-muted-foreground mb-4">
+                Our 7-step delivery process integrates digital documentation at every stage — from site assessment through closeout.
+              </p>
+              <Link
+                to="/our-process"
+                className="inline-flex items-center gap-2 text-primary font-medium hover:underline"
+              >
+                View Our Process <ArrowRight className="w-4 h-4" />
+              </Link>
+            </div>
+            <div className="p-6 bg-background rounded-lg border">
+              <h3 className="text-xl font-bold mb-3">Pre-Qualification Documents</h3>
+              <p className="text-muted-foreground mb-4">
+                Download our capability statement, insurance certificates, and safety documentation.
+              </p>
+              <Link
+                to="/prequalification"
+                className="inline-flex items-center gap-2 text-primary font-medium hover:underline"
+              >
+                View Pre-Qualification <ArrowRight className="w-4 h-4" />
+              </Link>
+            </div>
           </div>
         </Section>
 

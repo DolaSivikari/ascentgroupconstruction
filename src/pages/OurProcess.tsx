@@ -179,7 +179,7 @@ const OurProcess = () => {
 
       {/* Cross-links */}
       <Section size="major" className="bg-muted/30">
-        <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+        <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
           <div className="p-6 bg-background rounded-lg border">
             <h3 className="text-xl font-bold mb-3">View Our Services</h3>
             <p className="text-muted-foreground mb-4">
@@ -193,15 +193,27 @@ const OurProcess = () => {
             </Link>
           </div>
           <div className="p-6 bg-background rounded-lg border">
-            <h3 className="text-xl font-bold mb-3">Work With Us as a Trade Partner</h3>
+            <h3 className="text-xl font-bold mb-3">See Our Project Work</h3>
             <p className="text-muted-foreground mb-4">
-              General contractors: learn about our subcontractor capabilities, unit pricing, and prequalification documents.
+              Browse completed envelope, restoration, and interior projects across the GTA.
             </p>
             <Link
-              to="/for-general-contractors"
+              to="/projects"
               className="inline-flex items-center gap-2 text-primary font-medium hover:underline"
             >
-              GC Partnership <ArrowRight className="w-4 h-4" />
+              View Projects <ArrowRight className="w-4 h-4" />
+            </Link>
+          </div>
+          <div className="p-6 bg-background rounded-lg border">
+            <h3 className="text-xl font-bold mb-3">Pre-Qualification Docs</h3>
+            <p className="text-muted-foreground mb-4">
+              Download our capability statement, insurance certificates, and safety documentation.
+            </p>
+            <Link
+              to="/prequalification"
+              className="inline-flex items-center gap-2 text-primary font-medium hover:underline"
+            >
+              View Pre-Qualification <ArrowRight className="w-4 h-4" />
             </Link>
           </div>
         </div>

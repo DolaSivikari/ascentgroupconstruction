@@ -41,20 +41,17 @@ const ServiceAreas = () => {
         description="Serving Toronto, Mississauga, Brampton, Vaughan, Markham and the Greater Toronto Area with professional painting and construction services."
         keywords="service areas, Toronto, GTA, Mississauga, Brampton, Vaughan, Markham, construction services"
       />
-      <div className="min-h-screen bg-background relative overflow-hidden">
-        {/* Background decorations */}
-        <div className="fixed inset-0 -z-10 overflow-hidden pointer-events-none">
-          <div className="absolute top-40 -left-40 w-[600px] h-[600px] bg-primary/5 rounded-full blur-3xl animate-pulse" />
-          <div className="absolute bottom-40 -right-40 w-[600px] h-[600px] bg-secondary/5 rounded-full blur-3xl animate-pulse delay-1000" />
-        </div>
-
+      <div className="min-h-screen bg-background">
         <Navigation />
         
         <PageHero
+          eyebrow="Service Coverage"
           title="Service Areas"
-          description="Serving Ontario with Excellence"
+          description="Professional building envelope and interior trade services across the Greater Toronto Area"
           image={resourceHeroes["service-areas"]}
           imageAlt="Service coverage areas across Ontario"
+          height="small"
+          primaryCta={{ text: "Get a Quote", href: "/estimate" }}
           breadcrumbs={[
             { label: "Home", href: "/" },
             { label: "Resources" },

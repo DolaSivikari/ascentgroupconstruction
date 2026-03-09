@@ -3,9 +3,8 @@ import { useNavigate } from "react-router-dom";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
-import PageHeader from "@/components/PageHeader";
-import Breadcrumb from "@/components/Breadcrumb";
 import FilterBar from "@/components/FilterBar";
+import { CTABand } from "@/design-system/components/CTABand";
 import ProjectCard from "@/components/ProjectCard";
 import ProjectFeaturedCard from "@/components/ProjectFeaturedCard";
 import { Section } from "@/components/sections/Section";
@@ -352,13 +351,19 @@ const Projects = () => {
           )}
       </Section>
 
-      {/* Video Testimonials - Removed pending verified testimonial collection */}
-
       {/* Quick View Modal */}
       <ProjectQuickView
         project={quickViewProject}
         open={!!quickViewProject}
         onOpenChange={(open) => !open && setQuickViewProject(null)}
+      />
+
+      <CTABand
+        title="Ready to Start Your Project?"
+        description="Get a detailed proposal with transparent pricing and a clear timeline for your building envelope or restoration project."
+        primaryCta={{ text: "Request a Quote", href: "/estimate" }}
+        secondaryCta={{ text: "Contact Us", href: "/contact" }}
+        variant="dark"
       />
 
       <ScrollToTop />

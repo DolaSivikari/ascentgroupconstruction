@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Download, FileText, Shield, CheckCircle2, ArrowRight, Award, Building2, TrendingUp, Users, Calendar, DollarSign, MapPin, Phone, Mail, ExternalLink } from "lucide-react";
+import { CTABand } from "@/design-system/components/CTABand";
 import { Link } from "react-router-dom";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
@@ -222,10 +223,13 @@ const Prequalification = () => {
       <Navigation />
       
       <PageHero
+        eyebrow="Contractor Pre-Qualification"
         title="Vendor Pre-Qualification Package"
         description="15+ Years Combined Team Experience • Building Envelope & Interior Trades Specialist • WSIB Compliant • $2M CGL Coverage • Serving Commercial, Multi-Family & Residential Markets"
         image={resourceHeroes["prequalification"]}
         imageAlt="Pre-qualification and certifications"
+        primaryCta={{ text: "Contact Us", href: "/contact" }}
+        secondaryCta={{ text: "How We Deliver", href: "/capabilities" }}
         breadcrumbs={[
           { label: "Home", href: "/" },
           { label: "Pre-Qualification" }
@@ -505,6 +509,14 @@ const Prequalification = () => {
           </Tabs>
         </div>
       </main>
+
+      <CTABand
+        title="Ready to Work Together?"
+        description="Contact our team to discuss your project scope, review our credentials, or request a detailed proposal."
+        primaryCta={{ text: "Request a Quote", href: "/estimate" }}
+        secondaryCta={{ text: "Contact Us", href: "/contact" }}
+        variant="dark"
+      />
 
       <Footer />
     </div>

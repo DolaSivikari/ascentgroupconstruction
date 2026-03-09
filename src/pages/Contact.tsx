@@ -14,7 +14,7 @@ import { Button } from "@/ui/Button";
 import { Input } from "@/ui/Input";
 import { Textarea } from "@/ui/Textarea";
 import { Label } from "@/components/ui/label";
-import { MapPin, Phone, Mail, Clock, Loader2, ArrowRight, FileText, Calculator } from "lucide-react";
+import { MapPin, Phone, Mail, Clock, Loader2, ArrowRight, FileText, Calculator, CheckCircle } from "lucide-react";
 import { useSettingsData } from "@/hooks/useSettingsData";
 import { RippleEffect } from "@/components/shared/RippleEffect";
 
@@ -263,6 +263,12 @@ const Contact = () => {
                     </Button>
                   </RippleEffect>
 
+                  {/* Trust Badge */}
+                  <div className="flex items-center justify-center gap-4 text-xs text-muted-foreground pt-2">
+                    <span className="flex items-center gap-1"><CheckCircle className="w-3.5 h-3.5 text-primary" />$2M Insured</span>
+                    <span className="flex items-center gap-1"><CheckCircle className="w-3.5 h-3.5 text-primary" />WSIB Compliant</span>
+                  </div>
+
                   <p className="text-xs text-muted-foreground text-center">
                     Your information is secure and will only be used to respond to your inquiry.
                   </p>
@@ -318,6 +324,16 @@ const Contact = () => {
                   <p>{saturdayHours}</p>
                   <p>{sundayHours}</p>
                 </div>
+              </Card>
+
+              {/* What to Expect */}
+              <Card variant="default" size="md" className="bg-primary/5 border-primary/20">
+                <h3 className="text-lg font-bold mb-3">What to Expect</h3>
+                <ul className="space-y-2 text-sm text-muted-foreground">
+                  <li className="flex items-start gap-2"><CheckCircle className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />We typically respond within 1 business day</li>
+                  <li className="flex items-start gap-2"><CheckCircle className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />Your inquiry goes directly to our project team</li>
+                  <li className="flex items-start gap-2"><CheckCircle className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />No automated responses — real people, real answers</li>
+                </ul>
               </Card>
 
               <Card variant="default" size="md" className="bg-muted/30">
