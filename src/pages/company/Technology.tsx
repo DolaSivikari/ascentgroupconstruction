@@ -803,31 +803,45 @@ const TimelineSection = ({ rm }: { rm: boolean }) => {
           title="Every phase. Documented."
           align="left"
         />
-        <div className="space-y-6 max-w-2xl">
-          {TIMELINE_NODES.map((node, i) => {
-            const Icon = node.icon;
-            return (
-              <div
-                key={i}
-                className="flex gap-5 p-6 rounded-lg bg-background border border-border"
-              >
-                <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
-                  <Icon className="w-5 h-5 text-primary" />
+        <div className="relative max-w-2xl">
+          {/* Vertical timeline line */}
+          <div className="absolute left-[1.25rem] top-0 bottom-0 w-px bg-border" />
+
+          <div className="space-y-0">
+            {TIMELINE_NODES.map((node, i) => {
+              const Icon = node.icon;
+              const isLast = i === TIMELINE_NODES.length - 1;
+              return (
+                <div key={i} className="relative flex gap-5 pb-8">
+                  {/* Step number + icon column */}
+                  <div className="relative z-10 flex flex-col items-center flex-shrink-0">
+                    <div className="w-10 h-10 rounded-full bg-primary text-primary-foreground flex items-center justify-center text-sm font-bold shadow-sm">
+                      {String(i + 1).padStart(2, "0")}
+                    </div>
+                    {!isLast && (
+                      <div className="w-px flex-1 bg-border mt-2" />
+                    )}
+                  </div>
+
+                  {/* Content card */}
+                  <div className="flex-1 p-5 rounded-lg bg-background border border-border shadow-sm -mt-1">
+                    <div className="flex items-center gap-2 mb-2">
+                      <Icon className="w-4 h-4 text-primary" />
+                      <p className="text-xs font-medium text-primary uppercase tracking-wider">
+                        {node.phase}
+                      </p>
+                    </div>
+                    <h3 className="font-bold text-foreground mb-1.5">{node.title}</h3>
+                    <p className="text-sm text-muted-foreground leading-relaxed">
+                      {node.detail}
+                    </p>
+                  </div>
                 </div>
-                <div>
-                  <p className="text-xs font-medium text-primary uppercase tracking-wider mb-1">
-                    {node.phase}
-                  </p>
-                  <h3 className="font-bold text-foreground mb-1">{node.title}</h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed">
-                    {node.detail}
-                  </p>
-                </div>
-              </div>
-            );
-          })}
+              );
+            })}
+          </div>
         </div>
-        <div className="mt-8">
+        <div className="mt-6">
           <Button asChild size="lg">
             <Link to="/our-process">
               View Our Process <ArrowRight className="w-4 h-4 ml-2" />
