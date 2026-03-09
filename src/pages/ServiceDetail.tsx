@@ -253,7 +253,7 @@ const ServiceDetail = () => {
                 <h2 className="text-3xl font-bold mb-8">Our Process</h2>
                 <div className="space-y-6">
                   {service.process_steps.map((step, index) => (
-                    <Card key={index}>
+                    <Card key={index} className="p-0">
                       <CardContent className="p-6">
                         <div className="flex gap-4">
                           <div className="flex-shrink-0 w-10 h-10 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-bold">
