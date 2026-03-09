@@ -1,3 +1,4 @@
+// Build trigger: 2026-03-09T18:55
 import { useEffect } from "react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
