@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { Section } from "@/components/sections/Section";
-import { Card, CardContent } from "@/ui/Card";
+import { Card, CardContent } from "@/design-system/components/Card";
 import { ArrowRight } from "lucide-react";
 import { getIconForService } from "@/utils/serviceIcons";
 
