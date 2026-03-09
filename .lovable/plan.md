@@ -1,102 +1,112 @@
+# Project Improvement Plan — Ascent Group Construction
 
+## Completed Phases
 
-# UX / Visual-Consistency Pass — Implementation Plan
+### Phase 2: Content Truth Hardening ✅
+Removed fabricated stats (98% satisfaction, 500+ projects, 25+ years), replaced with verifiable metrics ($2M CGL, WSIB compliant, 85% self-performed, 15+ team experience). Removed LEED consulting claims, unsupported "24/7" emergency claims, and inflated admin stat templates. Standardized "hundreds of projects" to team-career framing.
 
-## 1. Files to Change
+### Phase 3: Design System Foundation ✅
+Established canonical Card component (`@/design-system/components/Card`) and four card families (CapabilityCard, ProjectCard, ProofCard, SegmentCard). Created standardized layout patterns: SectionHeader, ProofStrip, CTABand. Consolidated spacing/grid tokens into `tokens.ts`.
 
-| # | File | Scope |
-|---|------|-------|
-| 1 | `src/components/Navigation.tsx` | Fix heroPages slug (1 line) |
-| 2 | `src/pages/Estimate.tsx` | Rebuild page structure: add PageHero, remove PaintCalculator, add trust/pathway context, preserve all form logic |
-| 3 | `src/components/homepage/WhoWeServeHomepage.tsx` | Improve visual treatment: muted background, stronger card styling, better spacing |
-| 4 | `src/components/homepage/CompanyOverviewHub.tsx` | Improve visual hierarchy: differentiate the three columns, better card styling |
-| 5 | `src/components/footer/UnifiedFooter.tsx` | Add "Resources" link group, fix logo positioning hack, improve mobile layout |
-| 6 | `src/pages/Contact.tsx` | Add contact pathway guidance section, remove "Quick/Detailed" toggle (use single professional form), add contact info sidebar alongside form |
+### Phase 4: Service Page Architecture ✅
+Created `ServicePageTemplate` and `ServicePageLayout` components for consistent service page rendering. Migrated service pages to use design system components.
 
-## 2. What Is Wrong on Each Surface
+### Phase 5: SEO & Structured Data ✅
+Added JSON-LD schemas, QuickFacts, PeopleAlsoAsk, ServiceAreaSection, DirectAnswer components. Implemented breadcrumb structured data across all pages.
 
-**Estimate:**
-- No PageHero — jumps straight to a bare `h1` with `pt-24` padding. Feels disconnected from every other page.
-- `PaintCalculator` widget embedded at the top — leftover painting-estimator energy, not aligned with specialty contractor positioning.
-- No guidance about when to use Estimate vs Contact vs Submit RFP.
-- No trust framing (no proof strip, no credential context).
-- The form card is fine; the wrapper/page context is weak.
+### Phase 6: Navigation & Footer ✅
+Unified navigation with mega menu support. Created UnifiedFooter with database-driven content. Added route registry for known route validation.
 
-**Sustainable Construction hero/nav:**
-- `heroPages` array in Navigation.tsx contains `/services/sustainable-building` but the actual route is `/services/sustainable-construction`. One-character mismatch means the nav does not go transparent on this page, breaking the hero visual blend.
+### Phase 7A: Conversion Architecture & Innovation Layer ✅
+- Standardized CTA text via `CTA_TEXT` constants across service/market pages
+- Added RFP file upload flow with `rfp-attachments` storage bucket
+- Created Technology & Innovation page (`/company/technology`) with truthful digital capability content
+- Fixed EstimatorStep0 role labels (gc → "General Contractor", added "Homeowner")
+- Replaced bespoke CTA sections with `CTABand` in ServicePageLayout, ServicePageTemplate
+- Migrated SubmitRFPNew and RFPStep4Scope from `@/ui/Card` to design-system Card
 
-**Homepage Who We Serve:**
-- Plain `bg-background` with no visual differentiation from surrounding sections.
-- SegmentCards are functional but visually flat — horizontal icon+text layout doesn't command attention on the homepage.
-- Missing subtle background treatment to separate it from adjacent sections.
+### Phase 7B: Documentation & CTA Cleanup ✅
+- Added `/company/technology` to route registry
+- Replaced bespoke CTA in ServiceDetail.tsx with CTABand
+- Fixed "Start Your Project" → "Work With Us" in ForGeneralContractors.tsx
+- Documented future roadmap below
 
-**Homepage Company Overview Hub:**
-- Three identical-looking elevated cards in a row — visually monotone.
-- Content density is high but visual hierarchy is flat (all three columns look the same weight).
-- The `bg-gradient-to-b from-background to-muted/30` gradient is very subtle, almost invisible.
+### Phase 8: Homepage CMS Defaults ✅
+- Neutralized inflated column defaults (value_prop_2 → "WSIB Compliant", value_prop_3 → "Fully Insured")
+- Zeroed out inflated about_page_settings stat defaults (total_projects, satisfaction_rate, years_in_business → 0)
 
-**Footer:**
-- Missing "Resources" grouping (Certifications, Technology, Service Areas, Contractor Portal) — these secondary pages have no footer presence.
-- Logo `-ml-16` negative margin hack is fragile and can clip on certain viewports.
-- Mobile accordion only has 2 groups (Company, Services) — needs Resources too.
-- CTA section in desktop column 3 has "View Services" as secondary CTA which duplicates the Services column; should be "Request Estimate" instead.
+### Phase 10: Public Legacy Card Migration ✅
+Migrated 8 public-facing files from `@/ui/Card` to `@/design-system/components/Card`:
+- `ServiceCard.tsx`, `RelatedServices.tsx`, `BlogCard.tsx`, `BlogPreview.tsx`
+- `Careers.tsx`, `CertificationsInsurance.tsx`, `ServiceAreas.tsx`, `ServiceDetail.tsx`
+- Added `p-0` override on Card wrappers to prevent double-padding (design-system Card has default `size="md"` → `p-6`)
+- Mapped legacy `featured` → `elevated`, `interactive` → `interactive`
+- RelatedServices switched to `variant="interactive"` (was manual hover classes)
+- Testimonials.tsx excluded (not publicly mounted)
 
-**Contact:**
-- "Quick Contact" vs "Detailed Request" toggle feels app-like, not enterprise.
-- No pathway guidance (when to use Contact vs Estimate vs Submit RFP).
-- Contact information (address, phone, hours) is not visible alongside the form — buried below in the map section.
-- Map section text says "Mississauga" but fallback address says "North York" — copy inconsistency.
-- `TrustedPartners` section is orphaned between form and map with no visual purpose.
+---
 
-## 3. What Will Be Preserved
+## Phase 11: Content Population — PENDING REVIEW
 
-- All form submission logic (Supabase inserts, edge function calls, validation schemas, error handling, success states)
-- All CMS/settings data reads (`useSettingsData`, `useCompanyOverview`, `useWhyChooseUs`)
-- All fallback data arrays
-- Lead-flow hardening (in-place success panels, duplicate submission guards, notification failure feedback)
-- URL parameter pre-fills on Estimate
-- Quote dialog flow for non-estimatable services
-- All estimator step components and their wiring
-- A/B test tracking and analytics calls
-- SEO metadata and structured data
-- Honeypot fields and rate limiting
+Draft content proposals for published projects have been presented in chat.
+Awaiting user review and approval before any DB insertion.
 
-## 4. Backend/CMS Wiring That Must Remain Untouched
+---
 
-- `supabase.from("contact_submissions").insert(...)` in Estimate
-- `supabase.from("quote_requests").insert(...)` in Estimate
-- `supabase.functions.invoke('submit-form', ...)` in Contact
-- `supabase.functions.invoke('send-contact-notification', ...)` in Contact
-- `supabase.functions.invoke('send-review-request', ...)` in both
-- `useSettingsData('contact_page_settings')` in Contact
-- `useCompanyOverview()` in CompanyOverviewHub
-- `useWhyChooseUs()` in WhyChooseUs (not changing this file but noting dependency)
-- `trackABTestConversion` calls in both forms
+## Future Roadmap
 
-## 5. Design-System Components/Patterns to Use
+### R-1: Segmented Intake
+Role-based form field adaptation — estimate/RFP forms show different fields depending on visitor role (homeowner vs property manager vs GC). Extends existing EstimatorStep0 role selector.
 
-- `PageHero` — add to Estimate page (matching Contact, Services, etc.)
-- `Section` — wrap Estimate content sections properly
-- `SectionHeader` — for sub-section headings
-- `Card` (design-system) — already in use, will keep
-- `CTABand` — potential use for Estimate pathway guidance
-- `ProofStrip` — add trust bar to Estimate
-- `SegmentCard` — keep for Who We Serve but with enhanced background context
-- `mainPageHeroes` — use existing hero image mapping for Estimate
+### R-2: Remaining CTA/UI Cleanup
+- Migrate remaining `@/ui/Card` imports to `@/design-system/components/Card` (admin files)
+- Standardize footer/blog CTA text to match `CTA_TEXT` constants
+- Review ServiceSelector, PrequalPackage navigation labels
 
-## 6. Checks to Run
+### R-3: Feature Enhancements
+- Interactive service-area map widget
+- Project portfolio filters (by service, sector, year)
+- Simple estimator aids (square footage calculator)
+- Scope selector widget for estimate page
 
-- Verify Estimate form submission still works end-to-end (form data → Supabase)
-- Verify Contact form submission still works
-- Verify nav transparency on `/services/sustainable-construction`
-- Verify footer renders correctly on desktop and mobile
-- Verify homepage section spacing and visual flow
-- Console log check for errors
+### R-4: Security Hardening
+- Address 18 RLS policy warnings flagged by linter
+- Storage bucket audit (permissions, size limits)
+- Rate limiting on public form submissions
 
-## 7. Visual-Risk / Regression-Risk Notes
+### R-5: Content Population
+- Collect and enter real client testimonials
+- Publish initial blog posts with actual project content
+- Complete project case study data entry with real photos/outcomes
 
-- **Estimate**: Removing PaintCalculator from the page could surprise users who relied on it. However, it is a painting-specific tool that conflicts with specialty-contractor positioning. It will remain as a component in codebase, just not rendered on this page.
-- **Footer**: Adding a third link column changes the 11-column grid distribution. Need to rebalance carefully.
-- **Contact**: Removing the Quick/Detailed toggle simplifies the page but removes the multi-step form path. The multi-step form (with budget slider, project type selector, file upload) adds complexity without clear conversion value on a Contact page — those belong on Submit RFP. Will keep the simple direct form only.
-- **CompanyOverviewHub**: Changes are styling-only. CMS data path and fallbacks fully preserved.
+### R-6: Analytics & Conversion
+- Conversion tracking on form submissions
+- A/B testing framework activation (tables exist, UI needed)
+- Form funnel analysis (drop-off rates per step)
 
+### R-7: EquipmentResources.tsx Deprecation
+Replace EquipmentResources page content or redirect to TechnologyInnovation page. Current page has unqualified tool claims (Procore, BIM 360, GPS Fleet Tracking, fleet size "25+").
+
+---
+
+## Manual Verification Checklist
+
+- [ ] Whether a staffed 24/7 emergency line actually exists
+- [ ] Whether partner case studies represent real projects
+- [ ] Whether a client portal actually exists and functions
+- [ ] Whether "10+ projects completed" is accurate as of current date
+- [ ] Actual current tool adoption: Bluebeam, Procore, BIM 360
+- [ ] RFP file upload flow works end-to-end (storage bucket RLS)
+- [ ] File size limits appropriate for construction drawings (20MB)
+
+## Content Claims Requiring Business Confirmation
+
+| Claim | Location | Status |
+|---|---|---|
+| 85% self-performed | Multiple pages | Periodic verification flagged |
+| 10-person crew | Multiple pages | Needs current headcount |
+| $2M CGL coverage | Trust bars, stats | Verifiable via certificate |
+| Working toward COR | FAQ, About | Confirm progress status |
+| Bluebeam for markups | TechnologyInnovation | Confirm active use |
+| Procore integration capability | TechnologyInnovation | Qualified as "when required" |
+| BIM workflow experience | TechnologyInnovation | Qualified as "team experience" |
