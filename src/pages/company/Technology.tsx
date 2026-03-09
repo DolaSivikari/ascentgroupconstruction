@@ -387,11 +387,7 @@ const ScrollytellingSection = ({ rm }: { rm: boolean }) => {
 
 const ConstellationSection = ({ rm }: { rm: boolean }) => {
   const [hovered, setHovered] = useState<number | null>(null);
-  const sectionRef = useRef<HTMLDivElement>(null);
-  const isInView = useInView(sectionRef, { once: true, amount: 0.2 });
   const isMobile = useIsMobile();
-
-  const showAnim = isInView && !rm;
 
   const nodeCoords = TOOLS.map((t) => ({
     cx: parseFloat(t.x),
