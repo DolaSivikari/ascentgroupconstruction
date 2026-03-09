@@ -52,11 +52,11 @@ export const mainPageHeroes = {
   about: heroAboutCompany,
   services: heroGeneralContracting,
   projects: heroConstructionManagement,
-  contact: heroAboutCompany,
+  contact: heroTeam,
   careers: heroTeam,
   faq: heroAboutCompany,
-  blog: heroAboutCompany,
-  insights: heroAboutCompany,
+  blog: heroEducation,
+  insights: heroEducation,
 } as const;
 
 /**
