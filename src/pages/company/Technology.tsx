@@ -499,7 +499,8 @@ const ConstellationSection = ({ rm }: { rm: boolean }) => {
                     stroke="hsl(var(--primary))"
                     strokeWidth="0.15"
                     initial={rm ? false : { scale: 0, opacity: 0 }}
-                    animate={showAnim ? { scale: 1, opacity: 1 } : {}}
+                    whileInView={{ scale: 1, opacity: 1 }}
+                    viewport={{ once: true, amount: 0.05 }}
                     transition={{ delay: 0.5 + i * 0.12, duration: 0.4 }}
                     style={{ transformOrigin: `${cx}px ${cy}px` }}
                   />
