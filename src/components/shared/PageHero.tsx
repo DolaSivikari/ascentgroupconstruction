@@ -253,7 +253,7 @@ export function PageHero({
           {/* Stats */}
           {stats && stats.length > 0 && (
             <div className={cn(
-              "flex flex-wrap gap-6 md:gap-10 mt-8 p-6 rounded-lg motion-safe:animate-fade-in",
+              "flex flex-wrap gap-6 md:gap-10 mt-8 p-6 rounded-lg",
               "bg-[hsl(var(--bg))]/10 backdrop-blur-sm border border-[hsl(var(--bg))]/20"
             )} style={staggerStyle(250)}>
               {stats.map((stat, index) => (
