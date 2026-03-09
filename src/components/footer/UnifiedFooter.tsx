@@ -15,7 +15,7 @@ interface Service {
 }
 
 interface UnifiedFooterProps {
-  logoUrl: string;
+  logoUrl?: string;
   contactInfo: {
     phone: string;
     email: string;

@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Mail, Phone, MapPin, Linkedin, Shield, Award, FileCheck, Building2 } from "lucide-react";
-import ascentLogoVerticalDark from "@/assets/ascent-logo-vertical-dark.png";
+
 import SEO from "@/components/SEO";
 import { Skeleton } from "@/components/ui/skeleton";
 import { supabase } from "@/integrations/supabase/client";
@@ -133,7 +133,6 @@ const Footer = () => {
         {/* Main footer content */}
         <div className="container mx-auto px-6 py-8 md:py-10">
           <UnifiedFooter
-            logoUrl={ascentLogoVerticalDark}
             contactInfo={{ phone, email, address }}
             linkedinUrl={linkedinUrl}
             foundedYear={siteSettings?.founded_year || 2025}
