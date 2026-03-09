@@ -1,100 +1,112 @@
+# Project Improvement Plan — Ascent Group Construction
 
+## Completed Phases
 
-# Hero System & Slide Strategy — Implementation Plan
+### Phase 2: Content Truth Hardening ✅
+Removed fabricated stats (98% satisfaction, 500+ projects, 25+ years), replaced with verifiable metrics ($2M CGL, WSIB compliant, 85% self-performed, 15+ team experience). Removed LEED consulting claims, unsupported "24/7" emergency claims, and inflated admin stat templates. Standardized "hundreds of projects" to team-career framing.
 
-## Files to Change
+### Phase 3: Design System Foundation ✅
+Established canonical Card component (`@/design-system/components/Card`) and four card families (CapabilityCard, ProjectCard, ProofCard, SegmentCard). Created standardized layout patterns: SectionHeader, ProofStrip, CTABand. Consolidated spacing/grid tokens into `tokens.ts`.
 
-| File | Change |
-|------|--------|
-| `src/components/Navigation.tsx` | Add `'/estimate'` to `heroPages` (line ~76) |
-| `src/data/enriched-hero-slides.ts` | Rewrite all 3 slides with new copy + add `secondaryCTA` field |
-| `src/components/homepage/EnhancedHero.tsx` | Fix `mapAdminSlideToHero` to map `secondary_cta_text/url`; use per-slide secondary CTA instead of hardcoded "View Services"; add staggered animation delays |
-| **DB update** (via insert tool) | Update 3 `hero_slides` rows with new headline, subheadline, CTAs, and secondary CTAs |
+### Phase 4: Service Page Architecture ✅
+Created `ServicePageTemplate` and `ServicePageLayout` components for consistent service page rendering. Migrated service pages to use design system components.
 
-## Diagnosis Confirmed
+### Phase 5: SEO & Structured Data ✅
+Added JSON-LD schemas, QuickFacts, PeopleAlsoAsk, ServiceAreaSection, DirectAnswer components. Implemented breadcrumb structured data across all pages.
 
-**`/estimate` nav issue:** The route is simply missing from the `heroPages` array (lines 34-77). Every other hero page is listed. One-line fix.
+### Phase 6: Navigation & Footer ✅
+Unified navigation with mega menu support. Created UnifiedFooter with database-driven content. Added route registry for known route validation.
 
-**Secondary CTA data gap (end-to-end audit):**
-- DB schema: `secondary_cta_text` and `secondary_cta_url` columns exist on `hero_slides` -- good
-- `HeroSlide` TypeScript interface (`useHomepageData.ts` lines 38-39): includes both fields -- good
-- `fetchHeroSlides` uses `select("*")` so both fields are returned -- good
-- `mapAdminSlideToHero` (line 26-39): **does NOT map** `secondary_cta_text` or `secondary_cta_url` -- broken, must fix
-- `EnhancedHero.tsx` render (lines 353-357): **hardcoded** `Link to="/services"` with text "View Services" -- must replace with per-slide data
-- Fallback data (`enriched-hero-slides.ts`): **no `secondaryCTA` field** -- must add
+### Phase 7A: Conversion Architecture & Innovation Layer ✅
+- Standardized CTA text via `CTA_TEXT` constants across service/market pages
+- Added RFP file upload flow with `rfp-attachments` storage bucket
+- Created Technology & Innovation page (`/company/technology`) with truthful digital capability content
+- Fixed EstimatorStep0 role labels (gc → "General Contractor", added "Homeowner")
+- Replaced bespoke CTA sections with `CTABand` in ServicePageLayout, ServicePageTemplate
+- Migrated SubmitRFPNew and RFPStep4Scope from `@/ui/Card` to design-system Card
 
-## Exact Changes
+### Phase 7B: Documentation & CTA Cleanup ✅
+- Added `/company/technology` to route registry
+- Replaced bespoke CTA in ServiceDetail.tsx with CTABand
+- Fixed "Start Your Project" → "Work With Us" in ForGeneralContractors.tsx
+- Documented future roadmap below
 
-### 1. Navigation — add `/estimate`
-Add `'/estimate'` to the `heroPages` array. Single line.
+### Phase 8: Homepage CMS Defaults ✅
+- Neutralized inflated column defaults (value_prop_2 → "WSIB Compliant", value_prop_3 → "Fully Insured")
+- Zeroed out inflated about_page_settings stat defaults (total_projects, satisfaction_rate, years_in_business → 0)
 
-### 2. Fallback slides — new copy + secondary CTAs
+### Phase 10: Public Legacy Card Migration ✅
+Migrated 8 public-facing files from `@/ui/Card` to `@/design-system/components/Card`:
+- `ServiceCard.tsx`, `RelatedServices.tsx`, `BlogCard.tsx`, `BlogPreview.tsx`
+- `Careers.tsx`, `CertificationsInsurance.tsx`, `ServiceAreas.tsx`, `ServiceDetail.tsx`
+- Added `p-0` override on Card wrappers to prevent double-padding (design-system Card has default `size="md"` → `p-6`)
+- Mapped legacy `featured` → `elevated`, `interactive` → `interactive`
+- RelatedServices switched to `variant="interactive"` (was manual hover classes)
+- Testimonials.tsx excluded (not publicly mounted)
 
-**Slide 1 — Positioning**
-- Headline: "Specialty Contractor for Building Envelope, Restoration & Interior Trade Execution"
-- Subheadline: "Self-performed and coordinated scopes for commercial, multi-unit, and selected residential projects across the GTA."
-- Primary CTA: Submit RFP → /submit-rfp
-- Secondary CTA: Explore Services → /services
+---
 
-**Slide 2 — Operational Trust**
-- Headline: "Clear Scopes. Reliable Coordination. Professional Closeout."
-- Subheadline: "Occupied-building sensitivity, schedule-aware execution, documented QA/QC, and practical communication from inquiry through closeout."
-- Primary CTA: How We Work → /our-process
-- Secondary CTA: For General Contractors → /for-general-contractors
+## Phase 11: Content Population — PENDING REVIEW
 
-**Slide 3 — Market Fit**
-- Headline: "Built for GCs, Property Managers, Developers & Commercial Clients"
-- Subheadline: "Envelope repairs, restoration scopes, coatings, interior buildouts, and coordinated trade packages where reliability matters."
-- Primary CTA: View Markets → /markets
-- Secondary CTA: Contact Us → /contact
+Draft content proposals for published projects have been presented in chat.
+Awaiting user review and approval before any DB insertion.
 
-### 3. EnhancedHero.tsx changes
+---
 
-**`mapAdminSlideToHero`** — add:
-```
-secondaryCTA: {
-  label: slide.secondary_cta_text?.trim() || fallbackMedia.secondaryCTA.label,
-  href: slide.secondary_cta_url?.trim() || fallbackMedia.secondaryCTA.href,
-}
-```
+## Future Roadmap
 
-**Render** — replace hardcoded "View Services" button with:
-```
-{secondaryCTA && (
-  <Button asChild ...>
-    <Link to={secondaryCTA.href}>{secondaryCTA.label}</Link>
-  </Button>
-)}
-```
+### R-1: Segmented Intake
+Role-based form field adaptation — estimate/RFP forms show different fields depending on visitor role (homeowner vs property manager vs GC). Extends existing EstimatorStep0 role selector.
 
-**Staggered animation** — add `animation-delay` via inline styles:
-- Badge: 0ms
-- Headline: 50ms  
-- Subheadline: 100ms
-- CTAs: 150ms
+### R-2: Remaining CTA/UI Cleanup
+- Migrate remaining `@/ui/Card` imports to `@/design-system/components/Card` (admin files)
+- Standardize footer/blog CTA text to match `CTA_TEXT` constants
+- Review ServiceSelector, PrequalPackage navigation labels
 
-**Overlay tuning** — current overlay is `from-black/70 via-black/60 to-black/80`. This is uniform for all slides. Since all three slides use the same video/poster currently, no per-slide tuning is needed now. If distinct images are added later, per-slide overlay can be data-driven. Current overlay strength is adequate for white text readability.
+### R-3: Feature Enhancements
+- Interactive service-area map widget
+- Project portfolio filters (by service, sector, year)
+- Simple estimator aids (square footage calculator)
+- Scope selector widget for estimate page
 
-### 4. DB update — 3 hero_slides rows
-Update all 3 active rows with matching new copy and secondary CTA values using the insert (data update) tool.
+### R-4: Security Hardening
+- Address 18 RLS policy warnings flagged by linter
+- Storage bucket audit (permissions, size limits)
+- Rate limiting on public form submissions
 
-## What Will Be Preserved
-- All autoplay, swipe, reduced-motion, play/pause, video preloading logic
-- CMS → fallback cascade (admin DB overrides fallback file)
-- `hero-ready` event dispatch
-- Slide indicator dots and scroll indicator
-- All form logic on all pages
-- No other pages or components touched
+### R-5: Content Population
+- Collect and enter real client testimonials
+- Publish initial blog posts with actual project content
+- Complete project case study data entry with real photos/outcomes
 
-## Checks
-- `/estimate` nav transparent on load, solid on scroll
-- Homepage slides render new copy
-- Secondary CTAs appear per-slide from data
-- Fallback slides work if DB returns empty
-- Console error check
-- No TypeScript type errors in the mapping chain
+### R-6: Analytics & Conversion
+- Conversion tracking on form submissions
+- A/B testing framework activation (tables exist, UI needed)
+- Form funnel analysis (drop-off rates per step)
 
-## Risk Notes
-- DB update changes live public content immediately (intentional — new copy is aligned with positioning standards)
-- If admin edits slides later via HomepageBuilder, those edits override; fallback file is safety net only
+### R-7: EquipmentResources.tsx Deprecation
+Replace EquipmentResources page content or redirect to TechnologyInnovation page. Current page has unqualified tool claims (Procore, BIM 360, GPS Fleet Tracking, fleet size "25+").
 
+---
+
+## Manual Verification Checklist
+
+- [ ] Whether a staffed 24/7 emergency line actually exists
+- [ ] Whether partner case studies represent real projects
+- [ ] Whether a client portal actually exists and functions
+- [ ] Whether "10+ projects completed" is accurate as of current date
+- [ ] Actual current tool adoption: Bluebeam, Procore, BIM 360
+- [ ] RFP file upload flow works end-to-end (storage bucket RLS)
+- [ ] File size limits appropriate for construction drawings (20MB)
+
+## Content Claims Requiring Business Confirmation
+
+| Claim | Location | Status |
+|---|---|---|
+| 85% self-performed | Multiple pages | Periodic verification flagged |
+| 10-person crew | Multiple pages | Needs current headcount |
+| $2M CGL coverage | Trust bars, stats | Verifiable via certificate |
+| Working toward COR | FAQ, About | Confirm progress status |
+| Bluebeam for markups | TechnologyInnovation | Confirm active use |
+| Procore integration capability | TechnologyInnovation | Qualified as "when required" |
+| BIM workflow experience | TechnologyInnovation | Qualified as "team experience" |

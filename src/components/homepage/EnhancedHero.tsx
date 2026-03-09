@@ -21,6 +21,7 @@ const fallbackHeroSlides = enrichedHeroSlides.map((slide, index) => ({
     ...slide.primaryCTA,
     icon: Building2,
   },
+  secondaryCTA: slide.secondaryCTA,
 }));
 
 const mapAdminSlideToHero = (slide: AdminHeroSlide, fallbackMedia: (typeof fallbackHeroSlides)[number], index: number) => ({
@@ -35,6 +36,10 @@ const mapAdminSlideToHero = (slide: AdminHeroSlide, fallbackMedia: (typeof fallb
     label: slide.primary_cta_text?.trim() || fallbackMedia.primaryCTA.label,
     href: slide.primary_cta_url?.trim() || fallbackMedia.primaryCTA.href,
     icon: Building2,
+  },
+  secondaryCTA: {
+    label: slide.secondary_cta_text?.trim() || fallbackMedia.secondaryCTA.label,
+    href: slide.secondary_cta_url?.trim() || fallbackMedia.secondaryCTA.href,
   },
 });
 
@@ -68,7 +73,7 @@ const EnhancedHero = ({ splashComplete = true }: { splashComplete?: boolean }) =
   const { getVideoUrl, isPreloaded } = useVideoPreloader({
     videoUrls,
     currentIndex: currentSlide,
-    prefetchCount: 2 // Preload current + 2 ahead + 1 behind
+    prefetchCount: 2
   });
 
   // Helper to detect mobile device
@@ -79,7 +84,7 @@ const EnhancedHero = ({ splashComplete = true }: { splashComplete?: boolean }) =
     setAnimationsEnabled(true);
   }, []);
 
-  // Mark hero as ready immediately on mount (poster images are preloaded in HTML)
+  // Mark hero as ready immediately on mount
   useEffect(() => {
     const markHeroReady = () => {
       if (!heroReadyRef.current) {
@@ -89,18 +94,13 @@ const EnhancedHero = ({ splashComplete = true }: { splashComplete?: boolean }) =
       }
     };
 
-    // Dispatch immediately since poster images are preloaded
     markHeroReady();
-    
-    // Fallback timer in case something goes wrong (reduced from 800ms to 300ms)
     const fallback = setTimeout(markHeroReady, 300);
-    
     return () => clearTimeout(fallback);
   }, []);
 
   const handleVideoReady = () => {
     setIsVideoLoaded(true);
-    // Mark hero as ready when first video loads
     if (!heroReadyRef.current) {
       heroReadyRef.current = true;
       setIsPageLoaded(true);
@@ -108,19 +108,16 @@ const EnhancedHero = ({ splashComplete = true }: { splashComplete?: boolean }) =
     }
   };
 
-  // Minimum swipe distance (in px) to trigger slide change
   const minSwipeDistance = 50;
 
   useEffect(() => {
     if (!isPlaying || activeSlides.length === 0 || !splashComplete) return;
 
-    // Add a 2 second delay after splash completes before starting auto-rotation
     const initialDelay = setTimeout(() => {
       autoplayIntervalRef.current = setInterval(() => {
         setIsFadingOut(true);
         setIsTransitioning(true);
         
-        // Fade out (600ms) -> Change content (instant) -> Fade in (600ms)
         setTimeout(() => {
           setCurrentSlide((prev) => (prev + 1) % activeSlides.length);
           setIsFadingOut(false);
@@ -141,13 +138,12 @@ const EnhancedHero = ({ splashComplete = true }: { splashComplete?: boolean }) =
   }, [isPlaying, activeSlides.length, currentSlide, splashComplete]);
 
   const handleSlideChange = (index: number) => {
-    if (index === currentSlide) return; // Don't transition to the same slide
+    if (index === currentSlide) return;
     
-    setIsPlaying(false); // Pause autoplay when user interacts
+    setIsPlaying(false);
     setIsFadingOut(true);
     setIsTransitioning(true);
     
-    // Fade out (600ms) -> Change content (instant) -> Fade in (600ms)
     setTimeout(() => {
       setCurrentSlide(index);
       setIsFadingOut(false);
@@ -167,7 +163,6 @@ const EnhancedHero = ({ splashComplete = true }: { splashComplete?: boolean }) =
     const v = videoRef.current;
     if (!v) return;
 
-    // If video is already ready to play, show it immediately
     if (v.readyState >= 3) {
       setIsVideoLoaded(true);
       v.play().catch(() => {});
@@ -190,7 +185,6 @@ const EnhancedHero = ({ splashComplete = true }: { splashComplete?: boolean }) =
     };
   }, [currentSlide]);
 
-
   const handleTouchStart = (e: React.TouchEvent) => {
     setTouchEnd(null);
     setTouchStart(e.targetTouches[0]?.clientX ?? 0);
@@ -208,7 +202,6 @@ const EnhancedHero = ({ splashComplete = true }: { splashComplete?: boolean }) =
     const isRightSwipe = distance < -minSwipeDistance;
 
     if (isLeftSwipe) {
-      // Swipe left - go to next slide
       setIsFadingOut(true);
       setIsTransitioning(true);
       setTimeout(() => {
@@ -221,7 +214,6 @@ const EnhancedHero = ({ splashComplete = true }: { splashComplete?: boolean }) =
     }
 
     if (isRightSwipe) {
-      // Swipe right - go to previous slide
       setIsFadingOut(true);
       setIsTransitioning(true);
       setTimeout(() => {
@@ -244,20 +236,21 @@ const EnhancedHero = ({ splashComplete = true }: { splashComplete?: boolean }) =
   const slide = activeSlides[currentSlide];
   const prefersReducedMotion = useReducedMotion();
 
-  // Guard against undefined slide
   if (!slide) return null;
 
-  // Extract slide data from enriched slides
   const headline = slide.headline;
   const subheadline = slide.subheadline;
-  const statNumber = slide.stat;
-  const statLabel = slide.statLabel;
-  const videoUrl = getVideoUrl(slide.video); // Use preloaded URL
+  const videoUrl = getVideoUrl(slide.video);
   const videoUrlMobile = slide.video.replace('.mp4', '-mobile.mp4');
   const posterUrl = slide.poster;
-  const PrimaryIcon = slide.primaryCTA.icon;
   const primaryCTA = slide.primaryCTA;
-  const secondaryCTA = (slide as any).secondaryCTA;
+  const secondaryCTA = slide.secondaryCTA;
+
+  // Stagger animation helper
+  const staggerStyle = (delayMs: number) =>
+    animationsEnabled && !prefersReducedMotion
+      ? { animationDelay: `${delayMs}ms`, animationFillMode: 'both' as const }
+      : {};
 
   return (
     <section 
@@ -293,9 +286,7 @@ const EnhancedHero = ({ splashComplete = true }: { splashComplete?: boolean }) =
           }}
           className="absolute inset-0 w-full h-full object-cover"
         >
-          {/* Mobile-optimized source for faster loading on mobile devices */}
           {isMobile && <source src={videoUrlMobile} type="video/mp4" />}
-          {/* Desktop/fallback source */}
           <source src={videoUrl} type="video/mp4" />
         </video>
       </div>
@@ -313,35 +304,41 @@ const EnhancedHero = ({ splashComplete = true }: { splashComplete?: boolean }) =
           }}
         >
         <div className="max-w-5xl mx-auto">
-          {/* Single Trust Badge - Simplified for Professional Impact */}
+          {/* Trust Badge */}
           <div 
             className={`inline-flex items-center gap-3 rounded-full bg-white/10 backdrop-blur-xl border border-white/20 px-6 py-3 mb-10 ${animationsEnabled && !prefersReducedMotion ? 'animate-fade-in' : ''}`}
+            style={staggerStyle(0)}
           >
             <Shield className="h-5 w-5 text-accent" />
             <span className="text-sm font-semibold text-white/90">Building Envelope & Restoration Specialists</span>
           </div>
 
-          {/* Main Headline - Clean, Bold, Professional */}
+          {/* Headline */}
           <h1 
             className={`text-5xl md:text-6xl lg:text-7xl font-bold mb-8 leading-[1.1] tracking-tight text-white ${animationsEnabled && !prefersReducedMotion ? 'animate-fade-in' : ''}`}
             style={{ 
-              textShadow: '0 4px 40px rgba(0,0,0,0.6)'
+              textShadow: '0 4px 40px rgba(0,0,0,0.6)',
+              ...staggerStyle(50),
             }}
           >
             {headline}
           </h1>
+
+          {/* Subheadline */}
           <p 
             className={`text-lg md:text-xl lg:text-2xl text-white/90 mb-12 max-w-3xl leading-relaxed ${animationsEnabled && !prefersReducedMotion ? 'animate-fade-in' : ''}`}
             style={{ 
-              textShadow: '0 2px 20px rgba(0,0,0,0.4)'
+              textShadow: '0 2px 20px rgba(0,0,0,0.4)',
+              ...staggerStyle(100),
             }}
           >
             {subheadline}
           </p>
 
-          {/* Simplified CTAs - Clean, Professional */}
+          {/* CTAs — per-slide from data */}
           <div 
             className={`flex flex-col sm:flex-row gap-4 mb-16 ${animationsEnabled && !prefersReducedMotion ? 'animate-fade-in' : ''}`}
+            style={staggerStyle(150)}
           >
             <Button asChild size="lg" variant="primary" className="group shadow-lg hover:shadow-xl transition-all duration-300">
               <Link to={primaryCTA.href} className="gap-2">
@@ -350,11 +347,13 @@ const EnhancedHero = ({ splashComplete = true }: { splashComplete?: boolean }) =
               </Link>
             </Button>
             
-            <Button asChild size="lg" variant="outline" className="bg-white/10 hover:bg-white/20 border-2 border-white/30 hover:border-white/50 text-white backdrop-blur-sm transition-all duration-300">
-              <Link to="/services">
-                View Services
-              </Link>
-            </Button>
+            {secondaryCTA && (
+              <Button asChild size="lg" variant="outline" className="bg-white/10 hover:bg-white/20 border-2 border-white/30 hover:border-white/50 text-white backdrop-blur-sm transition-all duration-300">
+                <Link to={secondaryCTA.href}>
+                  {secondaryCTA.label}
+                </Link>
+              </Button>
+            )}
           </div>
 
           {/* Slide Indicators */}
