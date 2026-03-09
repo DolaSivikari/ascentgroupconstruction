@@ -101,7 +101,6 @@ const Blog = () => {
         <div className="container mx-auto px-4 py-20 text-center"><div className="animate-pulse">Loading content...</div></div>
       ) : (
       <main className="relative overflow-hidden">
-        <div className="absolute top-0 left-0 w-[500px] h-[500px] bg-gradient-to-br from-primary/5 to-secondary/5 rounded-full blur-3xl -z-10" />
         <PageHero
           title="Blog & Case Studies"
           description="Expert insights, success stories, and real-world projects from industry professionals"
