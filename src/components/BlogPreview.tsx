@@ -58,7 +58,7 @@ const BlogPreview = () => {
 
             return (
               <Link key={post.slug} to={`/blog/${post.slug}`} className="md:col-span-3">
-                <Card variant="featured" className="h-full overflow-hidden group">
+                <Card variant="elevated" className="h-full overflow-hidden group p-0">
                   <div className="grid md:grid-cols-2 gap-0">
                     <div className="relative h-64 md:h-full overflow-hidden">
                       <OptimizedImage
