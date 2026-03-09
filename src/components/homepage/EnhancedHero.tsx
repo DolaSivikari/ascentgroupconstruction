@@ -479,15 +479,15 @@ const EnhancedHero = ({ splashComplete = true }: { splashComplete?: boolean }) =
         <div 
           className="relative z-10 container mx-auto px-4 py-16 md:py-20"
           style={{ 
-            opacity: isFadingOut ? 0 : 1,
-            transform: isFadingOut ? 'translateY(8px)' : 'translateY(0)',
+            opacity: transitionPhase === 'out' ? 0 : 1,
+            transform: transitionPhase === 'out' ? 'translateY(8px)' : 'translateY(0)',
             transition: 'opacity 600ms ease-in-out, transform 600ms ease-in-out'
           }}
         >
         <div className="max-w-4xl mx-auto">
           {/* Single Trust Badge - Simplified for Professional Impact */}
           <div
-            className={`inline-flex items-center gap-3 rounded-full bg-white/10 backdrop-blur-sm border border-white/15 px-6 py-3 mb-10 ${animationsEnabled && !prefersReducedMotion ? 'animate-fade-in' : ''}`}
+            className={`inline-flex items-center gap-3 rounded-full bg-white/10 backdrop-blur-sm border border-white/15 px-6 py-3 mb-10 ${isPageLoaded && !prefersReducedMotion ? 'animate-fade-in' : ''}`}
           >
             <Shield className="h-5 w-5 text-accent" />
             <span className="text-sm font-semibold text-white/90">Building Envelope & Restoration Specialists</span>
@@ -517,7 +517,7 @@ const EnhancedHero = ({ splashComplete = true }: { splashComplete?: boolean }) =
           {/* Separator between headline and subheadline */}
           <div className="w-12 h-px bg-accent/60 mb-6" />
           <p
-            className={`text-lg md:text-xl lg:text-2xl text-white/90 mb-12 max-w-3xl leading-relaxed ${animationsEnabled && !prefersReducedMotion ? 'animate-fade-in' : ''}`}
+            className={`text-lg md:text-xl lg:text-2xl text-white/90 mb-12 max-w-3xl leading-relaxed ${isPageLoaded && !prefersReducedMotion ? 'animate-fade-in' : ''}`}
             style={{ 
               textShadow: '0 2px 20px rgba(0,0,0,0.4)'
             }}

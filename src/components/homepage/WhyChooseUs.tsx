@@ -1,12 +1,12 @@
 import * as LucideIcons from "lucide-react";
+import { Link } from "react-router-dom";
 import { useWhyChooseUs } from "@/hooks/useWhyChooseUs";
-import { SectionHeader, CapabilityCard } from "@/design-system/components";
-import { Section } from "@/components/sections/Section";
 import { GRID } from "@/design-system/layouts";
 import { LAYOUT } from "@/design-system/constants";
 import { useScrollFadeIn } from "@/hooks/useScrollFadeIn";
 import { useStaggerAnimation } from "@/hooks/useStaggerAnimation";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
+import { Button } from "@/ui/Button";
 
 // Fallback data with construction-specific icons
 const fallbackDifferentiators = [
@@ -71,52 +71,47 @@ const WhyChooseUs = () => {
             {differentiators.map((item, index) => {
               const Icon = (LucideIcons as any)[item.icon] || LucideIcons.BadgeCheck;
               return (
-              <Card
-                key={index}
-                variant="elevated"
-                className="h-full hover-subtle group"
-                style={{
-                  opacity: showGrid ? 1 : 0,
-                  transform: showGrid ? "translateY(0)" : "translateY(24px)",
-                  transition: prefersReducedMotion
-                    ? "none"
-                    : `opacity 300ms ease-out, transform 300ms ease-out`,
-                  transitionDelay: showGrid ? `${delays[index] ?? 0}ms` : "0ms",
-                }}
-              >
-                <div className="p-8 h-full flex flex-col">
-                  {/* Icon with Steel Blue Accent */}
-                  <div className="w-14 h-14 rounded-lg bg-steel-blue/10 flex items-center justify-center mb-6 group-hover:bg-steel-blue/20 transition-colors hover-scale-icon">
-                    <Icon className="w-7 h-7 text-steel-blue" />
-                  </div>
-
-                  {/* Content */}
-                  <div className="flex-1">
-                    <h3 className="text-xl md:text-2xl font-bold mb-4 text-foreground leading-tight">
-                      {item.title}
-                    </h3>
-                    
-                    <p className="text-base text-muted-foreground mb-6 leading-relaxed">
-                      {item.desc}
-                    </p>
-                  </div>
-
-                  {/* Stats Badge */}
-                  <div className="pt-6 border-t border-border">
-                    <div className="inline-flex items-center gap-2 text-sm font-semibold text-steel-blue">
-                      {item.stats}
+                <div
+                  key={index}
+                  className="bg-card border rounded-[var(--radius-lg)] h-full hover:shadow-lg transition-shadow group"
+                  style={{
+                    opacity: showGrid ? 1 : 0,
+                    transform: showGrid ? "translateY(0)" : "translateY(24px)",
+                    transition: prefersReducedMotion
+                      ? "none"
+                      : `opacity 300ms ease-out, transform 300ms ease-out`,
+                    transitionDelay: showGrid ? `${delays[index] ?? 0}ms` : "0ms",
+                  }}
+                >
+                  <div className="p-8 h-full flex flex-col">
+                    <div className="w-14 h-14 rounded-lg bg-primary/10 flex items-center justify-center mb-6 group-hover:bg-primary/20 transition-colors">
+                      <Icon className="w-7 h-7 text-primary" />
                     </div>
+                    <div className="flex-1">
+                      <h3 className="text-xl md:text-2xl font-bold mb-4 text-foreground leading-tight">
+                        {item.title}
+                      </h3>
+                      <p className="text-base text-muted-foreground mb-6 leading-relaxed">
+                        {item.desc}
+                      </p>
+                    </div>
+                    {item.stats && (
+                      <div className="pt-6 border-t border-border">
+                        <div className="inline-flex items-center gap-2 text-sm font-semibold text-primary">
+                          {item.stats}
+                        </div>
+                      </div>
+                    )}
                   </div>
                 </div>
-              </Card>
-            );
-          })}
-        </div>
+              );
+            })}
+          </div>
         )}
 
         {/* Bottom CTA Section */}
         <div className="max-w-4xl mx-auto mt-16">
-          <Card className="border-primary/20 bg-background">
+          <div className="border border-primary/20 bg-background rounded-[var(--radius-lg)]">
             <div className="p-8 lg:p-12 text-center">
               <h3 className="text-2xl md:text-3xl font-bold mb-4 text-foreground">
                 Ready to Start Your Project?
@@ -125,7 +120,7 @@ const WhyChooseUs = () => {
                 Get a detailed proposal for your construction project with transparent pricing and comprehensive scope documentation.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button asChild size="lg" variant="primary" className="min-w-[200px]">
+                <Button asChild size="lg" className="min-w-[200px]">
                   <Link to="/contact">Request a Proposal</Link>
                 </Button>
                 <Button asChild size="lg" variant="secondary" className="min-w-[200px]">
@@ -133,7 +128,7 @@ const WhyChooseUs = () => {
                 </Button>
               </div>
             </div>
-          </Card>
+          </div>
         </div>
       </div>
     </section>
