@@ -243,7 +243,7 @@ export function PageHero({
           {/* Description */}
           {description && (
             <p className={cn(
-              "text-base sm:text-lg md:text-xl text-[hsl(var(--bg))]/90 leading-relaxed motion-safe:animate-fade-in",
+              "text-base sm:text-lg md:text-xl text-[hsl(var(--bg))]/90 leading-relaxed",
               isCentered ? "max-w-3xl" : "max-w-2xl"
             )} style={staggerStyle(200)}>
               {description}
