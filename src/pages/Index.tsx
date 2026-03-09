@@ -10,8 +10,6 @@ import WhyChooseUs from "@/components/homepage/WhyChooseUs";
 import CompanyOverviewHub from "@/components/homepage/CompanyOverviewHub";
 import WhoWeServeHomepage from "@/components/homepage/WhoWeServeHomepage";
 import { HomepageProofStrip } from "@/components/homepage/HomepageProofStrip";
-import WhyChooseUs from "@/components/homepage/WhyChooseUs";
-import CompanyOverviewHub from "@/components/homepage/CompanyOverviewHub";
 import { HomepageProcessStrip } from "@/components/homepage/HomepageProcessStrip";
 import { HomepageServiceHighlights } from "@/components/homepage/HomepageServiceHighlights";
 import { HomepageFeaturedProjects } from "@/components/homepage/HomepageFeaturedProjects";

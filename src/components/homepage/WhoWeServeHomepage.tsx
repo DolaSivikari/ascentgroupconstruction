@@ -1,4 +1,4 @@
-import { Building2, Users, Home, Briefcase, ArrowRight } from "lucide-react";
+import { Building2, Users, Home, Briefcase } from "lucide-react";
 import { Section } from "@/components/sections/Section";
 import { SectionBadge } from "@/components/ui/SectionBadge";
 import { ClientSegmentCard } from "@/components/unified";
@@ -65,11 +65,9 @@ const WhoWeServeHomepage = () => {
     },
   ];
 
-const WhoWeServeHomepage = () => {
   return (
     <Section size="major" className="bg-muted/30">
       <div className="relative z-10">
-        {/* Section header with scroll reveal */}
         <div
           ref={headerRef}
           className="max-w-4xl mb-12"
@@ -90,7 +88,6 @@ const WhoWeServeHomepage = () => {
           </p>
         </div>
 
-        {/* Card grid with stagger */}
         <div ref={gridRef} className={GRID.cards4}>
           {clientSegments.map((segment, index) => (
             <div
