@@ -1,6 +1,6 @@
 # Ascent Group Construction — Full Repository Structure Map
 
-> Generated: 2026-03-01
+> Generated: 2026-03-09
 > Branch: `claude/repo-structure-map-To5et`
 
 ---
@@ -301,8 +301,6 @@ ascentgroupconstruction/
 │   │   ├── footer/                          # Footer variants
 │   │   │   ├── FooterNavCard.tsx
 │   │   │   ├── NewsletterBackend.tsx
-│   │   │   ├── ProfessionalFooter.tsx
-│   │   │   ├── SimpleModernFooter.tsx
 │   │   │   ├── SocialMediaButton.tsx
 │   │   │   ├── TrustBadgeBar.tsx
 │   │   │   └── UnifiedFooter.tsx
@@ -332,6 +330,11 @@ ascentgroupconstruction/
 │   │   │   ├── EnhancedHero.tsx
 │   │   │   ├── GCTrustStrip.tsx
 │   │   │   ├── HeroTabNavigation.tsx
+│   │   │   ├── HomepageFeaturedProjects.tsx  # Featured project cards (3-up, scale reveal)
+│   │   │   ├── HomepageFinalCta.tsx          # 3-card CTA section on primary bg
+│   │   │   ├── HomepageProcessStrip.tsx      # 4-step process strip → /how-we-work
+│   │   │   ├── HomepageProofStrip.tsx        # Dark stats strip with count-up
+│   │   │   ├── HomepageServiceHighlights.tsx # 8 service pillar cards (GRID.cards4)
 │   │   │   ├── InteractiveCTA.tsx
 │   │   │   ├── MarketChallenge.tsx
 │   │   │   ├── PartnershipCarousel.tsx
@@ -556,7 +559,14 @@ ascentgroupconstruction/
 │   │   ├── tokens.ts
 │   │   ├── typography.ts
 │   │   └── components/
+│   │       ├── index.ts
+│   │       ├── CapabilityCard.tsx
 │   │       ├── Card.tsx
+│   │       ├── CTABand.tsx
+│   │       ├── ProofCard.tsx
+│   │       ├── ProofStrip.tsx
+│   │       ├── SegmentCard.tsx
+│   │       ├── SectionHeader.tsx
 │   │       └── Typography.tsx
 │   │
 │   ├── hooks/                               # Custom React hooks
@@ -598,6 +608,7 @@ ascentgroupconstruction/
 │   │   ├── useReducedMotion.ts
 │   │   ├── useSEOKeywords.ts
 │   │   ├── useScrollDirection.ts
+│   │   ├── useScrollFadeIn.ts               # Scroll fade-in hook (threshold 0.15 wrapper)
 │   │   ├── useScrollIndicator.ts
 │   │   ├── useScrollReveal.ts
 │   │   ├── useSearchAnalytics.ts
@@ -825,24 +836,24 @@ ascentgroupconstruction/
 
 ## Summary by Category
 
-| Category | Count |
-|---|---|
-| Root config files | 14 |
-| GitHub Actions workflows | 2 |
-| Documentation files (`docs/`) | 17 |
-| Public static assets | 18 files + 2 subdirs |
-| Developer scripts | 11 |
-| Source pages (`src/pages/`) | 31 main + 25 admin/sub-pages |
-| React components (`src/components/`) | 200+ |
-| Custom React hooks (`src/hooks/`) | 53 |
-| Data files (`src/data/`) | 17 |
-| Design system files | 8 |
-| Utility files (`src/utils/`) | 27 |
-| CSS/style files | 10 |
-| Supabase edge functions | 18 |
-| Supabase migrations | 16 |
-| Asset images/videos | 80+ |
-| Partner logos | 14 |
+| Category | Count | Notes |
+|---|---|---|
+| Root config files | 14 | |
+| GitHub Actions workflows | 2 | |
+| Documentation files (`docs/`) | 17 | |
+| Public static assets | 18 files + 2 subdirs | |
+| Developer scripts | 11 | |
+| Source pages (`src/pages/`) | 31 main + 25 admin/sub-pages | |
+| React components (`src/components/`) | 205+ | +5 homepage sections added |
+| Custom React hooks (`src/hooks/`) | 54 | +1 `useScrollFadeIn` |
+| Data files (`src/data/`) | 17 | |
+| Design system files (`design-system/`) | 15 | +6 components discovered |
+| Utility files (`src/utils/`) | 27 | |
+| CSS/style files | 10 | |
+| Supabase edge functions | 18 | |
+| Supabase migrations | 16 | |
+| Asset images/videos | 80+ | |
+| Partner logos | 14 | |
 
 ---
 
