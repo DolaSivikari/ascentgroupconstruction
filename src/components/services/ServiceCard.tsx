@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Card, CardContent } from "@/ui/Card";
+import { Card, CardContent } from "@/design-system/components/Card";
 import { Badge } from "@/components/ui/badge";
 import * as LucideIcons from "lucide-react";
 import { Building2, Home, Factory, Clock, ArrowRight, Star } from "lucide-react";
