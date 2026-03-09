@@ -370,7 +370,8 @@
   .parallax-float,
   .scroll-reveal,
   .scroll-reveal-left,
-  .scroll-reveal-right {
+  .scroll-reveal-right,
+  .hero-stagger > * {
     animation: none !important;
     transition: none !important;
     transform: none !important;

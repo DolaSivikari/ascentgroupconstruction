@@ -272,7 +272,7 @@ export function PageHero({
           {/* CTAs */}
           {(primaryCta || secondaryCta) && (
             <div className={cn(
-              "flex flex-wrap gap-4 mt-8 motion-safe:animate-fade-in",
+              "flex flex-wrap gap-4 mt-8",
               isCentered && "justify-center"
             )} style={staggerStyle(300)}>
               {primaryCta && (
