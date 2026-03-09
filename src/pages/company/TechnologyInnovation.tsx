@@ -9,8 +9,9 @@ import { CTABand } from "@/design-system/components/CTABand";
 import { resourceHeroes } from "@/data/hero-images";
 import {
   FileSearch, Camera, ClipboardList, FolderCheck,
-  Box, MonitorSmartphone, Rocket, Info,
+  Box, MonitorSmartphone, Rocket, Info, ArrowRight,
 } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const CURRENT_TOOLS = [
   {

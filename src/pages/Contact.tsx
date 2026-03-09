@@ -326,6 +326,16 @@ const Contact = () => {
                 </div>
               </Card>
 
+              {/* What to Expect */}
+              <Card variant="default" size="md" className="bg-primary/5 border-primary/20">
+                <h3 className="text-lg font-bold mb-3">What to Expect</h3>
+                <ul className="space-y-2 text-sm text-muted-foreground">
+                  <li className="flex items-start gap-2"><CheckCircle className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />We typically respond within 1 business day</li>
+                  <li className="flex items-start gap-2"><CheckCircle className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />Your inquiry goes directly to our project team</li>
+                  <li className="flex items-start gap-2"><CheckCircle className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />No automated responses — real people, real answers</li>
+                </ul>
+              </Card>
+
               <Card variant="default" size="md" className="bg-muted/30">
                 <p className="text-sm font-medium mb-2">Need a formal proposal?</p>
                 <p className="text-xs text-muted-foreground mb-3">

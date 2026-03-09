@@ -510,6 +510,14 @@ const Prequalification = () => {
         </div>
       </main>
 
+      <CTABand
+        title="Ready to Work Together?"
+        description="Contact our team to discuss your project scope, review our credentials, or request a detailed proposal."
+        primaryCta={{ text: "Request a Quote", href: "/estimate" }}
+        secondaryCta={{ text: "Contact Us", href: "/contact" }}
+        variant="dark"
+      />
+
       <Footer />
     </div>
   );
