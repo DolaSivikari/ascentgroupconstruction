@@ -63,22 +63,24 @@ const CompanyOverviewHub = () => {
 
   return (
     <div ref={sectionRef}>
-      <Section size="major" className="bg-gradient-to-b from-background to-muted/30">
+      <Section size="major" className="bg-gradient-to-b from-muted/40 to-background">
         <SectionHeader
           title="Your Envelope, Restoration & Interior Trades Partner"
           description="From building envelope systems to specialty restoration, we deliver focused trade execution with the expertise, safety standards, and quality you expect."
+          align="left"
+          maxWidth="lg"
         />
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Our Approach Column */}
           {hasApproach && (
-            <Card variant="elevated" size="md" className="h-full">
-              <h3 className="text-xl font-semibold mb-4">Our Approach</h3>
-              <div className="space-y-3">
+            <Card variant="default" size="lg" className="h-full border-t-4 border-t-primary">
+              <h3 className="text-lg font-bold uppercase tracking-wider text-primary mb-6">Our Approach</h3>
+              <div className="space-y-4">
                 {OUR_APPROACH.map((item, index) => (
                   <div key={index} className="flex items-start gap-3">
                     <CheckCircle className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
-                    <span className="text-sm text-muted-foreground">{item}</span>
+                    <span className="text-sm text-muted-foreground leading-relaxed">{item}</span>
                   </div>
                 ))}
               </div>
@@ -87,19 +89,19 @@ const CompanyOverviewHub = () => {
 
           {/* Our Values Column */}
           {hasValues && (
-            <Card variant="elevated" size="md" className="h-full">
-              <h3 className="text-xl font-semibold mb-4">Our Values</h3>
-              <div className="space-y-4">
+            <Card variant="elevated" size="lg" className="h-full bg-primary text-primary-foreground">
+              <h3 className="text-lg font-bold uppercase tracking-wider mb-6">Our Values</h3>
+              <div className="space-y-5">
                 {COMPANY_VALUES.map((value, index) => {
                   const Icon = (LucideIcons as any)[value.icon] || LucideIcons.Shield;
                   return (
                     <div key={index} className="flex items-start gap-3">
-                      <div className="w-8 h-8 rounded-[var(--radius-sm)] bg-primary/10 flex items-center justify-center flex-shrink-0">
-                        <Icon className="w-4 h-4 text-primary" />
+                      <div className="w-9 h-9 rounded-[var(--radius-sm)] bg-primary-foreground/15 flex items-center justify-center flex-shrink-0">
+                        <Icon className="w-4 h-4 text-primary-foreground" />
                       </div>
                       <div>
                         <p className="text-sm font-semibold mb-0.5">{value.title}</p>
-                        <p className="text-xs text-muted-foreground leading-relaxed">{value.description}</p>
+                        <p className="text-xs text-primary-foreground/80 leading-relaxed">{value.description}</p>
                       </div>
                     </div>
                   );
@@ -110,12 +112,12 @@ const CompanyOverviewHub = () => {
 
           {/* Our Promise Column */}
           {hasPromise && (
-            <Card variant="elevated" size="md" className="h-full">
-              <h3 className="text-xl font-semibold mb-4">Our Promise</h3>
-              <div className="space-y-4">
+            <Card variant="default" size="lg" className="h-full border-t-4 border-t-accent">
+              <h3 className="text-lg font-bold uppercase tracking-wider text-foreground mb-6">Our Promise</h3>
+              <div className="space-y-5">
                 {OUR_PROMISE.map((promise, index) => (
                   <div key={index} className="flex items-start gap-3">
-                    <Target className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
+                    <Target className="w-5 h-5 text-accent flex-shrink-0 mt-0.5" />
                     <div>
                       <p className="text-sm font-semibold mb-0.5">{promise.title}</p>
                       <p className="text-xs text-muted-foreground leading-relaxed">{promise.description}</p>

@@ -42,7 +42,7 @@ const Navigation = () => {
     '/services/tile-flooring',
     '/services/cladding-systems',
     '/services/protective-coatings',
-    '/services/sustainable-building',
+    '/services/sustainable-construction',
     '/services/basement-finishing',
     '/services/carpentry-trim-work',
     '/services/interior-buildouts-finishing',
