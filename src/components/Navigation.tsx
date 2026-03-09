@@ -74,7 +74,8 @@ const Navigation = () => {
     '/markets',
     '/faq',
     '/blog',
-    '/estimate'
+    '/estimate',
+    '/projects'
   ];
   const isHeroPage = heroPages.includes(location.pathname);
   
