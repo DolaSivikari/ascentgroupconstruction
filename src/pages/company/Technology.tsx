@@ -315,7 +315,7 @@ const ScrollytellingSection = ({ rm }: { rm: boolean }) => {
                     <p className="text-primary/60 text-sm font-mono uppercase tracking-widest mb-4">
                       {phase.number} / 05
                     </p>
-                    <p className="text-6xl md:text-8xl font-bold text-background/10 leading-none mb-4">
+                    <p className="text-6xl md:text-8xl font-bold text-background/25 leading-none mb-4">
                       {phase.stat}
                     </p>
                     <p className="text-sm text-background/50 max-w-xs">{phase.statLabel}</p>
@@ -371,7 +371,7 @@ const ScrollytellingSection = ({ rm }: { rm: boolean }) => {
 
       {/* Reduced motion: show all phases stacked */}
       {rm && (
-        <div className="max-w-3xl mx-auto px-6 space-y-12 mt-8">
+        <div className="bg-foreground rounded-2xl max-w-3xl mx-auto px-8 py-10 space-y-10 mt-8">
           {SCROLLYTELLING_PHASES.map((p, i) => {
             const Icon = p.icon;
             return (
@@ -660,36 +660,43 @@ const BeforeAfterSlider = ({ rm }: { rm: boolean }) => {
           style={{ touchAction: "none" }}
         >
           {/* Left panel — Industry Standard */}
-          <div className="absolute inset-0 bg-muted flex flex-col justify-center px-10 md:px-16">
-            <p className="text-xs font-mono text-muted-foreground uppercase tracking-widest mb-5">
-              Industry Standard
-            </p>
-            <ul className="space-y-3">
-              {BEFORE_AFTER.before.items.map((item, i) => (
-                <li key={i} className="flex items-start gap-3 text-sm text-foreground/70">
-                  <span className="w-4 h-4 rounded-full border border-border flex-shrink-0 mt-0.5" />
-                  {item}
-                </li>
-              ))}
-            </ul>
+          <div className="absolute inset-0 bg-muted flex flex-col justify-center">
+            <div className="w-1/2 px-8 md:px-12">
+              <p className="text-xs font-mono text-muted-foreground uppercase tracking-widest mb-5">
+                Industry Standard
+              </p>
+              <ul className="space-y-3">
+                {BEFORE_AFTER.before.items.map((item, i) => (
+                  <li key={i} className="flex items-start gap-3 text-sm text-foreground/70">
+                    <span className="w-4 h-4 rounded-full border border-border flex-shrink-0 mt-0.5" />
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
 
           {/* Right panel — Ascent Standard (clipped) */}
           <div
-            className="absolute inset-0 bg-foreground flex flex-col justify-center px-10 md:px-16"
+            className="absolute inset-0 bg-foreground flex flex-col justify-center"
             style={{ clipPath: `inset(0 0 0 ${sliderPos}%)` }}
           >
-            <p className="text-xs font-mono text-primary uppercase tracking-widest mb-5">
-              Ascent Standard
-            </p>
-            <ul className="space-y-3">
-              {BEFORE_AFTER.after.items.map((item, i) => (
-                <li key={i} className="flex items-start gap-3 text-sm text-background/80">
-                  <CheckCircle className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />
-                  {item}
-                </li>
-              ))}
-            </ul>
+            {/* Inner container pinned to the right half so text is always in the visible region */}
+            <div className="absolute inset-0 flex flex-col justify-center items-end">
+              <div className="w-1/2 px-8 md:px-12">
+                <p className="text-xs font-mono text-primary uppercase tracking-widest mb-5">
+                  Ascent Standard
+                </p>
+                <ul className="space-y-3">
+                  {BEFORE_AFTER.after.items.map((item, i) => (
+                    <li key={i} className="flex items-start gap-3 text-sm text-background/80">
+                      <CheckCircle className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
           </div>
 
           {/* Divider handle */}
