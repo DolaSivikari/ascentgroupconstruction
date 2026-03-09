@@ -168,7 +168,7 @@ const ServiceAreas = () => {
           <section className="bg-muted/30 rounded-lg p-8">
             <h2 className="text-3xl font-bold text-foreground mb-8">Service Availability</h2>
             <div className="grid md:grid-cols-3 gap-6">
-              <Card className="hover:shadow-[var(--shadow-lg)] hover:-translate-y-1 transition-all duration-300 group border-2 hover:border-primary/30 animate-fade-in-up">
+              <Card className="hover:shadow-[var(--shadow-lg)] hover:-translate-y-1 transition-all duration-300 group border-2 hover:border-primary/30 animate-fade-in-up p-0">
                 <CardContent className="p-6">
                   <div className="w-14 h-14 bg-gradient-to-br from-primary to-primary/70 rounded-[var(--radius-lg)] flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
                     <Clock className="h-7 w-7 text-secondary" />
