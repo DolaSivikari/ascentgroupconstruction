@@ -209,7 +209,7 @@ export function PageHero({
           
           {/* Badge */}
           {badge && (
-            <div className="mb-4 motion-safe:animate-fade-in" style={staggerStyle(50)}>
+            <div className="mb-4" style={staggerStyle(50)}>
               <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wider bg-[hsl(var(--accent))]/20 text-[hsl(var(--accent))] border border-[hsl(var(--accent))]/30">
                 {badge}
               </span>
