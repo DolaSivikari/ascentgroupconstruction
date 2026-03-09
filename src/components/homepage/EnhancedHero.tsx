@@ -10,6 +10,12 @@ import HeroGeometry from "@/components/homepage/HeroGeometry";
 import { enrichedHeroSlides } from "@/data/enriched-hero-slides";
 import { fetchHeroSlides, type HeroSlide as AdminHeroSlide } from "@/hooks/useHomepageData";
 
+/* ── Constants ── */
+const TRANSITION_DURATION = 1000; // ms — cinematic pace
+const AUTOPLAY_INTERVAL = 7000;
+const AUTOPLAY_INITIAL_DELAY = 2000;
+const STAGGER_BASE = 100; // ms between content elements
+
 const fallbackHeroSlides = enrichedHeroSlides.map((slide, index) => ({
   id: `fallback-${index}`,
   headline: slide.headline,
@@ -81,30 +87,34 @@ function useStatCounter(stat: string, trigger: number) {
   return display;
 }
 
+/* ══════════════════════════════════════════════
+   EnhancedHero — Cinematic Homepage Slideshow
+   ══════════════════════════════════════════════ */
 const EnhancedHero = ({ splashComplete = true }: { splashComplete?: boolean }) => {
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [previousSlide, setPreviousSlide] = useState<number | null>(null);
   const [isVideoLoaded, setIsVideoLoaded] = useState(false);
   const [isTransitioning, setIsTransitioning] = useState(false);
-  const [isFadingOut, setIsFadingOut] = useState(false);
+  const [transitionPhase, setTransitionPhase] = useState<'idle' | 'out' | 'in'>('idle');
   const [touchStart, setTouchStart] = useState<number | null>(null);
   const [touchEnd, setTouchEnd] = useState<number | null>(null);
   const [isPlaying, setIsPlaying] = useState(true);
   const [isPageLoaded, setIsPageLoaded] = useState(false);
-  const [animationsEnabled, setAnimationsEnabled] = useState(false);
+  const [contentRevealKey, setContentRevealKey] = useState(0);
   const [showSwipeHint, setShowSwipeHint] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
+  const prevVideoRef = useRef<HTMLVideoElement>(null);
   const autoplayIntervalRef = useRef<NodeJS.Timeout | null>(null);
   const heroReadyRef = useRef(false);
   const sectionRef = useRef<HTMLElement>(null);
 
-  // Parallax refs (no state to avoid re-renders)
+  // Parallax refs
   const mouseTarget = useRef({ x: 0, y: 0 });
   const mouseCurrent = useRef({ x: 0, y: 0 });
   const videoLayerRef = useRef<HTMLDivElement>(null);
   const textLayerRef = useRef<HTMLDivElement>(null);
   const parallaxRaf = useRef(0);
 
-  // Progress bar animation key — increments on each slide change to restart CSS animation
   const [progressKey, setProgressKey] = useState(0);
 
   const { data: adminHeroSlides = [] } = useQuery({
@@ -122,18 +132,13 @@ const EnhancedHero = ({ splashComplete = true }: { splashComplete?: boolean }) =
   const { getVideoUrl, isPreloaded } = useVideoPreloader({
     videoUrls,
     currentIndex: currentSlide,
-    prefetchCount: 2
+    prefetchCount: 2,
   });
 
   const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
   const prefersReducedMotion = useReducedMotion();
 
-  // Enable animations immediately
-  useEffect(() => {
-    setAnimationsEnabled(true);
-  }, []);
-
-  // Mark hero as ready immediately on mount
+  // ── Page ready ──
   useEffect(() => {
     const markHeroReady = () => {
       if (!heroReadyRef.current) {
@@ -158,47 +163,54 @@ const EnhancedHero = ({ splashComplete = true }: { splashComplete?: boolean }) =
 
   const minSwipeDistance = 50;
 
+  /* ── Cinematic slide transition ──
+     Phase 1 (out): outgoing slide scales down + darkens while content fades out
+     Phase 2 (in):  incoming slide scales from 1.06 → 1.0 with content stagger reveal
+     Total duration: ~TRANSITION_DURATION */
+  const doSlideChange = useCallback((index: number) => {
+    if (index === currentSlide || isTransitioning) return;
+
+    setIsTransitioning(true);
+
+    // Phase: out — outgoing slide shrinks and darkens
+    setPreviousSlide(currentSlide);
+    setTransitionPhase('out');
+
+    setTimeout(() => {
+      // Phase: in — incoming slide takes over
+      setCurrentSlide(index);
+      setTransitionPhase('in');
+      setContentRevealKey(k => k + 1);
+    }, TRANSITION_DURATION * 0.45);
+
+    setTimeout(() => {
+      // Settle
+      setTransitionPhase('idle');
+      setPreviousSlide(null);
+      setIsTransitioning(false);
+    }, TRANSITION_DURATION);
+  }, [currentSlide, isTransitioning]);
+
   // ── Autoplay ──
   useEffect(() => {
     if (!isPlaying || activeSlides.length === 0 || !splashComplete) return;
 
     const initialDelay = setTimeout(() => {
       autoplayIntervalRef.current = setInterval(() => {
-        setIsFadingOut(true);
-        setIsTransitioning(true);
-        setTimeout(() => {
-          setCurrentSlide((prev) => (prev + 1) % activeSlides.length);
-          setIsFadingOut(false);
-        }, 600);
-        setTimeout(() => {
-          setIsTransitioning(false);
-        }, 1200);
-      }, 7000);
-    }, 2000);
+        const nextIdx = (currentSlide + 1) % activeSlides.length;
+        doSlideChange(nextIdx);
+      }, AUTOPLAY_INTERVAL);
+    }, AUTOPLAY_INITIAL_DELAY);
 
     return () => {
       clearTimeout(initialDelay);
       if (autoplayIntervalRef.current) clearInterval(autoplayIntervalRef.current);
     };
-  }, [isPlaying, activeSlides.length, currentSlide, splashComplete]);
+  }, [isPlaying, activeSlides.length, currentSlide, splashComplete, doSlideChange]);
 
-  // Reset progress bar key on slide change
   useEffect(() => {
-    setProgressKey((k) => k + 1);
+    setProgressKey(k => k + 1);
   }, [currentSlide]);
-
-  const doSlideChange = useCallback((index: number) => {
-    if (index === currentSlide || isTransitioning) return;
-    setIsFadingOut(true);
-    setIsTransitioning(true);
-    setTimeout(() => {
-      setCurrentSlide(index);
-      setIsFadingOut(false);
-    }, 600);
-    setTimeout(() => {
-      setIsTransitioning(false);
-    }, 1200);
-  }, [currentSlide, isTransitioning]);
 
   const handleSlideChange = (index: number) => {
     if (index === currentSlide) return;
@@ -248,7 +260,7 @@ const EnhancedHero = ({ splashComplete = true }: { splashComplete?: boolean }) =
     }
   };
 
-  // ── Keyboard navigation ──
+  // ── Keyboard ──
   const handleKeyDown = useCallback((e: React.KeyboardEvent) => {
     if (e.key === 'ArrowRight') {
       e.preventDefault();
@@ -258,11 +270,11 @@ const EnhancedHero = ({ splashComplete = true }: { splashComplete?: boolean }) =
       doSlideChange((currentSlide - 1 + activeSlides.length) % activeSlides.length);
     } else if (e.key === ' ') {
       e.preventDefault();
-      setIsPlaying((p) => !p);
+      setIsPlaying(p => !p);
     }
   }, [currentSlide, activeSlides.length, doSlideChange]);
 
-  // ── Swipe hint (mobile, once per session) ──
+  // ── Swipe hint ──
   useEffect(() => {
     if (!isMobile) return;
     const key = 'hero-swipe-hint-shown';
@@ -273,18 +285,16 @@ const EnhancedHero = ({ splashComplete = true }: { splashComplete?: boolean }) =
     return () => clearTimeout(t);
   }, [isMobile]);
 
-  // ── Parallax mouse tracking (pointer: fine only) ──
+  // ── Parallax ──
   useEffect(() => {
     if (prefersReducedMotion) return;
     const mq = window.matchMedia('(pointer: fine)');
     if (!mq.matches) return;
-
     const section = sectionRef.current;
     if (!section) return;
 
     const onMouseMove = (e: MouseEvent) => {
       const rect = section.getBoundingClientRect();
-      // Normalize to -1...1
       mouseTarget.current = {
         x: ((e.clientX - rect.left) / rect.width - 0.5) * 2,
         y: ((e.clientY - rect.top) / rect.height - 0.5) * 2,
@@ -301,22 +311,16 @@ const EnhancedHero = ({ splashComplete = true }: { splashComplete?: boolean }) =
       const tx = mouseCurrent.current.x * 4;
       const ty = mouseCurrent.current.y * 4;
 
-      if (videoLayerRef.current) {
-        videoLayerRef.current.style.transform = `translate(${vx}px, ${vy}px)`;
-      }
-      if (textLayerRef.current) {
-        textLayerRef.current.style.transform = `translate(${tx}px, ${ty}px)`;
-      }
+      if (videoLayerRef.current) videoLayerRef.current.style.transform = `translate(${vx}px, ${vy}px)`;
+      if (textLayerRef.current) textLayerRef.current.style.transform = `translate(${tx}px, ${ty}px)`;
       parallaxRaf.current = requestAnimationFrame(tick);
     };
 
     section.addEventListener('mousemove', onMouseMove);
     parallaxRaf.current = requestAnimationFrame(tick);
-
     return () => {
       section.removeEventListener('mousemove', onMouseMove);
       cancelAnimationFrame(parallaxRaf.current);
-      // Reset transforms
       if (videoLayerRef.current) videoLayerRef.current.style.transform = '';
       if (textLayerRef.current) textLayerRef.current.style.transform = '';
     };
@@ -324,13 +328,13 @@ const EnhancedHero = ({ splashComplete = true }: { splashComplete?: boolean }) =
 
   // Bounds check
   useEffect(() => {
-    if (currentSlide >= activeSlides.length && activeSlides.length > 0) {
-      setCurrentSlide(0);
-    }
+    if (currentSlide >= activeSlides.length && activeSlides.length > 0) setCurrentSlide(0);
   }, [currentSlide, activeSlides.length]);
 
   const slide = activeSlides[currentSlide];
   if (!slide) return null;
+
+  const prevSlide = previousSlide !== null ? activeSlides[previousSlide] : null;
 
   const headline = slide.headline;
   const subheadline = slide.subheadline;
@@ -340,10 +344,66 @@ const EnhancedHero = ({ splashComplete = true }: { splashComplete?: boolean }) =
   const primaryCTA = slide.primaryCTA;
   const secondaryCTA = slide.secondaryCTA;
 
-  const staggerStyle = (delayMs: number) =>
-    animationsEnabled && !prefersReducedMotion
-      ? { animationDelay: `${delayMs}ms`, animationFillMode: 'both' as const }
-      : {};
+  const prevVideoUrl = prevSlide ? getVideoUrl(prevSlide.video) : null;
+  const prevVideoUrlMobile = prevSlide ? prevSlide.video.replace('.mp4', '-mobile.mp4') : null;
+  const prevPosterUrl = prevSlide?.poster;
+
+  // Reduced motion: no animations
+  const shouldAnimate = isPageLoaded && !prefersReducedMotion;
+
+  // ── Compute layer styles for cinematic transition ──
+  const getOutgoingStyle = (): React.CSSProperties => {
+    if (transitionPhase === 'out') {
+      return {
+        transform: 'scale(0.95)',
+        opacity: 0,
+        filter: 'brightness(0.4)',
+        transition: `all ${TRANSITION_DURATION * 0.45}ms cubic-bezier(0.4, 0, 0.2, 1)`,
+      };
+    }
+    return { opacity: 0, transition: 'opacity 0ms' };
+  };
+
+  const getIncomingStyle = (): React.CSSProperties => {
+    if (transitionPhase === 'in') {
+      return {
+        transform: 'scale(1)',
+        opacity: 1,
+        transition: `all ${TRANSITION_DURATION * 0.55}ms cubic-bezier(0.16, 1, 0.3, 1)`,
+      };
+    }
+    if (transitionPhase === 'out') {
+      return {
+        transform: 'scale(1.06)',
+        opacity: 0,
+      };
+    }
+    return {
+      transform: 'scale(1)',
+      opacity: 1,
+    };
+  };
+
+  const getContentStyle = (): React.CSSProperties => {
+    if (transitionPhase === 'out') {
+      return {
+        opacity: 0,
+        transform: 'translateY(8px)',
+        transition: `all ${TRANSITION_DURATION * 0.3}ms cubic-bezier(0.4, 0, 1, 1)`,
+      };
+    }
+    return {};
+  };
+
+  // Stagger reveal for content items
+  const revealStyle = (order: number): React.CSSProperties => {
+    if (!shouldAnimate) return {};
+    const delay = order * STAGGER_BASE;
+    return {
+      animationDelay: `${delay}ms`,
+      animationFillMode: 'both',
+    };
+  };
 
   return (
     <section
@@ -359,11 +419,35 @@ const EnhancedHero = ({ splashComplete = true }: { splashComplete?: boolean }) =
       aria-label="Hero slideshow"
     >
 
-      {/* Video Background — parallax layer */}
+      {/* ── Previous slide layer (outgoing — scales down + darkens) ── */}
+      {prevSlide && transitionPhase === 'out' && (
+        <div
+          className="absolute inset-[-16px] w-[calc(100%+32px)] h-[calc(100%+32px)] will-change-transform z-[1]"
+          style={getOutgoingStyle()}
+        >
+          <video
+            ref={prevVideoRef}
+            width={1920}
+            height={1080}
+            autoPlay
+            loop
+            muted
+            playsInline
+            preload="metadata"
+            poster={prevPosterUrl}
+            className="absolute inset-0 w-full h-full object-cover"
+          >
+            {isMobile && prevVideoUrlMobile && <source src={prevVideoUrlMobile} type="video/mp4" />}
+            {prevVideoUrl && <source src={prevVideoUrl} type="video/mp4" />}
+          </video>
+        </div>
+      )}
+
+      {/* ── Current slide video layer (incoming — scales from 1.06 → 1.0) ── */}
       <div
         ref={videoLayerRef}
-        className="absolute inset-[-16px] w-[calc(100%+32px)] h-[calc(100%+32px)] transition-opacity duration-[600ms] ease-in-out will-change-transform"
-        style={{ opacity: isFadingOut ? 0 : 1 }}
+        className="absolute inset-[-16px] w-[calc(100%+32px)] h-[calc(100%+32px)] will-change-transform z-[2]"
+        style={getIncomingStyle()}
       >
         <video
           ref={videoRef}
@@ -388,76 +472,101 @@ const EnhancedHero = ({ splashComplete = true }: { splashComplete?: boolean }) =
         </video>
       </div>
 
-      {/* Gradient Overlay */}
-      <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/60 to-black/80" />
+      {/* ── Gradient overlay ── */}
+      <div className="absolute inset-0 z-[3] bg-gradient-to-b from-black/70 via-black/55 to-black/80" />
 
-      {/* Construction Geometry Overlay */}
+      {/* ── Subtle film grain texture ── */}
+      <div
+        className="absolute inset-0 z-[4] pointer-events-none opacity-[0.03] mix-blend-overlay"
+        style={{
+          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E")`,
+          backgroundSize: '128px 128px',
+        }}
+      />
+
+      {/* ── Blueprint geometry overlay ── */}
       <HeroGeometry
         slideIndex={currentSlide}
-        isFadingOut={isFadingOut}
+        isFadingOut={transitionPhase === 'out'}
         prefersReducedMotion={prefersReducedMotion}
       />
 
-      {/* Content — parallax layer */}
+      {/* ── Content layer with staggered reveal ── */}
       <div
         ref={textLayerRef}
         className="relative z-10 container mx-auto px-4 py-16 md:py-20 will-change-transform"
-        style={{
-          opacity: isFadingOut ? 0 : 1,
-          transition: 'opacity 600ms ease-in-out',
-        }}
+        style={getContentStyle()}
       >
-        <div className="max-w-5xl mx-auto">
-          {/* Trust Badge */}
+        <div className="max-w-5xl mx-auto" key={contentRevealKey}>
+          {/* Eyebrow / Trust Badge — reveals first */}
           <div
-            className={`inline-flex items-center gap-3 rounded-full bg-white/10 backdrop-blur-xl border border-white/20 px-6 py-3 mb-10 ${animationsEnabled && !prefersReducedMotion ? 'animate-fade-in' : ''}`}
-            style={staggerStyle(0)}
+            className={`inline-flex items-center gap-3 rounded-full bg-white/10 backdrop-blur-xl border border-white/20 px-6 py-3 mb-10 ${shouldAnimate ? 'animate-hero-reveal' : ''}`}
+            style={revealStyle(0)}
           >
             <Shield className="h-5 w-5 text-accent" />
             <span className="text-sm font-semibold text-white/90">Building Envelope & Restoration Specialists</span>
           </div>
 
-          {/* Stat Counter Badge */}
+          {/* Stat Counter Badge — reveals second */}
           {slide.stat && slide.statLabel && (
-            <StatBadge stat={slide.stat} statLabel={slide.statLabel} trigger={currentSlide} animationsEnabled={animationsEnabled} prefersReducedMotion={prefersReducedMotion} staggerStyle={staggerStyle} />
+            <StatBadge
+              stat={slide.stat}
+              statLabel={slide.statLabel}
+              trigger={currentSlide}
+              shouldAnimate={shouldAnimate}
+              revealStyle={revealStyle}
+            />
           )}
 
-          {/* Headline */}
+          {/* Headline — reveals third */}
           <h1
-            className={`text-5xl md:text-6xl lg:text-7xl font-bold mb-8 leading-[1.1] tracking-tight text-white ${animationsEnabled && !prefersReducedMotion ? 'animate-fade-in' : ''}`}
+            className={`text-5xl md:text-6xl lg:text-7xl font-bold mb-8 leading-[1.1] tracking-tight text-white ${shouldAnimate ? 'animate-hero-reveal' : ''}`}
             style={{
               textShadow: '0 4px 40px rgba(0,0,0,0.6)',
-              ...staggerStyle(50),
+              ...revealStyle(2),
             }}
           >
             {headline}
           </h1>
 
-          {/* Subheadline */}
+          {/* Subheadline — reveals fourth */}
           <p
-            className={`text-lg md:text-xl lg:text-2xl text-white/90 mb-12 max-w-3xl leading-relaxed ${animationsEnabled && !prefersReducedMotion ? 'animate-fade-in' : ''}`}
+            className={`text-lg md:text-xl lg:text-2xl text-white/90 mb-12 max-w-3xl leading-relaxed ${shouldAnimate ? 'animate-hero-reveal' : ''}`}
             style={{
               textShadow: '0 2px 20px rgba(0,0,0,0.4)',
-              ...staggerStyle(100),
+              ...revealStyle(3),
             }}
           >
             {subheadline}
           </p>
 
-          {/* CTAs */}
+          {/* CTAs — reveal fifth */}
           <div
-            className={`flex flex-col sm:flex-row gap-4 mb-16 ${animationsEnabled && !prefersReducedMotion ? 'animate-fade-in' : ''}`}
-            style={staggerStyle(150)}
+            className={`flex flex-col sm:flex-row gap-4 mb-16 ${shouldAnimate ? 'animate-hero-reveal' : ''}`}
+            style={revealStyle(4)}
           >
-            <Button asChild size="lg" variant="primary" className="group shadow-lg hover:shadow-xl transition-all duration-300">
+            {/* Primary CTA — premium hover */}
+            <Button
+              asChild
+              size="lg"
+              variant="primary"
+              className="group relative overflow-hidden shadow-lg hover:shadow-2xl hover:shadow-accent/20 transition-all duration-500 hover:-translate-y-0.5"
+            >
               <Link to={primaryCTA.href} className="gap-2">
-                <span>{primaryCTA.label}</span>
-                <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform duration-300" />
+                <span className="relative z-10">{primaryCTA.label}</span>
+                <ArrowRight className="relative z-10 h-4 w-4 group-hover:translate-x-1.5 transition-transform duration-500 ease-out" />
+                {/* Subtle highlight sweep on hover */}
+                <span className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-700 ease-out bg-gradient-to-r from-transparent via-white/10 to-transparent" />
               </Link>
             </Button>
 
             {secondaryCTA && (
-              <Button asChild size="lg" variant="outline" className="bg-white/10 hover:bg-white/20 border-2 border-white/30 hover:border-white/50 text-white backdrop-blur-sm transition-all duration-300">
+              <Button
+                asChild
+                size="lg"
+                variant="outline"
+                className="group bg-white/10 hover:bg-white/20 border-2 border-white/30 hover:border-white/50 text-white backdrop-blur-sm transition-all duration-500 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-white/5"
+              >
                 <Link to={secondaryCTA.href}>
                   {secondaryCTA.label}
                 </Link>
@@ -465,36 +574,46 @@ const EnhancedHero = ({ splashComplete = true }: { splashComplete?: boolean }) =
             )}
           </div>
 
-          {/* ── Progress Bar Indicators ── */}
-          <div className={`flex gap-2 justify-center md:justify-start ${animationsEnabled && !prefersReducedMotion ? 'animate-fade-in' : ''}`}>
+          {/* ── Progress Bar Indicators — reveal last ── */}
+          <div className={`flex gap-2 items-center justify-center md:justify-start ${shouldAnimate ? 'animate-hero-reveal' : ''}`} style={revealStyle(5)}>
             {activeSlides.map((_, index) => (
               <button
                 key={index}
                 onClick={() => handleSlideChange(index)}
                 aria-label={`Go to slide ${index + 1}`}
-                className="relative h-1.5 rounded-full overflow-hidden transition-all duration-300 bg-white/20 hover:bg-white/30"
-                style={{ width: index === currentSlide ? 48 : 24 }}
+                className={`relative rounded-full overflow-hidden transition-all duration-500 ease-out ${
+                  index === currentSlide
+                    ? 'h-1.5 bg-white/20'
+                    : 'h-1 bg-white/15 hover:bg-white/25'
+                }`}
+                style={{ width: index === currentSlide ? 56 : 20 }}
               >
                 {index === currentSlide && (
                   <span
                     key={progressKey}
                     className="absolute inset-0 rounded-full bg-accent origin-left"
                     style={{
-                      animation: `hero-progress-fill 7s linear forwards`,
+                      animation: `hero-progress-fill ${AUTOPLAY_INTERVAL}ms linear forwards`,
                       animationPlayState: isPlaying && splashComplete ? 'running' : 'paused',
                     }}
                   />
                 )}
               </button>
             ))}
+
+            {/* Slide counter */}
+            <span className="ml-3 text-xs font-medium text-white/40 tabular-nums tracking-wider">
+              {String(currentSlide + 1).padStart(2, '0')} / {String(activeSlides.length).padStart(2, '0')}
+            </span>
           </div>
         </div>
       </div>
 
-      {/* Swipe Hint — mobile only, once per session */}
+      {/* ── Swipe hint (mobile, once per session) ── */}
       {showSwipeHint && (
-        <div className="absolute bottom-24 left-1/2 -translate-x-1/2 z-20 flex items-center gap-2 text-white/70 text-sm animate-fade-in pointer-events-none"
-          style={{ animation: 'fade-in 0.3s ease-out, fade-out 0.3s ease-out 2.5s forwards' }}
+        <div
+          className="absolute bottom-24 left-1/2 -translate-x-1/2 z-20 flex items-center gap-2 text-white/70 text-sm pointer-events-none"
+          style={{ animation: 'hero-reveal 0.3s ease-out, fade-out 0.3s ease-out 2.5s forwards' }}
         >
           <ChevronLeft className="h-4 w-4 animate-[slide-hint_1s_ease-in-out_infinite]" />
           <span>Swipe to explore</span>
@@ -502,29 +621,29 @@ const EnhancedHero = ({ splashComplete = true }: { splashComplete?: boolean }) =
         </div>
       )}
 
-      {/* Play/Pause Control */}
+      {/* ── Play/Pause Control ── */}
       <button
         onClick={togglePlayPause}
-        className="absolute bottom-8 right-8 z-20 w-12 h-12 rounded-full bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/30 flex items-center justify-center transition-all duration-300 group"
+        className="absolute bottom-8 right-8 z-20 w-12 h-12 rounded-full bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/20 hover:border-white/40 flex items-center justify-center transition-all duration-500 group hover:-translate-y-0.5"
         aria-label={isPlaying ? "Pause autoplay" : "Resume autoplay"}
       >
         {isPlaying ? (
-          <Pause className="h-5 w-5 text-white group-hover:scale-110 transition-transform" />
+          <Pause className="h-5 w-5 text-white group-hover:scale-110 transition-transform duration-300" />
         ) : (
-          <Play className="h-5 w-5 text-white group-hover:scale-110 transition-transform" />
+          <Play className="h-5 w-5 text-white group-hover:scale-110 transition-transform duration-300" />
         )}
       </button>
 
-      {/* Scroll Indicator */}
+      {/* ── Scroll Indicator — animated bounce ── */}
       {!prefersReducedMotion && (
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-fade-in">
-          <div className="w-6 h-10 border-2 border-white/30 rounded-full flex justify-center pt-2">
-            <div className="w-1 h-3 bg-white/60 rounded-full" />
+        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 animate-hero-reveal" style={{ animationDelay: '800ms', animationFillMode: 'both' }}>
+          <div className="w-6 h-10 border-2 border-white/25 rounded-full flex justify-center pt-2">
+            <div className="w-1 h-3 bg-white/50 rounded-full animate-[hero-scroll-dot_2s_ease-in-out_infinite]" />
           </div>
         </div>
       )}
 
-      {/* Inline keyframes for progress bar & swipe hint */}
+      {/* ── Inline keyframes ── */}
       <style>{`
         @keyframes hero-progress-fill {
           from { transform: scaleX(0); }
@@ -533,6 +652,24 @@ const EnhancedHero = ({ splashComplete = true }: { splashComplete?: boolean }) =
         @keyframes slide-hint {
           0%, 100% { transform: translateX(0); }
           50% { transform: translateX(-4px); }
+        }
+        @keyframes hero-reveal {
+          from {
+            opacity: 0;
+            transform: translateY(20px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+        .animate-hero-reveal {
+          animation: hero-reveal 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+          opacity: 0;
+        }
+        @keyframes hero-scroll-dot {
+          0%, 100% { transform: translateY(0); opacity: 0.5; }
+          50% { transform: translateY(6px); opacity: 1; }
         }
       `}</style>
     </section>
@@ -544,23 +681,21 @@ function StatBadge({
   stat,
   statLabel,
   trigger,
-  animationsEnabled,
-  prefersReducedMotion,
-  staggerStyle,
+  shouldAnimate,
+  revealStyle,
 }: {
   stat: string;
   statLabel: string;
   trigger: number;
-  animationsEnabled: boolean;
-  prefersReducedMotion: boolean;
-  staggerStyle: (ms: number) => React.CSSProperties;
+  shouldAnimate: boolean;
+  revealStyle: (ms: number) => React.CSSProperties;
 }) {
   const display = useStatCounter(stat, trigger);
 
   return (
     <div
-      className={`inline-flex items-center gap-3 rounded-full bg-white/10 backdrop-blur-xl border border-white/20 px-5 py-2.5 mb-8 ml-0 md:ml-2 ${animationsEnabled && !prefersReducedMotion ? 'animate-fade-in' : ''}`}
-      style={staggerStyle(25)}
+      className={`inline-flex items-center gap-3 rounded-full bg-white/10 backdrop-blur-xl border border-white/20 px-5 py-2.5 mb-8 ml-0 md:ml-2 ${shouldAnimate ? 'animate-hero-reveal' : ''}`}
+      style={revealStyle(1)}
     >
       <span className="text-2xl font-bold text-accent">{display}</span>
       <span className="text-sm text-white/80">{statLabel}</span>
