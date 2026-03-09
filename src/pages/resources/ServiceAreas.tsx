@@ -97,7 +97,7 @@ const ServiceAreas = () => {
               {primaryServiceCities.map((city, index) => (
                 <Card 
                   key={city} 
-                  className="text-center hover:shadow-[var(--shadow-lg)] hover:-translate-y-1 transition-all duration-300 group border-2 hover:border-primary/30 animate-fade-in-up"
+                  className="text-center hover:shadow-[var(--shadow-lg)] hover:-translate-y-1 transition-all duration-300 group border-2 hover:border-primary/30 animate-fade-in-up p-0"
                   style={{ animationDelay: `${index * 50}ms` }}
                 >
                   <CardContent className="p-6">
