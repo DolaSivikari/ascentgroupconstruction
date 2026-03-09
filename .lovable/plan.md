@@ -1,92 +1,105 @@
-# Project Improvement Plan — Ascent Group Construction
 
-## Completed Phases
 
-### Phase 2: Content Truth Hardening ✅
-Removed fabricated stats (98% satisfaction, 500+ projects, 25+ years), replaced with verifiable metrics ($2M CGL, WSIB compliant, 85% self-performed, 15+ team experience). Removed LEED consulting claims, unsupported "24/7" emergency claims, and inflated admin stat templates. Standardized "hundreds of projects" to team-career framing.
-
-### Phase 3: Design System Foundation ✅
-Established canonical Card component (`@/design-system/components/Card`) and four card families (CapabilityCard, ProjectCard, ProofCard, SegmentCard). Created standardized layout patterns: SectionHeader, ProofStrip, CTABand. Consolidated spacing/grid tokens into `tokens.ts`.
-
-### Phase 4: Service Page Architecture ✅
-Created `ServicePageTemplate` and `ServicePageLayout` components for consistent service page rendering. Migrated service pages to use design system components.
-
-### Phase 5: SEO & Structured Data ✅
-Added JSON-LD schemas, QuickFacts, PeopleAlsoAsk, ServiceAreaSection, DirectAnswer components. Implemented breadcrumb structured data across all pages.
-
-### Phase 6: Navigation & Footer ✅
-Unified navigation with mega menu support. Created UnifiedFooter with database-driven content. Added route registry for known route validation.
-
-### Phase 7A: Conversion Architecture & Innovation Layer ✅
-- Standardized CTA text via `CTA_TEXT` constants across service/market pages
-- Added RFP file upload flow with `rfp-attachments` storage bucket
-- Created Technology & Innovation page (`/company/technology`) with truthful digital capability content
-- Fixed EstimatorStep0 role labels (gc → "General Contractor", added "Homeowner")
-- Replaced bespoke CTA sections with `CTABand` in ServicePageLayout, ServicePageTemplate
-- Migrated SubmitRFPNew and RFPStep4Scope from `@/ui/Card` to design-system Card
-
-### Phase 7B: Documentation & CTA Cleanup ✅
-- Added `/company/technology` to route registry
-- Replaced bespoke CTA in ServiceDetail.tsx with CTABand
-- Fixed "Start Your Project" → "Work With Us" in ForGeneralContractors.tsx
-- Documented future roadmap below
+# Revised Phase 10 + 11 — Public Legacy Cleanup & Content Population
 
 ---
 
-## Future Roadmap
+## Phase 10 — Public Legacy Card Migration (8 files, not 9)
 
-### R-1: Segmented Intake
-Role-based form field adaptation — estimate/RFP forms show different fields depending on visitor role (homeowner vs property manager vs GC). Extends existing EstimatorStep0 role selector.
+### Testimonials.tsx: REMOVED from scope
+`src/components/Testimonials.tsx` is not imported by any public page. No file contains `import ... from "@/components/Testimonials"`. It is only referenced in admin contexts. Migrating it in a public cleanup phase is unnecessary.
 
-### R-2: Remaining CTA/UI Cleanup
-- Migrate remaining `@/ui/Card` imports to `@/design-system/components/Card` (87 files, mostly admin)
-- Standardize footer/blog CTA text to match `CTA_TEXT` constants
-- Review ServiceSelector, PrequalPackage navigation labels
+### Per-file padding analysis
 
-### R-3: Feature Enhancements
-- Interactive service-area map widget
-- Project portfolio filters (by service, sector, year)
-- Simple estimator aids (square footage calculator)
-- Scope selector widget for estimate page
+The legacy `CardContent` (`@/ui/Card`) has built-in `p-6 pt-0`. The design-system `CardContent` (`@/design-system/components/Card`) has **no built-in padding** (empty string). However, every target file already applies **explicit padding classes** on `CardContent`, which override the legacy default. This means the migration is safe as a straight import swap in all 8 files.
 
-### R-4: Security Hardening
-- Address 18 RLS policy warnings flagged by linter
-- Storage bucket audit (permissions, size limits)
-- Rate limiting on public form submissions
+| # | File | CardContent usage | Padding safe? | Notes |
+|---|---|---|---|---|
+| 1 | `ServiceCard.tsx` | `className="p-8"` | Yes — explicit | No adjustment needed |
+| 2 | `RelatedServices.tsx` | `className="p-6"` | Yes — explicit | Card has no variant; add `hover` prop for parity |
+| 3 | `BlogCard.tsx` | `className="p-8"` | Yes — explicit | No adjustment needed |
+| 4 | `BlogPreview.tsx` | `className="p-8"` and `className="p-6"` | Yes — explicit | Map `variant="featured"` to `variant="elevated"` |
+| 5 | `Careers.tsx` | `className="p-6"` and `className="p-8"` | Yes — explicit | No adjustment needed |
+| 6 | `CertificationsInsurance.tsx` | `className="p-6"` | Yes — explicit | No adjustment needed |
+| 7 | `ServiceAreas.tsx` | `className="p-6"` and `className="p-8"` | Yes — explicit | No adjustment needed |
+| 8 | `ServiceDetail.tsx` | `className="p-6"` | Yes — explicit | No adjustment needed |
 
-### R-5: Content Population
-- Collect and enter real client testimonials
-- Publish initial blog posts with actual project content
-- Complete project case study data entry with real photos/outcomes
+### Exact change per file
+- Replace `import { Card, CardContent } from "@/ui/Card"` with `import { Card, CardContent } from "@/design-system/components/Card"`
+- Map legacy variants: `interactive` → `interactive`, `featured` → `elevated`, no variant → `default`
+- For `RelatedServices.tsx`: Card currently uses no variant but has hover classes manually applied — switch to `variant="interactive"` and remove the manual `hover:shadow-lg hover:-translate-y-1` classes
+- For `BlogPreview.tsx`: Map `variant="featured"` to `variant="elevated"`
 
-### R-6: Analytics & Conversion
-- Conversion tracking on form submissions
-- A/B testing framework activation (tables exist, UI needed)
-- Form funnel analysis (drop-off rates per step)
-
-### R-7: EquipmentResources.tsx Deprecation
-Replace EquipmentResources page content or redirect to TechnologyInnovation page. Current page has unqualified tool claims (Procore, BIM 360, GPS Fleet Tracking, fleet size "25+").
+### Design-system Card also uses `size` prop for base padding
+The design-system `Card` component itself applies padding via the `size` prop (`sm`=p-4, `md`=p-6, `lg`=p-8). Since all files wrap content in `CardContent` with explicit padding and the Card's own padding won't conflict (files don't use CardHeader/CardFooter patterns that depend on Card-level padding), this is a non-issue. But if any file uses bare `<Card>` without `CardContent`, I will verify visually.
 
 ---
 
-## Manual Verification Checklist
+## Phase 11 — Content Population (revised approach)
 
-- [ ] Whether a staffed 24/7 emergency line actually exists
-- [ ] Whether partner case studies represent real projects
-- [ ] Whether a client portal actually exists and functions
-- [ ] Whether "10+ projects completed" is accurate as of current date
-- [ ] Actual current tool adoption: Bluebeam, Procore, BIM 360
-- [ ] RFP file upload flow works end-to-end (storage bucket RLS)
-- [ ] File size limits appropriate for construction drawings (20MB)
+### Approach: Option A — Draft proposals for review
 
-## Content Claims Requiring Business Confirmation
+For the 6 published projects with NULL `challenge`, `solution`, and `results` fields, I will:
 
-| Claim | Location | Status |
+1. **Present draft content proposals in chat** for each project, derived strictly from existing `scope_of_work` text
+2. **Wait for your review and approval** before any DB insertion
+3. Only populate fields where the existing data provides a clear factual basis
+4. If a project has no `scope_of_work` (e.g., Café Luka, Comfort Inn have empty scope), those fields will be left NULL unless you provide the content
+
+### Current project data (evidence basis)
+
+| Project | scope_of_work | Existing service joins |
 |---|---|---|
-| 85% self-performed | Multiple pages | Periodic verification flagged |
-| 10-person crew | Multiple pages | Needs current headcount |
-| $2M CGL coverage | Trust bars, stats | Verifiable via certificate |
-| Working toward COR | FAQ, About | Confirm progress status |
-| Bluebeam for markups | TechnologyInnovation | Confirm active use |
-| Procore integration capability | TechnologyInnovation | Qualified as "when required" |
-| BIM workflow experience | TechnologyInnovation | Qualified as "team experience" |
+| Innisfil Catholic School | Detailed (full painting scope) | Architectural Coatings |
+| Dunnville Secondary School | Detailed (painting scope) | Architectural Coatings |
+| Oakley Ridge | Detailed (interior/exterior painting) | Architectural Coatings |
+| Queensland Condos | Has content | Architectural Coatings |
+| Café Luka | Empty | 5 joins (Coatings, Repairs, Tile, Tenant Improvements, Drywall) |
+| Comfort Inn & Suites | Empty | 4 joins (Stucco, Envelope, Cladding, Sustainable) |
+
+Projects with empty `scope_of_work` (Café Luka, Comfort Inn) will NOT get generated challenge/solution/results unless you provide factual content.
+
+### project_services joins: evidence-only standard
+
+I will **not** add any new project-service joins in this phase. The existing 13 joins are already evidence-based (admin-entered). Adding more would require either:
+- Explicit `scope_of_work` text mentioning the service
+- Your direct instruction to link a specific project to a specific service
+
+If you want additional joins, I can present candidates with the evidence for each, and you approve before insertion.
+
+### What will NOT be populated
+- Testimonials — no real client content available
+- Blog posts — no real articles available
+- Homepage CMS — already has safe defaults from Phase 8
+
+---
+
+## Combined file list
+
+| File | Phase | Action |
+|---|---|---|
+| `src/components/services/ServiceCard.tsx` | 10 | Swap Card import |
+| `src/components/services/RelatedServices.tsx` | 10 | Swap Card import, use `variant="interactive"` |
+| `src/components/blog/BlogCard.tsx` | 10 | Swap Card import |
+| `src/components/BlogPreview.tsx` | 10 | Swap Card import, map featured→elevated |
+| `src/pages/Careers.tsx` | 10 | Swap Card import |
+| `src/pages/company/CertificationsInsurance.tsx` | 10 | Swap Card import |
+| `src/pages/resources/ServiceAreas.tsx` | 10 | Swap Card import |
+| `src/pages/ServiceDetail.tsx` | 10 | Swap Card import |
+| Database: `projects` table | 11 | Draft proposals presented for review — no DB writes without approval |
+
+## What will NOT be done
+- No Testimonials.tsx migration (not publicly mounted)
+- No admin page migrations
+- No fabricated content of any kind
+- No "logical connection" joins
+- No schema changes
+- No new components
+
+## Checks
+1. All 8 migrated files compile without errors
+2. No visual padding/spacing regressions (all explicit classes preserved)
+3. Card hover/shadow behavior matches previous appearance
+4. Phase 11 content proposals reviewed before any DB insertion
+5. No console errors on affected routes
+
