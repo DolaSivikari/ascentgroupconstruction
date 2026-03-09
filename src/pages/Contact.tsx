@@ -14,7 +14,7 @@ import { Button } from "@/ui/Button";
 import { Input } from "@/ui/Input";
 import { Textarea } from "@/ui/Textarea";
 import { Label } from "@/components/ui/label";
-import { MapPin, Phone, Mail, Clock, Loader2, ArrowRight, FileText, Calculator } from "lucide-react";
+import { MapPin, Phone, Mail, Clock, Loader2, ArrowRight, FileText, Calculator, CheckCircle } from "lucide-react";
 import { useSettingsData } from "@/hooks/useSettingsData";
 import { RippleEffect } from "@/components/shared/RippleEffect";
 
