@@ -388,10 +388,11 @@ Add-ons:
 
       <PageHero
         title="Request a Project Estimate"
+        eyebrow="Project Estimator"
         description="Answer a few questions about your project and receive a preliminary estimate. Our team follows up within 24 hours to discuss scope and next steps."
         image={resourceHeroes.estimate}
         imageAlt="Request a project estimate from Ascent Group Construction"
-        height="small"
+        height="medium"
         breadcrumbs={[
           { label: "Home", href: "/" },
           { label: "Request Estimate" }

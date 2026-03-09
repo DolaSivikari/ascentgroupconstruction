@@ -1,7 +1,7 @@
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
-import PageHeader from "@/components/PageHeader";
+import { PageHero } from "@/components/shared/PageHero";
 import { Section } from "@/components/sections/Section";
 import { ServiceSelector } from "@/components/tools/ServiceSelector";
 import heroImage from "@/assets/heroes/hero-facade-remediation.jpg";
@@ -23,10 +23,12 @@ const ServiceSelectorPage = () => {
       />
       <Navigation />
 
-      <PageHeader
+      <PageHero
         title="Find the Right Service for Your Project"
         description="Answer a few quick questions and we'll recommend the best services for your specific needs"
-        backgroundImage={heroImage}
+        image={heroImage}
+        imageAlt="Interactive service selector tool"
+        height="small"
         breadcrumbs={[
           { label: "Home", href: "/" },
           { label: "Service Selector" },

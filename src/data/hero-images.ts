@@ -52,11 +52,11 @@ export const mainPageHeroes = {
   about: heroAboutCompany,
   services: heroGeneralContracting,
   projects: heroConstructionManagement,
-  contact: heroAboutCompany,
+  contact: heroTeam,
   careers: heroTeam,
   faq: heroAboutCompany,
-  blog: heroAboutCompany,
-  insights: heroAboutCompany,
+  blog: heroEducation,
+  insights: heroEducation,
 } as const;
 
 /**
@@ -132,7 +132,7 @@ export const resourceHeroes = {
   "prequalification": heroCertifications,
   "contractor-portal": heroContractorPortal,
   "service-areas": heroServiceAreas,
-  "estimate": heroAboutCompany,
+  "estimate": heroDesignBuild,
   "submit-rfp": heroGeneralContracting,
 } as const;
 
