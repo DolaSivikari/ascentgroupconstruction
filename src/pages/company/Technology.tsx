@@ -12,6 +12,12 @@ import SEO from "@/components/SEO";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 import { useIsMobile } from "@/hooks/useIsMobile";
 import { Link } from "react-router-dom";
+import { Button } from "@/ui/Button";
+import { Section } from "@/components/sections/Section";
+import { SectionHeader } from "@/design-system/components/SectionHeader";
+import { CTABand } from "@/design-system/components/CTABand";
+import { PageHero } from "@/components/shared/PageHero";
+import { companyHeroes } from "@/data/hero-images";
 import {
   ArrowRight,
   ArrowDown,
@@ -135,15 +141,8 @@ const TOOLS = [
   },
 ];
 
-// Connections between tool nodes (pairs of indices into TOOLS)
 const TOOL_CONNECTIONS = [
-  [0, 1], // Bluebeam ↔ Procore
-  [0, 2], // Bluebeam ↔ PlanSwift
-  [1, 5], // Procore ↔ BIM 360
-  [2, 3], // PlanSwift ↔ ZZTAKEOFF
-  [3, 5], // ZZTAKEOFF ↔ BIM 360
-  [4, 5], // AutoCAD ↔ BIM 360
-  [0, 4], // Bluebeam ↔ AutoCAD
+  [0, 1], [0, 2], [1, 5], [2, 3], [3, 5], [4, 5], [0, 4],
 ];
 
 const BEFORE_AFTER = {
@@ -239,16 +238,8 @@ const TIMELINE_NODES = [
   },
 ];
 
-const MANIFESTO_LINES = [
-  "We assess before we estimate.",
-  "We document before we mobilize.",
-  "We report every day we're on site.",
-  "We close out with a full digital package.",
-  "That's the Ascent standard.",
-];
-
 // ─────────────────────────────────────────────────────────────────────────────
-// SECTION 2 — SCROLLYTELLING
+// SECTION 2 — SCROLLYTELLING (light theme)
 // ─────────────────────────────────────────────────────────────────────────────
 
 const ScrollytellingSection = ({ rm }: { rm: boolean }) => {
@@ -271,10 +262,10 @@ const ScrollytellingSection = ({ rm }: { rm: boolean }) => {
   const dur = rm ? 0 : 0.35;
 
   return (
-    <div ref={containerRef} className={`relative ${rm ? "h-auto py-20" : "h-[500vh]"}`}>
+    <div ref={containerRef} className={`relative ${rm ? "h-auto" : "h-[500vh]"}`}>
       {/* Sticky wrapper */}
       <div className={rm ? "" : "sticky top-0 h-screen"}>
-        <div className="relative h-full flex items-center overflow-hidden bg-foreground text-background">
+        <div className="relative h-full flex items-center overflow-hidden bg-muted/30">
 
           {/* Phase progress indicator — left rail */}
           <div className="absolute left-6 md:left-10 top-1/2 -translate-y-1/2 flex flex-col gap-3 z-20">
@@ -286,7 +277,7 @@ const ScrollytellingSection = ({ rm }: { rm: boolean }) => {
                 className={`w-2 h-2 rounded-full transition-all duration-300 ${
                   i === activePhase
                     ? "bg-primary scale-150"
-                    : "bg-background/30 hover:bg-background/60"
+                    : "bg-foreground/20 hover:bg-foreground/40"
                 }`}
               />
             ))}
@@ -312,13 +303,13 @@ const ScrollytellingSection = ({ rm }: { rm: boolean }) => {
                     exit={rm ? undefined : { opacity: 0, x: 30 }}
                     transition={{ duration: dur }}
                   >
-                    <p className="text-primary/60 text-sm font-mono uppercase tracking-widest mb-4">
+                    <p className="text-sm font-medium text-primary uppercase tracking-wider mb-4">
                       {phase.number} / 05
                     </p>
-                    <p className="text-6xl md:text-8xl font-bold text-background/25 leading-none mb-4">
+                    <p className="text-6xl md:text-8xl font-bold text-foreground/10 leading-none mb-4">
                       {phase.stat}
                     </p>
-                    <p className="text-sm text-background/50 max-w-xs">{phase.statLabel}</p>
+                    <p className="text-sm text-muted-foreground max-w-xs">{phase.statLabel}</p>
                   </motion.div>
                 </AnimatePresence>
               </div>
@@ -334,16 +325,16 @@ const ScrollytellingSection = ({ rm }: { rm: boolean }) => {
                     transition={{ duration: dur }}
                     className="space-y-6"
                   >
-                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-primary/30 bg-primary/10">
+                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-lg border border-primary/30 bg-primary/10">
                       <PhaseIcon className="w-3.5 h-3.5 text-primary" />
                       <span className="text-xs text-primary font-medium uppercase tracking-wider">
                         {phase.label}
                       </span>
                     </div>
-                    <h2 className="text-3xl md:text-4xl font-bold text-background leading-tight">
+                    <h2 className="text-3xl md:text-4xl font-bold text-foreground leading-tight">
                       {phase.title}
                     </h2>
-                    <p className="text-base md:text-lg text-background/70 leading-relaxed">
+                    <p className="text-base md:text-lg text-muted-foreground leading-relaxed">
                       {phase.body}
                     </p>
                   </motion.div>
@@ -359,7 +350,7 @@ const ScrollytellingSection = ({ rm }: { rm: boolean }) => {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                className="absolute bottom-8 right-10 hidden md:flex items-center gap-2 text-xs text-background/40"
+                className="absolute bottom-8 right-10 hidden md:flex items-center gap-2 text-xs text-muted-foreground"
               >
                 <ArrowDown className="w-3.5 h-3.5 animate-bounce" />
                 Scroll to advance
@@ -371,16 +362,16 @@ const ScrollytellingSection = ({ rm }: { rm: boolean }) => {
 
       {/* Reduced motion: show all phases stacked */}
       {rm && (
-        <div className="bg-foreground rounded-2xl max-w-3xl mx-auto px-8 py-10 space-y-10 mt-8">
+        <div className="bg-muted/50 rounded-lg max-w-3xl mx-auto px-8 py-10 space-y-10 mt-8">
           {SCROLLYTELLING_PHASES.map((p, i) => {
             const Icon = p.icon;
             return (
               <div key={i} className="border-l-2 border-primary/30 pl-6">
-                <p className="text-xs font-mono text-primary/60 uppercase tracking-widest mb-1">
+                <p className="text-xs font-medium text-primary uppercase tracking-wider mb-1">
                   {p.number} / 05 — {p.label}
                 </p>
-                <h3 className="text-xl font-bold text-background mb-2">{p.title}</h3>
-                <p className="text-background/70">{p.body}</p>
+                <h3 className="text-xl font-bold text-foreground mb-2">{p.title}</h3>
+                <p className="text-muted-foreground">{p.body}</p>
               </div>
             );
           })}
@@ -402,200 +393,183 @@ const ConstellationSection = ({ rm }: { rm: boolean }) => {
 
   const showAnim = isInView && !rm;
 
-  // Convert percentage strings to numbers for SVG computation
   const nodeCoords = TOOLS.map((t) => ({
     cx: parseFloat(t.x),
     cy: parseFloat(t.y),
   }));
 
   return (
-    <section ref={sectionRef} className="py-24 bg-background">
-      <div className="max-w-6xl mx-auto px-6">
-        {/* Header */}
-        <motion.div
-          initial={rm ? false : { opacity: 0, y: 24 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.5 }}
-          className="text-center mb-16"
-        >
-          <p className="text-xs font-mono text-primary uppercase tracking-widest mb-4">
-            Our Digital Toolkit
-          </p>
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-            Tools. Not excuses.
-          </h2>
-          <p className="text-muted-foreground max-w-xl mx-auto">
-            The software we actually use — and why each one earns its place in our workflow.
-          </p>
-        </motion.div>
+    <Section size="major" ref={sectionRef} disableAnimation>
+      <SectionHeader
+        badge="Our Digital Toolkit"
+        title="Tools. Not excuses."
+        description="The software we actually use — and why each one earns its place in our workflow."
+        align="center"
+      />
 
-        {/* Constellation (desktop) / Grid (mobile) */}
-        {isMobile ? (
-          <div className="grid grid-cols-2 gap-4">
-            {TOOLS.map((tool, i) => (
-              <motion.div
-                key={tool.id}
-                initial={rm ? false : { opacity: 0, y: 20 }}
-                animate={isInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ delay: rm ? 0 : i * 0.08, duration: 0.4 }}
-                className="p-4 rounded-xl border border-border bg-muted/30"
-              >
-                <p className="font-bold text-foreground text-sm">{tool.label}</p>
-                <p className="text-xs text-primary mb-2">{tool.sublabel}</p>
-                <p className="text-xs text-muted-foreground leading-relaxed">{tool.description}</p>
-              </motion.div>
-            ))}
-          </div>
-        ) : (
-          <div className="relative w-full" style={{ aspectRatio: "16/7" }}>
-            <svg
-              viewBox="0 0 100 56"
-              className="absolute inset-0 w-full h-full"
-              preserveAspectRatio="xMidYMid meet"
+      {/* Constellation (desktop) / Grid (mobile) */}
+      {isMobile ? (
+        <div className="grid grid-cols-2 gap-4">
+          {TOOLS.map((tool, i) => (
+            <motion.div
+              key={tool.id}
+              initial={rm ? false : { opacity: 0, y: 20 }}
+              animate={isInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ delay: rm ? 0 : i * 0.08, duration: 0.4 }}
+              className="p-4 rounded-lg border border-border bg-muted/30"
             >
-              {/* Connection lines */}
-              {TOOL_CONNECTIONS.map(([a, b], i) => {
+              <p className="font-bold text-foreground text-sm">{tool.label}</p>
+              <p className="text-xs text-primary mb-2">{tool.sublabel}</p>
+              <p className="text-xs text-muted-foreground leading-relaxed">{tool.description}</p>
+            </motion.div>
+          ))}
+        </div>
+      ) : (
+        <div className="relative w-full" style={{ aspectRatio: "16/7" }}>
+          <svg
+            viewBox="0 0 100 56"
+            className="absolute inset-0 w-full h-full"
+            preserveAspectRatio="xMidYMid meet"
+          >
+            {/* Connection lines */}
+            {TOOL_CONNECTIONS.map(([a, b], i) => {
+              const ax = nodeCoords[a].cx;
+              const ay = nodeCoords[a].cy * 0.56;
+              const bx = nodeCoords[b].cx;
+              const by = nodeCoords[b].cy * 0.56;
+              return (
+                <motion.line
+                  key={i}
+                  x1={ax}
+                  y1={ay}
+                  x2={bx}
+                  y2={by}
+                  stroke="hsl(var(--border))"
+                  strokeWidth="0.2"
+                  initial={rm ? false : { pathLength: 0, opacity: 0 }}
+                  animate={showAnim ? { pathLength: 1, opacity: 0.6 } : {}}
+                  transition={{ delay: 0.3 + i * 0.1, duration: 0.6 }}
+                />
+              );
+            })}
+
+            {/* Animated pulses along connections */}
+            {!rm &&
+              TOOL_CONNECTIONS.map(([a, b], i) => {
                 const ax = nodeCoords[a].cx;
-                const ay = nodeCoords[a].cy * 0.56; // scale y to viewBox height
+                const ay = nodeCoords[a].cy * 0.56;
                 const bx = nodeCoords[b].cx;
                 const by = nodeCoords[b].cy * 0.56;
                 return (
-                  <motion.line
-                    key={i}
-                    x1={ax}
-                    y1={ay}
-                    x2={bx}
-                    y2={by}
-                    stroke="hsl(var(--border))"
-                    strokeWidth="0.2"
-                    initial={rm ? false : { pathLength: 0, opacity: 0 }}
-                    animate={showAnim ? { pathLength: 1, opacity: 0.6 } : {}}
-                    transition={{ delay: 0.3 + i * 0.1, duration: 0.6 }}
+                  <motion.circle
+                    key={`pulse-${i}`}
+                    r={0.5}
+                    fill="hsl(var(--primary))"
+                    animate={
+                      showAnim
+                        ? {
+                            cx: [ax, bx, ax],
+                            cy: [ay, by, ay],
+                            opacity: [0, 0.9, 0.9, 0],
+                          }
+                        : {}
+                    }
+                    transition={{
+                      duration: 2.5,
+                      delay: 1 + i * 0.4,
+                      repeat: Infinity,
+                      repeatDelay: 1.5,
+                      ease: "easeInOut",
+                    }}
                   />
                 );
               })}
 
-              {/* Animated pulses along connections */}
-              {!rm &&
-                TOOL_CONNECTIONS.map(([a, b], i) => {
-                  const ax = nodeCoords[a].cx;
-                  const ay = nodeCoords[a].cy * 0.56;
-                  const bx = nodeCoords[b].cx;
-                  const by = nodeCoords[b].cy * 0.56;
-                  return (
-                    <motion.circle
-                      key={`pulse-${i}`}
-                      r={0.5}
-                      fill="hsl(var(--primary))"
-                      animate={
-                        showAnim
-                          ? {
-                              cx: [ax, bx, ax],
-                              cy: [ay, by, ay],
-                              opacity: [0, 0.9, 0.9, 0],
-                            }
-                          : {}
-                      }
-                      transition={{
-                        duration: 2.5,
-                        delay: 1 + i * 0.4,
-                        repeat: Infinity,
-                        repeatDelay: 1.5,
-                        ease: "easeInOut",
-                      }}
-                    />
-                  );
-                })}
-
-              {/* Tool nodes */}
-              {TOOLS.map((tool, i) => {
-                const cx = nodeCoords[i].cx;
-                const cy = nodeCoords[i].cy * 0.56;
-                const isHovered = hovered === i;
-                return (
-                  <g
-                    key={tool.id}
-                    style={{ cursor: "pointer" }}
-                    onMouseEnter={() => setHovered(i)}
-                    onMouseLeave={() => setHovered(null)}
-                  >
-                    {/* Outer glow ring */}
-                    <motion.circle
-                      cx={cx}
-                      cy={cy}
-                      r={isHovered ? 4.5 : 3}
-                      fill="hsl(var(--primary) / 0.12)"
-                      stroke="hsl(var(--primary))"
-                      strokeWidth="0.15"
-                      initial={rm ? false : { scale: 0, opacity: 0 }}
-                      animate={showAnim ? { scale: 1, opacity: 1 } : {}}
-                      transition={{ delay: 0.5 + i * 0.12, duration: 0.4 }}
-                      style={{ transformOrigin: `${cx}px ${cy}px` }}
-                    />
-                    {/* Inner dot */}
-                    <motion.circle
-                      cx={cx}
-                      cy={cy}
-                      r={1.2}
-                      fill="hsl(var(--primary))"
-                      initial={rm ? false : { scale: 0 }}
-                      animate={showAnim ? { scale: 1 } : {}}
-                      transition={{ delay: 0.6 + i * 0.12, duration: 0.3, type: "spring" }}
-                      style={{ transformOrigin: `${cx}px ${cy}px` }}
-                    />
-                    {/* Label */}
-                    <motion.text
-                      x={cx}
-                      y={cy + 5.5}
-                      textAnchor="middle"
-                      fill="hsl(var(--foreground))"
-                      fontSize="1.8"
-                      fontWeight="600"
-                      initial={rm ? false : { opacity: 0 }}
-                      animate={showAnim ? { opacity: 1 } : {}}
-                      transition={{ delay: 0.8 + i * 0.1, duration: 0.3 }}
-                    >
-                      {tool.label}
-                    </motion.text>
-                    <motion.text
-                      x={cx}
-                      y={cy + 7.5}
-                      textAnchor="middle"
-                      fill="hsl(var(--muted-foreground))"
-                      fontSize="1.4"
-                      initial={rm ? false : { opacity: 0 }}
-                      animate={showAnim ? { opacity: 1 } : {}}
-                      transition={{ delay: 0.9 + i * 0.1, duration: 0.3 }}
-                    >
-                      {tool.sublabel}
-                    </motion.text>
-                  </g>
-                );
-              })}
-            </svg>
-
-            {/* Hover tooltip */}
-            <AnimatePresence>
-              {hovered !== null && (
-                <motion.div
-                  initial={{ opacity: 0, y: 8, scale: 0.95 }}
-                  animate={{ opacity: 1, y: 0, scale: 1 }}
-                  exit={{ opacity: 0, y: 4, scale: 0.97 }}
-                  transition={{ duration: 0.15 }}
-                  className="absolute bottom-0 left-1/2 -translate-x-1/2 w-72 p-4 bg-foreground text-background rounded-xl shadow-2xl pointer-events-none z-30"
+            {/* Tool nodes */}
+            {TOOLS.map((tool, i) => {
+              const cx = nodeCoords[i].cx;
+              const cy = nodeCoords[i].cy * 0.56;
+              const isHovered = hovered === i;
+              return (
+                <g
+                  key={tool.id}
+                  style={{ cursor: "pointer" }}
+                  onMouseEnter={() => setHovered(i)}
+                  onMouseLeave={() => setHovered(null)}
                 >
-                  <p className="font-bold text-sm mb-0.5">{TOOLS[hovered].label}</p>
-                  <p className="text-xs text-primary mb-2">{TOOLS[hovered].sublabel}</p>
-                  <p className="text-xs text-background/70 leading-relaxed">
-                    {TOOLS[hovered].description}
-                  </p>
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </div>
-        )}
-      </div>
-    </section>
+                  <motion.circle
+                    cx={cx}
+                    cy={cy}
+                    r={isHovered ? 4.5 : 3}
+                    fill="hsl(var(--primary) / 0.12)"
+                    stroke="hsl(var(--primary))"
+                    strokeWidth="0.15"
+                    initial={rm ? false : { scale: 0, opacity: 0 }}
+                    animate={showAnim ? { scale: 1, opacity: 1 } : {}}
+                    transition={{ delay: 0.5 + i * 0.12, duration: 0.4 }}
+                    style={{ transformOrigin: `${cx}px ${cy}px` }}
+                  />
+                  <motion.circle
+                    cx={cx}
+                    cy={cy}
+                    r={1.2}
+                    fill="hsl(var(--primary))"
+                    initial={rm ? false : { scale: 0 }}
+                    animate={showAnim ? { scale: 1 } : {}}
+                    transition={{ delay: 0.6 + i * 0.12, duration: 0.3, type: "spring" }}
+                    style={{ transformOrigin: `${cx}px ${cy}px` }}
+                  />
+                  <motion.text
+                    x={cx}
+                    y={cy + 5.5}
+                    textAnchor="middle"
+                    fill="hsl(var(--foreground))"
+                    fontSize="1.8"
+                    fontWeight="600"
+                    initial={rm ? false : { opacity: 0 }}
+                    animate={showAnim ? { opacity: 1 } : {}}
+                    transition={{ delay: 0.8 + i * 0.1, duration: 0.3 }}
+                  >
+                    {tool.label}
+                  </motion.text>
+                  <motion.text
+                    x={cx}
+                    y={cy + 7.5}
+                    textAnchor="middle"
+                    fill="hsl(var(--muted-foreground))"
+                    fontSize="1.4"
+                    initial={rm ? false : { opacity: 0 }}
+                    animate={showAnim ? { opacity: 1 } : {}}
+                    transition={{ delay: 0.9 + i * 0.1, duration: 0.3 }}
+                  >
+                    {tool.sublabel}
+                  </motion.text>
+                </g>
+              );
+            })}
+          </svg>
+
+          {/* Hover tooltip */}
+          <AnimatePresence>
+            {hovered !== null && (
+              <motion.div
+                initial={{ opacity: 0, y: 8, scale: 0.95 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: 4, scale: 0.97 }}
+                transition={{ duration: 0.15 }}
+                className="absolute bottom-0 left-1/2 -translate-x-1/2 w-72 p-4 bg-card text-card-foreground rounded-lg shadow-lg border border-border pointer-events-none z-30"
+              >
+                <p className="font-bold text-sm mb-0.5">{TOOLS[hovered].label}</p>
+                <p className="text-xs text-primary mb-2">{TOOLS[hovered].sublabel}</p>
+                <p className="text-xs text-muted-foreground leading-relaxed">
+                  {TOOLS[hovered].description}
+                </p>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
+      )}
+    </Section>
   );
 };
 
@@ -629,95 +603,81 @@ const BeforeAfterSlider = ({ rm }: { rm: boolean }) => {
   }, [handlePointerMove]);
 
   return (
-    <section ref={sectionRef} className="py-24 bg-muted/30">
-      <div className="max-w-6xl mx-auto px-6">
-        {/* Header */}
-        <motion.div
-          initial={rm ? false : { opacity: 0, y: 24 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.5 }}
-          className="text-center mb-12"
-        >
-          <p className="text-xs font-mono text-primary uppercase tracking-widest mb-4">
-            The Difference
-          </p>
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-            Industry standard vs. Ascent standard.
-          </h2>
-          <p className="text-muted-foreground max-w-xl mx-auto">
-            Drag to compare. Both approaches finish the job. Only one documents it.
-          </p>
-        </motion.div>
+    <Section size="major" className="bg-muted/30" disableAnimation ref={sectionRef}>
+      <SectionHeader
+        badge="The Difference"
+        title="Industry standard vs. Ascent standard."
+        description="Drag to compare. Both approaches finish the job. Only one documents it."
+        align="center"
+      />
 
-        {/* Slider */}
-        <motion.div
-          initial={rm ? false : { opacity: 0, scale: 0.98 }}
-          animate={isInView ? { opacity: 1, scale: 1 } : {}}
-          transition={{ duration: 0.5, delay: 0.2 }}
-          ref={containerRef}
-          onPointerDown={() => { isDragging.current = true; }}
-          className="relative h-80 md:h-96 rounded-2xl overflow-hidden border border-border select-none cursor-col-resize"
-          style={{ touchAction: "none" }}
+      {/* Slider */}
+      <motion.div
+        initial={rm ? false : { opacity: 0, scale: 0.98 }}
+        animate={isInView ? { opacity: 1, scale: 1 } : {}}
+        transition={{ duration: 0.5, delay: 0.2 }}
+        ref={containerRef}
+        onPointerDown={() => { isDragging.current = true; }}
+        className="relative h-80 md:h-96 rounded-lg overflow-hidden border border-border select-none cursor-col-resize"
+        style={{ touchAction: "none" }}
+      >
+        {/* Left panel — Industry Standard */}
+        <div className="absolute inset-0 bg-muted flex flex-col justify-center">
+          <div className="w-1/2 px-8 md:px-12">
+            <p className="text-sm font-medium text-muted-foreground uppercase tracking-wider mb-5">
+              Industry Standard
+            </p>
+            <ul className="space-y-3">
+              {BEFORE_AFTER.before.items.map((item, i) => (
+                <li key={i} className="flex items-start gap-3 text-sm text-foreground/70">
+                  <span className="w-4 h-4 rounded-full border border-border flex-shrink-0 mt-0.5" />
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+
+        {/* Right panel — Ascent Standard (clipped) */}
+        <div
+          className="absolute inset-0 bg-primary flex flex-col justify-center"
+          style={{ clipPath: `inset(0 0 0 ${sliderPos}%)` }}
         >
-          {/* Left panel — Industry Standard */}
-          <div className="absolute inset-0 bg-muted flex flex-col justify-center">
+          <div className="absolute inset-0 flex flex-col justify-center items-end">
             <div className="w-1/2 px-8 md:px-12">
-              <p className="text-xs font-mono text-muted-foreground uppercase tracking-widest mb-5">
-                Industry Standard
+              <p className="text-sm font-medium text-primary-foreground/80 uppercase tracking-wider mb-5">
+                Ascent Standard
               </p>
               <ul className="space-y-3">
-                {BEFORE_AFTER.before.items.map((item, i) => (
-                  <li key={i} className="flex items-start gap-3 text-sm text-foreground/70">
-                    <span className="w-4 h-4 rounded-full border border-border flex-shrink-0 mt-0.5" />
+                {BEFORE_AFTER.after.items.map((item, i) => (
+                  <li key={i} className="flex items-start gap-3 text-sm text-primary-foreground/90">
+                    <CheckCircle className="w-4 h-4 text-primary-foreground flex-shrink-0 mt-0.5" />
                     {item}
                   </li>
                 ))}
               </ul>
             </div>
           </div>
+        </div>
 
-          {/* Right panel — Ascent Standard (clipped) */}
-          <div
-            className="absolute inset-0 bg-foreground flex flex-col justify-center"
-            style={{ clipPath: `inset(0 0 0 ${sliderPos}%)` }}
-          >
-            {/* Inner container pinned to the right half so text is always in the visible region */}
-            <div className="absolute inset-0 flex flex-col justify-center items-end">
-              <div className="w-1/2 px-8 md:px-12">
-                <p className="text-xs font-mono text-primary uppercase tracking-widest mb-5">
-                  Ascent Standard
-                </p>
-                <ul className="space-y-3">
-                  {BEFORE_AFTER.after.items.map((item, i) => (
-                    <li key={i} className="flex items-start gap-3 text-sm text-background/80">
-                      <CheckCircle className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-              </div>
+        {/* Divider handle */}
+        <div
+          className="absolute top-0 bottom-0 w-0.5 bg-primary z-20"
+          style={{ left: `${sliderPos}%`, transform: "translateX(-50%)" }}
+        >
+          <div className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-8 h-8 rounded-full bg-primary flex items-center justify-center shadow-lg cursor-col-resize">
+            <div className="flex gap-0.5">
+              <ChevronRight className="w-3 h-3 text-primary-foreground rotate-180" />
+              <ChevronRight className="w-3 h-3 text-primary-foreground" />
             </div>
           </div>
+        </div>
+      </motion.div>
 
-          {/* Divider handle */}
-          <div
-            className="absolute top-0 bottom-0 w-0.5 bg-primary z-20"
-            style={{ left: `${sliderPos}%`, transform: "translateX(-50%)" }}
-          >
-            <div className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-8 h-8 rounded-full bg-primary flex items-center justify-center shadow-lg cursor-col-resize">
-              <div className="flex gap-0.5">
-                <ChevronRight className="w-3 h-3 text-background rotate-180" />
-                <ChevronRight className="w-3 h-3 text-background" />
-              </div>
-            </div>
-          </div>
-        </motion.div>
-
-        <p className="text-center text-xs text-muted-foreground mt-4">
-          Drag the handle to compare approaches
-        </p>
-      </div>
-    </section>
+      <p className="text-center text-xs text-muted-foreground mt-4">
+        Drag the handle to compare approaches
+      </p>
+    </Section>
   );
 };
 
@@ -734,102 +694,91 @@ const AudienceTabs = ({ rm }: { rm: boolean }) => {
   const TabIcon = tab.icon;
 
   return (
-    <section ref={sectionRef} className="py-24 bg-background">
-      <div className="max-w-5xl mx-auto px-6">
-        {/* Header */}
+    <Section size="major" disableAnimation ref={sectionRef}>
+      <SectionHeader
+        badge="Who We Work With"
+        title="Digital coordination, tailored to your role."
+        align="center"
+      />
+
+      {/* Tab bar */}
+      <motion.div
+        initial={rm ? false : { opacity: 0, y: 16 }}
+        animate={isInView ? { opacity: 1, y: 0 } : {}}
+        transition={{ duration: 0.4, delay: 0.15 }}
+        className="flex flex-wrap justify-center gap-2 mb-10"
+        role="tablist"
+      >
+        {AUDIENCE_TABS.map((t, i) => {
+          const Icon = t.icon;
+          return (
+            <button
+              key={i}
+              role="tab"
+              aria-selected={i === activeTab}
+              onClick={() => setActiveTab(i)}
+              className={`inline-flex items-center gap-2 px-5 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 ${
+                i === activeTab
+                  ? "bg-primary text-primary-foreground shadow-md"
+                  : "bg-muted text-muted-foreground hover:bg-muted/80 hover:text-foreground"
+              }`}
+            >
+              <Icon className="w-3.5 h-3.5" />
+              {t.label}
+            </button>
+          );
+        })}
+      </motion.div>
+
+      {/* Tab content */}
+      <AnimatePresence mode="wait">
         <motion.div
-          initial={rm ? false : { opacity: 0, y: 24 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.5 }}
-          className="text-center mb-14"
+          key={activeTab}
+          initial={rm ? false : { opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={rm ? undefined : { opacity: 0, y: -12 }}
+          transition={{ duration: rm ? 0 : 0.3 }}
+          className="grid md:grid-cols-2 gap-10 items-center"
         >
-          <p className="text-xs font-mono text-primary uppercase tracking-widest mb-4">
-            Who We Work With
-          </p>
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground">
-            Digital coordination, tailored to your role.
-          </h2>
-        </motion.div>
-
-        {/* Tab bar */}
-        <motion.div
-          initial={rm ? false : { opacity: 0, y: 16 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.4, delay: 0.15 }}
-          className="flex flex-wrap justify-center gap-2 mb-10"
-          role="tablist"
-        >
-          {AUDIENCE_TABS.map((t, i) => {
-            const Icon = t.icon;
-            return (
-              <button
-                key={i}
-                role="tab"
-                aria-selected={i === activeTab}
-                onClick={() => setActiveTab(i)}
-                className={`inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-medium transition-all duration-200 ${
-                  i === activeTab
-                    ? "bg-primary text-background shadow-md"
-                    : "bg-muted text-muted-foreground hover:bg-muted/80 hover:text-foreground"
-                }`}
-              >
-                <Icon className="w-3.5 h-3.5" />
-                {t.label}
-              </button>
-            );
-          })}
-        </motion.div>
-
-        {/* Tab content */}
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={activeTab}
-            initial={rm ? false : { opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={rm ? undefined : { opacity: 0, y: -12 }}
-            transition={{ duration: rm ? 0 : 0.3 }}
-            className="grid md:grid-cols-2 gap-10 items-center"
-          >
-            {/* Left — headline + body */}
-            <div>
-              <div className="inline-flex items-center justify-center w-12 h-12 rounded-2xl bg-primary/10 mb-6">
-                <TabIcon className="w-6 h-6 text-primary" />
-              </div>
-              <h3 className="text-2xl md:text-3xl font-bold text-foreground mb-4 leading-tight">
-                {tab.headline}
-              </h3>
-              <p className="text-muted-foreground leading-relaxed">{tab.body}</p>
+          {/* Left — headline + body */}
+          <div>
+            <div className="inline-flex items-center justify-center w-12 h-12 rounded-lg bg-primary/10 mb-6">
+              <TabIcon className="w-6 h-6 text-primary" />
             </div>
+            <h3 className="text-2xl md:text-3xl font-bold text-foreground mb-4 leading-tight">
+              {tab.headline}
+            </h3>
+            <p className="text-muted-foreground leading-relaxed">{tab.body}</p>
+          </div>
 
-            {/* Right — checklist */}
-            <div className="bg-muted/40 rounded-2xl p-8 border border-border/60">
-              <p className="text-xs font-mono text-primary uppercase tracking-widest mb-5">
-                What this means for you
-              </p>
-              <ul className="space-y-4">
-                {tab.points.map((point, i) => (
-                  <motion.li
-                    key={i}
-                    initial={rm ? false : { opacity: 0, x: 12 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: rm ? 0 : 0.1 + i * 0.08, duration: 0.3 }}
-                    className="flex items-start gap-3"
-                  >
-                    <CheckCircle className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />
-                    <span className="text-sm text-foreground">{point}</span>
-                  </motion.li>
-                ))}
-              </ul>
-            </div>
-          </motion.div>
-        </AnimatePresence>
-      </div>
-    </section>
+          {/* Right — checklist */}
+          <div className="bg-muted/40 rounded-lg p-8 border border-border/60">
+            <p className="text-sm font-medium text-primary uppercase tracking-wider mb-5">
+              What this means for you
+            </p>
+            <ul className="space-y-4">
+              {tab.points.map((point, i) => (
+                <motion.li
+                  key={i}
+                  initial={rm ? false : { opacity: 0, x: 12 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: rm ? 0 : 0.1 + i * 0.08, duration: 0.3 }}
+                  className="flex items-start gap-3"
+                >
+                  <CheckCircle className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />
+                  <span className="text-sm text-foreground">{point}</span>
+                </motion.li>
+              ))}
+            </ul>
+          </div>
+        </motion.div>
+      </AnimatePresence>
+    </Section>
   );
 };
 
 // ─────────────────────────────────────────────────────────────────────────────
-// SECTION 6 — HORIZONTAL SCROLL TIMELINE
+// SECTION 6 — TIMELINE (light theme)
 // ─────────────────────────────────────────────────────────────────────────────
 
 const TimelineSection = ({ rm }: { rm: boolean }) => {
@@ -846,59 +795,62 @@ const TimelineSection = ({ rm }: { rm: boolean }) => {
   // Mobile or reduced motion — static vertical list
   if (isMobile || rm) {
     return (
-      <section className="py-24 bg-foreground text-background">
-        <div className="max-w-4xl mx-auto px-6">
-          <div ref={sectionHeaderRef} className="mb-14">
-            <p className="text-xs font-mono text-primary uppercase tracking-widest mb-4">
-              How A Project Moves
-            </p>
-            <h2 className="text-3xl md:text-4xl font-bold text-background">
-              Every phase. Documented.
-            </h2>
-          </div>
-          <div className="space-y-10">
-            {TIMELINE_NODES.map((node, i) => {
-              const Icon = node.icon;
-              return (
-                <div key={i} className="flex gap-6 items-start">
-                  <div className="flex flex-col items-center flex-shrink-0">
-                    <div className="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center">
-                      <Icon className="w-5 h-5 text-primary" />
-                    </div>
-                    {i < TIMELINE_NODES.length - 1 && (
-                      <div className="w-px h-full min-h-12 bg-primary/20 mt-2" />
-                    )}
-                  </div>
-                  <div className="pb-8">
-                    <p className="text-xs font-mono text-primary uppercase tracking-widest mb-1">
-                      {node.phase}
-                    </p>
-                    <h3 className="text-lg font-bold text-background mb-2">{node.title}</h3>
-                    <p className="text-sm text-background/60 leading-relaxed">{node.detail}</p>
-                  </div>
+      <Section size="major" className="bg-muted/30">
+        <SectionHeader
+          badge="Project Timeline"
+          title="Every phase. Documented."
+          align="left"
+        />
+        <div className="space-y-6 max-w-2xl">
+          {TIMELINE_NODES.map((node, i) => {
+            const Icon = node.icon;
+            return (
+              <div
+                key={i}
+                className="flex gap-5 p-6 rounded-lg bg-background border border-border"
+              >
+                <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
+                  <Icon className="w-5 h-5 text-primary" />
                 </div>
-              );
-            })}
-          </div>
+                <div>
+                  <p className="text-xs font-medium text-primary uppercase tracking-wider mb-1">
+                    {node.phase}
+                  </p>
+                  <h3 className="font-bold text-foreground mb-1">{node.title}</h3>
+                  <p className="text-sm text-muted-foreground leading-relaxed">
+                    {node.detail}
+                  </p>
+                </div>
+              </div>
+            );
+          })}
         </div>
-      </section>
+        <div className="mt-8">
+          <Button asChild size="lg">
+            <Link to="/our-process">
+              View Our Process <ArrowRight className="w-4 h-4 ml-2" />
+            </Link>
+          </Button>
+        </div>
+      </Section>
     );
   }
 
+  // Desktop — horizontal scroll
   return (
-    <div ref={roadmapRef} className="relative h-[320vh] bg-foreground">
-      <div className="sticky top-0 h-screen overflow-hidden flex flex-col justify-center">
-        {/* Header (fixed inside sticky) */}
-        <div ref={sectionHeaderRef} className="px-16 mb-12">
+    <div ref={roadmapRef} className="relative h-[300vh]">
+      <div className="sticky top-0 h-screen flex flex-col justify-center overflow-hidden bg-muted/30">
+        {/* Header */}
+        <div ref={sectionHeaderRef} className="max-w-6xl mx-auto px-6 mb-10">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={headerInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.5 }}
           >
-            <p className="text-xs font-mono text-primary uppercase tracking-widest mb-3">
-              How A Project Moves
+            <p className="text-sm font-medium text-primary uppercase tracking-wider mb-3">
+              Project Timeline
             </p>
-            <h2 className="text-4xl font-bold text-background">Every phase. Documented.</h2>
+            <h2 className="text-4xl font-bold text-foreground">Every phase. Documented.</h2>
           </motion.div>
         </div>
 
@@ -913,47 +865,46 @@ const TimelineSection = ({ rm }: { rm: boolean }) => {
               return (
                 <div
                   key={i}
-                  className="flex-shrink-0 w-80 bg-background/5 border border-background/10 rounded-2xl p-8 hover:bg-background/10 transition-colors duration-200"
+                  className="flex-shrink-0 w-80 bg-background border border-border rounded-lg p-8 hover:shadow-md transition-shadow duration-200"
                 >
                   {/* Step indicator */}
                   <div className="flex items-center gap-4 mb-6">
-                    <div className="w-12 h-12 rounded-xl bg-primary/20 flex items-center justify-center">
+                    <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center">
                       <Icon className="w-6 h-6 text-primary" />
                     </div>
-                    <div className="flex-1 h-px bg-primary/20" />
-                    <span className="text-4xl font-bold text-background/10">
+                    <div className="flex-1 h-px bg-border" />
+                    <span className="text-4xl font-bold text-foreground/10">
                       {String(i + 1).padStart(2, "0")}
                     </span>
                   </div>
 
-                  <p className="text-xs font-mono text-primary uppercase tracking-widest mb-2">
+                  <p className="text-xs font-medium text-primary uppercase tracking-wider mb-2">
                     {node.phase}
                   </p>
-                  <h3 className="text-lg font-bold text-background mb-3 leading-snug">
+                  <h3 className="text-lg font-bold text-foreground mb-3 leading-snug">
                     {node.title}
                   </h3>
-                  <p className="text-sm text-background/60 leading-relaxed">{node.detail}</p>
+                  <p className="text-sm text-muted-foreground leading-relaxed">{node.detail}</p>
                 </div>
               );
             })}
 
             {/* CTA card at the end */}
             <div className="flex-shrink-0 w-64 flex flex-col justify-center items-start gap-4 pl-8">
-              <p className="text-sm text-background/60 leading-relaxed">
+              <p className="text-sm text-muted-foreground leading-relaxed">
                 See how this comes together in our 7-step delivery process.
               </p>
-              <Link
-                to="/our-process"
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-primary text-background text-sm font-medium hover:bg-primary/90 transition-colors"
-              >
-                View Our Process <ArrowRight className="w-4 h-4" />
-              </Link>
+              <Button asChild size="lg">
+                <Link to="/our-process">
+                  View Our Process <ArrowRight className="w-4 h-4 ml-2" />
+                </Link>
+              </Button>
             </div>
           </motion.div>
         </div>
 
         {/* Progress bar at bottom */}
-        <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-background/10">
+        <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-border">
           <motion.div
             className="h-full bg-primary origin-left"
             style={{ scaleX: scrollYProgress }}
@@ -965,94 +916,46 @@ const TimelineSection = ({ rm }: { rm: boolean }) => {
 };
 
 // ─────────────────────────────────────────────────────────────────────────────
-// SECTION 7 — MANIFESTO CTA
+// CROSS-LINKS
 // ─────────────────────────────────────────────────────────────────────────────
 
-const ManifestoLine = ({
-  line,
-  index,
-  rm,
-}: {
-  line: string;
-  index: number;
-  rm: boolean;
-}) => {
-  const ref = useRef<HTMLParagraphElement>(null);
-  const isInView = useInView(ref, { once: true, amount: 0.8 });
-
-  return (
-    <motion.p
-      ref={ref}
-      initial={rm ? false : { opacity: 0, y: 20 }}
-      animate={isInView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: rm ? 0 : 0.5, delay: rm ? 0 : index * 0.12 }}
-      className={`text-2xl md:text-4xl font-bold leading-tight ${
-        index === MANIFESTO_LINES.length - 1 ? "text-primary" : "text-background"
-      }`}
-    >
-      {line}
-    </motion.p>
-  );
-};
-
-const ManifestoSection = ({ rm }: { rm: boolean }) => {
-  const sectionRef = useRef<HTMLDivElement>(null);
-  const isInView = useInView(sectionRef, { once: true, amount: 0.15 });
-
-  return (
-    <section className="relative py-32 bg-foreground overflow-hidden">
-      {/* Grid texture overlay */}
-      <div
-        className="absolute inset-0 opacity-[0.04] pointer-events-none"
-        style={{
-          backgroundImage:
-            "linear-gradient(hsl(var(--background)) 1px, transparent 1px), linear-gradient(90deg, hsl(var(--background)) 1px, transparent 1px)",
-          backgroundSize: "60px 60px",
-        }}
-      />
-
-      <div ref={sectionRef} className="relative max-w-4xl mx-auto px-6">
-        {/* Eyebrow */}
-        <motion.p
-          initial={rm ? false : { opacity: 0, y: 16 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.4 }}
-          className="text-xs font-mono text-primary uppercase tracking-widest mb-12"
-        >
-          The Ascent Standard
-        </motion.p>
-
-        {/* Manifesto lines — each reveals independently */}
-        <div className="space-y-4 md:space-y-6 mb-16">
-          {MANIFESTO_LINES.map((line, i) => (
-            <ManifestoLine key={i} line={line} index={i} rm={rm} />
-          ))}
+const CrossLinks = () => (
+  <Section size="subsection" className="bg-muted/30 border-t border-border/50">
+    <div className="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+      {[
+        {
+          title: "Our Delivery Process",
+          body: "See how digital tools integrate at each of our 7 project phases.",
+          href: "/our-process",
+          label: "View Process",
+        },
+        {
+          title: "Prequalification",
+          body: "Download our capability statement, WSIB certificate, and insurance docs.",
+          href: "/prequalification",
+          label: "Get Pre-Qual Docs",
+        },
+        {
+          title: "For General Contractors",
+          body: "How we work as a specialty trade partner on GC-led projects.",
+          href: "/for-general-contractors",
+          label: "Learn More",
+        },
+      ].map((card, i) => (
+        <div key={i} className="p-6 bg-background rounded-lg border border-border hover:shadow-md transition-shadow">
+          <h3 className="font-bold text-foreground mb-2">{card.title}</h3>
+          <p className="text-sm text-muted-foreground mb-4 leading-relaxed">{card.body}</p>
+          <Link
+            to={card.href}
+            className="inline-flex items-center gap-1.5 text-sm text-primary font-medium hover:underline"
+          >
+            {card.label} <ArrowRight className="w-3.5 h-3.5" />
+          </Link>
         </div>
-
-        {/* CTA row */}
-        <motion.div
-          initial={rm ? false : { opacity: 0, y: 24 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.5, delay: rm ? 0 : 0.6 }}
-          className="flex flex-col sm:flex-row gap-4"
-        >
-          <Link
-            to="/contact"
-            className="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full bg-primary text-background font-semibold hover:bg-primary/90 transition-colors"
-          >
-            Start A Conversation <ArrowRight className="w-4 h-4" />
-          </Link>
-          <Link
-            to="/prequalification"
-            className="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full border border-background/20 text-background/80 hover:bg-background/5 hover:text-background transition-colors font-medium"
-          >
-            Get Prequalified
-          </Link>
-        </motion.div>
-      </div>
-    </section>
-  );
-};
+      ))}
+    </div>
+  </Section>
+);
 
 // ─────────────────────────────────────────────────────────────────────────────
 // MAIN COMPONENT
@@ -1082,177 +985,49 @@ const Technology = () => {
       <Navigation />
 
       <main>
-        {/* ── SECTION 1: CINEMATIC HERO ───────────────────────────────── */}
-        <section className="relative h-screen flex flex-col justify-center overflow-hidden bg-foreground text-background">
-          {/* Scanner sweep */}
-          {!rm && (
-            <motion.div
-              className="absolute left-0 w-full h-px bg-gradient-to-r from-transparent via-primary/70 to-transparent pointer-events-none z-10"
-              initial={{ top: 0 }}
-              animate={{ top: "100%" }}
-              transition={{ duration: 1.8, delay: 0.3, ease: "easeInOut" }}
-            />
-          )}
+        {/* ── HERO — Standard PageHero ─────────────────────────────────── */}
+        <PageHero
+          title="Built on Digital Precision"
+          description="From the first site assessment to the final closeout package — every step of our process is documented, coordinated, and accountable."
+          image={companyHeroes["our-process"]}
+          imageAlt="Ascent Group digital construction technology"
+          height="medium"
+          overlay="gradient"
+          breadcrumbs={[
+            { label: "Home", href: "/" },
+            { label: "Company", href: "/about" },
+            { label: "Technology & Digital Tools" },
+          ]}
+          primaryCta={{ text: "Discuss Your Project", href: "/contact" }}
+          secondaryCta={{ text: "See Our Process", href: "/our-process" }}
+        />
 
-          {/* Grid texture */}
-          <div
-            className="absolute inset-0 opacity-[0.035] pointer-events-none"
-            style={{
-              backgroundImage:
-                "linear-gradient(hsl(var(--background)) 1px, transparent 1px), linear-gradient(90deg, hsl(var(--background)) 1px, transparent 1px)",
-              backgroundSize: "80px 80px",
-            }}
-          />
-
-          {/* Radial highlight */}
-          <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(ellipse_at_60%_40%,hsl(var(--primary)/0.08),transparent_60%)]" />
-
-          <div className="relative z-10 max-w-5xl mx-auto px-6 md:px-12">
-            {/* Eyebrow badge */}
-            <motion.div
-              initial={rm ? false : { opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.4 }}
-              className="inline-flex items-center gap-2 px-4 py-1.5 mb-8 rounded-full border border-background/15 bg-background/8 backdrop-blur-sm"
-            >
-              <MonitorSmartphone className="w-3.5 h-3.5 text-primary" />
-              <span className="text-xs font-medium text-background/70 tracking-wider uppercase">
-                Technology & Digital Tools
-              </span>
-            </motion.div>
-
-            {/* Headline — word-by-word reveal */}
-            <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold leading-tight mb-6">
-              {"Built on digital precision.".split(" ").map((word, i) => (
-                <motion.span
-                  key={i}
-                  className="inline-block mr-[0.25em]"
-                  initial={rm ? false : { opacity: 0, y: 28 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{
-                    duration: rm ? 0 : 0.45,
-                    delay: rm ? 0 : 0.6 + i * 0.08,
-                    ease: [0.22, 1, 0.36, 1],
-                  }}
-                >
-                  {word}
-                </motion.span>
-              ))}
-            </h1>
-
-            {/* Separator */}
-            <motion.div
-              className="w-14 h-px bg-primary/60 mb-6"
-              initial={rm ? false : { scaleX: 0, originX: 0 }}
-              animate={{ scaleX: 1 }}
-              transition={{ duration: 0.4, delay: rm ? 0 : 1.2 }}
-            />
-
-            {/* Subheadline */}
-            <motion.p
-              className="text-lg md:text-xl text-background/65 max-w-2xl leading-relaxed"
-              initial={rm ? false : { opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: rm ? 0 : 1.4 }}
-            >
-              From the first site assessment to the final closeout package —
-              every step of our process is documented, coordinated, and accountable.
-            </motion.p>
-
-            {/* CTA row */}
-            <motion.div
-              className="flex flex-col sm:flex-row gap-4 mt-10"
-              initial={rm ? false : { opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: rm ? 0 : 1.6 }}
-            >
-              <Link
-                to="/contact"
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-primary text-background font-semibold hover:bg-primary/90 transition-colors text-sm"
-              >
-                Discuss Your Project <ArrowRight className="w-4 h-4" />
-              </Link>
-              <Link
-                to="/our-process"
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-background/20 text-background/70 hover:text-background hover:bg-background/5 transition-colors text-sm font-medium"
-              >
-                See Our Process
-              </Link>
-            </motion.div>
-          </div>
-
-          {/* Scroll indicator */}
-          <motion.div
-            className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
-            initial={rm ? false : { opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: rm ? 0 : 2, duration: 0.5 }}
-          >
-            <span className="text-xs text-background/30 uppercase tracking-widest font-mono">
-              Scroll
-            </span>
-            <motion.div
-              className="w-px h-10 bg-gradient-to-b from-background/30 to-transparent"
-              animate={rm ? {} : { scaleY: [1, 0.6, 1] }}
-              transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
-            />
-          </motion.div>
-        </section>
-
-        {/* ── SECTION 2: SCROLLYTELLING ───────────────────────────────── */}
+        {/* ── SCROLLYTELLING ──────────────────────────────────────────── */}
         <ScrollytellingSection rm={rm} />
 
-        {/* ── SECTION 3: CONSTELLATION ────────────────────────────────── */}
+        {/* ── CONSTELLATION ───────────────────────────────────────────── */}
         <ConstellationSection rm={rm} />
 
-        {/* ── SECTION 4: BEFORE / AFTER SLIDER ───────────────────────── */}
+        {/* ── BEFORE / AFTER SLIDER ───────────────────────────────────── */}
         <BeforeAfterSlider rm={rm} />
 
-        {/* ── SECTION 5: AUDIENCE TABS ────────────────────────────────── */}
+        {/* ── AUDIENCE TABS ───────────────────────────────────────────── */}
         <AudienceTabs rm={rm} />
 
-        {/* ── SECTION 6: HORIZONTAL SCROLL TIMELINE ──────────────────── */}
+        {/* ── TIMELINE ────────────────────────────────────────────────── */}
         <TimelineSection rm={rm} />
 
-        {/* ── SECTION 7: MANIFESTO CTA ────────────────────────────────── */}
-        <ManifestoSection rm={rm} />
+        {/* ── CTA BAND ────────────────────────────────────────────────── */}
+        <CTABand
+          title="The Ascent Standard"
+          description="We assess before we estimate. We document before we mobilize. We report every day we're on site. We close out with a full digital package."
+          primaryCta={{ text: "Start A Conversation", href: "/contact" }}
+          secondaryCta={{ text: "Get Prequalified", href: "/prequalification" }}
+          variant="dark"
+        />
 
         {/* ── CROSS-LINKS ─────────────────────────────────────────────── */}
-        <section className="py-16 bg-muted/30 border-t border-border/50">
-          <div className="max-w-4xl mx-auto px-6 grid md:grid-cols-3 gap-6">
-            {[
-              {
-                title: "Our Delivery Process",
-                body: "See how digital tools integrate at each of our 7 project phases.",
-                href: "/our-process",
-                label: "View Process",
-              },
-              {
-                title: "Prequalification",
-                body: "Download our capability statement, WSIB certificate, and insurance docs.",
-                href: "/prequalification",
-                label: "Get Pre-Qual Docs",
-              },
-              {
-                title: "For General Contractors",
-                body: "How we work as a specialty trade partner on GC-led projects.",
-                href: "/for-general-contractors",
-                label: "Learn More",
-              },
-            ].map((card, i) => (
-              <div key={i} className="p-6 bg-background rounded-xl border border-border hover:shadow-md transition-shadow">
-                <h3 className="font-bold text-foreground mb-2">{card.title}</h3>
-                <p className="text-sm text-muted-foreground mb-4 leading-relaxed">{card.body}</p>
-                <Link
-                  to={card.href}
-                  className="inline-flex items-center gap-1.5 text-sm text-primary font-medium hover:underline"
-                >
-                  {card.label} <ArrowRight className="w-3.5 h-3.5" />
-                </Link>
-              </div>
-            ))}
-          </div>
-        </section>
+        <CrossLinks />
       </main>
 
       <Footer />
