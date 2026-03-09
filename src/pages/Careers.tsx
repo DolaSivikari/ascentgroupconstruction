@@ -131,7 +131,7 @@ const Careers = () => {
             <ScrollReveal direction="up">
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
               {benefits.map((benefit, index) => (
-                <Card key={index} className="hover:shadow-lg transition-shadow">
+                <Card key={index} className="hover:shadow-lg transition-shadow p-0">
                   <CardContent className="p-6">
                     <div className="w-14 h-14 bg-primary/10 rounded-[var(--radius-lg)] flex items-center justify-center mb-4">
                       <benefit.icon className="w-7 h-7 text-primary" />
