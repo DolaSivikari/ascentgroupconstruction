@@ -676,20 +676,25 @@ const BeforeAfterSlider = ({ rm }: { rm: boolean }) => {
 
           {/* Right panel — Ascent Standard (clipped) */}
           <div
-            className="absolute inset-0 bg-foreground flex flex-col justify-center px-10 md:px-16"
+            className="absolute inset-0 bg-foreground flex flex-col justify-center"
             style={{ clipPath: `inset(0 0 0 ${sliderPos}%)` }}
           >
-            <p className="text-xs font-mono text-primary uppercase tracking-widest mb-5">
-              Ascent Standard
-            </p>
-            <ul className="space-y-3">
-              {BEFORE_AFTER.after.items.map((item, i) => (
-                <li key={i} className="flex items-start gap-3 text-sm text-background/80">
-                  <CheckCircle className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />
-                  {item}
-                </li>
-              ))}
-            </ul>
+            {/* Inner container pinned to the right half so text is always in the visible region */}
+            <div className="absolute inset-0 flex flex-col justify-center items-end">
+              <div className="w-1/2 px-8 md:px-12">
+                <p className="text-xs font-mono text-primary uppercase tracking-widest mb-5">
+                  Ascent Standard
+                </p>
+                <ul className="space-y-3">
+                  {BEFORE_AFTER.after.items.map((item, i) => (
+                    <li key={i} className="flex items-start gap-3 text-sm text-background/80">
+                      <CheckCircle className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
           </div>
 
           {/* Divider handle */}
