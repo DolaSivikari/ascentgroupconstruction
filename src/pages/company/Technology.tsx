@@ -681,6 +681,7 @@ const BeforeAfterSlider = ({ rm }: { rm: boolean }) => {
         Drag the handle to compare approaches
       </p>
     </Section>
+    </div>
   );
 };
 
