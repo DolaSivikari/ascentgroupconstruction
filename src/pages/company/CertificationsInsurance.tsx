@@ -200,7 +200,7 @@ const CertificationsInsurance = () => {
                   <p className="text-sm text-muted-foreground">ProPainter Certified</p>
                 </CardContent>
               </Card>
-              <Card>
+              <Card className="p-0">
                 <CardContent className="p-6 text-center">
                   <Award className="h-10 w-10 text-primary mx-auto mb-4" />
                   <h3 className="text-lg font-semibold text-foreground mb-2">EIFS Industry</h3>

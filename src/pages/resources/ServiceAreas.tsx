@@ -186,7 +186,7 @@ const ServiceAreas = () => {
                   <p className="text-sm text-muted-foreground">All of Southern Ontario covered for scheduled painting and construction projects</p>
                 </CardContent>
               </Card>
-              <Card className="hover:shadow-[var(--shadow-lg)] hover:-translate-y-1 transition-all duration-300 group border-2 hover:border-primary/30 animate-fade-in-up" style={{ animationDelay: '200ms' }}>
+              <Card className="hover:shadow-[var(--shadow-lg)] hover:-translate-y-1 transition-all duration-300 group border-2 hover:border-primary/30 animate-fade-in-up p-0" style={{ animationDelay: '200ms' }}>
                 <CardContent className="p-6">
                   <div className="w-14 h-14 bg-gradient-to-br from-primary to-primary/70 rounded-[var(--radius-lg)] flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
                     <CheckCircle2 className="h-7 w-7 text-secondary" />

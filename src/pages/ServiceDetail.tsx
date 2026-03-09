@@ -346,7 +346,7 @@ const ServiceDetail = () => {
                 <h2 className="text-3xl font-bold mb-8">Frequently Asked Questions</h2>
                 <div className="space-y-4">
                   {service.faq_items.map((faq, index) => (
-                    <Card key={index}>
+                    <Card key={index} className="p-0">
                       <CardContent className="p-6">
                         <h3 className="text-lg font-bold mb-2">{faq.question}</h3>
                         <p className="text-muted-foreground">{faq.answer}</p>
