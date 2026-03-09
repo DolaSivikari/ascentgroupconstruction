@@ -203,7 +203,7 @@ export const HomepageProcessStrip = () => {
         {/* Footer link */}
         <div className="text-center mt-10">
           <Link
-            to="/how-we-work"
+            to="/our-process"
             className="inline-flex items-center gap-2 text-sm font-semibold text-primary hover:text-primary/80 transition-colors duration-200"
           >
             See our full process
