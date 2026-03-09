@@ -138,6 +138,8 @@ export const megaMenuDataEnhanced: MegaMenuDataEnhanced = {
             title: "Company",
             subItems: [
               { name: "About Ascent", link: "/about", description: "Our story and values", icon: "Info" },
+              { name: "Capabilities", link: "/capabilities", description: "What we deliver", icon: "Hammer" },
+              { name: "Why Specialty?", link: "/why-specialty-contractor", description: "Our advantage", icon: "Award" },
               { name: "Our Process", link: "/our-process", description: "How we work", icon: "GitBranch" },
               { name: "Careers", link: "/careers", description: "Join our team", icon: "Users" },
               { name: "FAQ", link: "/faq", description: "Common questions", icon: "HelpCircle" },

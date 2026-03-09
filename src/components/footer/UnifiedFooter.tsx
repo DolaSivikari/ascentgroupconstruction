@@ -57,6 +57,7 @@ export function UnifiedFooter({
   const resourceLinks = [
     { label: "Certifications & Insurance", href: "/company/certifications-insurance" },
     { label: "Technology", href: "/company/technology" },
+    { label: "Developers", href: "/company/developers" },
     { label: "Service Areas", href: "/resources/service-areas" },
     { label: "Contractor Portal", href: "/resources/contractor-portal" },
     { label: "Prequalification", href: "/prequalification" },
