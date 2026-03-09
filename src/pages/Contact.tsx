@@ -263,6 +263,12 @@ const Contact = () => {
                     </Button>
                   </RippleEffect>
 
+                  {/* Trust Badge */}
+                  <div className="flex items-center justify-center gap-4 text-xs text-muted-foreground pt-2">
+                    <span className="flex items-center gap-1"><CheckCircle className="w-3.5 h-3.5 text-primary" />$2M Insured</span>
+                    <span className="flex items-center gap-1"><CheckCircle className="w-3.5 h-3.5 text-primary" />WSIB Compliant</span>
+                  </div>
+
                   <p className="text-xs text-muted-foreground text-center">
                     Your information is secure and will only be used to respond to your inquiry.
                   </p>
