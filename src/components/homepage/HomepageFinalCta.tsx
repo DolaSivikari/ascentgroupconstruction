@@ -1,68 +1,142 @@
 import { Link } from "react-router-dom";
-import { FileText, Calculator, MessageSquare, ArrowRight } from "lucide-react";
-import { LAYOUT, TYPOGRAPHY_STYLES } from "@/design-system/constants";
+import { MessageSquare, FolderOpen, ClipboardList, ArrowRight } from "lucide-react";
+import { GRID } from "@/design-system/layouts";
+import { Button } from "@/ui/Button";
+import { useScrollFadeIn } from "@/hooks/useScrollFadeIn";
+import { useStaggerAnimation } from "@/hooks/useStaggerAnimation";
+import { useReducedMotion } from "@/hooks/useReducedMotion";
 
-const CTA_PATHS = [
-  {
-    icon: FileText,
-    title: "Submit an RFP",
-    description: "Send us your project documents for a detailed scope review and pricing proposal.",
-    route: "/submit-rfp",
-    label: "Submit RFP",
-  },
-  {
-    icon: Calculator,
-    title: "Request an Estimate",
-    description: "Get a preliminary estimate for your commercial, multi-unit, or residential scope.",
-    route: "/estimate",
-    label: "Get Estimate",
-  },
+const ctaCards = [
   {
     icon: MessageSquare,
-    title: "Contact Our Team",
-    description: "Reach our project team to discuss timelines, capabilities, or general inquiries.",
-    route: "/contact",
-    label: "Contact Us",
+    title: "Request a Proposal",
+    description:
+      "Tell us about your project and get a detailed, itemised estimate with transparent pricing.",
+    cta: "Start a Conversation",
+    href: "/contact",
+    primary: true,
   },
-] as const;
+  {
+    icon: FolderOpen,
+    title: "View Our Portfolio",
+    description:
+      "Browse completed building envelope, restoration, and specialty trade projects across Ontario.",
+    cta: "See Our Work",
+    href: "/projects",
+    primary: false,
+  },
+  {
+    icon: ClipboardList,
+    title: "Get Prequalified",
+    description:
+      "General contractors: download our prequalification package and add us to your approved trade list.",
+    cta: "Download Package",
+    href: "/prequalification",
+    primary: false,
+  },
+];
 
-const HomepageFinalCta = () => {
+export const HomepageFinalCta = () => {
+  const prefersReducedMotion = useReducedMotion();
+  const { ref: headerRef, isVisible: headerVisible, skipAnimation: headerSkip } =
+    useScrollFadeIn();
+  const { ref: gridRef, isVisible: gridVisible, skipAnimation: gridSkip } =
+    useScrollFadeIn({ threshold: 0.1 });
+  const delays = useStaggerAnimation({ itemCount: ctaCards.length, staggerDelay: 100 });
+
+  const showHeader = headerVisible || headerSkip || prefersReducedMotion;
+  const showGrid = gridVisible || gridSkip || prefersReducedMotion;
+
   return (
-    <section className={`${LAYOUT.sectionSpacing.major} bg-primary/5`}>
-      <div className={`container mx-auto ${LAYOUT.containerPadding} ${LAYOUT.maxWidth}`}>
-        <div className="text-center mb-12">
-          <h2 className={`${TYPOGRAPHY_STYLES.sectionTitle} text-foreground mb-4`}>
-            Ready to Discuss Your Project?
-          </h2>
-          <p className={`${TYPOGRAPHY_STYLES.bodyDefault} text-muted-foreground max-w-2xl mx-auto`}>
-            Whether you have drawings ready or need to discuss scope, we're here to help move your project forward.
-          </p>
-        </div>
+    <>
+      {/* Fine separator */}
+      <div className="border-t border-border/30" />
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
-          {CTA_PATHS.map((path) => {
-            const Icon = path.icon;
-            return (
-              <Link
-                key={path.route}
-                to={path.route}
-                className="group flex flex-col items-center text-center p-8 rounded-[var(--radius-lg)] bg-card border hover:border-primary/50 hover:shadow-[var(--shadow-lg)] transition-all"
-              >
-                <div className="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center mb-5 group-hover:bg-primary/20 transition-colors">
-                  <Icon className="w-6 h-6 text-primary" />
+      <section
+        className="relative py-20 md:py-28 overflow-hidden"
+        style={{
+          background:
+            "linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--primary) / 0.92) 100%)",
+        }}
+      >
+        {/* Subtle dot pattern overlay */}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 opacity-[0.04]"
+          style={{
+            backgroundImage:
+              "radial-gradient(circle, white 1px, transparent 1px)",
+            backgroundSize: "28px 28px",
+          }}
+        />
+
+        <div className="relative container mx-auto px-6 md:px-8 lg:px-12 max-w-7xl">
+          {/* Header */}
+          <div
+            ref={headerRef}
+            className="text-center mb-14"
+            style={{
+              opacity: showHeader ? 1 : 0,
+              transform: showHeader ? "translateY(0)" : "translateY(24px)",
+              transition: prefersReducedMotion
+                ? "none"
+                : "opacity 300ms ease-out, transform 300ms ease-out",
+            }}
+          >
+            <h2 className="text-3xl md:text-5xl font-bold text-white mb-5 leading-tight tracking-tight">
+              Ready to Start Your Project?
+            </h2>
+            <p className="text-lg text-white/80 max-w-2xl mx-auto leading-relaxed">
+              Whether you need a trade partner, a detailed estimate, or just want to explore what's
+              possible — we're ready to help.
+            </p>
+          </div>
+
+          {/* CTA cards */}
+          <div ref={gridRef} className={GRID.cards3}>
+            {ctaCards.map((card, index) => {
+              const Icon = card.icon;
+              return (
+                <div
+                  key={index}
+                  className="flex flex-col p-8 rounded-xl bg-white/10 border border-white/15 hover:bg-white/15 hover:border-white/25 transition-all duration-300"
+                  style={{
+                    opacity: showGrid ? 1 : 0,
+                    transform: showGrid ? "translateY(0)" : "translateY(24px)",
+                    transition: prefersReducedMotion
+                      ? "none"
+                      : `opacity 300ms ease-out, transform 300ms ease-out`,
+                    transitionDelay: showGrid ? `${delays[index] ?? 0}ms` : "0ms",
+                  }}
+                >
+                  <div className="w-12 h-12 rounded-lg bg-white/15 flex items-center justify-center mb-5">
+                    <Icon className="w-6 h-6 text-white" />
+                  </div>
+                  <h3 className="text-xl font-bold text-white mb-3">{card.title}</h3>
+                  <p className="text-sm text-white/75 leading-relaxed flex-1 mb-6">
+                    {card.description}
+                  </p>
+                  <Button
+                    asChild
+                    size="default"
+                    variant={card.primary ? "primary" : "outline"}
+                    className={
+                      card.primary
+                        ? "w-full justify-center"
+                        : "w-full justify-center border-white/30 text-white hover:bg-white/10 hover:border-white/50"
+                    }
+                  >
+                    <Link to={card.href} className="inline-flex items-center gap-2">
+                      {card.cta}
+                      <ArrowRight className="w-4 h-4" />
+                    </Link>
+                  </Button>
                 </div>
-                <h3 className="text-lg font-semibold text-foreground mb-2">{path.title}</h3>
-                <p className="text-sm text-muted-foreground mb-5 flex-1">{path.description}</p>
-                <span className="inline-flex items-center gap-1.5 text-sm font-semibold text-primary group-hover:text-accent transition-colors">
-                  {path.label} <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                </span>
-              </Link>
-            );
-          })}
+              );
+            })}
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </>
   );
 };
-
-export default HomepageFinalCta;

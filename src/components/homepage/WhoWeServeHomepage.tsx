@@ -1,100 +1,118 @@
 import { Building2, Users, Home, Briefcase, ArrowRight } from "lucide-react";
 import { Section } from "@/components/sections/Section";
-import { SectionHeader } from "@/design-system/components";
-import { Card } from "@/design-system/components/Card";
-import { Link } from "react-router-dom";
-import { cn } from "@/lib/utils";
+import { SectionBadge } from "@/components/ui/SectionBadge";
+import { ClientSegmentCard } from "@/components/unified";
+import { GRID } from "@/design-system/layouts";
+import { useScrollFadeIn } from "@/hooks/useScrollFadeIn";
+import { useStaggerAnimation } from "@/hooks/useStaggerAnimation";
+import { useReducedMotion } from "@/hooks/useReducedMotion";
 
-const clientSegments = [
-  {
-    icon: Briefcase,
-    title: "General Contractors",
-    description: "Trade partner for envelope and restoration scopes on commercial and multi-family projects across the GTA.",
-    href: "/for-general-contractors",
-    badge: "Trade Partner",
-  },
-  {
-    icon: Building2,
-    title: "Property Managers",
-    description: "Reliable envelope maintenance and emergency restoration for multi-residential and commercial portfolios.",
-    href: "/property-managers",
-    badge: "Primary",
-  },
-  {
-    icon: Users,
-    title: "Commercial Owners",
-    description: "Façade remediation and building envelope solutions for office buildings, retail strips, and industrial properties.",
-    href: "/commercial-clients",
-  },
-  {
-    icon: Home,
-    title: "Homeowners",
-    description: "Exterior restoration and interior renovation services for single-family homes across Ontario.",
-    href: "/homeowners",
-  },
-];
+const WhoWeServeHomepage = () => {
+  const prefersReducedMotion = useReducedMotion();
+  const { ref: headerRef, isVisible: headerVisible, skipAnimation: headerSkip } =
+    useScrollFadeIn();
+  const { ref: gridRef, isVisible: gridVisible, skipAnimation: gridSkip } =
+    useScrollFadeIn({ threshold: 0.1 });
+  const delays = useStaggerAnimation({ itemCount: 4, staggerDelay: 100 });
+
+  const showHeader = headerVisible || headerSkip || prefersReducedMotion;
+  const showGrid = gridVisible || gridSkip || prefersReducedMotion;
+
+  const clientSegments = [
+    {
+      icon: Briefcase,
+      title: "General Contractors",
+      description: "Trade partner for envelope and restoration scopes on commercial and multi-family projects across the GTA.",
+      link: "/for-general-contractors",
+      examples: [
+        "Unit pricing for envelope packages",
+        "Fast RFP response (48-72 hours)",
+        "Self-performed core trades",
+      ],
+    },
+    {
+      icon: Building2,
+      title: "Property Managers",
+      description: "Reliable envelope maintenance and emergency restoration for multi-residential and commercial portfolios.",
+      link: "/property-managers",
+      examples: [
+        "10-30 story condominiums",
+        "Occupied building expertise",
+        "Clear documentation for reserve fund studies",
+      ],
+    },
+    {
+      icon: Users,
+      title: "Commercial Owners",
+      description: "Façade remediation and building envelope solutions for office buildings, retail strips, and industrial properties.",
+      link: "/commercial-clients",
+      examples: [
+        "Water intrusion repairs",
+        "Parking garage restoration",
+        "Tenant coordination",
+      ],
+    },
+    {
+      icon: Home,
+      title: "Homeowners",
+      description: "Exterior restoration and interior renovation services for single-family homes across Ontario.",
+      link: "/homeowners",
+      examples: [
+        "EIFS and stucco repair",
+        "Masonry restoration",
+        "Interior painting and finishes",
+      ],
+    },
+  ];
 
 const WhoWeServeHomepage = () => {
   return (
     <Section size="major" className="bg-muted/30">
       <div className="relative z-10">
-        <SectionHeader
-          badge="Who We Serve"
-          title="Trusted Envelope & Restoration Partner"
-          description="From general contractors seeking reliable trade partners to property managers protecting their portfolios—we deliver specialized envelope and restoration solutions across Ontario and the GTA."
-          align="left"
-          maxWidth="lg"
-        />
+        {/* Section header with scroll reveal */}
+        <div
+          ref={headerRef}
+          className="max-w-4xl mb-12"
+          style={{
+            opacity: showHeader ? 1 : 0,
+            transform: showHeader ? "translateY(0)" : "translateY(24px)",
+            transition: prefersReducedMotion
+              ? "none"
+              : "opacity 300ms ease-out, transform 300ms ease-out",
+          }}
+        >
+          <SectionBadge icon={Users} text="Who We Serve" />
+          <h2 className="text-3xl md:text-5xl font-bold text-foreground mb-6 leading-tight tracking-tight">
+            Trusted Envelope & Restoration Partner
+          </h2>
+          <p className="text-xl md:text-2xl text-muted-foreground leading-relaxed">
+            From general contractors seeking reliable trade partners to property managers protecting their portfolios—we deliver specialized envelope and restoration solutions across Ontario and the GTA.
+          </p>
+        </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {clientSegments.map((segment) => {
-            const Icon = segment.icon;
-            const content = (
-              <Card
-                variant="interactive"
-                size="lg"
-                className="h-full group"
-              >
-                <div className="flex flex-col h-full">
-                  <div className="flex items-center gap-4 mb-4">
-                    <div className="w-14 h-14 rounded-[var(--radius-sm)] bg-primary/10 flex items-center justify-center flex-shrink-0">
-                      <Icon className="w-7 h-7 text-primary" />
-                    </div>
-                    <div>
-                      <div className="flex items-center gap-2">
-                        <h3 className="text-xl font-semibold">{segment.title}</h3>
-                        {segment.badge && (
-                          <span className="text-xs font-medium text-primary bg-primary/10 px-2 py-0.5 rounded-full">
-                            {segment.badge}
-                          </span>
-                        )}
-                      </div>
-                    </div>
-                  </div>
-                  <p className="text-sm text-muted-foreground leading-relaxed flex-1">
-                    {segment.description}
-                  </p>
-                  {segment.href && (
-                    <div className="mt-4 pt-4 border-t border-border">
-                      <span className="inline-flex items-center gap-1 text-sm font-medium text-primary group-hover:gap-2 transition-all">
-                        Learn More
-                        <ArrowRight className="w-4 h-4" />
-                      </span>
-                    </div>
-                  )}
-                </div>
-              </Card>
-            );
-
-            if (segment.href) {
-              return (
-                <Link key={segment.title} to={segment.href} className="block">
-                  {content}
-                </Link>
-              );
-            }
-            return <div key={segment.title}>{content}</div>;
-          })}
+        {/* Card grid with stagger */}
+        <div ref={gridRef} className={GRID.cards4}>
+          {clientSegments.map((segment, index) => (
+            <div
+              key={index}
+              style={{
+                opacity: showGrid ? 1 : 0,
+                transform: showGrid ? "translateY(0)" : "translateY(24px)",
+                transition: prefersReducedMotion
+                  ? "none"
+                  : `opacity 300ms ease-out, transform 300ms ease-out`,
+                transitionDelay: showGrid ? `${delays[index] ?? 0}ms` : "0ms",
+              }}
+            >
+              <ClientSegmentCard
+                icon={segment.icon}
+                title={segment.title}
+                description={segment.description}
+                link={segment.link}
+                examples={segment.examples}
+              />
+            </div>
+          ))}
         </div>
       </div>
     </Section>

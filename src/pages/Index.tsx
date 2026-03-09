@@ -9,9 +9,13 @@ import { TrustBadgeBar } from "@/components/homepage/TrustBadgeBar";
 import WhyChooseUs from "@/components/homepage/WhyChooseUs";
 import CompanyOverviewHub from "@/components/homepage/CompanyOverviewHub";
 import WhoWeServeHomepage from "@/components/homepage/WhoWeServeHomepage";
-import HomepageServiceHighlights from "@/components/homepage/HomepageServiceHighlights";
-import HomepageFeaturedProjects from "@/components/homepage/HomepageFeaturedProjects";
-import HomepageFinalCta from "@/components/homepage/HomepageFinalCta";
+import { HomepageProofStrip } from "@/components/homepage/HomepageProofStrip";
+import WhyChooseUs from "@/components/homepage/WhyChooseUs";
+import CompanyOverviewHub from "@/components/homepage/CompanyOverviewHub";
+import { HomepageProcessStrip } from "@/components/homepage/HomepageProcessStrip";
+import { HomepageServiceHighlights } from "@/components/homepage/HomepageServiceHighlights";
+import { HomepageFeaturedProjects } from "@/components/homepage/HomepageFeaturedProjects";
+import { HomepageFinalCta } from "@/components/homepage/HomepageFinalCta";
 import { videoSchema } from "@/utils/structured-data";
 import { getHomepageVideos } from "@/data/video-metadata";
 
@@ -114,13 +118,34 @@ const Index = () => {
         <Navigation />
 
         <main id="main-content" role="main">
+          {/* 1. Hero */}
           <EnhancedHero />
+
+          {/* 2. Trust badges */}
           <TrustBadgeBar />
+
+          {/* 3. Who We Serve */}
           <WhoWeServeHomepage />
+
+          {/* 4. By the Numbers proof strip */}
+          <HomepageProofStrip />
+
+          {/* 5. Why Choose Us */}
           <WhyChooseUs />
+
+          {/* 6. Company Overview */}
           <CompanyOverviewHub />
+
+          {/* 7. How We Work process strip */}
+          <HomepageProcessStrip />
+
+          {/* 8. Service Highlights */}
           <HomepageServiceHighlights />
+
+          {/* 9. Featured Projects */}
           <HomepageFeaturedProjects />
+
+          {/* 10. Final CTA */}
           <HomepageFinalCta />
         </main>
 

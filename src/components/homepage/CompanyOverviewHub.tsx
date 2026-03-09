@@ -4,9 +4,7 @@ import * as LucideIcons from "lucide-react";
 import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 import { useCompanyOverview } from "@/hooks/useCompanyOverview";
-import { Section } from "@/components/sections/Section";
-import { SectionHeader } from "@/design-system/components";
-import { Card } from "@/design-system/components/Card";
+import { useScrollFadeIn } from "@/hooks/useScrollFadeIn";
 
 // Fallback data — preserved from CMS-wired implementation
 const fallbackApproach = [
@@ -36,6 +34,9 @@ const CompanyOverviewHub = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
   const prefersReducedMotion = useReducedMotion();
   useIntersectionObserver(sectionRef, { threshold: 0.2 });
+  const { ref: headerRef, isVisible: headerVisible, skipAnimation: headerSkip } =
+    useScrollFadeIn();
+  const showHeader = headerVisible || headerSkip || prefersReducedMotion;
   
   const { sections, items } = useCompanyOverview();
   
@@ -57,9 +58,32 @@ const CompanyOverviewHub = () => {
     ? promiseItems.map(i => ({ title: i.title || "", description: i.content }))
     : fallbackPromise;
 
-  const hasApproach = OUR_APPROACH.length > 0;
-  const hasValues = COMPANY_VALUES.length > 0;
-  const hasPromise = OUR_PROMISE.length > 0;
+  return (
+    <section
+      ref={sectionRef}
+      className="py-20 md:py-28 lg:py-32 px-4 bg-gradient-to-b from-background to-muted/30"
+    >
+      <div className="container mx-auto max-w-7xl">
+        {/* Header */}
+        <div
+          ref={headerRef}
+          className="text-center mb-12"
+          style={{
+            opacity: showHeader ? 1 : 0,
+            transform: showHeader ? "translateY(0)" : "translateY(24px)",
+            transition: prefersReducedMotion
+              ? "none"
+              : "opacity 300ms ease-out, transform 300ms ease-out",
+          }}
+        >
+          <h2 className="text-4xl md:text-5xl font-bold mb-4 text-foreground">
+            Your Complete Construction Partner Across Ontario
+          </h2>
+          <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
+            From building envelope systems to specialty restoration, we deliver comprehensive solutions 
+            with the expertise, safety standards, and quality you expect from a trusted envelope & restoration contractor.
+          </p>
+        </div>
 
   return (
     <div ref={sectionRef}>
@@ -71,37 +95,68 @@ const CompanyOverviewHub = () => {
           maxWidth="lg"
         />
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          {/* Our Approach Column */}
-          {hasApproach && (
-            <Card variant="default" size="lg" className="h-full border-t-4 border-t-primary">
-              <h3 className="text-lg font-bold uppercase tracking-wider text-primary mb-6">Our Approach</h3>
-              <div className="space-y-4">
-                {OUR_APPROACH.map((item, index) => (
-                  <div key={index} className="flex items-start gap-3">
-                    <CheckCircle className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
-                    <span className="text-sm text-muted-foreground leading-relaxed">{item}</span>
-                  </div>
-                ))}
+          {/* Our Approach Tab */}
+          <TabsContent value="approach" className={!prefersReducedMotion ? 'animate-fade-in' : ''}>
+            <div className="bg-card rounded-[var(--radius-lg)] p-8 md:p-12 border">
+              <div className="max-w-4xl mx-auto">
+                <h3 className="text-2xl md:text-3xl font-bold mb-6 text-foreground">
+                  How We Deliver Excellence
+                </h3>
+                <p className="text-muted-foreground mb-8 text-lg">
+                  Our proven process ensures every project is completed to the highest standards,
+                  on time and within budget.
+                </p>
+                <div className="grid md:grid-cols-2 gap-4">
+                  {OUR_APPROACH.map((item, index) => (
+                    <div
+                      key={index}
+                      className="flex items-start gap-3 p-4 rounded-lg bg-muted/50 hover:bg-muted transition-colors"
+                      style={prefersReducedMotion ? undefined : {
+                        animationDelay: `${index * 80}ms`,
+                      }}
+                    >
+                      <CheckCircle className="w-6 h-6 text-primary flex-shrink-0 mt-0.5" />
+                      <span className="text-foreground">{item}</span>
+                    </div>
+                  ))}
+                </div>
               </div>
             </Card>
           )}
 
-          {/* Our Values Column */}
-          {hasValues && (
-            <Card variant="elevated" size="lg" className="h-full bg-primary text-primary-foreground">
-              <h3 className="text-lg font-bold uppercase tracking-wider mb-6">Our Values</h3>
-              <div className="space-y-5">
-                {COMPANY_VALUES.map((value, index) => {
-                  const Icon = (LucideIcons as any)[value.icon] || LucideIcons.Shield;
-                  return (
-                    <div key={index} className="flex items-start gap-3">
-                      <div className="w-9 h-9 rounded-[var(--radius-sm)] bg-primary-foreground/15 flex items-center justify-center flex-shrink-0">
-                        <Icon className="w-4 h-4 text-primary-foreground" />
-                      </div>
-                      <div>
-                        <p className="text-sm font-semibold mb-0.5">{value.title}</p>
-                        <p className="text-xs text-primary-foreground/80 leading-relaxed">{value.description}</p>
+          {/* Our Values Tab */}
+          <TabsContent value="values" className={!prefersReducedMotion ? 'animate-fade-in' : ''}>
+            <div className="bg-card rounded-[var(--radius-lg)] p-8 md:p-12 border">
+              <div className="max-w-4xl mx-auto">
+                <h3 className="text-2xl md:text-3xl font-bold mb-6 text-foreground text-center">
+                  Built on Core Values
+                </h3>
+                <p className="text-muted-foreground mb-10 text-lg text-center">
+                  These principles guide every decision we make and every project we undertake.
+                </p>
+                <div className="grid md:grid-cols-2 gap-6">
+                  {COMPANY_VALUES.map((value, index) => {
+                    const Icon = (LucideIcons as any)[value.icon] || LucideIcons.Shield;
+                    return (
+                      <div
+                        key={index}
+                        className="p-6 rounded-[var(--radius-lg)] bg-gradient-to-br from-muted/50 to-muted border hover:border-primary/50 transition-all hover:shadow-[var(--shadow-lg)] group"
+                        style={prefersReducedMotion ? undefined : {
+                          animationDelay: `${index * 100}ms`,
+                        }}
+                      >
+                        <div className="flex items-start gap-4">
+                          <div className="p-3 rounded-lg bg-primary/10 group-hover:bg-primary/20 transition-colors">
+                            <Icon className="w-6 h-6 text-primary" />
+                          </div>
+                        <div className="flex-1">
+                          <h4 className="text-xl font-semibold mb-2 text-foreground">
+                            {value.title}
+                          </h4>
+                          <p className="text-muted-foreground">
+                            {value.description}
+                          </p>
+                        </div>
                       </div>
                     </div>
                   );
@@ -110,17 +165,34 @@ const CompanyOverviewHub = () => {
             </Card>
           )}
 
-          {/* Our Promise Column */}
-          {hasPromise && (
-            <Card variant="default" size="lg" className="h-full border-t-4 border-t-accent">
-              <h3 className="text-lg font-bold uppercase tracking-wider text-foreground mb-6">Our Promise</h3>
-              <div className="space-y-5">
-                {OUR_PROMISE.map((promise, index) => (
-                  <div key={index} className="flex items-start gap-3">
-                    <Target className="w-5 h-5 text-accent flex-shrink-0 mt-0.5" />
-                    <div>
-                      <p className="text-sm font-semibold mb-0.5">{promise.title}</p>
-                      <p className="text-xs text-muted-foreground leading-relaxed">{promise.description}</p>
+          {/* Our Promise Tab */}
+          <TabsContent value="promise" className={!prefersReducedMotion ? 'animate-fade-in' : ''}>
+            <div className="bg-card rounded-[var(--radius-lg)] p-8 md:p-12 border">
+              <div className="max-w-4xl mx-auto">
+                <h3 className="text-2xl md:text-3xl font-bold mb-6 text-foreground text-center">
+                  Our Commitment to You
+                </h3>
+                <p className="text-muted-foreground mb-10 text-lg text-center">
+                  When you partner with us, you get guarantees that matter.
+                </p>
+                <div className="grid md:grid-cols-2 gap-6">
+                  {OUR_PROMISE.map((promise, index) => (
+                    <div
+                      key={index}
+                      className="p-6 rounded-[var(--radius-lg)] bg-muted/30 border hover:border-primary/50 transition-all hover:shadow-[var(--shadow-md)]"
+                      style={prefersReducedMotion ? undefined : {
+                        animationDelay: `${index * 100}ms`,
+                      }}
+                    >
+                      <div className="flex items-start gap-3 mb-3">
+                        <Target className="w-5 h-5 text-primary flex-shrink-0 mt-1" />
+                        <h4 className="text-xl font-semibold text-foreground">
+                          {promise.title}
+                        </h4>
+                      </div>
+                      <p className="text-muted-foreground ml-8">
+                        {promise.description}
+                      </p>
                     </div>
                   </div>
                 ))}

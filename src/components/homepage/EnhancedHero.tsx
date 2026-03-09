@@ -475,33 +475,19 @@ const EnhancedHero = ({ splashComplete = true }: { splashComplete?: boolean }) =
       {/* ── Gradient overlay ── */}
       <div className="absolute inset-0 z-[3] bg-gradient-to-b from-black/70 via-black/55 to-black/80" />
 
-      {/* ── Subtle film grain texture ── */}
-      <div
-        className="absolute inset-0 z-[4] pointer-events-none opacity-[0.03] mix-blend-overlay"
-        style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E")`,
-          backgroundSize: '128px 128px',
-        }}
-      />
-
-      {/* ── Blueprint geometry overlay ── */}
-      <HeroGeometry
-        slideIndex={currentSlide}
-        isFadingOut={transitionPhase === 'out'}
-        prefersReducedMotion={prefersReducedMotion}
-      />
-
-      {/* ── Content layer with staggered reveal ── */}
-      <div
-        ref={textLayerRef}
-        className="relative z-10 container mx-auto px-4 py-16 md:py-20 will-change-transform"
-        style={getContentStyle()}
-      >
-        <div className="max-w-5xl mx-auto" key={contentRevealKey}>
-          {/* Eyebrow / Trust Badge — reveals first */}
+      {/* Content */}
+        <div 
+          className="relative z-10 container mx-auto px-4 py-16 md:py-20"
+          style={{ 
+            opacity: isFadingOut ? 0 : 1,
+            transform: isFadingOut ? 'translateY(8px)' : 'translateY(0)',
+            transition: 'opacity 600ms ease-in-out, transform 600ms ease-in-out'
+          }}
+        >
+        <div className="max-w-4xl mx-auto">
+          {/* Single Trust Badge - Simplified for Professional Impact */}
           <div
-            className={`inline-flex items-center gap-3 rounded-full bg-white/10 backdrop-blur-xl border border-white/20 px-6 py-3 mb-10 ${shouldAnimate ? 'animate-hero-reveal' : ''}`}
-            style={revealStyle(0)}
+            className={`inline-flex items-center gap-3 rounded-full bg-white/10 backdrop-blur-sm border border-white/15 px-6 py-3 mb-10 ${animationsEnabled && !prefersReducedMotion ? 'animate-fade-in' : ''}`}
           >
             <Shield className="h-5 w-5 text-accent" />
             <span className="text-sm font-semibold text-white/90">Building Envelope & Restoration Specialists</span>
@@ -528,13 +514,12 @@ const EnhancedHero = ({ splashComplete = true }: { splashComplete?: boolean }) =
           >
             {headline}
           </h1>
-
-          {/* Subheadline — reveals fourth */}
+          {/* Separator between headline and subheadline */}
+          <div className="w-12 h-px bg-accent/60 mb-6" />
           <p
-            className={`text-lg md:text-xl lg:text-2xl text-white/90 mb-12 max-w-3xl leading-relaxed ${shouldAnimate ? 'animate-hero-reveal' : ''}`}
-            style={{
-              textShadow: '0 2px 20px rgba(0,0,0,0.4)',
-              ...revealStyle(3),
+            className={`text-lg md:text-xl lg:text-2xl text-white/90 mb-12 max-w-3xl leading-relaxed ${animationsEnabled && !prefersReducedMotion ? 'animate-fade-in' : ''}`}
+            style={{ 
+              textShadow: '0 2px 20px rgba(0,0,0,0.4)'
             }}
           >
             {subheadline}
