@@ -523,7 +523,8 @@ const ConstellationSection = ({ rm }: { rm: boolean }) => {
                     fontSize="1.8"
                     fontWeight="600"
                     initial={rm ? false : { opacity: 0 }}
-                    animate={showAnim ? { opacity: 1 } : {}}
+                    whileInView={{ opacity: 1 }}
+                    viewport={{ once: true, amount: 0.05 }}
                     transition={{ delay: 0.8 + i * 0.1, duration: 0.3 }}
                   >
                     {tool.label}
@@ -535,7 +536,8 @@ const ConstellationSection = ({ rm }: { rm: boolean }) => {
                     fill="hsl(var(--muted-foreground))"
                     fontSize="1.4"
                     initial={rm ? false : { opacity: 0 }}
-                    animate={showAnim ? { opacity: 1 } : {}}
+                    whileInView={{ opacity: 1 }}
+                    viewport={{ once: true, amount: 0.05 }}
                     transition={{ delay: 0.9 + i * 0.1, duration: 0.3 }}
                   >
                     {tool.sublabel}
