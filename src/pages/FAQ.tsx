@@ -45,7 +45,7 @@ const FAQ = () => {
         },
         {
           question: "How do I know if you're the right contractor for my project?",
-          answer: "We specialize in building envelope systems, EIFS/stucco, masonry restoration, waterproofing, cladding, protective coatings, commercial painting, and interior finishing. If your project involves exterior restoration, envelope remediation, or interior trade work in the GTA, we're likely a great fit. Schedule a consultation to discuss your specific needs."
+          answer: "We specialize in building envelope and restoration work — including façade remediation, waterproofing, EIFS and stucco systems, masonry restoration, cladding, and interior finishing. If your project involves any of these scopes in the GTA or Southern Ontario, we're likely a strong fit. We work directly with property owners, developers, property managers, and general contractors as a specialty prime contractor."
         },
       ],
     },
