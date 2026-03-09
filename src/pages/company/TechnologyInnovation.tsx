@@ -140,6 +140,36 @@ const TechnologyInnovation = () => {
           </div>
         </Section>
 
+        {/* Cross-links */}
+        <Section size="subsection" className="bg-muted/30">
+          <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+            <div className="p-6 bg-background rounded-lg border">
+              <h3 className="text-xl font-bold mb-3">See How We Apply These Tools</h3>
+              <p className="text-muted-foreground mb-4">
+                Our 7-step delivery process integrates digital documentation at every stage — from site assessment through closeout.
+              </p>
+              <Link
+                to="/our-process"
+                className="inline-flex items-center gap-2 text-primary font-medium hover:underline"
+              >
+                View Our Process <ArrowRight className="w-4 h-4" />
+              </Link>
+            </div>
+            <div className="p-6 bg-background rounded-lg border">
+              <h3 className="text-xl font-bold mb-3">Pre-Qualification Documents</h3>
+              <p className="text-muted-foreground mb-4">
+                Download our capability statement, insurance certificates, and safety documentation.
+              </p>
+              <Link
+                to="/prequalification"
+                className="inline-flex items-center gap-2 text-primary font-medium hover:underline"
+              >
+                View Pre-Qualification <ArrowRight className="w-4 h-4" />
+              </Link>
+            </div>
+          </div>
+        </Section>
+
         {/* Future Investment — clearly labeled */}
         <Section size="subsection" className="bg-muted/20">
           <div className="max-w-3xl mx-auto">
