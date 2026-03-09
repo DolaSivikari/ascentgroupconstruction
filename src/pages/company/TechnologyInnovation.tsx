@@ -78,7 +78,7 @@ const TechnologyInnovation = () => {
       <PageHero
         title="Technology & Digital Tools"
         description="How we use digital tools to improve coordination, documentation, and project quality"
-        image={resourceHeroes["submit-rfp"]}
+        image={resourceHeroes["service-areas"]}
         imageAlt="Digital tools used in construction project coordination"
         height="small"
         breadcrumbs={[
