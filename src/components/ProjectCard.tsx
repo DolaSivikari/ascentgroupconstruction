@@ -49,6 +49,7 @@ const ProjectCard = ({
   description,
   highlights,
   onViewDetails,
+  onQuickView,
   project_value,
   your_role,
   on_time_completion,
