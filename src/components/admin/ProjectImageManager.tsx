@@ -390,7 +390,7 @@ export const ProjectImageManager: React.FC<ProjectImageManagerProps> = ({
               <span className="text-xl">{cat.icon}</span>
               <span>{cat.label}</span>
               <span className={`px-2 py-0.5 rounded-full text-sm ${
-                selectedCategory === cat.value ? 'bg-[hsl(var(--bg))]/30' : 'bg-muted'
+                selectedCategory === cat.value ? 'bg-primary-foreground/30' : 'bg-muted'
               }`}>
                 {getCategoryCount(cat.value)}
               </span>
