@@ -74,7 +74,7 @@ export const migrateNavigationData = async () => {
               label: subItem.name,
               url: subItem.link,
               description: subItem.description,
-              badge: subItem.badge,
+              
               icon_name: subItem.icon,
               display_order: displayOrder,
               is_active: true,
