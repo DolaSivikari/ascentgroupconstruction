@@ -57,7 +57,7 @@ const CertificationsInsurance = () => {
       <>
         <SEO 
           title="Certifications & Insurance Coverage | Ascent Group Construction"
-          description="Licensed, bonded, and fully insured with $5M liability coverage. View our certifications including WSIB, COR, and industry memberships."
+        description="Licensed, bonded, and fully insured with $2M liability coverage. View our certifications including WSIB, COR, and industry memberships."
           keywords="insurance, certifications, WSIB, bonded, licensed, COR certificate"
         />
         <div className="min-h-screen bg-background">
