@@ -134,6 +134,7 @@ export function PageHero({
   // Extras
   stats,
   badge,
+  badges,
   showScrollIndicator = false,
   
   // Styling
