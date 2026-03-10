@@ -16,7 +16,6 @@ export const GridMegaMenuCard = ({
   name,
   link,
   description,
-  badge,
   onLinkClick,
 }: GridMegaMenuCardProps) => {
   // Get icon name from NAVIGATION_ICONS mapping
