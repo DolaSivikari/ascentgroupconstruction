@@ -382,15 +382,10 @@ const NavigationBuilder = () => {
           <div className="flex items-start gap-4">
             <Database className="h-6 w-6 text-primary mt-1" />
             <div className="flex-1">
-              <h3 className="font-semibold mb-2">Import Navigation Structure</h3>
+              <h3 className="font-semibold mb-2">No Navigation Items</h3>
               <p className="text-sm text-muted-foreground mb-4">
-                Your navigation database is empty. Import the default navigation structure 
-                (~35 menu items) to get started with database-driven navigation management.
+                Your navigation database is empty. Use the form below to add menu items.
               </p>
-              <Button onClick={handleMigration} disabled={migrating}>
-                <Download className="h-4 w-4 mr-2" />
-                {migrating ? 'Importing...' : 'Import Navigation Structure'}
-              </Button>
             </div>
           </div>
         </Card>

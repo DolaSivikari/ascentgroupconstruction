@@ -36,42 +36,9 @@ const QuickActions = () => {
 
   return (
     <div className="business-glass-card">
-      <div className="p-6 flex flex-row items-center justify-between border-b border-border">
-        <div>
-          <h3 className="business-section-title">Quick Actions</h3>
-          <p className="business-section-subtitle">Your most-used shortcuts</p>
-        </div>
-        <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
-          <DialogTrigger asChild>
-            <Button variant="ghost" size="sm" aria-label="Edit Quick Actions">
-              <Settings className="h-4 w-4" />
-            </Button>
-          </DialogTrigger>
-          <DialogContent>
-            <DialogHeader>
-              <DialogTitle>Customize Quick Actions</DialogTitle>
-              <DialogDescription>
-                Manage your shortcuts. Changes will be saved to your profile.
-              </DialogDescription>
-            </DialogHeader>
-            <div className="space-y-4">
-              <p className="text-sm text-muted-foreground">
-                Quick Actions customization coming soon. Current shortcuts:
-              </p>
-              <ul className="text-sm space-y-2">
-                {actions.map((action, idx) => (
-                  <li key={idx} className="flex items-center gap-2">
-                    <span className="font-medium">{action.label}</span>
-                    <span className="text-muted-foreground">→ {action.path}</span>
-                  </li>
-                ))}
-              </ul>
-              <Button onClick={() => setIsEditDialogOpen(false)} className="w-full">
-                Close
-              </Button>
-            </div>
-          </DialogContent>
-        </Dialog>
+      <div className="p-6 border-b border-border">
+        <h3 className="business-section-title">Quick Actions</h3>
+        <p className="business-section-subtitle">Your most-used shortcuts</p>
       </div>
       <div className="p-6">
         <div className="grid grid-cols-2 gap-3">
