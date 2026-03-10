@@ -98,7 +98,7 @@ const SortableImageCard: React.FC<SortableImageCardProps> = ({
       {/* Category Badge */}
       <div className={`absolute top-2 right-2 z-10 px-2 py-1 rounded-full text-xs font-medium ${
         categories.find(c => c.value === image.category)?.color
-      } text-[hsl(var(--bg))]`}>
+      } text-primary-foreground`}>
         {categories.find(c => c.value === image.category)?.label}
       </div>
 
