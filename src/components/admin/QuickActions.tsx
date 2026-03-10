@@ -1,7 +1,4 @@
-import { useState } from "react";
-import { Button } from "@/ui/Button";
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
-import { FileText, Briefcase, Image, Users, Search, Activity, ExternalLink, Settings } from "lucide-react";
+import { FileText, Briefcase, Image, Users, Search, Activity, ExternalLink } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { ADMIN_ROUTES } from "@/utils/routeHelpers";
 
