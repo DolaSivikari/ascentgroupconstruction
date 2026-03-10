@@ -196,6 +196,8 @@ export const AppRoutes = () => (
     <Route path="/estimate" element={<Estimate />} />
     <Route path="/submit-rfp" element={<SubmitRFPNew />} />
     <Route path="/for-general-contractors" element={<ForGeneralContractors />} />
+    <Route path="/for-architects" element={<ForArchitects />} />
+    <Route path="/emergency-repair" element={<EmergencyRepair />} />
     <Route path="/privacy" element={<Privacy />} />
     <Route path="/terms" element={<Terms />} />
     <Route path="/accessibility" element={<Accessibility />} />
