@@ -28,6 +28,7 @@ const BlogCard = ({ post }: BlogCardProps) => {
   
   const excerpt = post.summary || post.excerpt || '';
   const image = post.featured_image || post.image || '';
+  const readTime = excerpt ? Math.max(1, Math.ceil(excerpt.split(/\s+/).length / 200)) : 3;
 
   return (
     <Link to={`/blog/${post.slug}`}>
