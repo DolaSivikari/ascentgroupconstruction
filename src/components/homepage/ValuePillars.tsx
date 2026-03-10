@@ -1,8 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { Card, CardContent } from "@/design-system/components/Card";
-import * as LucideIcons from "lucide-react";
-import { LucideIcon } from "lucide-react";
+import { getIcon } from "@/utils/getIcon";
 import { LAYOUT } from "@/design-system/constants";
 
 interface ValuePillar {
@@ -51,9 +50,7 @@ const ValuePillars = () => {
       <div className={`container mx-auto ${LAYOUT.containerPadding} ${LAYOUT.maxWidth}`}>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {pillars.map((pillar) => {
-            const IconComponent = pillar.icon_name
-              ? (LucideIcons[pillar.icon_name as keyof typeof LucideIcons] as LucideIcon)
-              : null;
+            const IconComponent = getIcon(pillar.icon_name, null);
 
             return (
               <Card 

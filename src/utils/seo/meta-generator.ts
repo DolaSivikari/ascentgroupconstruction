@@ -3,7 +3,7 @@
  * Generates comprehensive meta tags for SEO and social sharing
  */
 
-const SITE_URL = 'https://ascentgroupconstruction.com';
+import { SITE_URL, COMPANY_NAME } from '@/constants/company';
 const DEFAULT_IMAGE = '/og-image.jpg';
 
 export interface PageMeta {
@@ -54,7 +54,7 @@ export interface MetaTag {
 export function generateMetaTags(meta: PageMeta, pathname: string): MetaTag[] {
   const fullTitle = meta.title.includes('Ascent') 
     ? meta.title 
-    : `${meta.title} | Ascent Group Construction`;
+    : `${meta.title} | ${COMPANY_NAME}`;
   
   const canonicalUrl = meta.canonical || `${SITE_URL}${pathname}`;
   const ogImage = meta.ogImage || DEFAULT_IMAGE;
@@ -77,7 +77,7 @@ export function generateMetaTags(meta: PageMeta, pathname: string): MetaTag[] {
     { property: 'og:url', content: canonicalUrl },
     { property: 'og:type', content: meta.ogType || 'website' },
     { property: 'og:locale', content: 'en_CA' },
-    { property: 'og:site_name', content: 'Ascent Group Construction' },
+    { property: 'og:site_name', content: COMPANY_NAME },
     
     // Twitter
     { name: 'twitter:card', content: meta.twitterCard || 'summary_large_image' },
@@ -176,7 +176,7 @@ export function formatPageTitle(title: string, includeCompany = true): string {
   if (title.toLowerCase().includes('ascent')) {
     return title;
   }
-  return includeCompany ? `${title} | Ascent Group Construction` : title;
+  return includeCompany ? `${title} | ${COMPANY_NAME}` : title;
 }
 
 /**

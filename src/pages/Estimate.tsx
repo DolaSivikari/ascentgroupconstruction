@@ -24,7 +24,6 @@ import EstimatorStep5 from "@/components/estimator/EstimatorStep5";
 import { calculateEstimate, EstimateInput } from "@/utils/estimator";
 import { trackConversion } from "@/lib/analytics";
 import { trackABTestConversion } from "@/hooks/useABTest";
-import { resourceHeroes } from "@/data/hero-images";
 
 // Validation schema for estimate form
 const estimateSchema = z.object({
@@ -47,7 +46,7 @@ const Estimate = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const isSubmittingRef = useRef(false);
-  const finalStep = 6;
+  const finalStep = 5;
   const totalSteps = finalStep + 1;
 
   const [formData, setFormData] = useState({
@@ -212,9 +211,7 @@ const Estimate = () => {
       case 4:
         return true;
       case 5:
-        return true;
-      case 6:
-        return formData.name && formData.email && formData.phone;
+        return !!(formData.name && formData.email && formData.phone);
       default:
         return false;
     }
@@ -486,8 +483,7 @@ Add-ons:
               {currentStep === 2 && (<EstimatorStep2Enhanced service={formData.service} data={{ prepComplexity: formData.prepComplexity, finishQuality: formData.finishQuality, region: formData.region, buildingType: formData.buildingType, accessibility: formData.accessibility, businessHoursConstraint: formData.businessHoursConstraint, unitCount: formData.unitCount, includeCommonAreas: formData.includeCommonAreas, materialType: formData.materialType }} onChange={handleInputChange} />)}
               {currentStep === 3 && (<EstimatorStep3 data={{ scaffolding: formData.scaffolding, colorConsultation: formData.colorConsultation, rushScheduling: formData.rushScheduling, warrantyExtension: formData.warrantyExtension, siteCleanup: formData.siteCleanup }} sqft={parseInt(formData.sqft) || 0} onChange={handleInputChange} />)}
               {currentStep === 4 && (<EstimatorStep4 estimate={estimate} formData={formData} />)}
-              {currentStep === 5 && (<EstimatorStep3 data={{ scaffolding: formData.scaffolding, colorConsultation: formData.colorConsultation, rushScheduling: formData.rushScheduling, warrantyExtension: formData.warrantyExtension, siteCleanup: formData.siteCleanup }} sqft={parseInt(formData.sqft) || 0} onChange={handleInputChange} />)}
-              {currentStep === 6 && (<EstimatorStep5 data={{ name: formData.name, email: formData.email, phone: formData.phone, address: formData.address, preferredContact: formData.preferredContact, notes: formData.notes, consent: formData.consent }} onChange={handleInputChange} />)}
+              {currentStep === 5 && (<EstimatorStep5 data={{ name: formData.name, email: formData.email, phone: formData.phone, address: formData.address, preferredContact: formData.preferredContact, notes: formData.notes, consent: formData.consent }} onChange={handleInputChange} />)}
             </Card>
 
             {/* Navigation Buttons */}

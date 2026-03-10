@@ -163,11 +163,11 @@ const Projects = () => {
       if (selectedValueRange === "All") return true;
       const projectValue = project.project_value || 0;
       
-      if (selectedValueRange === "0-500000") return projectValue < 50000000; // $500K in cents
-      if (selectedValueRange === "500000-1000000") return projectValue >= 50000000 && projectValue < 100000000;
-      if (selectedValueRange === "1000000-2500000") return projectValue >= 100000000 && projectValue < 250000000;
-      if (selectedValueRange === "2500000-5000000") return projectValue >= 250000000 && projectValue < 500000000;
-      if (selectedValueRange === "5000000+") return projectValue >= 500000000;
+      if (selectedValueRange === "0-500000") return projectValue < 500000;
+      if (selectedValueRange === "500000-1000000") return projectValue >= 500000 && projectValue < 1000000;
+      if (selectedValueRange === "1000000-2500000") return projectValue >= 1000000 && projectValue < 2500000;
+      if (selectedValueRange === "2500000-5000000") return projectValue >= 2500000 && projectValue < 5000000;
+      if (selectedValueRange === "5000000+") return projectValue >= 5000000;
       return true;
     })();
 

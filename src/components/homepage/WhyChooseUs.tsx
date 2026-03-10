@@ -1,4 +1,5 @@
-import * as LucideIcons from "lucide-react";
+import { BadgeCheck } from "lucide-react";
+import { getIcon } from "@/utils/getIcon";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useWhyChooseUs } from "@/hooks/useWhyChooseUs";
@@ -66,7 +67,7 @@ const WhyChooseUs = () => {
         ) : (
           <div className={GRID.cards3}>
             {differentiators.map((item, index) => {
-              const Icon = (LucideIcons as any)[item.icon] || LucideIcons.BadgeCheck;
+              const Icon = getIcon(item.icon, BadgeCheck)!;
               return (
                 <motion.div
                   key={index}

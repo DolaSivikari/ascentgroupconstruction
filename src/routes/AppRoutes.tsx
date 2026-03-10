@@ -72,7 +72,6 @@ const Settings = lazyWithFallback(() => import("@/pages/admin/Settings"), 'Setti
 const ServicesManager = lazyWithFallback(() => import("@/pages/admin/ServicesManager"), 'Services Manager');
 const Notifications = lazyWithFallback(() => import("@/pages/admin/Notifications"), 'Notifications');
 const EmailTemplates = lazyWithFallback(() => import("@/pages/admin/EmailTemplates"), 'Email Templates');
-const Testing = lazyWithFallback(() => import("@/pages/admin/Testing"), 'Testing');
 const UnifiedAdminLayout = lazy(() => import("@/components/admin/UnifiedAdminLayout").then(m => ({ default: m.UnifiedAdminLayout })).catch(() => ({
   default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Admin Layout</p></div>
 })));
@@ -161,7 +160,6 @@ const AdminRouteGroup = () => (
     <Route path="inbox" element={<UnifiedInbox />} />
     <Route path="notifications" element={<Notifications />} />
     <Route path="email-templates" element={<EmailTemplates />} />
-    <Route path="testing" element={<Testing />} />
     <Route path="homepage-builder" element={<HomepageBuilder />} />
     <Route path="homepage-content" element={<Navigate to="/admin/homepage-builder" replace />} />
     <Route path="homepage-settings" element={<Navigate to="/admin/homepage-builder" replace />} />
