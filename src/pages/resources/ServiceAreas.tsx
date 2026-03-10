@@ -91,18 +91,22 @@ const ServiceAreas = () => {
             <h2 className="text-3xl font-bold text-foreground mb-2">Primary Service Cities</h2>
             <p className="text-muted-foreground mb-8">Areas with same-day emergency service and fastest response times</p>
             <div className="grid md:grid-cols-3 lg:grid-cols-5 gap-4">
-              {primaryServiceCities.map((city, index) => (
-                <Card 
-                  key={city} 
-                  className="text-center hover:shadow-[var(--shadow-lg)] hover:-translate-y-1 transition-all duration-300 group border-2 hover:border-primary/30 animate-fade-in-up p-0"
-                  style={{ animationDelay: `${index * 50}ms` }}
-                >
-                  <CardContent className="p-6">
-                    <CheckCircle2 className="h-8 w-8 text-primary mx-auto mb-2 group-hover:scale-110 transition-transform duration-300" />
-                    <h3 className="font-semibold text-foreground">{city}</h3>
-                  </CardContent>
-                </Card>
-              ))}
+              {primaryServiceCities.map((city, index) => {
+                const slug = city.toLowerCase().replace(/\s+/g, '-');
+                return (
+                  <Link key={city} to={`/service-areas/${slug}`}>
+                    <Card 
+                      className="text-center hover:shadow-[var(--shadow-lg)] hover:-translate-y-1 transition-all duration-300 group border-2 hover:border-primary/30 animate-fade-in-up p-0"
+                      style={{ animationDelay: `${index * 50}ms` }}
+                    >
+                      <CardContent className="p-6">
+                        <CheckCircle2 className="h-8 w-8 text-primary mx-auto mb-2 group-hover:scale-110 transition-transform duration-300" />
+                        <h3 className="font-semibold text-foreground">{city}</h3>
+                      </CardContent>
+                    </Card>
+                  </Link>
+                );
+              })}
             </div>
           </section>
 
