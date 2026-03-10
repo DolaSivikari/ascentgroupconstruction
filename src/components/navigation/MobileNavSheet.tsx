@@ -14,8 +14,7 @@ import {
 } from "@/components/ui/accordion";
 import { Button } from "@/ui/Button";
 import { Input } from "@/ui/Input";
-import { Search, Users, Building, Wrench, Star, X, Home, Mail, FileText, Briefcase, Sparkles, ChevronRight, Clock, ArrowRight } from "lucide-react";
-import { Badge } from "@/components/ui/badge";
+import { Search, Users, Building, Wrench, X, Home, Mail, FileText, Briefcase, ChevronRight, Clock, ArrowRight } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
 import { megaMenuDataEnhanced } from "@/data/navigation-structure-enhanced";
 import { NAVIGATION_ICONS } from "@/data/navigation-icons";
@@ -41,23 +40,6 @@ interface MobileNavSheetProps {
   onOpenChange: (open: boolean) => void;
 }
 
-/** Unified badge renderer for all accordion sections */
-const renderBadge = (badge?: SubItem["badge"]) => {
-  if (!badge) return null;
-  return (
-    <Badge
-      variant={badge === "new" ? "secondary" : "default"}
-      size="xs"
-      className="ml-2"
-    >
-      {badge === "new" ? (
-        <Sparkles className="h-3 w-3" aria-hidden="true" />
-      ) : (
-        <Star className="h-3 w-3" aria-hidden="true" />
-      )}
-    </Badge>
-  );
-};
 
 export function MobileNavSheet({ open, onOpenChange }: MobileNavSheetProps) {
   const location = useLocation();
@@ -393,7 +375,6 @@ export function MobileNavSheet({ open, onOpenChange }: MobileNavSheetProps) {
                                             <span className="text-xs text-muted-foreground/70 block">{description}</span>
                                           )}
                                         </div>
-                                        {renderBadge(item.badge)}
                                       </Link>
                                     );
                                   })}
@@ -459,7 +440,6 @@ export function MobileNavSheet({ open, onOpenChange }: MobileNavSheetProps) {
                                             <span className="text-xs text-muted-foreground/70 block">{description}</span>
                                           )}
                                         </div>
-                                        {renderBadge(item.badge)}
                                       </Link>
                                     );
                                   })}
@@ -528,7 +508,6 @@ export function MobileNavSheet({ open, onOpenChange }: MobileNavSheetProps) {
                                             <span className="text-xs text-muted-foreground/70 block">{description}</span>
                                           )}
                                         </div>
-                                        {renderBadge(item.badge)}
                                       </Link>
                                     );
                                   })}
@@ -590,7 +569,7 @@ export function MobileNavSheet({ open, onOpenChange }: MobileNavSheetProps) {
                                             <span className="text-xs text-muted-foreground/70 block">{description}</span>
                                           )}
                                         </div>
-                                        {renderBadge(item.badge)}
+                                        
                                       </Link>
                                     );
                                   })}

@@ -34,7 +34,7 @@ export const GridMegaMenuSection = ({
                 name={item.name}
                 link={item.link}
                 description={item.description}
-                badge={item.badge}
+                
                 onLinkClick={onLinkClick}
               />
             ))}

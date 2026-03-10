@@ -5,7 +5,7 @@ export interface SubItem {
   name: string;
   link: string;
   description?: string;
-  badge?: "new" | "popular" | "important";
+  
   icon?: string;
   isFeatured?: boolean;
 }
@@ -69,7 +69,7 @@ export const megaMenuDataEnhanced: MegaMenuDataEnhanced = {
               { name: "Façade Remediation", link: "/services/facade-remediation", description: "Exterior restoration", icon: "Hammer" },
               { name: "Parking Garage Restoration", link: "/services/parking-garage-restoration", description: "Structural concrete repair", icon: "Car" },
               { name: "Sealant Programs", link: "/services/sealant-programs", description: "Joint maintenance programs", icon: "Wrench" },
-              { name: "Emergency Repair", link: "/emergency-repair", description: "24/7 urgent response", icon: "AlertTriangle", badge: "important" },
+              { name: "Emergency Repair", link: "/emergency-repair", description: "24/7 urgent response", icon: "AlertTriangle" },
             ],
           },
           {
@@ -114,9 +114,9 @@ export const megaMenuDataEnhanced: MegaMenuDataEnhanced = {
           {
             title: "Industry Partners",
             subItems: [
-              { name: "General Contractors", link: "/for-general-contractors", description: "Trade partnerships", icon: "HardHat", badge: "important" },
+              { name: "General Contractors", link: "/for-general-contractors", description: "Trade partnerships", icon: "HardHat" },
               { name: "Developers", link: "/company/developers", description: "Development projects", icon: "Building" },
-              { name: "Architects & Consultants", link: "/for-architects", description: "Design professional partners", icon: "Ruler", badge: "new" },
+              { name: "Architects & Consultants", link: "/for-architects", description: "Design professional partners", icon: "Ruler" },
             ],
           },
         ],
@@ -183,7 +183,7 @@ export const megaMenuDataEnhanced: MegaMenuDataEnhanced = {
           {
             title: "Resources",
             subItems: [
-              { name: "Contractor Portal", link: "/resources/contractor-portal", description: "Access your documents", icon: "Layout", isFeatured: true, badge: "important" },
+              { name: "Contractor Portal", link: "/resources/contractor-portal", description: "Access your documents", icon: "Layout", isFeatured: true },
               { name: "Blog", link: "/blog", description: "Industry insights", icon: "BookOpen" },
             ],
           },

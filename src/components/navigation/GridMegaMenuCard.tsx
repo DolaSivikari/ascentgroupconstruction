@@ -1,14 +1,14 @@
 import { Link } from "react-router-dom";
 import { LucideIcon } from "lucide-react";
 import * as Icons from "lucide-react";
-import { NavBadge } from "@/components/ui/nav-badge";
+
 import { NAVIGATION_ICONS } from "@/data/navigation-icons";
 
 interface GridMegaMenuCardProps {
   name: string;
   link: string;
   description?: string;
-  badge?: "new" | "popular" | "important";
+  
   onLinkClick: () => void;
 }
 
@@ -16,7 +16,6 @@ export const GridMegaMenuCard = ({
   name,
   link,
   description,
-  badge,
   onLinkClick,
 }: GridMegaMenuCardProps) => {
   // Get icon name from NAVIGATION_ICONS mapping
@@ -34,7 +33,6 @@ export const GridMegaMenuCard = ({
         <div className="flex-shrink-0 w-10 h-10 rounded-md bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 group-hover:scale-110 transition-all duration-300">
           <Icon className="w-5 h-5 text-primary" />
         </div>
-        {badge && <NavBadge variant={badge} />}
       </div>
 
       {/* Content */}

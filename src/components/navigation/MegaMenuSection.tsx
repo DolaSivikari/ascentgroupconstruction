@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { Section, SubItem } from "@/data/navigation-structure-enhanced";
-import { NavBadge } from "@/components/ui/nav-badge";
+
 import { getIcon } from "@/utils/getIcon";
 import { cn } from "@/lib/utils";
 
@@ -67,9 +67,6 @@ export const MegaMenuSection = ({
                         item.isFeatured && "text-accent"
                       )}>
                         {item.name}
-                        {item.badge && (
-                          <NavBadge variant={item.badge} className="ml-2" />
-                        )}
                       </span>
                     </Link>
                   </li>
