@@ -28,8 +28,8 @@ const ServiceAreas = () => {
       responseTime: "Next business day response",
     },
     {
-      name: "Halton Region",
-      cities: ["Oakville", "Burlington", "Milton"],
+      name: "Halton & Hamilton",
+      cities: ["Oakville", "Burlington", "Milton", "Hamilton"],
       responseTime: "Next business day response",
     },
   ];
@@ -91,18 +91,22 @@ const ServiceAreas = () => {
             <h2 className="text-3xl font-bold text-foreground mb-2">Primary Service Cities</h2>
             <p className="text-muted-foreground mb-8">Areas with same-day emergency service and fastest response times</p>
             <div className="grid md:grid-cols-3 lg:grid-cols-5 gap-4">
-              {primaryServiceCities.map((city, index) => (
-                <Card 
-                  key={city} 
-                  className="text-center hover:shadow-[var(--shadow-lg)] hover:-translate-y-1 transition-all duration-300 group border-2 hover:border-primary/30 animate-fade-in-up p-0"
-                  style={{ animationDelay: `${index * 50}ms` }}
-                >
-                  <CardContent className="p-6">
-                    <CheckCircle2 className="h-8 w-8 text-primary mx-auto mb-2 group-hover:scale-110 transition-transform duration-300" />
-                    <h3 className="font-semibold text-foreground">{city}</h3>
-                  </CardContent>
-                </Card>
-              ))}
+              {primaryServiceCities.map((city, index) => {
+                const slug = city.toLowerCase().replace(/\s+/g, '-');
+                return (
+                  <Link key={city} to={`/service-areas/${slug}`}>
+                    <Card 
+                      className="text-center hover:shadow-[var(--shadow-lg)] hover:-translate-y-1 transition-all duration-300 group border-2 hover:border-primary/30 animate-fade-in-up p-0"
+                      style={{ animationDelay: `${index * 50}ms` }}
+                    >
+                      <CardContent className="p-6">
+                        <CheckCircle2 className="h-8 w-8 text-primary mx-auto mb-2 group-hover:scale-110 transition-transform duration-300" />
+                        <h3 className="font-semibold text-foreground">{city}</h3>
+                      </CardContent>
+                    </Card>
+                  </Link>
+                );
+              })}
             </div>
           </section>
 
@@ -128,14 +132,18 @@ const ServiceAreas = () => {
                       </div>
                     </div>
                     <div className="flex flex-wrap gap-2">
-                      {region.cities.map((city) => (
-                        <span
-                          key={city}
-                          className="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm"
-                        >
-                          {city}
-                        </span>
-                      ))}
+                      {region.cities.map((city) => {
+                        const slug = city.toLowerCase().replace(/\s+/g, '-');
+                        return (
+                          <Link
+                            key={city}
+                            to={`/service-areas/${slug}`}
+                            className="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm hover:bg-primary/20 transition-colors"
+                          >
+                            {city}
+                          </Link>
+                        );
+                      })}
                     </div>
                   </CardContent>
                 </Card>
@@ -150,12 +158,15 @@ const ServiceAreas = () => {
             <Card className="p-0">
               <CardContent className="p-8">
                 <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                  {serviceAreaCities.map((city) => (
-                    <div key={city} className="flex items-center gap-2">
-                      <CheckCircle2 className="h-4 w-4 text-primary flex-shrink-0" />
-                      <span className="text-sm text-foreground">{city}</span>
-                    </div>
-                  ))}
+                  {serviceAreaCities.map((city) => {
+                    const slug = city.toLowerCase().replace(/\s+/g, '-');
+                    return (
+                      <Link key={city} to={`/service-areas/${slug}`} className="flex items-center gap-2 hover:text-primary transition-colors">
+                        <CheckCircle2 className="h-4 w-4 text-primary flex-shrink-0" />
+                        <span className="text-sm text-foreground">{city}</span>
+                      </Link>
+                    );
+                  })}
                 </div>
               </CardContent>
             </Card>
