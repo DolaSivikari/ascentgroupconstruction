@@ -32,6 +32,8 @@ import LocationPage from "@/pages/resources/LocationPage";
 import Technology from "@/pages/company/Technology";
 import Developers from "@/pages/company/Developers";
 import ForGeneralContractors from "@/pages/ForGeneralContractors";
+import ForArchitects from "@/pages/ForArchitects";
+import EmergencyRepair from "@/pages/EmergencyRepair";
 import SubmitRFPNew from "@/pages/SubmitRFPNew";
 import Privacy from "@/pages/Privacy";
 import Terms from "@/pages/Terms";
