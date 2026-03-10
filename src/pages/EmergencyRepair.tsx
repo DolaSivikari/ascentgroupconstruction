@@ -23,6 +23,7 @@ import {
   CheckCircle,
   ArrowRight,
   MapPin,
+  Zap,
 } from "lucide-react";
 import { serviceHeroes } from "@/data/hero-images";
 import { serviceAreaCities, primaryServiceCities } from "@/data/service-area-cities";
