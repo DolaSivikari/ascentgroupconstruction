@@ -24,8 +24,8 @@ export const ClientSegmentCard = ({
   return (
     <Card variant="interactive" hover className={cn("h-full", className)}>
       <CardContent className="p-8 flex flex-col h-full">
-        <div className="w-16 h-16 rounded-full bg-construction-orange/10 flex items-center justify-center mb-6">
-          <Icon className="w-8 h-8 text-construction-orange" />
+        <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mb-6">
+          <Icon className="w-8 h-8 text-primary" />
         </div>
         <h3 className="text-2xl font-bold text-foreground mb-3">{title}</h3>
         <p className="text-muted-foreground leading-relaxed mb-4 flex-grow">
