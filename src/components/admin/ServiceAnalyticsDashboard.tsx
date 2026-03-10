@@ -5,7 +5,6 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { Badge } from "@/components/ui/badge";
 
 export function ServiceAnalyticsDashboard() {
-  const { useAnalyticsDashboard } = useServiceAnalytics();
   const { data: analytics, isLoading } = useAnalyticsDashboard();
 
   if (isLoading) {
