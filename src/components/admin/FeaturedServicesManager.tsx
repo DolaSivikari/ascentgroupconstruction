@@ -6,7 +6,7 @@ import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import { Badge } from "@/components/ui/badge";
 import { useFeaturedServicesAdmin } from "@/hooks/useFeaturedServices";
-import { Plus, Edit, Trash2, Star } from "lucide-react";
+import { Plus, Trash2, Star } from "lucide-react";
 import { toast } from "sonner";
 
 export function FeaturedServicesManager() {
