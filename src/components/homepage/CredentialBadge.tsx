@@ -1,4 +1,5 @@
-import * as LucideIcons from "lucide-react";
+import { BadgeCheck } from "lucide-react";
+import { getIcon } from "@/utils/getIcon";
 
 interface CredentialBadgeProps {
   icon: string;
@@ -7,7 +8,7 @@ interface CredentialBadgeProps {
 }
 
 const CredentialBadge = ({ icon, stat, label }: CredentialBadgeProps) => {
-  const Icon = (LucideIcons as any)[icon] || LucideIcons.BadgeCheck;
+  const Icon = getIcon(icon, BadgeCheck)!;
 
   return (
     <div className="flex items-start gap-3 p-4 rounded-lg bg-muted/30 hover:bg-muted/50 transition-colors group">

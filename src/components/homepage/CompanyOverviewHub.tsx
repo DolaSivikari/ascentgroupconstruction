@@ -1,6 +1,6 @@
 import { useRef } from "react";
-import { CheckCircle, Target } from "lucide-react";
-import * as LucideIcons from "lucide-react";
+import { CheckCircle, Target, Shield } from "lucide-react";
+import { getIcon } from "@/utils/getIcon";
 import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 import { useCompanyOverview } from "@/hooks/useCompanyOverview";
@@ -120,7 +120,7 @@ const CompanyOverviewHub = () => {
             </p>
             <div className="grid md:grid-cols-2 gap-6">
               {COMPANY_VALUES.map((value, index) => {
-                const Icon = (LucideIcons as any)[value.icon] || LucideIcons.Shield;
+                const Icon = getIcon(value.icon, Shield)!;
                 return (
                   <div
                     key={index}

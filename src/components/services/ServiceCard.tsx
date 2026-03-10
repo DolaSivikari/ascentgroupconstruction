@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
 import { Card, CardContent } from "@/design-system/components/Card";
 import { Badge } from "@/components/ui/badge";
-import * as LucideIcons from "lucide-react";
-import { Building2, Home, Factory, Clock, ArrowRight, Star } from "lucide-react";
+import { Building2, Home, Factory, Clock, ArrowRight, Star, Wrench } from "lucide-react";
+import { getIcon } from "@/utils/getIcon";
 
 interface ServiceCardProps {
   id: string;
@@ -32,9 +32,7 @@ export const ServiceCard = ({
   typical_timeline,
   project_types,
 }: ServiceCardProps) => {
-  const IconComponent = icon_name && LucideIcons[icon_name as keyof typeof LucideIcons]
-    ? (LucideIcons[icon_name as keyof typeof LucideIcons] as React.ComponentType<{ className?: string }>)
-    : LucideIcons.Wrench;
+  const IconComponent = getIcon(icon_name ?? undefined, Wrench)!;
 
   return (
     <Link to={`/services/${slug}`} className="group">

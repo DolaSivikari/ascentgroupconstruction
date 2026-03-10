@@ -2,7 +2,7 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
-import * as LucideIcons from "lucide-react";
+import { getIcon } from "@/utils/getIcon";
 import { use3DTilt } from "@/hooks/use3DTilt";
 
 interface ServiceCard3DProps {
@@ -27,9 +27,7 @@ export const ServiceCard3D = ({
   });
   const [isHovered, setIsHovered] = useState(false);
 
-  const IconComponent = icon_name
-    ? (LucideIcons[icon_name as keyof typeof LucideIcons] as any)
-    : null;
+  const IconComponent = getIcon(icon_name ?? undefined, null);
 
   return (
     <Link to={`/services/${slug}`}>

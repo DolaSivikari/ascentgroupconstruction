@@ -3,10 +3,13 @@ import { ChevronRight } from "lucide-react";
 
 /**
  * Resolve a Lucide icon component by name string.
- * Returns ChevronRight as fallback if the icon name is not found.
+ * Pass a custom fallback (or null to suppress rendering) if ChevronRight isn't appropriate.
  */
-export const getIcon = (iconName?: string) => {
-  if (!iconName) return ChevronRight;
+export const getIcon = (
+  iconName?: string,
+  fallback: React.ComponentType<any> | null = ChevronRight
+): React.ComponentType<any> | null => {
+  if (!iconName) return fallback;
   const Icon = (LucideIcons as any)[iconName];
-  return Icon || ChevronRight;
+  return Icon || fallback;
 };

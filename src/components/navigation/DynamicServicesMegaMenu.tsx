@@ -51,7 +51,6 @@ export const DynamicServicesMegaMenu = ({ isOpen, onClose }: DynamicServicesMega
         "mega-menu-transition origin-top",
         isOpen ? "opacity-100 visible scale-y-100" : "opacity-0 invisible scale-y-95"
       )}
-      onMouseEnter={() => {}}
       onMouseLeave={onClose}
     >
       <div className="grid grid-cols-[1fr_1fr_240px] gap-6 p-6">

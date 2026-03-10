@@ -3,16 +3,16 @@
  * Comprehensive schemas for SEO and AI discoverability
  */
 
-const SITE_URL = 'https://ascentgroupconstruction.com';
+import { SITE_URL, COMPANY_NAME, COMPANY_PHONE_E164, COMPANY_EMAIL } from '@/constants/company';
 
 // Company constants
 export const COMPANY = {
-  name: 'Ascent Group Construction',
+  name: COMPANY_NAME,
   alternateName: 'Ascent Group',
   description: 'Specialty contractor in Ontario & GTA delivering building envelope, façade remediation, waterproofing, and restoration services.',
   slogan: 'Envelope & Restoration Specialists',
-  phone: '+1-647-528-6804',
-  email: 'info@ascentgroupconstruction.com',
+  phone: COMPANY_PHONE_E164,
+  email: COMPANY_EMAIL,
   foundingDate: '2025',
   founder: 'Hebun Isik',
   address: {
