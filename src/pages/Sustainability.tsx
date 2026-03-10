@@ -78,7 +78,7 @@ const Sustainability = () => {
     <div className="min-h-screen">
       <SEO 
         title="Sustainability - Building a Greener GTA"
-        description="Ascen Group Construction leads the painting and finishing industry with eco-friendly practices, low-VOC materials, and sustainable construction methods across the Greater Toronto Area."
+        description="Ascent Group Construction leads the painting and finishing industry with eco-friendly practices, low-VOC materials, and sustainable construction methods across the Greater Toronto Area."
         keywords="sustainable painting, eco-friendly construction, low-VOC paint, green building, environmental construction GTA"
       />
       <Navigation />
