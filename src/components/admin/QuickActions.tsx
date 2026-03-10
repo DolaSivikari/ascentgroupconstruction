@@ -19,7 +19,7 @@ const DEFAULT_ACTIONS: QuickAction[] = [
 ];
 
 const ICON_MAP: Record<string, any> = {
-  FileText, Briefcase, Image, Users, Search, Activity, ExternalLink, Settings
+  FileText, Briefcase, Image, Users, Search, Activity, ExternalLink
 };
 
 const QuickActions = () => {
