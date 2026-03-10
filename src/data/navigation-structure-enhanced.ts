@@ -69,6 +69,7 @@ export const megaMenuDataEnhanced: MegaMenuDataEnhanced = {
               { name: "Façade Remediation", link: "/services/building-envelope", description: "Exterior restoration", icon: "Hammer" },
               { name: "Parking Garage Restoration", link: "/services/building-envelope", description: "Structural concrete repair", icon: "Car" },
               { name: "Sealant Programs", link: "/services/building-envelope", description: "Joint maintenance programs", icon: "Wrench" },
+              { name: "Emergency Repair", link: "/emergency-repair", description: "24/7 urgent response", icon: "AlertTriangle", badge: "important" },
             ],
           },
           {
@@ -115,6 +116,7 @@ export const megaMenuDataEnhanced: MegaMenuDataEnhanced = {
             subItems: [
               { name: "General Contractors", link: "/for-general-contractors", description: "Trade partnerships", icon: "HardHat", badge: "important" },
               { name: "Developers", link: "/company/developers", description: "Development projects", icon: "Building" },
+              { name: "Architects & Consultants", link: "/for-architects", description: "Design professional partners", icon: "Ruler", badge: "new" },
             ],
           },
         ],
