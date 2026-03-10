@@ -1,4 +1,4 @@
-import { useRef, useEffect, useState } from "react";
+import { useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Section, MegaMenuConfig } from "@/data/navigation-structure-enhanced";
 import { MegaMenuSection } from "./MegaMenuSection";
@@ -19,15 +19,6 @@ export const MegaMenuWithSections = ({
   config,
 }: MegaMenuWithSectionsProps) => {
   const menuRef = useRef<HTMLDivElement>(null);
-  const [expandedCategories, setExpandedCategories] = useState<string[]>([]);
-
-  const handleToggleCategory = (categoryTitle: string) => {
-    setExpandedCategories(prev =>
-      prev.includes(categoryTitle)
-        ? prev.filter(title => title !== categoryTitle)
-        : [...prev, categoryTitle]
-    );
-  };
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -55,7 +46,6 @@ export const MegaMenuWithSections = ({
 
   if (!sections || sections.length === 0) return null;
 
-  // Get width from config or default
   const menuWidth = config?.width || 800;
 
   return (
@@ -73,8 +63,6 @@ export const MegaMenuWithSections = ({
           <div key={index}>
             <MegaMenuSection
               section={section}
-              expandedCategories={expandedCategories}
-              onToggleCategory={handleToggleCategory}
               onLinkClick={onClose}
               columns={config?.columns || 3}
             />

@@ -59,16 +59,16 @@ export const megaMenuDataEnhanced: MegaMenuDataEnhanced = {
               { name: "Building Envelope Solutions", link: "/services/building-envelope", description: "Complete envelope systems", icon: "Building2" },
               { name: "Cladding Systems", link: "/services/cladding-systems", description: "Metal panel & ACM installation", icon: "Layers" },
               { name: "Masonry Restoration", link: "/services/masonry-restoration", description: "Brick and stone repair", icon: "Landmark" },
-              { name: "Waterproofing Systems", link: "/services/building-envelope", description: "Foundation to roof protection", icon: "Droplets" },
-              { name: "EIFS & Stucco", link: "/services/cladding-systems", description: "Exterior insulation systems", icon: "Square" },
+              { name: "Waterproofing Systems", link: "/services/waterproofing", description: "Foundation to roof protection", icon: "Droplets" },
+              { name: "EIFS & Stucco", link: "/services/eifs-stucco", description: "Exterior insulation systems", icon: "Square" },
             ],
           },
           {
             title: "Restoration Services",
             subItems: [
-              { name: "Façade Remediation", link: "/services/building-envelope", description: "Exterior restoration", icon: "Hammer" },
-              { name: "Parking Garage Restoration", link: "/services/building-envelope", description: "Structural concrete repair", icon: "Car" },
-              { name: "Sealant Programs", link: "/services/building-envelope", description: "Joint maintenance programs", icon: "Wrench" },
+              { name: "Façade Remediation", link: "/services/facade-remediation", description: "Exterior restoration", icon: "Hammer" },
+              { name: "Parking Garage Restoration", link: "/services/parking-garage-restoration", description: "Structural concrete repair", icon: "Car" },
+              { name: "Sealant Programs", link: "/services/sealant-programs", description: "Joint maintenance programs", icon: "Wrench" },
               { name: "Emergency Repair", link: "/emergency-repair", description: "24/7 urgent response", icon: "AlertTriangle", badge: "important" },
             ],
           },
@@ -202,13 +202,3 @@ export const getMegaMenuSections = (key: string): Section[] => {
 export const getMegaMenuConfig = (key: string): MegaMenuConfig | null => {
   return megaMenuDataEnhanced[key] || null;
 };
-
-// Export navigation menu items — Phase 4 order
-export const mainNavItems = [
-  { label: "About", link: "/about", hasMegaMenu: true, menuKey: "company" },
-  { label: "Services", link: "/services", hasMegaMenu: true, menuKey: "services" },
-  { label: "Markets", link: "/markets", hasMegaMenu: true, menuKey: "markets" },
-  { label: "Projects", link: "/projects", hasMegaMenu: false },
-  { label: "Trade Partners", link: "/for-general-contractors", hasMegaMenu: true, menuKey: "tradePartners" },
-  { label: "Contact", link: "/contact", hasMegaMenu: false },
-];
