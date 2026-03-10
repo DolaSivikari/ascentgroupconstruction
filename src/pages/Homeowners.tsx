@@ -18,7 +18,8 @@ import {
   CheckCircle,
   DollarSign,
   Award,
-  Clock
+  Clock,
+  User,
 } from "lucide-react";
 import { Link } from "react-router-dom";
 import { ScrollReveal } from "@/components/animations/ScrollReveal";
