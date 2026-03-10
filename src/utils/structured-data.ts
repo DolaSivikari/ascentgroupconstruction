@@ -14,22 +14,22 @@ interface OrganizationSchemaOptions {
 }
 
 export const organizationSchema = (options?: OrganizationSchemaOptions) => {
-  const siteUrl = typeof window !== "undefined" ? window.location.origin : "";
+  const siteUrl = typeof window !== "undefined" ? window.location.origin : SITE_URL;
   
   const schema: any = {
     "@context": "https://schema.org",
     "@type": "HomeAndConstructionBusiness",
-    name: options?.name || "Ascent Group Construction",
+    name: options?.name || COMPANY_NAME,
     description: options?.description || "Specialty contractor in Ontario delivering building envelope, façade remediation, waterproofing, and restoration services across the GTA.",
     url: options?.url || siteUrl,
     logo: options?.logo || `${siteUrl}/logo.png`,
     address: {
       "@type": "PostalAddress",
-      streetAddress: "2 Jody Ave",
-      addressLocality: "North York",
-      addressRegion: "ON",
-      postalCode: "M3N 1H1",
-      addressCountry: "CA",
+      streetAddress: COMPANY_ADDRESS.street,
+      addressLocality: COMPANY_ADDRESS.city,
+      addressRegion: COMPANY_ADDRESS.province,
+      postalCode: COMPANY_ADDRESS.postalCode,
+      addressCountry: COMPANY_ADDRESS.country,
     },
     areaServed: {
       "@type": "State",
