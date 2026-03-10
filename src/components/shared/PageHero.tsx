@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { ChevronRight, ChevronDown } from "lucide-react";
+import { ChevronRight, ChevronDown, LucideIcon } from "lucide-react";
 import { Button } from "@/ui/Button";
 import { ProgressiveImage } from "@/components/ui/ProgressiveImage";
 import { cn } from "@/lib/utils";
