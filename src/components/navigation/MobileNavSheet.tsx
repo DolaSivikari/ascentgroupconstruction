@@ -14,8 +14,8 @@ import {
 } from "@/components/ui/accordion";
 import { Button } from "@/ui/Button";
 import { Input } from "@/ui/Input";
-import { Search, Users, Building, Wrench, Star, X, Home, Mail, FileText, Briefcase, Sparkles, ChevronRight, Clock, ArrowRight } from "lucide-react";
-import { Badge } from "@/components/ui/badge";
+import { Search, Users, Building, Wrench, X, Home, Mail, FileText, Briefcase, ChevronRight, Clock, ArrowRight } from "lucide-react";
+import { Separator } from "@/components/ui/separator";
 import { Separator } from "@/components/ui/separator";
 import { megaMenuDataEnhanced } from "@/data/navigation-structure-enhanced";
 import { NAVIGATION_ICONS } from "@/data/navigation-icons";
