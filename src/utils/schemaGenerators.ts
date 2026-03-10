@@ -2,6 +2,7 @@
  * Schema.org structured data generators for SEO
  * Generates service-specific, FAQ, and breadcrumb schemas
  */
+import { COMPANY_NAME, COMPANY_PHONE_E164, COMPANY_EMAIL, COMPANY_ADDRESS, SITE_URL } from "@/constants/company";
 
 interface ServiceSchemaProps {
   name: string;
@@ -124,17 +125,17 @@ export const generateLocalBusinessSchema = () => {
     "@context": "https://schema.org",
     "@type": "HomeAndConstructionBusiness",
     "@id": `${siteUrl}/#localbusiness`,
-    name: "Ascent Group Construction",
+    name: COMPANY_NAME,
     image: `${siteUrl}/og-image.jpg`,
-    telephone: "+1-647-528-6804",
-    email: "info@ascentgroupconstruction.com",
+    telephone: COMPANY_PHONE_E164,
+    email: COMPANY_EMAIL,
     address: {
       "@type": "PostalAddress",
-      streetAddress: "2 Jody Ave",
-      addressLocality: "North York",
-      addressRegion: "ON",
-      postalCode: "M3N 1H1",
-      addressCountry: "CA"
+      streetAddress: COMPANY_ADDRESS.street,
+      addressLocality: COMPANY_ADDRESS.city,
+      addressRegion: COMPANY_ADDRESS.province,
+      postalCode: COMPANY_ADDRESS.postalCode,
+      addressCountry: COMPANY_ADDRESS.country
     },
     geo: {
       "@type": "GeoCoordinates",

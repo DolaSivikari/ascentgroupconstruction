@@ -42,6 +42,7 @@ export const SearchBar = ({
             size="icon"
             className="absolute right-2 top-1/2 -translate-y-1/2"
             onClick={() => onSearchChange("")}
+            aria-label="Clear search"
           >
             <X className="w-4 h-4" />
           </Button>

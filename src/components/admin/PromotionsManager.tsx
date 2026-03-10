@@ -32,6 +32,11 @@ export function PromotionsManager() {
       return;
     }
 
+    if (new Date(newPromotion.start_date) >= new Date(newPromotion.end_date)) {
+      toast.error('Start date must be before end date');
+      return;
+    }
+
     createPromotion({
       ...newPromotion,
       start_date: new Date(newPromotion.start_date).toISOString(),
