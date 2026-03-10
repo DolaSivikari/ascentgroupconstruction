@@ -58,6 +58,7 @@ export interface PageHeroProps {
   // Extras
   stats?: PageHeroStat[];
   badge?: string;
+  badges?: Array<{ icon: LucideIcon; text: string }>;
   showScrollIndicator?: boolean;
   
   // Styling
