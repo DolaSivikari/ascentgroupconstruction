@@ -132,14 +132,18 @@ const ServiceAreas = () => {
                       </div>
                     </div>
                     <div className="flex flex-wrap gap-2">
-                      {region.cities.map((city) => (
-                        <span
-                          key={city}
-                          className="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm"
-                        >
-                          {city}
-                        </span>
-                      ))}
+                      {region.cities.map((city) => {
+                        const slug = city.toLowerCase().replace(/\s+/g, '-');
+                        return (
+                          <Link
+                            key={city}
+                            to={`/service-areas/${slug}`}
+                            className="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm hover:bg-primary/20 transition-colors"
+                          >
+                            {city}
+                          </Link>
+                        );
+                      })}
                     </div>
                   </CardContent>
                 </Card>
