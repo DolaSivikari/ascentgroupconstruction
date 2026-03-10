@@ -3,7 +3,7 @@ import { Card } from '@/ui/Card';
 import { Button } from '@/ui/Button';
 import { Input } from '@/ui/Input';
 import { Label } from '@/components/ui/label';
-import { migrateNavigationData } from '@/utils/migrateNavigationData';
+
 import {
   Select,
   SelectContent,
