@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { LucideIcon } from "lucide-react";
 import * as Icons from "lucide-react";
-import { NavBadge } from "@/components/ui/nav-badge";
+
 import { NAVIGATION_ICONS } from "@/data/navigation-icons";
 
 interface GridMegaMenuCardProps {
