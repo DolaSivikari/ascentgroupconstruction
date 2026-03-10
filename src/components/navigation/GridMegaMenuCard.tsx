@@ -8,7 +8,7 @@ interface GridMegaMenuCardProps {
   name: string;
   link: string;
   description?: string;
-  badge?: "new" | "popular" | "important";
+  
   onLinkClick: () => void;
 }
 
