@@ -314,28 +314,6 @@ const NavigationBuilder = () => {
     setEditDialog(true);
   };
 
-  const handleMigration = async () => {
-    if (!confirm('Import navigation structure from hardcoded data? This will add ~35 menu items to the database.')) {
-      return;
-    }
-
-    setMigrating(true);
-    try {
-      const result = await migrateNavigationData();
-      
-      if (result.success) {
-        toast.success(result.message || 'Navigation structure imported successfully!');
-        loadNavigationItems();
-      } else {
-        toast.error(result.error || 'Failed to import navigation structure');
-      }
-    } catch (error: any) {
-      console.error('Migration error:', error);
-      toast.error(error.message || 'Failed to import navigation structure');
-    } finally {
-      setMigrating(false);
-    }
-  };
 
   if (loading) {
     return (
