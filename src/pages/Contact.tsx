@@ -364,6 +364,8 @@ const Contact = () => {
         </div>
       </section>
 
+      <TrustedPartners variant="simple" />
+
       <Footer />
     </div>
   );
