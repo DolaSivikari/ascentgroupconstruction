@@ -10,6 +10,8 @@ import { ScrollReveal } from "@/components/animations/ScrollReveal";
 import OptimizedImage from "./OptimizedImage";
 import { ASPECT_RATIOS } from "@/design-system/image-system";
 
+const stripHtml = (html: string) => html.replace(/<[^>]*>/g, '').trim();
+
 interface ProjectCardProps {
   title: string;
   category: string;
@@ -22,6 +24,7 @@ interface ProjectCardProps {
   description: string;
   highlights?: string[];
   onViewDetails: (slug: string) => void;
+  onQuickView?: (slug: string) => void;
   // GC Metrics
   project_value?: number;
   your_role?: string;
