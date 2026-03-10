@@ -231,45 +231,6 @@ const Projects = () => {
         </Section>
       )}
 
-      {/* Filter Bar with Advanced Filters */}
-      <div className="bg-muted/30 py-6 border-y">
-        <div className="container mx-auto px-4">
-          <div className="flex flex-wrap items-center gap-4 mb-4">
-            <FilterDrawer 
-              filters={{
-                minValue: selectedValueRange,
-                minYear: selectedYear,
-                onTime: performanceBadges.onTime,
-                onBudget: performanceBadges.onBudget,
-                zeroIncidents: performanceBadges.zeroIncidents
-              }}
-              onFiltersChange={(newFilters) => {
-                if (newFilters.minValue) setSelectedValueRange(newFilters.minValue);
-                if (newFilters.minYear) setSelectedYear(newFilters.minYear.toString());
-                if (newFilters.onTime !== undefined) setPerformanceBadges(prev => ({ ...prev, onTime: newFilters.onTime }));
-              }}
-            />
-          </div>
-          
-          <FilterChips
-            filters={[
-              selectedCategory !== "All" && { label: "Category", value: selectedCategory, onRemove: () => setSelectedCategory("All") },
-              selectedYear !== "All" && { label: "Year", value: selectedYear, onRemove: () => setSelectedYear("All") },
-              selectedDeliveryMethod !== "All" && { label: "Delivery", value: selectedDeliveryMethod, onRemove: () => setSelectedDeliveryMethod("All") },
-              performanceBadges.onTime && { label: "Performance", value: "On Time", onRemove: () => setPerformanceBadges(prev => ({ ...prev, onTime: false })) }
-            ].filter(Boolean) as any}
-            onClearAll={() => {
-              setSelectedCategory("All");
-              setSelectedYear("All");
-              setSelectedDeliveryMethod("All");
-              setSelectedClientType("All");
-              setSelectedValueRange("All");
-              setPerformanceBadges({ onTime: false, onBudget: false, zeroIncidents: false });
-            }}
-          />
-        </div>
-      </div>
-
       <FilterBar
         searchTerm={searchTerm}
         onSearchChange={setSearchTerm}
