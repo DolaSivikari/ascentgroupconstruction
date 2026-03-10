@@ -517,7 +517,7 @@ export const ProjectImageManager: React.FC<ProjectImageManagerProps> = ({
               className="max-w-full max-h-[80vh] object-contain rounded-lg"
             />
             {previewImage.caption && (
-              <p className="mt-4 text-[hsl(var(--bg))] text-center text-lg">{previewImage.caption}</p>
+              <p className="mt-4 text-primary-foreground text-center text-lg">{previewImage.caption}</p>
             )}
           </div>
         </div>
