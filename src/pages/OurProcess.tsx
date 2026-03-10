@@ -10,7 +10,7 @@ import { generateHowToSchema } from "@/utils/faq-schema";
 import AnimatedProcessTimeline from "@/components/timeline/AnimatedProcessTimeline";
 import { companyHeroes } from "@/data/hero-images";
 import { Link } from "react-router-dom";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, MessageSquare, FileText, Clock } from "lucide-react";
 
 const processSteps = [
   {
@@ -151,6 +151,11 @@ const OurProcess = () => {
         breadcrumbs={[
           { label: "Home", href: "/" },
           { label: "How We Work" },
+        ]}
+        badges={[
+          { icon: MessageSquare, text: "Transparent Communication" },
+          { icon: FileText, text: "Documented Progress" },
+          { icon: Clock, text: "On-Time Delivery" },
         ]}
       />
 

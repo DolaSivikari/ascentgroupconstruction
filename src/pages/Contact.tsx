@@ -14,7 +14,7 @@ import { Button } from "@/ui/Button";
 import { Input } from "@/ui/Input";
 import { Textarea } from "@/ui/Textarea";
 import { Label } from "@/components/ui/label";
-import { MapPin, Phone, Mail, Clock, Loader2, ArrowRight, FileText, Calculator, CheckCircle } from "lucide-react";
+import { MapPin, Phone, Mail, Clock, Loader2, ArrowRight, FileText, Calculator, CheckCircle, Zap, Gift, ShieldCheck } from "lucide-react";
 import { useSettingsData } from "@/hooks/useSettingsData";
 import { RippleEffect } from "@/components/shared/RippleEffect";
 import { TrustedPartners } from "@/components/partners/TrustedPartners";
@@ -165,6 +165,11 @@ const Contact = () => {
         breadcrumbs={[
           { label: "Home", href: "/" },
           { label: "Contact" }
+        ]}
+        badges={[
+          { icon: Zap, text: "Fast Response" },
+          { icon: Gift, text: "Free Consultations" },
+          { icon: ShieldCheck, text: "No Obligation" },
         ]}
       />
 

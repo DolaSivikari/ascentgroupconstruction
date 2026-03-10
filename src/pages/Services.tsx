@@ -1,3 +1,4 @@
+import { Wrench, ShieldCheck, MapPin } from "lucide-react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
@@ -43,6 +44,11 @@ const Services = () => {
         breadcrumbs={[
           { label: "Home", href: "/" },
           { label: "Services" }
+        ]}
+        badges={[
+          { icon: Wrench, text: "Self-Performed Work" },
+          { icon: ShieldCheck, text: "Licensed & Insured" },
+          { icon: MapPin, text: "GTA Coverage" },
         ]}
       />
 

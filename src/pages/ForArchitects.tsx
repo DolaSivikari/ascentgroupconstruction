@@ -25,6 +25,7 @@ import {
   Wind,
   Droplets,
   BookOpen,
+  Microscope,
 } from "lucide-react";
 import { serviceHeroes } from "@/data/hero-images";
 
@@ -156,6 +157,11 @@ const ForArchitects = () => {
         breadcrumbs={[
           { label: "Home", href: "/" },
           { label: "For Architects" },
+        ]}
+        badges={[
+          { icon: Microscope, text: "Building Science Focus" },
+          { icon: FileText, text: "Spec Compliance" },
+          { icon: CheckCircle, text: "Field Testing" },
         ]}
       />
 

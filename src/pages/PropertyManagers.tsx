@@ -8,7 +8,7 @@ import { CapabilityCard } from "@/design-system/components/CapabilityCard";
 import { CTABand } from "@/design-system/components/CTABand";
 import { Card } from "@/design-system/components/Card";
 import { OperationalProofBar, DEFAULT_PROOF_ITEMS } from "@/components/proof/OperationalProofBar";
-import { Building2, TrendingUp, Users, Calendar, ShieldCheck, Timer, CreditCard } from "lucide-react";
+import { Building2, TrendingUp, Users, Calendar, ShieldCheck, Timer, CreditCard, FileText, Zap } from "lucide-react";
 import { audienceHeroes } from "@/data/hero-images";
 
 const PropertyManagers = () => {
@@ -99,6 +99,11 @@ const PropertyManagers = () => {
         breadcrumbs={[
           { label: "Home", href: "/" },
           { label: "Property Managers" }
+        ]}
+        badges={[
+          { icon: CreditCard, text: "Reserve Fund Aligned" },
+          { icon: Zap, text: "Fast Response" },
+          { icon: FileText, text: "Clear Documentation" },
         ]}
       />
       

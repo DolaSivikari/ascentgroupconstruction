@@ -23,6 +23,7 @@ import {
   CheckCircle,
   ArrowRight,
   MapPin,
+  Zap,
 } from "lucide-react";
 import { serviceHeroes } from "@/data/hero-images";
 import { serviceAreaCities, primaryServiceCities } from "@/data/service-area-cities";
@@ -99,6 +100,11 @@ const EmergencyRepair = () => {
         breadcrumbs={[
           { label: "Home", href: "/" },
           { label: "Emergency Repair" },
+        ]}
+        badges={[
+          { icon: Clock, text: "Same-Day Assessment" },
+          { icon: Zap, text: "24/7 Available" },
+          { icon: MapPin, text: "GTA-Wide" },
         ]}
       />
 

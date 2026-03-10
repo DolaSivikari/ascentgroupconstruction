@@ -3,7 +3,7 @@ import Footer from "@/components/Footer";
 import { PageHero } from "@/components/shared/PageHero";
 import SEO from "@/components/SEO";
 import { SectionHeader, SegmentCard, CTABand } from "@/design-system/components";
-import { Building2, Briefcase, Home, HardHat, Building } from "lucide-react";
+import { Building2, Briefcase, Home, HardHat, Building, Layers, Target, Users } from "lucide-react";
 import { sectorHeroes } from "@/data/hero-images";
 
 const segments = [
@@ -60,6 +60,11 @@ const Markets = () => {
         breadcrumbs={[
           { label: "Home", href: "/" },
           { label: "Markets" },
+        ]}
+        badges={[
+          { icon: Layers, text: "Multi-Sector Experience" },
+          { icon: Target, text: "Tailored Solutions" },
+          { icon: Users, text: "Trade Partnerships" },
         ]}
         primaryCta={{ text: "Submit RFP", href: "/submit-rfp" }}
         secondaryCta={{ text: "Contact Us", href: "/contact" }}

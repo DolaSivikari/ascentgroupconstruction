@@ -18,7 +18,8 @@ import {
   CheckCircle,
   DollarSign,
   Award,
-  Clock
+  Clock,
+  User,
 } from "lucide-react";
 import { Link } from "react-router-dom";
 import { ScrollReveal } from "@/components/animations/ScrollReveal";
@@ -177,6 +178,11 @@ const Homeowners = () => {
         breadcrumbs={[
           { label: "Home", href: "/" },
           { label: "Homeowners" }
+        ]}
+        badges={[
+          { icon: User, text: "Owner-Operated" },
+          { icon: Shield, text: "Fully Insured" },
+          { icon: DollarSign, text: "Free Estimates" },
         ]}
       />
 
