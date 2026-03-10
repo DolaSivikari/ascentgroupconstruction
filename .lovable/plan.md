@@ -1,103 +1,112 @@
+# Project Improvement Plan — Ascent Group Construction
 
+## Completed Phases
 
-# Full Implementation Plan — Tender Readiness & SEO Gaps
+### Phase 2: Content Truth Hardening ✅
+Removed fabricated stats (98% satisfaction, 500+ projects, 25+ years), replaced with verifiable metrics ($2M CGL, WSIB compliant, 85% self-performed, 15+ team experience). Removed LEED consulting claims, unsupported "24/7" emergency claims, and inflated admin stat templates. Standardized "hundreds of projects" to team-career framing.
 
-Based on the audit, here's everything remaining, organized by implementation order. Items 1-2 are already resolved.
+### Phase 3: Design System Foundation ✅
+Established canonical Card component (`@/design-system/components/Card`) and four card families (CapabilityCard, ProjectCard, ProofCard, SegmentCard). Created standardized layout patterns: SectionHeader, ProofStrip, CTABand. Consolidated spacing/grid tokens into `tokens.ts`.
 
----
+### Phase 4: Service Page Architecture ✅
+Created `ServicePageTemplate` and `ServicePageLayout` components for consistent service page rendering. Migrated service pages to use design system components.
 
-## Phase A: Quick Wins (same session)
+### Phase 5: SEO & Structured Data ✅
+Added JSON-LD schemas, QuickFacts, PeopleAlsoAsk, ServiceAreaSection, DirectAnswer components. Implemented breadcrumb structured data across all pages.
 
-### A1. Update `index.html` meta keywords
-Replace the painting-heavy keywords on line 123 with envelope/restoration/tender-intent terms:
-```
-building envelope contractor ontario, facade remediation toronto, specialty contractor GTA,
-masonry restoration, EIFS stucco repair, parking garage restoration, waterproofing contractor,
-cladding systems ontario, prequalified subcontractor, WSIB compliant contractor
-```
+### Phase 6: Navigation & Footer ✅
+Unified navigation with mega menu support. Created UnifiedFooter with database-driven content. Added route registry for known route validation.
 
-### A2. Fix city data mismatch
-- Add `"king-city"` entry to `LocationPage.tsx` locationDetails (it's in the cities list but has no landing page data)
-- Add `"Hamilton"` to `service-area-cities.ts` (it has a LocationPage entry but isn't in the cities list)
-- Update `ServiceAreas.tsx` SEO description to remove "painting" language
+### Phase 7A: Conversion Architecture & Innovation Layer ✅
+- Standardized CTA text via `CTA_TEXT` constants across service/market pages
+- Added RFP file upload flow with `rfp-attachments` storage bucket
+- Created Technology & Innovation page (`/company/technology`) with truthful digital capability content
+- Fixed EstimatorStep0 role labels (gc → "General Contractor", added "Homeowner")
+- Replaced bespoke CTA sections with `CTABand` in ServicePageLayout, ServicePageTemplate
+- Migrated SubmitRFPNew and RFPStep4Scope from `@/ui/Card` to design-system Card
 
-### A3. Update `ServiceAreas.tsx` SEO metadata
-The meta description still says "painting and construction services" — align to envelope/restoration positioning.
+### Phase 7B: Documentation & CTA Cleanup ✅
+- Added `/company/technology` to route registry
+- Replaced bespoke CTA in ServiceDetail.tsx with CTABand
+- Fixed "Start Your Project" → "Work With Us" in ForGeneralContractors.tsx
+- Documented future roadmap below
 
----
+### Phase 8: Homepage CMS Defaults ✅
+- Neutralized inflated column defaults (value_prop_2 → "WSIB Compliant", value_prop_3 → "Fully Insured")
+- Zeroed out inflated about_page_settings stat defaults (total_projects, satisfaction_rate, years_in_business → 0)
 
-## Phase B: New Audience Pages (2 new pages)
-
-### B1. `/for-architects` page
-A page targeting architects and building science consultants who specify contractors at design phase. Sections:
-- Hero: "Partner With a Contractor Who Understands Your Specs"
-- Material systems expertise (EIFS, masonry, cladding, coatings — product lines like Dryvit, Sto, Benjamin Moore)
-- How we work with design teams (shop drawings, mock-ups, submittals)
-- Typical project types (remediation, new construction envelope, tenant improvement)
-- CTA: "Request a Consultation" → `/contact`
-
-Uses existing components: `PageHero`, `Section`, `SectionHeader`, `CapabilityCard`, `CTABand`, `OperationalProofBar`.
-
-### B2. `/emergency-repair` page
-Captures high-value urgent work (water infiltration, storm damage). Sections:
-- Hero with prominent phone number: "Same-Day Site Assessment, GTA-Wide"
-- Emergency services list (water infiltration, facade failure, storm damage, sealant failure)
-- Response process (call → same-day assessment → temporary measures → permanent repair)
-- Service area coverage
-- CTA: Phone call + contact form
+### Phase 10: Public Legacy Card Migration ✅
+Migrated 8 public-facing files from `@/ui/Card` to `@/design-system/components/Card`:
+- `ServiceCard.tsx`, `RelatedServices.tsx`, `BlogCard.tsx`, `BlogPreview.tsx`
+- `Careers.tsx`, `CertificationsInsurance.tsx`, `ServiceAreas.tsx`, `ServiceDetail.tsx`
+- Added `p-0` override on Card wrappers to prevent double-padding (design-system Card has default `size="md"` → `p-6`)
+- Mapped legacy `featured` → `elevated`, `interactive` → `interactive`
+- RelatedServices switched to `variant="interactive"` (was manual hover classes)
+- Testimonials.tsx excluded (not publicly mounted)
 
 ---
 
-## Phase C: Routing & Registry Updates
+## Phase 11: Content Population — PENDING REVIEW
 
-- Add routes for `/for-architects` and `/emergency-repair` to `AppRoutes.tsx`
-- Add both to `PUBLIC_ROUTE_PATTERNS` in `routes/registry.ts`
-- Add to navigation (Services mega menu or footer links)
-
----
-
-## Phase D: Tender-Intent Keyword Pages (content enrichment)
-
-### D1. Enhance `/prequalification` page
-Add tender-intent keywords naturally: "WSIB compliant subcontractor", "bonded contractor GTA", "prequalified specialty contractor Ontario". Add a "Downloadable Capability Statement" section placeholder (PDF upload via admin later).
-
-### D2. Enhance `/submit-rfp` page
-Add "building envelope RFP" keyword targeting in SEO meta and page copy.
-
-### D3. Enhance `/company/certifications-insurance` page
-Add "COR certified facade contractor" keyword targeting.
+Draft content proposals for published projects have been presented in chat.
+Awaiting user review and approval before any DB insertion.
 
 ---
 
-## Phase E: Blog Content Strategy (infrastructure only)
+## Future Roadmap
 
-No blog posts to write in code — but ensure the blog hub and individual post pages properly target these keyword clusters via SEO defaults:
-- WSIB compliance guides
-- EIFS vs stucco comparisons
-- Facade remediation process
-- Self-performed work advantages
-- Building envelope maintenance schedules
+### R-1: Segmented Intake
+Role-based form field adaptation — estimate/RFP forms show different fields depending on visitor role (homeowner vs property manager vs GC). Extends existing EstimatorStep0 role selector.
 
-This is already supported by the existing blog infrastructure and admin editor.
+### R-2: Remaining CTA/UI Cleanup
+- Migrate remaining `@/ui/Card` imports to `@/design-system/components/Card` (admin files)
+- Standardize footer/blog CTA text to match `CTA_TEXT` constants
+- Review ServiceSelector, PrequalPackage navigation labels
+
+### R-3: Feature Enhancements
+- Interactive service-area map widget
+- Project portfolio filters (by service, sector, year)
+- Simple estimator aids (square footage calculator)
+- Scope selector widget for estimate page
+
+### R-4: Security Hardening
+- Address 18 RLS policy warnings flagged by linter
+- Storage bucket audit (permissions, size limits)
+- Rate limiting on public form submissions
+
+### R-5: Content Population
+- Collect and enter real client testimonials
+- Publish initial blog posts with actual project content
+- Complete project case study data entry with real photos/outcomes
+
+### R-6: Analytics & Conversion
+- Conversion tracking on form submissions
+- A/B testing framework activation (tables exist, UI needed)
+- Form funnel analysis (drop-off rates per step)
+
+### R-7: EquipmentResources.tsx Deprecation
+Replace EquipmentResources page content or redirect to TechnologyInnovation page. Current page has unqualified tool claims (Procore, BIM 360, GPS Fleet Tracking, fleet size "25+").
 
 ---
 
-## Summary of Files
+## Manual Verification Checklist
 
-| Phase | Files Modified/Created | Effort |
+- [ ] Whether a staffed 24/7 emergency line actually exists
+- [ ] Whether partner case studies represent real projects
+- [ ] Whether a client portal actually exists and functions
+- [ ] Whether "10+ projects completed" is accurate as of current date
+- [ ] Actual current tool adoption: Bluebeam, Procore, BIM 360
+- [ ] RFP file upload flow works end-to-end (storage bucket RLS)
+- [ ] File size limits appropriate for construction drawings (20MB)
+
+## Content Claims Requiring Business Confirmation
+
+| Claim | Location | Status |
 |---|---|---|
-| A1 | `index.html` | 1 line |
-| A2 | `LocationPage.tsx`, `service-area-cities.ts` | ~15 lines |
-| A3 | `ServiceAreas.tsx` | 2 lines |
-| B1 | New `src/pages/ForArchitects.tsx` | ~250 lines |
-| B2 | New `src/pages/EmergencyRepair.tsx` | ~200 lines |
-| C | `AppRoutes.tsx`, `routes/registry.ts` | ~10 lines |
-| D | `Prequalification.tsx`, `SubmitRFPNew.tsx`, `CertificationsInsurance.tsx` | ~15 lines |
-
-**Not in scope** (requires user action, not code):
-- Setting `ENABLE_IMAGE_OPTIMIZATION=true` in production env
-- Writing real case study content (needs actual project data)
-- Publishing blog posts (admin CMS workflow)
-- Requesting Google Reviews
-- Registering on DataBid/ConstructConnect
-
+| 85% self-performed | Multiple pages | Periodic verification flagged |
+| 10-person crew | Multiple pages | Needs current headcount |
+| $2M CGL coverage | Trust bars, stats | Verifiable via certificate |
+| Working toward COR | FAQ, About | Confirm progress status |
+| Bluebeam for markups | TechnologyInnovation | Confirm active use |
+| Procore integration capability | TechnologyInnovation | Qualified as "when required" |
+| BIM workflow experience | TechnologyInnovation | Qualified as "team experience" |

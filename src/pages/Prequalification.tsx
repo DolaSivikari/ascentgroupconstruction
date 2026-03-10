@@ -218,7 +218,7 @@ const Prequalification = () => {
       <SEO
         title="Vendor Pre-Qualification Package - Main Specialty Contractor | Ascent Group Construction"
         description="Pre-qualification package for Ascent Group Construction - 15+ years team experience in building envelope, EIFS, masonry, interior trades. WSIB compliant, $2M CGL coverage. Serving GCs, property managers, and building owners in Ontario."
-        keywords="specialty contractor prequalification, building envelope contractor Ontario, EIFS contractor GTA, masonry restoration Toronto, vendor prequalification package, subcontractor services"
+        keywords="WSIB compliant subcontractor Ontario, bonded contractor GTA, prequalified specialty contractor Ontario, building envelope contractor, EIFS contractor GTA, masonry restoration Toronto, vendor prequalification package"
       />
       <Navigation />
       

@@ -22,6 +22,8 @@ export const PUBLIC_ROUTE_PATTERNS = [
   '/commercial-clients',
   '/property-managers',
   '/for-general-contractors',
+  '/for-architects',
+  '/emergency-repair',
   '/homeowners',
   '/company/certifications-insurance',
   

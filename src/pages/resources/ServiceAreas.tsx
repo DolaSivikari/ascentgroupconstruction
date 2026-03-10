@@ -38,8 +38,8 @@ const ServiceAreas = () => {
     <>
       <SEO 
         title="Service Areas | Ascent Group Construction"
-        description="Serving Toronto, Mississauga, Brampton, Vaughan, Markham and the Greater Toronto Area with professional painting and construction services."
-        keywords="service areas, Toronto, GTA, Mississauga, Brampton, Vaughan, Markham, construction services"
+        description="Serving Toronto, Mississauga, Brampton, Vaughan, Markham and the Greater Toronto Area with professional building envelope, restoration, and specialty trade services."
+        keywords="service areas, Toronto, GTA, building envelope contractor, facade remediation, specialty contractor, Mississauga, Brampton, Vaughan, Markham"
       />
       <div className="min-h-screen bg-background">
         <Navigation />
@@ -180,7 +180,7 @@ const ServiceAreas = () => {
                     <MapPin className="h-7 w-7 text-secondary" />
                   </div>
                   <h3 className="text-lg font-semibold text-foreground mb-2">Regular Projects</h3>
-                  <p className="text-sm text-muted-foreground">All of Southern Ontario covered for scheduled painting and construction projects</p>
+                  <p className="text-sm text-muted-foreground">All of Southern Ontario covered for scheduled building envelope and restoration projects</p>
                 </CardContent>
               </Card>
               <Card className="hover:shadow-[var(--shadow-lg)] hover:-translate-y-1 transition-all duration-300 group border-2 hover:border-primary/30 animate-fade-in-up p-0" style={{ animationDelay: '200ms' }}>
