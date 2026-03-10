@@ -177,9 +177,6 @@ export function FeaturedServicesManager() {
                   checked={service.is_active}
                   onCheckedChange={() => handleToggleActive(service.id, service.is_active)}
                 />
-                <Button variant="ghost" size="sm">
-                  <Edit className="h-4 w-4" />
-                </Button>
                 <Button
                   variant="ghost"
                   size="sm"

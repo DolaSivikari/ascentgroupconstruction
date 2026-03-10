@@ -47,7 +47,7 @@ export default function PerformanceChart({ metrics }: PerformanceChartProps) {
       date: day.date,
       LCP: day.LCP.length ? day.LCP.reduce((a: number, b: number) => a + b, 0) / day.LCP.length : null,
       FCP: day.FCP.length ? day.FCP.reduce((a: number, b: number) => a + b, 0) / day.FCP.length : null,
-      CLS: day.CLS.length ? (day.CLS.reduce((a: number, b: number) => a + b, 0) / day.CLS.length) / 1000 : null,
+      CLS: day.CLS.length ? day.CLS.reduce((a: number, b: number) => a + b, 0) / day.CLS.length : null,
       INP: day.INP.length ? day.INP.reduce((a: number, b: number) => a + b, 0) / day.INP.length : null,
       TTFB: day.TTFB.length ? day.TTFB.reduce((a: number, b: number) => a + b, 0) / day.TTFB.length : null,
       TBT: day.TBT.length ? day.TBT.reduce((a: number, b: number) => a + b, 0) / day.TBT.length : null,

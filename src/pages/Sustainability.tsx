@@ -105,7 +105,7 @@ const Sustainability = () => {
               <h2 className="text-3xl font-bold mb-6">Our Sustainability Commitment</h2>
               <div className="space-y-4 text-muted-foreground leading-relaxed">
                 <p>
-                  At Ascen Group Construction, we believe that beautifying the GTA's buildings means protecting the environment for future generations. Our commitment to sustainability isn't just a policy—it's woven into every painting, stucco, and finishing project we undertake.
+                  At Ascent Group Construction, we believe that beautifying the GTA's buildings means protecting the environment for future generations. Our commitment to sustainability isn't just a policy—it's woven into every painting, stucco, and finishing project we undertake.
                 </p>
                 <p>
                   From exclusively using low-VOC and zero-VOC materials to implementing comprehensive waste diversion strategies, we're dedicated to minimizing our environmental footprint. We partner with eco-certified suppliers, properly dispose of all materials, and continuously innovate our methods to reduce environmental impact.
