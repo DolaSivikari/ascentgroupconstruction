@@ -90,11 +90,21 @@ const ProjectCard = ({
           "absolute inset-0 bg-primary/90 flex items-center justify-center transition-opacity duration-300",
           isHovered ? "opacity-100" : "opacity-0"
         )}>
-          <div className="text-center px-6">
+          <div className="flex items-center gap-3 px-6">
             <Button variant="secondary" size="sm">
               <Eye className="w-4 h-4 mr-2" />
               View Project
             </Button>
+            {onQuickView && (
+              <Button
+                variant="outline"
+                size="sm"
+                className="border-secondary/50 text-secondary hover:bg-secondary/20"
+                onClick={(e) => { e.stopPropagation(); onQuickView(slug); }}
+              >
+                Quick View
+              </Button>
+            )}
           </div>
         </div>
         
