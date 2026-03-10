@@ -170,7 +170,7 @@ const ProjectCard = ({
           <p className="text-sm italic text-muted-foreground line-clamp-1 mb-2">{challenge}</p>
         )}
         
-        <p className="text-sm text-muted-foreground line-clamp-2">{description}</p>
+        <p className="text-sm text-muted-foreground line-clamp-2">{stripHtml(description)}</p>
       </CardContent>
     </Card>
   );

@@ -279,31 +279,29 @@ const Projects = () => {
             </div>
           ) : (
             <>
-              <div className="grid md:grid-cols-2 gap-8">
+              <div className="text-center mb-8">
+                <h2 className={`${TYPOGRAPHY_STYLES.sectionTitle} mb-2 text-foreground`}>All Projects</h2>
+                <p className="text-muted-foreground">{filteredProjects.length} project{filteredProjects.length !== 1 ? 's' : ''} found</p>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {visibleProjects.map((project) => (
-                  <div key={project.slug}>
-                    <ProjectCard
-                      {...project}
-                      slug={project.slug}
-                      onViewDetails={handleViewDetails}
-                    />
-                    <button
-                      onClick={() => setQuickViewProject(project)}
-                      className="mt-2 text-sm text-primary hover:underline w-full text-center"
-                    >
-                      Quick View
-                    </button>
-                  </div>
+                  <ProjectCard
+                    key={project.slug}
+                    {...project}
+                    slug={project.slug}
+                    onViewDetails={handleViewDetails}
+                    onQuickView={() => setQuickViewProject(project)}
+                  />
                 ))}
               </div>
 
-              {/* Load More Button */}
               {visibleCount < regularProjects.length && (
                 <div className="text-center mt-12">
-                  <Button onClick={loadMore} size="lg">
-                    Load More Projects
-                    <span className="ml-2">
-                      ({visibleCount} of {regularProjects.length})
+                  <Button variant="outline" onClick={loadMore} size="lg">
+                    Show More Projects
+                    <span className="ml-2 text-muted-foreground text-sm">
+                      Showing {Math.min(visibleCount, regularProjects.length)} of {regularProjects.length}
                     </span>
                   </Button>
                 </div>
