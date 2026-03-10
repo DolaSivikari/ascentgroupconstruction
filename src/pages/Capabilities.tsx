@@ -1,4 +1,4 @@
-import { Building2, Users, Layers, Wrench, ArrowRight, Shield, HardHat } from "lucide-react";
+import { Building2, Users, Layers, Wrench, ArrowRight, Shield, HardHat, Hammer, CheckCircle, Zap } from "lucide-react";
 import { Link } from "react-router-dom";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
