@@ -5,6 +5,8 @@ import { MapPin, Calendar, Ruler, ArrowRight, Award, Star } from "lucide-react";
 import { Link } from "react-router-dom";
 import { resolveAssetPath } from "@/utils/assetResolver";
 
+const stripHtml = (html: string) => html.replace(/<[^>]*>/g, '').trim();
+
 interface ProjectFeaturedCardProps {
   title: string;
   category: string;
