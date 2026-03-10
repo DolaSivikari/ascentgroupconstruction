@@ -24,6 +24,7 @@ import EstimatorStep5 from "@/components/estimator/EstimatorStep5";
 import { calculateEstimate, EstimateInput } from "@/utils/estimator";
 import { trackConversion } from "@/lib/analytics";
 import { trackABTestConversion } from "@/hooks/useABTest";
+import { resourceHeroes } from "@/data/hero-images";
 
 // Validation schema for estimate form
 const estimateSchema = z.object({
