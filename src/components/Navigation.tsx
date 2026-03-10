@@ -75,9 +75,11 @@ const Navigation = () => {
     '/faq',
     '/blog',
     '/estimate',
-    '/projects'
+    '/projects',
+    '/for-architects',
+    '/emergency-repair'
   ];
-  const isHeroPage = heroPages.includes(location.pathname);
+  const isHeroPage = heroPages.includes(location.pathname) || location.pathname.startsWith('/service-areas/');
   
   const [isOpen, setIsOpen] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
