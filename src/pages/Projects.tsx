@@ -15,7 +15,7 @@ import { useRealtimeProjects } from "@/hooks/useRealtimeProjects";
 import { formatProjectValue } from "@/utils/formatProjectValue";
 import { resolveImagePath } from "@/utils/imageResolver";
 import { PremiumProjectHero } from "@/components/projects/PremiumProjectHero";
-import { FilterChips } from "@/components/projects/FilterChips";
+
 import { ProjectQuickView } from "@/components/projects/ProjectQuickView";
 import { VideoTestimonials } from "@/components/shared/VideoTestimonials";
 import { ScrollToTop } from "@/components/ui/scroll-to-top";
