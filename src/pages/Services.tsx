@@ -1,3 +1,4 @@
+import { Wrench, ShieldCheck, MapPin } from "lucide-react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
