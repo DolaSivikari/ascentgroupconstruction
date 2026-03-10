@@ -5,7 +5,7 @@ export interface SubItem {
   name: string;
   link: string;
   description?: string;
-  badge?: "new" | "popular" | "important";
+  
   icon?: string;
   isFeatured?: boolean;
 }
