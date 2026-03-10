@@ -1,32 +1,20 @@
 import { Link } from "react-router-dom";
-import * as LucideIcons from "lucide-react";
 import { Section, SubItem } from "@/data/navigation-structure-enhanced";
 import { NavBadge } from "@/components/ui/nav-badge";
+import { getIcon } from "@/utils/getIcon";
 import { cn } from "@/lib/utils";
 
 interface MegaMenuSectionProps {
   section: Section;
-  expandedCategories: string[];
-  onToggleCategory: (categoryTitle: string) => void;
   onLinkClick: () => void;
   columns?: number;
 }
 
-// Get icon component from name
-const getIcon = (iconName?: string) => {
-  if (!iconName) return null;
-  const Icon = (LucideIcons as any)[iconName];
-  return Icon || null;
-};
-
 export const MegaMenuSection = ({
   section,
-  expandedCategories,
-  onToggleCategory,
   onLinkClick,
   columns = 3,
 }: MegaMenuSectionProps) => {
-  // Determine grid columns class
   const gridClass = 
     columns === 4 ? "grid-cols-4" :
     columns === 3 ? "grid-cols-3" :
@@ -34,7 +22,6 @@ export const MegaMenuSection = ({
 
   return (
     <div className="mega-menu-section">
-      {/* Section header with optional link */}
       {section.sectionLink ? (
         <Link
           to={section.sectionLink}
@@ -50,10 +37,8 @@ export const MegaMenuSection = ({
       <div className={cn("grid gap-6", gridClass)}>
         {section.categories.map((category, catIndex) => (
           <div key={catIndex} className="space-y-2">
-            {/* Column header */}
             <h4 className="mega-menu-column-header">{category.title}</h4>
             
-            {/* Items list */}
             <ul className="space-y-1">
               {category.subItems.map((item: SubItem, itemIndex) => {
                 const IconComponent = getIcon(item.icon);

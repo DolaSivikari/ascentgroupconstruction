@@ -14,8 +14,7 @@ import {
 } from "@/components/ui/accordion";
 import { Button } from "@/ui/Button";
 import { Input } from "@/ui/Input";
-import { Phone, Search, Users, Building, Wrench, Star, X, Home, Mail, FileText, Briefcase, Sparkles, ChevronRight, Clock, ChevronDown, ChevronUp, ArrowRight } from "lucide-react";
-import * as LucideIcons from "lucide-react";
+import { Search, Users, Building, Wrench, Star, X, Home, Mail, FileText, Briefcase, Sparkles, ChevronRight, Clock, ArrowRight } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { megaMenuDataEnhanced } from "@/data/navigation-structure-enhanced";
@@ -29,17 +28,36 @@ import { SmartPopularServices } from "./SmartPopularServices";
 
 import { useSwipeGesture } from "@/hooks/useSwipeGesture";
 import { useScrollIndicator } from "@/hooks/useScrollIndicator";
-import { useStaggerAnimation } from "@/hooks/useStaggerAnimation";
 import { haptics } from "@/utils/haptics";
 import { NavCategoryCard } from "./NavCategoryCard";
 import { ScreenReaderAnnouncement } from "@/components/ui/ScreenReaderAnnouncement";
+import { getIcon } from "@/utils/getIcon";
 import { useState, useRef } from "react";
 import { cn } from "@/lib/utils";
+import type { SubItem } from "@/data/navigation-structure-enhanced";
 
 interface MobileNavSheetProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
 }
+
+/** Unified badge renderer for all accordion sections */
+const renderBadge = (badge?: SubItem["badge"]) => {
+  if (!badge) return null;
+  return (
+    <Badge
+      variant={badge === "new" ? "secondary" : "default"}
+      size="xs"
+      className="ml-2"
+    >
+      {badge === "new" ? (
+        <Sparkles className="h-3 w-3" aria-hidden="true" />
+      ) : (
+        <Star className="h-3 w-3" aria-hidden="true" />
+      )}
+    </Badge>
+  );
+};
 
 export function MobileNavSheet({ open, onOpenChange }: MobileNavSheetProps) {
   const location = useLocation();
@@ -48,7 +66,6 @@ export function MobileNavSheet({ open, onOpenChange }: MobileNavSheetProps) {
   
   const [showSearchSuggestions, setShowSearchSuggestions] = useState(false);
   const [searchFocused, setSearchFocused] = useState(false);
-  const [showMoreServices, setShowMoreServices] = useState(false);
   const [announcement, setAnnouncement] = useState("");
   const servicesContentRef = useRef<HTMLDivElement>(null);
   
@@ -61,18 +78,6 @@ export function MobileNavSheet({ open, onOpenChange }: MobileNavSheetProps) {
   });
 
   const allCategories = ["All", "Services", "Company", "Markets", "Trade Partners"];
-
-  // Get all service items for Show More/Less functionality
-  const allServiceItems = megaMenuDataEnhanced.services.sections.flatMap(section => 
-    section.categories.flatMap(cat => cat.subItems || [])
-  );
-  const visibleServiceItems = showMoreServices ? allServiceItems : allServiceItems.slice(0, 8);
-
-  // Get icon component from name
-  const getIcon = (iconName: string) => {
-    const Icon = (LucideIcons as any)[iconName];
-    return Icon || ChevronRight;
-  };
 
   const isActive = (path: string) => location.pathname === path;
 
@@ -131,8 +136,13 @@ export function MobileNavSheet({ open, onOpenChange }: MobileNavSheetProps) {
     setTimeout(() => ripple.remove(), 600);
   };
 
-  // Stagger delays for animations
-  const delays = useStaggerAnimation({ itemCount: 10, staggerDelay: 50 });
+  // Map accordion values to human-readable section names for screen reader
+  const sectionNameMap: Record<string, string> = {
+    services: "Services",
+    company: "Company",
+    markets: "Markets",
+    tradePartners: "Trade Partners",
+  };
 
   return (
     <Sheet open={open} onOpenChange={onOpenChange}>
@@ -282,9 +292,15 @@ export function MobileNavSheet({ open, onOpenChange }: MobileNavSheetProps) {
                     <span>Contact</span>
                   </Link>
                   <Link
-                    to="/contact"
+                    to="/estimate"
                     onClick={handleLinkClick}
-                    className="flex items-center gap-2 p-2.5 min-h-[44px] rounded-lg text-sm font-medium transition-all duration-[150ms] hover:shadow-[var(--shadow-md)] active:scale-[0.98] touch-manipulation bg-card border border-border hover:border-accent/50"
+                    className={cn(
+                      "flex items-center gap-2 p-2.5 min-h-[44px] rounded-lg text-sm font-medium transition-all duration-[150ms] hover:shadow-[var(--shadow-md)] active:scale-[0.98] touch-manipulation",
+                      isActive("/estimate")
+                        ? "bg-accent text-accent-foreground shadow-sm"
+                        : "bg-card border border-border hover:border-accent/50"
+                    )}
+                    aria-current={isActive("/estimate") ? "page" : undefined}
                   >
                     <FileText className="h-4 w-4 flex-shrink-0" aria-hidden="true" />
                     <span>Request Quote</span>
@@ -312,11 +328,17 @@ export function MobileNavSheet({ open, onOpenChange }: MobileNavSheetProps) {
                 className="space-y-4" 
                 onValueChange={(value) => {
                   haptics.medium();
-                  const actionText = value.length > 0 ? "expanded" : "collapsed";
-                  setAnnouncement(`Section ${actionText}`);
+                  // Find which section was most recently toggled for a meaningful announcement
+                  const lastValue = value[value.length - 1];
+                  const sectionName = lastValue ? sectionNameMap[lastValue] : undefined;
+                  if (sectionName) {
+                    setAnnouncement(`${sectionName} section expanded`);
+                  } else {
+                    setAnnouncement("Section collapsed");
+                  }
                 }}
               >
-                {/* Services Section with Show More/Less */}
+                {/* Services Section */}
                 <AccordionItem value="services" className="border border-border rounded-lg overflow-hidden transition-all duration-200 hover:border-primary/30 hover:shadow-sm">
                   <AccordionTrigger 
                     className="px-4 py-3.5 hover:no-underline bg-transparent hover:bg-muted/30 transition-colors [&[data-state=open]]:bg-muted/50 [&[data-state=open]]:text-primary touch-manipulation"
@@ -351,7 +373,7 @@ export function MobileNavSheet({ open, onOpenChange }: MobileNavSheetProps) {
                               <div className="font-semibold text-sm py-1.5 px-2 text-foreground/90">{category.title}</div>
                               {category.subItems && (
                                 <div className="ml-2 space-y-0.5">
-                                  {category.subItems.map((item, itemIndex) => {
+                                  {category.subItems.map((item) => {
                                     const IconComponent = getIcon(NAVIGATION_ICONS[item.link] || "ChevronRight");
                                     const description = NAVIGATION_DESCRIPTIONS[item.link];
                                     
@@ -371,11 +393,7 @@ export function MobileNavSheet({ open, onOpenChange }: MobileNavSheetProps) {
                                             <span className="text-xs text-muted-foreground/70 block">{description}</span>
                                           )}
                                         </div>
-                                        {item.badge && (
-                                          <Badge variant={item.badge === "new" ? "secondary" : "default"} size="xs" className="ml-2">
-                                            {item.badge === "new" ? <Sparkles className="h-3 w-3" aria-hidden="true" /> : <Star className="h-3 w-3" aria-hidden="true" />}
-                                          </Badge>
-                                        )}
+                                        {renderBadge(item.badge)}
                                       </Link>
                                     );
                                   })}
@@ -403,7 +421,7 @@ export function MobileNavSheet({ open, onOpenChange }: MobileNavSheetProps) {
                       icon={Users}
                       title="Company"
                       itemCount={megaMenuDataEnhanced.company.sections.reduce((acc, section) => acc + section.categories.length, 0)}
-                      gradient="bg-gradient-to-br from-steel-blue to-steel-blue"
+                      gradient="bg-gradient-to-br from-steel-blue to-steel-blue/70"
                       iconColor="text-steel-blue-foreground"
                     >
                       <span className="text-sm font-semibold">Company</span>
@@ -421,7 +439,7 @@ export function MobileNavSheet({ open, onOpenChange }: MobileNavSheetProps) {
                             <div key={category.title} className="ml-1">
                               {category.subItems && (
                                 <div className="space-y-0.5">
-                                  {category.subItems.map((item, itemIndex) => {
+                                  {category.subItems.map((item) => {
                                     const IconComponent = getIcon(NAVIGATION_ICONS[item.link] || "ChevronRight");
                                     const description = NAVIGATION_DESCRIPTIONS[item.link];
                                     
@@ -441,16 +459,7 @@ export function MobileNavSheet({ open, onOpenChange }: MobileNavSheetProps) {
                                             <span className="text-xs text-muted-foreground/70 block">{description}</span>
                                           )}
                                         </div>
-                                        {item.badge === "new" && (
-                                          <Badge variant="secondary" size="xs" className="ml-2">
-                                            <Sparkles className="h-3 w-3" aria-hidden="true" />
-                                          </Badge>
-                                        )}
-                                        {item.badge === "important" && (
-                                          <Badge variant="default" size="xs" className="ml-2">
-                                            <Star className="h-3 w-3" aria-hidden="true" />
-                                          </Badge>
-                                        )}
+                                        {renderBadge(item.badge)}
                                       </Link>
                                     );
                                   })}
@@ -519,11 +528,7 @@ export function MobileNavSheet({ open, onOpenChange }: MobileNavSheetProps) {
                                             <span className="text-xs text-muted-foreground/70 block">{description}</span>
                                           )}
                                         </div>
-                                        {item.badge === "important" && (
-                                          <Badge variant="default" size="xs" className="ml-2">
-                                            <Star className="h-3 w-3" aria-hidden="true" />
-                                          </Badge>
-                                        )}
+                                        {renderBadge(item.badge)}
                                       </Link>
                                     );
                                   })}
@@ -547,7 +552,7 @@ export function MobileNavSheet({ open, onOpenChange }: MobileNavSheetProps) {
                       icon={Briefcase}
                       title="Trade Partners"
                       itemCount={megaMenuDataEnhanced.tradePartners?.sections.reduce((acc, section) => acc + section.categories.length, 0) || 0}
-                      gradient="bg-gradient-to-br from-secondary to-secondary"
+                      gradient="bg-gradient-to-br from-secondary to-secondary/70"
                       iconColor="text-secondary-foreground"
                     >
                       <span className="text-sm font-semibold">Trade Partners</span>
@@ -585,11 +590,7 @@ export function MobileNavSheet({ open, onOpenChange }: MobileNavSheetProps) {
                                             <span className="text-xs text-muted-foreground/70 block">{description}</span>
                                           )}
                                         </div>
-                                        {item.badge === "important" && (
-                                          <Badge variant="default" size="xs" className="ml-2">
-                                            <Star className="h-3 w-3" aria-hidden="true" />
-                                          </Badge>
-                                        )}
+                                        {renderBadge(item.badge)}
                                       </Link>
                                     );
                                   })}
