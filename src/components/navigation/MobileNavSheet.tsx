@@ -386,7 +386,6 @@ export function MobileNavSheet({ open, onOpenChange }: MobileNavSheetProps) {
                                             <span className="text-xs text-muted-foreground/70 block">{description}</span>
                                           )}
                                         </div>
-                                        {renderBadge(item.badge)}
                                       </Link>
                                     );
                                   })}
