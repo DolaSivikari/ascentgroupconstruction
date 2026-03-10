@@ -25,6 +25,7 @@ import {
   Wind,
   Droplets,
   BookOpen,
+  Microscope,
 } from "lucide-react";
 import { serviceHeroes } from "@/data/hero-images";
 
