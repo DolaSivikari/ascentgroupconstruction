@@ -41,13 +41,6 @@ interface MobileNavSheetProps {
   onOpenChange: (open: boolean) => void;
 }
 
-/** Unified badge renderer for all accordion sections */
-const renderBadge = (badge?: SubItem["badge"]) => {
-  if (!badge) return null;
-  return (
-    <Badge
-      variant={badge === "new" ? "secondary" : "default"}
-      size="xs"
       className="ml-2"
     >
       {badge === "new" ? (
