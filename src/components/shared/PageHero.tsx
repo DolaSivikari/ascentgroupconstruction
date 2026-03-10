@@ -252,6 +252,24 @@ export function PageHero({
             </p>
           )}
           
+          {/* Badges (pill-style trust badges) */}
+          {badges && badges.length > 0 && (
+            <div className="flex flex-wrap gap-3 mt-6" style={staggerStyle(220)}>
+              {badges.map((b, i) => {
+                const Icon = b.icon;
+                return (
+                  <div
+                    key={i}
+                    className="flex items-center gap-2 bg-[hsl(var(--bg))]/10 backdrop-blur-sm px-4 py-2 rounded-full border border-[hsl(var(--bg))]/20"
+                  >
+                    <Icon className="w-4 h-4 text-[hsl(var(--bg))]" />
+                    <span className="text-sm font-medium text-[hsl(var(--bg))]">{b.text}</span>
+                  </div>
+                );
+              })}
+            </div>
+          )}
+
           {/* Stats */}
           {stats && stats.length > 0 && (
             <div className={cn(
