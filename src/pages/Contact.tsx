@@ -17,6 +17,7 @@ import { Label } from "@/components/ui/label";
 import { MapPin, Phone, Mail, Clock, Loader2, ArrowRight, FileText, Calculator, CheckCircle } from "lucide-react";
 import { useSettingsData } from "@/hooks/useSettingsData";
 import { RippleEffect } from "@/components/shared/RippleEffect";
+import { TrustedPartners } from "@/components/partners/TrustedPartners";
 
 import { Link } from "react-router-dom";
 import { CTA_TEXT } from "@/design-system/constants";
@@ -362,6 +363,8 @@ const Contact = () => {
           </div>
         </div>
       </section>
+
+      <TrustedPartners variant="simple" />
 
       <Footer />
     </div>
