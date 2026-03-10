@@ -190,6 +190,8 @@ export default function ProjectDetail() {
         description={project.seo_description || project.summary || ""}
         keywords={project.seo_keywords?.join(", ")}
         ogImage={project.featured_image}
+        ogTitle={project.seo_title || project.title}
+        ogDescription={project.seo_description || project.summary || ""}
       />
       
       <div className="min-h-screen flex flex-col">
