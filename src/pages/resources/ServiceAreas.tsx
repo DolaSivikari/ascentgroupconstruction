@@ -38,8 +38,8 @@ const ServiceAreas = () => {
     <>
       <SEO 
         title="Service Areas | Ascent Group Construction"
-        description="Serving Toronto, Mississauga, Brampton, Vaughan, Markham and the Greater Toronto Area with professional painting and construction services."
-        keywords="service areas, Toronto, GTA, Mississauga, Brampton, Vaughan, Markham, construction services"
+        description="Serving Toronto, Mississauga, Brampton, Vaughan, Markham and the Greater Toronto Area with professional building envelope, restoration, and specialty trade services."
+        keywords="service areas, Toronto, GTA, building envelope contractor, facade remediation, specialty contractor, Mississauga, Brampton, Vaughan, Markham"
       />
       <div className="min-h-screen bg-background">
         <Navigation />
