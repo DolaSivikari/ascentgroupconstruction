@@ -31,7 +31,7 @@ import {
   FolderTree,
   ExternalLink,
   Database,
-  Download,
+  
   AlertTriangle
 } from 'lucide-react';
 import {
