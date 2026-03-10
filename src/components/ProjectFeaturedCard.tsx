@@ -57,7 +57,7 @@ const ProjectFeaturedCard = ({
         {/* Bottom Content */}
         <div className="absolute bottom-0 left-0 right-0 p-6 space-y-3">
           <h3 className="text-3xl font-bold text-foreground">{title}</h3>
-          <p className="text-muted-foreground line-clamp-2">{description}</p>
+          <p className="text-muted-foreground line-clamp-2">{stripHtml(description)}</p>
           
           {/* Stats Grid */}
           <div className="flex flex-wrap gap-4 text-sm">

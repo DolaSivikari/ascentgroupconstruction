@@ -182,7 +182,16 @@ const Projects = () => {
            matchesPerformance;
   });
 
-  const featuredProjects = (filteredProjects.some(p => p.featured) ? filteredProjects.filter(p => p.featured) : filteredProjects).slice(0, 3);
+  const featuredProjects = useMemo(() => {
+    const pool = filteredProjects.some(p => p.featured)
+      ? filteredProjects.filter(p => p.featured)
+      : [...filteredProjects];
+    for (let i = pool.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [pool[i], pool[j]] = [pool[j], pool[i]];
+    }
+    return pool.slice(0, 3);
+  }, [filteredProjects]);
   const regularProjects = filteredProjects.filter(p => !p.featured);
   const visibleProjects = regularProjects.slice(0, visibleCount);
 
