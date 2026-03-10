@@ -383,7 +383,7 @@ export const ProjectImageManager: React.FC<ProjectImageManagerProps> = ({
               onClick={() => setSelectedCategory(cat.value)}
               className={`flex items-center gap-2 px-4 py-2 rounded-lg font-medium transition-all ${
                 selectedCategory === cat.value
-                  ? `${cat.color} text-[hsl(var(--bg))] shadow-lg scale-105`
+                  ? `${cat.color} text-primary-foreground shadow-lg scale-105`
                   : 'bg-background hover:bg-accent'
               }`}
             >
