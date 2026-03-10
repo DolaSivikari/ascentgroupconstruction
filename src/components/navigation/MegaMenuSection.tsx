@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { Section, SubItem } from "@/data/navigation-structure-enhanced";
-import { NavBadge } from "@/components/ui/nav-badge";
+
 import { getIcon } from "@/utils/getIcon";
 import { cn } from "@/lib/utils";
 
