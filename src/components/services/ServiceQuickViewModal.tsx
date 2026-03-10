@@ -61,8 +61,8 @@ export const ServiceQuickViewModal = ({ isOpen, onClose, service }: ServiceQuick
 
             {service.priceRange && (
               <div className="flex items-start gap-3 p-4 rounded-lg bg-background/50 border border-border/50">
-                <div className="p-2 rounded-md bg-construction-orange/10">
-                  <DollarSign className="w-4 h-4 text-construction-orange" />
+                <div className="p-2 rounded-md bg-primary/10">
+                  <DollarSign className="w-4 h-4 text-primary" />
                 </div>
                 <div>
                   <div className="text-sm font-semibold text-foreground">Price Range</div>
