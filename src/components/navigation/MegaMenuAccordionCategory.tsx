@@ -57,7 +57,6 @@ export const MegaMenuAccordionCategory = ({
                 onClick={onLinkClick}
               >
                 {item.name}
-                {item.badge && <NavBadge variant={item.badge} />}
               </Link>
             </li>
           ))}

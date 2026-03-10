@@ -183,7 +183,7 @@ export const megaMenuDataEnhanced: MegaMenuDataEnhanced = {
           {
             title: "Resources",
             subItems: [
-              { name: "Contractor Portal", link: "/resources/contractor-portal", description: "Access your documents", icon: "Layout", isFeatured: true, badge: "important" },
+              { name: "Contractor Portal", link: "/resources/contractor-portal", description: "Access your documents", icon: "Layout", isFeatured: true },
               { name: "Blog", link: "/blog", description: "Industry insights", icon: "BookOpen" },
             ],
           },

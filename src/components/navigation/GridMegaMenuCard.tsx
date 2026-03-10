@@ -33,7 +33,6 @@ export const GridMegaMenuCard = ({
         <div className="flex-shrink-0 w-10 h-10 rounded-md bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 group-hover:scale-110 transition-all duration-300">
           <Icon className="w-5 h-5 text-primary" />
         </div>
-        {badge && <NavBadge variant={badge} />}
       </div>
 
       {/* Content */}

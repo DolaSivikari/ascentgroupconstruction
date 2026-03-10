@@ -67,9 +67,6 @@ export const MegaMenuSection = ({
                         item.isFeatured && "text-accent"
                       )}>
                         {item.name}
-                        {item.badge && (
-                          <NavBadge variant={item.badge} className="ml-2" />
-                        )}
                       </span>
                     </Link>
                   </li>
