@@ -179,6 +179,11 @@ const Homeowners = () => {
           { label: "Home", href: "/" },
           { label: "Homeowners" }
         ]}
+        badges={[
+          { icon: User, text: "Owner-Operated" },
+          { icon: Shield, text: "Fully Insured" },
+          { icon: DollarSign, text: "Free Estimates" },
+        ]}
       />
 
       {/* Introduction Section */}

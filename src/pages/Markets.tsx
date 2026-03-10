@@ -61,6 +61,11 @@ const Markets = () => {
           { label: "Home", href: "/" },
           { label: "Markets" },
         ]}
+        badges={[
+          { icon: Layers, text: "Multi-Sector Experience" },
+          { icon: Target, text: "Tailored Solutions" },
+          { icon: Users, text: "Trade Partnerships" },
+        ]}
         primaryCta={{ text: "Submit RFP", href: "/submit-rfp" }}
         secondaryCta={{ text: "Contact Us", href: "/contact" }}
       />

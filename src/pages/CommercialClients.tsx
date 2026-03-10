@@ -106,6 +106,11 @@ const CommercialClients = () => {
           { label: "Home", href: "/" },
           { label: "Commercial Clients" }
         ]}
+        badges={[
+          { icon: Moon, text: "After-Hours Available" },
+          { icon: Ban, text: "Minimal Disruption" },
+          { icon: ShieldCheck, text: "Fully Insured" },
+        ]}
       />
       
       <main>

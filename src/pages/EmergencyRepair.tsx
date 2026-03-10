@@ -101,6 +101,11 @@ const EmergencyRepair = () => {
           { label: "Home", href: "/" },
           { label: "Emergency Repair" },
         ]}
+        badges={[
+          { icon: Clock, text: "Same-Day Assessment" },
+          { icon: Zap, text: "24/7 Available" },
+          { icon: MapPin, text: "GTA-Wide" },
+        ]}
       />
 
       {/* Urgent Phone Banner */}

@@ -152,6 +152,11 @@ const OurProcess = () => {
           { label: "Home", href: "/" },
           { label: "How We Work" },
         ]}
+        badges={[
+          { icon: MessageSquare, text: "Transparent Communication" },
+          { icon: FileText, text: "Documented Progress" },
+          { icon: Clock, text: "On-Time Delivery" },
+        ]}
       />
 
       {/* Trust Badges */}

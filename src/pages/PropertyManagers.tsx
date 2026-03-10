@@ -100,6 +100,11 @@ const PropertyManagers = () => {
           { label: "Home", href: "/" },
           { label: "Property Managers" }
         ]}
+        badges={[
+          { icon: CreditCard, text: "Reserve Fund Aligned" },
+          { icon: Zap, text: "Fast Response" },
+          { icon: FileText, text: "Clear Documentation" },
+        ]}
       />
       
       <main>

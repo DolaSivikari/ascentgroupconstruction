@@ -94,6 +94,11 @@ const Capabilities = () => {
           { label: "Home", href: "/" },
           { label: "Capabilities" },
         ]}
+        badges={[
+          { icon: Hammer, text: "85% Self-Performed" },
+          { icon: CheckCircle, text: "Direct Accountability" },
+          { icon: Zap, text: "Flexible Delivery" },
+        ]}
       />
 
       <main>

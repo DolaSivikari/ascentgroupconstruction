@@ -158,6 +158,11 @@ const ForArchitects = () => {
           { label: "Home", href: "/" },
           { label: "For Architects" },
         ]}
+        badges={[
+          { icon: Microscope, text: "Building Science Focus" },
+          { icon: FileText, text: "Spec Compliance" },
+          { icon: CheckCircle, text: "Field Testing" },
+        ]}
       />
 
       <OperationalProofBar items={DEFAULT_PROOF_ITEMS} />

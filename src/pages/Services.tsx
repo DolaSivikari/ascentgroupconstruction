@@ -45,6 +45,11 @@ const Services = () => {
           { label: "Home", href: "/" },
           { label: "Services" }
         ]}
+        badges={[
+          { icon: Wrench, text: "Self-Performed Work" },
+          { icon: ShieldCheck, text: "Licensed & Insured" },
+          { icon: MapPin, text: "GTA Coverage" },
+        ]}
       />
 
       <main className="flex-1 relative">

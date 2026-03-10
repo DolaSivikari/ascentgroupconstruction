@@ -166,6 +166,11 @@ const Contact = () => {
           { label: "Home", href: "/" },
           { label: "Contact" }
         ]}
+        badges={[
+          { icon: Zap, text: "Fast Response" },
+          { icon: Gift, text: "Free Consultations" },
+          { icon: ShieldCheck, text: "No Obligation" },
+        ]}
       />
 
       {/* Contact Pathway Guidance */}
