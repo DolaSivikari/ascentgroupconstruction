@@ -436,7 +436,7 @@ const Prequalification = () => {
                           <div>
                             <p className="font-semibold mb-1">Email</p>
                             <EmailLink 
-                              encoded={btoa('info@ascentgroup.ca')} 
+                              encoded={ASCENT_EMAIL_ENCODED} 
                               className="text-muted-foreground hover:text-primary transition-colors inline" 
                               showIcon={false} 
                             />
