@@ -158,12 +158,15 @@ const ServiceAreas = () => {
             <Card className="p-0">
               <CardContent className="p-8">
                 <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                  {serviceAreaCities.map((city) => (
-                    <div key={city} className="flex items-center gap-2">
-                      <CheckCircle2 className="h-4 w-4 text-primary flex-shrink-0" />
-                      <span className="text-sm text-foreground">{city}</span>
-                    </div>
-                  ))}
+                  {serviceAreaCities.map((city) => {
+                    const slug = city.toLowerCase().replace(/\s+/g, '-');
+                    return (
+                      <Link key={city} to={`/service-areas/${slug}`} className="flex items-center gap-2 hover:text-primary transition-colors">
+                        <CheckCircle2 className="h-4 w-4 text-primary flex-shrink-0" />
+                        <span className="text-sm text-foreground">{city}</span>
+                      </Link>
+                    );
+                  })}
                 </div>
               </CardContent>
             </Card>
