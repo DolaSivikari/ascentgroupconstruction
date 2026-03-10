@@ -473,7 +473,7 @@ const EnhancedHero = ({ splashComplete = true }: { splashComplete?: boolean }) =
       </div>
 
       {/* ── Gradient overlay ── */}
-      <div className="absolute inset-0 z-[3] bg-gradient-to-b from-black/70 via-black/55 to-black/80" />
+      <div className="absolute inset-0 z-[3] bg-gradient-to-b from-black/70 via-black/60 to-black/80" />
 
       {/* Content */}
         <div 

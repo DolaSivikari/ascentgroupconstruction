@@ -35,7 +35,7 @@ export const ClientSegmentCard = ({
           <ul className="space-y-2 mb-6 text-sm text-muted-foreground">
             {examples.map((example, idx) => (
               <li key={idx} className="flex items-start gap-2">
-                <span className="text-construction-orange">•</span>
+                <span className="text-primary">•</span>
                 <span>{example}</span>
               </li>
             ))}

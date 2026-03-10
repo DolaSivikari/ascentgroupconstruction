@@ -12,10 +12,10 @@ interface FeatureCardProps {
 
 export const FeatureCard = ({ icon: Icon, title, description, stats, className }: FeatureCardProps) => {
   return (
-    <Card variant="elevated" hover className={cn("h-full", className)}>
+    <Card variant="elevated" hover className={cn("h-full group", className)}>
       <CardContent className="p-8">
-        <div className="w-14 h-14 rounded-lg bg-construction-orange/10 flex items-center justify-center mb-6 group-hover:bg-construction-orange/20 transition-colors">
-          <Icon className="w-7 h-7 text-construction-orange" />
+        <div className="w-14 h-14 rounded-lg bg-primary/10 flex items-center justify-center mb-6 group-hover:bg-primary/20 transition-colors">
+          <Icon className="w-7 h-7 text-primary" />
         </div>
         <h3 className="text-xl md:text-2xl font-bold mb-4 text-foreground leading-tight">
           {title}

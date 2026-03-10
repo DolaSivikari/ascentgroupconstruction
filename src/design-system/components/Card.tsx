@@ -20,7 +20,7 @@ interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
 const cardVariants: Record<CardVariant, string> = {
   default: 'bg-card border border-border',
   elevated: 'bg-card border border-border shadow-[var(--shadow-card-elevated)]',
-  interactive: 'bg-card border border-border shadow-[var(--shadow-card)] hover:shadow-[var(--shadow-card-hover)] hover:-translate-y-1 cursor-pointer',
+  interactive: 'bg-card border border-border shadow-[var(--shadow-card)] hover:shadow-[var(--shadow-card-hover)] cursor-pointer',
   ghost: 'bg-transparent border-0',
   outline: 'bg-transparent border-2 border-border',
 };
