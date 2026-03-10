@@ -28,8 +28,8 @@ const ServiceAreas = () => {
       responseTime: "Next business day response",
     },
     {
-      name: "Halton Region",
-      cities: ["Oakville", "Burlington", "Milton"],
+      name: "Halton & Hamilton",
+      cities: ["Oakville", "Burlington", "Milton", "Hamilton"],
       responseTime: "Next business day response",
     },
   ];
