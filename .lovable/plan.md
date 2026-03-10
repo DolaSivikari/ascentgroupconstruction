@@ -1,38 +1,112 @@
+# Project Improvement Plan — Ascent Group Construction
 
+## Completed Phases
 
-# Enhance Estimator Step 0 — Quote Type Selection
+### Phase 2: Content Truth Hardening ✅
+Removed fabricated stats (98% satisfaction, 500+ projects, 25+ years), replaced with verifiable metrics ($2M CGL, WSIB compliant, 85% self-performed, 15+ team experience). Removed LEED consulting claims, unsupported "24/7" emergency claims, and inflated admin stat templates. Standardized "hundreds of projects" to team-career framing.
 
-## Current Issues
-The Step 0 quote type selector has several visual weaknesses:
-- Cards use basic flat layout with small icons and cramped text
-- No visual hierarchy between the selected and unselected states beyond a thin ring
-- The "Project Details" section that appears after selection feels disconnected — plain form fields in a muted box
-- Icon containers are small (w-6 h-6) and don't create strong visual anchors
-- Badge placement is squeezed into the title row, competing for attention
-- No step number indicator or visual numbering on the cards
-- Missing the editorial/enterprise aesthetic the rest of the site uses (8px radius, restrained styling)
+### Phase 3: Design System Foundation ✅
+Established canonical Card component (`@/design-system/components/Card`) and four card families (CapabilityCard, ProjectCard, ProofCard, SegmentCard). Created standardized layout patterns: SectionHeader, ProofStrip, CTABand. Consolidated spacing/grid tokens into `tokens.ts`.
 
-## Plan
+### Phase 4: Service Page Architecture ✅
+Created `ServicePageTemplate` and `ServicePageLayout` components for consistent service page rendering. Migrated service pages to use design system components.
 
-### `src/components/estimator/EstimatorStep0.tsx` — Visual overhaul
+### Phase 5: SEO & Structured Data ✅
+Added JSON-LD schemas, QuickFacts, PeopleAlsoAsk, ServiceAreaSection, DirectAnswer components. Implemented breadcrumb structured data across all pages.
 
-1. **Larger, bolder card layout**: Switch from horizontal icon+text to a vertical layout with a prominent icon area at top, title centered below, and description underneath. Larger icons (w-8 h-8) in bigger containers.
+### Phase 6: Navigation & Footer ✅
+Unified navigation with mega menu support. Created UnifiedFooter with database-driven content. Added route registry for known route validation.
 
-2. **Stronger selected state**: Selected cards get a solid left border accent (4px primary), elevated shadow, and a subtle checkmark indicator in the corner — not just a ring.
+### Phase 7A: Conversion Architecture & Innovation Layer ✅
+- Standardized CTA text via `CTA_TEXT` constants across service/market pages
+- Added RFP file upload flow with `rfp-attachments` storage bucket
+- Created Technology & Innovation page (`/company/technology`) with truthful digital capability content
+- Fixed EstimatorStep0 role labels (gc → "General Contractor", added "Homeowner")
+- Replaced bespoke CTA sections with `CTABand` in ServicePageLayout, ServicePageTemplate
+- Migrated SubmitRFPNew and RFPStep4Scope from `@/ui/Card` to design-system Card
 
-3. **Better badge placement**: Move the range badge below the description as a standalone element so it doesn't compete with the title.
+### Phase 7B: Documentation & CTA Cleanup ✅
+- Added `/company/technology` to route registry
+- Replaced bespoke CTA in ServiceDetail.tsx with CTABand
+- Fixed "Start Your Project" → "Work With Us" in ForGeneralContractors.tsx
+- Documented future roadmap below
 
-4. **Numbered cards**: Add a subtle step number (01, 02, 03, 04) in the top-right corner of each card for visual anchoring and professional feel.
+### Phase 8: Homepage CMS Defaults ✅
+- Neutralized inflated column defaults (value_prop_2 → "WSIB Compliant", value_prop_3 → "Fully Insured")
+- Zeroed out inflated about_page_settings stat defaults (total_projects, satisfaction_rate, years_in_business → 0)
 
-5. **Project Details section polish**: 
-   - Add a subtle divider or step transition between the quote type selection and the details form
-   - Use a cleaner card with left-aligned header and a subtle icon
-   - Organize fields in a 2-column grid on desktop (company + role on one row, budget on the next)
+### Phase 10: Public Legacy Card Migration ✅
+Migrated 8 public-facing files from `@/ui/Card` to `@/design-system/components/Card`:
+- `ServiceCard.tsx`, `RelatedServices.tsx`, `BlogCard.tsx`, `BlogPreview.tsx`
+- `Careers.tsx`, `CertificationsInsurance.tsx`, `ServiceAreas.tsx`, `ServiceDetail.tsx`
+- Added `p-0` override on Card wrappers to prevent double-padding (design-system Card has default `size="md"` → `p-6`)
+- Mapped legacy `featured` → `elevated`, `interactive` → `interactive`
+- RelatedServices switched to `variant="interactive"` (was manual hover classes)
+- Testimonials.tsx excluded (not publicly mounted)
 
-6. **Left-align the header** per the editorial design standard (currently center-aligned)
+---
 
-7. **Add a subtle helper text** below the heading: a one-line trust signal like "No obligation — estimates provided within 24 hours"
+## Phase 11: Content Population — PENDING REVIEW
 
-### Files modified
-- `src/components/estimator/EstimatorStep0.tsx` — UI/layout changes only, no logic changes
+Draft content proposals for published projects have been presented in chat.
+Awaiting user review and approval before any DB insertion.
 
+---
+
+## Future Roadmap
+
+### R-1: Segmented Intake
+Role-based form field adaptation — estimate/RFP forms show different fields depending on visitor role (homeowner vs property manager vs GC). Extends existing EstimatorStep0 role selector.
+
+### R-2: Remaining CTA/UI Cleanup
+- Migrate remaining `@/ui/Card` imports to `@/design-system/components/Card` (admin files)
+- Standardize footer/blog CTA text to match `CTA_TEXT` constants
+- Review ServiceSelector, PrequalPackage navigation labels
+
+### R-3: Feature Enhancements
+- Interactive service-area map widget
+- Project portfolio filters (by service, sector, year)
+- Simple estimator aids (square footage calculator)
+- Scope selector widget for estimate page
+
+### R-4: Security Hardening
+- Address 18 RLS policy warnings flagged by linter
+- Storage bucket audit (permissions, size limits)
+- Rate limiting on public form submissions
+
+### R-5: Content Population
+- Collect and enter real client testimonials
+- Publish initial blog posts with actual project content
+- Complete project case study data entry with real photos/outcomes
+
+### R-6: Analytics & Conversion
+- Conversion tracking on form submissions
+- A/B testing framework activation (tables exist, UI needed)
+- Form funnel analysis (drop-off rates per step)
+
+### R-7: EquipmentResources.tsx Deprecation
+Replace EquipmentResources page content or redirect to TechnologyInnovation page. Current page has unqualified tool claims (Procore, BIM 360, GPS Fleet Tracking, fleet size "25+").
+
+---
+
+## Manual Verification Checklist
+
+- [ ] Whether a staffed 24/7 emergency line actually exists
+- [ ] Whether partner case studies represent real projects
+- [ ] Whether a client portal actually exists and functions
+- [ ] Whether "10+ projects completed" is accurate as of current date
+- [ ] Actual current tool adoption: Bluebeam, Procore, BIM 360
+- [ ] RFP file upload flow works end-to-end (storage bucket RLS)
+- [ ] File size limits appropriate for construction drawings (20MB)
+
+## Content Claims Requiring Business Confirmation
+
+| Claim | Location | Status |
+|---|---|---|
+| 85% self-performed | Multiple pages | Periodic verification flagged |
+| 10-person crew | Multiple pages | Needs current headcount |
+| $2M CGL coverage | Trust bars, stats | Verifiable via certificate |
+| Working toward COR | FAQ, About | Confirm progress status |
+| Bluebeam for markups | TechnologyInnovation | Confirm active use |
+| Procore integration capability | TechnologyInnovation | Qualified as "when required" |
+| BIM workflow experience | TechnologyInnovation | Qualified as "team experience" |
