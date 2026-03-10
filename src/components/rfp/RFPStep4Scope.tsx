@@ -2,7 +2,7 @@ import { UseFormReturn } from "react-hook-form";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Card, CardContent } from "@/design-system/components/Card";
+import { Card, CardContent } from "@/ui/Card";
 import { FileText, Clipboard, MapPin, Upload } from "lucide-react";
 import { Link } from "react-router-dom";
 import { RFPSubmission } from "@/schemas/rfp-validation";
