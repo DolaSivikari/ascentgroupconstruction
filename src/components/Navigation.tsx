@@ -31,55 +31,17 @@ const Navigation = () => {
   const { scrollDirection, isAtTop } = useScrollDirection();
   
   // Pages with hero backgrounds that should have transparent navigation
-  const heroPages = [
-    '/',
-    '/services',
-    '/services/painting-services',
-    '/services/building-envelope',
-    '/services/waterproofing',
-    '/services/masonry-restoration',
-    '/services/interior-buildouts',
-    '/services/tile-flooring',
-    '/services/cladding-systems',
-    '/services/protective-coatings',
-    '/services/sustainable-construction',
-    '/services/basement-finishing',
-    '/services/carpentry-trim-work',
-    '/services/interior-buildouts-finishing',
-    '/services/suite-renovations',
-    '/services/drywall-finishing',
-    '/services/general-repairs-maintenance',
-    '/services/kitchen-bathroom-renovations',
-    '/services/building-envelope-solutions',
-    '/services/waterproofing-systems',
-    '/services/eifs-stucco-systems',
-    '/services/protective-architectural-coatings',
-    '/about',
-    '/careers',
-    '/capabilities',
-    '/company/certifications-insurance',
-    '/company/developers',
-    '/company/technology',
-    '/resources/contractor-portal',
-    '/resources/service-areas',
-    '/contact',
-    '/why-specialty-contractor',
-    '/prequalification',
-    '/submit-rfp',
-    '/for-general-contractors',
-    '/property-managers',
-    '/commercial-clients',
-    '/homeowners',
-    '/our-process',
-    '/markets',
-    '/faq',
-    '/blog',
-    '/estimate',
-    '/projects',
-    '/for-architects',
-    '/emergency-repair'
-  ];
-  const isHeroPage = heroPages.includes(location.pathname) || location.pathname.startsWith('/service-areas/');
+  const heroPagePrefixes = ['/services/', '/service-areas/', '/blog/', '/projects/', '/company/', '/resources/'];
+  const heroPageExact = new Set([
+    '/', '/services', '/about', '/careers', '/capabilities',
+    '/contact', '/why-specialty-contractor', '/prequalification',
+    '/submit-rfp', '/for-general-contractors', '/property-managers',
+    '/commercial-clients', '/homeowners', '/our-process', '/markets',
+    '/faq', '/blog', '/estimate', '/projects', '/for-architects',
+    '/emergency-repair', '/privacy', '/terms', '/accessibility',
+  ]);
+  const isHeroPage = heroPageExact.has(location.pathname) ||
+    heroPagePrefixes.some(prefix => location.pathname.startsWith(prefix));
   
   const [isOpen, setIsOpen] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
