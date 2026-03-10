@@ -24,8 +24,7 @@ const ICON_MAP: Record<string, any> = {
 
 const QuickActions = () => {
   const navigate = useNavigate();
-  const [actions] = useState<QuickAction[]>(DEFAULT_ACTIONS);
-  const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
+  const actions = DEFAULT_ACTIONS;
 
   const handleNavigate = (path: string) => {
     if (path === "/" || path.startsWith("http")) {
