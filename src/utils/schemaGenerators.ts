@@ -2,6 +2,7 @@
  * Schema.org structured data generators for SEO
  * Generates service-specific, FAQ, and breadcrumb schemas
  */
+import { COMPANY_NAME, COMPANY_PHONE_E164, COMPANY_EMAIL, COMPANY_ADDRESS, SITE_URL } from "@/constants/company";
 
 interface ServiceSchemaProps {
   name: string;
