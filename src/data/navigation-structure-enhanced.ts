@@ -116,6 +116,7 @@ export const megaMenuDataEnhanced: MegaMenuDataEnhanced = {
             subItems: [
               { name: "General Contractors", link: "/for-general-contractors", description: "Trade partnerships", icon: "HardHat", badge: "important" },
               { name: "Developers", link: "/company/developers", description: "Development projects", icon: "Building" },
+              { name: "Architects & Consultants", link: "/for-architects", description: "Design professional partners", icon: "Ruler", badge: "new" },
             ],
           },
         ],
