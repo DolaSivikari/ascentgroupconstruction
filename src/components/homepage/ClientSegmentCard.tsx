@@ -14,12 +14,12 @@ interface ClientSegmentCardProps {
 
 const ClientSegmentCard = ({ icon: Icon, title, services, ctaText, ctaUrl }: ClientSegmentCardProps) => {
   return (
-    <Card className="group h-full p-6 rounded-[var(--radius-lg)] bg-gradient-to-br from-background to-muted/30 border-2 border-construction-orange/20 hover:border-construction-orange/40 hover:shadow-lg transition-all duration-300 hover:scale-[1.02]">
+    <Card className="group h-full p-6 rounded-[var(--radius-lg)] bg-gradient-to-br from-background to-muted/30 border-2 border-primary/20 hover:border-primary/40 hover:shadow-lg transition-all duration-300 hover:scale-[1.02]">
       <div className="h-full flex flex-col">
         {/* Icon & Title */}
         <div className="flex items-center gap-3 mb-4">
-          <div className="w-12 h-12 rounded-[var(--radius-lg)] bg-construction-orange/10 flex items-center justify-center flex-shrink-0 group-hover:bg-construction-orange/20 transition-colors duration-300">
-            <Icon className="w-6 h-6 text-construction-orange" />
+          <div className="w-12 h-12 rounded-[var(--radius-lg)] bg-primary/10 flex items-center justify-center flex-shrink-0 group-hover:bg-primary/20 transition-colors duration-300">
+            <Icon className="w-6 h-6 text-primary" />
           </div>
           <h3 className="text-xl font-bold text-foreground leading-tight">
             {title}
@@ -30,14 +30,14 @@ const ClientSegmentCard = ({ icon: Icon, title, services, ctaText, ctaUrl }: Cli
         <ul className="space-y-3 mb-6 flex-1">
           {services.map((service, idx) => (
             <li key={idx} className="flex items-start gap-2 text-sm text-muted-foreground">
-              <CheckCircle2 className="w-4 h-4 text-construction-orange flex-shrink-0 mt-0.5" />
+              <CheckCircle2 className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />
               <span>{service}</span>
             </li>
           ))}
         </ul>
 
         {/* CTA */}
-        <Button asChild className="w-full bg-construction-orange hover:bg-construction-orange/90 shadow-md hover:shadow-lg transition-all duration-300">
+        <Button asChild variant="primary" className="w-full shadow-md hover:shadow-lg transition-all duration-300">
           <Link to={ctaUrl}>{ctaText}</Link>
         </Button>
       </div>
