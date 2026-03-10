@@ -205,8 +205,8 @@ export default function SubmitRFPNew() {
     <div className="min-h-screen flex flex-col bg-gradient-to-b from-background to-muted/20">
       <SEO
         title="Submit RFP - Request for Proposal | Ascent Group Construction"
-        description="Submit your construction project RFP to Ascent Group Construction. Multi-step form for commercial, multi-family, and institutional projects across Ontario."
-        keywords="RFP submission, construction proposal, contractor bid, project quote, GTA construction"
+        description="Submit your building envelope or restoration RFP to Ascent Group Construction. Multi-step form for commercial, multi-family, and institutional projects across Ontario."
+        keywords="building envelope RFP, facade remediation bid, construction proposal, specialty contractor quote, envelope restoration RFP, GTA construction"
       />
       <Navigation />
 

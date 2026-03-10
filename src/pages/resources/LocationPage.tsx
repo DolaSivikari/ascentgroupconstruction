@@ -137,6 +137,13 @@ const locationDetails: Record<string, LocationData> = {
     region: "ON",
     description: "Milton's rapidly growing commercial and residential developments require reliable specialty contractors. We deliver professional envelope restoration and cladding services throughout Milton.",
     isPrimary: false
+  },
+  "king-city": {
+    name: "King City",
+    slug: "king-city",
+    region: "ON",
+    description: "King City's estate homes and commercial properties benefit from expert building envelope care. Ascent Group provides professional façade remediation, EIFS, masonry restoration, and protective coating services throughout King City and the surrounding area.",
+    isPrimary: false
   }
 };
 
