@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { PageHero } from "@/components/shared/PageHero";
-import { EmailLink } from "@/components/EmailLink";
+import { EmailLink, ASCENT_EMAIL_ENCODED } from "@/components/EmailLink";
 import { Button } from "@/ui/Button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/ui/Card";
 import { Badge } from "@/components/ui/badge";
