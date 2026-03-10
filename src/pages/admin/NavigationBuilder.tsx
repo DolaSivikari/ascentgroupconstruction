@@ -164,7 +164,7 @@ const SortableItem = ({ item, onEdit, onDelete, depth }: SortableItemProps) => {
 const NavigationBuilder = () => {
   const [items, setItems] = useState<MenuItem[]>([]);
   const [loading, setLoading] = useState(true);
-  const [migrating, setMigrating] = useState(false);
+  
   const [editDialog, setEditDialog] = useState(false);
   const [currentItem, setCurrentItem] = useState<Partial<MenuItem>>({
     menu_type: 'primary',
