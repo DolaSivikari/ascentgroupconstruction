@@ -79,7 +79,7 @@ export const ServiceQuickViewModal = ({ isOpen, onClose, service }: ServiceQuick
               <div className="space-y-2">
                 {service.features.map((feature, index) => (
                   <div key={index} className="flex items-start gap-2">
-                    <CheckCircle2 className="w-5 h-5 text-construction-orange mt-0.5 flex-shrink-0" />
+                    <CheckCircle2 className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
                     <span className="text-sm text-muted-foreground">{feature}</span>
                   </div>
                 ))}
