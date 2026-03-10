@@ -10,6 +10,8 @@ import { ScrollReveal } from "@/components/animations/ScrollReveal";
 import OptimizedImage from "./OptimizedImage";
 import { ASPECT_RATIOS } from "@/design-system/image-system";
 
+const stripHtml = (html: string) => html.replace(/<[^>]*>/g, '').trim();
+
 interface ProjectCardProps {
   title: string;
   category: string;
@@ -22,6 +24,7 @@ interface ProjectCardProps {
   description: string;
   highlights?: string[];
   onViewDetails: (slug: string) => void;
+  onQuickView?: (slug: string) => void;
   // GC Metrics
   project_value?: number;
   your_role?: string;
@@ -46,6 +49,7 @@ const ProjectCard = ({
   description,
   highlights,
   onViewDetails,
+  onQuickView,
   project_value,
   your_role,
   on_time_completion,
@@ -86,11 +90,21 @@ const ProjectCard = ({
           "absolute inset-0 bg-primary/90 flex items-center justify-center transition-opacity duration-300",
           isHovered ? "opacity-100" : "opacity-0"
         )}>
-          <div className="text-center px-6">
+          <div className="flex items-center gap-3 px-6">
             <Button variant="secondary" size="sm">
               <Eye className="w-4 h-4 mr-2" />
               View Project
             </Button>
+            {onQuickView && (
+              <Button
+                variant="outline"
+                size="sm"
+                className="border-secondary/50 text-secondary hover:bg-secondary/20"
+                onClick={(e) => { e.stopPropagation(); onQuickView(slug); }}
+              >
+                Quick View
+              </Button>
+            )}
           </div>
         </div>
         
@@ -156,7 +170,7 @@ const ProjectCard = ({
           <p className="text-sm italic text-muted-foreground line-clamp-1 mb-2">{challenge}</p>
         )}
         
-        <p className="text-sm text-muted-foreground line-clamp-2">{description}</p>
+        <p className="text-sm text-muted-foreground line-clamp-2">{stripHtml(description)}</p>
       </CardContent>
     </Card>
   );
