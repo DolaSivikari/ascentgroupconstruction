@@ -1,5 +1,5 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/ui/Card";
-import { useServiceAnalytics } from "@/hooks/useServiceAnalytics";
+import { useAnalyticsDashboard } from "@/hooks/useServiceAnalytics";
 import { BarChart, TrendingUp, MousePointerClick, Target, Eye } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Badge } from "@/components/ui/badge";
