@@ -1,5 +1,5 @@
 import { supabase } from "@/integrations/supabase/client";
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 // Get unique user identifier
 const getUserIdentifier = () => {
@@ -30,6 +30,64 @@ interface AnalyticsEvent {
   source?: string;
 }
 
+export const useAnalyticsDashboard = () => {
+  return useQuery({
+    queryKey: ['service-analytics', 'dashboard'],
+    queryFn: async () => {
+      const oneWeekAgo = new Date();
+      oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
+
+      const { data, error } = await supabase
+        .from('popular_services_analytics')
+        .select('*')
+        .gte('created_at', oneWeekAgo.toISOString())
+        .order('created_at', { ascending: false });
+
+      if (error) throw error;
+
+      // Calculate metrics
+      const impressions = data.filter(d => d.event_type === 'impression').length;
+      const clicks = data.filter(d => d.event_type === 'click').length;
+      const conversions = data.filter(d => d.event_type === 'conversion').length;
+      const ctr = impressions > 0 ? (clicks / impressions) * 100 : 0;
+      const conversionRate = clicks > 0 ? (conversions / clicks) * 100 : 0;
+
+      // Service performance
+      const servicePerformance = data.reduce((acc, item) => {
+        if (!acc[item.service_link]) {
+          acc[item.service_link] = {
+            name: item.service_name,
+            impressions: 0,
+            clicks: 0,
+            conversions: 0,
+          };
+        }
+        if (item.event_type === 'impression') acc[item.service_link].impressions++;
+        if (item.event_type === 'click') acc[item.service_link].clicks++;
+        if (item.event_type === 'conversion') acc[item.service_link].conversions++;
+        return acc;
+      }, {} as Record<string, { name: string; impressions: number; clicks: number; conversions: number }>);
+
+      return {
+        summary: {
+          impressions,
+          clicks,
+          conversions,
+          ctr: ctr.toFixed(2),
+          conversionRate: conversionRate.toFixed(2),
+        },
+        servicePerformance: Object.entries(servicePerformance).map(([link, serviceData]) => ({
+          link,
+          ...serviceData,
+          ctr: serviceData.impressions > 0 ? ((serviceData.clicks / serviceData.impressions) * 100).toFixed(2) : '0',
+        })),
+        recentEvents: data.slice(0, 50),
+      };
+    },
+    staleTime: 2 * 60 * 1000, // 2 minutes
+  });
+};
+
 export const useServiceAnalytics = () => {
   const queryClient = useQueryClient();
 
@@ -48,7 +106,6 @@ export const useServiceAnalytics = () => {
       if (error) throw error;
     },
     onSuccess: () => {
-      // Invalidate analytics queries
       queryClient.invalidateQueries({ queryKey: ['service-analytics'] });
     },
   });
@@ -75,69 +132,9 @@ export const useServiceAnalytics = () => {
     },
   });
 
-  // Get analytics dashboard data
-  const useAnalyticsDashboard = () => {
-    return useQuery({
-      queryKey: ['service-analytics', 'dashboard'],
-      queryFn: async () => {
-        const oneWeekAgo = new Date();
-        oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
-
-        const { data, error } = await supabase
-          .from('popular_services_analytics')
-          .select('*')
-          .gte('created_at', oneWeekAgo.toISOString())
-          .order('created_at', { ascending: false });
-
-        if (error) throw error;
-
-        // Calculate metrics
-        const impressions = data.filter(d => d.event_type === 'impression').length;
-        const clicks = data.filter(d => d.event_type === 'click').length;
-        const conversions = data.filter(d => d.event_type === 'conversion').length;
-        const ctr = impressions > 0 ? (clicks / impressions) * 100 : 0;
-        const conversionRate = clicks > 0 ? (conversions / clicks) * 100 : 0;
-
-        // Service performance
-        const servicePerformance = data.reduce((acc, item) => {
-          if (!acc[item.service_link]) {
-            acc[item.service_link] = {
-              name: item.service_name,
-              impressions: 0,
-              clicks: 0,
-              conversions: 0,
-            };
-          }
-          if (item.event_type === 'impression') acc[item.service_link].impressions++;
-          if (item.event_type === 'click') acc[item.service_link].clicks++;
-          if (item.event_type === 'conversion') acc[item.service_link].conversions++;
-          return acc;
-        }, {} as Record<string, { name: string; impressions: number; clicks: number; conversions: number }>);
-
-        return {
-          summary: {
-            impressions,
-            clicks,
-            conversions,
-            ctr: ctr.toFixed(2),
-            conversionRate: conversionRate.toFixed(2),
-          },
-          servicePerformance: Object.entries(servicePerformance).map(([link, data]) => ({
-            link,
-            ...data,
-            ctr: data.impressions > 0 ? ((data.clicks / data.impressions) * 100).toFixed(2) : '0',
-          })),
-          recentEvents: data.slice(0, 50),
-        };
-      },
-      staleTime: 2 * 60 * 1000, // 2 minutes
-    });
-  };
-
   return {
     trackEvent: trackEvent.mutate,
     trackInteraction: trackInteraction.mutate,
-    useAnalyticsDashboard,
     getUserIdentifier,
   };
 };

@@ -1,5 +1,5 @@
 import { Share2 } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/ui/Button";
 import { useToast } from "@/hooks/use-toast";
 
 const ShareMenu = () => {

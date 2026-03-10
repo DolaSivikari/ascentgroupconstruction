@@ -29,7 +29,7 @@ const validateInput = (data: ResumeNotificationRequest): string | null => {
   if (applicantName.length > 100) {
     return "Applicant name must be less than 100 characters";
   }
-  if (!/^[a-zA-Z\s\-'\.]+$/.test(applicantName)) {
+  if (!/^[a-zA-Z\s-'.]+$/.test(applicantName)) {
     return "Applicant name contains invalid characters";
   }
 
@@ -41,7 +41,7 @@ const validateInput = (data: ResumeNotificationRequest): string | null => {
   }
 
   if (phone && phone.length > 0) {
-    if (!/^[\d\s\-\+\(\)]+$/.test(phone)) {
+    if (!/^[\d\s()+-]+$/.test(phone)) {
       return "Phone number contains invalid characters";
     }
     if (phone.length > 20) {

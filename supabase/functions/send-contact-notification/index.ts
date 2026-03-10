@@ -40,7 +40,7 @@ const validateInput = (data: ContactNotificationRequest): { valid: boolean; erro
   }
 
   // Phone validation (if provided)
-  if (data.phone && (data.phone.length > 20 || !/^[0-9\s\-\(\)\+]*$/.test(data.phone))) {
+  if (data.phone && (data.phone.length > 20 || !/^[0-9\s()+-]*$/.test(data.phone))) {
     return { valid: false, error: "Invalid phone format" };
   }
 

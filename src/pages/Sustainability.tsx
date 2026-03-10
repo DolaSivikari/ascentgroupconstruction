@@ -3,8 +3,8 @@ import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
 import PageHero from "@/components/shared/PageHero";
-import { Card, CardContent } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
+import { Card, CardContent } from "@/ui/Card";
+import { Input } from "@/ui/Input";
 import { Label } from "@/components/ui/label";
 import { Link } from "react-router-dom";
 import { companyHeroes } from "@/data/hero-images";
@@ -78,7 +78,7 @@ const Sustainability = () => {
     <div className="min-h-screen">
       <SEO 
         title="Sustainability - Building a Greener GTA"
-        description="Ascen Group Construction leads the painting and finishing industry with eco-friendly practices, low-VOC materials, and sustainable construction methods across the Greater Toronto Area."
+        description="Ascent Group Construction leads the painting and finishing industry with eco-friendly practices, low-VOC materials, and sustainable construction methods across the Greater Toronto Area."
         keywords="sustainable painting, eco-friendly construction, low-VOC paint, green building, environmental construction GTA"
       />
       <Navigation />
@@ -105,7 +105,7 @@ const Sustainability = () => {
               <h2 className="text-3xl font-bold mb-6">Our Sustainability Commitment</h2>
               <div className="space-y-4 text-muted-foreground leading-relaxed">
                 <p>
-                  At Ascen Group Construction, we believe that beautifying the GTA's buildings means protecting the environment for future generations. Our commitment to sustainability isn't just a policy—it's woven into every painting, stucco, and finishing project we undertake.
+                  At Ascent Group Construction, we believe that beautifying the GTA's buildings means protecting the environment for future generations. Our commitment to sustainability isn't just a policy—it's woven into every painting, stucco, and finishing project we undertake.
                 </p>
                 <p>
                   From exclusively using low-VOC and zero-VOC materials to implementing comprehensive waste diversion strategies, we're dedicated to minimizing our environmental footprint. We partner with eco-certified suppliers, properly dispose of all materials, and continuously innovate our methods to reduce environmental impact.

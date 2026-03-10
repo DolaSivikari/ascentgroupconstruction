@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { ChevronDown, Clock } from "lucide-react";
-import { Card, CardContent } from "@/components/ui/card";
+import { Card, CardContent } from "@/ui/Card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/ui/Button";
 import OptimizedImage from "@/components/OptimizedImage";

@@ -1,6 +1,6 @@
 import { useState, useRef } from "react";
 import { Mail } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/ui/Button";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 import { z } from "zod";

@@ -133,7 +133,7 @@ export default function CompanyIntroduction() {
                     )}
                     style={{ transitionDelay: `${index * 100 + 400}ms` }}
                   >
-                    <div className="absolute inset-0 bg-gradient-to-br from-construction-orange/0 to-construction-orange/0 group-hover:from-construction-orange/10 group-hover:to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                    <div className="absolute inset-0 bg-gradient-to-br from-construction-orange/5 to-transparent group-hover:from-construction-orange/15 group-hover:to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                     <div className="relative z-10">
                       <div className="w-14 h-14 rounded-[var(--radius-lg)] bg-construction-orange/10 flex items-center justify-center mb-4 group-hover:bg-construction-orange/15 group-hover:scale-110 transition-all duration-300">
                         <Icon className="w-7 h-7 text-construction-orange" />

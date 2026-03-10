@@ -2,11 +2,11 @@ import { useState } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/ui/Button";
-import { Card } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
+import { Card } from "@/ui/Card";
+import { Input } from "@/ui/Input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { Plus, Trash2, Save, ExternalLink } from "lucide-react";
+import { Plus, Trash2, Save, ExternalLink, AlertTriangle } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { Badge } from "@/components/ui/badge";
 
@@ -113,6 +113,10 @@ const RedirectsManager = () => {
       <div className="mb-8">
         <h1 className="text-3xl font-bold mb-2">Redirects Manager</h1>
         <p className="text-muted-foreground">Manage URL redirects (301/302) for SEO and site structure changes</p>
+        <div className="rounded-lg border border-amber-500/30 bg-amber-500/10 p-3 text-sm text-amber-200 flex items-start gap-2 mt-4">
+          <AlertTriangle className="h-4 w-4 mt-0.5" />
+          <span>Internal tool only: redirect entries are saved in the database but are not automatically deployed to hosting/CDN redirect rules.</span>
+        </div>
       </div>
 
       {!isAdding && (

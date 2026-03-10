@@ -5,7 +5,7 @@ import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
 import { PageHero } from "@/components/shared/PageHero";
 import { Section } from "@/components/sections/Section";
-import { Input } from "@/components/ui/input";
+import { Input } from "@/ui/Input";
 import { Card, CardContent } from "@/design-system/components/Card";
 import { Badge } from "@/components/ui/badge";
 import { generateFAQSchema, generateHowToSchema } from "@/utils/faq-schema";

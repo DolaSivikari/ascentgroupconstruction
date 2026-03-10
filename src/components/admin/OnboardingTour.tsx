@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Button } from '@/ui/Button';
 import { X, ChevronLeft, ChevronRight } from 'lucide-react';
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/ui/Card';
 import { cn } from '@/lib/utils';
 
 interface TourStep {

@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/ui/Card';
 import { Button } from '@/ui/Button';
-import { Input } from '@/components/ui/input';
+import { Input } from '@/ui/Input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -30,61 +30,10 @@ import {
   Bot,
 } from 'lucide-react';
 import AIVisibilitySection from '@/components/admin/seo/AIVisibilitySection';
+import { SEODashboardOverviewTab } from '@/components/admin/seo/SEODashboardOverviewTab';
+import { useSeoOverviewStats } from '@/hooks/admin/useSeoOverviewStats';
+import type { AnalyticsSnapshot, DailyMetrics, PageMetrics, QueryMetrics, SearchConsoleData, SeoContentItem, SEOSettings } from './seo/types';
 import { LineChart, Line, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
-
-interface SEOSettings {
-  id: string;
-  entity_type: string;
-  entity_id: string;
-  permalink: string;
-  meta_title: string;
-  meta_description: string;
-  meta_keywords: string[];
-  focus_keyword: string;
-  seo_score: number;
-}
-
-interface AnalyticsSnapshot {
-  page_path: string;
-  page_views: number;
-  unique_visitors: number;
-  avg_time_on_page: number;
-  bounce_rate: number;
-}
-
-interface SearchConsoleData {
-  page_path: string;
-  query: string;
-  date: string;
-  clicks: number;
-  impressions: number;
-  ctr: number;
-  position: number;
-}
-
-interface DailyMetrics {
-  date: string;
-  clicks: number;
-  impressions: number;
-  ctr: number;
-  position: number;
-}
-
-interface PageMetrics {
-  page_path: string;
-  clicks: number;
-  impressions: number;
-  ctr: number;
-  position: number;
-}
-
-interface QueryMetrics {
-  query: string;
-  clicks: number;
-  impressions: number;
-  ctr: number;
-  position: number;
-}
 
 export default function SEODashboard() {
   const navigate = useNavigate();
@@ -92,7 +41,7 @@ export default function SEODashboard() {
   const [loading, setLoading] = useState(true);
   const [seoSettings, setSeoSettings] = useState<SEOSettings[]>([]);
   const [analytics, setAnalytics] = useState<AnalyticsSnapshot[]>([]);
-  const [contentItems, setContentItems] = useState<any[]>([]);
+  const [contentItems, setContentItems] = useState<SeoContentItem[]>([]);
   const [robotsTxt, setRobotsTxt] = useState('');
   const [generatingKeywords, setGeneratingKeywords] = useState(false);
   const [selectedContent, setSelectedContent] = useState('');
@@ -105,6 +54,8 @@ export default function SEODashboard() {
   const [lastSyncTime, setLastSyncTime] = useState<string | null>(null);
   const [currentUserId, setCurrentUserId] = useState<string | null>(null);
   const [isSavingRobotsTxt, setIsSavingRobotsTxt] = useState(false);
+
+  const overviewStats = useSeoOverviewStats(seoSettings, analytics, contentItems);
 
   useEffect(() => {
     checkAuth();
@@ -217,7 +168,7 @@ export default function SEODashboard() {
     }
   };
 
-  const calculateSEOScore = (item: any, type: string) => {
+  const calculateSEOScore = (item: SEOScorableItem, type: string) => {
     let score = 0;
     const recommendations: string[] = [];
 
@@ -304,7 +255,7 @@ export default function SEODashboard() {
       ]);
 
       // Process content items with SEO scores
-      const items: any[] = [];
+      const items: SEOScorableItem[] = [];
 
       if (blogRes.data) {
         blogRes.data.forEach((post) => {
@@ -369,7 +320,7 @@ export default function SEODashboard() {
 Allow: /
 Sitemap: ${window.location.origin}/sitemap.xml`);
       }
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error('Error loading SEO data:', error);
       toast({
         variant: 'destructive',
@@ -404,7 +355,7 @@ Sitemap: ${window.location.origin}/sitemap.xml`);
         title: 'Keywords Generated',
         description: `Found ${data.keywords?.length || 0} relevant keywords`,
       });
-    } catch (error: any) {
+    } catch (error: unknown) {
       toast({
         variant: 'destructive',
         title: 'Error',
@@ -451,7 +402,7 @@ Sitemap: ${window.location.origin}/sitemap.xml`);
         title: 'Success',
         description: 'Robots.txt updated successfully! Changes will be live after next deployment.',
       });
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error('Error saving robots.txt:', error);
       toast({
         variant: 'destructive',
@@ -532,7 +483,7 @@ Disallow: /auth`;
         title: 'Success',
         description: `Sitemap generated with ${data.url_count} URLs`,
       });
-    } catch (error: any) {
+    } catch (error: unknown) {
       await supabase.from('sitemap_logs').insert({
         url_count: 0,
         status: 'error',
@@ -570,7 +521,7 @@ Disallow: /auth`;
           description: 'Failed to get authorization URL',
         });
       }
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error('Error connecting to Google Search Console:', error);
       toast({
         variant: 'destructive',
@@ -621,7 +572,7 @@ Disallow: /auth`;
       });
 
       await loadSearchConsoleData();
-    } catch (error: any) {
+    } catch (error: unknown) {
       toast({
         variant: 'destructive',
         title: 'Error',
@@ -781,110 +732,7 @@ Disallow: /auth`;
 
         {/* Overview Tab */}
         <TabsContent value="overview" className="space-y-6">
-          <div className="grid gap-4 md:grid-cols-4">
-            <Card>
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">Total Pages</CardTitle>
-                <FileText className="h-4 w-4 text-muted-foreground" />
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold">{seoSettings.length}</div>
-                <p className="text-xs text-muted-foreground">Pages optimized</p>
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">Avg SEO Score</CardTitle>
-                <TrendingUp className="h-4 w-4 text-muted-foreground" />
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold">
-                  {contentItems.length > 0
-                    ? Math.round(
-                        contentItems.reduce((sum, item) => sum + item.seoScore, 0) / contentItems.length
-                      )
-                    : 0}
-                </div>
-                <p className="text-xs text-muted-foreground">Out of 100</p>
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">Total Views</CardTitle>
-                <BarChart3 className="h-4 w-4 text-muted-foreground" />
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold">
-                  {analytics.reduce((sum, a) => sum + a.page_views, 0).toLocaleString()}
-                </div>
-                <p className="text-xs text-muted-foreground">Last 30 days</p>
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">Indexed Pages</CardTitle>
-                <CheckCircle className="h-4 w-4 text-muted-foreground" />
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold">{contentItems.length}</div>
-                <p className="text-xs text-muted-foreground">Published content</p>
-              </CardContent>
-            </Card>
-          </div>
-
-          {/* Recent SEO Settings */}
-          <Card>
-            <CardHeader>
-              <CardTitle>Content SEO Status</CardTitle>
-              <CardDescription>Recent pages and their SEO scores</CardDescription>
-            </CardHeader>
-            <CardContent>
-              {contentItems.length === 0 ? (
-                <div className="text-center space-y-3 py-8">
-                  <FileText className="h-12 w-12 mx-auto text-muted-foreground" />
-                  <p className="text-lg font-medium">No content available yet</p>
-                  <p className="text-sm text-muted-foreground max-w-md mx-auto">
-                    Create blog posts, projects, and services to start tracking SEO performance.
-                  </p>
-                </div>
-              ) : (
-                <div className="space-y-3">
-                  {contentItems.slice(0, 10).map((item) => (
-                    <div key={item.id} className="border rounded-lg p-4 space-y-3">
-                      <div className="flex items-start justify-between gap-3">
-                        <div className="flex-1 min-w-0">
-                          <div className="flex items-center gap-2 mb-1">
-                            <Badge variant="info" className="text-xs">{item.type}</Badge>
-                            <Badge variant={item.seoScore >= 80 ? 'success' : item.seoScore >= 60 ? 'warning' : 'danger'}>
-                              {item.seoScore}/100
-                            </Badge>
-                          </div>
-                          <p className="font-medium truncate">{item.displayTitle}</p>
-                          <p className="text-xs text-muted-foreground truncate">{item.url}</p>
-                        </div>
-                      </div>
-                      {item.recommendations.length > 0 && (
-                        <div className="space-y-1">
-                          <p className="text-xs font-medium text-muted-foreground">Recommendations:</p>
-                          <ul className="text-xs space-y-1 text-muted-foreground">
-                            {item.recommendations.slice(0, 3).map((rec: string, idx: number) => (
-                              <li key={idx} className="flex items-start gap-2">
-                                <AlertCircle className="h-3 w-3 mt-0.5 flex-shrink-0" />
-                                <span>{rec}</span>
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
-                      )}
-                    </div>
-                  ))}
-                </div>
-              )}
-            </CardContent>
-          </Card>
+          <SEODashboardOverviewTab stats={overviewStats} contentItems={contentItems} />
         </TabsContent>
 
         {/* Search Analytics Tab */}
@@ -1051,7 +899,7 @@ Disallow: /auth`;
                   </CardHeader>
                   <CardContent>
                     <div className="text-2xl font-bold">{metrics.avgCTR.toFixed(2)}%</div>
-                    <p className="text-xs text-muted-foreground">Click-through rate</p>
+              <p className="text-xs text-muted-foreground">Click-through rate</p>
                   </CardContent>
                 </Card>
 
@@ -1062,7 +910,7 @@ Disallow: /auth`;
                   </CardHeader>
                   <CardContent>
                     <div className="text-2xl font-bold">{metrics.avgPosition.toFixed(1)}</div>
-                    <p className="text-xs text-muted-foreground">Search ranking</p>
+              <p className="text-xs text-muted-foreground">Search ranking</p>
                   </CardContent>
                 </Card>
               </div>
@@ -1226,6 +1074,10 @@ Disallow: /auth`;
                   disabled={isSavingRobotsTxt}
                   placeholder="Loading robots.txt..."
                 />
+              </div>
+              <div className="rounded-lg border border-amber-500/30 bg-amber-500/10 p-3 text-sm text-amber-200 flex items-start gap-2">
+                <AlertCircle className="h-4 w-4 mt-0.5" />
+                <span>Internal control: this editor saves <code className="mx-1">site_settings.robots_txt</code>, but live robots output depends on deployment/runtime wiring. Verify production robots behavior before relying on changes.</span>
               </div>
               <p className="text-xs text-muted-foreground">
                 ⚠️ Changes will be stored in the database and applied to your live site on next deployment.

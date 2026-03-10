@@ -1,5 +1,5 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/ui/Card";
+import { Button } from "@/ui/Button";
 import { ArrowRight, Building2 } from "lucide-react";
 import { Link } from "react-router-dom";
 import { getChallengeColor } from "./challengeMapping";

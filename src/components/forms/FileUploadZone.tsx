@@ -1,7 +1,7 @@
 import { useCallback, useState } from "react";
 import { Upload, X, FileText, Image as ImageIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/ui/Button";
 
 interface FileUploadZoneProps {
   onFilesChange: (files: File[]) => void;

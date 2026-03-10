@@ -3,3 +3,4 @@ export { Input } from './Input';
 export { Textarea } from './Textarea';
 export { Select } from './Select';
 export { Section } from './Section';
+export { Card, CardHeader, CardFooter, CardTitle, CardDescription, CardContent } from './Card';

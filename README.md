@@ -1,262 +1,207 @@
-# Ascent Group Construction - General Contractor Website
+# Ascent Group Construction Web Platform
 
-## Project Overview
+## 1) Project overview
 
-Full-service general contractor website specializing in commercial, multi-family residential, and institutional construction projects across Ontario. Built with React, TypeScript, and Supabase (Lovable Cloud).
+This repository contains the public website and admin platform for Ascent Group Construction. It is a React + TypeScript single-page application (SPA) with Supabase-backed data, forms, and admin modules.
 
----
+At a high level, the codebase currently includes:
+- Public marketing and service pages
+- Lead-generation flows (contact, estimate, RFP, newsletter)
+- Admin content and settings management under `/admin/*`
+- CI smoke and route-audit checks intended to catch route drift and deployment regressions
 
-## 🎯 Business Positioning
-
-**Primary Focus:** General Contractor for commercial, multi-family, and institutional projects
-- ❌ **Not a residential painter**
-- ✅ **Full-service construction management**
-- ✅ **Design-build capabilities**
-- ✅ **Building envelope systems**
+Recent stabilization work focused on route integrity, CI/smoke truthfulness, and surfacing silent failure states in lead flows/settings.
 
 ---
 
-## 🏗️ Tech Stack
+## 2) Tech stack
 
-**Frontend:**
+### Frontend
 - React 18 + TypeScript
-- Vite (build tool & dev server)
-- Tailwind CSS (styling)
-- shadcn/ui (component library)
-- React Router (client-side routing)
-- TanStack Query (data fetching)
-- Framer Motion (animations)
+- Vite 5 (`@vitejs/plugin-react-swc`)
+- React Router v6
+- Tailwind CSS + shadcn/ui + Radix UI
+- TanStack Query
 
-**Backend (Lovable Cloud/Supabase):**
-- PostgreSQL database
-- Row Level Security (RLS)
-- Authentication (email/password)
-- Storage (project images, documents)
-- Edge Functions (serverless backend logic)
+### Backend / data / integrations
+- Supabase (`@supabase/supabase-js`)
+  - PostgreSQL
+  - Auth
+  - Storage
+  - Edge Functions (for submission/notification workflows)
+- Form validation with `react-hook-form` + `zod`
 
-**Key Libraries:**
-- `react-hook-form` + `zod` - Form validation
-- `react-quill` - Rich text editor (admin)
-- `@react-pdf/renderer` - PDF generation (estimates/invoices)
-- `date-fns` - Date formatting
-- `sonner` + `@radix-ui` - Toast notifications
-- `yet-another-react-lightbox` - Image galleries
-- `@dnd-kit` - Drag-and-drop (admin)
+### Build / quality / CI
+- ESLint
+- GitHub Actions (`smoke-test.yml`, `lighthouse-ci.yml`)
+- Custom scripts:
+  - `scripts/smoke-test.sh`
+  - `scripts/audit-routes.ts`
+  - `scripts/validate-sw.js`
+
+### Hosting / deployment
+- **Confirmed:** Lovable project linkage and documentation for manual publish/domain management exists in-repo.
+- **Not fully proven from repo alone:** whether production is always auto-deployed from `main`, or requires manual Lovable publish in some cases.
 
 ---
 
-## 📁 Project Structure
+## 3) Key features
 
-```
+### Public site
+- Core pages: home, about, services, projects, contact, estimate, RFP, insights/blog, legal pages
+- Service detail and service-related redirect paths
+- Route-level fallbacks (`/404` and catch-all)
+
+### Lead generation
+- Contact submission flow
+- Estimate request flow
+- RFP submission flow
+- Newsletter subscription persistence to Supabase (`newsletter_subscribers`)
+
+### Admin capabilities (`/admin/*`)
+- Dashboard and unified admin layout
+- Services, projects, blog, media, users
+- Unified inbox for submissions
+- Settings, SEO, redirects, performance/search analytics, monitoring/audit views
+- Homepage/navigation management modules
+
+### Settings / business modules
+- Company/site settings hooks with explicit error/warning behavior when expected rows are missing
+- Business/admin pages and utilities for operations workflows (see docs map below)
+
+---
+
+## 4) Project structure
+
+```text
 src/
-├── components/          # Reusable UI components
-│   ├── ui/             # shadcn/ui base components
-│   ├── admin/          # Admin-specific components
-│   ├── business/       # Business module (estimates/invoices)
-│   ├── homepage/       # Homepage sections
-│   ├── navigation/     # Navigation & menus
-│   └── ...
-├── pages/              # Route pages
-│   ├── admin/          # Admin dashboard pages
-│   ├── company/        # Company info pages
-│   ├── markets/        # Market-specific pages
-│   ├── resources/      # Resource pages
-│   ├── services/       # Service pages
-│   └── Index.tsx       # Homepage
-├── hooks/              # Custom React hooks
-├── lib/                # Utilities & helpers
-├── data/               # Static data & configurations
-├── utils/              # Utility functions
-├── integrations/       # Supabase integration
-└── styles/             # Global styles
+  components/        UI, navigation, admin, homepage, blog, etc.
+  pages/             Route components (public + admin)
+  hooks/             Data/settings hooks
+  integrations/      External integration clients (including Supabase)
+  data/              Navigation and static configuration data
+  utils/             Route and shared utility helpers
+
+public/
+  _redirects         Redirect + SPA fallback rules
+
+scripts/
+  smoke-test.sh      Production smoke checks (SPA + optional Supabase endpoint reachability)
+  audit-routes.ts    Route/link integrity audit against src/App.tsx
+  validate-sw.js     Service-worker validation utility
+
+.github/workflows/
+  smoke-test.yml
+  lighthouse-ci.yml
 ```
 
----
-
-## ✨ Active Features
-
-### **Public-Facing:**
-- ✅ Homepage with hero, metrics, certifications
-- ✅ Services explorer (21+ services)
-- ✅ Project portfolio (case studies)
-- ✅ Blog/news section
-- ✅ Contact & RFP submission forms
-- ✅ Project estimator calculator
-- ✅ Pre-qualification package download
-- ✅ Company information (about, team, certifications)
-- ✅ Market-specific pages (8 markets)
-- ✅ SEO optimization (structured data, meta tags)
-- ✅ Responsive design (mobile-first)
-- ✅ Accessibility (WCAG AA)
-
-### **Admin Dashboard:**
-- ✅ Content Management System (CMS)
-  - Services editor
-  - Project/case study manager
-  - Blog post editor
-- ✅ Form submission management
-  - Contact submissions
-  - RFP submissions
-  - Resume submissions
-  - Pre-qualification requests
-- ✅ Media library
-- ✅ User management (roles & permissions)
-- ✅ Homepage settings
-- ✅ Company stats management
-- ✅ Testimonials manager
-- ✅ Leadership team manager
-- ✅ SEO dashboard
-- ✅ Performance monitoring
-- ✅ Security center
-
-### **Business Module:**
-- ✅ Client management (CRM-lite)
-- ✅ Project tracking
-- ✅ Estimates/quotes generator
-- ✅ Invoice generation
-- ✅ PDF export (estimates & invoices)
-- ✅ Payment tracking
+Primary route definitions are in `src/App.tsx`; keep route-related links/data aligned with it.
 
 ---
 
-## 🚀 Getting Started
+## 5) Local development
 
-### **Prerequisites:**
-- Node.js 18+ and npm
-- Git
+### Prerequisites
+- Node.js 18+
+- npm
 
-### **Installation:**
-
-```sh
-# Clone the repository
-git clone <YOUR_GIT_URL>
-
-# Navigate to project directory
-cd <YOUR_PROJECT_NAME>
-
-# Install dependencies
+### Install and run
+```bash
 npm install
-
-# Start development server
 npm run dev
 ```
 
-The app will be available at `http://localhost:8080`
+The dev server is configured for `http://localhost:8080`.
 
----
+### Required environment variables
+Create a `.env.local` with project-specific values:
 
-## 🔐 Environment Variables
-
-Required environment variables (auto-configured by Lovable Cloud):
-
-```
-VITE_SUPABASE_URL=<auto-configured>
-VITE_SUPABASE_PUBLISHABLE_KEY=<auto-configured>
-VITE_SUPABASE_PROJECT_ID=<auto-configured>
+```bash
+VITE_SUPABASE_URL=...
+VITE_SUPABASE_PUBLISHABLE_KEY=...
+# Optional but used by smoke workflow/checks
+VITE_SUPABASE_PROJECT_ID=...
 ```
 
----
-
-## 📦 Build & Deploy
-
-### **Build for Production:**
-```sh
+### Common commands
+```bash
+npm run dev
 npm run build
-```
-
-### **Preview Production Build:**
-```sh
+npm run build:optimized   # requires sharp + svgo installed and ENABLE_IMAGE_OPTIMIZATION=true
 npm run preview
+npm run lint
+npm run validate:sw
 ```
 
-### **Deploy via Lovable:**
-1. Visit [Lovable Project](https://lovable.dev/projects/3174d3a8-9b0e-45f6-bf01-0f48b1c02607)
-2. Click "Publish" button
-3. Your site will be deployed to `yoursite.lovable.app`
+---
 
-### **Custom Domain:**
-- Navigate to Project > Settings > Domains
-- Click "Connect Domain"
-- Follow DNS configuration instructions
+## 6) Quality checks
+
+Run these before opening/merging release-sensitive changes:
+
+```bash
+# Production build sanity
+npm run build
+
+# Route-link integrity audit
+npx ts-node scripts/audit-routes.ts
+
+# Smoke checks (example against production domain)
+./scripts/smoke-test.sh https://ascentgroupconstruction.com
+
+# Lint
+npm run lint
+```
+
+Notes:
+- `smoke-test.sh` is SPA-focused and does **not** rely on nonexistent local `/api/*` endpoints.
+- Supabase edge function reachability in smoke is conditional on `VITE_SUPABASE_PROJECT_ID`.
+- Image optimization is opt-in for CI stability. Use `npm run build:optimized` only when `sharp` and `svgo` are available.
 
 ---
 
-## 🎨 Design System
+## 7) Deployment notes
 
-**Colors (HSL):**
-- Primary: Navy (#003366)
-- Charcoal: Gray (#36454F)
-- Accent: Orange (#FF6B35)
-- Semantic tokens defined in `src/index.css`
+### Confirmed in repository
+- CI smoke workflow targets `main` and PRs to `main`.
+- Docs and project context still reference Lovable publish/domain controls.
 
-**Typography:**
-- Font: Inter (400, 600, 700 weights)
-- Scale: 12px → 14px → 16px → 18px → 20px → 24px → 32px → 48px → 64px
+### Operational reality to confirm per release
+Because the repo does not conclusively prove the production trigger path, treat deployment as **potentially hybrid**:
+- Merge to `main` may be sufficient **or**
+- A manual Lovable publish may still be required
 
-**Spacing:**
-- Scale: 4px, 8px, 12px, 16px, 24px, 32px, 48px, 64px, 96px, 128px
-
-**Components:**
-- Base: shadcn/ui components
-- Custom variants for brand-specific styling
-- Consistent design tokens across all components
+### Recommended release discipline
+1. Merge to `main`
+2. Confirm whether hosting auto-deployed that commit SHA
+3. If not, perform manual publish in Lovable
+4. Run post-deploy smoke checks and verify lead/admin critical paths
 
 ---
 
-## 🧹 Recent Cleanup (January 2025)
+## 8) Known risks / operational notes
 
-**Removed:**
-- 6 files (old hero components, residential pages)
-- 5 unused database tables
-- 15 unused image assets (blog/case study images)
-- 150+ instances of residential/painting language
-
-**Updated:**
-- All CTAs to "Request Proposal" (from "Get Free Quote/Estimate")
-- Target audience to property owners/developers (from homeowners)
-- Service descriptions to GC-focused (from painting services)
-- Meta tags & SEO to commercial construction keywords
-
-**Results:**
-- 100% message consistency (pure GC positioning)
-- Cleaner codebase (fewer files, less code)
-- Smaller bundle size (~30% reduction estimated)
-- Better SEO focus (targeted keywords)
+- **Route integrity discipline:** keep navigation data, redirects, and hard-coded links aligned with `src/App.tsx`.
+- **Deployment drift risk:** merged code may not be live if manual publish is still required.
+- **Supabase/RLS-sensitive areas:** newsletter, contact, estimate, and inbox-related flows depend on backend policy/function correctness.
+- **Notification side-effects:** some lead flows can persist successfully even when downstream notifications partially fail; monitor warnings and logs.
+- **Admin route churn:** avoid adding stale admin shortcuts; prefer canonical admin destinations used in `App.tsx`.
 
 ---
 
-## 📚 Documentation
+## 9) Documentation map (related docs)
 
-- [Deployment Guide](https://docs.lovable.dev/features/custom-domain)
-- [Lovable Cloud Features](https://docs.lovable.dev/features/cloud)
-- [Database Schema](./docs/DATABASE_ERD.md)
-- [Architecture Overview](./docs/ARCHITECTURE_OVERVIEW.md)
-- [Cleanup Report](./CLEANUP_REPORT.md)
-
----
-
-## 🤝 Contributing
-
-**Edit via Lovable:**
-- Visit [Lovable Project](https://lovable.dev/projects/3174d3a8-9b0e-45f6-bf01-0f48b1c02607)
-- Start prompting for changes
-- Changes auto-commit to this repo
-
-**Edit Locally:**
-1. Make changes in your preferred IDE
-2. Commit and push to GitHub
-3. Changes will reflect in Lovable
+- `docs/ARCHITECTURE_OVERVIEW.md` — high-level system architecture and domain model
+- `docs/ADMIN_GUIDE.md` — admin workflows and usage patterns
+- `docs/BUSINESS_MODULE_GUIDE.md` — operations/business module behavior
+- `docs/COMPANY_SETTINGS.md` — company/site settings model
+- `docs/DATABASE_ERD.md` — schema/domain reference
+- `docs/DEPLOYMENT.md` — Lovable/domain deployment guidance
+- `docs/DEVELOPER_ONBOARDING.md` — onboarding reference (contains some legacy deployment assumptions; validate against current release process)
+- `docs/AUDIT_IMPLEMENTATION_COMPLETE.md` — stabilization/audit implementation summary
 
 ---
 
-## 📄 License
+## License
 
-Proprietary - Ascent Group Construction
-
----
-
-## 🆘 Support
-
-- **Lovable Docs:** https://docs.lovable.dev/
-- **Lovable Discord:** https://discord.com/channels/1119885301872070706/1280461670979993613
-- **Project URL:** https://lovable.dev/projects/3174d3a8-9b0e-45f6-bf01-0f48b1c02607
+Proprietary — Ascent Group Construction.

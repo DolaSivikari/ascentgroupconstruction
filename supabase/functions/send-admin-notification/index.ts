@@ -24,10 +24,36 @@ Deno.serve(async (req) => {
   }
 
   try {
+    const authHeader = req.headers.get('Authorization');
+    if (!authHeader) {
+      return new Response('Unauthorized', { status: 401, headers: corsHeaders });
+    }
+
+    const supabaseAuth = createClient(
+      Deno.env.get('SUPABASE_URL')!,
+      Deno.env.get('SUPABASE_ANON_KEY')!
+    );
+
+    const token = authHeader.replace('Bearer ', '');
+    const { data: authData, error: authError } = await supabaseAuth.auth.getUser(token);
+    if (authError || !authData.user) {
+      return new Response('Unauthorized', { status: 401, headers: corsHeaders });
+    }
+
     const supabase = createClient(
       Deno.env.get('SUPABASE_URL')!,
       Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!
     );
+
+    const { data: callerRole } = await supabase
+      .from('user_roles')
+      .select('role')
+      .eq('user_id', authData.user.id)
+      .single();
+
+    if (!callerRole || !['admin', 'super_admin'].includes(callerRole.role)) {
+      return new Response('Forbidden', { status: 403, headers: corsHeaders });
+    }
 
     // Rate limiting: 10 requests per minute per IP
     const identifier = getClientIdentifier(req);
@@ -125,7 +151,7 @@ Deno.serve(async (req) => {
       }),
       { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
     );
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error('Notification error:', error);
     return createErrorResponse(
       error,
