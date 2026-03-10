@@ -41,16 +41,6 @@ interface MobileNavSheetProps {
   onOpenChange: (open: boolean) => void;
 }
 
-      className="ml-2"
-    >
-      {badge === "new" ? (
-        <Sparkles className="h-3 w-3" aria-hidden="true" />
-      ) : (
-        <Star className="h-3 w-3" aria-hidden="true" />
-      )}
-    </Badge>
-  );
-};
 
 export function MobileNavSheet({ open, onOpenChange }: MobileNavSheetProps) {
   const location = useLocation();
