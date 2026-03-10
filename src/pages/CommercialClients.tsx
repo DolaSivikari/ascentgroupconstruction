@@ -8,7 +8,7 @@ import { CapabilityCard } from "@/design-system/components/CapabilityCard";
 import { CTABand } from "@/design-system/components/CTABand";
 import { Card } from "@/design-system/components/Card";
 import { OperationalProofBar, DEFAULT_PROOF_ITEMS } from "@/components/proof/OperationalProofBar";
-import { Timer, ShieldCheck, Users, Moon, CheckCircle, Building2, Zap, ClipboardCheck, FileText, Wrench, FolderCheck } from "lucide-react";
+import { Timer, ShieldCheck, Users, Moon, CheckCircle, Building2, Zap, ClipboardCheck, FileText, Wrench, FolderCheck, Ban } from "lucide-react";
 import { audienceHeroes } from "@/data/hero-images";
 
 const CommercialClients = () => {
