@@ -1,3 +1,5 @@
+import { COMPANY_NAME, COMPANY_PHONE_E164, COMPANY_EMAIL, COMPANY_ADDRESS, SITE_URL } from "@/constants/company";
+
 interface OrganizationSchemaOptions {
   name?: string;
   description?: string;
