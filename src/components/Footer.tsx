@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { Mail, Phone, MapPin, Linkedin, Shield, Award, FileCheck, Building2 } from "lucide-react";
 
 import SEO from "@/components/SEO";
+import { COMPANY_EMAIL } from "@/constants/company";
 import { Skeleton } from "@/components/ui/skeleton";
 import { supabase } from "@/integrations/supabase/client";
 import type { Database } from "@/integrations/supabase/types";
@@ -97,7 +98,7 @@ const Footer = () => {
     "@id": "https://ascentgroupconstruction.com/#organization",
     name: "Ascent Group Construction",
     image: "https://ascentgroupconstruction.com/og-image.jpg",
-    email: "info@ascentgroupconstruction.com",
+    email: COMPANY_EMAIL,
     areaServed: { "@type": "State", name: "Ontario" },
     address: { "@type": "PostalAddress", addressRegion: "ON", addressCountry: "CA" },
     serviceType: ["Building Envelope", "Interior Construction", "Specialty Contracting"],

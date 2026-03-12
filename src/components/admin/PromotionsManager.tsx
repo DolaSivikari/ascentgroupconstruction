@@ -9,10 +9,12 @@ import { Badge } from "@/components/ui/badge";
 import { useServicePromotionsAdmin } from "@/hooks/useFeaturedServices";
 import { Plus, Megaphone, Trash2 } from "lucide-react";
 import { toast } from "sonner";
+import { ConfirmDialog } from "@/components/admin/ConfirmDialog";
 
 export function PromotionsManager() {
   const { allPromotions, isLoading, createPromotion, updatePromotion, deletePromotion } = useServicePromotionsAdmin();
   const [isCreating, setIsCreating] = useState(false);
+  const [pendingDeleteId, setPendingDeleteId] = useState<string | null>(null);
   const [newPromotion, setNewPromotion] = useState({
     title: '',
     service_link: '',
@@ -29,6 +31,11 @@ export function PromotionsManager() {
   const handleCreate = () => {
     if (!newPromotion.title || !newPromotion.service_link) {
       toast.error('Please fill in required fields');
+      return;
+    }
+
+    if (new Date(newPromotion.start_date) >= new Date(newPromotion.end_date)) {
+      toast.error('Start date must be before end date');
       return;
     }
 
@@ -50,9 +57,14 @@ export function PromotionsManager() {
   };
 
   const handleDelete = (id: string) => {
-    if (confirm('Are you sure you want to delete this promotion?')) {
-      deletePromotion(id);
+    setPendingDeleteId(id);
+  };
+
+  const handleConfirmDelete = () => {
+    if (pendingDeleteId) {
+      deletePromotion(pendingDeleteId);
       toast.success('Promotion deleted');
+      setPendingDeleteId(null);
     }
   };
 
@@ -224,6 +236,17 @@ export function PromotionsManager() {
           ))}
         </div>
       </CardContent>
+
+      <ConfirmDialog
+        open={pendingDeleteId !== null}
+        onOpenChange={(open) => { if (!open) setPendingDeleteId(null); }}
+        onConfirm={handleConfirmDelete}
+        title="Delete Promotion"
+        description="Are you sure you want to delete this promotion?"
+        confirmText="Delete"
+        cancelText="Cancel"
+        variant="destructive"
+      />
     </Card>
   );
 }

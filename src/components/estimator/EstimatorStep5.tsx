@@ -1,6 +1,7 @@
 import { Label } from "@/components/ui/label";
 import { Input } from "@/ui/Input";
 import { Textarea } from "@/components/ui/textarea";
+import { Checkbox } from "@/components/ui/checkbox";
 import { Link } from "react-router-dom";
 
 interface Step5Props {
@@ -40,6 +41,7 @@ const EstimatorStep5 = ({ data, onChange }: Step5Props) => {
             onChange={(e) => onChange("name", e.target.value)}
             className="h-12"
             required
+            aria-required="true"
           />
         </div>
 
@@ -55,6 +57,7 @@ const EstimatorStep5 = ({ data, onChange }: Step5Props) => {
             onChange={(e) => onChange("email", e.target.value)}
             className="h-12"
             required
+            aria-required="true"
           />
         </div>
       </div>
@@ -72,6 +75,7 @@ const EstimatorStep5 = ({ data, onChange }: Step5Props) => {
             onChange={(e) => onChange("phone", e.target.value)}
             className="h-12"
             required
+            aria-required="true"
           />
         </div>
 
@@ -116,12 +120,12 @@ const EstimatorStep5 = ({ data, onChange }: Step5Props) => {
       </div>
 
       <div className="flex items-start gap-3 pt-2">
-        <input
-          type="checkbox"
+        <Checkbox
           id="consent"
           checked={data.consent}
-          onChange={(e) => onChange("consent", e.target.checked)}
+          onCheckedChange={(checked) => onChange("consent", checked as boolean)}
           required
+          aria-required="true"
           className="mt-1"
         />
         <Label htmlFor="consent" className="text-sm leading-relaxed cursor-pointer">

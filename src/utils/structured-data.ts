@@ -1,3 +1,5 @@
+import { COMPANY_PHONE_E164, COMPANY_EMAIL } from "@/constants/company";
+
 interface OrganizationSchemaOptions {
   name?: string;
   description?: string;
@@ -35,9 +37,9 @@ export const organizationSchema = (options?: OrganizationSchemaOptions) => {
     },
     contactPoint: {
       "@type": "ContactPoint",
-      telephone: "+1-647-528-6804",
+      telephone: COMPANY_PHONE_E164,
       contactType: "customer service",
-      email: "info@ascentgroupconstruction.com",
+      email: COMPANY_EMAIL,
       availableLanguage: ["English"],
     },
     sameAs: [

@@ -3,6 +3,8 @@
  * Structured content that AI assistants can easily parse and cite
  */
 
+import { COMPANY_PHONE, COMPANY_EMAIL } from "@/constants/company";
+
 export const COMPANY_FACTS = {
   name: "Ascent Group Construction",
   type: "Specialty Contractor",
@@ -11,8 +13,8 @@ export const COMPANY_FACTS = {
   primaryServiceArea: "Greater Toronto Area (GTA)",
   founded: "2025",
   founder: "Hebun Isik",
-  phone: "647-528-6804",
-  email: "info@ascentgroupconstruction.com",
+  phone: COMPANY_PHONE,
+  email: COMPANY_EMAIL,
   website: "ascentgroupconstruction.com",
   address: "2 Jody Ave, North York, ON M3N 1H1",
   
@@ -57,13 +59,13 @@ export const COMPANY_FACTS = {
  * AI-friendly page descriptions for different sections
  */
 export const AI_PAGE_DESCRIPTIONS: Record<string, string> = {
-  home: `Ascent Group Construction is a specialty contractor based in Ontario, Canada, specializing in building envelope and restoration services. Founded by Hebun Isik, the company serves the Greater Toronto Area and Ontario with services including facade remediation, waterproofing, EIFS, masonry restoration, and protective coatings. They self-perform 85% of their work and hold $2M CGL coverage. Contact: 647-528-6804.`,
+  home: `Ascent Group Construction is a specialty contractor based in Ontario, Canada, specializing in building envelope and restoration services. Founded by Hebun Isik, the company serves the Greater Toronto Area and Ontario with services including facade remediation, waterproofing, EIFS, masonry restoration, and protective coatings. They self-perform 85% of their work and hold $2M CGL coverage. Contact: ${COMPANY_PHONE}.`,
   
   services: `Ascent Group Construction offers building envelope services including facade remediation, waterproofing systems, EIFS and stucco installation, masonry restoration, cladding systems, and parking garage restoration. They serve commercial and residential clients across Ontario and the Greater Toronto Area as a specialty lead contractor.`,
   
   about: `Ascent Group Construction was founded by Hebun Isik, a Construction Engineering Technician graduate from George Brown College. The company operates as a specialty contractor focused on building envelope and restoration work, serving general contractors, property managers, developers, and homeowners across Ontario. The team brings 15+ years of combined experience.`,
   
-  contact: `Contact Ascent Group Construction for building envelope and restoration services in Ontario. Phone: 647-528-6804. Email: info@ascentgroupconstruction.com. Address: 2 Jody Ave, North York, ON M3N 1H1. Business hours: Monday-Friday 8AM-6PM, Saturday 9AM-2PM.`,
+  contact: `Contact Ascent Group Construction for building envelope and restoration services in Ontario. Phone: ${COMPANY_PHONE}. Email: ${COMPANY_EMAIL}. Address: 2 Jody Ave, North York, ON M3N 1H1. Business hours: Monday-Friday 8AM-6PM, Saturday 9AM-2PM.`,
   
   "for-general-contractors": `Ascent Group Construction serves as a reliable trade partner for general contractors in Ontario. They provide building envelope and interior trade services including EIFS, masonry, sealant replacement, waterproofing, and commercial painting. Features include 48-hour quote turnaround, 85% self-performed work, and WSIB compliance with $2M CGL coverage.`,
   
@@ -118,7 +120,7 @@ export const VOICE_OPTIMIZED_FAQS = [
   },
   {
     question: "Do you provide free estimates?",
-    answer: "Ascent Group Construction provides complimentary site assessments for commercial projects and estimates for residential work. Our assessment includes a thorough inspection of the building envelope, identification of issues, recommended solutions, and a detailed proposal with pricing. Contact us at 647-528-6804 to schedule.",
+    answer: `Ascent Group Construction provides complimentary site assessments for commercial projects and estimates for residential work. Our assessment includes a thorough inspection of the building envelope, identification of issues, recommended solutions, and a detailed proposal with pricing. Contact us at ${COMPANY_PHONE} to schedule.`,
     voiceQuery: "do you give free estimates",
     category: "pricing"
   },
@@ -190,8 +192,8 @@ export const SERVICE_AREAS = [
 export function generateLocationContent(area: typeof SERVICE_AREAS[0]) {
   return {
     title: `Building Envelope Contractor in ${area.city} | Ascent Group`,
-    description: `Ascent Group Construction provides building envelope, facade remediation, and waterproofing services in ${area.city}, ${area.region}. WSIB compliant, $2M insured. Call 647-528-6804.`,
+    description: `Ascent Group Construction provides building envelope, facade remediation, and waterproofing services in ${area.city}, ${area.region}. WSIB compliant, $2M insured. Call ${COMPANY_PHONE}.`,
     h1: `Building Envelope & Restoration Services in ${area.city}`,
-    content: `Looking for a reliable building envelope contractor in ${area.city}? Ascent Group Construction serves ${area.city} and the surrounding area with professional facade remediation, waterproofing, EIFS, and masonry restoration services. Our ${area.city} services include building envelope inspection and assessment, facade remediation and repair, waterproofing systems, EIFS and stucco installation, masonry restoration, and protective coatings. Contact us at 647-528-6804 for a site assessment in ${area.city}.`,
+    content: `Looking for a reliable building envelope contractor in ${area.city}? Ascent Group Construction serves ${area.city} and the surrounding area with professional facade remediation, waterproofing, EIFS, and masonry restoration services. Our ${area.city} services include building envelope inspection and assessment, facade remediation and repair, waterproofing systems, EIFS and stucco installation, masonry restoration, and protective coatings. Contact us at ${COMPANY_PHONE} for a site assessment in ${area.city}.`,
   };
 }

@@ -166,7 +166,7 @@ export const RFPStep4Scope = ({ form, onFilesChange }: RFPStep4ScopeProps) => {
 
         <div className="bg-accent/10 border border-accent/20 rounded-lg p-4 mt-6">
           <p className="text-sm text-foreground font-medium mb-2">
-            💡 Tips for a Better Proposal
+            Tips for a Better Proposal
           </p>
           <ul className="text-sm text-muted-foreground space-y-1 list-disc list-inside">
             <li>Include specific square footage and dimensions if known</li>

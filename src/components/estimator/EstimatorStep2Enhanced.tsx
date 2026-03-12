@@ -37,7 +37,7 @@ const EstimatorStep2Enhanced = ({ service, data, onChange }: Step2EnhancedProps)
           Surface Preparation *
         </Label>
         <Select value={data.prepComplexity} onValueChange={(value) => onChange("prepComplexity", value)}>
-          <SelectTrigger id="prepComplexity" className="h-12">
+          <SelectTrigger id="prepComplexity" className="h-12" aria-required="true">
             <SelectValue placeholder="Select prep work needed" />
           </SelectTrigger>
           <SelectContent>
@@ -54,7 +54,7 @@ const EstimatorStep2Enhanced = ({ service, data, onChange }: Step2EnhancedProps)
           Finish Quality *
         </Label>
         <Select value={data.finishQuality} onValueChange={(value) => onChange("finishQuality", value)}>
-          <SelectTrigger id="finishQuality" className="h-12">
+          <SelectTrigger id="finishQuality" className="h-12" aria-required="true">
             <SelectValue placeholder="Select finish level" />
           </SelectTrigger>
           <SelectContent>
@@ -188,7 +188,7 @@ const EstimatorStep2Enhanced = ({ service, data, onChange }: Step2EnhancedProps)
           Location Type *
         </Label>
         <Select value={data.region} onValueChange={(value) => onChange("region", value)}>
-          <SelectTrigger id="region" className="h-12">
+          <SelectTrigger id="region" className="h-12" aria-required="true">
             <SelectValue placeholder="Select location" />
           </SelectTrigger>
           <SelectContent>
