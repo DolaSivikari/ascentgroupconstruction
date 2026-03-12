@@ -106,6 +106,9 @@ const ServiceRouteGroup = () => (
     <Route path="/services/construction-management" element={<Navigate to="/services" replace />} />
     <Route path="/services/design-build" element={<Navigate to="/services" replace />} />
     <Route path="/services/facade-remediation" element={<Navigate to="/services/building-envelope" replace />} />
+    <Route path="/services/waterproofing" element={<Navigate to="/services/building-envelope" replace />} />
+    <Route path="/services/waterproofing-systems" element={<Navigate to="/services/building-envelope" replace />} />
+    <Route path="/services/commercial-painting" element={<Navigate to="/services/painting-services" replace />} />
     <Route path="/services/parking-garage-restoration" element={<Navigate to="/services/building-envelope" replace />} />
     <Route path="/services/parking-rehabilitation" element={<Navigate to="/services/building-envelope" replace />} />
     <Route path="/services/sealant-replacement" element={<Navigate to="/services/building-envelope" replace />} />

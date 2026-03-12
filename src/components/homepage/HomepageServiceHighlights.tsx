@@ -38,7 +38,7 @@ const services = [
     icon: Droplets,
     title: "Waterproofing",
     description: "Below-grade, foundation, and deck waterproofing to stop water at the source.",
-    href: "/services/waterproofing",
+    href: "/services/building-envelope",
   },
   {
     icon: Grid3x3,
@@ -62,7 +62,7 @@ const services = [
     icon: Paintbrush,
     title: "Commercial Painting",
     description: "Commercial, condo, and multi-unit painting with premium coatings.",
-    href: "/services/commercial-painting",
+    href: "/services/painting-services",
   },
 ];
 
