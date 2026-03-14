@@ -36,6 +36,7 @@ export const RFPStep1Company = ({ form }: RFPStep1CompanyProps) => {
               {...register("company_name")}
               placeholder="Your Company Inc."
               className={errors.company_name ? "border-destructive" : ""}
+              aria-required="true"
             />
             {errors.company_name && (
               <p className="text-sm text-destructive">{errors.company_name.message}</p>
@@ -52,6 +53,7 @@ export const RFPStep1Company = ({ form }: RFPStep1CompanyProps) => {
               {...register("contact_name")}
               placeholder="John Smith"
               className={errors.contact_name ? "border-destructive" : ""}
+              aria-required="true"
             />
             {errors.contact_name && (
               <p className="text-sm text-destructive">{errors.contact_name.message}</p>
@@ -69,6 +71,7 @@ export const RFPStep1Company = ({ form }: RFPStep1CompanyProps) => {
               {...register("email")}
               placeholder="john@company.com"
               className={errors.email ? "border-destructive" : ""}
+              aria-required="true"
             />
             {errors.email && (
               <p className="text-sm text-destructive">{errors.email.message}</p>
@@ -85,6 +88,7 @@ export const RFPStep1Company = ({ form }: RFPStep1CompanyProps) => {
               {...register("phone")}
               placeholder="(647) 123-4567"
               className={errors.phone ? "border-destructive" : ""}
+              aria-required="true"
             />
             {errors.phone && (
               <p className="text-sm text-destructive">{errors.phone.message}</p>

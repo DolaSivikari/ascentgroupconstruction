@@ -3,6 +3,7 @@ import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { PageHero } from "@/components/shared/PageHero";
 import { Section } from "@/components/sections/Section";
+import { COMPANY_PHONE, COMPANY_PHONE_TEL } from "@/constants/company";
 import { SectionHeader } from "@/design-system/components/SectionHeader";
 import { CapabilityCard } from "@/design-system/components/CapabilityCard";
 import { CTABand } from "@/design-system/components/CTABand";
@@ -55,7 +56,7 @@ const responseProcess = [
   {
     step: "1",
     title: "Call Us",
-    description: "Call 647-528-6804 directly. Describe the issue, location, and urgency. We triage immediately.",
+    description: `Call ${COMPANY_PHONE} directly. Describe the issue, location, and urgency. We triage immediately.`,
     icon: Phone,
   },
   {
@@ -83,7 +84,7 @@ const EmergencyRepair = () => {
     <div className="min-h-screen">
       <SEO
         title="Emergency Building Repair | 24/7 Façade & Envelope Response | Ascent Group"
-        description="Emergency water infiltration, facade failure, and storm damage repair across the GTA. Same-day site assessment. Call 647-528-6804 for immediate response."
+        description={`Emergency water infiltration, facade failure, and storm damage repair across the GTA. Same-day site assessment. Call ${COMPANY_PHONE} for immediate response.`}
         keywords="emergency water infiltration Toronto, emergency facade repair GTA, storm damage building repair, emergency building envelope contractor, urgent leak repair Ontario"
       />
       <Navigation />
@@ -95,7 +96,7 @@ const EmergencyRepair = () => {
         image={serviceHeroes["waterproofing-systems"]}
         imageAlt="Emergency building envelope repair"
         height="medium"
-        primaryCta={{ text: "Call 647-528-6804", href: "tel:6475286804" }}
+        primaryCta={{ text: `Call ${COMPANY_PHONE}`, href: COMPANY_PHONE_TEL }}
         secondaryCta={{ text: "Contact Form", href: "/contact" }}
         breadcrumbs={[
           { label: "Home", href: "/" },
@@ -114,8 +115,8 @@ const EmergencyRepair = () => {
           <Phone className="w-6 h-6 animate-pulse" />
           <span className="text-lg font-semibold">
             Need immediate help? Call now:{" "}
-            <a href="tel:6475286804" className="underline font-bold">
-              647-528-6804
+            <a href={COMPANY_PHONE_TEL} className="underline font-bold">
+              {COMPANY_PHONE}
             </a>
           </span>
         </div>
@@ -232,9 +233,9 @@ const EmergencyRepair = () => {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button asChild size="lg">
-              <a href="tel:6475286804">
+              <a href={COMPANY_PHONE_TEL}>
                 <Phone className="mr-2 w-4 h-4" />
-                Call Now: 647-528-6804
+                Call Now: {COMPANY_PHONE}
               </a>
             </Button>
             <Button asChild variant="outline" size="lg">

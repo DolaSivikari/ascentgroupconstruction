@@ -187,7 +187,7 @@ export default function ProjectDetail() {
     <>
       <SEO
         title={project.seo_title || project.title}
-        description={project.seo_description || project.summary || ""}
+        description={project.seo_description || project.summary || project.description || ""}
         keywords={project.seo_keywords?.join(", ")}
         ogImage={project.featured_image}
       />

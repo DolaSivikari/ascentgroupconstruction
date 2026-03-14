@@ -64,6 +64,30 @@ const Projects = () => {
     zeroIncidents: false,
   });
 
+  const transformProject = (project: any): ProjectViewModel => ({
+    title: project.title,
+    category: project.category || "General",
+    location: project.location || "N/A",
+    year: project.year || new Date(project.created_at).getFullYear().toString(),
+    size: project.project_size || "N/A",
+    duration: project.duration || "N/A",
+    image: resolveImagePath(project.featured_image),
+    images: (project.gallery || []) as any[],
+    tags: project.tags || [project.category, project.duration, project.project_size].filter(Boolean),
+    description: project.description || project.summary || "",
+    highlights: project.summary ? [project.summary] : [],
+    slug: project.slug,
+    featured: project.featured,
+    id: project.id,
+    rawData: project as any,
+    // GC Metrics
+    project_value: project.project_value,
+    your_role: project.your_role,
+    on_time_completion: project.on_time_completion,
+    on_budget: project.on_budget,
+    safety_incidents: project.safety_incidents,
+  });
+
   // Fetch projects from database with realtime updates
   useEffect(() => {
     const fetchProjects = async () => {
@@ -77,31 +101,7 @@ const Projects = () => {
       if (error) {
         console.error("Error fetching projects:", error);
       } else if (data) {
-        // Transform database projects to component format
-        const projects = data.map((project) => ({
-          title: project.title,
-          category: project.category || "General",
-          location: project.location || "N/A",
-          year: project.year || new Date(project.created_at).getFullYear().toString(),
-          size: project.project_size || "N/A",
-          duration: project.duration || "N/A",
-          image: resolveImagePath(project.featured_image),
-          images: (project.gallery || []) as any[],
-          tags: project.tags || [project.category, project.duration, project.project_size].filter(Boolean),
-          description: project.description || project.summary || "",
-          highlights: project.summary ? [project.summary] : [],
-          slug: project.slug,
-          featured: project.featured,
-          id: project.id,
-          rawData: project as any,
-          // GC Metrics
-          project_value: project.project_value,
-          your_role: project.your_role,
-          on_time_completion: project.on_time_completion,
-          on_budget: project.on_budget,
-          safety_incidents: project.safety_incidents,
-        }));
-        setAllProjects(projects);
+        setAllProjects(data.map(transformProject));
       }
       setIsLoading(false);
     };
@@ -111,33 +111,10 @@ const Projects = () => {
 
   // Enable realtime subscription for instant updates
   const realtimeProjects = useRealtimeProjects(allProjects.map(p => p.rawData) as any[]);
-  
+
   useEffect(() => {
     if (realtimeProjects.length > 0) {
-      const transformed = realtimeProjects.map((project: any) => ({
-        title: project.title,
-        category: project.category || "General",
-        location: project.location || "N/A",
-        year: project.year || new Date(project.created_at).getFullYear().toString(),
-        size: project.project_size || "N/A",
-        duration: project.duration || "N/A",
-        image: resolveImagePath(project.featured_image),
-        images: project.gallery || [],
-        tags: project.tags || [project.category, project.duration, project.project_size].filter(Boolean),
-        description: project.description || project.summary || "",
-        highlights: project.summary ? [project.summary] : [],
-        slug: project.slug,
-        featured: project.featured,
-        id: project.id,
-        rawData: project,
-        // GC Metrics
-        project_value: project.project_value,
-        your_role: project.your_role,
-        on_time_completion: project.on_time_completion,
-        on_budget: project.on_budget,
-        safety_incidents: project.safety_incidents,
-      }));
-      setAllProjects(transformed);
+      setAllProjects(realtimeProjects.map(transformProject));
     }
   }, [realtimeProjects]);
 

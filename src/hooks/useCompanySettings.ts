@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { fetchActiveSettingsRow } from '@/hooks/useActiveSettings';
+import { COMPANY_PHONE, COMPANY_EMAIL } from '@/constants/company';
 
 export interface CompanySettings {
   companyName: string;
@@ -65,8 +66,8 @@ export function useCompanySettings(): UseCompanySettingsResult {
           
           setSettings({
             companyName: settingsData.company_name || 'Ascent Group Construction',
-            phone: settingsData.phone || '647-528-6804',
-            email: settingsData.email || 'info@ascentgroupconstruction.com',
+            phone: settingsData.phone || COMPANY_PHONE,
+            email: settingsData.email || COMPANY_EMAIL,
             address: settingsData.address || '2 Jody Ave, North York, ON M3N 1H1',
             businessHours: {
               weekday: businessHours?.weekday || 'Mon-Fri: 8AM-6PM',

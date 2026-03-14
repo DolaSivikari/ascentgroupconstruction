@@ -12,7 +12,7 @@ interface ProcessStepCardProps {
 
 export const ProcessStepCard = ({ step, title, description, icon: Icon, className }: ProcessStepCardProps) => {
   return (
-    <Card variant="elevated" hover className={cn("h-full", className)}>
+    <Card variant="elevated" hover className={cn("h-full group", className)}>
       <CardContent className="p-6">
         <div className="flex items-start gap-4">
           <div className="flex-shrink-0">
