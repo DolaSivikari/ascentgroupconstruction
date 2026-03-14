@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "react-router-dom";
-import { ArrowRight, Building2, Shield, Play, Pause, ChevronLeft, ChevronRight } from "lucide-react";
+import { ArrowRight, Building2, Shield, Play, Pause, ChevronLeft, ChevronRight, Layers, Droplets, BrickWall, PaintRoller, Car } from "lucide-react";
 import { Button } from "@/ui/Button";
 
 import { useReducedMotion } from "@/hooks/useReducedMotion";
@@ -49,6 +49,15 @@ const mapAdminSlideToHero = (slide: AdminHeroSlide, fallbackMedia: (typeof fallb
     href: slide.secondary_cta_url?.trim() || fallbackMedia.secondaryCTA.href,
   },
 });
+
+/* ── Persistent service pillars (always visible, never rotates) ── */
+const SERVICE_PILLARS = [
+  { icon: Layers,      label: "Facade & Cladding" },
+  { icon: Droplets,    label: "Waterproofing" },
+  { icon: BrickWall,   label: "Masonry Restoration" },
+  { icon: PaintRoller, label: "Interior Buildouts" },
+  { icon: Car,         label: "Parking Structures" },
+] as const;
 
 /* ── Stat counter helper ── */
 function parseStatParts(stat: string): { num: number; suffix: string } | null {
@@ -557,6 +566,19 @@ const EnhancedHero = ({ splashComplete = true }: { splashComplete?: boolean }) =
                 </Link>
               </Button>
             )}
+          </div>
+
+          {/* ── Persistent Service Pillars — always visible, never rotates ── */}
+          <div className="flex flex-wrap gap-2 mb-10">
+            {SERVICE_PILLARS.map(({ icon: Icon, label }) => (
+              <div
+                key={label}
+                className="inline-flex items-center gap-2 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 px-4 py-2 text-sm font-medium text-white/90 hover:bg-white/20 hover:border-white/35 transition-colors duration-300"
+              >
+                <Icon className="h-4 w-4 text-accent flex-shrink-0" />
+                <span>{label}</span>
+              </div>
+            ))}
           </div>
 
           {/* ── Progress Bar Indicators — reveal last ── */}
