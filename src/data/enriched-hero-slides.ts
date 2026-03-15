@@ -8,8 +8,8 @@ export const enrichedHeroSlides = [
     poster: buildingPoster,
     stat: "15+",
     statLabel: "Years Experience",
-    headline: "Specialty Contractor for Building Envelope, Restoration & Interior Trade Execution",
-    subheadline: "Self-performed and coordinated scopes for commercial, multi-unit, and selected residential projects across the GTA.",
+    headline: "We Restore, Repair & Protect Buildings Across the GTA",
+    subheadline: "Self-performed facade, waterproofing, masonry, and interior work for commercial, multi-unit, and institutional buildings.",
     primaryCTA: {
       label: "Submit RFP",
       href: "/submit-rfp",
