@@ -41,7 +41,7 @@ export const Card = forwardRef<HTMLDivElement, CardProps>(
         ref={ref}
         className={cn(
           // Base styles
-          'rounded-[var(--radius-lg)]',
+          'rounded-[var(--radius-sm)]',
           'transition-all duration-200',
           
           // Variant
