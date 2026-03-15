@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "react-router-dom";
-import { ArrowRight, Building2, Shield, Play, Pause, ChevronLeft, ChevronRight, Layers, Droplets, BrickWall, PaintRoller, Car } from "lucide-react";
+import { ArrowRight, Building2, Shield, Play, Pause, ChevronLeft, ChevronRight, Layers, Droplets, BrickWall, PaintRoller, Car, Grid2x2, Brush } from "lucide-react";
 import { Button } from "@/ui/Button";
 
 import { useReducedMotion } from "@/hooks/useReducedMotion";
@@ -52,11 +52,13 @@ const mapAdminSlideToHero = (slide: AdminHeroSlide, fallbackMedia: (typeof fallb
 
 /* ── Persistent service pillars (always visible, never rotates) ── */
 const SERVICE_PILLARS = [
-  { icon: Layers,      label: "Facade & Cladding" },
+  { icon: Layers,      label: "EIFS & Facade" },
   { icon: Droplets,    label: "Waterproofing" },
-  { icon: BrickWall,   label: "Masonry Restoration" },
+  { icon: BrickWall,   label: "Masonry" },
   { icon: PaintRoller, label: "Interior Buildouts" },
   { icon: Car,         label: "Parking Structures" },
+  { icon: Grid2x2,     label: "Flooring & Tile" },
+  { icon: Brush,       label: "Residential & Commercial Painting" },
 ] as const;
 
 /* ── Stat counter helper ── */
