@@ -127,8 +127,15 @@ export const TimelineSelector = ({
         </div>
       </div>
 
+      {/* Validation message */}
+      {startDate && targetDate && targetDate <= startDate && (
+        <p className="text-sm text-destructive" role="alert">
+          Target completion date must be after the start date.
+        </p>
+      )}
+
       {/* Duration Indicator */}
-      {startDate && targetDate && (
+      {startDate && targetDate && targetDate > startDate && (
         <div className="p-4 bg-primary/10 rounded-lg border-2 border-primary/20 animate-fade-in">
           <div className="flex items-center justify-between">
             <span className="text-sm font-medium">Project Duration</span>

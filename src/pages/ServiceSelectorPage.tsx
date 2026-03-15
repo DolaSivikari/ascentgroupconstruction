@@ -1,11 +1,12 @@
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
-import PageHeader from "@/components/PageHeader";
+import { PageHero } from "@/components/shared/PageHero";
 import { Section } from "@/components/sections/Section";
 import { ServiceSelector } from "@/components/tools/ServiceSelector";
 import heroImage from "@/assets/heroes/hero-facade-remediation.jpg";
 import { AscentEmailLink } from "@/components/EmailLink";
+import { PhoneLink } from "@/components/shared/PhoneLink";
 
 /**
  * Service Selector Tool Page
@@ -22,10 +23,12 @@ const ServiceSelectorPage = () => {
       />
       <Navigation />
 
-      <PageHeader
+      <PageHero
         title="Find the Right Service for Your Project"
         description="Answer a few quick questions and we'll recommend the best services for your specific needs"
-        backgroundImage={heroImage}
+        image={heroImage}
+        imageAlt="Interactive service selector tool"
+        height="small"
         breadcrumbs={[
           { label: "Home", href: "/" },
           { label: "Service Selector" },
@@ -44,12 +47,12 @@ const ServiceSelectorPage = () => {
               our team can visit your site, assess the situation, and provide expert recommendations.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <a
-                href="tel:+16475286804"
+              <PhoneLink
+                showIcon={false}
                 className="inline-flex items-center justify-center rounded-[var(--radius-lg)] px-6 py-3 text-sm font-semibold text-white bg-primary hover:bg-primary/90 transition-colors"
               >
                 Call: (647) 528-6804
-              </a>
+              </PhoneLink>
               <div className="inline-flex items-center justify-center rounded-[var(--radius-lg)] px-6 py-3 text-sm font-semibold text-foreground border-2 border-border hover:border-primary transition-colors">
                 <AscentEmailLink showIcon={false}>Email Us</AscentEmailLink>
               </div>

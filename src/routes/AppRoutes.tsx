@@ -1,8 +1,9 @@
 import { lazy, type ComponentType } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
-import { LandingWrapper } from "@/components/landing/LandingWrapper";
+import Index from "@/pages/Index";
 import About from "@/pages/About";
 import Services from "@/pages/Services";
+import Markets from "@/pages/Markets";
 import Projects from "@/pages/Projects";
 import Contact from "@/pages/Contact";
 import Estimate from "@/pages/Estimate";
@@ -12,7 +13,6 @@ import PropertyManagers from "@/pages/PropertyManagers";
 import Homeowners from "@/pages/Homeowners";
 import CommercialClients from "@/pages/CommercialClients";
 import OurProcess from "@/pages/OurProcess";
-import Sustainability from "@/pages/Sustainability";
 import Prequalification from "@/pages/Prequalification";
 import Capabilities from "@/pages/Capabilities";
 import Careers from "@/pages/Careers";
@@ -29,17 +29,17 @@ import CertificationsInsurance from "@/pages/company/CertificationsInsurance";
 import ContractorPortal from "@/pages/resources/ContractorPortal";
 import ServiceAreas from "@/pages/resources/ServiceAreas";
 import LocationPage from "@/pages/resources/LocationPage";
-import EquipmentResources from "@/pages/company/EquipmentResources";
+import Technology from "@/pages/company/Technology";
 import Developers from "@/pages/company/Developers";
 import ForGeneralContractors from "@/pages/ForGeneralContractors";
+import ForArchitects from "@/pages/ForArchitects";
+import EmergencyRepair from "@/pages/EmergencyRepair";
 import SubmitRFPNew from "@/pages/SubmitRFPNew";
-import Insights from "@/pages/Insights";
 import Privacy from "@/pages/Privacy";
 import Terms from "@/pages/Terms";
 import Accessibility from "@/pages/Accessibility";
 import Unsubscribe from "@/pages/Unsubscribe";
 import WhySpecialtyContractor from "@/pages/WhySpecialtyContractor";
-import ServiceSelectorPage from "@/pages/ServiceSelectorPage";
 
 const lazyWithFallback = (importer: () => Promise<{ default: ComponentType }>, name: string) =>
   lazy(() => importer().catch(() => ({
@@ -72,7 +72,6 @@ const Settings = lazyWithFallback(() => import("@/pages/admin/Settings"), 'Setti
 const ServicesManager = lazyWithFallback(() => import("@/pages/admin/ServicesManager"), 'Services Manager');
 const Notifications = lazyWithFallback(() => import("@/pages/admin/Notifications"), 'Notifications');
 const EmailTemplates = lazyWithFallback(() => import("@/pages/admin/EmailTemplates"), 'Email Templates');
-const Testing = lazyWithFallback(() => import("@/pages/admin/Testing"), 'Testing');
 const UnifiedAdminLayout = lazy(() => import("@/components/admin/UnifiedAdminLayout").then(m => ({ default: m.UnifiedAdminLayout })).catch(() => ({
   default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Admin Layout</p></div>
 })));
@@ -80,13 +79,12 @@ const Blog = lazyWithFallback(() => import("@/pages/Blog"), 'Blog');
 const BlogPost = lazyWithFallback(() => import("@/pages/BlogPost"), 'Blog Post');
 const ProjectDetail = lazyWithFallback(() => import("@/pages/ProjectDetail"), 'Project Detail');
 
-const serviceRoutes = (
 const ServiceRouteGroup = () => (
   <>
     <Route path="/services" element={<Services />} />
     <Route path="/services/interior-buildouts" element={<InteriorBuildouts />} />
     <Route path="/services/building-envelope" element={<BuildingEnvelope />} />
-    <Route path="/services/masonry-restoration" element={<Navigate to="/services/building-envelope" replace />} />
+    {/* masonry-restoration falls through to /services/:slug → ServiceDetail (published DB record) */}
     <Route path="/services/protective-coatings" element={<ProtectiveCoatings />} />
     <Route path="/services/cladding-systems" element={<CladdingSystems />} />
     <Route path="/services/tile-flooring" element={<TileFlooring />} />
@@ -108,6 +106,9 @@ const ServiceRouteGroup = () => (
     <Route path="/services/construction-management" element={<Navigate to="/services" replace />} />
     <Route path="/services/design-build" element={<Navigate to="/services" replace />} />
     <Route path="/services/facade-remediation" element={<Navigate to="/services/building-envelope" replace />} />
+    <Route path="/services/waterproofing" element={<Navigate to="/services/building-envelope" replace />} />
+    <Route path="/services/waterproofing-systems" element={<Navigate to="/services/building-envelope" replace />} />
+    <Route path="/services/commercial-painting" element={<Navigate to="/services/painting-services" replace />} />
     <Route path="/services/parking-garage-restoration" element={<Navigate to="/services/building-envelope" replace />} />
     <Route path="/services/parking-rehabilitation" element={<Navigate to="/services/building-envelope" replace />} />
     <Route path="/services/sealant-replacement" element={<Navigate to="/services/building-envelope" replace />} />
@@ -120,7 +121,6 @@ const ServiceRouteGroup = () => (
   </>
 );
 
-const adminRoutes = (
 const AdminRouteGroup = () => (
   <Route path="/admin" element={<UnifiedAdminLayout />}>
     <Route index element={<Dashboard />} />
@@ -163,7 +163,6 @@ const AdminRouteGroup = () => (
     <Route path="inbox" element={<UnifiedInbox />} />
     <Route path="notifications" element={<Notifications />} />
     <Route path="email-templates" element={<EmailTemplates />} />
-    <Route path="testing" element={<Testing />} />
     <Route path="homepage-builder" element={<HomepageBuilder />} />
     <Route path="homepage-content" element={<Navigate to="/admin/homepage-builder" replace />} />
     <Route path="homepage-settings" element={<Navigate to="/admin/homepage-builder" replace />} />
@@ -173,31 +172,33 @@ const AdminRouteGroup = () => (
     <Route path="hero-images" element={<Navigate to="/admin/homepage-builder?tab=hero" replace />} />
     <Route path="navigation" element={<NavigationBuilder />} />
     <Route path="navigation-builder" element={<Navigate to="/admin/navigation" replace />} />
-    <Route path="hero-images" element={<HeroSlidesManager />} />
-    <Route path="navigation" element={<NavigationBuilder />} />
-    <Route path="navigation-builder" element={<NavigationBuilder />} />
   </Route>
 );
 
 export const AppRoutes = () => (
   <Routes>
-    <Route path="/" element={<LandingWrapper />} />
+    <Route path="/" element={<Index />} />
     <Route path="/about" element={<About />} />
+    <Route path="/markets" element={<Markets />} />
     <Route path="/why-specialty-contractor" element={<WhySpecialtyContractor />} />
     <Route path="/prequalification" element={<Prequalification />} />
     <Route path="/capabilities" element={<Capabilities />} />
     <Route path="/careers" element={<Careers />} />
-    <Route path="/service-selector" element={<ServiceSelectorPage />} />
 
-    {serviceRoutes}
-    <ServiceRouteGroup />
+    {/* Phase 4 redirects: consolidated pages */}
+    <Route path="/sustainability" element={<Navigate to="/services/sustainable-construction" replace />} />
+    <Route path="/insights" element={<Navigate to="/blog" replace />} />
+    <Route path="/service-selector" element={<Navigate to="/services" replace />} />
+
+    {ServiceRouteGroup()}
 
     <Route path="/projects" element={<Projects />} />
     <Route path="/contact" element={<Contact />} />
     <Route path="/estimate" element={<Estimate />} />
     <Route path="/submit-rfp" element={<SubmitRFPNew />} />
     <Route path="/for-general-contractors" element={<ForGeneralContractors />} />
-    <Route path="/insights" element={<Insights />} />
+    <Route path="/for-architects" element={<ForArchitects />} />
+    <Route path="/emergency-repair" element={<EmergencyRepair />} />
     <Route path="/privacy" element={<Privacy />} />
     <Route path="/terms" element={<Terms />} />
     <Route path="/accessibility" element={<Accessibility />} />
@@ -206,11 +207,11 @@ export const AppRoutes = () => (
     <Route path="/homeowners" element={<Homeowners />} />
     <Route path="/commercial-clients" element={<CommercialClients />} />
     <Route path="/our-process" element={<OurProcess />} />
-    <Route path="/sustainability" element={<Sustainability />} />
     <Route path="/faq" element={<FAQ />} />
     <Route path="/tekev" element={<Auth />} />
     <Route path="/company/certifications-insurance" element={<CertificationsInsurance />} />
-    <Route path="/company/equipment-resources" element={<EquipmentResources />} />
+    <Route path="/company/equipment-resources" element={<Navigate to="/company/technology" replace />} />
+    <Route path="/company/technology" element={<Technology />} />
     <Route path="/company/developers" element={<Developers />} />
     <Route path="/resources/contractor-portal" element={<ContractorPortal />} />
     <Route path="/resources/service-areas" element={<ServiceAreas />} />
@@ -221,8 +222,7 @@ export const AppRoutes = () => (
     <Route path="/case-study/:slug" element={<BlogPost />} />
     <Route path="/projects/:slug" element={<ProjectDetail />} />
 
-    {adminRoutes}
-    <AdminRouteGroup />
+    {AdminRouteGroup()}
 
     <Route path="/404" element={<NotFound />} />
     <Route path="*" element={<NotFound />} />

@@ -2,6 +2,7 @@
  * Schema.org structured data generators for SEO
  * Generates service-specific, FAQ, and breadcrumb schemas
  */
+import { COMPANY_NAME, COMPANY_PHONE_E164, COMPANY_EMAIL, COMPANY_ADDRESS, SITE_URL } from "@/constants/company";
 
 interface ServiceSchemaProps {
   name: string;
@@ -122,19 +123,19 @@ export const generateLocalBusinessSchema = () => {
   
   return {
     "@context": "https://schema.org",
-    "@type": "GeneralContractor",
+    "@type": "HomeAndConstructionBusiness",
     "@id": `${siteUrl}/#localbusiness`,
-    name: "Ascent Group Construction",
+    name: COMPANY_NAME,
     image: `${siteUrl}/og-image.jpg`,
-    telephone: "+1-647-528-6804",
-    email: "info@ascentgroupconstruction.com",
+    telephone: COMPANY_PHONE_E164,
+    email: COMPANY_EMAIL,
     address: {
       "@type": "PostalAddress",
-      streetAddress: "2 Jody Ave",
-      addressLocality: "North York",
-      addressRegion: "ON",
-      postalCode: "M3N 1H1",
-      addressCountry: "CA"
+      streetAddress: COMPANY_ADDRESS.street,
+      addressLocality: COMPANY_ADDRESS.city,
+      addressRegion: COMPANY_ADDRESS.province,
+      postalCode: COMPANY_ADDRESS.postalCode,
+      addressCountry: COMPANY_ADDRESS.country
     },
     geo: {
       "@type": "GeoCoordinates",
@@ -170,27 +171,9 @@ export const generateLocalBusinessSchema = () => {
 
 // Service-specific schema configurations
 export const SERVICE_SCHEMAS = {
-  "general-contracting": {
-    name: "General Contracting Services",
-    description: "Full-service general contracting with single-source accountability, fixed-price certainty, and proven delivery across commercial, multi-family, and institutional projects.",
-    serviceType: "GeneralContractor",
-    areaServed: ["Toronto", "Mississauga", "Brampton", "Vaughan", "Markham", "Ontario"]
-  },
   "building-envelope": {
     name: "Building Envelope Systems",
     description: "Comprehensive building envelope solutions including façade restoration, weatherproofing, and thermal performance optimization for commercial and residential buildings.",
-    serviceType: "ConstructionService",
-    areaServed: ["Toronto", "Mississauga", "Brampton", "Vaughan", "Markham", "Ontario"]
-  },
-  "construction-management": {
-    name: "Construction Management Services",
-    description: "Professional construction management providing schedule control, budget oversight, and quality assurance for projects of all sizes.",
-    serviceType: "ConstructionService",
-    areaServed: ["Toronto", "Mississauga", "Brampton", "Vaughan", "Markham", "Ontario"]
-  },
-  "design-build": {
-    name: "Design-Build Services",
-    description: "Integrated design-build delivery combining architectural design, engineering, and construction under one contract for streamlined project execution.",
     serviceType: "ConstructionService",
     areaServed: ["Toronto", "Mississauga", "Brampton", "Vaughan", "Markham", "Ontario"]
   },

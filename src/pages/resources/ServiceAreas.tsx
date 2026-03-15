@@ -2,7 +2,7 @@ import { MapPin, Clock, Phone, CheckCircle2 } from "lucide-react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { PageHero } from "@/components/shared/PageHero";
-import { Card, CardContent } from "@/ui/Card";
+import { Card, CardContent } from "@/design-system/components/Card";
 import { Button } from "@/ui/Button";
 import SEO from "@/components/SEO";
 import { serviceAreaCities, primaryServiceCities } from "@/data/service-area-cities";
@@ -20,17 +20,17 @@ const ServiceAreas = () => {
     {
       name: "Durham Region",
       cities: ["Pickering", "Ajax", "Whitby", "Oshawa"],
-      responseTime: "24-hour response",
+      responseTime: "Next business day response",
     },
     {
       name: "York Region",
       cities: ["Newmarket", "Aurora", "King City"],
-      responseTime: "24-hour response",
+      responseTime: "Next business day response",
     },
     {
-      name: "Halton Region",
-      cities: ["Oakville", "Burlington", "Milton"],
-      responseTime: "24-hour response",
+      name: "Halton & Hamilton",
+      cities: ["Oakville", "Burlington", "Milton", "Hamilton"],
+      responseTime: "Next business day response",
     },
   ];
 
@@ -38,23 +38,20 @@ const ServiceAreas = () => {
     <>
       <SEO 
         title="Service Areas | Ascent Group Construction"
-        description="Serving Toronto, Mississauga, Brampton, Vaughan, Markham and the Greater Toronto Area with professional painting and construction services."
-        keywords="service areas, Toronto, GTA, Mississauga, Brampton, Vaughan, Markham, construction services"
+        description="Serving Toronto, Mississauga, Brampton, Vaughan, Markham and the Greater Toronto Area with professional building envelope, restoration, and specialty trade services."
+        keywords="service areas, Toronto, GTA, building envelope contractor, facade remediation, specialty contractor, Mississauga, Brampton, Vaughan, Markham"
       />
-      <div className="min-h-screen bg-background relative overflow-hidden">
-        {/* Background decorations */}
-        <div className="fixed inset-0 -z-10 overflow-hidden pointer-events-none">
-          <div className="absolute top-40 -left-40 w-[600px] h-[600px] bg-primary/5 rounded-full blur-3xl animate-pulse" />
-          <div className="absolute bottom-40 -right-40 w-[600px] h-[600px] bg-secondary/5 rounded-full blur-3xl animate-pulse delay-1000" />
-        </div>
-
+      <div className="min-h-screen bg-background">
         <Navigation />
         
         <PageHero
+          eyebrow="Service Coverage"
           title="Service Areas"
-          description="Serving Ontario with Excellence"
+          description="Professional building envelope and interior trade services across the Greater Toronto Area"
           image={resourceHeroes["service-areas"]}
           imageAlt="Service coverage areas across Ontario"
+          height="small"
+          primaryCta={{ text: "Get a Quote", href: "/estimate" }}
           breadcrumbs={[
             { label: "Home", href: "/" },
             { label: "Resources" },
@@ -94,18 +91,22 @@ const ServiceAreas = () => {
             <h2 className="text-3xl font-bold text-foreground mb-2">Primary Service Cities</h2>
             <p className="text-muted-foreground mb-8">Areas with same-day emergency service and fastest response times</p>
             <div className="grid md:grid-cols-3 lg:grid-cols-5 gap-4">
-              {primaryServiceCities.map((city, index) => (
-                <Card 
-                  key={city} 
-                  className="text-center hover:shadow-[var(--shadow-lg)] hover:-translate-y-1 transition-all duration-300 group border-2 hover:border-primary/30 animate-fade-in-up"
-                  style={{ animationDelay: `${index * 50}ms` }}
-                >
-                  <CardContent className="p-6">
-                    <CheckCircle2 className="h-8 w-8 text-primary mx-auto mb-2 group-hover:scale-110 transition-transform duration-300" />
-                    <h3 className="font-semibold text-foreground">{city}</h3>
-                  </CardContent>
-                </Card>
-              ))}
+              {primaryServiceCities.map((city, index) => {
+                const slug = city.toLowerCase().replace(/\s+/g, '-');
+                return (
+                  <Link key={city} to={`/service-areas/${slug}`}>
+                    <Card 
+                      className="text-center hover:shadow-[var(--shadow-lg)] hover:-translate-y-1 transition-all duration-300 group border-2 hover:border-primary/30 animate-fade-in-up p-0"
+                      style={{ animationDelay: `${index * 50}ms` }}
+                    >
+                      <CardContent className="p-6">
+                        <CheckCircle2 className="h-8 w-8 text-primary mx-auto mb-2 group-hover:scale-110 transition-transform duration-300" />
+                        <h3 className="font-semibold text-foreground">{city}</h3>
+                      </CardContent>
+                    </Card>
+                  </Link>
+                );
+              })}
             </div>
           </section>
 
@@ -116,7 +117,7 @@ const ServiceAreas = () => {
               {regions.map((region, index) => (
                 <Card 
                   key={index}
-                  className="hover:shadow-[var(--shadow-lg)] hover:-translate-y-1 transition-all duration-300 border-2 hover:border-primary/30 animate-fade-in-up"
+                  className="hover:shadow-[var(--shadow-lg)] hover:-translate-y-1 transition-all duration-300 border-2 hover:border-primary/30 animate-fade-in-up p-0"
                   style={{ animationDelay: `${index * 100}ms` }}
                 >
                   <CardContent className="p-6">
@@ -131,14 +132,18 @@ const ServiceAreas = () => {
                       </div>
                     </div>
                     <div className="flex flex-wrap gap-2">
-                      {region.cities.map((city) => (
-                        <span
-                          key={city}
-                          className="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm"
-                        >
-                          {city}
-                        </span>
-                      ))}
+                      {region.cities.map((city) => {
+                        const slug = city.toLowerCase().replace(/\s+/g, '-');
+                        return (
+                          <Link
+                            key={city}
+                            to={`/service-areas/${slug}`}
+                            className="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm hover:bg-primary/20 transition-colors"
+                          >
+                            {city}
+                          </Link>
+                        );
+                      })}
                     </div>
                   </CardContent>
                 </Card>
@@ -150,15 +155,18 @@ const ServiceAreas = () => {
           <section>
             <h2 className="text-3xl font-bold text-foreground mb-2">Complete Coverage Area</h2>
             <p className="text-muted-foreground mb-8">All cities and municipalities we serve</p>
-            <Card>
+            <Card className="p-0">
               <CardContent className="p-8">
                 <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                  {serviceAreaCities.map((city) => (
-                    <div key={city} className="flex items-center gap-2">
-                      <CheckCircle2 className="h-4 w-4 text-primary flex-shrink-0" />
-                      <span className="text-sm text-foreground">{city}</span>
-                    </div>
-                  ))}
+                  {serviceAreaCities.map((city) => {
+                    const slug = city.toLowerCase().replace(/\s+/g, '-');
+                    return (
+                      <Link key={city} to={`/service-areas/${slug}`} className="flex items-center gap-2 hover:text-primary transition-colors">
+                        <CheckCircle2 className="h-4 w-4 text-primary flex-shrink-0" />
+                        <span className="text-sm text-foreground">{city}</span>
+                      </Link>
+                    );
+                  })}
                 </div>
               </CardContent>
             </Card>
@@ -168,25 +176,25 @@ const ServiceAreas = () => {
           <section className="bg-muted/30 rounded-lg p-8">
             <h2 className="text-3xl font-bold text-foreground mb-8">Service Availability</h2>
             <div className="grid md:grid-cols-3 gap-6">
-              <Card className="hover:shadow-[var(--shadow-lg)] hover:-translate-y-1 transition-all duration-300 group border-2 hover:border-primary/30 animate-fade-in-up">
+              <Card className="hover:shadow-[var(--shadow-lg)] hover:-translate-y-1 transition-all duration-300 group border-2 hover:border-primary/30 animate-fade-in-up p-0">
                 <CardContent className="p-6">
                   <div className="w-14 h-14 bg-gradient-to-br from-primary to-primary/70 rounded-[var(--radius-lg)] flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
                     <Clock className="h-7 w-7 text-secondary" />
                   </div>
                   <h3 className="text-lg font-semibold text-foreground mb-2">Emergency Services</h3>
-                  <p className="text-sm text-muted-foreground">Available 24/7 within GTA core for urgent repairs and emergency situations</p>
+                  <p className="text-sm text-muted-foreground">Available for urgent repairs within GTA core for active leaks and envelope failures</p>
                 </CardContent>
               </Card>
-              <Card className="hover:shadow-[var(--shadow-lg)] hover:-translate-y-1 transition-all duration-300 group border-2 hover:border-primary/30 animate-fade-in-up" style={{ animationDelay: '100ms' }}>
+              <Card className="hover:shadow-[var(--shadow-lg)] hover:-translate-y-1 transition-all duration-300 group border-2 hover:border-primary/30 animate-fade-in-up p-0" style={{ animationDelay: '100ms' }}>
                 <CardContent className="p-6">
                   <div className="w-14 h-14 bg-gradient-to-br from-primary to-primary/70 rounded-[var(--radius-lg)] flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
                     <MapPin className="h-7 w-7 text-secondary" />
                   </div>
                   <h3 className="text-lg font-semibold text-foreground mb-2">Regular Projects</h3>
-                  <p className="text-sm text-muted-foreground">All of Southern Ontario covered for scheduled painting and construction projects</p>
+                  <p className="text-sm text-muted-foreground">All of Southern Ontario covered for scheduled building envelope and restoration projects</p>
                 </CardContent>
               </Card>
-              <Card className="hover:shadow-[var(--shadow-lg)] hover:-translate-y-1 transition-all duration-300 group border-2 hover:border-primary/30 animate-fade-in-up" style={{ animationDelay: '200ms' }}>
+              <Card className="hover:shadow-[var(--shadow-lg)] hover:-translate-y-1 transition-all duration-300 group border-2 hover:border-primary/30 animate-fade-in-up p-0" style={{ animationDelay: '200ms' }}>
                 <CardContent className="p-6">
                   <div className="w-14 h-14 bg-gradient-to-br from-primary to-primary/70 rounded-[var(--radius-lg)] flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
                     <CheckCircle2 className="h-7 w-7 text-secondary" />

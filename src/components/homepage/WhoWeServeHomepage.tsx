@@ -3,8 +3,21 @@ import { Section } from "@/components/sections/Section";
 import { SectionBadge } from "@/components/ui/SectionBadge";
 import { ClientSegmentCard } from "@/components/unified";
 import { GRID } from "@/design-system/layouts";
+import { useScrollFadeIn } from "@/hooks/useScrollFadeIn";
+import { useStaggerAnimation } from "@/hooks/useStaggerAnimation";
+import { useReducedMotion } from "@/hooks/useReducedMotion";
 
 const WhoWeServeHomepage = () => {
+  const prefersReducedMotion = useReducedMotion();
+  const { ref: headerRef, isVisible: headerVisible, skipAnimation: headerSkip } =
+    useScrollFadeIn();
+  const { ref: gridRef, isVisible: gridVisible, skipAnimation: gridSkip } =
+    useScrollFadeIn({ threshold: 0.1 });
+  const delays = useStaggerAnimation({ itemCount: 4, staggerDelay: 100 });
+
+  const showHeader = headerVisible || headerSkip || prefersReducedMotion;
+  const showGrid = gridVisible || gridSkip || prefersReducedMotion;
+
   const clientSegments = [
     {
       icon: Briefcase,
@@ -53,30 +66,51 @@ const WhoWeServeHomepage = () => {
   ];
 
   return (
-    <Section size="major" className="bg-background">
+    <Section size="major" className="bg-muted/30">
       <div className="relative z-10">
-        <div className="max-w-4xl mb-12">
-        <SectionBadge icon={Users} text="Who We Serve" />
-        <h2 className="text-3xl md:text-5xl font-bold text-foreground mb-6 leading-tight tracking-tight">
-          Trusted Envelope & Restoration Partner
-        </h2>
-        <p className="text-xl md:text-2xl text-muted-foreground leading-relaxed">
-          From general contractors seeking reliable trade partners to property managers protecting their portfolios—we deliver specialized envelope and restoration solutions across Ontario and the GTA.
-        </p>
-      </div>
+        <div
+          ref={headerRef}
+          className="max-w-4xl mb-12"
+          style={{
+            opacity: showHeader ? 1 : 0,
+            transform: showHeader ? "translateY(0)" : "translateY(24px)",
+            transition: prefersReducedMotion
+              ? "none"
+              : "opacity 300ms ease-out, transform 300ms ease-out",
+          }}
+        >
+          <SectionBadge icon={Users} text="Who We Serve" />
+          <h2 className="text-3xl md:text-5xl font-bold text-foreground mb-6 leading-tight tracking-tight">
+            Trusted Envelope & Restoration Partner
+          </h2>
+          <p className="text-xl md:text-2xl text-muted-foreground leading-relaxed">
+            From general contractors seeking reliable trade partners to property managers protecting their portfolios—we deliver specialized envelope and restoration solutions across Ontario and the GTA.
+          </p>
+        </div>
 
-      <div className={GRID.cards4}>
-        {clientSegments.map((segment, index) => (
-          <ClientSegmentCard
-            key={index}
-            icon={segment.icon}
-            title={segment.title}
-            description={segment.description}
-            link={segment.link}
-            examples={segment.examples}
-          />
-        ))}
-      </div>
+        <div ref={gridRef} className={GRID.cards4}>
+          {clientSegments.map((segment, index) => (
+            <div
+              key={index}
+              style={{
+                opacity: showGrid ? 1 : 0,
+                transform: showGrid ? "translateY(0)" : "translateY(24px)",
+                transition: prefersReducedMotion
+                  ? "none"
+                  : `opacity 300ms ease-out, transform 300ms ease-out`,
+                transitionDelay: showGrid ? `${delays[index] ?? 0}ms` : "0ms",
+              }}
+            >
+              <ClientSegmentCard
+                icon={segment.icon}
+                title={segment.title}
+                description={segment.description}
+                link={segment.link}
+                examples={segment.examples}
+              />
+            </div>
+          ))}
+        </div>
       </div>
     </Section>
   );

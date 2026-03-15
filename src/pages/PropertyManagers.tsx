@@ -2,12 +2,13 @@ import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
 import { PageHero } from "@/components/shared/PageHero";
-import { UnifiedCard } from "@/components/shared/UnifiedCard";
 import { Section } from "@/components/sections/Section";
-import { Button } from "@/ui/Button";
-import { Link } from "react-router-dom";
-import { Building2, TrendingUp, Users, Calendar, ShieldCheck, Timer, CheckCircle, CreditCard } from "lucide-react";
-import { CTA_TEXT } from "@/design-system/constants";
+import { SectionHeader } from "@/design-system/components/SectionHeader";
+import { CapabilityCard } from "@/design-system/components/CapabilityCard";
+import { CTABand } from "@/design-system/components/CTABand";
+import { Card } from "@/design-system/components/Card";
+import { OperationalProofBar, DEFAULT_PROOF_ITEMS } from "@/components/proof/OperationalProofBar";
+import { Building2, TrendingUp, Users, Calendar, ShieldCheck, Timer, CreditCard, FileText, Zap } from "lucide-react";
 import { audienceHeroes } from "@/data/hero-images";
 
 const PropertyManagers = () => {
@@ -72,6 +73,13 @@ const PropertyManagers = () => {
     }
   ];
 
+  const processSteps = [
+    { step: "1", title: "Site Assessment", desc: "We inspect and provide detailed quote" },
+    { step: "2", title: "Scheduling", desc: "Flexible timing around your tenants" },
+    { step: "3", title: "Execution", desc: "Professional work with daily updates" },
+    { step: "4", title: "Completion", desc: "Final inspection and documentation" }
+  ];
+
   return (
     <div className="min-h-screen">
       <SEO 
@@ -87,106 +95,95 @@ const PropertyManagers = () => {
         description="Façade remediation, parking garage repairs, and unit turnovers for 10-30 story condominiums across the GTA. Fast response, clear documentation, reserve fund study-aligned work."
         image={audienceHeroes["property-managers"]}
         imageAlt="Property management construction services"
-        primaryCta={{ text: "Request a Proposal", href: "/estimate" }}
+        primaryCta={{ text: "Contact Us", href: "/contact" }}
         breadcrumbs={[
           { label: "Home", href: "/" },
           { label: "Property Managers" }
         ]}
+        badges={[
+          { icon: CreditCard, text: "Reserve Fund Aligned" },
+          { icon: Zap, text: "Fast Response" },
+          { icon: FileText, text: "Clear Documentation" },
+        ]}
       />
       
       <main>
-
-        {/* ROI Focus */}
+        {/* Benefits */}
         <Section size="major">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">Built for Property Management Success</h2>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              We help you maximize value, minimize downtime, and keep tenants happy
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+          <SectionHeader
+            title="Built for Property Management Success"
+            description="We help you maximize value, minimize downtime, and keep tenants happy"
+          />
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {benefits.map((benefit, index) => (
-              <UnifiedCard key={index} variant="interactive">
-                <div className="w-14 h-14 bg-gradient-to-br from-primary to-primary/70 rounded-[var(--radius-lg)] flex items-center justify-center mb-4 shadow-[var(--shadow-lg)]">
-                  <benefit.icon className="w-7 h-7 text-secondary" />
-                </div>
-                <h3 className="text-xl font-bold mb-2">{benefit.title}</h3>
-                <p className="text-muted-foreground">{benefit.description}</p>
-              </UnifiedCard>
+              <CapabilityCard
+                key={index}
+                icon={benefit.icon}
+                title={benefit.title}
+                description={benefit.description}
+              />
             ))}
           </div>
-
         </Section>
 
         {/* Services with ROI */}
         <Section size="major" className="bg-muted/30">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">Services That Deliver ROI</h2>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Every service designed to increase property value and tenant satisfaction
-            </p>
-          </div>
-
+          <SectionHeader
+            title="Services That Deliver ROI"
+            description="Every service designed to increase property value and tenant satisfaction"
+          />
           <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
             {services.map((service, index) => (
-              <UnifiedCard key={index} variant="elevated" className="border-l-4 border-l-primary">
+              <Card key={index} variant="elevated" size="md" className="border-l-4 border-l-primary">
                 <div className="flex items-start justify-between mb-3">
                   <h3 className="text-2xl font-bold text-primary">{service.title}</h3>
-                  <TrendingUp className="w-6 h-6 text-secondary flex-shrink-0" />
+                  <TrendingUp className="w-6 h-6 text-muted-foreground flex-shrink-0" />
                 </div>
                 <p className="text-muted-foreground mb-4">{service.description}</p>
-                <div className="inline-block px-4 py-2 bg-secondary/10 rounded-lg">
+                <div className="inline-block px-4 py-2 bg-muted/50 rounded-lg">
                   <span className="text-sm font-bold text-primary">{service.roi}</span>
                 </div>
-              </UnifiedCard>
+              </Card>
             ))}
           </div>
         </Section>
 
-        {/* Process for Property Managers */}
-        <section className="py-16 bg-background">
-          <div className="container mx-auto px-4">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold mb-4">Streamlined Process</h2>
-            </div>
-
-            <div className="grid md:grid-cols-4 gap-6 max-w-6xl mx-auto">
-              {[
-                { step: "1", title: "Site Assessment", desc: "We inspect and provide detailed quote" },
-                { step: "2", title: "Scheduling", desc: "Flexible timing around your tenants" },
-                { step: "3", title: "Execution", desc: "Professional work with daily updates" },
-                { step: "4", title: "Completion", desc: "Final inspection and documentation" }
-              ].map((item, index) => (
-                <UnifiedCard key={index} variant="elevated" className="text-center">
-                  <div className="w-12 h-12 bg-primary text-white rounded-full flex items-center justify-center mx-auto mb-4 text-xl font-bold">
-                    {item.step}
-                  </div>
-                  <h3 className="font-bold mb-2">{item.title}</h3>
-                  <p className="text-sm text-muted-foreground">{item.desc}</p>
-                </UnifiedCard>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* CTA */}
-        <Section size="major" className="bg-primary text-primary-foreground">
-          <div className="text-center">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">Let's Discuss Your Property Needs</h2>
-            <p className="text-xl mb-8 max-w-2xl mx-auto opacity-90">
-              Volume pricing available for multi-unit properties and ongoing maintenance contracts
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button size="lg" variant="secondary" asChild>
-                <Link to="/estimate">{CTA_TEXT.project}</Link>
-              </Button>
-              <Button size="lg" variant="outline" asChild className="border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-primary">
-                <Link to="/contact">Start Your Project</Link>
-              </Button>
-            </div>
+        {/* Process */}
+        <Section size="major">
+          <SectionHeader title="Streamlined Process" />
+          <div className="grid md:grid-cols-4 gap-6 max-w-6xl mx-auto">
+            {processSteps.map((item, index) => (
+              <Card key={index} variant="elevated" size="md" className="text-center">
+                <div className="w-12 h-12 bg-primary text-primary-foreground rounded-full flex items-center justify-center mx-auto mb-4 text-xl font-bold">
+                  {item.step}
+                </div>
+                <h3 className="font-bold mb-2">{item.title}</h3>
+                <p className="text-sm text-muted-foreground">{item.desc}</p>
+              </Card>
+            ))}
           </div>
         </Section>
+
+        {/* Operational Proof */}
+        <OperationalProofBar
+          items={[
+            DEFAULT_PROOF_ITEMS[2], // Occupied-Building Experience
+            DEFAULT_PROOF_ITEMS[4], // Documentation & Closeout
+            DEFAULT_PROOF_ITEMS[3], // Schedule Coordination
+            DEFAULT_PROOF_ITEMS[1], // WSIB & CGL
+          ]}
+          title="Why Property Managers Trust Us"
+          description="Operational capabilities built around occupied-building requirements"
+        />
+
+        {/* CTA */}
+        <CTABand
+          title="Let's Discuss Your Property Needs"
+          description="Volume pricing available for multi-unit properties and ongoing maintenance contracts"
+          primaryCta={{ text: "Contact Us", href: "/contact" }}
+          secondaryCta={{ text: "Request a Proposal", href: "/contact" }}
+          variant="dark"
+        />
       </main>
       
       <Footer />

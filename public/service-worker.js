@@ -3,7 +3,7 @@
  * Ensures fresh HTML + cached assets never mix versions
  */
 
-const CACHE_VERSION = '1.0.5';
+const CACHE_VERSION = '4.0.0';
 const PRECACHE_NAME = `app-precache-${CACHE_VERSION}`;
 const RUNTIME_CACHE = `app-runtime-${CACHE_VERSION}`;
 const API_CACHE = `app-api-${CACHE_VERSION}`;
@@ -12,10 +12,8 @@ const API_CACHE = `app-api-${CACHE_VERSION}`;
 self.skipWaiting();
 
 self.addEventListener('install', event => {
-  // Minimal precache: only critical assets that always exist
+  // Precache only static assets - NEVER cache HTML
   const precacheUrls = [
-    '/',
-    '/index.html',
     '/hero-poster-1.webp',
     '/hero-poster-2.webp',
     '/hero-poster-3.webp',

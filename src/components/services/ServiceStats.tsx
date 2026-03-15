@@ -23,8 +23,8 @@ export const ServiceStats = ({ serviceCount }: ServiceStatsProps) => {
     },
     {
       icon: Clock,
-      label: "Emergency Response",
-      value: "24/7",
+      label: "Response Available",
+      value: "Rapid",
     },
   ];
 

@@ -1,16 +1,16 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
 import { Button } from "@/ui/Button";
-import { Card, CardContent } from "@/ui/Card";
+import { Card, CardContent } from "@/design-system/components/Card";
 import { Progress } from "@/components/ui/progress";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
-import { ArrowRight, ArrowLeft, CheckCircle2, Send } from "lucide-react";
+import { ArrowRight, ArrowLeft, CheckCircle2, Send, Home, Phone } from "lucide-react";
 import { rfpSubmissionSchema, type RFPSubmission } from "@/schemas/rfp-validation";
 import { RFPStep1Company } from "@/components/rfp/RFPStep1Company";
 import { RFPStep2Project } from "@/components/rfp/RFPStep2Project";
@@ -24,9 +24,10 @@ import { PhoneLink } from "@/components/shared/PhoneLink";
 import { AscentEmailLink } from "@/components/EmailLink";
 
 export default function SubmitRFPNew() {
-  const navigate = useNavigate();
   const [currentStep, setCurrentStep] = useState(1);
   const [submitting, setSubmitting] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+  const [attachmentFiles, setAttachmentFiles] = useState<File[]>([]);
 
   const form = useForm<RFPSubmission>({
     resolver: zodResolver(rfpSubmissionSchema),
@@ -77,7 +78,7 @@ export default function SubmitRFPNew() {
         fieldsToValidate = ["estimated_timeline", "delivery_method"];
         break;
       case 4:
-        fieldsToValidate = ["scope_of_work"];
+        fieldsToValidate = ["scope_of_work", "consent"];
         break;
     }
 
@@ -96,10 +97,38 @@ export default function SubmitRFPNew() {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
+  const uploadAttachments = async (): Promise<string[]> => {
+    if (attachmentFiles.length === 0) return [];
+
+    const uploadedUrls: string[] = [];
+
+    for (const file of attachmentFiles) {
+      const timestamp = Date.now();
+      const safeName = file.name.replace(/[^a-zA-Z0-9._-]/g, "_");
+      const filePath = `${timestamp}-${safeName}`;
+
+      const { error } = await supabase.storage
+        .from("rfp-attachments")
+        .upload(filePath, file);
+
+      if (error) {
+        console.error("File upload error:", error);
+        continue;
+      }
+
+      uploadedUrls.push(filePath);
+    }
+
+    return uploadedUrls;
+  };
+
   const handleSubmit = async (data: RFPSubmission) => {
     setSubmitting(true);
 
     try {
+      // Upload attachments first
+      const attachmentUrls = await uploadAttachments();
+
       // Insert RFP submission with required fields
       const submissionData = {
         company_name: data.company_name,
@@ -121,6 +150,7 @@ export default function SubmitRFPNew() {
         plans_available: data.plans_available,
         site_visit_required: data.site_visit_required,
         consent_timestamp: new Date().toISOString(),
+        attachment_urls: attachmentUrls.length > 0 ? attachmentUrls : undefined,
       };
 
       const { error: insertError } = await supabase
@@ -130,6 +160,7 @@ export default function SubmitRFPNew() {
       if (insertError) throw insertError;
 
       // Send notification email
+      let notificationWarning = false;
       try {
         await supabase.functions.invoke("send-rfp-notification", {
           body: {
@@ -143,18 +174,21 @@ export default function SubmitRFPNew() {
           },
         });
       } catch (emailError) {
+        notificationWarning = true;
         console.error("Email notification failed:", emailError);
-        // Don't fail submission if email fails
       }
 
       toast.success("RFP Submitted Successfully", {
-        description: "We'll review your request and contact you within 2 business days.",
+        description: notificationWarning
+          ? "Your proposal was saved successfully. Our team will review and follow up within 2 business days."
+          : "We'll review your request and contact you within 2 business days.",
       });
 
       // Phase 3: Track A/B test conversion
       await trackABTestConversion('homepage-hero-2024', 5);
       
-      navigate("/");
+      setSubmitted(true);
+      window.scrollTo({ top: 0, behavior: "smooth" });
     } catch (error: any) {
       console.error("Submission error:", error);
       toast.error("Submission Failed", {
@@ -171,8 +205,8 @@ export default function SubmitRFPNew() {
     <div className="min-h-screen flex flex-col bg-gradient-to-b from-background to-muted/20">
       <SEO
         title="Submit RFP - Request for Proposal | Ascent Group Construction"
-        description="Submit your construction project RFP to Ascent Group Construction. Multi-step form for commercial, multi-family, and institutional projects across Ontario."
-        keywords="RFP submission, construction proposal, contractor bid, project quote, GTA construction"
+        description="Submit your building envelope or restoration RFP to Ascent Group Construction. Multi-step form for commercial, multi-family, and institutional projects across Ontario."
+        keywords="building envelope RFP, facade remediation bid, construction proposal, specialty contractor quote, envelope restoration RFP, GTA construction"
       />
       <Navigation />
 
@@ -188,6 +222,37 @@ export default function SubmitRFPNew() {
         ]}
       />
 
+      {submitted ? (
+        /* Success State — in-place, no redirect */
+        <main className="flex-1 py-16">
+          <div className="container mx-auto px-4 max-w-2xl text-center animate-fade-in-up">
+            <div className="w-20 h-20 rounded-full bg-secondary/10 flex items-center justify-center mx-auto mb-6">
+              <CheckCircle2 className="w-10 h-10 text-secondary" />
+            </div>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-primary">Your RFP Has Been Submitted</h2>
+            <p className="text-lg text-muted-foreground mb-2 max-w-lg mx-auto">
+              Thank you for your proposal. Our team will review your project details and respond within 2 business days.
+            </p>
+            {attachmentFiles.length > 0 && (
+              <p className="text-sm text-muted-foreground mb-2">
+                {attachmentFiles.length} file{attachmentFiles.length > 1 ? "s" : ""} uploaded successfully.
+              </p>
+            )}
+            <p className="text-sm text-muted-foreground mb-8">
+              A confirmation has been sent to your email address.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Button asChild>
+                <Link to="/"><Home className="w-4 h-4 mr-2" />Return Home</Link>
+              </Button>
+              <Button asChild variant="secondary">
+                <Link to="/contact"><Phone className="w-4 h-4 mr-2" />Contact Us</Link>
+              </Button>
+            </div>
+          </div>
+        </main>
+      ) : (
+      <>
       {/* Enhanced Progress */}
       <section className="py-8 bg-background">
         <div className="container mx-auto px-4 max-w-4xl">
@@ -212,7 +277,11 @@ export default function SubmitRFPNew() {
         <div className="container mx-auto px-4 max-w-4xl">
           {/* Form */}
           <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-6 animate-fade-in-up">
-            <CurrentStepComponent form={form} />
+            {currentStep === 4 ? (
+              <RFPStep4Scope form={form} onFilesChange={setAttachmentFiles} />
+            ) : (
+              <CurrentStepComponent form={form} />
+            )}
 
             {/* Navigation Buttons */}
             <Card>
@@ -251,6 +320,8 @@ export default function SubmitRFPNew() {
           </Card>
         </div>
       </main>
+      </>
+      )}
 
       <Footer />
     </div>

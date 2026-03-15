@@ -1,6 +1,7 @@
 import { Helmet } from "react-helmet-async";
 import { useAggregateRating } from "@/hooks/useAggregateRating";
 import { useMemo } from "react";
+import { SITE_URL, COMPANY_NAME, COMPANY_PHONE_E164, COMPANY_EMAIL, COMPANY_ADDRESS } from "@/constants/company";
 
 interface SEOProps {
   title?: string;
@@ -21,49 +22,46 @@ const SEO = ({
   structuredData,
   includeRating = false,
 }: SEOProps) => {
-  const fullTitle = title ? `${title} | Ascent Group Construction` : 'Ascent Group Construction - Ontario Building Envelope & Restoration Specialists';
-  const siteUrl = 'https://ascentgroupconstruction.com';
-  
+  const fullTitle = title ? `${title} | ${COMPANY_NAME}` : `${COMPANY_NAME} - Ontario Building Envelope & Restoration Specialists`;
+
   // Fetch real aggregate rating from database
   const { aggregateRating, hasRatings } = useAggregateRating();
-  
-  // PHASE 1 FIX: Ensure single canonical URL (non-www, HTTPS)
-  // Remove any www prefix and force HTTPS
+
   const cleanPath = window.location.pathname;
-  const currentUrl = canonical || `${siteUrl}${cleanPath}`;
+  const currentUrl = canonical || `${SITE_URL}${cleanPath}`;
 
   // Enhanced organization schema with comprehensive service catalog + AEO/GEO optimization
   const defaultSchema = useMemo(() => {
     const schema: any = {
     "@context": "https://schema.org",
-    "@type": ["GeneralContractor", "LocalBusiness"],
-    "@id": `${siteUrl}/#organization`,
-    name: "Ascent Group Construction",
+    "@type": ["HomeAndConstructionBusiness", "LocalBusiness"],
+    "@id": `${SITE_URL}/#organization`,
+    name: COMPANY_NAME,
     alternateName: "Ascent Group",
     slogan: "Envelope & Restoration Contractor — Ontario & GTA",
     description: description,
-    url: siteUrl,
-    telephone: "+1-647-528-6804",
+    url: SITE_URL,
+    telephone: COMPANY_PHONE_E164,
     logo: {
       "@type": "ImageObject",
-      url: `${siteUrl}/ascent-logo.png`,
+      url: `${SITE_URL}/ascent-logo.png`,
       width: "250",
       height: "60"
     },
-    image: `${siteUrl}/og-image.jpg`,
-    email: "info@ascentgroupconstruction.com",
+    image: `${SITE_URL}/og-image.jpg`,
+    email: COMPANY_EMAIL,
     address: {
       "@type": "PostalAddress",
-      streetAddress: "Greater Toronto Area",
-      addressLocality: "Toronto",
-      addressRegion: "ON",
-      postalCode: "M5H 2N2",
-      addressCountry: "CA",
+      streetAddress: COMPANY_ADDRESS.street,
+      addressLocality: COMPANY_ADDRESS.city,
+      addressRegion: COMPANY_ADDRESS.province,
+      postalCode: COMPANY_ADDRESS.postalCode,
+      addressCountry: COMPANY_ADDRESS.country,
     },
     geo: {
       "@type": "GeoCoordinates",
-      latitude: "43.6532",
-      longitude: "-79.3832"
+      latitude: "43.7615",
+      longitude: "-79.4111"
     },
     areaServed: [
       {
@@ -114,8 +112,8 @@ const SEO = ({
     contactPoint: {
       "@type": "ContactPoint",
       contactType: "customer service",
-      telephone: "+1-647-528-6804",
-      email: "info@ascentgroupconstruction.com",
+      telephone: COMPANY_PHONE_E164,
+      email: COMPANY_EMAIL,
       availableLanguage: ["English"],
       areaServed: "CA"
     },
@@ -124,64 +122,42 @@ const SEO = ({
     currenciesAccepted: "CAD",
     foundingDate: "2025",
     knowsAbout: [
-      "Specialty Contracting",
       "Building Envelope Systems",
-      "Commercial Construction",
-      "Multi-Family Construction",
-      "Institutional Construction",
-      "Exterior Systems",
-      "Interior Construction",
-      "Construction Project Management",
-      "Sustainable Construction"
+      "Façade Remediation",
+      "Waterproofing Systems",
+      "EIFS & Stucco Systems",
+      "Masonry Restoration",
+      "Cladding Systems",
+      "Protective Coatings",
+      "Commercial Painting",
+      "Interior Finishing"
     ],
-    award: [
-      "WSIB Compliant Contractor",
-      "Licensed Building Envelope Contractor Ontario",
-      "Fully Insured & WSIB Compliant"
-    ],
-    // Aggregate rating removed until verified reviews are collected
     hasOfferCatalog: {
       "@type": "OfferCatalog",
-      name: "Construction & Building Services",
+      name: "Building Envelope & Specialty Trade Services",
       itemListElement: [
         {
           "@type": "Offer",
           itemOffered: {
             "@type": "Service",
-            name: "Commercial Construction",
-            description: "Professional commercial construction services for offices, retail spaces, and industrial facilities"
+            name: "Building Envelope Solutions",
+            description: "Façade remediation, waterproofing, and exterior envelope systems for commercial and multi-family buildings"
           }
         },
         {
           "@type": "Offer",
           itemOffered: {
             "@type": "Service",
-            name: "Residential Construction & Renovation",
-            description: "Expert interior and exterior residential construction services"
+            name: "EIFS & Stucco Systems",
+            description: "Professional EIFS and stucco installation, repair, and restoration"
           }
         },
         {
           "@type": "Offer",
           itemOffered: {
             "@type": "Service",
-            name: "Multi-Family Building Construction",
-            description: "Specialized multi-family and condo building construction services"
-          }
-        },
-        {
-          "@type": "Offer",
-          itemOffered: {
-            "@type": "Service",
-            name: "Stucco & EIFS",
-            description: "Professional stucco and EIFS installation and repair"
-          }
-        },
-        {
-          "@type": "Offer",
-          itemOffered: {
-            "@type": "Service",
-            name: "Masonry Repair",
-            description: "Expert masonry restoration and repair services"
+            name: "Masonry Restoration",
+            description: "Brick repair, stone restoration, tuckpointing, and structural masonry work"
           }
         },
         {
@@ -197,7 +173,15 @@ const SEO = ({
           itemOffered: {
             "@type": "Service",
             name: "Parking Garage Restoration",
-            description: "Comprehensive parking garage restoration and waterproofing"
+            description: "Concrete repair, waterproofing membrane, traffic coatings, and structural rehabilitation"
+          }
+        },
+        {
+          "@type": "Offer",
+          itemOffered: {
+            "@type": "Service",
+            name: "Protective & Architectural Coatings",
+            description: "Commercial painting and protective coating systems for building exteriors and interiors"
           }
         }
       ]
@@ -234,7 +218,7 @@ const SEO = ({
       {/* Open Graph */}
       <meta property="og:title" content={fullTitle} />
       <meta property="og:description" content={description} />
-      <meta property="og:image" content={`${siteUrl}${ogImage}`} />
+      <meta property="og:image" content={`${SITE_URL}${ogImage}`} />
       <meta property="og:url" content={currentUrl} />
       <meta property="og:type" content="website" />
       <meta property="og:image:alt" content={`${fullTitle} - Visual Preview`} />
@@ -243,7 +227,7 @@ const SEO = ({
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:title" content={fullTitle} />
       <meta name="twitter:description" content={description} />
-      <meta name="twitter:image" content={`${siteUrl}${ogImage}`} />
+      <meta name="twitter:image" content={`${SITE_URL}${ogImage}`} />
       <meta name="twitter:image:alt" content={`${fullTitle} - Visual Preview`} />
 
       {/* PHASE 1 FIX: Single Canonical URL - Prevents duplicate content penalty */}

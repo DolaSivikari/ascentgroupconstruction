@@ -69,7 +69,7 @@ class PersonalizationEngine {
 
     // Personalize based on time of day
     if (this.profile!.timeOfDay === 'night' || this.profile!.timeOfDay === 'evening') {
-      content.urgencyMessage = '24/7 Emergency Service Available';
+      content.urgencyMessage = 'Urgent Response Available for Active Issues';
     }
 
     // Personalize based on device

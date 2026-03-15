@@ -1,11 +1,10 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
-import PageHeader from "@/components/PageHeader";
-import Breadcrumb from "@/components/Breadcrumb";
 import FilterBar from "@/components/FilterBar";
+import { CTABand } from "@/design-system/components/CTABand";
 import ProjectCard from "@/components/ProjectCard";
 import ProjectFeaturedCard from "@/components/ProjectFeaturedCard";
 import { Section } from "@/components/sections/Section";
@@ -13,10 +12,10 @@ import { Building2, Home, School, Factory } from "lucide-react";
 import { Button } from "@/ui/Button";
 import { supabase } from "@/integrations/supabase/client";
 import { useRealtimeProjects } from "@/hooks/useRealtimeProjects";
+import { formatProjectValue } from "@/utils/formatProjectValue";
 import { resolveImagePath } from "@/utils/imageResolver";
 import { PremiumProjectHero } from "@/components/projects/PremiumProjectHero";
-import { FilterDrawer } from "@/components/projects/FilterDrawer";
-import { FilterChips } from "@/components/projects/FilterChips";
+
 import { ProjectQuickView } from "@/components/projects/ProjectQuickView";
 import { VideoTestimonials } from "@/components/shared/VideoTestimonials";
 import { ScrollToTop } from "@/components/ui/scroll-to-top";
@@ -34,11 +33,11 @@ const categories = [
 
 const years = ["All", "2024", "2023", "2022", "2021"];
 
-type ProjectRecord = Record<string, unknown>;
+type ProjectRecord = Record<string, any>;
 type ProjectViewModel = {
   title: string; category: string; location: string; year: string; size: string; duration: string; image: string;
-  images: unknown[]; tags: string[]; description: string; highlights: string[]; slug: string; featured: boolean; id: string; rawData: ProjectRecord;
-  project_value?: number | null; your_role?: string | null; on_time_completion?: boolean | null; on_budget?: boolean | null; safety_incidents?: number | null;
+  images: any[]; tags: string[]; description: string; highlights: string[]; slug: string; featured: boolean; id: string; rawData: ProjectRecord;
+  project_value?: any; your_role?: string | null; on_time_completion?: boolean | null; on_budget?: boolean | null; safety_incidents?: number | null;
 };
 
 const Projects = () => {
@@ -65,6 +64,30 @@ const Projects = () => {
     zeroIncidents: false,
   });
 
+  const transformProject = (project: any): ProjectViewModel => ({
+    title: project.title,
+    category: project.category || "General",
+    location: project.location || "N/A",
+    year: project.year || new Date(project.created_at).getFullYear().toString(),
+    size: project.project_size || "N/A",
+    duration: project.duration || "N/A",
+    image: resolveImagePath(project.featured_image),
+    images: (project.gallery || []) as any[],
+    tags: project.tags || [project.category, project.duration, project.project_size].filter(Boolean),
+    description: project.description || project.summary || "",
+    highlights: project.summary ? [project.summary] : [],
+    slug: project.slug,
+    featured: project.featured,
+    id: project.id,
+    rawData: project as any,
+    // GC Metrics
+    project_value: project.project_value,
+    your_role: project.your_role,
+    on_time_completion: project.on_time_completion,
+    on_budget: project.on_budget,
+    safety_incidents: project.safety_incidents,
+  });
+
   // Fetch projects from database with realtime updates
   useEffect(() => {
     const fetchProjects = async () => {
@@ -78,31 +101,7 @@ const Projects = () => {
       if (error) {
         console.error("Error fetching projects:", error);
       } else if (data) {
-        // Transform database projects to component format
-        const projects = data.map((project) => ({
-          title: project.title,
-          category: project.category || "General",
-          location: project.location || "N/A",
-          year: project.year || new Date(project.created_at).getFullYear().toString(),
-          size: project.project_size || "N/A",
-          duration: project.duration || "N/A",
-          image: resolveImagePath(project.featured_image),
-          images: project.gallery || [],
-          tags: project.tags || [project.category, project.duration, project.project_size].filter(Boolean),
-          description: project.description || project.summary || "",
-          highlights: project.summary ? [project.summary] : [],
-          slug: project.slug,
-          featured: project.featured,
-          id: project.id,
-          rawData: project,
-          // GC Metrics
-          project_value: project.project_value,
-          your_role: project.your_role,
-          on_time_completion: project.on_time_completion,
-          on_budget: project.on_budget,
-          safety_incidents: project.safety_incidents,
-        }));
-        setAllProjects(projects);
+        setAllProjects(data.map(transformProject));
       }
       setIsLoading(false);
     };
@@ -111,34 +110,11 @@ const Projects = () => {
   }, []);
 
   // Enable realtime subscription for instant updates
-  const realtimeProjects = useRealtimeProjects(allProjects.map(p => p.rawData));
-  
+  const realtimeProjects = useRealtimeProjects(allProjects.map(p => p.rawData) as any[]);
+
   useEffect(() => {
     if (realtimeProjects.length > 0) {
-      const transformed = realtimeProjects.map((project) => ({
-        title: project.title,
-        category: project.category || "General",
-        location: project.location || "N/A",
-        year: project.year || new Date(project.created_at).getFullYear().toString(),
-        size: project.project_size || "N/A",
-        duration: project.duration || "N/A",
-        image: resolveImagePath(project.featured_image),
-        images: project.gallery || [],
-        tags: project.tags || [project.category, project.duration, project.project_size].filter(Boolean),
-        description: project.description || project.summary || "",
-        highlights: project.summary ? [project.summary] : [],
-        slug: project.slug,
-        featured: project.featured,
-        id: project.id,
-        rawData: project,
-        // GC Metrics
-        project_value: project.project_value,
-        your_role: project.your_role,
-        on_time_completion: project.on_time_completion,
-        on_budget: project.on_budget,
-        safety_incidents: project.safety_incidents,
-      }));
-      setAllProjects(transformed);
+      setAllProjects(realtimeProjects.map(transformProject));
     }
   }, [realtimeProjects]);
 
@@ -164,11 +140,11 @@ const Projects = () => {
       if (selectedValueRange === "All") return true;
       const projectValue = project.project_value || 0;
       
-      if (selectedValueRange === "0-500000") return projectValue < 50000000; // $500K in cents
-      if (selectedValueRange === "500000-1000000") return projectValue >= 50000000 && projectValue < 100000000;
-      if (selectedValueRange === "1000000-2500000") return projectValue >= 100000000 && projectValue < 250000000;
-      if (selectedValueRange === "2500000-5000000") return projectValue >= 250000000 && projectValue < 500000000;
-      if (selectedValueRange === "5000000+") return projectValue >= 500000000;
+      if (selectedValueRange === "0-500000") return projectValue < 500000;
+      if (selectedValueRange === "500000-1000000") return projectValue >= 500000 && projectValue < 1000000;
+      if (selectedValueRange === "1000000-2500000") return projectValue >= 1000000 && projectValue < 2500000;
+      if (selectedValueRange === "2500000-5000000") return projectValue >= 2500000 && projectValue < 5000000;
+      if (selectedValueRange === "5000000+") return projectValue >= 5000000;
       return true;
     })();
 
@@ -183,8 +159,15 @@ const Projects = () => {
            matchesPerformance;
   });
 
-  const featuredProjects = (filteredProjects.some(p => p.featured) ? filteredProjects.filter(p => p.featured) : filteredProjects).slice(0, 3);
-  const regularProjects = filteredProjects.filter(p => !p.featured);
+  const featuredProjects = useMemo(() => {
+    const pool = [...allProjects];
+    for (let i = pool.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [pool[i], pool[j]] = [pool[j], pool[i]];
+    }
+    return pool.slice(0, 3);
+  }, [allProjects]);
+  const regularProjects = filteredProjects;
   const visibleProjects = regularProjects.slice(0, visibleCount);
 
   const handleViewDetails = (slug: string) => {
@@ -210,7 +193,7 @@ const Projects = () => {
           location: p.location,
           category: p.category,
           image: p.image,
-          value: p.project_value ? `$${(p.project_value / 100000000).toFixed(1)}M` : undefined
+          value: formatProjectValue(p.project_value) ?? undefined
         }))}
       />
 
@@ -230,45 +213,6 @@ const Projects = () => {
           </div>
         </Section>
       )}
-
-      {/* Filter Bar with Advanced Filters */}
-      <div className="bg-muted/30 py-6 border-y">
-        <div className="container mx-auto px-4">
-          <div className="flex flex-wrap items-center gap-4 mb-4">
-            <FilterDrawer 
-              filters={{
-                minValue: selectedValueRange,
-                minYear: selectedYear,
-                onTime: performanceBadges.onTime,
-                onBudget: performanceBadges.onBudget,
-                zeroIncidents: performanceBadges.zeroIncidents
-              }}
-              onFiltersChange={(newFilters) => {
-                if (newFilters.minValue) setSelectedValueRange(newFilters.minValue);
-                if (newFilters.minYear) setSelectedYear(newFilters.minYear.toString());
-                if (newFilters.onTime !== undefined) setPerformanceBadges(prev => ({ ...prev, onTime: newFilters.onTime }));
-              }}
-            />
-          </div>
-          
-          <FilterChips
-            filters={[
-              selectedCategory !== "All" && { label: "Category", value: selectedCategory, onRemove: () => setSelectedCategory("All") },
-              selectedYear !== "All" && { label: "Year", value: selectedYear, onRemove: () => setSelectedYear("All") },
-              selectedDeliveryMethod !== "All" && { label: "Delivery", value: selectedDeliveryMethod, onRemove: () => setSelectedDeliveryMethod("All") },
-              performanceBadges.onTime && { label: "Performance", value: "On Time", onRemove: () => setPerformanceBadges(prev => ({ ...prev, onTime: false })) }
-            ].filter(Boolean) as any}
-            onClearAll={() => {
-              setSelectedCategory("All");
-              setSelectedYear("All");
-              setSelectedDeliveryMethod("All");
-              setSelectedClientType("All");
-              setSelectedValueRange("All");
-              setPerformanceBadges({ onTime: false, onBudget: false, zeroIncidents: false });
-            }}
-          />
-        </div>
-      </div>
 
       <FilterBar
         searchTerm={searchTerm}
@@ -318,31 +262,29 @@ const Projects = () => {
             </div>
           ) : (
             <>
-              <div className="grid md:grid-cols-2 gap-8">
+              <div className="text-center mb-8">
+                <h2 className={`${TYPOGRAPHY_STYLES.sectionTitle} mb-2 text-foreground`}>All Projects</h2>
+                <p className="text-muted-foreground">{filteredProjects.length} project{filteredProjects.length !== 1 ? 's' : ''} found</p>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {visibleProjects.map((project) => (
-                  <div key={project.slug}>
-                    <ProjectCard
-                      {...project}
-                      slug={project.slug}
-                      onViewDetails={handleViewDetails}
-                    />
-                    <button
-                      onClick={() => setQuickViewProject(project)}
-                      className="mt-2 text-sm text-primary hover:underline w-full text-center"
-                    >
-                      Quick View
-                    </button>
-                  </div>
+                  <ProjectCard
+                    key={project.slug}
+                    {...project}
+                    slug={project.slug}
+                    onViewDetails={handleViewDetails}
+                    onQuickView={() => setQuickViewProject(project)}
+                  />
                 ))}
               </div>
 
-              {/* Load More Button */}
               {visibleCount < regularProjects.length && (
                 <div className="text-center mt-12">
-                  <Button onClick={loadMore} size="lg">
-                    Load More Projects
-                    <span className="ml-2">
-                      ({visibleCount} of {regularProjects.length})
+                  <Button variant="outline" onClick={loadMore} size="lg">
+                    Show More Projects
+                    <span className="ml-2 text-muted-foreground text-sm">
+                      Showing {Math.min(visibleCount, regularProjects.length)} of {regularProjects.length}
                     </span>
                   </Button>
                 </div>
@@ -351,13 +293,19 @@ const Projects = () => {
           )}
       </Section>
 
-      {/* Video Testimonials - Removed pending verified testimonial collection */}
-
       {/* Quick View Modal */}
       <ProjectQuickView
         project={quickViewProject}
         open={!!quickViewProject}
         onOpenChange={(open) => !open && setQuickViewProject(null)}
+      />
+
+      <CTABand
+        title="Ready to Start Your Project?"
+        description="Get a detailed proposal with transparent pricing and a clear timeline for your building envelope or restoration project."
+        primaryCta={{ text: "Request a Quote", href: "/estimate" }}
+        secondaryCta={{ text: "Contact Us", href: "/contact" }}
+        variant="dark"
       />
 
       <ScrollToTop />

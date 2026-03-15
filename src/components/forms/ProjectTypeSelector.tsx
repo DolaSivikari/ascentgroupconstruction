@@ -77,6 +77,7 @@ export const ProjectTypeSelector = ({ selected, onChange, className }: ProjectTy
           <button
             key={type.id}
             type="button"
+            aria-pressed={isSelected}
             onClick={() => onChange(type.id)}
             className={cn(
               "text-left animate-fade-in"

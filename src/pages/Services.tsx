@@ -1,13 +1,15 @@
-import { Link } from "react-router-dom";
+import { Wrench, ShieldCheck, MapPin } from "lucide-react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
 import { PageHero } from "@/components/shared/PageHero";
-import { Button } from "@/ui/Button";
-import { MarketSegmentedServices } from "@/components/services/MarketSegmentedServices";
-import { ServicePromotionsSection } from "@/components/services/ServicePromotionsSection";
-import { Section } from "@/components/sections/Section";
-import { CTA_TEXT } from "@/design-system/constants";
+import { ServicePillarsGrid } from "@/components/services/ServicePillarsGrid";
+import { OperationalCapabilities } from "@/components/services/OperationalCapabilities";
+import { ServicesClientSegments } from "@/components/services/ServicesClientSegments";
+import { ServicesTrustBar } from "@/components/services/ServicesTrustBar";
+import { ServicesFeaturedWork } from "@/components/services/ServicesFeaturedWork";
+import { ServicesProcessSnapshot } from "@/components/services/ServicesProcessSnapshot";
+import { ServicesCtaSection } from "@/components/services/ServicesCtaSection";
 import { mainPageHeroes } from "@/data/hero-images";
 import { usePageAnalytics } from "@/hooks/usePageAnalytics";
 import { generateBreadcrumbSchema } from "@/utils/seo";
@@ -22,53 +24,42 @@ const Services = () => {
   return (
     <div className="min-h-screen flex flex-col">
       <SEO 
-        title="Services"
-        description="Ascent Group Construction — Main specialty contractor for building envelope, interior trades, and residential renovations. Serving commercial properties, multi-family buildings, and homeowners across Ontario. Self-performed work with 15+ years team experience."
-        keywords="specialty contractor services, building envelope contractor, residential renovation, interior trades, painting contractor, tile flooring, EIFS contractor, masonry repair, waterproofing contractor"
+        title="Specialty Contracting Services | Envelope, Restoration & Interior Trades"
+        description="Self-performed and coordinated specialty contracting for building envelope, restoration, cladding, masonry, painting, tile, and interior trade packages across Ontario."
+        keywords="specialty contractor Ontario, building envelope contractor, EIFS stucco contractor, masonry restoration, interior buildouts, painting contractor, tile flooring, cladding systems, renovation contractor"
         canonical="https://ascentgroupconstruction.com/services"
         structuredData={[breadcrumbSchema]}
       />
       <Navigation />
       
       <PageHero
-        title="Our Services"
-        description="Specialty contractor for building envelope, interior trades, and renovations. Self-performed work across commercial, multi-family, and residential projects in Ontario."
+        eyebrow="Services"
+        title="Specialty contracting services for envelope, restoration, and interior trade execution"
+        description="Self-performed and coordinated scopes across commercial, multi-unit, and residential projects in Ontario."
         image={mainPageHeroes.services}
-        imageAlt="Professional construction services"
-        height="large"
-        primaryCta={{ text: CTA_TEXT.primary, href: "/estimate" }}
+        imageAlt="Specialty contracting services — building envelope and interior trades"
+        height="medium"
+        primaryCta={{ text: "Submit an RFP", href: "/submit-rfp" }}
+        secondaryCta={{ text: "Request an Estimate", href: "/estimate" }}
         breadcrumbs={[
           { label: "Home", href: "/" },
           { label: "Services" }
         ]}
+        badges={[
+          { icon: Wrench, text: "Self-Performed Work" },
+          { icon: ShieldCheck, text: "Licensed & Insured" },
+          { icon: MapPin, text: "GTA Coverage" },
+        ]}
       />
 
       <main className="flex-1 relative">
-        {/* Service Promotions (conditional - only shows if promotions exist) */}
-        <ServicePromotionsSection />
-
-        {/* All Services by Category */}
-        <MarketSegmentedServices />
-
-        {/* Single CTA Section */}
-        <Section size="major" className="bg-primary text-primary-foreground">
-          <div className="max-w-3xl mx-auto text-center">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">
-              Ready to Start Your Project?
-            </h2>
-            <p className="text-lg text-primary-foreground/90 mb-8">
-              Get a detailed proposal from our team. We'll evaluate your needs and provide transparent pricing.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button asChild size="lg" variant="secondary">
-                <Link to="/contact">Request a Consultation</Link>
-              </Button>
-              <Button asChild variant="outline" size="lg" className="bg-transparent border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-primary">
-                <Link to="/projects">View Our Projects</Link>
-              </Button>
-            </div>
-          </div>
-        </Section>
+        <ServicePillarsGrid />
+        <OperationalCapabilities />
+        <ServicesClientSegments />
+        <ServicesTrustBar />
+        <ServicesFeaturedWork />
+        <ServicesProcessSnapshot />
+        <ServicesCtaSection />
       </main>
 
       <Footer />

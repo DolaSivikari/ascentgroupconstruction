@@ -2,7 +2,6 @@
 <html lang="en" class="loading page-loading">
   <head>
     <meta charset="UTF-8" />
-    <!-- Critical inline CSS for hero section -->
     <style>
       /* CRITICAL: Hide static fallback - MUST BE FIRST RULE */
       .static-content {
@@ -61,7 +60,6 @@
         font-family: 'Barlow', system-ui, -apple-system, sans-serif;
       }
       
-      
       /* CRITICAL: Disable ALL transitions during initial load */
       .page-loading *,
       .page-loading *::before,
@@ -75,13 +73,13 @@
         backdrop-filter: none !important;
       }
       
-  /* Prevent content jumping */
-  .page-loading #root {
-    min-height: 100vh;
-  }
+      /* Prevent content jumping */
+      .page-loading #root {
+        min-height: 100vh;
+      }
     </style>
     
-    <!-- Deferred Google Analytics (GA4) - Loads 3000ms after page load for better performance -->
+    <!-- Deferred Google Analytics (GA4) -->
     <script>
       window.addEventListener('load', function() {
         setTimeout(function() {
@@ -99,12 +97,11 @@
         }, 3000);
       });
     </script>
-    <!-- End Google Analytics -->
     
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#1a1a1a" />
     
-    <!-- Preconnect to external resources for faster loading -->
+    <!-- Preconnect to external resources -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://dinliarttwuzzozyvuiu.supabase.co">
@@ -112,20 +109,18 @@
     <link rel="dns-prefetch" href="https://www.google-analytics.com">
     <link rel="dns-prefetch" href="https://www.google.com">
     
-    <!-- Preload critical hero assets for instant display (first slide only) -->
-    <link rel="preload" as="image" href="/hero-poster-1.webp" type="image/webp">
-    <link rel="preload" as="video" href="/hero-clipchamp.mp4" type="video/mp4">
+    <!-- Preload critical hero assets -->
+    <link rel="prefetch" href="/hero-poster-1.webp" as="image" type="image/webp">
+    <link rel="prefetch" href="/hero-clipchamp.mp4" as="video">
     
-    <!-- Load Barlow font with optimized strategy - display=block prevents font swap flash -->
+    <!-- Barlow font -->
     <link rel="preload" href="https://fonts.gstatic.com/s/barlow/v13/7cHpv4kjgoGqM7E_DMs5.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="https://fonts.gstatic.com/s/barlow/v13/7cHqv4kjgoGqM7E3q-0s51os.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@300;400;500;600;700;800&display=swap">
     
-    <title>Ascent Group Construction | Stucco & Painting Specialists — GTA</title>
-    <meta name="description" content="Expert stucco application, commercial/residential painting, and exterior finishing across the Greater Toronto Area. Request your RFP today.">
     <title>Ascent Group Construction — Ontario's prime specialty contractor for building envelope & restoration.</title>
     <meta name="description" content="Ascent Group Construction — Ontario's prime specialty contractor for building envelope & restoration. Self-performed façade remediation, parking garage restoration, EIFS, masonry repair, and waterproofing. Serving commercial, multi-family, and institutional projects across the GTA.">
-    <meta name="keywords" content="painting contractor ontario, commercial painting toronto, residential painting, condo painting GTA, stucco EIFS, masonry restoration, parking garage restoration, metal cladding, exterior finishing, painting services ontario">
+    <meta name="keywords" content="building envelope contractor ontario, facade remediation toronto, specialty contractor GTA, masonry restoration, EIFS stucco repair, parking garage restoration, waterproofing contractor, cladding systems ontario, prequalified subcontractor, WSIB compliant contractor">
     <meta name="author" content="Ascent Group Construction" />
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
     
@@ -142,8 +137,8 @@
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://ascentgroupconstruction.com/" />
-    
-    
+    <meta property="og:title" content="Ascent Group Construction — Ontario's prime specialty contractor for building envelope & restoration.">
+    <meta property="og:description" content="Ascent Group Construction — Ontario's prime specialty contractor for building envelope & restoration. Self-performed façade remediation, parking garage restoration, EIFS, masonry repair, and waterproofing. Serving commercial, multi-family, and institutional projects across the GTA.">
     <meta property="og:image" content="https://storage.googleapis.com/gpt-engineer-file-uploads/paOQNQDBnuOp8Z8EtsP0kV3klh32/social-images/social-1764046678799-yuv-logo-white-yatay.png">
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
@@ -153,75 +148,48 @@
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:url" content="https://ascentgroupconstruction.com/" />
-    
-    
+    <meta name="twitter:title" content="Ascent Group Construction — Ontario's prime specialty contractor for building envelope & restoration.">
+    <meta name="twitter:description" content="Ascent Group Construction — Ontario's prime specialty contractor for building envelope & restoration. Self-performed façade remediation, parking garage restoration, EIFS, masonry repair, and waterproofing. Serving commercial, multi-family, and institutional projects across the GTA.">
     <meta name="twitter:image" content="https://storage.googleapis.com/gpt-engineer-file-uploads/paOQNQDBnuOp8Z8EtsP0kV3klh32/social-images/social-1764046678799-yuv-logo-white-yatay.png">
     
     <!-- Additional SEO -->
     <link rel="canonical" href="https://ascentgroupconstruction.com/" />
     <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
-    
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  <meta property="og:title" content="Ascent Group Construction | Stucco & Painting Specialists — GTA">
-  <meta name="twitter:title" content="Ascent Group Construction | Stucco & Painting Specialists — GTA">
-  <meta property="og:description" content="Expert stucco application, commercial/residential painting, and exterior finishing across the Greater Toronto Area. Request your RFP today.">
-  <meta name="twitter:description" content="Expert stucco application, commercial/residential painting, and exterior finishing across the Greater Toronto Area. Request your RFP today.">
-  <meta property="og:title" content="Ascent Group Construction — Ontario's prime specialty contractor for building envelope & restoration.">
-  <meta name="twitter:title" content="Ascent Group Construction — Ontario's prime specialty contractor for building envelope & restoration.">
-  <meta property="og:description" content="Ascent Group Construction — Ontario&#39;s prime specialty contractor for building envelope &amp; restoration. Self-performed façade remediation, parking garage restoration, EIFS, masonry repair, and waterproofing. Serving commercial, multi-family, and institutional projects across the GTA.">
-  <meta name="twitter:description" content="Ascent Group Construction — Ontario&#39;s prime specialty contractor for building envelope &amp; restoration. Self-performed façade remediation, parking garage restoration, EIFS, masonry repair, and waterproofing. Serving commercial, multi-family, and institutional projects across the GTA.">
-</head>
+  </head>
 
   <body>
-    <!-- Google Analytics (GA4) - No noscript required -->
+    <!-- NUCLEAR: Force-clear all service workers and caches on every load to fix stale deployment -->
+    <script>
+      if('serviceWorker' in navigator){
+        navigator.serviceWorker.getRegistrations().then(function(r){
+          r.forEach(function(reg){reg.unregister()})
+        });
+        if('caches' in window){caches.keys().then(function(k){
+          k.forEach(function(n){caches.delete(n)})
+        })}
+      }
+    </script>
     
     <div id="root">
-      <!-- Static hero skeleton for instant visual feedback during JS load -->
-      <div class="landing-hero" style="position: relative; min-height: 100vh; display: flex; align-items: center; justify-content: center; overflow: hidden;">
-        <div style="position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0;">
-          <img 
-            src="/hero-poster-1.webp" 
-            alt="Construction site" 
-            style="width: 100%; height: 100%; object-fit: cover;"
-          />
-        </div>
-        <div style="position: absolute; inset: 0; background: linear-gradient(180deg, transparent 0%, rgba(28,47,67,0.9) 100%); z-index: 1;"></div>
-        <div style="position: relative; z-index: 2; width: 100%; padding: 2rem;">
-          <div style="max-width: 1400px; margin: 0 auto; text-align: center;">
-            <h1 style="font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 700; color: white; margin-bottom: 1rem; line-height: 1.1;">
-              Ontario's Prime Specialty Contractor
-            </h1>
-            <p style="font-size: clamp(1.125rem, 2vw, 1.5rem); color: rgba(255, 255, 255, 0.9); margin-bottom: 2rem;">
-              Building Envelope & Restoration Services Across the GTA
-            </p>
-          </div>
+      <!-- Loading fallback - replaced automatically when React mounts -->
+      <div style="min-height:100vh;display:flex;align-items:center;justify-content:center;background:#1a1a1a;">
+        <div style="text-align:center;color:#fff;">
+          <div style="width:40px;height:40px;border:3px solid rgba(255,255,255,0.2);border-top-color:#e8772e;border-radius:50%;animation:spin 0.8s linear infinite;margin:0 auto 1rem;"></div>
+          <p style="font-family:Barlow,system-ui,sans-serif;font-size:0.875rem;opacity:0.7;margin:0;">Loading...</p>
         </div>
       </div>
+      <style>@keyframes spin{to{transform:rotate(360deg)}}</style>
+    </div>
+    
+    <!-- Safety net: remove loading classes if React fails to mount within 5s -->
+    <script>setTimeout(function(){document.documentElement.classList.remove('loading','page-loading')},5000)</script>
       
-      <!-- Static fallback content for crawlers (replaced by React on load) -->
-      <noscript>
-        <style>
-          .static-content { display: block !important; }
-        </style>
-      </noscript>
-      
+    <noscript>
+      <style>.static-content { display: block !important; visibility: visible !important; opacity: 1 !important; position: relative !important; pointer-events: auto !important; z-index: auto !important; }</style>
       <div class="static-content">
-        <!-- Navigation -->
         <header style="background: hsl(210 40% 15%); padding: 1rem 0; position: sticky; top: 0; z-index: 50;">
           <nav style="max-width: 1280px; margin: 0 auto; padding: 0 1rem; display: flex; justify-content: space-between; align-items: center;">
-            <a href="/" style="color: white; font-size: 1.5rem; font-weight: 700; text-decoration: none;">
-              Ascent Group Construction
-            </a>
+            <a href="/" style="color: white; font-size: 1.5rem; font-weight: 700; text-decoration: none;">Ascent Group Construction</a>
             <ul style="display: flex; gap: 2rem; list-style: none; margin: 0; padding: 0;">
               <li><a href="/about" style="color: white; text-decoration: none;">About</a></li>
               <li><a href="/services" style="color: white; text-decoration: none;">Services</a></li>
@@ -230,8 +198,6 @@
             </ul>
           </nav>
         </header>
-
-        <!-- Hero Section -->
         <main>
           <section class="landing-hero">
             <div class="landing-hero__background">
@@ -253,199 +219,20 @@
               </a>
             </div>
           </section>
-
-          <!-- Core Services -->
-          <section style="padding: 5rem 1rem; background: hsl(0 0% 100%);">
-            <div style="max-width: 1280px; margin: 0 auto;">
-              <h2 style="font-size: 2.5rem; font-weight: 700; text-align: center; margin-bottom: 3rem; color: hsl(210 40% 15%);">
-                Our Specialty Services
-              </h2>
-              <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem;">
-                
-                <article style="padding: 2rem; border: 1px solid hsl(210 40% 90%); border-radius: 0.5rem;">
-                  <h3 style="font-size: 1.5rem; font-weight: 600; margin-bottom: 1rem; color: hsl(210 40% 15%);">
-                    Façade Remediation
-                  </h3>
-                  <p style="color: hsl(210 15% 40%); line-height: 1.6;">
-                    Comprehensive building envelope restoration including sealant replacement, panel repairs, and weatherproofing systems for commercial and residential properties.
-                  </p>
-                </article>
-
-                <article style="padding: 2rem; border: 1px solid hsl(210 40% 90%); border-radius: 0.5rem;">
-                  <h3 style="font-size: 1.5rem; font-weight: 600; margin-bottom: 1rem; color: hsl(210 40% 15%);">
-                    Parking Garage Restoration
-                  </h3>
-                  <p style="color: hsl(210 15% 40%); line-height: 1.6;">
-                    Expert concrete repair, waterproofing, traffic coatings, and structural rehabilitation to extend parking facility lifespan and ensure safety compliance.
-                  </p>
-                </article>
-
-                <article style="padding: 2rem; border: 1px solid hsl(210 40% 90%); border-radius: 0.5rem;">
-                  <h3 style="font-size: 1.5rem; font-weight: 600; margin-bottom: 1rem; color: hsl(210 40% 15%);">
-                    EIFS & Stucco Systems
-                  </h3>
-                  <p style="color: hsl(210 15% 40%); line-height: 1.6;">
-                    Professional installation and repair of Exterior Insulation Finishing Systems with energy-efficient solutions and superior weather resistance.
-                  </p>
-                </article>
-
-                <article style="padding: 2rem; border: 1px solid hsl(210 40% 90%); border-radius: 0.5rem;">
-                  <h3 style="font-size: 1.5rem; font-weight: 600; margin-bottom: 1rem; color: hsl(210 40% 15%);">
-                    Masonry Restoration
-                  </h3>
-                  <p style="color: hsl(210 15% 40%); line-height: 1.6;">
-                    Complete brick, stone, and concrete masonry repair services including repointing, tuckpointing, and structural stabilization for heritage and modern buildings.
-                  </p>
-                </article>
-
-                <article style="padding: 2rem; border: 1px solid hsl(210 40% 90%); border-radius: 0.5rem;">
-                  <h3 style="font-size: 1.5rem; font-weight: 600; margin-bottom: 1rem; color: hsl(210 40% 15%);">
-                    Waterproofing Systems
-                  </h3>
-                  <p style="color: hsl(210 15% 40%); line-height: 1.6;">
-                    Advanced waterproofing solutions for foundations, roofs, and below-grade structures using proven materials and techniques to prevent water infiltration.
-                  </p>
-                </article>
-
-                <article style="padding: 2rem; border: 1px solid hsl(210 40% 90%); border-radius: 0.5rem;">
-                  <h3 style="font-size: 1.5rem; font-weight: 600; margin-bottom: 1rem; color: hsl(210 40% 15%);">
-                    Metal Cladding
-                  </h3>
-                  <p style="color: hsl(210 15% 40%); line-height: 1.6;">
-                    Custom metal panel installation, repair, and finishing for commercial facades including aluminum, steel, and composite cladding systems.
-                  </p>
-                </article>
-
-              </div>
-            </div>
-          </section>
-
-          <!-- Service Areas -->
-          <section style="padding: 5rem 1rem; background: hsl(210 40% 98%);">
-            <div style="max-width: 1280px; margin: 0 auto; text-align: center;">
-              <h2 style="font-size: 2.5rem; font-weight: 700; margin-bottom: 1.5rem; color: hsl(210 40% 15%);">
-                Serving Ontario & the Greater Toronto Area
-              </h2>
-              <p style="font-size: 1.125rem; color: hsl(210 15% 40%); margin-bottom: 2rem; line-height: 1.6;">
-                Toronto • Mississauga • Brampton • Vaughan • Markham • Richmond Hill • Oakville • Burlington • Hamilton • Ajax • Pickering • Whitby • Oshawa
-              </p>
-            </div>
-          </section>
-
-          <!-- Why Choose Ascent -->
-          <section style="padding: 5rem 1rem; background: hsl(0 0% 100%);">
-            <div style="max-width: 1280px; margin: 0 auto;">
-              <h2 style="font-size: 2.5rem; font-weight: 700; text-align: center; margin-bottom: 3rem; color: hsl(210 40% 15%);">
-                Why Choose Ascent Group Construction
-              </h2>
-              <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 3rem;">
-                
-                <div style="text-align: center;">
-                  <div style="font-size: 3rem; color: hsl(24 90% 53%); margin-bottom: 1rem;">✓</div>
-                  <h3 style="font-size: 1.25rem; font-weight: 600; margin-bottom: 0.5rem; color: hsl(210 40% 15%);">Self-Performed Work</h3>
-                  <p style="color: hsl(210 15% 40%); line-height: 1.6;">
-                    Our core trades are performed by our own skilled crews, ensuring quality control and accountability.
-                  </p>
-                </div>
-
-                <div style="text-align: center;">
-                  <div style="font-size: 3rem; color: hsl(24 90% 53%); margin-bottom: 1rem;">✓</div>
-                  <h3 style="font-size: 1.25rem; font-weight: 600; margin-bottom: 0.5rem; color: hsl(210 40% 15%);">15+ Years Experience</h3>
-                  <p style="color: hsl(210 15% 40%); line-height: 1.6;">
-                    Proven track record delivering complex building envelope and restoration projects across Ontario.
-                  </p>
-                </div>
-
-                <div style="text-align: center;">
-                  <div style="font-size: 3rem; color: hsl(24 90% 53%); margin-bottom: 1rem;">✓</div>
-                  <h3 style="font-size: 1.25rem; font-weight: 600; margin-bottom: 0.5rem; color: hsl(210 40% 15%);">Fully Insured & Certified</h3>
-                  <p style="color: hsl(210 15% 40%); line-height: 1.6;">
-                    WSIB compliant, comprehensive liability coverage, and industry-recognized safety certifications.
-                  </p>
-                </div>
-
-              </div>
-            </div>
-          </section>
-
-          <!-- Contact CTA -->
           <section style="padding: 5rem 1rem; background: hsl(210 40% 15%); color: white; text-align: center;">
             <div style="max-width: 800px; margin: 0 auto;">
-              <h2 style="font-size: 2.5rem; font-weight: 700; margin-bottom: 1.5rem;">
-                Ready to Start Your Project?
-              </h2>
-              <p style="font-size: 1.125rem; margin-bottom: 2rem; opacity: 0.9;">
-                Get a free consultation and detailed estimate for your building envelope or restoration project.
-              </p>
-              <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
-                <a href="/contact" style="display: inline-block; background: hsl(24 90% 53%); color: white; padding: 1rem 2rem; border-radius: 0.5rem; text-decoration: none; font-weight: 600;">
-                  Request Free Estimate
-                </a>
-                <a href="tel:+16475286804" style="display: inline-block; background: transparent; color: white; padding: 1rem 2rem; border: 2px solid white; border-radius: 0.5rem; text-decoration: none; font-weight: 600;">
-                  Call (647) 528-6804
-                </a>
-              </div>
+              <h2 style="font-size: 2.5rem; font-weight: 700; margin-bottom: 1.5rem;">Ready to Start Your Project?</h2>
+              <p style="font-size: 1.125rem; margin-bottom: 2rem; opacity: 0.9;">Get a free consultation and detailed estimate.</p>
+              <a href="/contact" style="display: inline-block; background: hsl(24 90% 53%); color: white; padding: 1rem 2rem; border-radius: 0.5rem; text-decoration: none; font-weight: 600;">Request Free Estimate</a>
             </div>
           </section>
         </main>
-
-        <!-- Footer -->
-        <footer style="background: hsl(210 40% 10%); color: white; padding: 3rem 1rem 1rem;">
-          <div style="max-width: 1280px; margin: 0 auto;">
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 3rem; margin-bottom: 2rem;">
-              
-              <div>
-                <h3 style="font-size: 1.25rem; font-weight: 600; margin-bottom: 1rem;">Ascent Group Construction</h3>
-                <p style="opacity: 0.8; line-height: 1.6; margin-bottom: 1rem;">
-                  Ontario's prime specialty contractor for building envelope and restoration services.
-                </p>
-                <p style="opacity: 0.8;">
-                  <a href="mailto:hebun.isik.ca@gmail.com" style="color: hsl(24 90% 53%); text-decoration: none;">hebun.isik.ca@gmail.com</a><br>
-                  <a href="tel:+16475286804" style="color: white; text-decoration: none;">Phone: (647) 528-6804</a>
-                </p>
-              </div>
-
-              <div>
-                <h4 style="font-size: 1rem; font-weight: 600; margin-bottom: 1rem;">Services</h4>
-                <ul style="list-style: none; padding: 0; margin: 0; opacity: 0.8;">
-                  <li style="margin-bottom: 0.5rem;"><a href="/services/facade-remediation" style="color: white; text-decoration: none;">Façade Remediation</a></li>
-                  <li style="margin-bottom: 0.5rem;"><a href="/services/parking-garage-restoration" style="color: white; text-decoration: none;">Parking Garage Restoration</a></li>
-                  <li style="margin-bottom: 0.5rem;"><a href="/services/eifs-stucco" style="color: white; text-decoration: none;">EIFS & Stucco</a></li>
-                  <li style="margin-bottom: 0.5rem;"><a href="/services/masonry-restoration" style="color: white; text-decoration: none;">Masonry Restoration</a></li>
-                  <li style="margin-bottom: 0.5rem;"><a href="/services/waterproofing" style="color: white; text-decoration: none;">Waterproofing</a></li>
-                </ul>
-              </div>
-
-              <div>
-                <h4 style="font-size: 1rem; font-weight: 600; margin-bottom: 1rem;">Company</h4>
-                <ul style="list-style: none; padding: 0; margin: 0; opacity: 0.8;">
-                  <li style="margin-bottom: 0.5rem;"><a href="/about" style="color: white; text-decoration: none;">About Us</a></li>
-                  <li style="margin-bottom: 0.5rem;"><a href="/projects" style="color: white; text-decoration: none;">Projects</a></li>
-                  <li style="margin-bottom: 0.5rem;"><a href="/careers" style="color: white; text-decoration: none;">Careers</a></li>
-                  <li style="margin-bottom: 0.5rem;"><a href="/contact" style="color: white; text-decoration: none;">Contact</a></li>
-                </ul>
-              </div>
-
-              <div>
-                <h4 style="font-size: 1rem; font-weight: 600; margin-bottom: 1rem;">Service Areas</h4>
-                <p style="opacity: 0.8; line-height: 1.6;">
-                  Toronto, Mississauga, Brampton, Vaughan, Markham, Richmond Hill, Oakville, Burlington, and across the Greater Toronto Area.
-                </p>
-              </div>
-
-            </div>
-
-            <div style="border-top: 1px solid rgba(255,255,255,0.1); padding-top: 2rem; text-align: center; opacity: 0.6; font-size: 0.875rem;">
-              <p>&copy; 2024 Ascent Group Construction. All rights reserved. | 
-                <a href="/privacy" style="color: white; text-decoration: none;">Privacy Policy</a> | 
-                <a href="/terms" style="color: white; text-decoration: none;">Terms of Service</a>
-              </p>
-            </div>
-          </div>
+        <footer style="background: hsl(210 40% 10%); color: white; padding: 2rem 1rem; text-align: center; font-size: 0.875rem; opacity: 0.6;">
+          <p>&copy; 2025 Ascent Group Construction. All rights reserved.</p>
         </footer>
       </div>
-    </div>
+    </noscript>
+
     <script type="module" src="/src/main.tsx"></script>
-    
   </body>
 </html>

@@ -21,20 +21,20 @@ const stories = [
   {
     stat: "15+",
     statLabel: "Years Team Experience",
-    label: "Projects Completed",
-    detail: "From small renovations to major restorations",
+    label: "Years Team Experience",
+    detail: "Our crew brings hands-on experience from envelope, restoration, and interior trades projects across the GTA.",
     icon: CheckCircle2,
   },
   {
-    stat: "15+",
-    label: "Years Experience",
+    stat: "85%",
+    label: "Self-Performed Work",
     detail: "New company. Experienced team. Building trust project by project.",
     icon: Clock,
   },
   {
-    stat: "98%",
-    label: "Client Satisfaction",
-    detail: "Based on verified reviews and repeat business",
+    stat: "$2M",
+    label: "CGL Coverage",
+    detail: "Fully insured with comprehensive liability coverage on every project.",
     icon: Shield,
   },
 ];
@@ -161,7 +161,7 @@ const InteractiveCTA = () => {
           <div className="text-[hsl(var(--bg))] space-y-8">
             <div>
               <h2 className="text-4xl md:text-5xl font-bold mb-4 leading-tight">
-                Your Construction Partner For Success
+                Your Envelope, Restoration & Trades Partner
               </h2>
               <p className="text-xl text-[hsl(var(--bg))]/90 leading-relaxed">
                 From concept to completion, we deliver exceptional results with transparent communication and expert craftsmanship.
@@ -221,7 +221,7 @@ const InteractiveCTA = () => {
               </div>
               <div className="text-center">
                 <Clock className="h-6 w-6 mx-auto mb-2 text-secondary" />
-                <div className="text-xs text-[hsl(var(--bg))]/80">24/7 Support</div>
+                <div className="text-xs text-[hsl(var(--bg))]/80">Responsive Support</div>
               </div>
             </div>
           </div>

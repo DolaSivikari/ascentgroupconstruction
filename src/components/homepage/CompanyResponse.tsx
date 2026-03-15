@@ -33,7 +33,7 @@ const responses = [
     value: "$2M",
     label: "CGL Coverage",
     description: "Professional liability insurance and WSIB compliance",
-    linkText: "Start Your Project",
+    linkText: "Contact Us",
     linkUrl: "/contact"
   }
 ];

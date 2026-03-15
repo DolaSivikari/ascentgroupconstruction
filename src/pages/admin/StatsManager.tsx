@@ -10,7 +10,7 @@ import { Switch } from "@/components/ui/switch";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
-import { ArrowLeft, Plus, Pencil, Trash2 } from "lucide-react";
+import { ArrowLeft, Plus, Pencil, Trash2, AlertTriangle } from "lucide-react";
 import { useAdminAuth } from "@/hooks/useAdminAuth";
 import { ConfirmDialog } from "@/components/admin/ConfirmDialog";
 
@@ -133,14 +133,12 @@ const StatsManager = () => {
   };
 
   const gcStatTemplates = [
-    { label: 'Total Project Value', value: 50000000, suffix: 'M+', description: 'Million in completed projects', icon_name: 'DollarSign' },
-    { label: 'Square Footage', value: 2000000, suffix: '+', description: 'Sq ft of construction completed', icon_name: 'Building2' },
-    { label: 'Active Projects', value: 12, suffix: '', description: 'Currently under construction', icon_name: 'Hammer' },
-    { label: 'Safety Record', value: 500, suffix: '+', description: 'Days without incident', icon_name: 'Shield' },
-    { label: 'Projects Completed', value: 500, suffix: '+', description: 'Successfully delivered projects', icon_name: 'CheckCircle' },
-    { label: 'Client Satisfaction', value: 98, suffix: '%', description: 'Client satisfaction rate', icon_name: 'Award' },
-    { label: 'Years in Business', value: 15, suffix: '+', description: 'Years serving the GTA', icon_name: 'TrendingUp' },
-    { label: 'Licensed Trades', value: 50, suffix: '+', description: 'Certified tradespeople', icon_name: 'Users' },
+    { label: 'Years Team Experience', value: 15, suffix: '+', description: 'Combined team experience in trades', icon_name: 'TrendingUp' },
+    { label: 'Self-Performed Work', value: 85, suffix: '%', description: 'Work performed by our own crew', icon_name: 'Hammer' },
+    { label: 'CGL Coverage', value: 2, suffix: 'M', description: 'Commercial general liability insurance', icon_name: 'Shield' },
+    { label: 'Core Team Members', value: 10, suffix: '+', description: 'Dedicated crew members', icon_name: 'Users' },
+    { label: 'Projects Completed', value: 10, suffix: '+', description: 'Projects delivered as Ascent Group', icon_name: 'CheckCircle' },
+    { label: 'WSIB Compliant', value: 100, suffix: '%', description: 'Full WSIB compliance', icon_name: 'Award' },
   ];
 
   const applyTemplate = (template: any) => {
@@ -159,6 +157,10 @@ const StatsManager = () => {
   return (
     <div className="min-h-screen bg-background p-8">
       <div className="max-w-6xl mx-auto">
+        <div className="rounded-lg border border-amber-500/30 bg-amber-500/10 p-3 text-sm text-amber-200 flex items-start gap-2 mb-6">
+          <AlertTriangle className="h-4 w-4 mt-0.5" />
+          <span>Saved to database only. Stats are not currently displayed on the public site.</span>
+        </div>
         <div className="flex items-center justify-between mb-8">
           <div className="flex items-center gap-4">
             <h1 className="text-3xl font-bold">Manage Statistics</h1>
@@ -177,14 +179,13 @@ const StatsManager = () => {
           </div>
         </div>
 
-        {/* GC-Specific Templates */}
         <Card className="mb-6">
           <CardHeader>
-            <CardTitle>Contractor Stat Templates</CardTitle>
+            <CardTitle>Specialty Contractor Stat Templates</CardTitle>
           </CardHeader>
           <CardContent>
             <p className="text-sm text-muted-foreground mb-4">
-              Click a template to quickly add GC-specific metrics to your homepage
+              Click a template to quickly add specialty contractor metrics to your homepage
             </p>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
               {gcStatTemplates.map((template, idx) => (

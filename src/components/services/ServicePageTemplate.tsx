@@ -1,11 +1,14 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { 
   Check, Phone, Mail, MapPin, Clock, Award, 
   ChevronRight, ChevronDown, ArrowRight 
 } from 'lucide-react';
 import { Button } from '@/ui/Button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/ui/Card';
+import { Card, CardContent, CardHeader, CardTitle } from '@/design-system/components/Card';
+import { CTABand } from '@/design-system/components/CTABand';
+import { CTA_TEXT } from '@/design-system/constants';
+import { PhoneLink } from '@/components/shared/PhoneLink';
 import QuickFacts from '@/components/seo/QuickFacts';
 import PeopleAlsoAsk from '@/components/seo/PeopleAlsoAsk';
 import SEO from '@/components/SEO';
@@ -13,6 +16,8 @@ import { createServiceSchema } from '@/utils/schema-injector';
 import { breadcrumbSchema } from '@/utils/structured-data';
 import { ScrollReveal } from "@/components/animations/ScrollReveal";
 import OptimizedImage from "../OptimizedImage";
+import { supabase } from "@/integrations/supabase/client";
+import { Badge } from "@/components/ui/badge";
 
 interface ServiceBenefit {
   icon: React.ComponentType<{ className?: string }>;
@@ -84,6 +89,7 @@ export interface ServicePageTemplateProps {
 
 export const ServicePageTemplate = ({ service }: ServicePageTemplateProps) => {
   const [expandedStep, setExpandedStep] = useState<number | null>(null);
+  const [relatedProjects, setRelatedProjects] = useState<Array<{id: string; title: string; slug: string; category: string; featured_image: string}>>([]);
 
   // Structured data for SEO
   const serviceSchema = createServiceSchema({
@@ -105,6 +111,48 @@ export const ServicePageTemplate = ({ service }: ServicePageTemplateProps) => {
     { label: "Service Area", value: service.quickFacts.serviceArea },
     { label: "Project Types", value: service.quickFacts.projectTypes[0] + " and more" },
   ];
+
+  // Fetch related projects via project_services join
+  useEffect(() => {
+    const fetchRelatedProjects = async () => {
+      try {
+        // First get the service ID by slug
+        const { data: svcData } = await supabase
+          .from("services")
+          .select("id")
+          .eq("slug", service.slug)
+          .single();
+        
+        if (!svcData) return;
+        
+        // Then get projects linked to this service
+        const { data: projectLinks } = await supabase
+          .from("project_services")
+          .select("project_id")
+          .eq("service_id", svcData.id);
+        
+        if (!projectLinks || projectLinks.length === 0) return;
+        
+        const projectIds = projectLinks.map(pl => pl.project_id).filter(Boolean);
+        
+        const { data: projects } = await supabase
+          .from("projects")
+          .select("id, title, slug, category, featured_image")
+          .in("id", projectIds)
+          .eq("publish_state", "published")
+          .order("featured", { ascending: false })
+          .limit(3);
+        
+        if (projects) {
+          setRelatedProjects(projects as any);
+        }
+      } catch {
+        // Silently fail — section just won't render
+      }
+    };
+    
+    fetchRelatedProjects();
+  }, [service.slug]);
 
   return (
     <div className="min-h-screen bg-background pt-24">
@@ -234,13 +282,7 @@ export const ServicePageTemplate = ({ service }: ServicePageTemplateProps) => {
                 )}
 
                 <div className="pt-6 border-t space-y-3">
-                  <a
-                    href="tel:+16475286804"
-                    className="flex items-center gap-3 text-primary hover:text-primary/80 font-semibold transition-colors"
-                  >
-                    <Phone className="w-5 h-5" />
-                    <span>(647) 528-6804</span>
-                  </a>
+                  <PhoneLink className="flex items-center gap-3 text-primary hover:text-primary/80 font-semibold transition-colors" />
                   <Button variant="outline" className="w-full" asChild>
                     <Link to="/contact">
                       <Mail className="w-5 h-5 mr-2" />
@@ -344,6 +386,16 @@ export const ServicePageTemplate = ({ service }: ServicePageTemplateProps) => {
                 )}
               </Card>
             ))}
+
+            {/* Process cross-link */}
+            <div className="text-center pt-4">
+              <Link 
+                to="/our-process" 
+                className="inline-flex items-center gap-2 text-sm text-primary hover:underline font-medium"
+              >
+                Learn about our full process <ArrowRight className="w-4 h-4" />
+              </Link>
+            </div>
           </div>
         </div>
       </section>
@@ -414,37 +466,51 @@ export const ServicePageTemplate = ({ service }: ServicePageTemplateProps) => {
         </section>
       )}
 
-      {/* Final CTA */}
-      <section className="py-12 md:py-16 bg-card">
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto text-center space-y-6 md:space-y-8">
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground">
-              Ready to Start Your Project?
-            </h2>
-            <p className="text-lg md:text-xl text-muted-foreground">
-              Request a complimentary consultation and project proposal today
+      {/* Related Projects — only renders when real data exists */}
+      {relatedProjects.length > 0 && (
+        <section className="py-12 md:py-16">
+          <div className="container mx-auto px-4">
+            <h2 className="text-3xl md:text-4xl font-bold text-center mb-4">Related Projects</h2>
+            <p className="text-lg text-muted-foreground text-center mb-8">
+              Recent {service.name.toLowerCase()} projects we've completed
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button size="lg" className="hover:scale-105 transition-transform" asChild>
-                <Link to="/contact">
-                  Request Project Proposal
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+              {relatedProjects.map((project) => (
+                <Link key={project.id} to={`/projects/${project.slug}`}>
+                  <Card className="hover:shadow-lg transition-all group overflow-hidden">
+                    {project.featured_image && (
+                      <div className="aspect-video overflow-hidden">
+                        <img
+                          src={project.featured_image}
+                          alt={project.title}
+                          className="w-full h-full object-cover transition-transform group-hover:scale-105"
+                        />
+                      </div>
+                    )}
+                    <CardContent className="p-4">
+                      {project.category && (
+                        <Badge variant="secondary" className="mb-2">{project.category}</Badge>
+                      )}
+                      <h3 className="font-bold group-hover:text-primary transition-colors">
+                        {project.title}
+                      </h3>
+                    </CardContent>
+                  </Card>
                 </Link>
-              </Button>
-              <Button size="lg" variant="outline" className="hover:scale-105 transition-transform" asChild>
-                <a href="tel:+16475286804">
-                  <Phone className="w-5 h-5 mr-2" />
-                  Call Now
-                </a>
-              </Button>
-              <Button size="lg" variant="secondary" className="hover:scale-105 transition-transform" asChild>
-                <Link to="/projects">
-                  View Projects
-                </Link>
-              </Button>
+              ))}
             </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
+
+      {/* Final CTA */}
+      <CTABand
+        title="Ready to Discuss Your Project?"
+        description="Request a consultation and project proposal today"
+        primaryCta={{ text: CTA_TEXT.primary, href: "/contact" }}
+        secondaryCta={{ text: CTA_TEXT.viewProjects, href: "/projects" }}
+        variant="dark"
+      />
     </div>
   );
 };

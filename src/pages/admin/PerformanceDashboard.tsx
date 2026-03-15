@@ -319,7 +319,7 @@ export default function PerformanceDashboard() {
             <Activity className="h-4 w-4" style={{ color: 'var(--text-secondary)' }} />
           </div>
           <div style={{ fontSize: '1.5rem', fontWeight: '700', marginBottom: '0.5rem', color: 'var(--text-primary)' }}>
-            {cls ? `${(cls.average / 1000).toFixed(3)}` : 'N/A'}
+            {cls ? `${cls.average.toFixed(3)}` : 'N/A'}
           </div>
           {cls && (
             <p className={`text-xs flex items-center gap-1 ${getRatingColor(cls.rating)}`}>

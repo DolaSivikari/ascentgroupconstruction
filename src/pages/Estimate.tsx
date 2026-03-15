@@ -1,13 +1,16 @@
 import { useState, useRef, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { z } from "zod";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
+import { PageHero } from "@/components/shared/PageHero";
+import { Section } from "@/components/sections/Section";
 import { Button } from "@/ui/Button";
-import { UnifiedCard } from "@/components/shared/UnifiedCard";
+import { Card } from "@/design-system/components/Card";
+import { SectionHeader, ProofStrip } from "@/design-system/components";
 import { Progress } from "@/components/ui/progress";
-import { ChevronLeft, ChevronRight, CheckCircle } from "lucide-react";
+import { ChevronLeft, ChevronRight, CheckCircle, Home, FileText, Shield, Clock, FileCheck, Phone } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import EstimatorStep0 from "@/components/estimator/EstimatorStep0";
@@ -19,9 +22,9 @@ import EstimatorStep3 from "@/components/estimator/EstimatorStep3";
 import EstimatorStep4 from "@/components/estimator/EstimatorStep4";
 import EstimatorStep5 from "@/components/estimator/EstimatorStep5";
 import { calculateEstimate, EstimateInput } from "@/utils/estimator";
-import PaintCalculator from "@/components/PaintCalculator";
 import { trackConversion } from "@/lib/analytics";
 import { trackABTestConversion } from "@/hooks/useABTest";
+import { resourceHeroes } from "@/data/hero-images";
 
 // Validation schema for estimate form
 const estimateSchema = z.object({
@@ -39,12 +42,12 @@ type EstimateFormData = {
 };
 
 const Estimate = () => {
-  const navigate = useNavigate();
   const { toast } = useToast();
   const [currentStep, setCurrentStep] = useState(0);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
   const isSubmittingRef = useRef(false);
-  const finalStep = 6;
+  const finalStep = 5;
   const totalSteps = finalStep + 1;
 
   const [formData, setFormData] = useState({
@@ -116,12 +119,10 @@ const Estimate = () => {
   } | null>(null);
 
   const handleInputChange = (field: keyof EstimateFormData, value: EstimateFormData[keyof EstimateFormData]) => {
-    // Special handling for service selection
     if (field === "service" && value) {
-      // Check if this service requires a quote instead of estimate
-      if (requiresQuote(value)) {
-        const serviceMessage = getServiceMessage(value);
-        const serviceName = value
+      if (requiresQuote(value as string)) {
+        const serviceMessage = getServiceMessage(value as string);
+        const serviceName = (value as string)
           .split("_")
           .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
           .join(" ");
@@ -131,8 +132,6 @@ const Estimate = () => {
           message: serviceMessage,
         });
         setShowQuoteDialog(true);
-        
-        // Don't update form data - keep service empty so user must pick estimatable service
         return;
       }
     }
@@ -167,7 +166,6 @@ const Estimate = () => {
       prepComplexity: formData.prepComplexity as any,
       finishQuality: formData.finishQuality as any,
       region: formData.region as any,
-      // Service-specific fields
       buildingType: formData.buildingType as any,
       accessibility: formData.accessibility as any,
       businessHoursConstraint: formData.businessHoursConstraint as any,
@@ -198,10 +196,7 @@ const Estimate = () => {
           formData.stories
         );
       case 2:
-        // Base fields required for all services
         const baseValid = formData.prepComplexity && formData.finishQuality && formData.region;
-        
-        // Service-specific required fields
         if (formData.service === "commercial_painting") {
           return Boolean(baseValid && formData.buildingType && formData.accessibility && formData.businessHoursConstraint);
         }
@@ -211,17 +206,13 @@ const Estimate = () => {
         if (formData.service === "exterior_siding_cladding") {
           return Boolean(baseValid && formData.materialType);
         }
-        
-        // All other estimatable services just need base fields
         return Boolean(baseValid);
       case 3:
-        return true; // Optional step
+        return true;
       case 4:
-        return true; // Review step
+        return true;
       case 5:
-        return true; // Add-ons
-      case 6:
-        return formData.name && formData.email && formData.phone;
+        return !!(formData.name && formData.email && formData.phone);
       default:
         return false;
     }
@@ -246,8 +237,6 @@ const Estimate = () => {
 
   const handleSubmit = async () => {
     if (!canProceed()) return;
-
-    // Prevent duplicate submissions
     if (isSubmittingRef.current) return;
     isSubmittingRef.current = true;
     setIsSubmitting(true);
@@ -255,7 +244,6 @@ const Estimate = () => {
     const estimate = calculateCurrentEstimate();
 
     try {
-      // Validate contact data
       const validatedData = estimateSchema.parse({
         name: formData.name,
         email: formData.email,
@@ -266,7 +254,6 @@ const Estimate = () => {
         consent: formData.consent,
       });
 
-      // Sanitize and build message with validated data
       const sanitizedMessage = `
 Estimate Request:
 - Service: ${formData.service.replace(/[<>]/g, '')}
@@ -287,7 +274,6 @@ Add-ons:
 - Premium Site Cleanup: ${formData.siteCleanup ? "Yes" : "No"}
       `.trim();
 
-      // Insert with timeout
       const insertPromise = supabase.from("contact_submissions").insert({
         name: validatedData.name,
         email: validatedData.email,
@@ -305,7 +291,6 @@ Add-ons:
       const insertResult = await Promise.race([insertPromise, timeoutPromise as Promise<never>]);
       if (insertResult.error) throw insertResult.error;
 
-      // Also insert into quote_requests table
       if (formData.quoteType) {
         const { data: quoteData, error: quoteError } = await supabase
           .from("quote_requests")
@@ -335,12 +320,6 @@ Add-ons:
         }
       }
 
-      toast({
-        title: "Estimate Request Submitted!",
-        description: "We'll contact you within 24 hours to schedule a site visit.",
-      });
-
-      // Phase 2: Send review request
       let notificationWarning = false;
       try {
         await supabase.functions.invoke("send-review-request", {
@@ -355,19 +334,17 @@ Add-ons:
         console.error("Review request failed:", reviewError);
       }
 
-      // Phase 3: Track A/B test conversion
       await trackABTestConversion('homepage-hero-2024', 3);
 
-      if (notificationWarning) {
-        toast({
-          title: "Saved with notification delay",
-          description: "Your request was submitted successfully, but email notification is temporarily unavailable.",
-          variant: "default",
-        });
-      }
+      toast({
+        title: "Estimate Request Submitted!",
+        description: notificationWarning
+          ? "Your request was saved successfully. Our team will follow up within 24 hours."
+          : "We'll contact you within 24 hours to discuss your project.",
+      });
 
-      // Redirect to thank you or home page
-      setTimeout(() => navigate("/"), 2000);
+      setIsSubmitted(true);
+      window.scrollTo({ top: 0, behavior: "smooth" });
     } catch (error) {
       console.error("Error submitting estimate:", error);
       
@@ -402,25 +379,91 @@ Add-ons:
     <div className="min-h-screen flex flex-col">
       <SEO
         title="Request Project Estimate | Ascent Group Construction"
-        description="Get an instant estimate for your painting or stucco project. Fast, accurate pricing with no obligation. Licensed and insured contractors serving the GTA."
-        keywords="construction estimate, painting quote, stucco quote, project estimate, GTA contractors"
+        description="Request a project estimate for building envelope, restoration, or specialty trade work. Fast, accurate pricing with no obligation. Licensed and insured contractors serving Ontario."
+        keywords="construction estimate, building envelope quote, restoration estimate, project estimate, GTA contractors"
       />
       <Navigation />
 
-      <main className="flex-1 pt-24 pb-16 bg-background">
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto">
-            {/* Enhanced Header */}
-            <div className="text-center mb-8 animate-fade-in-up">
-              <h1 className="text-4xl md:text-5xl font-bold mb-4 text-primary">Request Your Estimate</h1>
-              <p className="text-lg text-muted-foreground">Answer a few quick questions to receive an instant estimate</p>
-            </div>
+      <PageHero
+        title="Request a Project Estimate"
+        eyebrow="Project Estimator"
+        description="Answer a few questions about your project and receive a preliminary estimate. Our team follows up within 24 hours to discuss scope and next steps."
+        image={resourceHeroes.estimate}
+        imageAlt="Request a project estimate from Ascent Group Construction"
+        height="medium"
+        breadcrumbs={[
+          { label: "Home", href: "/" },
+          { label: "Request Estimate" }
+        ]}
+      />
 
-            {/* Paint Calculator Tool */}
-            <div className="mb-12">
-              <PaintCalculator />
-            </div>
+      {/* Trust Strip */}
+      <Section size="tight" className="bg-muted/30" disableAnimation>
+        <ProofStrip
+          items={[
+            { icon: Shield, value: "WSIB", label: "Certified" },
+            { icon: FileCheck, value: "$2M", label: "CGL Coverage" },
+            { icon: Clock, value: "24hr", label: "Response Time" },
+            { icon: Phone, value: "Direct", label: "Project Manager" },
+          ]}
+          variant="light"
+          columns={4}
+        />
+      </Section>
 
+      {/* Pathway Guidance */}
+      <Section size="tight" disableAnimation>
+        <div className="max-w-4xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <Card variant="interactive" size="sm" className="text-center border-primary/30 bg-primary/5">
+              <Link to="/estimate" className="block">
+                <p className="text-sm font-bold text-primary mb-1">Project Estimate</p>
+                <p className="text-xs text-muted-foreground">Get preliminary pricing for defined scopes</p>
+              </Link>
+            </Card>
+            <Card variant="interactive" size="sm" className="text-center">
+              <Link to="/submit-rfp" className="block">
+                <p className="text-sm font-bold mb-1">Submit RFP</p>
+                <p className="text-xs text-muted-foreground">Formal proposals with drawings & specs</p>
+              </Link>
+            </Card>
+            <Card variant="interactive" size="sm" className="text-center">
+              <Link to="/contact" className="block">
+                <p className="text-sm font-bold mb-1">General Inquiry</p>
+                <p className="text-xs text-muted-foreground">Questions, site visits, or consultations</p>
+              </Link>
+            </Card>
+          </div>
+        </div>
+      </Section>
+
+      {/* Main Estimator */}
+      <Section size="major" disableAnimation>
+        <div className="max-w-4xl mx-auto">
+          {isSubmitted ? (
+            /* Success State */
+            <div className="text-center py-16 animate-fade-in-up">
+              <div className="w-20 h-20 rounded-full bg-secondary/10 flex items-center justify-center mx-auto mb-6">
+                <CheckCircle className="w-10 h-10 text-secondary" />
+              </div>
+              <h2 className="text-3xl md:text-4xl font-bold mb-4 text-primary">Estimate Request Submitted</h2>
+              <p className="text-lg text-muted-foreground mb-2 max-w-lg mx-auto">
+                Thank you for your request. Our team will review your project details and contact you within 24 hours to discuss next steps.
+              </p>
+              <p className="text-sm text-muted-foreground mb-8">
+                A confirmation has been sent to your email address.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <Button asChild variant="default" size="lg">
+                  <Link to="/"><Home className="w-4 h-4 mr-2" />Return Home</Link>
+                </Button>
+                <Button asChild variant="outline" size="lg">
+                  <Link to="/submit-rfp"><FileText className="w-4 h-4 mr-2" />Submit an RFP</Link>
+                </Button>
+              </div>
+            </div>
+          ) : (
+          <>
             {/* Progress Bar */}
             <div className="mb-8">
               <div className="flex justify-between items-center mb-2">
@@ -434,16 +477,15 @@ Add-ons:
               <Progress value={((currentStep + 1) / totalSteps) * 100} className="h-2" />
             </div>
 
-            {/* Enhanced Step Content */}
-            <UnifiedCard variant="elevated" className="mb-6 animate-fade-in-up">
+            {/* Step Content */}
+            <Card variant="elevated" size="md" className="mb-6 animate-fade-in-up">
               {currentStep === 0 && (<EstimatorStep0 data={{ quoteType: formData.quoteType, company: formData.company, role: formData.role, nteBudget: formData.nteBudget, scopeCategories: formData.scopeCategories }} onChange={handleInputChange} />)}
               {currentStep === 1 && (<EstimatorStep1 data={{ service: formData.service, sqft: formData.sqft, stories: formData.stories }} onChange={handleInputChange} />)}
               {currentStep === 2 && (<EstimatorStep2Enhanced service={formData.service} data={{ prepComplexity: formData.prepComplexity, finishQuality: formData.finishQuality, region: formData.region, buildingType: formData.buildingType, accessibility: formData.accessibility, businessHoursConstraint: formData.businessHoursConstraint, unitCount: formData.unitCount, includeCommonAreas: formData.includeCommonAreas, materialType: formData.materialType }} onChange={handleInputChange} />)}
               {currentStep === 3 && (<EstimatorStep3 data={{ scaffolding: formData.scaffolding, colorConsultation: formData.colorConsultation, rushScheduling: formData.rushScheduling, warrantyExtension: formData.warrantyExtension, siteCleanup: formData.siteCleanup }} sqft={parseInt(formData.sqft) || 0} onChange={handleInputChange} />)}
               {currentStep === 4 && (<EstimatorStep4 estimate={estimate} formData={formData} />)}
-              {currentStep === 5 && (<EstimatorStep3 data={{ scaffolding: formData.scaffolding, colorConsultation: formData.colorConsultation, rushScheduling: formData.rushScheduling, warrantyExtension: formData.warrantyExtension, siteCleanup: formData.siteCleanup }} sqft={parseInt(formData.sqft) || 0} onChange={handleInputChange} />)}
-              {currentStep === 6 && (<EstimatorStep5 data={{ name: formData.name, email: formData.email, phone: formData.phone, address: formData.address, preferredContact: formData.preferredContact, notes: formData.notes, consent: formData.consent }} onChange={handleInputChange} />)}
-            </UnifiedCard>
+              {currentStep === 5 && (<EstimatorStep5 data={{ name: formData.name, email: formData.email, phone: formData.phone, address: formData.address, preferredContact: formData.preferredContact, notes: formData.notes, consent: formData.consent }} onChange={handleInputChange} />)}
+            </Card>
 
             {/* Navigation Buttons */}
             <div className="flex justify-between gap-4">
@@ -486,9 +528,10 @@ Add-ons:
                 </Button>
               )}
             </div>
-          </div>
+          </>
+          )}
         </div>
-      </main>
+      </Section>
 
       {/* Quote Request Dialog for Complex Services */}
       {showQuoteDialog && selectedServiceInfo && (

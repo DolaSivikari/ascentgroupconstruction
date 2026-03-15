@@ -6,7 +6,7 @@ import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import { Badge } from "@/components/ui/badge";
 import { useFeaturedServicesAdmin } from "@/hooks/useFeaturedServices";
-import { Plus, Edit, Trash2, Star } from "lucide-react";
+import { Plus, Trash2, Star } from "lucide-react";
 import { toast } from "sonner";
 
 export function FeaturedServicesManager() {
@@ -177,9 +177,6 @@ export function FeaturedServicesManager() {
                   checked={service.is_active}
                   onCheckedChange={() => handleToggleActive(service.id, service.is_active)}
                 />
-                <Button variant="ghost" size="sm">
-                  <Edit className="h-4 w-4" />
-                </Button>
                 <Button
                   variant="ghost"
                   size="sm"

@@ -49,8 +49,8 @@ export const ServiceQuickViewModal = ({ isOpen, onClose, service }: ServiceQuick
           <div className="grid grid-cols-2 gap-4">
             {service.estimatedTimeline && (
               <div className="flex items-start gap-3 p-4 rounded-lg bg-background/50 border border-border/50">
-                <div className="p-2 rounded-md bg-construction-orange/10">
-                  <Clock className="w-4 h-4 text-construction-orange" />
+                <div className="p-2 rounded-md bg-primary/10">
+                  <Clock className="w-4 h-4 text-primary" />
                 </div>
                 <div>
                   <div className="text-sm font-semibold text-foreground">Timeline</div>
@@ -61,8 +61,8 @@ export const ServiceQuickViewModal = ({ isOpen, onClose, service }: ServiceQuick
 
             {service.priceRange && (
               <div className="flex items-start gap-3 p-4 rounded-lg bg-background/50 border border-border/50">
-                <div className="p-2 rounded-md bg-construction-orange/10">
-                  <DollarSign className="w-4 h-4 text-construction-orange" />
+                <div className="p-2 rounded-md bg-primary/10">
+                  <DollarSign className="w-4 h-4 text-primary" />
                 </div>
                 <div>
                   <div className="text-sm font-semibold text-foreground">Price Range</div>
@@ -79,7 +79,7 @@ export const ServiceQuickViewModal = ({ isOpen, onClose, service }: ServiceQuick
               <div className="space-y-2">
                 {service.features.map((feature, index) => (
                   <div key={index} className="flex items-start gap-2">
-                    <CheckCircle2 className="w-5 h-5 text-construction-orange mt-0.5 flex-shrink-0" />
+                    <CheckCircle2 className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
                     <span className="text-sm text-muted-foreground">{feature}</span>
                   </div>
                 ))}

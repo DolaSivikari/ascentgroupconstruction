@@ -5,7 +5,7 @@ import { supabase } from "@/integrations/supabase/client";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
-import ContentPageHeader from "@/components/ContentPageHeader";
+import { PageHero } from "@/components/shared/PageHero";
 import ShareMenu from "@/components/blog/ShareMenu";
 import { Button } from "@/ui/Button";
 import { Badge } from "@/components/ui/badge";
@@ -151,10 +151,12 @@ const BlogPost = () => {
       )}
       
       <main>
-        <ContentPageHeader
+        <PageHero
           title={post.title}
           subtitle={`${post.category} · ${formattedDate} · ${post.read_time_minutes || 5} min read`}
-          imageUrl={post.featured_image || '/placeholder.svg'}
+          image={post.featured_image || '/placeholder.svg'}
+          imageAlt={post.title}
+          height="small"
           breadcrumbs={[
             { label: "Home", href: "/" },
             { label: "Blog", href: "/blog" },

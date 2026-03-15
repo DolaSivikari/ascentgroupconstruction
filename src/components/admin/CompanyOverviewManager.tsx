@@ -8,6 +8,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/ui/Card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Plus, Pencil, Trash2 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
+import { ConfirmDialog } from "@/components/admin/ConfirmDialog";
 
 export const CompanyOverviewManager = () => {
   const { sections, items, isLoading, createSection, updateSection, deleteSection, createItem, updateItem, deleteItem } = useCompanyOverviewAdmin();
@@ -16,6 +17,8 @@ export const CompanyOverviewManager = () => {
   const [editingItem, setEditingItem] = useState<any>(null);
   const [sectionForm, setSectionForm] = useState({ title: "", section_type: "", description: "" });
   const [itemForm, setItemForm] = useState({ title: "", content: "", icon_name: "" });
+  const [pendingDeleteSection, setPendingDeleteSection] = useState<string | null>(null);
+  const [pendingDeleteItem, setPendingDeleteItem] = useState<string | null>(null);
 
   const sectionTypes = [
     { value: "approach", label: "Our Approach" },
@@ -28,7 +31,7 @@ export const CompanyOverviewManager = () => {
 
   const handleSectionSubmit = async () => {
     if (!sectionForm.title || !sectionForm.section_type) return;
-    
+
     if (editingSection) {
       await updateSection.mutateAsync({ id: editingSection.id, ...sectionForm });
       setEditingSection(null);
@@ -40,15 +43,15 @@ export const CompanyOverviewManager = () => {
 
   const handleItemSubmit = async (sectionId: string) => {
     if (!itemForm.content) return;
-    
+
     if (editingItem) {
       await updateItem.mutateAsync({ id: editingItem.id, ...itemForm });
       setEditingItem(null);
     } else {
-      await createItem.mutateAsync({ 
-        ...itemForm, 
+      await createItem.mutateAsync({
+        ...itemForm,
         section_id: sectionId,
-        display_order: getItemsBySection(sectionId).length 
+        display_order: getItemsBySection(sectionId).length
       });
     }
     setItemForm({ title: "", content: "", icon_name: "" });
@@ -107,7 +110,7 @@ export const CompanyOverviewManager = () => {
                         <Button variant="ghost" size="sm" onClick={() => setEditingSection(section)}>
                           <Pencil className="h-4 w-4" />
                         </Button>
-                        <Button variant="ghost" size="sm" onClick={() => { if (confirm("Delete section?")) deleteSection.mutate(section.id); }}>
+                        <Button variant="ghost" size="sm" onClick={() => setPendingDeleteSection(section.id)}>
                           <Trash2 className="h-4 w-4" />
                         </Button>
                       </div>
@@ -153,7 +156,7 @@ export const CompanyOverviewManager = () => {
                             <Button variant="ghost" size="sm" onClick={() => { setEditingItem(item); setItemForm({ title: item.title || "", content: item.content, icon_name: item.icon_name || "" }); }}>
                               <Pencil className="h-3 w-3" />
                             </Button>
-                            <Button variant="ghost" size="sm" onClick={() => { if (confirm("Delete item?")) deleteItem.mutate(item.id); }}>
+                            <Button variant="ghost" size="sm" onClick={() => setPendingDeleteItem(item.id)}>
                               <Trash2 className="h-3 w-3" />
                             </Button>
                           </div>
@@ -167,6 +170,28 @@ export const CompanyOverviewManager = () => {
           </TabsContent>
         ))}
       </Tabs>
+
+      <ConfirmDialog
+        open={pendingDeleteSection !== null}
+        onOpenChange={(open) => { if (!open) setPendingDeleteSection(null); }}
+        onConfirm={() => { if (pendingDeleteSection) { deleteSection.mutate(pendingDeleteSection); setPendingDeleteSection(null); } }}
+        title="Delete Section"
+        description="Delete section?"
+        confirmText="Delete"
+        cancelText="Cancel"
+        variant="destructive"
+      />
+
+      <ConfirmDialog
+        open={pendingDeleteItem !== null}
+        onOpenChange={(open) => { if (!open) setPendingDeleteItem(null); }}
+        onConfirm={() => { if (pendingDeleteItem) { deleteItem.mutate(pendingDeleteItem); setPendingDeleteItem(null); } }}
+        title="Delete Item"
+        description="Delete item?"
+        confirmText="Delete"
+        cancelText="Cancel"
+        variant="destructive"
+      />
     </div>
   );
 };

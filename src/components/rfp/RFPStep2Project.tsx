@@ -39,6 +39,7 @@ export const RFPStep2Project = ({ form }: RFPStep2ProjectProps) => {
               {...register("project_name")}
               placeholder="New Office Tower - Phase 2"
               className={errors.project_name ? "border-destructive" : ""}
+              aria-required="true"
             />
             {errors.project_name && (
               <p className="text-sm text-destructive">{errors.project_name.message}</p>
@@ -72,10 +73,12 @@ export const RFPStep2Project = ({ form }: RFPStep2ProjectProps) => {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="estimated_value_range" className="flex items-center gap-2">
-                <DollarSign className="w-4 h-4" />
-                Estimated Contract Value *
-              </Label>
+              <div className="flex items-center gap-2">
+                <DollarSign className="w-4 h-4" aria-hidden="true" />
+                <Label htmlFor="estimated_value_range">
+                  Estimated Contract Value *
+                </Label>
+              </div>
               <Select 
                 value={estimatedValue} 
                 onValueChange={(value) => setValue("estimated_value_range", value as any)}
@@ -109,6 +112,7 @@ export const RFPStep2Project = ({ form }: RFPStep2ProjectProps) => {
               {...register("project_location")}
               placeholder="123 Main Street, Toronto, ON"
               className={errors.project_location ? "border-destructive" : ""}
+              aria-required="true"
             />
             {errors.project_location && (
               <p className="text-sm text-destructive">{errors.project_location.message}</p>

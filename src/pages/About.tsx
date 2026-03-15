@@ -2,33 +2,27 @@ import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
 import { Card } from "@/design-system/components/Card";
+import { SectionHeader } from "@/design-system/components/SectionHeader";
+import { ProofStrip } from "@/design-system/components/ProofStrip";
+import { CTABand } from "@/design-system/components/CTABand";
 import { Section } from "@/components/sections/Section";
 import { PageHero } from "@/components/shared/PageHero";
-import { Button } from "@/ui/Button";
 import { CTA_TEXT } from "@/design-system/constants";
 import { 
-  Building2, 
   Shield, 
   Target, 
   CheckCircle, 
   MapPin, 
   Award,
   HardHat,
-  Home,
-  Factory,
-  FileText
 } from "lucide-react";
-import { Link } from "react-router-dom";
 import { mainPageHeroes } from "@/data/hero-images";
 import { usePageAnalytics } from "@/hooks/usePageAnalytics";
-import { WhoWeServeCard, WhoWeServeSection } from "@/components/unified";
-import { generateBreadcrumbSchema, generateHowToSchema, COMPANY_FACTS } from "@/utils/seo";
+import { generateBreadcrumbSchema, generateHowToSchema } from "@/utils/seo";
 
 const About = () => {
-  // Analytics tracking
   usePageAnalytics('about');
 
-  // SEO Structured Data
   const breadcrumbSchema = generateBreadcrumbSchema([
     { name: "Home", url: "/" },
     { name: "About Us", url: "/about" }
@@ -107,39 +101,13 @@ const About = () => {
     }
   ];
 
-  const clientTypes = [
-    {
-      icon: Building2,
-      title: "Property Managers & Building Owners/Developers",
-      description: "Condos, multi-residential, commercial, and institutional properties seeking dependable prime execution for envelope and restoration scopes.",
-      priority: "Primary"
-    },
-    {
-      icon: FileText,
-      title: "Envelope/Building Consultants",
-      description: "A responsive specialty partner who follows details and documents work thoroughly.",
-      priority: "Primary"
-    },
-    {
-      icon: Factory,
-      title: "General Contractors",
-      description: "Unit-rate and tender support for envelope trade packages (EIFS/stucco, sealants, coatings, masonry, garage rehab, waterproofing).",
-      priority: "Secondary"
-    },
-    {
-      icon: Home,
-      title: "Homeowners",
-      description: "Residential painting, tile/flooring, stucco repair, basement finishing, and general renovations. Commercial-grade quality for your home.",
-      priority: "Growing"
-    }
-  ];
-
   return (
     <div className="min-h-screen">
-      <SEO 
+      <SEO
         title="About Us - Building Envelope & Restoration Services | Ontario & GTA"
         description="Emerging specialty contractor delivering accountable envelope and restoration services across Ontario. Learn about our approach, values, and vision for becoming a trusted GC partner."
         keywords="about Ascent Group, building envelope contractor, specialty contractor Ontario, restoration company, GTA contractor, emerging contractor"
+        canonical="https://ascentgroupconstruction.com/about"
         structuredData={[breadcrumbSchema, processSchema]}
       />
       <Navigation />
@@ -181,7 +149,7 @@ const About = () => {
             Ascent Group Construction represents over 15 years of combined experience in building envelope and interior trades work across the Greater Toronto Area—formalized under a new company name in 2025.
           </p>
           <p className="text-base md:text-lg text-muted-foreground leading-relaxed mb-6">
-            Our team has delivered hundreds of envelope restoration, EIFS installation, masonry repair, waterproofing, and interior finishing projects on buildings ranging from residential walk-ups to 30-story towers. We've worked as trusted trade partners for general contractors, property managers, building consultants, and institutional clients who demand professional execution and reliable results.
+            Our team members bring hands-on experience from a wide range of envelope restoration, EIFS installation, masonry repair, waterproofing, and interior finishing projects on buildings ranging from residential walk-ups to 30-story towers. We've worked as trusted trade partners for general contractors, property managers, building consultants, and institutional clients who demand professional execution and reliable results.
           </p>
           <p className="text-base md:text-lg text-muted-foreground leading-relaxed mb-6">
             We founded Ascent Group to bring this proven capability directly to clients who need specialty trade expertise without the complexity of layered subcontracting. Our focus is simple: deliver high-quality envelope and interior work, maintain professional safety and communication standards, and build lasting relationships through accountable performance.
@@ -200,33 +168,26 @@ const About = () => {
         </Card>
       </Section>
 
-      {/* Who We Serve - Using Unified Components */}
-      <WhoWeServeSection
-        title="Who We Serve"
-        description="Trusted partners across Ontario's construction ecosystem"
-        columns={2}
-        background="muted"
-      >
-        {clientTypes.map((client) => (
-          <WhoWeServeCard
-            key={client.title}
-            icon={client.icon}
-            title={client.title}
-            description={client.description}
-            link={`/${client.title.toLowerCase().replace(/\s+/g, '-')}`}
-            variant="simple"
-          />
-        ))}
-      </WhoWeServeSection>
+      {/* Proof Strip — Key credentials */}
+      <Section size="tight">
+        <ProofStrip
+          items={[
+            { value: "15+", label: "Years Team Experience" },
+            { value: "$2M", label: "CGL Coverage" },
+            { value: "100%", label: "WSIB Compliant" },
+            { value: "85%", label: "Self-Performed" },
+          ]}
+          variant="dark"
+          columns={4}
+        />
+      </Section>
 
       {/* What We Self-Perform */}
       <Section size="major">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-5xl font-bold mb-4 tracking-tight">What We Self-Perform</h2>
-          <p className="text-lg md:text-xl text-muted-foreground">
-            Each scope is planned for minimal disruption, clear sequencing, and documented QA/QC
-          </p>
-        </div>
+        <SectionHeader
+          title="What We Self-Perform"
+          description="Each scope is planned for minimal disruption, clear sequencing, and documented QA/QC"
+        />
 
         <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
           {services.map((service, index) => (
@@ -240,12 +201,10 @@ const About = () => {
 
       {/* Our 5-Step Approach */}
       <Section size="major">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-5xl font-bold mb-4 tracking-tight">Our 5-Step Approach</h2>
-          <p className="text-lg md:text-xl text-muted-foreground">
-            A proven process for reliable project delivery
-          </p>
-        </div>
+        <SectionHeader
+          title="Our 5-Step Approach"
+          description="A proven process for reliable project delivery"
+        />
 
         <div className="space-y-6 max-w-5xl mx-auto">
           {processSteps.map((step, index) => (
@@ -277,27 +236,14 @@ const About = () => {
         </div>
       </Section>
 
-      {/* Our Vision */}
-      <Section size="major" maxWidth="narrow" className="bg-primary/5">
-        <Card variant="elevated" size="lg" className="text-center border-2 border-primary/20">
-          <h2 className="text-3xl md:text-5xl font-bold mb-4 tracking-tight">Ready to Discuss Your Project?</h2>
-          <p className="text-lg md:text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
-            Whether you need trade pricing for an active tender or want to discuss a restoration project, 
-            we're here to provide professional service and competitive rates.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button asChild size="lg">
-              <Link to="/contact">{CTA_TEXT.contact}</Link>
-            </Button>
-            <Button asChild variant="outline" size="lg">
-              <Link to="/services">View Services</Link>
-            </Button>
-            <Button asChild variant="outline" size="lg">
-              <Link to="/projects">View Projects</Link>
-            </Button>
-          </div>
-        </Card>
-      </Section>
+      {/* CTA with Markets bridge */}
+      <CTABand
+        title="Ready to Discuss Your Project?"
+        description="Whether you need trade pricing for an active tender or want to discuss a restoration project, we're here to help."
+        primaryCta={{ text: "Contact Us", href: "/contact" }}
+        secondaryCta={{ text: "Explore Our Markets", href: "/markets" }}
+        variant="dark"
+      />
 
       <Footer />
     </div>

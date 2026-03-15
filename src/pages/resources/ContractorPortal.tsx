@@ -385,7 +385,7 @@ const ContractorPortal = () => {
                       type="tel"
                       value={formData.phone}
                       onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                      placeholder="(416) 555-0123"
+                      placeholder="(416) 555-0100"
                     />
                   </div>
                 </div>

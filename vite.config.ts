@@ -44,30 +44,9 @@ export default defineConfig(({ mode }) => {
       cssMinify: true, // Explicitly enable CSS minification
       rollupOptions: {
         output: {
-          // Add timestamp to filenames for cache busting
-          entryFileNames: `assets/[name]-[hash]-${Date.now()}.js`,
-          chunkFileNames: `assets/[name]-[hash]-${Date.now()}.js`,
-          assetFileNames: `assets/[name]-[hash]-${Date.now()}.[ext]`,
-          manualChunks: {
-            // Split vendor chunks for better caching
-            "vendor-react": ["react", "react-dom", "react-router-dom"],
-            "vendor-ui-core": [
-              "@radix-ui/react-accordion",
-              "@radix-ui/react-dialog",
-              "@radix-ui/react-dropdown-menu",
-            ],
-            "vendor-ui-extended": [
-              "@radix-ui/react-tabs",
-              "@radix-ui/react-tooltip",
-              "@radix-ui/react-select",
-              "@radix-ui/react-popover",
-            ],
-            "vendor-supabase": ["@supabase/supabase-js"],
-            "vendor-charts": ["recharts"],
-            "vendor-forms": ["react-hook-form", "@hookform/resolvers", "zod"],
-            "vendor-editor": ["react-quill", "quill"],
-          },
-          // Additional optimizations for smaller bundles
+          entryFileNames: `assets/[name]-[hash].js`,
+          chunkFileNames: `assets/[name]-[hash].js`,
+          assetFileNames: `assets/[name]-[hash].[ext]`,
           compact: true,
           generatedCode: {
             constBindings: true,

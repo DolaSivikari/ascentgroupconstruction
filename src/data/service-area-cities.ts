@@ -14,7 +14,8 @@ export const serviceAreaCities = [
   "Oshawa",
   "Newmarket",
   "Aurora",
-  "King City"
+  "King City",
+  "Hamilton"
 ];
 
 export const primaryServiceCities = [

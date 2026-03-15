@@ -2,7 +2,7 @@ import { Shield, Award, CheckCircle2, Building2, Download, FileText } from "luci
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import PageHero from "@/components/shared/PageHero";
-import { Card, CardContent } from "@/ui/Card";
+import { Card, CardContent } from "@/design-system/components/Card";
 import { Button } from "@/ui/Button";
 import SEO from "@/components/SEO";
 import { useSettingsData } from "@/hooks/useSettingsData";
@@ -57,8 +57,8 @@ const CertificationsInsurance = () => {
       <>
         <SEO 
           title="Certifications & Insurance Coverage | Ascent Group Construction"
-          description="Licensed, bonded, and fully insured with $5M liability coverage. View our certifications including WSIB, COR, and industry memberships."
-          keywords="insurance, certifications, WSIB, bonded, licensed, COR certificate"
+        description="Licensed, bonded, and fully insured with $2M liability coverage. View our certifications including WSIB, COR, and industry memberships."
+          keywords="COR certified facade contractor, insurance, certifications, WSIB compliant contractor, bonded specialty contractor, licensed contractor Ontario"
         />
         <div className="min-h-screen bg-background">
           <Navigation />
@@ -82,8 +82,8 @@ const CertificationsInsurance = () => {
     <>
       <SEO 
         title="Certifications & Insurance Coverage | Ascent Group Construction"
-        description="Licensed, bonded, and fully insured with $5M liability coverage. View our certifications including WSIB, COR, and industry memberships."
-        keywords="insurance, certifications, WSIB, bonded, licensed, COR certificate"
+        description="Licensed, bonded, and fully insured with $2M liability coverage. View our certifications including WSIB, COR, and industry memberships."
+        keywords="COR certified facade contractor, insurance, certifications, WSIB compliant contractor, bonded specialty contractor, licensed contractor Ontario"
       />
       <div className="min-h-screen bg-background">
         <Navigation />
@@ -109,7 +109,7 @@ const CertificationsInsurance = () => {
               {insuranceCoverage.map((item, index) => {
                 const Icon = item.icon;
                 return (
-                  <Card key={index}>
+                  <Card key={index} className="p-0">
                     <CardContent className="p-6 text-center">
                       <Icon className="h-12 w-12 text-primary mx-auto mb-4" />
                       <div className="text-2xl font-bold text-foreground mb-2">{item.value}</div>
@@ -127,7 +127,7 @@ const CertificationsInsurance = () => {
               <h2 className="text-3xl font-bold text-foreground mb-8">Active Licenses</h2>
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {licenses.map((license, index) => (
-                  <Card key={index}>
+                  <Card key={index} className="p-0">
                     <CardContent className="p-6">
                       <Shield className="h-8 w-8 text-primary mb-4" />
                       <h3 className="text-lg font-semibold text-foreground mb-2">{license.name}</h3>
@@ -149,7 +149,7 @@ const CertificationsInsurance = () => {
               <h2 className="text-3xl font-bold text-foreground mb-8">Active Certifications</h2>
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {dbCertifications.map((cert, index) => (
-                  <Card key={index}>
+                  <Card key={index} className="p-0">
                     <CardContent className="p-6">
                       <Award className="h-8 w-8 text-primary mb-4" />
                       <h3 className="text-lg font-semibold text-foreground mb-2">{cert.name}</h3>
@@ -171,7 +171,7 @@ const CertificationsInsurance = () => {
               <h2 className="text-3xl font-bold text-foreground mb-8">Industry Memberships</h2>
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {memberships.map((membership, index) => (
-                  <Card key={index}>
+                  <Card key={index} className="p-0">
                     <CardContent className="p-6 text-center">
                       <Building2 className="h-10 w-10 text-primary mx-auto mb-4" />
                       <h3 className="text-lg font-semibold text-foreground">{membership}</h3>
@@ -186,21 +186,21 @@ const CertificationsInsurance = () => {
           <section>
             <h2 className="text-3xl font-bold text-foreground mb-8">Manufacturer Certifications</h2>
             <div className="grid md:grid-cols-3 gap-6">
-              <Card>
+              <Card className="p-0">
                 <CardContent className="p-6 text-center">
                   <Award className="h-10 w-10 text-primary mx-auto mb-4" />
                   <h3 className="text-lg font-semibold text-foreground mb-2">Benjamin Moore</h3>
                   <p className="text-sm text-muted-foreground">Certified Applicator</p>
                 </CardContent>
               </Card>
-              <Card>
+              <Card className="p-0">
                 <CardContent className="p-6 text-center">
                   <Award className="h-10 w-10 text-primary mx-auto mb-4" />
                   <h3 className="text-lg font-semibold text-foreground mb-2">Sherwin-Williams</h3>
                   <p className="text-sm text-muted-foreground">ProPainter Certified</p>
                 </CardContent>
               </Card>
-              <Card>
+              <Card className="p-0">
                 <CardContent className="p-6 text-center">
                   <Award className="h-10 w-10 text-primary mx-auto mb-4" />
                   <h3 className="text-lg font-semibold text-foreground mb-2">EIFS Industry</h3>

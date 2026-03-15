@@ -5,19 +5,21 @@ import { sanitizeAndValidate } from '@/utils/sanitize';
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
-import { Button } from "@/ui/Button";
-import { Card, CardContent } from "@/ui/Card";
+
+import { Card, CardContent } from "@/design-system/components/Card";
+import { CTABand } from "@/design-system/components/CTABand";
 import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
 import BeforeAfterSlider from "@/components/BeforeAfterSlider";
 import ProcessTimelineStep from "@/components/ProcessTimelineStep";
 import { ProjectSidebar } from "@/components/ProjectSidebar";
 import { InteractiveLightbox } from "@/components/InteractiveLightbox";
-import { CTA_TEXT } from "@/design-system/constants";
+
 import { ProjectGallery } from "@/components/ProjectGallery";
 import { ProjectCaseStudy } from "@/components/projects/ProjectCaseStudy";
-import { ArrowRight, ChevronRight } from "lucide-react";
+import { ChevronRight } from "lucide-react";
 import { toast } from "sonner";
+import { formatProjectValue } from "@/utils/formatProjectValue";
 import OptimizedImage from "@/components/OptimizedImage";
 
 interface ProcessStep {
@@ -123,24 +125,24 @@ export default function ProjectDetail() {
           .select("service_id, services(id, name, slug, category)")
           .eq("project_id", data.id);
 
-        const projectData: ProjectData = {
+        const projectData = {
           ...data,
-          before_images: (data.before_images as unknown[]) || [],
-          after_images: (data.after_images as unknown[]) || [],
-          content_blocks: (data.content_blocks as unknown[]) || [],
+          before_images: (data.before_images as any[]) || [],
+          after_images: (data.after_images as any[]) || [],
+          content_blocks: (data.content_blocks as any[]) || [],
           seo_keywords: (data.seo_keywords as string[]) || [],
-          project_images: images?.map((img) => ({
+          project_images: (images?.map((img) => ({
             id: img.id,
             url: img.url,
-            category: img.category,
+            category: img.category as any,
             caption: img.caption,
             order: img.display_order,
             featured: img.featured
-          })) || [],
+          })) || []) as any[],
           services: projectServices?.map((ps) => ps.services).filter(Boolean) || []
         };
 
-        setProject(projectData);
+        setProject(projectData as any);
       } catch (error: unknown) {
         console.error("Error fetching project:", error);
         toast.error("Failed to load project");
@@ -185,7 +187,7 @@ export default function ProjectDetail() {
     <>
       <SEO
         title={project.seo_title || project.title}
-        description={project.seo_description || project.summary || ""}
+        description={project.seo_description || project.summary || project.description || ""}
         keywords={project.seo_keywords?.join(", ")}
         ogImage={project.featured_image}
       />
@@ -312,11 +314,11 @@ export default function ProjectDetail() {
                   <CardContent className="p-6 space-y-4">
                     <h3 className="font-bold text-lg border-b pb-2">Project Metrics</h3>
                     
-                    {project.project_value && (
+                    {formatProjectValue(project.project_value, 'full') && (
                       <div>
                         <p className="text-sm text-muted-foreground mb-1">Contract Value</p>
                         <p className="font-semibold text-lg">
-                          ${(project.project_value / 100).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                          {formatProjectValue(project.project_value, 'full')}
                         </p>
                       </div>
                     )}
@@ -448,12 +450,13 @@ export default function ProjectDetail() {
               {/* Enhanced Case Study Component */}
               <ProjectCaseStudy
                 challenge={project.challenge ? sanitizeAndValidate(project.challenge).sanitized : undefined}
+                scopeDelivered={project.scope_of_work ? sanitizeAndValidate(project.scope_of_work).sanitized : undefined}
                 solution={project.description ? sanitizeAndValidate(project.description).sanitized : undefined}
                 results={project.results ? sanitizeAndValidate(project.results).sanitized : undefined}
                 metrics={[
-                  ...(project.project_value ? [{
+                  ...(formatProjectValue(project.project_value, 'full') ? [{
                     label: "Contract Value",
-                    value: `$${(project.project_value / 100).toLocaleString('en-US', { minimumFractionDigits: 0 })}`,
+                    value: formatProjectValue(project.project_value, 'full')!,
                   }] : []),
                   ...(project.square_footage ? [{
                     label: "Square Footage",
@@ -493,7 +496,7 @@ export default function ProjectDetail() {
                 <section>
                   <h2 className="text-2xl md:text-3xl font-bold mb-6">Before & After</h2>
                   <div className="space-y-8">
-                    {project.before_images.map((beforeImg: unknown, index: number) => {
+                    {project.before_images.map((beforeImg: any, index: number) => {
                       const afterImg = project.after_images?.[index];
                       if (!afterImg) return null;
                       
@@ -567,37 +570,38 @@ export default function ProjectDetail() {
                   </Card>
                 </section>
               )}
+
+              {/* Related Services Cross-link */}
+              {project.services && project.services.length > 0 && (
+                <section>
+                  <h2 className="text-2xl md:text-3xl font-bold mb-4">Related Services</h2>
+                  <div className="flex flex-wrap gap-3">
+                    {project.services.map((service) => (
+                      <Badge
+                        key={service.id}
+                        variant="outline"
+                        className="cursor-pointer hover:bg-primary hover:text-primary-foreground transition-colors text-sm py-2 px-4"
+                        onClick={() => navigate(`/services/${service.slug}`)}
+                      >
+                        {service.name} →
+                      </Badge>
+                    ))}
+                  </div>
+                </section>
+              )}
             </main>
           </div>
 
-          {/* CTA Section */}
-          <Card className="mt-16 bg-gradient-to-br from-primary/10 via-background to-primary/5 border-primary/20">
-            <CardContent className="py-12 text-center">
-              <h2 className="text-2xl md:text-3xl font-bold mb-4">
-                Need a Similar Project?
-              </h2>
-              <p className="text-lg md:text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
-                Let's discuss how we can bring your vision to life with the same quality and professionalism
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button 
-                  size="lg" 
-                  onClick={() => navigate("/estimate")}
-                  className="group"
-                >
-                  {CTA_TEXT.primary}
-                  <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
-                </Button>
-                <Button 
-                  size="lg" 
-                  variant="outline"
-                  onClick={() => navigate("/contact")}
-                >
-                  Contact Our Team
-                </Button>
-              </div>
-            </CardContent>
-          </Card>
+          {/* CTA */}
+          <div className="mt-16">
+            <CTABand
+              title="Need a Similar Project?"
+              description="Let's discuss how we can deliver the same quality and professionalism on your next scope."
+              primaryCta={{ text: "Request a Quote", href: "/estimate" }}
+              secondaryCta={{ text: "Contact Our Team", href: "/contact" }}
+              variant="light"
+            />
+          </div>
         </div>
 
         <Footer />

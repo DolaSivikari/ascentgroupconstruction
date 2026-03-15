@@ -98,7 +98,7 @@ const SortableImageCard: React.FC<SortableImageCardProps> = ({
       {/* Category Badge */}
       <div className={`absolute top-2 right-2 z-10 px-2 py-1 rounded-full text-xs font-medium ${
         categories.find(c => c.value === image.category)?.color
-      } text-[hsl(var(--bg))]`}>
+      } text-primary-foreground`}>
         {categories.find(c => c.value === image.category)?.label}
       </div>
 
@@ -383,14 +383,14 @@ export const ProjectImageManager: React.FC<ProjectImageManagerProps> = ({
               onClick={() => setSelectedCategory(cat.value)}
               className={`flex items-center gap-2 px-4 py-2 rounded-lg font-medium transition-all ${
                 selectedCategory === cat.value
-                  ? `${cat.color} text-[hsl(var(--bg))] shadow-lg scale-105`
+                  ? `${cat.color} text-primary-foreground shadow-lg scale-105`
                   : 'bg-background hover:bg-accent'
               }`}
             >
               <span className="text-xl">{cat.icon}</span>
               <span>{cat.label}</span>
               <span className={`px-2 py-0.5 rounded-full text-sm ${
-                selectedCategory === cat.value ? 'bg-[hsl(var(--bg))]/30' : 'bg-muted'
+                selectedCategory === cat.value ? 'bg-primary-foreground/30' : 'bg-muted'
               }`}>
                 {getCategoryCount(cat.value)}
               </span>
@@ -517,7 +517,7 @@ export const ProjectImageManager: React.FC<ProjectImageManagerProps> = ({
               className="max-w-full max-h-[80vh] object-contain rounded-lg"
             />
             {previewImage.caption && (
-              <p className="mt-4 text-[hsl(var(--bg))] text-center text-lg">{previewImage.caption}</p>
+              <p className="mt-4 text-primary-foreground text-center text-lg">{previewImage.caption}</p>
             )}
           </div>
         </div>

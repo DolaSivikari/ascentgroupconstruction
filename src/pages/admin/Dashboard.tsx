@@ -13,7 +13,6 @@ import {
   DollarSign,
   AlertCircle,
   TrendingUp,
-  Shield,
   Settings,
   Activity,
   Search,
@@ -21,9 +20,7 @@ import {
   Package,
   Image,
   Navigation,
-  Globe,
   Gauge,
-  Clock,
 } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useToast } from "@/hooks/use-toast";
@@ -289,7 +286,7 @@ const Dashboard = () => {
                 <button className="business-btn business-btn-ghost" onClick={() => navigate("/admin/blog")}>
                   Write Blog Post
                 </button>
-                <button className="business-btn business-btn-ghost" onClick={() => navigate("/admin/services")}>
+                <button className="business-btn business-btn-ghost" onClick={() => navigate("/admin/services-manager")}>
                   Add Service
                 </button>
               </div>
@@ -359,27 +356,11 @@ const Dashboard = () => {
         <p className="business-section-subtitle mb-4">
           Performance and status monitoring
         </p>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          <div className="text-center p-4 bg-muted/30 rounded-lg">
-            <Gauge className="h-8 w-8 mx-auto mb-2 text-green-500" />
-            <div className="text-2xl font-bold text-foreground">92</div>
-            <div className="text-xs text-muted-foreground">Performance</div>
-          </div>
-          <div className="text-center p-4 bg-muted/30 rounded-lg">
-            <Globe className="h-8 w-8 mx-auto mb-2 text-blue-500" />
-            <div className="text-2xl font-bold text-foreground">87</div>
-            <div className="text-xs text-muted-foreground">SEO Score</div>
-          </div>
-          <div className="text-center p-4 bg-muted/30 rounded-lg">
-            <Shield className="h-8 w-8 mx-auto mb-2 text-green-500" />
-            <div className="text-2xl font-bold text-foreground">99.9%</div>
-            <div className="text-xs text-muted-foreground">Uptime</div>
-          </div>
-          <div className="text-center p-4 bg-muted/30 rounded-lg">
-            <Clock className="h-8 w-8 mx-auto mb-2 text-orange-500" />
-            <div className="text-sm font-bold text-foreground">2 hrs ago</div>
-            <div className="text-xs text-muted-foreground">Last Backup</div>
-          </div>
+        <div className="flex items-center gap-3 p-4 bg-muted/30 rounded-lg text-muted-foreground">
+          <Gauge className="h-5 w-5 shrink-0" />
+          <span className="text-sm">
+            Live metrics not configured. Connect a monitoring service (e.g. Google Search Console, UptimeRobot) to see real performance, SEO, and uptime data here.
+          </span>
         </div>
       </div>
 

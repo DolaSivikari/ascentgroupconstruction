@@ -8,6 +8,7 @@ import { Card } from "@/design-system/components/Card";
 import { Button } from "@/ui/Button";
 import { CTA_TEXT } from "@/design-system/constants";
 import { MapPin, Phone, Clock, CheckCircle, Building2, Home, Factory, HardHat } from "lucide-react";
+import { PhoneLink } from "@/components/shared/PhoneLink";
 import { serviceAreaCities, primaryServiceCities } from "@/data/service-area-cities";
 import { 
   generateBreadcrumbSchema,
@@ -136,6 +137,13 @@ const locationDetails: Record<string, LocationData> = {
     region: "ON",
     description: "Milton's rapidly growing commercial and residential developments require reliable specialty contractors. We deliver professional envelope restoration and cladding services throughout Milton.",
     isPrimary: false
+  },
+  "king-city": {
+    name: "King City",
+    slug: "king-city",
+    region: "ON",
+    description: "King City's estate homes and commercial properties benefit from expert building envelope care. Ascent Group provides professional façade remediation, EIFS, masonry restoration, and protective coating services throughout King City and the surrounding area.",
+    isPrimary: false
   }
 };
 
@@ -192,7 +200,7 @@ const LocationPage = () => {
   // LocalBusiness schema for this location
   const localBusinessSchema = {
     "@context": "https://schema.org",
-    "@type": "GeneralContractor",
+    "@type": "HomeAndConstructionBusiness",
     "@id": `https://ascentgroupconstruction.com/service-areas/${location.slug}#business`,
     "name": `Ascent Group Construction - ${location.name}`,
     "description": `Building envelope and restoration contractor serving ${location.name}, ${location.region}`,
@@ -253,7 +261,7 @@ const LocationPage = () => {
               <Phone className="w-6 h-6 text-primary" />
               <div>
                 <p className="font-semibold">Call Us</p>
-                <a href="tel:647-528-6804" className="text-primary hover:underline">647-528-6804</a>
+                <PhoneLink showIcon={false} className="text-primary hover:underline" />
               </div>
             </div>
             <div className="flex items-center gap-3">

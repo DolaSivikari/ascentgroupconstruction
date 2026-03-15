@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Card, CardContent } from "@/ui/Card";
+import { Card, CardContent } from "@/design-system/components/Card";
 import { Badge } from "@/components/ui/badge";
 import { Calendar, Clock, FileText } from "lucide-react";
 
@@ -28,10 +28,11 @@ const BlogCard = ({ post }: BlogCardProps) => {
   
   const excerpt = post.summary || post.excerpt || '';
   const image = post.featured_image || post.image || '';
+  const readTime = excerpt ? Math.max(1, Math.ceil(excerpt.split(/\s+/).length / 200)) : 3;
 
   return (
     <Link to={`/blog/${post.slug}`}>
-      <Card variant="interactive" className="h-full overflow-hidden group border-2 hover:border-primary">
+      <Card variant="interactive" className="h-full overflow-hidden group border-2 hover:border-primary p-0">
         <CardContent className="p-8">
           <div className="flex items-start gap-3 mb-4">
             <Badge variant="info" size="sm" icon={FileText} className="shrink-0">{post.category}</Badge>
@@ -43,7 +44,7 @@ const BlogCard = ({ post }: BlogCardProps) => {
               <span>•</span>
               <div className="flex items-center gap-1">
                 <Clock className="w-4 h-4" />
-                <span>5 min read</span>
+                <span>{readTime} min read</span>
               </div>
             </div>
           </div>

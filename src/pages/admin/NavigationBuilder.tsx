@@ -3,7 +3,7 @@ import { Card } from '@/ui/Card';
 import { Button } from '@/ui/Button';
 import { Input } from '@/ui/Input';
 import { Label } from '@/components/ui/label';
-import { migrateNavigationData } from '@/utils/migrateNavigationData';
+
 import {
   Select,
   SelectContent,
@@ -31,7 +31,7 @@ import {
   FolderTree,
   ExternalLink,
   Database,
-  Download,
+  
   AlertTriangle
 } from 'lucide-react';
 import {
@@ -164,7 +164,7 @@ const SortableItem = ({ item, onEdit, onDelete, depth }: SortableItemProps) => {
 const NavigationBuilder = () => {
   const [items, setItems] = useState<MenuItem[]>([]);
   const [loading, setLoading] = useState(true);
-  const [migrating, setMigrating] = useState(false);
+  
   const [editDialog, setEditDialog] = useState(false);
   const [currentItem, setCurrentItem] = useState<Partial<MenuItem>>({
     menu_type: 'primary',
@@ -314,28 +314,6 @@ const NavigationBuilder = () => {
     setEditDialog(true);
   };
 
-  const handleMigration = async () => {
-    if (!confirm('Import navigation structure from hardcoded data? This will add ~35 menu items to the database.')) {
-      return;
-    }
-
-    setMigrating(true);
-    try {
-      const result = await migrateNavigationData();
-      
-      if (result.success) {
-        toast.success(result.message || 'Navigation structure imported successfully!');
-        loadNavigationItems();
-      } else {
-        toast.error(result.error || 'Failed to import navigation structure');
-      }
-    } catch (error: any) {
-      console.error('Migration error:', error);
-      toast.error(error.message || 'Failed to import navigation structure');
-    } finally {
-      setMigrating(false);
-    }
-  };
 
   if (loading) {
     return (
@@ -355,8 +333,7 @@ const NavigationBuilder = () => {
           </p>
           <div className="rounded-lg border border-amber-500/30 bg-amber-500/10 p-3 text-sm text-amber-200 flex items-start gap-2 mt-4 max-w-2xl">
             <AlertTriangle className="h-4 w-4 mt-0.5" />
-            <span>Internal tool only: this builder is not the authoritative source for live site navigation output.</span>
-            <span>Truth label: this builder is not currently wired as the authoritative source for live site navigation.</span>
+            <span>Saved to database only. Not currently wired to live site navigation.</span>
           </div>
         </div>
         <Button onClick={() => {
@@ -405,15 +382,10 @@ const NavigationBuilder = () => {
           <div className="flex items-start gap-4">
             <Database className="h-6 w-6 text-primary mt-1" />
             <div className="flex-1">
-              <h3 className="font-semibold mb-2">Import Navigation Structure</h3>
+              <h3 className="font-semibold mb-2">No Navigation Items</h3>
               <p className="text-sm text-muted-foreground mb-4">
-                Your navigation database is empty. Import the default navigation structure 
-                (~35 menu items) to get started with database-driven navigation management.
+                Your navigation database is empty. Use the form below to add menu items.
               </p>
-              <Button onClick={handleMigration} disabled={migrating}>
-                <Download className="h-4 w-4 mr-2" />
-                {migrating ? 'Importing...' : 'Import Navigation Structure'}
-              </Button>
             </div>
           </div>
         </Card>

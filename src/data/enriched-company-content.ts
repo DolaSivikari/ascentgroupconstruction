@@ -17,7 +17,7 @@ This keeps our overhead low, our accountability high, and our focus where it bel
 
 **What We Bring**
 
-- **Real Experience**: Our team has hands-on experience from hundreds of envelope restoration, EIFS installation, masonry repair, and interior finish projects across the GTA
+- **Real Experience**: Our team members bring hands-on experience from a wide range of envelope restoration, EIFS installation, masonry repair, and interior finish projects across the GTA
 - **Professional Standards**: We follow manufacturer specifications, building code requirements, and safety protocols developed through years of working alongside engineers, consultants, and general contractors
 - **Clear Communication**: No surprises, no excuses. We provide detailed scopes, realistic schedules, and proactive updates throughout every project
 - **Full Accountability**: When you work with Ascent Group, you're working directly with the people who will be on your site doing the work
@@ -56,7 +56,7 @@ export const whyChooseAscent = {
     },
     {
       title: 'Proven Team Experience',
-      description: 'Our team brings 15+ years of combined hands-on experience from highrise and commercial building envelope and interior trades projects across the GTA. We know how to work safely, follow specifications, and deliver professional results because we\'ve done it hundreds of times before.',
+      description: 'Our team brings 15+ years of combined hands-on experience from highrise and commercial building envelope and interior trades projects across the GTA. We know how to work safely, follow specifications, and deliver professional results through years of proven field experience.',
       proofPoints: [
         '15+ years combined team experience',
         'Highrise and commercial project background',
@@ -89,7 +89,7 @@ export const founderBio = {
   title: 'Founder & Principal',
   bio: `Hebun established Ascent Group Construction in 2025 to bring 15+ years of proven building envelope and interior trades expertise directly to commercial, multi-family, and residential clients across Ontario.
 
-Throughout his career, Hebun has worked on hundreds of envelope restoration, EIFS installation, masonry repair, and interior finishing projects—from 3-story walk-ups to 30-story high-rises, from retail renovations to institutional maintenance programs.
+Throughout his career, Hebun has worked on a wide range of envelope restoration, EIFS installation, masonry repair, and interior finishing projects—from 3-story walk-ups to 30-story high-rises, from retail renovations to institutional maintenance programs.
 
 This depth of hands-on experience revealed a clear need in the market: property managers, building owners, consultants, and general contractors all need reliable specialty trade partners who combine technical expertise, professional execution, and direct accountability—without the complexity of layered subcontracting or the inflated margins of multiple middlemen.
 

@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Mail, Phone, MapPin, Linkedin, Shield, Award, FileCheck, Building2 } from "lucide-react";
-import ascentLogoVerticalDark from "@/assets/ascent-logo-vertical-dark.png";
+
 import SEO from "@/components/SEO";
+import { COMPANY_EMAIL } from "@/constants/company";
 import { Skeleton } from "@/components/ui/skeleton";
 import { supabase } from "@/integrations/supabase/client";
 import type { Database } from "@/integrations/supabase/types";
@@ -54,8 +55,8 @@ const Footer = () => {
   const sectorsLinks = toFooterLinks(footerSettings?.sectors_links);
   const trustBarItems = toFooterLinks(footerSettings?.trust_bar_items);
   
-  const contactInfo = footerSettings?.contact_info || {};
-  const socialMedia = footerSettings?.social_media || {};
+  const contactInfo = (footerSettings?.contact_info || {}) as any;
+  const socialMedia = (footerSettings?.social_media || {}) as any;
   
   // Primary source: site_settings, fallback to footer_settings
   const address = siteSettings?.address || contactInfo.address || '';
@@ -97,7 +98,7 @@ const Footer = () => {
     "@id": "https://ascentgroupconstruction.com/#organization",
     name: "Ascent Group Construction",
     image: "https://ascentgroupconstruction.com/og-image.jpg",
-    email: "info@ascentgroupconstruction.com",
+    email: COMPANY_EMAIL,
     areaServed: { "@type": "State", name: "Ontario" },
     address: { "@type": "PostalAddress", addressRegion: "ON", addressCountry: "CA" },
     serviceType: ["Building Envelope", "Interior Construction", "Specialty Contracting"],
@@ -129,19 +130,10 @@ const Footer = () => {
     <>
       <SEO structuredData={citationSchema} />
       <footer className="relative w-full bg-background border-t border-border">
-        {/* Logo - Absolutely positioned on left */}
-        <div className="hidden md:block absolute left-[156px] top-[calc(50%-38px)] -translate-y-1/2">
-          <img 
-            src={ascentLogoVerticalDark}
-            alt="Ascent Group Construction Logo"
-            className="h-[345px] w-auto object-contain"
-          />
-        </div>
         
         {/* Main footer content */}
         <div className="container mx-auto px-6 py-8 md:py-10">
           <UnifiedFooter
-            logoUrl={ascentLogoVerticalDark}
             contactInfo={{ phone, email, address }}
             linkedinUrl={linkedinUrl}
             foundedYear={siteSettings?.founded_year || 2025}

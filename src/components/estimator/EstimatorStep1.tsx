@@ -27,7 +27,7 @@ const EstimatorStep1 = ({ data, onChange }: Step1Props) => {
           Project Type *
         </Label>
         <Select value={data.service} onValueChange={(value) => onChange("service", value)}>
-          <SelectTrigger id="service" className="h-12">
+          <SelectTrigger id="service" className="h-12" aria-required="true">
             <SelectValue placeholder="Select project type" />
           </SelectTrigger>
           <SelectContent>
@@ -69,9 +69,6 @@ const EstimatorStep1 = ({ data, onChange }: Step1Props) => {
               <SelectItem value="suite_buildouts">Suite Buildouts</SelectItem>
               <SelectItem value="tile_flooring">Tile & Flooring</SelectItem>
               <SelectItem value="sustainable_building">Sustainable Building</SelectItem>
-              <SelectItem value="general_contracting">General Contracting</SelectItem>
-              <SelectItem value="design_build">Design-Build Services</SelectItem>
-              <SelectItem value="construction_management">Construction Management</SelectItem>
               <SelectItem value="preconstruction">Preconstruction Services</SelectItem>
             </SelectGroup>
           </SelectContent>
@@ -90,6 +87,7 @@ const EstimatorStep1 = ({ data, onChange }: Step1Props) => {
           onChange={(e) => onChange("sqft", e.target.value)}
           className="h-12"
           min="100"
+          aria-required="true"
         />
         <p className="text-sm text-muted-foreground mt-1">
           Exterior wall area or total area to be painted/finished
@@ -101,7 +99,7 @@ const EstimatorStep1 = ({ data, onChange }: Step1Props) => {
           Number of Stories *
         </Label>
         <Select value={data.stories} onValueChange={(value) => onChange("stories", value)}>
-          <SelectTrigger id="stories" className="h-12">
+          <SelectTrigger id="stories" className="h-12" aria-required="true">
             <SelectValue placeholder="Select number of stories" />
           </SelectTrigger>
           <SelectContent>

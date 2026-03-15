@@ -1,5 +1,6 @@
+import React from "react";
 import { Link } from "react-router-dom";
-import { ChevronRight, ChevronDown } from "lucide-react";
+import { ChevronRight, ChevronDown, LucideIcon } from "lucide-react";
 import { Button } from "@/ui/Button";
 import { ProgressiveImage } from "@/components/ui/ProgressiveImage";
 import { cn } from "@/lib/utils";
@@ -57,6 +58,7 @@ export interface PageHeroProps {
   // Extras
   stats?: PageHeroStat[];
   badge?: string;
+  badges?: Array<{ icon: LucideIcon; text: string }>;
   showScrollIndicator?: boolean;
   
   // Styling
@@ -100,6 +102,11 @@ const imagePositionClasses: Record<string, string> = {
 // Component
 // ============================================================================
 
+// Helper for staggered animation styles (respects prefers-reduced-motion via CSS)
+const staggerStyle = (delayMs: number): React.CSSProperties => ({
+  animation: `fade-in 0.5s ease-out ${delayMs}ms both`,
+});
+
 export function PageHero({
   // Content
   title,
@@ -127,6 +134,7 @@ export function PageHero({
   // Extras
   stats,
   badge,
+  badges,
   showScrollIndicator = false,
   
   // Styling
@@ -168,7 +176,7 @@ export function PageHero({
       <div className={cn("container mx-auto px-6 relative z-10 py-12 md:py-16", contentClassName)}>
         <div
           className={cn(
-            "flex flex-col",
+            "flex flex-col hero-stagger",
             maxWidthClasses[maxWidth],
             isCentered && "mx-auto text-center items-center",
             !isCentered && "items-start"
@@ -176,7 +184,7 @@ export function PageHero({
         >
           {/* Breadcrumbs */}
           {breadcrumbs && breadcrumbs.length > 0 && (
-            <nav aria-label="Breadcrumb" className="mb-4 md:mb-6">
+            <nav aria-label="Breadcrumb" className="mb-4 md:mb-6" style={staggerStyle(0)}>
               <ol className="flex flex-wrap items-center gap-2 text-sm text-[hsl(var(--bg))]/80">
                 {breadcrumbs.map((crumb, index) => (
                   <li key={index} className="flex items-center gap-2">
@@ -203,7 +211,7 @@ export function PageHero({
           
           {/* Badge */}
           {badge && (
-            <div className="mb-4">
+            <div className="mb-4" style={staggerStyle(50)}>
               <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wider bg-[hsl(var(--accent))]/20 text-[hsl(var(--accent))] border border-[hsl(var(--accent))]/30">
                 {badge}
               </span>
@@ -212,26 +220,26 @@ export function PageHero({
           
           {/* Eyebrow */}
           {eyebrow && (
-            <p className="text-sm md:text-base uppercase tracking-wider text-[hsl(var(--bg))]/80 font-semibold mb-2">
+            <p className="text-sm md:text-base uppercase tracking-wider text-[hsl(var(--bg))]/80 font-semibold mb-2" style={staggerStyle(50)}>
               {eyebrow}
             </p>
           )}
           
           {/* Subtitle (above title) */}
           {subtitle && (
-            <p className="text-sm md:text-base uppercase tracking-wider text-[hsl(var(--accent))] font-semibold mb-2">
+            <p className="text-sm md:text-base uppercase tracking-wider text-[hsl(var(--accent))] font-semibold mb-2" style={staggerStyle(50)}>
               {subtitle}
             </p>
           )}
           
           {/* Title */}
-          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-[hsl(var(--bg))] mb-4 leading-tight tracking-tight">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-[hsl(var(--bg))] mb-4 leading-tight tracking-tight" style={staggerStyle(100)}>
             {title}
           </h1>
           
           {/* Accent Line (for left-aligned variants) */}
           {!isCentered && (
-            <div className="w-16 h-1 bg-[hsl(var(--accent))] mb-6" aria-hidden="true" />
+            <div className="w-16 h-1 bg-[hsl(var(--accent))] mb-6" style={staggerStyle(150)} aria-hidden="true" />
           )}
           
           {/* Description */}
@@ -239,17 +247,35 @@ export function PageHero({
             <p className={cn(
               "text-base sm:text-lg md:text-xl text-[hsl(var(--bg))]/90 leading-relaxed",
               isCentered ? "max-w-3xl" : "max-w-2xl"
-            )}>
+            )} style={staggerStyle(200)}>
               {description}
             </p>
           )}
           
+          {/* Badges (pill-style trust badges) */}
+          {badges && badges.length > 0 && (
+            <div className="flex flex-wrap gap-3 mt-6" style={staggerStyle(220)}>
+              {badges.map((b, i) => {
+                const Icon = b.icon;
+                return (
+                  <div
+                    key={i}
+                    className="flex items-center gap-2 bg-[hsl(var(--bg))]/10 backdrop-blur-sm px-4 py-2 rounded-full border border-[hsl(var(--bg))]/20"
+                  >
+                    <Icon className="w-4 h-4 text-[hsl(var(--bg))]" />
+                    <span className="text-sm font-medium text-[hsl(var(--bg))]">{b.text}</span>
+                  </div>
+                );
+              })}
+            </div>
+          )}
+
           {/* Stats */}
           {stats && stats.length > 0 && (
             <div className={cn(
               "flex flex-wrap gap-6 md:gap-10 mt-8 p-6 rounded-lg",
               "bg-[hsl(var(--bg))]/10 backdrop-blur-sm border border-[hsl(var(--bg))]/20"
-            )}>
+            )} style={staggerStyle(250)}>
               {stats.map((stat, index) => (
                 <div key={index} className={cn("text-center", !isCentered && "text-left")}>
                   <div className="text-2xl md:text-3xl lg:text-4xl font-bold text-[hsl(var(--accent))]">
@@ -268,7 +294,7 @@ export function PageHero({
             <div className={cn(
               "flex flex-wrap gap-4 mt-8",
               isCentered && "justify-center"
-            )}>
+            )} style={staggerStyle(300)}>
               {primaryCta && (
                 <Button
                   asChild

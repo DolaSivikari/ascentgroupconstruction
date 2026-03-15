@@ -14,18 +14,11 @@ import { Button } from "@/ui/Button";
 import { Input } from "@/ui/Input";
 import { Textarea } from "@/ui/Textarea";
 import { Label } from "@/components/ui/label";
-import { Skeleton } from "@/components/ui/skeleton";
-import { MapPin, Phone, Mail, Clock, Loader2, ArrowRight } from "lucide-react";
+import { MapPin, Phone, Mail, Clock, Loader2, ArrowRight, FileText, Calculator, CheckCircle, Zap, Gift, ShieldCheck } from "lucide-react";
 import { useSettingsData } from "@/hooks/useSettingsData";
-import { MultiStepForm } from "@/components/forms/MultiStepForm";
-import { FileUploadZone } from "@/components/forms/FileUploadZone";
-import { BudgetSlider } from "@/components/forms/BudgetSlider";
-import { TimelineSelector } from "@/components/forms/TimelineSelector";
-import { ProjectTypeSelector } from "@/components/forms/ProjectTypeSelector";
-import { TestimonialRatings } from "@/components/shared/TestimonialRatings";
 import { RippleEffect } from "@/components/shared/RippleEffect";
 import { TrustedPartners } from "@/components/partners/TrustedPartners";
-import { PartnerCaseStudies } from "@/components/partners/PartnerCaseStudies";
+
 import { Link } from "react-router-dom";
 import { CTA_TEXT } from "@/design-system/constants";
 import { mainPageHeroes } from "@/data/hero-images";
@@ -50,12 +43,6 @@ const Contact = () => {
     name: "", email: "", phone: "", company: "", message: "", honeypot: "", consent: false, newsletterConsent: false,
   });
   const [lastSubmitTime, setLastSubmitTime] = useState<number>(0);
-  const [useMultiStep, setUseMultiStep] = useState(false);
-  const [budget, setBudget] = useState(100000);
-  const [projectType, setProjectType] = useState("commercial");
-  const [startDate, setStartDate] = useState<Date>();
-  const [targetDate, setTargetDate] = useState<Date>();
-  const [files, setFiles] = useState<File[]>([]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -71,7 +58,6 @@ const Contact = () => {
     try {
       const validatedData = contactSchema.parse(formData);
       
-      // Track form submission attempt in GA4
       trackFormSubmit('contact_form', {
         has_phone: !!validatedData.phone,
         has_company: !!validatedData.company,
@@ -103,8 +89,6 @@ const Contact = () => {
         throw error;
       }
 
-      // Tracking already done above
-
       let notificationWarning = false;
       try {
         const timeoutPromise = new Promise((_, reject) => setTimeout(() => reject(new Error('Email notification timeout')), 10000));
@@ -115,7 +99,6 @@ const Contact = () => {
           timeoutPromise
         ]);
 
-        // Phase 2: Send review request
         await supabase.functions.invoke("send-review-request", {
           body: {
             email: validatedData.email,
@@ -128,7 +111,6 @@ const Contact = () => {
         console.error('Email notification failed:', emailError);
       }
 
-      // Phase 3: Track A/B test conversion
       await trackABTestConversion('homepage-hero-2024', 1);
 
       toast({
@@ -161,10 +143,8 @@ const Contact = () => {
   // Fallback values
   const officeAddress = contactSettings?.office_address || '2 Jody Ave\nNorth York, ON M3N 1H1\nCanada';
   const mainPhone = contactSettings?.main_phone || '647-528-6804';
-  const tollFreePhone = contactSettings?.toll_free_phone || '647-528-6804';
   const generalEmail = contactSettings?.general_email || 'info@ascentgroupconstruction.com';
   const projectsEmail = contactSettings?.projects_email || 'projects@ascentgroupconstruction.com';
-  const careersEmail = contactSettings?.careers_email || 'careers@ascentgroupconstruction.com';
   const weekdayHours = contactSettings?.weekday_hours || 'Monday - Friday: 8:00 AM - 6:00 PM';
   const saturdayHours = contactSettings?.saturday_hours || 'Saturday: 9:00 AM - 2:00 PM';
   const sundayHours = contactSettings?.sunday_hours || 'Sunday: Closed';
@@ -172,7 +152,7 @@ const Contact = () => {
 
   return (
     <div className="min-h-screen flex flex-col bg-background">
-      <SEO title="Contact Us - Request Proposal | Ascent Group" description="Ascent Group Construction — Ontario's prime specialty contractor for building envelope & restoration. Self-performed façade remediation, parking garage restoration, EIFS, masonry repair, and waterproofing. Serving commercial, multi-family, and institutional projects across the GTA." canonical="https://ascentgroupconstruction.com/contact" />
+      <SEO title="Contact Us | Ascent Group Construction" description="Contact Ascent Group Construction for building envelope, restoration, and specialty trade services across Ontario. Request a consultation or get a project quote." canonical="https://ascentgroupconstruction.com/contact" />
       <Navigation />
 
       <PageHero
@@ -186,239 +166,210 @@ const Contact = () => {
           { label: "Home", href: "/" },
           { label: "Contact" }
         ]}
+        badges={[
+          { icon: Zap, text: "Fast Response" },
+          { icon: Gift, text: "Free Consultations" },
+          { icon: ShieldCheck, text: "No Obligation" },
+        ]}
       />
 
-      {/* Premium Contact Form Section */}
-      <Section size="major" disableAnimation>
-          <div className="max-w-4xl mx-auto">
-            <div className="flex justify-center gap-4 mb-8">
-              <Button
-                variant={!useMultiStep ? "default" : "outline"}
-                onClick={() => setUseMultiStep(false)}
-              >
-                Quick Contact
-              </Button>
-              <Button
-                variant={useMultiStep ? "default" : "outline"}
-                onClick={() => setUseMultiStep(true)}
-              >
-                Detailed Request
-              </Button>
-            </div>
+      {/* Contact Pathway Guidance */}
+      <Section size="tight" disableAnimation>
+        <div className="max-w-4xl mx-auto">
+          <p className="text-sm text-muted-foreground text-center mb-6">Not sure which form to use? Choose the best path for your needs:</p>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <Card variant="interactive" size="sm" className="text-center border-primary/30 bg-primary/5">
+              <Link to="/contact" className="block">
+                <Mail className="w-5 h-5 text-primary mx-auto mb-2" />
+                <p className="text-sm font-bold text-primary mb-1">General Inquiry</p>
+                <p className="text-xs text-muted-foreground">Questions, site visits, consultations</p>
+              </Link>
+            </Card>
+            <Card variant="interactive" size="sm" className="text-center">
+              <Link to="/estimate" className="block">
+                <Calculator className="w-5 h-5 text-foreground mx-auto mb-2" />
+                <p className="text-sm font-bold mb-1">Project Estimate</p>
+                <p className="text-xs text-muted-foreground">Get preliminary pricing for defined scopes</p>
+              </Link>
+            </Card>
+            <Card variant="interactive" size="sm" className="text-center">
+              <Link to="/submit-rfp" className="block">
+                <FileText className="w-5 h-5 text-foreground mx-auto mb-2" />
+                <p className="text-sm font-bold mb-1">Submit RFP</p>
+                <p className="text-xs text-muted-foreground">Formal proposals with drawings & specs</p>
+              </Link>
+            </Card>
+          </div>
+        </div>
+      </Section>
 
-            <Card variant="elevated" size="lg" className="border-2 hover:border-primary/20 overflow-hidden">
-              <div className="bg-gradient-to-br from-primary/10 via-primary/5 to-transparent p-8 border-b">
-                <h2 className="text-3xl font-bold mb-2">Request a Consultation</h2>
-                <p className="text-muted-foreground text-lg">
-                  {useMultiStep 
-                    ? "Complete our detailed form for a comprehensive project assessment" 
-                    : "Fill out the form below and our team will get back to you within 2 hours during business hours"}
-                </p>
-              </div>
-              <div className="p-8">
-                {useMultiStep ? (
-                  <MultiStepForm
-                    steps={[
-                      {
-                        title: "Contact Information",
-                        description: "Tell us about yourself",
-                        content: (
-                          <div className="space-y-6">
-                            <div className="grid md:grid-cols-2 gap-6">
-                              <div className="space-y-2"><Label htmlFor="name">Full Name *</Label><Input id="name" name="name" value={formData.name} onChange={handleChange} required /></div>
-                              <div className="space-y-2"><Label htmlFor="email">Email *</Label><Input id="email" name="email" type="email" value={formData.email} onChange={handleChange} required /></div>
-                            </div>
-                            <div className="grid md:grid-cols-2 gap-6">
-                              <div className="space-y-2"><Label htmlFor="phone">Phone</Label><Input id="phone" name="phone" value={formData.phone} onChange={handleChange} /></div>
-                              <div className="space-y-2"><Label htmlFor="company">Company</Label><Input id="company" name="company" value={formData.company} onChange={handleChange} /></div>
-                            </div>
-                          </div>
-                        )
-                      },
-                      {
-                        title: "Project Type",
-                        description: "What type of project are you planning?",
-                        content: <ProjectTypeSelector selected={projectType} onChange={setProjectType} />
-                      },
-                      {
-                        title: "Budget & Timeline",
-                        description: "Help us understand your project scope",
-                        content: (
-                          <div className="space-y-8">
-                            <BudgetSlider value={budget} onChange={setBudget} />
-                            <TimelineSelector
-                              startDate={startDate}
-                              onStartDateChange={setStartDate}
-                              targetDate={targetDate}
-                              onTargetDateChange={setTargetDate}
-                            />
-                          </div>
-                        )
-                      },
-                      {
-                        title: "Project Details",
-                        description: "Tell us more about your project",
-                        content: (
-                          <div className="space-y-6">
-                            <div className="space-y-2">
-                              <Label htmlFor="message">Project Description *</Label>
-                              <Textarea id="message" name="message" value={formData.message} onChange={handleChange} required className="min-h-[150px]" />
-                            </div>
-                            <FileUploadZone onFilesChange={setFiles} maxFiles={3} />
-                          </div>
-                        )
-                      },
-                      {
-                        title: "Consent & Privacy",
-                        description: "Please review and accept our terms to proceed",
-                        content: (
-                          <div className="space-y-6">
-                            {/* Required Consent Checkbox */}
-                            <div className="flex items-start gap-3 p-4 bg-muted/50 rounded-lg border-2">
-                              <input
-                                type="checkbox"
-                                id="consent-multi"
-                                name="consent"
-                                checked={formData.consent}
-                                onChange={handleChange}
-                                required
-                                className="mt-1 h-5 w-5 rounded border-input accent-primary cursor-pointer"
-                              />
-                              <Label htmlFor="consent-multi" className="text-sm leading-relaxed cursor-pointer">
-                                I consent to Ascent Group Construction contacting me about my inquiry via email or phone. *
-                              </Label>
-                            </div>
-                            
-                            {/* Optional Newsletter Checkbox */}
-                            <div className="flex items-start gap-3 p-4 bg-muted/30 rounded-lg">
-                              <input
-                                type="checkbox"
-                                id="newsletterConsent-multi"
-                                name="newsletterConsent"
-                                checked={formData.newsletterConsent}
-                                onChange={handleChange}
-                                className="mt-1 h-5 w-5 rounded border-input accent-primary cursor-pointer"
-                              />
-                              <Label htmlFor="newsletterConsent-multi" className="text-sm leading-relaxed cursor-pointer">
-                                I'd also like to receive construction industry insights and project updates.{' '}
-                                <Link to="/privacy" className="text-primary underline hover:no-underline">
-                                  Privacy Policy
-                                </Link>
-                              </Label>
-                            </div>
-                            
-                            {/* Privacy Notice */}
-                            <div className="bg-gradient-to-br from-muted/50 to-muted/30 border-2 border-border rounded-[var(--radius-lg)] p-6 mt-6">
-                              <p className="text-sm text-muted-foreground leading-relaxed text-center">
-                                <strong className="text-foreground text-base">Privacy Notice:</strong> Your information is secure and will only be used to respond to your inquiry. We never share your data with third parties.
-                              </p>
-                            </div>
-                            
-                            {/* Honeypot field (hidden) */}
-                            <div style={{ position: 'absolute', left: '-9999px' }} aria-hidden="true">
-                              <Label htmlFor="website-multi">Website</Label>
-                              <Input 
-                                id="website-multi" 
-                                name="honeypot" 
-                                type="text" 
-                                tabIndex={-1} 
-                                autoComplete="off" 
-                                value={formData.honeypot} 
-                                onChange={handleChange} 
-                              />
-                            </div>
-                          </div>
-                        ),
-                        validate: () => {
-                          // Validate that consent is checked before proceeding
-                          if (!formData.consent) {
-                            toast({
-                              title: "Consent Required",
-                              description: "Please consent to be contacted to submit your request.",
-                              variant: "destructive"
-                            });
-                            return false;
-                          }
-                          return true;
-                        }
-                      }
-                    ]}
-                    onComplete={async () => {
-                      const syntheticEvent = { preventDefault: () => {} } as React.FormEvent;
-                      await handleSubmit(syntheticEvent);
-                    }}
-                  />
-                ) : (
-                  <form onSubmit={handleSubmit} className="space-y-6">
+      {/* Contact Form + Info Sidebar */}
+      <Section size="major" disableAnimation>
+        <div className="max-w-6xl mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            {/* Form — 2 columns */}
+            <div className="lg:col-span-2">
+              <Card variant="elevated" size="lg">
+                <div className="mb-6">
+                  <h2 className="text-2xl font-bold mb-2">Send Us a Message</h2>
+                  <p className="text-muted-foreground">
+                    Fill out the form below and our team will get back to you within one business day.
+                  </p>
+                </div>
+                <form onSubmit={handleSubmit} className="space-y-6">
                   <div className="grid md:grid-cols-2 gap-6">
-                    <div className="space-y-2"><Label htmlFor="name" className="text-base">Full Name *</Label><Input id="name" name="name" value={formData.name} onChange={handleChange} required placeholder="John Smith" className="h-14 text-base" /></div>
-                    <div className="space-y-2"><Label htmlFor="email" className="text-base">Email *</Label><Input id="email" name="email" type="email" value={formData.email} onChange={handleChange} required placeholder="john@example.com" className="h-14 text-base" /></div>
+                    <div className="space-y-2">
+                      <Label htmlFor="name" className="text-base">Full Name *</Label>
+                      <Input id="name" name="name" value={formData.name} onChange={handleChange} required placeholder="John Smith" className="h-12 text-base" />
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="email" className="text-base">Email *</Label>
+                      <Input id="email" name="email" type="email" value={formData.email} onChange={handleChange} required placeholder="john@example.com" className="h-12 text-base" />
+                    </div>
                   </div>
                   <div className="grid md:grid-cols-2 gap-6">
-                    <div className="space-y-2"><Label htmlFor="phone" className="text-base">Phone</Label><Input id="phone" name="phone" type="tel" value={formData.phone} onChange={handleChange} placeholder="(647) 123-4567" className="h-14 text-base" /></div>
-                    <div className="space-y-2"><Label htmlFor="company" className="text-base">Company</Label><Input id="company" name="company" value={formData.company} onChange={handleChange} placeholder="Your Company" className="h-14 text-base" /></div>
+                    <div className="space-y-2">
+                      <Label htmlFor="phone" className="text-base">Phone</Label>
+                      <Input id="phone" name="phone" type="tel" value={formData.phone} onChange={handleChange} placeholder="(647) 123-4567" className="h-12 text-base" />
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="company" className="text-base">Company</Label>
+                      <Input id="company" name="company" value={formData.company} onChange={handleChange} placeholder="Your Company" className="h-12 text-base" />
+                    </div>
                   </div>
-                  <div className="space-y-2"><Label htmlFor="message" className="text-base font-semibold">Project Details *</Label><Textarea id="message" name="message" value={formData.message} onChange={handleChange} required placeholder="Tell us about your project requirements, timeline, and budget..." className="min-h-[200px] text-base" /></div>
+                  <div className="space-y-2">
+                    <Label htmlFor="message" className="text-base font-semibold">Project Details *</Label>
+                    <Textarea id="message" name="message" value={formData.message} onChange={handleChange} required placeholder="Tell us about your project requirements, timeline, and budget..." className="min-h-[160px] text-base" />
+                  </div>
                   
                   <div className="space-y-3 pt-2">
                     <div className="flex items-start gap-3">
-                      <input
-                        type="checkbox"
-                        id="consent"
-                        name="consent"
-                        checked={formData.consent}
-                        onChange={handleChange}
-                        required
-                        className="mt-1"
-                      />
+                      <input type="checkbox" id="consent" name="consent" checked={formData.consent} onChange={handleChange} required className="mt-1" />
                       <Label htmlFor="consent" className="text-sm leading-relaxed cursor-pointer">
                         I consent to Ascent Group Construction contacting me about my inquiry via email or phone. *
                       </Label>
                     </div>
                     <div className="flex items-start gap-3">
-                      <input
-                        type="checkbox"
-                        id="newsletterConsent"
-                        name="newsletterConsent"
-                        checked={formData.newsletterConsent}
-                        onChange={handleChange}
-                        className="mt-1"
-                      />
+                      <input type="checkbox" id="newsletterConsent" name="newsletterConsent" checked={formData.newsletterConsent} onChange={handleChange} className="mt-1" />
                       <Label htmlFor="newsletterConsent" className="text-sm leading-relaxed cursor-pointer">
                         I'd also like to receive construction industry insights and project updates. <Link to="/privacy" className="text-primary underline hover:no-underline">Privacy Policy</Link>
                       </Label>
                     </div>
                   </div>
                   
-                  <div style={{ position: 'absolute', left: '-9999px' }} aria-hidden="true"><Label htmlFor="website">Website</Label><Input id="website" name="honeypot" type="text" tabIndex={-1} autoComplete="off" value={formData.honeypot} onChange={handleChange} /></div>
+                  {/* Honeypot */}
+                  <div style={{ position: 'absolute', left: '-9999px' }} aria-hidden="true">
+                    <Label htmlFor="website">Website</Label>
+                    <Input id="website" name="honeypot" type="text" tabIndex={-1} autoComplete="off" value={formData.honeypot} onChange={handleChange} />
+                  </div>
+
                   <RippleEffect>
-                    <Button type="submit" size="lg" className="w-full h-16 text-lg gap-3 hover:scale-[1.02] transition-all shadow-[var(--shadow-lg)] hover:shadow-[var(--shadow-lg)]" disabled={isSubmitting}>
-                      {isSubmitting ? (<><Loader2 className="w-6 h-6 animate-spin" />Sending...</>) : (<>Submit Request<ArrowRight className="w-6 h-6" /></>)}
+                    <Button type="submit" size="lg" className="w-full h-14 text-lg gap-3" disabled={isSubmitting}>
+                      {isSubmitting ? (<><Loader2 className="w-5 h-5 animate-spin" />Sending...</>) : (<>Submit Request<ArrowRight className="w-5 h-5" /></>)}
                     </Button>
                   </RippleEffect>
-                  <div className="bg-gradient-to-br from-muted/50 to-muted/30 border-2 border-border rounded-[var(--radius-lg)] p-6 text-center"><p className="text-sm text-muted-foreground leading-relaxed"><strong className="text-foreground text-base">Privacy Notice:</strong> Your information is secure and will only be used to respond to your inquiry. We never share your data with third parties.</p></div>
-                  </form>
-                )}
-              </div>
-            </Card>
+
+                  {/* Trust Badge */}
+                  <div className="flex items-center justify-center gap-4 text-xs text-muted-foreground pt-2">
+                    <span className="flex items-center gap-1"><CheckCircle className="w-3.5 h-3.5 text-primary" />$2M Insured</span>
+                    <span className="flex items-center gap-1"><CheckCircle className="w-3.5 h-3.5 text-primary" />WSIB Compliant</span>
+                  </div>
+
+                  <p className="text-xs text-muted-foreground text-center">
+                    Your information is secure and will only be used to respond to your inquiry.
+                  </p>
+                </form>
+              </Card>
+            </div>
+
+            {/* Contact Info Sidebar */}
+            <div className="space-y-6">
+              <Card variant="default" size="md">
+                <h3 className="text-lg font-bold mb-4">Contact Information</h3>
+                <div className="space-y-4">
+                  <div className="flex items-start gap-3">
+                    <MapPin className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
+                    <div>
+                      <p className="text-sm font-medium">Office</p>
+                      <p className="text-sm text-muted-foreground whitespace-pre-line">{officeAddress}</p>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <Phone className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
+                    <div>
+                      <p className="text-sm font-medium">Phone</p>
+                      <a href={`tel:${mainPhone.replace(/\s/g, '')}`} className="text-sm text-muted-foreground hover:text-primary transition-colors">
+                        {mainPhone}
+                      </a>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <Mail className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
+                    <div>
+                      <p className="text-sm font-medium">Email</p>
+                      <a href={`mailto:${generalEmail}`} className="text-sm text-muted-foreground hover:text-primary transition-colors">
+                        {generalEmail}
+                      </a>
+                      {projectsEmail && projectsEmail !== generalEmail && (
+                        <a href={`mailto:${projectsEmail}`} className="text-sm text-muted-foreground hover:text-primary transition-colors block mt-1">
+                          {projectsEmail}
+                        </a>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              </Card>
+
+              <Card variant="default" size="md">
+                <h3 className="text-lg font-bold mb-4 flex items-center gap-2">
+                  <Clock className="w-5 h-5 text-primary" />
+                  Business Hours
+                </h3>
+                <div className="space-y-2 text-sm text-muted-foreground">
+                  <p>{weekdayHours}</p>
+                  <p>{saturdayHours}</p>
+                  <p>{sundayHours}</p>
+                </div>
+              </Card>
+
+              {/* What to Expect */}
+              <Card variant="default" size="md" className="bg-primary/5 border-primary/20">
+                <h3 className="text-lg font-bold mb-3">What to Expect</h3>
+                <ul className="space-y-2 text-sm text-muted-foreground">
+                  <li className="flex items-start gap-2"><CheckCircle className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />We typically respond within 1 business day</li>
+                  <li className="flex items-start gap-2"><CheckCircle className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />Your inquiry goes directly to our project team</li>
+                  <li className="flex items-start gap-2"><CheckCircle className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />No automated responses — real people, real answers</li>
+                </ul>
+              </Card>
+
+              <Card variant="default" size="md" className="bg-muted/30">
+                <p className="text-sm font-medium mb-2">Need a formal proposal?</p>
+                <p className="text-xs text-muted-foreground mb-3">
+                  For projects with drawings, specs, or detailed scope requirements, use our RFP submission form.
+                </p>
+                <Button asChild variant="outline" size="sm" className="w-full">
+                  <Link to="/submit-rfp">Submit RFP</Link>
+                </Button>
+              </Card>
+            </div>
           </div>
+        </div>
       </Section>
 
-      {/* Testimonials Section - Removed pending verified testimonial collection */}
-
-      {/* Trusted Partners */}
-      <TrustedPartners variant="simple" background="muted" showDescription={false} />
-
-      {/* Partner Case Studies */}
-      <PartnerCaseStudies background="default" />
-
-      {/* Enhanced Map Section */}
+      {/* Map Section */}
       <section className="py-20 bg-gradient-to-b from-muted/50 to-background">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-12 animate-fade-in-up"><h2 className="text-4xl font-bold mb-4">Visit Our Office</h2><p className="text-lg text-muted-foreground">Located in Mississauga, proudly serving the Greater Toronto Area</p></div>
-          <div className="relative aspect-video bg-card rounded-[var(--radius-lg)] overflow-hidden shadow-[var(--shadow-lg)] border-2 border-border hover:border-primary/30 transition-all"><iframe src={mapEmbedUrl} width="100%" height="100%" style={{ border: 0 }} allowFullScreen loading="lazy" referrerPolicy="no-referrer-when-downgrade" title="Ascent Group Construction Service Area - Greater Toronto Area" /></div>
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold mb-4">Our Service Area</h2>
+            <p className="text-lg text-muted-foreground">Proudly serving the Greater Toronto Area and Ontario</p>
+          </div>
+          <div className="relative aspect-video bg-card rounded-[var(--radius-lg)] overflow-hidden shadow-[var(--shadow-lg)] border border-border">
+            <iframe src={mapEmbedUrl} width="100%" height="100%" style={{ border: 0 }} allowFullScreen loading="lazy" referrerPolicy="no-referrer-when-downgrade" title="Ascent Group Construction Service Area - Greater Toronto Area" />
+          </div>
         </div>
       </section>
+
+      <TrustedPartners variant="simple" />
 
       <Footer />
     </div>
