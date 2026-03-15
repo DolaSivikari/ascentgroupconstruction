@@ -862,7 +862,7 @@ const CrossLinks = () => (
       {[
         {
           title: "Our Delivery Process",
-          body: "See how digital tools integrate at each of our 7 project phases.",
+          body: "See how digital tools integrate at each stage of our 5-step delivery process.",
           href: "/our-process",
           label: "View Process",
         },
@@ -924,20 +924,40 @@ const Technology = () => {
       <main>
         {/* ── HERO — Standard PageHero ─────────────────────────────────── */}
         <PageHero
+          eyebrow="Technology & Documentation"
           title="Built on Digital Precision"
-          description="From the first site assessment to the final closeout package — every step of our process is documented, coordinated, and accountable."
+          description="From the first site assessment to the final closeout package — every step of our process is documented, coordinated, and accountable. No verbal-only updates, no retroactive records."
           image={companyHeroes["our-process"]}
           imageAlt="Ascent Group digital construction technology"
           height="medium"
           overlay="gradient"
+          stats={[
+            { value: "100%", label: "Projects Site-Assessed" },
+            { value: "Daily",  label: "Field Reports" },
+            { value: "100%", label: "Digital Closeout" },
+          ]}
           breadcrumbs={[
             { label: "Home", href: "/" },
             { label: "Company", href: "/about" },
             { label: "Technology & Digital Tools" },
           ]}
-          primaryCta={{ text: "Discuss Your Project", href: "/contact" }}
-          secondaryCta={{ text: "See Our Process", href: "/our-process" }}
+          primaryCta={{ text: "Request a Site Assessment", href: "/contact" }}
+          secondaryCta={{ text: "Our Delivery Process", href: "/our-process" }}
         />
+
+        {/* ── TOOL STRIP ──────────────────────────────────────────────── */}
+        <section className="bg-[hsl(var(--ink))] py-6 border-b border-white/5">
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div className="flex flex-wrap items-center justify-center gap-x-10 gap-y-3 text-sm">
+              <span className="text-white/40 uppercase tracking-wider text-xs font-medium">Tools we use</span>
+              {["Bluebeam", "PlanSwift", "ZZTAKEOFF", "Procore", "AutoCAD / DWG", "BIM 360"].map((tool) => (
+                <span key={tool} className="text-white/70 font-medium hover:text-white transition-colors">
+                  {tool}
+                </span>
+              ))}
+            </div>
+          </div>
+        </section>
 
         {/* ── SCROLLYTELLING ──────────────────────────────────────────── */}
         <ScrollytellingSection rm={rm} />
