@@ -3,7 +3,7 @@ import { Section } from "@/components/sections/Section";
 import SEO from "@/components/SEO";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
-import { Card } from "@/ui/Card";
+import { Card } from "@/design-system/components/Card";
 import { Button } from "@/ui/Button";
 import { Link } from "react-router-dom";
 import { CTA_TEXT } from "@/design-system/constants";
@@ -58,6 +58,7 @@ const WhySpecialtyContractor = () => {
         title="Specialty Contractor vs General Contractor | Building Envelope & Restoration"
         description="Understand why building envelope & restoration projects benefit from specialty contractors. Compare delivery models, cost structures, and project approaches for Ontario & GTA projects."
         keywords="specialty contractor, general contractor comparison, building envelope contractor, specialty vs general contractor, construction contractor differences, self-performed construction, Ontario specialty contractor, GTA building envelope"
+        canonical="https://ascentgroupconstruction.com/why-specialty-contractor"
         structuredData={[faqSchema, breadcrumbSchema]}
       />
 
@@ -80,7 +81,7 @@ const WhySpecialtyContractor = () => {
         {/* Introduction Section */}
         <Section>
           <div className="max-w-4xl mx-auto">
-            <h2 className="text-center mb-8">{introduction.title}</h2>
+            <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-center mb-8">{introduction.title}</h2>
             <div className="space-y-6 text-lg leading-relaxed">
               {introduction.content.map((paragraph, index) => (
                 <p key={index} className="text-muted-foreground">{paragraph}</p>
@@ -93,7 +94,7 @@ const WhySpecialtyContractor = () => {
         <Section className="bg-muted/30">
           <div className="max-w-7xl mx-auto">
             <div className="text-center mb-12">
-              <h2 className="mb-4">{comparisonTable.title}</h2>
+              <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4">{comparisonTable.title}</h2>
               <p className="text-xl text-muted-foreground">{comparisonTable.subtitle}</p>
             </div>
 
@@ -132,7 +133,7 @@ const WhySpecialtyContractor = () => {
             {/* Mobile Card View */}
             <div className="lg:hidden space-y-4">
               {comparisonTable.factors.map((factor, index) => (
-                <Card key={index} className="p-6">
+                <Card key={index} size="md">
                   <h3 className="text-lg font-bold mb-4">{factor.category}</h3>
                   <div className="space-y-4">
                     <div className="p-4 bg-primary/5 rounded-lg">
@@ -160,7 +161,7 @@ const WhySpecialtyContractor = () => {
         <Section>
           <div className="max-w-7xl mx-auto">
             <div className="text-center mb-12">
-              <h2 className="mb-4">Understanding Different Project Approaches</h2>
+              <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4">Understanding Different Project Approaches</h2>
               <p className="text-xl text-muted-foreground">When to use specialty contractors, general contractors, or hybrid approaches</p>
             </div>
 
@@ -169,7 +170,7 @@ const WhySpecialtyContractor = () => {
                 {scenarios.map((scenario, index) => {
                   const IconComponent = iconMap[scenario.icon as keyof typeof iconMap];
                   return (
-                    <Card key={index} className="p-6 hover:shadow-lg transition-shadow">
+                    <Card key={index} size="md" variant="elevated" hover>
                       <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4">
                         <IconComponent className="w-6 h-6 text-primary" />
                       </div>
@@ -195,13 +196,13 @@ const WhySpecialtyContractor = () => {
         <Section className="bg-muted/30">
           <div className="max-w-7xl mx-auto">
             <div className="text-center mb-12">
-              <h2 className="mb-4">{costBreakdown.title}</h2>
+              <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4">{costBreakdown.title}</h2>
               <p className="text-muted-foreground">How project budgets flow through different delivery models</p>
             </div>
 
             <div className="grid md:grid-cols-2 gap-8">
               {/* General Contractor Model */}
-              <Card className="p-8">
+              <Card size="lg" variant="elevated">
                 <h3 className="text-xl font-bold mb-6 text-center">{costBreakdown.generalContractorModel.title}</h3>
                 <div className="space-y-4 mb-8">
                   {costBreakdown.generalContractorModel.steps.map((step, index) => (
@@ -240,7 +241,7 @@ const WhySpecialtyContractor = () => {
               </Card>
 
               {/* Specialty Contractor Model */}
-              <Card className="p-8 border-2 border-primary">
+              <Card size="lg" variant="elevated" className="border-2 border-primary">
                 <h3 className="text-xl font-bold mb-6 text-center">{costBreakdown.specialtyContractorModel.title}</h3>
                 <div className="space-y-4 mb-8">
                   {costBreakdown.specialtyContractorModel.steps.map((step, index) => (
@@ -284,10 +285,10 @@ const WhySpecialtyContractor = () => {
         {/* FAQ Section */}
         <Section>
           <div className="max-w-4xl mx-auto">
-            <h2 className="text-center mb-12">Frequently Asked Questions</h2>
+            <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-center mb-12">Frequently Asked Questions</h2>
             <div className="space-y-6">
               {faqs.map((faq, index) => (
-                <Card key={index} className="p-6">
+                <Card key={index} size="md" variant="elevated">
                   <h3 className="text-lg font-bold mb-3">{faq.question}</h3>
                   <p className="text-muted-foreground leading-relaxed">{faq.answer}</p>
                 </Card>
@@ -300,10 +301,10 @@ const WhySpecialtyContractor = () => {
         {testimonials.length > 0 && (
           <Section>
             <div className="max-w-7xl mx-auto">
-              <h2 className="text-center mb-12">What Our Clients Say</h2>
+              <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-center mb-12">What Our Clients Say</h2>
               <div className="grid md:grid-cols-3 gap-6">
                 {testimonials.map((testimonial, index) => (
-                  <Card key={index} className="p-6">
+                  <Card key={index} size="md" variant="elevated">
                     <p className="text-sm italic mb-4 leading-relaxed">"{testimonial.quote}"</p>
                     <div className="border-t pt-4">
                       <p className="font-bold">{testimonial.client}</p>
@@ -320,7 +321,7 @@ const WhySpecialtyContractor = () => {
         {/* Final CTA Section */}
         <Section className="bg-muted/30">
           <div className="max-w-4xl mx-auto text-center">
-            <h2 className="mb-4">{finalCTA.title}</h2>
+            <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4">{finalCTA.title}</h2>
             <p className="text-xl text-muted-foreground mb-8">{finalCTA.description}</p>
             <div className="flex flex-wrap gap-4 justify-center">
               <Button asChild size="lg">

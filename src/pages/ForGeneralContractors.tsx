@@ -98,10 +98,11 @@ const ForGeneralContractors = () => {
 
   return (
     <>
-      <SEO 
+      <SEO
         title="Trade Partner for General Contractors"
         description="Ascent Group provides building envelope and interior trade services as a reliable subcontractor partner for general contractors across Ontario. Fast quotes, self-performed work, and professional execution."
         keywords="general contractor partner, trade subcontractor, envelope trades, GTA subcontractor, unit pricing, tender packages"
+        canonical="https://ascentgroupconstruction.com/for-general-contractors"
       />
       <Navigation />
       
@@ -185,25 +186,25 @@ const ForGeneralContractors = () => {
           </div>
         </Section>
 
-        {/* We're Building Our Track Record Section */}
+        {/* Credentials Section */}
         <Section size="major" className="bg-primary/5">
           <Card variant="elevated" size="lg" className="border-l-4 border-l-primary max-w-4xl mx-auto">
-            <h3 className="text-2xl md:text-3xl font-semibold mb-4">We're Building Our Track Record—Pilot Projects Welcome</h3>
+            <h3 className="text-2xl md:text-3xl font-semibold mb-4">Credentialed & Ready to Quote</h3>
             <p className="text-lg text-muted-foreground mb-6">
-              As a newly incorporated company, we understand GCs need proven reliability. We're open to competitive pilot projects to demonstrate our capabilities. Here's what we bring:
+              Our team brings 15+ years of combined building envelope and interior trades experience from GTA commercial and multi-family projects. We're incorporated in Ontario, fully insured, and actively bidding on commercial and institutional scopes.
             </p>
             <div className="grid md:grid-cols-2 gap-4 mb-6">
               <div className="flex items-start gap-3">
                 <CheckCircle className="w-5 h-5 text-primary flex-shrink-0 mt-1" />
                 <div>
                   <strong className="text-foreground">15+ years team experience</strong>
-                  <p className="text-sm text-muted-foreground">from major GTA commercial projects</p>
+                  <p className="text-sm text-muted-foreground">Highrise and commercial project background across the GTA</p>
                 </div>
               </div>
               <div className="flex items-start gap-3">
                 <CheckCircle className="w-5 h-5 text-primary flex-shrink-0 mt-1" />
                 <div>
-                  <strong className="text-foreground">Registered on bidding platforms</strong>
+                  <strong className="text-foreground">Active on bidding platforms</strong>
                   <p className="text-sm text-muted-foreground">DataBid, ConstructConnect, and more</p>
                 </div>
               </div>
@@ -211,33 +212,33 @@ const ForGeneralContractors = () => {
                 <CheckCircle className="w-5 h-5 text-primary flex-shrink-0 mt-1" />
                 <div>
                   <strong className="text-foreground">WSIB compliant</strong>
-                  <p className="text-sm text-muted-foreground">with comprehensive site safety protocols</p>
+                  <p className="text-sm text-muted-foreground">Active clearance with comprehensive site safety protocols</p>
                 </div>
               </div>
               <div className="flex items-start gap-3">
                 <CheckCircle className="w-5 h-5 text-primary flex-shrink-0 mt-1" />
                 <div>
                   <strong className="text-foreground">$2M CGL coverage</strong>
-                  <p className="text-sm text-muted-foreground">comprehensive liability insurance</p>
+                  <p className="text-sm text-muted-foreground">Comprehensive liability insurance, certificates on request</p>
                 </div>
               </div>
               <div className="flex items-start gap-3">
                 <CheckCircle className="w-5 h-5 text-primary flex-shrink-0 mt-1" />
                 <div>
-                  <strong className="text-foreground">Client references available</strong>
-                  <p className="text-sm text-muted-foreground">upon request</p>
+                  <strong className="text-foreground">References available</strong>
+                  <p className="text-sm text-muted-foreground">Team-level references from prior project experience</p>
                 </div>
               </div>
               <div className="flex items-start gap-3">
                 <CheckCircle className="w-5 h-5 text-primary flex-shrink-0 mt-1" />
                 <div>
-                  <strong className="text-foreground">Competitive pilot pricing</strong>
-                  <p className="text-sm text-muted-foreground">transparent unit rates for first projects</p>
+                  <strong className="text-foreground">Competitive, transparent pricing</strong>
+                  <p className="text-sm text-muted-foreground">Unit rates broken down for easy review and comparison</p>
                 </div>
               </div>
             </div>
-            <p className="text-muted-foreground italic">
-              We know we need to earn your trust through professional execution, responsive communication, and quality work. Every project is an opportunity to prove we're the trade partner you can rely on. Let's start with a pilot project—we'll demonstrate our value.
+            <p className="text-muted-foreground">
+              We're focused on building long-term relationships with GC partners through professional execution, clear communication, and reliable follow-through on every project we take on.
             </p>
           </Card>
         </Section>
