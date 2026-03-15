@@ -51,6 +51,31 @@ export default defineConfig(({ mode }) => {
           generatedCode: {
             constBindings: true,
           },
+          /**
+           * Manual chunk splitting — prevents heavy vendor libs from landing
+           * in the main bundle that every visitor downloads on first load.
+           */
+          manualChunks(id: string) {
+            if (!id.includes('node_modules')) return;
+
+            // All Radix UI primitives → single UI vendor chunk
+            if (id.includes('@radix-ui')) return 'ui-vendor';
+
+            // Recharts + D3 (admin-only) → separate lazy chunk
+            if (id.includes('recharts') || id.includes('/d3-') || id.includes('d3/')) return 'charts';
+
+            // Framer Motion → separate chunk (only pulled when animated components render)
+            if (id.includes('framer-motion')) return 'motion';
+
+            // Supabase (data layer) → separate chunk
+            if (id.includes('@supabase')) return 'supabase';
+
+            // TanStack Query → separate chunk
+            if (id.includes('@tanstack')) return 'query';
+
+            // React core → stable vendor chunk (aggressive browser caching)
+            if (id.includes('react-dom') || id.includes('react-router')) return 'react-vendor';
+          },
         },
       },
       chunkSizeWarningLimit: 400, // Warn if chunks exceed 400KB (stricter budget)
