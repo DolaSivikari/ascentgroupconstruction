@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
@@ -7,215 +8,391 @@ import { ProofStrip } from "@/design-system/components/ProofStrip";
 import { CTABand } from "@/design-system/components/CTABand";
 import { Section } from "@/components/sections/Section";
 import { PageHero } from "@/components/shared/PageHero";
-import { CTA_TEXT } from "@/design-system/constants";
-import { 
-  Shield, 
-  Target, 
-  CheckCircle, 
-  MapPin, 
+import { Button } from "@/ui/Button";
+import {
+  Shield,
+  ShieldCheck,
+  Target,
+  CheckCircle,
+  MapPin,
   Award,
   HardHat,
+  MessageSquare,
+  Handshake,
+  TrendingUp,
+  ArrowRight,
+  Building2,
+  Users,
+  Wrench,
+  Layers,
+  Droplets,
+  BrickWall,
+  PaintRoller,
+  Car,
+  Grid2x2,
+  Brush,
+  ClipboardList,
 } from "lucide-react";
 import { mainPageHeroes } from "@/data/hero-images";
 import { usePageAnalytics } from "@/hooks/usePageAnalytics";
 import { generateBreadcrumbSchema, generateHowToSchema } from "@/utils/seo";
+import { founderBio } from "@/data/enriched-company-content";
+
+// ─── Data ────────────────────────────────────────────────────────────────────
+
+const SERVICES = [
+  { icon: Layers,      label: "Façade Remediation & Cladding" },
+  { icon: Wrench,      label: "Sealant Replacement Programs" },
+  { icon: Car,         label: "Concrete & Parking Garage Repairs" },
+  { icon: BrickWall,   label: "EIFS & Stucco Systems" },
+  { icon: BrickWall,   label: "Masonry Restoration" },
+  { icon: Droplets,    label: "Waterproofing Systems" },
+  { icon: PaintRoller, label: "Protective & Architectural Coatings" },
+  { icon: Grid2x2,     label: "Flooring & Tile" },
+  { icon: Brush,       label: "Residential & Commercial Painting" },
+  { icon: Building2,   label: "Interior Buildouts" },
+];
+
+const VALUES = [
+  {
+    icon: Target,
+    title: "Professional Execution",
+    description: "We bring the same professional standards developed on major GTA projects to every job, regardless of size.",
+  },
+  {
+    icon: ShieldCheck,
+    title: "Clear Accountability",
+    description: "You work directly with the people on your site. No subcontractor layers, no finger-pointing.",
+  },
+  {
+    icon: MessageSquare,
+    title: "Honest Communication",
+    description: "Realistic schedules, detailed scopes, proactive updates. If issues arise, you hear about them immediately with solutions.",
+  },
+  {
+    icon: Handshake,
+    title: "Relationship First",
+    description: "Every client relationship matters. We earn trust through consistent, professional work and reliable follow-through.",
+  },
+  {
+    icon: HardHat,
+    title: "Safety First",
+    description: "WSIB compliant, proper safety protocols, and the right equipment on every job. We never compromise on safety.",
+  },
+  {
+    icon: TrendingUp,
+    title: "Long-Term Thinking",
+    description: "We're building for the long term — sustainable growth through client satisfaction and a strong market reputation.",
+  },
+];
+
+const AUDIENCES = [
+  {
+    icon: Building2,
+    title: "General Contractors",
+    description: "Dependable specialty trade partners for envelope, EIFS, masonry, and interior work on commercial and multi-residential projects.",
+    link: "/for-general-contractors",
+  },
+  {
+    icon: Users,
+    title: "Property Managers",
+    description: "Envelope and interior trades for building maintenance, restoration, and capital projects — with minimal tenant disruption.",
+    link: "/markets",
+  },
+  {
+    icon: Award,
+    title: "Developers & Owners",
+    description: "Direct prime-scope pricing without subcontractor markup layers, backed by proven GTA project experience.",
+    link: "/markets",
+  },
+  {
+    icon: ClipboardList,
+    title: "Building Consultants",
+    description: "Reliable contractors who follow your specifications, document everything, and respond professionally to RFIs.",
+    link: "/markets",
+  },
+];
+
+const PROCESS_STEPS = [
+  {
+    number: "01",
+    title: "Site Walk & Assessment",
+    description:
+      "We meet on site to understand the issue, constraints, and access. For urgent matters, we aim to attend within 48–72 hours.",
+  },
+  {
+    number: "02",
+    title: "Scope & Proposal",
+    description:
+      "You receive a clear, itemized scope — drawings/photos as needed, alternates where helpful, and unit rates for repetitive work. We prioritize fast, complete submittals.",
+  },
+  {
+    number: "03",
+    title: "Mobilize & Execute",
+    description:
+      "We coordinate permits, access, logistics, and occupant notices. A dedicated lead oversees daily safety, quality, and schedule.",
+  },
+  {
+    number: "04",
+    title: "Quality Assurance & Reporting",
+    description:
+      "Field checks, photo logs, and inspection records ensure work follows specifications and manufacturer guidance.",
+  },
+  {
+    number: "05",
+    title: "Closeout & Warranty",
+    description:
+      "Final walkthrough, punch completion, turnover package with photos and product data, and applicable warranty.",
+  },
+];
+
+const REGIONS = [
+  "City of Toronto",
+  "Mississauga",
+  "Brampton",
+  "Vaughan",
+  "Markham",
+  "Oakville",
+  "Burlington",
+  "Hamilton",
+  "Scarborough",
+  "North York",
+  "Etobicoke",
+  "Broader Ontario",
+];
+
+const CREDENTIALS = [
+  "15+ years combined hands-on team experience",
+  "Highrise & commercial building background across the GTA",
+  "Manufacturer-approved installation methods",
+  "WSIB compliant — $2M CGL liability coverage",
+  "85% self-performed — direct crew accountability",
+  "Professional safety protocols on every job site",
+];
+
+// ─── Component ───────────────────────────────────────────────────────────────
 
 const About = () => {
-  usePageAnalytics('about');
+  usePageAnalytics("about");
 
   const breadcrumbSchema = generateBreadcrumbSchema([
     { name: "Home", url: "/" },
-    { name: "About Us", url: "/about" }
+    { name: "About Us", url: "/about" },
   ]);
 
   const processSchema = generateHowToSchema({
     name: "Ascent Group Construction 5-Step Project Process",
-    description: "Our proven approach to delivering reliable building envelope and restoration projects",
-    steps: [
-      { name: "Site Walk & Assessment", text: "We meet on site to understand the issue, constraints, and access. For urgent matters, we aim to attend within 48–72 hours." },
-      { name: "Scope & Proposal", text: "You receive a clear, itemized scope with drawings/photos as needed, alternates where helpful, and unit rates for repetitive work." },
-      { name: "Mobilize & Execute", text: "We coordinate permits, access, logistics, and occupant notices. A dedicated lead oversees daily safety, quality, and schedule." },
-      { name: "Quality Assurance & Reporting", text: "Field checks, photo logs, and inspection records ensure work follows specifications and manufacturer guidance." },
-      { name: "Closeout & Warranty", text: "Final walkthrough, punch completion, turnover package with photos and product data, and applicable warranty." }
-    ]
+    description:
+      "Our proven approach to delivering reliable building envelope and restoration projects",
+    steps: PROCESS_STEPS.map((s) => ({ name: s.title, text: s.description })),
   });
-
-  const services = [
-    "Façade Remediation & Cladding Repairs",
-    "Sealant (Caulking) Replacement Programs",
-    "Concrete & Parking Garage Repairs",
-    "EIFS & Stucco Systems",
-    "Masonry Restoration",
-    "Waterproofing Systems",
-    "Protective & Architectural Coatings"
-  ];
-
-  const values = [
-    {
-      icon: Shield,
-      title: "Integrity & Transparency",
-      description: "Straight scopes, clear pricing, and proactive communication."
-    },
-    {
-      icon: HardHat,
-      title: "Safety First",
-      description: "Planning, training, and controls that protect occupants, crews, and property."
-    },
-    {
-      icon: Award,
-      title: "Craftsmanship & Compliance",
-      description: "Manufacturer-aligned methods and detail-driven execution."
-    },
-    {
-      icon: Target,
-      title: "Accountability",
-      description: "We own outcomes and close projects with thorough documentation."
-    }
-  ];
-
-  const processSteps = [
-    {
-      number: "01",
-      title: "Site Walk & Assessment",
-      description: "We meet on site to understand the issue, constraints, and access. For urgent matters, we aim to attend within 48–72 hours (subject to safety and access)."
-    },
-    {
-      number: "02",
-      title: "Scope & Proposal",
-      description: "You receive a clear, itemized scope—drawings/photos as needed, alternates where helpful, and unit rates for repetitive work. We prioritize fast, complete submittals so you can move forward confidently."
-    },
-    {
-      number: "03",
-      title: "Mobilize & Execute",
-      description: "We coordinate permits, access, logistics, and occupant notices. A dedicated lead oversees daily safety, quality, and schedule."
-    },
-    {
-      number: "04",
-      title: "Quality Assurance & Reporting",
-      description: "Field checks, photo logs, and (when requested) ITPs/inspection records ensure work follows specifications and manufacturer guidance."
-    },
-    {
-      number: "05",
-      title: "Closeout & Warranty",
-      description: "Final walkthrough, punch completion, turnover package (photos, product data, care guidance), and applicable warranty."
-    }
-  ];
 
   return (
     <div className="min-h-screen">
       <SEO
-        title="About Us - Building Envelope & Restoration Services | Ontario & GTA"
-        description="Emerging specialty contractor delivering accountable envelope and restoration services across Ontario. Learn about our approach, values, and vision for becoming a trusted GC partner."
-        keywords="about Ascent Group, building envelope contractor, specialty contractor Ontario, restoration company, GTA contractor, emerging contractor"
+        title="About Us — Building Envelope & Restoration Specialists | GTA"
+        description="15+ years of combined experience in building envelope, restoration & interior trades across the GTA — now operating as Ascent Group Construction."
+        keywords="about Ascent Group, building envelope contractor, specialty contractor Ontario, restoration company, GTA contractor"
         canonical="https://ascentgroupconstruction.com/about"
         structuredData={[breadcrumbSchema, processSchema]}
       />
       <Navigation />
-      
+
+      {/* ── 1. Hero ──────────────────────────────────────────────────────── */}
       <PageHero
-        title="Building Envelope & Restoration Specialists"
-        description="An emerging specialty contractor delivering reliable envelope solutions across Ontario's GTA—building trust, project by project."
+        eyebrow="About Ascent Group"
+        title="15 Years of Experience. One Clear Mission."
+        description="Specialty contractor for building envelope, restoration & interior trades across the GTA — self-performed work, direct accountability, professional closeout."
         image={mainPageHeroes.about}
-        imageAlt="Ascent Group Construction team at work"
+        imageAlt="Ascent Group Construction team at work on a building facade"
         height="large"
-        primaryCta={{ text: CTA_TEXT.contact, href: "/contact" }}
+        stats={[
+          { value: "15+", label: "Years Experience" },
+          { value: "85%",  label: "Self-Performed" },
+          { value: "$2M",  label: "CGL Coverage" },
+          { value: "100%", label: "WSIB Compliant" },
+        ]}
+        primaryCta={{ text: "Request a Site Assessment", href: "/contact" }}
+        secondaryCta={{ text: "How We Work", href: "/our-process" }}
         breadcrumbs={[
           { label: "Home", href: "/" },
-          { label: "About Us" }
+          { label: "About Us" },
         ]}
       />
 
-      {/* Main Introduction */}
-      <Section size="major" maxWidth="narrow">
-        <div className="prose prose-lg max-w-none">
-          <p className="text-lg md:text-xl leading-relaxed mb-6">
-            Ascent Group Construction is an emerging specialty contractor focused on building envelope and restoration 
-            work across Ontario's Greater Toronto Area. We're in the early stages of building our company—establishing 
-            systems, earning trust, and delivering quality work that speaks for itself.
-          </p>
-          <p className="text-base md:text-lg text-muted-foreground leading-relaxed mb-8">
-            Right now, we specialize in façade remediation, sealant replacement, concrete & parking garage repair, 
-            EIFS/stucco, masonry restoration, waterproofing, and protective coatings. Our goal is clear: become the 
-            most reliable specialty contractor in our market, then expand into full general contracting capabilities 
-            over the next 3–5 years. Every project we complete, every relationship we build, and every lesson we 
-            learn moves us toward that vision.
-          </p>
-        </div>
-
-        {/* Founder Story */}
-        <Card variant="elevated" size="lg" className="mt-12 border-l-4 border-primary">
-          <h3 className="text-2xl md:text-3xl font-semibold mb-4">Proven Expertise. New Name.</h3>
-          <p className="text-base md:text-lg text-muted-foreground leading-relaxed mb-6">
-            Ascent Group Construction represents over 15 years of combined experience in building envelope and interior trades work across the Greater Toronto Area—formalized under a new company name in 2025.
-          </p>
-          <p className="text-base md:text-lg text-muted-foreground leading-relaxed mb-6">
-            Our team members bring hands-on experience from a wide range of envelope restoration, EIFS installation, masonry repair, waterproofing, and interior finishing projects on buildings ranging from residential walk-ups to 30-story towers. We've worked as trusted trade partners for general contractors, property managers, building consultants, and institutional clients who demand professional execution and reliable results.
-          </p>
-          <p className="text-base md:text-lg text-muted-foreground leading-relaxed mb-6">
-            We founded Ascent Group to bring this proven capability directly to clients who need specialty trade expertise without the complexity of layered subcontracting. Our focus is simple: deliver high-quality envelope and interior work, maintain professional safety and communication standards, and build lasting relationships through accountable performance.
-          </p>
-          <blockquote className="text-xl italic mb-4 border-l-2 border-primary/50 pl-6">
-            "We're building Ascent Group methodically—professional systems, quality execution, and honest client relationships. 
-            Our long-term vision is to expand into general contracting capabilities, but right now we're laser-focused on being 
-            the most reliable envelope and interior trade specialist in the GTA."
-          </blockquote>
-          <div className="flex items-center gap-4 mt-6">
-            <div>
-              <p className="font-semibold text-primary text-lg">Hebun Isik</p>
-              <p className="text-muted-foreground">Founder & Principal</p>
-            </div>
+      {/* ── 2. Identity — Proven Expertise. New Name. ────────────────────── */}
+      <Section size="major" maxWidth="wide">
+        <div className="grid md:grid-cols-2 gap-12 lg:gap-20 items-center">
+          <div>
+            <span className="text-sm font-semibold uppercase tracking-wider text-primary mb-3 block">
+              Our Story
+            </span>
+            <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-6 leading-tight">
+              Proven Expertise.<br />New Name.
+            </h2>
+            <p className="text-lg text-muted-foreground leading-relaxed mb-4">
+              Ascent Group Construction represents 15+ years of combined experience in building envelope and
+              interior trades — formalized under a new company name in 2025.
+            </p>
+            <p className="text-base text-muted-foreground leading-relaxed mb-4">
+              Our team brings hands-on experience from envelope restoration, EIFS installation, masonry repair,
+              waterproofing, and interior finishing on buildings ranging from 3-storey walk-ups to 30-storey
+              towers. We've delivered results for general contractors, property managers, building consultants,
+              and institutional clients who demand professional execution.
+            </p>
+            <p className="text-base text-muted-foreground leading-relaxed">
+              We founded Ascent Group to bring this proven capability directly to clients — without the
+              complexity of layered subcontracting or inflated middleman margins.
+            </p>
           </div>
-        </Card>
+
+          <div className="space-y-4">
+            {CREDENTIALS.map((cred, i) => (
+              <div key={i} className="flex items-start gap-3">
+                <CheckCircle className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
+                <span className="text-base">{cred}</span>
+              </div>
+            ))}
+          </div>
+        </div>
       </Section>
 
-      {/* Proof Strip — Key credentials */}
-      <Section size="tight">
+      {/* ── 3. Proof Strip ───────────────────────────────────────────────── */}
+      <Section size="tight" className="bg-muted/30">
         <ProofStrip
           items={[
-            { value: "15+", label: "Years Team Experience" },
-            { value: "$2M", label: "CGL Coverage" },
+            { value: "15+",  label: "Years Team Experience" },
+            { value: "$2M",  label: "CGL Coverage" },
             { value: "100%", label: "WSIB Compliant" },
-            { value: "85%", label: "Self-Performed" },
+            { value: "85%",  label: "Self-Performed" },
           ]}
           variant="dark"
           columns={4}
         />
       </Section>
 
-      {/* What We Self-Perform */}
+      {/* ── 4. Founder Story ─────────────────────────────────────────────── */}
+      <section className="w-full bg-[hsl(var(--ink))] py-20 md:py-28">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="grid md:grid-cols-2 gap-12 lg:gap-20 items-center">
+            {/* Left: bio */}
+            <div>
+              <span className="text-sm font-semibold uppercase tracking-wider text-[hsl(var(--accent))] mb-3 block">
+                Founder
+              </span>
+              <h2 className="text-3xl md:text-4xl font-bold text-white mb-1">
+                {founderBio.name}
+              </h2>
+              <p className="text-[hsl(var(--accent))] font-medium mb-6">
+                {founderBio.title}
+              </p>
+              <p className="text-white/80 leading-relaxed mb-4 text-base">
+                Hebun established Ascent Group Construction in 2025 to bring 15+ years of proven building
+                envelope and interior trades expertise directly to commercial, multi-family, and residential
+                clients across Ontario.
+              </p>
+              <p className="text-white/70 leading-relaxed text-base mb-8">
+                From 3-storey walk-ups to 30-storey high-rises, Hebun has delivered envelope restoration, EIFS
+                installation, masonry repair, and interior finishing across the GTA — building the field
+                knowledge and client relationships that Ascent Group is founded on.
+              </p>
+              <div className="space-y-2">
+                {founderBio.credentials.map((cred, i) => (
+                  <div key={i} className="flex items-center gap-2 text-white/70 text-sm">
+                    <CheckCircle className="w-4 h-4 text-[hsl(var(--accent))] flex-shrink-0" />
+                    <span>{cred}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Right: pull quote */}
+            <div className="border-l-4 border-[hsl(var(--accent))] pl-8 py-2">
+              <p className="text-2xl md:text-3xl font-semibold text-white leading-snug italic mb-8">
+                "We're building Ascent Group methodically — professional systems, quality execution, and
+                honest client relationships. Our focus is on being the most reliable envelope and interior
+                trade specialist in the GTA."
+              </p>
+              <p className="text-white/50 text-sm uppercase tracking-wider">
+                Hebun Isik · Founder &amp; Principal
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── 5. Values ────────────────────────────────────────────────────── */}
       <Section size="major">
         <SectionHeader
-          title="What We Self-Perform"
-          description="Each scope is planned for minimal disruption, clear sequencing, and documented QA/QC"
+          title="What We Stand For"
+          description="Six principles that guide every project, every interaction, every decision."
+          badge="Our Values"
         />
-
-        <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
-          {services.map((service, index) => (
-            <Card key={index} variant="default" size="md" className="hover:border-primary/50 transition-colors">
-              <CheckCircle className="w-5 h-5 text-primary mb-2" />
-              <span className="font-medium">{service}</span>
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {VALUES.map(({ icon: Icon, title, description }, i) => (
+            <Card key={i} variant="elevated" size="md" hover>
+              <div className="p-2 bg-primary/10 rounded-lg w-fit mb-4">
+                <Icon className="w-5 h-5 text-primary" />
+              </div>
+              <h3 className="text-lg font-semibold mb-2">{title}</h3>
+              <p className="text-muted-foreground text-sm leading-relaxed">{description}</p>
             </Card>
           ))}
         </div>
       </Section>
 
-      {/* Our 5-Step Approach */}
+      {/* ── 6. What We Self-Perform ──────────────────────────────────────── */}
+      <Section size="major" className="bg-muted/30">
+        <SectionHeader
+          title="What We Self-Perform"
+          description="Each scope is planned for minimal disruption, clear sequencing, and documented QA/QC."
+          badge="Services"
+        />
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 mb-10">
+          {SERVICES.map(({ icon: Icon, label }, i) => (
+            <div
+              key={i}
+              className="flex items-center gap-3 bg-background rounded-xl border border-border px-4 py-3 hover:border-primary/50 transition-colors"
+            >
+              <Icon className="w-5 h-5 text-primary flex-shrink-0" />
+              <span className="text-sm font-medium">{label}</span>
+            </div>
+          ))}
+        </div>
+        <div className="text-center">
+          <Button asChild variant="outline" size="lg">
+            <Link to="/services">
+              View All Services <ArrowRight className="ml-2 w-4 h-4" />
+            </Link>
+          </Button>
+        </div>
+      </Section>
+
+      {/* ── 7. Who We Work With ──────────────────────────────────────────── */}
       <Section size="major">
         <SectionHeader
-          title="Our 5-Step Approach"
-          description="A proven process for reliable project delivery"
+          title="Who We Work With"
+          description="Built for clients who value reliability, clear communication, and professional trade execution."
+          badge="Clients"
         />
-
-        <div className="space-y-6 max-w-5xl mx-auto">
-          {processSteps.map((step, index) => (
-            <Card key={index} variant="elevated" size="md" hover>
+        <div className="grid sm:grid-cols-2 gap-6">
+          {AUDIENCES.map(({ icon: Icon, title, description, link }, i) => (
+            <Card key={i} variant="elevated" size="lg" hover>
               <div className="flex items-start gap-4">
-                <div className="p-3 bg-primary/10 rounded-lg flex-shrink-0">
-                  <span className="text-2xl font-bold text-primary">{step.number}</span>
+                <div className="p-3 bg-primary/10 rounded-xl flex-shrink-0">
+                  <Icon className="w-6 h-6 text-primary" />
                 </div>
                 <div>
-                  <h3 className="text-xl font-semibold mb-2">{step.title}</h3>
-                  <p className="text-muted-foreground">{step.description}</p>
+                  <h3 className="text-xl font-semibold mb-2">{title}</h3>
+                  <p className="text-muted-foreground text-sm leading-relaxed mb-4">
+                    {description}
+                  </p>
+                  <Link
+                    to={link}
+                    className="text-primary text-sm font-medium hover:underline inline-flex items-center gap-1"
+                  >
+                    Learn more <ArrowRight className="w-3.5 h-3.5" />
+                  </Link>
                 </div>
               </div>
             </Card>
@@ -223,25 +400,78 @@ const About = () => {
         </div>
       </Section>
 
-      {/* Where We Work */}
-      <Section size="major">
-        <div className="max-w-4xl mx-auto text-center">
-          <MapPin className="w-16 h-16 text-primary mx-auto mb-6" />
-          <h2 className="text-3xl md:text-5xl font-bold mb-6 tracking-tight">Where We Work</h2>
-          <p className="text-xl text-muted-foreground leading-relaxed">
-            We serve <strong>Ontario & the Greater Toronto Area</strong>, with emphasis on the GTA and 
-            Golden Horseshoe: Toronto, Mississauga, Brampton, Vaughan/Markham, Oakville/Burlington, 
-            and Hamilton. We consider broader Ontario for the right project.
-          </p>
+      {/* ── 8. Our 5-Step Process ────────────────────────────────────────── */}
+      <Section size="major" className="bg-muted/30">
+        <SectionHeader
+          title="Our 5-Step Approach"
+          description="A consistent process for every project — from first call to final closeout."
+          badge="Process"
+        />
+        <div className="max-w-3xl mx-auto">
+          {PROCESS_STEPS.map((step, index) => (
+            <div key={index} className="relative flex gap-6">
+              {/* Step indicator + connector line */}
+              <div className="flex flex-col items-center">
+                <div className="w-12 h-12 rounded-full bg-primary flex items-center justify-center text-primary-foreground font-bold text-sm flex-shrink-0 z-10">
+                  {step.number}
+                </div>
+                {index < PROCESS_STEPS.length - 1 && (
+                  <div className="w-0.5 flex-1 bg-border mt-2 mb-2" />
+                )}
+              </div>
+
+              {/* Step content */}
+              <div className={index < PROCESS_STEPS.length - 1 ? "pb-10" : "pb-0"}>
+                <h3 className="text-lg font-semibold mb-2 mt-2.5">{step.title}</h3>
+                <p className="text-muted-foreground text-base leading-relaxed">
+                  {step.description}
+                </p>
+              </div>
+            </div>
+          ))}
+        </div>
+        <div className="text-center mt-10">
+          <Button asChild variant="outline" size="lg">
+            <Link to="/our-process">
+              Full Process Details <ArrowRight className="ml-2 w-4 h-4" />
+            </Link>
+          </Button>
         </div>
       </Section>
 
-      {/* CTA with Markets bridge */}
+      {/* ── 9. Where We Work ─────────────────────────────────────────────── */}
+      <Section size="major">
+        <div className="max-w-4xl mx-auto text-center">
+          <span className="text-sm font-semibold uppercase tracking-wider text-primary mb-3 block">
+            Service Area
+          </span>
+          <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4">
+            Where We Work
+          </h2>
+          <p className="text-lg text-muted-foreground mb-10 max-w-2xl mx-auto">
+            Primarily serving <strong>Ontario &amp; the Greater Toronto Area</strong>. We consider broader
+            Ontario for the right project.
+          </p>
+          <div className="flex flex-wrap gap-3 justify-center">
+            {REGIONS.map((region) => (
+              <div
+                key={region}
+                className="inline-flex items-center gap-2 bg-muted rounded-full px-4 py-2 text-sm font-medium border border-border"
+              >
+                <MapPin className="w-3.5 h-3.5 text-primary flex-shrink-0" />
+                {region}
+              </div>
+            ))}
+          </div>
+        </div>
+      </Section>
+
+      {/* ── 10. CTA ──────────────────────────────────────────────────────── */}
       <CTABand
-        title="Ready to Discuss Your Project?"
-        description="Whether you need trade pricing for an active tender or want to discuss a restoration project, we're here to help."
+        title="Let's Talk About Your Project"
+        description="Site assessment, trade pricing, or just a conversation — we're straightforward to work with."
         primaryCta={{ text: "Contact Us", href: "/contact" }}
-        secondaryCta={{ text: "Explore Our Markets", href: "/markets" }}
+        secondaryCta={{ text: "Explore Our Services", href: "/services" }}
         variant="dark"
       />
 
