@@ -30,6 +30,7 @@ const HeroGeometry = ({ slideIndex, isFadingOut, prefersReducedMotion }: HeroGeo
         {slideIndex === 0 && <Slide1Geometry animated={!prefersReducedMotion} />}
         {slideIndex === 1 && <Slide2Geometry animated={!prefersReducedMotion} />}
         {slideIndex === 2 && <Slide3Geometry animated={!prefersReducedMotion} />}
+        {slideIndex === 3 && <Slide4Geometry animated={!prefersReducedMotion} />}
       </svg>
 
       <style>{`
