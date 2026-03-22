@@ -8,7 +8,7 @@ const stats = [
 
 export const HomepageProofStrip = () => {
   return (
-    <section className="py-6">
+    <section className="pt-10 pb-2">
       <div className="container mx-auto px-4">
         <div className="rounded-[var(--radius-lg)] py-8 px-6 bg-muted/50 border border-border">
           <div className="grid gap-6 text-center grid-cols-1 sm:grid-cols-3">

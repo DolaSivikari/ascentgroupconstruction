@@ -72,7 +72,7 @@ export const HomepageProcessStrip = () => {
   const transition = prefersReducedMotion ? "none" : "opacity 300ms ease-out, transform 300ms ease-out";
 
   return (
-    <section className="w-full py-20 md:py-28 lg:py-32 bg-gradient-to-b from-muted/40 to-background">
+    <section className="w-full pt-16 md:pt-20 pb-20 md:pb-28 bg-gradient-to-b from-muted/30 to-background">
       <div className="mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
         {/* Header */}
         <div
