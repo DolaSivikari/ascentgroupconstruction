@@ -30,6 +30,7 @@ const HeroGeometry = ({ slideIndex, isFadingOut, prefersReducedMotion }: HeroGeo
         {slideIndex === 0 && <Slide1Geometry animated={!prefersReducedMotion} />}
         {slideIndex === 1 && <Slide2Geometry animated={!prefersReducedMotion} />}
         {slideIndex === 2 && <Slide3Geometry animated={!prefersReducedMotion} />}
+        {slideIndex === 3 && <Slide4Geometry animated={!prefersReducedMotion} />}
       </svg>
 
       <style>{`
@@ -268,6 +269,80 @@ function Slide3Geometry({ animated }: { animated: boolean }) {
         <line x1="300" y1="200" x2="1600" y2="200" stroke="white" strokeWidth="1" strokeLinecap="round" />
         <line x1="300" y1="194" x2="300" y2="206" stroke="white" strokeWidth="1" strokeLinecap="round" />
         <line x1="1600" y1="194" x2="1600" y2="206" stroke="white" strokeWidth="1" strokeLinecap="round" />
+      </g>
+    </g>
+  );
+}
+
+/* ── Slide 4: Credentials / Documentation ── */
+function Slide4Geometry({ animated }: { animated: boolean }) {
+  return (
+    <g>
+      {/* Shield outline, TOP-LEFT */}
+      <g
+        style={{
+          opacity: 0.35,
+          ...(animated
+            ? {
+                strokeDasharray: 400,
+                strokeDashoffset: 400,
+                animation: 'geo-draw-400 3s ease-out forwards',
+                animationDelay: '0.4s',
+              }
+            : {}),
+        }}
+      >
+        <path
+          d="M130,100 L130,220 Q130,280 180,310 Q230,280 230,220 L230,100 Z"
+          stroke="white"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          fill="none"
+        />
+        <line x1="180" y1="160" x2="180" y2="240" stroke="white" strokeWidth="1.5" strokeLinecap="round" />
+        <line x1="150" y1="200" x2="210" y2="200" stroke="white" strokeWidth="1.5" strokeLinecap="round" />
+      </g>
+
+      {/* Document lines, RIGHT-CENTER */}
+      <g style={{ opacity: 0.25 }}>
+        <rect x="1700" y="400" width="120" height="160" stroke="white" strokeWidth="1.5" fill="none" rx="2" />
+        <line x1="1720" y1="430" x2="1800" y2="430" stroke="white" strokeWidth="1" strokeLinecap="round" />
+        <line x1="1720" y1="455" x2="1790" y2="455" stroke="white" strokeWidth="1" strokeLinecap="round" />
+        <line x1="1720" y1="480" x2="1780" y2="480" stroke="white" strokeWidth="1" strokeLinecap="round" />
+        <line x1="1720" y1="505" x2="1795" y2="505" stroke="white" strokeWidth="1" strokeLinecap="round" />
+        <line x1="1720" y1="530" x2="1770" y2="530" stroke="white" strokeWidth="1" strokeLinecap="round" />
+      </g>
+
+      {/* Checkmark, BOTTOM-LEFT, drifts */}
+      <g
+        style={{
+          opacity: 0.40,
+          ...(animated
+            ? { animation: 'geo-drift-up 16s ease-in-out infinite' }
+            : {}),
+        }}
+      >
+        <polyline points="220,880 240,905 280,860" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+        <circle cx="250" cy="885" r="30" stroke="white" strokeWidth="1.5" fill="none" />
+      </g>
+
+      {/* Horizontal datum, RIGHT-BOTTOM */}
+      <g style={{ opacity: 0.20 }}>
+        <line x1="1600" y1="750" x2="1820" y2="750" stroke="white" strokeWidth="1.5" strokeLinecap="round" />
+        <line x1="1600" y1="742" x2="1600" y2="758" stroke="white" strokeWidth="1.5" strokeLinecap="round" />
+        <line x1="1820" y1="742" x2="1820" y2="758" stroke="white" strokeWidth="1.5" strokeLinecap="round" />
+        <line x1="1710" y1="744" x2="1710" y2="756" stroke="white" strokeWidth="1" strokeLinecap="round" />
+      </g>
+
+      {/* Small grid, LEFT-CENTER (low opacity near text) */}
+      <g style={{ opacity: 0.15 }}>
+        <line x1="80" y1="520" x2="80" y2="600" stroke="white" strokeWidth="1.5" strokeLinecap="round" />
+        <line x1="120" y1="520" x2="120" y2="600" stroke="white" strokeWidth="1.5" strokeLinecap="round" />
+        <line x1="160" y1="520" x2="160" y2="600" stroke="white" strokeWidth="1.5" strokeLinecap="round" />
+        <line x1="80" y1="520" x2="160" y2="520" stroke="white" strokeWidth="1.5" strokeLinecap="round" />
+        <line x1="80" y1="560" x2="160" y2="560" stroke="white" strokeWidth="1.5" strokeLinecap="round" />
+        <line x1="80" y1="600" x2="160" y2="600" stroke="white" strokeWidth="1.5" strokeLinecap="round" />
       </g>
     </g>
   );

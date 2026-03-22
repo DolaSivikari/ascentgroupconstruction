@@ -51,4 +51,20 @@ export const enrichedHeroSlides = [
       href: "/contact",
     },
   },
+  {
+    video: buildingVideo,
+    poster: buildingPoster,
+    stat: "$2M",
+    statLabel: "CGL Insured",
+    headline: "Prequalification-Ready. Documentation On Demand.",
+    subheadline: "WSIB registered, $2M CGL coverage, 48-hour quote turnaround, and pilot projects available for new partnerships.",
+    primaryCTA: {
+      label: "Prequalify Now",
+      href: "/prequalification",
+    },
+    secondaryCTA: {
+      label: "For General Contractors",
+      href: "/for-general-contractors",
+    },
+  },
 ];
