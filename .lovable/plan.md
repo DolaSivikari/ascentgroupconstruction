@@ -1,78 +1,62 @@
 
 
-## Plan: Merge Value Proposition Content into Who We Serve Section
+## Plan: Smooth Homepage Section Flow
 
-### What and Why
+### Problem
 
-The current `WhoWeServeHomepage` section jumps straight to 4 client cards with no context about **why** clients should choose Ascent Group. The old `ClientValueProposition` had rich SEO copy (accountability, self-perform trades, QA/QC, occupied buildings) plus 7 benefit bullets that told visitors why you're different -- but it was a separate section visitors might never reach.
+Every section has its own hard background color (`bg-background`, `bg-muted/30`, gradient) creating sharp visual cuts between them. Combined with each section having both top AND bottom padding (two adjacent `py-20` sections create 160px of whitespace between them), the page feels like 8 disconnected blocks stacked on top of each other instead of one cohesive scroll.
 
-Merging them into one section gives visitors the "why us" messaging right alongside "who we serve," making it scannable and SEO-complete without adding scroll depth.
+### Current Spacing Audit
 
-### Updated Copy (multi-trade, honest)
+| Section | Padding | Background | Issue |
+|---------|---------|------------|-------|
+| Hero | viewport | dark | -- |
+| ProofStrip | `py-6` | none | Too tight, feels orphaned |
+| ServiceHighlights | `py-20 md:py-28` | `bg-background` | Hard cut from proof strip |
+| WhoWeServe | `py-20 md:py-28 lg:py-32` | `bg-muted/30` | Hard bg switch |
+| FeaturedProjects | `py-20 md:py-28 lg:py-32` | `bg-muted/30` | Same bg as above but double padding between |
+| WhyChooseUs | `py-20 md:py-28 lg:py-32` | `bg-muted/30` | Same bg again, triple stacking |
+| ProcessStrip | `py-20 md:py-28 lg:py-32` | gradient `muted/40 -> background` | Gradient helps but still cuts |
+| FinalCTA | `py-20 md:py-28` | primary gradient | Intentionally distinct (keep) |
 
-**H2:** "Why Clients Choose Us"
+### Solution: 3 Changes
 
-**Subhead:** "Building performance is non-negotiable -- and accountability is everything."
+**1. Group sections into visual "zones" with shared backgrounds**
 
-**Body paragraphs (updated for multi-trade):**
-- Para 1: Developers, general contractors, property managers, and asset owners choose Ascent Group Construction for specialized envelope, restoration, and interior trade delivery across Toronto (GTA) and the Golden Horseshoe. We act as the lead contractor -- coordinating access and safety, self-performing key trades, and communicating clearly from site walk to closeout.
-- Para 2: We follow consultant/engineer-of-record (EOR) details, document work with photo logs/ITPs, and provide applicable manufacturer and workmanship warranties.
+Instead of each section owning its own background, wrap groups of sections in a shared background container in `Index.tsx`. This eliminates hard color cuts:
 
-**7 benefit bullets (updated):**
-1. Prime accountability for project scopes (broadened from "envelope scopes")
-2. Self-performed core trades -- sealants/caulking, EIFS & stucco, masonry repairs, waterproofing & protective coatings, concrete and parking-garage rehabilitation, commercial painting, interior buildouts
-3. Consultant/EOR-aligned execution
-4. Documented QA/QC
-5. Occupied-building expertise
-6. Responsive by design
-7. Local coverage
+- **Zone A** (white): Hero + ProofStrip + ServiceHighlights
+- **Zone B** (muted): WhoWeServe + FeaturedProjects + WhyChooseUs
+- **Zone C** (gradient): ProcessStrip (gradient from muted to white)
+- **Zone D** (primary): FinalCTA (keep as-is)
 
-**CTAs:** Request Site Assessment, View Services, For GCs: Request Unit Pricing
+**2. Reduce section padding to use only top-padding (except first/last in zone)**
 
-Then a divider, followed by the existing 4 client segment cards (unchanged).
+Replace symmetric `py-*` with asymmetric padding so adjacent sections within a zone share space naturally. Each section gets `pt-16 md:pt-20` instead of `py-20 md:py-28`, with only the last section in a zone getting bottom padding.
 
-### Layout
+**3. Connect the ProofStrip to the ServiceHighlights visually**
 
-```text
-┌─────────────────────────────────────────────────┐
-│  Badge: "Why Choose Us"                         │
-│  H2: Why Clients Choose Us                      │
-│  Subhead: Building performance is...            │
-│                                                 │
-│  2 SEO paragraphs (multi-trade updated)         │
-│                                                 │
-│  ┌─────────────┐  ┌─────────────┐              │
-│  │ Benefit 1   │  │ Benefit 2   │  (2-col grid, │
-│  │ Benefit 3   │  │ Benefit 4   │   7 items)    │
-│  │ Benefit 5   │  │ Benefit 6   │              │
-│  │ Benefit 7   │  │             │              │
-│  └─────────────┘  └─────────────┘              │
-│                                                 │
-│  [Request Site Assessment] [View Services]      │
-│  [For GCs: Request Unit Pricing]                │
-│                                                 │
-│  ─── border-t divider ───                       │
-│                                                 │
-│  H3: Who We Serve                               │
-│  Sub: From general contractors...               │
-│                                                 │
-│  ┌────┐ ┌────┐ ┌────┐ ┌────┐                   │
-│  │ GC │ │PM  │ │Comm│ │Home│  (existing 4 cards)│
-│  └────┘ └────┘ └────┘ └────┘                   │
-└─────────────────────────────────────────────────┘
-```
+Increase ProofStrip padding from `py-6` to `pt-8 pb-0` and remove its own `<section>` border, letting it breathe into the section below.
 
 ### Technical Details
 
-**File changed:** `src/components/homepage/WhoWeServeHomepage.tsx`
+**Files changed:**
 
-- Add "Why Choose Us" intro block above existing client cards
-- Include the 7 benefit bullets in a `md:grid-cols-2` grid using the design system `Card` component with `variant="outline" size="sm"` and `CheckCircle2` icons
-- Add 3 CTA buttons (same pattern as service highlights)
-- Demote current H2 to H3, move below a `border-t border-border/50` divider
-- Existing 4 `ClientSegmentCard` items and their animation logic remain unchanged
-- Replace `construction-orange` references with `primary` token
-- Keep all scroll-fade-in and reduced-motion handling
+| File | Change |
+|------|--------|
+| `src/pages/Index.tsx` | Wrap sections in zone `<div>`s with shared backgrounds |
+| `src/components/homepage/HomepageProofStrip.tsx` | Adjust padding: `py-6` -> `pt-10 pb-2` for flow into next section |
+| `src/components/homepage/HomepageServiceHighlights.tsx` | Change `py-20 md:py-28` -> `pt-12 md:pt-16 pb-20 md:pb-28`, remove `bg-background` |
+| `src/components/homepage/WhoWeServeHomepage.tsx` | Remove `bg-muted/30` from Section className (zone handles it), reduce top padding |
+| `src/components/homepage/HomepageFeaturedProjects.tsx` | Remove `bg-muted/30`, reduce to `pt-8 md:pt-12 pb-20 md:pb-28` |
+| `src/components/homepage/WhyChooseUs.tsx` | Remove `bg-muted/30`, adjust padding |
+| `src/components/homepage/HomepageProcessStrip.tsx` | Adjust gradient to flow from zone B bg into white, reduce top padding |
+| `src/components/homepage/HomepageFinalCta.tsx` | Keep as-is (intentionally distinct) |
 
-**No other files change.** The `ClientValueProposition.tsx` component remains untouched. `Index.tsx` section order stays the same.
+### What This Achieves
+- Sections within the same zone feel connected, not cut apart
+- Reduced total whitespace between sections (no more double-padding)
+- Background transitions happen at zone boundaries only (2-3 transitions instead of 7)
+- ProofStrip flows naturally into service highlights
+- No content removed, no reordering, just spacing and background fixes
 
