@@ -125,7 +125,10 @@ const EnhancedHero = ({ splashComplete = true }: { splashComplete?: boolean }) =
 
   const hasUsableAdminSlides = adminHeroSlides.length > 0;
   const activeSlides = hasUsableAdminSlides
-    ? adminHeroSlides.map((slide, index) => mapAdminSlideToHero(slide, fallbackHeroSlides[index % fallbackHeroSlides.length], index))
+    ? [
+        ...adminHeroSlides.map((slide, index) => mapAdminSlideToHero(slide, fallbackHeroSlides[index % fallbackHeroSlides.length], index)),
+        ...fallbackHeroSlides.slice(adminHeroSlides.length),
+      ]
     : fallbackHeroSlides;
 
   const videoUrls = activeSlides.map(slide => slide.video);
