@@ -193,7 +193,7 @@ const Navigation = () => {
             </div>
 
             {/* Center: Main Navigation — About → Services → Markets → Projects → Trade Partners → Contact */}
-            <nav className="flex items-center gap-4 lg:gap-6" aria-label="Main navigation">
+            <nav className="flex items-center gap-2 lg:gap-3" aria-label="Main navigation">
               {/* About Mega-Menu */}
               <div
                 className="relative"
