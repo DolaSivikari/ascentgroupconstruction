@@ -5,7 +5,7 @@ import { useState, useEffect, useCallback } from 'react';
  * Prevents memory leaks when components unmount during pending timeouts
  */
 export const useHoverTimeout = () => {
-  const [timeout, setTimeout] = useState<NodeJS.Timeout | null>(null);
+  const [timeout, setTimeout] = useState<ReturnType<typeof globalThis.setTimeout> | null>(null);
 
   const clearPendingTimeout = useCallback(() => {
     if (timeout) {

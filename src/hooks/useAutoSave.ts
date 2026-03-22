@@ -15,7 +15,7 @@ export const useAutoSave = <T extends Record<string, any>>(
   const { interval = 30000, enabled = true, storageKey } = options;
   const [lastSaved, setLastSaved] = useState<Date | null>(null);
   const [isSaving, setIsSaving] = useState(false);
-  const timeoutRef = useRef<NodeJS.Timeout>();
+  const timeoutRef = useRef<ReturnType<typeof setTimeout>>();
   const previousDataRef = useRef<string>('');
 
   // Save to localStorage

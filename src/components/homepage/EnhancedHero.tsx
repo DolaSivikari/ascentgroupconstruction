@@ -104,7 +104,7 @@ const EnhancedHero = ({ splashComplete = true }: { splashComplete?: boolean }) =
   const [showSwipeHint, setShowSwipeHint] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
   const prevVideoRef = useRef<HTMLVideoElement>(null);
-  const autoplayIntervalRef = useRef<NodeJS.Timeout | null>(null);
+  const autoplayIntervalRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const heroReadyRef = useRef(false);
   const sectionRef = useRef<HTMLElement>(null);
 
