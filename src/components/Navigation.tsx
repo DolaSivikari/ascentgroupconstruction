@@ -244,30 +244,6 @@ const Navigation = () => {
                 />
               </div>
 
-              {/* Markets Mega-Menu */}
-              <div
-                className="relative"
-                onMouseEnter={() => handleMegaMenuEnter("markets")}
-                onMouseLeave={handleMegaMenuLeave}
-              >
-                <Link
-                  to="/markets"
-                  className={navLinkClass("markets")}
-                  aria-expanded={activeMegaMenu === "markets"}
-                >
-                  Markets
-                  <ChevronDown className={cn(
-                    "w-4 h-4 transition-all duration-300",
-                    activeMegaMenu === "markets" && "rotate-180"
-                  )} />
-                </Link>
-                <MegaMenuWithSections
-                  sections={megaMenuDataEnhanced.markets.sections}
-                  isOpen={activeMegaMenu === "markets"}
-                  onClose={closeMegaMenu}
-                  config={megaMenuDataEnhanced.markets}
-                />
-              </div>
 
               {/* Projects */}
               <Link
