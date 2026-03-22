@@ -119,25 +119,23 @@ const Index = () => {
           {/* 1. Hero */}
           <EnhancedHero />
 
-          {/* 2. Proof Strip */}
-          <HomepageProofStrip />
+          {/* ── Zone A: White background ── */}
+          <div className="bg-background">
+            <HomepageProofStrip />
+            <HomepageServiceHighlights />
+          </div>
 
-          {/* 3. Service Highlights */}
-          <HomepageServiceHighlights />
+          {/* ── Zone B: Muted background ── */}
+          <div className="bg-muted/30">
+            <WhoWeServeHomepage />
+            <HomepageFeaturedProjects />
+            <WhyChooseUs />
+          </div>
 
-          {/* 4. Who We Serve */}
-          <WhoWeServeHomepage />
-
-          {/* 5. Featured Projects */}
-          <HomepageFeaturedProjects />
-
-          {/* 6. Why Choose Us */}
-          <WhyChooseUs />
-
-          {/* 7. How We Work */}
+          {/* ── Zone C: Gradient transition ── */}
           <HomepageProcessStrip />
 
-          {/* 8. Final CTA */}
+          {/* ── Zone D: Primary CTA ── */}
           <HomepageFinalCta />
         </main>
 

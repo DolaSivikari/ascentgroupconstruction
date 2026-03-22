@@ -38,7 +38,7 @@ const WhyChooseUs = () => {
     : fallbackDifferentiators;
 
   return (
-    <section className={`${LAYOUT.sectionSpacing.major} bg-muted/30`}>
+    <section className="pt-8 md:pt-12 pb-20 md:pb-28">
       <div className="container mx-auto px-6 md:px-8 lg:px-12 max-w-7xl">
 
         {/* Section Header */}

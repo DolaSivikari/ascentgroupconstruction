@@ -87,7 +87,7 @@ const WhoWeServeHomepage = () => {
   });
 
   return (
-    <Section size="major" className="bg-muted/30">
+    <Section size="major" className="!bg-transparent !pt-16 md:!pt-20 !pb-8 md:!pb-12">
       <div className="relative z-10">
         {/* Why Choose Us */}
         <div ref={headerRef} className="max-w-4xl mb-12" style={fadeStyle(showHeader)}>

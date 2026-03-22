@@ -113,7 +113,7 @@ export const HomepageServiceHighlights = () => {
   });
 
   return (
-    <section className="py-20 md:py-28 bg-background">
+    <section className="pt-12 md:pt-16 pb-20 md:pb-28">
       <div className="container mx-auto px-6 md:px-8 lg:px-12 max-w-7xl">
         {/* ── Part 1: Company Introduction ── */}
         <div ref={introRef} style={fadeStyle(showIntro)}>
