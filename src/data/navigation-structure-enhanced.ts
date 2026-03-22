@@ -128,8 +128,8 @@ export const megaMenuDataEnhanced: MegaMenuDataEnhanced = {
   // COMPANY (ABOUT) MEGA MENU
   // ============================================
   company: {
-    width: 520,
-    columns: 2,
+    width: 620,
+    columns: 3,
     sections: [
       {
         sectionTitle: "About Ascent Group",
