@@ -150,9 +150,10 @@ const Navigation = () => {
   // Nav link style helper
   const navLinkClass = (menuKey?: string, path?: string) =>
     cn(
-      "px-2 py-2 text-base font-semibold inline-flex items-center gap-1.5 transition-all duration-300",
+      "px-2 py-2 text-sm font-semibold tracking-wide inline-flex items-center gap-1.5 transition-all duration-300",
       "relative after:absolute after:bottom-0 after:left-0 after:w-full after:h-[2px]",
-      "after:bg-primary after:scale-x-0 after:origin-left hover:after:scale-x-100 after:transition-transform after:duration-300",
+      "after:scale-x-0 after:origin-left hover:after:scale-x-100 after:transition-transform after:duration-300",
+      isHeroPage && isAtTop ? "after:bg-white" : "after:bg-primary",
       menuKey && activeMegaMenu === menuKey
         ? "text-primary after:scale-x-100"
         : path && isActive(path)
@@ -174,8 +175,8 @@ const Navigation = () => {
             : "bg-background/95 backdrop-blur-xl shadow-lg border-b border-border/50"
         )}
       >
-        <div className="w-full max-w-none px-6 md:px-8 lg:px-16 xl:px-20">
-          <div className="hidden md:flex items-center justify-between w-full h-20 md:h-24 lg:h-28">
+        <div className="w-full max-w-none px-4 md:px-6 lg:px-10 xl:px-14">
+          <div className="hidden md:flex items-center justify-between w-full h-16 md:h-18 lg:h-20">
             {/* Left: Logo */}
             <div className="flex items-center">
               <Link
@@ -186,13 +187,13 @@ const Navigation = () => {
                 <img
                   src={isHeroPage && isAtTop ? ascentLogoHorizontalLight : ascentLogoHorizontalDark}
                   alt="Ascent Group Construction Logo"
-                  className="h-18 md:h-20 lg:h-24 w-auto hover-scale-icon transition-all duration-500"
+                  className="h-10 md:h-11 lg:h-12 w-auto hover-scale-icon transition-all duration-500"
                 />
               </Link>
             </div>
 
             {/* Center: Main Navigation — About → Services → Markets → Projects → Trade Partners → Contact */}
-            <nav className="flex items-center gap-4 lg:gap-6" aria-label="Main navigation">
+            <nav className="flex items-center gap-2 lg:gap-3" aria-label="Main navigation">
               {/* About Mega-Menu */}
               <div
                 className="relative"
@@ -243,30 +244,6 @@ const Navigation = () => {
                 />
               </div>
 
-              {/* Markets Mega-Menu */}
-              <div
-                className="relative"
-                onMouseEnter={() => handleMegaMenuEnter("markets")}
-                onMouseLeave={handleMegaMenuLeave}
-              >
-                <Link
-                  to="/markets"
-                  className={navLinkClass("markets")}
-                  aria-expanded={activeMegaMenu === "markets"}
-                >
-                  Markets
-                  <ChevronDown className={cn(
-                    "w-4 h-4 transition-all duration-300",
-                    activeMegaMenu === "markets" && "rotate-180"
-                  )} />
-                </Link>
-                <MegaMenuWithSections
-                  sections={megaMenuDataEnhanced.markets.sections}
-                  isOpen={activeMegaMenu === "markets"}
-                  onClose={closeMegaMenu}
-                  config={megaMenuDataEnhanced.markets}
-                />
-              </div>
 
               {/* Projects */}
               <Link
@@ -317,8 +294,8 @@ const Navigation = () => {
                 <a
                   href={`tel:${settings.phone}`}
                   className={cn(
-                    "hidden lg:flex items-center gap-2 text-sm font-medium hover:text-primary hover-scale whitespace-nowrap transition-colors duration-[150ms]",
-                    isHeroPage && isAtTop ? "text-white" : "text-foreground"
+                    "hidden lg:flex items-center gap-2 text-sm font-normal hover:text-primary hover-scale whitespace-nowrap transition-colors duration-[150ms]",
+                    isHeroPage && isAtTop ? "text-white" : "text-muted-foreground"
                   )}
                 >
                   <Phone className="w-4 h-4" />
@@ -401,7 +378,7 @@ const Navigation = () => {
           </div>
 
           {/* Mobile Layout */}
-          <div className="flex md:hidden items-center justify-between h-20">
+          <div className="flex md:hidden items-center justify-between h-16">
             {/* Mobile Logo */}
             <Link
               to="/"
@@ -411,7 +388,7 @@ const Navigation = () => {
               <img
                 src={isHeroPage && isAtTop ? ascentLogoHorizontalLight : ascentLogoHorizontalDark}
                 alt="Ascent Group Construction Logo"
-                className="h-10 w-auto"
+                className="h-9 w-auto"
               />
             </Link>
 

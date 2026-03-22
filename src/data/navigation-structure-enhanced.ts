@@ -128,8 +128,8 @@ export const megaMenuDataEnhanced: MegaMenuDataEnhanced = {
   // COMPANY (ABOUT) MEGA MENU
   // ============================================
   company: {
-    width: 520,
-    columns: 2,
+    width: 620,
+    columns: 3,
     sections: [
       {
         sectionTitle: "About Ascent Group",
@@ -145,6 +145,15 @@ export const megaMenuDataEnhanced: MegaMenuDataEnhanced = {
               { name: "Our Process", link: "/our-process", description: "How we work", icon: "GitBranch" },
               { name: "Careers", link: "/careers", description: "Join our team", icon: "Users" },
               { name: "FAQ", link: "/faq", description: "Common questions", icon: "HelpCircle" },
+            ],
+          },
+          {
+            title: "Who We Serve",
+            subItems: [
+              { name: "Property Managers", link: "/property-managers", description: "Building maintenance solutions", icon: "Building2" },
+              { name: "Commercial Clients", link: "/commercial-clients", description: "Business property services", icon: "Briefcase" },
+              { name: "Homeowners", link: "/homeowners", description: "Residential services", icon: "Home" },
+              { name: "Developers", link: "/company/developers", description: "Development projects", icon: "Building" },
             ],
           },
           {
