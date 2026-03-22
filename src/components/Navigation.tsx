@@ -378,7 +378,7 @@ const Navigation = () => {
           </div>
 
           {/* Mobile Layout */}
-          <div className="flex md:hidden items-center justify-between h-20">
+          <div className="flex md:hidden items-center justify-between h-16">
             {/* Mobile Logo */}
             <Link
               to="/"
