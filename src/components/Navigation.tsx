@@ -187,7 +187,7 @@ const Navigation = () => {
                 <img
                   src={isHeroPage && isAtTop ? ascentLogoHorizontalLight : ascentLogoHorizontalDark}
                   alt="Ascent Group Construction Logo"
-                  className="h-18 md:h-20 lg:h-24 w-auto hover-scale-icon transition-all duration-500"
+                  className="h-10 md:h-11 lg:h-12 w-auto hover-scale-icon transition-all duration-500"
                 />
               </Link>
             </div>
