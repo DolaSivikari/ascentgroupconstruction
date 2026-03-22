@@ -148,6 +148,15 @@ export const megaMenuDataEnhanced: MegaMenuDataEnhanced = {
             ],
           },
           {
+            title: "Who We Serve",
+            subItems: [
+              { name: "Property Managers", link: "/property-managers", description: "Building maintenance solutions", icon: "Building2" },
+              { name: "Commercial Clients", link: "/commercial-clients", description: "Business property services", icon: "Briefcase" },
+              { name: "Homeowners", link: "/homeowners", description: "Residential services", icon: "Home" },
+              { name: "Developers", link: "/company/developers", description: "Development projects", icon: "Building" },
+            ],
+          },
+          {
             title: "Credentials",
             subItems: [
               { name: "Certifications & Insurance", link: "/company/certifications-insurance", description: "Credentials", icon: "Shield" },
