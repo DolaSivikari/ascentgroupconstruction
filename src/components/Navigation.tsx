@@ -294,8 +294,8 @@ const Navigation = () => {
                 <a
                   href={`tel:${settings.phone}`}
                   className={cn(
-                    "hidden lg:flex items-center gap-2 text-sm font-medium hover:text-primary hover-scale whitespace-nowrap transition-colors duration-[150ms]",
-                    isHeroPage && isAtTop ? "text-white" : "text-foreground"
+                    "hidden lg:flex items-center gap-2 text-sm font-normal hover:text-primary hover-scale whitespace-nowrap transition-colors duration-[150ms]",
+                    isHeroPage && isAtTop ? "text-white" : "text-muted-foreground"
                   )}
                 >
                   <Phone className="w-4 h-4" />
