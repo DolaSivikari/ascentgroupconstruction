@@ -25,7 +25,7 @@ const getSessionId = (): string => {
 export function useSearchAnalytics() {
   const sessionId = useRef(getSessionId());
   const lastTrackedQuery = useRef<string>("");
-  const trackingTimeout = useRef<NodeJS.Timeout>();
+  const trackingTimeout = useRef<ReturnType<typeof setTimeout>>();
 
   // Debounced search tracking to avoid excessive database writes
   const trackSearch = useCallback(async (data: SearchAnalyticsData) => {

@@ -9,6 +9,11 @@ import {
   LayoutDashboard,
   Paintbrush,
   ArrowRight,
+  Shield,
+  Award,
+  FileCheck,
+  MapPin,
+  Clock,
 } from "lucide-react";
 import { motion } from "framer-motion";
 import { GRID } from "@/design-system/layouts";
@@ -66,43 +71,158 @@ const services = [
   },
 ];
 
+const highlights = [
+  {
+    icon: Shield,
+    title: "Complete Services",
+    description:
+      "Lead specialty contractor with self-perform trades delivering schedule certainty and quality control across envelope, restoration, painting, and interior projects.",
+  },
+  {
+    icon: Award,
+    title: "Building Our Track Record",
+    description:
+      "15+ years combined team experience with on-time, on-budget delivery serving developers, property managers, and institutional clients across the Greater Toronto Area.",
+  },
+  {
+    icon: FileCheck,
+    title: "Building Our Credentials",
+    description:
+      "Licensed business with WSIB registration and insurance in progress. Committed to safety, quality documentation, and professional execution on every project.",
+  },
+];
+
 const springHover = { type: "spring" as const, stiffness: 300, damping: 20 };
 
 export const HomepageServiceHighlights = () => {
   const rm = useReducedMotion();
+  const { ref: introRef, isVisible: introVisible, skipAnimation: introSkip } =
+    useScrollFadeIn();
   const { ref: headerRef, isVisible: headerVisible, skipAnimation: headerSkip } =
     useScrollFadeIn();
 
+  const showIntro = introVisible || introSkip || rm;
   const showHeader = headerVisible || headerSkip || rm;
+
+  const fadeStyle = (visible: boolean) => ({
+    opacity: visible ? 1 : 0,
+    transform: visible ? "translateY(0)" : "translateY(24px)",
+    transition: rm
+      ? "none"
+      : "opacity 300ms ease-out, transform 300ms ease-out",
+  });
 
   return (
     <section className="py-20 md:py-28 bg-background">
       <div className="container mx-auto px-6 md:px-8 lg:px-12 max-w-7xl">
-        {/* Header */}
+        {/* ── Part 1: Company Introduction ── */}
+        <div ref={introRef} style={fadeStyle(showIntro)}>
+          {/* Header */}
+          <div className="max-w-4xl mb-10">
+            <p className="text-xs font-semibold text-muted-foreground uppercase tracking-widest mb-4">
+              About Ascent Group
+            </p>
+            <h2 className="text-3xl md:text-5xl font-bold text-foreground mb-5 leading-tight tracking-tight">
+              Building Envelope, Restoration &amp; Interior Trades Across Toronto (GTA)
+            </h2>
+            <p className="text-lg text-muted-foreground leading-relaxed max-w-3xl">
+              Lead contractor for envelope restoration, interior buildouts, painting, and specialty
+              trades — planning, self-performing, and delivering accountable results across the GTA
+              and Golden Horseshoe.
+            </p>
+          </div>
+
+          {/* Two-column body */}
+          <div className="grid md:grid-cols-2 gap-x-12 gap-y-6 mb-12">
+            <div className="space-y-4">
+              <p className="text-sm text-muted-foreground leading-relaxed">
+                Ascent Group Construction protects and improves buildings — from exterior envelope
+                and <span className="font-medium text-foreground">façade restoration</span> to{" "}
+                <span className="font-medium text-foreground">interior buildouts</span>,{" "}
+                <span className="font-medium text-foreground">painting</span>, and finishing
+                trades. We act as the lead contractor, planning access and safety, self-performing
+                the core trades, and communicating clearly from site walk to closeout.
+              </p>
+              <p className="text-sm text-muted-foreground leading-relaxed">
+                Our foundation is building envelope — but our capability extends across the full
+                scope of restoration, interior construction, and specialty trades that commercial
+                and multi-unit properties require.
+              </p>
+            </div>
+            <div className="space-y-4">
+              <p className="text-sm text-muted-foreground leading-relaxed">
+                We self-perform key trades —{" "}
+                <span className="font-medium text-foreground">
+                  sealants/caulking, EIFS &amp; stucco, masonry repairs and tuckpointing,
+                  waterproofing &amp; protective coatings, concrete and parking-garage
+                  rehabilitation, commercial painting, interior buildouts, and tile &amp; flooring
+                </span>{" "}
+                — coordinating trusted partners only when needed.
+              </p>
+              <p className="text-sm text-muted-foreground leading-relaxed">
+                We work safely in occupied buildings, document progress with photo logs, and
+                provide applicable manufacturer and workmanship warranties.
+              </p>
+            </div>
+          </div>
+
+          {/* Three highlight cards */}
+          <div className="grid sm:grid-cols-3 gap-4 mb-10">
+            {highlights.map((item) => {
+              const Icon = item.icon;
+              return (
+                <div
+                  key={item.title}
+                  className="p-5 rounded-lg border border-border/60 bg-card"
+                >
+                  <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center mb-3">
+                    <Icon className="w-5 h-5 text-primary" />
+                  </div>
+                  <h3 className="text-sm font-bold text-foreground mb-1.5">
+                    {item.title}
+                  </h3>
+                  <p className="text-xs text-muted-foreground leading-relaxed">
+                    {item.description}
+                  </p>
+                </div>
+              );
+            })}
+          </div>
+
+          {/* Service area + response time */}
+          <div className="flex flex-wrap items-center gap-x-6 gap-y-2 text-xs text-muted-foreground mb-14">
+            <span className="inline-flex items-center gap-1.5">
+              <MapPin className="w-3.5 h-3.5 text-primary" />
+              Toronto · Mississauga · Brampton · Vaughan · Markham · GTA &amp; Golden Horseshoe
+            </span>
+            <span className="inline-flex items-center gap-1.5">
+              <Clock className="w-3.5 h-3.5 text-primary" />
+              48–72 hour response on new enquiries
+            </span>
+          </div>
+
+          {/* Divider */}
+          <div className="border-b border-border mb-14" />
+        </div>
+
+        {/* ── Part 2: Service Cards ── */}
         <div
           ref={headerRef}
           className="max-w-3xl mb-14"
-          style={{
-            opacity: showHeader ? 1 : 0,
-            transform: showHeader ? "translateY(0)" : "translateY(24px)",
-            transition: rm
-              ? "none"
-              : "opacity 300ms ease-out, transform 300ms ease-out",
-          }}
+          style={fadeStyle(showHeader)}
         >
           <p className="text-xs font-semibold text-muted-foreground uppercase tracking-widest mb-4">
             Our Services
           </p>
-          <h2 className="text-3xl md:text-5xl font-bold text-foreground mb-5 leading-tight tracking-tight">
+          <h3 className="text-3xl md:text-4xl font-bold text-foreground mb-5 leading-tight tracking-tight">
             Specialty Trades, Self-Performed
-          </h2>
+          </h3>
           <p className="text-lg text-muted-foreground leading-relaxed">
             Eight core service lines delivered by our own trained crews — no sub-contractor
             hand-offs, full accountability on every project.
           </p>
         </div>
 
-        {/* Service cards */}
         <div className={GRID.cards4}>
           {services.map((service, index) => {
             const Icon = service.icon;
