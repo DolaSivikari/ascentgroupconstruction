@@ -150,9 +150,10 @@ const Navigation = () => {
   // Nav link style helper
   const navLinkClass = (menuKey?: string, path?: string) =>
     cn(
-      "px-2 py-2 text-base font-semibold inline-flex items-center gap-1.5 transition-all duration-300",
+      "px-2 py-2 text-sm font-semibold tracking-wide inline-flex items-center gap-1.5 transition-all duration-300",
       "relative after:absolute after:bottom-0 after:left-0 after:w-full after:h-[2px]",
-      "after:bg-primary after:scale-x-0 after:origin-left hover:after:scale-x-100 after:transition-transform after:duration-300",
+      "after:scale-x-0 after:origin-left hover:after:scale-x-100 after:transition-transform after:duration-300",
+      isHeroPage && isAtTop ? "after:bg-white" : "after:bg-primary",
       menuKey && activeMegaMenu === menuKey
         ? "text-primary after:scale-x-100"
         : path && isActive(path)
