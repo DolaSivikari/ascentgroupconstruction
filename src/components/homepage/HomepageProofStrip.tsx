@@ -18,7 +18,7 @@ export const HomepageProofStrip = () => {
                 <div key={index} className="flex flex-col items-center gap-1">
                   <Icon className="w-5 h-5 mb-1 text-primary" aria-hidden="true" />
                   <p className="text-xl md:text-2xl font-bold">{stat.value}</p>
-                  <p className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
+                  <p className="text-sm font-medium uppercase tracking-wider text-muted-foreground">
                     {stat.label}
                   </p>
                 </div>

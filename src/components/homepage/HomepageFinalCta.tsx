@@ -108,7 +108,7 @@ export const HomepageFinalCta = () => {
                     <Icon className="w-6 h-6 text-white" />
                   </div>
                   <h3 className="text-xl font-bold text-white mb-3">{card.title}</h3>
-                  <p className="text-sm text-white/75 leading-relaxed flex-1 mb-6">
+                  <p className="text-base text-white/75 leading-relaxed flex-1 mb-6">
                     {card.description}
                   </p>
                   <Button

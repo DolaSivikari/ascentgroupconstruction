@@ -135,7 +135,7 @@ export const HomepageServiceHighlights = () => {
           {/* Two-column body */}
           <div className="grid md:grid-cols-2 gap-x-12 gap-y-6 mb-12">
             <div className="space-y-4">
-              <p className="text-sm text-muted-foreground leading-relaxed">
+              <p className="text-base text-muted-foreground leading-relaxed">
                 Ascent Group Construction protects and improves buildings — from exterior envelope
                 and <span className="font-medium text-foreground">façade restoration</span> to{" "}
                 <span className="font-medium text-foreground">interior buildouts</span>,{" "}
@@ -143,14 +143,14 @@ export const HomepageServiceHighlights = () => {
                 trades. We act as the lead contractor, planning access and safety, self-performing
                 the core trades, and communicating clearly from site walk to closeout.
               </p>
-              <p className="text-sm text-muted-foreground leading-relaxed">
+              <p className="text-base text-muted-foreground leading-relaxed">
                 Our foundation is building envelope — but our capability extends across the full
                 scope of restoration, interior construction, and specialty trades that commercial
                 and multi-unit properties require.
               </p>
             </div>
             <div className="space-y-4">
-              <p className="text-sm text-muted-foreground leading-relaxed">
+              <p className="text-base text-muted-foreground leading-relaxed">
                 We self-perform key trades —{" "}
                 <span className="font-medium text-foreground">
                   sealants/caulking, EIFS &amp; stucco, masonry repairs and tuckpointing,
@@ -159,7 +159,7 @@ export const HomepageServiceHighlights = () => {
                 </span>{" "}
                 — coordinating trusted partners only when needed.
               </p>
-              <p className="text-sm text-muted-foreground leading-relaxed">
+              <p className="text-base text-muted-foreground leading-relaxed">
                 We work safely in occupied buildings, document progress with photo logs, and
                 provide applicable manufacturer and workmanship warranties.
               </p>
@@ -178,10 +178,10 @@ export const HomepageServiceHighlights = () => {
                   <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center mb-3">
                     <Icon className="w-5 h-5 text-primary" />
                   </div>
-                  <h3 className="text-sm font-bold text-foreground mb-1.5">
+                  <h3 className="text-base font-bold text-foreground mb-1.5">
                     {item.title}
                   </h3>
-                  <p className="text-xs text-muted-foreground leading-relaxed">
+                  <p className="text-base text-muted-foreground leading-relaxed">
                     {item.description}
                   </p>
                 </div>
@@ -190,7 +190,7 @@ export const HomepageServiceHighlights = () => {
           </div>
 
           {/* Service area + response time */}
-          <div className="flex flex-wrap items-center gap-x-6 gap-y-2 text-xs text-muted-foreground mb-14">
+          <div className="flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-muted-foreground mb-14">
             <span className="inline-flex items-center gap-1.5">
               <MapPin className="w-3.5 h-3.5 text-primary" />
               Toronto · Mississauga · Brampton · Vaughan · Markham · GTA &amp; Golden Horseshoe
@@ -249,7 +249,7 @@ export const HomepageServiceHighlights = () => {
                   <h3 className="text-base font-bold text-foreground mb-2 leading-snug">
                     {service.title}
                   </h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed">
+                  <p className="text-base text-muted-foreground leading-relaxed">
                     {service.description}
                   </p>
                 </Link>
@@ -262,7 +262,7 @@ export const HomepageServiceHighlights = () => {
         <div className="mt-12 text-center">
           <Link
             to="/services"
-            className="inline-flex items-center gap-2 text-sm font-semibold text-primary hover:text-primary/80 transition-colors duration-200"
+            className="inline-flex items-center gap-2 text-base font-semibold text-primary hover:text-primary/80 transition-colors duration-200"
           >
             View all services
             <ArrowRight className="w-4 h-4" />
