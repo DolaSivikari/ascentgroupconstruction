@@ -143,14 +143,14 @@ export const HomepageServiceHighlights = () => {
                 trades. We act as the lead contractor, planning access and safety, self-performing
                 the core trades, and communicating clearly from site walk to closeout.
               </p>
-              <p className="text-sm text-muted-foreground leading-relaxed">
+              <p className="text-base text-muted-foreground leading-relaxed">
                 Our foundation is building envelope — but our capability extends across the full
                 scope of restoration, interior construction, and specialty trades that commercial
                 and multi-unit properties require.
               </p>
             </div>
             <div className="space-y-4">
-              <p className="text-sm text-muted-foreground leading-relaxed">
+              <p className="text-base text-muted-foreground leading-relaxed">
                 We self-perform key trades —{" "}
                 <span className="font-medium text-foreground">
                   sealants/caulking, EIFS &amp; stucco, masonry repairs and tuckpointing,
@@ -159,7 +159,7 @@ export const HomepageServiceHighlights = () => {
                 </span>{" "}
                 — coordinating trusted partners only when needed.
               </p>
-              <p className="text-sm text-muted-foreground leading-relaxed">
+              <p className="text-base text-muted-foreground leading-relaxed">
                 We work safely in occupied buildings, document progress with photo logs, and
                 provide applicable manufacturer and workmanship warranties.
               </p>
@@ -181,7 +181,7 @@ export const HomepageServiceHighlights = () => {
                   <h3 className="text-base font-bold text-foreground mb-1.5">
                     {item.title}
                   </h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed">
+                  <p className="text-base text-muted-foreground leading-relaxed">
                     {item.description}
                   </p>
                 </div>
