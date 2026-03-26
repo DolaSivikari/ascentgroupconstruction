@@ -1,42 +1,33 @@
 
 
-## Plan: Add 4th Hero Slide (Truthful Content Only)
+## Plan: Increase Homepage Text Sizes
 
-### Verified facts from `llms.txt` and `constants/company.ts`
-- Founded: 2025
-- WSIB compliant, $2M CGL — verified across multiple pages
-- 85% self-performed — already used in slide 2
-- 48-hour quote turnaround — documented in llms.txt
-- Free site assessments — already used in slide 3
-- 15+ years combined crew experience — already used in slide 1
+### Problem
+Multiple homepage sections use undersized text:
+- **`text-xs` (12px)** used for: highlight card descriptions, service area labels, proof strip labels, process card value descriptions, Our Values/Promise descriptions
+- **`text-sm` (14px)** used for: body paragraphs in ServiceHighlights, benefit descriptions in WhoWeServe, process step descriptions, approach items, CTA card descriptions, footer links
+- The brand guideline specifies body text should be `text-base` to `text-lg` (16-18px)
 
-### 4th Slide Content
+### Changes
 
-The remaining differentiator not yet highlighted in a slide is the **documentation and responsiveness** angle — 48-hour quotes, pilot projects for new GC relationships, and prequalification-ready documentation. All verifiable from llms.txt.
+Bump every instance one step up across all homepage section components:
+- `text-xs` → `text-sm` (12px → 14px) for labels, card sub-descriptions, compact items
+- `text-sm` → `text-base` (14px → 16px) for body paragraphs, card descriptions, benefit text
+- Keep `text-lg` / `text-xl` headers and section descriptions as-is (already correct)
 
-```
-stat: "$2M"
-statLabel: "CGL Insured"
-headline: "Prequalification-Ready. Documentation On Demand."
-subheadline: "WSIB registered, $2M CGL coverage, 48-hour quote turnaround, and pilot projects available for new partnerships."
-primaryCTA: { label: "Prequalify Now", href: "/prequalification" }
-secondaryCTA: { label: "For General Contractors", href: "/for-general-contractors" }
-```
+**Files to edit (6 files):**
 
-Every claim is verified:
-- $2M CGL — canonical across site and llms.txt
-- WSIB registered — documented credential
-- 48-hour quote turnaround — from llms.txt "Why Choose Us"
-- Pilot projects — from llms.txt "Why Choose Us"
+| File | What changes |
+|---|---|
+| `HomepageServiceHighlights.tsx` | Body paragraphs `text-sm` → `text-base`; highlight card titles `text-sm` → `text-base`; highlight card descriptions `text-xs` → `text-sm`; service area strip `text-xs` → `text-sm`; service card descriptions `text-sm` → `text-base`; footer link `text-sm` → `text-base` |
+| `HomepageProofStrip.tsx` | Stat labels `text-xs` → `text-sm` |
+| `WhoWeServeHomepage.tsx` | Benefit descriptions `text-sm` → `text-base` |
+| `HomepageProcessStrip.tsx` | Step descriptions `text-sm` → `text-base`; approach items `text-sm` → `text-base`; values titles `text-sm` → `text-base`, values descriptions `text-xs` → `text-sm`; promise titles `text-sm` → `text-base`, promise descriptions `text-xs` → `text-sm`; footer link `text-sm` → `text-base` |
+| `HomepageFinalCta.tsx` | CTA card descriptions `text-sm` → `text-base` |
+| `WhyChooseUs.tsx` | Already uses `text-base` for descriptions — no changes needed |
 
-### Files to edit
-
-**1. `src/data/enriched-hero-slides.ts`**
-- Append the 4th slide object to the array
-
-**2. `src/components/homepage/HeroGeometry.tsx`**
-- Add `Slide4Geometry` function with a shield/document-themed SVG pattern
-- Add `{slideIndex === 3 && <Slide4Geometry animated={!prefersReducedMotion} />}` to the render
-
-No other files need changes — `EnhancedHero.tsx` dynamically maps over the slides array.
+### What stays the same
+- All heading sizes (H2, H3) unchanged
+- Section lead paragraphs (`text-lg`, `text-xl`) unchanged
+- `typography.css` and design system files unchanged
 
