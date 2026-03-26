@@ -117,7 +117,7 @@ export const HomepageProcessStrip = () => {
                   <Icon className="w-6 h-6 text-primary" />
                 </div>
                 <h3 className="relative z-10 text-base font-bold text-foreground mb-2">{step.title}</h3>
-                <p className="relative z-10 text-sm text-muted-foreground leading-relaxed">{step.description}</p>
+                <p className="relative z-10 text-base text-muted-foreground leading-relaxed">{step.description}</p>
               </div>
             );
           })}
@@ -140,7 +140,7 @@ export const HomepageProcessStrip = () => {
               {approachItems.map((item, i) => (
                 <div key={i} className="flex items-start gap-3">
                   <CircleCheckBig className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" aria-hidden="true" />
-                  <span className="text-sm text-muted-foreground leading-relaxed">{item}</span>
+                  <span className="text-base text-muted-foreground leading-relaxed">{item}</span>
                 </div>
               ))}
             </div>
@@ -166,8 +166,8 @@ export const HomepageProcessStrip = () => {
                       <VIcon className="w-4 h-4 text-primary-foreground" aria-hidden="true" />
                     </div>
                     <div>
-                      <p className="text-sm font-semibold mb-0.5">{item.title}</p>
-                      <p className="text-xs text-primary-foreground/80 leading-relaxed">{item.desc}</p>
+                      <p className="text-base font-semibold mb-0.5">{item.title}</p>
+                      <p className="text-sm text-primary-foreground/80 leading-relaxed">{item.desc}</p>
                     </div>
                   </div>
                 );
@@ -191,8 +191,8 @@ export const HomepageProcessStrip = () => {
                 <div key={i} className="flex items-start gap-3">
                   <Target className="w-5 h-5 text-accent flex-shrink-0 mt-0.5" aria-hidden="true" />
                   <div>
-                    <p className="text-sm font-semibold mb-0.5">{item.title}</p>
-                    <p className="text-xs text-muted-foreground leading-relaxed">{item.desc}</p>
+                    <p className="text-base font-semibold mb-0.5">{item.title}</p>
+                    <p className="text-sm text-muted-foreground leading-relaxed">{item.desc}</p>
                   </div>
                 </div>
               ))}
@@ -204,7 +204,7 @@ export const HomepageProcessStrip = () => {
         <div className="text-center mt-10">
           <Link
             to="/our-process"
-            className="inline-flex items-center gap-2 text-sm font-semibold text-primary hover:text-primary/80 transition-colors duration-200"
+            className="inline-flex items-center gap-2 text-base font-semibold text-primary hover:text-primary/80 transition-colors duration-200"
           >
             See our full process
             <ArrowRight className="w-4 h-4" />
