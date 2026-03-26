@@ -1,33 +1,27 @@
 
 
-## Plan: Increase Homepage Text Sizes
+## Plan: Make Logo Larger Without Increasing Nav Height
 
-### Problem
-Multiple homepage sections use undersized text:
-- **`text-xs` (12px)** used for: highlight card descriptions, service area labels, proof strip labels, process card value descriptions, Our Values/Promise descriptions
-- **`text-sm` (14px)** used for: body paragraphs in ServiceHighlights, benefit descriptions in WhoWeServe, process step descriptions, approach items, CTA card descriptions, footer links
-- The brand guideline specifies body text should be `text-base` to `text-lg` (16-18px)
+### Approach
+Use **negative vertical margins** on the logo so it visually overflows the nav bar without increasing the bar's height. This is a common pattern used by enterprise construction sites (e.g., Turner, Skanska) where the logo "breaks out" of the header slightly.
 
-### Changes
+### Changes — Single file: `src/components/Navigation.tsx`
 
-Bump every instance one step up across all homepage section components:
-- `text-xs` → `text-sm` (12px → 14px) for labels, card sub-descriptions, compact items
-- `text-sm` → `text-base` (14px → 16px) for body paragraphs, card descriptions, benefit text
-- Keep `text-lg` / `text-xl` headers and section descriptions as-is (already correct)
+**Desktop logo (line ~188):**
+- Change `h-10 md:h-11 lg:h-12` → `h-12 md:h-14 lg:h-16`
+- Add `-my-2 md:-my-3 lg:-my-4` (negative margins absorb the extra height so the nav bar stays the same size)
 
-**Files to edit (6 files):**
+**Mobile logo (line ~316):**
+- Change `h-9` → `h-11 -my-1` (slightly larger without affecting the mobile nav height)
 
-| File | What changes |
-|---|---|
-| `HomepageServiceHighlights.tsx` | Body paragraphs `text-sm` → `text-base`; highlight card titles `text-sm` → `text-base`; highlight card descriptions `text-xs` → `text-sm`; service area strip `text-xs` → `text-sm`; service card descriptions `text-sm` → `text-base`; footer link `text-sm` → `text-base` |
-| `HomepageProofStrip.tsx` | Stat labels `text-xs` → `text-sm` |
-| `WhoWeServeHomepage.tsx` | Benefit descriptions `text-sm` → `text-base` |
-| `HomepageProcessStrip.tsx` | Step descriptions `text-sm` → `text-base`; approach items `text-sm` → `text-base`; values titles `text-sm` → `text-base`, values descriptions `text-xs` → `text-sm`; promise titles `text-sm` → `text-base`, promise descriptions `text-xs` → `text-sm`; footer link `text-sm` → `text-base` |
-| `HomepageFinalCta.tsx` | CTA card descriptions `text-sm` → `text-base` |
-| `WhyChooseUs.tsx` | Already uses `text-base` for descriptions — no changes needed |
+### Why this works
+- `h-16` on the logo = 64px, but the nav is 80px at `lg:` — so the logo stays within bounds
+- Negative margins tell the layout engine to ignore the extra height, keeping the nav bar at exactly `h-16 md:h-18 lg:h-20`
+- No other elements shift or break
 
 ### What stays the same
-- All heading sizes (H2, H3) unchanged
-- Section lead paragraphs (`text-lg`, `text-xl`) unchanged
-- `typography.css` and design system files unchanged
+- Nav bar height unchanged
+- All nav links, buttons, spacing unchanged
+- Mega menu positioning unchanged
+- Mobile menu unchanged
 
