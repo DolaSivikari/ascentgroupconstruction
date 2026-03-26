@@ -135,7 +135,7 @@ export const HomepageServiceHighlights = () => {
           {/* Two-column body */}
           <div className="grid md:grid-cols-2 gap-x-12 gap-y-6 mb-12">
             <div className="space-y-4">
-              <p className="text-sm text-muted-foreground leading-relaxed">
+              <p className="text-base text-muted-foreground leading-relaxed">
                 Ascent Group Construction protects and improves buildings — from exterior envelope
                 and <span className="font-medium text-foreground">façade restoration</span> to{" "}
                 <span className="font-medium text-foreground">interior buildouts</span>,{" "}
