@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { Button } from "@/ui/Button";
 import { CheckCircle2, MapPin, Shield, ArrowRight, Phone } from "lucide-react";
 import { useCompanySettings } from "@/hooks/useCompanySettings";
+import { formatPhoneDisplay, formatPhoneTel } from "@/utils/formatPhone";
 
 interface DirectAnswerProps {
   children?: React.ReactNode;
