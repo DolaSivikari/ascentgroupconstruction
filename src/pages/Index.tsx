@@ -132,6 +132,13 @@ const Index = () => {
           <div className="bg-muted/30">
             <WhoWeServeHomepage />
             <HomepageFeaturedProjects />
+          </div>
+
+          {/* ── Full-bleed parallax break ── */}
+          <HomepageParallaxBreak />
+
+          {/* ── Zone B continued ── */}
+          <div className="bg-muted/30">
             <WhyChooseUs />
           </div>
 
