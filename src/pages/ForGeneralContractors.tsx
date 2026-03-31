@@ -1,3 +1,4 @@
+import { SITE_URL } from "@/constants/company";
 import SEO from "@/components/SEO";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
