@@ -300,7 +300,7 @@ const FAQ = () => {
         title="Frequently Asked Questions | Building Envelope & Restoration"
         description="Get answers to 85+ questions about building envelope, restoration, and specialty trade costs, timelines, and services in Ontario and the GTA."
         keywords="construction FAQ Toronto, building envelope questions GTA, restoration costs Ontario, EIFS repair, commercial construction questions"
-        canonical="https://ascentgroupconstruction.com/faq"
+        canonical={`${SITE_URL}/faq`}
         structuredData={[generateFAQSchema([...allFAQs, ...voiceFaqsForSchema]), howToSchema]}
       />
       

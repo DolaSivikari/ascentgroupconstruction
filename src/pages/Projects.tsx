@@ -183,7 +183,7 @@ const Projects = () => {
       <SEO
         title="Our Projects | Ascent Group Construction"
         description="Browse our growing portfolio of construction and restoration projects across the GTA. Commercial, residential, and institutional envelope and interior work."
-        canonical="https://ascentgroupconstruction.com/projects"
+        canonical={`${SITE_URL}/projects`}
       />
       <Navigation />
 

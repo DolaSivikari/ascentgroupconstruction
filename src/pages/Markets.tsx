@@ -47,7 +47,7 @@ const Markets = () => {
       <SEO
         title="Markets We Serve | Ascent Group Construction"
         description="Ascent Group Construction serves property managers, commercial clients, homeowners, developers, and general contractors across Ontario and the GTA."
-        canonical="https://ascentgroupconstruction.com/markets"
+        canonical={`${SITE_URL}/markets`}
       />
       <Navigation />
 
