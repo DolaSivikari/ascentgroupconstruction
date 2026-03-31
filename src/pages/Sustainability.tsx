@@ -85,7 +85,7 @@ const Sustainability = () => {
         title="Sustainability Practices | Ascent Group Construction"
         description="Ascent Group Construction uses low-VOC materials, responsible waste disposal, and local sourcing to minimize our environmental footprint across GTA building envelope and restoration projects."
         keywords="sustainable construction, low-VOC painting, eco-friendly contractor, waste management, GTA green building practices"
-        canonical="https://ascentgroupconstruction.com/sustainability"
+        canonical={`${SITE_URL}/sustainability`}
       />
       <Navigation />
 
