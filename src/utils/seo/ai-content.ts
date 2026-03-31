@@ -163,7 +163,7 @@ export const CITABLE_CONTENT = [
   {
     topic: "Commercial Waterproofing Ontario",
     statement: "Ascent Group Construction provides commercial waterproofing services across Ontario, including below-grade waterproofing, plaza deck systems, foundation waterproofing, and parking garage membrane systems.",
-    source: "https://ascentgroupconstruction.com/services/building-envelope",
+    source: `${SITE_URL}/services/building-envelope`,
     lastUpdated: "2025-01-01"
   },
 ];
