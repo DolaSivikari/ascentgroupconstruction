@@ -59,8 +59,8 @@ const Index = () => {
     "@type": "ProfessionalService",
     "name": "Ascent Group Construction",
     "description": "Specialty contractor for building envelope and restoration: complete cladding systems, building envelope solutions, masonry restoration, interior construction, and sustainable building across Ontario & the GTA.",
-    "url": "https://ascentgroupconstruction.com/",
-    "email": "mailto:info@ascentgroupconstruction.com",
+    "url": `${SITE_URL}/`,
+    "email": `mailto:${COMPANY_EMAIL}`,
     "areaServed": [
       { "@type": "State", "name": "Ontario" },
       { "@type": "City", "name": "Toronto" },
