@@ -9,6 +9,7 @@ import ScrollToTop from "./components/ScrollToTop";
 import CookieBanner from "./components/CookieBanner";
 import { trackPageView } from "@/lib/analytics";
 import { AppRoutes } from "@/routes/AppRoutes";
+import StickyInquiryBar from "./components/StickyInquiryBar";
 
 const queryClient = new QueryClient();
 
