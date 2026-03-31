@@ -17,9 +17,8 @@ export const PhoneLink = ({
   variant = "text",
   children 
 }: PhoneLinkProps) => {
-  // Use site_settings table (correct table name)
   const { data: settings } = useSettingsData('site_settings');
-  const phone = settings?.phone || "647-528-6804";
+  const phone = formatPhoneDisplay(settings?.phone);
 
   const handleClick = () => {
     trackPhoneClick();
