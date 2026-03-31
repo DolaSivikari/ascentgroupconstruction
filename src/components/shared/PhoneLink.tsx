@@ -2,6 +2,7 @@ import { trackPhoneClick } from "@/lib/analytics";
 import { useSettingsData } from "@/hooks/useSettingsData";
 import { Phone } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { formatPhoneDisplay, formatPhoneTel } from "@/utils/formatPhone";
 
 interface PhoneLinkProps {
   className?: string;
