@@ -3,16 +3,13 @@ import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
 import { PageHero } from "@/components/shared/PageHero";
-import { ServicePillarsGrid } from "@/components/services/ServicePillarsGrid";
-import { OperationalCapabilities } from "@/components/services/OperationalCapabilities";
-import { ServicesClientSegments } from "@/components/services/ServicesClientSegments";
-import { ServicesTrustBar } from "@/components/services/ServicesTrustBar";
-import { ServicesFeaturedWork } from "@/components/services/ServicesFeaturedWork";
+import { ServicesDataGrid } from "@/components/services/ServicesDataGrid";
 import { ServicesProcessSnapshot } from "@/components/services/ServicesProcessSnapshot";
 import { ServicesCtaSection } from "@/components/services/ServicesCtaSection";
 import { mainPageHeroes } from "@/data/hero-images";
 import { usePageAnalytics } from "@/hooks/usePageAnalytics";
 import { generateBreadcrumbSchema } from "@/utils/seo";
+import { SITE_URL } from "@/constants/company";
 
 const Services = () => {
   const breadcrumbSchema = generateBreadcrumbSchema([
@@ -27,7 +24,7 @@ const Services = () => {
         title="Specialty Contracting Services | Envelope, Restoration & Interior Trades"
         description="Self-performed and coordinated specialty contracting for building envelope, restoration, cladding, masonry, painting, tile, and interior trade packages across Ontario."
         keywords="specialty contractor Ontario, building envelope contractor, EIFS stucco contractor, masonry restoration, interior buildouts, painting contractor, tile flooring, cladding systems, renovation contractor"
-        canonical="https://ascentgroupconstruction.com/services"
+        canonical={`${SITE_URL}/services`}
         structuredData={[breadcrumbSchema]}
       />
       <Navigation />
@@ -53,11 +50,7 @@ const Services = () => {
       />
 
       <main className="flex-1 relative">
-        <ServicePillarsGrid />
-        <OperationalCapabilities />
-        <ServicesClientSegments />
-        <ServicesTrustBar />
-        <ServicesFeaturedWork />
+        <ServicesDataGrid />
         <ServicesProcessSnapshot />
         <ServicesCtaSection />
       </main>
