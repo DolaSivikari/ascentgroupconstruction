@@ -228,7 +228,7 @@ const LocationPage = () => {
     <div className="min-h-screen">
       <SEO 
         title={`Building Envelope Contractor in ${location.name} | Ascent Group`}
-        description={`Professional building envelope, façade remediation, waterproofing, and restoration services in ${location.name}, ${location.region}. WSIB compliant, $2M insured. Call 647-528-6804.`}
+        description={`Professional building envelope, façade remediation, waterproofing, and restoration services in ${location.name}, ${location.region}. WSIB compliant, $2M insured. Call ${COMPANY_PHONE}.`}
         keywords={`building envelope contractor ${location.name}, facade remediation ${location.name}, waterproofing ${location.name}, EIFS contractor ${location.name}, masonry restoration ${location.name}`}
         structuredData={[breadcrumbSchema, serviceSchema, localBusinessSchema]}
       />

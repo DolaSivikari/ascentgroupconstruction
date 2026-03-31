@@ -8,6 +8,7 @@ import { Card } from "@/design-system/components/Card";
 import { Section } from "@/components/sections/Section";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
+import { COMPANY_PHONE } from "@/constants/company";
 import { trackFormSubmit } from "@/lib/analytics";
 import { trackABTestConversion } from "@/hooks/useABTest";
 import { Button } from "@/ui/Button";
