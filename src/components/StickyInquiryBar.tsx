@@ -4,6 +4,7 @@ import { Button } from "@/ui/Button";
 import { Phone, ArrowRight } from "lucide-react";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { useCompanySettings } from "@/hooks/useCompanySettings";
+import { formatPhoneDisplay, formatPhoneTel } from "@/utils/formatPhone";
 
 const StickyInquiryBar = () => {
   const [visible, setVisible] = useState(false);
@@ -11,10 +12,8 @@ const StickyInquiryBar = () => {
   const isMobile = useIsMobile();
   const { settings } = useCompanySettings();
 
-  const displayPhone = settings?.phone
-    ? settings.phone.replace(/(\d{3})(\d{3})(\d{4})/, "($1) $2-$3")
-    : "(647) 528-6804";
-  const telLink = settings?.phone ? `tel:${settings.phone}` : "tel:6475286804";
+  const displayPhone = formatPhoneDisplay(settings?.phone);
+  const telLink = formatPhoneTel(settings?.phone);
 
   // Hide on admin routes, estimate, contact, and submit-rfp pages
   const hiddenRoutes = ["/admin", "/estimate", "/contact", "/submit-rfp", "/login", "/auth"];

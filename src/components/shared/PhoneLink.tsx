@@ -34,7 +34,7 @@ export const PhoneLink = ({
 
   return (
     <a
-      href={`tel:${phone.replace(/\D/g, '')}`}
+      href={formatPhoneTel(settings?.phone)}
       onClick={handleClick}
       className={cn(baseClasses, variantClasses[variant], className)}
       aria-label="Call Ascent Group Construction"

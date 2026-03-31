@@ -55,8 +55,8 @@ const InteractiveCTA = () => {
   });
   const { toast } = useToast();
   
-  const displayPhone = settings?.phone ? settings.phone.replace(/(\d{3})(\d{3})(\d{4})/, '($1) $2-$3') : '(647) 528-6804';
-  const telLink = settings?.phone ? `tel:${settings.phone}` : 'tel:6475286804';
+  const displayPhone = formatPhoneDisplay(settings?.phone);
+  const telLink = formatPhoneTel(settings?.phone);
 
   // Rotate stories every 4 seconds (fixed memory leak)
   useEffect(() => {
