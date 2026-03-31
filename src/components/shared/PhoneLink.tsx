@@ -2,6 +2,7 @@ import { trackPhoneClick } from "@/lib/analytics";
 import { useSettingsData } from "@/hooks/useSettingsData";
 import { Phone } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { formatPhoneDisplay, formatPhoneTel } from "@/utils/formatPhone";
 
 interface PhoneLinkProps {
   className?: string;
@@ -16,9 +17,8 @@ export const PhoneLink = ({
   variant = "text",
   children 
 }: PhoneLinkProps) => {
-  // Use site_settings table (correct table name)
   const { data: settings } = useSettingsData('site_settings');
-  const phone = settings?.phone || "647-528-6804";
+  const phone = formatPhoneDisplay(settings?.phone);
 
   const handleClick = () => {
     trackPhoneClick();
@@ -34,7 +34,7 @@ export const PhoneLink = ({
 
   return (
     <a
-      href={`tel:${phone.replace(/\D/g, '')}`}
+      href={formatPhoneTel(settings?.phone)}
       onClick={handleClick}
       className={cn(baseClasses, variantClasses[variant], className)}
       aria-label="Call Ascent Group Construction"

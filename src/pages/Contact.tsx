@@ -8,6 +8,7 @@ import { Card } from "@/design-system/components/Card";
 import { Section } from "@/components/sections/Section";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
+import { COMPANY_PHONE } from "@/constants/company";
 import { trackFormSubmit } from "@/lib/analytics";
 import { trackABTestConversion } from "@/hooks/useABTest";
 import { Button } from "@/ui/Button";
@@ -142,7 +143,7 @@ const Contact = () => {
 
   // Fallback values
   const officeAddress = contactSettings?.office_address || '2 Jody Ave\nNorth York, ON M3N 1H1\nCanada';
-  const mainPhone = contactSettings?.main_phone || '647-528-6804';
+  const mainPhone = contactSettings?.main_phone || COMPANY_PHONE;
   const generalEmail = contactSettings?.general_email || 'info@ascentgroupconstruction.com';
   const projectsEmail = contactSettings?.projects_email || 'projects@ascentgroupconstruction.com';
   const weekdayHours = contactSettings?.weekday_hours || 'Monday - Friday: 8:00 AM - 6:00 PM';

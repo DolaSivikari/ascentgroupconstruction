@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { Button } from "@/ui/Button";
 import { CheckCircle2, MapPin, Shield, ArrowRight, Phone } from "lucide-react";
 import { useCompanySettings } from "@/hooks/useCompanySettings";
+import { formatPhoneDisplay, formatPhoneTel } from "@/utils/formatPhone";
 
 interface DirectAnswerProps {
   children?: React.ReactNode;
@@ -14,8 +15,8 @@ interface DirectAnswerProps {
  */
 const DirectAnswer = ({ children, className = "" }: DirectAnswerProps) => {
   const { settings } = useCompanySettings();
-  const displayPhone = settings?.phone ? settings.phone.replace(/(\d{3})(\d{3})(\d{4})/, '($1) $2-$3') : '(647) 528-6804';
-  const telLink = settings?.phone ? `tel:${settings.phone}` : 'tel:6475286804';
+  const displayPhone = formatPhoneDisplay(settings?.phone);
+  const telLink = formatPhoneTel(settings?.phone);
   
   return (
     <section className={`py-12 sm:py-16 bg-background border-y border-border/40 ${className}`}>

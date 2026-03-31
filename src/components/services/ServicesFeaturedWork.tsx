@@ -51,16 +51,20 @@ export const ServicesFeaturedWork = () => {
         {projects.map((project) => (
           <Link key={project.id} to={`/projects/${project.slug}`} className="group">
             <Card variant="elevated" hover className="overflow-hidden h-full flex flex-col p-0">
-              {project.featured_image && (
-                <div className="aspect-[16/9] overflow-hidden">
+              <div className="aspect-[16/9] overflow-hidden bg-muted">
+                {project.featured_image ? (
                   <img
                     src={project.featured_image}
                     alt={project.title}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     loading="lazy"
                   />
-                </div>
-              )}
+                ) : (
+                  <div className="w-full h-full flex items-center justify-center">
+                    <span className="text-3xl font-bold text-muted-foreground/30">AGC</span>
+                  </div>
+                )}
+              </div>
               <div className="p-6 flex flex-col flex-1">
                 <div className="flex items-center gap-2 mb-2">
                   {project.category && (
@@ -77,11 +81,9 @@ export const ServicesFeaturedWork = () => {
                 <h3 className="text-xl font-semibold text-foreground mb-2 group-hover:text-primary transition-colors">
                   {project.title}
                 </h3>
-                {project.summary && (
-                  <p className="text-sm text-muted-foreground leading-relaxed flex-1 line-clamp-2">
-                    {project.summary}
-                  </p>
-                )}
+                <p className="text-sm text-muted-foreground leading-relaxed flex-1 line-clamp-2">
+                  {project.summary || project.category || "View project details"}
+                </p>
                 <div className="flex items-center text-sm font-medium text-primary group-hover:text-accent transition-colors mt-4">
                   View project <ArrowRight className="w-3.5 h-3.5 ml-1 group-hover:translate-x-1 transition-transform" />
                 </div>

@@ -8,6 +8,7 @@ import { Card } from "@/design-system/components/Card";
 import { Button } from "@/ui/Button";
 import { CTA_TEXT } from "@/design-system/constants";
 import { MapPin, Phone, Clock, CheckCircle, Building2, Home, Factory, HardHat } from "lucide-react";
+import { COMPANY_PHONE } from "@/constants/company";
 import { PhoneLink } from "@/components/shared/PhoneLink";
 import { serviceAreaCities, primaryServiceCities } from "@/data/service-area-cities";
 import { 
@@ -227,7 +228,7 @@ const LocationPage = () => {
     <div className="min-h-screen">
       <SEO 
         title={`Building Envelope Contractor in ${location.name} | Ascent Group`}
-        description={`Professional building envelope, façade remediation, waterproofing, and restoration services in ${location.name}, ${location.region}. WSIB compliant, $2M insured. Call 647-528-6804.`}
+        description={`Professional building envelope, façade remediation, waterproofing, and restoration services in ${location.name}, ${location.region}. WSIB compliant, $2M insured. Call ${COMPANY_PHONE}.`}
         keywords={`building envelope contractor ${location.name}, facade remediation ${location.name}, waterproofing ${location.name}, EIFS contractor ${location.name}, masonry restoration ${location.name}`}
         structuredData={[breadcrumbSchema, serviceSchema, localBusinessSchema]}
       />

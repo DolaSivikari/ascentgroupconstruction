@@ -112,16 +112,20 @@ export const HomepageFeaturedProjects = () => {
             >
               <Link to={`/projects/${project.slug}`} className="group">
                 <Card variant="elevated" hover className="overflow-hidden h-full flex flex-col p-0">
-                  {project.featured_image && (
-                    <div className="aspect-[16/10] overflow-hidden">
+                  <div className="aspect-[16/10] overflow-hidden bg-muted">
+                    {project.featured_image ? (
                       <img
                         src={project.featured_image}
                         alt={project.title}
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                         loading="lazy"
                       />
-                    </div>
-                  )}
+                    ) : (
+                      <div className="w-full h-full flex items-center justify-center">
+                        <span className="text-3xl font-bold text-muted-foreground/30">AGC</span>
+                      </div>
+                    )}
+                  </div>
                   <div className="p-6 flex flex-col flex-1">
                     {project.category && (
                       <span className="text-xs font-medium text-accent uppercase tracking-wider mb-2">
@@ -131,9 +135,9 @@ export const HomepageFeaturedProjects = () => {
                     <h3 className="text-lg font-semibold text-foreground mb-1 group-hover:text-primary transition-colors">
                       {project.title}
                     </h3>
-                    {project.location && (
-                      <p className="text-sm text-muted-foreground">{project.location}</p>
-                    )}
+                    <p className="text-sm text-muted-foreground">
+                      {project.location || project.summary || "View project details"}
+                    </p>
                   </div>
                 </Card>
               </Link>

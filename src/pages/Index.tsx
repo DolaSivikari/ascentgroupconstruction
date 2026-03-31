@@ -6,6 +6,7 @@ import EnhancedHero from "@/components/homepage/EnhancedHero";
 import SEO from "@/components/SEO";
 import SkipLink from "@/components/SkipLink";
 import { createHowToSchema, createQASchema, createSiteSearchSchema } from "@/utils/schema-injector";
+import { SITE_URL, COMPANY_EMAIL } from "@/constants/company";
 import WhyChooseUs from "@/components/homepage/WhyChooseUs";
 import WhoWeServeHomepage from "@/components/homepage/WhoWeServeHomepage";
 import { HomepageProofStrip } from "@/components/homepage/HomepageProofStrip";
@@ -58,8 +59,8 @@ const Index = () => {
     "@type": "ProfessionalService",
     "name": "Ascent Group Construction",
     "description": "Specialty contractor for building envelope and restoration: complete cladding systems, building envelope solutions, masonry restoration, interior construction, and sustainable building across Ontario & the GTA.",
-    "url": "https://ascentgroupconstruction.com/",
-    "email": "mailto:info@ascentgroupconstruction.com",
+    "url": `${SITE_URL}/`,
+    "email": `mailto:${COMPANY_EMAIL}`,
     "areaServed": [
       { "@type": "State", "name": "Ontario" },
       { "@type": "City", "name": "Toronto" },
@@ -90,7 +91,7 @@ const Index = () => {
     ],
   };
 
-  const siteSearchSchema = createSiteSearchSchema("https://ascentgroupconstruction.com");
+  const siteSearchSchema = createSiteSearchSchema(SITE_URL);
 
   const homepageVideos = getHomepageVideos();
   const videoSchemas = homepageVideos.map(video => videoSchema({
@@ -110,7 +111,7 @@ const Index = () => {
           title="Building Envelope & Restoration Specialists | Specialty Contractor Ontario & GTA"
           description="Specialty contractor in Ontario & GTA delivering façade remediation, waterproofing, EIFS, masonry, restoration. 15+ years crew experience, 85% self-performed. WSIB compliant, $2M CGL."
           keywords="specialty contractor Ontario, building envelope contractor GTA, facade remediation Toronto, waterproofing contractor, EIFS contractor, masonry restoration, parking garage repair"
-          canonical="https://ascentgroupconstruction.com/"
+          canonical={`${SITE_URL}/`}
           structuredData={[specialtyContractorSchema, howToChooseContractor, whatDoesAscentDo, whyChooseUsSchema, siteSearchSchema, ...videoSchemas]}
           includeRating={true}
         />

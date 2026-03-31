@@ -31,7 +31,7 @@ const services = [
     icon: Layers,
     title: "EIFS & Stucco Systems",
     description: "Energy-efficient insulated finish systems and traditional stucco repair.",
-    href: "/services/eifs-stucco",
+    href: "/services/eifs-stucco-systems",
   },
   {
     icon: Hammer,
@@ -43,13 +43,13 @@ const services = [
     icon: Droplets,
     title: "Waterproofing",
     description: "Below-grade, foundation, and deck waterproofing to stop water at the source.",
-    href: "/services/building-envelope",
+    href: "/services/waterproofing-systems",
   },
   {
     icon: Grid3x3,
     title: "Metal Cladding",
     description: "Aluminum, steel, and composite panel installation and repairs.",
-    href: "/services/metal-cladding",
+    href: "/services/cladding-systems",
   },
   {
     icon: Car,
@@ -61,7 +61,7 @@ const services = [
     icon: LayoutDashboard,
     title: "Interior Buildouts",
     description: "Tenant improvements, suite builds, drywall, and finishing trades.",
-    href: "/services/interior-buildouts",
+    href: "/services/interior-buildouts-finishing",
   },
   {
     icon: Paintbrush,
