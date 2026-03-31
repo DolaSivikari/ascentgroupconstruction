@@ -82,41 +82,35 @@ const ProjectDetail = lazyWithFallback(() => import("@/pages/ProjectDetail"), 'P
 const ServiceRouteGroup = () => (
   <>
     <Route path="/services" element={<Services />} />
-    <Route path="/services/interior-buildouts" element={<InteriorBuildouts />} />
-    <Route path="/services/building-envelope" element={<BuildingEnvelope />} />
-    {/* masonry-restoration falls through to /services/:slug → ServiceDetail (published DB record) */}
-    <Route path="/services/protective-coatings" element={<ProtectiveCoatings />} />
-    <Route path="/services/cladding-systems" element={<CladdingSystems />} />
-    <Route path="/services/tile-flooring" element={<TileFlooring />} />
-    <Route path="/services/painting-services" element={<PaintingServices />} />
-    <Route path="/services/sustainable-construction" element={<SustainableBuilding />} />
 
-    <Route path="/services/exterior-envelope" element={<Navigate to="/services/building-envelope" replace />} />
-    <Route path="/services/exterior-cladding" element={<Navigate to="/services/cladding-systems" replace />} />
+    {/* Legacy slug redirects — map old slugs to current DB slugs */}
+    <Route path="/services/building-envelope" element={<Navigate to="/services/building-envelope-solutions" replace />} />
+    <Route path="/services/interior-buildouts" element={<Navigate to="/services/interior-buildouts-finishing" replace />} />
+    <Route path="/services/eifs-stucco" element={<Navigate to="/services/eifs-stucco-systems" replace />} />
     <Route path="/services/metal-cladding" element={<Navigate to="/services/cladding-systems" replace />} />
-    <Route path="/services/eifs-stucco" element={<Navigate to="/services/cladding-systems" replace />} />
+    <Route path="/services/exterior-envelope" element={<Navigate to="/services/building-envelope-solutions" replace />} />
+    <Route path="/services/exterior-cladding" element={<Navigate to="/services/cladding-systems" replace />} />
     <Route path="/services/exterior-siding" element={<Navigate to="/services/cladding-systems" replace />} />
-    <Route path="/services/drywall-finishing" element={<Navigate to="/services/interior-buildouts" replace />} />
-    <Route path="/services/suite-buildouts" element={<Navigate to="/services/interior-buildouts" replace />} />
+    <Route path="/services/drywall-finishing" element={<Navigate to="/services/interior-buildouts-finishing" replace />} />
+    <Route path="/services/suite-buildouts" element={<Navigate to="/services/interior-buildouts-finishing" replace />} />
     <Route path="/services/painting" element={<Navigate to="/services/painting-services" replace />} />
-    <Route path="/services/condo-multi-unit" element={<Navigate to="/services/painting-services" replace />} />
+    <Route path="/services/condo-multi-unit" element={<Navigate to="/services/interior-buildouts-finishing" replace />} />
     <Route path="/services/residential-painting" element={<Navigate to="/services/painting-services" replace />} />
-
+    <Route path="/services/commercial-painting" element={<Navigate to="/services/painting-services" replace />} />
     <Route path="/services/general-contracting" element={<Navigate to="/services" replace />} />
     <Route path="/services/construction-management" element={<Navigate to="/services" replace />} />
     <Route path="/services/design-build" element={<Navigate to="/services" replace />} />
-    <Route path="/services/facade-remediation" element={<Navigate to="/services/building-envelope" replace />} />
-    <Route path="/services/waterproofing" element={<Navigate to="/services/building-envelope" replace />} />
-    <Route path="/services/waterproofing-systems" element={<Navigate to="/services/building-envelope" replace />} />
-    <Route path="/services/commercial-painting" element={<Navigate to="/services/painting-services" replace />} />
-    <Route path="/services/parking-garage-restoration" element={<Navigate to="/services/building-envelope" replace />} />
-    <Route path="/services/parking-rehabilitation" element={<Navigate to="/services/building-envelope" replace />} />
-    <Route path="/services/sealant-replacement" element={<Navigate to="/services/building-envelope" replace />} />
-    <Route path="/services/roofing" element={<Navigate to="/services/building-envelope" replace />} />
-    <Route path="/services/windows-doors" element={<Navigate to="/services/building-envelope" replace />} />
+    <Route path="/services/waterproofing" element={<Navigate to="/services/waterproofing-systems" replace />} />
+    <Route path="/services/sealant-replacement" element={<Navigate to="/services/sealant-programs" replace />} />
+    <Route path="/services/roofing" element={<Navigate to="/services/building-envelope-solutions" replace />} />
+    <Route path="/services/windows-doors" element={<Navigate to="/services/building-envelope-solutions" replace />} />
     <Route path="/services/preconstruction-services" element={<Navigate to="/services" replace />} />
     <Route path="/services/virtual-design-construction" element={<Navigate to="/services" replace />} />
+    <Route path="/services/parking-rehabilitation" element={<Navigate to="/services/parking-garage-restoration" replace />} />
+    <Route path="/services/sustainable-construction" element={<Navigate to="/services/sustainable-building" replace />} />
+    <Route path="/services/protective-coatings" element={<Navigate to="/services/painting-services" replace />} />
 
+    {/* All service detail pages are DB-driven */}
     <Route path="/services/:slug" element={<ServiceDetail />} />
   </>
 );
