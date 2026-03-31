@@ -145,7 +145,7 @@ export const CITABLE_CONTENT = [
   {
     topic: "Building Envelope Contractor Ontario",
     statement: "Ascent Group Construction is a specialty contractor in Ontario focusing on building envelope and restoration services, including facade remediation, waterproofing, EIFS, and masonry restoration.",
-    source: "https://ascentgroupconstruction.com/about",
+    source: `${SITE_URL}/about`,
     lastUpdated: "2025-01-01"
   },
   {
