@@ -6,6 +6,7 @@ import SEO from "@/components/SEO";
 import PageHero from "@/components/shared/PageHero";
 import Breadcrumb from "@/components/Breadcrumb";
 import { supabase } from "@/integrations/supabase/client";
+import { SITE_URL } from "@/constants/company";
 import { Card, CardContent } from "@/design-system/components/Card";
 import { Button } from "@/ui/Button";
 import { Link } from "react-router-dom";
@@ -160,9 +161,9 @@ const ServiceDetail = () => {
   }) : null;
 
   const breadcrumbSchemaData = breadcrumbSchema([
-    { name: "Home", url: "https://ascentgroupconstruction.com/" },
-    { name: "Services", url: "https://ascentgroupconstruction.com/services" },
-    { name: service.name, url: `https://ascentgroupconstruction.com/services/${service.slug}` }
+    { name: "Home", url: `${SITE_URL}/` },
+    { name: "Services", url: `${SITE_URL}/services` },
+    { name: service.name, url: `${SITE_URL}/services/${service.slug}` }
   ]);
 
   const structuredDataArray = [serviceSchemaData, breadcrumbSchemaData];
