@@ -14,43 +14,49 @@ Your site looks like a GC-level firm but **converts like a brochure**. The probl
 
 ### The Fix — 4 Changes (Professional B2B)
 
-#### 1. Restore the inline form on the homepage
+#### 1. ✅ Restore the inline form on the homepage
 Import existing `InteractiveCTA` into `Index.tsx`, placed between WhyChooseUs and ProcessStrip. Update its heading from "Request Site Assessment" to **"Start a Project Conversation"** and button from "Request a Proposal" to **"Submit Inquiry"** — matching your professional CTA language standards.
 
-**Edit:** `src/pages/Index.tsx` — add import + render  
-**Edit:** `src/components/homepage/InteractiveCTA.tsx` — update heading/button copy
+#### 2. ✅ Fix hero slide 3 CTA
+Changed slide 3 primary CTA from "View Markets" → `/markets` to **"Request Site Assessment"** → `/contact`.
 
-#### 2. Fix hero slide 3 CTA
-Change slide 3 primary CTA from "View Markets" → `/markets` to **"Request Site Assessment"** → `/contact`. This slide targets PMs/developers/commercial clients — they need a direct conversion path, not an informational page.
-
-**Edit:** `src/data/enriched-hero-slides.ts` — update slide 3 primaryCTA
-
-#### 3. Add a professional sticky inquiry bar
-Not a consumer popup — a slim, understated bar at the bottom of the viewport (like PCL/Turner/EllisDon sites use). Two variants:
+#### 3. ✅ Add a professional sticky inquiry bar
+Slim, understated bar at the bottom of the viewport. Two variants:
 - **Desktop:** "Looking for a trade partner? Request unit pricing or submit a scope →" with a single link to `/submit-rfp`
 - **Mobile:** Tap-to-call button + "Submit Scope" button
 
-Appears after scrolling past the hero. Hidden on `/admin/*` routes. Uses your existing design tokens and professional language.
-
-**Create:** `src/components/StickyInquiryBar.tsx`  
-**Edit:** `src/App.tsx` — add globally inside BrowserRouter
-
-#### 4. Add quick-access credential downloads in the proof strip
-Add a small "Download Prequal Package" link directly in the `HomepageProofStrip` — GC procurement teams scanning for credentials can grab docs without navigating to `/prequalification`. Links to the existing prequalification page.
-
-**Edit:** `src/components/homepage/HomepageProofStrip.tsx` — add a subtle download/link row below the 3-stat grid
+#### 4. ✅ Add quick-access credential downloads in the proof strip
+Added "Download Prequal Package" link in `HomepageProofStrip`.
 
 ---
 
-### What This Does NOT Include (intentionally)
-- No exit-intent popups (unprofessional for B2B)
-- No "Get a Free Quote" language (violates your CTA standards)
-- No floating chat widgets (wrong audience)
-- No consumer-grade urgency tactics
+## Visual Dominance — Staged Implementation Plan
 
-### Technical Notes
-- All forms submit to existing `contact_submissions` table — no DB changes
-- StickyInquiryBar uses `fixed bottom-0 z-40` with `useLocation()` to hide on admin routes
-- Phone number from `useCompanySettings()` for consistency
-- Professional CTA copy per your established language standards
+### PASS 1 — Safe Visual Upgrades (planned, not yet implemented)
+1. Animated Stat Counters (ProofStrip)
+2. Full-Bleed Parallax Image Break
+3. Hover-Reveal Service Detail Panels
 
+### PASS 2 — Cinematic Scroll Mechanics (planned, not yet implemented)
+4. Horizontal-Scroll Project Showcase
+5. Scroll-Activated Process Timeline
+
+---
+
+## Passes 3–5: Foundation Fixes
+
+### PASS 3 — /services Page Rebuild ✅ IMPLEMENTED
+- **3a.** `/services` page now queries published services from DB, grouped by category
+- **3b.** Removed 7 hardcoded service pages (PaintingServices, TileFlooring, etc.) — all service detail pages now use `ServiceDetail` which fetches from DB by slug
+- **3c.** Fixed homepage service links to match actual DB slugs (`facade-remediation`, `eifs-stucco-systems`, `waterproofing-systems`, `interior-buildouts-finishing`, `parking-garage-restoration`)
+- Legacy slug redirects preserved in AppRoutes for SEO continuity
+
+### PASS 4 — Data Quality ✅ IMPLEMENTED
+- **4a.** Project cards now show branded "AGC" placeholder when `featured_image` is missing; summary fallback text for blank descriptions
+- **4b.** Created `src/utils/formatPhone.ts` — centralized phone formatting utility. Updated 6 files to use it instead of inline regex/hardcoded strings
+- **4c.** Replaced hardcoded `https://ascentgroupconstruction.com` URLs in Index.tsx structured data with `SITE_URL` and `COMPANY_EMAIL` constants
+
+### PASS 5 — Admin Wiring & Domain Hygiene ✅ IMPLEMENTED
+- **5c.** Added Netlify-only note to `_redirects`; SEO.tsx already uses `SITE_URL` for canonicals
+- **5d.** Removed hardcoded service page imports from AppRoutes; legacy redirects now map to correct DB slugs
+- Sustainability redirect fixed to point to `sustainable-building` (actual DB slug)
