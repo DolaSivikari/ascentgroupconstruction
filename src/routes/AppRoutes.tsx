@@ -173,7 +173,7 @@ export const AppRoutes = () => (
     <Route path="/careers" element={<Careers />} />
 
     {/* Phase 4 redirects: consolidated pages */}
-    <Route path="/sustainability" element={<Navigate to="/services/sustainable-construction" replace />} />
+    <Route path="/sustainability" element={<Navigate to="/services/sustainable-building" replace />} />
     <Route path="/insights" element={<Navigate to="/blog" replace />} />
     <Route path="/service-selector" element={<Navigate to="/services" replace />} />
 
