@@ -1,61 +1,56 @@
 
 
-## The Real Problem: Your Website Talks AT Visitors Instead of Converting Them
+## Lead Generation Plan — B2B Specialty Contractor Approach
 
-### Root Cause Analysis
+### What's Actually Wrong
 
-After deep inspection, your site has **four structural conversion failures**:
+Your site looks like a GC-level firm but **converts like a brochure**. The problem isn't missing popups — it's that your conversion paths don't match how GCs, PMs, and owners actually buy:
 
-**1. Hero slides are a brochure, not a conversion engine**
-Your 4 hero slides have these primary CTAs: "Submit RFP", "How We Work", "View Markets", "Prequalify Now". Three of four send visitors to informational pages. Not a single slide says "Get a Free Quote" or "Book a Site Visit". The hero — where 60-80% of visitors form their decision — is doing zero lead capture.
+1. **"Request Unit Pricing" for GCs goes to `/contact`** — a generic form. A GC procurement team wants to submit a scope, not fill out a contact form.
+2. **InteractiveCTA (your only inline form) is dead code** — never imported anywhere.
+3. **No mid-page conversion** — 6 content sections between the hero and the bottom CTA. A PM reading your services list has no way to act without scrolling to the bottom or navigating away.
+4. **Hero CTAs are fine for B2B** ("Submit RFP", "Prequalify Now") — but slide 3 sends to `/markets` (informational) instead of a conversion path.
+5. **Prequalification docs require a page visit** — GCs want to download your prequal package and vendor packet quickly, not browse a page.
 
-**2. The InteractiveCTA form component (your only inline form) is dead code**
-`InteractiveCTA.tsx` exists with a working "Request Site Assessment" form, but **it is not imported or rendered anywhere** in the app. Your homepage has 8 sections and zero forms.
+### The Fix — 4 Changes (Professional B2B)
 
-**3. Six content sections with no conversion opportunity**
-After the hero, visitors scroll through ProofStrip → ServiceHighlights → WhoWeServe → FeaturedProjects → WhyChooseUs → ProcessStrip — all pure content. The first conversion opportunity is `HomepageFinalCta` at the very bottom, which links to `/contact` (another full page). Most visitors never get there.
+#### 1. Restore the inline form on the homepage
+Import existing `InteractiveCTA` into `Index.tsx`, placed between WhyChooseUs and ProcessStrip. Update its heading from "Request Site Assessment" to **"Start a Project Conversation"** and button from "Request a Proposal" to **"Submit Inquiry"** — matching your professional CTA language standards.
 
-**4. No persistent conversion element**
-Once someone scrolls past the hero buttons, there is no visible way to take action until they reach the page bottom or open the nav menu. No sticky CTA, no floating button, no tap-to-call.
+**Edit:** `src/pages/Index.tsx` — add import + render  
+**Edit:** `src/components/homepage/InteractiveCTA.tsx` — update heading/button copy
 
----
+#### 2. Fix hero slide 3 CTA
+Change slide 3 primary CTA from "View Markets" → `/markets` to **"Request Site Assessment"** → `/contact`. This slide targets PMs/developers/commercial clients — they need a direct conversion path, not an informational page.
 
-### The Fix — 4 Changes, Ordered by Impact
+**Edit:** `src/data/enriched-hero-slides.ts` — update slide 3 primaryCTA
 
-#### 1. Fix the hero CTAs (highest impact, zero new components)
-Change hero slide CTAs so at least 2 of 4 slides have a direct conversion CTA:
-- Slide 1: "Submit RFP" → **"Get a Free Quote"** → `/estimate`
-- Slide 3: "View Markets" → **"Book a Site Assessment"** → `/contact`
+#### 3. Add a professional sticky inquiry bar
+Not a consumer popup — a slim, understated bar at the bottom of the viewport (like PCL/Turner/EllisDon sites use). Two variants:
+- **Desktop:** "Looking for a trade partner? Request unit pricing or submit a scope →" with a single link to `/submit-rfp`
+- **Mobile:** Tap-to-call button + "Submit Scope" button
 
-Edit: `src/data/enriched-hero-slides.ts`
+Appears after scrolling past the hero. Hidden on `/admin/*` routes. Uses your existing design tokens and professional language.
 
-#### 2. Bring back the inline form on the homepage
-The `InteractiveCTA` component already works. Import it into `Index.tsx` and place it between WhyChooseUs and ProcessStrip — the trust-building sweet spot.
+**Create:** `src/components/StickyInquiryBar.tsx`  
+**Edit:** `src/App.tsx` — add globally inside BrowserRouter
 
-Edit: `src/pages/Index.tsx` — add import + render `<InteractiveCTA />`
+#### 4. Add quick-access credential downloads in the proof strip
+Add a small "Download Prequal Package" link directly in the `HomepageProofStrip` — GC procurement teams scanning for credentials can grab docs without navigating to `/prequalification`. Links to the existing prequalification page.
 
-#### 3. Add a floating sticky CTA bar (every page)
-A slim bar fixed to the bottom of the screen with two actions:
-- **Mobile**: Large "Tap to Call" button + small "Get Quote" button
-- **Desktop**: "Call (647) 528-6804" + "Get a Free Quote" button that scrolls to the nearest form or links to `/contact`
-
-Visible after 3 seconds of scrolling. Hidden on `/admin/*` routes. Uses `PhoneLink` for the phone number.
-
-Create: `src/components/FloatingCTA.tsx`
-Edit: `src/App.tsx` — add `<FloatingCTA />` inside `BrowserRouter`
-
-#### 4. Add exit-intent popup
-When cursor moves to leave (desktop) or after 45s idle (mobile), show a simple overlay: "Before you go — get a free site assessment" with 3 fields (name, phone, email). Submits to existing `contact_submissions` table. Shows once per session via `sessionStorage`.
-
-Create: `src/components/ExitIntentPopup.tsx`
-Edit: `src/App.tsx` — add `<ExitIntentPopup />`
+**Edit:** `src/components/homepage/HomepageProofStrip.tsx` — add a subtle download/link row below the 3-stat grid
 
 ---
+
+### What This Does NOT Include (intentionally)
+- No exit-intent popups (unprofessional for B2B)
+- No "Get a Free Quote" language (violates your CTA standards)
+- No floating chat widgets (wrong audience)
+- No consumer-grade urgency tactics
 
 ### Technical Notes
-
-- All forms submit to existing `contact_submissions` table with distinct `submission_type` values (`quick_quote`, `exit_intent`) — no DB changes needed
-- FloatingCTA uses `fixed bottom-0 z-50` with `useLocation()` to hide on admin routes
-- Exit-intent uses `mouseleave` on `documentElement` (desktop) + idle timer (mobile), gated by `sessionStorage` flag
-- Phone number pulled from `useSettingsData('site_settings')` for consistency
+- All forms submit to existing `contact_submissions` table — no DB changes
+- StickyInquiryBar uses `fixed bottom-0 z-40` with `useLocation()` to hide on admin routes
+- Phone number from `useCompanySettings()` for consistency
+- Professional CTA copy per your established language standards
 
