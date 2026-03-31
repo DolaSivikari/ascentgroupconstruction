@@ -8,6 +8,7 @@ import { Card } from "@/design-system/components/Card";
 import { Button } from "@/ui/Button";
 import { CTA_TEXT } from "@/design-system/constants";
 import { MapPin, Phone, Clock, CheckCircle, Building2, Home, Factory, HardHat } from "lucide-react";
+import { COMPANY_PHONE } from "@/constants/company";
 import { PhoneLink } from "@/components/shared/PhoneLink";
 import { serviceAreaCities, primaryServiceCities } from "@/data/service-area-cities";
 import { 
