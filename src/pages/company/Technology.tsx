@@ -8,6 +8,7 @@ import {
 } from "framer-motion";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
+import { SITE_URL } from "@/constants/company";
 import SEO from "@/components/SEO";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 import { useIsMobile } from "@/hooks/use-mobile";
