@@ -12,6 +12,7 @@ import WhoWeServeHomepage from "@/components/homepage/WhoWeServeHomepage";
 import { HomepageProofStrip } from "@/components/homepage/HomepageProofStrip";
 import { HomepageProcessStrip } from "@/components/homepage/HomepageProcessStrip";
 import { HomepageServiceHighlights } from "@/components/homepage/HomepageServiceHighlights";
+import { HomepageParallaxBreak } from "@/components/homepage/HomepageParallaxBreak";
 import { HomepageFeaturedProjects } from "@/components/homepage/HomepageFeaturedProjects";
 import { HomepageFinalCta } from "@/components/homepage/HomepageFinalCta";
 import InteractiveCTA from "@/components/homepage/InteractiveCTA";

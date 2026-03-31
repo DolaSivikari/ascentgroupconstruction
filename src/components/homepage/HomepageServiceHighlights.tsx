@@ -245,10 +245,10 @@ export const HomepageServiceHighlights = () => {
               >
                 <Link
                   to={service.href}
-                  className="group block p-6 rounded-xl border border-border/60 bg-card hover:border-primary/40 hover:shadow-md transition-all duration-300 h-full"
+                  className="group/card block p-6 rounded-xl border border-border/60 bg-card hover:border-primary/40 hover:shadow-md focus-within:border-primary/40 focus-within:shadow-md transition-all duration-300 h-full"
                 >
                   <motion.div
-                    className="w-11 h-11 rounded-lg bg-primary/10 flex items-center justify-center mb-4 group-hover:bg-primary/20 transition-colors duration-300"
+                    className="w-11 h-11 rounded-lg bg-primary/10 flex items-center justify-center mb-4 group-hover/card:bg-primary/20 transition-colors duration-300"
                     whileHover={rm ? {} : { scale: 1.1 }}
                     transition={springHover}
                   >
@@ -260,6 +260,21 @@ export const HomepageServiceHighlights = () => {
                   <p className="text-base text-muted-foreground leading-relaxed">
                     {service.description}
                   </p>
+
+                  {/* Hover-reveal detail panel */}
+                  <div className="grid grid-rows-[0fr] group-hover/card:grid-rows-[1fr] focus-within:grid-rows-[1fr] transition-[grid-template-rows] duration-300 ease-out">
+                    <div className="overflow-hidden">
+                      <div className="pt-3 mt-3 border-t border-border/40">
+                        <p className="text-sm text-muted-foreground leading-relaxed">
+                          {service.detail}
+                        </p>
+                        <span className="inline-flex items-center gap-1 mt-3 text-xs font-semibold text-primary">
+                          Learn more
+                          <ArrowRight className="w-3 h-3" />
+                        </span>
+                      </div>
+                    </div>
+                  </div>
                 </Link>
               </motion.div>
             );
