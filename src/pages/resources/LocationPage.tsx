@@ -202,10 +202,10 @@ const LocationPage = () => {
   const localBusinessSchema = {
     "@context": "https://schema.org",
     "@type": "HomeAndConstructionBusiness",
-    "@id": `https://ascentgroupconstruction.com/service-areas/${location.slug}#business`,
+    "@id": `${SITE_URL}/service-areas/${location.slug}#business`,
     "name": `Ascent Group Construction - ${location.name}`,
     "description": `Building envelope and restoration contractor serving ${location.name}, ${location.region}`,
-    "url": `https://ascentgroupconstruction.com/service-areas/${location.slug}`,
+    "url": `${SITE_URL}/service-areas/${location.slug}`,
     "telephone": COMPANY.phone,
     "email": COMPANY.email,
     "areaServed": {
