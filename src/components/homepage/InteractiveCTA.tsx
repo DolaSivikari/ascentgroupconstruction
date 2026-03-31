@@ -9,6 +9,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import { z } from "zod";
 import { useCompanySettings } from "@/hooks/useCompanySettings";
+import { formatPhoneDisplay, formatPhoneTel } from "@/utils/formatPhone";
 
 const contactSchema = z.object({
   name: z.string().trim().min(1, "Name is required").max(100),
