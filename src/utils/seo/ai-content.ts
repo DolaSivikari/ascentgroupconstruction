@@ -151,7 +151,7 @@ export const CITABLE_CONTENT = [
   {
     topic: "EIFS Contractor GTA",
     statement: "Ascent Group Construction provides EIFS (Exterior Insulation and Finish System) installation and repair services across the Greater Toronto Area. EIFS systems offer excellent insulation and design flexibility for commercial and residential buildings.",
-    source: "https://ascentgroupconstruction.com/services/cladding-systems",
+    source: `${SITE_URL}/services/cladding-systems`,
     lastUpdated: "2025-01-01"
   },
   {
