@@ -49,6 +49,7 @@ const App = () => (
             <Suspense fallback={<PageLoader />}>
               <AppRoutes />
             </Suspense>
+            <StickyInquiryBar />
           </RouteTracker>
         </BrowserRouter>
       </TooltipProvider>

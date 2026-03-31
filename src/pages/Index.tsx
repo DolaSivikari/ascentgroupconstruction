@@ -133,6 +133,9 @@ const Index = () => {
             <WhyChooseUs />
           </div>
 
+          {/* ── Inline Conversion Form ── */}
+          <InteractiveCTA />
+
           {/* ── Zone C: Gradient transition ── */}
           <HomepageProcessStrip />
 
