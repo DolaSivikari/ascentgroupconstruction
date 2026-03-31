@@ -1,4 +1,5 @@
-import { Shield, Users, Award } from "lucide-react";
+import { Link } from "react-router-dom";
+import { Shield, Users, Award, FileText } from "lucide-react";
 
 const stats = [
   { icon: Shield, value: "$2M Insured", label: "CGL Coverage" },
@@ -24,6 +25,15 @@ export const HomepageProofStrip = () => {
                 </div>
               );
             })}
+          </div>
+          <div className="mt-4 pt-4 border-t border-border/60 text-center">
+            <Link
+              to="/prequalification"
+              className="inline-flex items-center gap-1.5 text-sm font-medium text-primary hover:text-primary/80 transition-colors"
+            >
+              <FileText className="h-4 w-4" aria-hidden="true" />
+              Download Prequal Package
+            </Link>
           </div>
         </div>
       </div>

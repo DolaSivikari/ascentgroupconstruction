@@ -43,8 +43,8 @@ export const enrichedHeroSlides = [
     headline: "Built for GCs, Property Managers, Developers & Commercial Clients",
     subheadline: "Envelope repairs, restoration scopes, coatings, interior buildouts, and coordinated trade packages where reliability matters.",
     primaryCTA: {
-      label: "View Markets",
-      href: "/markets",
+      label: "Request Site Assessment",
+      href: "/contact",
     },
     secondaryCTA: {
       label: "Contact Us",
