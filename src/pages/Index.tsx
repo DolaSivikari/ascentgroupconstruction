@@ -6,6 +6,7 @@ import EnhancedHero from "@/components/homepage/EnhancedHero";
 import SEO from "@/components/SEO";
 import SkipLink from "@/components/SkipLink";
 import { createHowToSchema, createQASchema, createSiteSearchSchema } from "@/utils/schema-injector";
+import { SITE_URL, COMPANY_EMAIL } from "@/constants/company";
 import WhyChooseUs from "@/components/homepage/WhyChooseUs";
 import WhoWeServeHomepage from "@/components/homepage/WhoWeServeHomepage";
 import { HomepageProofStrip } from "@/components/homepage/HomepageProofStrip";
