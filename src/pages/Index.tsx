@@ -13,6 +13,7 @@ import { HomepageProcessStrip } from "@/components/homepage/HomepageProcessStrip
 import { HomepageServiceHighlights } from "@/components/homepage/HomepageServiceHighlights";
 import { HomepageFeaturedProjects } from "@/components/homepage/HomepageFeaturedProjects";
 import { HomepageFinalCta } from "@/components/homepage/HomepageFinalCta";
+import InteractiveCTA from "@/components/homepage/InteractiveCTA";
 import { videoSchema } from "@/utils/structured-data";
 import { getHomepageVideos } from "@/data/video-metadata";
 
