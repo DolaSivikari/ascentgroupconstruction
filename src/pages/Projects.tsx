@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
+import { SITE_URL } from "@/constants/company";
 import FilterBar from "@/components/FilterBar";
 import { CTABand } from "@/design-system/components/CTABand";
 import ProjectCard from "@/components/ProjectCard";

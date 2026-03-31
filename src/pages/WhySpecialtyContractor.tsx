@@ -1,6 +1,7 @@
 import { PageHero } from "@/components/shared/PageHero";
 import { Section } from "@/components/sections/Section";
 import SEO from "@/components/SEO";
+import { SITE_URL } from "@/constants/company";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { Card } from "@/design-system/components/Card";
