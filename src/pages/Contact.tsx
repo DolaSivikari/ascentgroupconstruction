@@ -8,7 +8,7 @@ import { Card } from "@/design-system/components/Card";
 import { Section } from "@/components/sections/Section";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
-import { COMPANY_PHONE } from "@/constants/company";
+import { COMPANY_PHONE, SITE_URL } from "@/constants/company";
 import { trackFormSubmit } from "@/lib/analytics";
 import { trackABTestConversion } from "@/hooks/useABTest";
 import { Button } from "@/ui/Button";
@@ -153,7 +153,7 @@ const Contact = () => {
 
   return (
     <div className="min-h-screen flex flex-col bg-background">
-      <SEO title="Contact Us | Ascent Group Construction" description="Contact Ascent Group Construction for building envelope, restoration, and specialty trade services across Ontario. Request a consultation or get a project quote." canonical="https://ascentgroupconstruction.com/contact" />
+      <SEO title="Contact Us | Ascent Group Construction" description="Contact Ascent Group Construction for building envelope, restoration, and specialty trade services across Ontario. Request a consultation or get a project quote." canonical={`${SITE_URL}/contact`} />
       <Navigation />
 
       <PageHero

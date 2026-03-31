@@ -1,3 +1,4 @@
+import { SITE_URL } from "@/constants/company";
 import SEO from "@/components/SEO";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
@@ -102,7 +103,7 @@ const ForGeneralContractors = () => {
         title="Trade Partner for General Contractors"
         description="Ascent Group provides building envelope and interior trade services as a reliable subcontractor partner for general contractors across Ontario. Fast quotes, self-performed work, and professional execution."
         keywords="general contractor partner, trade subcontractor, envelope trades, GTA subcontractor, unit pricing, tender packages"
-        canonical="https://ascentgroupconstruction.com/for-general-contractors"
+        canonical={`${SITE_URL}/for-general-contractors`}
       />
       <Navigation />
       

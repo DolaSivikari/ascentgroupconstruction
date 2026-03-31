@@ -2,6 +2,7 @@ import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { PageHero } from "@/components/shared/PageHero";
 import SEO from "@/components/SEO";
+import { SITE_URL } from "@/constants/company";
 import { SectionHeader, SegmentCard, CTABand } from "@/design-system/components";
 import { Building2, Briefcase, Home, HardHat, Building, Layers, Target, Users } from "lucide-react";
 import { sectorHeroes } from "@/data/hero-images";
@@ -47,7 +48,7 @@ const Markets = () => {
       <SEO
         title="Markets We Serve | Ascent Group Construction"
         description="Ascent Group Construction serves property managers, commercial clients, homeowners, developers, and general contractors across Ontario and the GTA."
-        canonical="https://ascentgroupconstruction.com/markets"
+        canonical={`${SITE_URL}/markets`}
       />
       <Navigation />
 

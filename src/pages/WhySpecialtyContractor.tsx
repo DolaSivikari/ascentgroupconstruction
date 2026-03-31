@@ -1,6 +1,7 @@
 import { PageHero } from "@/components/shared/PageHero";
 import { Section } from "@/components/sections/Section";
 import SEO from "@/components/SEO";
+import { SITE_URL } from "@/constants/company";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { Card } from "@/design-system/components/Card";
@@ -41,13 +42,13 @@ const WhySpecialtyContractor = () => {
         "@type": "ListItem",
         "position": 1,
         "name": "Home",
-        "item": "https://ascentgroupconstruction.com"
+        "item": SITE_URL
       },
       {
         "@type": "ListItem",
         "position": 2,
         "name": "Why Specialty Contractor",
-        "item": "https://ascentgroupconstruction.com/why-specialty-contractor"
+        "item": `${SITE_URL}/why-specialty-contractor`
       }
     ]
   };
@@ -58,7 +59,7 @@ const WhySpecialtyContractor = () => {
         title="Specialty Contractor vs General Contractor | Building Envelope & Restoration"
         description="Understand why building envelope & restoration projects benefit from specialty contractors. Compare delivery models, cost structures, and project approaches for Ontario & GTA projects."
         keywords="specialty contractor, general contractor comparison, building envelope contractor, specialty vs general contractor, construction contractor differences, self-performed construction, Ontario specialty contractor, GTA building envelope"
-        canonical="https://ascentgroupconstruction.com/why-specialty-contractor"
+        canonical={`${SITE_URL}/why-specialty-contractor`}
         structuredData={[faqSchema, breadcrumbSchema]}
       />
 

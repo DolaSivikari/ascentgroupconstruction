@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
+import { SITE_URL } from "@/constants/company";
 import FilterBar from "@/components/FilterBar";
 import { CTABand } from "@/design-system/components/CTABand";
 import ProjectCard from "@/components/ProjectCard";
@@ -183,7 +184,7 @@ const Projects = () => {
       <SEO
         title="Our Projects | Ascent Group Construction"
         description="Browse our growing portfolio of construction and restoration projects across the GTA. Commercial, residential, and institutional envelope and interior work."
-        canonical="https://ascentgroupconstruction.com/projects"
+        canonical={`${SITE_URL}/projects`}
       />
       <Navigation />
 

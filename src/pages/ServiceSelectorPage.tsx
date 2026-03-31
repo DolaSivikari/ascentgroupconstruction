@@ -7,6 +7,7 @@ import { ServiceSelector } from "@/components/tools/ServiceSelector";
 import heroImage from "@/assets/heroes/hero-facade-remediation.jpg";
 import { AscentEmailLink } from "@/components/EmailLink";
 import { PhoneLink } from "@/components/shared/PhoneLink";
+import { formatPhoneDisplay } from "@/utils/formatPhone";
 
 /**
  * Service Selector Tool Page
@@ -51,7 +52,7 @@ const ServiceSelectorPage = () => {
                 showIcon={false}
                 className="inline-flex items-center justify-center rounded-[var(--radius-lg)] px-6 py-3 text-sm font-semibold text-white bg-primary hover:bg-primary/90 transition-colors"
               >
-                Call: (647) 528-6804
+                Call: {formatPhoneDisplay()}
               </PhoneLink>
               <div className="inline-flex items-center justify-center rounded-[var(--radius-lg)] px-6 py-3 text-sm font-semibold text-foreground border-2 border-border hover:border-primary transition-colors">
                 <AscentEmailLink showIcon={false}>Email Us</AscentEmailLink>

@@ -3,7 +3,7 @@
  * Generates comprehensive meta tags for SEO and social sharing
  */
 
-import { SITE_URL, COMPANY_NAME } from '@/constants/company';
+import { SITE_URL, COMPANY_NAME, COMPANY_PHONE } from '@/constants/company';
 const DEFAULT_IMAGE = '/og-image.jpg';
 
 export interface PageMeta {
@@ -154,7 +154,7 @@ export const defaultMeta: Record<string, Partial<PageMeta>> = {
   },
   contact: {
     title: 'Contact Us',
-    description: 'Contact Ascent Group Construction for building envelope, restoration, and construction services in Ontario and the GTA. Call 647-528-6804 or email us.',
+    description: `Contact Ascent Group Construction for building envelope, restoration, and construction services in Ontario and the GTA. Call ${COMPANY_PHONE} or email us.`,
     keywords: ['contact', 'quote request', 'construction quote', 'GTA contractor'],
   },
   blog: {

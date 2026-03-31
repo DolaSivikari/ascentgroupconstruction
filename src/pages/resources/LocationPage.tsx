@@ -8,7 +8,7 @@ import { Card } from "@/design-system/components/Card";
 import { Button } from "@/ui/Button";
 import { CTA_TEXT } from "@/design-system/constants";
 import { MapPin, Phone, Clock, CheckCircle, Building2, Home, Factory, HardHat } from "lucide-react";
-import { COMPANY_PHONE } from "@/constants/company";
+import { COMPANY_PHONE, SITE_URL } from "@/constants/company";
 import { PhoneLink } from "@/components/shared/PhoneLink";
 import { serviceAreaCities, primaryServiceCities } from "@/data/service-area-cities";
 import { 
@@ -202,10 +202,10 @@ const LocationPage = () => {
   const localBusinessSchema = {
     "@context": "https://schema.org",
     "@type": "HomeAndConstructionBusiness",
-    "@id": `https://ascentgroupconstruction.com/service-areas/${location.slug}#business`,
+    "@id": `${SITE_URL}/service-areas/${location.slug}#business`,
     "name": `Ascent Group Construction - ${location.name}`,
     "description": `Building envelope and restoration contractor serving ${location.name}, ${location.region}`,
-    "url": `https://ascentgroupconstruction.com/service-areas/${location.slug}`,
+    "url": `${SITE_URL}/service-areas/${location.slug}`,
     "telephone": COMPANY.phone,
     "email": COMPANY.email,
     "areaServed": {
@@ -216,7 +216,7 @@ const LocationPage = () => {
     },
     "serviceType": services,
     "parentOrganization": {
-      "@id": "https://ascentgroupconstruction.com/#organization"
+      "@id": `${SITE_URL}/#organization`
     }
   };
 

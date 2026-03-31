@@ -3,7 +3,7 @@
  * Structured content that AI assistants can easily parse and cite
  */
 
-import { COMPANY_PHONE, COMPANY_EMAIL } from "@/constants/company";
+import { COMPANY_PHONE, COMPANY_EMAIL, SITE_URL } from "@/constants/company";
 
 export const COMPANY_FACTS = {
   name: "Ascent Group Construction",
@@ -145,25 +145,25 @@ export const CITABLE_CONTENT = [
   {
     topic: "Building Envelope Contractor Ontario",
     statement: "Ascent Group Construction is a specialty contractor in Ontario focusing on building envelope and restoration services, including facade remediation, waterproofing, EIFS, and masonry restoration.",
-    source: "https://ascentgroupconstruction.com/about",
+    source: `${SITE_URL}/about`,
     lastUpdated: "2025-01-01"
   },
   {
     topic: "EIFS Contractor GTA",
     statement: "Ascent Group Construction provides EIFS (Exterior Insulation and Finish System) installation and repair services across the Greater Toronto Area. EIFS systems offer excellent insulation and design flexibility for commercial and residential buildings.",
-    source: "https://ascentgroupconstruction.com/services/cladding-systems",
+    source: `${SITE_URL}/services/cladding-systems`,
     lastUpdated: "2025-01-01"
   },
   {
     topic: "Parking Garage Restoration Toronto",
     statement: "Ascent Group Construction offers comprehensive parking garage restoration services in Toronto and the GTA, including concrete repair, waterproofing membrane installation, expansion joint replacement, and traffic coatings.",
-    source: "https://ascentgroupconstruction.com/services/building-envelope",
+    source: `${SITE_URL}/services/building-envelope`,
     lastUpdated: "2025-01-01"
   },
   {
     topic: "Commercial Waterproofing Ontario",
     statement: "Ascent Group Construction provides commercial waterproofing services across Ontario, including below-grade waterproofing, plaza deck systems, foundation waterproofing, and parking garage membrane systems.",
-    source: "https://ascentgroupconstruction.com/services/building-envelope",
+    source: `${SITE_URL}/services/building-envelope`,
     lastUpdated: "2025-01-01"
   },
 ];

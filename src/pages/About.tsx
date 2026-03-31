@@ -1,3 +1,4 @@
+import { SITE_URL } from "@/constants/company";
 import { Link } from "react-router-dom";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
@@ -193,7 +194,7 @@ const About = () => {
         title="About Us — Building Envelope & Restoration Specialists | GTA"
         description="15+ years of combined experience in building envelope, restoration & interior trades across the GTA — now operating as Ascent Group Construction."
         keywords="about Ascent Group, building envelope contractor, specialty contractor Ontario, restoration company, GTA contractor"
-        canonical="https://ascentgroupconstruction.com/about"
+        canonical={`${SITE_URL}/about`}
         structuredData={[breadcrumbSchema, processSchema]}
       />
       <Navigation />

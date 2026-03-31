@@ -9,6 +9,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/design-system/compon
 import { CTABand } from '@/design-system/components/CTABand';
 import { CTA_TEXT } from '@/design-system/constants';
 import { PhoneLink } from '@/components/shared/PhoneLink';
+import { SITE_URL } from '@/constants/company';
 import QuickFacts from '@/components/seo/QuickFacts';
 import PeopleAlsoAsk from '@/components/seo/PeopleAlsoAsk';
 import SEO from '@/components/SEO';
@@ -100,9 +101,9 @@ export const ServicePageTemplate = ({ service }: ServicePageTemplateProps) => {
   });
 
   const breadcrumbSchemaData = breadcrumbSchema([
-    { name: "Home", url: "https://ascentgroupconstruction.com/" },
-    { name: "Services", url: "https://ascentgroupconstruction.com/services" },
-    { name: service.name, url: `https://ascentgroupconstruction.com/services/${service.slug}` }
+    { name: "Home", url: `${SITE_URL}/` },
+    { name: "Services", url: `${SITE_URL}/services` },
+    { name: service.name, url: `${SITE_URL}/services/${service.slug}` }
   ]);
 
   // Quick Facts data for SEO component

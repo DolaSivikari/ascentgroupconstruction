@@ -13,6 +13,8 @@ import { CTA_TEXT } from "@/design-system/constants";
 import { ScrollReveal } from "@/components/animations/ScrollReveal";
 import { mainPageHeroes } from "@/data/hero-images";
 import VoiceFAQ from "@/components/seo/VoiceFAQ";
+import { formatPhoneDisplay } from "@/utils/formatPhone";
+import { SITE_URL } from "@/constants/company";
 import { PhoneLink } from "@/components/shared/PhoneLink";
 import { VOICE_OPTIMIZED_FAQS } from "@/utils/seo/ai-content";
 import {
@@ -299,7 +301,7 @@ const FAQ = () => {
         title="Frequently Asked Questions | Building Envelope & Restoration"
         description="Get answers to 85+ questions about building envelope, restoration, and specialty trade costs, timelines, and services in Ontario and the GTA."
         keywords="construction FAQ Toronto, building envelope questions GTA, restoration costs Ontario, EIFS repair, commercial construction questions"
-        canonical="https://ascentgroupconstruction.com/faq"
+        canonical={`${SITE_URL}/faq`}
         structuredData={[generateFAQSchema([...allFAQs, ...voiceFaqsForSchema]), howToSchema]}
       />
       
@@ -461,7 +463,7 @@ const FAQ = () => {
                     showIcon={false} 
                     className="inline-flex items-center justify-center px-8 py-4 bg-primary-foreground/20 backdrop-blur-sm text-primary-foreground rounded-lg font-semibold hover:bg-primary-foreground/30 transition-colors text-lg"
                   >
-                    Call 647-528-6804
+                    Call {formatPhoneDisplay()}
                   </PhoneLink>
                 </div>
               </CardContent>
