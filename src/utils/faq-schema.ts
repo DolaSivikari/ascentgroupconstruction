@@ -32,7 +32,7 @@ export const generateServiceSchema = (options: {
     provider: {
       "@type": "HomeAndConstructionBusiness",
       name: "Ascent Group Construction",
-      url: "https://ascentgroupconstruction.com",
+      url: SITE_URL,
     },
     areaServed: options.areaServed.map((area) => ({
       "@type": "City",

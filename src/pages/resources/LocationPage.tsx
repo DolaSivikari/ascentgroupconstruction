@@ -216,7 +216,7 @@ const LocationPage = () => {
     },
     "serviceType": services,
     "parentOrganization": {
-      "@id": "https://ascentgroupconstruction.com/#organization"
+      "@id": `${SITE_URL}/#organization`
     }
   };
 

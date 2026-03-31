@@ -100,9 +100,9 @@ export const ServicePageTemplate = ({ service }: ServicePageTemplateProps) => {
   });
 
   const breadcrumbSchemaData = breadcrumbSchema([
-    { name: "Home", url: "https://ascentgroupconstruction.com/" },
-    { name: "Services", url: "https://ascentgroupconstruction.com/services" },
-    { name: service.name, url: `https://ascentgroupconstruction.com/services/${service.slug}` }
+    { name: "Home", url: `${SITE_URL}/` },
+    { name: "Services", url: `${SITE_URL}/services` },
+    { name: service.name, url: `${SITE_URL}/services/${service.slug}` }
   ]);
 
   // Quick Facts data for SEO component

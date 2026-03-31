@@ -95,9 +95,9 @@ const Footer = () => {
   const citationSchema = {
     "@context": "https://schema.org",
     "@type": "ProfessionalService",
-    "@id": "https://ascentgroupconstruction.com/#organization",
+    "@id": `${SITE_URL}/#organization`,
     name: "Ascent Group Construction",
-    image: "https://ascentgroupconstruction.com/og-image.jpg",
+    image: `${SITE_URL}/og-image.jpg`,
     email: COMPANY_EMAIL,
     areaServed: { "@type": "State", name: "Ontario" },
     address: { "@type": "PostalAddress", addressRegion: "ON", addressCountry: "CA" },
