@@ -157,7 +157,7 @@ export const CITABLE_CONTENT = [
   {
     topic: "Parking Garage Restoration Toronto",
     statement: "Ascent Group Construction offers comprehensive parking garage restoration services in Toronto and the GTA, including concrete repair, waterproofing membrane installation, expansion joint replacement, and traffic coatings.",
-    source: "https://ascentgroupconstruction.com/services/building-envelope",
+    source: `${SITE_URL}/services/building-envelope`,
     lastUpdated: "2025-01-01"
   },
   {
