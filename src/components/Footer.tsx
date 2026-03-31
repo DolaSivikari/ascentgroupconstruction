@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { Mail, Phone, MapPin, Linkedin, Shield, Award, FileCheck, Building2 } from "lucide-react";
 
 import SEO from "@/components/SEO";
-import { COMPANY_EMAIL } from "@/constants/company";
+import { COMPANY_EMAIL, SITE_URL } from "@/constants/company";
 import { Skeleton } from "@/components/ui/skeleton";
 import { supabase } from "@/integrations/supabase/client";
 import type { Database } from "@/integrations/supabase/types";

@@ -9,6 +9,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/design-system/compon
 import { CTABand } from '@/design-system/components/CTABand';
 import { CTA_TEXT } from '@/design-system/constants';
 import { PhoneLink } from '@/components/shared/PhoneLink';
+import { SITE_URL } from '@/constants/company';
 import QuickFacts from '@/components/seo/QuickFacts';
 import PeopleAlsoAsk from '@/components/seo/PeopleAlsoAsk';
 import SEO from '@/components/SEO';

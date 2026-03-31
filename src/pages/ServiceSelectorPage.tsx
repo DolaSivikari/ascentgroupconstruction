@@ -7,6 +7,7 @@ import { ServiceSelector } from "@/components/tools/ServiceSelector";
 import heroImage from "@/assets/heroes/hero-facade-remediation.jpg";
 import { AscentEmailLink } from "@/components/EmailLink";
 import { PhoneLink } from "@/components/shared/PhoneLink";
+import { formatPhoneDisplay } from "@/utils/formatPhone";
 
 /**
  * Service Selector Tool Page

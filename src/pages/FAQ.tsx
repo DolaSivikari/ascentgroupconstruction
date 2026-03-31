@@ -13,6 +13,7 @@ import { CTA_TEXT } from "@/design-system/constants";
 import { ScrollReveal } from "@/components/animations/ScrollReveal";
 import { mainPageHeroes } from "@/data/hero-images";
 import VoiceFAQ from "@/components/seo/VoiceFAQ";
+import { formatPhoneDisplay } from "@/utils/formatPhone";
 import { PhoneLink } from "@/components/shared/PhoneLink";
 import { VOICE_OPTIMIZED_FAQS } from "@/utils/seo/ai-content";
 import {

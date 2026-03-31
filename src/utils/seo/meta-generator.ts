@@ -3,7 +3,7 @@
  * Generates comprehensive meta tags for SEO and social sharing
  */
 
-import { SITE_URL, COMPANY_NAME } from '@/constants/company';
+import { SITE_URL, COMPANY_NAME, COMPANY_PHONE } from '@/constants/company';
 const DEFAULT_IMAGE = '/og-image.jpg';
 
 export interface PageMeta {

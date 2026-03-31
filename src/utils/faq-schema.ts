@@ -1,3 +1,5 @@
+import { SITE_URL } from "@/constants/company";
+
 interface FAQItem {
   question: string;
   answer: string;
