@@ -25,48 +25,56 @@ const services = [
     icon: Building2,
     title: "Façade Remediation",
     description: "Sealant replacement, panel repairs, and full building envelope restoration.",
+    detail: "Full-scope envelope rehabilitation: condition assessments, sealant removal and replacement, panel re-anchoring, flashing repairs, and waterproof membrane integration. We coordinate swing-stage access and occupied-building logistics so tenants aren't disrupted.",
     href: "/services/facade-remediation",
   },
   {
     icon: Layers,
     title: "EIFS & Stucco Systems",
     description: "Energy-efficient insulated finish systems and traditional stucco repair.",
+    detail: "New EIFS installation and existing system rehabilitation — base-coat repairs, mesh replacement, finish-coat colour matching, and drainage-plane corrections. Installed per manufacturer specs for warranty-eligible assemblies.",
     href: "/services/eifs-stucco-systems",
   },
   {
     icon: Hammer,
     title: "Masonry Restoration",
     description: "Repointing, tuckpointing, and structural stabilisation for brick and stone.",
+    detail: "Mortar analysis and compatible repointing, crack stitching, lintel replacement, stone dutchman repairs, and through-wall flashing installation. Heritage-sensitive methods available for designated properties.",
     href: "/services/masonry-restoration",
   },
   {
     icon: Droplets,
     title: "Waterproofing",
     description: "Below-grade, foundation, and deck waterproofing to stop water at the source.",
+    detail: "Blind-side, positive-side, and negative-side waterproofing systems. Traffic-bearing membranes for plaza decks, foundation damp-proofing, crack injection, and drainage board installation.",
     href: "/services/waterproofing-systems",
   },
   {
     icon: Grid3x3,
     title: "Metal Cladding",
     description: "Aluminum, steel, and composite panel installation and repairs.",
+    detail: "ACM, MCM, and solid-aluminum panel systems — sub-girt layout, panel fabrication coordination, thermal-break detailing, and integration with air/vapour barriers for complete rain-screen assemblies.",
     href: "/services/cladding-systems",
   },
   {
     icon: Car,
     title: "Parking Garage Restoration",
     description: "Concrete repair, traffic coatings, and structural rehab for parkades.",
+    detail: "Condition surveys, concrete delamination removal, rebar treatment, shotcrete/form-and-pour repairs, expansion joint replacement, and traffic-bearing polyurethane or MMA coating systems.",
     href: "/services/parking-garage-restoration",
   },
   {
     icon: LayoutDashboard,
     title: "Interior Buildouts",
     description: "Tenant improvements, suite builds, drywall, and finishing trades.",
+    detail: "Demising walls, ceiling grids, suite finishing, millwork coordination, and final paint. We handle permit-ready layouts through to deficiency-free handover for commercial and multi-residential interiors.",
     href: "/services/interior-buildouts-finishing",
   },
   {
     icon: Paintbrush,
     title: "Commercial Painting",
     description: "Commercial, condo, and multi-unit painting with premium coatings.",
+    detail: "Surface prep, primer systems, and premium finish coats from Benjamin Moore and Sherwin-Williams. Common-area refresh programs, suite turnovers, and high-performance coatings for parking and mechanical rooms.",
     href: "/services/painting-services",
   },
 ];
@@ -237,10 +245,10 @@ export const HomepageServiceHighlights = () => {
               >
                 <Link
                   to={service.href}
-                  className="group block p-6 rounded-xl border border-border/60 bg-card hover:border-primary/40 hover:shadow-md transition-all duration-300 h-full"
+                  className="group/card block p-6 rounded-xl border border-border/60 bg-card hover:border-primary/40 hover:shadow-md focus-within:border-primary/40 focus-within:shadow-md transition-all duration-300 h-full"
                 >
                   <motion.div
-                    className="w-11 h-11 rounded-lg bg-primary/10 flex items-center justify-center mb-4 group-hover:bg-primary/20 transition-colors duration-300"
+                    className="w-11 h-11 rounded-lg bg-primary/10 flex items-center justify-center mb-4 group-hover/card:bg-primary/20 transition-colors duration-300"
                     whileHover={rm ? {} : { scale: 1.1 }}
                     transition={springHover}
                   >
@@ -252,6 +260,21 @@ export const HomepageServiceHighlights = () => {
                   <p className="text-base text-muted-foreground leading-relaxed">
                     {service.description}
                   </p>
+
+                  {/* Hover-reveal detail panel */}
+                  <div className="grid grid-rows-[0fr] group-hover/card:grid-rows-[1fr] focus-within:grid-rows-[1fr] transition-[grid-template-rows] duration-300 ease-out">
+                    <div className="overflow-hidden">
+                      <div className="pt-3 mt-3 border-t border-border/40">
+                        <p className="text-sm text-muted-foreground leading-relaxed">
+                          {service.detail}
+                        </p>
+                        <span className="inline-flex items-center gap-1 mt-3 text-xs font-semibold text-primary">
+                          Learn more
+                          <ArrowRight className="w-3 h-3" />
+                        </span>
+                      </div>
+                    </div>
+                  </div>
                 </Link>
               </motion.div>
             );
