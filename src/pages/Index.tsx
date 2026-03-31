@@ -91,7 +91,7 @@ const Index = () => {
     ],
   };
 
-  const siteSearchSchema = createSiteSearchSchema("https://ascentgroupconstruction.com");
+  const siteSearchSchema = createSiteSearchSchema(SITE_URL);
 
   const homepageVideos = getHomepageVideos();
   const videoSchemas = homepageVideos.map(video => videoSchema({
