@@ -230,10 +230,10 @@ const InteractiveCTA = () => {
           <div className="bg-background rounded-[var(--radius-lg)] shadow-[var(--shadow-lg)] p-8 lg:p-10">
             <div className="mb-6">
               <h3 className="text-2xl font-bold text-foreground mb-2">
-                Request Site Assessment
+                Start a Project Conversation
               </h3>
               <p className="text-muted-foreground">
-                Detailed quote within 24-48 hours. No obligation.
+                Scope review and pricing within 48 hours. No obligation.
               </p>
             </div>
 
