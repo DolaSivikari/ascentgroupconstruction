@@ -47,7 +47,7 @@ const WhySpecialtyContractor = () => {
         "@type": "ListItem",
         "position": 2,
         "name": "Why Specialty Contractor",
-        "item": "https://ascentgroupconstruction.com/why-specialty-contractor"
+        "item": `${SITE_URL}/why-specialty-contractor`
       }
     ]
   };
