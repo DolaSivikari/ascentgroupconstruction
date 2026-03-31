@@ -3,7 +3,7 @@
  * Structured content that AI assistants can easily parse and cite
  */
 
-import { COMPANY_PHONE, COMPANY_EMAIL } from "@/constants/company";
+import { COMPANY_PHONE, COMPANY_EMAIL, SITE_URL } from "@/constants/company";
 
 export const COMPANY_FACTS = {
   name: "Ascent Group Construction",
