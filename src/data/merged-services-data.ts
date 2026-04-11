@@ -380,12 +380,14 @@ export const buildingEnvelopeVariants = [
     tagline: 'Sto Canada Certified EIFS & Stucco Installation',
     description: 'Ascent Group Construction is a Sto Canada Listed Installer — certified to install StoTherm ci cladding systems, StoGuard Air/Moisture Barriers, StoCast Brick & Wood finishes, and Sto reStore restoration systems. We deliver manufacturer-backed EIFS and stucco installations with the quality assurance that comes from factory-trained crews and Sto Assured Performance Warranty eligibility.',
     benefits: [
-      'Superior weather resistance',
-      'Enhanced energy efficiency',
-      'Attractive, customizable finishes',
-      'Crack repair and color matching',
-      'Manufacturer-certified installation',
-      'Long-lasting durability'
+      'Sto Canada Listed Installer — factory-certified crews',
+      'Eligible for Sto Assured Performance Warranty (APW)',
+      'Superior weather resistance and energy efficiency',
+      'StoGuard Air/Moisture Barrier certified installation',
+      'StoCast Brick & Wood specialty finishes available',
+      'StoTherm ci Mineral cladding system certified',
+      'Sto reStore cladding restoration program certified',
+      'CCMC-evaluated systems for code compliance'
     ],
     process: [
       {
