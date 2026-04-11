@@ -164,12 +164,10 @@ const Dashboard = () => {
 
   const loadContentStatus = async () => {
     try {
-      const [heroSlides, whyChooseUs, testimonials, valuePillars] = await Promise.all([
-        supabase.from("hero_slides").select("*", { count: "exact", head: true }).eq("is_active", true),
-        supabase.from("why_choose_us_items").select("*", { count: "exact", head: true }).eq("is_active", true),
-        supabase.from("testimonials").select("*", { count: "exact", head: true }).eq("is_active", true),
-        supabase.from("value_pillars").select("*", { count: "exact", head: true }).eq("is_active", true),
-      ]);
+      const heroSlides = await supabase.from("hero_slides").select("*", { count: "exact", head: true }).eq("is_active", true);
+      const whyChooseUs = await supabase.from("why_choose_us_items").select("*", { count: "exact", head: true }).eq("is_active", true);
+      const testimonials = await (supabase.from("testimonials") as any).select("*", { count: "exact", head: true }).eq("is_active", true);
+      const valuePillars = await supabase.from("value_pillars").select("*", { count: "exact", head: true }).eq("is_active", true);
       setContentStatus({
         heroSlides: heroSlides.count ?? 0,
         whyChooseUs: whyChooseUs.count ?? 0,
