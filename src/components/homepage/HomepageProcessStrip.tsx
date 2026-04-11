@@ -4,7 +4,6 @@ import {
   Shield, Award, Lightbulb, Heart, Target, CircleCheckBig,
 } from "lucide-react";
 import { useScrollFadeIn } from "@/hooks/useScrollFadeIn";
-import { useStaggerAnimation } from "@/hooks/useStaggerAnimation";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 
 const steps = [
@@ -57,19 +56,123 @@ const promiseItems = [
   { title: "Safety Compliance", desc: "WSIB certified with strict adherence to all safety regulations." },
 ];
 
+const TimelineStep = ({
+  step,
+  index,
+  isEven,
+  prefersReducedMotion,
+}: {
+  step: typeof steps[number];
+  index: number;
+  isEven: boolean;
+  prefersReducedMotion: boolean;
+}) => {
+  const { ref, isVisible, skipAnimation } = useScrollFadeIn({ threshold: 0.3 });
+  const show = isVisible || skipAnimation || prefersReducedMotion;
+  const Icon = step.icon;
+  const delay = prefersReducedMotion ? 0 : index * 150;
+  const trans = prefersReducedMotion
+    ? "none"
+    : `opacity 400ms ease-out ${delay}ms, transform 400ms ease-out ${delay}ms`;
+
+  return (
+    <div ref={ref} className="relative flex items-start md:items-center gap-0 md:gap-0">
+      {/* Mobile + Desktop layout wrapper */}
+      <div className={`w-full flex flex-col md:flex-row ${isEven ? "md:flex-row-reverse" : ""} items-start md:items-center`}>
+        {/* Card side */}
+        <div className="w-full md:w-[calc(50%-2rem)] pl-14 md:pl-0">
+          <div
+            className={`rounded-[var(--radius-lg)] bg-card border border-border p-6 shadow-sm ${isEven ? "md:ml-0 md:mr-auto" : "md:mr-0 md:ml-auto"}`}
+            style={{
+              opacity: show ? 1 : 0,
+              transform: show
+                ? "translateX(0)"
+                : isEven
+                  ? "translateX(40px)"
+                  : "translateX(-40px)",
+              transition: trans,
+            }}
+          >
+            <span
+              aria-hidden="true"
+              className="text-5xl font-bold text-foreground/5 select-none leading-none"
+            >
+              {step.number}
+            </span>
+            <div className="flex items-center gap-3 mt-2 mb-2">
+              <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0">
+                <Icon className="w-5 h-5 text-primary" />
+              </div>
+              <h3 className="text-lg font-bold text-foreground">{step.title}</h3>
+            </div>
+            <p className="text-base text-muted-foreground leading-relaxed">{step.description}</p>
+          </div>
+        </div>
+
+        {/* Center dot — positioned absolutely on the timeline line */}
+        <div
+          className="absolute left-6 md:left-1/2 -translate-x-1/2 w-10 h-10 rounded-full bg-primary flex items-center justify-center z-10 border-4 border-background shadow-md"
+          style={{
+            transform: `translateX(-50%) scale(${show ? 1 : 0.5})`,
+            opacity: show ? 1 : 0,
+            transition: prefersReducedMotion
+              ? "none"
+              : `opacity 300ms ease-out ${delay}ms, transform 300ms cubic-bezier(0.34,1.56,0.64,1) ${delay}ms`,
+          }}
+        >
+          <span className="text-xs font-bold text-primary-foreground">{step.number}</span>
+        </div>
+
+        {/* Spacer for the other side on desktop */}
+        <div className="hidden md:block md:w-[calc(50%-2rem)]" />
+      </div>
+    </div>
+  );
+};
+
+const TimelineSegment = ({
+  show,
+  prefersReducedMotion,
+  delay,
+}: {
+  show: boolean;
+  prefersReducedMotion: boolean;
+  delay: number;
+}) => (
+  <div className="relative h-16 md:h-20 flex items-center justify-start md:justify-center">
+    <div
+      className="absolute left-6 md:left-1/2 -translate-x-1/2 w-0.5 h-full bg-primary/30"
+      style={{
+        transform: `translateX(-50%) scaleY(${show ? 1 : 0})`,
+        transformOrigin: "top",
+        transition: prefersReducedMotion ? "none" : `transform 500ms ease-out ${delay}ms`,
+      }}
+    />
+  </div>
+);
+
 export const HomepageProcessStrip = () => {
   const prefersReducedMotion = useReducedMotion();
   const { ref: headerRef, isVisible: headerVisible, skipAnimation: headerSkip } = useScrollFadeIn();
-  const { ref: gridRef, isVisible: gridVisible, skipAnimation: gridSkip } = useScrollFadeIn({ threshold: 0.1 });
   const { ref: cardsRef, isVisible: cardsVisible, skipAnimation: cardsSkip } = useScrollFadeIn({ threshold: 0.1 });
-  const stepDelays = useStaggerAnimation({ itemCount: steps.length, staggerDelay: 75 });
-  const cardDelays = useStaggerAnimation({ itemCount: 3, staggerDelay: 100 });
+
+  // Track visibility for line segments
+  const step0 = useScrollFadeIn({ threshold: 0.3 });
+  const step1 = useScrollFadeIn({ threshold: 0.3 });
+  const step2 = useScrollFadeIn({ threshold: 0.3 });
+  const step3 = useScrollFadeIn({ threshold: 0.3 });
+  const stepVisibility = [
+    step0.isVisible || step0.skipAnimation || prefersReducedMotion,
+    step1.isVisible || step1.skipAnimation || prefersReducedMotion,
+    step2.isVisible || step2.skipAnimation || prefersReducedMotion,
+    step3.isVisible || step3.skipAnimation || prefersReducedMotion,
+  ];
 
   const showHeader = headerVisible || headerSkip || prefersReducedMotion;
-  const showGrid = gridVisible || gridSkip || prefersReducedMotion;
   const showCards = cardsVisible || cardsSkip || prefersReducedMotion;
 
   const transition = prefersReducedMotion ? "none" : "opacity 300ms ease-out, transform 300ms ease-out";
+  const cardDelays = [0, 100, 200];
 
   return (
     <section className="w-full pt-16 md:pt-20 pb-20 md:pb-28 bg-gradient-to-b from-muted/30 to-background">
@@ -92,35 +195,25 @@ export const HomepageProcessStrip = () => {
           </p>
         </div>
 
-        {/* 4-step process row */}
-        <div ref={gridRef} className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-16">
-          {steps.map((step, index) => {
-            const Icon = step.icon;
-            return (
-              <div
-                key={index}
-                className="relative text-center group"
-                style={{
-                  opacity: showGrid ? 1 : 0,
-                  transform: showGrid ? "translateY(0)" : "translateY(24px)",
-                  transition,
-                  transitionDelay: showGrid ? `${stepDelays[index] ?? 0}ms` : "0ms",
-                }}
-              >
-                <span
-                  aria-hidden="true"
-                  className="absolute -top-2 left-1/2 -translate-x-1/2 text-7xl font-bold text-foreground/5 select-none leading-none"
-                >
-                  {step.number}
-                </span>
-                <div className="relative z-10 mx-auto mb-4 w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors duration-300">
-                  <Icon className="w-6 h-6 text-primary" />
-                </div>
-                <h3 className="relative z-10 text-base font-bold text-foreground mb-2">{step.title}</h3>
-                <p className="relative z-10 text-base text-muted-foreground leading-relaxed">{step.description}</p>
-              </div>
-            );
-          })}
+        {/* Vertical Timeline */}
+        <div className="relative mb-16">
+          {steps.map((step, index) => (
+            <div key={index}>
+              <TimelineStep
+                step={step}
+                index={index}
+                isEven={index % 2 === 1}
+                prefersReducedMotion={prefersReducedMotion}
+              />
+              {index < steps.length - 1 && (
+                <TimelineSegment
+                  show={stepVisibility[index + 1]}
+                  prefersReducedMotion={prefersReducedMotion}
+                  delay={index * 150}
+                />
+              )}
+            </div>
+          ))}
         </div>
 
         {/* 3-column cards */}
@@ -132,7 +225,7 @@ export const HomepageProcessStrip = () => {
               opacity: showCards ? 1 : 0,
               transform: showCards ? "translateY(0)" : "translateY(24px)",
               transition,
-              transitionDelay: showCards ? `${cardDelays[0] ?? 0}ms` : "0ms",
+              transitionDelay: showCards ? `${cardDelays[0]}ms` : "0ms",
             }}
           >
             <h3 className="text-lg font-bold uppercase tracking-wider text-primary mb-6">Our Approach</h3>
@@ -153,7 +246,7 @@ export const HomepageProcessStrip = () => {
               opacity: showCards ? 1 : 0,
               transform: showCards ? "translateY(0)" : "translateY(24px)",
               transition,
-              transitionDelay: showCards ? `${cardDelays[1] ?? 0}ms` : "0ms",
+              transitionDelay: showCards ? `${cardDelays[1]}ms` : "0ms",
             }}
           >
             <h3 className="text-lg font-bold uppercase tracking-wider mb-6">Our Values</h3>
@@ -182,7 +275,7 @@ export const HomepageProcessStrip = () => {
               opacity: showCards ? 1 : 0,
               transform: showCards ? "translateY(0)" : "translateY(24px)",
               transition,
-              transitionDelay: showCards ? `${cardDelays[2] ?? 0}ms` : "0ms",
+              transitionDelay: showCards ? `${cardDelays[2]}ms` : "0ms",
             }}
           >
             <h3 className="text-lg font-bold uppercase tracking-wider text-foreground mb-6">Our Promise</h3>
