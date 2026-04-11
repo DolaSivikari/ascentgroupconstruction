@@ -55,22 +55,22 @@ const ProjectFeaturedCard = ({
         </div>
         
         {/* Bottom Content */}
-        <div className="absolute bottom-0 left-0 right-0 p-6 space-y-3">
-          <h3 className="text-3xl font-bold text-foreground">{title}</h3>
-          <p className="text-muted-foreground line-clamp-2">{stripHtml(description)}</p>
+        <div className="absolute bottom-0 left-0 right-0 p-6 space-y-2 overflow-hidden">
+          <h3 className="text-2xl font-bold text-foreground line-clamp-2">{title}</h3>
+          <p className="text-muted-foreground text-sm line-clamp-2">{stripHtml(description)}</p>
           
           {/* Stats Grid */}
-          <div className="flex flex-wrap gap-4 text-sm">
-            <div className="flex items-center gap-2 bg-background/80 backdrop-blur-sm px-3 py-1 rounded-full">
-              <MapPin className="w-4 h-4 text-primary" />
+          <div className="flex flex-wrap gap-2 text-xs max-h-[3rem] overflow-hidden">
+            <div className="flex items-center gap-1.5 bg-background/80 backdrop-blur-sm px-2 py-0.5 rounded-full">
+              <MapPin className="w-3.5 h-3.5 text-primary" />
               <span>{location}</span>
             </div>
-            <div className="flex items-center gap-2 bg-background/80 backdrop-blur-sm px-3 py-1 rounded-full">
-              <Ruler className="w-4 h-4 text-primary" />
+            <div className="flex items-center gap-1.5 bg-background/80 backdrop-blur-sm px-2 py-0.5 rounded-full">
+              <Ruler className="w-3.5 h-3.5 text-primary" />
               <span>{size}</span>
             </div>
-            <div className="flex items-center gap-2 bg-background/80 backdrop-blur-sm px-3 py-1 rounded-full">
-              <Calendar className="w-4 h-4 text-primary" />
+            <div className="flex items-center gap-1.5 bg-background/80 backdrop-blur-sm px-2 py-0.5 rounded-full">
+              <Calendar className="w-3.5 h-3.5 text-primary" />
               <span>{year}</span>
             </div>
           </div>

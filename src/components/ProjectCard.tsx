@@ -6,7 +6,7 @@ import { Button } from "@/ui/Button";
 import { MapPin, Calendar, Ruler, Eye, CheckCircle2, DollarSign, Shield } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { resolveAssetPath } from "@/utils/assetResolver";
-import { ScrollReveal } from "@/components/animations/ScrollReveal";
+
 import OptimizedImage from "./OptimizedImage";
 import { ASPECT_RATIOS } from "@/design-system/image-system";
 
@@ -72,18 +72,13 @@ const ProjectCard = ({
     >
       {/* Image Container - PCL style with entrance animation */}
       <div className={cn("relative overflow-hidden", ASPECT_RATIOS.card)}>
-        <ScrollReveal direction="up" threshold={0.2}>
           <OptimizedImage
             src={resolveAssetPath(image) || "/placeholder.svg"}
             alt={title}
             aspectRatio="4:3"
             generateSrcSet
-            className={cn(
-              "w-full h-full object-cover object-center transition-transform duration-300 animate-fade-in",
-              isHovered && "scale-[1.15]"
-            )}
+            className="w-full h-full object-cover object-center transition-transform duration-300 group-hover:scale-105"
           />
-        </ScrollReveal>
         
         {/* Clean overlay on hover */}
         <div className={cn(
