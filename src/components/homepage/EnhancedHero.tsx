@@ -124,11 +124,12 @@ const EnhancedHero = ({ splashComplete = true }: { splashComplete?: boolean }) =
   });
 
   const hasUsableAdminSlides = adminHeroSlides.length > 0;
+  // When admin has slides, use ONLY those — do not append fallback slides after them.
+  // Fallback slides are only used when the database has no slides at all.
   const activeSlides = hasUsableAdminSlides
-    ? [
-        ...adminHeroSlides.map((slide, index) => mapAdminSlideToHero(slide, fallbackHeroSlides[index % fallbackHeroSlides.length], index)),
-        ...fallbackHeroSlides.slice(adminHeroSlides.length),
-      ]
+    ? adminHeroSlides.map((slide, index) =>
+        mapAdminSlideToHero(slide, fallbackHeroSlides[index % fallbackHeroSlides.length], index)
+      )
     : fallbackHeroSlides;
 
   const videoUrls = activeSlides.map(slide => slide.video);
