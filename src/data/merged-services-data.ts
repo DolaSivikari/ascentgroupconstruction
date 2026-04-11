@@ -377,8 +377,8 @@ export const buildingEnvelopeVariants = [
   {
     id: 'stucco-eifs',
     title: 'Stucco & EIFS',
-    tagline: 'Premium Stucco & EIFS Installation',
-    description: 'Expert application of traditional stucco and modern EIFS (Exterior Insulation and Finish System). Transform your building\'s exterior with durable, attractive finishes that provide excellent insulation and weather resistance.',
+    tagline: 'Sto Canada Certified EIFS & Stucco Installation',
+    description: 'Ascent Group Construction is a Sto Canada Listed Installer — certified to install StoTherm ci cladding systems, StoGuard Air/Moisture Barriers, StoCast Brick & Wood finishes, and Sto reStore restoration systems. We deliver manufacturer-backed EIFS and stucco installations with the quality assurance that comes from factory-trained crews and Sto Assured Performance Warranty eligibility.',
     benefits: [
       'Superior weather resistance',
       'Enhanced energy efficiency',
