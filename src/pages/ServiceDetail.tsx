@@ -191,6 +191,13 @@ const ServiceDetail = () => {
           { label: service.name }
         ]}
         height="medium"
+        {...(service.slug === 'eifs-stucco-systems' ? {
+          badges: [
+            { icon: "ShieldCheck", text: "Sto Canada Listed Installer" },
+            { icon: "Award", text: "APW Warranty Eligible" },
+            { icon: "Building2", text: "CCMC Evaluated Systems" },
+          ]
+        } : {})}
       />
       
       <main className="min-h-screen">
