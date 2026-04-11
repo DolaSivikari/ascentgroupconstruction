@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { ShieldCheck, Award, Building2 } from "lucide-react";
 import { useParams, Navigate } from "react-router-dom";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
@@ -193,9 +194,9 @@ const ServiceDetail = () => {
         height="medium"
         {...(service.slug === 'eifs-stucco-systems' ? {
           badges: [
-            { icon: "ShieldCheck", text: "Sto Canada Listed Installer" },
-            { icon: "Award", text: "APW Warranty Eligible" },
-            { icon: "Building2", text: "CCMC Evaluated Systems" },
+            { icon: ShieldCheck, text: "Sto Canada Listed Installer" },
+            { icon: Award, text: "APW Warranty Eligible" },
+            { icon: Building2, text: "CCMC Evaluated Systems" },
           ]
         } : {})}
       />
