@@ -1,62 +1,45 @@
 
 
-## Lead Generation Plan — B2B Specialty Contractor Approach
+## Fix: Project Card Image Consistency + Featured Card Text Overflow
 
-### What's Actually Wrong
-
-Your site looks like a GC-level firm but **converts like a brochure**. The problem isn't missing popups — it's that your conversion paths don't match how GCs, PMs, and owners actually buy:
-
-1. **"Request Unit Pricing" for GCs goes to `/contact`** — a generic form. A GC procurement team wants to submit a scope, not fill out a contact form.
-2. **InteractiveCTA (your only inline form) is dead code** — never imported anywhere.
-3. **No mid-page conversion** — 6 content sections between the hero and the bottom CTA. A PM reading your services list has no way to act without scrolling to the bottom or navigating away.
-4. **Hero CTAs are fine for B2B** ("Submit RFP", "Prequalify Now") — but slide 3 sends to `/markets` (informational) instead of a conversion path.
-5. **Prequalification docs require a page visit** — GCs want to download your prequal package and vendor packet quickly, not browse a page.
-
-### The Fix — 4 Changes (Professional B2B)
-
-#### 1. ✅ Restore the inline form on the homepage
-Import existing `InteractiveCTA` into `Index.tsx`, placed between WhyChooseUs and ProcessStrip. Update its heading from "Request Site Assessment" to **"Start a Project Conversation"** and button from "Request a Proposal" to **"Submit Inquiry"** — matching your professional CTA language standards.
-
-#### 2. ✅ Fix hero slide 3 CTA
-Changed slide 3 primary CTA from "View Markets" → `/markets` to **"Request Site Assessment"** → `/contact`.
-
-#### 3. ✅ Add a professional sticky inquiry bar
-Slim, understated bar at the bottom of the viewport. Two variants:
-- **Desktop:** "Looking for a trade partner? Request unit pricing or submit a scope →" with a single link to `/submit-rfp`
-- **Mobile:** Tap-to-call button + "Submit Scope" button
-
-#### 4. ✅ Add quick-access credential downloads in the proof strip
-Added "Download Prequal Package" link in `HomepageProofStrip`.
+Two distinct bugs causing visual inconsistency on the `/projects` page.
 
 ---
 
-## Visual Dominance — Staged Implementation Plan
+### Problem 1: New project images don't match existing card style
 
-### PASS 1 — Safe Visual Upgrades (planned, not yet implemented)
-1. Animated Stat Counters (ProofStrip)
-2. Full-Bleed Parallax Image Break
-3. Hover-Reveal Service Detail Panels
+**Root cause:** In `ProjectCard.tsx`, the image is wrapped in a `ScrollReveal` component (line 75-85) which adds an extra `div` without `w-full h-full`. The parent has `aspect-[4/3]`, but the `ScrollReveal` div breaks the height chain, causing `OptimizedImage` to not fill the container. Older projects may have images that happen to work, but newly uploaded images with different dimensions render incorrectly.
 
-### PASS 2 — Cinematic Scroll Mechanics (planned, not yet implemented)
-4. Horizontal-Scroll Project Showcase
-5. Scroll-Activated Process Timeline
+**Fix in `src/components/ProjectCard.tsx`:**
+- Remove the `ScrollReveal` wrapper from around the `OptimizedImage` inside the card (lines 75-85). The card itself is already inside a `ScrollReveal` on the Projects page grid — double-wrapping is redundant and breaks the image fill.
+- Ensure `OptimizedImage` uses `className="w-full h-full object-cover"` without the extra `animate-fade-in` and hover scale (move scale to the parent container via `group-hover:scale-105` on the image directly).
+
+### Problem 2: Featured Projects text overflows card borders
+
+**Root cause:** In `ProjectFeaturedCard.tsx`, the bottom content overlay (lines 58-77) is absolutely positioned with `p-6` but has no overflow protection. Long project titles (`text-3xl font-bold`), descriptions, and the stats pill row (`flex-wrap gap-4`) can collectively exceed the card height, pushing content outside the visible area.
+
+**Fix in `src/components/ProjectFeaturedCard.tsx`:**
+- Add `overflow-hidden` to the bottom content container
+- Constrain the title with `line-clamp-2` (already has `text-3xl font-bold`, just add the clamp)
+- Ensure description keeps `line-clamp-2`
+- Add `max-h` and `overflow-hidden` to the stats row so it doesn't push below the card
+- Reduce the stats pills to a simpler layout: use `flex-wrap` with `max-h-[3.5rem] overflow-hidden` so at most 2 rows of pills show
+
+### Future-proofing
+
+Both fixes make the layout resilient to any image dimensions or text lengths from the admin panel — no special image prep or text truncation needed when adding new projects.
 
 ---
 
-## Passes 3–5: Foundation Fixes
+### Technical Details
 
-### PASS 3 — /services Page Rebuild ✅ IMPLEMENTED
-- **3a.** `/services` page now queries published services from DB, grouped by category
-- **3b.** Removed 7 hardcoded service pages (PaintingServices, TileFlooring, etc.) — all service detail pages now use `ServiceDetail` which fetches from DB by slug
-- **3c.** Fixed homepage service links to match actual DB slugs (`facade-remediation`, `eifs-stucco-systems`, `waterproofing-systems`, `interior-buildouts-finishing`, `parking-garage-restoration`)
-- Legacy slug redirects preserved in AppRoutes for SEO continuity
+**File 1: `src/components/ProjectCard.tsx`**
+- Lines 74-85: Remove `ScrollReveal` wrapper, keep `OptimizedImage` directly inside the `aspect-[4/3]` container
+- Add `group-hover:scale-105 transition-transform duration-300` to the image for hover effect
 
-### PASS 4 — Data Quality ✅ IMPLEMENTED
-- **4a.** Project cards now show branded "AGC" placeholder when `featured_image` is missing; summary fallback text for blank descriptions
-- **4b.** Created `src/utils/formatPhone.ts` — centralized phone formatting utility. Updated 6 files to use it instead of inline regex/hardcoded strings
-- **4c.** Replaced hardcoded `https://ascentgroupconstruction.com` URLs in Index.tsx structured data with `SITE_URL` and `COMPANY_EMAIL` constants
+**File 2: `src/components/ProjectFeaturedCard.tsx`**
+- Line 58: Add `overflow-hidden` to the bottom overlay div
+- Line 59: Add `line-clamp-2` to the title h3
+- Lines 63-76: Add `max-h-[3rem] overflow-hidden` to the stats flex container
+- Reduce stats padding from `px-3 py-1` to `px-2 py-0.5` and text to `text-xs` for tighter fit
 
-### PASS 5 — Admin Wiring & Domain Hygiene ✅ IMPLEMENTED
-- **5c.** Added Netlify-only note to `_redirects`; SEO.tsx already uses `SITE_URL` for canonicals
-- **5d.** Removed hardcoded service page imports from AppRoutes; legacy redirects now map to correct DB slugs
-- Sustainability redirect fixed to point to `sustainable-building` (actual DB slug)
