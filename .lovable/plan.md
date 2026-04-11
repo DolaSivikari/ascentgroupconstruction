@@ -1,45 +1,55 @@
 
 
-## Fix: Project Card Image Consistency + Featured Card Text Overflow
+## Scroll-Activated Vertical Process Timeline
 
-Two distinct bugs causing visual inconsistency on the `/projects` page.
+Replace the static 4-step grid (lines 95-124) with an alternating left/right vertical timeline that activates each step as it scrolls into view. The 3-column cards below and footer link remain unchanged.
 
----
+### Design
 
-### Problem 1: New project images don't match existing card style
+```text
+Desktop layout:
 
-**Root cause:** In `ProjectCard.tsx`, the image is wrapped in a `ScrollReveal` component (line 75-85) which adds an extra `div` without `w-full h-full`. The parent has `aspect-[4/3]`, but the `ScrollReveal` div breaks the height chain, causing `OptimizedImage` to not fill the container. Older projects may have images that happen to work, but newly uploaded images with different dimensions render incorrectly.
+     [Step 01 card]
+           |          ← vertical line draws down
+           ●          ← dot scales up when active
+           |
+                    [Step 02 card]
+           |
+           ●
+           |
+     [Step 03 card]
+           |
+           ●
+           |
+                    [Step 04 card]
+```
 
-**Fix in `src/components/ProjectCard.tsx`:**
-- Remove the `ScrollReveal` wrapper from around the `OptimizedImage` inside the card (lines 75-85). The card itself is already inside a `ScrollReveal` on the Projects page grid — double-wrapping is redundant and breaks the image fill.
-- Ensure `OptimizedImage` uses `className="w-full h-full object-cover"` without the extra `animate-fade-in` and hover scale (move scale to the parent container via `group-hover:scale-105` on the image directly).
+On mobile: single column, all steps left-aligned along the timeline.
 
-### Problem 2: Featured Projects text overflows card borders
+### Behavior
 
-**Root cause:** In `ProjectFeaturedCard.tsx`, the bottom content overlay (lines 58-77) is absolutely positioned with `p-6` but has no overflow protection. Long project titles (`text-3xl font-bold`), descriptions, and the stats pill row (`flex-wrap gap-4`) can collectively exceed the card height, pushing content outside the visible area.
+- Each step has its own `IntersectionObserver` (threshold 0.4) via `useScrollFadeIn`
+- When a step enters the viewport:
+  - The step number scales from `scale(0.5)` to `scale(1)` (the circle/dot)
+  - The card slides in from the left (odd steps) or right (even steps) with fade
+  - The connecting line segment transitions from `scaleY(0)` to `scaleY(1)` with `transform-origin: top`
+- Stagger: each step gets a 150ms delay after intersection triggers
+- `prefers-reduced-motion`: all animations disabled, everything visible immediately
 
-**Fix in `src/components/ProjectFeaturedCard.tsx`:**
-- Add `overflow-hidden` to the bottom content container
-- Constrain the title with `line-clamp-2` (already has `text-3xl font-bold`, just add the clamp)
-- Ensure description keeps `line-clamp-2`
-- Add `max-h` and `overflow-hidden` to the stats row so it doesn't push below the card
-- Reduce the stats pills to a simpler layout: use `flex-wrap` with `max-h-[3.5rem] overflow-hidden` so at most 2 rows of pills show
+### Implementation
 
-### Future-proofing
+**File: `src/components/homepage/HomepageProcessStrip.tsx`**
 
-Both fixes make the layout resilient to any image dimensions or text lengths from the admin panel — no special image prep or text truncation needed when adding new projects.
+Replace lines 95-124 (the `grid grid-cols-2 md:grid-cols-4` block) with:
 
----
+- A `relative` container with a central vertical line (`absolute left-1/2` on desktop, `left-6` on mobile)
+- 4 timeline step items, each using a dedicated ref + `useScrollFadeIn({ threshold: 0.3 })`
+- Each step renders:
+  - A circle/dot on the center line that scales in
+  - A card on the left or right side (alternating via `md:flex-row-reverse` on even steps)
+  - The card contains the step number watermark, icon box, title, and description (same content as now)
+- The vertical line uses 3 segments between steps, each with `scaleY` tied to whether the *next* step is visible
+- Mobile: all cards stack left of the line using `pl-16` with the line at `left-6`
 
-### Technical Details
-
-**File 1: `src/components/ProjectCard.tsx`**
-- Lines 74-85: Remove `ScrollReveal` wrapper, keep `OptimizedImage` directly inside the `aspect-[4/3]` container
-- Add `group-hover:scale-105 transition-transform duration-300` to the image for hover effect
-
-**File 2: `src/components/ProjectFeaturedCard.tsx`**
-- Line 58: Add `overflow-hidden` to the bottom overlay div
-- Line 59: Add `line-clamp-2` to the title h3
-- Lines 63-76: Add `max-h-[3rem] overflow-hidden` to the stats flex container
-- Reduce stats padding from `px-3 py-1` to `px-2 py-0.5` and text to `text-xs` for tighter fit
+No new files, no new dependencies. Uses existing `useScrollFadeIn` and `useReducedMotion` hooks.
 
