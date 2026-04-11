@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { ShieldCheck, Award, Building2 } from "lucide-react";
 import { useParams, Navigate } from "react-router-dom";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
@@ -11,7 +10,7 @@ import { SITE_URL } from "@/constants/company";
 import { Card, CardContent } from "@/design-system/components/Card";
 import { Button } from "@/ui/Button";
 import { Link } from "react-router-dom";
-import { Phone, CheckCircle, Award, ShieldCheck, ExternalLink } from "lucide-react";
+import { Phone, CheckCircle, Award, ShieldCheck, ExternalLink, Building2 } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
 import { sanitizeAndValidate } from "@/utils/sanitize";
 import QuickFacts from "@/components/seo/QuickFacts";
