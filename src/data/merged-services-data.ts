@@ -418,7 +418,7 @@ export const buildingEnvelopeVariants = [
     quickFacts: {
       projectTypes: ['Commercial Buildings', 'Residential Homes', 'Multi-Unit Properties', 'Heritage Restoration', 'New Construction'],
       timeline: '4-10 weeks depending on scope',
-      certifications: ['EIFS Manufacturer Certified', 'Stucco Trade Certified', 'Building Envelope Specialist']
+      certifications: ['Sto Canada Listed Installer', 'StoTherm ci Certified (CCMC 12416-R)', 'StoGuard AMB Certified (CCMC 13120-R & 13612-R)', 'Sto Assured Performance Warranty Eligible', 'Building Envelope Specialist']
     }
   },
   {
