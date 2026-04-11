@@ -72,18 +72,13 @@ const ProjectCard = ({
     >
       {/* Image Container - PCL style with entrance animation */}
       <div className={cn("relative overflow-hidden", ASPECT_RATIOS.card)}>
-        <ScrollReveal direction="up" threshold={0.2}>
           <OptimizedImage
             src={resolveAssetPath(image) || "/placeholder.svg"}
             alt={title}
             aspectRatio="4:3"
             generateSrcSet
-            className={cn(
-              "w-full h-full object-cover object-center transition-transform duration-300 animate-fade-in",
-              isHovered && "scale-[1.15]"
-            )}
+            className="w-full h-full object-cover object-center transition-transform duration-300 group-hover:scale-105"
           />
-        </ScrollReveal>
         
         {/* Clean overlay on hover */}
         <div className={cn(
