@@ -6,7 +6,7 @@ import { Button } from "@/ui/Button";
 import { MapPin, Calendar, Ruler, Eye, CheckCircle2, DollarSign, Shield } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { resolveAssetPath } from "@/utils/assetResolver";
-import { ScrollReveal } from "@/components/animations/ScrollReveal";
+
 import OptimizedImage from "./OptimizedImage";
 import { ASPECT_RATIOS } from "@/design-system/image-system";
 
