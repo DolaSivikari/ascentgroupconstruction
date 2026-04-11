@@ -188,21 +188,36 @@ export const UnifiedSidebar = ({
           {/* Logo */}
           <div className="business-logo">
             {collapsed ? (
-              <div
-                className="text-2xl font-bold text-center"
-                style={{ background: 'linear-gradient(135deg, #fff 0%, hsl(25 100% 50%) 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}
-              >
-                A
+              <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-white/10 mx-auto">
+                <img
+                  src="/ascent-logo.png"
+                  alt="Ascent Group"
+                  className="w-5 h-5 object-contain"
+                  onError={e => {
+                    (e.currentTarget as HTMLImageElement).style.display = 'none';
+                    (e.currentTarget.nextElementSibling as HTMLElement)!.style.display = 'block';
+                  }}
+                />
+                <span className="hidden text-lg font-black text-white leading-none">A</span>
               </div>
             ) : (
-              <div className="flex flex-col">
-                <div
-                  className="text-xl font-bold"
-                  style={{ background: 'linear-gradient(135deg, #fff 0%, hsl(25 100% 50%) 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}
-                >
-                  Ascent Admin
+              <div className="flex items-center gap-3">
+                <div className="flex items-center justify-center w-9 h-9 rounded-lg bg-white/10 shrink-0">
+                  <img
+                    src="/ascent-logo.png"
+                    alt="Ascent Group"
+                    className="w-6 h-6 object-contain"
+                    onError={e => {
+                      (e.currentTarget as HTMLImageElement).style.display = 'none';
+                      (e.currentTarget.nextElementSibling as HTMLElement)!.style.display = 'flex';
+                    }}
+                  />
+                  <span className="hidden items-center justify-center text-base font-black text-white w-full h-full">A</span>
                 </div>
-                <span className="text-xs text-white/60 mt-0.5">Content Management</span>
+                <div className="min-w-0">
+                  <div className="text-sm font-bold text-white leading-tight truncate">Ascent Group</div>
+                  <div className="text-[10px] font-semibold text-white/40 uppercase tracking-widest mt-px">Construction</div>
+                </div>
               </div>
             )}
           </div>

@@ -1,16 +1,47 @@
 import { useState, useEffect } from 'react';
-import { Outlet, Navigate } from 'react-router-dom';
+import { Outlet, Navigate, useLocation } from 'react-router-dom';
 import { UnifiedSidebar } from './UnifiedSidebar';
 import { useAdminAuth } from '@/hooks/useAdminAuth';
-import { Menu } from 'lucide-react';
+import { Menu, ExternalLink } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
 import { PageTransition } from '@/components/animations/PageTransition';
 import { OnboardingTour } from '@/components/admin/OnboardingTour';
 import { NotificationBellInbox } from './NotificationBellInbox';
 import '@/styles/admin-theme.css';
 
+const PAGE_TITLES: Record<string, string> = {
+  '/admin': 'Dashboard',
+  '/admin/inbox': 'Inbox',
+  '/admin/projects': 'Projects',
+  '/admin/services-manager': 'Services',
+  '/admin/blog': 'Blog Posts',
+  '/admin/testimonials': 'Testimonials',
+  '/admin/media': 'Media Library',
+  '/admin/documents-library': 'Documents',
+  '/admin/homepage-builder': 'Homepage Builder',
+  '/admin/navigation': 'Navigation Menu',
+  '/admin/seo-dashboard': 'SEO Dashboard',
+  '/admin/redirects': 'Redirects',
+  '/admin/settings': 'Settings',
+  '/admin/users': 'Users & Roles',
+  '/admin/email-templates': 'Email Templates',
+  '/admin/performance-dashboard': 'Performance',
+  '/admin/search-analytics': 'Search Analytics',
+  '/admin/monitoring': 'Monitoring',
+  '/admin/audit': 'Audit Log',
+  '/admin/notifications': 'Notifications',
+};
+
+function usePageTitle(pathname: string) {
+  if (PAGE_TITLES[pathname]) return PAGE_TITLES[pathname];
+  const base = '/' + pathname.split('/').slice(0, 3).join('/').replace(/^\//, '');
+  return PAGE_TITLES['/' + pathname.split('/').slice(1, 3).join('/')] || 'Admin';
+}
+
 export const UnifiedAdminLayout = () => {
   const { isLoading, isAdmin, retry } = useAdminAuth();
+  const location = useLocation();
+  const pageTitle = usePageTitle(location.pathname);
   const [loadingTime, setLoadingTime] = useState(0);
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -104,16 +135,41 @@ export const UnifiedAdminLayout = () => {
         onRestartOnboarding={handleRestartOnboarding}
       />
       <div className={`business-main-content ${sidebarCollapsed ? 'sidebar-collapsed' : ''}`}>
-        <header className="bg-background border-b border-border px-6 py-4 flex items-center justify-between">
-          <button 
-            onClick={() => setMobileMenuOpen(true)}
-            className="lg:hidden p-2 hover:bg-muted rounded-md"
-          >
-            <Menu className="w-6 h-6" />
-          </button>
-          <div className="flex items-center gap-4 ml-auto">
+        <header className="bg-background border-b border-border px-6 py-3 flex items-center justify-between gap-4 min-h-[56px]">
+          {/* Left: mobile toggle + page title */}
+          <div className="flex items-center gap-3 min-w-0">
+            <button
+              onClick={() => setMobileMenuOpen(true)}
+              className="lg:hidden p-2 hover:bg-muted rounded-md shrink-0"
+              aria-label="Open menu"
+            >
+              <Menu className="w-5 h-5" />
+            </button>
+            <h2 className="text-base font-semibold text-foreground truncate hidden sm:block">
+              {pageTitle}
+            </h2>
+          </div>
+
+          {/* Right: view site + notifications + user */}
+          <div className="flex items-center gap-2 shrink-0">
+            <a
+              href="/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hidden md:inline-flex items-center gap-1.5 text-xs text-muted-foreground hover:text-foreground border border-border rounded-md px-3 py-1.5 transition-colors hover:bg-muted"
+            >
+              <ExternalLink className="w-3.5 h-3.5" />
+              View Site
+            </a>
             <NotificationBellInbox />
-            <span className="text-sm text-muted-foreground">{user?.email}</span>
+            <div className="flex items-center gap-2 pl-2 border-l border-border">
+              <div className="w-7 h-7 rounded-full bg-primary/10 flex items-center justify-center text-primary font-semibold text-xs uppercase shrink-0">
+                {user?.email?.[0] ?? '?'}
+              </div>
+              <span className="text-sm text-muted-foreground hidden lg:block max-w-[160px] truncate">
+                {user?.email}
+              </span>
+            </div>
           </div>
         </header>
         <div className="business-page-content">
