@@ -75,8 +75,6 @@ const ProjectCard = ({
           <OptimizedImage
             src={resolveAssetPath(image) || "/placeholder.svg"}
             alt={title}
-            aspectRatio="4:3"
-            generateSrcSet
             className="w-full h-full object-cover object-center transition-transform duration-300 group-hover:scale-105"
           />
         
