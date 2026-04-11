@@ -10,7 +10,7 @@ import { SITE_URL } from "@/constants/company";
 import { Card, CardContent } from "@/design-system/components/Card";
 import { Button } from "@/ui/Button";
 import { Link } from "react-router-dom";
-import { Phone, CheckCircle } from "lucide-react";
+import { Phone, CheckCircle, Award, ShieldCheck, ExternalLink, Building2 } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
 import { sanitizeAndValidate } from "@/utils/sanitize";
 import QuickFacts from "@/components/seo/QuickFacts";
@@ -191,6 +191,13 @@ const ServiceDetail = () => {
           { label: service.name }
         ]}
         height="medium"
+        {...(service.slug === 'eifs-stucco-systems' ? {
+          badges: [
+            { icon: ShieldCheck, text: "Sto Canada Listed Installer" },
+            { icon: Award, text: "APW Warranty Eligible" },
+            { icon: Building2, text: "CCMC Evaluated Systems" },
+          ]
+        } : {})}
       />
       
       <main className="min-h-screen">
@@ -225,6 +232,67 @@ const ServiceDetail = () => {
                   <p className="text-lg text-muted-foreground leading-relaxed whitespace-pre-wrap">
                     {service.service_overview}
                   </p>
+                </div>
+              </div>
+            </div>
+          </section>
+        )}
+
+        {/* Sto Canada Certification Banner — EIFS/Stucco only */}
+        {service.slug === 'eifs-stucco-systems' && (
+          <section className="py-12 bg-background">
+            <div className="container mx-auto px-4">
+              <div className="max-w-4xl mx-auto">
+                <div className="relative overflow-hidden rounded-xl border-2 border-primary/20 bg-gradient-to-br from-primary/5 via-background to-accent/5 p-8 md:p-10">
+                  {/* Badge */}
+                  <div className="absolute top-4 right-4 md:top-6 md:right-6">
+                    <span className="inline-flex items-center gap-1.5 rounded-full bg-primary/10 px-3 py-1 text-xs font-semibold text-primary uppercase tracking-wider">
+                      <ShieldCheck className="w-3.5 h-3.5" />
+                      Verified
+                    </span>
+                  </div>
+
+                  <div className="flex flex-col md:flex-row gap-6 md:gap-10 items-start">
+                    {/* Icon */}
+                    <div className="flex-shrink-0 w-16 h-16 rounded-xl bg-primary/10 flex items-center justify-center">
+                      <Award className="w-8 h-8 text-primary" />
+                    </div>
+
+                    <div className="flex-1">
+                      <h3 className="text-2xl font-bold text-foreground mb-2">
+                        Sto Canada Listed Installer
+                      </h3>
+                      <p className="text-muted-foreground leading-relaxed mb-4">
+                        Ascent Group Construction is a <strong className="text-foreground">factory-certified Listed Installer</strong> recognized by Sto Canada Ltd. Our crews have completed certified training on StoTherm ci cladding systems, StoGuard Air/Moisture Barriers, StoCast specialty finishes, and Sto reStore restoration programs — ensuring every installation meets manufacturer specifications and qualifies for <strong className="text-foreground">Sto Assured Performance Warranty (APW)</strong> coverage.
+                      </p>
+
+                      <div className="grid sm:grid-cols-2 gap-3 mb-6">
+                        {[
+                          'StoTherm ci Cladding (CCMC 12416-R)',
+                          'StoGuard AMB System (CCMC 13120-R)',
+                          'StoCast Brick & Wood Finishes',
+                          'StoTherm ci Mineral Cladding',
+                          'Sto reStore Restoration Program',
+                          'Sto Assured Performance Warranty',
+                        ].map((item) => (
+                          <div key={item} className="flex items-center gap-2 text-sm">
+                            <CheckCircle className="w-4 h-4 text-primary flex-shrink-0" />
+                            <span className="text-muted-foreground">{item}</span>
+                          </div>
+                        ))}
+                      </div>
+
+                      <a
+                        href="https://dinliarttwuzzozyvuiu.supabase.co/storage/v1/object/public/documents/certifications/Ascent_Group_Construction_-_Sto_Listing_Certificate.pdf"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-2 text-sm font-semibold text-primary hover:text-accent transition-colors"
+                      >
+                        View Certificate
+                        <ExternalLink className="w-4 h-4" />
+                      </a>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>

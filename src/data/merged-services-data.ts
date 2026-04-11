@@ -377,15 +377,17 @@ export const buildingEnvelopeVariants = [
   {
     id: 'stucco-eifs',
     title: 'Stucco & EIFS',
-    tagline: 'Premium Stucco & EIFS Installation',
-    description: 'Expert application of traditional stucco and modern EIFS (Exterior Insulation and Finish System). Transform your building\'s exterior with durable, attractive finishes that provide excellent insulation and weather resistance.',
+    tagline: 'Sto Canada Certified EIFS & Stucco Installation',
+    description: 'Ascent Group Construction is a Sto Canada Listed Installer — certified to install StoTherm ci cladding systems, StoGuard Air/Moisture Barriers, StoCast Brick & Wood finishes, and Sto reStore restoration systems. We deliver manufacturer-backed EIFS and stucco installations with the quality assurance that comes from factory-trained crews and Sto Assured Performance Warranty eligibility.',
     benefits: [
-      'Superior weather resistance',
-      'Enhanced energy efficiency',
-      'Attractive, customizable finishes',
-      'Crack repair and color matching',
-      'Manufacturer-certified installation',
-      'Long-lasting durability'
+      'Sto Canada Listed Installer — factory-certified crews',
+      'Eligible for Sto Assured Performance Warranty (APW)',
+      'Superior weather resistance and energy efficiency',
+      'StoGuard Air/Moisture Barrier certified installation',
+      'StoCast Brick & Wood specialty finishes available',
+      'StoTherm ci Mineral cladding system certified',
+      'Sto reStore cladding restoration program certified',
+      'CCMC-evaluated systems for code compliance'
     ],
     process: [
       {
@@ -416,7 +418,7 @@ export const buildingEnvelopeVariants = [
     quickFacts: {
       projectTypes: ['Commercial Buildings', 'Residential Homes', 'Multi-Unit Properties', 'Heritage Restoration', 'New Construction'],
       timeline: '4-10 weeks depending on scope',
-      certifications: ['EIFS Manufacturer Certified', 'Stucco Trade Certified', 'Building Envelope Specialist']
+      certifications: ['Sto Canada Listed Installer', 'StoTherm ci Certified (CCMC 12416-R)', 'StoGuard AMB Certified (CCMC 13120-R & 13612-R)', 'Sto Assured Performance Warranty Eligible', 'Building Envelope Specialist']
     }
   },
   {
