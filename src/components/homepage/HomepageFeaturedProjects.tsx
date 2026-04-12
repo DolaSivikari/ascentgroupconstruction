@@ -100,10 +100,10 @@ export const HomepageFeaturedProjects = () => {
                 direction={index % 3 === 0 ? "left" : index % 3 === 1 ? "up" : "right"}
                 delay={index * 100}
               >
-                <Card variant="interactive" className="overflow-hidden hover-subtle">
+                <Card variant="interactive" className="overflow-hidden hover-subtle h-full flex flex-col">
                   <Link to={`/projects/${project.slug}`}>
                     {project.featured_image && (
-                      <div className="relative overflow-hidden aspect-[4/3] md:aspect-[16/9] md:h-64">
+                      <div className="relative overflow-hidden aspect-[4/3]">
                         <OptimizedImage
                           src={project.featured_image}
                           alt={project.title}
