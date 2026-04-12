@@ -1,55 +1,31 @@
 
 
-## Scroll-Activated Vertical Process Timeline
+## Fix Featured Projects Card Visual Issues
 
-Replace the static 4-step grid (lines 95-124) with an alternating left/right vertical timeline that activates each step as it scrolls into view. The 3-column cards below and footer link remain unchanged.
+### Problems identified
 
-### Design
+1. **Images not fitting to card border**: Conflicting CSS — `aspect-[4/3] md:aspect-[16/9] md:h-64` creates unpredictable sizing. The `md:h-64` fixed height fights with the aspect ratio classes, and OptimizedImage's internal wrapper may add extra spacing.
 
-```text
-Desktop layout:
+2. **Card sizes uneven**: Varying summary lengths + inconsistent image sizing means cards don't align in the grid.
 
-     [Step 01 card]
-           |          ← vertical line draws down
-           ●          ← dot scales up when active
-           |
-                    [Step 02 card]
-           |
-           ●
-           |
-     [Step 03 card]
-           |
-           ●
-           |
-                    [Step 04 card]
-```
+3. **Badge text invisible**: The `glass` badge variant (used for Location) renders `text-white` — on a white card background this is unreadable. The badge was designed for dark/image overlays, not white card content areas.
 
-On mobile: single column, all steps left-aligned along the timeline.
+### Changes
 
-### Behavior
+**File: `src/components/homepage/HomepageFeaturedProjects.tsx`**
 
-- Each step has its own `IntersectionObserver` (threshold 0.4) via `useScrollFadeIn`
-- When a step enters the viewport:
-  - The step number scales from `scale(0.5)` to `scale(1)` (the circle/dot)
-  - The card slides in from the left (odd steps) or right (even steps) with fade
-  - The connecting line segment transitions from `scaleY(0)` to `scaleY(1)` with `transform-origin: top`
-- Stagger: each step gets a 150ms delay after intersection triggers
-- `prefers-reduced-motion`: all animations disabled, everything visible immediately
+- **Image container** (line 106): Replace `aspect-[4/3] md:aspect-[16/9] md:h-64` with a consistent `aspect-[4/3]` only — no fixed height override. This ensures all images have the same proportional container regardless of source dimensions.
+- **Card structure** (line 103): Add `h-full flex flex-col` to the Card so all cards stretch to the same height in the grid.
+- **CardContent** (line 119): Add `flex-1 flex flex-col` so content fills remaining space evenly.
+- **Summary** (line 143): Add `flex-1` so the text area absorbs height differences, keeping footers aligned.
+- **Location badge** (line 122): Change `variant="glass"` to `variant="secondary"` — glass uses white text meant for overlays on dark backgrounds, secondary uses dark text on light background which is readable on white cards.
 
-### Implementation
+**File: `src/components/OptimizedImage.tsx`** — No changes needed; the component respects `w-full h-full object-cover` when given proper container sizing.
 
-**File: `src/components/homepage/HomepageProcessStrip.tsx`**
+### Result
 
-Replace lines 95-124 (the `grid grid-cols-2 md:grid-cols-4` block) with:
-
-- A `relative` container with a central vertical line (`absolute left-1/2` on desktop, `left-6` on mobile)
-- 4 timeline step items, each using a dedicated ref + `useScrollFadeIn({ threshold: 0.3 })`
-- Each step renders:
-  - A circle/dot on the center line that scales in
-  - A card on the left or right side (alternating via `md:flex-row-reverse` on even steps)
-  - The card contains the step number watermark, icon box, title, and description (same content as now)
-- The vertical line uses 3 segments between steps, each with `scaleY` tied to whether the *next* step is visible
-- Mobile: all cards stack left of the line using `pl-16` with the line at `left-6`
-
-No new files, no new dependencies. Uses existing `useScrollFadeIn` and `useReducedMotion` hooks.
+- All three cards will have identical height (flexbox stretch)
+- Images will have a consistent 4:3 aspect ratio edge-to-edge
+- All badge text will be readable on white card backgrounds
+- The CTA button (outline variant with navy text/border) is already readable — no change needed there
 
