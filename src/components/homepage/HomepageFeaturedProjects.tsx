@@ -116,10 +116,10 @@ export const HomepageFeaturedProjects = () => {
                       </div>
                     )}
                   </Link>
-                  <CardContent className="p-6">
+                  <CardContent className="p-6 flex-1 flex flex-col">
                     <div className="flex items-center gap-2 mb-3 flex-wrap">
                       {project.location && (
-                        <Badge variant="glass" size="sm" icon={MapPin}>
+                        <Badge variant="secondary" size="sm" icon={MapPin}>
                           {project.location}
                         </Badge>
                       )}
@@ -140,7 +140,7 @@ export const HomepageFeaturedProjects = () => {
                       </h3>
                     </Link>
                     {project.summary && (
-                      <p className="text-muted-foreground line-clamp-3">{project.summary}</p>
+                      <p className="text-muted-foreground line-clamp-3 flex-1">{project.summary}</p>
                     )}
                   </CardContent>
                 </Card>
