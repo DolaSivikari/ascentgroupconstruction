@@ -1,31 +1,20 @@
 
 
-## Fix Featured Projects Card Visual Issues
+## Fix Parallax Background Scroll Effect
 
-### Problems identified
+### Root cause
 
-1. **Images not fitting to card border**: Conflicting CSS — `aspect-[4/3] md:aspect-[16/9] md:h-64` creates unpredictable sizing. The `md:h-64` fixed height fights with the aspect ratio classes, and OptimizedImage's internal wrapper may add extra spacing.
+Two issues prevent the parallax from being visible:
 
-2. **Card sizes uneven**: Varying summary lengths + inconsistent image sizing means cards don't align in the grid.
+1. **CSS conflict**: The Tailwind class `inset-0` generates the shorthand `inset: 0px`, which can fight with the inline `top: -60px` / `bottom: -60px` style overrides depending on browser resolution order. The background div needs explicit positioning without the `inset-0` shorthand.
 
-3. **Badge text invisible**: The `glass` badge variant (used for Location) renders `text-white` — on a white card background this is unreadable. The badge was designed for dark/image overlays, not white card content areas.
+2. **Overlay too heavy**: `bg-primary/80` (80% opacity) makes the background image almost invisible, so even if parallax is working, the movement is barely perceptible.
 
 ### Changes
 
-**File: `src/components/homepage/HomepageFeaturedProjects.tsx`**
+**File: `src/components/homepage/HomepageParallaxBreak.tsx`**
 
-- **Image container** (line 106): Replace `aspect-[4/3] md:aspect-[16/9] md:h-64` with a consistent `aspect-[4/3]` only — no fixed height override. This ensures all images have the same proportional container regardless of source dimensions.
-- **Card structure** (line 103): Add `h-full flex flex-col` to the Card so all cards stretch to the same height in the grid.
-- **CardContent** (line 119): Add `flex-1 flex flex-col` so content fills remaining space evenly.
-- **Summary** (line 143): Add `flex-1` so the text area absorbs height differences, keeping footers aligned.
-- **Location badge** (line 122): Change `variant="glass"` to `variant="secondary"` — glass uses white text meant for overlays on dark backgrounds, secondary uses dark text on light background which is readable on white cards.
-
-**File: `src/components/OptimizedImage.tsx`** — No changes needed; the component respects `w-full h-full object-cover` when given proper container sizing.
-
-### Result
-
-- All three cards will have identical height (flexbox stretch)
-- Images will have a consistent 4:3 aspect ratio edge-to-edge
-- All badge text will be readable on white card backgrounds
-- The CTA button (outline variant with navy text/border) is already readable — no change needed there
+- Remove `inset-0` from the background div class; use explicit `left-0 right-0` instead, letting inline `top`/`bottom` control vertical bounds without shorthand conflict
+- Reduce overlay from `bg-primary/80` to `bg-primary/60` so the background image and its movement are more visible
+- Increase parallax range from 120px to 160px shift and extend the vertical buffer from 60px to 80px for more noticeable movement
 
