@@ -1,24 +1,58 @@
 import { useReducedMotion } from "@/hooks/useReducedMotion";
+import { useEffect, useRef, useState } from "react";
 
 /**
  * Full-bleed parallax image break with bold mission statement.
- * Uses CSS background-attachment: fixed on desktop; static on mobile.
+ * Background image translates upward as user scrolls down for a true parallax effect.
  */
 export const HomepageParallaxBreak = () => {
   const rm = useReducedMotion();
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const [offset, setOffset] = useState(0);
+
+  useEffect(() => {
+    if (rm) return;
+
+    let ticking = false;
+    const handleScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          if (sectionRef.current) {
+            const rect = sectionRef.current.getBoundingClientRect();
+            const windowH = window.innerHeight;
+            // Only calculate when section is in viewport
+            if (rect.bottom > 0 && rect.top < windowH) {
+              // Parallax: image moves at 40% of scroll speed
+              const progress = (windowH - rect.top) / (windowH + rect.height);
+              setOffset(progress * 120); // max 120px shift
+            }
+          }
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll();
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [rm]);
 
   return (
     <section
+      ref={sectionRef}
       className="relative overflow-hidden"
       aria-label="Company mission statement"
     >
-      {/* Background layer */}
+      {/* Background layer — parallax scroll */}
       <div
-        className="absolute inset-0 bg-cover bg-center"
+        className="absolute inset-0 bg-cover bg-center will-change-transform"
         style={{
           backgroundImage:
             "url('https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=1920&q=80')",
-          backgroundAttachment: rm ? "scroll" : "fixed",
+          transform: rm ? "none" : `translateY(-${offset}px)`,
+          top: "-60px",
+          bottom: "-60px",
         }}
       />
       {/* Dark overlay */}
