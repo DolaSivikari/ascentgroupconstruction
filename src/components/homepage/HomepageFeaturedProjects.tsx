@@ -110,7 +110,7 @@ export const HomepageFeaturedProjects = () => {
                           width={800}
                           height={600}
                           className="w-full h-full object-center hover-scale"
-                          objectFit="contain"
+                          objectFit="cover"
                           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                         />
                       </div>
