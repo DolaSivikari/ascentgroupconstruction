@@ -1,20 +1,19 @@
 
 
-## Fix Parallax Background Scroll Effect
+## Match Homepage Featured Projects Image Style to Services Page
 
-### Root cause
+### What's different
 
-Two issues prevent the parallax from being visible:
+The **Services page** (`ServicesFeaturedWork`) uses a plain `<img>` tag with `object-cover` — the image fills the entire container edge-to-edge, cropping as needed to fit. No grey background gaps.
 
-1. **CSS conflict**: The Tailwind class `inset-0` generates the shorthand `inset: 0px`, which can fight with the inline `top: -60px` / `bottom: -60px` style overrides depending on browser resolution order. The background div needs explicit positioning without the `inset-0` shorthand.
-
-2. **Overlay too heavy**: `bg-primary/80` (80% opacity) makes the background image almost invisible, so even if parallax is working, the movement is barely perceptible.
+The **Homepage** (`HomepageFeaturedProjects`) uses `OptimizedImage` with `objectFit="contain"` — the image shrinks to fit inside the container without cropping, leaving grey (`bg-muted`) gaps around it.
 
 ### Changes
 
-**File: `src/components/homepage/HomepageParallaxBreak.tsx`**
+**File: `src/components/homepage/HomepageFeaturedProjects.tsx`**
 
-- Remove `inset-0` from the background div class; use explicit `left-0 right-0` instead, letting inline `top`/`bottom` control vertical bounds without shorthand conflict
-- Reduce overlay from `bg-primary/80` to `bg-primary/60` so the background image and its movement are more visible
-- Increase parallax range from 120px to 160px shift and extend the vertical buffer from 60px to 80px for more noticeable movement
+- Change `objectFit="contain"` to `objectFit="cover"` on the `OptimizedImage` component (line 113)
+- This makes the image fill the entire `aspect-[4/3]` container edge-to-edge, matching how the services page handles its `aspect-[16/9]` image containers
+
+One line change. The `bg-muted` fallback stays in case an image fails to load.
 
