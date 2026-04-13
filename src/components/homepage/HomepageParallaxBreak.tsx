@@ -1,5 +1,6 @@
 import { useReducedMotion } from "@/hooks/useReducedMotion";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
+import heroImage from "@/assets/heroes/hero-construction-management.jpg";
 
 /**
  * Full-bleed parallax image break with bold mission statement.
@@ -8,7 +9,7 @@ import { useEffect, useRef, useState } from "react";
 export const HomepageParallaxBreak = () => {
   const rm = useReducedMotion();
   const sectionRef = useRef<HTMLDivElement>(null);
-  const [offset, setOffset] = useState(0);
+  const bgRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (rm) return;
@@ -17,14 +18,12 @@ export const HomepageParallaxBreak = () => {
     const handleScroll = () => {
       if (!ticking) {
         window.requestAnimationFrame(() => {
-          if (sectionRef.current) {
+          if (sectionRef.current && bgRef.current) {
             const rect = sectionRef.current.getBoundingClientRect();
             const windowH = window.innerHeight;
-            // Only calculate when section is in viewport
             if (rect.bottom > 0 && rect.top < windowH) {
-              // Parallax: image moves at 40% of scroll speed
               const progress = (windowH - rect.top) / (windowH + rect.height);
-              setOffset(progress * 160); // max 160px shift
+              bgRef.current.style.transform = `translateY(-${progress * 160}px)`;
             }
           }
           ticking = false;
@@ -46,11 +45,11 @@ export const HomepageParallaxBreak = () => {
     >
       {/* Background layer — parallax scroll */}
       <div
+        ref={bgRef}
         className="absolute left-0 right-0 bg-cover bg-center will-change-transform"
         style={{
-          backgroundImage:
-            "url('https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=1920&q=80')",
-          transform: rm ? "none" : `translateY(-${offset}px)`,
+          backgroundImage: `url('${heroImage}')`,
+          transform: rm ? "none" : "translateY(0px)",
           top: "-80px",
           bottom: "-80px",
         }}
