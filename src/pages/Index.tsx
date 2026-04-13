@@ -145,8 +145,6 @@ const Index = () => {
           {/* ── Inline Conversion Form ── */}
           <InteractiveCTA />
 
-          {/* ── Zone C: Gradient transition ── */}
-          <HomepageProcessStrip />
 
           {/* ── Zone D: Primary CTA ── */}
           <HomepageFinalCta />
