@@ -103,14 +103,14 @@ export const HomepageFeaturedProjects = () => {
                 <Card variant="interactive" className="overflow-hidden hover-subtle h-full flex flex-col">
                   <Link to={`/projects/${project.slug}`}>
                     {project.featured_image && (
-                      <div className="relative overflow-hidden aspect-[4/3]">
+                      <div className="relative overflow-hidden aspect-[4/3] bg-muted">
                         <OptimizedImage
                           src={project.featured_image}
                           alt={project.title}
                           width={800}
                           height={600}
                           className="w-full h-full object-center hover-scale"
-                          objectFit="cover"
+                          objectFit="contain"
                           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                         />
                       </div>
