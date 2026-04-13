@@ -1,19 +1,41 @@
 
 
-## Match Homepage Featured Projects Image Style to Services Page
+## Fix Homepage Featured Project Images — Edge-to-Edge Fill
 
-### What's different
+### Root cause
 
-The **Services page** (`ServicesFeaturedWork`) uses a plain `<img>` tag with `object-cover` — the image fills the entire container edge-to-edge, cropping as needed to fit. No grey background gaps.
+The `OptimizedImage` component receives `width={800} height={600}`, which generates an inline style of `width: 800px; height: 600px` on its wrapper div. This creates a **fixed-size 800x600px container** that overflows or misaligns inside the responsive `aspect-[4/3]` parent div. The image ends up showing a random cropped section because the container is larger than the visible card area.
 
-The **Homepage** (`HomepageFeaturedProjects`) uses `OptimizedImage` with `objectFit="contain"` — the image shrinks to fit inside the container without cropping, leaving grey (`bg-muted`) gaps around it.
+The **Services page works correctly** because it uses a plain `<img>` tag with `w-full h-full object-cover` and no fixed pixel dimensions — the image simply fills whatever its parent container is.
 
-### Changes
+### Fix
 
-**File: `src/components/homepage/HomepageFeaturedProjects.tsx`**
+**File: `src/components/homepage/HomepageFeaturedProjects.tsx`** (lines 107-115)
 
-- Change `objectFit="contain"` to `objectFit="cover"` on the `OptimizedImage` component (line 113)
-- This makes the image fill the entire `aspect-[4/3]` container edge-to-edge, matching how the services page handles its `aspect-[16/9]` image containers
+Replace the `OptimizedImage` component with a plain `<img>` tag, matching the services page pattern exactly:
 
-One line change. The `bg-muted` fallback stays in case an image fails to load.
+```tsx
+// BEFORE (broken)
+<OptimizedImage
+  src={project.featured_image}
+  alt={project.title}
+  width={800}
+  height={600}
+  className="w-full h-full object-center hover-scale"
+  objectFit="cover"
+  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+/>
+
+// AFTER (matches services page)
+<img
+  src={project.featured_image}
+  alt={project.title}
+  className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
+  loading="lazy"
+/>
+```
+
+This removes the fixed-dimension wrapper entirely. The image will fill the `aspect-[4/3]` container edge-to-edge with `object-cover`, cropping proportionally from center — exactly like the services page behaves.
+
+One file, one block changed. The `OptimizedImage` import can be removed if no longer used elsewhere in the file.
 
