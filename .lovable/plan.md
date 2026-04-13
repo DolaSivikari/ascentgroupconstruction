@@ -1,41 +1,23 @@
 
 
-## Fix Homepage Featured Project Images — Edge-to-Edge Fill
+## Fix Parallax Scroll Effect — Image Should Move Up as User Scrolls Down
 
-### Root cause
+### Why it looks fixed
 
-The `OptimizedImage` component receives `width={800} height={600}`, which generates an inline style of `width: 800px; height: 600px` on its wrapper div. This creates a **fixed-size 800x600px container** that overflows or misaligns inside the responsive `aspect-[4/3]` parent div. The image ends up showing a random cropped section because the container is larger than the visible card area.
+The current code uses `useState` + `setOffset` to drive the `translateY` transform. Every scroll tick calls `setOffset()`, which triggers a full React re-render cycle. React batches these state updates, causing the transform to lag or appear frozen — the image looks static instead of smoothly gliding.
 
-The **Services page works correctly** because it uses a plain `<img>` tag with `w-full h-full object-cover` and no fixed pixel dimensions — the image simply fills whatever its parent container is.
+Additionally, the background image is loaded from an external Unsplash URL (slow to load, may flash blank), when the original plan called for the local asset `hero-construction-management.jpg`.
 
 ### Fix
 
-**File: `src/components/homepage/HomepageFeaturedProjects.tsx`** (lines 107-115)
+**File: `src/components/homepage/HomepageParallaxBreak.tsx`**
 
-Replace the `OptimizedImage` component with a plain `<img>` tag, matching the services page pattern exactly:
+Switch from React state (`useState`/`setOffset`) to a **direct DOM ref** approach — mutate `style.transform` on the background div ref inside `requestAnimationFrame`, bypassing React's render cycle entirely. This is the standard pattern for smooth scroll-driven parallax:
 
-```tsx
-// BEFORE (broken)
-<OptimizedImage
-  src={project.featured_image}
-  alt={project.title}
-  width={800}
-  height={600}
-  className="w-full h-full object-center hover-scale"
-  objectFit="cover"
-  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-/>
+1. Add a second ref (`bgRef`) pointing to the background `<div>`
+2. Inside the scroll handler's `requestAnimationFrame`, set `bgRef.current.style.transform = ...` directly instead of calling `setOffset`
+3. Remove the `offset` state variable entirely
+4. Replace the Unsplash URL with the local asset import (`hero-construction-management.jpg`) for faster load and consistency with the original plan
 
-// AFTER (matches services page)
-<img
-  src={project.featured_image}
-  alt={project.title}
-  className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
-  loading="lazy"
-/>
-```
-
-This removes the fixed-dimension wrapper entirely. The image will fill the `aspect-[4/3]` container edge-to-edge with `object-cover`, cropping proportionally from center — exactly like the services page behaves.
-
-One file, one block changed. The `OptimizedImage` import can be removed if no longer used elsewhere in the file.
+This keeps the same parallax math (40% speed, 160px max shift, 80px vertical buffer) but makes the movement buttery smooth because it skips React rendering completely.
 
