@@ -7,7 +7,7 @@ import { StaggerContainer } from "@/components/animations/StaggerContainer";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/ui/Button";
-import OptimizedImage from "@/components/OptimizedImage";
+
 import { GRID } from "@/design-system/layouts";
 
 function shuffleArray<T>(arr: T[]): T[] {
@@ -104,14 +104,11 @@ export const HomepageFeaturedProjects = () => {
                   <Link to={`/projects/${project.slug}`}>
                     {project.featured_image && (
                       <div className="relative overflow-hidden aspect-[4/3] bg-muted">
-                        <OptimizedImage
+                        <img
                           src={project.featured_image}
                           alt={project.title}
-                          width={800}
-                          height={600}
-                          className="w-full h-full object-center hover-scale"
-                          objectFit="cover"
-                          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                          className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
+                          loading="lazy"
                         />
                       </div>
                     )}
