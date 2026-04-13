@@ -7,7 +7,7 @@ import { StaggerContainer } from "@/components/animations/StaggerContainer";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/ui/Button";
-import OptimizedImage from "@/components/OptimizedImage";
+
 import { GRID } from "@/design-system/layouts";
 
 function shuffleArray<T>(arr: T[]): T[] {
