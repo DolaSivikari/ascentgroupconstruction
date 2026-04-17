@@ -52,8 +52,9 @@ const Projects = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [quickViewProject, setQuickViewProject] = useState<ProjectViewModel | null>(null);
 
-  // Per-mount random seed so featured/hero samples re-shuffle on every visit
-  const [rotationSeed] = useState(() => Math.random());
+  // Per-mount random seed so featured/hero samples re-shuffle on every visit.
+  // Manual refresh updates the seed to trigger a fresh shuffle in place.
+  const [rotationSeed, setRotationSeed] = useState(() => Math.random());
 
   // Analytics tracking
   usePageAnalytics('projects');
