@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { ArrowRight, MapPin, Building2, Calendar } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
@@ -20,36 +21,35 @@ function shuffleArray<T>(arr: T[]): T[] {
 }
 
 export const HomepageFeaturedProjects = () => {
+  // Per-mount random seed so each visit/refresh fetches a fresh sample
+  const [mountId] = useState(() => Math.random().toString(36).slice(2));
+
   const { data: projects, isLoading } = useQuery({
-    queryKey: ["homepage-featured-projects"],
+    queryKey: ["homepage-featured-projects", mountId],
     queryFn: async () => {
-      const cols = "id, title, slug, category, location, featured_image, summary, year";
-      const { data: featured } = await supabase
+      const cols = "id, title, slug, category, location, featured_image, summary, year, featured";
+      // Fetch ALL published projects (small payload)
+      const { data: all } = await supabase
         .from("projects")
         .select(cols)
-        .eq("publish_state", "published")
-        .eq("featured", true)
-        .order("created_at", { ascending: false })
-        .limit(12);
-      const { data: latest } = await supabase
-        .from("projects")
-        .select(cols)
-        .eq("publish_state", "published")
-        .order("created_at", { ascending: false })
-        .limit(12);
-      const seen = new Set<string>();
-      const pool: typeof featured = [];
-      for (const p of [...(featured ?? []), ...(latest ?? [])]) {
-        if (!seen.has(p.id)) {
-          seen.add(p.id);
-          pool.push(p);
-        }
-      }
-      if (pool.length <= 3) return pool;
-      return shuffleArray(pool).slice(0, 3);
+        .eq("publish_state", "published");
+
+      const pool = all ?? [];
+      if (pool.length === 0) return [];
+
+      // Prefer featured first, backfill with non-featured
+      const featured = pool.filter((p: any) => p.featured === true);
+      const nonFeatured = pool.filter((p: any) => p.featured !== true);
+
+      const shuffledFeatured = shuffleArray(featured);
+      const shuffledRest = shuffleArray(nonFeatured);
+
+      const combined = [...shuffledFeatured, ...shuffledRest];
+      return combined.slice(0, 3);
     },
     staleTime: 0,
     gcTime: 0,
+    refetchOnMount: "always",
   });
 
   if (isLoading) {
