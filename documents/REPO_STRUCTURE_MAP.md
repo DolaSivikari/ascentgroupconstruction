@@ -647,14 +647,14 @@ ascentgroupconstruction/
 │   │   ├── Careers.tsx
 │   │   ├── CommercialClients.tsx
 │   │   ├── Contact.tsx
-│   │   ├── DynamicSpecialtyPage.tsx
+│   │   ├── EmergencyRepair.tsx
 │   │   ├── Estimate.tsx
 │   │   ├── FAQ.tsx
+│   │   ├── ForArchitects.tsx
 │   │   ├── ForGeneralContractors.tsx
 │   │   ├── Homeowners.tsx
 │   │   ├── Index.tsx
-│   │   ├── Insights.tsx
-│   │   ├── LandingGateway.tsx
+│   │   ├── Markets.tsx
 │   │   ├── NotFound.tsx
 │   │   ├── OurProcess.tsx
 │   │   ├── Prequalification.tsx
@@ -663,10 +663,8 @@ ascentgroupconstruction/
 │   │   ├── Projects.tsx
 │   │   ├── PropertyManagers.tsx
 │   │   ├── ServiceDetail.tsx
-│   │   ├── ServiceSelectorPage.tsx
 │   │   ├── Services.tsx
 │   │   ├── SubmitRFPNew.tsx
-│   │   ├── Sustainability.tsx
 │   │   ├── Terms.tsx
 │   │   ├── Unsubscribe.tsx
 │   │   ├── WhySpecialtyContractor.tsx
@@ -674,7 +672,6 @@ ascentgroupconstruction/
 │   │   │   ├── AuditDashboard.tsx
 │   │   │   ├── BlogPostEditor.tsx
 │   │   │   ├── BlogPosts.tsx
-│   │   │   ├── ContentVersioning.tsx
 │   │   │   ├── Dashboard.tsx
 │   │   │   ├── DocumentsLibrary.tsx
 │   │   │   ├── EmailTemplates.tsx
@@ -682,38 +679,23 @@ ascentgroupconstruction/
 │   │   │   ├── HomepageBuilder.tsx
 │   │   │   ├── MediaLibraryEnhanced.tsx
 │   │   │   ├── Monitoring.tsx
-│   │   │   ├── NavigationBuilder.tsx
-│   │   │   ├── Notifications.tsx
-│   │   │   ├── PerformanceDashboard.tsx
 │   │   │   ├── ProjectEditor.tsx
 │   │   │   ├── Projects.tsx
-│   │   │   ├── RedirectsManager.tsx
 │   │   │   ├── SEODashboard.tsx
-│   │   │   ├── SearchAnalytics.tsx
 │   │   │   ├── ServiceEditor.tsx
 │   │   │   ├── ServicesManager.tsx
 │   │   │   ├── Settings.tsx
-│   │   │   ├── StatsManager.tsx
 │   │   │   ├── TestimonialsManager.tsx
-│   │   │   ├── Testing.tsx
 │   │   │   ├── UnifiedInbox.tsx
 │   │   │   └── Users.tsx
 │   │   ├── company/                         # Company sub-pages
 │   │   │   ├── CertificationsInsurance.tsx
 │   │   │   ├── Developers.tsx
-│   │   │   └── EquipmentResources.tsx
-│   │   ├── resources/                       # Resource sub-pages
-│   │   │   ├── ContractorPortal.tsx
-│   │   │   ├── LocationPage.tsx
-│   │   │   └── ServiceAreas.tsx
-│   │   └── services/                        # Service-specific sub-pages
-│   │       ├── BuildingEnvelope.tsx
-│   │       ├── CladdingSystems.tsx
-│   │       ├── InteriorBuildouts.tsx
-│   │       ├── PaintingServices.tsx
-│   │       ├── ProtectiveCoatings.tsx
-│   │       ├── SustainableBuilding.tsx
-│   │       └── TileFlooring.tsx
+│   │   │   └── Technology.tsx
+│   │   └── resources/                       # Resource sub-pages
+│   │       ├── ContractorPortal.tsx
+│   │       ├── LocationPage.tsx
+│   │       └── ServiceAreas.tsx
 │   │
 │   ├── schemas/                             # Zod validation schemas
 │   │   ├── rfp-validation.ts
