@@ -151,14 +151,11 @@ const OptimizedImage = ({
             fetchPriority={effectiveFetchPriority}
             onError={handleError}
             className={cn(
-              isLoaded ? "opacity-100" : "opacity-0",
+              isLoaded ? "opacity-100 blur-0 scale-100" : "opacity-0 blur-sm scale-[1.02]",
               `object-${objectFit}`,
-              "w-full h-full"
+              "w-full h-full transition-[opacity,filter,transform] duration-500 ease-out"
             )}
-            style={{
-              objectFit,
-              transition: 'var(--transition-slow)'
-            }}
+            style={{ objectFit }}
           />
         </picture>
       ) : (
@@ -175,14 +172,11 @@ const OptimizedImage = ({
           fetchPriority={effectiveFetchPriority}
           onError={handleError}
           className={cn(
-            isLoaded ? "opacity-100" : "opacity-0",
+            isLoaded ? "opacity-100 blur-0 scale-100" : "opacity-0 blur-sm scale-[1.02]",
             `object-${objectFit}`,
-            "w-full h-full"
+            "w-full h-full transition-[opacity,filter,transform] duration-500 ease-out"
           )}
-          style={{
-            objectFit,
-            transition: 'var(--transition-slow)'
-          }}
+          style={{ objectFit }}
         />
       )}
     </div>
