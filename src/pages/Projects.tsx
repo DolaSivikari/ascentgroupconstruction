@@ -223,11 +223,21 @@ const Projects = () => {
       {/* Featured Projects Spotlight */}
       {featuredProjects.length > 0 && (
         <Section size="major" className="bg-muted/30">
-          <div className="text-center mb-8">
+          <div className="text-center mb-8 relative">
             <h2 className={`${TYPOGRAPHY_STYLES.sectionTitle} mb-2 text-foreground`}>Featured Projects</h2>
             <p className="text-muted-foreground">Showcasing our most notable work</p>
+            <div className="mt-4 flex justify-center">
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => setRotationSeed(Math.random())}
+                aria-label="Refresh featured project selection"
+              >
+                ↻ Refresh selection
+              </Button>
+            </div>
           </div>
-          
+
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {featuredProjects.map((project) => (
               <ProjectFeaturedCard key={project.slug} {...project} />
