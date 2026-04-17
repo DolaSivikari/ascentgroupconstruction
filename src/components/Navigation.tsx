@@ -84,6 +84,15 @@ const Navigation = () => {
   const location = useLocation();
   const { scrollDirection, isAtTop } = useScrollDirection();
 
+  // Sticky-shrink: collapse height & shrink logo after scrolling past 100px
+  const [isShrunk, setIsShrunk] = useState(false);
+  useEffect(() => {
+    const onScroll = () => setIsShrunk(window.scrollY > 100);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
   // Pages with hero backgrounds that should have transparent navigation
   const heroPagePrefixes = ['/services/', '/service-areas/', '/blog/', '/projects/', '/company/', '/resources/'];
   const heroPageExact = new Set([
@@ -176,7 +185,10 @@ const Navigation = () => {
         )}
       >
         <div className="w-full max-w-none px-4 md:px-6 lg:px-10 xl:px-14">
-          <div className="hidden md:flex items-center justify-between w-full h-16 md:h-18 lg:h-20">
+          <div className={cn(
+            "hidden md:flex items-center justify-between w-full transition-[height] duration-300 ease-out",
+            isShrunk ? "h-14 lg:h-16" : "h-16 md:h-18 lg:h-20"
+          )}>
             {/* Left: Logo */}
             <div className="flex items-center">
               <Link
@@ -187,7 +199,12 @@ const Navigation = () => {
                 <img
                   src={isHeroPage && isAtTop ? ascentLogoHorizontalLight : ascentLogoHorizontalDark}
                   alt="Ascent Group Construction Logo"
-                  className="h-14 md:h-16 lg:h-20 -my-3 md:-my-4 lg:-my-6 w-auto hover-scale-icon transition-all duration-500"
+                  className={cn(
+                    "w-auto hover-scale-icon transition-all duration-300 origin-left",
+                    isShrunk
+                      ? "h-12 lg:h-14 -my-2 lg:-my-3 scale-95"
+                      : "h-14 md:h-16 lg:h-20 -my-3 md:-my-4 lg:-my-6 scale-100"
+                  )}
                 />
               </Link>
             </div>

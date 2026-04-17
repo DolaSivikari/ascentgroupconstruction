@@ -35,8 +35,8 @@ export const ServiceCard = ({
   const IconComponent = getIcon(icon_name ?? undefined, Wrench)!;
 
   return (
-    <Link to={`/services/${slug}`} className="group">
-      <Card variant="interactive" className="h-full relative overflow-hidden p-0">
+    <Link to={`/services/${slug}`} className="group block transition-transform duration-300 hover:-translate-y-2 motion-reduce:transform-none motion-reduce:hover:transform-none">
+      <Card variant="interactive" className="h-full relative overflow-hidden p-0 transition-shadow duration-300 group-hover:shadow-xl">
         {featured && (
           <div className="absolute top-4 right-4 z-10">
             <Badge variant="warning" size="sm" icon={Star} className="animate-pulse">

@@ -31,8 +31,8 @@ const BlogCard = ({ post }: BlogCardProps) => {
   const readTime = excerpt ? Math.max(1, Math.ceil(excerpt.split(/\s+/).length / 200)) : 3;
 
   return (
-    <Link to={`/blog/${post.slug}`}>
-      <Card variant="interactive" className="h-full overflow-hidden group border-2 hover:border-primary p-0">
+    <Link to={`/blog/${post.slug}`} className="block group transition-transform duration-300 hover:-translate-y-2 motion-reduce:transform-none motion-reduce:hover:transform-none">
+      <Card variant="interactive" className="h-full overflow-hidden border-2 hover:border-primary p-0 transition-shadow duration-300 group-hover:shadow-xl">
         <CardContent className="p-8">
           <div className="flex items-start gap-3 mb-4">
             <Badge variant="info" size="sm" icon={FileText} className="shrink-0">{post.category}</Badge>

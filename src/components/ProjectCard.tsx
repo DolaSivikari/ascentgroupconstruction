@@ -65,7 +65,7 @@ const ProjectCard = ({
       variant="interactive"
       hover
       size="sm"
-      className="group cursor-pointer overflow-hidden"
+      className="group cursor-pointer overflow-hidden transition-all duration-300 hover:-translate-y-2 hover:shadow-xl motion-reduce:transform-none motion-reduce:hover:transform-none"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       onClick={() => onViewDetails(slug)}

@@ -1,5 +1,6 @@
 import { lazy, type ComponentType } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
+import { PageTransition } from "@/components/animations/PageTransition";
 import Index from "@/pages/Index";
 import About from "@/pages/About";
 import Services from "@/pages/Services";
@@ -163,55 +164,57 @@ const AdminRouteGroup = () => (
 );
 
 export const AppRoutes = () => (
-  <Routes>
-    <Route path="/" element={<Index />} />
-    <Route path="/about" element={<About />} />
-    <Route path="/markets" element={<Markets />} />
-    <Route path="/why-specialty-contractor" element={<WhySpecialtyContractor />} />
-    <Route path="/prequalification" element={<Prequalification />} />
-    <Route path="/capabilities" element={<Capabilities />} />
-    <Route path="/careers" element={<Careers />} />
+  <PageTransition type="fade" duration={300}>
+    <Routes>
+      <Route path="/" element={<Index />} />
+      <Route path="/about" element={<About />} />
+      <Route path="/markets" element={<Markets />} />
+      <Route path="/why-specialty-contractor" element={<WhySpecialtyContractor />} />
+      <Route path="/prequalification" element={<Prequalification />} />
+      <Route path="/capabilities" element={<Capabilities />} />
+      <Route path="/careers" element={<Careers />} />
 
-    {/* Phase 4 redirects: consolidated pages */}
-    <Route path="/sustainability" element={<Navigate to="/services/sustainable-building" replace />} />
-    <Route path="/insights" element={<Navigate to="/blog" replace />} />
-    <Route path="/service-selector" element={<Navigate to="/services" replace />} />
+      {/* Phase 4 redirects: consolidated pages */}
+      <Route path="/sustainability" element={<Navigate to="/services/sustainable-building" replace />} />
+      <Route path="/insights" element={<Navigate to="/blog" replace />} />
+      <Route path="/service-selector" element={<Navigate to="/services" replace />} />
 
-    {ServiceRouteGroup()}
+      {ServiceRouteGroup()}
 
-    <Route path="/projects" element={<Projects />} />
-    <Route path="/contact" element={<Contact />} />
-    <Route path="/estimate" element={<Estimate />} />
-    <Route path="/submit-rfp" element={<SubmitRFPNew />} />
-    <Route path="/for-general-contractors" element={<ForGeneralContractors />} />
-    <Route path="/for-architects" element={<ForArchitects />} />
-    <Route path="/emergency-repair" element={<EmergencyRepair />} />
-    <Route path="/privacy" element={<Privacy />} />
-    <Route path="/terms" element={<Terms />} />
-    <Route path="/accessibility" element={<Accessibility />} />
-    <Route path="/unsubscribe" element={<Unsubscribe />} />
-    <Route path="/property-managers" element={<PropertyManagers />} />
-    <Route path="/homeowners" element={<Homeowners />} />
-    <Route path="/commercial-clients" element={<CommercialClients />} />
-    <Route path="/our-process" element={<OurProcess />} />
-    <Route path="/faq" element={<FAQ />} />
-    <Route path="/tekev" element={<Auth />} />
-    <Route path="/company/certifications-insurance" element={<CertificationsInsurance />} />
-    <Route path="/company/equipment-resources" element={<Navigate to="/company/technology" replace />} />
-    <Route path="/company/technology" element={<Technology />} />
-    <Route path="/company/developers" element={<Developers />} />
-    <Route path="/resources/contractor-portal" element={<ContractorPortal />} />
-    <Route path="/resources/service-areas" element={<ServiceAreas />} />
-    <Route path="/service-areas/:city" element={<LocationPage />} />
-    <Route path="/blog" element={<Blog />} />
-    <Route path="/blog/:slug" element={<BlogPost />} />
-    <Route path="/case-studies" element={<Blog />} />
-    <Route path="/case-study/:slug" element={<BlogPost />} />
-    <Route path="/projects/:slug" element={<ProjectDetail />} />
+      <Route path="/projects" element={<Projects />} />
+      <Route path="/contact" element={<Contact />} />
+      <Route path="/estimate" element={<Estimate />} />
+      <Route path="/submit-rfp" element={<SubmitRFPNew />} />
+      <Route path="/for-general-contractors" element={<ForGeneralContractors />} />
+      <Route path="/for-architects" element={<ForArchitects />} />
+      <Route path="/emergency-repair" element={<EmergencyRepair />} />
+      <Route path="/privacy" element={<Privacy />} />
+      <Route path="/terms" element={<Terms />} />
+      <Route path="/accessibility" element={<Accessibility />} />
+      <Route path="/unsubscribe" element={<Unsubscribe />} />
+      <Route path="/property-managers" element={<PropertyManagers />} />
+      <Route path="/homeowners" element={<Homeowners />} />
+      <Route path="/commercial-clients" element={<CommercialClients />} />
+      <Route path="/our-process" element={<OurProcess />} />
+      <Route path="/faq" element={<FAQ />} />
+      <Route path="/tekev" element={<Auth />} />
+      <Route path="/company/certifications-insurance" element={<CertificationsInsurance />} />
+      <Route path="/company/equipment-resources" element={<Navigate to="/company/technology" replace />} />
+      <Route path="/company/technology" element={<Technology />} />
+      <Route path="/company/developers" element={<Developers />} />
+      <Route path="/resources/contractor-portal" element={<ContractorPortal />} />
+      <Route path="/resources/service-areas" element={<ServiceAreas />} />
+      <Route path="/service-areas/:city" element={<LocationPage />} />
+      <Route path="/blog" element={<Blog />} />
+      <Route path="/blog/:slug" element={<BlogPost />} />
+      <Route path="/case-studies" element={<Blog />} />
+      <Route path="/case-study/:slug" element={<BlogPost />} />
+      <Route path="/projects/:slug" element={<ProjectDetail />} />
 
-    {AdminRouteGroup()}
+      {AdminRouteGroup()}
 
-    <Route path="/404" element={<NotFound />} />
-    <Route path="*" element={<NotFound />} />
-  </Routes>
+      <Route path="/404" element={<NotFound />} />
+      <Route path="*" element={<NotFound />} />
+    </Routes>
+  </PageTransition>
 );

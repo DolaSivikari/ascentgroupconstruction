@@ -23,6 +23,8 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { sanitizeAndValidate } from "@/utils/sanitize";
+import { ReadingProgressBar } from "@/components/animations/ReadingProgressBar";
+import { ScrollReveal } from "@/components/animations/ScrollReveal";
 
 const BlogPost = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -143,6 +145,7 @@ const BlogPost = () => {
         structuredData={schemas}
       />
       <Navigation />
+      <ReadingProgressBar />
       
       {isPreview && (
         <div className="bg-yellow-500 text-[hsl(var(--ink))] text-center py-2 font-semibold">
@@ -254,42 +257,46 @@ const BlogPost = () => {
 
             {/* FAQ Section */}
             {faqs.length > 0 && (
-              <section className="mt-12">
-                <h2 className="text-2xl sm:text-3xl font-bold mb-6">Frequently Asked Questions</h2>
-                <Accordion type="single" collapsible className="w-full">
-                  {faqs.map((faq, index) => (
-                    <AccordionItem key={index} value={`item-${index}`}>
-                      <AccordionTrigger className="text-left">
-                        {faq.question}
-                      </AccordionTrigger>
-                      <AccordionContent className="text-muted-foreground">
-                        {faq.answer}
-                      </AccordionContent>
-                    </AccordionItem>
-                  ))}
-                </Accordion>
-              </section>
+              <ScrollReveal direction="up">
+                <section className="mt-12">
+                  <h2 className="text-2xl sm:text-3xl font-bold mb-6">Frequently Asked Questions</h2>
+                  <Accordion type="single" collapsible className="w-full">
+                    {faqs.map((faq, index) => (
+                      <AccordionItem key={index} value={`item-${index}`}>
+                        <AccordionTrigger className="text-left">
+                          {faq.question}
+                        </AccordionTrigger>
+                        <AccordionContent className="text-muted-foreground">
+                          {faq.answer}
+                        </AccordionContent>
+                      </AccordionItem>
+                    ))}
+                  </Accordion>
+                </section>
+              </ScrollReveal>
             )}
 
             {/* CTA */}
-            <div className="mt-12 p-8 bg-primary/5 border border-primary/20 rounded-lg text-center">
-              <h3 className="text-xl sm:text-2xl font-bold mb-4">Need Professional Help?</h3>
-              <p className="text-muted-foreground mb-6">
-                Our team is ready to bring your project to life with expert craftsmanship and attention to detail.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
-                <Link to="/estimate">
-                  <Button size="lg">
-                    {CTA_TEXT.project}
-                  </Button>
-                </Link>
-                <Link to="/contact">
-                  <Button size="lg" variant="outline">
-                    Start Your Project
-                  </Button>
-                </Link>
+            <ScrollReveal direction="up" delay={150}>
+              <div className="mt-12 p-8 bg-primary/5 border border-primary/20 rounded-lg text-center">
+                <h3 className="text-xl sm:text-2xl font-bold mb-4">Need Professional Help?</h3>
+                <p className="text-muted-foreground mb-6">
+                  Our team is ready to bring your project to life with expert craftsmanship and attention to detail.
+                </p>
+                <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
+                  <Link to="/estimate">
+                    <Button size="lg">
+                      {CTA_TEXT.project}
+                    </Button>
+                  </Link>
+                  <Link to="/contact">
+                    <Button size="lg" variant="outline">
+                      Start Your Project
+                    </Button>
+                  </Link>
+                </div>
               </div>
-            </div>
+            </ScrollReveal>
           </div>
         </article>
 

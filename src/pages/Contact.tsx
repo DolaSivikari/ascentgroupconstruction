@@ -18,6 +18,7 @@ import { Label } from "@/components/ui/label";
 import { MapPin, Phone, Mail, Clock, Loader2, ArrowRight, FileText, Calculator, CheckCircle, Zap, Gift, ShieldCheck } from "lucide-react";
 import { useSettingsData } from "@/hooks/useSettingsData";
 import { RippleEffect } from "@/components/shared/RippleEffect";
+import { MagneticButton } from "@/components/animations/MagneticButton";
 import { TrustedPartners } from "@/components/partners/TrustedPartners";
 
 import { Link } from "react-router-dom";
@@ -264,11 +265,13 @@ const Contact = () => {
                     <Input id="website" name="honeypot" type="text" tabIndex={-1} autoComplete="off" value={formData.honeypot} onChange={handleChange} />
                   </div>
 
-                  <RippleEffect>
-                    <Button type="submit" size="lg" className="w-full h-14 text-lg gap-3" disabled={isSubmitting}>
-                      {isSubmitting ? (<><Loader2 className="w-5 h-5 animate-spin" />Sending...</>) : (<>Submit Request<ArrowRight className="w-5 h-5" /></>)}
-                    </Button>
-                  </RippleEffect>
+                  <MagneticButton className="w-full">
+                    <RippleEffect className="w-full">
+                      <Button type="submit" size="lg" className="w-full h-14 text-lg gap-3" disabled={isSubmitting}>
+                        {isSubmitting ? (<><Loader2 className="w-5 h-5 animate-spin" />Sending...</>) : (<>Submit Request<ArrowRight className="w-5 h-5" /></>)}
+                      </Button>
+                    </RippleEffect>
+                  </MagneticButton>
 
                   {/* Trust Badge */}
                   <div className="flex items-center justify-center gap-4 text-xs text-muted-foreground pt-2">
