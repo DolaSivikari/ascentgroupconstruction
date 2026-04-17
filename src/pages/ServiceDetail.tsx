@@ -199,12 +199,16 @@ const ServiceDetail = () => {
   const heroImage = getHeroImage(service.slug, service.featured_image);
   const badges = serviceBadges[service.slug];
 
+  // Normalize legacy data shapes ([{label}] -> [string])
+  const whatWeProvide = normalizeStringArray(service.what_we_provide);
+  const typicalApplications = normalizeStringArray(service.typical_applications);
+
   // Generate AEO/GEO structured data
   const serviceSchemaData = createServiceSchema({
     serviceType: service.name,
     areaServed: ["Toronto", "Mississauga", "Brampton", "Vaughan", "Markham"],
     priceRange: "$$-$$$",
-    subServices: service.what_we_provide || [],
+    subServices: whatWeProvide,
   });
 
   const howToSchemaData = service.process_steps
@@ -405,53 +409,51 @@ const ServiceDetail = () => {
                 )}
 
                 {/* What We Provide — bordered checklist panel */}
-                {service.what_we_provide &&
-                  service.what_we_provide.length > 0 && (
-                    <div>
-                      <SectionHeader
-                        badge="Scope of Work"
-                        title="What We Provide"
-                        align="left"
-                      />
-                      <div className="border-l-4 border-primary bg-muted/30 rounded-r-lg p-6">
-                        <div className="grid sm:grid-cols-2 gap-x-6 gap-y-3">
-                          {service.what_we_provide.map((item, index) => (
-                            <div
-                              key={index}
-                              className="flex items-start gap-2.5"
-                            >
-                              <CheckCircle className="w-4 h-4 text-primary flex-shrink-0 mt-1" />
-                              <span className="text-sm text-foreground/90 leading-relaxed">
-                                {item}
-                              </span>
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-                    </div>
-                  )}
-
-                {/* Typical Applications — pill chips */}
-                {service.typical_applications &&
-                  service.typical_applications.length > 0 && (
-                    <div>
-                      <SectionHeader
-                        badge="Where We Work"
-                        title="Typical Applications"
-                        align="left"
-                      />
-                      <div className="flex flex-wrap gap-2.5">
-                        {service.typical_applications.map((app, index) => (
-                          <span
+                {whatWeProvide.length > 0 && (
+                  <div>
+                    <SectionHeader
+                      badge="Scope of Work"
+                      title="What We Provide"
+                      align="left"
+                    />
+                    <div className="border-l-4 border-primary bg-muted/30 rounded-r-lg p-6">
+                      <div className="grid sm:grid-cols-2 gap-x-6 gap-y-3">
+                        {whatWeProvide.map((item, index) => (
+                          <div
                             key={index}
-                            className="inline-flex items-center px-4 py-2 rounded-full bg-muted text-sm font-medium text-foreground/80 border border-border hover:border-primary/40 hover:bg-primary/5 transition-colors"
+                            className="flex items-start gap-2.5"
                           >
-                            {app}
-                          </span>
+                            <CheckCircle className="w-4 h-4 text-primary flex-shrink-0 mt-1" />
+                            <span className="text-sm text-foreground/90 leading-relaxed">
+                              {item}
+                            </span>
+                          </div>
                         ))}
                       </div>
                     </div>
-                  )}
+                  </div>
+                )}
+
+                {/* Typical Applications — pill chips */}
+                {typicalApplications.length > 0 && (
+                  <div>
+                    <SectionHeader
+                      badge="Where We Work"
+                      title="Typical Applications"
+                      align="left"
+                    />
+                    <div className="flex flex-wrap gap-2.5">
+                      {typicalApplications.map((app, index) => (
+                        <span
+                          key={index}
+                          className="inline-flex items-center px-4 py-2 rounded-full bg-muted text-sm font-medium text-foreground/80 border border-border hover:border-primary/40 hover:bg-primary/5 transition-colors"
+                        >
+                          {app}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                )}
 
                 {/* FAQs — Accordion */}
                 {service.faq_items && service.faq_items.length > 0 && (
