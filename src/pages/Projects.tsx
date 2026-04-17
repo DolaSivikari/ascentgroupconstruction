@@ -299,7 +299,7 @@ const Projects = () => {
                 <p className="text-muted-foreground">{filteredProjects.length} project{filteredProjects.length !== 1 ? 's' : ''} found</p>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 {visibleProjects.map((project) => (
                   <ProjectCard
                     key={project.slug}

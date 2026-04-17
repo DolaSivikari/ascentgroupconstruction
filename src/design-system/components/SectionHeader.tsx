@@ -1,4 +1,5 @@
 import { cn } from "@/lib/utils";
+import { RevealText } from "@/components/ui/RevealText";
 
 interface SectionHeaderProps {
   title: string;
@@ -44,7 +45,7 @@ export const SectionHeader = ({
         </span>
       )}
       <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4">
-        {title}
+        <RevealText>{title}</RevealText>
       </h2>
       {description && (
         <p

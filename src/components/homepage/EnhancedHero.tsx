@@ -650,14 +650,8 @@ const EnhancedHero = ({ splashComplete = true }: { splashComplete?: boolean }) =
         )}
       </button>
 
-      {/* ── Scroll Indicator — animated bounce ── */}
-      {!prefersReducedMotion && (
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 animate-hero-reveal" style={{ animationDelay: '800ms', animationFillMode: 'both' }}>
-          <div className="w-6 h-10 border-2 border-white/25 rounded-full flex justify-center pt-2">
-            <div className="w-1 h-3 bg-white/50 rounded-full animate-[hero-scroll-dot_2s_ease-in-out_infinite]" />
-          </div>
-        </div>
-      )}
+      {/* ── Scroll Indicator — pulsing line + label, gated to tall viewports ── */}
+      <AnimatedScrollIndicator />
 
       {/* ── Inline keyframes ── */}
       <style>{`

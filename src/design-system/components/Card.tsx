@@ -20,7 +20,7 @@ interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
 const cardVariants: Record<CardVariant, string> = {
   default: 'bg-card border border-border',
   elevated: 'bg-card border border-border shadow-[var(--shadow-card-elevated)]',
-  interactive: 'bg-card border border-border shadow-[var(--shadow-card)] hover:shadow-[var(--shadow-card-hover)] cursor-pointer',
+  interactive: 'bg-card border border-border shadow-[var(--shadow-card)] hover:shadow-[var(--shadow-card-hover)] hover:scale-[1.015] hover:brightness-[1.03] cursor-pointer motion-reduce:hover:scale-100',
   ghost: 'bg-transparent border-0',
   outline: 'bg-transparent border-2 border-border',
 };
@@ -41,8 +41,8 @@ export const Card = forwardRef<HTMLDivElement, CardProps>(
         ref={ref}
         className={cn(
           // Base styles
-          'rounded-[var(--radius-sm)]',
-          'transition-all duration-200',
+          'rounded-[var(--radius-sm)] origin-center',
+          'transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]',
           
           // Variant
           cardVariants[variant],
