@@ -1,46 +1,72 @@
 
 
-## Why "rotation" looks fixed — root cause
+## Admin cleanup — remove unused / non-functional sections
 
-I checked your database directly. Here's the truth:
+### What I audited
 
-- **7 published projects total**
-- **0 marked as `featured`**
+I cross-referenced every admin route, sidebar item, and sub-component against:
+- Whether any **public-facing page** actually consumes its data
+- Whether the underlying logic does anything meaningful (or just writes to an orphan table)
+- Your own `docs/ADMIN_FEATURE_STATUS.md` truth document
+- Memory: `system-hygiene-and-domain-integrity` (sidebar must stay synced with real routes)
 
-So when the code shuffles and picks 3 from a pool of 7, you'll naturally see the same projects appear often (basic statistics — with 7 items, ~43% of any 3-card sample will overlap with the previous one). It *is* rotating, but with such a small pool the variation feels invisible.
+### Findings — what to remove
 
-Plus on `/projects`, the spotlight grid shows projects **3–6** of the shuffled pool (positions 4, 5, 6 out of 7) — so it's effectively cycling through only 4 projects most of the time. With 7 projects total, hero takes 3, spotlight gets the remaining 4. Rotation is mathematically constrained.
+| # | Item | Where it lives | Why remove |
+|---|------|----------------|-----------|
+| 1 | **Redirects Manager** | sidebar Website group, `/admin/redirects`, `RedirectsManager.tsx` | Writes to `redirects` table but **nothing reads it**. No edge function, no middleware, no server applies these. Already flagged "Internal / Non-authoritative" in your status doc. Pure dead weight. |
+| 2 | **Navigation Menu builder** | sidebar Website group, `/admin/navigation`, `NavigationBuilder.tsx` | Site nav is hard-coded in `data/navigation-structure-enhanced.ts`. Editing this UI changes nothing on the live site. Flagged "Non-authoritative" in your doc. |
+| 3 | **Stats tab** in Homepage Builder | `HomepageBuilder.tsx` "stats" tab + `StatsManager.tsx` | Already labeled with a "not displayed on public homepage" warning by you. Stats never render anywhere public. |
+| 4 | **Performance Dashboard** | sidebar Tools group, `/admin/performance-dashboard` | Reads `performance_metrics` (web vitals collection works) but the dashboard duplicates what Monitoring already shows. Keeping one is enough. |
+| 5 | **Content Versioning** page | `/admin/content-versions`, `ContentVersioning.tsx` | The `RevisionHistory` component is **not mounted in any editor** (search confirms zero usages). The page just lists rows from `content_versions` with no restore action. Read-only orphan. |
+| 6 | **Notifications** page | sidebar Tools group, `/admin/notifications`, `Notifications.tsx` | `NotificationBellInbox` already shows notifications in the header. The full page is redundant. |
+| 7 | **Search Analytics** page | sidebar Tools group, `/admin/search-analytics`, `SearchAnalytics.tsx` | The `search_analytics` table IS populated and used by `usePopularSearches`/`usePopularServices` on the public site, but the admin page just shows a list with no actionable insight beyond what SEO Dashboard analytics tab covers. Can fold into SEO Dashboard later, but no one uses it now. |
 
-## Fix — make rotation visible and fair
+### Findings — what to KEEP (verified live)
 
-### 1. Visible rotation indicator (Projects page)
-Add a small "Refresh selection" button next to the Featured Projects header so visitors and you can confirm rotation is working without a full page refresh. Triggers a new shuffle in place. Removes the "is it broken?" doubt.
+- Dashboard, Inbox, Projects, Services, Blog Posts, **Testimonials** (live — read by `Testimonials.tsx` + `useAggregateRating`), Media, Documents, Homepage Builder (Hero/WhyChooseUs/CompanyOverview tabs only), SEO Dashboard, Settings, Users, Email Templates, Monitoring, Audit Log
+- All `<Navigate />` redirects from old admin paths stay (preserve bookmarks)
 
-### 2. Allow hero/spotlight overlap when pool is small
-On `/projects`, when there are fewer than 6 projects, the current code falls back to showing the *same* 3 in both hero and spotlight. Change the logic: always shuffle independently. Hero gets a fresh sample of 3, spotlight gets a *different* fresh sample of 3 from the full pool — overlap is allowed but the two sets are independently shuffled, so you maximize variety per visit.
+### Changes to make (when you approve)
 
-### 3. Show 3 spotlight cards even when DB has only 7
-Same shuffle seed approach as homepage — `Math.random()` per mount — but draw spotlight from `pool.slice(0,3)` of an *independent* shuffle, not `slice(3,6)`. This way every visit you get genuinely random 3 in spotlight, even if 1–2 overlap with hero.
+**Sidebar** — `src/components/admin/UnifiedSidebar.tsx`
+- Remove nav items: Navigation Menu, Redirects, Performance, Search Analytics, Notifications
+- Keep Website group (now: Homepage Builder, SEO Dashboard) — still useful as a group
+- Keep Tools group (now: Monitoring, Audit Log) — slimmed down
 
-### 4. Homepage — already correct, but add tiny safeguard
-`HomepageFeaturedProjects.tsx` is already doing the right thing (fresh `mountId` seed per mount, fetches all published, shuffles). No code change needed there — it works. The perceived "stuckness" was the same small-pool issue.
+**Routes** — `src/routes/AppRoutes.tsx`
+- Remove route registrations + lazy imports for: `RedirectsManager`, `NavigationBuilder`, `PerformanceDashboard`, `SearchAnalytics`, `ContentVersioning`, `Notifications`
+- Add `<Navigate to="/admin" replace />` redirects for the removed paths so old bookmarks/links don't 404
 
-### 5. Strong recommendation (no code, just config)
-Mark **3–4 projects as `featured = true`** in the admin. Right now zero are featured, so the "featured-first" priority logic does nothing — every project is equally weighted. Marking some as featured will make those rotate among the top of the pool consistently while still drawing variety from the rest.
+**Homepage Builder** — `src/pages/admin/HomepageBuilder.tsx`
+- Delete the "stats" tab + its TabsTrigger/TabsContent
+- Drop import of `StatsManager`
+- Update tab grid from `grid-cols-4` → `grid-cols-3`
+- Strip the `?tab=stats` from the allowed-tabs Set
 
-## Files touched (1)
+**Files to delete** (no remaining importers after the above):
+- `src/pages/admin/RedirectsManager.tsx`
+- `src/pages/admin/NavigationBuilder.tsx`
+- `src/pages/admin/PerformanceDashboard.tsx`
+- `src/pages/admin/SearchAnalytics.tsx`
+- `src/pages/admin/ContentVersioning.tsx`
+- `src/pages/admin/Notifications.tsx`
+- `src/pages/admin/StatsManager.tsx`
+- `src/components/admin/RevisionHistory.tsx` (zero usages)
 
-- `src/pages/Projects.tsx` — independent shuffle for spotlight, optional "refresh" button
+**Documentation** — `docs/ADMIN_FEATURE_STATUS.md`
+- Remove rows for Navigation Builder, Redirects, Stats (now gone)
+- Add a one-liner: "Removed YYYY-MM: Navigation/Redirects/Stats/Performance/Notifications/SearchAnalytics/ContentVersioning admin surfaces — none were wired to live output."
 
-## Out of scope
+### Out of scope (explicitly not touching)
 
-- Homepage component (already correct)
-- DB changes
-- Layout/visual changes
+- **Hero Slides Manager** — live, public hero reads from it
+- **Testimonials** — live, public Testimonials component reads from it
+- **SEO Dashboard robots.txt controls** — left alone (you flagged "verify before relying" but the rest of SEO Dashboard is heavily used)
+- Nothing in DB — only frontend cleanup. All tables stay (`redirects`, `navigation_menu_items`, `stats`, `content_versions`, `admin_notifications`, `performance_metrics`, `search_analytics`) so no data loss and existing collectors keep writing.
+- No changes to `/admin/inbox`, dashboard widgets, or any content editor
 
-## Result
+### Result
 
-- Spotlight grid on `/projects` will draw a fresh, independent random sample on every mount — no more recycling positions 4–6 of a single shuffle.
-- Optional refresh button removes the "is rotation broken?" question.
-- Once you mark a few projects as featured, the priority logic activates and you get consistent quality on top + rotation underneath.
+Sidebar drops from ~17 nav items to ~12. Every remaining admin page either edits live public content or operates a real backend function. No more "is this even doing anything?" surfaces.
 
