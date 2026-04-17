@@ -1,51 +1,75 @@
 
-Root cause confirmed: 6 services have `typical_applications` stored as `[{label: "..."}, ...]` instead of `["...", ...]`. Renderer at `ServiceDetail.tsx:433` does `{app}` which crashes when `app` is an object.
+User endorses Tier 1 with two refinements:
+1. Card hover — verify scale(1.02) against grid layout, watch for subpixel jitter / shadow clipping. Add transform-origin and verify gaps before merge.
+2. Scroll indicator — gate render on viewport height (>85% hero occupancy), avoid showing on short laptops/tablets.
 
-6 broken pages:
-- `/services/painting-services`
-- `/services/sealant-programs`
-- `/services/parking-garage-restoration`
-- `/services/tile-flooring`
-- `/services/interior-buildouts-finishing`
-- `/services/interior-finishing-renovations`
+Both are correct. Folding them into the spec.
 
-The other 7 published service pages are fine (their arrays are plain strings).
+## Tier 1 Motion Pass — final spec
 
-## Fix — two layers, both small
+### What ships
 
-### 1. Component hardening (`src/pages/ServiceDetail.tsx`)
-Normalize `typical_applications` and `what_we_provide` at render time so the page never crashes regardless of stored shape:
-```ts
-const normalizeStringArray = (arr: unknown): string[] =>
-  Array.isArray(arr)
-    ? arr.map(v => typeof v === "string" ? v : (v as any)?.label ?? (v as any)?.title ?? "").filter(Boolean)
-    : [];
-```
-Apply to both array reads. Also widen the `Service` interface fields to `Array<string | { label?: string; title?: string }>` so TypeScript stays happy.
+**1. `src/lib/motion-presets.ts`** — single source of truth
+- `EASE_EXPO_OUT = [0.22, 1, 0.36, 1] as const`
+- `STAGGER = { tight: 0.04, base: 0.06, loose: 0.08 }`
+- `DURATION = { fast: 0.3, base: 0.5, slow: 0.7 }`
+- Framer Motion variants: `fadeUp`, `fadeIn`, `staggerContainer`, `wordReveal`
+- All variants pre-wired to expo-out
 
-This alone eliminates the white-screen crash on all 6 pages immediately.
+**2. `src/components/ui/RevealText.tsx`** — word-by-word entrance
+- Splits children string on spaces, wraps each word in `motion.span`
+- Stagger 60ms, Y translate 16px, expo-out
+- Reduced-motion fallback: renders plain text, no animation
+- Uses `whileInView` with `viewport={{ once: true, margin: "-50px" }}`
 
-### 2. Data normalization (one-shot SQL UPDATE)
-For the 6 affected rows, flatten `typical_applications` to a plain string array using `jsonb_array_elements`:
-```sql
-UPDATE services
-SET typical_applications = (
-  SELECT jsonb_agg(COALESCE(elem->>'label', elem#>>'{}'))
-  FROM jsonb_array_elements(typical_applications) elem
-)
-WHERE slug IN ('painting-services','sealant-programs','parking-garage-restoration',
-               'tile-flooring','interior-buildouts-finishing','interior-finishing-renovations');
-```
-Keeps DB consistent with the other 7 services and avoids future ambiguity.
+**3. `src/design-system/components/SectionHeader.tsx`** — wire `<RevealText>` into the title
+- One change → every section heading on the site upgrades
+- Description and badge stay as-is (no over-animation)
 
-## Files touched
-- `src/pages/ServiceDetail.tsx` — add `normalizeStringArray` helper, apply to both fields, widen interface
-- 1 data migration (UPDATE only, no schema change)
+**4. `src/design-system/components/Card.tsx` + `src/components/ui/card.tsx`** — hover upgrade on `interactive` variant
+- Duration 200ms → 500ms
+- Add `hover:scale-[1.015]` (lower than 1.02 to avoid jitter), `transform-origin-center`, `hover:brightness-[1.03]`
+- Easing: expo-out via Tailwind arbitrary `ease-[cubic-bezier(0.22,1,0.36,1)]`
+- **Refinement #1**: audit `ProjectCard` grid (`/projects` and homepage Featured Projects) at 1440px to confirm no shadow clipping or neighbor jitter before merge; bump grid `gap` from current value to `gap-8` if needed
 
-## Out of scope
-- No design changes
-- No changes to the other 7 working service pages
-- `key_benefits` is intentionally `{title, description}` objects (renderer expects this) — leave it alone
+**5. `src/components/homepage/AnimatedScrollIndicator.tsx`** — pulsing scroll cue
+- Vertical line (1px × 32px) with opacity pulse 2s loop
+- "SCROLL" label, `text-xs tracking-widest`, subtle 4px Y bounce
+- **Refinement #2**: render gated by `useMediaQuery('(min-height: 800px)')` — hidden on short laptops, tablets landscape, anything where hero doesn't fully dominate viewport
+- Reduced-motion: static line + label, no pulse/bounce
 
-## Result
-All 13 published service pages render. Component is defensive against future bad data. DB shape standardized.
+**6. `src/components/homepage/EnhancedHero.tsx`** — swap existing scroll cue for `<AnimatedScrollIndicator />`
+
+### Files
+
+**New (3)**
+- `src/lib/motion-presets.ts`
+- `src/components/ui/RevealText.tsx`
+- `src/components/homepage/AnimatedScrollIndicator.tsx`
+
+**Edited (4)**
+- `src/design-system/components/SectionHeader.tsx`
+- `src/design-system/components/Card.tsx`
+- `src/components/ui/card.tsx`
+- `src/components/homepage/EnhancedHero.tsx`
+
+### Out of scope (locked)
+
+- No horizontal scroll — permanent no for B2B procurement audience
+- No shared-element / page transitions
+- No cursor parallax
+- No giant numeral crossfade (deferred ≥60 days post-Tier-1 launch)
+- No layout, color, font, navigation, DB, or routing changes
+- No motion additions beyond this PR — 60-day quiet period before reassessing
+
+### QA checklist before merge
+
+- ProjectCard grid at 1440px / 1280px / 768px — no jitter, no shadow clipping
+- SectionHeader reveal works on homepage, /projects, /services, /capabilities, /contact
+- `prefers-reduced-motion: reduce` disables all word-reveal, scroll-pulse, and hover-scale extensions
+- Scroll indicator hidden on viewport height <800px
+- Hero loads without layout shift from indicator mount
+
+### Result
+
+Every heading reveals word-by-word with cinematic easing. Every interactive card hovers with the slow, layered "expensive" feel. Hero gets a living scroll cue (only where it earns its place). Zero risk to scannability, accessibility, or B2B conversion. One PR, four edited files, three new files, ~150 LOC total.
