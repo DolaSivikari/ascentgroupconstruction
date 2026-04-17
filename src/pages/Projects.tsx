@@ -209,7 +209,7 @@ const Projects = () => {
       <Navigation />
 
       <PremiumProjectHero 
-        featuredProjects={featuredProjects.map(p => ({
+        featuredProjects={heroSample.map(p => ({
           title: p.title,
           location: p.location,
           category: p.category,
