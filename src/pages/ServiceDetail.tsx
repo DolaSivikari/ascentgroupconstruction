@@ -53,6 +53,8 @@ interface FAQItem {
   answer: string;
 }
 
+type StringOrLabeled = string | { label?: string; title?: string };
+
 interface Service {
   id: string;
   name: string;
@@ -66,11 +68,25 @@ interface Service {
   seo_keywords: string[] | null;
   service_overview: string | null;
   process_steps: ProcessStep[] | null;
-  what_we_provide: string[] | null;
-  typical_applications: string[] | null;
+  what_we_provide: StringOrLabeled[] | null;
+  typical_applications: StringOrLabeled[] | null;
   key_benefits: Array<{ title: string; description: string }> | null;
   faq_items: FAQItem[] | null;
 }
+
+// Defensive: some legacy rows store these as [{label: "..."}] instead of plain strings
+const normalizeStringArray = (arr: unknown): string[] =>
+  Array.isArray(arr)
+    ? arr
+        .map((v) =>
+          typeof v === "string"
+            ? v
+            : (v as { label?: string; title?: string })?.label ??
+              (v as { label?: string; title?: string })?.title ??
+              ""
+        )
+        .filter(Boolean)
+    : [];
 
 // Per-service hero badges (trust signals)
 const serviceBadges: Record<
