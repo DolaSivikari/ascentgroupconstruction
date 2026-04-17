@@ -1,41 +1,46 @@
 
 
-## Rotate Featured Projects on Every Page Load
+## Why "rotation" looks fixed — root cause
 
-### Current state
+I checked your database directly. Here's the truth:
 
-Both Featured Projects sections technically shuffle, but the rotation feels "fixed" because:
+- **7 published projects total**
+- **0 marked as `featured`**
 
-1. **Homepage** (`HomepageFeaturedProjects.tsx`) — pool is capped at 12 most-recent featured + 12 most-recent published. If you have ~10–15 published projects total, the same items sit in the pool every time → only the order of the same 3 varies.
-2. **Projects page** (`Projects.tsx`) — `useMemo` shuffles client-side, so navigating away and back inside the same session can replay the same shuffle (React state lifecycle), and the carousel + spotlight share one shuffle so they always mirror each other.
-3. **React Query caching** — homepage uses `useQuery` with a static key. Even with `staleTime: 0`, the cached data may flash before refetch, masking rotation.
+So when the code shuffles and picks 3 from a pool of 7, you'll naturally see the same projects appear often (basic statistics — with 7 items, ~43% of any 3-card sample will overlap with the previous one). It *is* rotating, but with such a small pool the variation feels invisible.
 
-### Fix
+Plus on `/projects`, the spotlight grid shows projects **3–6** of the shuffled pool (positions 4, 5, 6 out of 7) — so it's effectively cycling through only 4 projects most of the time. With 7 projects total, hero takes 3, spotlight gets the remaining 4. Rotation is mathematically constrained.
 
-**Single principle:** every page load draws a fresh random sample from the *entire* published-projects pool, not just the latest 12.
+## Fix — make rotation visible and fair
 
-#### Homepage — `src/components/homepage/HomepageFeaturedProjects.tsx`
-- Remove the `featured=true` + `latest 12` two-tier query. Replace with a single query that fetches **all published projects** (id, title, slug, category, location, featured_image, summary, year only — small payload).
-- Prefer `featured=true` projects first: take all featured, then backfill from non-featured if fewer than 3 featured exist.
-- Shuffle the selected pool, slice 3.
-- Add a per-mount random seed to the React Query key (e.g. `["homepage-featured", mountId]` where `mountId = useState(() => Math.random())`) so every mount fetches fresh and ignores any stale cache.
+### 1. Visible rotation indicator (Projects page)
+Add a small "Refresh selection" button next to the Featured Projects header so visitors and you can confirm rotation is working without a full page refresh. Triggers a new shuffle in place. Removes the "is it broken?" doubt.
 
-#### Projects page — `src/pages/Projects.tsx`
-- Keep `useMemo` shuffle but add a per-mount random seed in the dependency array so it re-shuffles on every mount, not only when `allProjects` changes.
-- Pull the spotlight sample from `featured=true` first (matching homepage logic), backfilled from any published — prevents the spotlight from showing low-priority projects when featured ones exist.
-- **Decouple** the `PremiumProjectHero` carousel and the spotlight grid: give them two independent random samples so visitors see 6 different projects (3 in hero, 3 in spotlight) instead of the same 3 twice.
+### 2. Allow hero/spotlight overlap when pool is small
+On `/projects`, when there are fewer than 6 projects, the current code falls back to showing the *same* 3 in both hero and spotlight. Change the logic: always shuffle independently. Hero gets a fresh sample of 3, spotlight gets a *different* fresh sample of 3 from the full pool — overlap is allowed but the two sets are independently shuffled, so you maximize variety per visit.
 
-### Out of scope
-- No DB changes, no admin changes.
-- No layout/visual changes — same 3-card grid.
-- `ServicesFeaturedWork` (services page) already does tier-1/tier-2 logic correctly; leaving it alone unless you want it to rotate too.
+### 3. Show 3 spotlight cards even when DB has only 7
+Same shuffle seed approach as homepage — `Math.random()` per mount — but draw spotlight from `pool.slice(0,3)` of an *independent* shuffle, not `slice(3,6)`. This way every visit you get genuinely random 3 in spotlight, even if 1–2 overlap with hero.
 
-### Files touched (2)
-- `src/components/homepage/HomepageFeaturedProjects.tsx`
-- `src/pages/Projects.tsx`
+### 4. Homepage — already correct, but add tiny safeguard
+`HomepageFeaturedProjects.tsx` is already doing the right thing (fresh `mountId` seed per mount, fetches all published, shuffles). No code change needed there — it works. The perceived "stuckness" was the same small-pool issue.
 
-### Result
-- Every refresh / revisit / navigation back to home or `/projects` shows a different random sample.
-- All published projects get fair rotation exposure over time, with featured projects prioritized.
-- Hero carousel and spotlight grid on `/projects` no longer duplicate each other.
+### 5. Strong recommendation (no code, just config)
+Mark **3–4 projects as `featured = true`** in the admin. Right now zero are featured, so the "featured-first" priority logic does nothing — every project is equally weighted. Marking some as featured will make those rotate among the top of the pool consistently while still drawing variety from the rest.
+
+## Files touched (1)
+
+- `src/pages/Projects.tsx` — independent shuffle for spotlight, optional "refresh" button
+
+## Out of scope
+
+- Homepage component (already correct)
+- DB changes
+- Layout/visual changes
+
+## Result
+
+- Spotlight grid on `/projects` will draw a fresh, independent random sample on every mount — no more recycling positions 4–6 of a single shuffle.
+- Optional refresh button removes the "is rotation broken?" question.
+- Once you mark a few projects as featured, the priority logic activates and you get consistent quality on top + rotation underneath.
 
