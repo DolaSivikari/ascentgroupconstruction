@@ -208,6 +208,10 @@ export default {
           "0%": { transform: "rotate(0deg)" },
           "100%": { transform: "rotate(360deg)" },
         },
+        ripple: {
+          "0%": { transform: "scale(0)", opacity: "0.6" },
+          "100%": { transform: "scale(2)", opacity: "0" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
@@ -221,6 +225,7 @@ export default {
         "scale-out": "scale-out 0.2s ease-out",
         shimmer: "shimmer 2s linear infinite",
         rotate: "rotate 20s linear infinite",
+        ripple: "ripple 0.6s ease-out forwards",
       },
       zIndex: {
         base: "0",
