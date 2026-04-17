@@ -1,54 +1,16 @@
-import * as React from "react";
-import { cva, type VariantProps } from "class-variance-authority";
-import { cn } from "@/lib/utils";
-
-const cardVariants = cva(
-  "rounded-[var(--card-border-radius)] bg-card text-card-foreground transition-all duration-200 ease-out border border-border",
-  {
-    variants: {
-      variant: {
-        default: "shadow-[var(--shadow-card)]",
-        elevated: "shadow-[var(--shadow-card-elevated)]",
-        interactive: "border shadow-[var(--shadow-card)] hover:shadow-[var(--shadow-card-hover)] hover:-translate-y-0.5 cursor-pointer",
-        featured: "border-2 border-primary/20 shadow-[var(--shadow-card-elevated)] hover:shadow-[var(--shadow-card-hover)] hover:border-primary/40 hover:-translate-y-0.5",
-        glass: "border border-primary/10 bg-card/80 backdrop-blur-sm shadow-[var(--shadow-card)]",
-        flat: "border-0 shadow-none bg-muted/30",
-      },
-    },
-    defaultVariants: { variant: "default" },
-  }
-);
-
-export interface CardProps extends React.HTMLAttributes<HTMLDivElement>, VariantProps<typeof cardVariants> {}
-
-const Card = React.forwardRef<HTMLDivElement, CardProps>(({ className, variant, ...props }, ref) => (
-  <div ref={ref} className={cn(cardVariants({ variant }), className)} {...props} />
-));
-Card.displayName = "Card";
-
-const CardHeader = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(({ className, ...props }, ref) => (
-  <div ref={ref} className={cn("flex flex-col space-y-1.5 p-6", className)} {...props} />
-));
-CardHeader.displayName = "CardHeader";
-
-const CardTitle = React.forwardRef<HTMLParagraphElement, React.HTMLAttributes<HTMLHeadingElement>>(({ className, ...props }, ref) => (
-  <h3 ref={ref} className={cn("text-2xl font-semibold leading-none tracking-tight", className)} {...props} />
-));
-CardTitle.displayName = "CardTitle";
-
-const CardDescription = React.forwardRef<HTMLParagraphElement, React.HTMLAttributes<HTMLParagraphElement>>(({ className, ...props }, ref) => (
-  <p ref={ref} className={cn("text-sm text-muted-foreground", className)} {...props} />
-));
-CardDescription.displayName = "CardDescription";
-
-const CardContent = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(({ className, ...props }, ref) => (
-  <div ref={ref} className={cn("p-6 pt-0", className)} {...props} />
-));
-CardContent.displayName = "CardContent";
-
-const CardFooter = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(({ className, ...props }, ref) => (
-  <div ref={ref} className={cn("flex items-center p-6 pt-0", className)} {...props} />
-));
-CardFooter.displayName = "CardFooter";
-
-export { Card, CardHeader, CardFooter, CardTitle, CardDescription, CardContent };
+/**
+ * @deprecated This file is a thin compatibility re-export of the canonical Card.
+ * For new code, import directly from "@/design-system/components/Card".
+ *
+ * Kept for backwards compatibility with existing admin and utility components
+ * that still reference the old `@/ui/Card` path. All exports below resolve to
+ * the single canonical Card system to guarantee one source of truth.
+ */
+export {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+  CardContent,
+  CardFooter,
+} from "@/design-system/components/Card";
