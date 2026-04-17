@@ -1,7 +1,8 @@
-import { forwardRef } from "react";
+import { forwardRef, useRef, useState } from "react";
 import { Slot } from "@radix-ui/react-slot";
 import { cva } from "class-variance-authority";
 import { cn } from "@/lib/utils";
+import { useReducedMotion } from "@/hooks/useReducedMotion";
 
 type Variant = "primary" | "secondary" | "navy" | "ghost" | "danger" | "outline" | "destructive" | "link" | "default" | "admin-glass" | "admin-primary" | "admin-success";
 type Size = "sm" | "md" | "lg" | "icon" | "default";
@@ -44,10 +45,18 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
   size?: Size;
 }
 
+interface Ripple { x: number; y: number; size: number; id: number; }
+
+// Variants that should NOT receive the ripple effect (subtle / text-only buttons)
+const NO_RIPPLE_VARIANTS: ReadonlySet<Variant> = new Set(["ghost", "link"]);
+
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ as: Tag = "button", asChild = false, variant = "primary", size = "md", className, children, ...props }, ref) => {
+  ({ as: Tag = "button", asChild = false, variant = "primary", size = "md", className, children, onMouseDown, ...props }, ref) => {
     const Comp = asChild ? Slot : Tag;
-    
+    const reduced = useReducedMotion();
+    const containerRef = useRef<HTMLSpanElement>(null);
+    const [ripples, setRipples] = useState<Ripple[]>([]);
+
     const variants = {
       primary: "bg-[hsl(var(--brand-accent))] text-white hover:opacity-90 shadow-lg",
       default: "bg-[hsl(var(--brand-accent))] text-white hover:opacity-90 shadow-lg",
@@ -71,18 +80,60 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       icon: "h-12 w-12 rounded-[var(--radius-sm)] md:h-9 md:w-9"
     };
 
+    // Ripple is skipped when: asChild (Slot requires single child), reduced motion, or subtle variant
+    const rippleEnabled = !asChild && !reduced && !NO_RIPPLE_VARIANTS.has(variant);
+
+    const handleMouseDown = (e: React.MouseEvent<HTMLButtonElement>) => {
+      onMouseDown?.(e);
+      if (!rippleEnabled || !containerRef.current) return;
+      const rect = containerRef.current.getBoundingClientRect();
+      const size = Math.max(rect.width, rect.height);
+      const x = e.clientX - rect.left - size / 2;
+      const y = e.clientY - rect.top - size / 2;
+      const id = Date.now() + Math.random();
+      setRipples((prev) => [...prev, { x, y, size, id }]);
+      window.setTimeout(() => {
+        setRipples((prev) => prev.filter((r) => r.id !== id));
+      }, 600);
+    };
+
     return (
       <Comp
         ref={ref}
+        onMouseDown={handleMouseDown}
         className={cn(
           "inline-flex items-center justify-center gap-2 font-medium transition-all duration-300",
+          rippleEnabled && "relative overflow-hidden",
           variants[variant],
           sizes[size],
           className
         )}
         {...props}
       >
-        {children}
+        {asChild ? (
+          children
+        ) : (
+          <>
+            {children}
+            {rippleEnabled && (
+              <span ref={containerRef} className="absolute inset-0 pointer-events-none overflow-hidden rounded-[inherit]">
+                {ripples.map((r) => (
+                  <span
+                    key={r.id}
+                    className="absolute rounded-full pointer-events-none animate-ripple bg-white/30"
+                    style={{
+                      left: r.x,
+                      top: r.y,
+                      width: r.size,
+                      height: r.size,
+                      animationDuration: "600ms",
+                    }}
+                  />
+                ))}
+              </span>
+            )}
+          </>
+        )}
       </Comp>
     );
   }
