@@ -1,8 +1,8 @@
 import { Building2, Users, Home, Briefcase, Award, CheckCircle2 } from "lucide-react";
 import { Section } from "@/components/sections/Section";
 import { SectionBadge } from "@/components/ui/SectionBadge";
-import { ClientSegmentCard } from "@/components/unified";
-import { Card, CardContent } from "@/design-system/components/Card";
+import { SegmentCard } from "@/design-system/components/SegmentCard";
+import { Card } from "@/design-system/components/Card";
 import { Button } from "@/ui/Button";
 import { Link } from "react-router-dom";
 import { GRID } from "@/design-system/layouts";

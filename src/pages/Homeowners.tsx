@@ -26,7 +26,8 @@ import { ScrollReveal } from "@/components/animations/ScrollReveal";
 import { StaggerContainer } from "@/components/animations/StaggerContainer";
 import { audienceHeroes } from "@/data/hero-images";
 import { usePageAnalytics } from "@/hooks/usePageAnalytics";
-import { ResidentialServiceCard } from "@/components/homeowners/ResidentialServiceCard";
+import { Card } from "@/design-system/components/Card";
+import { Badge as UIBadge } from "@/components/ui/badge";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { H2 } from "@/design-system/components/Typography";
 
