@@ -1,80 +1,65 @@
 
 
-## Boost Service Detail Pages — Content + Visual Upgrade
+## Full Hardening — All 3 Phases
 
-### Why pages look plain (root cause)
+### Phase 1 — Quick Wins
 
-Audit of all 12 published services shows the database is mostly empty:
+**1. Fix `EmergencyRepair.tsx` ref warning**
+Trace child components receiving stray refs. Most likely `PageHero` or a `Button` inside the urgent phone banner. Wrap target in `React.forwardRef` or remove the ref prop.
 
-| Field | Status across 12 published services |
-|---|---|
-| `service_overview` | **0 of 12** populated |
-| `process_steps` | **0 of 12** populated |
-| `key_benefits` | **0 of 12** populated |
-| `what_we_provide` | **0 of 12** populated |
-| `typical_applications` | **0 of 12** populated |
-| `faq_items` | **0 of 12** populated |
-| `featured_image` | **0 of 12** populated |
-| `long_description` | 9 of 12 populated (~250–370 chars) |
+**2. Fix `ScrollReveal.tsx` style conflict**
+Replace shorthand `transition` (in CSS class) + inline `transitionDelay` (in style) with explicit longhand inline styles: `transitionProperty`, `transitionDuration`, `transitionTimingFunction`, `transitionDelay`. Eliminates React's "conflicting property" warning.
 
-So `ServiceDetail.tsx` renders only: hero → short description → one paragraph fallback → service-area map → CTA. Every rich section is conditional and gets skipped.
+**3. Add featured images to 5 published blog posts**
+Run UPDATE statements to populate `featured_image` for each published post, using existing `/src/assets/heroes/*.jpg` paths or related project images. Fixes blog index cards + OG share previews.
 
-**Sustainable Construction 404**: `/services/sustainable-construction` redirects to `/services/sustainable-building`, but that row has `publish_state = 'draft'`. The query filters `publish_state = 'published'` → 404.
+**4. Lazy-load hero video on mobile**
+In `EnhancedHero.tsx`: detect viewport ≤768px (or `prefers-reduced-data`), skip `<video>` element on mobile and render the poster image only. Desktop behavior unchanged. Cuts ~5s off mobile load.
 
-**Bonus issue**: hero images in `serviceHeroImages` use `/src/assets/heroes/...` string paths. These work in dev but **break in production builds** because Vite hashes asset filenames. Need proper imports.
+### Phase 2 — Content Completeness
 
-### Plan (3 parts)
+**5. Seed rich content for the 7 remaining service pages**
+- `painting-services` (Architectural Coatings)
+- `sealant-programs` (Caulking & Sealant Services)
+- `interior-buildouts-finishing` (Commercial Tenant Improvements)
+- `parking-garage-restoration`
+- `interior-finishing-renovations` (Residential Renovations)
+- `tile-flooring`
+- (1 more — confirm during execution)
 
-**Part 1 — Seed rich content for the 6 priority pages**
+For each: write `service_overview` (200–350 words), `process_steps` (4–6 JSONB items), `key_benefits` (4–6 cards), `what_we_provide` (8–12 line items), `typical_applications` (4–6 chips), `faq_items` (4–6 Q&As), `featured_image`. Same pattern as the Building Envelope group.
 
-For each of: `eifs-stucco-systems`, `cladding-systems`, `building-envelope-solutions`, `facade-remediation`, `masonry-restoration`, `waterproofing-systems` — write a SQL migration that fills:
+### Phase 3 — Hardening
 
-- `service_overview` (200–350 word paragraph, professional tone matching brand)
-- `process_steps` (4–6 steps: Inspection → Design → Prep → Installation → QA → Warranty)
-- `key_benefits` (4–6 benefit cards with title + description)
-- `what_we_provide` (8–12 line items, scope of work)
-- `typical_applications` (4–6 application types: high-rise, commercial, institutional, etc.)
-- `faq_items` (4–6 Q&As covering cost, timeline, warranty, materials)
-- `featured_image` (point at existing hero asset URL or a Supabase storage URL)
+**6. Per-IP rate-limit triggers on public form tables**
+Add `BEFORE INSERT` triggers on `contact_submissions`, `rfp_submissions`, `quote_requests`, `newsletter_subscribers` that call `check_and_update_rate_limit()` with the inserter's IP (passed via `current_setting('request.headers', true)::jsonb->>'x-forwarded-for'` or fall back to a client-supplied identifier). Limit: 10 inserts/hour/IP. Reject with `RAISE EXCEPTION` over the limit.
 
-Content will be written specifically for each service, drawing from existing `long_description` and brand voice (Editorial/Enterprise per memory). No generic filler.
+Note: Edge functions already enforce rate limits via the same RPC, but this adds DB-level defense for any direct inserts that bypass functions.
 
-**Part 2 — Fix Sustainable Construction**
+**7. Review recent `error_logs`**
+Query last 11 errors, group by message, identify any actionable bugs (vs. expected/transient). Fix actionable ones in code; ignore noise.
 
-Two options, present both:
-- **A.** Publish the `sustainable-building` row (flip `publish_state` to `published`) and seed it with the same rich content as Part 1.
-- **B.** Remove the `/services/sustainable-construction` redirect from `AppRoutes.tsx` until ready.
-
-Recommend **A** since the page already has a `long_description` and a hero image (`hero-sustainable.jpg`) ready.
-
-**Part 3 — Visual polish to `ServiceDetail.tsx`**
-
-Keep the current structure (it's already well-organized) but tighten styling to match the editorial/enterprise standard used elsewhere on the site:
-
-1. **Section header pattern** — replace bare `<h2 className="text-3xl font-bold">` with the shared `SectionHeader` component (badge + title + description, left-aligned) so service pages match the homepage and `/services` rhythm.
-2. **Process steps** — convert the current vertical card list into a numbered timeline with a subtle vertical connector line (still uses `Card` but visually flows). Adds the "process feels like a process" effect.
-3. **Key Benefits** — switch from the generic 2-column card grid to the design-system `CapabilityCard` (icon + title + description) which is already used for the homepage capability section. Auto-assign icons via `getIconForService` lookup.
-4. **What We Provide** — keep the 2-col checklist but wrap it in a subtle bordered panel with a left accent rule (matches the editorial standard).
-5. **Typical Applications** — render as compact pill-tag chips instead of full cards (less heavy, scans faster).
-6. **FAQs** — convert the static stacked cards into the existing `Accordion` UI primitive (collapsible). Already a pattern used elsewhere.
-7. **Sticky "Quick Quote" sidebar** — on `lg+` viewports, add a sticky right-rail card (phone, email, "Request Quote" button, key cert badges) like the `ServicePageTemplate` already implements. Adds conversion + breaks up the centered single-column feel.
-8. **Hero badges** — extend the per-service badge logic (currently only EIFS has trust badges) so each service gets 2–3 relevant badges (e.g., Building Envelope → "CCMC Listed", "20+ Year Warranty", "WSIB Certified"). Drives credibility.
-9. **Fix asset paths** — replace the `/src/assets/...` strings in `serviceHeroImages` with proper Vite imports so heroes render correctly in production.
-
-### Out of scope
-
-- No changes to `/services` index page, navigation, or the `ServicePageTemplate` (legacy template not used by these routes).
-- No new routes or DB schema changes — just data inserts/updates and component restyling.
+**8. Populate `redirects` table for legacy slugs**
+Audit the 7 archived services (basement-finishing, kitchen-bathroom-renovations, etc.). Insert redirect rows mapping each old slug → closest current service. Already covered partially in `public/_redirects` for Netlify, but DB-driven redirects let admin manage them via the existing RedirectsManager UI.
 
 ### Files touched
 
-- New SQL migration: seed `service_overview`, `process_steps`, `key_benefits`, `what_we_provide`, `typical_applications`, `faq_items`, `featured_image`, hero badges, plus publish `sustainable-building`.
-- `src/pages/ServiceDetail.tsx` — restructure sections (SectionHeader, timeline, CapabilityCard, Accordion, sticky sidebar, per-service badges, fixed asset imports).
-- `src/utils/serviceIcons.ts` — verify mappings for new service slugs (no breaking changes).
+- `src/components/animations/ScrollReveal.tsx` — longhand transition styles
+- `src/pages/EmergencyRepair.tsx` (and any child needing forwardRef)
+- `src/components/homepage/EnhancedHero.tsx` — mobile poster-only path
+- `src/pages/ServiceDetail.tsx` — no changes (already updated last round)
+- 1 SQL data migration (insert/update tool): blog featured_images, 7 service rows, redirects entries
+- 1 schema migration: 4 rate-limit triggers + helper function if needed
 
-### Decisions needed before implementation
+### Out of scope
 
-1. For Part 1, do you want the **6 priority pages** (Building Envelope category) seeded now, with the other 6 (Interior + Finishing) done in a follow-up? Or all 12 at once?
-2. Sustainable Construction: publish + seed (option A) or temporarily hide (option B)?
-3. Featured images: use the existing `hero-*.jpg` files for now, or do you want to upload new dedicated featured project photos (separate from heroes) per service?
+- No design changes to homepage, navigation, or `/services` index
+- No new routes, no admin UI changes
+- No changes to the (intentionally permissive) public-form RLS policies — triggers add the rate-limit layer instead
+
+### Order of execution
+
+1. Phase 1 fixes (warnings + blog images + hero mobile lazy-load) — visible immediately
+2. Phase 2 content seeding (7 services) — single migration
+3. Phase 3 triggers + redirects + error-log review — backend hardening
 
