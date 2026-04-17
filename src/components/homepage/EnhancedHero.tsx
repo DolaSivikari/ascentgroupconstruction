@@ -436,21 +436,30 @@ const EnhancedHero = ({ splashComplete = true }: { splashComplete?: boolean }) =
           className="absolute inset-[-16px] w-[calc(100%+32px)] h-[calc(100%+32px)] will-change-transform z-[1]"
           style={getOutgoingStyle()}
         >
-          <video
-            ref={prevVideoRef}
-            width={1920}
-            height={1080}
-            autoPlay
-            loop
-            muted
-            playsInline
-            preload="metadata"
-            poster={prevPosterUrl}
-            className="absolute inset-0 w-full h-full object-cover"
-          >
-            {isMobile && prevVideoUrlMobile && <source src={prevVideoUrlMobile} type="video/mp4" />}
-            {prevVideoUrl && <source src={prevVideoUrl} type="video/mp4" />}
-          </video>
+          {skipVideo ? (
+            <img
+              src={prevPosterUrl}
+              alt=""
+              loading="eager"
+              className="absolute inset-0 w-full h-full object-cover"
+            />
+          ) : (
+            <video
+              ref={prevVideoRef}
+              width={1920}
+              height={1080}
+              autoPlay
+              loop
+              muted
+              playsInline
+              preload="metadata"
+              poster={prevPosterUrl}
+              className="absolute inset-0 w-full h-full object-cover"
+            >
+              {isMobile && prevVideoUrlMobile && <source src={prevVideoUrlMobile} type="video/mp4" />}
+              {prevVideoUrl && <source src={prevVideoUrl} type="video/mp4" />}
+            </video>
+          )}
         </div>
       )}
 
@@ -460,27 +469,38 @@ const EnhancedHero = ({ splashComplete = true }: { splashComplete?: boolean }) =
         className="absolute inset-[-16px] w-[calc(100%+32px)] h-[calc(100%+32px)] will-change-transform z-[2]"
         style={getIncomingStyle()}
       >
-        <video
-          ref={videoRef}
-          width={1920}
-          height={1080}
-          autoPlay
-          loop
-          muted
-          playsInline
-          preload="metadata"
-          poster={posterUrl}
-          onLoadedData={handleVideoReady}
-          onCanPlay={handleVideoReady}
-          onError={(e) => {
-            console.error('Hero video failed to load', { src: videoUrl, error: e });
-            setIsVideoLoaded(true);
-          }}
-          className="absolute inset-0 w-full h-full object-cover"
-        >
-          {isMobile && <source src={videoUrlMobile} type="video/mp4" />}
-          <source src={videoUrl} type="video/mp4" />
-        </video>
+        {skipVideo ? (
+          <img
+            src={posterUrl}
+            alt={headline}
+            loading="eager"
+            fetchPriority="high"
+            className="absolute inset-0 w-full h-full object-cover"
+            onLoad={handleVideoReady}
+          />
+        ) : (
+          <video
+            ref={videoRef}
+            width={1920}
+            height={1080}
+            autoPlay
+            loop
+            muted
+            playsInline
+            preload="metadata"
+            poster={posterUrl}
+            onLoadedData={handleVideoReady}
+            onCanPlay={handleVideoReady}
+            onError={(e) => {
+              console.error('Hero video failed to load', { src: videoUrl, error: e });
+              setIsVideoLoaded(true);
+            }}
+            className="absolute inset-0 w-full h-full object-cover"
+          >
+            {isMobile && <source src={videoUrlMobile} type="video/mp4" />}
+            <source src={videoUrl} type="video/mp4" />
+          </video>
+        )}
       </div>
 
       {/* ── Gradient overlay ── */}
