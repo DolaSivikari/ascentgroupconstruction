@@ -1,4 +1,4 @@
-import { Card, CardContent } from "@/ui/Card";
+import { Card, CardContent } from "@/design-system/components/Card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/ui/Button";
 import { MapPin, Calendar, Ruler, ArrowRight, Award, Star } from "lucide-react";
@@ -31,7 +31,7 @@ const ProjectFeaturedCard = ({
   featured,
 }: ProjectFeaturedCardProps) => {
   return (
-    <Card variant="featured" className="group overflow-hidden">
+    <Card variant="elevated" size="sm" className="group overflow-hidden h-full p-0">
       {/* Hero Image with Parallax Effect */}
       <div className="relative aspect-[3/4] sm:aspect-[4/3] md:h-96 overflow-hidden">
         <div

@@ -1,4 +1,4 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/ui/Card";
+import { Card } from "@/design-system/components/Card";
 import { Button } from "@/ui/Button";
 import { ArrowRight, Wrench } from "lucide-react";
 import { Link } from "react-router-dom";
@@ -22,52 +22,52 @@ export const ServiceCardTier2 = ({
   service_tier,
 }: ServiceCardTier2Props) => {
   const showTradeBadge = service_tier === 'TRADE_PACKAGE';
-  
+
   return (
-    <Card variant="interactive" className="h-full">
-      <CardHeader>
-        <div className="flex items-start justify-between gap-3 mb-3">
-          <div className="w-12 h-12 rounded-lg bg-accent/10 flex items-center justify-center">
-            <Wrench className="w-6 h-6 text-accent" />
-          </div>
-          <div className="flex flex-wrap gap-1 justify-end">
-            {showTradeBadge && (
-              <span className="text-xs px-2 py-1 rounded-full font-medium bg-muted text-muted-foreground">
-                Trade Package Available
-              </span>
-            )}
-            {challenge_tags && challenge_tags.length > 0 && (
-              <>
-                {challenge_tags.slice(0, 2).map((tag) => (
-                  <span
-                    key={tag}
-                    className="text-xs px-2 py-1 rounded-full font-medium"
-                    style={{
-                      backgroundColor: `${getChallengeColor(tag)}15`,
-                      color: getChallengeColor(tag)
-                    }}
-                  >
-                    {tag}
-                  </span>
-                ))}
-              </>
-            )}
-          </div>
+    <Card variant="interactive" size="md" className="h-full flex flex-col">
+      <div className="flex items-start justify-between gap-3 mb-3">
+        <div className="w-12 h-12 rounded-[var(--radius-sm)] bg-primary/10 flex items-center justify-center">
+          <Wrench className="w-6 h-6 text-primary" />
         </div>
-        <CardTitle className="text-lg">{name}</CardTitle>
-      </CardHeader>
-      <CardContent className="space-y-4">
-        <p className="text-sm text-muted-foreground line-clamp-3">
-          {short_description}
-        </p>
-        
-        <Button asChild variant="secondary" size="sm" className="w-full group">
-          <Link to={`/services/${slug}`} className="flex items-center justify-center gap-2">
-            Schedule Consultation
-            <ArrowRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
-          </Link>
-        </Button>
-      </CardContent>
+        <div className="flex flex-wrap gap-1 justify-end">
+          {showTradeBadge && (
+            <span className="text-xs px-2 py-1 rounded-full font-medium bg-muted text-muted-foreground">
+              Trade Package Available
+            </span>
+          )}
+          {challenge_tags && challenge_tags.length > 0 && (
+            <>
+              {challenge_tags.slice(0, 2).map((tag) => (
+                <span
+                  key={tag}
+                  className="text-xs px-2 py-1 rounded-full font-medium"
+                  style={{
+                    backgroundColor: `${getChallengeColor(tag)}15`,
+                    color: getChallengeColor(tag),
+                  }}
+                >
+                  {tag}
+                </span>
+              ))}
+            </>
+          )}
+        </div>
+      </div>
+
+      <h3 className="text-lg font-semibold leading-tight tracking-tight text-foreground mb-3">
+        {name}
+      </h3>
+
+      <p className="text-sm text-muted-foreground line-clamp-3 mb-4 flex-grow">
+        {short_description}
+      </p>
+
+      <Button asChild variant="secondary" size="sm" className="w-full group mt-auto">
+        <Link to={`/services/${slug}`} className="flex items-center justify-center gap-2">
+          Schedule Consultation
+          <ArrowRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
+        </Link>
+      </Button>
     </Card>
   );
 };

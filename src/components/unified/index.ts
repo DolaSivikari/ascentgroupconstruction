@@ -1,25 +1,16 @@
 /**
  * Unified Component Library
- * Export all unified components for consistent usage across the site
+ * Canonical exports — legacy card files have been removed.
+ * For new work, import directly from @/design-system/components/*.
  */
 
-// Client/Audience Cards (legacy)
-export { WhoWeServeCard } from "./WhoWeServeCard";
-export { WhoWeServeSection } from "./WhoWeServeSection";
-export { ClientSegmentCard } from "./ClientSegmentCard";
-export type { WhoWeServeCardProps } from "./WhoWeServeCard";
-
-// Feature & Benefit Cards (legacy — prefer CapabilityCard for new work)
-export { BenefitCard } from './BenefitCard';
-export { FeatureCard } from './FeatureCard';
-
-// Process Cards
+// Process Cards (still in use)
 export { ProcessStepCard } from './ProcessStepCard';
 
 // Tools
 export { ServiceSelector } from '../tools/ServiceSelector';
 
-// Design System Card Families (canonical — use these for new work)
+// Design System Card Families (canonical)
 export { CapabilityCard } from '@/design-system/components/CapabilityCard';
 export { ProofCard } from '@/design-system/components/ProofCard';
 export { SegmentCard } from '@/design-system/components/SegmentCard';

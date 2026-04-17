@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Card, CardContent } from "@/design-system/components/Card";
+import { Card } from "@/design-system/components/Card";
 import { Badge } from "@/components/ui/badge";
 import { Calendar, Clock, FileText } from "lucide-react";
 
@@ -23,38 +23,44 @@ const BlogCard = ({ post }: BlogCardProps) => {
   const formattedDate = new Date(date).toLocaleDateString('en-US', {
     month: 'short',
     day: 'numeric',
-    year: 'numeric'
+    year: 'numeric',
   });
-  
+
   const excerpt = post.summary || post.excerpt || '';
-  const image = post.featured_image || post.image || '';
   const readTime = excerpt ? Math.max(1, Math.ceil(excerpt.split(/\s+/).length / 200)) : 3;
 
   return (
-    <Link to={`/blog/${post.slug}`} className="block group transition-transform duration-300 hover:-translate-y-2 motion-reduce:transform-none motion-reduce:hover:transform-none">
-      <Card variant="interactive" className="h-full overflow-hidden border-2 hover:border-primary p-0 transition-shadow duration-300 group-hover:shadow-xl">
-        <CardContent className="p-8">
-          <div className="flex items-start gap-3 mb-4">
-            <Badge variant="info" size="sm" icon={FileText} className="shrink-0">{post.category}</Badge>
-            <div className="flex items-center gap-3 text-sm text-muted-foreground">
-              <div className="flex items-center gap-1">
-                <Calendar className="w-4 h-4" />
-                <span>{formattedDate}</span>
-              </div>
-              <span>•</span>
-              <div className="flex items-center gap-1">
-                <Clock className="w-4 h-4" />
-                <span>{readTime} min read</span>
-              </div>
+    <Link
+      to={`/blog/${post.slug}`}
+      className="block group h-full transition-transform duration-300 hover:-translate-y-2 motion-reduce:transform-none motion-reduce:hover:transform-none"
+    >
+      <Card
+        variant="interactive"
+        size="md"
+        className="h-full flex flex-col transition-shadow duration-300 group-hover:shadow-[var(--shadow-card-hover)]"
+      >
+        <div className="flex items-start gap-3 mb-4 flex-wrap">
+          <Badge variant="info" size="sm" icon={FileText} className="shrink-0">
+            {post.category}
+          </Badge>
+          <div className="flex items-center gap-3 text-sm text-muted-foreground">
+            <div className="flex items-center gap-1">
+              <Calendar className="w-4 h-4" />
+              <span>{formattedDate}</span>
+            </div>
+            <span>•</span>
+            <div className="flex items-center gap-1">
+              <Clock className="w-4 h-4" />
+              <span>{readTime} min read</span>
             </div>
           </div>
-          <h3 className="text-2xl font-bold mb-3 group-hover:text-primary link-hover leading-tight">
-            {post.title}
-          </h3>
-          <p className="text-muted-foreground line-clamp-3 leading-relaxed">
-            {excerpt}
-          </p>
-        </CardContent>
+        </div>
+        <h3 className="text-2xl font-bold mb-3 group-hover:text-primary transition-colors leading-tight">
+          {post.title}
+        </h3>
+        <p className="text-muted-foreground line-clamp-3 leading-relaxed flex-grow">
+          {excerpt}
+        </p>
       </Card>
     </Link>
   );

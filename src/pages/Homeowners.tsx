@@ -26,7 +26,8 @@ import { ScrollReveal } from "@/components/animations/ScrollReveal";
 import { StaggerContainer } from "@/components/animations/StaggerContainer";
 import { audienceHeroes } from "@/data/hero-images";
 import { usePageAnalytics } from "@/hooks/usePageAnalytics";
-import { ResidentialServiceCard } from "@/components/homeowners/ResidentialServiceCard";
+import { Card } from "@/design-system/components/Card";
+import { Badge as UIBadge } from "@/components/ui/badge";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { H2 } from "@/design-system/components/Typography";
 
@@ -231,18 +232,45 @@ const Homeowners = () => {
         </ScrollReveal>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {residentialServices.map((service, index) => (
-            <ScrollReveal key={index} delay={index * 0.1}>
-              <ResidentialServiceCard
-                icon={service.icon}
-                title={service.title}
-                description={service.description}
-                scope={service.scope}
-                typical={service.typical}
-                timeline={service.timeline}
-              />
-            </ScrollReveal>
-          ))}
+          {residentialServices.map((service, index) => {
+            const Icon = service.icon;
+            return (
+              <ScrollReveal key={index} delay={index * 0.1}>
+                <Card variant="elevated" size="md" hover className="h-full flex flex-col group">
+                  <div className="w-14 h-14 rounded-[var(--radius-sm)] bg-primary/10 flex items-center justify-center mb-6 group-hover:bg-primary/20 transition-colors">
+                    <Icon className="w-7 h-7 text-primary" />
+                  </div>
+                  <h3 className="text-xl font-semibold leading-tight tracking-tight text-foreground mb-4">
+                    {service.title}
+                  </h3>
+                  <p className="text-base text-muted-foreground mb-6 leading-relaxed">
+                    {service.description}
+                  </p>
+                  <div className="mb-6 flex-grow">
+                    <h4 className="font-semibold text-sm mb-3 text-foreground">Typical Scope:</h4>
+                    <ul className="space-y-2">
+                      {service.scope.map((item, idx) => (
+                        <li key={idx} className="text-sm text-muted-foreground flex items-start gap-2">
+                          <CheckCircle className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
+                          <span>{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                  <div className="pt-6 border-t border-border flex items-center gap-3 flex-wrap mt-auto">
+                    <UIBadge variant="secondary" className="flex items-center gap-1.5 px-3 py-1">
+                      <DollarSign className="w-3.5 h-3.5" />
+                      <span className="font-medium">{service.typical}</span>
+                    </UIBadge>
+                    <UIBadge variant="outline" className="flex items-center gap-1.5 px-3 py-1">
+                      <Clock className="w-3.5 h-3.5" />
+                      <span className="font-medium">{service.timeline}</span>
+                    </UIBadge>
+                  </div>
+                </Card>
+              </ScrollReveal>
+            );
+          })}
         </div>
 
         <ScrollReveal>
