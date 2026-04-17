@@ -12,26 +12,18 @@ import {
   X,
   MessageSquare,
   BarChart2,
-  Navigation,
   Wrench,
-  ArrowRightLeft,
   Building,
   LogOut,
-  Bell,
   FileCheck,
   Search,
-  Activity,
-  BookOpen,
   ExternalLink,
   ChevronDown,
   Inbox,
-  Send,
   Layout,
   Globe,
   ShieldCheck,
   History,
-  Gauge,
-  FolderOpen,
 } from 'lucide-react';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { useState, useEffect } from 'react';
@@ -96,8 +88,8 @@ export const UnifiedSidebar = ({
   const isActive = (path: string) =>
     currentPath === path || currentPath.startsWith(path + '/');
 
-  const isWebsiteActive = ['/admin/homepage-builder', '/admin/navigation', '/admin/redirects', '/admin/seo-dashboard'].some(p => currentPath.startsWith(p));
-  const isToolsActive = ['/admin/performance', '/admin/search-analytics', '/admin/monitoring', '/admin/audit', '/admin/notifications'].some(p => currentPath.startsWith(p));
+  const isWebsiteActive = ['/admin/homepage-builder', '/admin/seo-dashboard'].some(p => currentPath.startsWith(p));
+  const isToolsActive = ['/admin/monitoring', '/admin/audit'].some(p => currentPath.startsWith(p));
 
   const [websiteOpen, setWebsiteOpen] = useState(isWebsiteActive);
   const [toolsOpen, setToolsOpen] = useState(isToolsActive);
@@ -236,9 +228,7 @@ export const UnifiedSidebar = ({
           <SectionLabel>WEBSITE</SectionLabel>
           <NavGroup label="Site Management" icon={Globe} open={websiteOpen} onOpenChange={setWebsiteOpen}>
             <NavItem to="/admin/homepage-builder" icon={Layout} label="Homepage Builder" />
-            <NavItem to="/admin/navigation" icon={Navigation} label="Navigation Menu" />
             <NavItem to="/admin/seo-dashboard" icon={Search} label="SEO Dashboard" />
-            <NavItem to="/admin/redirects" icon={ArrowRightLeft} label="Redirects" />
           </NavGroup>
 
           {/* ── SETTINGS ── */}
@@ -252,11 +242,8 @@ export const UnifiedSidebar = ({
           {/* ── TOOLS (collapsed by default) ── */}
           <SectionLabel>TOOLS</SectionLabel>
           <NavGroup label="Analytics & Logs" icon={BarChart2} open={toolsOpen} onOpenChange={setToolsOpen}>
-            <NavItem to="/admin/performance-dashboard" icon={Gauge} label="Performance" />
-            <NavItem to="/admin/search-analytics" icon={Activity} label="Search Analytics" />
             <NavItem to="/admin/monitoring" icon={ShieldCheck} label="Monitoring" />
             <NavItem to="/admin/audit" icon={History} label="Audit Log" />
-            <NavItem to="/admin/notifications" icon={Bell} label="Notifications" />
           </NavGroup>
 
           <div className="flex-1" />

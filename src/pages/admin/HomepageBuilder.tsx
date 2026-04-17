@@ -1,24 +1,23 @@
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
-import { AlertTriangle, Layout, Home, Sparkles, Award } from "lucide-react";
+import { Layout, Home, Sparkles } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 
 import HeroSlidesManager from "./HeroSlidesManager";
-import StatsManager from "./StatsManager";
 import { WhyChooseUsManager } from "@/components/admin/WhyChooseUsManager";
 import { CompanyOverviewManager } from "@/components/admin/CompanyOverviewManager";
 
 const HomepageBuilder = () => {
   const [searchParams, setSearchParams] = useSearchParams();
-  const allowedTabs = new Set(["hero", "why-choose", "overview", "stats"]);
+  const allowedTabs = new Set(["hero", "why-choose", "overview"]);
   const queryTab = searchParams.get("tab") || "hero";
   const initialTab = allowedTabs.has(queryTab) ? queryTab : "hero";
 
   const [activeTab, setActiveTab] = useState(initialTab);
 
   useEffect(() => {
-    const nextTab = new Set(["hero", "why-choose", "overview", "stats"]).has(queryTab) ? queryTab : "hero";
+    const nextTab = new Set(["hero", "why-choose", "overview"]).has(queryTab) ? queryTab : "hero";
     setActiveTab(nextTab);
   }, [queryTab]);
 
@@ -46,7 +45,7 @@ const HomepageBuilder = () => {
       </div>
 
       <Tabs value={activeTab} onValueChange={handleTabChange} className="space-y-6">
-        <TabsList className="grid w-full grid-cols-4">
+        <TabsList className="grid w-full grid-cols-3">
           <TabsTrigger value="hero" className="flex items-center gap-2">
             <Layout className="h-4 w-4" />
             <span className="hidden sm:inline">Hero Slides</span>
@@ -58,10 +57,6 @@ const HomepageBuilder = () => {
           <TabsTrigger value="overview" className="flex items-center gap-2">
             <Home className="h-4 w-4" />
             <span className="hidden sm:inline">Company Overview</span>
-          </TabsTrigger>
-          <TabsTrigger value="stats" className="flex items-center gap-2">
-            <Award className="h-4 w-4" />
-            <span className="hidden sm:inline">Stats & Badges</span>
           </TabsTrigger>
         </TabsList>
 
@@ -103,24 +98,6 @@ const HomepageBuilder = () => {
             </CardHeader>
             <CardContent>
               <CompanyOverviewManager />
-            </CardContent>
-          </Card>
-        </TabsContent>
-
-        <TabsContent value="stats" className="space-y-4">
-          <Card>
-            <CardHeader>
-              <CardTitle>Stats & Badges</CardTitle>
-              <CardDescription>
-                Manage company statistics and certification badges displayed on the homepage
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <div className="rounded-lg border border-amber-500/30 bg-amber-500/10 p-3 text-sm text-amber-200 flex items-start gap-2">
-                <AlertTriangle className="h-4 w-4 mt-0.5" />
-                <span>Truth label: Stats content is not currently displayed on the public homepage composition.</span>
-              </div>
-              <StatsManager />
             </CardContent>
           </Card>
         </TabsContent>
