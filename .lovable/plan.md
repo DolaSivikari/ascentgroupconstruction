@@ -1,95 +1,41 @@
 
 
-## Card System Compliance Audit & Enforcement
+## Rotate Featured Projects on Every Page Load
 
-I audited every card component against your established standards (memory: `design-system-foundation`, `editorial-enterprise-design-standards`, `project-card-resilience-fixes`). Several violations exist that cause uneven heights and visual inconsistency.
+### Current state
 
-### The rules (from your own memory)
+Both Featured Projects sections technically shuffle, but the rotation feels "fixed" because:
 
-1. **Single canonical Card source** — `@/design-system/components/Card` only. The competing `src/ui/Card.tsx` and `src/components/shared/UnifiedCard.tsx` should be retired.
-2. **Four canonical card families**: `CapabilityCard`, `ProjectCard`, `ProofCard`, `SegmentCard`. Legacy `UnifiedCard`, `FeatureCard`, `BenefitCard`, `ClientSegmentCard`, `WhoWeServeCard` are deprecated.
-3. **`primary` theme token only** — never hardcoded `construction-orange` in card UI.
-4. **Equal heights in grids** — every card must have `h-full` and its parent grid item must stretch.
-5. **Editorial flat style** — no backdrop-blur, no gradient overlays, 8px radius, restrained accents.
+1. **Homepage** (`HomepageFeaturedProjects.tsx`) — pool is capped at 12 most-recent featured + 12 most-recent published. If you have ~10–15 published projects total, the same items sit in the pool every time → only the order of the same 3 varies.
+2. **Projects page** (`Projects.tsx`) — `useMemo` shuffles client-side, so navigating away and back inside the same session can replay the same shuffle (React state lifecycle), and the carousel + spotlight share one shuffle so they always mirror each other.
+3. **React Query caching** — homepage uses `useQuery` with a static key. Even with `staleTime: 0`, the cached data may flash before refetch, masking rotation.
 
-### Violations found
+### Fix
 
-| Component | Violation |
-|---|---|
-| `src/ui/Card.tsx` | Duplicate Card source (parallel to canonical) — used by `ServiceCardTier1/2/3`, `ProjectFeaturedCard` |
-| `src/components/shared/UnifiedCard.tsx` | Retired pattern still alive |
-| `src/components/unified/FeatureCard.tsx` | Uses `text-construction-orange` (line 28); deprecated by `CapabilityCard` |
-| `src/components/unified/BenefitCard.tsx` | Uses `text-construction-orange` (line 16); inconsistent `p-0` content padding causes height mismatch |
-| `src/components/unified/ClientSegmentCard.tsx` | Deprecated by `SegmentCard`; varying content lengths produce uneven heights despite `h-full` because no `flex-grow` on description |
-| `src/components/unified/WhoWeServeCard.tsx` | Deprecated by `SegmentCard`; two variants with different paddings/structures |
-| `src/components/homeowners/ResidentialServiceCard.tsx` | Hardcoded `construction-orange` everywhere (lines 31-33, 49); uses gradient overlay (banned) |
-| `src/components/services/ServiceCardTier1/2/3.tsx` | Use `@/ui/Card` (wrong source); Tier1 uses `border-2`, Tier2/3 don't → uneven borders in shared grids |
-| `src/components/services/ServiceCard.tsx` | Uses `bg-steel-blue` instead of `primary`; mixes `p-0` outer + `p-8` inner unnecessarily |
-| `src/components/blog/BlogCard.tsx` | `p-0` outer + `p-8` inner anti-pattern; `border-2` makes it taller than other cards in mixed grids |
-| Grid usage in pages | Several places (`Capabilities.tsx`, `ServiceAreas.tsx`) use raw `<div>` inside `Card` with custom padding instead of canonical sizing |
+**Single principle:** every page load draws a fresh random sample from the *entire* published-projects pool, not just the latest 12.
 
-### Root cause of uneven heights
+#### Homepage — `src/components/homepage/HomepageFeaturedProjects.tsx`
+- Remove the `featured=true` + `latest 12` two-tier query. Replace with a single query that fetches **all published projects** (id, title, slug, category, location, featured_image, summary, year only — small payload).
+- Prefer `featured=true` projects first: take all featured, then backfill from non-featured if fewer than 3 featured exist.
+- Shuffle the selected pool, slice 3.
+- Add a per-mount random seed to the React Query key (e.g. `["homepage-featured", mountId]` where `mountId = useState(() => Math.random())`) so every mount fetches fresh and ignores any stale cache.
 
-Three things compound:
-1. Cards from `@/ui/Card` have different default padding/border than `@/design-system/components/Card`. When mixed in a grid, heights diverge.
-2. Some cards apply `p-0` outer + `p-8` inner; others apply `size="md"` (which is `p-6`). 24px vs 32px content padding → cards differ by 16px in fixed-content areas.
-3. Cards without `flex flex-col h-full` on the inner content can't stretch when description length varies.
-
-### Plan — enforce compliance in 4 steps
-
-**Step 1 — Standardize the canonical Card** (`src/design-system/components/Card.tsx`)
-- Confirm `h-full` opt-in works correctly (it does via `hover` prop wrapper).
-- Add a `stretchContent` behavior: when the card holds a column of content with a CTA at bottom, ensure `flex flex-col h-full` is applied to inner.
-
-**Step 2 — Migrate the 3 ServiceCardTier components to canonical**
-- Switch `import { Card } from "@/ui/Card"` → `from "@/design-system/components/Card"`.
-- Standardize all 3 tiers to `variant="interactive" size="md" h-full`. Remove `border-2` from Tier1 (use shadow elevation instead — matches your "flat editorial" rule).
-- Remove `bg-accent/10` and use `bg-primary/10` for icon containers.
-
-**Step 3 — Retire legacy card files (delete + redirect imports)**
-- Delete: `src/components/shared/UnifiedCard.tsx`, `src/components/unified/FeatureCard.tsx`, `src/components/unified/BenefitCard.tsx`, `src/components/unified/ClientSegmentCard.tsx`, `src/components/unified/WhoWeServeCard.tsx`, `src/components/homeowners/ResidentialServiceCard.tsx`, `src/ui/Card.tsx`.
-- Update `src/components/unified/index.ts` and any imports to point to the canonical `CapabilityCard` / `SegmentCard` / `ProofCard`.
-- Files needing import updates (~10): `ClientSelector.tsx`, `WhoWeServeHomepage.tsx`, `ClientValueProposition.tsx`, `Homeowners.tsx`, `ProjectFeaturedCard.tsx`, the 3 ServiceCardTier files, plus any page using `ResidentialServiceCard`.
-
-**Step 4 — Fix outliers**
-- `ServiceCard.tsx` (services): replace `bg-steel-blue` icon bg with `bg-primary/10` + `text-primary`. Remove `p-0` outer, use canonical `size="md"`. Keep `flex flex-col h-full` for stretch.
-- `BlogCard.tsx`: same — drop `p-0`/`p-8`/`border-2`, use canonical `size="md"`.
-- `ProjectCard.tsx`: verify already compliant (it is — uses canonical Card + `size="sm"`).
-- Sweep remaining `text-construction-orange` / `bg-construction-orange` inside cards → `primary` token. (Leaves `ValuePillars` and `PrequalPackage` homepage sections alone — those are intentional branded gradients, not cards in a uniform grid.)
-
-### Files touched (~15)
-
-**Edit:**
-- `src/components/services/ServiceCard.tsx`
-- `src/components/services/ServiceCardTier1.tsx`
-- `src/components/services/ServiceCardTier2.tsx`
-- `src/components/services/ServiceCardTier3.tsx`
-- `src/components/blog/BlogCard.tsx`
-- `src/components/ProjectFeaturedCard.tsx` (switch Card import)
-- `src/components/unified/index.ts` (re-export canonical instead of legacy)
-- `src/pages/Homeowners.tsx` (swap `ResidentialServiceCard` → `CapabilityCard`)
-- `src/components/homepage/ClientSelector.tsx` (swap `WhoWeServeCard` → `SegmentCard`)
-- `src/components/homepage/WhoWeServeHomepage.tsx` (swap `ClientSegmentCard` → `SegmentCard`)
-- `src/components/homepage/ClientValueProposition.tsx` (swap `WhoWeServeCard` → `SegmentCard`)
-
-**Delete (7):**
-- `src/ui/Card.tsx`
-- `src/components/shared/UnifiedCard.tsx`
-- `src/components/unified/FeatureCard.tsx`
-- `src/components/unified/BenefitCard.tsx`
-- `src/components/unified/ClientSegmentCard.tsx`
-- `src/components/unified/WhoWeServeCard.tsx`
-- `src/components/homeowners/ResidentialServiceCard.tsx`
+#### Projects page — `src/pages/Projects.tsx`
+- Keep `useMemo` shuffle but add a per-mount random seed in the dependency array so it re-shuffles on every mount, not only when `allProjects` changes.
+- Pull the spotlight sample from `featured=true` first (matching homepage logic), backfilled from any published — prevents the spotlight from showing low-priority projects when featured ones exist.
+- **Decouple** the `PremiumProjectHero` carousel and the spotlight grid: give them two independent random samples so visitors see 6 different projects (3 in hero, 3 in spotlight) instead of the same 3 twice.
 
 ### Out of scope
+- No DB changes, no admin changes.
+- No layout/visual changes — same 3-card grid.
+- `ServicesFeaturedWork` (services page) already does tier-1/tier-2 logic correctly; leaving it alone unless you want it to rotate too.
 
-- Non-card "branded panel" sections that intentionally use gradients (`ValuePillars`, `PrequalPackage` hero panels) — these aren't grid cards and are intentionally distinct.
-- Admin panel cards — different design system, stays utilitarian.
-- The `tailwind.config.ts` `construction-orange` token stays defined (used by SVGs and badges) — we just stop using it inside cards.
+### Files touched (2)
+- `src/components/homepage/HomepageFeaturedProjects.tsx`
+- `src/pages/Projects.tsx`
 
-### Risk & mitigation
-
-- All deleted files are replaced by canonical equivalents with the same visual intent. Imports are swapped, not orphaned.
-- TypeScript will surface any missed import after deletion — caught at build time.
-- After this, every card in the same grid will share identical padding (`p-6`), border-radius (8px), shadow scale, and stretch behavior → uniform heights guaranteed.
+### Result
+- Every refresh / revisit / navigation back to home or `/projects` shows a different random sample.
+- All published projects get fair rotation exposure over time, with featured projects prioritized.
+- Hero carousel and spotlight grid on `/projects` no longer duplicate each other.
 
