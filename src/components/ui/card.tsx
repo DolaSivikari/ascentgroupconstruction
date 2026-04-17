@@ -3,14 +3,14 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
 const cardVariants = cva(
-  "rounded-[var(--card-border-radius)] bg-card text-card-foreground transition-all duration-200 ease-out border border-border",
+  "rounded-[var(--card-border-radius)] bg-card text-card-foreground transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] border border-border origin-center",
   {
     variants: {
       variant: {
         default: "shadow-[var(--shadow-card)]",
         elevated: "shadow-[var(--shadow-card-elevated)]",
-        interactive: "border shadow-[var(--shadow-card)] hover:shadow-[var(--shadow-card-hover)] hover:-translate-y-0.5 cursor-pointer",
-        featured: "border-2 border-primary/20 shadow-[var(--shadow-card-elevated)] hover:shadow-[var(--shadow-card-hover)] hover:border-primary/40 hover:-translate-y-0.5",
+        interactive: "border shadow-[var(--shadow-card)] hover:shadow-[var(--shadow-card-hover)] hover:-translate-y-1 hover:scale-[1.015] hover:brightness-[1.03] cursor-pointer motion-reduce:hover:scale-100 motion-reduce:hover:translate-y-0",
+        featured: "border-2 border-primary/20 shadow-[var(--shadow-card-elevated)] hover:shadow-[var(--shadow-card-hover)] hover:border-primary/40 hover:-translate-y-1 hover:scale-[1.015] motion-reduce:hover:scale-100 motion-reduce:hover:translate-y-0",
         glass: "border border-primary/10 bg-card/80 backdrop-blur-sm shadow-[var(--shadow-card)]",
         flat: "border-0 shadow-none bg-muted/30",
       },
