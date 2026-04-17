@@ -141,6 +141,13 @@ const EnhancedHero = ({ splashComplete = true }: { splashComplete?: boolean }) =
 
   const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
   const prefersReducedMotion = useReducedMotion();
+  // Skip heavy autoplay video on mobile / data-saver to cut ~5s off load.
+  // Show poster image only — desktop unchanged.
+  const prefersReducedData =
+    typeof window !== "undefined" &&
+    // @ts-expect-error: connection is not in lib.dom but is widely supported
+    (navigator.connection?.saveData === true);
+  const skipVideo = isMobile || prefersReducedData;
 
   // ── Page ready ──
   useEffect(() => {
