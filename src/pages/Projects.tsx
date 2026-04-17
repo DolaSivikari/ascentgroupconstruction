@@ -52,8 +52,9 @@ const Projects = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [quickViewProject, setQuickViewProject] = useState<ProjectViewModel | null>(null);
 
-  // Per-mount random seed so featured/hero samples re-shuffle on every visit
-  const [rotationSeed] = useState(() => Math.random());
+  // Per-mount random seed so featured/hero samples re-shuffle on every visit.
+  // Manual refresh updates the seed to trigger a fresh shuffle in place.
+  const [rotationSeed, setRotationSeed] = useState(() => Math.random());
 
   // Analytics tracking
   usePageAnalytics('projects');
@@ -163,10 +164,11 @@ const Projects = () => {
            matchesPerformance;
   });
 
-  // Build a featured-first, randomly shuffled pool. Re-shuffles per mount via rotationSeed.
+  // Two independent shuffles: hero and spotlight each get their own random sample
+  // from the full pool (featured-first). Overlap is allowed when pool is small.
   const { heroSample, featuredSample } = useMemo(() => {
-    const featuredFirst = [...allProjects].filter(p => p.featured);
-    const rest = [...allProjects].filter(p => !p.featured);
+    const featuredFirst = allProjects.filter(p => p.featured);
+    const rest = allProjects.filter(p => !p.featured);
 
     const shuffle = <T,>(arr: T[]): T[] => {
       const a = [...arr];
@@ -177,12 +179,11 @@ const Projects = () => {
       return a;
     };
 
-    const orderedPool = [...shuffle(featuredFirst), ...shuffle(rest)];
-    // Decouple: hero gets first 3, featured spotlight gets next 3 (no overlap)
-    const hero = orderedPool.slice(0, 3);
-    const featured = orderedPool.slice(3, 6).length > 0
-      ? orderedPool.slice(3, 6)
-      : orderedPool.slice(0, 3); // fallback when fewer than 6 projects exist
+    // Each call to buildPool produces an INDEPENDENT shuffle ordering
+    const buildPool = () => [...shuffle(featuredFirst), ...shuffle(rest)];
+
+    const hero = buildPool().slice(0, 3);
+    const featured = buildPool().slice(0, 3);
     return { heroSample: hero, featuredSample: featured };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [allProjects, rotationSeed]);
@@ -222,11 +223,21 @@ const Projects = () => {
       {/* Featured Projects Spotlight */}
       {featuredProjects.length > 0 && (
         <Section size="major" className="bg-muted/30">
-          <div className="text-center mb-8">
+          <div className="text-center mb-8 relative">
             <h2 className={`${TYPOGRAPHY_STYLES.sectionTitle} mb-2 text-foreground`}>Featured Projects</h2>
             <p className="text-muted-foreground">Showcasing our most notable work</p>
+            <div className="mt-4 flex justify-center">
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => setRotationSeed(Math.random())}
+                aria-label="Refresh featured project selection"
+              >
+                ↻ Refresh selection
+              </Button>
+            </div>
           </div>
-          
+
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {featuredProjects.map((project) => (
               <ProjectFeaturedCard key={project.slug} {...project} />
