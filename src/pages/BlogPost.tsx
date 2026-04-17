@@ -23,6 +23,8 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { sanitizeAndValidate } from "@/utils/sanitize";
+import { ReadingProgressBar } from "@/components/animations/ReadingProgressBar";
+import { ScrollReveal } from "@/components/animations/ScrollReveal";
 
 const BlogPost = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -143,6 +145,7 @@ const BlogPost = () => {
         structuredData={schemas}
       />
       <Navigation />
+      <ReadingProgressBar />
       
       {isPreview && (
         <div className="bg-yellow-500 text-[hsl(var(--ink))] text-center py-2 font-semibold">
