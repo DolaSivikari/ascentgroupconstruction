@@ -45,26 +45,19 @@ const AdminProjects = lazyWithFallback(() => import("@/pages/admin/Projects"), '
 const ServiceEditor = lazyWithFallback(() => import("@/pages/admin/ServiceEditor"), 'Service Editor');
 const ProjectEditor = lazyWithFallback(() => import("@/pages/admin/ProjectEditor"), 'Project Editor');
 const TestimonialsManager = lazyWithFallback(() => import("@/pages/admin/TestimonialsManager"), 'Testimonials Manager');
-const StatsManager = lazyWithFallback(() => import("@/pages/admin/StatsManager"), 'Stats Manager');
 const DocumentsLibrary = lazyWithFallback(() => import("@/pages/admin/DocumentsLibrary"), 'Documents Library');
 const AdminBlogPosts = lazyWithFallback(() => import("@/pages/admin/BlogPosts"), 'Blog Posts');
 const BlogPostEditor = lazyWithFallback(() => import("@/pages/admin/BlogPostEditor"), 'Blog Post Editor');
 const MediaLibrary = lazyWithFallback(() => import("@/pages/admin/MediaLibraryEnhanced"), 'Media Library');
 const Users = lazyWithFallback(() => import("@/pages/admin/Users"), 'Users');
-const PerformanceDashboard = lazyWithFallback(() => import("@/pages/admin/PerformanceDashboard"), 'Performance Dashboard');
 const UnifiedInbox = lazyWithFallback(() => import("@/pages/admin/UnifiedInbox"), 'Unified Inbox');
 const AuditDashboard = lazyWithFallback(() => import("@/pages/admin/AuditDashboard"), 'Audit Dashboard');
-const ContentVersioning = lazyWithFallback(() => import("@/pages/admin/ContentVersioning"), 'Content Versioning');
 const Monitoring = lazyWithFallback(() => import("@/pages/admin/Monitoring"), 'Monitoring');
-const NavigationBuilder = lazyWithFallback(() => import("@/pages/admin/NavigationBuilder"), 'Navigation Builder');
-const RedirectsManager = lazyWithFallback(() => import("@/pages/admin/RedirectsManager"), 'Redirects Manager');
 const HeroSlidesManager = lazyWithFallback(() => import("@/pages/admin/HeroSlidesManager"), 'Hero Slides Manager');
 const SEODashboard = lazyWithFallback(() => import("@/pages/admin/SEODashboard"), 'SEO Dashboard');
-const SearchAnalytics = lazyWithFallback(() => import("@/pages/admin/SearchAnalytics"), 'Search Analytics');
 const HomepageBuilder = lazyWithFallback(() => import("@/pages/admin/HomepageBuilder"), 'Homepage Builder');
 const Settings = lazyWithFallback(() => import("@/pages/admin/Settings"), 'Settings');
 const ServicesManager = lazyWithFallback(() => import("@/pages/admin/ServicesManager"), 'Services Manager');
-const Notifications = lazyWithFallback(() => import("@/pages/admin/Notifications"), 'Notifications');
 const EmailTemplates = lazyWithFallback(() => import("@/pages/admin/EmailTemplates"), 'Email Templates');
 const UnifiedAdminLayout = lazy(() => import("@/components/admin/UnifiedAdminLayout").then(m => ({ default: m.UnifiedAdminLayout })).catch(() => ({
   default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Admin Layout</p></div>
@@ -123,7 +116,7 @@ const AdminRouteGroup = () => (
     <Route path="media" element={<MediaLibrary />} />
     <Route path="media-library" element={<MediaLibrary />} />
     <Route path="users" element={<Users />} />
-    <Route path="stats" element={<StatsManager />} />
+    <Route path="stats" element={<Navigate to="/admin" replace />} />
     <Route path="testimonials" element={<TestimonialsManager />} />
     <Route path="documents-library" element={<DocumentsLibrary />} />
     <Route path="contacts" element={<Navigate to="/admin/inbox" replace />} />
@@ -142,14 +135,14 @@ const AdminRouteGroup = () => (
     <Route path="security-settings" element={<Navigate to="/admin/settings?tab=security" replace />} />
     <Route path="settings-health" element={<Navigate to="/admin/settings?tab=health" replace />} />
     <Route path="seo-dashboard" element={<SEODashboard />} />
-    <Route path="redirects" element={<RedirectsManager />} />
-    <Route path="performance-dashboard" element={<PerformanceDashboard />} />
-    <Route path="search-analytics" element={<SearchAnalytics />} />
+    <Route path="redirects" element={<Navigate to="/admin" replace />} />
+    <Route path="performance-dashboard" element={<Navigate to="/admin/monitoring" replace />} />
+    <Route path="search-analytics" element={<Navigate to="/admin/seo-dashboard" replace />} />
     <Route path="audit" element={<AuditDashboard />} />
-    <Route path="content-versions" element={<ContentVersioning />} />
+    <Route path="content-versions" element={<Navigate to="/admin" replace />} />
     <Route path="monitoring" element={<Monitoring />} />
     <Route path="inbox" element={<UnifiedInbox />} />
-    <Route path="notifications" element={<Notifications />} />
+    <Route path="notifications" element={<Navigate to="/admin/inbox" replace />} />
     <Route path="email-templates" element={<EmailTemplates />} />
     <Route path="homepage-builder" element={<HomepageBuilder />} />
     <Route path="homepage-content" element={<Navigate to="/admin/homepage-builder" replace />} />
@@ -158,8 +151,8 @@ const AdminRouteGroup = () => (
     <Route path="homepage-company-overview" element={<Navigate to="/admin/homepage-builder?tab=overview" replace />} />
     <Route path="hero-slides" element={<Navigate to="/admin/homepage-builder?tab=hero" replace />} />
     <Route path="hero-images" element={<Navigate to="/admin/homepage-builder?tab=hero" replace />} />
-    <Route path="navigation" element={<NavigationBuilder />} />
-    <Route path="navigation-builder" element={<Navigate to="/admin/navigation" replace />} />
+    <Route path="navigation" element={<Navigate to="/admin" replace />} />
+    <Route path="navigation-builder" element={<Navigate to="/admin" replace />} />
   </Route>
 );
 
