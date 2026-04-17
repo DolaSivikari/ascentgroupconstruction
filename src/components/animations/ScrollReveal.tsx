@@ -49,6 +49,20 @@ export const ScrollReveal = ({
     ? "scroll-reveal-left"
     : "scroll-reveal-right";
 
+  // Use longhand transition properties to avoid React's
+  // "Updating transition (a style property during rerender) when a conflicting
+  // property is set" warning when delay is combined with the shorthand `transition`
+  // declared in the CSS class.
+  const delayStyle: React.CSSProperties | undefined =
+    !skipAnimation && delay > 0
+      ? {
+          transitionProperty: "opacity, transform",
+          transitionDuration: "700ms",
+          transitionTimingFunction: "cubic-bezier(0.16, 1, 0.3, 1)",
+          transitionDelay: `${delay}ms`,
+        }
+      : undefined;
+
   return (
     <div
       ref={ref}
@@ -57,9 +71,7 @@ export const ScrollReveal = ({
         isVisible && !skipAnimation && "is-visible",
         className
       )}
-      style={!skipAnimation && delay > 0 ? {
-        transitionDelay: `${delay}ms`,
-      } : undefined}
+      style={delayStyle}
     >
       {children}
     </div>
