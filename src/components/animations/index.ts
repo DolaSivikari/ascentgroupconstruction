@@ -9,3 +9,5 @@ export { PageTransition } from "./PageTransition";
 export { ParallaxSection } from "./ParallaxSection";
 export { ScrollReveal } from "./ScrollReveal";
 export { StaggerContainer } from "./StaggerContainer";
+export { MagneticButton } from "./MagneticButton";
+export { ReadingProgressBar } from "./ReadingProgressBar";
