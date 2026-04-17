@@ -163,14 +163,31 @@ const Projects = () => {
            matchesPerformance;
   });
 
-  const featuredProjects = useMemo(() => {
-    const pool = [...allProjects];
-    for (let i = pool.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [pool[i], pool[j]] = [pool[j], pool[i]];
-    }
-    return pool.slice(0, 3);
-  }, [allProjects]);
+  // Build a featured-first, randomly shuffled pool. Re-shuffles per mount via rotationSeed.
+  const { heroSample, featuredSample } = useMemo(() => {
+    const featuredFirst = [...allProjects].filter(p => p.featured);
+    const rest = [...allProjects].filter(p => !p.featured);
+
+    const shuffle = <T,>(arr: T[]): T[] => {
+      const a = [...arr];
+      for (let i = a.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [a[i], a[j]] = [a[j], a[i]];
+      }
+      return a;
+    };
+
+    const orderedPool = [...shuffle(featuredFirst), ...shuffle(rest)];
+    // Decouple: hero gets first 3, featured spotlight gets next 3 (no overlap)
+    const hero = orderedPool.slice(0, 3);
+    const featured = orderedPool.slice(3, 6).length > 0
+      ? orderedPool.slice(3, 6)
+      : orderedPool.slice(0, 3); // fallback when fewer than 6 projects exist
+    return { heroSample: hero, featuredSample: featured };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [allProjects, rotationSeed]);
+
+  const featuredProjects = featuredSample;
   const regularProjects = filteredProjects;
   const visibleProjects = regularProjects.slice(0, visibleCount);
 
