@@ -14,6 +14,7 @@ import { toast } from "sonner";
 import { ArrowLeft, Plus, Pencil, Trash2, Star, AlertTriangle } from "lucide-react";
 import { useAdminAuth } from "@/hooks/useAdminAuth";
 import { ConfirmDialog } from "@/components/admin/ConfirmDialog";
+import { AdminPageLayout } from "@/components/admin/AdminPageLayout";
 
 const TestimonialsManager = () => {
   const { isLoading: authLoading } = useAdminAuth();
@@ -130,27 +131,20 @@ const TestimonialsManager = () => {
   }
 
   return (
-    <div className="min-h-screen bg-background p-8">
-      <div className="max-w-6xl mx-auto">
-        <div className="flex items-center justify-between mb-8">
-          <div className="flex items-center gap-4">
-            <h1 className="text-3xl font-bold">Manage Testimonials</h1>
-          </div>
-          <div className="flex gap-2">
-            <Button variant="outline" onClick={() => navigate('/admin')}>
-              Back to Dashboard
-            </Button>
-            <Button onClick={newTestimonial}>
-              <Plus className="h-4 w-4 mr-2" />
-              Add Testimonial
-            </Button>
-          </div>
-        </div>
-
-        <div className="rounded-lg border border-amber-500/30 bg-amber-500/10 p-3 text-sm text-amber-200 flex items-start gap-2 mb-6">
-          <AlertTriangle className="h-4 w-4 mt-0.5" />
-          <span>Testimonials saved here only appear on public pages that actively query the testimonials table. Some sections may be static or disabled.</span>
-        </div>
+    <AdminPageLayout
+      title="Manage Testimonials"
+      description="Add, edit, and feature client testimonials shown across the public site"
+      actions={
+        <Button onClick={newTestimonial}>
+          <Plus className="h-4 w-4 mr-2" />
+          Add Testimonial
+        </Button>
+      }
+    >
+      <div className="rounded-lg border border-amber-500/30 bg-amber-500/10 p-3 text-sm text-amber-700 flex items-start gap-2">
+        <AlertTriangle className="h-4 w-4 mt-0.5 shrink-0" />
+        <span>Testimonials saved here only appear on public pages that actively query the testimonials table. Some sections may be static or disabled.</span>
+      </div>
 
         <Card>
           <CardContent className="pt-6">
