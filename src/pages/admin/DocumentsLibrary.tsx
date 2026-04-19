@@ -380,8 +380,8 @@ export default function DocumentsLibrary() {
                 </form>
               </DialogContent>
             </Dialog>
-      </div>
-
+      }
+    >
       <Card>
             <CardHeader>
               <CardTitle>Documents ({documents.length})</CardTitle>
