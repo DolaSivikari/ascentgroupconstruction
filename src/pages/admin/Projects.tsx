@@ -25,6 +25,7 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from '@/components/ui/pagination';
+import { AdminPageLayout } from '@/components/admin/AdminPageLayout';
 
 const Projects = () => {
   const navigate = useNavigate();
@@ -341,7 +342,7 @@ const Projects = () => {
         confirmText="Delete"
         variant="destructive"
       />
-    </div>
+    </AdminPageLayout>
   );
 };
 
