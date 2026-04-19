@@ -26,51 +26,47 @@ import {
 } from "@/components/ui/dropdown-menu";
 
 // ---------------------------------------------------------------------------
-// Admin dropdown data — add/reorder items here, no JSX changes needed
+// Admin dropdown data — mirrors the Admin Console sidebar (UnifiedSidebar.tsx)
+// Keep these in sync when sidebar nav changes.
 // ---------------------------------------------------------------------------
 const ADMIN_NAV_SECTIONS = [
   {
+    label: "Overview",
+    items: [
+      { label: "Inbox", to: "/admin/inbox" },
+    ],
+  },
+  {
     label: "Content",
     items: [
-      { label: "Services Manager", to: "/admin/services-manager" },
       { label: "Projects", to: "/admin/projects" },
-      { label: "Blog Posts", to: "/admin/blog-posts" },
+      { label: "Services", to: "/admin/services-manager" },
+      { label: "Blog Posts", to: "/admin/blog" },
       { label: "Testimonials", to: "/admin/testimonials" },
-      { label: "Stats", to: "/admin/stats" },
-      { label: "Awards & Certifications", to: "/admin/settings?tab=about" },
-      { label: "Leadership Team", to: "/admin/settings?tab=leadership" },
-      { label: "Documents Library", to: "/admin/documents-library" },
-    ],
-  },
-  {
-    label: "Page Editors",
-    items: [
-      { label: "Home Hero Menu", to: "/admin/homepage-builder?tab=hero" },
-      { label: "About Us Page", to: "/admin/about-page" },
-      { label: "Footer Content", to: "/admin/footer-settings" },
-      { label: "Contact Page", to: "/admin/contact-page-settings" },
-    ],
-  },
-  {
-    label: "Submissions",
-    items: [
-      { label: "Contact Submissions", to: "/admin/contacts" },
-      { label: "Resume Submissions", to: "/admin/resumes" },
-      { label: "RFP Submissions", to: "/admin/rfp-submissions" },
-      { label: "Prequalification Submissions", to: "/admin/prequalifications" },
-    ],
-  },
-  {
-    label: "Settings & Tools",
-    items: [
-      { label: "Homepage Settings", to: "/admin/homepage-settings" },
-      { label: "Site Settings", to: "/admin/site-settings" },
       { label: "Media Library", to: "/admin/media" },
-      { label: "Users", to: "/admin/users" },
-      { label: "Security Center", to: "/admin/settings?tab=security" },
+      { label: "Documents", to: "/admin/documents-library" },
+    ],
+  },
+  {
+    label: "Website",
+    items: [
+      { label: "Homepage Builder", to: "/admin/homepage-builder" },
       { label: "SEO Dashboard", to: "/admin/seo-dashboard" },
-      { label: "Performance Dashboard", to: "/admin/performance-dashboard" },
-      { label: "Settings Health Check", to: "/admin/settings-health" },
+    ],
+  },
+  {
+    label: "Settings",
+    items: [
+      { label: "Site Settings", to: "/admin/settings" },
+      { label: "Users & Roles", to: "/admin/users" },
+      { label: "Email Templates", to: "/admin/email-templates" },
+    ],
+  },
+  {
+    label: "Tools",
+    items: [
+      { label: "Monitoring", to: "/admin/monitoring" },
+      { label: "Audit Log", to: "/admin/audit" },
     ],
   },
 ] as const;
