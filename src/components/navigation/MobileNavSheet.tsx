@@ -32,7 +32,6 @@ import { getIcon } from "@/utils/getIcon";
 import { useCompanySettings } from "@/hooks/useCompanySettings";
 import { useState, useRef, useEffect } from "react";
 import { cn } from "@/lib/utils";
-import OptimizedImage from "@/components/OptimizedImage";
 import ascentLogoHorizontalDark from "@/assets/ascent-logo-horizontal-dark.png";
 
 interface MobileNavSheetProps {
