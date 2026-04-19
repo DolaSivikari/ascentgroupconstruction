@@ -264,8 +264,8 @@ export function MobileNavSheet({ open, onOpenChange }: MobileNavSheetProps) {
 
                   return (
                     <AccordionItem
-                      key={row.key}
-                      value={row.key}
+                      key={String(row.key)}
+                      value={String(row.key)}
                       className="border-b border-border/60"
                     >
                       <AccordionTrigger
