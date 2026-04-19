@@ -1,7 +1,6 @@
 import { NavLink, useNavigate, useLocation } from 'react-router-dom';
 import {
   LayoutDashboard,
-  Briefcase,
   FileText,
   Users,
   Mail,
@@ -16,7 +15,6 @@ import {
   Building,
   LogOut,
   FileCheck,
-  Search,
   ExternalLink,
   ChevronDown,
   Inbox,
@@ -24,8 +22,10 @@ import {
   Globe,
   ShieldCheck,
   History,
+  Search,
+  Sparkles,
 } from 'lucide-react';
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
 import { useState, useEffect } from 'react';
 import { GlobalSearch } from './GlobalSearch';
 import { supabase } from '@/integrations/supabase/client';
@@ -53,12 +53,31 @@ export const UnifiedSidebar = ({
   const navigate = useNavigate();
 
   const [newSubmissions, setNewSubmissions] = useState(0);
+  const [user, setUser] = useState<{ email?: string; full_name?: string; avatar_url?: string } | null>(null);
 
   const handleSignOut = async () => {
     await supabase.auth.signOut();
-    toast({ title: "Signed out", description: "You've been successfully signed out." });
-    navigate("/tekev");
+    toast({ title: 'Signed out', description: "You've been successfully signed out." });
+    navigate('/tekev');
   };
+
+  useEffect(() => {
+    const loadUser = async () => {
+      const { data: { user: authUser } } = await supabase.auth.getUser();
+      if (!authUser) return;
+      const { data: profile } = await supabase
+        .from('profiles')
+        .select('full_name, avatar_url, email')
+        .eq('id', authUser.id)
+        .maybeSingle();
+      setUser({
+        email: authUser.email,
+        full_name: profile?.full_name || undefined,
+        avatar_url: profile?.avatar_url || undefined,
+      });
+    };
+    loadUser();
+  }, []);
 
   useEffect(() => {
     const loadCounts = async () => {
@@ -68,7 +87,9 @@ export const UnifiedSidebar = ({
           .select('*', { count: 'exact', head: true })
           .eq('status', 'new');
         setNewSubmissions(count || 0);
-      } catch { /* silent */ }
+      } catch {
+        /* silent */
+      }
     };
 
     loadCounts();
@@ -78,23 +99,33 @@ export const UnifiedSidebar = ({
       .on('postgres_changes', { event: '*', schema: 'public', table: 'contact_submissions' }, loadCounts)
       .subscribe();
 
-    return () => { supabase.removeChannel(channel); };
+    return () => {
+      supabase.removeChannel(channel);
+    };
   }, []);
 
   useEffect(() => {
     if (mobileOpen && onMobileClose) onMobileClose();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentPath]);
 
   const isActive = (path: string) =>
-    currentPath === path || currentPath.startsWith(path + '/');
+    path === '/admin' ? currentPath === '/admin' : currentPath === path || currentPath.startsWith(path + '/');
 
-  const isWebsiteActive = ['/admin/homepage-builder', '/admin/seo-dashboard'].some(p => currentPath.startsWith(p));
-  const isToolsActive = ['/admin/monitoring', '/admin/audit'].some(p => currentPath.startsWith(p));
+  const isWebsiteActive = ['/admin/homepage-builder', '/admin/seo-dashboard'].some((p) => currentPath.startsWith(p));
+  const isToolsActive = ['/admin/monitoring', '/admin/audit'].some((p) => currentPath.startsWith(p));
 
   const [websiteOpen, setWebsiteOpen] = useState(isWebsiteActive);
   const [toolsOpen, setToolsOpen] = useState(isToolsActive);
 
-  // Nav item
+  const userInitials = (user?.full_name || user?.email || 'A')
+    .split(/[\s@]/)
+    .filter(Boolean)
+    .slice(0, 2)
+    .map((s) => s[0]?.toUpperCase())
+    .join('');
+
+  // ── Nav item ───────────────────────────────────────────────
   const NavItem = ({
     to,
     icon: Icon,
@@ -105,117 +136,150 @@ export const UnifiedSidebar = ({
     icon: any;
     label: string;
     badge?: number;
-  }) => (
-    <NavLink
-      to={to}
-      className={cn("business-nav-item", isActive(to) && "active")}
-    >
-      <Icon className="business-nav-icon" />
-      {!collapsed && (
-        <>
-          <span className="flex-1">{label}</span>
-          {badge !== undefined && badge > 0 && (
-            <Badge variant="destructive" className="ml-auto h-5 min-w-[20px] px-1.5 text-[10px] font-bold">
-              {badge > 99 ? '99+' : badge}
-            </Badge>
-          )}
-        </>
-      )}
-    </NavLink>
-  );
+  }) => {
+    const active = isActive(to);
+    return (
+      <NavLink
+        to={to}
+        title={collapsed ? label : undefined}
+        className={cn('admin-nav-item group', active && 'is-active', collapsed && 'is-collapsed')}
+      >
+        <span className="admin-nav-item__indicator" aria-hidden="true" />
+        <span className="admin-nav-item__icon">
+          <Icon size={18} strokeWidth={active ? 2.25 : 1.75} />
+        </span>
+        {!collapsed && (
+          <>
+            <span className="admin-nav-item__label">{label}</span>
+            {badge !== undefined && badge > 0 && (
+              <Badge
+                variant="destructive"
+                className="ml-auto h-5 min-w-[20px] rounded-full px-1.5 text-[10px] font-semibold tabular-nums shadow-sm"
+              >
+                {badge > 99 ? '99+' : badge}
+              </Badge>
+            )}
+          </>
+        )}
+        {collapsed && badge !== undefined && badge > 0 && (
+          <span className="admin-nav-item__dot" aria-hidden="true" />
+        )}
+      </NavLink>
+    );
+  };
 
-  // Section label
-  const SectionLabel = ({ children }: { children: string }) => (
-    <div className="business-nav-section-label">
-      {!collapsed && <span>{children}</span>}
-    </div>
-  );
+  // ── Section label ──────────────────────────────────────────
+  const SectionLabel = ({ children }: { children: string }) =>
+    collapsed ? (
+      <div className="admin-nav-divider" aria-hidden="true" />
+    ) : (
+      <div className="admin-nav-section-label">{children}</div>
+    );
 
-  // Collapsible group
+  // ── Collapsible group ──────────────────────────────────────
   const NavGroup = ({
     label,
     icon: Icon,
     open,
     onOpenChange,
+    active,
     children,
   }: {
     label: string;
     icon: any;
     open: boolean;
     onOpenChange: (v: boolean) => void;
+    active?: boolean;
     children: React.ReactNode;
-  }) => (
-    <Collapsible open={open} onOpenChange={onOpenChange}>
-      <CollapsibleTrigger className="business-nav-group-label">
-        <div className="flex items-center gap-2.5">
-          <Icon size={16} />
-          {!collapsed && <span>{label}</span>}
-        </div>
-        {!collapsed && (
+  }) => {
+    if (collapsed) {
+      // In collapsed mode, just render the items without group wrapper
+      return <nav className="admin-nav-list">{children}</nav>;
+    }
+    return (
+      <Collapsible open={open} onOpenChange={onOpenChange}>
+        <CollapsibleTrigger className={cn('admin-nav-group-trigger', active && 'is-active-parent')}>
+          <span className="admin-nav-item__icon">
+            <Icon size={18} strokeWidth={1.75} />
+          </span>
+          <span className="admin-nav-item__label">{label}</span>
           <ChevronDown
             size={14}
-            className={cn("transition-transform duration-200", open && "rotate-180")}
+            className={cn('admin-nav-group-chevron', open && 'is-open')}
           />
-        )}
-      </CollapsibleTrigger>
-      <CollapsibleContent>
-        <nav className="business-nav-group">{children}</nav>
-      </CollapsibleContent>
-    </Collapsible>
-  );
+        </CollapsibleTrigger>
+        <CollapsibleContent className="admin-nav-group-content">
+          <nav className="admin-nav-group-items">{children}</nav>
+        </CollapsibleContent>
+      </Collapsible>
+    );
+  };
 
   return (
     <>
       {mobileOpen && (
-        <div className="business-sidebar-backdrop" onClick={onMobileClose} aria-hidden="true" />
+        <div className="admin-sidebar-backdrop" onClick={onMobileClose} aria-hidden="true" />
       )}
 
-      <aside className={cn("business-sidebar", collapsed && "collapsed", mobileOpen && "mobile-open")}>
+      <aside
+        className={cn(
+          'admin-sidebar',
+          collapsed && 'is-collapsed',
+          mobileOpen && 'is-mobile-open',
+        )}
+      >
         {/* Mobile close */}
-        <button className="business-sidebar-mobile-close" onClick={onMobileClose} aria-label="Close menu">
-          <X size={24} />
+        <button
+          className="admin-sidebar-mobile-close"
+          onClick={onMobileClose}
+          aria-label="Close menu"
+        >
+          <X size={20} />
         </button>
 
-        <div className="business-sidebar-content">
-          {/* Logo */}
-          <div className="business-logo">
-            {collapsed ? (
-              <div
-                className="text-2xl font-bold text-center"
-                style={{ background: 'linear-gradient(135deg, #fff 0%, hsl(25 100% 50%) 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}
-              >
-                A
-              </div>
-            ) : (
-              <div className="flex flex-col">
-                <div
-                  className="text-xl font-bold"
-                  style={{ background: 'linear-gradient(135deg, #fff 0%, hsl(25 100% 50%) 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}
-                >
-                  Ascent Admin
-                </div>
-                <span className="text-xs text-white/60 mt-0.5">Content Management</span>
-              </div>
-            )}
+        {/* ── Brand header ── */}
+        <div className="admin-sidebar-brand">
+          <div className="admin-sidebar-brand__mark" aria-hidden="true">
+            <span>A</span>
           </div>
-
-          {/* Search */}
           {!collapsed && (
-            <div className="px-4 mb-4">
-              <GlobalSearch />
+            <div className="admin-sidebar-brand__text">
+              <div className="admin-sidebar-brand__title">Ascent</div>
+              <div className="admin-sidebar-brand__subtitle">Admin Console</div>
             </div>
           )}
+        </div>
 
-          {/* ── OVERVIEW ── */}
-          <SectionLabel>OVERVIEW</SectionLabel>
-          <nav className="mb-4">
+        {/* ── Search ── */}
+        {!collapsed ? (
+          <div className="admin-sidebar-search">
+            <GlobalSearch />
+          </div>
+        ) : (
+          <button
+            className="admin-nav-item is-collapsed admin-sidebar-search-collapsed"
+            title="Search (⌘K)"
+            onClick={onToggle}
+            aria-label="Expand to search"
+          >
+            <span className="admin-nav-item__icon">
+              <Search size={18} strokeWidth={1.75} />
+            </span>
+          </button>
+        )}
+
+        {/* ── Scrollable nav ── */}
+        <div className="admin-sidebar-scroll">
+          {/* OVERVIEW */}
+          <SectionLabel>Overview</SectionLabel>
+          <nav className="admin-nav-list">
             <NavItem to="/admin" icon={LayoutDashboard} label="Dashboard" />
             <NavItem to="/admin/inbox" icon={Inbox} label="Inbox" badge={newSubmissions} />
           </nav>
 
-          {/* ── CONTENT ── */}
-          <SectionLabel>CONTENT</SectionLabel>
-          <nav className="mb-4">
+          {/* CONTENT */}
+          <SectionLabel>Content</SectionLabel>
+          <nav className="admin-nav-list">
             <NavItem to="/admin/projects" icon={Building} label="Projects" />
             <NavItem to="/admin/services-manager" icon={Wrench} label="Services" />
             <NavItem to="/admin/blog" icon={FileText} label="Blog Posts" />
@@ -224,56 +288,95 @@ export const UnifiedSidebar = ({
             <NavItem to="/admin/documents-library" icon={FileCheck} label="Documents" />
           </nav>
 
-          {/* ── WEBSITE ── */}
-          <SectionLabel>WEBSITE</SectionLabel>
-          <NavGroup label="Site Management" icon={Globe} open={websiteOpen} onOpenChange={setWebsiteOpen}>
+          {/* WEBSITE */}
+          <SectionLabel>Website</SectionLabel>
+          <NavGroup
+            label="Site Management"
+            icon={Globe}
+            open={websiteOpen}
+            onOpenChange={setWebsiteOpen}
+            active={isWebsiteActive}
+          >
             <NavItem to="/admin/homepage-builder" icon={Layout} label="Homepage Builder" />
-            <NavItem to="/admin/seo-dashboard" icon={Search} label="SEO Dashboard" />
+            <NavItem to="/admin/seo-dashboard" icon={Sparkles} label="SEO Dashboard" />
           </NavGroup>
 
-          {/* ── SETTINGS ── */}
-          <SectionLabel>SETTINGS</SectionLabel>
-          <nav className="mb-4">
+          {/* SETTINGS */}
+          <SectionLabel>Settings</SectionLabel>
+          <nav className="admin-nav-list">
             <NavItem to="/admin/settings" icon={Settings} label="Site Settings" />
             <NavItem to="/admin/users" icon={Users} label="Users & Roles" />
             <NavItem to="/admin/email-templates" icon={Mail} label="Email Templates" />
           </nav>
 
-          {/* ── TOOLS (collapsed by default) ── */}
-          <SectionLabel>TOOLS</SectionLabel>
-          <NavGroup label="Analytics & Logs" icon={BarChart2} open={toolsOpen} onOpenChange={setToolsOpen}>
+          {/* TOOLS */}
+          <SectionLabel>Tools</SectionLabel>
+          <NavGroup
+            label="Analytics & Logs"
+            icon={BarChart2}
+            open={toolsOpen}
+            onOpenChange={setToolsOpen}
+            active={isToolsActive}
+          >
             <NavItem to="/admin/monitoring" icon={ShieldCheck} label="Monitoring" />
             <NavItem to="/admin/audit" icon={History} label="Audit Log" />
           </NavGroup>
+        </div>
 
-          <div className="flex-1" />
+        {/* ── Footer: user + actions ── */}
+        <div className="admin-sidebar-footer">
+          {!collapsed && user && (
+            <div className="admin-sidebar-user">
+              <div className="admin-sidebar-user__avatar">
+                {user.avatar_url ? (
+                  <img src={user.avatar_url} alt="" />
+                ) : (
+                  <span>{userInitials || 'A'}</span>
+                )}
+              </div>
+              <div className="admin-sidebar-user__meta">
+                <div className="admin-sidebar-user__name">{user.full_name || 'Administrator'}</div>
+                <div className="admin-sidebar-user__email">{user.email}</div>
+              </div>
+            </div>
+          )}
 
-          {/* Footer */}
-          <div className="mt-auto border-t border-white/10 pt-4 space-y-1">
-            {!collapsed && (
-              <a
-                href="/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="business-nav-item opacity-80 hover:opacity-100"
-              >
-                <ExternalLink className="business-nav-icon" />
-                <span>View Site</span>
-              </a>
-            )}
+          <div className="admin-sidebar-footer__actions">
+            <a
+              href="/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className={cn('admin-nav-item admin-nav-item--ghost', collapsed && 'is-collapsed')}
+              title={collapsed ? 'View site' : undefined}
+            >
+              <span className="admin-nav-item__icon">
+                <ExternalLink size={18} strokeWidth={1.75} />
+              </span>
+              {!collapsed && <span className="admin-nav-item__label">View site</span>}
+            </a>
             <button
               onClick={handleSignOut}
-              className="business-nav-item w-full text-left opacity-80 hover:opacity-100 hover:bg-red-500/20"
+              className={cn(
+                'admin-nav-item admin-nav-item--ghost admin-nav-item--danger w-full text-left',
+                collapsed && 'is-collapsed',
+              )}
+              title={collapsed ? 'Sign out' : undefined}
             >
-              <LogOut className="business-nav-icon" />
-              {!collapsed && <span>Sign Out</span>}
+              <span className="admin-nav-item__icon">
+                <LogOut size={18} strokeWidth={1.75} />
+              </span>
+              {!collapsed && <span className="admin-nav-item__label">Sign out</span>}
             </button>
           </div>
         </div>
 
-        {/* Collapse toggle */}
-        <button className="business-sidebar-toggle" onClick={onToggle}>
-          {collapsed ? <ChevronRight size={20} /> : <ChevronLeft size={20} />}
+        {/* ── Collapse toggle ── */}
+        <button
+          className="admin-sidebar-toggle"
+          onClick={onToggle}
+          aria-label={collapsed ? 'Expand sidebar' : 'Collapse sidebar'}
+        >
+          {collapsed ? <ChevronRight size={14} /> : <ChevronLeft size={14} />}
         </button>
       </aside>
     </>
