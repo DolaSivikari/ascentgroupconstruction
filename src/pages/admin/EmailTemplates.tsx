@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/ui/Button";
+import { AdminPageLayout } from "@/components/admin/AdminPageLayout";
 import { useToast } from "@/hooks/use-toast";
 import { useAdminAuth } from "@/hooks/useAdminAuth";
 import DOMPurify from "dompurify";
@@ -223,18 +224,11 @@ const EmailTemplates = () => {
   if (!isAdmin) return null;
 
   return (
-    <div className="space-y-6">
-      {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-        <div>
-          <h1 className="business-page-title flex items-center gap-3">
-            <Mail className="h-8 w-8 text-primary" />
-            Email Templates
-          </h1>
-          <p className="business-page-subtitle">
-            Manage automated email templates for form submissions
-          </p>
-        </div>
+    <AdminPageLayout
+      title="Email Templates"
+      description="Manage automated email templates for form submissions"
+      icon={<Mail className="h-7 w-7 text-primary" />}
+      actions={
         <Button
           onClick={() => {
             setCurrentTemplate(defaultTemplate);
@@ -245,7 +239,8 @@ const EmailTemplates = () => {
           <Plus className="h-4 w-4" />
           New Template
         </Button>
-      </div>
+      }
+    >
 
       {/* Filters */}
       <div className="flex flex-col sm:flex-row gap-4">
@@ -525,7 +520,7 @@ const EmailTemplates = () => {
           </DialogFooter>
         </DialogContent>
       </Dialog>
-    </div>
+    </AdminPageLayout>
   );
 };
 

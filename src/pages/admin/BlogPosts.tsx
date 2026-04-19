@@ -10,6 +10,7 @@ import { useAdminAuth } from "@/hooks/useAdminAuth";
 import { format } from "date-fns";
 import { generatePreviewToken } from "@/utils/previewToken";
 import { ConfirmDialog } from "@/components/admin/ConfirmDialog";
+import { AdminPageLayout } from "@/components/admin/AdminPageLayout";
 
 const BlogPosts = () => {
   const navigate = useNavigate();
@@ -108,13 +109,11 @@ const BlogPosts = () => {
   };
 
   return (
-    <div>
-      <div className="flex justify-between items-center mb-6">
-        <div>
-          <h1 className="business-page-title">Blog Posts</h1>
-          <p className="business-page-subtitle">Manage articles and case studies</p>
-        </div>
-        <div className="flex gap-2 items-center">
+    <AdminPageLayout
+      title="Blog Posts"
+      description="Manage articles and case studies"
+      actions={
+        <>
           <Select value={contentTypeFilter} onValueChange={setContentTypeFilter}>
             <SelectTrigger className="w-[180px]">
               <SelectValue />
@@ -129,8 +128,9 @@ const BlogPosts = () => {
             <Plus className="h-4 w-4 mr-2" />
             New Post
           </button>
-        </div>
-      </div>
+        </>
+      }
+    >
 
       {isLoading ? (
         <div className="text-center py-12">Loading blog posts...</div>
@@ -223,7 +223,7 @@ const BlogPosts = () => {
         confirmText="Delete"
         variant="destructive"
       />
-    </div>
+    </AdminPageLayout>
   );
 };
 

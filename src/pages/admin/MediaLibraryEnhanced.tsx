@@ -9,6 +9,7 @@ import { Image } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import OptimizedImage from "@/components/OptimizedImage";
 import { Badge } from "@/components/ui/badge";
+import { AdminPageLayout } from "@/components/admin/AdminPageLayout";
 
 interface MediaAsset {
   id: string;
@@ -96,11 +97,10 @@ const MediaLibraryEnhanced = () => {
   };
 
   return (
-    <div>
-      <div className="mb-8">
-        <h1 className="business-page-title">Media Library</h1>
-        <p className="business-page-subtitle">Enhanced media management with focal points and alt text</p>
-      </div>
+    <AdminPageLayout
+      title="Media Library"
+      description="Enhanced media management with focal points and alt text"
+    >
 
       {isLoading ? (
         <p style={{ color: 'var(--business-text-secondary)' }}>Loading...</p>
@@ -178,7 +178,7 @@ const MediaLibraryEnhanced = () => {
           )}
         </DialogContent>
       </Dialog>
-    </div>
+    </AdminPageLayout>
   );
 };
 

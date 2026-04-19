@@ -9,6 +9,7 @@ import { useAdminAuth } from "@/hooks/useAdminAuth";
 import { InviteUserDialog } from "@/components/admin/InviteUserDialog";
 import { PermissionMatrix } from "@/components/admin/PermissionMatrix";
 import { RoleDistributionCard } from "@/components/admin/RoleDistributionCard";
+import { AdminPageLayout } from "@/components/admin/AdminPageLayout";
 import {
   Select,
   SelectContent,
@@ -117,14 +118,11 @@ const Users = () => {
   }
 
   return (
-    <div className="space-y-6">
-      <div className="flex justify-between items-center">
-        <div>
-          <h1 className="business-page-title">User Management</h1>
-          <p className="business-page-subtitle">Manage user accounts and roles</p>
-        </div>
-        <InviteUserDialog onUserCreated={loadUsers} />
-      </div>
+    <AdminPageLayout
+      title="User Management"
+      description="Manage user accounts and roles"
+      actions={<InviteUserDialog onUserCreated={loadUsers} />}
+    >
 
       <div className="business-glass-card p-6">
         <div className="flex items-center gap-2 mb-4">
@@ -252,7 +250,7 @@ const Users = () => {
           </div>
         </div>
       )}
-    </div>
+    </AdminPageLayout>
   );
 };
 

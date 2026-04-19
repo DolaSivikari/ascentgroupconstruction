@@ -26,6 +26,7 @@ import MetricCard from "@/components/admin/MetricCard";
 import ActivityFeed from "@/components/admin/ActivityFeed";
 import { StaggerContainer } from "@/components/animations/StaggerContainer";
 import { ScrollReveal } from "@/components/animations/ScrollReveal";
+import { AdminPageLayout } from "@/components/admin/AdminPageLayout";
 
 interface Stats {
   projectsPublished: number;
@@ -244,14 +245,10 @@ const Dashboard = () => {
   ];
 
   return (
-    <div className="space-y-6">
-      {/* Header */}
-      <div>
-        <h1 className="business-page-title">{greeting()}!</h1>
-        <p className="business-page-subtitle">
-          {user?.email} — here's what's happening on your site
-        </p>
-      </div>
+    <AdminPageLayout
+      title={`${greeting()}!`}
+      description={user?.email ? `${user.email} — here's what's happening on your site` : "Welcome to your admin dashboard"}
+    >
 
       {/* Content Stats */}
       {!statsLoaded ? (
@@ -451,7 +448,7 @@ const Dashboard = () => {
           </div>
         </div>
       </ScrollReveal>
-    </div>
+    </AdminPageLayout>
   );
 };
 
