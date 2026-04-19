@@ -5,19 +5,16 @@ import { ServiceAnalyticsDashboard } from "@/components/admin/ServiceAnalyticsDa
 import { FeaturedServicesManager } from "@/components/admin/FeaturedServicesManager";
 import { PromotionsManager } from "@/components/admin/PromotionsManager";
 import { ServicesListManager } from "@/components/admin/ServicesListManager";
+import { AdminPageLayout } from "@/components/admin/AdminPageLayout";
 
 const ServicesManager = () => {
   const [activeTab, setActiveTab] = useState("list");
 
   return (
-    <div className="space-y-6">
-      <div>
-        <h1 className="business-page-title">Services Manager</h1>
-        <p className="business-page-subtitle">
-          Manage all services - content, analytics, featured services, and promotions
-        </p>
-      </div>
-
+    <AdminPageLayout
+      title="Services Manager"
+      description="Manage all services - content, analytics, featured services, and promotions"
+    >
       <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
         <TabsList className="grid w-full grid-cols-4">
           <TabsTrigger value="list" className="flex items-center gap-2">
@@ -94,7 +91,7 @@ const ServicesManager = () => {
           </div>
         </TabsContent>
       </Tabs>
-    </div>
+    </AdminPageLayout>
   );
 };
 

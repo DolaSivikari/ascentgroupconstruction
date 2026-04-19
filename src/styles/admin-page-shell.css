@@ -1,0 +1,24 @@
+/* ============================================================================
+   ADMIN PAGE SHELL — Unified container for every admin route
+   Provides consistent vertical rhythm, max-width, and content spacing.
+   ============================================================================ */
+
+.admin-page-shell {
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.admin-page-body {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* Ensure all direct children of the body have consistent spacing baseline */
+.admin-page-body > * + * {
+  margin-top: 0;
+}

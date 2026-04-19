@@ -8,6 +8,7 @@ import { ContactPageSettingsTab } from "@/components/admin/settings/ContactPageS
 import { AboutPageSettingsTab } from "@/components/admin/settings/AboutPageSettingsTab";
 import { SecuritySettingsTab } from "@/components/admin/settings/SecuritySettingsTab";
 import { HealthCheckTab } from "@/components/admin/settings/HealthCheckTab";
+import { AdminPageLayout } from "@/components/admin/AdminPageLayout";
 
 const Settings = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -37,14 +38,10 @@ const Settings = () => {
   };
 
   return (
-    <div className="space-y-6">
-      <div>
-        <h1 className="business-page-title">Settings</h1>
-        <p className="business-page-subtitle">
-          Manage all site-wide settings and configurations
-        </p>
-      </div>
-
+    <AdminPageLayout
+      title="Settings"
+      description="Manage all site-wide settings and configurations"
+    >
       <Tabs value={activeTab} onValueChange={handleTabChange} className="space-y-6">
         <TabsList className="grid w-full grid-cols-6">
           <TabsTrigger value="general" className="flex items-center gap-2">
@@ -97,7 +94,7 @@ const Settings = () => {
           <HealthCheckTab />
         </TabsContent>
       </Tabs>
-    </div>
+    </AdminPageLayout>
   );
 };
 

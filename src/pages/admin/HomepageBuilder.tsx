@@ -3,6 +3,7 @@ import { useSearchParams } from "react-router-dom";
 import { Layout, Home, Sparkles } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { AdminPageLayout } from "@/components/admin/AdminPageLayout";
 
 import HeroSlidesManager from "./HeroSlidesManager";
 import { WhyChooseUsManager } from "@/components/admin/WhyChooseUsManager";
@@ -36,14 +37,10 @@ const HomepageBuilder = () => {
   };
 
   return (
-    <div className="space-y-6">
-      <div>
-        <h1 className="business-page-title">Homepage Builder</h1>
-        <p className="business-page-subtitle">
-          Manage all homepage content in one place - hero slides, company overview, and why choose us section
-        </p>
-      </div>
-
+    <AdminPageLayout
+      title="Homepage Builder"
+      description="Manage all homepage content in one place — hero slides, company overview, and why choose us section"
+    >
       <Tabs value={activeTab} onValueChange={handleTabChange} className="space-y-6">
         <TabsList className="grid w-full grid-cols-3">
           <TabsTrigger value="hero" className="flex items-center gap-2">
@@ -102,7 +99,7 @@ const HomepageBuilder = () => {
           </Card>
         </TabsContent>
       </Tabs>
-    </div>
+    </AdminPageLayout>
   );
 };
 
