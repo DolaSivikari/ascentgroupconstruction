@@ -76,7 +76,7 @@ export function MobileNavSheet({ open, onOpenChange }: MobileNavSheetProps) {
   const [announcement, setAnnouncement] = useState("");
   const searchInputRef = useRef<HTMLInputElement>(null);
 
-  const swipeGesture = useSwipeGesture(() => {
+  const { onTouchStart, onTouchMove, onTouchEnd, translateX } = useSwipeGesture(() => {
     haptics.medium();
     setAnnouncement("Navigation closed");
     onOpenChange(false);
@@ -127,10 +127,12 @@ export function MobileNavSheet({ open, onOpenChange }: MobileNavSheetProps) {
         side="left"
         className="w-full sm:max-w-md p-0 flex flex-col bg-background border-r border-border"
         style={{
-          transform: `translateX(${swipeGesture.translateX}px)`,
-          transition: swipeGesture.translateX === 0 ? "transform 0.3s ease-out" : "none",
+          transform: `translateX(${translateX}px)`,
+          transition: translateX === 0 ? "transform 0.3s ease-out" : "none",
         }}
-        {...swipeGesture}
+        onTouchStart={onTouchStart}
+        onTouchMove={onTouchMove}
+        onTouchEnd={onTouchEnd}
       >
         <ScreenReaderAnnouncement message={announcement} />
 
@@ -140,13 +142,15 @@ export function MobileNavSheet({ open, onOpenChange }: MobileNavSheetProps) {
             <Link
               to="/"
               onClick={handleLinkClick}
-              className="flex-shrink-0"
+              className="flex-shrink-0 flex items-center"
               aria-label="Ascent Group Construction — Home"
             >
-              <OptimizedImage
+              <img
                 src={ascentLogoHorizontalDark}
                 alt="Ascent Group Construction"
-                className="h-9 w-auto"
+                className="h-9 w-auto block"
+                width={140}
+                height={36}
               />
             </Link>
 
