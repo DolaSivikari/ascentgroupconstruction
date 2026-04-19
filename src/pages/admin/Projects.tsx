@@ -205,17 +205,16 @@ const Projects = () => {
   }
 
   return (
-    <div className="space-y-6">
-      <div className="flex justify-between items-center">
-        <div>
-          <h1 className="business-page-title">Projects</h1>
-          <p className="business-page-subtitle">Manage your portfolio projects</p>
-        </div>
+    <AdminPageLayout
+      title="Projects"
+      description="Manage your portfolio projects"
+      actions={
         <button className="business-btn business-btn-primary" onClick={() => navigate("/admin/projects/new")}>
           <Plus className="h-4 w-4 mr-2" />
           Add Project
         </button>
-      </div>
+      }
+    >
 
       {/* Service Filter */}
       {services.length > 0 && (
