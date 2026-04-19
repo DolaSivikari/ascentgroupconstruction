@@ -574,3 +574,37 @@
 .business-sidebar-mobile-close {
   display: none !important;
 }
+
+/* ===== MAIN CONTENT OFFSET ================================================
+   The new .admin-sidebar replaces .business-sidebar but the legacy CSS uses
+   a sibling selector to push .business-main-content. Use the explicit
+   .sidebar-collapsed class on the layout's main content instead.
+   ============================================================================ */
+
+.business-main-content {
+  margin-left: var(--admin-sb-width);
+  transition: margin-left 0.3s var(--admin-sb-ease);
+}
+
+.business-main-content.sidebar-collapsed {
+  margin-left: var(--admin-sb-collapsed);
+}
+
+@media (max-width: 1024px) {
+  .business-main-content,
+  .business-main-content.sidebar-collapsed {
+    margin-left: 0;
+  }
+}
+
+/* Page content padding so it doesn't crash into edges */
+.business-page-content {
+  padding: 24px 32px 40px;
+  max-width: 100%;
+}
+
+@media (max-width: 768px) {
+  .business-page-content {
+    padding: 16px;
+  }
+}
