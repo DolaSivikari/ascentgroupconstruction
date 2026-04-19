@@ -328,8 +328,7 @@ const TestimonialsManager = () => {
           confirmText="Delete"
           variant="destructive"
         />
-      </div>
-    </div>
+    </AdminPageLayout>
   );
 };
 
