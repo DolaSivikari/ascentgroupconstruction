@@ -119,7 +119,7 @@ export function MobileNavSheet({ open, onOpenChange }: MobileNavSheetProps) {
     }
   }, [open, setSearchQuery]);
 
-  const phoneNumber = settings?.phone_main || "";
+  const phoneNumber = settings?.phone || "";
   const phoneHref = phoneNumber ? `tel:${phoneNumber.replace(/[^\d+]/g, "")}` : "";
 
   return (
