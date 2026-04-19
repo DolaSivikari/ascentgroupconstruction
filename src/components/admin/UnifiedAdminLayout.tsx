@@ -8,6 +8,7 @@ import { PageTransition } from '@/components/animations/PageTransition';
 import { OnboardingTour } from '@/components/admin/OnboardingTour';
 import { NotificationBellInbox } from './NotificationBellInbox';
 import '@/styles/admin-theme.css';
+import '@/styles/admin-sidebar.css';
 
 export const UnifiedAdminLayout = () => {
   const { isLoading, isAdmin, retry } = useAdminAuth();
