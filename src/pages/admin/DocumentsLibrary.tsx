@@ -448,6 +448,6 @@ export default function DocumentsLibrary() {
               </Table>
             </CardContent>
       </Card>
-    </div>
+    </AdminPageLayout>
   );
 }
