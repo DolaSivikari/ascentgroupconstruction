@@ -222,7 +222,7 @@ const Projects = () => {
 
       {/* Featured Projects Spotlight */}
       {featuredProjects.length > 0 && (
-        <Section size="default" className="bg-muted/30 py-12">
+        <Section size="subsection" className="bg-muted/30 py-12">
           <div className="text-center mb-8 relative">
             <h2 className={`${TYPOGRAPHY_STYLES.sectionTitle} mb-2 text-foreground`}>Featured Projects</h2>
             <p className="text-muted-foreground">Showcasing our most notable work</p>
