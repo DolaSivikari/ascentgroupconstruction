@@ -2,6 +2,7 @@ import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 import { createClient } from "npm:@supabase/supabase-js@2";
 import { Resend } from "https://esm.sh/resend@2.0.0";
 import { createErrorResponse, createRateLimitResponse, logSecurityError } from "../_shared/errorHandler.ts";
+import { renderBrandedEmail, renderPlainText, REPLY_TO_EMAIL } from "../_shared/emailTemplate.ts";
 
 const resend = new Resend(Deno.env.get("RESEND_API_KEY"));
 
@@ -156,29 +157,37 @@ const handler = async (req: Request): Promise<Response> => {
       `,
     });
 
-    // Send confirmation to user
+    // Send confirmation to user (branded template)
+    const customerHeading = `Thanks for reaching out, ${name}`;
+    const customerBodyHtml = `
+      <p>Hi ${name},</p>
+      <p>We've received your message and a member of our team will respond within <strong>1 business day</strong>. For urgent matters, please call us directly.</p>
+      <div style="margin:18px 0;padding:14px 16px;background-color:#f9fafb;border-radius:4px;">
+        <div style="font-size:12px;text-transform:uppercase;letter-spacing:0.05em;color:#6b7280;margin-bottom:6px;">Your message</div>
+        <div style="font-size:14px;color:#333;line-height:1.5;">${message.replace(/\n/g, "<br>")}</div>
+      </div>
+      <p>Need immediate assistance? Call <a href="tel:6475286804" style="color:#003366;font-weight:600;">+1 (647) 528-6804</a> or reply directly to this email.</p>
+    `;
+    const customerBodyText = `Hi ${name},
+
+We've received your message and a member of our team will respond within 1 business day. For urgent matters, please call us directly.
+
+Your message:
+${requestData.message.trim()}
+
+Need immediate assistance? Call +1 (647) 528-6804 or reply to this email.`;
+
     const userEmail = await resend.emails.send({
       from: "Ascent Group Construction <onboarding@resend.dev>",
       to: [email],
-      subject: "Thank you for contacting Ascent Group Construction",
-      html: `
-        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-          <h1 style="color: #1a1a1a;">Thank you for reaching out!</h1>
-          <p>Dear ${name},</p>
-          <p>We have received your message and appreciate you contacting Ascent Group Construction. Our team will review your inquiry and get back to you within 24-48 hours.</p>
-          <div style="background: #f5f5f5; padding: 20px; border-radius: 8px; margin: 20px 0;">
-            <h3 style="margin-top: 0;">Your Message:</h3>
-            <p>${message}</p>
-          </div>
-          <p>If you need immediate assistance, please call us at <strong>+1 (647) 528-6804</strong></p>
-          <hr style="border: none; border-top: 1px solid #ddd; margin: 30px 0;">
-          <p style="color: #666; font-size: 14px;">
-            <strong>Ascent Group Construction</strong><br>
-            2 Jody Ave, North York, ON M3N 1H1<br>
-            Phone: +1 (647) 528-6804 | Email: info@ascentgroupconstruction.com
-          </p>
-        </div>
-      `,
+      reply_to: REPLY_TO_EMAIL,
+      subject: "Thanks for contacting Ascent Group Construction — we'll respond within 1 business day",
+      html: renderBrandedEmail({
+        preheader: "We received your message and will respond within 1 business day.",
+        heading: customerHeading,
+        bodyHtml: customerBodyHtml,
+      }),
+      text: renderPlainText({ heading: customerHeading, textBody: customerBodyText }),
     });
 
     return new Response(JSON.stringify({ adminEmail, userEmail }), {

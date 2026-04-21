@@ -322,16 +322,24 @@ Add-ons:
 
       let notificationWarning = false;
       try {
-        await supabase.functions.invoke("send-review-request", {
+        await supabase.functions.invoke("send-estimate-confirmation", {
           body: {
+            name: validatedData.name,
             email: validatedData.email,
-            clientName: validatedData.name,
-            templateName: 'review_request_day_0',
+            phone: validatedData.phone,
+            serviceName: formData.service
+              ? formData.service.split("_").map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(" ")
+              : "General Estimate",
+            estimateMin: estimate.min,
+            estimateMax: estimate.max,
+            region: formData.region,
+            sqft: formData.sqft,
+            notes: validatedData.notes,
           },
         });
-      } catch (reviewError) {
+      } catch (confirmError) {
         notificationWarning = true;
-        console.error("Review request failed:", reviewError);
+        console.error("Estimate confirmation email failed:", confirmError);
       }
 
       await trackABTestConversion('homepage-hero-2024', 3);

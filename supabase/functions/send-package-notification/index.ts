@@ -2,6 +2,7 @@ import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 import { createClient } from "npm:@supabase/supabase-js@2";
 import { Resend } from "https://esm.sh/resend@2.0.0";
 import { checkRateLimit, getClientIdentifier, createRateLimitResponse } from "../_shared/rateLimiter.ts";
+import { renderBrandedEmail, renderPlainText, REPLY_TO_EMAIL } from "../_shared/emailTemplate.ts";
 
 const resend = new Resend(Deno.env.get("RESEND_API_KEY"));
 
@@ -176,34 +177,43 @@ const handler = async (req: Request): Promise<Response> => {
       `,
     });
 
-    // Send confirmation to user
+    // Send confirmation to user (branded template)
+    const customerHeading = `Your ${packageName} package is on the way`;
+    const customerBodyHtml = `
+      <p>Hi ${name},</p>
+      <p>Thank you for requesting our <strong>${packageName}</strong> package. We've received your request and our team will be in touch shortly.</p>
+      <p><strong>What happens next:</strong></p>
+      <ol style="padding-left:20px;margin:8px 0 16px 0;">
+        <li>Our team reviews your request.</li>
+        <li>We contact you within <strong>24 business hours</strong> to discuss details.</li>
+        <li>We schedule a convenient time for consultation if needed.</li>
+        <li>You receive the package and a tailored proposal for your needs.</li>
+      </ol>
+      <p>Have an immediate question? Call <a href="tel:6475286804" style="color:#003366;font-weight:600;">+1 (647) 528-6804</a> or reply directly to this email.</p>
+    `;
+    const customerBodyText = `Hi ${name},
+
+Thank you for requesting our ${packageName} package. We've received your request and our team will be in touch shortly.
+
+What happens next:
+1. Our team reviews your request.
+2. We contact you within 24 business hours to discuss details.
+3. We schedule a convenient time for consultation if needed.
+4. You receive the package and a tailored proposal for your needs.
+
+Have an immediate question? Call +1 (647) 528-6804 or reply to this email.`;
+
     const userEmail = await resend.emails.send({
       from: "Ascent Group Construction <onboarding@resend.dev>",
       to: [email],
-      subject: `Your ${packageName} Package Request - Ascent Group Construction`,
-      html: `
-        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-          <h1 style="color: #1a1a1a;">Thank you for your interest!</h1>
-          <p>Dear ${name},</p>
-          <p>We have received your request for our <strong>${packageName}</strong> package.</p>
-          <div style="background: #f5f5f5; padding: 20px; border-radius: 8px; margin: 20px 0;">
-            <h3 style="margin-top: 0;">What's Next?</h3>
-            <ul style="margin: 0; padding-left: 20px;">
-              <li>Our team will review your request</li>
-              <li>We'll contact you within 24 hours to discuss details</li>
-              <li>We'll schedule a convenient time for consultation</li>
-              <li>Get a detailed quote tailored to your needs</li>
-            </ul>
-          </div>
-          <p>If you have any immediate questions, please call us at <strong>+1 (647) 528-6804</strong></p>
-          <hr style="border: none; border-top: 1px solid #ddd; margin: 30px 0;">
-          <p style="color: #666; font-size: 14px;">
-            <strong>Ascent Group Construction</strong><br>
-            2 Jody Ave, North York, ON M3N 1H1<br>
-            Phone: +1 (647) 528-6804 | Email: info@ascentgroupconstruction.com
-          </p>
-        </div>
-      `,
+      reply_to: REPLY_TO_EMAIL,
+      subject: `Your vendor information package is on the way — ${packageName}`,
+      html: renderBrandedEmail({
+        preheader: `We received your ${packageName} package request.`,
+        heading: customerHeading,
+        bodyHtml: customerBodyHtml,
+      }),
+      text: renderPlainText({ heading: customerHeading, textBody: customerBodyText }),
     });
 
     return new Response(JSON.stringify({ adminEmail, userEmail }), {

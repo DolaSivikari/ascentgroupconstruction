@@ -1,6 +1,7 @@
 import { createClient } from 'npm:@supabase/supabase-js@2';
 import { checkRateLimit, getClientIdentifier, createRateLimitResponse } from '../_shared/rateLimiter.ts';
 import { createErrorResponse } from '../_shared/errorHandler.ts';
+import { renderBrandedEmail, renderPlainText, REPLY_TO_EMAIL } from '../_shared/emailTemplate.ts';
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
@@ -98,7 +99,47 @@ Deno.serve(async (req) => {
       estimated_value_range: escapeHtml(data.estimated_value_range.trim()),
     };
 
-    // Send confirmation email to client
+    // Send confirmation email to client (branded template)
+    const customerHeading = `RFP received — thank you, ${data.contact_name.trim()}`;
+    const customerBodyHtml = `
+      <p>Hi ${safe.contact_name},</p>
+      <p>Thank you for submitting your Request for Proposal to Ascent Group Construction. We've received your project details and our estimating team is reviewing your requirements.</p>
+      <div style="margin:20px 0;padding:16px 18px;background-color:#f0f5fa;border-left:4px solid #003366;border-radius:4px;">
+        <div style="font-size:12px;text-transform:uppercase;letter-spacing:0.05em;color:#6b7280;margin-bottom:8px;">Project details</div>
+        <div style="font-size:14px;line-height:1.7;color:#333;">
+          <strong>Project:</strong> ${safe.project_name}<br>
+          <strong>Type:</strong> ${safe.project_type}<br>
+          <strong>Estimated value:</strong> ${safe.estimated_value_range}<br>
+          <strong>Company:</strong> ${safe.company_name}
+        </div>
+      </div>
+      <p><strong>What happens next:</strong></p>
+      <ol style="padding-left:20px;margin:8px 0 16px 0;">
+        <li><strong>Review (24–48 hours):</strong> Our estimating team carefully reviews your project requirements.</li>
+        <li><strong>Initial contact:</strong> We reach out within 2 business days to discuss details and clarify questions.</li>
+        <li><strong>Proposal:</strong> We prepare a comprehensive proposal tailored to your scope.</li>
+        <li><strong>Presentation:</strong> We schedule a meeting to walk you through the proposal.</li>
+      </ol>
+      <p>For immediate questions, call <a href="tel:6475286804" style="color:#003366;font-weight:600;">+1 (647) 528-6804</a> or reply directly to this email.</p>
+    `;
+    const customerBodyText = `Hi ${data.contact_name.trim()},
+
+Thank you for submitting your Request for Proposal to Ascent Group Construction. We've received your project details and our estimating team is reviewing your requirements.
+
+Project details:
+- Project: ${data.project_name.trim()}
+- Type: ${data.project_type.trim()}
+- Estimated value: ${data.estimated_value_range.trim()}
+- Company: ${data.company_name.trim()}
+
+What happens next:
+1. Review (24–48 hours): Our estimating team carefully reviews your project requirements.
+2. Initial contact: We reach out within 2 business days to discuss details and clarify questions.
+3. Proposal: We prepare a comprehensive proposal tailored to your scope.
+4. Presentation: We schedule a meeting to walk you through the proposal.
+
+For immediate questions, call +1 (647) 528-6804 or reply to this email.`;
+
     const clientEmailResponse = await fetch("https://api.resend.com/emails", {
       method: "POST",
       headers: {
@@ -108,67 +149,16 @@ Deno.serve(async (req) => {
       body: JSON.stringify({
         from: "Ascent Group Construction <onboarding@resend.dev>",
         to: [data.email.trim()],
-        subject: "RFP Received - Ascent Group Construction",
-        html: `
-        <!DOCTYPE html>
-        <html>
-        <head>
-          <style>
-            body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
-            .container { max-width: 600px; margin: 0 auto; padding: 20px; }
-            .header { background: linear-gradient(135deg, #003366 0%, #004080 100%); color: white; padding: 30px; text-align: center; border-radius: 8px 8px 0 0; }
-            .content { background: #f9fafb; padding: 30px; border-radius: 0 0 8px 8px; }
-            .highlight { background: #fff; padding: 20px; border-left: 4px solid #FF6B35; margin: 20px 0; }
-            .button { display: inline-block; background: #FF6B35; color: white; padding: 12px 24px; text-decoration: none; border-radius: 6px; margin: 20px 0; }
-            .footer { text-align: center; margin-top: 30px; color: #666; font-size: 14px; }
-          </style>
-        </head>
-        <body>
-          <div class="container">
-            <div class="header">
-              <h1 style="margin: 0; font-size: 28px;">RFP Received Successfully</h1>
-            </div>
-            <div class="content">
-              <p>Dear ${safe.contact_name},</p>
-              <p>Thank you for submitting your Request for Proposal to Ascent Group Construction. We've successfully received your project details and our team is reviewing your requirements.</p>
-              <div class="highlight">
-                <h3 style="margin-top: 0; color: #003366;">Your Project Details:</h3>
-                <ul style="list-style: none; padding: 0;">
-                  <li><strong>Project:</strong> ${safe.project_name}</li>
-                  <li><strong>Type:</strong> ${safe.project_type}</li>
-                  <li><strong>Estimated Value:</strong> ${safe.estimated_value_range}</li>
-                </ul>
-              </div>
-              <h3 style="color: #003366;">What Happens Next?</h3>
-              <ol>
-                <li><strong>Review (24-48 hours):</strong> Our estimating team will carefully review your project requirements</li>
-                <li><strong>Initial Contact:</strong> We'll reach out within 2 business days to discuss details and clarify any questions</li>
-                <li><strong>Proposal Preparation:</strong> We'll prepare a comprehensive proposal tailored to your specific needs</li>
-                <li><strong>Presentation:</strong> We'll schedule a meeting to present our proposal and answer questions</li>
-              </ol>
-              <p>In the meantime, feel free to review our capabilities and recent projects:</p>
-              <div style="text-align: center;">
-                <a href="https://ascentgroupconstruction.com/projects" class="button">View Our Portfolio</a>
-              </div>
-              <p>If you have any immediate questions or need to provide additional information, please don't hesitate to contact us at:</p>
-              <ul style="list-style: none; padding: 0;">
-                <li>📧 Email: rfp@ascentgroupconstruction.com</li>
-                <li>📞 Phone: +1 (647) 528-6804</li>
-              </ul>
-              <p>We look forward to the opportunity to work with ${safe.company_name} on this project.</p>
-              <p style="margin-top: 30px;">Best regards,<br>
-              <strong>The Ascent Group Team</strong><br>
-              General Contracting &amp; Construction Management</p>
-              <div class="footer">
-                <p>Ascent Group Construction<br>
-                Greater Toronto Area, Ontario<br>
-                Licensed &amp; Bonded | COR Certified | WSIB Compliant</p>
-              </div>
-            </div>
-          </div>
-        </body>
-        </html>
-      `,
+        reply_to: REPLY_TO_EMAIL,
+        subject: `RFP received — ${data.project_name.trim()}`,
+        html: renderBrandedEmail({
+          preheader: `We received your RFP for ${data.project_name.trim()}.`,
+          heading: customerHeading,
+          bodyHtml: customerBodyHtml,
+          ctaText: "View Our Portfolio",
+          ctaUrl: "https://ascentgroupconstruction.com/projects",
+        }),
+        text: renderPlainText({ heading: customerHeading, textBody: customerBodyText }),
       }),
     });
 

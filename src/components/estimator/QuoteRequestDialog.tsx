@@ -76,6 +76,22 @@ Ballpark Range: ${serviceMessage.ballparkRange || "Custom pricing"}
 
       if (error) throw error;
 
+      // Fire-and-forget customer + admin emails (don't block success on failure)
+      try {
+        await supabase.functions.invoke("send-quote-confirmation", {
+          body: {
+            name: validatedData.name,
+            email: validatedData.email,
+            phone: validatedData.phone,
+            serviceName: serviceName,
+            projectDescription: validatedData.projectDescription,
+            ballparkRange: serviceMessage.ballparkRange,
+          },
+        });
+      } catch (emailError) {
+        console.error("Quote confirmation email failed:", emailError);
+      }
+
       toast({
         title: "Quote Request Submitted!",
         description: "We'll contact you within 24 hours to schedule a consultation.",
