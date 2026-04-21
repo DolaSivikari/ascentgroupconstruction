@@ -183,7 +183,7 @@ const Projects = () => {
     const buildPool = () => [...shuffle(featuredFirst), ...shuffle(rest)];
 
     const hero = buildPool().slice(0, 3);
-    const featured = buildPool().slice(0, 3);
+    const featured = buildPool().slice(0, 4);
     return { heroSample: hero, featuredSample: featured };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [allProjects, rotationSeed]);
@@ -222,7 +222,7 @@ const Projects = () => {
 
       {/* Featured Projects Spotlight */}
       {featuredProjects.length > 0 && (
-        <Section size="major" className="bg-muted/30">
+        <Section size="subsection" className="bg-muted/30 py-12">
           <div className="text-center mb-8 relative">
             <h2 className={`${TYPOGRAPHY_STYLES.sectionTitle} mb-2 text-foreground`}>Featured Projects</h2>
             <p className="text-muted-foreground">Showcasing our most notable work</p>
@@ -238,7 +238,7 @@ const Projects = () => {
             </div>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {featuredProjects.map((project) => (
               <ProjectFeaturedCard key={project.slug} {...project} />
             ))}
