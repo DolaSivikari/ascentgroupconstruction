@@ -1,81 +1,83 @@
 
 
-## Route All Form Submissions to Your Outlook (Option A)
+## Auto-Reply Confirmation Emails — Audit & Gap Fix
 
-You shared your Outlook setup:
-- **Main inbox:** `hebun@ascentgroupconstruction.com`
-- **Aliases (all land in the same Outlook):** `admin@`, `careers@`, `estimating@`, `info@`, `projects@`, `selim@`
+**Good news:** Most forms already send a customer auto-reply. There are a few gaps to close and some quality improvements needed. Here's the full picture:
 
-Since all aliases route into your main Outlook inbox, I'll send each form type to the **most appropriate alias**. That way, you can use Outlook rules to auto-file by inbox folder (e.g., everything sent to `careers@` → "Careers" folder), and the customer-facing reply address looks purposeful.
+### Current state (what already works)
 
-## Routing map
-
-| Form | Currently sends to | Will send to |
+| Form | Customer auto-reply? | Notes |
 |---|---|---|
-| Contact form | `info@` | `info@ascentgroupconstruction.com` |
-| Quote request (homepage CTA, dialog) | `info@` | `estimating@ascentgroupconstruction.com` |
-| Estimate flow (`/estimate`) | `info@` | `estimating@ascentgroupconstruction.com` |
-| RFP submission (`/submit-rfp`) | `info@` | `estimating@ascentgroupconstruction.com` |
-| Package request (vendor packet, prequal) | `info@` | `projects@ascentgroupconstruction.com` |
-| Resume / job application | `info@` | `careers@ascentgroupconstruction.com` |
+| Contact form (`/contact`) | ✅ Yes | "Thank you for reaching out!" |
+| Resume / job application | ✅ Yes | "Application Received" |
+| Vendor / Prequalification package | ✅ Yes | "Your {Package} Request" |
+| RFP submission (`/submit-rfp`) | ✅ Yes | "RFP Received" |
+| **Homepage Quick Contact** (InteractiveCTA) | ✅ Yes (uses contact function) | Same as Contact |
+| **Estimate flow** (`/estimate`) | ❌ **No** | Saves to DB, sends admin notification, but customer gets no email |
+| **Quote Request Dialog** (from Services) | ❌ **No** | Saves to DB only, no email at all to customer or admin |
 
-All six destinations land in your single Outlook inbox via your aliases.
+### What I'll change
 
-## What changes in the code
+**1. Add customer auto-reply to the Estimate flow** *(gap fix)*
+After someone completes `/estimate`, send them an "Estimate Request Received" confirmation email with:
+- Their estimated price range (the min/max we calculate)
+- Summary of what they requested (project type, location, timeline)
+- Next steps + 24-48h response promise
+- Phone number for urgent needs
 
-Six Edge Functions get one constant updated each — the admin recipient address. No logic, validation, or template changes.
+**2. Add customer auto-reply to the Quote Request Dialog** *(gap fix)*
+Currently this dialog (used on service detail pages for "request quote" CTAs) saves to DB and goes silent. I'll wire it to send both:
+- A customer confirmation: "Quote Request Received for {Service}"
+- An admin notification to `estimating@ascentgroupconstruction.com` (with `[Quote]` subject prefix, matching the routing scheme we just set up)
 
-- `supabase/functions/send-contact-notification/index.ts` → `to: ["info@ascentgroupconstruction.com"]`
-- `supabase/functions/send-package-notification/index.ts` → `to: ["projects@ascentgroupconstruction.com"]`
-- `supabase/functions/send-resume-notification/index.ts` → `to: ["careers@ascentgroupconstruction.com"]`
-- `supabase/functions/send-rfp-notification/index.ts` → `to: ["estimating@ascentgroupconstruction.com"]`
-- `supabase/functions/send-admin-notification/index.ts` (estimator) → `to: ["estimating@ascentgroupconstruction.com"]`
-- Any quote-request/notification function → `to: ["estimating@ascentgroupconstruction.com"]`
+**3. Polish the existing auto-reply emails** *(quality upgrade)*
+The current auto-replies are functional but plain. I'll bring them up to a consistent professional standard across all 6 confirmations:
+- **Branded header** with your logo/wordmark
+- **Consistent footer** with address, phone, email, and a small "Why Ascent" trust line
+- **Reply-to** set to `info@ascentgroupconstruction.com` so customer replies go to your Outlook (currently no `reply_to` is set, so replies bounce to the Resend sandbox address)
+- **Mobile-friendly** layout with proper width and font sizes
+- **Plain-text version** alongside HTML (improves deliverability — currently HTML-only)
+- **Subject lines** standardized:
+  - `Thanks for contacting Ascent Group Construction — we'll respond within 1 business day`
+  - `Estimate request received — {Service Type}`
+  - `Quote request received — {Service Type}`
+  - `RFP received — {Project Name}`
+  - `Application received — thank you, {Name}`
+  - `Your vendor information package is on the way`
 
-## Two important upgrades I'll add at the same time
+### Important caveat about deliverability
 
-**1. Set `reply_to` to the customer's email**
-Right now the admin notification email "From" is the system, and there's no `reply_to`. That means hitting Reply in Outlook replies to Resend's `onboarding@resend.dev`, not the customer.
+All emails currently send from `onboarding@resend.dev` (Resend's sandbox sender). This works, but:
+- Some inbox providers flag it as "via resend.dev"
+- Deliverability is decent but not as strong as a verified domain
 
-I'll add `reply_to: customerEmail` to every admin notification. After this change, you can hit Reply in Outlook and it goes straight to the customer — no copy-pasting their email out of the message body.
+To send from `noreply@ascentgroupconstruction.com` (which would look fully professional), your domain needs to be verified in Resend — this is a separate one-time DNS task. **I'll keep the current sandbox sender for now** so nothing breaks. Once you're ready, we can do the domain verification as a small follow-up task.
 
-**2. Outlook-friendly subject lines**
-Outlook truncates long subjects. I'll standardize them so they sort and filter cleanly:
-- `[Contact] Hebun Yilmaz — Building envelope inquiry`
-- `[RFP] Acme Corp — Office tower restoration`
-- `[Estimate] Jane Doe — EIFS recoating`
-- `[Package] Vendor Information Request — ABC Construction`
-- `[Resume] John Smith — Project Coordinator`
-- `[Quote] Mike Brown — Concrete restoration`
+### What does NOT change
 
-The `[Tag]` prefix lets you build one Outlook rule per type that auto-files into folders.
+- Admin notification routing (the routing to `info@`, `estimating@`, `careers@`, `projects@` we set up last round stays exactly as is)
+- Form fields, validation, rate limiting, database storage
+- The `send-review-request` function (that's for post-project review requests, not form confirmations)
+- No new dependencies, no new infrastructure, no Outlook integration needed
 
-## What does NOT change
+### Files I'll touch
 
-- Customer confirmation emails (the auto-reply customers get) — unchanged
-- Database storage in Admin → Inbox — unchanged
-- Form fields, validation, rate limiting — unchanged
-- Sender domain (still `onboarding@resend.dev` until you verify your domain in Resend — separate task if you want to tackle that later)
-- No new infrastructure, no Outlook OAuth, no Microsoft Graph integration
+1. `supabase/functions/send-contact-notification/index.ts` — polish customer email (template + reply_to + plain text)
+2. `supabase/functions/send-resume-notification/index.ts` — polish customer email
+3. `supabase/functions/send-package-notification/index.ts` — polish customer email
+4. `supabase/functions/send-rfp-notification/index.ts` — polish customer email
+5. **New:** `supabase/functions/send-estimate-confirmation/index.ts` — admin + customer emails for `/estimate`
+6. **New:** `supabase/functions/send-quote-confirmation/index.ts` — admin + customer emails for Quote Dialog
+7. `src/pages/Estimate.tsx` — invoke the new estimate-confirmation function on submit
+8. `src/components/estimator/QuoteRequestDialog.tsx` — invoke the new quote-confirmation function on submit
+9. **New:** `supabase/functions/_shared/emailTemplate.ts` — shared header/footer HTML so all 6 emails look consistent
 
-## Suggested Outlook rules (you set these up on your end after I deploy)
+### Result
 
-In Outlook, create rules based on subject prefix:
-- Subject contains `[RFP]` → Move to folder "RFPs"
-- Subject contains `[Estimate]` → Move to folder "Estimates"
-- Subject contains `[Resume]` → Move to folder "Careers"
-- Subject contains `[Package]` → Move to folder "Vendor Requests"
-- Subject contains `[Contact]` → Move to folder "Contact Inquiries"
-- Subject contains `[Quote]` → Move to folder "Quotes"
-
-## Files I'll touch
-
-1. `supabase/functions/send-contact-notification/index.ts`
-2. `supabase/functions/send-package-notification/index.ts`
-3. `supabase/functions/send-resume-notification/index.ts`
-4. `supabase/functions/send-rfp-notification/index.ts`
-5. `supabase/functions/send-admin-notification/index.ts`
-6. Any other notification function found during implementation (I'll audit `supabase/functions/` for all `resend.emails.send` admin recipients)
+Every single form on your site will:
+1. Save the submission to the database (Admin → Inbox)
+2. Email you (or the right alias) a `[Tag]`-prefixed notification with reply-to set to the customer
+3. Email the customer a branded "we received your message" confirmation within seconds
 
 Approve and I'll ship it.
 
