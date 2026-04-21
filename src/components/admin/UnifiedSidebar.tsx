@@ -24,6 +24,7 @@ import {
   History,
   Search,
   Sparkles,
+  DollarSign,
 } from 'lucide-react';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
 import { useState, useEffect } from 'react';
