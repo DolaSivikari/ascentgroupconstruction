@@ -51,6 +51,7 @@ const BlogPostEditor = lazyWithFallback(() => import("@/pages/admin/BlogPostEdit
 const MediaLibrary = lazyWithFallback(() => import("@/pages/admin/MediaLibraryEnhanced"), 'Media Library');
 const Users = lazyWithFallback(() => import("@/pages/admin/Users"), 'Users');
 const UnifiedInbox = lazyWithFallback(() => import("@/pages/admin/UnifiedInbox"), 'Unified Inbox');
+const EstimatesQuotes = lazyWithFallback(() => import("@/pages/admin/EstimatesQuotes"), 'Estimates & Quotes');
 const AuditDashboard = lazyWithFallback(() => import("@/pages/admin/AuditDashboard"), 'Audit Dashboard');
 const Monitoring = lazyWithFallback(() => import("@/pages/admin/Monitoring"), 'Monitoring');
 const HeroSlidesManager = lazyWithFallback(() => import("@/pages/admin/HeroSlidesManager"), 'Hero Slides Manager');
@@ -125,7 +126,8 @@ const AdminRouteGroup = () => (
     <Route path="rfp" element={<Navigate to="/admin/inbox" replace />} />
     <Route path="rfp-submissions" element={<Navigate to="/admin/inbox" replace />} />
     <Route path="newsletter-subscribers" element={<Navigate to="/admin/inbox" replace />} />
-    <Route path="quote-requests" element={<Navigate to="/admin/inbox?tab=quote" replace />} />
+    <Route path="quote-requests" element={<Navigate to="/admin/estimates-quotes" replace />} />
+    <Route path="estimates-quotes" element={<EstimatesQuotes />} />
     <Route path="settings" element={<Settings />} />
     <Route path="site-settings" element={<Navigate to="/admin/settings?tab=general" replace />} />
     <Route path="footer-settings" element={<Navigate to="/admin/settings?tab=footer" replace />} />
