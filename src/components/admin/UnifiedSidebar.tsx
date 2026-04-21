@@ -275,6 +275,7 @@ export const UnifiedSidebar = ({
           <nav className="admin-nav-list">
             <NavItem to="/admin" icon={LayoutDashboard} label="Dashboard" />
             <NavItem to="/admin/inbox" icon={Inbox} label="Inbox" badge={newSubmissions} />
+            <NavItem to="/admin/estimates-quotes" icon={DollarSign} label="Estimates & Quotes" />
           </nav>
 
           {/* CONTENT */}
