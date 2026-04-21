@@ -2,6 +2,7 @@ import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 import { createClient } from "npm:@supabase/supabase-js@2";
 import { Resend } from "https://esm.sh/resend@2.0.0";
 import { checkRateLimit, getClientIdentifier, createRateLimitResponse } from "../_shared/rateLimiter.ts";
+import { renderBrandedEmail, renderPlainText } from "../_shared/emailTemplate.ts";
 
 const resend = new Resend(Deno.env.get("RESEND_API_KEY"));
 
@@ -173,34 +174,41 @@ const handler = async (req: Request): Promise<Response> => {
       `,
     });
 
-    // Send confirmation to applicant
+    // Send confirmation to applicant (branded template)
+    const customerHeading = `Application received — thank you, ${applicantName}`;
+    const customerBodyHtml = `
+      <p>Hi ${applicantName},</p>
+      <p>We've received your application${jobTitle ? ` for the <strong>${jobTitle}</strong> position` : ""} and appreciate your interest in joining Ascent Group Construction.</p>
+      <p><strong>What happens next:</strong></p>
+      <ol style="padding-left:20px;margin:8px 0 16px 0;">
+        <li>Our hiring team carefully reviews your resume and qualifications.</li>
+        <li>If your experience matches our needs, we'll contact you within <strong>1–2 weeks</strong> to discuss next steps.</li>
+        <li>Your information stays on file for future opportunities that match your background.</li>
+      </ol>
+      <p>Thank you again for considering a career with us.</p>
+    `;
+    const customerBodyText = `Hi ${applicantName},
+
+We've received your application${jobTitle ? ` for the ${jobTitle} position` : ""} and appreciate your interest in joining Ascent Group Construction.
+
+What happens next:
+1. Our hiring team carefully reviews your resume and qualifications.
+2. If your experience matches our needs, we'll contact you within 1–2 weeks to discuss next steps.
+3. Your information stays on file for future opportunities that match your background.
+
+Thank you again for considering a career with us.`;
+
     const userEmail = await resend.emails.send({
       from: "Ascent Group Careers <onboarding@resend.dev>",
       to: [email],
-      subject: "Application Received - Ascent Group Construction",
-      html: `
-        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-          <h1 style="color: #1a1a1a;">Thank you for your application!</h1>
-          <p>Dear ${applicantName},</p>
-          <p>We have successfully received your application${jobTitle ? ` for the ${jobTitle} position` : ''} at Ascent Group Construction.</p>
-          <p>Our hiring team will carefully review your resume and qualifications. If your experience matches our requirements, we will contact you within 1-2 weeks to discuss next steps.</p>
-          <div style="background: #f5f5f5; padding: 20px; border-radius: 8px; margin: 20px 0;">
-            <h3 style="margin-top: 0;">What happens next?</h3>
-            <ul style="margin: 0; padding-left: 20px;">
-              <li>Our team reviews your application</li>
-              <li>Qualified candidates will be contacted for an interview</li>
-              <li>We'll keep your information on file for future opportunities</li>
-            </ul>
-          </div>
-          <p>Thank you for your interest in joining our team!</p>
-          <hr style="border: none; border-top: 1px solid #ddd; margin: 30px 0;">
-          <p style="color: #666; font-size: 14px;">
-            <strong>Ascent Group Construction</strong><br>
-            2 Jody Ave, North York, ON M3N 1H1<br>
-            careers@ascentgroupconstruction.com
-          </p>
-        </div>
-      `,
+      reply_to: "careers@ascentgroupconstruction.com",
+      subject: `Application received — thank you, ${applicantName}`,
+      html: renderBrandedEmail({
+        preheader: `We received your application${jobTitle ? ` for ${jobTitle}` : ""}.`,
+        heading: customerHeading,
+        bodyHtml: customerBodyHtml,
+      }),
+      text: renderPlainText({ heading: customerHeading, textBody: customerBodyText }),
     });
 
     return new Response(JSON.stringify({ adminEmail, userEmail }), {
