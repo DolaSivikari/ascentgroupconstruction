@@ -158,8 +158,9 @@ const handler = async (req: Request): Promise<Response> => {
     // Send notification to admin
     const adminEmail = await resend.emails.send({
       from: "Ascent Group <onboarding@resend.dev>",
-      to: ["info@ascentgroupconstruction.com"],
-      subject: `New ${packageName} Package Request from ${name}`,
+      to: ["projects@ascentgroupconstruction.com"],
+      reply_to: email,
+      subject: `[Package] ${packageName} — ${name}`,
       html: `
         <h2>New Package Request</h2>
         <p><strong>Package:</strong> ${packageName}</p>

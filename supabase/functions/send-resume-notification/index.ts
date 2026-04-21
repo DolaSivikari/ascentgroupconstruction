@@ -155,8 +155,9 @@ const handler = async (req: Request): Promise<Response> => {
     // Send notification to admin
     const adminEmail = await resend.emails.send({
       from: "Ascent Group Careers <onboarding@resend.dev>",
-      to: ["info@ascentgroupconstruction.com"], // Replace with actual HR email
-      subject: `New Resume Submission${jobTitle ? ` for ${jobTitle}` : ''} - ${applicantName}`,
+      to: ["careers@ascentgroupconstruction.com"],
+      reply_to: email,
+      subject: `[Resume] ${applicantName}${jobTitle ? ` — ${jobTitle}` : ''}`,
       html: `
         <h2>New Resume Submission</h2>
         ${jobTitle ? `<p><strong>Position:</strong> ${jobTitle}</p>` : ''}
