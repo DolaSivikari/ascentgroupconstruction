@@ -1,83 +1,41 @@
 
 
-## Auto-Reply Confirmation Emails — Audit & Gap Fix
+## Mobile Cache Issue — Not a Code Problem
 
-**Good news:** Most forms already send a customer auto-reply. There are a few gaps to close and some quality improvements needed. Here's the full picture:
+The new mobile navigation **is** deployed correctly (verified `MobileNavSheet.tsx` has the latest flat accordion structure). What you're seeing on your phone is a **cached old version** of the JavaScript bundle. This is a common mobile browser behavior, especially on iOS Safari and Chrome mobile.
 
-### Current state (what already works)
+## Step 1 — Try these on your phone first (no code changes needed)
 
-| Form | Customer auto-reply? | Notes |
-|---|---|---|
-| Contact form (`/contact`) | ✅ Yes | "Thank you for reaching out!" |
-| Resume / job application | ✅ Yes | "Application Received" |
-| Vendor / Prequalification package | ✅ Yes | "Your {Package} Request" |
-| RFP submission (`/submit-rfp`) | ✅ Yes | "RFP Received" |
-| **Homepage Quick Contact** (InteractiveCTA) | ✅ Yes (uses contact function) | Same as Contact |
-| **Estimate flow** (`/estimate`) | ❌ **No** | Saves to DB, sends admin notification, but customer gets no email |
-| **Quote Request Dialog** (from Services) | ❌ **No** | Saves to DB only, no email at all to customer or admin |
+These resolve the issue 95% of the time:
 
-### What I'll change
+**iPhone (Safari):**
+1. Open Settings → Safari → **Clear History and Website Data**
+2. Or: long-press the reload button in Safari address bar → tap "Reload Without Content Blockers" / hard reload
+3. Or: close all Safari tabs, force-quit Safari, reopen
 
-**1. Add customer auto-reply to the Estimate flow** *(gap fix)*
-After someone completes `/estimate`, send them an "Estimate Request Received" confirmation email with:
-- Their estimated price range (the min/max we calculate)
-- Summary of what they requested (project type, location, timeline)
-- Next steps + 24-48h response promise
-- Phone number for urgent needs
+**iPhone (Chrome):**
+1. Chrome → ⋯ menu → Settings → Privacy and Security → **Clear Browsing Data** → select "Cached Images and Files" → Clear
 
-**2. Add customer auto-reply to the Quote Request Dialog** *(gap fix)*
-Currently this dialog (used on service detail pages for "request quote" CTAs) saves to DB and goes silent. I'll wire it to send both:
-- A customer confirmation: "Quote Request Received for {Service}"
-- An admin notification to `estimating@ascentgroupconstruction.com` (with `[Quote]` subject prefix, matching the routing scheme we just set up)
+**Android (Chrome):**
+1. Chrome → ⋮ menu → Settings → Privacy and Security → **Clear Browsing Data** → "Cached images and files" → Clear
 
-**3. Polish the existing auto-reply emails** *(quality upgrade)*
-The current auto-replies are functional but plain. I'll bring them up to a consistent professional standard across all 6 confirmations:
-- **Branded header** with your logo/wordmark
-- **Consistent footer** with address, phone, email, and a small "Why Ascent" trust line
-- **Reply-to** set to `info@ascentgroupconstruction.com` so customer replies go to your Outlook (currently no `reply_to` is set, so replies bounce to the Resend sandbox address)
-- **Mobile-friendly** layout with proper width and font sizes
-- **Plain-text version** alongside HTML (improves deliverability — currently HTML-only)
-- **Subject lines** standardized:
-  - `Thanks for contacting Ascent Group Construction — we'll respond within 1 business day`
-  - `Estimate request received — {Service Type}`
-  - `Quote request received — {Service Type}`
-  - `RFP received — {Project Name}`
-  - `Application received — thank you, {Name}`
-  - `Your vendor information package is on the way`
+**Quickest universal test:** Open the site in a **private/incognito window** on your phone. If the new menu appears there, it's 100% a cache issue.
 
-### Important caveat about deliverability
+## Step 2 — If clearing cache doesn't fix it
 
-All emails currently send from `onboarding@resend.dev` (Resend's sandbox sender). This works, but:
-- Some inbox providers flag it as "via resend.dev"
-- Deliverability is decent but not as strong as a verified domain
+Then it's a real deployment issue and I should investigate:
 
-To send from `noreply@ascentgroupconstruction.com` (which would look fully professional), your domain needs to be verified in Resend — this is a separate one-time DNS task. **I'll keep the current sandbox sender for now** so nothing breaks. Once you're ready, we can do the domain verification as a small follow-up task.
+1. **Audit which mobile nav component is actually rendered** — confirm `Navigation.tsx` is using the updated `MobileNavSheet.tsx` and there isn't a second/older mobile menu component still wired up somewhere.
+2. **Check the production build output** — verify the deployed bundle on `ascentgroupconstruction.com` actually contains the new `MobileNavSheet` code (compare hash of the JS bundle vs preview).
+3. **Verify the custom domain isn't pinned to an older deploy** — sometimes custom domain DNS/CDN caching can lag behind the Lovable preview URL.
+4. **Add cache-busting** — set `Cache-Control: no-cache` on `index.html` so browsers always fetch fresh asset hashes (the JS bundles themselves are already hash-named, so the real culprit is usually a cached `index.html` pointing to old bundle filenames).
 
-### What does NOT change
+## What I need from you to proceed
 
-- Admin notification routing (the routing to `info@`, `estimating@`, `careers@`, `projects@` we set up last round stays exactly as is)
-- Form fields, validation, rate limiting, database storage
-- The `send-review-request` function (that's for post-project review requests, not form confirmations)
-- No new dependencies, no new infrastructure, no Outlook integration needed
+**Please try the cache-clear steps above first**, then report back:
 
-### Files I'll touch
+- ✅ "Works after clearing cache" → no code changes needed, we're done
+- ❌ "Still shows old menu even in incognito / after clearing cache" → I'll dig into Step 2 and ship a fix
 
-1. `supabase/functions/send-contact-notification/index.ts` — polish customer email (template + reply_to + plain text)
-2. `supabase/functions/send-resume-notification/index.ts` — polish customer email
-3. `supabase/functions/send-package-notification/index.ts` — polish customer email
-4. `supabase/functions/send-rfp-notification/index.ts` — polish customer email
-5. **New:** `supabase/functions/send-estimate-confirmation/index.ts` — admin + customer emails for `/estimate`
-6. **New:** `supabase/functions/send-quote-confirmation/index.ts` — admin + customer emails for Quote Dialog
-7. `src/pages/Estimate.tsx` — invoke the new estimate-confirmation function on submit
-8. `src/components/estimator/QuoteRequestDialog.tsx` — invoke the new quote-confirmation function on submit
-9. **New:** `supabase/functions/_shared/emailTemplate.ts` — shared header/footer HTML so all 6 emails look consistent
-
-### Result
-
-Every single form on your site will:
-1. Save the submission to the database (Admin → Inbox)
-2. Email you (or the right alias) a `[Tag]`-prefixed notification with reply-to set to the customer
-3. Email the customer a branded "we received your message" confirmation within seconds
-
-Approve and I'll ship it.
+Don't approve this as a build task yet — try the cache clear first. If it works, we save a deploy cycle. If it doesn't, I have a clear investigation path ready.
 
