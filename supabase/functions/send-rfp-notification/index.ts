@@ -183,8 +183,9 @@ Deno.serve(async (req) => {
       },
       body: JSON.stringify({
         from: "RFP System <onboarding@resend.dev>",
-        to: ["info@ascentgroupconstruction.com"],
-        subject: `New RFP: ${safe.project_name} - ${safe.company_name}`,
+        to: ["estimating@ascentgroupconstruction.com"],
+        reply_to: data.email.trim(),
+        subject: `[RFP] ${safe.company_name} — ${safe.project_name}`,
         html: `
         <h2>🚨 New RFP Submission</h2>
         <p><strong>Company:</strong> ${safe.company_name}</p>

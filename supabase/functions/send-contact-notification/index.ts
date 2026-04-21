@@ -140,7 +140,8 @@ const handler = async (req: Request): Promise<Response> => {
     const adminEmail = await resend.emails.send({
       from: "Ascent Group <onboarding@resend.dev>",
       to: ["info@ascentgroupconstruction.com"],
-      subject: `New ${submissionType} Submission from ${name}`,
+      reply_to: requestData.email.trim(),
+      subject: `[Contact] ${name} — ${submissionType}`,
       html: `
         <h2>New Contact Submission</h2>
         <p><strong>Type:</strong> ${submissionType}</p>
