@@ -225,6 +225,15 @@ const About = () => {
       <Section size="major" maxWidth="wide">
         <div className="grid md:grid-cols-2 gap-12 lg:gap-20 items-center">
           <div>
+            {/* Brand accent — vertical ringed monument mark */}
+            <img
+              src="/brand/logo-vertical-dark.png"
+              alt=""
+              aria-hidden="true"
+              className="h-28 w-auto mb-6 opacity-95"
+              loading="lazy"
+              decoding="async"
+            />
             <span className="text-sm font-semibold uppercase tracking-wider text-primary mb-3 block">
               Our Story
             </span>
