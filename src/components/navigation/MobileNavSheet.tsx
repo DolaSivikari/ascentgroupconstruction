@@ -383,6 +383,9 @@ export function MobileNavSheet({ open, onOpenChange }: MobileNavSheetProps) {
               <span>{phoneNumber || "Call us"}</span>
             </a>
           )}
+          <div className="flex items-center justify-center pt-1">
+            <ThemeToggle />
+          </div>
         </div>
       </SheetContent>
     </Sheet>
