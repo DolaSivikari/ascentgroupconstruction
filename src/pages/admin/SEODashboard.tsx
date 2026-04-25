@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, lazy, Suspense } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Bot, Loader2 } from 'lucide-react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -6,7 +6,10 @@ import { useToast } from '@/hooks/use-toast';
 import { AdminPageLayout } from '@/components/admin/AdminPageLayout';
 import AIVisibilitySection from '@/components/admin/seo/AIVisibilitySection';
 import { SEODashboardOverviewTab } from '@/components/admin/seo/SEODashboardOverviewTab';
-import { SEODashboardAnalyticsTab } from '@/components/admin/seo/SEODashboardAnalyticsTab';
+// Analytics tab pulls in recharts (~90 KB gz). Lazy-load so it only ships when the user opens the Analytics tab.
+const SEODashboardAnalyticsTab = lazy(() =>
+  import('@/components/admin/seo/SEODashboardAnalyticsTab').then((m) => ({ default: m.SEODashboardAnalyticsTab }))
+);
 import { SEODashboardContentTab } from '@/components/admin/seo/SEODashboardContentTab';
 import { SEODashboardSettingsTab } from '@/components/admin/seo/SEODashboardSettingsTab';
 import { useSeoOverviewStats } from '@/hooks/admin/useSeoOverviewStats';
@@ -348,25 +351,33 @@ export default function SEODashboard() {
         </TabsContent>
 
         <TabsContent value="analytics" className="space-y-6">
-          <SEODashboardAnalyticsTab
-            isConnected={isConnected}
-            checkingConnection={checkingConnection}
-            lastSyncTime={lastSyncTime}
-            siteUrl={siteUrl}
-            setSiteUrl={setSiteUrl}
-            dateRange={dateRange}
-            setDateRange={setDateRange}
-            fetchingData={fetchingData}
-            searchConsoleData={searchConsoleData}
-            metrics={metrics}
-            dailyMetrics={dailyMetrics}
-            topPages={topPages}
-            topQueries={topQueries}
-            clicksChange={clicksChange}
-            impressionsChange={impressionsChange}
-            onConnect={connectGoogleSearchConsole}
-            onFetch={fetchSearchConsoleData}
-          />
+          <Suspense
+            fallback={
+              <div className="flex items-center justify-center py-16">
+                <Loader2 className="h-6 w-6 animate-spin text-muted-foreground" />
+              </div>
+            }
+          >
+            <SEODashboardAnalyticsTab
+              isConnected={isConnected}
+              checkingConnection={checkingConnection}
+              lastSyncTime={lastSyncTime}
+              siteUrl={siteUrl}
+              setSiteUrl={setSiteUrl}
+              dateRange={dateRange}
+              setDateRange={setDateRange}
+              fetchingData={fetchingData}
+              searchConsoleData={searchConsoleData}
+              metrics={metrics}
+              dailyMetrics={dailyMetrics}
+              topPages={topPages}
+              topQueries={topQueries}
+              clicksChange={clicksChange}
+              impressionsChange={impressionsChange}
+              onConnect={connectGoogleSearchConsole}
+              onFetch={fetchSearchConsoleData}
+            />
+          </Suspense>
         </TabsContent>
 
         <TabsContent value="content" className="space-y-6">
