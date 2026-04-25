@@ -27,9 +27,13 @@ export const ImagesTab = ({ projectId, formData, onFormChange }: ImagesTabProps)
           value={formData.featured_image}
           onChange={(url) => onFormChange({ featured_image: url })}
           label="Upload Featured Image"
+          targetAspectRatio="16/9"
+          minWidth={1200}
+          minHeight={675}
+          minAspectRatio={1.33}
         />
         <p className="text-sm text-muted-foreground">
-          Main project hero image (recommended: 1920x1080)
+          Main project hero image. Recommended: 1920×1080 (16:9). Minimum: 1200×675, landscape only.
         </p>
       </div>
 
