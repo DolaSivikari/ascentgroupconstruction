@@ -15,6 +15,7 @@ import { cn } from "@/lib/utils";
 import { useHoverTimeout } from "@/hooks/useHoverTimeout";
 import { useAdminRoleCheck } from "@/hooks/useAdminRoleCheck";
 import { useScrollDirection } from "@/hooks/useScrollDirection";
+import { ThemeToggle } from "@/components/ui/ThemeToggle";
 
 import {
   DropdownMenu,
