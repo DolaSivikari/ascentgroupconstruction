@@ -22,21 +22,13 @@ interface Project {
 }
 
 const ProjectCard = ({ project }: { project: Project }) => (
-  <Card variant="interactive" className="overflow-hidden hover-subtle">
-    <Link to={`/blog/${project.slug}`}>
-      {project.featured_image && (
-        <div className="relative overflow-hidden aspect-[4/3] md:aspect-[16/9] md:h-64">
-          <OptimizedImage
-            src={project.featured_image}
-            alt={project.title}
-            width={800}
-            height={600}
-            className="w-full h-full object-center hover-scale"
-            objectFit="cover"
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-          />
-        </div>
-      )}
+  <Card variant="interactive" className="group overflow-hidden hover-subtle">
+    <Link to={`/projects/${project.slug}`}>
+      <ProjectFeaturedImage
+        src={project.featured_image}
+        alt={project.title}
+        variant="card"
+      />
     </Link>
     <CardContent className="p-6">
       <div className="flex items-center gap-2 mb-3 flex-wrap">
