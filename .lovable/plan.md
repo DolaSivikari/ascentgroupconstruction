@@ -1,41 +1,56 @@
+## Project Gallery Lightbox — Fix Broken Image Viewer
 
+### What's wrong (root cause)
 
-## Mobile Cache Issue — Not a Code Problem
+The `ProjectGallery` component (`src/components/ProjectGallery.tsx`, lines 218–299) hand-rolls its own image viewer modal. It has three concrete problems:
 
-The new mobile navigation **is** deployed correctly (verified `MobileNavSheet.tsx` has the latest flat accordion structure). What you're seeing on your phone is a **cached old version** of the JavaScript bundle. This is a common mobile browser behavior, especially on iOS Safari and Chrome mobile.
+1. **"Blue borders" everywhere** — The custom buttons (close/prev/next/download) use Tailwind defaults that show the browser's blue focus ring on click/tap, and the `bg-[hsl(var(--bg))]/10` translucent layer over the dark backdrop reads as faint blue rectangles.
+2. **Have to scroll up to close** — The modal uses `fixed inset-0` but does **not lock body scroll**. On a long project page (especially mobile), the page underneath keeps its scroll position, and because the close button sits at `top-4 right-4` of the viewport, it's actually fine *if* the modal stays in view — but the missing `overflow: hidden` on `<body>` causes the layout to shift and the modal content (image + caption + counter + bottom action bar) to push downward, making the close button feel out of reach.
+3. **Image stuck at the bottom** — The image wrapper is `<div className="max-w-7xl max-h-[85vh] px-4">` placed inside a parent `flex items-center justify-center`. But the wrapper also contains the caption, counter, and the bottom action bar is a separate absolutely-positioned element. The combination pushes the image visually toward the bottom of the screen instead of being truly centered.
 
-## Step 1 — Try these on your phone first (no code changes needed)
+Meanwhile, the project **already has a polished, working lightbox** — `InteractiveLightbox.tsx`, built on `yet-another-react-lightbox`. It's already used on `ProjectDetail.tsx` for the hero image (line 280). It correctly handles body scroll lock, fixed close button, true centering, zoom, image counter, keyboard navigation, and swipe gestures. The gallery just isn't using it.
 
-These resolve the issue 95% of the time:
+### The fix
 
-**iPhone (Safari):**
-1. Open Settings → Safari → **Clear History and Website Data**
-2. Or: long-press the reload button in Safari address bar → tap "Reload Without Content Blockers" / hard reload
-3. Or: close all Safari tabs, force-quit Safari, reopen
+Replace the entire custom lightbox block in `ProjectGallery.tsx` with the existing `InteractiveLightbox` component. This is a clean swap — same props are available (images array, current index, open state, close handler).
 
-**iPhone (Chrome):**
-1. Chrome → ⋯ menu → Settings → Privacy and Security → **Clear Browsing Data** → select "Cached Images and Files" → Clear
+**Concretely:**
 
-**Android (Chrome):**
-1. Chrome → ⋮ menu → Settings → Privacy and Security → **Clear Browsing Data** → "Cached images and files" → Clear
+1. **Import `InteractiveLightbox`** at the top of `ProjectGallery.tsx`.
+2. **Delete** the custom lightbox JSX (lines 218–299) — the `<div className="fixed inset-0 z-50 ...">` block and everything inside it.
+3. **Delete** the now-unused keyboard `useEffect` (lines 47–59), `handlePrevImage`, `handleNextImage` helpers, and unused icon imports (`ChevronLeft`, `ChevronRight`, `X`, `Download`, `Share2`). Keep `ZoomIn` for the hover overlay on grid cards.
+4. **Render `<InteractiveLightbox>`** at the bottom, mapping `displayImages` to its `{ src, alt, caption }` shape and passing `isOpen={lightboxOpen}`, `initialIndex={currentImageIndex}`, `onClose={() => setLightboxOpen(false)}`.
 
-**Quickest universal test:** Open the site in a **private/incognito window** on your phone. If the new menu appears there, it's 100% a cache issue.
+That's it. The grid behavior (tabs, hover zoom, before/after slider, captions) stays untouched.
 
-## Step 2 — If clearing cache doesn't fix it
+### What gets fixed automatically by switching
 
-Then it's a real deployment issue and I should investigate:
+- ✅ No more blue focus rings — the library uses neutral-styled controls
+- ✅ Close button is fixed in the top-right and always reachable
+- ✅ Body scroll is locked while open, so closing returns you to your scroll position (no need to scroll up)
+- ✅ Image is properly centered vertically and horizontally
+- ✅ Pinch-zoom and scroll-to-zoom work on mobile and desktop
+- ✅ Image counter at the bottom (e.g. "3 / 12")
+- ✅ Keyboard arrows + Escape work out of the box
+- ✅ Swipe to navigate on touch devices
+- ✅ Backdrop click closes the lightbox
 
-1. **Audit which mobile nav component is actually rendered** — confirm `Navigation.tsx` is using the updated `MobileNavSheet.tsx` and there isn't a second/older mobile menu component still wired up somewhere.
-2. **Check the production build output** — verify the deployed bundle on `ascentgroupconstruction.com` actually contains the new `MobileNavSheet` code (compare hash of the JS bundle vs preview).
-3. **Verify the custom domain isn't pinned to an older deploy** — sometimes custom domain DNS/CDN caching can lag behind the Lovable preview URL.
-4. **Add cache-busting** — set `Cache-Control: no-cache` on `index.html` so browsers always fetch fresh asset hashes (the JS bundles themselves are already hash-named, so the real culprit is usually a cached `index.html` pointing to old bundle filenames).
+### What's removed (and why it's fine)
 
-## What I need from you to proceed
+The custom lightbox had two extra buttons:
+- **Download** — Removable. Users can long-press / right-click the image to save it. Optional and not standard for portfolio galleries; most case-study sites don't expose downloads.
+- **Share** (Web Share API) — Removable. The whole project page already shares fine via the URL; sharing a single gallery image isn't a meaningful use case for B2B project portfolios. If you ever want it back, we can add it as a custom plugin button.
 
-**Please try the cache-clear steps above first**, then report back:
+Removing these matches the cleaner experience already used by the hero image lightbox on the same page, so behavior is consistent across the project detail.
 
-- ✅ "Works after clearing cache" → no code changes needed, we're done
-- ❌ "Still shows old menu even in incognito / after clearing cache" → I'll dig into Step 2 and ship a fix
+### Files I'll touch
 
-Don't approve this as a build task yet — try the cache clear first. If it works, we save a deploy cycle. If it doesn't, I have a clear investigation path ready.
+1. `src/components/ProjectGallery.tsx` — swap custom lightbox for `InteractiveLightbox`, remove dead code
 
+No new dependencies. No DB changes. No edge function changes. Roughly a 60-line net deletion.
+
+### Result
+
+Click any image in the project gallery → it opens in a true full-screen viewer that's centered, zoomable, swipeable, with a reachable close button and locked background scroll. Works identically on desktop and mobile, and matches the hero-image lightbox already in use on the same page.
+
+Approve and I'll ship it.
