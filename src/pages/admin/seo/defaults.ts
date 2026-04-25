@@ -1,0 +1,41 @@
+export const DEFAULT_ROBOTS_TXT = `User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: Twitterbot
+Allow: /
+
+User-agent: facebookexternalhit
+Allow: /
+
+# AI Crawlers for AEO/GEO Optimization
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://ascentgroupconstruction.com/sitemap.xml
+
+# Block access to admin pages
+User-agent: *
+Disallow: /admin
+Disallow: /auth`;
