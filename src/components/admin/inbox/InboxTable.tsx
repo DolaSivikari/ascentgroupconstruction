@@ -197,6 +197,28 @@ export const InboxTable = ({ type, highlightId }: InboxTableProps) => {
     };
   }, [type, refetch, toast]);
 
+  // Highlight a specific row when navigated to via ?highlight=<id>
+  useEffect(() => {
+    if (!highlightId || !items || items.length === 0) return;
+    const match = items.find((i) => i.id === highlightId);
+    if (!match) return;
+
+    setActiveHighlight(highlightId);
+    // Wait for render before scrolling
+    const scrollTimer = window.setTimeout(() => {
+      const el = document.getElementById(`inbox-row-${highlightId}`);
+      if (el) {
+        el.scrollIntoView({ behavior: "smooth", block: "center" });
+      }
+    }, 100);
+    const clearTimer = window.setTimeout(() => setActiveHighlight(null), 3500);
+
+    return () => {
+      window.clearTimeout(scrollTimer);
+      window.clearTimeout(clearTimer);
+    };
+  }, [highlightId, items]);
+
   const handleDelete = async () => {
     if (!deleteItem) return;
 
