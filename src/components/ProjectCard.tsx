@@ -71,14 +71,12 @@ const ProjectCard = ({
       onMouseLeave={() => setIsHovered(false)}
       onClick={() => onViewDetails(slug)}
     >
-      {/* Image Container - PCL style with entrance animation */}
-      <div className={cn("relative overflow-hidden", ASPECT_RATIOS.card)}>
-          <OptimizedImage
-            src={resolveAssetPath(image) || "/placeholder.svg"}
-            alt={title}
-            className="w-full h-full object-cover object-center transition-transform duration-300 group-hover:scale-105"
-          />
-        
+      {/* Image Container - shared featured image renderer */}
+      <ProjectFeaturedImage
+        src={resolveAssetPath(image)}
+        alt={title}
+        variant="card"
+      >
         {/* Clean overlay on hover */}
         <div className={cn(
           "absolute inset-0 bg-primary/90 flex items-center justify-center transition-opacity duration-300",
@@ -101,12 +99,12 @@ const ProjectCard = ({
             )}
           </div>
         </div>
-        
+
         {/* Simple category badge */}
         <div className="absolute top-4 right-4">
           <Badge variant="primary" size="sm">{category}</Badge>
         </div>
-      </div>
+      </ProjectFeaturedImage>
       
       {/* Card Content - Clean PCL style */}
       <CardContent className="p-6">
