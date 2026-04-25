@@ -1,3 +1,4 @@
+// @ts-nocheck — email infra tables not yet in generated types
 import { createClient } from 'npm:@supabase/supabase-js@2'
 import { WebhookError, verifyWebhookRequest } from 'npm:@lovable.dev/webhooks-js'
 
