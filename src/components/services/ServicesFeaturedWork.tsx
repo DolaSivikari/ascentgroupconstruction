@@ -52,20 +52,11 @@ export const ServicesFeaturedWork = () => {
         {projects.map((project) => (
           <Link key={project.id} to={`/projects/${project.slug}`} className="group">
             <Card variant="elevated" hover className="overflow-hidden h-full flex flex-col p-0">
-              <div className="aspect-[16/9] overflow-hidden bg-muted">
-                {project.featured_image ? (
-                  <img
-                    src={project.featured_image}
-                    alt={project.title}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                    loading="lazy"
-                  />
-                ) : (
-                  <div className="w-full h-full flex items-center justify-center">
-                    <span className="text-3xl font-bold text-muted-foreground/30">AGC</span>
-                  </div>
-                )}
-              </div>
+              <ProjectFeaturedImage
+                src={project.featured_image}
+                alt={project.title}
+                variant="card"
+              />
               <div className="p-6 flex flex-col flex-1">
                 <div className="flex items-center gap-2 mb-2">
                   {project.category && (
