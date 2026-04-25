@@ -161,40 +161,101 @@ export default function SubmitRFPNew() {
         attachment_urls: attachmentUrls.length > 0 ? attachmentUrls : undefined,
       };
 
-      const { error: insertError } = await supabase
+      const { data: insertedRow, error: insertError } = await supabase
         .from("rfp_submissions")
-        .insert([submissionData]);
+        .insert([submissionData])
+        .select("id, created_at")
+        .single();
 
       if (insertError) throw insertError;
 
-      // Send notification email
-      let notificationWarning = false;
-      try {
-        await supabase.functions.invoke("send-rfp-notification", {
-          body: {
-            company_name: data.company_name,
-            contact_name: data.contact_name,
+      const newId = insertedRow?.id as string;
+      const createdAt = insertedRow?.created_at ? new Date(insertedRow.created_at as string) : new Date();
+      const refId = `RFP-${(newId || "").slice(0, 8).toUpperCase()}`;
+
+      setSubmissionId(newId);
+      setSubmissionRef(refId);
+      setSubmittedAt(createdAt);
+
+      // Send notifications: PRIMARY = built-in transactional email, FALLBACK = legacy Resend function
+      const sendViaBuiltIn = async () => {
+        const customerPayload = {
+          templateName: "rfp-customer-confirmation",
+          recipientEmail: data.email,
+          idempotencyKey: `rfp-customer-${newId}`,
+          templateData: {
+            contactName: data.contact_name,
+            projectName: data.project_name,
+            projectType: data.project_type,
+            estimatedValueRange: data.estimated_value_range,
+            companyName: data.company_name,
+            referenceId: refId,
+          },
+        };
+        const internalPayload = {
+          templateName: "rfp-internal-notification",
+          recipientEmail: ESTIMATING_EMAIL,
+          idempotencyKey: `rfp-internal-${newId}`,
+          templateData: {
+            referenceId: refId,
+            rfpId: newId,
+            companyName: data.company_name,
+            contactName: data.contact_name,
             email: data.email,
             phone: data.phone,
-            project_name: data.project_name,
-            project_type: data.project_type,
-            estimated_value_range: data.estimated_value_range,
+            projectName: data.project_name,
+            projectType: data.project_type,
+            projectLocation: data.project_location,
+            estimatedValueRange: data.estimated_value_range,
+            estimatedTimeline: data.estimated_timeline,
+            deliveryMethod: data.delivery_method,
+            scopeOfWork: data.scope_of_work,
+            attachmentsCount: attachmentFiles.length,
+            submittedAt: createdAt.toLocaleString(),
           },
-        });
-      } catch (emailError) {
-        notificationWarning = true;
-        console.error("Email notification failed:", emailError);
+        };
+        const [c, i] = await Promise.all([
+          supabase.functions.invoke("send-transactional-email", { body: customerPayload }),
+          supabase.functions.invoke("send-transactional-email", { body: internalPayload }),
+        ]);
+        if (c.error) throw c.error;
+        if (i.error) throw i.error;
+      };
+
+      let notificationWarning = false;
+      try {
+        await sendViaBuiltIn();
+      } catch (primaryError) {
+        console.warn("Built-in email failed, falling back to Resend:", primaryError);
+        try {
+          await supabase.functions.invoke("send-rfp-notification", {
+            body: {
+              company_name: data.company_name,
+              contact_name: data.contact_name,
+              email: data.email,
+              phone: data.phone,
+              project_name: data.project_name,
+              project_type: data.project_type,
+              estimated_value_range: data.estimated_value_range,
+              reference_id: refId,
+              rfp_id: newId,
+            },
+          });
+        } catch (fallbackError) {
+          notificationWarning = true;
+          console.error("Both email senders failed:", fallbackError);
+        }
       }
 
       toast.success("RFP Submitted Successfully", {
         description: notificationWarning
-          ? "Your proposal was saved successfully. Our team will review and follow up within 2 business days."
-          : "We'll review your request and contact you within 2 business days.",
+          ? `Saved as ${refId}. Our team has been alerted internally and will follow up within 2 business days.`
+          : `Saved as ${refId}. We'll review and respond within 2 business days.`,
       });
 
       // Phase 3: Track A/B test conversion
       await trackABTestConversion('homepage-hero-2024', 5);
-      
+
       setSubmitted(true);
       window.scrollTo({ top: 0, behavior: "smooth" });
     } catch (error: any) {
@@ -204,6 +265,17 @@ export default function SubmitRFPNew() {
       });
     } finally {
       setSubmitting(false);
+    }
+  };
+
+  const copyRef = async () => {
+    if (!submissionRef) return;
+    try {
+      await navigator.clipboard.writeText(submissionRef);
+      setRefCopied(true);
+      setTimeout(() => setRefCopied(false), 2000);
+    } catch {
+      toast.error("Could not copy reference ID");
     }
   };
 
