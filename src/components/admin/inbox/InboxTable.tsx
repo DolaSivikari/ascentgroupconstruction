@@ -27,6 +27,7 @@ import { ConfirmDialog } from "@/components/admin/ConfirmDialog";
 
 interface InboxTableProps {
   type: "all" | "rfp" | "contact" | "resume" | "prequal" | "quote" | "newsletter";
+  highlightId?: string | null;
 }
 
 // Map tables to their date column names
@@ -39,11 +40,12 @@ const dateColumnMap: Record<string, string> = {
   'newsletter_subscribers': 'created_at',
 };
 
-export const InboxTable = ({ type }: InboxTableProps) => {
+export const InboxTable = ({ type, highlightId }: InboxTableProps) => {
   const [searchQuery, setSearchQuery] = useState("");
   const [statusFilter, setStatusFilter] = useState<string>("all");
   const [selectedItem, setSelectedItem] = useState<any>(null);
   const [deleteItem, setDeleteItem] = useState<any>(null);
+  const [activeHighlight, setActiveHighlight] = useState<string | null>(null);
   const { toast } = useToast();
 
   const { data: items, isLoading, refetch } = useQuery({
