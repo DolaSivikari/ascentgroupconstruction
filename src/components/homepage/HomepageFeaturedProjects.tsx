@@ -45,7 +45,7 @@ export const HomepageFeaturedProjects = () => {
       const shuffledRest = shuffleArray(nonFeatured);
 
       const combined = [...shuffledFeatured, ...shuffledRest];
-      return combined.slice(0, 3);
+      return combined.slice(0, 4);
     },
     staleTime: 0,
     gcTime: 0,
@@ -93,7 +93,7 @@ export const HomepageFeaturedProjects = () => {
         </ScrollReveal>
 
         <StaggerContainer type="fade">
-          <div className={GRID.cards3}>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {projects.map((project, index) => (
               <ScrollReveal
                 key={project.id}
@@ -101,19 +101,23 @@ export const HomepageFeaturedProjects = () => {
                 delay={index * 100}
               >
                 <Card variant="interactive" className="overflow-hidden hover-subtle h-full flex flex-col">
-                  <Link to={`/projects/${project.slug}`}>
-                    {project.featured_image && (
-                      <div className="relative overflow-hidden aspect-[4/3] bg-muted">
+                  <Link to={`/projects/${project.slug}`} className="block">
+                    <div className="relative overflow-hidden aspect-[4/3] bg-muted">
+                      {project.featured_image ? (
                         <img
                           src={project.featured_image}
                           alt={project.title}
-                          className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
+                          className="absolute inset-0 w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
                           loading="lazy"
                         />
-                      </div>
-                    )}
+                      ) : (
+                        <div className="absolute inset-0 flex items-center justify-center bg-muted text-muted-foreground text-xs">
+                          AGC
+                        </div>
+                      )}
+                    </div>
                   </Link>
-                  <CardContent className="p-6 flex-1 flex flex-col">
+                  <CardContent className="p-5 flex-1 flex flex-col">
                     <div className="flex items-center gap-2 mb-3 flex-wrap">
                       {project.location && (
                         <Badge variant="secondary" size="sm" icon={MapPin}>
@@ -132,12 +136,12 @@ export const HomepageFeaturedProjects = () => {
                       )}
                     </div>
                     <Link to={`/projects/${project.slug}`}>
-                      <h3 className="text-xl font-bold mb-2 hover:text-primary link-hover">
+                      <h3 className="text-lg font-bold mb-2 hover:text-primary link-hover line-clamp-2">
                         {project.title}
                       </h3>
                     </Link>
                     {project.summary && (
-                      <p className="text-muted-foreground line-clamp-3 flex-1">{project.summary}</p>
+                      <p className="text-sm text-muted-foreground line-clamp-3 flex-1">{project.summary}</p>
                     )}
                   </CardContent>
                 </Card>
