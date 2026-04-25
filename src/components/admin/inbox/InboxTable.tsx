@@ -350,7 +350,15 @@ export const InboxTable = ({ type, highlightId }: InboxTableProps) => {
               </TableRow>
             ) : filteredItems && filteredItems.length > 0 ? (
               filteredItems.map((item) => (
-                <TableRow key={`${item.type}-${item.id}`} className="hover:bg-muted/50">
+                <TableRow
+                  key={`${item.type}-${item.id}`}
+                  id={`inbox-row-${item.id}`}
+                  className={`hover:bg-muted/50 transition-shadow ${
+                    activeHighlight === item.id
+                      ? "ring-2 ring-primary ring-inset bg-primary/5"
+                      : ""
+                  }`}
+                >
                   <TableCell>
                     <Badge variant={getTypeVariant(item.type)}>{item.type}</Badge>
                   </TableCell>
