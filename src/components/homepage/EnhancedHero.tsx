@@ -673,29 +673,22 @@ const EnhancedHero = ({ splashComplete = true }: { splashComplete?: boolean }) =
   );
 };
 
-/* ── Stat Badge sub-component ── */
-function StatBadge({
+/* ── Inline stat sub-component (no pill, lives inside the control strip) ── */
+function InlineStat({
   stat,
   statLabel,
   trigger,
-  shouldAnimate,
-  revealStyle,
 }: {
   stat: string;
   statLabel: string;
   trigger: number;
-  shouldAnimate: boolean;
-  revealStyle: (ms: number) => React.CSSProperties;
 }) {
   const display = useStatCounter(stat, trigger);
 
   return (
-    <div
-      className={`inline-flex items-center gap-3 rounded-full bg-white/10 backdrop-blur-xl border border-white/20 px-5 py-2.5 mb-8 ml-0 md:ml-2 ${shouldAnimate ? 'animate-hero-reveal' : ''}`}
-      style={revealStyle(1)}
-    >
-      <span className="text-2xl font-bold text-accent">{display}</span>
-      <span className="text-sm text-white/80">{statLabel}</span>
+    <div className="inline-flex items-baseline gap-2">
+      <span className="text-xl md:text-2xl font-bold text-accent tabular-nums">{display}</span>
+      <span className="text-xs md:text-sm text-white/70 font-medium uppercase tracking-wider">{statLabel}</span>
     </div>
   );
 }
