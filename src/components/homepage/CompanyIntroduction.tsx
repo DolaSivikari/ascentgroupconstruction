@@ -125,7 +125,7 @@ export default function CompanyIntroduction() {
                   <div
                     key={index}
                     className={cn(
-                      "group relative p-6 rounded-[var(--radius-lg)] border border-construction-orange/20 bg-white/60 dark:bg-slate-900/60 backdrop-blur-md",
+                      "group relative p-6 rounded-[var(--radius-lg)] border border-construction-orange/20 bg-white/60 dark:bg-card/60 backdrop-blur-md",
                       "hover:border-construction-orange/40 hover:shadow-[var(--shadow-lg)] hover:shadow-construction-orange/20",
                       "transition-all duration-300 hover:scale-105",
                       "overflow-hidden",
@@ -151,7 +151,7 @@ export default function CompanyIntroduction() {
 
           {/* Service Areas - Modern Info Card */}
           <div className="mb-12 max-w-5xl mx-auto">
-            <div className="relative p-8 rounded-[var(--radius-lg)] border border-construction-orange/20 bg-white/40 dark:bg-slate-900/40 backdrop-blur-md overflow-hidden">
+            <div className="relative p-8 rounded-[var(--radius-lg)] border border-construction-orange/20 bg-white/40 dark:bg-card/40 backdrop-blur-md overflow-hidden">
               <div className="absolute inset-0 bg-gradient-to-r from-construction-orange/5 via-transparent to-construction-orange/5" />
               <div className="relative z-10 grid md:grid-cols-2 gap-6 items-center">
                 <div className="flex items-start gap-4">

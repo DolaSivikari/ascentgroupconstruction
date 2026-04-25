@@ -55,7 +55,7 @@ const ValuePillars = () => {
             return (
               <Card 
                 key={pillar.id} 
-                className="group border border-construction-orange/20 bg-white/60 dark:bg-slate-900/60 backdrop-blur-md hover:border-construction-orange/40 hover:shadow-[var(--shadow-lg)] hover:shadow-construction-orange/20 transition-all duration-300 hover:scale-105 rounded-[var(--radius-lg)] overflow-hidden relative"
+                className="group border border-construction-orange/20 bg-white/60 dark:bg-card/60 backdrop-blur-md hover:border-construction-orange/40 hover:shadow-[var(--shadow-lg)] hover:shadow-construction-orange/20 transition-all duration-300 hover:scale-105 rounded-[var(--radius-lg)] overflow-hidden relative"
               >
                 <div className="absolute inset-0 bg-gradient-to-br from-construction-orange/0 to-construction-orange/0 group-hover:from-construction-orange/10 group-hover:to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 <CardContent className="p-6 relative z-10">

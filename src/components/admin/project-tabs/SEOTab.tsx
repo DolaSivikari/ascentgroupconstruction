@@ -197,7 +197,7 @@ export const SEOTab = ({ formData, onFormChange }: SEOTabProps) => {
       )}
       
       {formData.publish_state === "archived" && (
-        <div className="bg-muted/50 dark:bg-gray-950/20 border-2 border-border dark:border-border rounded-lg p-4">
+        <div className="bg-muted/50 dark:bg-muted/20 border-2 border-border dark:border-border rounded-lg p-4">
           <p className="text-sm font-medium text-muted-foreground dark:text-muted-foreground">
             📦 This project is <strong>ARCHIVED</strong> and hidden from the Projects page
           </p>
