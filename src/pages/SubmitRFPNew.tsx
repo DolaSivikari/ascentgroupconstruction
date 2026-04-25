@@ -305,22 +305,81 @@ export default function SubmitRFPNew() {
       {submitted ? (
         /* Success State — in-place, no redirect */
         <main className="flex-1 py-16">
-          <div className="container mx-auto px-4 max-w-2xl text-center animate-fade-in-up">
-            <div className="w-20 h-20 rounded-full bg-secondary/10 flex items-center justify-center mx-auto mb-6">
-              <CheckCircle2 className="w-10 h-10 text-secondary" />
+          <div className="container mx-auto px-4 max-w-2xl animate-fade-in-up">
+            <div className="text-center">
+              <div className="w-20 h-20 rounded-full bg-secondary/10 flex items-center justify-center mx-auto mb-6">
+                <CheckCircle2 className="w-10 h-10 text-secondary" />
+              </div>
+              <h2 className="text-3xl md:text-4xl font-bold mb-3 text-primary">RFP Received</h2>
+              <p className="text-lg text-muted-foreground mb-6 max-w-lg mx-auto">
+                Thank you for your proposal. Our estimating team will review and respond within 2 business days.
+              </p>
             </div>
-            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-primary">Your RFP Has Been Submitted</h2>
-            <p className="text-lg text-muted-foreground mb-2 max-w-lg mx-auto">
-              Thank you for your proposal. Our team will review your project details and respond within 2 business days.
-            </p>
+
+            {/* Reference ID card */}
+            {submissionRef && (
+              <Card className="mb-6">
+                <CardContent className="p-6">
+                  <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                    <div>
+                      <p className="text-xs uppercase tracking-wider text-muted-foreground mb-1">Reference ID</p>
+                      <p className="text-2xl font-mono font-bold text-primary tracking-wider">{submissionRef}</p>
+                      {submittedAt && (
+                        <p className="text-xs text-muted-foreground mt-1">
+                          Submitted {submittedAt.toLocaleString()}
+                        </p>
+                      )}
+                    </div>
+                    <Button variant="secondary" onClick={copyRef} className="shrink-0">
+                      {refCopied ? (<><Check className="w-4 h-4 mr-2" />Copied</>) : (<><Copy className="w-4 h-4 mr-2" />Copy ID</>)}
+                    </Button>
+                  </div>
+                  <p className="text-sm text-muted-foreground mt-3">
+                    Please reference this ID in any follow-up correspondence with our team.
+                  </p>
+                </CardContent>
+              </Card>
+            )}
+
+            {/* Timeline card */}
+            <Card className="mb-6 border-secondary/20 bg-secondary/5">
+              <CardContent className="p-6">
+                <h3 className="font-bold text-primary mb-4 uppercase text-xs tracking-wider">What happens next</h3>
+                <ol className="space-y-3">
+                  <li className="flex gap-3">
+                    <span className="flex-shrink-0 w-7 h-7 rounded-full bg-primary text-primary-foreground text-xs font-bold flex items-center justify-center">1</span>
+                    <div>
+                      <p className="font-semibold text-sm">Review (24–48 hours)</p>
+                      <p className="text-sm text-muted-foreground">Our estimating team reviews your project requirements.</p>
+                    </div>
+                  </li>
+                  <li className="flex gap-3">
+                    <span className="flex-shrink-0 w-7 h-7 rounded-full bg-primary text-primary-foreground text-xs font-bold flex items-center justify-center">2</span>
+                    <div>
+                      <p className="font-semibold text-sm">Initial contact (within 2 business days)</p>
+                      <p className="text-sm text-muted-foreground">We reach out to discuss details and clarify questions.</p>
+                    </div>
+                  </li>
+                  <li className="flex gap-3">
+                    <span className="flex-shrink-0 w-7 h-7 rounded-full bg-primary text-primary-foreground text-xs font-bold flex items-center justify-center">3</span>
+                    <div>
+                      <p className="font-semibold text-sm">Proposal & presentation</p>
+                      <p className="text-sm text-muted-foreground">We prepare and walk you through a tailored proposal.</p>
+                    </div>
+                  </li>
+                </ol>
+              </CardContent>
+            </Card>
+
             {attachmentFiles.length > 0 && (
-              <p className="text-sm text-muted-foreground mb-2">
+              <p className="text-sm text-muted-foreground text-center mb-2">
                 {attachmentFiles.length} file{attachmentFiles.length > 1 ? "s" : ""} uploaded successfully.
               </p>
             )}
-            <p className="text-sm text-muted-foreground mb-8">
+            <p className="text-sm text-muted-foreground text-center mb-8">
               A confirmation has been sent to your email address.
             </p>
+
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button asChild>
                 <Link to="/"><Home className="w-4 h-4 mr-2" />Return Home</Link>
@@ -328,6 +387,13 @@ export default function SubmitRFPNew() {
               <Button asChild variant="secondary">
                 <Link to="/contact"><Phone className="w-4 h-4 mr-2" />Contact Us</Link>
               </Button>
+              {isAdmin && submissionId && (
+                <Button asChild variant="secondary">
+                  <Link to={`/admin/inbox?tab=rfp&highlight=${submissionId}`}>
+                    <Shield className="w-4 h-4 mr-2" />View in Admin Inbox
+                  </Link>
+                </Button>
+              )}
             </div>
           </div>
         </main>
