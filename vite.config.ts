@@ -52,6 +52,16 @@ export default defineConfig(({ mode }) => {
           generatedCode: {
             constBindings: true,
           },
+          // Conservative vendor splitting — 4 well-isolated chunks only.
+          // Keep groups narrow to avoid the blank-page issue noted in
+          // mem://tech/production-deployment-reliability.
+          manualChunks(id) {
+            if (!id.includes('node_modules')) return;
+            if (id.includes('recharts') || id.includes('/d3-')) return 'chunk-charts';
+            if (id.includes('@tanstack/react-query')) return 'chunk-query';
+            if (id.includes('framer-motion')) return 'chunk-motion';
+            if (id.includes('@radix-ui/')) return 'chunk-radix';
+          },
         },
       },
       chunkSizeWarningLimit: 400, // Warn if chunks exceed 400KB (stricter budget)
