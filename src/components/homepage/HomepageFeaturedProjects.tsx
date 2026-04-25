@@ -8,6 +8,7 @@ import { StaggerContainer } from "@/components/animations/StaggerContainer";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/ui/Button";
+import { ProjectFeaturedImage } from "@/components/projects/ProjectFeaturedImage";
 
 import { GRID } from "@/design-system/layouts";
 
