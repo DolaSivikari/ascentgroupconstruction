@@ -8,6 +8,7 @@ import { StaggerContainer } from "@/components/animations/StaggerContainer";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/ui/Button";
+import { ProjectFeaturedImage } from "@/components/projects/ProjectFeaturedImage";
 
 import { GRID } from "@/design-system/layouts";
 
@@ -100,22 +101,13 @@ export const HomepageFeaturedProjects = () => {
                 direction={index % 3 === 0 ? "left" : index % 3 === 1 ? "up" : "right"}
                 delay={index * 100}
               >
-                <Card variant="interactive" className="overflow-hidden hover-subtle h-full flex flex-col">
+                <Card variant="interactive" className="group overflow-hidden hover-subtle h-full flex flex-col">
                   <Link to={`/projects/${project.slug}`} className="block">
-                    <div className="relative overflow-hidden aspect-[4/3] bg-muted">
-                      {project.featured_image ? (
-                        <img
-                          src={project.featured_image}
-                          alt={project.title}
-                          className="absolute inset-0 w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
-                          loading="lazy"
-                        />
-                      ) : (
-                        <div className="absolute inset-0 flex items-center justify-center bg-muted text-muted-foreground text-xs">
-                          AGC
-                        </div>
-                      )}
-                    </div>
+                    <ProjectFeaturedImage
+                      src={project.featured_image}
+                      alt={project.title}
+                      variant="card"
+                    />
                   </Link>
                   <CardContent className="p-5 flex-1 flex flex-col">
                     <div className="flex items-center gap-2 mb-3 flex-wrap">

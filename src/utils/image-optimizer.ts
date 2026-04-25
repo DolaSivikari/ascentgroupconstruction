@@ -186,3 +186,60 @@ export const QUALITY_PRESETS = {
   standard: { webp: 85, avif: 75, jpg: 80 },
   highQuality: { webp: 95, avif: 85, jpg: 90 },
 } as const;
+
+/**
+ * Read intrinsic dimensions from a File before upload.
+ */
+export const readImageDimensions = (
+  file: File
+): Promise<{ width: number; height: number }> => {
+  return new Promise((resolve, reject) => {
+    const objectUrl = URL.createObjectURL(file);
+    const img = new Image();
+    img.onload = () => {
+      URL.revokeObjectURL(objectUrl);
+      resolve({ width: img.naturalWidth, height: img.naturalHeight });
+    };
+    img.onerror = () => {
+      URL.revokeObjectURL(objectUrl);
+      reject(new Error('Could not read image dimensions'));
+    };
+    img.src = objectUrl;
+  });
+};
+
+/**
+ * Validate an image against minimum dimensions and orientation.
+ * Returns null if valid, or an error message string if invalid.
+ */
+export interface ImageValidationOptions {
+  minWidth?: number;
+  minHeight?: number;
+  /** Reject portrait / square images (require landscape ratio >= this). */
+  minAspectRatio?: number;
+}
+
+export const validateImageFile = async (
+  file: File,
+  opts: ImageValidationOptions = {}
+): Promise<string | null> => {
+  try {
+    const { width, height } = await readImageDimensions(file);
+
+    if (opts.minWidth && width < opts.minWidth) {
+      return `Image is too small (${width}×${height}px). Minimum width: ${opts.minWidth}px.`;
+    }
+    if (opts.minHeight && height < opts.minHeight) {
+      return `Image is too small (${width}×${height}px). Minimum height: ${opts.minHeight}px.`;
+    }
+    if (opts.minAspectRatio) {
+      const ratio = width / height;
+      if (ratio < opts.minAspectRatio) {
+        return `Featured images must be landscape (current ratio ${calculateAspectRatio(width, height)}). Please crop to at least ${opts.minAspectRatio}:1 before uploading.`;
+      }
+    }
+    return null;
+  } catch {
+    return 'Could not read image file. Please try another image.';
+  }
+};

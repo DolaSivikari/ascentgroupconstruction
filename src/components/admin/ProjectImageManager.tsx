@@ -1,6 +1,8 @@
 import React, { useState, useCallback } from 'react';
 import { Upload, X, Image as ImageIcon, Grid, List, Eye, Trash2, Star, GripVertical } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
+import { validateImageFile } from '@/utils/image-optimizer';
+import { toast } from 'sonner';
 import {
   DndContext,
   closestCenter,
@@ -220,19 +222,35 @@ export const ProjectImageManager: React.FC<ProjectImageManagerProps> = ({
   // Upload images to Supabase
   const uploadImages = async (files: File[], category: string) => {
     const newImages: ProjectImage[] = [];
-    
+
     for (let i = 0; i < files.length; i++) {
       const file = files[i];
       const fileId = `${Date.now()}-${i}`;
-      
+
+      // Size guard (max 10MB per gallery image)
+      if (file.size > 10 * 1024 * 1024) {
+        toast.error(`${file.name} is larger than 10MB and was skipped.`);
+        continue;
+      }
+
+      // Dimension guard (min 800x600)
+      const dimensionError = await validateImageFile(file, {
+        minWidth: 800,
+        minHeight: 600,
+      });
+      if (dimensionError) {
+        toast.error(`${file.name}: ${dimensionError}`);
+        continue;
+      }
+
       try {
         // Update progress
         setUploadProgress(prev => ({ ...prev, [fileId]: 0 }));
-        
+
         // Create unique filename
         const fileExt = file.name.split('.').pop();
         const fileName = `${projectId}/${category}/${Date.now()}-${i}.${fileExt}`;
-        
+
         // Upload to Supabase Storage
         const { data, error } = await supabase.storage
           .from('project-images')
@@ -259,16 +277,16 @@ export const ProjectImageManager: React.FC<ProjectImageManagerProps> = ({
 
         // Update progress to complete
         setUploadProgress(prev => ({ ...prev, [fileId]: 100 }));
-        
+
       } catch (error) {
         console.error('Upload error:', error);
-        alert(`Failed to upload ${file.name}`);
+        toast.error(`Failed to upload ${file.name}`);
       }
     }
 
     // Update parent component
     onImagesUpdate([...images, ...newImages]);
-    
+
     // Clear progress after delay
     setTimeout(() => setUploadProgress({}), 2000);
   };

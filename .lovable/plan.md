@@ -1,126 +1,120 @@
-## Fix the awkward Featured Image on every project page
+## Goal
 
-### What's wrong (root cause)
+Eliminate letterboxing, layout shift, and inconsistent featured-image rendering across projects by:
 
-In `src/pages/ProjectDetail.tsx` (lines 252–293), the featured-image block does this:
+1. Validating image dimensions at upload time (admin)
+2. Adding loading skeletons + branded fallbacks for featured images and gallery thumbnails
+3. Refactoring all "featured image" rendering to one shared component so any new project automatically inherits the same styling
 
-```tsx
-<div className="aspect-[4/3] md:aspect-[2/1] ..."> // forces 2:1 box on desktop
-  <OptimizedImage
-    objectFit="contain"  // shrinks image to fit inside the box
-    className="... object-contain ..."
-  />
-</div>
+---
+
+## 1. New shared component: `src/components/projects/ProjectFeaturedImage.tsx`
+
+A single source of truth for featured image rendering across the site.
+
+**Props:**
+```ts
+interface ProjectFeaturedImageProps {
+  src?: string | null;
+  alt: string;
+  variant?: "banner" | "card" | "thumbnail"; // banner = detail page, card = grid, thumbnail = small
+  priority?: boolean;
+  onClick?: () => void;
+  className?: string;
+}
 ```
 
-That combo (`aspect-[2/1]` + `object-contain`) is what's creating the awkward look you screenshotted:
+**Behavior:**
+- **Aspect ratios per variant** (locked, no layout shift):
+  - `banner`: `aspect-[16/9] md:aspect-[21/9]` (detail page hero)
+  - `card`: `aspect-[4/3]` (grid cards — Projects page, Homepage Featured, FeaturedProjects, ServicesFeaturedWork)
+  - `thumbnail`: `aspect-square` (small lists, related projects)
+- **Skeleton state**: animated `Skeleton` fills the container while `OptimizedImage` resolves (uses existing `useImageLoad` hook signal). No flash, no jump — container reserves space via aspect-ratio.
+- **Fallback state**: when `src` is missing or fails, render branded placeholder — `bg-muted` + centered "AGC" mark + small caption — already used in `ProjectDetail` and `HomepageFeaturedProjects`. Standardized here.
+- **Object-fit**: always `object-cover object-center` (no letterboxing).
+- **Hover zoom**: subtle `group-hover:scale-[1.03]` for `banner`, `scale-105` for `card`.
+- Wraps `OptimizedImage` internally so AVIF/WebP/srcset/fetchpriority continue to work.
 
-- The container is forced into a **fixed 2:1 wide box**
-- `object-contain` then **letterboxes** the real image inside it — leaving gray bars on the sides for portrait/square images, or top/bottom for non-2:1 landscape images
-- The grey is `bg-muted/20` from `OptimizedImage` showing through behind the contained image
-- Because admins upload images at all kinds of aspect ratios (phone shots, drone, panoramas), almost no image fits 2:1 perfectly → almost every project looks broken
+---
 
-This is rendered from a single component, so **fixing it once fixes every project — past, present, and future** with no per-project work.
+## 2. Refactor existing featured-image renderers to use the shared component
 
-### The fix — Editorial "cinematic banner" treatment
+Replace inline `<img>` / `<OptimizedImage>` blocks with `<ProjectFeaturedImage />`:
 
-Replace the block with a polished, magazine-style featured hero used by enterprise construction sites (PCL, Turner, Lendlease):
+| File | Variant | Notes |
+|---|---|---|
+| `src/pages/ProjectDetail.tsx` (lines 252–297) | `banner` | Keep lightbox button wrapper + gradient overlay + Maximize2 hint outside the component |
+| `src/components/homepage/HomepageFeaturedProjects.tsx` (lines 105–118) | `card` | Replace inline `<img>` + AGC fallback |
+| `src/components/FeaturedProjects.tsx` (lines 27–35) | `card` | Add fallback (currently renders nothing if missing) |
+| `src/components/services/ServicesFeaturedWork.tsx` (line 55–60 area) | `card` | Standardize |
+| `src/pages/Projects.tsx` → `ProjectCard.tsx` (currently uses `OptimizedImage` directly) | `card` | Swap inner image renderer |
+| `src/components/ProjectFeaturedCard.tsx` | `banner`-ish (large featured) | Use `card` variant or extend with `wide` if needed |
 
-1. **Cinematic 21:9 / 16:9 cropped banner**
-   - Container: `aspect-[16/9] md:aspect-[21/9]` (wide cinematic ratio, not letterbox-tall 2:1)
-   - Image: `object-cover` instead of `object-contain` — fills the frame edge-to-edge, no gray bars, ever
-   - `object-position: center` so the most important part of the photo stays in frame
-   - Use the existing `ASPECT_RATIOS` token from `src/design-system/image-system.ts` for consistency with cards
+**Result:** any new project posted from admin automatically gets identical styling everywhere — no per-page tweaks needed.
 
-2. **Subtle gradient + caption overlay** (optional, looks premium)
-   - Bottom-aligned dark-to-transparent gradient
-   - Floating "Click to view full image" hint pill in the corner with a `Maximize2` icon (replaces the invisible `aria-label`)
-   - Project title overlay is **not** added — the page already has a header above
+---
 
-3. **Branded fallback when no image is uploaded**
-   - Currently if `featured_image` is missing the entire block disappears — looks like a layout bug
-   - Add a graceful fallback: muted background with the AGC mark + "Project imagery coming soon" (matches the data-integrity standard already used on cards)
+## 3. Loading skeletons & graceful fallbacks for gallery thumbnails
 
-4. **Consistent container width & rounded corners**
-   - Wrap in `container mx-auto px-4` (already there) and `rounded-xl` for editorial feel
-   - Add a soft `shadow-md` to lift it off the page
+In `src/components/ProjectGallery.tsx`:
+- Wrap each gallery thumbnail in a fixed `aspect-[4/3]` container with `Skeleton` underneath.
+- On image load error → swap to AGC fallback (same branded placeholder as featured).
+- Reserve space so the grid never jumps as images stream in.
 
-5. **Reuse `OptimizedImage` correctly**
-   - Drop `objectFit="contain"` → use `objectFit="cover"` (default-friendly)
-   - Keep `priority` so it loads instantly (LCP element)
-   - Keep the `InteractiveLightbox` integration so clicking still opens the full untouched image
+In `src/components/admin/ProjectImageManager.tsx`:
+- Same skeleton + fallback for admin previews so editors see consistent layout.
 
-### Code shape (single edit to `src/pages/ProjectDetail.tsx`, ~lines 252–293)
+---
 
-```tsx
-{/* Featured Image — editorial cinematic banner */}
-<div className="container mx-auto px-4 py-8">
-  {project.featured_image ? (
-    <button
-      type="button"
-      onClick={() => setLightboxOpen(true)}
-      className="group relative block w-full overflow-hidden rounded-xl shadow-md
-                 aspect-[16/9] md:aspect-[21/9] bg-muted
-                 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
-      aria-label="View full image"
-    >
-      <OptimizedImage
-        src={project.featured_image}
-        alt={project.title}
-        className="w-full h-full object-cover object-center
-                   transition-transform duration-500 group-hover:scale-[1.03]"
-        objectFit="cover"
-        priority
-      />
-      {/* Subtle bottom gradient for premium feel */}
-      <div className="absolute inset-x-0 bottom-0 h-24
-                      bg-gradient-to-t from-black/40 to-transparent
-                      pointer-events-none" />
-      {/* Expand hint */}
-      <div className="absolute bottom-4 right-4 inline-flex items-center gap-1.5
-                      rounded-full bg-background/90 backdrop-blur px-3 py-1.5
-                      text-xs font-medium text-foreground shadow-sm
-                      opacity-0 group-hover:opacity-100 transition-opacity">
-        <Maximize2 className="h-3.5 w-3.5" />
-        View full image
-      </div>
-    </button>
-  ) : (
-    {/* Branded fallback for projects without a featured image */}
-    <div className="w-full aspect-[16/9] md:aspect-[21/9] rounded-xl
-                    bg-muted flex flex-col items-center justify-center text-muted-foreground">
-      <span className="text-2xl font-bold tracking-wider">AGC</span>
-      <span className="text-xs mt-1">Project imagery coming soon</span>
-    </div>
-  )}
+## 4. Aspect-ratio & size validation on upload (admin)
 
-  <InteractiveLightbox
-    images={project.featured_image ? [{
-      src: project.featured_image,
-      alt: project.title,
-      caption: project.title,
-    }] : []}
-    isOpen={lightboxOpen}
-    onClose={() => setLightboxOpen(false)}
-    initialIndex={0}
-  />
-</div>
-```
+Update `src/components/admin/ImageUploadField.tsx` (already has partial validation via `validateAspectRatio`):
 
-Plus add `Maximize2` to the existing `lucide-react` import on line 20.
+**Featured image upload (in `ImagesTab.tsx`):**
+- Pass `targetAspectRatio="21/9"` with `tolerance: 0.15` — wide tolerance accepts 16/9 through 21/9 without warning.
+- **Hard reject** images narrower than 4/3 (portrait or near-square) with toast: *"Featured images must be landscape (minimum 4:3). Current ratio: X:Y. Please crop before uploading."*
+- **Min dimensions**: 1200×675 px. Reject smaller with toast.
+- **Soft warning** (not block): if ratio differs from 16/9 by >5%, show existing warning panel suggesting crop, but allow upload — `object-cover` will handle it cleanly.
 
-### Why this is the right fix
+**Gallery image upload (in `ProjectImageManager.tsx`):**
+- Min dimensions: 800×600 px.
+- No strict aspect ratio (gallery accepts variety), but warn if extreme (>3:1 or <1:3).
+- Strip oversized files (>10MB) with clear error.
 
-- **One file changes (`ProjectDetail.tsx`).** Every project page rendered through this route gets the new treatment instantly — including new projects you upload later. No per-project edits, no DB migration.
-- **No more gray letterbox bars** — `object-cover` fills the frame regardless of upload dimensions.
-- **Consistent shape across the site** — 16:9/21:9 matches the hero ratio token already defined in `design-system/image-system.ts`.
-- **Graceful when no image is uploaded** — branded AGC fallback instead of the section disappearing.
-- **Fully accessible** — `<button>` element, focus ring, keyboard-activated lightbox (Enter/Space work natively).
-- **No breaking changes** — lightbox click-to-zoom still works; SEO `ogImage` and skeleton loading are untouched.
+**Why this combination works:**
+- `object-cover` in the renderer handles small ratio mismatches gracefully.
+- Upload validation prevents the worst cases (tiny images, wrong orientation) that even `object-cover` can't save.
+- No images already in the DB break — validation is upload-time only; existing images render via the new `cover`-based component without letterboxing.
 
-### Files touched
-1. `src/pages/ProjectDetail.tsx` — replace the featured-image block (lines ~252–293) and add `Maximize2` to lucide import.
+---
 
-That's it. One file, applies everywhere.
+## 5. Files to be edited / created
 
-Approve and I'll ship it.
+**New:**
+- `src/components/projects/ProjectFeaturedImage.tsx`
+
+**Edited:**
+- `src/pages/ProjectDetail.tsx`
+- `src/components/homepage/HomepageFeaturedProjects.tsx`
+- `src/components/FeaturedProjects.tsx`
+- `src/components/services/ServicesFeaturedWork.tsx`
+- `src/components/ProjectCard.tsx`
+- `src/components/ProjectFeaturedCard.tsx`
+- `src/components/ProjectGallery.tsx` (skeletons + fallback)
+- `src/components/admin/ImageUploadField.tsx` (stricter validation, min-dimension check)
+- `src/components/admin/project-tabs/ImagesTab.tsx` (pass targetAspectRatio + min dims)
+- `src/components/admin/ProjectImageManager.tsx` (gallery validation + skeleton previews)
+
+**Memory updates:**
+- New memory: `mem://design/project-featured-image-system` documenting the shared component + validation rules so future work stays consistent.
+
+---
+
+## What stays the same
+
+- `OptimizedImage` remains the low-level renderer (AVIF/WebP/srcset).
+- `InteractiveLightbox` still handles full-image viewing.
+- Existing gallery categorization, before/after slider, lightbox UX — untouched.
+- No DB migration needed; validation is client-side at upload.
+
+Approve to proceed.

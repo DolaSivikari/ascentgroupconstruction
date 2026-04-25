@@ -4,7 +4,7 @@ import { Button } from '@/ui/Button';
 import { uploadImage } from '@/utils/imageResolver';
 import { toast } from 'sonner';
 import { supabase } from '@/integrations/supabase/client';
-import { validateAspectRatio, calculateAspectRatio } from '@/utils/image-optimizer';
+import { validateAspectRatio, calculateAspectRatio, validateImageFile } from '@/utils/image-optimizer';
 
 interface ImageUploadFieldProps {
   value?: string;
@@ -14,6 +14,12 @@ interface ImageUploadFieldProps {
   accept?: string;
   targetAspectRatio?: string; // e.g., '16/9', '4/3'
   useProcessingFunction?: boolean; // Use edge function for processing
+  /** Minimum acceptable width in pixels (rejects smaller). */
+  minWidth?: number;
+  /** Minimum acceptable height in pixels (rejects smaller). */
+  minHeight?: number;
+  /** Reject portrait/near-square uploads (e.g. 1.33 = 4:3 minimum). */
+  minAspectRatio?: number;
 }
 
 export const ImageUploadField = ({
@@ -24,6 +30,9 @@ export const ImageUploadField = ({
   accept = 'image/*',
   targetAspectRatio,
   useProcessingFunction = false,
+  minWidth,
+  minHeight,
+  minAspectRatio,
 }: ImageUploadFieldProps) => {
   const [isUploading, setIsUploading] = useState(false);
   const [preview, setPreview] = useState<string | null>(value || null);
@@ -37,31 +46,47 @@ export const ImageUploadField = ({
     // Validate file size (max 5MB)
     if (file.size > 5 * 1024 * 1024) {
       toast.error('File size must be less than 5MB');
+      if (fileInputRef.current) fileInputRef.current.value = '';
       return;
     }
 
-    setIsUploading(true);
     setAspectRatioWarning(null);
 
+    // HARD validation: dimensions + orientation (rejects upload outright)
+    if (minWidth || minHeight || minAspectRatio) {
+      const validationError = await validateImageFile(file, {
+        minWidth,
+        minHeight,
+        minAspectRatio,
+      });
+      if (validationError) {
+        toast.error(validationError);
+        if (fileInputRef.current) fileInputRef.current.value = '';
+        return;
+      }
+    }
+
+    setIsUploading(true);
+
     try {
-      // PHASE 2: Validate aspect ratio if specified
+      // SOFT validation: aspect ratio guidance (warns but allows)
       if (targetAspectRatio) {
         const img = new Image();
         const objectUrl = URL.createObjectURL(file);
-        
+
         await new Promise((resolve, reject) => {
           img.onload = resolve;
           img.onerror = reject;
           img.src = objectUrl;
         });
 
-        const isValid = validateAspectRatio(img.width, img.height, targetAspectRatio);
+        const isValid = validateAspectRatio(img.width, img.height, targetAspectRatio, 0.15);
         const actualRatio = calculateAspectRatio(img.width, img.height);
-        
+
         if (!isValid) {
           setAspectRatioWarning(
             `Image aspect ratio is ${actualRatio} but ${targetAspectRatio} is recommended. ` +
-            `Image may appear distorted or cropped.`
+            `It will be cropped to fit — center subjects accordingly.`
           );
         }
 
