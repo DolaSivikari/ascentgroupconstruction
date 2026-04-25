@@ -637,19 +637,6 @@ const EnhancedHero = ({ splashComplete = true }: { splashComplete?: boolean }) =
         </div>
       )}
 
-      {/* ── Play/Pause Control ── */}
-      <button
-        onClick={togglePlayPause}
-        className="absolute bottom-8 right-8 z-20 w-12 h-12 rounded-full bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/20 hover:border-white/40 flex items-center justify-center transition-all duration-500 group hover:-translate-y-0.5"
-        aria-label={isPlaying ? "Pause autoplay" : "Resume autoplay"}
-      >
-        {isPlaying ? (
-          <Pause className="h-5 w-5 text-white group-hover:scale-110 transition-transform duration-300" />
-        ) : (
-          <Play className="h-5 w-5 text-white group-hover:scale-110 transition-transform duration-300" />
-        )}
-      </button>
-
       {/* ── Scroll Indicator — pulsing line + label, gated to tall viewports ── */}
       <AnimatedScrollIndicator />
 
