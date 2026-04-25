@@ -48,7 +48,7 @@ const ProjectCard = ({ project }: { project: Project }) => (
           </Badge>
         )}
       </div>
-      <Link to={`/blog/${project.slug}`}>
+      <Link to={`/projects/${project.slug}`}>
       <h3 className="text-xl font-bold mb-2 hover:text-primary link-hover">
           {project.title}
         </h3>
