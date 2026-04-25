@@ -30,6 +30,9 @@ export const ImageUploadField = ({
   accept = 'image/*',
   targetAspectRatio,
   useProcessingFunction = false,
+  minWidth,
+  minHeight,
+  minAspectRatio,
 }: ImageUploadFieldProps) => {
   const [isUploading, setIsUploading] = useState(false);
   const [preview, setPreview] = useState<string | null>(value || null);
@@ -43,31 +46,47 @@ export const ImageUploadField = ({
     // Validate file size (max 5MB)
     if (file.size > 5 * 1024 * 1024) {
       toast.error('File size must be less than 5MB');
+      if (fileInputRef.current) fileInputRef.current.value = '';
       return;
     }
 
-    setIsUploading(true);
     setAspectRatioWarning(null);
 
+    // HARD validation: dimensions + orientation (rejects upload outright)
+    if (minWidth || minHeight || minAspectRatio) {
+      const validationError = await validateImageFile(file, {
+        minWidth,
+        minHeight,
+        minAspectRatio,
+      });
+      if (validationError) {
+        toast.error(validationError);
+        if (fileInputRef.current) fileInputRef.current.value = '';
+        return;
+      }
+    }
+
+    setIsUploading(true);
+
     try {
-      // PHASE 2: Validate aspect ratio if specified
+      // SOFT validation: aspect ratio guidance (warns but allows)
       if (targetAspectRatio) {
         const img = new Image();
         const objectUrl = URL.createObjectURL(file);
-        
+
         await new Promise((resolve, reject) => {
           img.onload = resolve;
           img.onerror = reject;
           img.src = objectUrl;
         });
 
-        const isValid = validateAspectRatio(img.width, img.height, targetAspectRatio);
+        const isValid = validateAspectRatio(img.width, img.height, targetAspectRatio, 0.15);
         const actualRatio = calculateAspectRatio(img.width, img.height);
-        
+
         if (!isValid) {
           setAspectRatioWarning(
             `Image aspect ratio is ${actualRatio} but ${targetAspectRatio} is recommended. ` +
-            `Image may appear distorted or cropped.`
+            `It will be cropped to fit — center subjects accordingly.`
           );
         }
 
