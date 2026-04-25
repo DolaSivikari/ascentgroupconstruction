@@ -8,6 +8,7 @@ import { cn } from "@/lib/utils";
 import { resolveAssetPath } from "@/utils/assetResolver";
 
 import OptimizedImage from "./OptimizedImage";
+import { ProjectFeaturedImage } from "@/components/projects/ProjectFeaturedImage";
 import { ASPECT_RATIOS } from "@/design-system/image-system";
 
 const stripHtml = (html: string) => html.replace(/<[^>]*>/g, '').trim();
