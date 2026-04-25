@@ -86,7 +86,7 @@ const EstimatorStep4 = ({ estimate, formData }: Step4Props) => {
         </ul>
       </Card>
 
-      <div className="bg-blue-50 dark:bg-blue-950/20 border border-blue-200 dark:border-blue-800 rounded-lg p-4">
+      <div className="bg-info/10 dark:bg-info/20 border border-info/30 dark:border-info/30 rounded-lg p-4">
         <p className="text-sm text-foreground/80">
           <strong>Note:</strong> {estimate.explanation} This is an estimated range. Final pricing will be determined after an on-site inspection.
         </p>

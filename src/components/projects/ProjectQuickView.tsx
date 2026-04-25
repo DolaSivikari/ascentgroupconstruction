@@ -87,21 +87,21 @@ export const ProjectQuickView = ({ project, open, onOpenChange }: ProjectQuickVi
             )}
             {project.on_time_completion !== undefined && (
               <div className="p-3 bg-muted rounded-lg text-center">
-                <CheckCircle2 className="w-5 h-5 mx-auto mb-1 text-green-600" />
+                <CheckCircle2 className="w-5 h-5 mx-auto mb-1 text-success" />
                 <p className="text-xs text-muted-foreground">On Time</p>
                 <p className="font-bold">{project.on_time_completion ? "Yes" : "No"}</p>
               </div>
             )}
             {project.on_budget !== undefined && (
               <div className="p-3 bg-muted rounded-lg text-center">
-                <CheckCircle2 className="w-5 h-5 mx-auto mb-1 text-green-600" />
+                <CheckCircle2 className="w-5 h-5 mx-auto mb-1 text-success" />
                 <p className="text-xs text-muted-foreground">On Budget</p>
                 <p className="font-bold">{project.on_budget ? "Yes" : "No"}</p>
               </div>
             )}
             {project.safety_incidents !== undefined && (
               <div className="p-3 bg-muted rounded-lg text-center">
-                <CheckCircle2 className="w-5 h-5 mx-auto mb-1 text-green-600" />
+                <CheckCircle2 className="w-5 h-5 mx-auto mb-1 text-success" />
                 <p className="text-xs text-muted-foreground">Safety</p>
                 <p className="font-bold">{project.safety_incidents} Incidents</p>
               </div>

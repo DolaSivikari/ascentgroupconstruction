@@ -162,17 +162,17 @@ export const SEOTab = ({ formData, onFormChange }: SEOTabProps) => {
 
       {/* Publication Status Alerts */}
       {formData.publish_state === "draft" && (
-        <div className="bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded-lg p-4">
+        <div className="bg-warning/10 dark:bg-warning/20 border border-warning/30 dark:border-warning/30 rounded-lg p-4">
           <div className="flex items-start gap-3">
             <div className="text-2xl">⚠️</div>
             <div className="flex-1">
-              <h4 className="font-semibold text-yellow-900 dark:text-yellow-100 mb-1">
+              <h4 className="font-semibold text-warning dark:text-warning mb-1">
                 This project is not visible to the public
               </h4>
-              <p className="text-sm text-yellow-800 dark:text-yellow-200 mb-2">
+              <p className="text-sm text-warning dark:text-warning mb-2">
                 Your project is currently in <strong>Draft</strong> mode. It won't appear on the website until you change the status to <strong>Published</strong>.
               </p>
-              <p className="text-xs text-yellow-700 dark:text-yellow-300">
+              <p className="text-xs text-warning dark:text-warning">
                 💡 <strong>To make it live:</strong> Select "Published" from the dropdown above and save your changes.
               </p>
             </div>
@@ -181,24 +181,24 @@ export const SEOTab = ({ formData, onFormChange }: SEOTabProps) => {
       )}
       
       {formData.publish_state === "published" && (
-        <div className="bg-green-50 dark:bg-green-950/20 border-2 border-green-500 dark:border-green-700 rounded-lg p-4">
-          <p className="text-sm font-medium text-green-900 dark:text-green-100">
+        <div className="bg-success/10 dark:bg-success/20 border-2 border-success dark:border-success rounded-lg p-4">
+          <p className="text-sm font-medium text-success dark:text-success">
             ✅ This project is <strong>LIVE</strong> and visible on the Projects page
           </p>
         </div>
       )}
       
       {formData.publish_state === "draft" && (
-        <div className="bg-yellow-50 dark:bg-yellow-950/20 border-2 border-yellow-500 dark:border-yellow-700 rounded-lg p-4">
-          <p className="text-sm font-medium text-yellow-900 dark:text-yellow-100">
+        <div className="bg-warning/10 dark:bg-warning/20 border-2 border-warning dark:border-warning rounded-lg p-4">
+          <p className="text-sm font-medium text-warning dark:text-warning">
             ⚠️ This project is a <strong>DRAFT</strong> and will NOT appear on the Projects page until published
           </p>
         </div>
       )}
       
       {formData.publish_state === "archived" && (
-        <div className="bg-gray-50 dark:bg-gray-950/20 border-2 border-gray-400 dark:border-gray-700 rounded-lg p-4">
-          <p className="text-sm font-medium text-gray-900 dark:text-gray-100">
+        <div className="bg-muted/50 dark:bg-muted/20 border-2 border-border dark:border-border rounded-lg p-4">
+          <p className="text-sm font-medium text-muted-foreground dark:text-muted-foreground">
             📦 This project is <strong>ARCHIVED</strong> and hidden from the Projects page
           </p>
         </div>

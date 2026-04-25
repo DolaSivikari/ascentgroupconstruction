@@ -738,7 +738,7 @@ Disallow: /auth`;
         {/* Search Analytics Tab */}
         <TabsContent value="analytics" className="space-y-6">
           {/* Connection Status & Controls */}
-          <Card className={isConnected ? 'border-green-500/50' : 'border-yellow-500/50'}>
+          <Card className={isConnected ? 'border-success/50' : 'border-warning/50'}>
             <CardHeader>
               <div className="flex items-center justify-between">
                 <div>
@@ -854,13 +854,13 @@ Disallow: /auth`;
                     <p className="text-xs flex items-center gap-1">
                       {clicksChange > 0 ? (
                         <>
-                          <TrendingUp className="h-3 w-3 text-green-500" />
-                          <span className="text-green-500">+{clicksChange.toFixed(1)}%</span>
+                          <TrendingUp className="h-3 w-3 text-success" />
+                          <span className="text-success">+{clicksChange.toFixed(1)}%</span>
                         </>
                       ) : (
                         <>
-                          <TrendingDown className="h-3 w-3 text-red-500" />
-                          <span className="text-red-500">{clicksChange.toFixed(1)}%</span>
+                          <TrendingDown className="h-3 w-3 text-danger" />
+                          <span className="text-danger">{clicksChange.toFixed(1)}%</span>
                         </>
                       )}
                       <span className="text-muted-foreground">vs previous period</span>
@@ -878,13 +878,13 @@ Disallow: /auth`;
                     <p className="text-xs flex items-center gap-1">
                       {impressionsChange > 0 ? (
                         <>
-                          <TrendingUp className="h-3 w-3 text-green-500" />
-                          <span className="text-green-500">+{impressionsChange.toFixed(1)}%</span>
+                          <TrendingUp className="h-3 w-3 text-success" />
+                          <span className="text-success">+{impressionsChange.toFixed(1)}%</span>
                         </>
                       ) : (
                         <>
-                          <TrendingDown className="h-3 w-3 text-red-500" />
-                          <span className="text-red-500">{impressionsChange.toFixed(1)}%</span>
+                          <TrendingDown className="h-3 w-3 text-danger" />
+                          <span className="text-danger">{impressionsChange.toFixed(1)}%</span>
                         </>
                       )}
                       <span className="text-muted-foreground">vs previous period</span>
@@ -1075,7 +1075,7 @@ Disallow: /auth`;
                   placeholder="Loading robots.txt..."
                 />
               </div>
-              <div className="rounded-lg border border-amber-500/30 bg-amber-500/10 p-3 text-sm text-amber-200 flex items-start gap-2">
+              <div className="rounded-lg border border-warning/30 bg-warning/10 p-3 text-sm text-amber-200 flex items-start gap-2">
                 <AlertCircle className="h-4 w-4 mt-0.5" />
                 <span>Saved to database. Live robots.txt output depends on deployment wiring — verify production behavior after changes.</span>
               </div>

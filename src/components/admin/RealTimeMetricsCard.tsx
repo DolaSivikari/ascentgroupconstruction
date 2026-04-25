@@ -110,9 +110,9 @@ export const RealTimeMetricsCard = ({
   const getTrendIcon = () => {
     switch (metric.trend) {
       case 'up':
-        return <TrendingUp className="h-4 w-4 text-green-600" />;
+        return <TrendingUp className="h-4 w-4 text-success" />;
       case 'down':
-        return <TrendingDown className="h-4 w-4 text-red-600" />;
+        return <TrendingDown className="h-4 w-4 text-danger" />;
       default:
         return <Minus className="h-4 w-4 text-muted-foreground" />;
     }
@@ -121,9 +121,9 @@ export const RealTimeMetricsCard = ({
   const getTrendColor = () => {
     switch (metric.trend) {
       case 'up':
-        return 'text-green-600';
+        return 'text-success';
       case 'down':
-        return 'text-red-600';
+        return 'text-danger';
       default:
         return 'text-muted-foreground';
     }
@@ -187,7 +187,7 @@ export const RealTimeMetricsCard = ({
 
       {/* Animated pulse indicator for real-time updates */}
       <div className="absolute top-2 right-2">
-        <div className="h-2 w-2 rounded-full bg-green-500 animate-pulse" />
+        <div className="h-2 w-2 rounded-full bg-success animate-pulse" />
       </div>
     </Card>
   );

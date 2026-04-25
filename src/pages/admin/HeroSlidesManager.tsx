@@ -298,7 +298,7 @@ const HeroSlidesManager = () => {
           <div className="text-sm text-muted-foreground mb-4">
             Drag slides to reorder. Toggle the eye icon to show/hide slides on the homepage.
           </div>
-          <div className="rounded-lg border border-amber-500/30 bg-amber-500/10 p-3 text-sm text-amber-200 flex items-start gap-2 mb-4">
+          <div className="rounded-lg border border-warning/30 bg-warning/10 p-3 text-sm text-amber-200 flex items-start gap-2 mb-4">
             <AlertTriangle className="h-4 w-4 mt-0.5" />
             <span>Truth label: Hero slide records are currently an admin-managed dataset and may not be the active data source used by the live homepage renderer.</span>
           </div>

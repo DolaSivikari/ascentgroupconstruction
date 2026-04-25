@@ -141,7 +141,7 @@ const TestimonialsManager = () => {
         </Button>
       }
     >
-      <div className="rounded-lg border border-amber-500/30 bg-amber-500/10 p-3 text-sm text-amber-700 flex items-start gap-2">
+      <div className="rounded-lg border border-warning/30 bg-warning/10 p-3 text-sm text-warning flex items-start gap-2">
         <AlertTriangle className="h-4 w-4 mt-0.5 shrink-0" />
         <span>Testimonials saved here only appear on public pages that actively query the testimonials table. Some sections may be static or disabled.</span>
       </div>
@@ -173,7 +173,7 @@ const TestimonialsManager = () => {
                     <TableCell className="max-w-md truncate">{testimonial.quote}</TableCell>
                     <TableCell>
                       <div className="flex items-center gap-1">
-                        {testimonial.rating} <Star className="h-3 w-3 text-yellow-400 fill-yellow-400" />
+                        {testimonial.rating} <Star className="h-3 w-3 text-warning fill-warning" />
                       </div>
                     </TableCell>
                     <TableCell>{testimonial.is_featured ? '✓' : ''}</TableCell>

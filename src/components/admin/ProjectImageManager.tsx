@@ -92,8 +92,8 @@ const SortableImageCard: React.FC<SortableImageCardProps> = ({
 
       {/* Featured Star */}
       {image.featured && (
-        <div className="absolute top-2 left-10 z-10 bg-yellow-400 p-1.5 rounded-full shadow-lg">
-          <Star className="w-4 h-4 fill-yellow-400" />
+        <div className="absolute top-2 left-10 z-10 bg-warning p-1.5 rounded-full shadow-lg">
+          <Star className="w-4 h-4 fill-warning" />
         </div>
       )}
 
@@ -132,7 +132,7 @@ const SortableImageCard: React.FC<SortableImageCardProps> = ({
           className="p-2 bg-background rounded-full hover:bg-accent transition-colors"
           title="Toggle Featured"
         >
-          <Star className={`w-4 h-4 ${image.featured ? 'fill-yellow-400 text-yellow-400' : 'text-muted-foreground'}`} />
+          <Star className={`w-4 h-4 ${image.featured ? 'fill-warning text-warning' : 'text-muted-foreground'}`} />
         </button>
         <button
           onClick={() => onDelete(image.id, image.url)}
@@ -573,8 +573,8 @@ export const ProjectImageManager: React.FC<ProjectImageManagerProps> = ({
         {/* Pairing Check */}
         {images.filter(img => img.category === 'before').length !== 
          images.filter(img => img.category === 'after').length && (
-          <div className="mt-4 p-3 bg-yellow-100 dark:bg-yellow-950/20 border border-yellow-300 dark:border-yellow-800 rounded-lg text-center">
-            <p className="text-sm text-yellow-800 dark:text-yellow-200">
+          <div className="mt-4 p-3 bg-warning/10 dark:bg-warning/20 border border-warning/30 dark:border-warning/30 rounded-lg text-center">
+            <p className="text-sm text-warning dark:text-warning">
               ⚠️ Before/After images don't match! 
               <strong> {images.filter(img => img.category === 'before').length} before</strong> vs 
               <strong> {images.filter(img => img.category === 'after').length} after</strong>

@@ -40,7 +40,7 @@ export const TestimonialRatings = ({
                   className={cn(
                     "w-6 h-6",
                     i < Math.floor(averageRating)
-                      ? "fill-yellow-500 text-yellow-500"
+                      ? "fill-warning text-warning"
                       : "text-muted"
                   )}
                 />
@@ -75,7 +75,7 @@ export const TestimonialRatings = ({
                     className={cn(
                       "w-4 h-4",
                       i < testimonial.rating
-                        ? "fill-yellow-500 text-yellow-500"
+                        ? "fill-warning text-warning"
                         : "text-muted"
                     )}
                   />

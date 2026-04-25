@@ -241,7 +241,7 @@ const FilterBar = ({
                           className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 cursor-pointer"
                         >
                           <div className="flex items-center gap-2">
-                            <CheckCircle2 className="w-4 h-4 text-green-600" />
+                            <CheckCircle2 className="w-4 h-4 text-success" />
                             On-Time Completion
                           </div>
                         </label>
@@ -262,7 +262,7 @@ const FilterBar = ({
                           className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 cursor-pointer"
                         >
                           <div className="flex items-center gap-2">
-                            <CheckCircle2 className="w-4 h-4 text-blue-600" />
+                            <CheckCircle2 className="w-4 h-4 text-info" />
                             On-Budget
                           </div>
                         </label>
@@ -283,7 +283,7 @@ const FilterBar = ({
                           className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 cursor-pointer"
                         >
                           <div className="flex items-center gap-2">
-                            <CheckCircle2 className="w-4 h-4 text-green-700" />
+                            <CheckCircle2 className="w-4 h-4 text-success" />
                             Zero Safety Incidents
                           </div>
                         </label>

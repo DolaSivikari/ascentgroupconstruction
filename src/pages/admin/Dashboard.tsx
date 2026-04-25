@@ -395,8 +395,8 @@ const Dashboard = () => {
                 >
                   <div className="flex items-center gap-2 mb-2">
                     {item.count > 0
-                      ? <CheckCircle className="h-4 w-4 text-green-500 shrink-0" />
-                      : <AlertCircle className="h-4 w-4 text-amber-500 shrink-0" />
+                      ? <CheckCircle className="h-4 w-4 text-success shrink-0" />
+                      : <AlertCircle className="h-4 w-4 text-warning shrink-0" />
                     }
                     <span className="text-xs font-medium text-muted-foreground group-hover:text-foreground transition-colors">
                       {item.label}
@@ -411,9 +411,9 @@ const Dashboard = () => {
             </div>
           )}
           {contentStatusLoaded && (contentStatus.heroSlides === 0 || contentStatus.whyChooseUs === 0) && (
-            <div className="mt-4 flex items-start gap-2 p-3 bg-amber-500/10 border border-amber-500/20 rounded-lg">
-              <AlertCircle className="h-4 w-4 text-amber-500 shrink-0 mt-0.5" />
-              <p className="text-sm text-amber-700 dark:text-amber-400">
+            <div className="mt-4 flex items-start gap-2 p-3 bg-warning/10 border border-warning/20 rounded-lg">
+              <AlertCircle className="h-4 w-4 text-warning shrink-0 mt-0.5" />
+              <p className="text-sm text-warning dark:text-warning">
                 Some homepage sections are showing fallback content because no active records exist in the database.
                 Go to <button className="underline font-medium" onClick={() => navigate("/admin/homepage-builder")}>Homepage Builder</button> to add content and toggle items active.
               </p>

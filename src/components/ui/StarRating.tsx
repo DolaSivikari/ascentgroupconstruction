@@ -33,16 +33,16 @@ export const StarRating = ({
         stars.push(
           <Star
             key={i}
-            className={cn(sizeClasses[size], "fill-yellow-400 text-yellow-400")}
+            className={cn(sizeClasses[size], "fill-warning text-warning")}
           />
         );
       } else if (i === fullStars + 1 && hasHalfStar) {
         // Half star
         stars.push(
           <div key={i} className="relative">
-            <Star className={cn(sizeClasses[size], "text-gray-300")} />
+            <Star className={cn(sizeClasses[size], "text-muted-foreground")} />
             <div className="absolute inset-0 overflow-hidden" style={{ width: "50%" }}>
-              <Star className={cn(sizeClasses[size], "fill-yellow-400 text-yellow-400")} />
+              <Star className={cn(sizeClasses[size], "fill-warning text-warning")} />
             </div>
           </div>
         );
@@ -51,7 +51,7 @@ export const StarRating = ({
         stars.push(
           <Star
             key={i}
-            className={cn(sizeClasses[size], "text-gray-300")}
+            className={cn(sizeClasses[size], "text-muted-foreground")}
           />
         );
       }

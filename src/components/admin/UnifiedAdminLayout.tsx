@@ -68,20 +68,20 @@ export const UnifiedAdminLayout = () => {
 
   if (isLoading) {
     return (
-      <div className="flex flex-col items-center justify-center min-h-screen bg-slate-950 text-slate-100">
+      <div className="flex flex-col items-center justify-center min-h-screen bg-background text-foreground">
         <div className="flex flex-col items-center gap-4 max-w-md text-center px-4">
           <div className="relative">
-            <div className="w-12 h-12 border-4 border-slate-700 border-t-blue-500 rounded-full animate-spin" />
+            <div className="w-12 h-12 border-4 border-border border-t-info rounded-full animate-spin" />
           </div>
           <div className="space-y-2">
             <p className="text-lg font-medium">Verifying access...</p>
             {loadingTime > 3000 && (
-              <p className="text-sm text-yellow-500">Taking longer than usual...</p>
+              <p className="text-sm text-warning">Taking longer than usual...</p>
             )}
             {loadingTime > 5000 && (
               <button 
                 onClick={retry}
-                className="mt-4 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-md transition-colors"
+                className="mt-4 px-4 py-2 bg-info hover:bg-info text-white rounded-md transition-colors"
               >
                 Try Again
               </button>

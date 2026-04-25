@@ -129,10 +129,10 @@ export const ChangesDiffDialog = ({
         </ScrollArea>
 
         {hasChanges && (
-          <div className="flex items-start gap-2 p-4 bg-amber-500/10 border border-amber-500/20 rounded-lg">
-            <AlertCircle className="h-5 w-5 text-amber-500 mt-0.5" />
+          <div className="flex items-start gap-2 p-4 bg-warning/10 border border-warning/20 rounded-lg">
+            <AlertCircle className="h-5 w-5 text-warning mt-0.5" />
             <div className="text-sm">
-              <p className="font-medium text-amber-500">
+              <p className="font-medium text-warning">
                 {changes.length} change{changes.length !== 1 ? 's' : ''} will be applied
               </p>
               <p className="text-muted-foreground mt-1">

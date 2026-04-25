@@ -13,8 +13,8 @@ const ActivityFeed = ({ submissions, newCount }: ActivityFeedProps) => {
 
   const getSubmissionIcon = (status: string) => {
     if (status === 'new') return <AlertCircle className="h-4 w-4 text-secondary" />;
-    if (status === 'contacted') return <Mail className="h-4 w-4 text-blue-600" />;
-    return <CheckCircle className="h-4 w-4 text-green-600" />;
+    if (status === 'contacted') return <Mail className="h-4 w-4 text-info" />;
+    return <CheckCircle className="h-4 w-4 text-success" />;
   };
 
   const getSubmissionTypeLabel = (type: string) => {

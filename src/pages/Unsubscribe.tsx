@@ -95,7 +95,7 @@ const Unsubscribe = () => {
               </div>
             ) : unsubscribed && !error ? (
               <div className="text-center space-y-4">
-                <CheckCircle className="h-16 w-16 text-green-500 mx-auto" />
+                <CheckCircle className="h-16 w-16 text-success mx-auto" />
                 <h2 className="text-2xl font-semibold text-foreground">Successfully Unsubscribed</h2>
                 {email && (
                   <p className="text-muted-foreground">
