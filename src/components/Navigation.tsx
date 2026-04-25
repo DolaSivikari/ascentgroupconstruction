@@ -316,6 +316,14 @@ const Navigation = () => {
                 </a>
               )}
 
+              {/* Theme toggle (light/dark) */}
+              <ThemeToggle
+                className={cn(
+                  "h-9 w-9",
+                  isHeroPage && isAtTop ? "text-white hover:bg-white/10" : "text-foreground"
+                )}
+              />
+
               {/* Primary CTA — Submit RFP */}
               <Button asChild variant="primary" size="sm" className="shadow-lg">
                 <Link to="/submit-rfp" className="gap-2">
