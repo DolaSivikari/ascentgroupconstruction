@@ -17,7 +17,7 @@ import { InteractiveLightbox } from "@/components/InteractiveLightbox";
 
 import { ProjectGallery } from "@/components/ProjectGallery";
 import { ProjectCaseStudy } from "@/components/projects/ProjectCaseStudy";
-import { ChevronRight } from "lucide-react";
+import { ChevronRight, Maximize2 } from "lucide-react";
 import { toast } from "sonner";
 import { formatProjectValue } from "@/utils/formatProjectValue";
 import OptimizedImage from "@/components/OptimizedImage";
@@ -249,34 +249,38 @@ export default function ProjectDetail() {
           </div>
         </div>
 
-        {/* Featured Image */}
-        {project.featured_image && (
-          <div className="container mx-auto px-4 py-8">
-            <div 
-              className="relative w-full aspect-[4/3] md:aspect-[2/1] overflow-hidden rounded-lg cursor-pointer group"
+        {/* Featured Image — editorial cinematic banner */}
+        <div className="container mx-auto px-4 py-8">
+          {project.featured_image ? (
+            <button
+              type="button"
               onClick={() => setLightboxOpen(true)}
-              role="button"
-              tabIndex={0}
-              onKeyDown={(e) => {
-                if (e.key === 'Enter' || e.key === ' ') {
-                  e.preventDefault();
-                  setLightboxOpen(true);
-                }
-              }}
-              aria-label="Click to view full image"
+              className="group relative block w-full overflow-hidden rounded-xl shadow-md aspect-[16/9] md:aspect-[21/9] bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+              aria-label="View full image"
             >
               <OptimizedImage
                 src={project.featured_image}
                 alt={project.title}
-                width={1200}
-                height={600}
-                className="w-full h-full object-contain object-center rounded-lg transition-transform duration-300 group-hover:scale-105"
-                objectFit="contain"
+                className="w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-[1.03]"
+                objectFit="cover"
                 priority
               />
+              {/* Subtle bottom gradient for premium feel */}
+              <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black/40 to-transparent pointer-events-none" />
+              {/* Expand hint */}
+              <div className="absolute bottom-4 right-4 inline-flex items-center gap-1.5 rounded-full bg-background/90 backdrop-blur px-3 py-1.5 text-xs font-medium text-foreground shadow-sm opacity-0 group-hover:opacity-100 transition-opacity">
+                <Maximize2 className="h-3.5 w-3.5" />
+                View full image
+              </div>
+            </button>
+          ) : (
+            <div className="w-full aspect-[16/9] md:aspect-[21/9] rounded-xl bg-muted flex flex-col items-center justify-center text-muted-foreground">
+              <span className="text-2xl font-bold tracking-wider">AGC</span>
+              <span className="text-xs mt-1">Project imagery coming soon</span>
             </div>
+          )}
 
-            {/* Lightbox for full-screen view */}
+          {project.featured_image && (
             <InteractiveLightbox
               images={[
                 {
@@ -289,8 +293,8 @@ export default function ProjectDetail() {
               onClose={() => setLightboxOpen(false)}
               initialIndex={0}
             />
-          </div>
-        )}
+          )}
+        </div>
 
         {/* Main Content - Two Column Layout */}
         <div className="container mx-auto px-4 py-8 md:py-12">
