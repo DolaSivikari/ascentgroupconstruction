@@ -52,31 +52,31 @@ export default function UnifiedInbox() {
           </TabsList>
 
           <TabsContent value="all" className="mt-6">
-            <InboxTable type="all" />
+            <InboxTable type="all" highlightId={searchParams.get("highlight")} />
           </TabsContent>
 
           <TabsContent value="rfp" className="mt-6">
-            <InboxTable type="rfp" />
+            <InboxTable type="rfp" highlightId={searchParams.get("highlight")} />
           </TabsContent>
 
           <TabsContent value="contact" className="mt-6">
-            <InboxTable type="contact" />
+            <InboxTable type="contact" highlightId={searchParams.get("highlight")} />
           </TabsContent>
 
           <TabsContent value="resume" className="mt-6">
-            <InboxTable type="resume" />
+            <InboxTable type="resume" highlightId={searchParams.get("highlight")} />
           </TabsContent>
 
           <TabsContent value="prequal" className="mt-6">
-            <InboxTable type="prequal" />
+            <InboxTable type="prequal" highlightId={searchParams.get("highlight")} />
           </TabsContent>
 
           <TabsContent value="quote" className="mt-6">
-            <InboxTable type="quote" />
+            <InboxTable type="quote" highlightId={searchParams.get("highlight")} />
           </TabsContent>
 
           <TabsContent value="newsletter" className="mt-6">
-            <InboxTable type="newsletter" />
+            <InboxTable type="newsletter" highlightId={searchParams.get("highlight")} />
           </TabsContent>
         </Tabs>
       </div>

@@ -27,6 +27,7 @@ import { ConfirmDialog } from "@/components/admin/ConfirmDialog";
 
 interface InboxTableProps {
   type: "all" | "rfp" | "contact" | "resume" | "prequal" | "quote" | "newsletter";
+  highlightId?: string | null;
 }
 
 // Map tables to their date column names
@@ -39,11 +40,12 @@ const dateColumnMap: Record<string, string> = {
   'newsletter_subscribers': 'created_at',
 };
 
-export const InboxTable = ({ type }: InboxTableProps) => {
+export const InboxTable = ({ type, highlightId }: InboxTableProps) => {
   const [searchQuery, setSearchQuery] = useState("");
   const [statusFilter, setStatusFilter] = useState<string>("all");
   const [selectedItem, setSelectedItem] = useState<any>(null);
   const [deleteItem, setDeleteItem] = useState<any>(null);
+  const [activeHighlight, setActiveHighlight] = useState<string | null>(null);
   const { toast } = useToast();
 
   const { data: items, isLoading, refetch } = useQuery({
@@ -195,6 +197,28 @@ export const InboxTable = ({ type }: InboxTableProps) => {
     };
   }, [type, refetch, toast]);
 
+  // Highlight a specific row when navigated to via ?highlight=<id>
+  useEffect(() => {
+    if (!highlightId || !items || items.length === 0) return;
+    const match = items.find((i) => i.id === highlightId);
+    if (!match) return;
+
+    setActiveHighlight(highlightId);
+    // Wait for render before scrolling
+    const scrollTimer = window.setTimeout(() => {
+      const el = document.getElementById(`inbox-row-${highlightId}`);
+      if (el) {
+        el.scrollIntoView({ behavior: "smooth", block: "center" });
+      }
+    }, 100);
+    const clearTimer = window.setTimeout(() => setActiveHighlight(null), 3500);
+
+    return () => {
+      window.clearTimeout(scrollTimer);
+      window.clearTimeout(clearTimer);
+    };
+  }, [highlightId, items]);
+
   const handleDelete = async () => {
     if (!deleteItem) return;
 
@@ -326,7 +350,15 @@ export const InboxTable = ({ type }: InboxTableProps) => {
               </TableRow>
             ) : filteredItems && filteredItems.length > 0 ? (
               filteredItems.map((item) => (
-                <TableRow key={`${item.type}-${item.id}`} className="hover:bg-muted/50">
+                <TableRow
+                  key={`${item.type}-${item.id}`}
+                  id={`inbox-row-${item.id}`}
+                  className={`hover:bg-muted/50 transition-shadow ${
+                    activeHighlight === item.id
+                      ? "ring-2 ring-primary ring-inset bg-primary/5"
+                      : ""
+                  }`}
+                >
                   <TableCell>
                     <Badge variant={getTypeVariant(item.type)}>{item.type}</Badge>
                   </TableCell>
