@@ -1,3 +1,6 @@
+// FALLBACK SENDER — primary path is `send-transactional-email` (built-in Lovable email queue).
+// This function is invoked from the client only when the primary send fails.
+// It also sends to estimating@ascentgroupconstruction.com via Resend.
 import { createClient } from 'npm:@supabase/supabase-js@2';
 import { checkRateLimit, getClientIdentifier, createRateLimitResponse } from '../_shared/rateLimiter.ts';
 import { createErrorResponse } from '../_shared/errorHandler.ts';
@@ -16,6 +19,8 @@ interface RFPNotificationRequest {
   project_name: string;
   project_type: string;
   estimated_value_range: string;
+  reference_id?: string;
+  rfp_id?: string;
 }
 
 const RESEND_API_KEY = Deno.env.get("RESEND_API_KEY");
