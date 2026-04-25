@@ -1,12 +1,11 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "react-router-dom";
-import { ArrowRight, Building2, Shield, Play, Pause, ChevronLeft, ChevronRight } from "lucide-react";
+import { ArrowRight, Building2, ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/ui/Button";
 
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 import { useVideoPreloader } from "@/hooks/useVideoPreloader";
-import HeroGeometry from "@/components/homepage/HeroGeometry";
 import { AnimatedScrollIndicator } from "@/components/homepage/AnimatedScrollIndicator";
 import { enrichedHeroSlides } from "@/data/enriched-hero-slides";
 import { fetchHeroSlides, type HeroSlide as AdminHeroSlide } from "@/hooks/useHomepageData";
@@ -230,7 +229,7 @@ const EnhancedHero = ({ splashComplete = true }: { splashComplete?: boolean }) =
     doSlideChange(index);
   };
 
-  const togglePlayPause = () => setIsPlaying(!isPlaying);
+  
 
   // ── Video loading ──
   useEffect(() => {
@@ -517,50 +516,30 @@ const EnhancedHero = ({ splashComplete = true }: { splashComplete?: boolean }) =
           }}
         >
         <div className="max-w-4xl mx-auto">
-          {/* Single Trust Badge - Simplified for Professional Impact */}
-          <div
-            className={`inline-flex items-center gap-3 rounded-full bg-white/10 backdrop-blur-sm border border-white/15 px-6 py-3 mb-10 ${isPageLoaded && !prefersReducedMotion ? 'animate-fade-in' : ''}`}
-          >
-            <Shield className="h-5 w-5 text-accent" />
-            <span className="text-sm font-semibold text-white/90">Building Envelope & Restoration Specialists</span>
-          </div>
-
-          {/* Stat Counter Badge — reveals second */}
-          {slide.stat && slide.statLabel && (
-            <StatBadge
-              stat={slide.stat}
-              statLabel={slide.statLabel}
-              trigger={currentSlide}
-              shouldAnimate={shouldAnimate}
-              revealStyle={revealStyle}
-            />
-          )}
-
-          {/* Headline — reveals third */}
+          {/* Headline — reveals first */}
           <h1
-            className={`text-5xl md:text-6xl lg:text-7xl font-bold mb-8 leading-[1.1] tracking-tight text-white ${shouldAnimate ? 'animate-hero-reveal' : ''}`}
+            className={`text-5xl md:text-6xl lg:text-7xl font-bold mb-6 leading-[1.1] tracking-tight text-white ${shouldAnimate ? 'animate-hero-reveal' : ''}`}
             style={{
               textShadow: '0 4px 40px rgba(0,0,0,0.6)',
-              ...revealStyle(2),
+              ...revealStyle(0),
             }}
           >
             {headline}
           </h1>
-          {/* Separator between headline and subheadline */}
-          <div className="w-12 h-px bg-accent/60 mb-6" />
           <p
-            className={`text-lg md:text-xl lg:text-2xl text-white/90 mb-12 max-w-3xl leading-relaxed ${isPageLoaded && !prefersReducedMotion ? 'animate-fade-in' : ''}`}
-            style={{ 
-              textShadow: '0 2px 20px rgba(0,0,0,0.4)'
+            className={`text-lg md:text-xl lg:text-2xl text-white/90 mb-12 max-w-3xl leading-relaxed ${shouldAnimate ? 'animate-hero-reveal' : ''}`}
+            style={{
+              textShadow: '0 2px 20px rgba(0,0,0,0.4)',
+              ...revealStyle(1),
             }}
           >
             {subheadline}
           </p>
 
-          {/* CTAs — reveal fifth */}
+          {/* CTAs — reveal third */}
           <div
-            className={`flex flex-col sm:flex-row gap-4 mb-16 ${shouldAnimate ? 'animate-hero-reveal' : ''}`}
-            style={revealStyle(4)}
+            className={`flex flex-col sm:flex-row gap-4 mb-10 ${shouldAnimate ? 'animate-hero-reveal' : ''}`}
+            style={revealStyle(2)}
           >
             {/* Primary CTA — premium hover */}
             <Button
@@ -591,35 +570,55 @@ const EnhancedHero = ({ splashComplete = true }: { splashComplete?: boolean }) =
             )}
           </div>
 
-          {/* ── Progress Bar Indicators — reveal last ── */}
-          <div className={`flex gap-2 items-center justify-center md:justify-start ${shouldAnimate ? 'animate-hero-reveal' : ''}`} style={revealStyle(5)}>
-            {activeSlides.map((_, index) => (
-              <button
-                key={index}
-                onClick={() => handleSlideChange(index)}
-                aria-label={`Go to slide ${index + 1}`}
-                className={`relative rounded-full overflow-hidden transition-all duration-500 ease-out ${
-                  index === currentSlide
-                    ? 'h-1.5 bg-white/20'
-                    : 'h-1 bg-white/15 hover:bg-white/25'
-                }`}
-                style={{ width: index === currentSlide ? 56 : 20 }}
-              >
-                {index === currentSlide && (
-                  <span
-                    key={progressKey}
-                    className="absolute inset-0 rounded-full bg-accent origin-left"
-                    style={{
-                      animation: `hero-progress-fill ${AUTOPLAY_INTERVAL}ms linear forwards`,
-                      animationPlayState: isPlaying && splashComplete ? 'running' : 'paused',
-                    }}
-                  />
-                )}
-              </button>
-            ))}
+          {/* ── Unified control strip: stat • progress dots • counter ── */}
+          <div
+            className={`flex flex-wrap items-center gap-x-6 gap-y-3 ${shouldAnimate ? 'animate-hero-reveal' : ''}`}
+            style={revealStyle(3)}
+          >
+            {/* Inline stat (no pill) */}
+            {slide.stat && slide.statLabel && (
+              <InlineStat
+                stat={slide.stat}
+                statLabel={slide.statLabel}
+                trigger={currentSlide}
+              />
+            )}
+
+            {/* Divider (visible only when stat is present) */}
+            {slide.stat && slide.statLabel && (
+              <span className="hidden sm:inline-block h-4 w-px bg-white/20" aria-hidden="true" />
+            )}
+
+            {/* Progress bar indicators */}
+            <div className="flex gap-2 items-center">
+              {activeSlides.map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => handleSlideChange(index)}
+                  aria-label={`Go to slide ${index + 1}`}
+                  className={`relative rounded-full overflow-hidden transition-all duration-500 ease-out ${
+                    index === currentSlide
+                      ? 'h-1.5 bg-white/20'
+                      : 'h-1 bg-white/15 hover:bg-white/25'
+                  }`}
+                  style={{ width: index === currentSlide ? 56 : 20 }}
+                >
+                  {index === currentSlide && (
+                    <span
+                      key={progressKey}
+                      className="absolute inset-0 rounded-full bg-accent origin-left"
+                      style={{
+                        animation: `hero-progress-fill ${AUTOPLAY_INTERVAL}ms linear forwards`,
+                        animationPlayState: isPlaying && splashComplete ? 'running' : 'paused',
+                      }}
+                    />
+                  )}
+                </button>
+              ))}
+            </div>
 
             {/* Slide counter */}
-            <span className="ml-3 text-xs font-medium text-white/40 tabular-nums tracking-wider">
+            <span className="text-xs font-medium text-white/40 tabular-nums tracking-wider">
               {String(currentSlide + 1).padStart(2, '0')} / {String(activeSlides.length).padStart(2, '0')}
             </span>
           </div>
@@ -637,19 +636,6 @@ const EnhancedHero = ({ splashComplete = true }: { splashComplete?: boolean }) =
           <ChevronRight className="h-4 w-4 animate-[slide-hint_1s_ease-in-out_infinite_reverse]" />
         </div>
       )}
-
-      {/* ── Play/Pause Control ── */}
-      <button
-        onClick={togglePlayPause}
-        className="absolute bottom-8 right-8 z-20 w-12 h-12 rounded-full bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/20 hover:border-white/40 flex items-center justify-center transition-all duration-500 group hover:-translate-y-0.5"
-        aria-label={isPlaying ? "Pause autoplay" : "Resume autoplay"}
-      >
-        {isPlaying ? (
-          <Pause className="h-5 w-5 text-white group-hover:scale-110 transition-transform duration-300" />
-        ) : (
-          <Play className="h-5 w-5 text-white group-hover:scale-110 transition-transform duration-300" />
-        )}
-      </button>
 
       {/* ── Scroll Indicator — pulsing line + label, gated to tall viewports ── */}
       <AnimatedScrollIndicator />
@@ -687,29 +673,22 @@ const EnhancedHero = ({ splashComplete = true }: { splashComplete?: boolean }) =
   );
 };
 
-/* ── Stat Badge sub-component ── */
-function StatBadge({
+/* ── Inline stat sub-component (no pill, lives inside the control strip) ── */
+function InlineStat({
   stat,
   statLabel,
   trigger,
-  shouldAnimate,
-  revealStyle,
 }: {
   stat: string;
   statLabel: string;
   trigger: number;
-  shouldAnimate: boolean;
-  revealStyle: (ms: number) => React.CSSProperties;
 }) {
   const display = useStatCounter(stat, trigger);
 
   return (
-    <div
-      className={`inline-flex items-center gap-3 rounded-full bg-white/10 backdrop-blur-xl border border-white/20 px-5 py-2.5 mb-8 ml-0 md:ml-2 ${shouldAnimate ? 'animate-hero-reveal' : ''}`}
-      style={revealStyle(1)}
-    >
-      <span className="text-2xl font-bold text-accent">{display}</span>
-      <span className="text-sm text-white/80">{statLabel}</span>
+    <div className="inline-flex items-baseline gap-2">
+      <span className="text-xl md:text-2xl font-bold text-accent tabular-nums">{display}</span>
+      <span className="text-xs md:text-sm text-white/70 font-medium uppercase tracking-wider">{statLabel}</span>
     </div>
   );
 }
