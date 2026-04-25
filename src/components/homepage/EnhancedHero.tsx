@@ -229,7 +229,7 @@ const EnhancedHero = ({ splashComplete = true }: { splashComplete?: boolean }) =
     doSlideChange(index);
   };
 
-  const togglePlayPause = () => setIsPlaying(!isPlaying);
+  
 
   // ── Video loading ──
   useEffect(() => {
