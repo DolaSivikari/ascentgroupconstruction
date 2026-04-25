@@ -4,7 +4,7 @@ import { Button } from "@/ui/Button";
 import { StaggerContainer } from "@/components/animations/StaggerContainer";
 import { ScrollReveal } from "@/components/animations/ScrollReveal";
 import { ArrowRight, MapPin, Calendar, Building2 } from "lucide-react";
-import OptimizedImage from "./OptimizedImage";
+import { ProjectFeaturedImage } from "@/components/projects/ProjectFeaturedImage";
 import { supabase } from "@/integrations/supabase/client";
 import { Badge } from "@/components/ui/badge";
 import { Link } from "react-router-dom";
