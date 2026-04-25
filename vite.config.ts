@@ -14,9 +14,10 @@ export default defineConfig(({ mode }) => {
       host: "::",
       port: 8080,
       hmr: {
-        protocol: "ws",
-        host: "localhost",
-        port: 8080,
+        // Use the public preview origin (port 443) instead of localhost:8080,
+        // which silences the "Failed to fetch" ping noise in deployed previews.
+        // Local `bun dev` still works because Vite falls back automatically.
+        clientPort: 443,
       },
     },
     plugins: [
@@ -50,6 +51,16 @@ export default defineConfig(({ mode }) => {
           compact: true,
           generatedCode: {
             constBindings: true,
+          },
+          // Conservative vendor splitting — 4 well-isolated chunks only.
+          // Keep groups narrow to avoid the blank-page issue noted in
+          // mem://tech/production-deployment-reliability.
+          manualChunks(id) {
+            if (!id.includes('node_modules')) return;
+            if (id.includes('recharts') || id.includes('/d3-')) return 'chunk-charts';
+            if (id.includes('@tanstack/react-query')) return 'chunk-query';
+            if (id.includes('framer-motion')) return 'chunk-motion';
+            if (id.includes('@radix-ui/')) return 'chunk-radix';
           },
         },
       },

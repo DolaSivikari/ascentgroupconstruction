@@ -69,6 +69,7 @@ const UnifiedAdminLayout = lazy(() => import("@/components/admin/UnifiedAdminLay
 const Blog = lazyWithFallback(() => import("@/pages/Blog"), 'Blog');
 const BlogPost = lazyWithFallback(() => import("@/pages/BlogPost"), 'Blog Post');
 const ProjectDetail = lazyWithFallback(() => import("@/pages/ProjectDetail"), 'Project Detail');
+const TokenPreview = lazyWithFallback(() => import("@/pages/dev/TokenPreview"), 'Token Preview');
 
 const ServiceRouteGroup = () => (
   <>
@@ -210,6 +211,9 @@ export const AppRoutes = () => (
       <Route path="/projects/:slug" element={<ProjectDetail />} />
 
       {AdminRouteGroup()}
+
+      {/* Internal — design token preview (DEV mode only) */}
+      {import.meta.env.DEV && <Route path="/dev/tokens" element={<TokenPreview />} />}
 
       <Route path="/404" element={<NotFound />} />
       <Route path="*" element={<NotFound />} />

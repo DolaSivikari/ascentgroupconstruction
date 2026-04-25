@@ -51,8 +51,8 @@ const getIconColors = (segment: 'commercial' | 'residential' | 'both') => {
       };
     case 'residential':
       return {
-        bg: 'bg-orange-500/10',
-        text: 'text-orange-500',
+        bg: 'bg-brand-accent/10',
+        text: 'text-brand-accent',
       };
     case 'both':
       return {

@@ -64,6 +64,10 @@ export const VideoBackground = ({
         playsInline
         poster={posterUrl}
       >
+        {/* Adaptive sources — browser picks the first it supports.
+            WebM is ~30-40% smaller than the equivalent MP4 on supporting browsers.
+            Drop a public/<name>.webm next to your MP4 and this will pick it up automatically. */}
+        <source src={videoUrl.replace(/\.mp4$/i, '.webm')} type="video/webm" />
         <source src={videoUrl} type="video/mp4" />
         Your browser does not support video backgrounds.
       </video>

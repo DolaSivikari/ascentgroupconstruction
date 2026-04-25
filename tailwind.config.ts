@@ -4,6 +4,18 @@ import tailwindcssAnimate from "tailwindcss-animate";
 export default {
   darkMode: ["class"],
   content: ["./pages/**/*.{ts,tsx}", "./components/**/*.{ts,tsx}", "./app/**/*.{ts,tsx}", "./src/**/*.{ts,tsx}"],
+  // Safelist dynamic semantic classes used by /dev/tokens preview page
+  safelist: [
+    "bg-success", "bg-warning", "bg-danger", "bg-info",
+    "text-success", "text-warning", "text-danger", "text-info",
+    "text-success-foreground", "text-warning-foreground", "text-danger-foreground", "text-info-foreground",
+    "border-success", "border-warning", "border-danger", "border-info",
+    "bg-success/5", "bg-warning/5", "bg-danger/5", "bg-info/5",
+    "bg-success/10", "bg-warning/10", "bg-danger/10", "bg-info/10",
+    "bg-success/20", "bg-warning/20", "bg-danger/20", "bg-info/20",
+    "bg-success/50", "bg-warning/50", "bg-danger/50", "bg-info/50",
+    "bg-success/80", "bg-warning/80", "bg-danger/80", "bg-info/80",
+  ],
   prefix: "",
   theme: {
     container: {

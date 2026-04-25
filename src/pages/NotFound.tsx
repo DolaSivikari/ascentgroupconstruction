@@ -61,6 +61,18 @@ const NotFound = () => {
       <Navigation />
       <div className="flex min-h-screen items-center justify-center bg-background px-4">
       <div className="text-center max-w-2xl mx-auto">
+        {/* Brand hallmark — ringed monument */}
+        <div className="mb-6 flex justify-center">
+          <img
+            src="/brand/icon-monument-ring.png"
+            alt=""
+            aria-hidden="true"
+            className="h-24 w-24 opacity-90 [animation:fade-in_600ms_ease-out]"
+            loading="eager"
+            decoding="async"
+          />
+        </div>
+
         {/* 404 Number */}
         <div className="mb-8">
           <h1 className="text-9xl font-bold text-primary/20">404</h1>

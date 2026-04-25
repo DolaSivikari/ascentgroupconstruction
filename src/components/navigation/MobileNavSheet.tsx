@@ -33,6 +33,7 @@ import { useCompanySettings } from "@/hooks/useCompanySettings";
 import { useState, useRef, useEffect } from "react";
 import { cn } from "@/lib/utils";
 import ascentLogoHorizontalDark from "@/assets/ascent-logo-horizontal-dark.png";
+import { ThemeToggle } from "@/components/ui/ThemeToggle";
 
 interface MobileNavSheetProps {
   open: boolean;
@@ -383,6 +384,9 @@ export function MobileNavSheet({ open, onOpenChange }: MobileNavSheetProps) {
               <span>{phoneNumber || "Call us"}</span>
             </a>
           )}
+          <div className="flex items-center justify-center pt-1">
+            <ThemeToggle />
+          </div>
         </div>
       </SheetContent>
     </Sheet>

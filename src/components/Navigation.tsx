@@ -15,6 +15,7 @@ import { cn } from "@/lib/utils";
 import { useHoverTimeout } from "@/hooks/useHoverTimeout";
 import { useAdminRoleCheck } from "@/hooks/useAdminRoleCheck";
 import { useScrollDirection } from "@/hooks/useScrollDirection";
+import { ThemeToggle } from "@/components/ui/ThemeToggle";
 
 import {
   DropdownMenu,
@@ -315,6 +316,14 @@ const Navigation = () => {
                   {settings.phone}
                 </a>
               )}
+
+              {/* Theme toggle (light/dark) */}
+              <ThemeToggle
+                className={cn(
+                  "h-9 w-9",
+                  isHeroPage && isAtTop ? "text-white hover:bg-white/10" : "text-foreground"
+                )}
+              />
 
               {/* Primary CTA — Submit RFP */}
               <Button asChild variant="primary" size="sm" className="shadow-lg">
