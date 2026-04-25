@@ -21,6 +21,7 @@ import { ChevronRight, Maximize2 } from "lucide-react";
 import { toast } from "sonner";
 import { formatProjectValue } from "@/utils/formatProjectValue";
 import OptimizedImage from "@/components/OptimizedImage";
+import { ProjectFeaturedImage } from "@/components/projects/ProjectFeaturedImage";
 
 interface ProcessStep {
   type: string;
