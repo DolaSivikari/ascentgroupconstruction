@@ -1,12 +1,11 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "react-router-dom";
-import { ArrowRight, Building2, Shield, Play, Pause, ChevronLeft, ChevronRight } from "lucide-react";
+import { ArrowRight, Building2, ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/ui/Button";
 
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 import { useVideoPreloader } from "@/hooks/useVideoPreloader";
-import HeroGeometry from "@/components/homepage/HeroGeometry";
 import { AnimatedScrollIndicator } from "@/components/homepage/AnimatedScrollIndicator";
 import { enrichedHeroSlides } from "@/data/enriched-hero-slides";
 import { fetchHeroSlides, type HeroSlide as AdminHeroSlide } from "@/hooks/useHomepageData";
