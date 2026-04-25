@@ -1,56 +1,126 @@
-## Project Gallery Lightbox — Fix Broken Image Viewer
+## Fix the awkward Featured Image on every project page
 
 ### What's wrong (root cause)
 
-The `ProjectGallery` component (`src/components/ProjectGallery.tsx`, lines 218–299) hand-rolls its own image viewer modal. It has three concrete problems:
+In `src/pages/ProjectDetail.tsx` (lines 252–293), the featured-image block does this:
 
-1. **"Blue borders" everywhere** — The custom buttons (close/prev/next/download) use Tailwind defaults that show the browser's blue focus ring on click/tap, and the `bg-[hsl(var(--bg))]/10` translucent layer over the dark backdrop reads as faint blue rectangles.
-2. **Have to scroll up to close** — The modal uses `fixed inset-0` but does **not lock body scroll**. On a long project page (especially mobile), the page underneath keeps its scroll position, and because the close button sits at `top-4 right-4` of the viewport, it's actually fine *if* the modal stays in view — but the missing `overflow: hidden` on `<body>` causes the layout to shift and the modal content (image + caption + counter + bottom action bar) to push downward, making the close button feel out of reach.
-3. **Image stuck at the bottom** — The image wrapper is `<div className="max-w-7xl max-h-[85vh] px-4">` placed inside a parent `flex items-center justify-center`. But the wrapper also contains the caption, counter, and the bottom action bar is a separate absolutely-positioned element. The combination pushes the image visually toward the bottom of the screen instead of being truly centered.
+```tsx
+<div className="aspect-[4/3] md:aspect-[2/1] ..."> // forces 2:1 box on desktop
+  <OptimizedImage
+    objectFit="contain"  // shrinks image to fit inside the box
+    className="... object-contain ..."
+  />
+</div>
+```
 
-Meanwhile, the project **already has a polished, working lightbox** — `InteractiveLightbox.tsx`, built on `yet-another-react-lightbox`. It's already used on `ProjectDetail.tsx` for the hero image (line 280). It correctly handles body scroll lock, fixed close button, true centering, zoom, image counter, keyboard navigation, and swipe gestures. The gallery just isn't using it.
+That combo (`aspect-[2/1]` + `object-contain`) is what's creating the awkward look you screenshotted:
 
-### The fix
+- The container is forced into a **fixed 2:1 wide box**
+- `object-contain` then **letterboxes** the real image inside it — leaving gray bars on the sides for portrait/square images, or top/bottom for non-2:1 landscape images
+- The grey is `bg-muted/20` from `OptimizedImage` showing through behind the contained image
+- Because admins upload images at all kinds of aspect ratios (phone shots, drone, panoramas), almost no image fits 2:1 perfectly → almost every project looks broken
 
-Replace the entire custom lightbox block in `ProjectGallery.tsx` with the existing `InteractiveLightbox` component. This is a clean swap — same props are available (images array, current index, open state, close handler).
+This is rendered from a single component, so **fixing it once fixes every project — past, present, and future** with no per-project work.
 
-**Concretely:**
+### The fix — Editorial "cinematic banner" treatment
 
-1. **Import `InteractiveLightbox`** at the top of `ProjectGallery.tsx`.
-2. **Delete** the custom lightbox JSX (lines 218–299) — the `<div className="fixed inset-0 z-50 ...">` block and everything inside it.
-3. **Delete** the now-unused keyboard `useEffect` (lines 47–59), `handlePrevImage`, `handleNextImage` helpers, and unused icon imports (`ChevronLeft`, `ChevronRight`, `X`, `Download`, `Share2`). Keep `ZoomIn` for the hover overlay on grid cards.
-4. **Render `<InteractiveLightbox>`** at the bottom, mapping `displayImages` to its `{ src, alt, caption }` shape and passing `isOpen={lightboxOpen}`, `initialIndex={currentImageIndex}`, `onClose={() => setLightboxOpen(false)}`.
+Replace the block with a polished, magazine-style featured hero used by enterprise construction sites (PCL, Turner, Lendlease):
 
-That's it. The grid behavior (tabs, hover zoom, before/after slider, captions) stays untouched.
+1. **Cinematic 21:9 / 16:9 cropped banner**
+   - Container: `aspect-[16/9] md:aspect-[21/9]` (wide cinematic ratio, not letterbox-tall 2:1)
+   - Image: `object-cover` instead of `object-contain` — fills the frame edge-to-edge, no gray bars, ever
+   - `object-position: center` so the most important part of the photo stays in frame
+   - Use the existing `ASPECT_RATIOS` token from `src/design-system/image-system.ts` for consistency with cards
 
-### What gets fixed automatically by switching
+2. **Subtle gradient + caption overlay** (optional, looks premium)
+   - Bottom-aligned dark-to-transparent gradient
+   - Floating "Click to view full image" hint pill in the corner with a `Maximize2` icon (replaces the invisible `aria-label`)
+   - Project title overlay is **not** added — the page already has a header above
 
-- ✅ No more blue focus rings — the library uses neutral-styled controls
-- ✅ Close button is fixed in the top-right and always reachable
-- ✅ Body scroll is locked while open, so closing returns you to your scroll position (no need to scroll up)
-- ✅ Image is properly centered vertically and horizontally
-- ✅ Pinch-zoom and scroll-to-zoom work on mobile and desktop
-- ✅ Image counter at the bottom (e.g. "3 / 12")
-- ✅ Keyboard arrows + Escape work out of the box
-- ✅ Swipe to navigate on touch devices
-- ✅ Backdrop click closes the lightbox
+3. **Branded fallback when no image is uploaded**
+   - Currently if `featured_image` is missing the entire block disappears — looks like a layout bug
+   - Add a graceful fallback: muted background with the AGC mark + "Project imagery coming soon" (matches the data-integrity standard already used on cards)
 
-### What's removed (and why it's fine)
+4. **Consistent container width & rounded corners**
+   - Wrap in `container mx-auto px-4` (already there) and `rounded-xl` for editorial feel
+   - Add a soft `shadow-md` to lift it off the page
 
-The custom lightbox had two extra buttons:
-- **Download** — Removable. Users can long-press / right-click the image to save it. Optional and not standard for portfolio galleries; most case-study sites don't expose downloads.
-- **Share** (Web Share API) — Removable. The whole project page already shares fine via the URL; sharing a single gallery image isn't a meaningful use case for B2B project portfolios. If you ever want it back, we can add it as a custom plugin button.
+5. **Reuse `OptimizedImage` correctly**
+   - Drop `objectFit="contain"` → use `objectFit="cover"` (default-friendly)
+   - Keep `priority` so it loads instantly (LCP element)
+   - Keep the `InteractiveLightbox` integration so clicking still opens the full untouched image
 
-Removing these matches the cleaner experience already used by the hero image lightbox on the same page, so behavior is consistent across the project detail.
+### Code shape (single edit to `src/pages/ProjectDetail.tsx`, ~lines 252–293)
 
-### Files I'll touch
+```tsx
+{/* Featured Image — editorial cinematic banner */}
+<div className="container mx-auto px-4 py-8">
+  {project.featured_image ? (
+    <button
+      type="button"
+      onClick={() => setLightboxOpen(true)}
+      className="group relative block w-full overflow-hidden rounded-xl shadow-md
+                 aspect-[16/9] md:aspect-[21/9] bg-muted
+                 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+      aria-label="View full image"
+    >
+      <OptimizedImage
+        src={project.featured_image}
+        alt={project.title}
+        className="w-full h-full object-cover object-center
+                   transition-transform duration-500 group-hover:scale-[1.03]"
+        objectFit="cover"
+        priority
+      />
+      {/* Subtle bottom gradient for premium feel */}
+      <div className="absolute inset-x-0 bottom-0 h-24
+                      bg-gradient-to-t from-black/40 to-transparent
+                      pointer-events-none" />
+      {/* Expand hint */}
+      <div className="absolute bottom-4 right-4 inline-flex items-center gap-1.5
+                      rounded-full bg-background/90 backdrop-blur px-3 py-1.5
+                      text-xs font-medium text-foreground shadow-sm
+                      opacity-0 group-hover:opacity-100 transition-opacity">
+        <Maximize2 className="h-3.5 w-3.5" />
+        View full image
+      </div>
+    </button>
+  ) : (
+    {/* Branded fallback for projects without a featured image */}
+    <div className="w-full aspect-[16/9] md:aspect-[21/9] rounded-xl
+                    bg-muted flex flex-col items-center justify-center text-muted-foreground">
+      <span className="text-2xl font-bold tracking-wider">AGC</span>
+      <span className="text-xs mt-1">Project imagery coming soon</span>
+    </div>
+  )}
 
-1. `src/components/ProjectGallery.tsx` — swap custom lightbox for `InteractiveLightbox`, remove dead code
+  <InteractiveLightbox
+    images={project.featured_image ? [{
+      src: project.featured_image,
+      alt: project.title,
+      caption: project.title,
+    }] : []}
+    isOpen={lightboxOpen}
+    onClose={() => setLightboxOpen(false)}
+    initialIndex={0}
+  />
+</div>
+```
 
-No new dependencies. No DB changes. No edge function changes. Roughly a 60-line net deletion.
+Plus add `Maximize2` to the existing `lucide-react` import on line 20.
 
-### Result
+### Why this is the right fix
 
-Click any image in the project gallery → it opens in a true full-screen viewer that's centered, zoomable, swipeable, with a reachable close button and locked background scroll. Works identically on desktop and mobile, and matches the hero-image lightbox already in use on the same page.
+- **One file changes (`ProjectDetail.tsx`).** Every project page rendered through this route gets the new treatment instantly — including new projects you upload later. No per-project edits, no DB migration.
+- **No more gray letterbox bars** — `object-cover` fills the frame regardless of upload dimensions.
+- **Consistent shape across the site** — 16:9/21:9 matches the hero ratio token already defined in `design-system/image-system.ts`.
+- **Graceful when no image is uploaded** — branded AGC fallback instead of the section disappearing.
+- **Fully accessible** — `<button>` element, focus ring, keyboard-activated lightbox (Enter/Space work natively).
+- **No breaking changes** — lightbox click-to-zoom still works; SEO `ogImage` and skeleton loading are untouched.
+
+### Files touched
+1. `src/pages/ProjectDetail.tsx` — replace the featured-image block (lines ~252–293) and add `Maximize2` to lucide import.
+
+That's it. One file, applies everywhere.
 
 Approve and I'll ship it.
