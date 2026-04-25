@@ -193,8 +193,8 @@ export const SitemapManager = () => {
           </div>
         )}
 
-        <div className="bg-blue-50 dark:bg-blue-950/20 p-4 rounded-lg border border-blue-200 dark:border-blue-800">
-          <p className="text-sm text-blue-900 dark:text-blue-100">
+        <div className="bg-info/10 dark:bg-blue-950/20 p-4 rounded-lg border border-info/30 dark:border-info/30">
+          <p className="text-sm text-info dark:text-info">
             <strong>📡 Auto-Sync:</strong> The sitemap is automatically regenerated
             whenever you publish/unpublish services, projects, or blog posts. You can
             manually trigger a regeneration anytime using the button above.

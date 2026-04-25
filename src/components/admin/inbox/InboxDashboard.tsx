@@ -122,7 +122,7 @@ export const InboxDashboard = () => {
                 </p>
                 <p className="text-3xl font-bold">{card.value}</p>
                 {card.priority === "high" && card.value > 0 && (
-                  <span className="inline-flex items-center rounded-full bg-red-100 dark:bg-red-900/20 px-2 py-1 text-xs font-medium text-danger dark:text-danger mt-2">
+                  <span className="inline-flex items-center rounded-full bg-danger/10 dark:bg-danger/20 px-2 py-1 text-xs font-medium text-danger dark:text-danger mt-2">
                     High Priority
                   </span>
                 )}

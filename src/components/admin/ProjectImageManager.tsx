@@ -573,8 +573,8 @@ export const ProjectImageManager: React.FC<ProjectImageManagerProps> = ({
         {/* Pairing Check */}
         {images.filter(img => img.category === 'before').length !== 
          images.filter(img => img.category === 'after').length && (
-          <div className="mt-4 p-3 bg-yellow-100 dark:bg-yellow-950/20 border border-yellow-300 dark:border-yellow-800 rounded-lg text-center">
-            <p className="text-sm text-yellow-800 dark:text-yellow-200">
+          <div className="mt-4 p-3 bg-warning/10 dark:bg-warning/20 border border-warning/30 dark:border-warning/30 rounded-lg text-center">
+            <p className="text-sm text-warning dark:text-warning">
               ⚠️ Before/After images don't match! 
               <strong> {images.filter(img => img.category === 'before').length} before</strong> vs 
               <strong> {images.filter(img => img.category === 'after').length} after</strong>

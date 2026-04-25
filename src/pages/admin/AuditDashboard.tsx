@@ -99,7 +99,7 @@ export default function AuditDashboard() {
 
           <Card className="p-6">
             <div className="flex items-center gap-3">
-              <div className="p-3 bg-red-100 dark:bg-red-900/20 rounded-lg">
+              <div className="p-3 bg-danger/10 dark:bg-danger/20 rounded-lg">
                 <AlertTriangle className="h-5 w-5 text-danger" />
               </div>
               <div>
@@ -111,7 +111,7 @@ export default function AuditDashboard() {
 
           <Card className="p-6">
             <div className="flex items-center gap-3">
-              <div className="p-3 bg-green-100 dark:bg-green-900/20 rounded-lg">
+              <div className="p-3 bg-success/10 dark:bg-success/20 rounded-lg">
                 <User className="h-5 w-5 text-success" />
               </div>
               <div>

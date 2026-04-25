@@ -168,8 +168,8 @@ export const ContentHealthCheck = () => {
   const getSeverityColor = (severity: HealthIssue["severity"]) => {
     switch (severity) {
       case "error": return "bg-destructive text-destructive-foreground";
-      case "warning": return "bg-warning/20 text-amber-300 border-warning/30";
-      case "info": return "bg-info/20 text-blue-300 border-info/30";
+      case "warning": return "bg-warning/20 text-warning border-warning/30";
+      case "info": return "bg-info/20 text-info border-info/30";
     }
   };
 

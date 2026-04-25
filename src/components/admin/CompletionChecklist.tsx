@@ -122,8 +122,8 @@ export const CompletionChecklist = ({ completion }: CompletionChecklistProps) =>
         </div>
 
         {completion.isComplete && (
-          <div className="bg-green-50 dark:bg-green-950/20 border border-green-200 dark:border-green-800 rounded-lg p-3">
-            <p className="text-xs text-green-900 dark:text-green-100">
+          <div className="bg-success/10 dark:bg-success/20 border border-success/30 dark:border-success/30 rounded-lg p-3">
+            <p className="text-xs text-success dark:text-success">
               ✓ All required fields are complete! Ready to publish.
             </p>
           </div>
