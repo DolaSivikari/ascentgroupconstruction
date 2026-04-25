@@ -4,6 +4,7 @@ import BeforeAfterSlider from './BeforeAfterSlider';
 import { useReducedMotion } from '@/hooks/useReducedMotion';
 import { GRID } from "@/design-system/layouts";
 import { InteractiveLightbox } from '@/components/InteractiveLightbox';
+import { GalleryThumbnail } from '@/components/projects/GalleryThumbnail';
 
 interface GalleryImage {
   id: string;
