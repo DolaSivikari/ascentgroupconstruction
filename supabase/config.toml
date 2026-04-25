@@ -5,3 +5,5 @@ verify_jwt = false
 
 [functions.check-login-attempt]
 verify_jwt = false
+[functions.process-email-queue]
+verify_jwt = true
