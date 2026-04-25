@@ -17,7 +17,7 @@ let isReloading = false;
 const safeReload = () => {
   if (!isReloading) {
     isReloading = true;
-    console.log('[App] Reloading application...');
+    if (import.meta.env.DEV) console.log('[App] Reloading application...');
     window.location.reload();
   }
 };
@@ -44,7 +44,7 @@ if (import.meta.env.PROD) {
       checkForDeploymentUpdate().then(async (hasUpdate) => {
         if (hasUpdate) {
           sessionStorage.setItem('deployment-check-done', 'true');
-          console.log('[Cache Buster] Update available. Will apply on next visit.');
+          if (import.meta.env.DEV) console.log('[Cache Buster] Update available. Will apply on next visit.');
           // Update will be applied on next page load, not immediately
         }
       });
@@ -58,19 +58,19 @@ if ('serviceWorker' in navigator && import.meta.env.PROD) {
     navigator.serviceWorker
       .register('/service-worker.js')
       .then((registration) => {
-        console.log('[Service Worker] Registered successfully:', registration.scope);
-        
+        if (import.meta.env.DEV) console.log('[Service Worker] Registered:', registration.scope);
+
         // Check for updates
         registration.addEventListener('updatefound', () => {
           const newWorker = registration.installing;
           if (newWorker) {
             newWorker.addEventListener('statechange', () => {
               if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
-                console.log('[Service Worker] Update ready, will apply on next visit');
-                
+                if (import.meta.env.DEV) console.log('[Service Worker] Update ready, will apply on next visit');
+
                 // Store update flag for next page load
                 sessionStorage.setItem('sw-update-ready', 'true');
-                
+
                 // Send skip waiting message
                 newWorker.postMessage({ type: 'SKIP_WAITING' });
               }
@@ -103,28 +103,28 @@ if ('serviceWorker' in navigator) {
     // Skip the first controller change (happens on initial page load)
     if (isFirstControllerChange) {
       isFirstControllerChange = false;
-      console.log('[Service Worker] Initial controller set');
+      if (import.meta.env.DEV) console.log('[Service Worker] Initial controller set');
       return;
     }
-    
+
     // Only clear caches and reload if SW update flag is set
     const hasUpdate = sessionStorage.getItem('sw-update-ready');
     if (hasUpdate) {
-      console.log('[Service Worker] Update detected');
-      
+      if (import.meta.env.DEV) console.log('[Service Worker] Update detected');
+
       // Check if user has been inactive for 5+ seconds
       const timeSinceActivity = Date.now() - lastActivity;
-      
+
       if (timeSinceActivity > 5000) {
         // User is idle, safe to reload
-        console.log('[Service Worker] User idle, applying update...');
+        if (import.meta.env.DEV) console.log('[Service Worker] User idle, applying update...');
         sessionStorage.removeItem('sw-update-ready');
         clearAllCaches().then(() => safeReload());
       } else {
         // User is active, defer reload
-        console.log('[Service Worker] User active, deferring update...');
+        if (import.meta.env.DEV) console.log('[Service Worker] User active, deferring update...');
         sessionStorage.setItem('deferred-reload', 'true');
-        
+
         // Check again in 10 seconds
         setTimeout(() => {
           const stillHasUpdate = sessionStorage.getItem('deferred-reload');
@@ -142,7 +142,7 @@ if ('serviceWorker' in navigator) {
 // Keyboard shortcut: Ctrl/Cmd + Shift + U to force clear caches
 window.addEventListener('keydown', async (e) => {
   if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key.toLowerCase() === 'u') {
-    console.log('[Cache Buster] Shortcut triggered - clearing caches');
+    if (import.meta.env.DEV) console.log('[Cache Buster] Shortcut triggered - clearing caches');
     await clearAllCaches();
     safeReload();
   }

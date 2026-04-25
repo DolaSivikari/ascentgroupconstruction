@@ -99,21 +99,21 @@ export const clearAllCaches = async (): Promise<void> => {
       try { navigator.serviceWorker.controller.postMessage({ type: 'CLEAR_CACHE' }); } catch {}
       const regs = await navigator.serviceWorker.getRegistrations();
       await Promise.all(regs.map((reg) => reg.unregister()));
-      console.log('[Cache Buster] Unregistered all service workers');
+      if (import.meta.env.DEV) console.log('[Cache Buster] Unregistered all service workers');
     }
 
     // Clear service worker caches
     if ('caches' in window) {
       const cacheNames = await caches.keys();
       await Promise.all(cacheNames.map(name => caches.delete(name)));
-      console.log('[Cache Buster] Cleared all service worker caches');
+      if (import.meta.env.DEV) console.log('[Cache Buster] Cleared all service worker caches');
     }
 
     // Clear localStorage version
     localStorage.removeItem(VERSION_KEY);
     localStorage.removeItem(LAST_CHECK_KEY);
 
-    console.log('[Cache Buster] All caches cleared');
+    if (import.meta.env.DEV) console.log('[Cache Buster] All caches cleared');
   } catch (error) {
     console.error('[Cache Buster] Error clearing caches:', error);
   }

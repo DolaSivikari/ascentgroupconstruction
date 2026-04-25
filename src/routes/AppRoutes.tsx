@@ -2,44 +2,47 @@ import { lazy, type ComponentType } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
 import { PageTransition } from "@/components/animations/PageTransition";
 import Index from "@/pages/Index";
-import About from "@/pages/About";
-import Services from "@/pages/Services";
-import Markets from "@/pages/Markets";
-import Projects from "@/pages/Projects";
-import Contact from "@/pages/Contact";
-import Estimate from "@/pages/Estimate";
-import Auth from "@/pages/Auth";
 import NotFound from "@/pages/NotFound";
-import PropertyManagers from "@/pages/PropertyManagers";
-import Homeowners from "@/pages/Homeowners";
-import CommercialClients from "@/pages/CommercialClients";
-import OurProcess from "@/pages/OurProcess";
-import Prequalification from "@/pages/Prequalification";
-import Capabilities from "@/pages/Capabilities";
-import Careers from "@/pages/Careers";
-import ServiceDetail from "@/pages/ServiceDetail";
-import FAQ from "@/pages/FAQ";
-import CertificationsInsurance from "@/pages/company/CertificationsInsurance";
-import ContractorPortal from "@/pages/resources/ContractorPortal";
-import ServiceAreas from "@/pages/resources/ServiceAreas";
-import LocationPage from "@/pages/resources/LocationPage";
-import Technology from "@/pages/company/Technology";
-import Developers from "@/pages/company/Developers";
-import ForGeneralContractors from "@/pages/ForGeneralContractors";
-import ForArchitects from "@/pages/ForArchitects";
-import EmergencyRepair from "@/pages/EmergencyRepair";
-import SubmitRFPNew from "@/pages/SubmitRFPNew";
-import Privacy from "@/pages/Privacy";
-import Terms from "@/pages/Terms";
-import Accessibility from "@/pages/Accessibility";
-import Unsubscribe from "@/pages/Unsubscribe";
-import WhySpecialtyContractor from "@/pages/WhySpecialtyContractor";
 
 const lazyWithFallback = (importer: () => Promise<{ default: ComponentType }>, name: string) =>
   lazy(() => importer().catch(() => ({
     default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load {name}</p></div>
   })));
 
+// Public pages — lazy-loaded for smaller initial bundle (only Index loads eagerly)
+const About = lazyWithFallback(() => import("@/pages/About"), 'About');
+const Services = lazyWithFallback(() => import("@/pages/Services"), 'Services');
+const Markets = lazyWithFallback(() => import("@/pages/Markets"), 'Markets');
+const Projects = lazyWithFallback(() => import("@/pages/Projects"), 'Projects');
+const Contact = lazyWithFallback(() => import("@/pages/Contact"), 'Contact');
+const Estimate = lazyWithFallback(() => import("@/pages/Estimate"), 'Estimate');
+const Auth = lazyWithFallback(() => import("@/pages/Auth"), 'Auth');
+const PropertyManagers = lazyWithFallback(() => import("@/pages/PropertyManagers"), 'Property Managers');
+const Homeowners = lazyWithFallback(() => import("@/pages/Homeowners"), 'Homeowners');
+const CommercialClients = lazyWithFallback(() => import("@/pages/CommercialClients"), 'Commercial Clients');
+const OurProcess = lazyWithFallback(() => import("@/pages/OurProcess"), 'Our Process');
+const Prequalification = lazyWithFallback(() => import("@/pages/Prequalification"), 'Prequalification');
+const Capabilities = lazyWithFallback(() => import("@/pages/Capabilities"), 'Capabilities');
+const Careers = lazyWithFallback(() => import("@/pages/Careers"), 'Careers');
+const ServiceDetail = lazyWithFallback(() => import("@/pages/ServiceDetail"), 'Service Detail');
+const FAQ = lazyWithFallback(() => import("@/pages/FAQ"), 'FAQ');
+const CertificationsInsurance = lazyWithFallback(() => import("@/pages/company/CertificationsInsurance"), 'Certifications & Insurance');
+const ContractorPortal = lazyWithFallback(() => import("@/pages/resources/ContractorPortal"), 'Contractor Portal');
+const ServiceAreas = lazyWithFallback(() => import("@/pages/resources/ServiceAreas"), 'Service Areas');
+const LocationPage = lazyWithFallback(() => import("@/pages/resources/LocationPage"), 'Location');
+const Technology = lazyWithFallback(() => import("@/pages/company/Technology"), 'Technology');
+const Developers = lazyWithFallback(() => import("@/pages/company/Developers"), 'Developers');
+const ForGeneralContractors = lazyWithFallback(() => import("@/pages/ForGeneralContractors"), 'For General Contractors');
+const ForArchitects = lazyWithFallback(() => import("@/pages/ForArchitects"), 'For Architects');
+const EmergencyRepair = lazyWithFallback(() => import("@/pages/EmergencyRepair"), 'Emergency Repair');
+const SubmitRFPNew = lazyWithFallback(() => import("@/pages/SubmitRFPNew"), 'Submit RFP');
+const Privacy = lazyWithFallback(() => import("@/pages/Privacy"), 'Privacy');
+const Terms = lazyWithFallback(() => import("@/pages/Terms"), 'Terms');
+const Accessibility = lazyWithFallback(() => import("@/pages/Accessibility"), 'Accessibility');
+const Unsubscribe = lazyWithFallback(() => import("@/pages/Unsubscribe"), 'Unsubscribe');
+const WhySpecialtyContractor = lazyWithFallback(() => import("@/pages/WhySpecialtyContractor"), 'Why Specialty Contractor');
+
+// Admin pages
 const Dashboard = lazyWithFallback(() => import("@/pages/admin/Dashboard"), 'Dashboard');
 const AdminProjects = lazyWithFallback(() => import("@/pages/admin/Projects"), 'Projects');
 const ServiceEditor = lazyWithFallback(() => import("@/pages/admin/ServiceEditor"), 'Service Editor');
