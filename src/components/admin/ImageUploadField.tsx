@@ -14,6 +14,12 @@ interface ImageUploadFieldProps {
   accept?: string;
   targetAspectRatio?: string; // e.g., '16/9', '4/3'
   useProcessingFunction?: boolean; // Use edge function for processing
+  /** Minimum acceptable width in pixels (rejects smaller). */
+  minWidth?: number;
+  /** Minimum acceptable height in pixels (rejects smaller). */
+  minHeight?: number;
+  /** Reject portrait/near-square uploads (e.g. 1.33 = 4:3 minimum). */
+  minAspectRatio?: number;
 }
 
 export const ImageUploadField = ({
