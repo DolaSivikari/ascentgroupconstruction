@@ -1,6 +1,8 @@
 import React, { useState, useCallback } from 'react';
 import { Upload, X, Image as ImageIcon, Grid, List, Eye, Trash2, Star, GripVertical } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
+import { validateImageFile } from '@/utils/image-optimizer';
+import { toast } from 'sonner';
 import {
   DndContext,
   closestCenter,
