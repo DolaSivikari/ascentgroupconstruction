@@ -14,8 +14,18 @@ import StickyInquiryBar from "./components/StickyInquiryBar";
 const queryClient = new QueryClient();
 
 const PageLoader = () => (
-  <div className="min-h-screen flex items-center justify-center">
-    <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary" />
+  <div className="min-h-screen flex flex-col items-center justify-center gap-6 bg-background">
+    <div className="relative h-20 w-20">
+      {/* Static monument inside spinning ring */}
+      <img
+        src="/brand/icon-monument.png"
+        alt=""
+        aria-hidden="true"
+        className="absolute inset-0 m-auto h-12 w-12 object-contain"
+      />
+      <div className="absolute inset-0 rounded-full border-2 border-primary/15 border-t-primary animate-spin" />
+    </div>
+    <span className="sr-only">Loading…</span>
   </div>
 );
 
