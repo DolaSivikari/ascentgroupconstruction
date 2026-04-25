@@ -14,9 +14,10 @@ export default defineConfig(({ mode }) => {
       host: "::",
       port: 8080,
       hmr: {
-        protocol: "ws",
-        host: "localhost",
-        port: 8080,
+        // Use the public preview origin (port 443) instead of localhost:8080,
+        // which silences the "Failed to fetch" ping noise in deployed previews.
+        // Local `bun dev` still works because Vite falls back automatically.
+        clientPort: 443,
       },
     },
     plugins: [
