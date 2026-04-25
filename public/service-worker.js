@@ -13,13 +13,9 @@ self.skipWaiting();
 
 self.addEventListener('install', event => {
   // Precache only static assets - NEVER cache HTML
+  // Only include assets actually referenced by the app to avoid SW install warnings
   const precacheUrls = [
     '/hero-poster-1.webp',
-    '/hero-poster-2.webp',
-    '/hero-poster-3.webp',
-    '/hero-poster-4.webp',
-    '/hero-poster-5.webp',
-    '/hero-poster-6.webp',
   ];
   
   event.waitUntil(
