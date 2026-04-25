@@ -256,29 +256,31 @@ export default function ProjectDetail() {
             <button
               type="button"
               onClick={() => setLightboxOpen(true)}
-              className="group relative block w-full overflow-hidden rounded-xl shadow-md aspect-[16/9] md:aspect-[21/9] bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+              className="group relative block w-full overflow-hidden rounded-xl shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
               aria-label="View full image"
             >
-              <OptimizedImage
+              <ProjectFeaturedImage
                 src={project.featured_image}
                 alt={project.title}
-                className="w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-[1.03]"
-                objectFit="cover"
+                variant="banner"
                 priority
-              />
-              {/* Subtle bottom gradient for premium feel */}
-              <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black/40 to-transparent pointer-events-none" />
-              {/* Expand hint */}
-              <div className="absolute bottom-4 right-4 inline-flex items-center gap-1.5 rounded-full bg-background/90 backdrop-blur px-3 py-1.5 text-xs font-medium text-foreground shadow-sm opacity-0 group-hover:opacity-100 transition-opacity">
-                <Maximize2 className="h-3.5 w-3.5" />
-                View full image
-              </div>
+              >
+                {/* Subtle bottom gradient for premium feel */}
+                <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black/40 to-transparent pointer-events-none" />
+                {/* Expand hint */}
+                <div className="absolute bottom-4 right-4 inline-flex items-center gap-1.5 rounded-full bg-background/90 backdrop-blur px-3 py-1.5 text-xs font-medium text-foreground shadow-sm opacity-0 group-hover:opacity-100 transition-opacity">
+                  <Maximize2 className="h-3.5 w-3.5" />
+                  View full image
+                </div>
+              </ProjectFeaturedImage>
             </button>
           ) : (
-            <div className="w-full aspect-[16/9] md:aspect-[21/9] rounded-xl bg-muted flex flex-col items-center justify-center text-muted-foreground">
-              <span className="text-2xl font-bold tracking-wider">AGC</span>
-              <span className="text-xs mt-1">Project imagery coming soon</span>
-            </div>
+            <ProjectFeaturedImage
+              src={null}
+              alt={project.title}
+              variant="banner"
+              className="rounded-xl"
+            />
           )}
 
           {project.featured_image && (
