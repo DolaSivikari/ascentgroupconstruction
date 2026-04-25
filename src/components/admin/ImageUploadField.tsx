@@ -4,7 +4,7 @@ import { Button } from '@/ui/Button';
 import { uploadImage } from '@/utils/imageResolver';
 import { toast } from 'sonner';
 import { supabase } from '@/integrations/supabase/client';
-import { validateAspectRatio, calculateAspectRatio } from '@/utils/image-optimizer';
+import { validateAspectRatio, calculateAspectRatio, validateImageFile } from '@/utils/image-optimizer';
 
 interface ImageUploadFieldProps {
   value?: string;
