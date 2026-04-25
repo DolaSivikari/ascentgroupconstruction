@@ -133,7 +133,7 @@ const EnhancedHero = ({ splashComplete = true }: { splashComplete?: boolean }) =
     : fallbackHeroSlides;
 
   const videoUrls = activeSlides.map(slide => slide.video);
-  const { getVideoUrl, isPreloaded } = useVideoPreloader({
+  const { getVideoUrl } = useVideoPreloader({
     videoUrls,
     currentIndex: currentSlide,
     prefetchCount: 2,
