@@ -45,7 +45,7 @@ export const HomepageFeaturedProjects = () => {
       const shuffledRest = shuffleArray(nonFeatured);
 
       const combined = [...shuffledFeatured, ...shuffledRest];
-      return combined.slice(0, 3);
+      return combined.slice(0, 4);
     },
     staleTime: 0,
     gcTime: 0,
