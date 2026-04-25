@@ -40,6 +40,7 @@ const Privacy = lazyWithFallback(() => import("@/pages/Privacy"), 'Privacy');
 const Terms = lazyWithFallback(() => import("@/pages/Terms"), 'Terms');
 const Accessibility = lazyWithFallback(() => import("@/pages/Accessibility"), 'Accessibility');
 const Unsubscribe = lazyWithFallback(() => import("@/pages/Unsubscribe"), 'Unsubscribe');
+const EmailUnsubscribe = lazyWithFallback(() => import("@/pages/EmailUnsubscribe"), 'Email Unsubscribe');
 const WhySpecialtyContractor = lazyWithFallback(() => import("@/pages/WhySpecialtyContractor"), 'Why Specialty Contractor');
 
 // Admin pages
@@ -191,6 +192,7 @@ export const AppRoutes = () => (
       <Route path="/terms" element={<Terms />} />
       <Route path="/accessibility" element={<Accessibility />} />
       <Route path="/unsubscribe" element={<Unsubscribe />} />
+      <Route path="/email-unsubscribe" element={<EmailUnsubscribe />} />
       <Route path="/property-managers" element={<PropertyManagers />} />
       <Route path="/homeowners" element={<Homeowners />} />
       <Route path="/commercial-clients" element={<CommercialClients />} />

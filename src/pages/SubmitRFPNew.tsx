@@ -10,7 +10,7 @@ import { Card, CardContent } from "@/design-system/components/Card";
 import { Progress } from "@/components/ui/progress";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
-import { ArrowRight, ArrowLeft, CheckCircle2, Send, Home, Phone } from "lucide-react";
+import { ArrowRight, ArrowLeft, CheckCircle2, Send, Home, Phone, Copy, Check, Shield } from "lucide-react";
 import { rfpSubmissionSchema, type RFPSubmission } from "@/schemas/rfp-validation";
 import { RFPStep1Company } from "@/components/rfp/RFPStep1Company";
 import { RFPStep2Project } from "@/components/rfp/RFPStep2Project";
@@ -22,12 +22,20 @@ import { PageHero } from "@/components/shared/PageHero";
 import { resourceHeroes } from "@/data/hero-images";
 import { PhoneLink } from "@/components/shared/PhoneLink";
 import { AscentEmailLink } from "@/components/EmailLink";
+import { useAdminRoleCheck } from "@/hooks/useAdminRoleCheck";
+
+const ESTIMATING_EMAIL = "estimating@ascentgroupconstruction.com";
 
 export default function SubmitRFPNew() {
   const [currentStep, setCurrentStep] = useState(1);
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [submissionId, setSubmissionId] = useState<string | null>(null);
+  const [submissionRef, setSubmissionRef] = useState<string>("");
+  const [submittedAt, setSubmittedAt] = useState<Date | null>(null);
+  const [refCopied, setRefCopied] = useState(false);
   const [attachmentFiles, setAttachmentFiles] = useState<File[]>([]);
+  const { isAdmin } = useAdminRoleCheck();
 
   const form = useForm<RFPSubmission>({
     resolver: zodResolver(rfpSubmissionSchema),
@@ -153,40 +161,101 @@ export default function SubmitRFPNew() {
         attachment_urls: attachmentUrls.length > 0 ? attachmentUrls : undefined,
       };
 
-      const { error: insertError } = await supabase
+      const { data: insertedRow, error: insertError } = await supabase
         .from("rfp_submissions")
-        .insert([submissionData]);
+        .insert([submissionData])
+        .select("id, created_at")
+        .single();
 
       if (insertError) throw insertError;
 
-      // Send notification email
-      let notificationWarning = false;
-      try {
-        await supabase.functions.invoke("send-rfp-notification", {
-          body: {
-            company_name: data.company_name,
-            contact_name: data.contact_name,
+      const newId = insertedRow?.id as string;
+      const createdAt = insertedRow?.created_at ? new Date(insertedRow.created_at as string) : new Date();
+      const refId = `RFP-${(newId || "").slice(0, 8).toUpperCase()}`;
+
+      setSubmissionId(newId);
+      setSubmissionRef(refId);
+      setSubmittedAt(createdAt);
+
+      // Send notifications: PRIMARY = built-in transactional email, FALLBACK = legacy Resend function
+      const sendViaBuiltIn = async () => {
+        const customerPayload = {
+          templateName: "rfp-customer-confirmation",
+          recipientEmail: data.email,
+          idempotencyKey: `rfp-customer-${newId}`,
+          templateData: {
+            contactName: data.contact_name,
+            projectName: data.project_name,
+            projectType: data.project_type,
+            estimatedValueRange: data.estimated_value_range,
+            companyName: data.company_name,
+            referenceId: refId,
+          },
+        };
+        const internalPayload = {
+          templateName: "rfp-internal-notification",
+          recipientEmail: ESTIMATING_EMAIL,
+          idempotencyKey: `rfp-internal-${newId}`,
+          templateData: {
+            referenceId: refId,
+            rfpId: newId,
+            companyName: data.company_name,
+            contactName: data.contact_name,
             email: data.email,
             phone: data.phone,
-            project_name: data.project_name,
-            project_type: data.project_type,
-            estimated_value_range: data.estimated_value_range,
+            projectName: data.project_name,
+            projectType: data.project_type,
+            projectLocation: data.project_location,
+            estimatedValueRange: data.estimated_value_range,
+            estimatedTimeline: data.estimated_timeline,
+            deliveryMethod: data.delivery_method,
+            scopeOfWork: data.scope_of_work,
+            attachmentsCount: attachmentFiles.length,
+            submittedAt: createdAt.toLocaleString(),
           },
-        });
-      } catch (emailError) {
-        notificationWarning = true;
-        console.error("Email notification failed:", emailError);
+        };
+        const [c, i] = await Promise.all([
+          supabase.functions.invoke("send-transactional-email", { body: customerPayload }),
+          supabase.functions.invoke("send-transactional-email", { body: internalPayload }),
+        ]);
+        if (c.error) throw c.error;
+        if (i.error) throw i.error;
+      };
+
+      let notificationWarning = false;
+      try {
+        await sendViaBuiltIn();
+      } catch (primaryError) {
+        console.warn("Built-in email failed, falling back to Resend:", primaryError);
+        try {
+          await supabase.functions.invoke("send-rfp-notification", {
+            body: {
+              company_name: data.company_name,
+              contact_name: data.contact_name,
+              email: data.email,
+              phone: data.phone,
+              project_name: data.project_name,
+              project_type: data.project_type,
+              estimated_value_range: data.estimated_value_range,
+              reference_id: refId,
+              rfp_id: newId,
+            },
+          });
+        } catch (fallbackError) {
+          notificationWarning = true;
+          console.error("Both email senders failed:", fallbackError);
+        }
       }
 
       toast.success("RFP Submitted Successfully", {
         description: notificationWarning
-          ? "Your proposal was saved successfully. Our team will review and follow up within 2 business days."
-          : "We'll review your request and contact you within 2 business days.",
+          ? `Saved as ${refId}. Our team has been alerted internally and will follow up within 2 business days.`
+          : `Saved as ${refId}. We'll review and respond within 2 business days.`,
       });
 
       // Phase 3: Track A/B test conversion
       await trackABTestConversion('homepage-hero-2024', 5);
-      
+
       setSubmitted(true);
       window.scrollTo({ top: 0, behavior: "smooth" });
     } catch (error: any) {
@@ -196,6 +265,17 @@ export default function SubmitRFPNew() {
       });
     } finally {
       setSubmitting(false);
+    }
+  };
+
+  const copyRef = async () => {
+    if (!submissionRef) return;
+    try {
+      await navigator.clipboard.writeText(submissionRef);
+      setRefCopied(true);
+      setTimeout(() => setRefCopied(false), 2000);
+    } catch {
+      toast.error("Could not copy reference ID");
     }
   };
 
@@ -225,22 +305,81 @@ export default function SubmitRFPNew() {
       {submitted ? (
         /* Success State — in-place, no redirect */
         <main className="flex-1 py-16">
-          <div className="container mx-auto px-4 max-w-2xl text-center animate-fade-in-up">
-            <div className="w-20 h-20 rounded-full bg-secondary/10 flex items-center justify-center mx-auto mb-6">
-              <CheckCircle2 className="w-10 h-10 text-secondary" />
+          <div className="container mx-auto px-4 max-w-2xl animate-fade-in-up">
+            <div className="text-center">
+              <div className="w-20 h-20 rounded-full bg-secondary/10 flex items-center justify-center mx-auto mb-6">
+                <CheckCircle2 className="w-10 h-10 text-secondary" />
+              </div>
+              <h2 className="text-3xl md:text-4xl font-bold mb-3 text-primary">RFP Received</h2>
+              <p className="text-lg text-muted-foreground mb-6 max-w-lg mx-auto">
+                Thank you for your proposal. Our estimating team will review and respond within 2 business days.
+              </p>
             </div>
-            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-primary">Your RFP Has Been Submitted</h2>
-            <p className="text-lg text-muted-foreground mb-2 max-w-lg mx-auto">
-              Thank you for your proposal. Our team will review your project details and respond within 2 business days.
-            </p>
+
+            {/* Reference ID card */}
+            {submissionRef && (
+              <Card className="mb-6">
+                <CardContent className="p-6">
+                  <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                    <div>
+                      <p className="text-xs uppercase tracking-wider text-muted-foreground mb-1">Reference ID</p>
+                      <p className="text-2xl font-mono font-bold text-primary tracking-wider">{submissionRef}</p>
+                      {submittedAt && (
+                        <p className="text-xs text-muted-foreground mt-1">
+                          Submitted {submittedAt.toLocaleString()}
+                        </p>
+                      )}
+                    </div>
+                    <Button variant="secondary" onClick={copyRef} className="shrink-0">
+                      {refCopied ? (<><Check className="w-4 h-4 mr-2" />Copied</>) : (<><Copy className="w-4 h-4 mr-2" />Copy ID</>)}
+                    </Button>
+                  </div>
+                  <p className="text-sm text-muted-foreground mt-3">
+                    Please reference this ID in any follow-up correspondence with our team.
+                  </p>
+                </CardContent>
+              </Card>
+            )}
+
+            {/* Timeline card */}
+            <Card className="mb-6 border-secondary/20 bg-secondary/5">
+              <CardContent className="p-6">
+                <h3 className="font-bold text-primary mb-4 uppercase text-xs tracking-wider">What happens next</h3>
+                <ol className="space-y-3">
+                  <li className="flex gap-3">
+                    <span className="flex-shrink-0 w-7 h-7 rounded-full bg-primary text-primary-foreground text-xs font-bold flex items-center justify-center">1</span>
+                    <div>
+                      <p className="font-semibold text-sm">Review (24–48 hours)</p>
+                      <p className="text-sm text-muted-foreground">Our estimating team reviews your project requirements.</p>
+                    </div>
+                  </li>
+                  <li className="flex gap-3">
+                    <span className="flex-shrink-0 w-7 h-7 rounded-full bg-primary text-primary-foreground text-xs font-bold flex items-center justify-center">2</span>
+                    <div>
+                      <p className="font-semibold text-sm">Initial contact (within 2 business days)</p>
+                      <p className="text-sm text-muted-foreground">We reach out to discuss details and clarify questions.</p>
+                    </div>
+                  </li>
+                  <li className="flex gap-3">
+                    <span className="flex-shrink-0 w-7 h-7 rounded-full bg-primary text-primary-foreground text-xs font-bold flex items-center justify-center">3</span>
+                    <div>
+                      <p className="font-semibold text-sm">Proposal & presentation</p>
+                      <p className="text-sm text-muted-foreground">We prepare and walk you through a tailored proposal.</p>
+                    </div>
+                  </li>
+                </ol>
+              </CardContent>
+            </Card>
+
             {attachmentFiles.length > 0 && (
-              <p className="text-sm text-muted-foreground mb-2">
+              <p className="text-sm text-muted-foreground text-center mb-2">
                 {attachmentFiles.length} file{attachmentFiles.length > 1 ? "s" : ""} uploaded successfully.
               </p>
             )}
-            <p className="text-sm text-muted-foreground mb-8">
+            <p className="text-sm text-muted-foreground text-center mb-8">
               A confirmation has been sent to your email address.
             </p>
+
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button asChild>
                 <Link to="/"><Home className="w-4 h-4 mr-2" />Return Home</Link>
@@ -248,6 +387,13 @@ export default function SubmitRFPNew() {
               <Button asChild variant="secondary">
                 <Link to="/contact"><Phone className="w-4 h-4 mr-2" />Contact Us</Link>
               </Button>
+              {isAdmin && submissionId && (
+                <Button asChild variant="secondary">
+                  <Link to={`/admin/inbox?tab=rfp&highlight=${submissionId}`}>
+                    <Shield className="w-4 h-4 mr-2" />View in Admin Inbox
+                  </Link>
+                </Button>
+              )}
             </div>
           </div>
         </main>
