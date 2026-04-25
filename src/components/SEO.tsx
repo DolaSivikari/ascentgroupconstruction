@@ -17,7 +17,7 @@ const SEO = ({
   title,
   description = "Ontario building envelope & interior trades contractor. Professional execution of EIFS, masonry, painting, and restoration work. Established 2025 by experienced construction professionals. Serving property managers, GCs, and building owners across the GTA.",
   keywords,
-  ogImage = "/og-image.jpg",
+  ogImage = "/og-image.png",
   canonical,
   structuredData,
   includeRating = false,
@@ -48,7 +48,7 @@ const SEO = ({
       width: "250",
       height: "60"
     },
-    image: `${SITE_URL}/og-image.jpg`,
+    image: `${SITE_URL}/og-image.png`,
     email: COMPANY_EMAIL,
     address: {
       "@type": "PostalAddress",
