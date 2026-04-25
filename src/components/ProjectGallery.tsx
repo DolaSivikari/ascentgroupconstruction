@@ -153,12 +153,10 @@ export const ProjectGallery: React.FC<ProjectGalleryProps> = ({
             style={{ transition: prefersReducedMotion ? 'box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1)' : 'var(--card-transition), box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1)' }}
             onClick={() => openLightbox(index)}
           >
-            <img
+            <GalleryThumbnail
               src={image.url}
               alt={image.caption || `Gallery image ${index + 1}`}
-              className={`w-full h-full object-cover ${!prefersReducedMotion && 'group-hover:scale-110'}`}
-              style={{ transition: prefersReducedMotion ? 'none' : 'var(--transition-transform)' }}
-              loading="lazy"
+              disableHoverScale={prefersReducedMotion}
             />
 
             {/* Overlay */}
