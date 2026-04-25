@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import { ChevronLeft, ChevronRight, X, ZoomIn, Download, Share2 } from 'lucide-react';
+import React, { useState } from 'react';
+import { ZoomIn } from 'lucide-react';
 import BeforeAfterSlider from './BeforeAfterSlider';
 import { useReducedMotion } from '@/hooks/useReducedMotion';
 import { GRID } from "@/design-system/layouts";
+import { InteractiveLightbox } from '@/components/InteractiveLightbox';
 
 interface GalleryImage {
   id: string;
@@ -38,38 +39,23 @@ export const ProjectGallery: React.FC<ProjectGalleryProps> = ({
   const galleryImages = images.filter(img => img.category === 'gallery').sort((a, b) => a.order - b.order);
 
   // Combine for display based on selected tab
-  const displayImages = selectedTab === 'all' 
+  const displayImages = selectedTab === 'all'
     ? [...galleryImages, ...processImages]
     : selectedTab === 'before-after'
     ? [...beforeImages, ...afterImages]
     : processImages;
 
-  // Keyboard navigation
-  useEffect(() => {
-    const handleKeyPress = (e: KeyboardEvent) => {
-      if (!lightboxOpen) return;
-      
-      if (e.key === 'ArrowLeft') handlePrevImage();
-      if (e.key === 'ArrowRight') handleNextImage();
-      if (e.key === 'Escape') setLightboxOpen(false);
-    };
-
-    window.addEventListener('keydown', handleKeyPress);
-    return () => window.removeEventListener('keydown', handleKeyPress);
-  }, [lightboxOpen, currentImageIndex]);
-
-  const handlePrevImage = () => {
-    setCurrentImageIndex((prev) => (prev > 0 ? prev - 1 : displayImages.length - 1));
-  };
-
-  const handleNextImage = () => {
-    setCurrentImageIndex((prev) => (prev < displayImages.length - 1 ? prev + 1 : 0));
-  };
-
   const openLightbox = (index: number) => {
     setCurrentImageIndex(index);
     setLightboxOpen(true);
   };
+
+  // Map gallery images to lightbox-compatible shape
+  const lightboxImages = displayImages.map((img, idx) => ({
+    src: img.url,
+    alt: img.caption || `${projectTitle} — Gallery image ${idx + 1}`,
+    caption: img.caption,
+  }));
 
   return (
     <div className="w-full max-w-7xl mx-auto px-4 py-12">
@@ -173,20 +159,20 @@ export const ProjectGallery: React.FC<ProjectGalleryProps> = ({
               style={{ transition: prefersReducedMotion ? 'none' : 'var(--transition-transform)' }}
               loading="lazy"
             />
-            
+
             {/* Overlay */}
-            <div 
+            <div
               className="absolute inset-0 bg-[hsl(var(--ink))]/0 group-hover:bg-[hsl(var(--ink))]/40 flex items-center justify-center"
               style={{ transition: 'var(--transition-base)' }}
             >
-              <ZoomIn 
-                className="text-[hsl(var(--bg))] opacity-0 group-hover:opacity-100 w-12 h-12 fade-transition" 
+              <ZoomIn
+                className="text-[hsl(var(--bg))] opacity-0 group-hover:opacity-100 w-12 h-12 fade-transition"
               />
             </div>
 
             {/* Caption */}
             {image.caption && (
-              <div 
+              <div
                 className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-[hsl(var(--ink))]/80 to-transparent p-4 translate-y-full group-hover:translate-y-0"
                 style={{ transition: 'var(--transition-transform)' }}
               >
@@ -214,89 +200,13 @@ export const ProjectGallery: React.FC<ProjectGalleryProps> = ({
         </div>
       )}
 
-      {/* Lightbox */}
-      {lightboxOpen && (
-        <div className="fixed inset-0 z-50 bg-[hsl(var(--ink))]/95 flex items-center justify-center">
-          {/* Close Button */}
-          <button
-            onClick={() => setLightboxOpen(false)}
-            className="absolute top-4 right-4 p-3 bg-[hsl(var(--bg))]/10 hover:bg-[hsl(var(--bg))]/20 rounded-full transition-colors z-10"
-          >
-            <X className="w-6 h-6 text-[hsl(var(--bg))]" />
-          </button>
-
-          {/* Previous Button */}
-          <button
-            onClick={handlePrevImage}
-            className="absolute left-4 p-3 bg-[hsl(var(--bg))]/10 hover:bg-[hsl(var(--bg))]/20 rounded-full transition-colors z-10"
-          >
-            <ChevronLeft className="w-8 h-8 text-[hsl(var(--bg))]" />
-          </button>
-
-          {/* Next Button */}
-          <button
-            onClick={handleNextImage}
-            className="absolute right-4 p-3 bg-[hsl(var(--bg))]/10 hover:bg-[hsl(var(--bg))]/20 rounded-full transition-colors z-10"
-          >
-            <ChevronRight className="w-8 h-8 text-[hsl(var(--bg))]" />
-          </button>
-
-          {/* Image */}
-          <div className="max-w-7xl max-h-[85vh] px-4">
-            <img
-              src={displayImages[currentImageIndex]?.url}
-              alt={displayImages[currentImageIndex]?.caption || 'Gallery image'}
-              className="max-w-full max-h-[85vh] object-contain rounded-lg"
-            />
-            
-            {/* Image Info */}
-            {displayImages[currentImageIndex]?.caption && (
-              <p className="text-[hsl(var(--bg))] text-center text-lg mt-6 font-medium">
-                {displayImages[currentImageIndex]?.caption}
-              </p>
-            )}
-            
-            <p className="text-[hsl(var(--bg))]/60 text-center mt-2">
-              {currentImageIndex + 1} / {displayImages.length}
-            </p>
-          </div>
-
-          {/* Bottom Actions */}
-          <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex gap-3">
-            <button
-              onClick={() => window.open(displayImages[currentImageIndex]?.url, '_blank')}
-              className="p-2 bg-[hsl(var(--bg))]/10 hover:bg-[hsl(var(--bg))]/20 rounded-full transition-colors"
-            >
-              <ZoomIn className="w-5 h-5 text-[hsl(var(--bg))]" />
-            </button>
-            <button
-              onClick={() => {
-                const link = document.createElement('a');
-                link.href = displayImages[currentImageIndex]?.url;
-                link.download = `${projectTitle}-${currentImageIndex + 1}.jpg`;
-                link.click();
-              }}
-              className="p-2 bg-[hsl(var(--bg))]/10 hover:bg-[hsl(var(--bg))]/20 rounded-full transition-colors"
-            >
-              <Download className="w-5 h-5 text-[hsl(var(--bg))]" />
-            </button>
-            <button
-              onClick={() => {
-                if (navigator.share) {
-                  navigator.share({
-                    title: projectTitle,
-                    text: displayImages[currentImageIndex]?.caption || 'Check out this project!',
-                    url: window.location.href
-                  });
-                }
-              }}
-              className="p-2 bg-[hsl(var(--bg))]/10 hover:bg-[hsl(var(--bg))]/20 rounded-full transition-colors"
-            >
-              <Share2 className="w-5 h-5 text-[hsl(var(--bg))]" />
-            </button>
-          </div>
-        </div>
-      )}
+      {/* Lightbox — uses shared InteractiveLightbox (yet-another-react-lightbox) */}
+      <InteractiveLightbox
+        images={lightboxImages}
+        isOpen={lightboxOpen}
+        onClose={() => setLightboxOpen(false)}
+        initialIndex={currentImageIndex}
+      />
     </div>
   );
 };
