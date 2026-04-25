@@ -168,8 +168,13 @@ For immediate questions, call +1 (647) 528-6804 or reply to this email.`;
     });
 
     const clientEmail = await clientEmailResponse.json();
+    const clientOk = clientEmailResponse.ok;
 
-    // Send notification to admin
+    // Send notification to admin (estimating inbox)
+    const refLine = data.reference_id ? `<p><strong>Reference:</strong> ${escapeHtml(data.reference_id)}</p>` : '';
+    const adminUrl = data.rfp_id
+      ? `https://ascentgroupconstruction.com/admin/inbox?tab=rfp&highlight=${encodeURIComponent(data.rfp_id)}`
+      : 'https://ascentgroupconstruction.com/admin/inbox?tab=rfp';
     const adminEmailResponse = await fetch("https://api.resend.com/emails", {
       method: "POST",
       headers: {
@@ -180,9 +185,10 @@ For immediate questions, call +1 (647) 528-6804 or reply to this email.`;
         from: "RFP System <onboarding@resend.dev>",
         to: ["estimating@ascentgroupconstruction.com"],
         reply_to: data.email.trim(),
-        subject: `[RFP] ${safe.company_name} — ${safe.project_name}`,
+        subject: `[RFP${data.reference_id ? ' ' + data.reference_id : ''}] ${safe.company_name} — ${safe.project_name}`,
         html: `
-        <h2>🚨 New RFP Submission</h2>
+        <h2>🚨 New RFP Submission (fallback sender)</h2>
+        ${refLine}
         <p><strong>Company:</strong> ${safe.company_name}</p>
         <p><strong>Contact:</strong> ${safe.contact_name}</p>
         <p><strong>Email:</strong> ${safe.email}</p>
@@ -193,24 +199,71 @@ For immediate questions, call +1 (647) 528-6804 or reply to this email.`;
         <p><strong>Type:</strong> ${safe.project_type}</p>
         <p><strong>Est. Value:</strong> ${safe.estimated_value_range}</p>
         <hr>
-        <p><a href="https://ascentgroupconstruction.com/admin/rfp-submissions">View in Admin Dashboard →</a></p>
+        <p><a href="${adminUrl}">View in Admin Inbox →</a></p>
       `,
       }),
     });
 
     const adminEmail = await adminEmailResponse.json();
+    const adminOk = adminEmailResponse.ok;
 
-    console.log("RFP notification emails sent successfully");
+    // Log failures + alert admins so we can debug delivery quickly
+    if (!clientOk || !adminOk) {
+      const failureContext = {
+        client_status: clientEmailResponse.status,
+        client_response: clientEmail,
+        admin_status: adminEmailResponse.status,
+        admin_response: adminEmail,
+        rfp_email: data.email,
+        rfp_id: data.rfp_id,
+        reference_id: data.reference_id,
+      };
+      console.error('[send-rfp-notification] Resend send failed', failureContext);
+
+      try {
+        await supabase.from('error_logs').insert({
+          message: `send-rfp-notification: ${!clientOk ? 'customer ' : ''}${!adminOk ? 'admin ' : ''}email failed`,
+          context: failureContext,
+        });
+      } catch (logErr) {
+        console.error('Failed to write error_logs', logErr);
+      }
+
+      try {
+        await supabase.rpc('notify_admins', {
+          p_type: 'email_failure',
+          p_ref_id: data.rfp_id || '00000000-0000-0000-0000-000000000000',
+          p_title: 'RFP email delivery failed',
+          p_message: `Resend fallback failed for RFP ${data.reference_id || ''} from ${data.company_name}. Check error logs.`,
+        });
+      } catch (notifyErr) {
+        console.error('Failed to notify admins', notifyErr);
+      }
+
+      return new Response(
+        JSON.stringify({ success: false, email_status: 'failed', detail: failureContext }),
+        { status: 200, headers: { "Content-Type": "application/json", ...corsHeaders } }
+      );
+    }
+
+    console.log("RFP notification emails sent successfully via Resend fallback");
 
     return new Response(
-      JSON.stringify({ success: true }),
-      {
-        status: 200,
-        headers: { "Content-Type": "application/json", ...corsHeaders },
-      }
+      JSON.stringify({ success: true, email_status: 'sent' }),
+      { status: 200, headers: { "Content-Type": "application/json", ...corsHeaders } }
     );
   } catch (error: unknown) {
     console.error("Error in send-rfp-notification:", error);
+    try {
+      const supabase2 = createClient(
+        Deno.env.get('SUPABASE_URL')!,
+        Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!
+      );
+      await supabase2.from('error_logs').insert({
+        message: 'send-rfp-notification: unhandled exception',
+        context: { error: error instanceof Error ? error.message : String(error) },
+      });
+    } catch {}
     return createErrorResponse(
       error,
       'Failed to process RFP notification',
