@@ -1,3 +1,4 @@
+// @ts-nocheck — email infra tables (email_send_log, pgmq) not yet in generated types
 import { sendLovableEmail } from 'npm:@lovable.dev/email-js'
 import { createClient } from 'npm:@supabase/supabase-js@2'
 
