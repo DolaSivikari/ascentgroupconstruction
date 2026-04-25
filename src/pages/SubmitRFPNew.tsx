@@ -10,7 +10,7 @@ import { Card, CardContent } from "@/design-system/components/Card";
 import { Progress } from "@/components/ui/progress";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
-import { ArrowRight, ArrowLeft, CheckCircle2, Send, Home, Phone } from "lucide-react";
+import { ArrowRight, ArrowLeft, CheckCircle2, Send, Home, Phone, Copy, Check, Shield } from "lucide-react";
 import { rfpSubmissionSchema, type RFPSubmission } from "@/schemas/rfp-validation";
 import { RFPStep1Company } from "@/components/rfp/RFPStep1Company";
 import { RFPStep2Project } from "@/components/rfp/RFPStep2Project";
@@ -22,12 +22,20 @@ import { PageHero } from "@/components/shared/PageHero";
 import { resourceHeroes } from "@/data/hero-images";
 import { PhoneLink } from "@/components/shared/PhoneLink";
 import { AscentEmailLink } from "@/components/EmailLink";
+import { useAdminRoleCheck } from "@/hooks/useAdminRoleCheck";
+
+const ESTIMATING_EMAIL = "estimating@ascentgroupconstruction.com";
 
 export default function SubmitRFPNew() {
   const [currentStep, setCurrentStep] = useState(1);
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [submissionId, setSubmissionId] = useState<string | null>(null);
+  const [submissionRef, setSubmissionRef] = useState<string>("");
+  const [submittedAt, setSubmittedAt] = useState<Date | null>(null);
+  const [refCopied, setRefCopied] = useState(false);
   const [attachmentFiles, setAttachmentFiles] = useState<File[]>([]);
+  const { isAdmin } = useAdminRoleCheck();
 
   const form = useForm<RFPSubmission>({
     resolver: zodResolver(rfpSubmissionSchema),
