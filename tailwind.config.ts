@@ -145,6 +145,23 @@ export default {
           "nav-active-text": "hsl(var(--admin-nav-active-text))",
           "nav-active-border": "hsl(var(--admin-nav-active-border))",
         },
+        // Semantic feedback colors — use these instead of bg-green-500/text-yellow-500/etc.
+        success: {
+          DEFAULT: "hsl(var(--success))",
+          foreground: "hsl(0 0% 100%)",
+        },
+        warning: {
+          DEFAULT: "hsl(var(--warning))",
+          foreground: "hsl(0 0% 100%)",
+        },
+        danger: {
+          DEFAULT: "hsl(var(--danger))",
+          foreground: "hsl(0 0% 100%)",
+        },
+        info: {
+          DEFAULT: "hsl(var(--info))",
+          foreground: "hsl(0 0% 100%)",
+        },
         // Sustainability accent colors (use sparingly in eco-related sections only)
         sustainability: {
           light: "hsl(80 25% 70%)",  // Sage green
