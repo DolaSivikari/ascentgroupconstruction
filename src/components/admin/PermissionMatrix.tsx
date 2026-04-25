@@ -58,35 +58,35 @@ export const PermissionMatrix = () => {
                 <td className="py-3 px-2 font-medium">{permission.name}</td>
                 <td className="text-center py-3 px-2">
                   {permission.super_admin ? (
-                    <Check className="h-4 w-4 text-green-500 mx-auto" />
+                    <Check className="h-4 w-4 text-success mx-auto" />
                   ) : (
                     <X className="h-4 w-4 text-muted-foreground mx-auto" />
                   )}
                 </td>
                 <td className="text-center py-3 px-2">
                   {permission.admin ? (
-                    <Check className="h-4 w-4 text-green-500 mx-auto" />
+                    <Check className="h-4 w-4 text-success mx-auto" />
                   ) : (
                     <X className="h-4 w-4 text-muted-foreground mx-auto" />
                   )}
                 </td>
                 <td className="text-center py-3 px-2">
                   {permission.editor ? (
-                    <Check className="h-4 w-4 text-green-500 mx-auto" />
+                    <Check className="h-4 w-4 text-success mx-auto" />
                   ) : (
                     <X className="h-4 w-4 text-muted-foreground mx-auto" />
                   )}
                 </td>
                 <td className="text-center py-3 px-2">
                   {permission.contributor ? (
-                    <Check className="h-4 w-4 text-green-500 mx-auto" />
+                    <Check className="h-4 w-4 text-success mx-auto" />
                   ) : (
                     <X className="h-4 w-4 text-muted-foreground mx-auto" />
                   )}
                 </td>
                 <td className="text-center py-3 px-2">
                   {permission.viewer ? (
-                    <Check className="h-4 w-4 text-green-500 mx-auto" />
+                    <Check className="h-4 w-4 text-success mx-auto" />
                   ) : (
                     <X className="h-4 w-4 text-muted-foreground mx-auto" />
                   )}

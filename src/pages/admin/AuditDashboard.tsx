@@ -100,7 +100,7 @@ export default function AuditDashboard() {
           <Card className="p-6">
             <div className="flex items-center gap-3">
               <div className="p-3 bg-red-100 dark:bg-red-900/20 rounded-lg">
-                <AlertTriangle className="h-5 w-5 text-red-600" />
+                <AlertTriangle className="h-5 w-5 text-danger" />
               </div>
               <div>
                 <p className="text-sm text-muted-foreground">Failed Logins</p>
@@ -112,7 +112,7 @@ export default function AuditDashboard() {
           <Card className="p-6">
             <div className="flex items-center gap-3">
               <div className="p-3 bg-green-100 dark:bg-green-900/20 rounded-lg">
-                <User className="h-5 w-5 text-green-600" />
+                <User className="h-5 w-5 text-success" />
               </div>
               <div>
                 <p className="text-sm text-muted-foreground">Unique Users</p>
@@ -227,7 +227,7 @@ export default function AuditDashboard() {
           <Card>
             <div className="p-6 border-b border-border">
               <div className="flex items-center gap-2">
-                <AlertTriangle className="h-5 w-5 text-red-500" />
+                <AlertTriangle className="h-5 w-5 text-danger" />
                 <h3 className="text-lg font-semibold">Failed Login Attempts</h3>
               </div>
               <p className="text-sm text-muted-foreground">Recent authentication failures</p>

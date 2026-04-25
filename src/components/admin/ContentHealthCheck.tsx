@@ -168,8 +168,8 @@ export const ContentHealthCheck = () => {
   const getSeverityColor = (severity: HealthIssue["severity"]) => {
     switch (severity) {
       case "error": return "bg-destructive text-destructive-foreground";
-      case "warning": return "bg-amber-500/20 text-amber-300 border-amber-500/30";
-      case "info": return "bg-blue-500/20 text-blue-300 border-blue-500/30";
+      case "warning": return "bg-warning/20 text-amber-300 border-warning/30";
+      case "info": return "bg-info/20 text-blue-300 border-info/30";
     }
   };
 
@@ -200,7 +200,7 @@ export const ContentHealthCheck = () => {
           </div>
         ) : issues.length === 0 ? (
           <div className="text-center py-8">
-            <CheckCircle2 className="h-12 w-12 text-green-500 mx-auto mb-3" />
+            <CheckCircle2 className="h-12 w-12 text-success mx-auto mb-3" />
             <p className="font-semibold">All Clear!</p>
             <p className="text-sm text-muted-foreground">No issues found with your content</p>
           </div>

@@ -60,7 +60,7 @@ export const ProjectEditorHeader = ({
                     <div 
                       className={cn(
                         "absolute top-0 left-0 h-full transition-all duration-300",
-                        completionPercentage === 100 ? "bg-green-500" : "bg-primary"
+                        completionPercentage === 100 ? "bg-success" : "bg-primary"
                       )}
                       style={{ width: `${completionPercentage}%` }}
                     />
@@ -69,7 +69,7 @@ export const ProjectEditorHeader = ({
                     {completionPercentage}% complete
                   </span>
                   {completionPercentage === 100 && (
-                    <CheckCircle2 className="w-4 h-4 text-green-500" />
+                    <CheckCircle2 className="w-4 h-4 text-success" />
                   )}
                 </div>
                 

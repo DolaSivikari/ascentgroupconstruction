@@ -50,9 +50,9 @@ export const CompletionChecklist = ({ completion }: CompletionChecklistProps) =>
           <h3 className="font-semibold text-sm">Publish Checklist</h3>
           <div className="flex items-center gap-2">
             {completion.isComplete ? (
-              <CheckCircle2 className="w-4 h-4 text-green-500" />
+              <CheckCircle2 className="w-4 h-4 text-success" />
             ) : (
-              <AlertCircle className="w-4 h-4 text-yellow-500" />
+              <AlertCircle className="w-4 h-4 text-warning" />
             )}
             <span className="text-sm font-medium">
               {completion.overall.completed}/{completion.overall.total}
@@ -70,7 +70,7 @@ export const CompletionChecklist = ({ completion }: CompletionChecklistProps) =>
             <div 
               className={cn(
                 "h-full transition-all duration-300",
-                completion.isComplete ? "bg-green-500" : "bg-primary"
+                completion.isComplete ? "bg-success" : "bg-primary"
               )}
               style={{ width: `${completion.overall.percentage}%` }}
             />
@@ -90,7 +90,7 @@ export const CompletionChecklist = ({ completion }: CompletionChecklistProps) =>
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
                     {isComplete ? (
-                      <CheckCircle2 className="w-4 h-4 text-green-500" />
+                      <CheckCircle2 className="w-4 h-4 text-success" />
                     ) : (
                       <Circle className="w-4 h-4 text-muted-foreground" />
                     )}
@@ -100,7 +100,7 @@ export const CompletionChecklist = ({ completion }: CompletionChecklistProps) =>
                   </div>
                   <span className={cn(
                     "text-xs font-medium",
-                    isComplete ? "text-green-600" : "text-muted-foreground"
+                    isComplete ? "text-success" : "text-muted-foreground"
                   )}>
                     {tabData.completed}/{tabData.total}
                   </span>

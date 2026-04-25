@@ -106,7 +106,7 @@ export default function Monitoring() {
         <Card>
           <div className="p-6 border-b border-border">
             <div className="flex items-center gap-2">
-              <AlertCircle className="h-5 w-5 text-red-500" />
+              <AlertCircle className="h-5 w-5 text-danger" />
               <h3 className="text-lg font-semibold">Recent Errors</h3>
             </div>
             <p className="text-sm text-muted-foreground">Client-side and server errors</p>

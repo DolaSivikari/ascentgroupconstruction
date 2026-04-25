@@ -115,7 +115,7 @@ export const SitemapManager = () => {
               <div>
                 <div className="flex items-center gap-2 mb-1">
                   {latestLog.status === 'success' ? (
-                    <CheckCircle2 className="h-5 w-5 text-green-600" />
+                    <CheckCircle2 className="h-5 w-5 text-success" />
                   ) : (
                     <AlertCircle className="h-5 w-5 text-destructive" />
                   )}
@@ -160,7 +160,7 @@ export const SitemapManager = () => {
                 >
                   <div className="flex items-center gap-3">
                     {log.status === 'success' ? (
-                      <CheckCircle2 className="h-4 w-4 text-green-600 flex-shrink-0" />
+                      <CheckCircle2 className="h-4 w-4 text-success flex-shrink-0" />
                     ) : (
                       <AlertCircle className="h-4 w-4 text-destructive flex-shrink-0" />
                     )}

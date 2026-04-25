@@ -76,12 +76,12 @@ export const UnifiedAdminLayout = () => {
           <div className="space-y-2">
             <p className="text-lg font-medium">Verifying access...</p>
             {loadingTime > 3000 && (
-              <p className="text-sm text-yellow-500">Taking longer than usual...</p>
+              <p className="text-sm text-warning">Taking longer than usual...</p>
             )}
             {loadingTime > 5000 && (
               <button 
                 onClick={retry}
-                className="mt-4 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-md transition-colors"
+                className="mt-4 px-4 py-2 bg-info hover:bg-info text-white rounded-md transition-colors"
               >
                 Try Again
               </button>

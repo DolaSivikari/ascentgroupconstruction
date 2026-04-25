@@ -172,7 +172,7 @@ export const SEOTab = ({ formData, onFormChange }: SEOTabProps) => {
               <p className="text-sm text-yellow-800 dark:text-yellow-200 mb-2">
                 Your project is currently in <strong>Draft</strong> mode. It won't appear on the website until you change the status to <strong>Published</strong>.
               </p>
-              <p className="text-xs text-yellow-700 dark:text-yellow-300">
+              <p className="text-xs text-warning dark:text-yellow-300">
                 💡 <strong>To make it live:</strong> Select "Published" from the dropdown above and save your changes.
               </p>
             </div>
@@ -181,7 +181,7 @@ export const SEOTab = ({ formData, onFormChange }: SEOTabProps) => {
       )}
       
       {formData.publish_state === "published" && (
-        <div className="bg-green-50 dark:bg-green-950/20 border-2 border-green-500 dark:border-green-700 rounded-lg p-4">
+        <div className="bg-green-50 dark:bg-green-950/20 border-2 border-success dark:border-success rounded-lg p-4">
           <p className="text-sm font-medium text-green-900 dark:text-green-100">
             ✅ This project is <strong>LIVE</strong> and visible on the Projects page
           </p>
@@ -189,7 +189,7 @@ export const SEOTab = ({ formData, onFormChange }: SEOTabProps) => {
       )}
       
       {formData.publish_state === "draft" && (
-        <div className="bg-yellow-50 dark:bg-yellow-950/20 border-2 border-yellow-500 dark:border-yellow-700 rounded-lg p-4">
+        <div className="bg-yellow-50 dark:bg-yellow-950/20 border-2 border-warning dark:border-warning rounded-lg p-4">
           <p className="text-sm font-medium text-yellow-900 dark:text-yellow-100">
             ⚠️ This project is a <strong>DRAFT</strong> and will NOT appear on the Projects page until published
           </p>

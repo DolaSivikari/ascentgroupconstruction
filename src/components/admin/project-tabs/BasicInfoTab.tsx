@@ -74,7 +74,7 @@ export const BasicInfoTab = ({ formData, slugStatus, onFormChange }: BasicInfoTa
               <p className={cn(
                 "text-xs font-medium",
                 slugStatus.isChecking && "text-muted-foreground",
-                slugStatus.isAvailable && !slugStatus.isChecking && "text-green-600",
+                slugStatus.isAvailable && !slugStatus.isChecking && "text-success",
                 !slugStatus.isAvailable && !slugStatus.isChecking && "text-destructive"
               )}>
                 {slugStatus.message}

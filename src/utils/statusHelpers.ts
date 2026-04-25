@@ -12,11 +12,11 @@ export type InvoiceStatus = 'draft' | 'sent' | 'viewed' | 'paid' | 'partially_pa
 export const getProjectStatusColor = (status: ProjectStatus): string => {
   const colors: Record<ProjectStatus, string> = {
     lead: 'bg-slate-500/20 text-slate-300 border-slate-500/30',
-    quoted: 'bg-blue-500/20 text-blue-300 border-blue-500/30',
+    quoted: 'bg-info/20 text-blue-300 border-info/30',
     scheduled: 'bg-purple-500/20 text-purple-300 border-purple-500/30',
-    in_progress: 'bg-amber-500/20 text-amber-300 border-amber-500/30',
-    completed: 'bg-green-500/20 text-green-300 border-green-500/30',
-    cancelled: 'bg-red-500/20 text-red-300 border-red-500/30',
+    in_progress: 'bg-warning/20 text-amber-300 border-warning/30',
+    completed: 'bg-success/20 text-green-300 border-success/30',
+    cancelled: 'bg-danger/20 text-danger/80 border-danger/30',
   };
   return colors[status] || colors.lead;
 };
@@ -27,12 +27,12 @@ export const getProjectStatusColor = (status: ProjectStatus): string => {
 export const getEstimateStatusColor = (status: EstimateStatus): string => {
   const colors: Record<EstimateStatus, string> = {
     draft: 'bg-slate-500/20 text-slate-300 border-slate-500/30',
-    sent: 'bg-blue-500/20 text-blue-300 border-blue-500/30',
+    sent: 'bg-info/20 text-blue-300 border-info/30',
     viewed: 'bg-purple-500/20 text-purple-300 border-purple-500/30',
-    accepted: 'bg-green-500/20 text-green-300 border-green-500/30',
-    rejected: 'bg-red-500/20 text-red-300 border-red-500/30',
-    expired: 'bg-amber-500/20 text-amber-300 border-amber-500/30',
-    converted: 'bg-emerald-500/20 text-emerald-300 border-emerald-500/30',
+    accepted: 'bg-success/20 text-green-300 border-success/30',
+    rejected: 'bg-danger/20 text-danger/80 border-danger/30',
+    expired: 'bg-warning/20 text-amber-300 border-warning/30',
+    converted: 'bg-success/20 text-emerald-300 border-emerald-500/30',
   };
   return colors[status] || colors.draft;
 };
@@ -43,12 +43,12 @@ export const getEstimateStatusColor = (status: EstimateStatus): string => {
 export const getInvoiceStatusColor = (status: InvoiceStatus): string => {
   const colors: Record<InvoiceStatus, string> = {
     draft: 'bg-slate-500/20 text-slate-300 border-slate-500/30',
-    sent: 'bg-blue-500/20 text-blue-300 border-blue-500/30',
+    sent: 'bg-info/20 text-blue-300 border-info/30',
     viewed: 'bg-purple-500/20 text-purple-300 border-purple-500/30',
-    paid: 'bg-green-500/20 text-green-300 border-green-500/30',
-    partially_paid: 'bg-amber-500/20 text-amber-300 border-amber-500/30',
-    overdue: 'bg-red-500/20 text-red-300 border-red-500/30',
-    cancelled: 'bg-gray-500/20 text-gray-300 border-gray-500/30',
+    paid: 'bg-success/20 text-green-300 border-success/30',
+    partially_paid: 'bg-warning/20 text-amber-300 border-warning/30',
+    overdue: 'bg-danger/20 text-danger/80 border-danger/30',
+    cancelled: 'bg-gray-500/20 text-muted-foreground border-gray-500/30',
   };
   return colors[status] || colors.draft;
 };

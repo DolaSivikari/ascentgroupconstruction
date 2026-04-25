@@ -86,7 +86,7 @@ export const ProjectGallery: React.FC<ProjectGalleryProps> = ({
             onClick={() => setSelectedTab('before-after')}
             className={`px-6 py-3 rounded-full font-semibold transition-all ${
               selectedTab === 'before-after'
-                ? 'bg-green-600 text-[hsl(var(--bg))] shadow-lg scale-105'
+                ? 'bg-success text-[hsl(var(--bg))] shadow-lg scale-105'
                 : 'bg-card hover:bg-accent shadow'
             }`}
           >
@@ -98,7 +98,7 @@ export const ProjectGallery: React.FC<ProjectGalleryProps> = ({
             onClick={() => setSelectedTab('process')}
             className={`px-6 py-3 rounded-full font-semibold transition-all ${
               selectedTab === 'process'
-                ? 'bg-yellow-600 text-[hsl(var(--bg))] shadow-lg scale-105'
+                ? 'bg-warning text-[hsl(var(--bg))] shadow-lg scale-105'
                 : 'bg-card hover:bg-accent shadow'
             }`}
           >

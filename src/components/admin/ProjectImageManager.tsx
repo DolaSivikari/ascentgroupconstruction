@@ -92,8 +92,8 @@ const SortableImageCard: React.FC<SortableImageCardProps> = ({
 
       {/* Featured Star */}
       {image.featured && (
-        <div className="absolute top-2 left-10 z-10 bg-yellow-400 p-1.5 rounded-full shadow-lg">
-          <Star className="w-4 h-4 fill-yellow-400" />
+        <div className="absolute top-2 left-10 z-10 bg-warning p-1.5 rounded-full shadow-lg">
+          <Star className="w-4 h-4 fill-warning" />
         </div>
       )}
 
@@ -132,7 +132,7 @@ const SortableImageCard: React.FC<SortableImageCardProps> = ({
           className="p-2 bg-background rounded-full hover:bg-accent transition-colors"
           title="Toggle Featured"
         >
-          <Star className={`w-4 h-4 ${image.featured ? 'fill-yellow-400 text-yellow-400' : 'text-muted-foreground'}`} />
+          <Star className={`w-4 h-4 ${image.featured ? 'fill-warning text-warning' : 'text-muted-foreground'}`} />
         </button>
         <button
           onClick={() => onDelete(image.id, image.url)}

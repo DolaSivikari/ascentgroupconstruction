@@ -174,11 +174,11 @@ export const HealthCheckTab = () => {
   const getStatusIcon = (status: string) => {
     switch (status) {
       case "success":
-        return <CheckCircle2 className="h-5 w-5 text-green-500" />;
+        return <CheckCircle2 className="h-5 w-5 text-success" />;
       case "warning":
-        return <AlertTriangle className="h-5 w-5 text-yellow-500" />;
+        return <AlertTriangle className="h-5 w-5 text-warning" />;
       case "error":
-        return <XCircle className="h-5 w-5 text-red-500" />;
+        return <XCircle className="h-5 w-5 text-danger" />;
       default:
         return null;
     }
@@ -219,16 +219,16 @@ export const HealthCheckTab = () => {
         {/* Summary Stats */}
         {checks.length > 0 && (
           <div className="grid grid-cols-3 gap-4 mb-6">
-            <div className="text-center p-3 bg-green-500/10 rounded-lg border border-green-500/20">
-              <div className="text-2xl font-bold text-green-500">{stats.success}</div>
+            <div className="text-center p-3 bg-success/10 rounded-lg border border-success/20">
+              <div className="text-2xl font-bold text-success">{stats.success}</div>
               <div className="text-xs text-muted-foreground">Passed</div>
             </div>
-            <div className="text-center p-3 bg-yellow-500/10 rounded-lg border border-yellow-500/20">
-              <div className="text-2xl font-bold text-yellow-500">{stats.warning}</div>
+            <div className="text-center p-3 bg-warning/10 rounded-lg border border-warning/20">
+              <div className="text-2xl font-bold text-warning">{stats.warning}</div>
               <div className="text-xs text-muted-foreground">Warnings</div>
             </div>
-            <div className="text-center p-3 bg-red-500/10 rounded-lg border border-red-500/20">
-              <div className="text-2xl font-bold text-red-500">{stats.error}</div>
+            <div className="text-center p-3 bg-danger/10 rounded-lg border border-danger/20">
+              <div className="text-2xl font-bold text-danger">{stats.error}</div>
               <div className="text-xs text-muted-foreground">Errors</div>
             </div>
           </div>
