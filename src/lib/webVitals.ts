@@ -27,7 +27,7 @@ const logToDatabase = async (metric: any) => {
   // Verify we have a valid session before attempting to write
   const { data: { session } } = await supabase.auth.getSession();
   if (!session) {
-    console.log('[Web Vitals] Skipping metric logging - no authenticated session');
+    if (import.meta.env.DEV) console.log('[Web Vitals] Skipping metric logging - no authenticated session');
     return;
   }
   
@@ -68,9 +68,9 @@ const flushMetrics = async () => {
   
   try {
     await supabase.from('performance_metrics').insert(batch);
-    console.log(`[Web Vitals] Flushed ${batch.length} metrics to database`);
+    if (import.meta.env.DEV) console.log(`[Web Vitals] Flushed ${batch.length} metrics to database`);
   } catch (error) {
-    console.error('Failed to flush metrics:', error);
+    if (import.meta.env.DEV) console.error('Failed to flush metrics:', error);
     // Re-queue failed metrics
     metricsQueue.push(...batch);
   }
