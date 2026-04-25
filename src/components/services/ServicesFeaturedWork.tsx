@@ -5,6 +5,7 @@ import { Section } from "@/components/sections/Section";
 import { Card } from "@/design-system/components/Card";
 import { TYPOGRAPHY_STYLES } from "@/design-system/constants";
 import { ArrowRight, MapPin } from "lucide-react";
+import { ProjectFeaturedImage } from "@/components/projects/ProjectFeaturedImage";
 
 export const ServicesFeaturedWork = () => {
   const { data: projects } = useQuery({
