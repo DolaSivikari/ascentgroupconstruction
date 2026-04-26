@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
@@ -7,7 +8,7 @@ import { Section } from "@/components/sections/Section";
 import { Card } from "@/design-system/components/Card";
 import { Button } from "@/ui/Button";
 import { CTA_TEXT } from "@/design-system/constants";
-import { MapPin, Phone, Clock, CheckCircle, Building2, Home, Factory, HardHat } from "lucide-react";
+import { MapPin, Phone, Clock, CheckCircle, Building2, Home, Factory, HardHat, ArrowRight } from "lucide-react";
 import { COMPANY_PHONE, SITE_URL } from "@/constants/company";
 import { PhoneLink } from "@/components/shared/PhoneLink";
 import { serviceAreaCities, primaryServiceCities } from "@/data/service-area-cities";
@@ -17,6 +18,28 @@ import {
   COMPANY
 } from "@/utils/seo";
 import { usePageAnalytics } from "@/hooks/usePageAnalytics";
+import { supabase } from "@/integrations/supabase/client";
+
+interface AreaProject {
+  id: string;
+  title: string;
+  slug: string;
+  summary: string | null;
+  location: string | null;
+  featured_image: string | null;
+  category: string | null;
+}
+
+const RELATED_SERVICES: { name: string; slug: string }[] = [
+  { name: "Building Envelope Solutions", slug: "building-envelope-solutions" },
+  { name: "Waterproofing Systems", slug: "waterproofing-systems" },
+  { name: "EIFS & Stucco Systems", slug: "eifs-stucco-systems" },
+  { name: "Cladding Systems", slug: "cladding-systems" },
+  { name: "Painting Services", slug: "painting-services" },
+  { name: "Parking Garage Restoration", slug: "parking-garage-restoration" },
+  { name: "Sealant Programs", slug: "sealant-programs" },
+  { name: "Sustainable Building", slug: "sustainable-building" },
+];
 
 interface LocationData {
   name: string;
@@ -162,8 +185,29 @@ const services = [
 const LocationPage = () => {
   const { city } = useParams<{ city: string }>();
   const location = city ? locationDetails[city] : null;
-  
+  const [areaProjects, setAreaProjects] = useState<AreaProject[]>([]);
+
   usePageAnalytics(`service-area-${city}`);
+
+  useEffect(() => {
+    if (!location) return;
+    let cancelled = false;
+    (async () => {
+      try {
+        const { data, error } = await supabase
+          .from("projects")
+          .select("id, title, slug, summary, location, featured_image, category")
+          .eq("publish_state", "published")
+          .ilike("location", `%${location.name}%`)
+          .order("completion_date", { ascending: false, nullsFirst: false })
+          .limit(3);
+        if (!cancelled && !error && data) setAreaProjects(data as AreaProject[]);
+      } catch {
+        /* projects section is optional — silently degrade */
+      }
+    })();
+    return () => { cancelled = true; };
+  }, [location]);
 
   if (!location) {
     return (
@@ -343,6 +387,125 @@ const LocationPage = () => {
           </Card>
         </div>
       </Section>
+
+      {/* Coverage Map */}
+      <Section size="major" className="bg-muted/50">
+        <div className="text-center mb-10">
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">
+            Serving {location.name}, {location.region}
+          </h2>
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+            Crews dispatched from our GTA base. Same-day response available for emergency envelope failures within the core service radius.
+          </p>
+        </div>
+        <Card variant="elevated" size="lg" className="overflow-hidden p-0 max-w-5xl mx-auto">
+          <div className="aspect-[16/9] w-full bg-muted">
+            <iframe
+              title={`Map of ${location.name}, ${location.region} service area`}
+              src={`https://www.google.com/maps?q=${encodeURIComponent(`${location.name}, ${location.region}, Canada`)}&output=embed`}
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              className="w-full h-full border-0"
+              allowFullScreen
+            />
+          </div>
+        </Card>
+      </Section>
+
+      {/* Related Services */}
+      <Section size="major">
+        <div className="text-center mb-12">
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">
+            Popular Services in {location.name}
+          </h2>
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+            Explore our most-requested specialty trade services for {location.name} properties.
+          </p>
+        </div>
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 max-w-5xl mx-auto">
+          {RELATED_SERVICES.map((svc) => (
+            <Link
+              key={svc.slug}
+              to={`/services/${svc.slug}`}
+              className="group p-5 rounded-lg border bg-background hover:border-primary hover:shadow-md transition-all"
+            >
+              <div className="flex items-start justify-between gap-3 mb-2">
+                <span className="font-semibold text-foreground group-hover:text-primary transition-colors">
+                  {svc.name}
+                </span>
+                <ArrowRight className="w-4 h-4 text-muted-foreground group-hover:text-primary group-hover:translate-x-1 transition-all flex-shrink-0 mt-1" />
+              </div>
+              <p className="text-xs text-muted-foreground">
+                Available in {location.name}
+              </p>
+            </Link>
+          ))}
+        </div>
+        <div className="text-center mt-8">
+          <Button asChild variant="outline">
+            <Link to="/services">View All Services</Link>
+          </Button>
+        </div>
+      </Section>
+
+      {/* Featured Projects in Area */}
+      {areaProjects.length > 0 && (
+        <Section size="major" className="bg-muted/50">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">
+              Recent Projects in {location.name}
+            </h2>
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              A selection of completed work in and around {location.name}.
+            </p>
+          </div>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
+            {areaProjects.map((project) => (
+              <Link
+                key={project.id}
+                to={`/projects/${project.slug}`}
+                className="group block bg-background rounded-lg border overflow-hidden hover:border-primary hover:shadow-lg transition-all"
+              >
+                <div className="aspect-[16/10] bg-muted overflow-hidden">
+                  {project.featured_image ? (
+                    <img
+                      src={project.featured_image}
+                      alt={project.title}
+                      loading="lazy"
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    />
+                  ) : (
+                    <div className="w-full h-full flex items-center justify-center text-muted-foreground">
+                      <Building2 className="w-10 h-10" />
+                    </div>
+                  )}
+                </div>
+                <div className="p-5">
+                  {project.category && (
+                    <span className="text-xs uppercase tracking-wide text-primary font-medium">
+                      {project.category}
+                    </span>
+                  )}
+                  <h3 className="font-semibold text-lg mt-1 mb-2 group-hover:text-primary transition-colors line-clamp-2">
+                    {project.title}
+                  </h3>
+                  {project.location && (
+                    <p className="text-sm text-muted-foreground flex items-center gap-1.5">
+                      <MapPin className="w-3.5 h-3.5 flex-shrink-0" />
+                      {project.location}
+                    </p>
+                  )}
+                </div>
+              </Link>
+            ))}
+          </div>
+          <div className="text-center mt-8">
+            <Button asChild variant="outline">
+              <Link to="/projects">View All Projects</Link>
+            </Button>
+          </div>
+        </Section>
+      )}
 
       {/* Other Service Areas */}
       <Section size="major" className="bg-muted/50">
