@@ -6,6 +6,7 @@ import SEO from "@/components/SEO";
 import { PageHero } from "@/components/shared/PageHero";
 import { Card } from "@/design-system/components/Card";
 import { Section } from "@/components/sections/Section";
+import { TrustRibbon } from "@/design-system/components/TrustRibbon";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import { COMPANY_PHONE, SITE_URL } from "@/constants/company";
@@ -174,6 +175,8 @@ const Contact = () => {
           { icon: ShieldCheck, text: "No Obligation" },
         ]}
       />
+
+      <TrustRibbon />
 
       {/* Contact Pathway Guidance */}
       <Section size="tight" disableAnimation>

@@ -29,6 +29,7 @@ import { Section } from "@/components/sections/Section";
 import { SectionHeader } from "@/design-system/components/SectionHeader";
 import { ProofStrip } from "@/design-system/components/ProofStrip";
 import { CTABand } from "@/design-system/components/CTABand";
+import { TrustRibbon } from "@/design-system/components/TrustRibbon";
 import { Button } from "@/ui/Button";
 import SEO from "@/components/SEO";
 import { companyHeroes } from "@/data/hero-images";
@@ -178,6 +179,8 @@ const Capabilities = () => {
           { label: "Capabilities" },
         ]}
       />
+
+      <TrustRibbon />
 
       <main>
         {/* ── Why Self-Perform? ───────────────────────────────────────────── */}
