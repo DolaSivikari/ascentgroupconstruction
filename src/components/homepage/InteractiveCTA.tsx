@@ -238,10 +238,14 @@ const InteractiveCTA = () => {
               </p>
             </div>
 
-            <form onSubmit={handleQuickContact} className="space-y-4">
+            <form onSubmit={handleQuickContact} className="space-y-4" aria-label="Quick contact form">
               <div>
+                <label htmlFor="quick-contact-name" className="sr-only">Your Name</label>
                 <Input
+                  id="quick-contact-name"
+                  name="name"
                   type="text"
+                  autoComplete="name"
                   placeholder="Your Name"
                   required
                   className="h-12"
@@ -250,8 +254,12 @@ const InteractiveCTA = () => {
                 />
               </div>
               <div>
+                <label htmlFor="quick-contact-email" className="sr-only">Email Address</label>
                 <Input
+                  id="quick-contact-email"
+                  name="email"
                   type="email"
+                  autoComplete="email"
                   placeholder="Email Address"
                   required
                   className="h-12"
@@ -260,8 +268,12 @@ const InteractiveCTA = () => {
                 />
               </div>
               <div>
+                <label htmlFor="quick-contact-phone" className="sr-only">Phone Number</label>
                 <Input
+                  id="quick-contact-phone"
+                  name="phone"
                   type="tel"
+                  autoComplete="tel"
                   placeholder="Phone Number"
                   required
                   className="h-12"
@@ -270,7 +282,11 @@ const InteractiveCTA = () => {
                 />
               </div>
               <div>
+                <label htmlFor="quick-contact-message" className="sr-only">Tell us about your project</label>
                 <Textarea
+                  id="quick-contact-message"
+                  name="message"
+                  autoComplete="off"
                   placeholder="Tell us about your project..."
                   rows={4}
                   className="resize-none"
