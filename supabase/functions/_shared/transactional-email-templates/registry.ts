@@ -11,8 +11,10 @@ export interface TemplateEntry {
 
 import { template as rfpCustomerConfirmation } from './rfp-customer-confirmation.tsx'
 import { template as rfpInternalNotification } from './rfp-internal-notification.tsx'
+import { template as reviewRequest } from './review-request.tsx'
 
 export const TEMPLATES: Record<string, TemplateEntry> = {
   'rfp-customer-confirmation': rfpCustomerConfirmation,
   'rfp-internal-notification': rfpInternalNotification,
+  'review-request': reviewRequest,
 }
