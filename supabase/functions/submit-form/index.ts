@@ -116,7 +116,10 @@ Deno.serve(async (req) => {
     }
 
     // --- Spam Filter 4: Repeat content (same message+email within 10 min) ---
-    if (messageBody && payload.data?.email) {
+    // CRITICAL: This is a "nice to have" guard. ANY failure here must NOT block legitimate
+    // submissions. Wrapped in a defensive IIFE that always returns { allowed: true } on error.
+    const repeatCheck = await (async (): Promise<{ allowed: boolean }> => {
+      if (!messageBody || !payload.data?.email) return { allowed: true };
       try {
         const fingerprint = await sha256Hex(`${payload.data.email}:${messageBody}`.toLowerCase());
         const { data: rateData, error: rateErr } = await supabase.rpc(
@@ -128,14 +131,20 @@ Deno.serve(async (req) => {
             p_window_minutes: 10,
           },
         );
-        if (!rateErr && rateData && (rateData as any).allowed === false) {
-          console.log(`[spam_blocked] reason=repeat_content client=${clientId} type=${formType}`);
-          return jsonResponse({ success: true, message: 'Submission received' });
+        if (rateErr) {
+          console.warn('[spam_filter] repeat-content RPC error (allowing through):', rateErr);
+          return { allowed: true };
         }
+        const allowed = !(rateData && (rateData as any).allowed === false);
+        return { allowed };
       } catch (e) {
-        // Don't block on rate-limit infra errors
-        console.warn('[spam_filter] repeat-content check failed:', e);
+        console.warn('[spam_filter] repeat-content check threw (allowing through):', e);
+        return { allowed: true };
       }
+    })();
+    if (!repeatCheck.allowed) {
+      console.log(`[spam_blocked] reason=repeat_content client=${clientId} type=${formType}`);
+      return jsonResponse({ success: true, message: 'Submission received' });
     }
 
     if (!['contact', 'resume', 'prequalification', 'rfp'].includes(formType)) {
