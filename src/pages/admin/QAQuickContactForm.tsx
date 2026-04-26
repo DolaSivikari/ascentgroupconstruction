@@ -77,7 +77,7 @@ export default function QAQuickContactForm() {
   const total = CHECKS.length;
   const done = CHECKS.filter((c) => checked[c.id]).length;
 
-  if (loading) {
+  if (isLoading) {
     return <div className="p-8 text-muted-foreground">Loading…</div>;
   }
 
