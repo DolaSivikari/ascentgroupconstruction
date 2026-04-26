@@ -1,4 +1,4 @@
-import { Wrench, ShieldCheck, MapPin } from "lucide-react";
+import { Wrench, ShieldCheck, MapPin, Building2, Hammer, PaintBucket } from "lucide-react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
@@ -6,11 +6,60 @@ import { PageHero } from "@/components/shared/PageHero";
 import { ServicesDataGrid } from "@/components/services/ServicesDataGrid";
 import { ServicesProcessSnapshot } from "@/components/services/ServicesProcessSnapshot";
 import { ServicesCtaSection } from "@/components/services/ServicesCtaSection";
-import { TrustRibbon } from "@/design-system/components";
+import { TrustRibbon, SectionHeader, FAQAccordion, DetailCard } from "@/design-system/components";
+import { Section } from "@/components/sections/Section";
 import { mainPageHeroes } from "@/data/hero-images";
 import { usePageAnalytics } from "@/hooks/usePageAnalytics";
 import { generateBreadcrumbSchema } from "@/utils/seo";
 import { SITE_URL } from "@/constants/company";
+import { servicesFaqs } from "@/data/page-faqs";
+
+const SERVICE_CATEGORIES = [
+  {
+    icon: Building2,
+    title: "Building Envelope",
+    description:
+      "EIFS & stucco, masonry restoration, sealants, balcony waterproofing, and architectural cladding — the systems that keep buildings dry, efficient, and intact.",
+    bullets: [
+      "Sto Canada Listed Installer (SCL-001 → SCL-010)",
+      "Dryvit, Parex, and Sto cladding systems",
+      "Sealant renewal & joint replacement programs",
+    ],
+  },
+  {
+    icon: Hammer,
+    title: "Restoration",
+    description:
+      "Concrete repair, parking garage rehabilitation, and balcony restoration — full lifecycle scopes for property managers and capital planners.",
+    bullets: [
+      "Concrete spall repair & rebar treatment",
+      "Parking garage coatings & line marking",
+      "Balcony deck membrane systems",
+    ],
+  },
+  {
+    icon: PaintBucket,
+    title: "Interior Trades",
+    description:
+      "Painting, tile, drywall, and flooring — interior buildouts and finishing work executed by the same self-perform crews running our envelope scopes.",
+    bullets: [
+      "Commercial & residential painting",
+      "Tile, resilient flooring, and finishes",
+      "Drywall, framing, and tenant buildouts",
+    ],
+  },
+];
+
+const MATERIAL_PARTNERS = [
+  "Sto Canada",
+  "Dryvit",
+  "Parex",
+  "Benjamin Moore",
+  "Sherwin-Williams",
+  "Sika",
+  "Tremco",
+  "Mapei",
+];
 
 const Services = () => {
   const breadcrumbSchema = generateBreadcrumbSchema([
