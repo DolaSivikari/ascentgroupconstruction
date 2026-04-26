@@ -1,34 +1,30 @@
-# Why "Up to date" but no changes are visible
+## Fix: Quick Contact form fields missing `id` / `name` / `autoComplete`
 
-I verified directly against your live URLs:
+### Diagnosis
+DevTools is flagging the **homepage Quick Contact form** in `src/components/homepage/InteractiveCTA.tsx` (lines 241–297). The four fields — Name, Email, Phone, Message textarea — are rendered without `id`, `name`, or `autoComplete` attributes, so browsers can't reliably autofill them and the accessibility audit warns about it.
 
-| URL | Deployment ID being served |
-|---|---|
-| `www.ascentgroupconstruction.com` | `66b99407-b1c0-4dd0-ab43-c8b9e417c2c0` |
-| `ascentgroupconstruction.lovable.app` | `66b99407-b1c0-4dd0-ab43-c8b9e417c2c0` |
+The other forms across the site (RFP steps, Contact page, Estimator, Resume dialog, Newsletter) already have `id`s wired up and aren't the source of these specific 4 warnings.
 
-Both URLs are serving the **same old deployment ID** from before our recent frontend work. The custom domain is *not* the problem — it correctly mirrors what Lovable is publishing. The issue is that the new frontend code (the rebuilt RFP success screen, `EmailUnsubscribe.tsx`, the admin inbox `?highlight=` logic, and the new route registration) was never built into a new deployment.
+### Changes
 
-"Up to date" in the publish dialog means "the last published deployment matches the last known build state" — but a build only kicks off when something forces it. Since our recent edits were saved to source but no new build was produced, the dialog shows green while serving stale code.
+**`src/components/homepage/InteractiveCTA.tsx`** — add `id`, `name`, and `autoComplete` to each input + textarea, and pair each with a visually-hidden `<label htmlFor>` for screen readers (placeholders alone are not accessible labels):
 
-# Plan
+| Field | id / name | autoComplete |
+|---|---|---|
+| Name | `quick-contact-name` | `name` |
+| Email | `quick-contact-email` | `email` |
+| Phone | `quick-contact-phone` | `tel` |
+| Message | `quick-contact-message` | `off` |
 
-## 1. Force a fresh build by making a trivial code touch
-A no-op change to a tracked file (e.g., bump a version constant or a comment) will mark the project as having unpublished changes, which flips the publish dialog from "Up to date" to **"Update"**. I'll touch `src/utils/cacheBuster.ts` since it already holds a build-version constant — bumping it has the side benefit of busting any client-side caches at the same time.
+Add `<Label htmlFor="..." className="sr-only">` above each field so the visible UI doesn't change but assistive tech and Chrome's autofill heuristics get proper labels.
 
-## 2. Verify the new build deploys
-After you click **Update** in the publish dialog, I'll re-run the `curl` check against both URLs and confirm the `x-deployment-id` header changes to a new value. That proves the new bundle is live.
+### Audit pass (defensive)
+While in there, do a quick `rg` sweep for any other `<Input` / `<Textarea` usages on public landing components that lack an `id`, and patch the same way if found. Most known forms are already compliant per memory, so this should be a small list (likely just `InteractiveCTA` based on the DevTools resource count of 4).
 
-## 3. Confirm the new code is reachable
-I'll spot-check the deployed bundle for fingerprints of the new work:
-- `/email-unsubscribe` route resolves (not a 404)
-- `/submit-rfp` shows the new reference-ID success screen (after a test submission)
-- Admin inbox accepts `?highlight=<id>` and rings the matching row
+### Verification
+1. After deploy, open the homepage in Chrome DevTools → Issues panel; the 4 "form field element should have an id or name" entries tied to those exact selectors should disappear.
+2. Browser autofill (Chrome/Safari) should now offer to fill name/email/phone in the Quick Contact form.
+3. Submission flow is unchanged — `handleQuickContact` still reads from `formData` state, so no behavioral regression.
 
-## 4. If a touch + Update still doesn't produce a new deployment ID
-That would indicate a build failure on Lovable's side that's silently keeping the old deployment pinned. In that case I'll:
-- Check the build by reading runtime errors and recent edits for any TypeScript/import errors that would block compilation (likely culprits are the new `EmailUnsubscribe.tsx` route or the `@ts-nocheck` edge-function templates leaking into the client bundle)
-- Fix any blocker and retry
-
-# What you'll need to do
-Just one click: after I make the version-bump touch, open the publish dialog and click **Update** (the button will switch from "Up to date" to "Update"). Everything else I'll verify automatically.
+### Out of scope
+- The other DevTools notices in your screenshot (SVG animation perf hint, deprecated `unload` listener) originate from the **Lovable editor SDK** (`lovable.js`), not your app — no fix possible from project code.
