@@ -31,14 +31,49 @@ const prequalificationSchema = z.object({
   message: z.string().max(2000).optional().nullable(),
 });
 
-type ContactPayload = z.infer<typeof contactSchema>;
-type ResumePayload = z.infer<typeof resumeSchema>;
-type PrequalificationPayload = z.infer<typeof prequalificationSchema>;
+const rfpSchema = z.object({
+  company_name: z.string().min(1).max(200),
+  contact_name: z.string().min(1).max(100),
+  email: z.string().email().max(255),
+  phone: z.string().min(10).max(20),
+  title: z.string().max(100).optional().nullable(),
+  project_name: z.string().min(1).max(300),
+  project_type: z.string().min(1).max(100),
+  project_location: z.string().min(1).max(500),
+  estimated_value_range: z.string().min(1).max(50),
+  estimated_timeline: z.string().min(1).max(200),
+  project_start_date: z.string().optional().nullable(),
+  delivery_method: z.string().min(1).max(100),
+  bonding_required: z.boolean().optional(),
+  prequalification_complete: z.boolean().optional(),
+  scope_of_work: z.string().min(1).max(5000),
+  additional_requirements: z.string().max(2000).optional().nullable(),
+  plans_available: z.boolean().optional(),
+  site_visit_required: z.boolean().optional(),
+  attachment_urls: z.array(z.string()).optional().nullable(),
+});
 
-type FormSubmission =
-  | { formType: 'contact'; data: ContactPayload; honeypot?: string }
-  | { formType: 'resume'; data: ResumePayload; honeypot?: string }
-  | { formType: 'prequalification'; data: PrequalificationPayload; honeypot?: string };
+type FormSubmission = {
+  formType: 'contact' | 'resume' | 'prequalification' | 'rfp';
+  data: any;
+  honeypot?: string;
+  startedAt?: number;
+};
+
+// Spam heuristics
+function looksLikeLinkSpam(text: string | undefined | null): boolean {
+  if (!text) return false;
+  const matches = text.match(/(https?:\/\/|www\.)/gi);
+  return (matches?.length ?? 0) >= 3;
+}
+
+async function sha256Hex(input: string): Promise<string> {
+  const buf = new TextEncoder().encode(input);
+  const hash = await crypto.subtle.digest('SHA-256', buf);
+  return Array.from(new Uint8Array(hash))
+    .map((b) => b.toString(16).padStart(2, '0'))
+    .join('');
+}
 
 Deno.serve(async (req) => {
   const cors = handleCors(req);
@@ -50,20 +85,66 @@ Deno.serve(async (req) => {
 
   try {
     const payload = (await req.json()) as FormSubmission;
-    const { formType, honeypot } = payload;
+    const { formType, honeypot, startedAt } = payload;
 
     const clientId = getClientIdentifier(req);
 
+    // --- Spam Filter 1: Honeypot ---
     if (honeypot && honeypot.trim().length > 0) {
-      console.log(`[Bot Detection] Honeypot triggered from ${clientId}`);
+      console.log(`[spam_blocked] reason=honeypot client=${clientId} type=${formType}`);
       return jsonResponse({ success: true, message: 'Submission received' });
     }
 
-    if (!['contact', 'resume', 'prequalification'].includes(formType)) {
+    // --- Spam Filter 2: Submitted too fast (< 2s from form interaction) ---
+    if (typeof startedAt === 'number' && startedAt > 0) {
+      const elapsed = Date.now() - startedAt;
+      if (elapsed < 2000) {
+        console.log(`[spam_blocked] reason=too_fast elapsed=${elapsed}ms client=${clientId} type=${formType}`);
+        return jsonResponse({ success: true, message: 'Submission received' });
+      }
+    }
+
+    // --- Spam Filter 3: Link-heavy message body ---
+    const messageBody =
+      payload.data?.message ??
+      payload.data?.scope_of_work ??
+      payload.data?.coverMessage ??
+      '';
+    if (looksLikeLinkSpam(messageBody)) {
+      console.log(`[spam_blocked] reason=link_spam client=${clientId} type=${formType}`);
+      return jsonResponse({ success: true, message: 'Submission received' });
+    }
+
+    // --- Spam Filter 4: Repeat content (same message+email within 10 min) ---
+    if (messageBody && payload.data?.email) {
+      try {
+        const fingerprint = await sha256Hex(`${payload.data.email}:${messageBody}`.toLowerCase());
+        const { data: rateData, error: rateErr } = await supabase.rpc(
+          'check_and_update_rate_limit',
+          {
+            p_identifier: `${clientId}:${fingerprint.slice(0, 16)}`,
+            p_endpoint: `submit-form-dup:${formType}`,
+            p_limit: 1,
+            p_window_minutes: 10,
+          },
+        );
+        if (!rateErr && rateData && (rateData as any).allowed === false) {
+          console.log(`[spam_blocked] reason=repeat_content client=${clientId} type=${formType}`);
+          return jsonResponse({ success: true, message: 'Submission received' });
+        }
+      } catch (e) {
+        // Don't block on rate-limit infra errors
+        console.warn('[spam_filter] repeat-content check failed:', e);
+      }
+    }
+
+    if (!['contact', 'resume', 'prequalification', 'rfp'].includes(formType)) {
       return createErrorResponse(new Error('Invalid form type'), 'Invalid form type', 400, 'submit-form');
     }
 
-    let insertResult;
+    let insertResult: any;
+    let insertedId: string | null = null;
+    let createdAt: string | null = null;
 
     try {
       switch (formType) {
@@ -112,6 +193,42 @@ Deno.serve(async (req) => {
             });
           break;
         }
+        case 'rfp': {
+          const validatedData = rfpSchema.parse(payload.data);
+          insertResult = await supabase
+            .from('rfp_submissions')
+            .insert({
+              company_name: validatedData.company_name,
+              contact_name: validatedData.contact_name,
+              email: validatedData.email,
+              phone: validatedData.phone,
+              title: validatedData.title || null,
+              project_name: validatedData.project_name,
+              project_type: validatedData.project_type,
+              project_location: validatedData.project_location,
+              estimated_value_range: validatedData.estimated_value_range,
+              estimated_timeline: validatedData.estimated_timeline,
+              project_start_date: validatedData.project_start_date || null,
+              delivery_method: validatedData.delivery_method,
+              bonding_required: validatedData.bonding_required ?? false,
+              prequalification_complete: validatedData.prequalification_complete ?? false,
+              scope_of_work: validatedData.scope_of_work,
+              additional_requirements: validatedData.additional_requirements || null,
+              plans_available: validatedData.plans_available ?? false,
+              site_visit_required: validatedData.site_visit_required ?? false,
+              consent_timestamp: new Date().toISOString(),
+              attachment_urls: validatedData.attachment_urls && validatedData.attachment_urls.length > 0
+                ? validatedData.attachment_urls
+                : null,
+            })
+            .select('id, created_at')
+            .single();
+          if (insertResult?.data) {
+            insertedId = (insertResult.data as any).id;
+            createdAt = (insertResult.data as any).created_at;
+          }
+          break;
+        }
       }
     } catch (validationError) {
       console.error('[Validation Error]', validationError);
@@ -123,7 +240,12 @@ Deno.serve(async (req) => {
     }
 
     console.log(`[Success] ${formType} submission from ${clientId}`);
-    return jsonResponse({ success: true, message: 'Submission received successfully' });
+    return jsonResponse({
+      success: true,
+      message: 'Submission received successfully',
+      id: insertedId,
+      created_at: createdAt,
+    });
   } catch (error) {
     console.error('[Error]', error);
     return createErrorResponse(error, 'Failed to process submission', 500, 'submit-form');

@@ -64,6 +64,7 @@ const HomepageBuilder = lazyWithFallback(() => import("@/pages/admin/HomepageBui
 const Settings = lazyWithFallback(() => import("@/pages/admin/Settings"), 'Settings');
 const ServicesManager = lazyWithFallback(() => import("@/pages/admin/ServicesManager"), 'Services Manager');
 const EmailTemplates = lazyWithFallback(() => import("@/pages/admin/EmailTemplates"), 'Email Templates');
+const QAQuickContactForm = lazyWithFallback(() => import("@/pages/admin/QAQuickContactForm"), 'QA Quick Contact Form');
 const UnifiedAdminLayout = lazy(() => import("@/components/admin/UnifiedAdminLayout").then(m => ({ default: m.UnifiedAdminLayout })).catch(() => ({
   default: () => <div className="min-h-screen flex items-center justify-center"><p>Failed to load Admin Layout</p></div>
 })));
@@ -152,6 +153,7 @@ const AdminRouteGroup = () => (
     <Route path="notifications" element={<Navigate to="/admin/inbox" replace />} />
     <Route path="email-templates" element={<EmailTemplates />} />
     <Route path="homepage-builder" element={<HomepageBuilder />} />
+    <Route path="qa/quick-contact-form" element={<QAQuickContactForm />} />
     <Route path="homepage-content" element={<Navigate to="/admin/homepage-builder" replace />} />
     <Route path="homepage-settings" element={<Navigate to="/admin/homepage-builder" replace />} />
     <Route path="homepage-why-choose-us" element={<Navigate to="/admin/homepage-builder?tab=why-choose" replace />} />

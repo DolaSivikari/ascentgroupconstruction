@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -35,6 +35,8 @@ export default function SubmitRFPNew() {
   const [submittedAt, setSubmittedAt] = useState<Date | null>(null);
   const [refCopied, setRefCopied] = useState(false);
   const [attachmentFiles, setAttachmentFiles] = useState<File[]>([]);
+  const [honeypot, setHoneypot] = useState("");
+  const formStartedAtRef = useRef<number>(Date.now());
   const { isAdmin } = useAdminRoleCheck();
 
   const form = useForm<RFPSubmission>({
@@ -137,7 +139,7 @@ export default function SubmitRFPNew() {
       // Upload attachments first
       const attachmentUrls = await uploadAttachments();
 
-      // Insert RFP submission with required fields
+      // Submit through spam-filtered edge function (honeypot + time-gate + link/dup checks)
       const submissionData = {
         company_name: data.company_name,
         contact_name: data.contact_name,
@@ -157,20 +159,29 @@ export default function SubmitRFPNew() {
         additional_requirements: data.additional_requirements || undefined,
         plans_available: data.plans_available,
         site_visit_required: data.site_visit_required,
-        consent_timestamp: new Date().toISOString(),
         attachment_urls: attachmentUrls.length > 0 ? attachmentUrls : undefined,
       };
 
-      const { data: insertedRow, error: insertError } = await supabase
-        .from("rfp_submissions")
-        .insert([submissionData])
-        .select("id, created_at")
-        .single();
+      const { data: invokeResponse, error: insertError } = await supabase.functions.invoke(
+        "submit-form",
+        {
+          body: {
+            formType: "rfp",
+            honeypot,
+            startedAt: formStartedAtRef.current,
+            data: submissionData,
+          },
+        },
+      );
 
       if (insertError) throw insertError;
+      if (invokeResponse && (invokeResponse as any).success === false) {
+        throw new Error((invokeResponse as any).message || "Submission failed");
+      }
 
-      const newId = insertedRow?.id as string;
-      const createdAt = insertedRow?.created_at ? new Date(insertedRow.created_at as string) : new Date();
+      const newId = ((invokeResponse as any)?.id as string) || "";
+      const createdAtRaw = (invokeResponse as any)?.created_at as string | undefined;
+      const createdAt = createdAtRaw ? new Date(createdAtRaw) : new Date();
       const refId = `RFP-${(newId || "").slice(0, 8).toUpperCase()}`;
 
       setSubmissionId(newId);
@@ -422,7 +433,23 @@ export default function SubmitRFPNew() {
       <main className="flex-1 py-12">
         <div className="container mx-auto px-4 max-w-4xl">
           {/* Form */}
-          <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-6 animate-fade-in-up">
+          <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-6 animate-fade-in-up" noValidate>
+            {/* Honeypot — hidden from users, attractive to bots */}
+            <div
+              aria-hidden="true"
+              style={{ position: "absolute", left: "-10000px", width: "1px", height: "1px", overflow: "hidden" }}
+            >
+              <label htmlFor="rfp-company-website">Company website (leave blank)</label>
+              <input
+                id="rfp-company-website"
+                name="company_website"
+                type="text"
+                tabIndex={-1}
+                autoComplete="off"
+                value={honeypot}
+                onChange={(e) => setHoneypot(e.target.value)}
+              />
+            </div>
             {currentStep === 4 ? (
               <RFPStep4Scope form={form} onFilesChange={setAttachmentFiles} />
             ) : (
