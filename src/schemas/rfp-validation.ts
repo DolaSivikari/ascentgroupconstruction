@@ -66,7 +66,8 @@ export const timelineRequirementsSchema = z.object({
   project_start_date: z.string()
     .trim()
     .regex(/^\d{4}-\d{2}-\d{2}$/, "Invalid date format")
-    .optional(),
+    .optional()
+    .or(z.literal("")),
   delivery_method: z.string()
     .refine((val) => [
       "Specialty Contracting",
