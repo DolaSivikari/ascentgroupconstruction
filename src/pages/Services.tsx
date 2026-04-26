@@ -6,6 +6,7 @@ import { PageHero } from "@/components/shared/PageHero";
 import { ServicesDataGrid } from "@/components/services/ServicesDataGrid";
 import { ServicesProcessSnapshot } from "@/components/services/ServicesProcessSnapshot";
 import { ServicesCtaSection } from "@/components/services/ServicesCtaSection";
+import { TrustRibbon } from "@/design-system/components";
 import { mainPageHeroes } from "@/data/hero-images";
 import { usePageAnalytics } from "@/hooks/usePageAnalytics";
 import { generateBreadcrumbSchema } from "@/utils/seo";
@@ -48,6 +49,8 @@ const Services = () => {
           { icon: MapPin, text: "GTA Coverage" },
         ]}
       />
+
+      <TrustRibbon />
 
       <main className="flex-1 relative">
         <ServicesDataGrid />

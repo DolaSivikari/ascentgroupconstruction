@@ -7,6 +7,7 @@ import { Card } from "@/design-system/components/Card";
 import { SectionHeader } from "@/design-system/components/SectionHeader";
 import { ProofStrip } from "@/design-system/components/ProofStrip";
 import { CTABand } from "@/design-system/components/CTABand";
+import { TrustRibbon } from "@/design-system/components/TrustRibbon";
 import { Section } from "@/components/sections/Section";
 import { PageHero } from "@/components/shared/PageHero";
 import { Button } from "@/ui/Button";
@@ -220,6 +221,8 @@ const About = () => {
           { label: "About Us" },
         ]}
       />
+
+      <TrustRibbon />
 
       {/* ── 2. Identity — Proven Expertise. New Name. ────────────────────── */}
       <Section size="major" maxWidth="wide">

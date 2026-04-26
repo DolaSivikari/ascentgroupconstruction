@@ -3,7 +3,7 @@ import Footer from "@/components/Footer";
 import { PageHero } from "@/components/shared/PageHero";
 import SEO from "@/components/SEO";
 import { SITE_URL } from "@/constants/company";
-import { SectionHeader, SegmentCard, CTABand } from "@/design-system/components";
+import { SectionHeader, SegmentCard, CTABand, TrustRibbon } from "@/design-system/components";
 import { Building2, Briefcase, Home, HardHat, Building, Layers, Target, Users } from "lucide-react";
 import { sectorHeroes } from "@/data/hero-images";
 
@@ -70,6 +70,8 @@ const Markets = () => {
         primaryCta={{ text: "Submit RFP", href: "/submit-rfp" }}
         secondaryCta={{ text: "Contact Us", href: "/contact" }}
       />
+
+      <TrustRibbon />
 
       <section className="py-16 md:py-24">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
