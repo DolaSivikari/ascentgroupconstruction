@@ -185,8 +185,29 @@ const services = [
 const LocationPage = () => {
   const { city } = useParams<{ city: string }>();
   const location = city ? locationDetails[city] : null;
-  
+  const [areaProjects, setAreaProjects] = useState<AreaProject[]>([]);
+
   usePageAnalytics(`service-area-${city}`);
+
+  useEffect(() => {
+    if (!location) return;
+    let cancelled = false;
+    (async () => {
+      try {
+        const { data, error } = await supabase
+          .from("projects")
+          .select("id, title, slug, summary, location, featured_image, category")
+          .eq("publish_state", "published")
+          .ilike("location", `%${location.name}%`)
+          .order("completion_date", { ascending: false, nullsFirst: false })
+          .limit(3);
+        if (!cancelled && !error && data) setAreaProjects(data as AreaProject[]);
+      } catch {
+        /* projects section is optional — silently degrade */
+      }
+    })();
+    return () => { cancelled = true; };
+  }, [location]);
 
   if (!location) {
     return (
