@@ -102,8 +102,65 @@ const Services = () => {
       <TrustRibbon />
 
       <main className="flex-1 relative">
+        {/* Category framing — three pillars */}
+        <Section size="major">
+          <SectionHeader
+            badge="Service Categories"
+            title="Three Categories. One Self-Perform Crew."
+            description="Every service we offer lives in one of three categories. Each is delivered by the same accountable crew — no broker, no markup layers."
+            maxWidth="lg"
+          />
+          <div className="grid md:grid-cols-3 gap-6">
+            {SERVICE_CATEGORIES.map((cat) => (
+              <DetailCard
+                key={cat.title}
+                icon={cat.icon}
+                title={cat.title}
+                description={cat.description}
+                bullets={cat.bullets}
+                accent
+              />
+            ))}
+          </div>
+        </Section>
+
         <ServicesDataGrid />
+
+        {/* Materials & systems */}
+        <Section size="major" className="bg-muted/30">
+          <SectionHeader
+            badge="Materials & Systems"
+            title="Manufacturer Systems We Install"
+            description="We install to manufacturer specifications using approved systems from leading envelope, coating, and restoration product lines."
+            maxWidth="md"
+          />
+          <div className="flex flex-wrap justify-center gap-3 max-w-4xl mx-auto">
+            {MATERIAL_PARTNERS.map((name) => (
+              <span
+                key={name}
+                className="inline-flex items-center px-4 py-2 rounded-full bg-background border border-border text-sm font-medium text-foreground/80 hover:border-primary/40 hover:text-foreground transition-colors"
+              >
+                {name}
+              </span>
+            ))}
+          </div>
+        </Section>
+
         <ServicesProcessSnapshot />
+
+        {/* People Also Ask */}
+        <Section size="major" className="bg-muted/30">
+          <SectionHeader
+            badge="FAQ"
+            title="People Also Ask"
+            description="Common questions about our services, certifications, and how we deliver."
+            maxWidth="md"
+          />
+          <div className="max-w-3xl mx-auto">
+            <FAQAccordion faqs={servicesFaqs} />
+          </div>
+        </Section>
+
         <ServicesCtaSection />
       </main>
 
