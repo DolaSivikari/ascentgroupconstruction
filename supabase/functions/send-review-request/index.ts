@@ -1,10 +1,11 @@
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 import { corsHeaders, handleCors } from '../_shared/http.ts';
 
-const DEFAULT_TEMPLATE_NAME = 'review_request_day_0';
-const LEGACY_TEMPLATE_ALIASES: Record<string, string> = {
-  'default-review-request': DEFAULT_TEMPLATE_NAME,
-};
+const TRANSACTIONAL_TEMPLATE = 'review-request';
+const SITE_URL = 'https://ascentgroupconstruction.com';
+const GOOGLE_REVIEW_LINK = 'https://g.page/r/YOUR_GOOGLE_PLACE_ID/review';
+const HOMESTARS_REVIEW_LINK = 'https://homestars.com/companies/YOUR_COMPANY_ID';
+const TRUSTEDPROS_REVIEW_LINK = 'https://trustedpros.ca/company/YOUR_COMPANY_ID';
 
 Deno.serve(async (req) => {
   const cors = handleCors(req);
@@ -13,34 +14,15 @@ Deno.serve(async (req) => {
   try {
     const supabaseUrl = Deno.env.get('SUPABASE_URL')!;
     const supabaseServiceKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!;
-    const resendApiKey = Deno.env.get('RESEND_API_KEY')!;
 
     const supabase = createClient(supabaseUrl, supabaseServiceKey);
 
-    const { email, clientName, projectId, templateName } = await req.json();
-    const requestedTemplateName = typeof templateName === 'string' ? templateName : '';
-    const normalizedTemplateName = LEGACY_TEMPLATE_ALIASES[requestedTemplateName] || requestedTemplateName || DEFAULT_TEMPLATE_NAME;
+    const { email, clientName, projectId } = await req.json();
 
     if (!email || !clientName) {
       return new Response(
         JSON.stringify({ error: 'Email and client name are required' }),
         { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
-      );
-    }
-
-    // Fetch email template
-    const { data: template, error: templateError } = await supabase
-      .from('email_templates')
-      .select('*')
-      .eq('name', normalizedTemplateName)
-      .eq('is_active', true)
-      .single();
-
-    if (templateError || !template) {
-      console.error('Template fetch error:', templateError);
-      return new Response(
-        JSON.stringify({ error: 'Email template not found', requestedTemplateName: normalizedTemplateName }),
-        { status: 404, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
       );
     }
 
@@ -64,79 +46,59 @@ Deno.serve(async (req) => {
       );
     }
 
-    // Generate review landing page URL with tracking
-    const reviewLandingPage = `${supabaseUrl.replace('supabase.co', 'lovableproject.com')}/reviews?r=${reviewRequest.id}`;
-    
-    // Replace template variables
-    const googleReviewLink = 'https://g.page/r/YOUR_GOOGLE_PLACE_ID/review';
-    const homestarsReviewLink = 'https://homestars.com/companies/YOUR_COMPANY_ID';
-    const trustedprosReviewLink = 'https://trustedpros.ca/company/YOUR_COMPANY_ID';
+    // Enqueue email through the Lovable transactional-email pipeline
+    const reviewLandingPage = `${SITE_URL}/reviews?r=${reviewRequest.id}`;
 
-    const htmlBody = template.body_html
-      .replace(/{{client_name}}/g, clientName)
-      .replace(/{{google_review_link}}/g, googleReviewLink)
-      .replace(/{{homestars_review_link}}/g, homestarsReviewLink)
-      .replace(/{{trustedpros_review_link}}/g, trustedprosReviewLink)
-      .replace(/{{review_landing_page}}/g, reviewLandingPage);
+    const { data: sendResult, error: sendError } = await supabase.functions.invoke(
+      'send-transactional-email',
+      {
+        body: {
+          templateName: TRANSACTIONAL_TEMPLATE,
+          recipientEmail: email,
+          idempotencyKey: `review-request:${reviewRequest.id}`,
+          templateData: {
+            clientName,
+            reviewLandingPage,
+            googleReviewLink: GOOGLE_REVIEW_LINK,
+            homestarsReviewLink: HOMESTARS_REVIEW_LINK,
+            trustedprosReviewLink: TRUSTEDPROS_REVIEW_LINK,
+          },
+        },
+      }
+    );
 
-    const textBody = template.body_text
-      .replace(/{{client_name}}/g, clientName)
-      .replace(/{{review_landing_page}}/g, reviewLandingPage);
-
-    // Send email via Resend
-    const resendResponse = await fetch('https://api.resend.com/emails', {
-      method: 'POST',
-      headers: {
-        'Authorization': `Bearer ${resendApiKey}`,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        from: 'Ascent Group Construction <noreply@ascentgroupconstruction.com>',
-        to: [email],
-        subject: template.subject,
-        html: htmlBody,
-        text: textBody,
-      }),
-    });
-
-    if (!resendResponse.ok) {
-      const resendError = await resendResponse.text();
-      console.error('Resend API error:', resendError);
-      
-      // Update status to bounced
+    if (sendError) {
+      console.error('send-transactional-email error:', sendError);
       await supabase
         .from('review_requests')
         .update({ status: 'bounced' })
         .eq('id', reviewRequest.id);
 
       return new Response(
-        JSON.stringify({ error: 'Failed to send email', details: resendError }),
+        JSON.stringify({ error: 'Failed to send email', details: sendError.message }),
         { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
       );
     }
 
-    const resendData = await resendResponse.json();
-
-    // Update review request status
     await supabase
       .from('review_requests')
-      .update({ 
+      .update({
         status: 'sent',
-        sent_at: new Date().toISOString()
+        sent_at: new Date().toISOString(),
       })
       .eq('id', reviewRequest.id);
 
-    console.log('Review request sent successfully:', resendData);
+    console.log('Review request enqueued successfully:', sendResult);
 
     return new Response(
-      JSON.stringify({ 
-        success: true, 
+      JSON.stringify({
+        success: true,
         reviewRequestId: reviewRequest.id,
-        emailId: resendData.id 
+        result: sendResult,
       }),
-      { 
-        status: 200, 
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' } 
+      {
+        status: 200,
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
       }
     );
 
