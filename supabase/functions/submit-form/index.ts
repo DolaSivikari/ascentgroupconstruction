@@ -175,13 +175,15 @@ Deno.serve(async (req) => {
         }
         case 'resume': {
           const validatedData = resumeSchema.parse(payload.data);
-          // Combine optional portfolio links into the cover_letter body since the
-          // resume_submissions table doesn't have a dedicated portfolio_links column.
+          // Normalize portfolioLinks (string or array) into a single text block,
+          // then combine with the cover message since resume_submissions has only
+          // a `cover_letter` column (no portfolio_links column).
+          const portfolioText = Array.isArray(validatedData.portfolioLinks)
+            ? validatedData.portfolioLinks.filter(Boolean).join('\n')
+            : (validatedData.portfolioLinks ?? '').trim();
           const coverLetterBody = [
             validatedData.coverMessage?.trim(),
-            validatedData.portfolioLinks?.trim()
-              ? `\n\nPortfolio links:\n${validatedData.portfolioLinks.trim()}`
-              : null,
+            portfolioText ? `\n\nPortfolio links:\n${portfolioText}` : null,
           ]
             .filter(Boolean)
             .join('') || null;
