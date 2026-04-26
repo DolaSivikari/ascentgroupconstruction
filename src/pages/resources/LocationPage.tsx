@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
@@ -7,7 +8,7 @@ import { Section } from "@/components/sections/Section";
 import { Card } from "@/design-system/components/Card";
 import { Button } from "@/ui/Button";
 import { CTA_TEXT } from "@/design-system/constants";
-import { MapPin, Phone, Clock, CheckCircle, Building2, Home, Factory, HardHat } from "lucide-react";
+import { MapPin, Phone, Clock, CheckCircle, Building2, Home, Factory, HardHat, ArrowRight } from "lucide-react";
 import { COMPANY_PHONE, SITE_URL } from "@/constants/company";
 import { PhoneLink } from "@/components/shared/PhoneLink";
 import { serviceAreaCities, primaryServiceCities } from "@/data/service-area-cities";
@@ -17,6 +18,28 @@ import {
   COMPANY
 } from "@/utils/seo";
 import { usePageAnalytics } from "@/hooks/usePageAnalytics";
+import { supabase } from "@/integrations/supabase/client";
+
+interface AreaProject {
+  id: string;
+  title: string;
+  slug: string;
+  summary: string | null;
+  location: string | null;
+  featured_image: string | null;
+  category: string | null;
+}
+
+const RELATED_SERVICES: { name: string; slug: string }[] = [
+  { name: "Building Envelope Solutions", slug: "building-envelope-solutions" },
+  { name: "Waterproofing Systems", slug: "waterproofing-systems" },
+  { name: "EIFS & Stucco Systems", slug: "eifs-stucco-systems" },
+  { name: "Cladding Systems", slug: "cladding-systems" },
+  { name: "Painting Services", slug: "painting-services" },
+  { name: "Parking Garage Restoration", slug: "parking-garage-restoration" },
+  { name: "Sealant Programs", slug: "sealant-programs" },
+  { name: "Sustainable Building", slug: "sustainable-building" },
+];
 
 interface LocationData {
   name: string;
