@@ -3,7 +3,9 @@
  * Ensures users always get fresh content after CMS updates
  */
 
-const APP_VERSION = Date.now().toString();
+// Build version — bumped to force a fresh production deploy.
+const BUILD_TAG = '2026-04-26-redeploy';
+const APP_VERSION = `${BUILD_TAG}-${Date.now()}`;
 const VERSION_KEY = 'app_deployment_version';
 const LAST_CHECK_KEY = 'last_version_check';
 
