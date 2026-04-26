@@ -26,6 +26,21 @@ import { useAdminRoleCheck } from "@/hooks/useAdminRoleCheck";
 
 const ESTIMATING_EMAIL = "estimating@ascentgroupconstruction.com";
 
+const stepFields: Record<number, (keyof RFPSubmission)[]> = {
+  1: ["company_name", "contact_name", "email", "phone"],
+  2: ["project_name", "project_type", "project_location", "estimated_value_range"],
+  3: ["estimated_timeline", "delivery_method"],
+  4: ["scope_of_work", "consent"],
+};
+
+const validateCurrentStep = (data: RFPSubmission, currentStep: number) => {
+  const result = rfpSubmissionSchema.pick(
+    Object.fromEntries(stepFields[currentStep].map((field) => [field, true])) as Record<keyof RFPSubmission, true>
+  ).safeParse(data);
+
+  return result.success ? [] : result.error.issues;
+};
+
 export default function SubmitRFPNew() {
   const [currentStep, setCurrentStep] = useState(1);
   const [submitting, setSubmitting] = useState(false);
