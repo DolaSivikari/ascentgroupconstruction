@@ -226,6 +226,18 @@ const OurProcess = () => {
         </div>
       </Section>
 
+      {/* People Also Ask */}
+      <Section size="major" className="bg-muted/30">
+        <SectionHeader
+          title="People Also Ask"
+          description="Common questions about our project process and timelines."
+          badge="FAQ"
+        />
+        <div className="max-w-3xl mx-auto">
+          <FAQAccordion faqs={ourProcessFaqs} />
+        </div>
+      </Section>
+
       {/* CTA */}
       <CTABand
         title="Ready to Start a Project?"

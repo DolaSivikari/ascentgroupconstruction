@@ -326,6 +326,19 @@ const Projects = () => {
           )}
       </Section>
 
+      {/* People Also Ask */}
+      <Section size="major" className="bg-muted/30">
+        <SectionHeader
+          title="People Also Ask"
+          description="Common questions about our project portfolio."
+          badge="FAQ"
+          maxWidth="md"
+        />
+        <div className="max-w-3xl mx-auto">
+          <FAQAccordion faqs={projectsFaqs} />
+        </div>
+      </Section>
+
       {/* Quick View Modal */}
       <ProjectQuickView
         project={quickViewProject}
