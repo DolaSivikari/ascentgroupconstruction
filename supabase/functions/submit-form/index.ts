@@ -18,7 +18,8 @@ const resumeSchema = z.object({
   email: z.string().email().max(255),
   phone: z.string().max(20).optional().nullable(),
   coverMessage: z.string().max(2000).optional().nullable(),
-  portfolioLinks: z.string().max(500).optional().nullable(),
+  // Frontend may send either a newline-separated string OR an array of links
+  portfolioLinks: z.union([z.string().max(1000), z.array(z.string()).max(20)]).optional().nullable(),
 });
 
 const prequalificationSchema = z.object({
