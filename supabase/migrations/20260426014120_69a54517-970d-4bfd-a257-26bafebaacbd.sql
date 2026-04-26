@@ -1,0 +1,1 @@
+ALTER TABLE public.resume_submissions ALTER COLUMN resume_url DROP NOT NULL;

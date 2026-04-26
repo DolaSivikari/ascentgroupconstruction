@@ -18,7 +18,8 @@ const resumeSchema = z.object({
   email: z.string().email().max(255),
   phone: z.string().max(20).optional().nullable(),
   coverMessage: z.string().max(2000).optional().nullable(),
-  portfolioLinks: z.string().max(500).optional().nullable(),
+  // Frontend may send either a newline-separated string OR an array of links
+  portfolioLinks: z.union([z.string().max(1000), z.array(z.string()).max(20)]).optional().nullable(),
 });
 
 const prequalificationSchema = z.object({
@@ -116,7 +117,10 @@ Deno.serve(async (req) => {
     }
 
     // --- Spam Filter 4: Repeat content (same message+email within 10 min) ---
-    if (messageBody && payload.data?.email) {
+    // CRITICAL: This is a "nice to have" guard. ANY failure here must NOT block legitimate
+    // submissions. Wrapped in a defensive IIFE that always returns { allowed: true } on error.
+    const repeatCheck = await (async (): Promise<{ allowed: boolean }> => {
+      if (!messageBody || !payload.data?.email) return { allowed: true };
       try {
         const fingerprint = await sha256Hex(`${payload.data.email}:${messageBody}`.toLowerCase());
         const { data: rateData, error: rateErr } = await supabase.rpc(
@@ -128,14 +132,20 @@ Deno.serve(async (req) => {
             p_window_minutes: 10,
           },
         );
-        if (!rateErr && rateData && (rateData as any).allowed === false) {
-          console.log(`[spam_blocked] reason=repeat_content client=${clientId} type=${formType}`);
-          return jsonResponse({ success: true, message: 'Submission received' });
+        if (rateErr) {
+          console.warn('[spam_filter] repeat-content RPC error (allowing through):', rateErr);
+          return { allowed: true };
         }
+        const allowed = !(rateData && (rateData as any).allowed === false);
+        return { allowed };
       } catch (e) {
-        // Don't block on rate-limit infra errors
-        console.warn('[spam_filter] repeat-content check failed:', e);
+        console.warn('[spam_filter] repeat-content check threw (allowing through):', e);
+        return { allowed: true };
       }
+    })();
+    if (!repeatCheck.allowed) {
+      console.log(`[spam_blocked] reason=repeat_content client=${clientId} type=${formType}`);
+      return jsonResponse({ success: true, message: 'Submission received' });
     }
 
     if (!['contact', 'resume', 'prequalification', 'rfp'].includes(formType)) {
@@ -165,14 +175,26 @@ Deno.serve(async (req) => {
         }
         case 'resume': {
           const validatedData = resumeSchema.parse(payload.data);
+          // Normalize portfolioLinks (string or array) into a single text block,
+          // then combine with the cover message since resume_submissions has only
+          // a `cover_letter` column (no portfolio_links column).
+          const portfolioText = Array.isArray(validatedData.portfolioLinks)
+            ? validatedData.portfolioLinks.filter(Boolean).join('\n')
+            : (validatedData.portfolioLinks ?? '').trim();
+          const coverLetterBody = [
+            validatedData.coverMessage?.trim(),
+            portfolioText ? `\n\nPortfolio links:\n${portfolioText}` : null,
+          ]
+            .filter(Boolean)
+            .join('') || null;
+
           insertResult = await supabase
             .from('resume_submissions')
             .insert({
               applicant_name: validatedData.name,
               email: validatedData.email,
               phone: validatedData.phone || null,
-              cover_message: validatedData.coverMessage || null,
-              portfolio_links: validatedData.portfolioLinks || null,
+              cover_letter: coverLetterBody,
               status: 'new'
             });
           break;

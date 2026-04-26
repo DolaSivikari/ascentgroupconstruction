@@ -2000,6 +2000,33 @@ export type Database = {
           },
         ]
       }
+      rate_limits: {
+        Row: {
+          created_at: string
+          endpoint: string
+          id: string
+          request_count: number
+          user_identifier: string
+          window_start: string
+        }
+        Insert: {
+          created_at?: string
+          endpoint: string
+          id?: string
+          request_count?: number
+          user_identifier: string
+          window_start?: string
+        }
+        Update: {
+          created_at?: string
+          endpoint?: string
+          id?: string
+          request_count?: number
+          user_identifier?: string
+          window_start?: string
+        }
+        Relationships: []
+      }
       redirects: {
         Row: {
           created_at: string | null
@@ -2049,7 +2076,7 @@ export type Database = {
           id: string
           phone: string | null
           position_applied: string | null
-          resume_url: string
+          resume_url: string | null
           reviewed_at: string | null
           reviewed_by: string | null
           status: string | null
@@ -2063,7 +2090,7 @@ export type Database = {
           id?: string
           phone?: string | null
           position_applied?: string | null
-          resume_url: string
+          resume_url?: string | null
           reviewed_at?: string | null
           reviewed_by?: string | null
           status?: string | null
@@ -2077,7 +2104,7 @@ export type Database = {
           id?: string
           phone?: string | null
           position_applied?: string | null
-          resume_url?: string
+          resume_url?: string | null
           reviewed_at?: string | null
           reviewed_by?: string | null
           status?: string | null
