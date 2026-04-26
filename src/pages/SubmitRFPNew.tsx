@@ -433,7 +433,23 @@ export default function SubmitRFPNew() {
       <main className="flex-1 py-12">
         <div className="container mx-auto px-4 max-w-4xl">
           {/* Form */}
-          <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-6 animate-fade-in-up">
+          <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-6 animate-fade-in-up" noValidate>
+            {/* Honeypot — hidden from users, attractive to bots */}
+            <div
+              aria-hidden="true"
+              style={{ position: "absolute", left: "-10000px", width: "1px", height: "1px", overflow: "hidden" }}
+            >
+              <label htmlFor="rfp-company-website">Company website (leave blank)</label>
+              <input
+                id="rfp-company-website"
+                name="company_website"
+                type="text"
+                tabIndex={-1}
+                autoComplete="off"
+                value={honeypot}
+                onChange={(e) => setHoneypot(e.target.value)}
+              />
+            </div>
             {currentStep === 4 ? (
               <RFPStep4Scope form={form} onFilesChange={setAttachmentFiles} />
             ) : (
