@@ -41,7 +41,7 @@ const CHECKS: { id: string; label: string; detail?: string }[] = [
 ];
 
 export default function QAQuickContactForm() {
-  const { isAdmin, loading } = useAdminRoleCheck();
+  const { isAdmin, isLoading } = useAdminRoleCheck();
   const [checked, setChecked] = useState<Record<string, boolean>>({});
 
   useEffect(() => {
