@@ -5,7 +5,8 @@ import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
 import { SITE_URL } from "@/constants/company";
 import FilterBar from "@/components/FilterBar";
-import { CTABand } from "@/design-system/components/CTABand";
+import { CTABand, FAQAccordion, SectionHeader } from "@/design-system/components";
+import { projectsFaqs } from "@/data/page-faqs";
 import ProjectCard from "@/components/ProjectCard";
 import ProjectFeaturedCard from "@/components/ProjectFeaturedCard";
 import { Section } from "@/components/sections/Section";
@@ -323,6 +324,19 @@ const Projects = () => {
               )}
             </>
           )}
+      </Section>
+
+      {/* People Also Ask */}
+      <Section size="major" className="bg-muted/30">
+        <SectionHeader
+          title="People Also Ask"
+          description="Common questions about our project portfolio."
+          badge="FAQ"
+          maxWidth="md"
+        />
+        <div className="max-w-3xl mx-auto">
+          <FAQAccordion faqs={projectsFaqs} />
+        </div>
       </Section>
 
       {/* Quick View Modal */}

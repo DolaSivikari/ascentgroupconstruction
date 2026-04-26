@@ -29,7 +29,8 @@ import { Section } from "@/components/sections/Section";
 import { SectionHeader } from "@/design-system/components/SectionHeader";
 import { ProofStrip } from "@/design-system/components/ProofStrip";
 import { CTABand } from "@/design-system/components/CTABand";
-import { TrustRibbon } from "@/design-system/components/TrustRibbon";
+import { TrustRibbon, FAQAccordion, SectionHeader as DSSectionHeader } from "@/design-system/components";
+import { capabilitiesFaqs } from "@/data/page-faqs";
 import { Button } from "@/ui/Button";
 import SEO from "@/components/SEO";
 import { companyHeroes } from "@/data/hero-images";
@@ -417,7 +418,18 @@ const Capabilities = () => {
           </div>
         </Section>
 
-        {/* ── CTA Band ──────────────────────────────────────────────────── */}
+        {/* People Also Ask */}
+        <Section size="major">
+          <DSSectionHeader
+            title="People Also Ask"
+            description="Common questions about our self-perform model and capacity."
+            badge="FAQ"
+            maxWidth="md"
+          />
+          <div className="max-w-3xl mx-auto">
+            <FAQAccordion faqs={capabilitiesFaqs} />
+          </div>
+        </Section>
         <CTABand
           title="Ready to Partner?"
           description="Whether you need a prime contractor for envelope scope or a trade partner for your next project, let's discuss how we can deliver."
