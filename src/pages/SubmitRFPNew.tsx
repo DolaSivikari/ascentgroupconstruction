@@ -476,7 +476,9 @@ export default function SubmitRFPNew() {
                   )}
 
                   {currentStep < totalSteps ? (
-                    <Button type="button" onClick={handleNext}>Next<ArrowRight className="ml-2 w-4 h-4" /></Button>
+                    <Button type="button" onClick={handleNext} disabled={submitting}>
+                      Next<ArrowRight className="ml-2 w-4 h-4" />
+                    </Button>
                   ) : (
                     <Button type="submit" disabled={submitting}>
                       {submitting ? "Submitting..." : (<>Submit RFP<ArrowRight className="ml-2 w-4 h-4" /></>)}
