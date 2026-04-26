@@ -8,6 +8,7 @@ import { SectionHeader } from "@/design-system/components/SectionHeader";
 import { ProofStrip } from "@/design-system/components/ProofStrip";
 import { CTABand } from "@/design-system/components/CTABand";
 import { TrustRibbon } from "@/design-system/components/TrustRibbon";
+import { TabbedSections, FAQAccordion } from "@/design-system/components";
 import { Section } from "@/components/sections/Section";
 import { PageHero } from "@/components/shared/PageHero";
 import { Button } from "@/ui/Button";
@@ -34,11 +35,24 @@ import {
   Grid2x2,
   Brush,
   ClipboardList,
+  BookOpen,
+  UserCircle,
+  Heart,
+  Map,
+  Calendar,
 } from "lucide-react";
 import { mainPageHeroes } from "@/data/hero-images";
 import { usePageAnalytics } from "@/hooks/usePageAnalytics";
 import { generateBreadcrumbSchema, generateHowToSchema } from "@/utils/seo";
 import { founderBio } from "@/data/enriched-company-content";
+import { aboutFaqs } from "@/data/page-faqs";
+
+const MILESTONES = [
+  { year: "2010", title: "Field Experience Begins", description: "Hebun's hands-on envelope work starts on GTA highrise and commercial projects." },
+  { year: "2020", title: "Trade Lead", description: "Leading EIFS, masonry, and restoration crews on multi-storey envelope scopes." },
+  { year: "2025", title: "Ascent Group Founded", description: "Formalized as a specialty contractor — direct accountability, no markup layers." },
+  { year: "2025", title: "Sto Canada Listed", description: "Listed Installer for Modules SCL-001 through SCL-010." },
+];
 
 // ─── Data ────────────────────────────────────────────────────────────────────
 
