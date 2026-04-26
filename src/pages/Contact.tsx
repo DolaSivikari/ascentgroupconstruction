@@ -377,6 +377,19 @@ const Contact = () => {
         </div>
       </section>
 
+      {/* People Also Ask */}
+      <Section size="major" className="bg-muted/30">
+        <SectionHeader
+          title="People Also Ask"
+          description="Common questions about contacting Ascent Group."
+          badge="FAQ"
+          maxWidth="md"
+        />
+        <div className="max-w-3xl mx-auto">
+          <FAQAccordion faqs={contactFaqs} />
+        </div>
+      </Section>
+
       <TrustedPartners variant="simple" />
 
       <Footer />

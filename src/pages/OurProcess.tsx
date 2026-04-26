@@ -6,6 +6,8 @@ import { Section } from "@/components/sections/Section";
 import { SectionHeader } from "@/design-system/components/SectionHeader";
 import { CTABand } from "@/design-system/components/CTABand";
 import { ProofStrip } from "@/design-system/components/ProofStrip";
+import { FAQAccordion } from "@/design-system/components";
+import { ourProcessFaqs } from "@/data/page-faqs";
 import { generateHowToSchema } from "@/utils/faq-schema";
 import AnimatedProcessTimeline from "@/components/timeline/AnimatedProcessTimeline";
 import { companyHeroes } from "@/data/hero-images";
