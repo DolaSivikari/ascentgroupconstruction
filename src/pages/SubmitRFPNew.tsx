@@ -139,7 +139,7 @@ export default function SubmitRFPNew() {
       // Upload attachments first
       const attachmentUrls = await uploadAttachments();
 
-      // Insert RFP submission with required fields
+      // Submit through spam-filtered edge function (honeypot + time-gate + link/dup checks)
       const submissionData = {
         company_name: data.company_name,
         contact_name: data.contact_name,
@@ -159,20 +159,29 @@ export default function SubmitRFPNew() {
         additional_requirements: data.additional_requirements || undefined,
         plans_available: data.plans_available,
         site_visit_required: data.site_visit_required,
-        consent_timestamp: new Date().toISOString(),
         attachment_urls: attachmentUrls.length > 0 ? attachmentUrls : undefined,
       };
 
-      const { data: insertedRow, error: insertError } = await supabase
-        .from("rfp_submissions")
-        .insert([submissionData])
-        .select("id, created_at")
-        .single();
+      const { data: invokeResponse, error: insertError } = await supabase.functions.invoke(
+        "submit-form",
+        {
+          body: {
+            formType: "rfp",
+            honeypot,
+            startedAt: formStartedAtRef.current,
+            data: submissionData,
+          },
+        },
+      );
 
       if (insertError) throw insertError;
+      if (invokeResponse && (invokeResponse as any).success === false) {
+        throw new Error((invokeResponse as any).message || "Submission failed");
+      }
 
-      const newId = insertedRow?.id as string;
-      const createdAt = insertedRow?.created_at ? new Date(insertedRow.created_at as string) : new Date();
+      const newId = ((invokeResponse as any)?.id as string) || "";
+      const createdAtRaw = (invokeResponse as any)?.created_at as string | undefined;
+      const createdAt = createdAtRaw ? new Date(createdAtRaw) : new Date();
       const refId = `RFP-${(newId || "").slice(0, 8).toUpperCase()}`;
 
       setSubmissionId(newId);
