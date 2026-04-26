@@ -174,14 +174,24 @@ Deno.serve(async (req) => {
         }
         case 'resume': {
           const validatedData = resumeSchema.parse(payload.data);
+          // Combine optional portfolio links into the cover_letter body since the
+          // resume_submissions table doesn't have a dedicated portfolio_links column.
+          const coverLetterBody = [
+            validatedData.coverMessage?.trim(),
+            validatedData.portfolioLinks?.trim()
+              ? `\n\nPortfolio links:\n${validatedData.portfolioLinks.trim()}`
+              : null,
+          ]
+            .filter(Boolean)
+            .join('') || null;
+
           insertResult = await supabase
             .from('resume_submissions')
             .insert({
               applicant_name: validatedData.name,
               email: validatedData.email,
               phone: validatedData.phone || null,
-              cover_message: validatedData.coverMessage || null,
-              portfolio_links: validatedData.portfolioLinks || null,
+              cover_letter: coverLetterBody,
               status: 'new'
             });
           break;
