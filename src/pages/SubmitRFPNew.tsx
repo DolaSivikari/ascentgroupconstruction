@@ -1,7 +1,6 @@
 import { useState, useRef } from "react";
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
@@ -26,6 +25,21 @@ import { useAdminRoleCheck } from "@/hooks/useAdminRoleCheck";
 
 const ESTIMATING_EMAIL = "estimating@ascentgroupconstruction.com";
 
+const stepFields: Record<number, (keyof RFPSubmission)[]> = {
+  1: ["company_name", "contact_name", "email", "phone"],
+  2: ["project_name", "project_type", "project_location", "estimated_value_range"],
+  3: ["estimated_timeline", "delivery_method"],
+  4: ["scope_of_work", "consent"],
+};
+
+const validateCurrentStep = (data: RFPSubmission, currentStep: number) => {
+  const result = rfpSubmissionSchema.pick(
+    Object.fromEntries(stepFields[currentStep].map((field) => [field, true])) as Record<keyof RFPSubmission, true>
+  ).safeParse(data);
+
+  return result.success ? [] : result.error.issues;
+};
+
 export default function SubmitRFPNew() {
   const [currentStep, setCurrentStep] = useState(1);
   const [submitting, setSubmitting] = useState(false);
@@ -40,7 +54,6 @@ export default function SubmitRFPNew() {
   const { isAdmin } = useAdminRoleCheck();
 
   const form = useForm<RFPSubmission>({
-    resolver: zodResolver(rfpSubmissionSchema),
     defaultValues: {
       company_name: "",
       contact_name: "",
@@ -74,30 +87,24 @@ export default function SubmitRFPNew() {
     { number: 4, title: "Scope of Work", component: RFPStep4Scope },
   ];
 
-  const handleNext = async () => {
-    let fieldsToValidate: (keyof RFPSubmission)[] = [];
+  const handleNext = () => {
+    const fieldsToValidate = stepFields[currentStep];
+    const issues = validateCurrentStep(form.getValues(), currentStep);
 
-    switch (currentStep) {
-      case 1:
-        fieldsToValidate = ["company_name", "contact_name", "email", "phone"];
-        break;
-      case 2:
-        fieldsToValidate = ["project_name", "project_type", "project_location", "estimated_value_range"];
-        break;
-      case 3:
-        fieldsToValidate = ["estimated_timeline", "delivery_method"];
-        break;
-      case 4:
-        fieldsToValidate = ["scope_of_work", "consent"];
-        break;
-    }
+    form.clearErrors(fieldsToValidate);
 
-    const isValid = await form.trigger(fieldsToValidate);
-
-    if (isValid) {
+    if (issues.length === 0) {
       setCurrentStep((prev) => Math.min(prev + 1, totalSteps));
       window.scrollTo({ top: 0, behavior: "smooth" });
     } else {
+      issues.forEach((issue) => {
+        const field = issue.path[0] as keyof RFPSubmission | undefined;
+        if (field && fieldsToValidate.includes(field)) {
+          form.setError(field, { type: "manual", message: issue.message });
+        }
+      });
+      const firstField = issues[0]?.path[0] as keyof RFPSubmission | undefined;
+      if (firstField) form.setFocus(firstField);
       toast.error("Please fill in all required fields correctly");
     }
   };

@@ -16,9 +16,10 @@ export const companyInfoSchema = z.object({
     .max(255, "Email must be less than 255 characters"),
   phone: z.string()
     .trim()
-    .regex(/^[\d\s()+-]+$/, "Invalid phone number format")
-    .min(10, "Phone number must be at least 10 digits")
-    .max(20, "Phone number must be less than 20 characters"),
+    .min(1, "Phone number is required")
+    .refine((value) => /^[0-9\s()+.\-xXextEXT#]+$/.test(value), "Invalid phone number format")
+    .refine((value) => value.replace(/\D/g, "").length >= 10, "Phone number must include at least 10 digits")
+    .max(30, "Phone number must be less than 30 characters"),
   title: z.string()
     .trim()
     .max(100, "Title must be less than 100 characters")
@@ -75,8 +76,8 @@ export const timelineRequirementsSchema = z.object({
       "Multi-Trade Integration",
       "To Be Determined"
     ].includes(val), { message: "Please select a valid delivery method" }),
-  bonding_required: z.boolean().default(false),
-  prequalification_complete: z.boolean().default(false),
+  bonding_required: z.boolean(),
+  prequalification_complete: z.boolean(),
 });
 
 // Step 4: Scope of Work
@@ -89,8 +90,8 @@ export const scopeOfWorkSchema = z.object({
     .trim()
     .max(2000, "Additional requirements must be less than 2000 characters")
     .optional(),
-  plans_available: z.boolean().default(false),
-  site_visit_required: z.boolean().default(false),
+  plans_available: z.boolean(),
+  site_visit_required: z.boolean(),
   consent: z.boolean().refine((val) => val === true, { message: "You must consent to be contacted" }),
 });
 
