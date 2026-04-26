@@ -2076,7 +2076,7 @@ export type Database = {
           id: string
           phone: string | null
           position_applied: string | null
-          resume_url: string
+          resume_url: string | null
           reviewed_at: string | null
           reviewed_by: string | null
           status: string | null
@@ -2090,7 +2090,7 @@ export type Database = {
           id?: string
           phone?: string | null
           position_applied?: string | null
-          resume_url: string
+          resume_url?: string | null
           reviewed_at?: string | null
           reviewed_by?: string | null
           status?: string | null
@@ -2104,7 +2104,7 @@ export type Database = {
           id?: string
           phone?: string | null
           position_applied?: string | null
-          resume_url?: string
+          resume_url?: string | null
           reviewed_at?: string | null
           reviewed_by?: string | null
           status?: string | null
