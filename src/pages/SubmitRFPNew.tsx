@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -35,6 +35,8 @@ export default function SubmitRFPNew() {
   const [submittedAt, setSubmittedAt] = useState<Date | null>(null);
   const [refCopied, setRefCopied] = useState(false);
   const [attachmentFiles, setAttachmentFiles] = useState<File[]>([]);
+  const [honeypot, setHoneypot] = useState("");
+  const formStartedAtRef = useRef<number>(Date.now());
   const { isAdmin } = useAdminRoleCheck();
 
   const form = useForm<RFPSubmission>({
