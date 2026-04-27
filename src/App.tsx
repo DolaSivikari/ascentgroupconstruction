@@ -3,13 +3,17 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, useLocation } from "react-router-dom";
-import { Suspense, useEffect } from "react";
+import { lazy, Suspense, useEffect } from "react";
 import ErrorBoundary from "./components/ErrorBoundary";
 import ScrollToTop from "./components/ScrollToTop";
-import CookieBanner from "./components/CookieBanner";
 import { trackPageView } from "@/lib/analytics";
 import { AppRoutes } from "@/routes/AppRoutes";
-import StickyInquiryBar from "./components/StickyInquiryBar";
+
+// Non-critical UI: lazy-loaded so they don't block initial paint or inflate the main chunk.
+// Both render conditionally (cookie banner only when no consent stored, sticky bar only after scroll)
+// so users almost never see a Suspense fallback for them.
+const CookieBanner = lazy(() => import("./components/CookieBanner"));
+const StickyInquiryBar = lazy(() => import("./components/StickyInquiryBar"));
 
 const queryClient = new QueryClient();
 
