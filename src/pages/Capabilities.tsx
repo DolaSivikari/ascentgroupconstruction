@@ -318,8 +318,10 @@ const Capabilities = () => {
             </Button>
           </div>
         </Section>
+        </div>
 
         {/* ── Project Delivery Methods ───────────────────────────────────── */}
+        <div id="delivery-methods" className="scroll-mt-24">
         <Section size="major">
           <SectionHeader
             badge="Delivery Methods"
