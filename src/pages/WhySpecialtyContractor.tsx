@@ -8,6 +8,8 @@ import { Card } from "@/design-system/components/Card";
 import { Button } from "@/ui/Button";
 import { Link } from "react-router-dom";
 import { CTA_TEXT } from "@/design-system/constants";
+import { TrustRibbon } from "@/design-system/components/TrustRibbon";
+import { RelatedLinksGrid } from "@/design-system/components/RelatedLinksGrid";
 import { ScrollReveal } from "@/components/animations/ScrollReveal";
 import { specialtyContractorComparison } from "@/data/specialty-contractor-comparison";
 import { 
@@ -79,6 +81,8 @@ const WhySpecialtyContractor = () => {
       />
 
       <main>
+        <TrustRibbon />
+
         {/* Introduction Section */}
         <Section>
           <div className="max-w-4xl mx-auto">
