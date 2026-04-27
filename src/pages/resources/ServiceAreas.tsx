@@ -65,7 +65,7 @@ const ServiceAreas = () => {
 
         <TrustRibbon />
 
-        <main id="main-content" className="container mx-auto px-4 py-12 space-y-16">
+        <main className="container mx-auto px-4 py-12 space-y-16">
           {/* Service Radius Section */}
           <section className="text-center max-w-3xl mx-auto">
             <div className="bg-gradient-to-br from-muted/50 to-muted/20 rounded-[var(--radius-lg)] p-8 mb-8 border-2 border-primary/10 shadow-[var(--shadow-lg)] animate-fade-in-up">

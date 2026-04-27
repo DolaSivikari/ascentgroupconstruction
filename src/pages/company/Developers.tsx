@@ -118,7 +118,7 @@ const Developers = () => {
 
         <TrustRibbon />
 
-        <main id="main-content">
+        <main>
           
           {/* Why Partner Section */}
           <Section size="major">
