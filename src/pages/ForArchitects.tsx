@@ -10,6 +10,10 @@ import { Card } from "@/design-system/components/Card";
 import { Button } from "@/ui/Button";
 import { Link } from "react-router-dom";
 import { PhoneLink } from "@/components/shared/PhoneLink";
+import { TrustRibbon } from "@/design-system/components/TrustRibbon";
+import { FAQAccordion } from "@/design-system/components/FAQAccordion";
+import { RelatedLinksGrid } from "@/design-system/components/RelatedLinksGrid";
+import { architectsFaqs } from "@/data/page-faqs";
 import {
   Layers,
   FileText,
@@ -165,6 +169,7 @@ const ForArchitects = () => {
         ]}
       />
 
+      <TrustRibbon />
       <OperationalProofBar items={DEFAULT_PROOF_ITEMS} />
 
       {/* Material Systems Expertise */}
@@ -306,6 +311,16 @@ const ForArchitects = () => {
         </div>
       </Section>
 
+      {/* FAQs */}
+      <Section size="major" maxWidth="narrow">
+        <SectionHeader
+          badge="Architect & Consultant FAQs"
+          title="Common Questions from Design Teams"
+          description="Hygrothermal modeling, ASTM testing, submittals, and spec compliance — covered."
+        />
+        <FAQAccordion faqs={architectsFaqs} />
+      </Section>
+
       {/* Contact CTA */}
       <Section size="major">
         <div className="max-w-3xl mx-auto text-center">
@@ -331,6 +346,30 @@ const ForArchitects = () => {
           </div>
         </div>
       </Section>
+
+      <RelatedLinksGrid
+        title="Resources for Design Teams"
+        links={[
+          {
+            icon: BookOpen,
+            title: "Capabilities Statement",
+            description: "Self-perform crew, project sizes, delivery models, and operational standards in one capability brief.",
+            href: "/capabilities",
+          },
+          {
+            icon: FileText,
+            title: "Prequalification Documents",
+            description: "Insurance, WSIB, safety policy, and references — packaged for your client's procurement team.",
+            href: "/prequalification",
+          },
+          {
+            icon: Layers,
+            title: "Building Envelope Services",
+            description: "EIFS, masonry, sealants, cladding, and waterproofing — full envelope and restoration scope detail.",
+            href: "/services",
+          },
+        ]}
+      />
 
       <Footer />
     </div>

@@ -7,9 +7,13 @@ import { SectionHeader } from "@/design-system/components/SectionHeader";
 import { CapabilityCard } from "@/design-system/components/CapabilityCard";
 import { CTABand } from "@/design-system/components/CTABand";
 import { Card } from "@/design-system/components/Card";
+import { TrustRibbon } from "@/design-system/components/TrustRibbon";
+import { FAQAccordion } from "@/design-system/components/FAQAccordion";
+import { RelatedLinksGrid } from "@/design-system/components/RelatedLinksGrid";
 import { OperationalProofBar, DEFAULT_PROOF_ITEMS } from "@/components/proof/OperationalProofBar";
-import { Building2, TrendingUp, Users, Calendar, ShieldCheck, Timer, CreditCard, FileText, Zap } from "lucide-react";
+import { Building2, TrendingUp, Users, Calendar, ShieldCheck, Timer, CreditCard, FileText, Zap, AlertTriangle, HardHat, Wrench } from "lucide-react";
 import { audienceHeroes } from "@/data/hero-images";
+import { propertyManagersFaqs } from "@/data/page-faqs";
 
 const PropertyManagers = () => {
   const benefits = [
@@ -107,6 +111,8 @@ const PropertyManagers = () => {
         ]}
       />
       
+      <TrustRibbon />
+
       <main>
         {/* Benefits */}
         <Section size="major">
@@ -176,6 +182,16 @@ const PropertyManagers = () => {
           description="Operational capabilities built around occupied-building requirements"
         />
 
+        {/* FAQs (emits FAQPage JSON-LD) */}
+        <Section size="major" maxWidth="narrow">
+          <SectionHeader
+            badge="Property Manager FAQs"
+            title="Common Questions from Property Managers"
+            description="Procurement, scheduling, documentation, and reserve fund alignment — answered."
+          />
+          <FAQAccordion faqs={propertyManagersFaqs} />
+        </Section>
+
         {/* CTA */}
         <CTABand
           title="Let's Discuss Your Property Needs"
@@ -183,6 +199,31 @@ const PropertyManagers = () => {
           primaryCta={{ text: "Contact Us", href: "/contact" }}
           secondaryCta={{ text: "Request a Proposal", href: "/contact" }}
           variant="dark"
+        />
+
+        {/* Related links */}
+        <RelatedLinksGrid
+          title="Related Resources for Property Managers"
+          links={[
+            {
+              icon: AlertTriangle,
+              title: "Emergency Building Repair",
+              description: "Same-day site assessment for active leaks, facade failure, or storm damage on your buildings.",
+              href: "/emergency-repair",
+            },
+            {
+              icon: Wrench,
+              title: "Restoration & Capital Programs",
+              description: "Parking-garage restoration, balcony waterproofing, and sealant cycles aligned with your reserve fund study.",
+              href: "/services",
+            },
+            {
+              icon: HardHat,
+              title: "Capabilities & Documentation",
+              description: "Self-perform crew details, insurance, WSIB, and the full Ascent operational capability statement.",
+              href: "/capabilities",
+            },
+          ]}
         />
       </main>
       

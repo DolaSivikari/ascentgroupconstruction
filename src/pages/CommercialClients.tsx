@@ -7,9 +7,13 @@ import { SectionHeader } from "@/design-system/components/SectionHeader";
 import { CapabilityCard } from "@/design-system/components/CapabilityCard";
 import { CTABand } from "@/design-system/components/CTABand";
 import { Card } from "@/design-system/components/Card";
+import { TrustRibbon } from "@/design-system/components/TrustRibbon";
+import { FAQAccordion } from "@/design-system/components/FAQAccordion";
+import { RelatedLinksGrid } from "@/design-system/components/RelatedLinksGrid";
 import { OperationalProofBar, DEFAULT_PROOF_ITEMS } from "@/components/proof/OperationalProofBar";
-import { Timer, ShieldCheck, Users, Moon, CheckCircle, Building2, Zap, ClipboardCheck, FileText, Wrench, FolderCheck, Ban } from "lucide-react";
+import { Timer, ShieldCheck, Users, Moon, CheckCircle, Building2, Zap, ClipboardCheck, FileText, Wrench, FolderCheck, Ban, AlertTriangle, Building } from "lucide-react";
 import { audienceHeroes } from "@/data/hero-images";
+import { commercialClientsFaqs } from "@/data/page-faqs";
 
 const CommercialClients = () => {
   const benefits = [
@@ -113,6 +117,8 @@ const CommercialClients = () => {
         ]}
       />
       
+      <TrustRibbon />
+
       <main>
         {/* Benefits */}
         <Section size="major">
@@ -189,6 +195,16 @@ const CommercialClients = () => {
           description="Built for commercial project requirements"
         />
 
+        {/* FAQs */}
+        <Section size="major" maxWidth="narrow">
+          <SectionHeader
+            badge="Commercial FAQs"
+            title="Common Questions from Commercial Owners"
+            description="After-hours work, low-VOC materials, phased execution, and insurance — covered."
+          />
+          <FAQAccordion faqs={commercialClientsFaqs} />
+        </Section>
+
         {/* CTA */}
         <CTABand
           title="Ready to Elevate Your Facility?"
@@ -196,6 +212,31 @@ const CommercialClients = () => {
           primaryCta={{ text: "Request an Estimate", href: "/estimate" }}
           secondaryCta={{ text: "Contact Us", href: "/contact" }}
           variant="dark"
+        />
+
+        {/* Related links */}
+        <RelatedLinksGrid
+          title="Explore Related Services"
+          links={[
+            {
+              icon: Building,
+              title: "Property Manager Programs",
+              description: "Multi-residential capital planning and recurring envelope maintenance for portfolio managers.",
+              href: "/property-managers",
+            },
+            {
+              icon: AlertTriangle,
+              title: "Emergency Building Repair",
+              description: "Same-day site response for active leaks, facade failures, and storm damage on commercial properties.",
+              href: "/emergency-repair",
+            },
+            {
+              icon: Wrench,
+              title: "Full Service Catalogue",
+              description: "Building envelope, restoration, and interior trade scopes across our commercial portfolio.",
+              href: "/services",
+            },
+          ]}
         />
       </main>
       

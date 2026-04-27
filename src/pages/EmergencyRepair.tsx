@@ -11,6 +11,10 @@ import { Card } from "@/design-system/components/Card";
 import { Button } from "@/ui/Button";
 import { PhoneLink } from "@/components/shared/PhoneLink";
 import { Link } from "react-router-dom";
+import { TrustRibbon } from "@/design-system/components/TrustRibbon";
+import { FAQAccordion } from "@/design-system/components/FAQAccordion";
+import { RelatedLinksGrid } from "@/design-system/components/RelatedLinksGrid";
+import { emergencyRepairFaqs } from "@/data/page-faqs";
 import {
   Phone,
   Droplets,
@@ -121,6 +125,8 @@ const EmergencyRepair = () => {
           </span>
         </div>
       </div>
+
+      <TrustRibbon />
 
       {/* Emergency Services */}
       <Section size="major">
@@ -247,6 +253,40 @@ const EmergencyRepair = () => {
           </div>
         </div>
       </Section>
+
+      {/* FAQs */}
+      <Section size="major" maxWidth="narrow" className="bg-muted/30">
+        <SectionHeader
+          badge="Emergency FAQs"
+          title="Common Questions in an Emergency"
+          description="Response time, insurance documentation, temporary containment, and coverage areas."
+        />
+        <FAQAccordion faqs={emergencyRepairFaqs} />
+      </Section>
+
+      <RelatedLinksGrid
+        title="After the Emergency: Plan Permanent Repair"
+        links={[
+          {
+            icon: Droplets,
+            title: "Waterproofing & Sealants",
+            description: "Long-term envelope and waterproofing systems to prevent recurrence after temporary repair.",
+            href: "/services/waterproofing",
+          },
+          {
+            icon: Building2,
+            title: "Property Manager Programs",
+            description: "Convert one-off emergency response into recurring envelope and capital maintenance programs.",
+            href: "/property-managers",
+          },
+          {
+            icon: Shield,
+            title: "Capabilities Statement",
+            description: "Prequalification, insurance, and operational capability brief for ongoing engagements.",
+            href: "/capabilities",
+          },
+        ]}
+      />
 
       <Footer />
     </div>

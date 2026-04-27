@@ -14,9 +14,13 @@ import { CardGrid } from "@/components/shared/CardGrid";
 import { ProcessStepCard } from "@/components/unified";
 import { Button } from "@/ui/Button";
 import { CTA_TEXT } from "@/design-system/constants";
-import { CheckCircle, Clock, Shield, FileText, Users, Wrench, Download, Mail, Phone } from "lucide-react";
+import { CheckCircle, Clock, Shield, FileText, Users, Wrench, Download, Mail, Phone, AlertTriangle, Building, ClipboardCheck } from "lucide-react";
 import { Link } from "react-router-dom";
 import { audienceHeroes } from "@/data/hero-images";
+import { TrustRibbon } from "@/design-system/components/TrustRibbon";
+import { FAQAccordion } from "@/design-system/components/FAQAccordion";
+import { RelatedLinksGrid } from "@/design-system/components/RelatedLinksGrid";
+import { generalContractorsFaqs } from "@/data/page-faqs";
 
 const ForGeneralContractors = () => {
   const tradePackages = [
@@ -121,6 +125,8 @@ const ForGeneralContractors = () => {
       />
       
       <main className="min-h-screen bg-background">
+
+        <TrustRibbon />
 
         {/* Trade Packages Section */}
         <Section size="major" className="scroll-mt-20" data-section="trade-packages">
@@ -339,6 +345,40 @@ const ForGeneralContractors = () => {
             </div>
           </div>
         </Section>
+
+        {/* FAQs */}
+        <Section size="major" maxWidth="narrow" className="bg-muted/30">
+          <SectionHeader
+            title="Common Questions from General Contractors"
+            description="Bid turnaround, prequalification, daily reporting, and self-perform scope — all answered."
+          />
+          <FAQAccordion faqs={generalContractorsFaqs} />
+        </Section>
+
+        {/* Related */}
+        <RelatedLinksGrid
+          title="More for GC Partners"
+          links={[
+            {
+              icon: ClipboardCheck,
+              title: "Prequalification Package",
+              description: "Insurance, WSIB, safety, and references — assembled for procurement teams in one downloadable package.",
+              href: "/prequalification",
+            },
+            {
+              icon: Building,
+              title: "Capabilities & Self-Perform",
+              description: "How we structure self-performed envelope and finish trades on commercial and multi-family GC projects.",
+              href: "/capabilities",
+            },
+            {
+              icon: AlertTriangle,
+              title: "Emergency Response",
+              description: "Same-day envelope and water-infiltration response for active project issues across the GTA.",
+              href: "/emergency-repair",
+            },
+          ]}
+        />
       </main>
       <Footer />
     </>
