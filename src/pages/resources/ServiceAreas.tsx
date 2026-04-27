@@ -1,4 +1,4 @@
-import { MapPin, Clock, Phone, CheckCircle2 } from "lucide-react";
+import { MapPin, Clock, Phone, CheckCircle2, Shield, Briefcase, Wrench } from "lucide-react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { PageHero } from "@/components/shared/PageHero";
@@ -9,6 +9,10 @@ import { serviceAreaCities, primaryServiceCities } from "@/data/service-area-cit
 import { resourceHeroes } from "@/data/hero-images";
 import { Link } from "react-router-dom";
 import { CTA_TEXT } from "@/design-system/constants";
+import { TrustRibbon } from "@/design-system/components/TrustRibbon";
+import { FAQAccordion } from "@/design-system/components/FAQAccordion";
+import { RelatedLinksGrid } from "@/design-system/components/RelatedLinksGrid";
+import { serviceAreasFaqs } from "@/data/page-faqs";
 
 const ServiceAreas = () => {
   const regions = [

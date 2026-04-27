@@ -9,6 +9,10 @@ import { CTABand } from "@/design-system/components/CTABand";
 import { Card } from "@/design-system/components/Card";
 import { Button } from "@/ui/Button";
 import { Link } from "react-router-dom";
+import { TrustRibbon } from "@/design-system/components/TrustRibbon";
+import { FAQAccordion } from "@/design-system/components/FAQAccordion";
+import { RelatedLinksGrid } from "@/design-system/components/RelatedLinksGrid";
+import { developersFaqs } from "@/data/page-faqs";
 import { 
   ShieldCheck, 
   Calendar, 
@@ -16,7 +20,9 @@ import {
   CheckCircle, 
   Award,
   FileText,
-  Users
+  Users,
+  Briefcase,
+  Building2
 } from "lucide-react";
 import { audienceHeroes } from "@/data/hero-images";
 

@@ -1,4 +1,4 @@
-import { Shield, Award, CheckCircle2, Building2, Download, FileText } from "lucide-react";
+import { Shield, Award, CheckCircle2, Building2, Download, FileText, Briefcase, Wrench } from "lucide-react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import PageHero from "@/components/shared/PageHero";
@@ -8,6 +8,10 @@ import SEO from "@/components/SEO";
 import { useSettingsData } from "@/hooks/useSettingsData";
 import { companyHeroes } from "@/data/hero-images";
 import { Link } from "react-router-dom";
+import { TrustRibbon } from "@/design-system/components/TrustRibbon";
+import { FAQAccordion } from "@/design-system/components/FAQAccordion";
+import { RelatedLinksGrid } from "@/design-system/components/RelatedLinksGrid";
+import { certificationsFaqs } from "@/data/page-faqs";
 
 interface License {
   name: string;

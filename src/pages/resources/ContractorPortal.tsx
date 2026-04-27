@@ -15,7 +15,8 @@ import {
   Droplets,
   ArrowRight,
   FileDown,
-  Loader2
+  Loader2,
+  Briefcase
 } from "lucide-react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
@@ -29,6 +30,10 @@ import SEO from "@/components/SEO";
 import { supabase } from "@/integrations/supabase/client";
 import heroImage from "@/assets/hero-building-envelope.jpg";
 import { useDocument, useTrackDownload, downloadDocument } from "@/hooks/useDocuments";
+import { TrustRibbon } from "@/design-system/components/TrustRibbon";
+import { FAQAccordion } from "@/design-system/components/FAQAccordion";
+import { RelatedLinksGrid } from "@/design-system/components/RelatedLinksGrid";
+import { contractorPortalFaqs } from "@/data/page-faqs";
 
 const ContractorPortal = () => {
   const { toast } = useToast();
