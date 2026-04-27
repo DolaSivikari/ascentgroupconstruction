@@ -21,6 +21,7 @@ import { FAQAccordion } from "@/design-system/components/FAQAccordion";
 import { RelatedLinksGrid } from "@/design-system/components/RelatedLinksGrid";
 import { blogPostFaqs } from "@/data/page-faqs";
 import { Wrench, Building2, Briefcase } from "lucide-react";
+import { getRelatedForBlogPost, type SmartRelatedLink } from "@/utils/relatedLinks";
 import {
   Accordion,
   AccordionContent,
