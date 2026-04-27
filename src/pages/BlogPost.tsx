@@ -65,6 +65,23 @@ const BlogPost = () => {
     fetchPost();
   }, [slug, isPreview]);
 
+  // Resolve smart related links once post is loaded
+  useEffect(() => {
+    if (!post) return;
+    let cancelled = false;
+    getRelatedForBlogPost({
+      postSlug: post.slug,
+      category: post.category ?? null,
+      tags: (post.tags as string[]) ?? null,
+      sector: post.sector ?? null,
+    }).then((links) => {
+      if (!cancelled) setRelatedLinks(links);
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, [post]);
+
   if (isLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
