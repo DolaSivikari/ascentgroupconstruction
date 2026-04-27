@@ -13,20 +13,34 @@ export const HomepageParallaxBreak = () => {
   useEffect(() => {
     if (rm) return;
 
+    const MAX_SHIFT = 120; // px per side — symmetric reveal range
+
     let ticking = false;
+    const compute = () => {
+      if (!sectionRef.current) return;
+      const rect = sectionRef.current.getBoundingClientRect();
+      const windowH = window.innerHeight;
+
+      // Only calculate when section is in or near viewport
+      if (rect.bottom < 0 || rect.top > windowH) return;
+
+      // Normalized progress: 0 when section's top edge first touches viewport bottom,
+      // 1 when section's bottom edge exits the viewport top.
+      const total = windowH + rect.height;
+      const traveled = windowH - rect.top;
+      const progress = Math.max(0, Math.min(1, traveled / total));
+
+      // Center offset around 0 so the image reveals symmetrically:
+      // entry → image shifted up (top of image visible),
+      // exit  → image shifted down (bottom of image revealed).
+      const next = (progress - 0.5) * 2 * MAX_SHIFT;
+      setOffset(next);
+    };
+
     const handleScroll = () => {
       if (!ticking) {
         window.requestAnimationFrame(() => {
-          if (sectionRef.current) {
-            const rect = sectionRef.current.getBoundingClientRect();
-            const windowH = window.innerHeight;
-            // Only calculate when section is in viewport
-            if (rect.bottom > 0 && rect.top < windowH) {
-              // Parallax: image moves at 40% of scroll speed
-              const progress = (windowH - rect.top) / (windowH + rect.height);
-              setOffset(progress * 160); // max 160px shift
-            }
-          }
+          compute();
           ticking = false;
         });
         ticking = true;
@@ -34,8 +48,12 @@ export const HomepageParallaxBreak = () => {
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
-    handleScroll();
-    return () => window.removeEventListener("scroll", handleScroll);
+    window.addEventListener("resize", handleScroll, { passive: true });
+    compute();
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("resize", handleScroll);
+    };
   }, [rm]);
 
   return (
