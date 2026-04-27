@@ -231,6 +231,28 @@ const Careers = () => {
             </div>
           </Section>
         </div>
+
+        {/* FAQ */}
+        <Section background="muted">
+          <div className="max-w-3xl mx-auto">
+            <h2 className="text-3xl font-bold text-center mb-4">Careers FAQ</h2>
+            <p className="text-center text-muted-foreground mb-8">
+              Common questions about working with Ascent Group
+            </p>
+            <FAQAccordion faqs={careersFaqs} />
+          </div>
+        </Section>
+
+        {/* Related Resources */}
+        <RelatedLinksGrid
+          title="Learn More About Ascent"
+          description="Explore who we are and how we work before you reach out."
+          links={[
+            { title: "Our Story", description: "How we were founded and what drives the team.", href: "/about", icon: Users },
+            { title: "Our Process", description: "How a typical project moves from inquiry to closeout.", href: "/our-process", icon: Briefcase },
+            { title: "Capabilities", description: "What we self-perform and how we deliver.", href: "/capabilities", icon: Building2 },
+          ]}
+        />
       </main>
       
       <ResumeSubmissionDialog
