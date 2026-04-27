@@ -195,6 +195,7 @@ const Markets = () => {
       </section>
 
       {/* Sector at a glance table */}
+      <div id="sector-glance" className="scroll-mt-24">
       <Section size="major" className="bg-muted/30">
         <SectionHeader
           title="Sector at a Glance"
@@ -230,8 +231,10 @@ const Markets = () => {
           </table>
         </div>
       </Section>
+      </div>
 
       {/* Sub-sectors strip */}
+      <div id="sub-sectors" className="scroll-mt-24">
       <Section size="major">
         <SectionHeader
           title="Sub-Sectors We Serve"
@@ -251,8 +254,10 @@ const Markets = () => {
           ))}
         </div>
       </Section>
+      </div>
 
       {/* People Also Ask */}
+      <div id="markets-faq" className="scroll-mt-24">
       <Section size="major" className="bg-muted/30">
         <SectionHeader
           title="People Also Ask"
@@ -264,6 +269,7 @@ const Markets = () => {
           <FAQAccordion faqs={marketsFaqs} />
         </div>
       </Section>
+      </div>
 
       <CTABand
         title="Ready to Discuss Your Project?"
