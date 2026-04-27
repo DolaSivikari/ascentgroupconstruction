@@ -6,7 +6,7 @@ import { Section } from "@/components/sections/Section";
 import { SectionHeader } from "@/design-system/components/SectionHeader";
 import { CTABand } from "@/design-system/components/CTABand";
 import { ProofStrip } from "@/design-system/components/ProofStrip";
-import { FAQAccordion } from "@/design-system/components";
+import { FAQAccordion, StickyPageNav } from "@/design-system/components";
 import { ourProcessFaqs } from "@/data/page-faqs";
 import { generateHowToSchema } from "@/utils/faq-schema";
 import AnimatedProcessTimeline from "@/components/timeline/AnimatedProcessTimeline";
@@ -161,7 +161,17 @@ const OurProcess = () => {
         ]}
       />
 
+      <StickyPageNav
+        sections={[
+          { id: "process-trust", label: "Trust" },
+          { id: "process-timeline", label: "7-Step Process" },
+          { id: "process-cross", label: "Related" },
+          { id: "process-faq", label: "FAQ" },
+        ]}
+      />
+
       {/* Trust Badges */}
+      <div id="process-trust" className="scroll-mt-24">
       <Section size="tight">
         <ProofStrip
           items={[
@@ -174,8 +184,10 @@ const OurProcess = () => {
           columns={4}
         />
       </Section>
+      </div>
 
       {/* 7-Step Timeline */}
+      <div id="process-timeline" className="scroll-mt-24">
       <Section size="major">
         <SectionHeader
           title="7 Steps, Start to Finish"
@@ -183,8 +195,10 @@ const OurProcess = () => {
         />
         <AnimatedProcessTimeline steps={processSteps} />
       </Section>
+      </div>
 
       {/* Cross-links */}
+      <div id="process-cross" className="scroll-mt-24">
       <Section size="major" className="bg-muted/30">
         <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
           <div className="p-6 bg-background rounded-lg border">
