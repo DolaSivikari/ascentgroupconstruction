@@ -116,6 +116,8 @@ const Developers = () => {
           height="medium"
         />
 
+        <TrustRibbon />
+
         <main id="main-content">
           
           {/* Why Partner Section */}
@@ -218,6 +220,28 @@ const Developers = () => {
               </Card>
             </div>
           </Section>
+
+          {/* FAQ */}
+          <Section size="subsection" className="bg-muted/30">
+            <div className="max-w-3xl mx-auto">
+              <h2 className="text-3xl font-bold text-center mb-4">Developer FAQ</h2>
+              <p className="text-center text-muted-foreground mb-8">
+                Common questions from developers and construction managers.
+              </p>
+              <FAQAccordion faqs={developersFaqs} />
+            </div>
+          </Section>
+
+          {/* Related Resources */}
+          <RelatedLinksGrid
+            title="Resources for Developers"
+            description="Capability and procurement resources for development partners."
+            links={[
+              { title: "Capabilities", description: "What we self-perform on mid-rise and commercial.", href: "/capabilities", icon: Building2 },
+              { title: "Certifications & Insurance", description: "$2M CGL, WSIB, manufacturer listings.", href: "/company/certifications-insurance", icon: Award },
+              { title: "Contractor Portal", description: "Vendor packet and unit rates for your team.", href: "/resources/contractor-portal", icon: Briefcase },
+            ]}
+          />
 
           {/* Contact CTA */}
           <CTABand
