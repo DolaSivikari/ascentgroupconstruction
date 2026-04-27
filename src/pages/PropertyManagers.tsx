@@ -107,6 +107,8 @@ const PropertyManagers = () => {
         ]}
       />
       
+      <TrustRibbon />
+
       <main>
         {/* Benefits */}
         <Section size="major">
