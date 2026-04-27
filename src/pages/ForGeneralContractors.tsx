@@ -345,6 +345,40 @@ const ForGeneralContractors = () => {
             </div>
           </div>
         </Section>
+
+        {/* FAQs */}
+        <Section size="major" maxWidth="narrow" className="bg-muted/30">
+          <SectionHeader
+            title="Common Questions from General Contractors"
+            description="Bid turnaround, prequalification, daily reporting, and self-perform scope — all answered."
+          />
+          <FAQAccordion faqs={generalContractorsFaqs} />
+        </Section>
+
+        {/* Related */}
+        <RelatedLinksGrid
+          title="More for GC Partners"
+          links={[
+            {
+              icon: ClipboardCheck,
+              title: "Prequalification Package",
+              description: "Insurance, WSIB, safety, and references — assembled for procurement teams in one downloadable package.",
+              href: "/prequalification",
+            },
+            {
+              icon: Building,
+              title: "Capabilities & Self-Perform",
+              description: "How we structure self-performed envelope and finish trades on commercial and multi-family GC projects.",
+              href: "/capabilities",
+            },
+            {
+              icon: AlertTriangle,
+              title: "Emergency Response",
+              description: "Same-day envelope and water-infiltration response for active project issues across the GTA.",
+              href: "/emergency-repair",
+            },
+          ]}
+        />
       </main>
       <Footer />
     </>
