@@ -150,10 +150,27 @@ const ServiceDetail = () => {
   const [service, setService] = useState<Service | null>(null);
   const [loading, setLoading] = useState(true);
   const [notFound, setNotFound] = useState(false);
+  const [relatedLinks, setRelatedLinks] = useState<SmartRelatedLink[]>([]);
 
   useEffect(() => {
     loadService();
   }, [slug]);
+
+  // Resolve smart related links once the service is loaded
+  useEffect(() => {
+    if (!service) return;
+    let cancelled = false;
+    getRelatedForService({
+      serviceId: service.id,
+      serviceSlug: service.slug,
+      category: service.category,
+    }).then((links) => {
+      if (!cancelled) setRelatedLinks(links);
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, [service]);
 
   const loadService = async () => {
     if (!slug) {
