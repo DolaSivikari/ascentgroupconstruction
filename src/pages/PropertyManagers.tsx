@@ -7,9 +7,13 @@ import { SectionHeader } from "@/design-system/components/SectionHeader";
 import { CapabilityCard } from "@/design-system/components/CapabilityCard";
 import { CTABand } from "@/design-system/components/CTABand";
 import { Card } from "@/design-system/components/Card";
+import { TrustRibbon } from "@/design-system/components/TrustRibbon";
+import { FAQAccordion } from "@/design-system/components/FAQAccordion";
+import { RelatedLinksGrid } from "@/design-system/components/RelatedLinksGrid";
 import { OperationalProofBar, DEFAULT_PROOF_ITEMS } from "@/components/proof/OperationalProofBar";
-import { Building2, TrendingUp, Users, Calendar, ShieldCheck, Timer, CreditCard, FileText, Zap } from "lucide-react";
+import { Building2, TrendingUp, Users, Calendar, ShieldCheck, Timer, CreditCard, FileText, Zap, AlertTriangle, HardHat, Wrench } from "lucide-react";
 import { audienceHeroes } from "@/data/hero-images";
+import { propertyManagersFaqs } from "@/data/page-faqs";
 
 const PropertyManagers = () => {
   const benefits = [
