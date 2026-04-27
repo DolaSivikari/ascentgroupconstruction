@@ -27,6 +27,7 @@ import { FAQAccordion } from "@/design-system/components/FAQAccordion";
 import { RelatedLinksGrid } from "@/design-system/components/RelatedLinksGrid";
 import { projectDetailFaqs } from "@/data/page-faqs";
 import { Wrench, Briefcase, Building2 } from "lucide-react";
+import { getRelatedForProject, type SmartRelatedLink } from "@/utils/relatedLinks";
 
 interface ProcessStep {
   type: string;
