@@ -46,7 +46,7 @@ export const ProgressiveImage = ({
 
   // Intersection Observer for lazy loading
   useEffect(() => {
-    if (loading === "eager") {
+    if (loading === "eager" || priority) {
       setIsInView(true);
       return;
     }
