@@ -78,6 +78,7 @@ interface Service {
   typical_applications: StringOrLabeled[] | null;
   key_benefits: Array<{ title: string; description: string }> | null;
   faq_items: FAQItem[] | null;
+  category: string | null;
 }
 
 // Defensive: some legacy rows store these as [{label: "..."}] instead of plain strings
