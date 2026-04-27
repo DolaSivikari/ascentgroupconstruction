@@ -349,8 +349,10 @@ const Capabilities = () => {
             ))}
           </div>
         </Section>
+        </div>
 
         {/* ── Project Size & Capacity ────────────────────────────────────── */}
+        <div id="project-capacity" className="scroll-mt-24">
         <Section size="major" className="bg-muted/30">
           <SectionHeader
             badge="Project Capacity"
@@ -398,6 +400,7 @@ const Capabilities = () => {
             </Link>
           </Button>
         </Section>
+        </div>
 
         {/* ── Proof Strip ───────────────────────────────────────────────── */}
         <Section size="tight">
@@ -435,6 +438,7 @@ const Capabilities = () => {
         </Section>
 
         {/* People Also Ask */}
+        <div id="capabilities-faq" className="scroll-mt-24">
         <Section size="major">
           <DSSectionHeader
             title="People Also Ask"
@@ -446,6 +450,7 @@ const Capabilities = () => {
             <FAQAccordion faqs={capabilitiesFaqs} />
           </div>
         </Section>
+        </div>
         <CTABand
           title="Ready to Partner?"
           description="Whether you need a prime contractor for envelope scope or a trade partner for your next project, let's discuss how we can deliver."
