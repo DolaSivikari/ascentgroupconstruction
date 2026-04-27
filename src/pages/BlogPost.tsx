@@ -37,6 +37,7 @@ const BlogPost = () => {
   const { isPreview } = usePreviewMode();
   const [post, setPost] = useState<any>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [relatedLinks, setRelatedLinks] = useState<SmartRelatedLink[]>([]);
 
   useEffect(() => {
     const fetchPost = async () => {
