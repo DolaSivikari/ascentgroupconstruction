@@ -270,6 +270,7 @@ const Projects = () => {
       />
 
       {/* Projects Grid */}
+      <div id="all-projects" className="scroll-mt-24" />
       <Section size="major">
           {isLoading ? (
             <div className="text-center py-16">

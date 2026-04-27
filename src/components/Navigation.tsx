@@ -418,7 +418,7 @@ const Navigation = () => {
                 height={80}
                 loading="eager"
                 decoding="async"
-                className="h-12 -my-2 w-auto"
+                className="h-16 -my-3 w-auto"
               />
             </Link>
 
