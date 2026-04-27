@@ -164,6 +164,26 @@ export default function ProjectDetail() {
     fetchProject();
   }, [slug, navigate]);
 
+  // Resolve smart related links once project is loaded
+  useEffect(() => {
+    if (!project) return;
+    let cancelled = false;
+    const primaryService = project.services?.[0];
+    getRelatedForProject({
+      projectId: project.id,
+      projectSlug: project.slug,
+      category: project.category,
+      tags: project.tags ?? null,
+      serviceSlug: primaryService?.slug ?? null,
+      serviceName: primaryService?.name ?? null,
+    }).then((links) => {
+      if (!cancelled) setRelatedLinks(links);
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, [project]);
+
   if (loading) {
     return (
       <div className="min-h-screen">
