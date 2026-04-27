@@ -3,7 +3,7 @@ import Footer from "@/components/Footer";
 import { PageHero } from "@/components/shared/PageHero";
 import SEO from "@/components/SEO";
 import { SITE_URL } from "@/constants/company";
-import { SectionHeader, SegmentCard, CTABand, TrustRibbon, FAQAccordion } from "@/design-system/components";
+import { SectionHeader, SegmentCard, CTABand, TrustRibbon, FAQAccordion, StickyPageNav } from "@/design-system/components";
 import {
   Building2, Briefcase, Home, HardHat, Building, Layers, Target, Users,
   Store, Hotel, Stethoscope, GraduationCap, Factory, Hammer, Building as BuildingIcon, Boxes,
@@ -148,7 +148,16 @@ const Markets = () => {
 
       <TrustRibbon />
 
-      <section className="py-16 md:py-24">
+      <StickyPageNav
+        sections={[
+          { id: "who-we-work-with", label: "Who We Work With" },
+          { id: "sector-glance", label: "Sector at a Glance" },
+          { id: "sub-sectors", label: "Sub-Sectors" },
+          { id: "markets-faq", label: "FAQ" },
+        ]}
+      />
+
+      <section id="who-we-work-with" className="py-16 md:py-24 scroll-mt-24">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <SectionHeader
             title="Who We Work With"
@@ -186,6 +195,7 @@ const Markets = () => {
       </section>
 
       {/* Sector at a glance table */}
+      <div id="sector-glance" className="scroll-mt-24">
       <Section size="major" className="bg-muted/30">
         <SectionHeader
           title="Sector at a Glance"
@@ -221,8 +231,10 @@ const Markets = () => {
           </table>
         </div>
       </Section>
+      </div>
 
       {/* Sub-sectors strip */}
+      <div id="sub-sectors" className="scroll-mt-24">
       <Section size="major">
         <SectionHeader
           title="Sub-Sectors We Serve"
@@ -242,8 +254,10 @@ const Markets = () => {
           ))}
         </div>
       </Section>
+      </div>
 
       {/* People Also Ask */}
+      <div id="markets-faq" className="scroll-mt-24">
       <Section size="major" className="bg-muted/30">
         <SectionHeader
           title="People Also Ask"
@@ -255,6 +269,7 @@ const Markets = () => {
           <FAQAccordion faqs={marketsFaqs} />
         </div>
       </Section>
+      </div>
 
       <CTABand
         title="Ready to Discuss Your Project?"

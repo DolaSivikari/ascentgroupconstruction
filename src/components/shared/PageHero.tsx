@@ -146,6 +146,8 @@ export function PageHero({
   
   return (
     <section
+      id="main-content"
+      aria-label={typeof title === "string" ? title : undefined}
       className={cn(
         "relative flex items-end overflow-hidden pt-24",
         heightClasses[height],
@@ -159,6 +161,7 @@ export function PageHero({
           <ProgressiveImage
             src={image}
             alt={imageAlt}
+            priority
             className={cn(
               "w-full h-full object-cover",
               imagePositionClasses[imagePosition]

@@ -8,6 +8,8 @@ interface ProgressiveImageProps {
   style?: CSSProperties;
   placeholderClassName?: string;
   loading?: "lazy" | "eager";
+  /** When true, sets fetchpriority="high" — use for LCP images (e.g. hero). */
+  priority?: boolean;
 }
 
 /**
@@ -35,7 +37,8 @@ export const ProgressiveImage = ({
   className,
   style,
   placeholderClassName,
-  loading = "lazy"
+  loading = "lazy",
+  priority = false,
 }: ProgressiveImageProps) => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [isInView, setIsInView] = useState(false);
@@ -43,7 +46,7 @@ export const ProgressiveImage = ({
 
   // Intersection Observer for lazy loading
   useEffect(() => {
-    if (loading === "eager") {
+    if (loading === "eager" || priority) {
       setIsInView(true);
       return;
     }
@@ -99,8 +102,9 @@ export const ProgressiveImage = ({
           )}
           style={style}
           onLoad={handleImageLoad}
-          loading={loading}
+          loading={priority ? "eager" : loading}
           decoding="async"
+          {...(priority ? { fetchpriority: "high" as unknown as string } : {})}
         />
       )}
     </div>

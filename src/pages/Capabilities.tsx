@@ -29,7 +29,7 @@ import { Section } from "@/components/sections/Section";
 import { SectionHeader } from "@/design-system/components/SectionHeader";
 import { ProofStrip } from "@/design-system/components/ProofStrip";
 import { CTABand } from "@/design-system/components/CTABand";
-import { TrustRibbon, FAQAccordion, SectionHeader as DSSectionHeader } from "@/design-system/components";
+import { TrustRibbon, FAQAccordion, SectionHeader as DSSectionHeader, StickyPageNav } from "@/design-system/components";
 import { capabilitiesFaqs } from "@/data/page-faqs";
 import { Button } from "@/ui/Button";
 import SEO from "@/components/SEO";
@@ -183,9 +183,20 @@ const Capabilities = () => {
 
       <TrustRibbon />
 
+      <StickyPageNav
+        sections={[
+          { id: "why-self-perform", label: "Why Self-Perform" },
+          { id: "partnership-models", label: "Partnership Models" },
+          { id: "self-perform-scope", label: "Capabilities" },
+          { id: "delivery-methods", label: "Delivery Methods" },
+          { id: "project-capacity", label: "Capacity" },
+          { id: "capabilities-faq", label: "FAQ" },
+        ]}
+      />
+
       <main>
         {/* ── Why Self-Perform? ───────────────────────────────────────────── */}
-        <section className="w-full bg-[hsl(var(--ink))] py-20 md:py-28">
+        <section id="why-self-perform" className="w-full bg-[hsl(var(--ink))] py-20 md:py-28 scroll-mt-24">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="grid md:grid-cols-2 gap-12 lg:gap-20 items-center mb-16">
               <div>
@@ -231,6 +242,7 @@ const Capabilities = () => {
         </section>
 
         {/* ── Partnership Models ─────────────────────────────────────────── */}
+        <div id="partnership-models" className="scroll-mt-24">
         <Section size="major">
           <PartnershipModelsSection />
           <div className="mt-8 text-center">
@@ -242,8 +254,10 @@ const Capabilities = () => {
             </Button>
           </div>
         </Section>
+        </div>
 
         {/* ── Self-Perform Capabilities (Tabbed) ─────────────────────────── */}
+        <div id="self-perform-scope" className="scroll-mt-24">
         <Section size="major" className="bg-muted/30">
           <SectionHeader
             badge="Self-Perform Capabilities"
@@ -304,8 +318,10 @@ const Capabilities = () => {
             </Button>
           </div>
         </Section>
+        </div>
 
         {/* ── Project Delivery Methods ───────────────────────────────────── */}
+        <div id="delivery-methods" className="scroll-mt-24">
         <Section size="major">
           <SectionHeader
             badge="Delivery Methods"
@@ -333,8 +349,10 @@ const Capabilities = () => {
             ))}
           </div>
         </Section>
+        </div>
 
         {/* ── Project Size & Capacity ────────────────────────────────────── */}
+        <div id="project-capacity" className="scroll-mt-24">
         <Section size="major" className="bg-muted/30">
           <SectionHeader
             badge="Project Capacity"
@@ -382,6 +400,7 @@ const Capabilities = () => {
             </Link>
           </Button>
         </Section>
+        </div>
 
         {/* ── Proof Strip ───────────────────────────────────────────────── */}
         <Section size="tight">
@@ -419,6 +438,7 @@ const Capabilities = () => {
         </Section>
 
         {/* People Also Ask */}
+        <div id="capabilities-faq" className="scroll-mt-24">
         <Section size="major">
           <DSSectionHeader
             title="People Also Ask"
@@ -430,6 +450,7 @@ const Capabilities = () => {
             <FAQAccordion faqs={capabilitiesFaqs} />
           </div>
         </Section>
+        </div>
         <CTABand
           title="Ready to Partner?"
           description="Whether you need a prime contractor for envelope scope or a trade partner for your next project, let's discuss how we can deliver."

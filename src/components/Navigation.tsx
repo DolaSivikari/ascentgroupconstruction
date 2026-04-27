@@ -196,6 +196,10 @@ const Navigation = () => {
                 <img
                   src={isHeroPage && isAtTop ? ascentLogoHorizontalLight : ascentLogoHorizontalDark}
                   alt="Ascent Group Construction Logo"
+                  width={240}
+                  height={80}
+                  loading="eager"
+                  decoding="async"
                   className={cn(
                     "w-auto hover-scale-icon transition-all duration-300 origin-left",
                     isShrunk
@@ -410,6 +414,10 @@ const Navigation = () => {
               <img
                 src={isHeroPage && isAtTop ? ascentLogoHorizontalLight : ascentLogoHorizontalDark}
                 alt="Ascent Group Construction Logo"
+                width={240}
+                height={80}
+                loading="eager"
+                decoding="async"
                 className="h-12 -my-2 w-auto"
               />
             </Link>

@@ -73,7 +73,7 @@ const CertificationsInsurance = () => {
             imageAlt="Certifications and insurance documentation"
             height="medium"
           />
-          <main id="main-content" className="container mx-auto px-4 py-12">
+          <main className="container mx-auto px-4 py-12">
             <div className="text-center">Loading...</div>
           </main>
           <Footer />
@@ -107,7 +107,7 @@ const CertificationsInsurance = () => {
 
         <TrustRibbon />
 
-        <main id="main-content" className="container mx-auto px-4 py-12 space-y-16">
+        <main className="container mx-auto px-4 py-12 space-y-16">
           {/* Insurance Coverage Section */}
           <section>
             <h2 className="text-3xl font-bold text-foreground mb-8">Insurance Coverage</h2>
