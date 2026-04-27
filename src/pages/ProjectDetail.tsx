@@ -95,6 +95,7 @@ interface ProjectData {
   safety_incidents?: number;
   scope_of_work?: string;
   team_credits?: Array<{ role: string; name: string; company?: string }>;
+  tags?: string[] | null;
 }
 
 export default function ProjectDetail() {
