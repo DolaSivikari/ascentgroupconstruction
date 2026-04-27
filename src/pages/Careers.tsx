@@ -233,7 +233,7 @@ const Careers = () => {
         </div>
 
         {/* FAQ */}
-        <Section background="muted">
+        <Section className="bg-muted/30">
           <div className="max-w-3xl mx-auto">
             <h2 className="text-3xl font-bold text-center mb-4">Careers FAQ</h2>
             <p className="text-center text-muted-foreground mb-8">
