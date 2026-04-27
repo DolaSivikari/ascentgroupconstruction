@@ -12,6 +12,9 @@ import { BeforeAfterSlider } from "./technology/sections/BeforeAfterSlider";
 import { AudienceTabs } from "./technology/sections/AudienceTabs";
 import { TimelineSection } from "./technology/sections/TimelineSection";
 import { CrossLinks } from "./technology/sections/CrossLinks";
+import { TrustRibbon } from "@/design-system/components/TrustRibbon";
+import { FAQAccordion } from "@/design-system/components/FAQAccordion";
+import { technologyFaqs } from "@/data/page-faqs";
 
 const TOOL_STRIP = ["Bluebeam", "PlanSwift", "ZZTAKEOFF", "Procore", "AutoCAD / DWG", "BIM 360"];
 
@@ -61,6 +64,8 @@ const Technology = () => {
           secondaryCta={{ text: "Our Delivery Process", href: "/our-process" }}
         />
 
+        <TrustRibbon />
+
         <section className="bg-[hsl(var(--ink))] py-6 border-b border-white/5">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="flex flex-wrap items-center justify-center gap-x-10 gap-y-3 text-sm">
@@ -87,6 +92,17 @@ const Technology = () => {
           secondaryCta={{ text: "Get Prequalified", href: "/prequalification" }}
           variant="dark"
         />
+
+        {/* FAQ (auto schema) */}
+        <section className="py-16 bg-muted/30">
+          <div className="container mx-auto px-4 max-w-3xl">
+            <h2 className="text-3xl font-bold text-center mb-4">Technology & Documentation FAQ</h2>
+            <p className="text-center text-muted-foreground mb-8">
+              How we use digital tools to keep every project coordinated and accountable.
+            </p>
+            <FAQAccordion faqs={technologyFaqs} />
+          </div>
+        </section>
 
         <CrossLinks />
       </main>

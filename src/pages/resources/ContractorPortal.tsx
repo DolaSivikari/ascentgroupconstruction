@@ -15,7 +15,8 @@ import {
   Droplets,
   ArrowRight,
   FileDown,
-  Loader2
+  Loader2,
+  Briefcase
 } from "lucide-react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
@@ -29,6 +30,10 @@ import SEO from "@/components/SEO";
 import { supabase } from "@/integrations/supabase/client";
 import heroImage from "@/assets/hero-building-envelope.jpg";
 import { useDocument, useTrackDownload, downloadDocument } from "@/hooks/useDocuments";
+import { TrustRibbon } from "@/design-system/components/TrustRibbon";
+import { FAQAccordion } from "@/design-system/components/FAQAccordion";
+import { RelatedLinksGrid } from "@/design-system/components/RelatedLinksGrid";
+import { contractorPortalFaqs } from "@/data/page-faqs";
 
 const ContractorPortal = () => {
   const { toast } = useToast();
@@ -182,6 +187,8 @@ const ContractorPortal = () => {
             </div>
           </div>
         </section>
+
+        <TrustRibbon />
 
         <main id="main-content" className="container mx-auto px-4 py-16 space-y-20">
           
@@ -471,6 +478,29 @@ const ContractorPortal = () => {
               </Link>
             </Button>
           </section>
+
+          {/* FAQ */}
+          <section className="pt-4">
+            <h2 className="text-3xl font-bold text-center mb-4">Trade Partner FAQ</h2>
+            <p className="text-center text-muted-foreground mb-8 max-w-2xl mx-auto">
+              Common questions from GCs, construction managers, and estimators.
+            </p>
+            <div className="max-w-3xl mx-auto">
+              <FAQAccordion faqs={contractorPortalFaqs} />
+            </div>
+          </section>
+
+          {/* Related Resources */}
+          <RelatedLinksGrid
+            title="Related Partner Resources"
+            description="Documentation and capability deep-dives for procurement."
+            links={[
+              { title: "Certifications & Insurance", description: "$2M CGL, WSIB clearance, manufacturer listings.", href: "/company/certifications-insurance", icon: Shield },
+              { title: "Capabilities", description: "What we self-perform and how we deliver.", href: "/capabilities", icon: Wrench },
+              { title: "For General Contractors", description: "Trade-package pricing, RFI turnaround, dailies.", href: "/for-general-contractors", icon: Briefcase },
+            ]}
+            background="default"
+          />
 
         </main>
 

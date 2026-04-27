@@ -22,6 +22,11 @@ import { toast } from "sonner";
 import { formatProjectValue } from "@/utils/formatProjectValue";
 import OptimizedImage from "@/components/OptimizedImage";
 import { ProjectFeaturedImage } from "@/components/projects/ProjectFeaturedImage";
+import { TrustRibbon } from "@/design-system/components/TrustRibbon";
+import { FAQAccordion } from "@/design-system/components/FAQAccordion";
+import { RelatedLinksGrid } from "@/design-system/components/RelatedLinksGrid";
+import { projectDetailFaqs } from "@/data/page-faqs";
+import { Wrench, Briefcase, Building2 } from "lucide-react";
 
 interface ProcessStep {
   type: string;
@@ -598,6 +603,27 @@ export default function ProjectDetail() {
               )}
             </main>
           </div>
+
+          {/* Project FAQ (auto FAQ schema) */}
+          <div className="mt-16 max-w-3xl mx-auto">
+            <h2 className="text-3xl font-bold text-center mb-4">Common Project Questions</h2>
+            <p className="text-center text-muted-foreground mb-8">
+              How we scope, price, and manage projects of this type.
+            </p>
+            <FAQAccordion faqs={projectDetailFaqs} />
+          </div>
+
+          {/* Related Resources */}
+          <RelatedLinksGrid
+            title="Explore More"
+            description="Other projects, services, and partner resources."
+            links={[
+              { title: "More Projects", description: "Browse our full portfolio across the GTA.", href: "/projects", icon: Briefcase },
+              { title: "All Services", description: "What we self-perform on similar scopes.", href: "/services", icon: Wrench },
+              { title: "Capabilities", description: "How we deliver — process and accountability.", href: "/capabilities", icon: Building2 },
+            ]}
+            background="default"
+          />
 
           {/* CTA */}
           <div className="mt-16">

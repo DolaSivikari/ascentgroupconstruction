@@ -10,6 +10,10 @@ import ResumeSubmissionDialog from "@/components/ResumeSubmissionDialog";
 import { ScrollReveal } from "@/components/animations/ScrollReveal";
 import { mainPageHeroes } from "@/data/hero-images";
 import { Section } from "@/components/sections/Section";
+import { TrustRibbon } from "@/design-system/components/TrustRibbon";
+import { FAQAccordion } from "@/design-system/components/FAQAccordion";
+import { RelatedLinksGrid } from "@/design-system/components/RelatedLinksGrid";
+import { careersFaqs } from "@/data/page-faqs";
 import { 
   Shield,
   Target, 
@@ -19,7 +23,10 @@ import {
   Paintbrush,
   Wrench,
   ClipboardList,
-  Calculator
+  Calculator,
+  Briefcase,
+  Users,
+  Building2
 } from "lucide-react";
 
 const Careers = () => {
@@ -97,7 +104,9 @@ const Careers = () => {
           { label: "Careers" }
         ]}
       />
-      
+
+      <TrustRibbon />
+
       <main>
         {/* Who We Are */}
         <Section>
@@ -222,6 +231,28 @@ const Careers = () => {
             </div>
           </Section>
         </div>
+
+        {/* FAQ */}
+        <Section className="bg-muted/30">
+          <div className="max-w-3xl mx-auto">
+            <h2 className="text-3xl font-bold text-center mb-4">Careers FAQ</h2>
+            <p className="text-center text-muted-foreground mb-8">
+              Common questions about working with Ascent Group
+            </p>
+            <FAQAccordion faqs={careersFaqs} />
+          </div>
+        </Section>
+
+        {/* Related Resources */}
+        <RelatedLinksGrid
+          title="Learn More About Ascent"
+          description="Explore who we are and how we work before you reach out."
+          links={[
+            { title: "Our Story", description: "How we were founded and what drives the team.", href: "/about", icon: Users },
+            { title: "Our Process", description: "How a typical project moves from inquiry to closeout.", href: "/our-process", icon: Briefcase },
+            { title: "Capabilities", description: "What we self-perform and how we deliver.", href: "/capabilities", icon: Building2 },
+          ]}
+        />
       </main>
       
       <ResumeSubmissionDialog

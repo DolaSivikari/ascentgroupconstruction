@@ -295,3 +295,177 @@ export const projectsFaqs: FAQItem[] = [
       "When client approvals allow, we publish before-and-after photo documentation on project case studies — particularly for façade restoration, masonry repair, and balcony waterproofing scopes.",
   },
 ];
+
+// ─── Tier 3: Supporting & dynamic templates ─────────────────────────────
+
+export const careersFaqs: FAQItem[] = [
+  {
+    question: "What roles does Ascent Group typically hire for?",
+    answer:
+      "Envelope and coatings installers (EIFS, stucco, sealants, waterproofing), restoration and masonry trades, painters and interior finishers, project coordinators, and estimators. We hire year-round as projects scale.",
+  },
+  {
+    question: "Do I need formal certifications to apply?",
+    answer:
+      "Working at Heights certification is an asset for field roles. Valid Ontario driver's licence is preferred for site-mobile positions. We invest in additional certifications (WHMIS, fall protection refreshers) for the right candidates.",
+  },
+  {
+    question: "What is the hiring process like?",
+    answer:
+      "Submit your resume — every submission is reviewed. Shortlisted candidates are invited for a phone screen, then a working interview or site visit so both sides can confirm fit before any offer.",
+  },
+  {
+    question: "Do you hire apprentices or entry-level tradespeople?",
+    answer:
+      "Yes. We pair junior tradespeople with experienced crew leads on real scopes — envelope, restoration, painting, and finishing — so growth happens on the tools, not in a classroom.",
+  },
+];
+
+export const technologyFaqs: FAQItem[] = [
+  {
+    question: "What software does Ascent Group use day-to-day?",
+    answer:
+      "Bluebeam Revu and PlanSwift for takeoffs and markups, ZZTAKEOFF for envelope quantities, Procore and BIM 360 for project coordination, and AutoCAD/DWG for shop drawings and detail review.",
+  },
+  {
+    question: "Do you provide digital closeout packages?",
+    answer:
+      "Yes. Every project closes with a digital binder: punch-list resolution, manufacturer warranty certificates, product data sheets, daily progress photos, weekly reports, and lien releases.",
+  },
+  {
+    question: "Can you integrate with our project management platform?",
+    answer:
+      "Yes. We routinely operate inside client-hosted Procore, BIM 360, Aconex, and SharePoint environments — uploading dailies, RFIs, submittals, and closeout documentation directly to your system of record.",
+  },
+];
+
+export const certificationsFaqs: FAQItem[] = [
+  {
+    question: "What insurance does Ascent Group carry?",
+    answer:
+      "$2,000,000 Commercial General Liability coverage and full WSIB compliance. Certificates of Insurance naming the building owner or general contractor as additional insured are issued within 24 hours of request.",
+  },
+  {
+    question: "Are you bonded?",
+    answer:
+      "Bonding capacity is being formally established with our surety partners as project value scales. Payment and performance bonds can be arranged for projects requiring them.",
+  },
+  {
+    question: "Which manufacturer certifications do you hold?",
+    answer:
+      "Sto Canada Listed Installer (Modules SCL-001 through SCL-010). We also execute Dryvit, Parex, Sika, Benjamin Moore, and Sherwin-Williams systems to manufacturer specifications.",
+  },
+  {
+    question: "How do I request your prequalification package?",
+    answer:
+      "Visit our Contractor Portal to download the vendor packet — WSIB clearance, $2M CGL certificate, safety policies, training records, references, and project experience — formatted for procurement review.",
+  },
+];
+
+export const developersFaqs: FAQItem[] = [
+  {
+    question: "Do you work with developers on new construction?",
+    answer:
+      "Yes. We partner with developers on envelope and interior trade scopes for new mid-rise and commercial developments — coordinating directly with the construction manager or general contractor on the project.",
+  },
+  {
+    question: "Can you support phased deliveries on multi-building projects?",
+    answer:
+      "Yes. We sequence crew deployment, materials, and inspections across phased releases — keeping pace with the construction schedule without compromising envelope detailing or warranty integrity.",
+  },
+  {
+    question: "Do you provide budget input during pre-construction?",
+    answer:
+      "Yes. We support pre-construction with envelope assembly costing, value-engineering options, and constructability reviews so design decisions land on budget before tender.",
+  },
+];
+
+export const contractorPortalFaqs: FAQItem[] = [
+  {
+    question: "What is in the vendor packet?",
+    answer:
+      "The vendor packet includes WSIB clearance, $2M CGL certificate, safety policies, COR-aligned training records, sample COIs, references, and project experience — everything procurement needs to onboard us.",
+  },
+  {
+    question: "How fast do you respond to RFQs and tender invitations?",
+    answer:
+      "Standard envelope and finish packages receive unit pricing within 48 hours. Complex tenders with mock-ups or hygrothermal review may take 3–5 business days. Tight deadlines? Call us before sending.",
+  },
+  {
+    question: "Are you on DataBid, ConstructConnect, and BidCentral?",
+    answer:
+      "Yes — we monitor DataBid and ConstructConnect daily. Send tender documents directly to projects@ascentgroupconstruction.com to add us to your bidders list for upcoming GTA opportunities.",
+  },
+  {
+    question: "Do you have unit rates for common scopes?",
+    answer:
+      "Yes. Request unit rates through the Contractor Portal form for sealant work, EIFS, balcony waterproofing, masonry repair, and protective coatings — rates returned within 48 hours.",
+  },
+];
+
+export const serviceAreasFaqs: FAQItem[] = [
+  {
+    question: "Do you charge travel fees outside the GTA core?",
+    answer:
+      "No travel fees inside the GTA core (Toronto, Mississauga, Brampton, Vaughan, Markham). Mobilization for outer regions (Hamilton, Kitchener, Barrie) is quoted as a separate line item only when applicable.",
+  },
+  {
+    question: "How fast can you mobilize for emergency calls in the GTA?",
+    answer:
+      "We aim for same-day site assessment within Toronto and the inner GTA for active leaks and envelope failures, and 48–72 hour response across the broader GTA.",
+  },
+  {
+    question: "Will you take projects outside Southern Ontario?",
+    answer:
+      "Larger commercial and multi-unit developments are considered province-wide on a case-by-case basis. Contact us with project specifics — we'll confirm coverage and mobilization terms.",
+  },
+];
+
+export const serviceDetailFaqs: FAQItem[] = [
+  {
+    question: "Do you provide a written scope and price before starting?",
+    answer:
+      "Always. Every engagement begins with a written scope, line-item pricing, schedule, and exclusions. No work starts until both parties have signed off on scope and terms.",
+  },
+  {
+    question: "What warranty comes with this service?",
+    answer:
+      "Workmanship warranties typically run 1–2 years (longer on envelope assemblies), plus full manufacturer warranties on all systems and materials. Warranty terms are written into every contract.",
+  },
+  {
+    question: "How disruptive is the work to building occupants?",
+    answer:
+      "We design scope phasing around tenant access, building hours, and dust/odor controls. After-hours and weekend execution is available for occupied commercial and multi-residential buildings.",
+  },
+];
+
+export const projectDetailFaqs: FAQItem[] = [
+  {
+    question: "Can I get pricing for a project like this one?",
+    answer:
+      "Yes. Submit an estimate request referencing this project — include your scope, drawings, and timing. We'll respond with line-item pricing and schedule options within 2–5 business days.",
+  },
+  {
+    question: "Do you provide references from similar projects?",
+    answer:
+      "Yes. Client references are available with our prequalification package. Reach out via the Contractor Portal or contact form to request references aligned with your project type.",
+  },
+  {
+    question: "Who manages a project of this scope?",
+    answer:
+      "A dedicated project lead is assigned from estimate through closeout — handling daily reports, RFI turnaround, schedule, and direct communication with the owner, GC, or property manager.",
+  },
+];
+
+export const blogPostFaqs: FAQItem[] = [
+  {
+    question: "Where can I learn more about this topic?",
+    answer:
+      "Browse the rest of our insights on the Blog index for related articles on building envelope, restoration, and specialty trades — or contact our team directly for project-specific guidance.",
+  },
+  {
+    question: "Does Ascent Group offer the services discussed in this article?",
+    answer:
+      "Most likely yes — we self-perform envelope, restoration, and interior trade scopes across the GTA. Contact us with your project specifics for a tailored proposal.",
+  },
+];

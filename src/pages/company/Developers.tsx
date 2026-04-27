@@ -9,6 +9,10 @@ import { CTABand } from "@/design-system/components/CTABand";
 import { Card } from "@/design-system/components/Card";
 import { Button } from "@/ui/Button";
 import { Link } from "react-router-dom";
+import { TrustRibbon } from "@/design-system/components/TrustRibbon";
+import { FAQAccordion } from "@/design-system/components/FAQAccordion";
+import { RelatedLinksGrid } from "@/design-system/components/RelatedLinksGrid";
+import { developersFaqs } from "@/data/page-faqs";
 import { 
   ShieldCheck, 
   Calendar, 
@@ -16,7 +20,9 @@ import {
   CheckCircle, 
   Award,
   FileText,
-  Users
+  Users,
+  Briefcase,
+  Building2
 } from "lucide-react";
 import { audienceHeroes } from "@/data/hero-images";
 
@@ -109,6 +115,8 @@ const Developers = () => {
           primaryCta={{ text: "Contact Us", href: "/contact" }}
           height="medium"
         />
+
+        <TrustRibbon />
 
         <main id="main-content">
           
@@ -212,6 +220,28 @@ const Developers = () => {
               </Card>
             </div>
           </Section>
+
+          {/* FAQ */}
+          <Section size="subsection" className="bg-muted/30">
+            <div className="max-w-3xl mx-auto">
+              <h2 className="text-3xl font-bold text-center mb-4">Developer FAQ</h2>
+              <p className="text-center text-muted-foreground mb-8">
+                Common questions from developers and construction managers.
+              </p>
+              <FAQAccordion faqs={developersFaqs} />
+            </div>
+          </Section>
+
+          {/* Related Resources */}
+          <RelatedLinksGrid
+            title="Resources for Developers"
+            description="Capability and procurement resources for development partners."
+            links={[
+              { title: "Capabilities", description: "What we self-perform on mid-rise and commercial.", href: "/capabilities", icon: Building2 },
+              { title: "Certifications & Insurance", description: "$2M CGL, WSIB, manufacturer listings.", href: "/company/certifications-insurance", icon: Award },
+              { title: "Contractor Portal", description: "Vendor packet and unit rates for your team.", href: "/resources/contractor-portal", icon: Briefcase },
+            ]}
+          />
 
           {/* Contact CTA */}
           <CTABand
