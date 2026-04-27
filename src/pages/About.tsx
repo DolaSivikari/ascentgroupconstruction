@@ -48,10 +48,10 @@ import { founderBio } from "@/data/enriched-company-content";
 import { aboutFaqs } from "@/data/page-faqs";
 
 const MILESTONES = [
-  { year: "2010", title: "Field Experience Begins", description: "Hebun's hands-on envelope work starts on GTA highrise and commercial projects." },
-  { year: "2020", title: "Trade Lead", description: "Leading EIFS, masonry, and restoration crews on multi-storey envelope scopes." },
-  { year: "2025", title: "Ascent Group Founded", description: "Formalized as a specialty contractor — direct accountability, no markup layers." },
-  { year: "2025", title: "Sto Canada Listed", description: "Listed Installer for Modules SCL-001 through SCL-010." },
+  { year: "2025", title: "Ascent Group Founded", description: "Established by Hebun Isik after graduating from George Brown College's Construction Engineering Technology program — backed by a crew with 15+ years of combined building envelope and interior trades experience." },
+  { year: "Q1 2025", title: "Initial Project Portfolio", description: "First projects delivered across the GTA — focused on EIFS, masonry repair, waterproofing, and interior finishes with self-performed crews." },
+  { year: "Q2 2025", title: "Sto Canada Listed Installer", description: "Listed for Modules SCL-001 through SCL-010, formalizing our EIFS and wall system credentials." },
+  { year: "2025+", title: "Building Trade Partnerships", description: "Growing relationships with general contractors, property managers, and building consultants throughout Ontario." },
 ];
 
 // ─── Data ────────────────────────────────────────────────────────────────────
@@ -348,14 +348,14 @@ const About = () => {
                         {founderBio.title}
                       </p>
                       <p className="text-white/80 leading-relaxed mb-4 text-base">
-                        Hebun established Ascent Group Construction in 2025 to bring 15+ years of proven building
-                        envelope and interior trades expertise directly to commercial, multi-family, and residential
-                        clients across Ontario.
+                        Hebun founded Ascent Group Construction in 2025 after graduating from George Brown
+                        College's Construction Engineering Technology program — with the goal of building a
+                        reliable, quality-focused specialty contractor for the Ontario market.
                       </p>
                       <p className="text-white/70 leading-relaxed text-base mb-8">
-                        From 3-storey walk-ups to 30-storey high-rises, Hebun has delivered envelope restoration, EIFS
-                        installation, masonry repair, and interior finishing across the GTA — building the field
-                        knowledge and client relationships that Ascent Group is founded on.
+                        Ascent is backed by a crew with 15+ years of combined experience in building envelope
+                        and interior trades — including EIFS, masonry restoration, waterproofing, and interior
+                        finishing across the GTA.
                       </p>
                       <div className="space-y-2">
                         {founderBio.credentials.map((cred, i) => (
