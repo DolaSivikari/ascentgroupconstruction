@@ -183,9 +183,20 @@ const Capabilities = () => {
 
       <TrustRibbon />
 
+      <StickyPageNav
+        sections={[
+          { id: "why-self-perform", label: "Why Self-Perform" },
+          { id: "partnership-models", label: "Partnership Models" },
+          { id: "self-perform-scope", label: "Capabilities" },
+          { id: "delivery-methods", label: "Delivery Methods" },
+          { id: "project-capacity", label: "Capacity" },
+          { id: "capabilities-faq", label: "FAQ" },
+        ]}
+      />
+
       <main>
         {/* ── Why Self-Perform? ───────────────────────────────────────────── */}
-        <section className="w-full bg-[hsl(var(--ink))] py-20 md:py-28">
+        <section id="why-self-perform" className="w-full bg-[hsl(var(--ink))] py-20 md:py-28 scroll-mt-24">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="grid md:grid-cols-2 gap-12 lg:gap-20 items-center mb-16">
               <div>
