@@ -138,7 +138,7 @@ export function MobileNavSheet({ open, onOpenChange }: MobileNavSheetProps) {
         <ScreenReaderAnnouncement message={announcement} />
 
         {/* ── STICKY HEADER ── */}
-        <SheetHeader className="px-4 py-3 border-b border-border bg-background flex-shrink-0 space-y-0">
+        <SheetHeader className="px-4 py-2.5 border-b border-border bg-background flex-shrink-0 space-y-0">
           <div className="flex items-center justify-between gap-2">
             <Link
               to="/"
@@ -149,9 +149,9 @@ export function MobileNavSheet({ open, onOpenChange }: MobileNavSheetProps) {
               <img
                 src={ascentLogoHorizontalDark}
                 alt="Ascent Group Construction"
-                className="h-9 w-auto block"
-                width={140}
-                height={36}
+                className="h-12 w-auto block"
+                width={96}
+                height={48}
               />
             </Link>
 
