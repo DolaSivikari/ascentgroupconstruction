@@ -68,9 +68,9 @@ export const HomepageParallaxBreak = () => {
         style={{
           backgroundImage:
             "url('https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=1920&q=80')",
-          transform: rm ? "none" : `translateY(-${offset}px)`,
-          top: "-80px",
-          bottom: "-80px",
+          transform: rm ? "none" : `translate3d(0, ${offset}px, 0)`,
+          top: "-140px",
+          bottom: "-140px",
         }}
       />
       {/* Dark overlay */}
