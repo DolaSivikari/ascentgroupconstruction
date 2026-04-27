@@ -123,6 +123,161 @@ export const ourProcessFaqs: FAQItem[] = [
   },
 ];
 
+// ─── Tier 2: Audience pages ─────────────────────────────────────────────
+
+export const propertyManagersFaqs: FAQItem[] = [
+  {
+    question: "Do you work in occupied condominium and rental buildings?",
+    answer:
+      "Yes — most of our property-management work is in occupied 10–30 storey buildings. We phase scopes around tenant access, run after-hours sealant and balcony work where required, and coordinate notice letters with the property manager before mobilization.",
+  },
+  {
+    question: "Is your work aligned with reserve fund study recommendations?",
+    answer:
+      "Yes. We scope and quote envelope, parking-garage, and balcony work in line with reserve fund study (RFS) line items and provide documentation suitable for board approval and capital planning.",
+  },
+  {
+    question: "How fast can you respond to an active leak or facade issue?",
+    answer:
+      "We aim for a 48–72 hour site visit on active water intrusion or urgent facade conditions for property managers in the GTA, followed by temporary containment and a written remediation plan.",
+  },
+  {
+    question: "Can you handle multi-property maintenance contracts?",
+    answer:
+      "Yes. We support portfolio-level programs — recurring sealant cycles, balcony inspections, common-area refresh — with consistent crew leads, predictable scheduling, and volume pricing for repeated scopes.",
+  },
+  {
+    question: "What documentation do property managers receive at closeout?",
+    answer:
+      "A closeout package suited to board reporting: scope confirmation, daily progress photos, manufacturer warranties (Sto, Dryvit, Sika, etc.), product data sheets, WSIB clearance, and CGL certificate.",
+  },
+];
+
+export const commercialClientsFaqs: FAQItem[] = [
+  {
+    question: "Do you work after hours and on weekends?",
+    answer:
+      "Yes. For office buildings, retail, and hospitality clients we routinely schedule painting, coatings, and finishing work after hours and on weekends to avoid disrupting business operations.",
+  },
+  {
+    question: "Are your materials safe for occupied commercial spaces?",
+    answer:
+      "We default to low-VOC and zero-odor product lines for occupied environments — including healthcare and education — and follow manufacturer ventilation guidance during application and cure.",
+  },
+  {
+    question: "Can you phase work around tenant operations?",
+    answer:
+      "Yes. We deliver phased execution by floor, suite, or zone with daily walkdowns and dust/odor controls so the building stays operational throughout the project.",
+  },
+  {
+    question: "What insurance do you carry for commercial properties?",
+    answer:
+      "Active WSIB clearance and $2M commercial general liability coverage. COIs naming the building owner / property manager as additional insured are issued within 24 hours of request.",
+  },
+];
+
+export const homeownersFaqs: FAQItem[] = [
+  {
+    question: "Do you charge for residential estimates?",
+    answer:
+      "No. Residential estimates are no-obligation and free. After a site visit we deliver a detailed written quote — typically within 2–3 business days — including itemized scope, materials, and timeline.",
+  },
+  {
+    question: "Are you fully insured for residential work?",
+    answer:
+      "Yes. We carry $2M commercial general liability insurance and active WSIB clearance — the same coverage we use on commercial sites. COIs are available on request.",
+  },
+  {
+    question: "How long do typical residential projects take?",
+    answer:
+      "Most painting projects run 3–7 days, tile and flooring 3–8 days, and full renovations 1–4 weeks. You'll receive a project-specific timeline with your written estimate.",
+  },
+  {
+    question: "Do you offer warranty on residential workmanship?",
+    answer:
+      "Yes. Workmanship warranties typically run 1–2 years depending on scope, plus full manufacturer warranties on materials. Warranty terms are written into every contract.",
+  },
+  {
+    question: "Which areas do you serve for residential work?",
+    answer:
+      "Toronto and the broader GTA — including Mississauga, Brampton, Vaughan, Markham, Richmond Hill, Oakville, and Burlington. Contact us to confirm coverage in your community.",
+  },
+];
+
+export const generalContractorsFaqs: FAQItem[] = [
+  {
+    question: "How fast is your bid turnaround for trade packages?",
+    answer:
+      "Standard envelope and finish packages typically receive unit pricing within 48 hours. Larger or complex tenders with mock-up requirements may take 3–5 business days.",
+  },
+  {
+    question: "Which trade packages do you self-perform?",
+    answer:
+      "EIFS / stucco, masonry restoration, sealant programs, balcony waterproofing, protective coatings, painting, and tile / flooring — approximately 85% executed by our own crew without sub-tier markups.",
+  },
+  {
+    question: "Are you on bidding platforms like DataBid and ConstructConnect?",
+    answer:
+      "Yes. We are active on DataBid, ConstructConnect, and accept direct invitations to tender. Send tender documents to projects@ascentgroupconstruction.com to add us to your bidders list.",
+  },
+  {
+    question: "Can you provide a complete prequalification package?",
+    answer:
+      "Yes. Our prequalification package includes WSIB clearance, $2M CGL certificate, safety policies, COR-aligned training records, references, and project experience — available through the Contractor Portal.",
+  },
+  {
+    question: "Do you handle daily reporting and RFI turnaround on GC projects?",
+    answer:
+      "A dedicated project lead is assigned to every job, providing daily photo updates, schedule tracking, and 24-hour RFI turnaround so your superintendent stays ahead.",
+  },
+];
+
+export const architectsFaqs: FAQItem[] = [
+  {
+    question: "Are you familiar with hygrothermal modeling and WUFI assumptions?",
+    answer:
+      "Yes. We coordinate detailing with the consultant's WUFI inputs — vapor permeance, dew point location, drainage plane continuity — so the as-built assembly matches the modeled performance.",
+  },
+  {
+    question: "Which envelope standards do you build to?",
+    answer:
+      "OBC SB-10/SB-12, ASHRAE 90.1, CSA A371, CCMC EIFS evaluations, ABAA air barrier details, and ASTM testing protocols (E1105, E2178, C1363) referenced in your specifications.",
+  },
+  {
+    question: "Can you support field testing and mock-up reviews?",
+    answer:
+      "Yes. We coordinate ASTM E1105 and AAMA 501.2 field water tests, build full-assembly mock-ups, and align our schedule to your envelope consultant's review milestones.",
+  },
+  {
+    question: "Do you provide submittals, shop drawings, and product data?",
+    answer:
+      "Yes. Submittals are formatted to your specification division, with shop drawings, product data sheets, samples, and warranty information packaged for review prior to mobilization.",
+  },
+];
+
+export const emergencyRepairFaqs: FAQItem[] = [
+  {
+    question: "How fast can you get a crew on-site for an active leak?",
+    answer:
+      "We aim for same-day site assessment for active water infiltration and facade failures across the GTA. After triage by phone, a crew lead attends to document conditions and apply temporary containment.",
+  },
+  {
+    question: "Do you handle insurance documentation for storm and water damage?",
+    answer:
+      "Yes. We document existing conditions with photos, provide written assessments, and coordinate scope and pricing in formats suitable for insurance claims and adjuster review.",
+  },
+  {
+    question: "Can you provide temporary containment before permanent repair?",
+    answer:
+      "Yes. Tarping, temporary sealant, water diversion, and shoring are deployed first to stop ongoing damage while we scope, price, and schedule the permanent envelope or restoration repair.",
+  },
+  {
+    question: "What areas do you cover for emergency response?",
+    answer:
+      "All of Toronto and the broader GTA — Mississauga, Brampton, Vaughan, Markham, Richmond Hill, Oakville, Burlington, Hamilton, and surrounding municipalities.",
+  },
+];
+
 export const projectsFaqs: FAQItem[] = [
   {
     question: "How does Ascent Group select projects to feature?",
