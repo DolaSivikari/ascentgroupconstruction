@@ -19,6 +19,9 @@ import { ScrollReveal } from "@/components/animations/ScrollReveal";
 import OptimizedImage from "../OptimizedImage";
 import { supabase } from "@/integrations/supabase/client";
 import { Badge } from "@/components/ui/badge";
+import { TrustRibbon } from "@/design-system/components/TrustRibbon";
+import { RelatedLinksGrid } from "@/design-system/components/RelatedLinksGrid";
+import { Briefcase, Building2, Wrench } from "lucide-react";
 
 interface ServiceBenefit {
   icon: React.ComponentType<{ className?: string }>;
@@ -216,6 +219,8 @@ export const ServicePageTemplate = ({ service }: ServicePageTemplateProps) => {
           </div>
         </div>
       </section>
+
+      <TrustRibbon />
 
       {/* Service Overview */}
       <section className="container mx-auto px-4 py-16 md:py-20 lg:py-24">
@@ -503,6 +508,17 @@ export const ServicePageTemplate = ({ service }: ServicePageTemplateProps) => {
           </div>
         </section>
       )}
+
+      {/* Related Resources */}
+      <RelatedLinksGrid
+        title="Related Services & Resources"
+        description="Other capabilities and resources you may need on this scope."
+        links={[
+          { title: "All Services", description: "Browse our full envelope, restoration, and interior catalog.", href: "/services", icon: Wrench },
+          { title: "Recent Projects", description: "See similar projects we've delivered across the GTA.", href: "/projects", icon: Building2 },
+          { title: "For General Contractors", description: "Trade-package pricing, dailies, and RFI turnaround.", href: "/for-general-contractors", icon: Briefcase },
+        ]}
+      />
 
       {/* Final CTA */}
       <CTABand

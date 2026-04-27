@@ -22,6 +22,11 @@ import { toast } from "sonner";
 import { formatProjectValue } from "@/utils/formatProjectValue";
 import OptimizedImage from "@/components/OptimizedImage";
 import { ProjectFeaturedImage } from "@/components/projects/ProjectFeaturedImage";
+import { TrustRibbon } from "@/design-system/components/TrustRibbon";
+import { FAQAccordion } from "@/design-system/components/FAQAccordion";
+import { RelatedLinksGrid } from "@/design-system/components/RelatedLinksGrid";
+import { projectDetailFaqs } from "@/data/page-faqs";
+import { Wrench, Briefcase, Building2 } from "lucide-react";
 
 interface ProcessStep {
   type: string;

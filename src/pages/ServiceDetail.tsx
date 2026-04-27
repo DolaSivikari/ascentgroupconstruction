@@ -41,6 +41,11 @@ import { createServiceSchema, createHowToSchema } from "@/utils/schema-injector"
 import { breadcrumbSchema } from "@/utils/structured-data";
 import { getIconForService } from "@/utils/serviceIcons";
 import { serviceHeroes } from "@/data/hero-images";
+import { TrustRibbon } from "@/design-system/components/TrustRibbon";
+import { FAQAccordion } from "@/design-system/components/FAQAccordion";
+import { RelatedLinksGrid } from "@/design-system/components/RelatedLinksGrid";
+import { serviceDetailFaqs } from "@/data/page-faqs";
+import { Wrench, Building2, Briefcase } from "lucide-react";
 
 interface ProcessStep {
   step_number: number;

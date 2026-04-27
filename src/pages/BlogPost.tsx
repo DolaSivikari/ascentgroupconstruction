@@ -16,6 +16,11 @@ import { blogFAQs } from "@/data/blog-faq-data";
 import { usePreviewMode } from "@/hooks/usePreviewMode";
 import BeforeAfterSlider from "@/components/BeforeAfterSlider";
 import ProcessTimelineStep from "@/components/ProcessTimelineStep";
+import { TrustRibbon } from "@/design-system/components/TrustRibbon";
+import { FAQAccordion } from "@/design-system/components/FAQAccordion";
+import { RelatedLinksGrid } from "@/design-system/components/RelatedLinksGrid";
+import { blogPostFaqs } from "@/data/page-faqs";
+import { Wrench, Building2, Briefcase } from "lucide-react";
 import {
   Accordion,
   AccordionContent,

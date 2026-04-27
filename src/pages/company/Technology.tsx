@@ -12,6 +12,9 @@ import { BeforeAfterSlider } from "./technology/sections/BeforeAfterSlider";
 import { AudienceTabs } from "./technology/sections/AudienceTabs";
 import { TimelineSection } from "./technology/sections/TimelineSection";
 import { CrossLinks } from "./technology/sections/CrossLinks";
+import { TrustRibbon } from "@/design-system/components/TrustRibbon";
+import { FAQAccordion } from "@/design-system/components/FAQAccordion";
+import { technologyFaqs } from "@/data/page-faqs";
 
 const TOOL_STRIP = ["Bluebeam", "PlanSwift", "ZZTAKEOFF", "Procore", "AutoCAD / DWG", "BIM 360"];
 
