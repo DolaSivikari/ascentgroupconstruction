@@ -348,6 +348,30 @@ const WhySpecialtyContractor = () => {
             </div>
           </div>
         </Section>
+
+        <RelatedLinksGrid
+          title="Continue Exploring"
+          links={[
+            {
+              icon: Building2,
+              title: "Capabilities & Self-Perform",
+              description: "How our self-performed model removes sub-tier markups and shortens accountability chains.",
+              href: "/capabilities",
+            },
+            {
+              icon: Layers,
+              title: "Building Envelope Services",
+              description: "EIFS, masonry, sealants, cladding, waterproofing — the specialty scopes we execute directly.",
+              href: "/services",
+            },
+            {
+              icon: Building,
+              title: "For General Contractors",
+              description: "How GCs partner with Ascent as a reliable specialty trade subcontractor on commercial projects.",
+              href: "/for-general-contractors",
+            },
+          ]}
+        />
       </main>
 
       <Footer />
