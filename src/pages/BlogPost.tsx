@@ -21,6 +21,7 @@ import { FAQAccordion } from "@/design-system/components/FAQAccordion";
 import { RelatedLinksGrid } from "@/design-system/components/RelatedLinksGrid";
 import { blogPostFaqs } from "@/data/page-faqs";
 import { Wrench, Building2, Briefcase } from "lucide-react";
+import { getRelatedForBlogPost, type SmartRelatedLink } from "@/utils/relatedLinks";
 import {
   Accordion,
   AccordionContent,
@@ -36,6 +37,7 @@ const BlogPost = () => {
   const { isPreview } = usePreviewMode();
   const [post, setPost] = useState<any>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [relatedLinks, setRelatedLinks] = useState<SmartRelatedLink[]>([]);
 
   useEffect(() => {
     const fetchPost = async () => {
@@ -62,6 +64,23 @@ const BlogPost = () => {
     
     fetchPost();
   }, [slug, isPreview]);
+
+  // Resolve smart related links once post is loaded
+  useEffect(() => {
+    if (!post) return;
+    let cancelled = false;
+    getRelatedForBlogPost({
+      postSlug: post.slug,
+      category: post.category ?? null,
+      tags: (post.tags as string[]) ?? null,
+      sector: post.sector ?? null,
+    }).then((links) => {
+      if (!cancelled) setRelatedLinks(links);
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, [post]);
 
   if (isLoading) {
     return (
@@ -315,15 +334,19 @@ const BlogPost = () => {
           </div>
         </section>
 
-        {/* Related Resources */}
+        {/* Related Resources — tag/sector-aware */}
         <RelatedLinksGrid
           title="Related Resources"
-          description="Other guides, services, and projects from Ascent Group."
-          links={[
-            { title: "Blog Index", description: "Browse all envelope, restoration & interior insights.", href: "/blog", icon: Briefcase },
-            { title: "All Services", description: "What we self-perform across the GTA.", href: "/services", icon: Wrench },
-            { title: "Recent Projects", description: "See our portfolio across sectors.", href: "/projects", icon: Building2 },
-          ]}
+          description="Posts, services, and sector pages matching this article."
+          links={
+            relatedLinks.length > 0
+              ? relatedLinks
+              : [
+                  { title: "Blog Index", description: "Browse all envelope, restoration & interior insights.", href: "/blog", icon: Briefcase },
+                  { title: "All Services", description: "What we self-perform across the GTA.", href: "/services", icon: Wrench },
+                  { title: "Recent Projects", description: "See our portfolio across sectors.", href: "/projects", icon: Building2 },
+                ]
+          }
         />
       </main>
       

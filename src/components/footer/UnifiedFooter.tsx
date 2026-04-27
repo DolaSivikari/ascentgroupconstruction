@@ -177,6 +177,10 @@ export function UnifiedFooter({
             <img 
               src={ascentLogoVerticalWhite} 
               alt="Ascent Group Construction Logo" 
+              width={140}
+              height={140}
+              loading="lazy"
+              decoding="async"
               className="h-28 w-auto object-contain"
             />
           </div>

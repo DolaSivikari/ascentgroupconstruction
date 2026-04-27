@@ -249,6 +249,10 @@ export const ProjectCaseStudy = ({
                       <img 
                         src={testimonial.image} 
                         alt={testimonial.author}
+                        loading="lazy"
+                        decoding="async"
+                        width={64}
+                        height={64}
                         className="w-16 h-16 rounded-full object-cover border-2 border-accent/30"
                       />
                     )}
@@ -279,6 +283,8 @@ export const ProjectCaseStudy = ({
                     <img 
                       src={project.image} 
                       alt={project.title}
+                      loading="lazy"
+                      decoding="async"
                       className="w-full h-full object-cover transition-transform group-hover:scale-105"
                     />
                   </div>

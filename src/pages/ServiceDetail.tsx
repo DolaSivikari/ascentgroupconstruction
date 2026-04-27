@@ -46,6 +46,7 @@ import { FAQAccordion } from "@/design-system/components/FAQAccordion";
 import { RelatedLinksGrid } from "@/design-system/components/RelatedLinksGrid";
 import { serviceDetailFaqs } from "@/data/page-faqs";
 import { Wrench, Briefcase } from "lucide-react";
+import { getRelatedForService, type SmartRelatedLink } from "@/utils/relatedLinks";
 
 interface ProcessStep {
   step_number: number;
@@ -77,6 +78,7 @@ interface Service {
   typical_applications: StringOrLabeled[] | null;
   key_benefits: Array<{ title: string; description: string }> | null;
   faq_items: FAQItem[] | null;
+  category: string | null;
 }
 
 // Defensive: some legacy rows store these as [{label: "..."}] instead of plain strings
@@ -148,10 +150,27 @@ const ServiceDetail = () => {
   const [service, setService] = useState<Service | null>(null);
   const [loading, setLoading] = useState(true);
   const [notFound, setNotFound] = useState(false);
+  const [relatedLinks, setRelatedLinks] = useState<SmartRelatedLink[]>([]);
 
   useEffect(() => {
     loadService();
   }, [slug]);
+
+  // Resolve smart related links once the service is loaded
+  useEffect(() => {
+    if (!service) return;
+    let cancelled = false;
+    getRelatedForService({
+      serviceId: service.id,
+      serviceSlug: service.slug,
+      category: service.category,
+    }).then((links) => {
+      if (!cancelled) setRelatedLinks(links);
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, [service]);
 
   const loadService = async () => {
     if (!slug) {
@@ -611,15 +630,19 @@ const ServiceDetail = () => {
           </div>
         </section>
 
-        {/* Related cross-links */}
+        {/* Related cross-links — tag/category-aware */}
         <RelatedLinksGrid
           title="Explore Related Services"
-          description="Other capabilities we self-perform alongside this scope."
-          links={[
-            { title: "All Services", description: "Browse the full envelope, restoration & interior catalog.", href: "/services", icon: Wrench },
-            { title: "Recent Projects", description: "See similar projects delivered across the GTA.", href: "/projects", icon: Briefcase },
-            { title: "Capabilities", description: "What we self-perform and how we deliver.", href: "/capabilities", icon: Building2 },
-          ]}
+          description="Sibling services and recent projects sharing this scope."
+          links={
+            relatedLinks.length > 0
+              ? relatedLinks
+              : [
+                  { title: "All Services", description: "Browse the full envelope, restoration & interior catalog.", href: "/services", icon: Wrench },
+                  { title: "Recent Projects", description: "See similar projects delivered across the GTA.", href: "/projects", icon: Briefcase },
+                  { title: "Capabilities", description: "What we self-perform and how we deliver.", href: "/capabilities", icon: Building2 },
+                ]
+          }
           background="default"
         />
 

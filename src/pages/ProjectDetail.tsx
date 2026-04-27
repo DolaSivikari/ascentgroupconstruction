@@ -27,6 +27,7 @@ import { FAQAccordion } from "@/design-system/components/FAQAccordion";
 import { RelatedLinksGrid } from "@/design-system/components/RelatedLinksGrid";
 import { projectDetailFaqs } from "@/data/page-faqs";
 import { Wrench, Briefcase, Building2 } from "lucide-react";
+import { getRelatedForProject, type SmartRelatedLink } from "@/utils/relatedLinks";
 
 interface ProcessStep {
   type: string;
@@ -94,6 +95,7 @@ interface ProjectData {
   safety_incidents?: number;
   scope_of_work?: string;
   team_credits?: Array<{ role: string; name: string; company?: string }>;
+  tags?: string[] | null;
 }
 
 export default function ProjectDetail() {
@@ -101,6 +103,7 @@ export default function ProjectDetail() {
   const navigate = useNavigate();
   const [project, setProject] = useState<ProjectData | null>(null);
   const [loading, setLoading] = useState(true);
+  const [relatedLinks, setRelatedLinks] = useState<SmartRelatedLink[]>([]);
   const [lightboxOpen, setLightboxOpen] = useState(false);
 
   useEffect(() => {
@@ -160,6 +163,26 @@ export default function ProjectDetail() {
 
     fetchProject();
   }, [slug, navigate]);
+
+  // Resolve smart related links once project is loaded
+  useEffect(() => {
+    if (!project) return;
+    let cancelled = false;
+    const primaryService = project.services?.[0];
+    getRelatedForProject({
+      projectId: project.id,
+      projectSlug: project.slug,
+      category: project.category,
+      tags: project.tags ?? null,
+      serviceSlug: primaryService?.slug ?? null,
+      serviceName: primaryService?.name ?? null,
+    }).then((links) => {
+      if (!cancelled) setRelatedLinks(links);
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, [project]);
 
   if (loading) {
     return (
@@ -613,15 +636,19 @@ export default function ProjectDetail() {
             <FAQAccordion faqs={projectDetailFaqs} />
           </div>
 
-          {/* Related Resources */}
+          {/* Related Resources — tag/category-aware */}
           <RelatedLinksGrid
             title="Explore More"
-            description="Other projects, services, and partner resources."
-            links={[
-              { title: "More Projects", description: "Browse our full portfolio across the GTA.", href: "/projects", icon: Briefcase },
-              { title: "All Services", description: "What we self-perform on similar scopes.", href: "/services", icon: Wrench },
-              { title: "Capabilities", description: "How we deliver — process and accountability.", href: "/capabilities", icon: Building2 },
-            ]}
+            description="Sibling projects and services from this scope."
+            links={
+              relatedLinks.length > 0
+                ? relatedLinks
+                : [
+                    { title: "More Projects", description: "Browse our full portfolio across the GTA.", href: "/projects", icon: Briefcase },
+                    { title: "All Services", description: "What we self-perform on similar scopes.", href: "/services", icon: Wrench },
+                    { title: "Capabilities", description: "How we deliver — process and accountability.", href: "/capabilities", icon: Building2 },
+                  ]
+            }
             background="default"
           />
 
