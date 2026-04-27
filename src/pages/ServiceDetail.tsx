@@ -263,6 +263,8 @@ const ServiceDetail = () => {
         {...(badges ? { badges } : {})}
       />
 
+      <TrustRibbon />
+
       <main className="min-h-screen">
         {/* Direct Answer Section */}
         {service.short_description && (
@@ -597,6 +599,29 @@ const ServiceDetail = () => {
             <ServiceAreaSection cities={serviceAreaCities} radius="100km" />
           </div>
         </section>
+
+        {/* Service-level FAQ (auto FAQ schema) */}
+        <section className="py-16 bg-muted/30">
+          <div className="container mx-auto px-4 max-w-3xl">
+            <h2 className="text-3xl font-bold text-center mb-4">Common Questions</h2>
+            <p className="text-center text-muted-foreground mb-8">
+              Standard answers about scope, schedule, and warranty for {service.name.toLowerCase()}.
+            </p>
+            <FAQAccordion faqs={serviceDetailFaqs} />
+          </div>
+        </section>
+
+        {/* Related cross-links */}
+        <RelatedLinksGrid
+          title="Explore Related Services"
+          description="Other capabilities we self-perform alongside this scope."
+          links={[
+            { title: "All Services", description: "Browse the full envelope, restoration & interior catalog.", href: "/services", icon: Wrench },
+            { title: "Recent Projects", description: "See similar projects delivered across the GTA.", href: "/projects", icon: Briefcase },
+            { title: "Capabilities", description: "What we self-perform and how we deliver.", href: "/capabilities", icon: Building2 },
+          ]}
+          background="default"
+        />
 
         <CTABand
           title="Ready to Discuss Your Project?"

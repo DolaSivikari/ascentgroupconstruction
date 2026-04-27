@@ -173,6 +173,8 @@ const BlogPost = () => {
           ]}
         />
 
+        <TrustRibbon />
+
         {/* Content */}
         <article className="container mx-auto px-4 sm:px-6 py-12 sm:py-16">
           <div className="max-w-4xl mx-auto">
@@ -305,7 +307,24 @@ const BlogPost = () => {
           </div>
         </article>
 
-        {/* Related Posts - Removed for now since we don't have related posts query */}
+        {/* Generic post FAQ (auto schema) */}
+        <section className="bg-muted/30 py-12 border-t border-border/50">
+          <div className="container mx-auto px-4 max-w-3xl">
+            <h2 className="text-2xl sm:text-3xl font-bold text-center mb-6">Continue Reading</h2>
+            <FAQAccordion faqs={blogPostFaqs} />
+          </div>
+        </section>
+
+        {/* Related Resources */}
+        <RelatedLinksGrid
+          title="Related Resources"
+          description="Other guides, services, and projects from Ascent Group."
+          links={[
+            { title: "Blog Index", description: "Browse all envelope, restoration & interior insights.", href: "/blog", icon: Briefcase },
+            { title: "All Services", description: "What we self-perform across the GTA.", href: "/services", icon: Wrench },
+            { title: "Recent Projects", description: "See our portfolio across sectors.", href: "/projects", icon: Building2 },
+          ]}
+        />
       </main>
       
       <Footer />
