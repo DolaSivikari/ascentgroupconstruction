@@ -188,6 +188,8 @@ const ContractorPortal = () => {
           </div>
         </section>
 
+        <TrustRibbon />
+
         <main id="main-content" className="container mx-auto px-4 py-16 space-y-20">
           
           {/* Why Partner With Us */}
