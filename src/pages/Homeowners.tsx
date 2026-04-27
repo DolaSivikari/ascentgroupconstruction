@@ -28,8 +28,11 @@ import { audienceHeroes } from "@/data/hero-images";
 import { usePageAnalytics } from "@/hooks/usePageAnalytics";
 import { Card } from "@/design-system/components/Card";
 import { Badge as UIBadge } from "@/components/ui/badge";
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import { TrustRibbon } from "@/design-system/components/TrustRibbon";
+import { FAQAccordion } from "@/design-system/components/FAQAccordion";
+import { RelatedLinksGrid } from "@/design-system/components/RelatedLinksGrid";
 import { H2 } from "@/design-system/components/Typography";
+import { homeownersFaqs } from "@/data/page-faqs";
 
 const Homeowners = () => {
   usePageAnalytics('homeowners');
@@ -186,6 +189,8 @@ const Homeowners = () => {
           { icon: DollarSign, text: "Free Estimates" },
         ]}
       />
+
+      <TrustRibbon />
 
       {/* Introduction Section */}
       <Section>
