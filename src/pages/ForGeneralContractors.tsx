@@ -14,9 +14,13 @@ import { CardGrid } from "@/components/shared/CardGrid";
 import { ProcessStepCard } from "@/components/unified";
 import { Button } from "@/ui/Button";
 import { CTA_TEXT } from "@/design-system/constants";
-import { CheckCircle, Clock, Shield, FileText, Users, Wrench, Download, Mail, Phone } from "lucide-react";
+import { CheckCircle, Clock, Shield, FileText, Users, Wrench, Download, Mail, Phone, AlertTriangle, Building, ClipboardCheck } from "lucide-react";
 import { Link } from "react-router-dom";
 import { audienceHeroes } from "@/data/hero-images";
+import { TrustRibbon } from "@/design-system/components/TrustRibbon";
+import { FAQAccordion } from "@/design-system/components/FAQAccordion";
+import { RelatedLinksGrid } from "@/design-system/components/RelatedLinksGrid";
+import { generalContractorsFaqs } from "@/data/page-faqs";
 
 const ForGeneralContractors = () => {
   const tradePackages = [
@@ -121,6 +125,8 @@ const ForGeneralContractors = () => {
       />
       
       <main className="min-h-screen bg-background">
+
+        <TrustRibbon />
 
         {/* Trade Packages Section */}
         <Section size="major" className="scroll-mt-20" data-section="trade-packages">
