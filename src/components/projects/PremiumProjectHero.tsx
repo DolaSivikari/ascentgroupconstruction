@@ -60,8 +60,8 @@ export const PremiumProjectHero = ({ featuredProjects }: Props) => {
         )}
       </div>
 
-      {/* Content */}
-      <div className="relative z-10 min-h-[60vh] md:min-h-0 md:h-full flex items-center py-10 md:py-0">
+      {/* Content — bottom padding reserves space so the CTA never collides with the slide indicators */}
+      <div className="relative z-10 min-h-[60vh] md:min-h-0 md:h-full flex items-center py-10 pb-20 md:py-0 md:pb-16">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl animate-fade-in">
             <div className="flex items-center gap-2 mb-3 md:mb-4">
@@ -126,20 +126,25 @@ export const PremiumProjectHero = ({ featuredProjects }: Props) => {
           </>
         )}
 
-        {/* Slide indicators */}
+        {/* Slide indicators — accent fill + subtle ring for visibility against varied imagery */}
         {featuredProjects.length > 1 && (
-          <div className="absolute bottom-4 md:bottom-8 left-1/2 -translate-x-1/2 flex gap-2">
+          <div className="absolute bottom-5 md:bottom-10 left-1/2 -translate-x-1/2 flex items-center gap-2 z-20">
             {featuredProjects.map((_, index) => (
               <button
                 key={index}
                 onClick={() => setCurrentIndex(index)}
-                className={`h-2 rounded-full transition-all ${
-                  index === currentIndex
-                    ? "bg-primary-foreground w-8"
-                    : "bg-primary-foreground/40 w-2"
-                }`}
                 aria-label={`Go to slide ${index + 1}`}
-              />
+                aria-current={index === currentIndex}
+                className="group p-1.5 -m-1.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded-full"
+              >
+                <span
+                  className={`block h-2 rounded-full transition-all duration-300 ring-1 ring-black/10 shadow-sm ${
+                    index === currentIndex
+                      ? "w-10 bg-accent"
+                      : "w-2.5 bg-primary-foreground/70 group-hover:bg-primary-foreground"
+                  }`}
+                />
+              </button>
             ))}
           </div>
         )}
