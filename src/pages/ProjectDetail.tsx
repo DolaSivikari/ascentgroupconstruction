@@ -103,6 +103,7 @@ export default function ProjectDetail() {
   const navigate = useNavigate();
   const [project, setProject] = useState<ProjectData | null>(null);
   const [loading, setLoading] = useState(true);
+  const [relatedLinks, setRelatedLinks] = useState<SmartRelatedLink[]>([]);
   const [lightboxOpen, setLightboxOpen] = useState(false);
 
   useEffect(() => {
