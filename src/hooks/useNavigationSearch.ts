@@ -14,23 +14,22 @@ export interface SearchResult {
 export const getAllNavigationItems = (): SearchResult[] => {
   const items: SearchResult[] = [];
 
-  // Dynamically iterate over all navigation sections
-  Object.entries(megaMenuDataEnhanced).forEach(([sectionKey, sections]) => {
-    if (!sections || !Array.isArray(sections)) return;
-    
+  // Dynamically iterate over all navigation configs
+  Object.entries(megaMenuDataEnhanced).forEach(([, config]) => {
+    const sections = config?.sections;
+    if (!Array.isArray(sections)) return;
+
     sections.forEach((section) => {
-      section.categories.forEach((category) => {
-        if (category.subItems) {
-          category.subItems.forEach((item) => {
-            items.push({
-              name: item.name,
-              link: item.link,
-              category: category.title,
-              section: section.sectionTitle,
-              badge: item.badge as "new" | "popular" | "important" | undefined,
-            });
+      section.categories?.forEach((category) => {
+        category.subItems?.forEach((item) => {
+          items.push({
+            name: item.name,
+            link: item.link,
+            category: category.title,
+            section: section.sectionTitle,
+            badge: (item as { badge?: "new" | "popular" | "important" }).badge,
           });
-        }
+        });
       });
     });
   });
