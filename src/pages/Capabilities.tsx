@@ -29,7 +29,7 @@ import { Section } from "@/components/sections/Section";
 import { SectionHeader } from "@/design-system/components/SectionHeader";
 import { ProofStrip } from "@/design-system/components/ProofStrip";
 import { CTABand } from "@/design-system/components/CTABand";
-import { TrustRibbon, FAQAccordion, SectionHeader as DSSectionHeader } from "@/design-system/components";
+import { TrustRibbon, FAQAccordion, SectionHeader as DSSectionHeader, StickyPageNav } from "@/design-system/components";
 import { capabilitiesFaqs } from "@/data/page-faqs";
 import { Button } from "@/ui/Button";
 import SEO from "@/components/SEO";
