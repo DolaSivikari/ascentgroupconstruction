@@ -477,6 +477,29 @@ const ContractorPortal = () => {
             </Button>
           </section>
 
+          {/* FAQ */}
+          <section className="pt-4">
+            <h2 className="text-3xl font-bold text-center mb-4">Trade Partner FAQ</h2>
+            <p className="text-center text-muted-foreground mb-8 max-w-2xl mx-auto">
+              Common questions from GCs, construction managers, and estimators.
+            </p>
+            <div className="max-w-3xl mx-auto">
+              <FAQAccordion faqs={contractorPortalFaqs} />
+            </div>
+          </section>
+
+          {/* Related Resources */}
+          <RelatedLinksGrid
+            title="Related Partner Resources"
+            description="Documentation and capability deep-dives for procurement."
+            links={[
+              { title: "Certifications & Insurance", description: "$2M CGL, WSIB clearance, manufacturer listings.", href: "/company/certifications-insurance", icon: Shield },
+              { title: "Capabilities", description: "What we self-perform and how we deliver.", href: "/capabilities", icon: Wrench },
+              { title: "For General Contractors", description: "Trade-package pricing, RFI turnaround, dailies.", href: "/for-general-contractors", icon: Briefcase },
+            ]}
+            background="default"
+          />
+
         </main>
 
         <Footer />

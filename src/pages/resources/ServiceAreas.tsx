@@ -63,6 +63,8 @@ const ServiceAreas = () => {
           ]}
         />
 
+        <TrustRibbon />
+
         <main id="main-content" className="container mx-auto px-4 py-12 space-y-16">
           {/* Service Radius Section */}
           <section className="text-center max-w-3xl mx-auto">
@@ -228,7 +230,28 @@ const ServiceAreas = () => {
               </Button>
             </div>
           </section>
+
+          {/* FAQ */}
+          <section>
+            <h2 className="text-3xl font-bold text-foreground text-center mb-4">Service Area FAQ</h2>
+            <p className="text-center text-muted-foreground mb-8 max-w-2xl mx-auto">
+              Common questions about coverage, mobilization, and travel.
+            </p>
+            <div className="max-w-3xl mx-auto">
+              <FAQAccordion faqs={serviceAreasFaqs} />
+            </div>
+          </section>
         </main>
+
+        <RelatedLinksGrid
+          title="Plan Your Project"
+          description="Resources to scope and schedule across the GTA and beyond."
+          links={[
+            { title: "Capabilities", description: "What we self-perform and how we deliver.", href: "/capabilities", icon: Wrench },
+            { title: "Emergency Repairs", description: "Same-day response for active envelope failures.", href: "/emergency-repair", icon: Shield },
+            { title: "Contractor Portal", description: "Vendor packet, unit rates, and RFQs.", href: "/resources/contractor-portal", icon: Briefcase },
+          ]}
+        />
 
         <Footer />
       </div>

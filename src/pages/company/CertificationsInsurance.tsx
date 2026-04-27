@@ -105,6 +105,8 @@ const CertificationsInsurance = () => {
             height="medium"
           />
 
+        <TrustRibbon />
+
         <main id="main-content" className="container mx-auto px-4 py-12 space-y-16">
           {/* Insurance Coverage Section */}
           <section>
@@ -238,6 +240,19 @@ const CertificationsInsurance = () => {
             </div>
           </section>
 
+          {/* FAQ */}
+          <section>
+            <h2 className="text-3xl font-bold text-foreground text-center mb-4">
+              Compliance & Documentation FAQ
+            </h2>
+            <p className="text-center text-muted-foreground mb-8 max-w-2xl mx-auto">
+              Procurement-ready answers about our insurance, bonding, and certifications.
+            </p>
+            <div className="max-w-3xl mx-auto">
+              <FAQAccordion faqs={certificationsFaqs} />
+            </div>
+          </section>
+
           {/* CTA Section */}
           <section className="text-center py-12">
             <h2 className="text-3xl font-bold text-foreground mb-4">Need Our Insurance Certificates?</h2>
@@ -254,6 +269,16 @@ const CertificationsInsurance = () => {
             </div>
           </section>
         </main>
+
+        <RelatedLinksGrid
+          title="Related Resources"
+          description="Documentation and partner resources for procurement teams."
+          links={[
+            { title: "Contractor Portal", description: "Vendor packet, COIs, and unit-rate requests.", href: "/resources/contractor-portal", icon: Briefcase },
+            { title: "Capabilities", description: "What we self-perform and how we deliver.", href: "/capabilities", icon: Wrench },
+            { title: "About Ascent", description: "Our story, founder, and core values.", href: "/about", icon: Building2 },
+          ]}
+        />
 
         <Footer />
       </div>
