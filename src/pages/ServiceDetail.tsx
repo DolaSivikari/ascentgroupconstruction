@@ -46,6 +46,7 @@ import { FAQAccordion } from "@/design-system/components/FAQAccordion";
 import { RelatedLinksGrid } from "@/design-system/components/RelatedLinksGrid";
 import { serviceDetailFaqs } from "@/data/page-faqs";
 import { Wrench, Briefcase } from "lucide-react";
+import { getRelatedForService, type SmartRelatedLink } from "@/utils/relatedLinks";
 
 interface ProcessStep {
   step_number: number;
