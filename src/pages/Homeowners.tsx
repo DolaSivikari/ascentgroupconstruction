@@ -312,7 +312,7 @@ const Homeowners = () => {
         </StaggerContainer>
       </Section>
 
-      {/* FAQ Section for Homeowners */}
+      {/* FAQ Section for Homeowners (FAQPage JSON-LD auto-emitted) */}
       <Section className="bg-accent">
         <ScrollReveal>
           <div className="text-center mb-12">
@@ -325,67 +325,7 @@ const Homeowners = () => {
 
         <div className="max-w-3xl mx-auto">
           <ScrollReveal>
-            <Accordion type="single" collapsible className="space-y-4">
-              <AccordionItem value="item-1" className="border border-border rounded-lg px-6 bg-card">
-                <AccordionTrigger className="hover:no-underline py-4">
-                  <div className="flex items-center gap-3 text-left">
-                    <DollarSign className="w-5 h-5 text-primary flex-shrink-0" />
-                    <span className="font-semibold">Do you provide estimates?</span>
-                  </div>
-                </AccordionTrigger>
-                <AccordionContent className="text-muted-foreground pb-4">
-                  Yes. We provide no-obligation written estimates for all residential projects. After our site visit, you'll receive a detailed quote within 2-3 business days.
-                </AccordionContent>
-              </AccordionItem>
-
-              <AccordionItem value="item-2" className="border border-border rounded-lg px-6 bg-card">
-                <AccordionTrigger className="hover:no-underline py-4">
-                  <div className="flex items-center gap-3 text-left">
-                    <Shield className="w-5 h-5 text-primary flex-shrink-0" />
-                    <span className="font-semibold">Are you insured and licensed?</span>
-                  </div>
-                </AccordionTrigger>
-                <AccordionContent className="text-muted-foreground pb-4">
-                  Yes. We carry $2M commercial general liability (CGL) insurance and are fully WSIB compliant. We can provide certificates of insurance upon request.
-                </AccordionContent>
-              </AccordionItem>
-
-              <AccordionItem value="item-3" className="border border-border rounded-lg px-6 bg-card">
-                <AccordionTrigger className="hover:no-underline py-4">
-                  <div className="flex items-center gap-3 text-left">
-                    <Clock className="w-5 h-5 text-primary flex-shrink-0" />
-                    <span className="font-semibold">How long will my project take?</span>
-                  </div>
-                </AccordionTrigger>
-                <AccordionContent className="text-muted-foreground pb-4">
-                  Most residential painting projects take 3-7 days. Tile and flooring installations typically take 3-8 days depending on size. Full renovations can range from 1-4 weeks. We'll provide a detailed timeline with your estimate.
-                </AccordionContent>
-              </AccordionItem>
-
-              <AccordionItem value="item-4" className="border border-border rounded-lg px-6 bg-card">
-                <AccordionTrigger className="hover:no-underline py-4">
-                  <div className="flex items-center gap-3 text-left">
-                    <Award className="w-5 h-5 text-primary flex-shrink-0" />
-                    <span className="font-semibold">Do you offer warranties?</span>
-                  </div>
-                </AccordionTrigger>
-                <AccordionContent className="text-muted-foreground pb-4">
-                  Yes. We provide workmanship warranties on all residential services (typically 1-2 years depending on scope). Materials carry manufacturer warranties. Full warranty details are included in your contract.
-                </AccordionContent>
-              </AccordionItem>
-
-              <AccordionItem value="item-5" className="border border-border rounded-lg px-6 bg-card">
-                <AccordionTrigger className="hover:no-underline py-4">
-                  <div className="flex items-center gap-3 text-left">
-                    <Home className="w-5 h-5 text-primary flex-shrink-0" />
-                    <span className="font-semibold">What areas do you serve?</span>
-                  </div>
-                </AccordionTrigger>
-                <AccordionContent className="text-muted-foreground pb-4">
-                  We serve Toronto and the Greater Toronto Area, including Mississauga, Brampton, Vaughan, Markham, Richmond Hill, Oakville, Burlington, and surrounding communities. Contact us to confirm service in your area.
-                </AccordionContent>
-              </AccordionItem>
-            </Accordion>
+            <FAQAccordion faqs={homeownersFaqs} />
           </ScrollReveal>
         </div>
       </Section>
@@ -397,6 +337,31 @@ const Homeowners = () => {
         primaryCta={{ text: "Request an Estimate", href: "/estimate" }}
         secondaryCta={{ text: "Contact Us", href: "/contact" }}
         variant="dark"
+      />
+
+      {/* Related Resources */}
+      <RelatedLinksGrid
+        title="Explore More for Homeowners"
+        links={[
+          {
+            icon: Paintbrush,
+            title: "Painting & Finishes",
+            description: "Interior and exterior painting, color matching, and clean execution backed by professional crews.",
+            href: "/services/painting-services",
+          },
+          {
+            icon: Square,
+            title: "Tile & Flooring",
+            description: "Ceramic, porcelain, vinyl plank, and laminate installation for kitchens, bathrooms, and living spaces.",
+            href: "/services/tile-flooring",
+          },
+          {
+            icon: Hammer,
+            title: "Renovations & Buildouts",
+            description: "Basement finishing, bathroom updates, and full interior renovation scopes for residential properties.",
+            href: "/services/interior-buildouts",
+          },
+        ]}
       />
 
       <Footer />
