@@ -1,5 +1,5 @@
 // Build trigger: 2026-03-09T18:55
-import { useEffect } from "react";
+import { lazy, Suspense, useEffect } from "react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import EnhancedHero from "@/components/homepage/EnhancedHero";
@@ -7,15 +7,25 @@ import SEO from "@/components/SEO";
 import SkipLink from "@/components/SkipLink";
 import { createHowToSchema, createQASchema, createSiteSearchSchema } from "@/utils/schema-injector";
 import { SITE_URL, COMPANY_EMAIL } from "@/constants/company";
-import WhyChooseUs from "@/components/homepage/WhyChooseUs";
-import WhoWeServeHomepage from "@/components/homepage/WhoWeServeHomepage";
+// Above-the-fold proof strip stays eager (renders immediately under hero)
 import { HomepageProofStrip } from "@/components/homepage/HomepageProofStrip";
-import { HomepageProcessStrip } from "@/components/homepage/HomepageProcessStrip";
-import { HomepageServiceHighlights } from "@/components/homepage/HomepageServiceHighlights";
-import { HomepageParallaxBreak } from "@/components/homepage/HomepageParallaxBreak";
-import { HomepageFeaturedProjects } from "@/components/homepage/HomepageFeaturedProjects";
-import { HomepageFinalCta } from "@/components/homepage/HomepageFinalCta";
-import InteractiveCTA from "@/components/homepage/InteractiveCTA";
+// Below-the-fold sections are lazy-loaded to slim the initial JS bundle and reduce TBT.
+// They sit below the hero+proof strip so users won't see the Suspense fallback in normal scrolling.
+const HomepageServiceHighlights = lazy(() =>
+  import("@/components/homepage/HomepageServiceHighlights").then(m => ({ default: m.HomepageServiceHighlights }))
+);
+const WhoWeServeHomepage = lazy(() => import("@/components/homepage/WhoWeServeHomepage"));
+const HomepageFeaturedProjects = lazy(() =>
+  import("@/components/homepage/HomepageFeaturedProjects").then(m => ({ default: m.HomepageFeaturedProjects }))
+);
+const HomepageParallaxBreak = lazy(() =>
+  import("@/components/homepage/HomepageParallaxBreak").then(m => ({ default: m.HomepageParallaxBreak }))
+);
+const WhyChooseUs = lazy(() => import("@/components/homepage/WhyChooseUs"));
+const InteractiveCTA = lazy(() => import("@/components/homepage/InteractiveCTA"));
+const HomepageFinalCta = lazy(() =>
+  import("@/components/homepage/HomepageFinalCta").then(m => ({ default: m.HomepageFinalCta }))
+);
 import { videoSchema } from "@/utils/structured-data";
 import { getHomepageVideos } from "@/data/video-metadata";
 
@@ -25,6 +35,10 @@ import { ScrollToTop } from "@/components/ui/scroll-to-top";
 import { usePageAnalytics } from "@/hooks/usePageAnalytics";
 import { usePerformanceMonitoring } from "@/hooks/usePerformanceMonitoring";
 import { useHomepageData } from "@/hooks/useHomepageData";
+
+// Lightweight skeleton placeholder for lazy section boundaries — keeps layout stable
+// without pulling extra components into the critical path.
+const SectionFallback = () => <div aria-hidden="true" className="min-h-[400px]" />;
 
 const Index = () => {
   usePerformanceMonitoring('homepage');
