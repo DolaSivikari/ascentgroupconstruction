@@ -254,6 +254,40 @@ const EmergencyRepair = () => {
         </div>
       </Section>
 
+      {/* FAQs */}
+      <Section size="major" maxWidth="narrow" className="bg-muted/30">
+        <SectionHeader
+          badge="Emergency FAQs"
+          title="Common Questions in an Emergency"
+          description="Response time, insurance documentation, temporary containment, and coverage areas."
+        />
+        <FAQAccordion faqs={emergencyRepairFaqs} />
+      </Section>
+
+      <RelatedLinksGrid
+        title="After the Emergency: Plan Permanent Repair"
+        links={[
+          {
+            icon: Droplets,
+            title: "Waterproofing & Sealants",
+            description: "Long-term envelope and waterproofing systems to prevent recurrence after temporary repair.",
+            href: "/services/waterproofing",
+          },
+          {
+            icon: Building2,
+            title: "Property Manager Programs",
+            description: "Convert one-off emergency response into recurring envelope and capital maintenance programs.",
+            href: "/property-managers",
+          },
+          {
+            icon: Shield,
+            title: "Capabilities Statement",
+            description: "Prequalification, insurance, and operational capability brief for ongoing engagements.",
+            href: "/capabilities",
+          },
+        ]}
+      />
+
       <Footer />
     </div>
   );
