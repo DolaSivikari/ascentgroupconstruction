@@ -239,8 +239,10 @@ const OurProcess = () => {
           </div>
         </div>
       </Section>
+      </div>
 
       {/* People Also Ask */}
+      <div id="process-faq" className="scroll-mt-24">
       <Section size="major" className="bg-muted/30">
         <SectionHeader
           title="People Also Ask"
@@ -251,6 +253,7 @@ const OurProcess = () => {
           <FAQAccordion faqs={ourProcessFaqs} />
         </div>
       </Section>
+      </div>
 
       {/* CTA */}
       <CTABand
