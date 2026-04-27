@@ -334,15 +334,19 @@ const BlogPost = () => {
           </div>
         </section>
 
-        {/* Related Resources */}
+        {/* Related Resources — tag/sector-aware */}
         <RelatedLinksGrid
           title="Related Resources"
-          description="Other guides, services, and projects from Ascent Group."
-          links={[
-            { title: "Blog Index", description: "Browse all envelope, restoration & interior insights.", href: "/blog", icon: Briefcase },
-            { title: "All Services", description: "What we self-perform across the GTA.", href: "/services", icon: Wrench },
-            { title: "Recent Projects", description: "See our portfolio across sectors.", href: "/projects", icon: Building2 },
-          ]}
+          description="Posts, services, and sector pages matching this article."
+          links={
+            relatedLinks.length > 0
+              ? relatedLinks
+              : [
+                  { title: "Blog Index", description: "Browse all envelope, restoration & interior insights.", href: "/blog", icon: Briefcase },
+                  { title: "All Services", description: "What we self-perform across the GTA.", href: "/services", icon: Wrench },
+                  { title: "Recent Projects", description: "See our portfolio across sectors.", href: "/projects", icon: Building2 },
+                ]
+          }
         />
       </main>
       
