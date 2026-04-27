@@ -242,6 +242,7 @@ const Capabilities = () => {
         </section>
 
         {/* ── Partnership Models ─────────────────────────────────────────── */}
+        <div id="partnership-models" className="scroll-mt-24">
         <Section size="major">
           <PartnershipModelsSection />
           <div className="mt-8 text-center">
@@ -253,8 +254,10 @@ const Capabilities = () => {
             </Button>
           </div>
         </Section>
+        </div>
 
         {/* ── Self-Perform Capabilities (Tabbed) ─────────────────────────── */}
+        <div id="self-perform-scope" className="scroll-mt-24">
         <Section size="major" className="bg-muted/30">
           <SectionHeader
             badge="Self-Perform Capabilities"
