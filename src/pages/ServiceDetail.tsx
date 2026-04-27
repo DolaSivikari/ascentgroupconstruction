@@ -630,15 +630,19 @@ const ServiceDetail = () => {
           </div>
         </section>
 
-        {/* Related cross-links */}
+        {/* Related cross-links — tag/category-aware */}
         <RelatedLinksGrid
           title="Explore Related Services"
-          description="Other capabilities we self-perform alongside this scope."
-          links={[
-            { title: "All Services", description: "Browse the full envelope, restoration & interior catalog.", href: "/services", icon: Wrench },
-            { title: "Recent Projects", description: "See similar projects delivered across the GTA.", href: "/projects", icon: Briefcase },
-            { title: "Capabilities", description: "What we self-perform and how we deliver.", href: "/capabilities", icon: Building2 },
-          ]}
+          description="Sibling services and recent projects sharing this scope."
+          links={
+            relatedLinks.length > 0
+              ? relatedLinks
+              : [
+                  { title: "All Services", description: "Browse the full envelope, restoration & interior catalog.", href: "/services", icon: Wrench },
+                  { title: "Recent Projects", description: "See similar projects delivered across the GTA.", href: "/projects", icon: Briefcase },
+                  { title: "Capabilities", description: "What we self-perform and how we deliver.", href: "/capabilities", icon: Building2 },
+                ]
+          }
           background="default"
         />
 
