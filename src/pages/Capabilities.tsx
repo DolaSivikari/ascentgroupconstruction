@@ -194,7 +194,7 @@ const Capabilities = () => {
         ]}
       />
 
-      <main id="main-content">
+      <main>
         {/* ── Why Self-Perform? ───────────────────────────────────────────── */}
         <section id="why-self-perform" className="w-full bg-[hsl(var(--ink))] py-20 md:py-28 scroll-mt-24">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">

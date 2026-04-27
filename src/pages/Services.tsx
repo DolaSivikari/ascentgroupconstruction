@@ -101,7 +101,7 @@ const Services = () => {
 
       <TrustRibbon />
 
-      <main id="main-content" className="flex-1 relative">
+      <main className="flex-1 relative">
         {/* Category framing — three pillars */}
         <Section size="major">
           <SectionHeader
