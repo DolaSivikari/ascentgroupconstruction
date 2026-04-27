@@ -3,13 +3,17 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, useLocation } from "react-router-dom";
-import { Suspense, useEffect } from "react";
+import { lazy, Suspense, useEffect } from "react";
 import ErrorBoundary from "./components/ErrorBoundary";
 import ScrollToTop from "./components/ScrollToTop";
-import CookieBanner from "./components/CookieBanner";
 import { trackPageView } from "@/lib/analytics";
 import { AppRoutes } from "@/routes/AppRoutes";
-import StickyInquiryBar from "./components/StickyInquiryBar";
+
+// Non-critical UI: lazy-loaded so they don't block initial paint or inflate the main chunk.
+// Both render conditionally (cookie banner only when no consent stored, sticky bar only after scroll)
+// so users almost never see a Suspense fallback for them.
+const CookieBanner = lazy(() => import("./components/CookieBanner"));
+const StickyInquiryBar = lazy(() => import("./components/StickyInquiryBar"));
 
 const queryClient = new QueryClient();
 
@@ -48,7 +52,9 @@ const App = () => (
         <BrowserRouter>
           <ScrollToTop />
           <RouteTracker>
-            <CookieBanner />
+            <Suspense fallback={null}>
+              <CookieBanner />
+            </Suspense>
             <a
               href="#main-content"
               className="fixed top-0 left-0 -translate-y-full focus:translate-y-0 z-[100] bg-primary text-primary-foreground px-6 py-3 font-semibold transition-transform focus:outline-none focus:ring-4 focus:ring-primary/50"
@@ -59,7 +65,9 @@ const App = () => (
             <Suspense fallback={<PageLoader />}>
               <AppRoutes />
             </Suspense>
-            <StickyInquiryBar />
+            <Suspense fallback={null}>
+              <StickyInquiryBar />
+            </Suspense>
           </RouteTracker>
         </BrowserRouter>
       </TooltipProvider>

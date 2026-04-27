@@ -31,16 +31,27 @@ createRoot(document.getElementById("root")!).render(
   </HelmetProvider>
 );
 
-// Initialize Web Vitals tracking
-reportWebVitals();
+// Defer non-critical boot work until the browser is idle so it doesn't
+// compete with hydration / first interaction. Falls back to setTimeout for Safari.
+const runIdle = (cb: () => void, timeout = 2000) => {
+  if (typeof (window as any).requestIdleCallback === "function") {
+    (window as any).requestIdleCallback(cb, { timeout });
+  } else {
+    setTimeout(cb, 1);
+  }
+};
 
-// Initialize error logging
-initErrorLogging();
+runIdle(() => {
+  // Web Vitals tracking
+  reportWebVitals();
+  // Error logging
+  initErrorLogging();
+});
 
 // Check for deployment updates - only in production and after initial load
 if (import.meta.env.PROD) {
   const hasCheckedThisSession = sessionStorage.getItem('deployment-check-done');
-  
+
   if (!hasCheckedThisSession) {
     // Wait 30 seconds before checking to avoid interfering with initial load
     setTimeout(() => {
