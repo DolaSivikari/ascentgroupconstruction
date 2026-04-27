@@ -11,6 +11,10 @@ import { Card } from "@/design-system/components/Card";
 import { Button } from "@/ui/Button";
 import { PhoneLink } from "@/components/shared/PhoneLink";
 import { Link } from "react-router-dom";
+import { TrustRibbon } from "@/design-system/components/TrustRibbon";
+import { FAQAccordion } from "@/design-system/components/FAQAccordion";
+import { RelatedLinksGrid } from "@/design-system/components/RelatedLinksGrid";
+import { emergencyRepairFaqs } from "@/data/page-faqs";
 import {
   Phone,
   Droplets,
@@ -121,6 +125,8 @@ const EmergencyRepair = () => {
           </span>
         </div>
       </div>
+
+      <TrustRibbon />
 
       {/* Emergency Services */}
       <Section size="major">
