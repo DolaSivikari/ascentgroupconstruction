@@ -139,29 +139,33 @@ const Index = () => {
           {/* ── Zone A: White background ── */}
           <div className="bg-background">
             <HomepageProofStrip />
-            <HomepageServiceHighlights />
+            <Suspense fallback={<SectionFallback />}>
+              <HomepageServiceHighlights />
+            </Suspense>
           </div>
 
-          {/* ── Zone B: Muted background ── */}
-          <div className="bg-muted/30">
-            <WhoWeServeHomepage />
-            <HomepageFeaturedProjects />
-          </div>
+          {/* All below-the-fold sections share one Suspense boundary so chunks can stream in together */}
+          <Suspense fallback={<SectionFallback />}>
+            {/* ── Zone B: Muted background ── */}
+            <div className="bg-muted/30">
+              <WhoWeServeHomepage />
+              <HomepageFeaturedProjects />
+            </div>
 
-          {/* ── Full-bleed parallax break ── */}
-          <HomepageParallaxBreak />
+            {/* ── Full-bleed parallax break ── */}
+            <HomepageParallaxBreak />
 
-          {/* ── Zone B continued ── */}
-          <div className="bg-muted/30">
-            <WhyChooseUs />
-          </div>
+            {/* ── Zone B continued ── */}
+            <div className="bg-muted/30">
+              <WhyChooseUs />
+            </div>
 
-          {/* ── Inline Conversion Form ── */}
-          <InteractiveCTA />
+            {/* ── Inline Conversion Form ── */}
+            <InteractiveCTA />
 
-
-          {/* ── Zone D: Primary CTA ── */}
-          <HomepageFinalCta />
+            {/* ── Zone D: Primary CTA ── */}
+            <HomepageFinalCta />
+          </Suspense>
         </main>
 
         <Footer />
