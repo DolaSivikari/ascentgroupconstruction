@@ -10,6 +10,10 @@ import { Card } from "@/design-system/components/Card";
 import { Button } from "@/ui/Button";
 import { Link } from "react-router-dom";
 import { PhoneLink } from "@/components/shared/PhoneLink";
+import { TrustRibbon } from "@/design-system/components/TrustRibbon";
+import { FAQAccordion } from "@/design-system/components/FAQAccordion";
+import { RelatedLinksGrid } from "@/design-system/components/RelatedLinksGrid";
+import { architectsFaqs } from "@/data/page-faqs";
 import {
   Layers,
   FileText,
@@ -165,6 +169,7 @@ const ForArchitects = () => {
         ]}
       />
 
+      <TrustRibbon />
       <OperationalProofBar items={DEFAULT_PROOF_ITEMS} />
 
       {/* Material Systems Expertise */}
