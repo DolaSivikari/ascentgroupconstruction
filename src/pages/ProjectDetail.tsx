@@ -636,15 +636,19 @@ export default function ProjectDetail() {
             <FAQAccordion faqs={projectDetailFaqs} />
           </div>
 
-          {/* Related Resources */}
+          {/* Related Resources — tag/category-aware */}
           <RelatedLinksGrid
             title="Explore More"
-            description="Other projects, services, and partner resources."
-            links={[
-              { title: "More Projects", description: "Browse our full portfolio across the GTA.", href: "/projects", icon: Briefcase },
-              { title: "All Services", description: "What we self-perform on similar scopes.", href: "/services", icon: Wrench },
-              { title: "Capabilities", description: "How we deliver — process and accountability.", href: "/capabilities", icon: Building2 },
-            ]}
+            description="Sibling projects and services from this scope."
+            links={
+              relatedLinks.length > 0
+                ? relatedLinks
+                : [
+                    { title: "More Projects", description: "Browse our full portfolio across the GTA.", href: "/projects", icon: Briefcase },
+                    { title: "All Services", description: "What we self-perform on similar scopes.", href: "/services", icon: Wrench },
+                    { title: "Capabilities", description: "How we deliver — process and accountability.", href: "/capabilities", icon: Building2 },
+                  ]
+            }
             background="default"
           />
 
