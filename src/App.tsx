@@ -52,7 +52,9 @@ const App = () => (
         <BrowserRouter>
           <ScrollToTop />
           <RouteTracker>
-            <CookieBanner />
+            <Suspense fallback={null}>
+              <CookieBanner />
+            </Suspense>
             <a
               href="#main-content"
               className="fixed top-0 left-0 -translate-y-full focus:translate-y-0 z-[100] bg-primary text-primary-foreground px-6 py-3 font-semibold transition-transform focus:outline-none focus:ring-4 focus:ring-primary/50"
@@ -63,7 +65,9 @@ const App = () => (
             <Suspense fallback={<PageLoader />}>
               <AppRoutes />
             </Suspense>
-            <StickyInquiryBar />
+            <Suspense fallback={null}>
+              <StickyInquiryBar />
+            </Suspense>
           </RouteTracker>
         </BrowserRouter>
       </TooltipProvider>
