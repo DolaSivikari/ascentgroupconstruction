@@ -45,7 +45,7 @@ import { TrustRibbon } from "@/design-system/components/TrustRibbon";
 import { FAQAccordion } from "@/design-system/components/FAQAccordion";
 import { RelatedLinksGrid } from "@/design-system/components/RelatedLinksGrid";
 import { serviceDetailFaqs } from "@/data/page-faqs";
-import { Wrench, Building2, Briefcase } from "lucide-react";
+import { Wrench, Briefcase } from "lucide-react";
 
 interface ProcessStep {
   step_number: number;
