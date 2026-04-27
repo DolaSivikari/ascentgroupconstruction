@@ -159,6 +159,7 @@ export function PageHero({
           <ProgressiveImage
             src={image}
             alt={imageAlt}
+            priority
             className={cn(
               "w-full h-full object-cover",
               imagePositionClasses[imagePosition]
