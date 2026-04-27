@@ -10,6 +10,10 @@ import ResumeSubmissionDialog from "@/components/ResumeSubmissionDialog";
 import { ScrollReveal } from "@/components/animations/ScrollReveal";
 import { mainPageHeroes } from "@/data/hero-images";
 import { Section } from "@/components/sections/Section";
+import { TrustRibbon } from "@/design-system/components/TrustRibbon";
+import { FAQAccordion } from "@/design-system/components/FAQAccordion";
+import { RelatedLinksGrid } from "@/design-system/components/RelatedLinksGrid";
+import { careersFaqs } from "@/data/page-faqs";
 import { 
   Shield,
   Target, 
@@ -19,7 +23,10 @@ import {
   Paintbrush,
   Wrench,
   ClipboardList,
-  Calculator
+  Calculator,
+  Briefcase,
+  Users,
+  Building2
 } from "lucide-react";
 
 const Careers = () => {
@@ -97,7 +104,9 @@ const Careers = () => {
           { label: "Careers" }
         ]}
       />
-      
+
+      <TrustRibbon />
+
       <main>
         {/* Who We Are */}
         <Section>
