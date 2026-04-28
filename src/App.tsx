@@ -71,6 +71,9 @@ const App = () => (
             <Suspense fallback={null}>
               <StickyInquiryBar />
             </Suspense>
+            <Suspense fallback={null}>
+              <ScrollToTopButton />
+            </Suspense>
           </RouteTracker>
         </BrowserRouter>
       </TooltipProvider>
