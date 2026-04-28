@@ -1,7 +1,7 @@
 import { Helmet } from "react-helmet-async";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
-import BackToTop from "@/components/BackToTop";
+
 import { AscentEmailLink } from "@/components/EmailLink";
 import { PhoneLink } from "@/components/shared/PhoneLink";
 
@@ -283,7 +283,6 @@ const Privacy = () => {
           </div>
         </div>
       </div>
-      <BackToTop />
       <Footer />
     </>
   );

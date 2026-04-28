@@ -31,7 +31,7 @@ import { getHomepageVideos } from "@/data/video-metadata";
 
 import { personalization } from "@/utils/personalization";
 import { initializeTests } from "@/utils/ab-testing";
-import { ScrollToTop } from "@/components/ui/scroll-to-top";
+
 import { usePageAnalytics } from "@/hooks/usePageAnalytics";
 import { usePerformanceMonitoring } from "@/hooks/usePerformanceMonitoring";
 import { useHomepageData } from "@/hooks/useHomepageData";
@@ -169,7 +169,6 @@ const Index = () => {
         </main>
 
         <Footer />
-        <ScrollToTop />
       </div>
     </>
   );
