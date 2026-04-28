@@ -12,12 +12,14 @@ import durmusGroup from "@/assets/partners/durmus-group.png";
 import skocc from "@/assets/partners/skocc.jpg";
 import musiadCanada from "@/assets/partners/musiad-canada.svg";
 import studiosHoldings from "@/assets/partners/studios-holdings.png";
+import procoreNetwork from "@/assets/partners/procore-network.svg";
 
 interface Partner {
   name: string;
   url: string;
   category: "installation" | "fabrication" | "affiliations";
   logo: string;
+  rel?: string;
 }
 
 interface TrustedPartnersProps {
