@@ -77,7 +77,7 @@ export function TrustedPartners({
         <a
           href={partner.url}
           target="_blank"
-          rel="noopener noreferrer"
+          rel={partner.rel ?? "noopener noreferrer"}
           className="block relative"
         >
           <div className="aspect-[4/3] bg-gradient-to-br from-muted/30 to-muted/10 flex items-center justify-center p-6 relative overflow-hidden">
