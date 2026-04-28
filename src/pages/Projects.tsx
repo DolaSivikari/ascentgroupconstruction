@@ -20,7 +20,7 @@ import { PremiumProjectHero } from "@/components/projects/PremiumProjectHero";
 
 import { ProjectQuickView } from "@/components/projects/ProjectQuickView";
 import { VideoTestimonials } from "@/components/shared/VideoTestimonials";
-import { ScrollToTop } from "@/components/ui/scroll-to-top";
+
 import { usePageAnalytics } from "@/hooks/usePageAnalytics";
 import { TYPOGRAPHY_STYLES } from "@/design-system/constants";
 
