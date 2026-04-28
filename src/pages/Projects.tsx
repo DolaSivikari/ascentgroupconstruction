@@ -355,7 +355,6 @@ const Projects = () => {
         variant="dark"
       />
 
-      <ScrollToTop />
       <Footer />
     </div>
   );
