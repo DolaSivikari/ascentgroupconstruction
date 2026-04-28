@@ -12,12 +12,14 @@ import durmusGroup from "@/assets/partners/durmus-group.png";
 import skocc from "@/assets/partners/skocc.jpg";
 import musiadCanada from "@/assets/partners/musiad-canada.svg";
 import studiosHoldings from "@/assets/partners/studios-holdings.png";
+import procoreNetwork from "@/assets/partners/procore-network.svg";
 
 interface Partner {
   name: string;
   url: string;
   category: "installation" | "fabrication" | "affiliations";
   logo: string;
+  rel?: string;
 }
 
 interface TrustedPartnersProps {
@@ -38,6 +40,7 @@ const partners: Partner[] = [
   { name: "SKOCC", url: "https://skocc.ca/", category: "fabrication", logo: skocc },
   { name: "MÜSİAD Canada", url: "https://musiadcanada.org/", category: "affiliations", logo: musiadCanada },
   { name: "Studios Holdings", url: "https://www.studiosholdings.com/", category: "affiliations", logo: studiosHoldings },
+  { name: "Procore Construction Network", url: "https://network.procore.com/p/ascent-group-construction-toronto", category: "affiliations", logo: procoreNetwork, rel: "noopener external" },
 ];
 
 const categoryConfig = {
@@ -74,7 +77,7 @@ export function TrustedPartners({
         <a
           href={partner.url}
           target="_blank"
-          rel="noopener noreferrer"
+          rel={partner.rel ?? "noopener noreferrer"}
           className="block relative"
         >
           <div className="aspect-[4/3] bg-gradient-to-br from-muted/30 to-muted/10 flex items-center justify-center p-6 relative overflow-hidden">
