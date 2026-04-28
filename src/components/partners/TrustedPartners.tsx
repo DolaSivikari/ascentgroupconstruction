@@ -40,6 +40,7 @@ const partners: Partner[] = [
   { name: "SKOCC", url: "https://skocc.ca/", category: "fabrication", logo: skocc },
   { name: "MÜSİAD Canada", url: "https://musiadcanada.org/", category: "affiliations", logo: musiadCanada },
   { name: "Studios Holdings", url: "https://www.studiosholdings.com/", category: "affiliations", logo: studiosHoldings },
+  { name: "Procore Construction Network", url: "https://network.procore.com/p/ascent-group-construction-toronto", category: "affiliations", logo: procoreNetwork, rel: "noopener external" },
 ];
 
 const categoryConfig = {
