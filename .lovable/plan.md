@@ -1,24 +1,29 @@
-## Goal
-Show a "back to top" arrow button on every public page so visitors can jump to the top from anywhere — without each page having to opt in.
+## Add Procore Construction Network Badge
 
-## Current state
-- Two duplicate components exist: `src/components/BackToTop.tsx` and `src/components/ui/scroll-to-top.tsx` (both are floating ↑ buttons that appear after scroll).
-- It's only mounted on 5 pages: Home, Projects, Accessibility, Privacy, Terms.
-- Most pages (About, Services, Contact, Capabilities, Markets, Blog, BlogPost, ProjectDetail, ServiceDetail, Careers, OurProcess, FAQ, Estimate, etc.) have no scroll-to-top button — that's why it's missing.
-- Note: `src/components/ScrollToTop.tsx` (used in `App.tsx`) is unrelated — it just resets scroll on route change.
+Add Ascent Group's official Procore Construction Network listing as a verifiable network membership, linked back to the Procore profile (good for SEO via the dofollow backlink and for B2B credibility with GCs already using Procore).
 
-## Plan
+### Where it goes
 
-1. **Mount globally in `App.tsx`** — Add the floating button once inside `<BrowserRouter>` so it appears on every route (including any future pages) without per-page changes. Place it near `<StickyInquiryBar />`.
+Add **Procore Construction Network** as a new entry in the existing `TrustedPartners` component under the **"Affiliations & Community"** category. That component already powers the partners roster on the **Contact** page, so the badge will appear there alongside MÜSİAD Canada and Studios Holdings — consistent placement, no new section needed.
 
-2. **Use the polished version** — Standardize on `src/components/ui/scroll-to-top.tsx` (smooth fade/slide-in, primary color, `aria-label`, hover-scale). Lazy-load it like `StickyInquiryBar` so it doesn't affect initial load.
+### Changes
 
-3. **Remove the now-duplicate per-page mounts** to prevent two buttons stacking:
-   - Remove `<ScrollToTop />` import + render from `src/pages/Index.tsx` and `src/pages/Projects.tsx`
-   - Remove `<BackToTop />` import + render from `src/pages/Privacy.tsx`, `src/pages/Terms.tsx`, `src/pages/Accessibility.tsx`
-   - Delete the unused `src/components/BackToTop.tsx` file (cleans up the duplicate)
+1. **Save the badge asset locally** (don't hot-link to procore.com):
+   - Download `https://network.procore.com/assets/static/procore-white-badge.svg`
+   - Save to `src/assets/partners/procore-network.svg`
+   - Why local: faster, avoids third-party CDN failures, allows the existing grayscale→color hover treatment to apply consistently.
 
-4. **Z-index check** — The button uses `z-50` and sits at `bottom-8 right-8`. The `StickyInquiryBar` typically anchors to the bottom edge full-width; if they overlap on mobile, nudge the back-to-top button up (e.g. `bottom-24`) on small screens so it sits above the sticky bar. Will verify on mobile viewport during implementation.
+2. **Update `src/components/partners/TrustedPartners.tsx`**:
+   - Import the new SVG.
+   - Add one entry to the `partners` array:
+     ```ts
+     { name: "Procore Construction Network", url: "https://network.procore.com/p/ascent-group-construction-toronto", category: "affiliations", logo: procoreNetwork }
+     ```
+   - The existing `<a>` wrapper uses `rel="noopener noreferrer"`. To preserve the SEO value of Procore's dofollow guidance, change the rel for this card to `rel="noopener external"` (drops `noreferrer`/`nofollow` while keeping security). Implementation: allow an optional `rel` override on the `Partner` type and apply it in `PartnerCard`.
 
-## Result
-A single, consistent ↑ button appears on every page after scrolling ~300px down, smoothly scrolls to top when clicked, and is keyboard-accessible.
+3. **No layout / copy changes** elsewhere. The badge inherits the same card styling (aspect 4/3, grayscale hover-to-color, label underneath) so it doesn't visually clash with the white Procore mark.
+
+### Notes
+
+- The Procore badge SVG is white-on-transparent. Inside our card it sits on a light `from-muted/30 to-muted/10` background, so the white mark may be invisible. I'll verify after download — if it's unreadable I'll either (a) request the dark-variant badge URL from Procore or (b) wrap it in a subtle dark tile so it reads correctly. I'll flag this back if a swap is needed.
+- No homepage / footer placement — keeping the partners roster as the single source of truth per the existing Trusted Partners memory.
