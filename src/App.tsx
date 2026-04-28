@@ -14,6 +14,9 @@ import { AppRoutes } from "@/routes/AppRoutes";
 // so users almost never see a Suspense fallback for them.
 const CookieBanner = lazy(() => import("./components/CookieBanner"));
 const StickyInquiryBar = lazy(() => import("./components/StickyInquiryBar"));
+const ScrollToTopButton = lazy(() =>
+  import("./components/ui/scroll-to-top").then(m => ({ default: m.ScrollToTop }))
+);
 
 const queryClient = new QueryClient();
 
