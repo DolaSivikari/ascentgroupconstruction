@@ -235,7 +235,7 @@ export const ImageUploadField = ({
                 Click to upload or drag and drop
               </p>
               <p className="text-xs text-muted-foreground mt-1">
-                PNG, JPG, WEBP up to 5MB
+                PNG, JPG, WEBP — any orientation. Portrait images are auto-cropped to landscape.
               </p>
             </>
           )}
