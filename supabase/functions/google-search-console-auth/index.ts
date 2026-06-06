@@ -2,38 +2,45 @@ import { createClient } from "npm:@supabase/supabase-js@2";
 import { corsHeaders, handleCors } from '../_shared/http.ts';
 
 Deno.serve(async (req) => {
-  // Handle CORS preflight requests
   const cors = handleCors(req);
   if (cors) return cors;
 
   try {
     const supabaseUrl = Deno.env.get('SUPABASE_URL')!;
-    const supabaseServiceKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!;
-    const supabase = createClient(supabaseUrl, supabaseServiceKey);
+    const anonKey = Deno.env.get('SUPABASE_ANON_KEY')!;
+    const serviceKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!;
 
-    // Get user from JWT
     const authHeader = req.headers.get('Authorization');
-    if (!authHeader) {
-      throw new Error('No authorization header');
-    }
+    if (!authHeader) throw new Error('No authorization header');
 
+    const authClient = createClient(supabaseUrl, anonKey, {
+      global: { headers: { Authorization: authHeader } }
+    });
     const token = authHeader.replace('Bearer ', '');
-    const { data: { user }, error: userError } = await supabase.auth.getUser(token);
+    const { data: { user }, error: userError } = await authClient.auth.getUser(token);
+    if (userError || !user) throw new Error('Invalid user token');
 
-    if (userError || !user) {
-      throw new Error('Invalid user token');
-    }
-
-    // Get OAuth credentials from environment
     const clientId = Deno.env.get('GOOGLE_SEARCH_CONSOLE_CLIENT_ID');
     const redirectUri = Deno.env.get('GOOGLE_SEARCH_CONSOLE_REDIRECT_URI');
-
     if (!clientId || !redirectUri) {
-      console.error('Missing OAuth credentials:', { clientId: !!clientId, redirectUri: !!redirectUri });
       throw new Error('Google Search Console OAuth credentials not configured');
     }
 
-    // Build OAuth URL
+    // Generate cryptographically random state nonce and persist it bound to user
+    const stateBytes = new Uint8Array(32);
+    crypto.getRandomValues(stateBytes);
+    const stateNonce = Array.from(stateBytes).map(b => b.toString(16).padStart(2, '0')).join('');
+
+    const admin = createClient(supabaseUrl, serviceKey);
+    const { error: insertErr } = await admin.from('google_oauth_states').insert({
+      state: stateNonce,
+      user_id: user.id,
+    });
+    if (insertErr) {
+      console.error('Failed to persist oauth state:', insertErr);
+      throw new Error('Failed to initialize OAuth flow');
+    }
+
     const authUrl = new URL('https://accounts.google.com/o/oauth2/v2/auth');
     authUrl.searchParams.set('client_id', clientId);
     authUrl.searchParams.set('redirect_uri', redirectUri);
@@ -41,9 +48,7 @@ Deno.serve(async (req) => {
     authUrl.searchParams.set('scope', 'https://www.googleapis.com/auth/webmasters.readonly');
     authUrl.searchParams.set('access_type', 'offline');
     authUrl.searchParams.set('prompt', 'consent');
-    authUrl.searchParams.set('state', user.id);
-
-    console.log('Generated auth URL for user:', user.id);
+    authUrl.searchParams.set('state', stateNonce);
 
     return new Response(
       JSON.stringify({ authUrl: authUrl.toString() }),

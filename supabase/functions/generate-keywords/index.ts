@@ -15,6 +15,35 @@ Deno.serve(async (req) => {
   }
 
   try {
+    // Require authenticated editor/admin caller
+    const authHeader = req.headers.get('Authorization');
+    if (!authHeader?.startsWith('Bearer ')) {
+      return new Response(JSON.stringify({ error: 'Unauthorized' }), {
+        status: 401, headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+      });
+    }
+
+    const supabaseUrl = Deno.env.get('SUPABASE_URL')!;
+    const anonKey = Deno.env.get('SUPABASE_ANON_KEY')!;
+    const serviceKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!;
+    const authClient = createClient(supabaseUrl, anonKey, {
+      global: { headers: { Authorization: authHeader } }
+    });
+    const token = authHeader.replace('Bearer ', '');
+    const { data: userData, error: userErr } = await authClient.auth.getUser(token);
+    if (userErr || !userData?.user) {
+      return new Response(JSON.stringify({ error: 'Unauthorized' }), {
+        status: 401, headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+      });
+    }
+    const supabase = createClient(supabaseUrl, serviceKey);
+    const { data: canEdit, error: roleErr } = await supabase.rpc('can_edit_content', { _user_id: userData.user.id });
+    if (roleErr || !canEdit) {
+      return new Response(JSON.stringify({ error: 'Forbidden' }), {
+        status: 403, headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+      });
+    }
+
     const LOVABLE_API_KEY = Deno.env.get('LOVABLE_API_KEY');
     if (!LOVABLE_API_KEY) {
       throw new Error('LOVABLE_API_KEY is not configured');
@@ -40,13 +69,8 @@ Deno.serve(async (req) => {
       body: JSON.stringify({
         model: 'google/gemini-2.5-flash',
         messages: [
-          {
-            role: 'system',
-            content: 'You are an SEO expert. Analyze content and suggest relevant keywords for search engine optimization. Return keywords as a JSON array.'
-          },
-          {
-            role: 'user',
-            content: `Analyze this content and suggest 10-15 relevant SEO keywords. Consider:
+          { role: 'system', content: 'You are an SEO expert. Analyze content and suggest relevant keywords for search engine optimization. Return keywords as a JSON array.' },
+          { role: 'user', content: `Analyze this content and suggest 10-15 relevant SEO keywords. Consider:
 1. Primary keywords (high search volume, directly related)
 2. Long-tail keywords (specific phrases users might search)
 3. Semantic variations
@@ -59,8 +83,7 @@ Return ONLY a JSON object with this structure:
   "primary_keywords": ["keyword1", "keyword2"],
   "long_tail_keywords": ["phrase 1", "phrase 2"],
   "semantic_keywords": ["related term 1", "related term 2"]
-}`
-          }
+}` }
         ],
         temperature: 0.7,
       }),
@@ -74,23 +97,14 @@ Return ONLY a JSON object with this structure:
 
     const data = await response.json();
     const aiResponse = data.choices?.[0]?.message?.content;
+    if (!aiResponse) throw new Error('No response from AI');
 
-    if (!aiResponse) {
-      throw new Error('No response from AI');
-    }
-
-    // Parse the JSON response
     const jsonMatch = aiResponse.match(/\{[\s\S]*\}/);
-    if (!jsonMatch) {
-      throw new Error('Could not parse AI response');
-    }
-
+    if (!jsonMatch) throw new Error('Could not parse AI response');
     const keywords = JSON.parse(jsonMatch[0]);
 
-    console.log('Keywords generated successfully');
-
     return new Response(
-      JSON.stringify({ 
+      JSON.stringify({
         keywords,
         all_keywords: [
           ...(keywords.primary_keywords || []),
@@ -98,12 +112,8 @@ Return ONLY a JSON object with this structure:
           ...(keywords.semantic_keywords || [])
         ]
       }),
-      { 
-        status: 200, 
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' } 
-      }
+      { status: 200, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
     );
-
   } catch (error: any) {
     console.error('Error in generate-keywords:', error);
     return new Response(
