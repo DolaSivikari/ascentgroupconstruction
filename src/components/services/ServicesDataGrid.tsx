@@ -6,6 +6,11 @@ import { SectionHeader } from "@/design-system/components/SectionHeader";
 import { Card } from "@/design-system/components/Card";
 import { ArrowRight } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
+import {
+  SERVICE_REGISTRY,
+  SERVICE_CATEGORIES,
+  type ServiceCategory,
+} from "@/data/service-registry";
 
 interface ServiceRow {
   slug: string;
@@ -14,6 +19,13 @@ interface ServiceRow {
   category: string | null;
   icon_name: string | null;
 }
+
+// Map registry category keys → human labels used by DB rows.
+const REGISTRY_TO_DB_CATEGORY: Record<ServiceCategory, string> = {
+  envelope: "Building Envelope",
+  restoration: "Restoration & Repair",
+  interior: "Interior Construction",
+};
 
 export const ServicesDataGrid = () => {
   const { data: services, isLoading } = useQuery({
@@ -44,10 +56,24 @@ export const ServicesDataGrid = () => {
     );
   }
 
-  if (!services || services.length === 0) return null;
+  // Merge DB services with the static registry pages so Wave 1+2 landing
+  // pages appear alongside DB-driven services.
+  const dbBySlug = new Map((services ?? []).map((s) => [s.slug, s]));
+  const registryRows: ServiceRow[] = SERVICE_REGISTRY
+    .filter((e) => e.source === "static" && !dbBySlug.has(e.slug))
+    .map((e) => ({
+      slug: e.slug,
+      name: e.navLabel,
+      short_description: e.navDescription,
+      category: REGISTRY_TO_DB_CATEGORY[e.category],
+      icon_name: e.icon,
+    }));
+  const allServices: ServiceRow[] = [...(services ?? []), ...registryRows];
+
+  if (allServices.length === 0) return null;
 
   // Group by category
-  const grouped = services.reduce<Record<string, ServiceRow[]>>((acc, svc) => {
+  const grouped = allServices.reduce<Record<string, ServiceRow[]>>((acc, svc) => {
     const cat = svc.category || "Other";
     if (!acc[cat]) acc[cat] = [];
     acc[cat].push(svc);
@@ -59,6 +85,7 @@ export const ServicesDataGrid = () => {
     (a, b) => (categoryOrder.indexOf(a) === -1 ? 99 : categoryOrder.indexOf(a)) -
               (categoryOrder.indexOf(b) === -1 ? 99 : categoryOrder.indexOf(b))
   );
+
 
   return (
     <Section size="major">

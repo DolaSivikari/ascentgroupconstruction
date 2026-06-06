@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { Link } from "react-router-dom";
 import { Mail, Phone, MapPin, Linkedin, Shield, Award, FileCheck, Building2 } from "lucide-react";
 
@@ -8,6 +8,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { supabase } from "@/integrations/supabase/client";
 import type { Database } from "@/integrations/supabase/types";
 import { UnifiedFooter } from "./footer/UnifiedFooter";
+import { SERVICE_REGISTRY } from "@/data/service-registry";
 
 
 type SiteSettingsRow = Database['public']['Tables']['site_settings']['Row'];
@@ -50,11 +51,32 @@ const Footer = () => {
     fetchSettings();
   }, []);
 
+  // Merge DB services with the curated SERVICE_REGISTRY so static Wave 1+2
+  // pages (commercial-painting-gta, etc.) also appear in the footer.
+  // Registry entries with showInNav=true take priority and order; DB rows
+  // not in the registry are appended afterward.
+  const mergedServices = useMemo(() => {
+    const seen = new Set<string>();
+    const merged: ServiceLink[] = [];
+    for (const entry of SERVICE_REGISTRY) {
+      if (!entry.showInNav) continue;
+      if (seen.has(entry.slug)) continue;
+      seen.add(entry.slug);
+      merged.push({ name: entry.navLabel, slug: entry.slug, service_tier: null as any });
+    }
+    for (const svc of services) {
+      if (seen.has(svc.slug)) continue;
+      seen.add(svc.slug);
+      merged.push(svc);
+    }
+    return merged;
+  }, [services]);
+
   // Get data from admin-managed settings
   const quickLinks = toFooterLinks(footerSettings?.quick_links);
   const sectorsLinks = toFooterLinks(footerSettings?.sectors_links);
   const trustBarItems = toFooterLinks(footerSettings?.trust_bar_items);
-  
+
   const contactInfo = (footerSettings?.contact_info || {}) as any;
   const socialMedia = (footerSettings?.social_media || {}) as any;
   
@@ -137,7 +159,7 @@ const Footer = () => {
             contactInfo={{ phone, email, address }}
             linkedinUrl={linkedinUrl}
             foundedYear={siteSettings?.founded_year || 2025}
-            services={services}
+            services={mergedServices}
             showLogo={false}
           />
         </div>

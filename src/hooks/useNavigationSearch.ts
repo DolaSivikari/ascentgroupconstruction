@@ -1,5 +1,6 @@
 import { useState, useMemo, useEffect } from "react";
 import { megaMenuDataEnhanced } from "@/data/navigation-structure-enhanced";
+import { SERVICE_REGISTRY, SERVICE_CATEGORIES } from "@/data/service-registry";
 import { useSearchAnalytics } from "./useSearchAnalytics";
 
 export interface SearchResult {
@@ -13,6 +14,7 @@ export interface SearchResult {
 // Export allNavigationItems as a separate variable for use in other hooks
 export const getAllNavigationItems = (): SearchResult[] => {
   const items: SearchResult[] = [];
+  const seen = new Set<string>();
 
   // Dynamically iterate over all navigation configs
   Object.entries(megaMenuDataEnhanced).forEach(([, config]) => {
@@ -22,6 +24,9 @@ export const getAllNavigationItems = (): SearchResult[] => {
     sections.forEach((section) => {
       section.categories?.forEach((category) => {
         category.subItems?.forEach((item) => {
+          const key = `${section.sectionTitle}::${item.link}`;
+          if (seen.has(key)) return;
+          seen.add(key);
           items.push({
             name: item.name,
             link: item.link,
@@ -34,8 +39,24 @@ export const getAllNavigationItems = (): SearchResult[] => {
     });
   });
 
+  // Also surface every registered service page — including ones hidden from
+  // the top nav (e.g. Wave 1+2 painting sub-pages, sealant programs) so
+  // search still finds them.
+  for (const entry of SERVICE_REGISTRY) {
+    const key = `Our Services::${entry.path}`;
+    if (seen.has(key)) continue;
+    seen.add(key);
+    items.push({
+      name: entry.navLabel,
+      link: entry.path,
+      category: SERVICE_CATEGORIES[entry.category].title,
+      section: "Our Services",
+    });
+  }
+
   return items;
 };
+
 
 export function useNavigationSearch() {
   const [searchQuery, setSearchQuery] = useState("");
