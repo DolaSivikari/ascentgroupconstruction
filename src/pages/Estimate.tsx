@@ -297,6 +297,7 @@ Add-ons:
         message: sanitizedMessage,
         submission_type: "estimate",
         consent_timestamp: new Date().toISOString(),
+        service_origin: formData.serviceOrigin || null,
       });
 
       const timeoutPromise = new Promise((_, reject) =>
@@ -322,6 +323,7 @@ Add-ons:
             consent_given: validatedData.consent,
             consent_timestamp: new Date().toISOString(),
             source: formData.source,
+            service_origin: formData.serviceOrigin || null,
           })
           .select('lead_score, priority')
           .single();
