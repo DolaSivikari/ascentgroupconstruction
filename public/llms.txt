@@ -111,16 +111,28 @@ A: Yes, we serve as a reliable trade partner for general contractors, providing 
 Q: Do you offer free estimates?
 A: We provide complimentary site assessments for commercial projects and estimates for all work. Contact us at 647-528-6804 to schedule.
 
-## Site Structure
-- Homepage: / - Company overview and services
-- About: /about - Company history and team
-- Services: /services - Full service catalog
-- Projects: /projects - Portfolio of completed work
-- Blog: /blog - Industry insights and case studies
-- Contact: /contact - Contact form and information
-- For GCs: /for-general-contractors - Trade partner information
-- Property Managers: /property-managers - Building maintenance services
-- FAQ: /faq - Frequently asked questions
+## Pages
+
+- [Home](/): Ontario building envelope & restoration contractor serving the GTA
+- [About](/about): Company history, founder background, and team capabilities
+- [Services](/services): Full catalog of building envelope and restoration services
+- [Projects](/projects): Portfolio of completed commercial and residential work
+- [Blog](/blog): Industry insights, case studies, and construction guides
+- [Contact](/contact): Request a site assessment or project quote
+- [For General Contractors](/for-general-contractors): Trade partner prequalification and vendor information
+- [For Property Managers](/property-managers): Building maintenance and restoration services
+- [For Architects](/for-architects): Design support and specification resources
+- [Service Areas](/resources/service-areas): GTA and Ontario-wide service coverage
+- [FAQ](/faq): Frequently asked questions about services, process, and pricing
+- [Capabilities](/capabilities): Partnership models, delivery methods, and self-perform scope
+- [Our Process](/our-process): Project delivery from assessment through closeout
+- [Technology](/company/technology): Construction technology and quality systems
+- [Certifications & Insurance](/company/certifications-insurance): WSIB, CGL, and trade credentials
+- [Careers](/careers): Expression of interest and open positions
+- [Emergency Repair](/emergency-repair): Urgent building envelope and restoration response
+- [Submit RFP](/submit-rfp): Request for proposal submission for commercial projects
+- [Privacy Policy](/privacy): Privacy and data handling practices
+- [Terms of Service](/terms): Terms and conditions
 
 ## Technical Information
 - Technology: React + TypeScript, Supabase backend
