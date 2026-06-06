@@ -45,8 +45,8 @@ export const megaMenuDataEnhanced: MegaMenuDataEnhanced = {
   // SERVICES MEGA MENU
   // ============================================
   services: {
-    width: 580,
-    columns: 3,
+    width: 880,
+    columns: 4,
     sections: [
       {
         sectionTitle: "Our Services",
@@ -60,24 +60,36 @@ export const megaMenuDataEnhanced: MegaMenuDataEnhanced = {
               { name: "Cladding Systems", link: "/services/cladding-systems", description: "Metal panel & ACM installation", icon: "Layers" },
               { name: "Masonry Restoration", link: "/services/masonry-restoration", description: "Brick and stone repair", icon: "Landmark" },
               { name: "Waterproofing Systems", link: "/services/waterproofing", description: "Foundation to roof protection", icon: "Droplets" },
-              { name: "EIFS & Stucco", link: "/services/eifs-stucco", description: "Exterior insulation systems", icon: "Square" },
+              { name: "EIFS & Stucco", link: "/services/eifs-stucco", description: "Sto Listed Installer", icon: "Square" },
             ],
           },
           {
-            title: "Restoration Services",
+            title: "Restoration & Sealants",
             subItems: [
               { name: "Façade Remediation", link: "/services/facade-remediation", description: "Exterior restoration", icon: "Hammer" },
               { name: "Parking Garage Restoration", link: "/services/parking-garage-restoration", description: "Structural concrete repair", icon: "Car" },
+              { name: "Caulking & Sealants", link: "/services/caulking-sealants-toronto", description: "Envelope joints, window perimeter", icon: "Wrench" },
               { name: "Sealant Programs", link: "/services/sealant-programs", description: "Joint maintenance programs", icon: "Wrench" },
               { name: "Emergency Repair", link: "/emergency-repair", description: "24/7 urgent response", icon: "AlertTriangle" },
             ],
           },
           {
-            title: "Interior & Finishing",
+            title: "Painting & Coatings",
             subItems: [
-              { name: "Interior Finishing", link: "/services/interior-buildouts", description: "Complete interior renovations", icon: "Home" },
-              { name: "Architectural Coatings", link: "/services/painting-services", description: "Commercial & residential painting", icon: "Paintbrush" },
-              { name: "Tile & Flooring", link: "/services/tile-flooring", description: "Professional installation", icon: "Grid2X2" },
+              { name: "Commercial Painting (GTA)", link: "/services/commercial-painting-gta", description: "Offices, warehouses, ICI", icon: "Paintbrush" },
+              { name: "Interior Painting (Toronto)", link: "/services/interior-painting-toronto", description: "Low-VOC, off-hours scheduling", icon: "Paintbrush" },
+              { name: "Exterior Painting (Toronto)", link: "/services/exterior-painting-toronto", description: "Stucco, EIFS, brick, metal", icon: "Paintbrush" },
+              { name: "Residential Exterior (GTA)", link: "/services/residential-exterior-painting-gta", description: "Whole-house repaints", icon: "Home" },
+              { name: "Fire Retardant Coatings", link: "/services/fire-retardant-coatings-ontario", description: "Intumescent & rated paint", icon: "Flame" },
+            ],
+          },
+          {
+            title: "Interior Trades",
+            subItems: [
+              { name: "Interior Finishing", link: "/services/interior-buildouts", description: "Drywall, taping, fit-outs", icon: "Home" },
+              { name: "Tile Installation", link: "/services/tile-installation-toronto", description: "Porcelain, stone, waterproofing", icon: "Grid2X2" },
+              { name: "Flooring Installation", link: "/services/flooring-installation-gta", description: "LVT, laminate, hardwood", icon: "Grid2X2" },
+              { name: "Patching & Handyman", link: "/services/handyman-patching-toronto", description: "Drywall, turnovers, punch-list", icon: "Wrench" },
               { name: "Sustainable Construction", link: "/services/sustainable-construction", description: "Green building practices", icon: "Leaf" },
             ],
           },
