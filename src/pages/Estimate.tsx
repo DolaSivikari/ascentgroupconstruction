@@ -436,6 +436,17 @@ Add-ons:
         />
       </Section>
 
+      {/* Attribution chip — shows when arriving from a Wave 1 service page */}
+      {formData.serviceOrigin && (
+        <Section size="tight" disableAnimation>
+          <div className="max-w-4xl mx-auto">
+            <div className="rounded-lg border border-primary/30 bg-primary/5 px-4 py-3 text-sm text-foreground">
+              Requesting a quote for: <strong className="text-primary">{formData.serviceOrigin.replace(/-/g, ' ')}</strong>
+            </div>
+          </div>
+        </Section>
+      )}
+
       {/* Pathway Guidance */}
       <Section size="tight" disableAnimation>
         <div className="max-w-4xl mx-auto">
