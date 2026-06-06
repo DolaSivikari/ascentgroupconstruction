@@ -100,6 +100,32 @@
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
+
+  <!-- Wave 1 AEO/GEO landing pages -->
+  <url>
+    <loc>https://www.ascentgroupconstruction.com/services/commercial-painting-gta</loc>
+    <lastmod>2026-06-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.ascentgroupconstruction.com/services/fire-retardant-coatings-ontario</loc>
+    <lastmod>2026-06-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.ascentgroupconstruction.com/services/exterior-painting-toronto</loc>
+    <lastmod>2026-06-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.ascentgroupconstruction.com/services/caulking-sealants-toronto</loc>
+    <lastmod>2026-06-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
   
   <!-- Markets -->
   <url>
