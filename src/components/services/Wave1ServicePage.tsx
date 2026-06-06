@@ -49,7 +49,6 @@ export const Wave1ServicePage = ({ slug }: Wave1ServicePageProps) => {
     name: page.h1,
     description: page.metaDescription,
     slug: page.slug,
-    category: page.eyebrow,
     image: `${SITE_URL}/og-image.png`,
   });
 
