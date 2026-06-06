@@ -69,7 +69,7 @@ const Technology = () => {
         <section className="bg-[hsl(var(--ink))] py-6 border-b border-white/5">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="flex flex-wrap items-center justify-center gap-x-10 gap-y-3 text-sm">
-              <span className="text-white/40 uppercase tracking-wider text-xs font-medium">Tools we use</span>
+              <span className="text-white/80 uppercase tracking-wider text-xs font-medium">Tools we use</span>
               {TOOL_STRIP.map((tool) => (
                 <span key={tool} className="text-white/70 font-medium hover:text-white transition-colors">
                   {tool}

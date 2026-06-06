@@ -59,7 +59,7 @@ const Breadcrumb = ({ items, className, showHomeIcon = true }: BreadcrumbProps) 
                 </span>
               )}
               {index < items.length - 1 && (
-                <ChevronRight className="w-4 h-4 text-muted-foreground/50" aria-hidden="true" />
+                <ChevronRight className="w-4 h-4 text-muted-foreground" aria-hidden="true" />
               )}
             </li>
           ))}

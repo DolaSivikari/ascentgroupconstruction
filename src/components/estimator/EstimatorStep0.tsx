@@ -98,7 +98,7 @@ const EstimatorStep0 = ({ data, onChange }: EstimatorStep0Props) => {
               onClick={() => onChange("quoteType", type.id)}
             >
               {/* Number indicator */}
-              <span className="absolute top-4 right-4 text-xs font-medium text-muted-foreground/50 tracking-wider">
+              <span className="absolute top-4 right-4 text-xs font-medium text-muted-foreground tracking-wider">
                 {type.number}
               </span>
 
