@@ -88,6 +88,8 @@ const Estimate = () => {
     consent: false,
     // Tracking
     source: "",
+    // AEO/GEO attribution — which Wave 1 service page sent the lead
+    serviceOrigin: "",
   });
 
   useEffect(() => {
@@ -109,6 +111,19 @@ const Estimate = () => {
     
     if (typeParam && ['specialty_prime', 'trade_package', 'emergency', 'general'].includes(typeParam)) {
       setFormData(prev => ({ ...prev, quoteType: typeParam }));
+    }
+  }, []);
+
+  // Capture ?service=<slug> attribution from Wave 1 AEO/GEO landing pages
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const serviceParam = params.get('service');
+    if (serviceParam) {
+      // Sanitize: only allow slug-safe characters, cap length
+      const safe = serviceParam.replace(/[^a-z0-9-]/gi, '').slice(0, 80);
+      if (safe) {
+        setFormData(prev => ({ ...prev, serviceOrigin: safe }));
+      }
     }
   }, []);
 
