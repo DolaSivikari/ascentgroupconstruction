@@ -1,11 +1,18 @@
 // Enhanced Navigation Structure for Professional Appearance
-// Phase 4: Restructured for About → Services → Markets → Projects → Trade Partners → Contact
+// Services menu is auto-built from src/data/service-registry.ts so that
+// new service pages added to the registry automatically appear in the nav.
+
+import {
+  SERVICE_CATEGORIES,
+  getNavServicesByCategory,
+  type ServiceCategory,
+} from "./service-registry";
 
 export interface SubItem {
   name: string;
   link: string;
   description?: string;
-  
+
   icon?: string;
   isFeatured?: boolean;
 }
@@ -39,61 +46,43 @@ export interface MegaMenuDataEnhanced {
   [key: string]: MegaMenuConfig;
 }
 
+// Build the Services mega-menu categories from the registry — keeps nav,
+// routes, and audit in sync from one source.
+function buildServicesCategories(): AccordionCategory[] {
+  const grouped = getNavServicesByCategory();
+  const order: ServiceCategory[] = ["envelope", "restoration", "interior"];
+  return order
+    .map((key) => {
+      const meta = SERVICE_CATEGORIES[key];
+      const subItems: SubItem[] = grouped[key].map((entry) => ({
+        name: entry.navLabel,
+        link: entry.path,
+        description: entry.navDescription,
+        icon: entry.icon,
+      }));
+      return {
+        title: meta.title,
+        description: meta.description,
+        subItems,
+      };
+    })
+    .filter((cat) => cat.subItems.length > 0);
+}
+
 // Complete mega menu structure
 export const megaMenuDataEnhanced: MegaMenuDataEnhanced = {
   // ============================================
-  // SERVICES MEGA MENU
+  // SERVICES MEGA MENU (auto-built from registry)
   // ============================================
   services: {
-    width: 880,
-    columns: 4,
+    width: 760,
+    columns: 3,
     sections: [
       {
         sectionTitle: "Our Services",
         sectionLink: "/services",
-        cta: { text: "Submit RFP", link: "/submit-rfp", variant: "primary" },
-        categories: [
-          {
-            title: "Commercial Envelope",
-            subItems: [
-              { name: "Building Envelope Solutions", link: "/services/building-envelope", description: "Complete envelope systems", icon: "Building2" },
-              { name: "Cladding Systems", link: "/services/cladding-systems", description: "Metal panel & ACM installation", icon: "Layers" },
-              { name: "Masonry Restoration", link: "/services/masonry-restoration", description: "Brick and stone repair", icon: "Landmark" },
-              { name: "Waterproofing Systems", link: "/services/waterproofing", description: "Foundation to roof protection", icon: "Droplets" },
-              { name: "EIFS & Stucco", link: "/services/eifs-stucco", description: "Sto Listed Installer", icon: "Square" },
-            ],
-          },
-          {
-            title: "Restoration & Sealants",
-            subItems: [
-              { name: "Façade Remediation", link: "/services/facade-remediation", description: "Exterior restoration", icon: "Hammer" },
-              { name: "Parking Garage Restoration", link: "/services/parking-garage-restoration", description: "Structural concrete repair", icon: "Car" },
-              { name: "Caulking & Sealants", link: "/services/caulking-sealants-toronto", description: "Envelope joints, window perimeter", icon: "Wrench" },
-              { name: "Sealant Programs", link: "/services/sealant-programs", description: "Joint maintenance programs", icon: "Wrench" },
-              { name: "Emergency Repair", link: "/emergency-repair", description: "24/7 urgent response", icon: "AlertTriangle" },
-            ],
-          },
-          {
-            title: "Painting & Coatings",
-            subItems: [
-              { name: "Commercial Painting (GTA)", link: "/services/commercial-painting-gta", description: "Offices, warehouses, ICI", icon: "Paintbrush" },
-              { name: "Interior Painting (Toronto)", link: "/services/interior-painting-toronto", description: "Low-VOC, off-hours scheduling", icon: "Paintbrush" },
-              { name: "Exterior Painting (Toronto)", link: "/services/exterior-painting-toronto", description: "Stucco, EIFS, brick, metal", icon: "Paintbrush" },
-              { name: "Residential Exterior (GTA)", link: "/services/residential-exterior-painting-gta", description: "Whole-house repaints", icon: "Home" },
-              { name: "Fire Retardant Coatings", link: "/services/fire-retardant-coatings-ontario", description: "Intumescent & rated paint", icon: "Flame" },
-            ],
-          },
-          {
-            title: "Interior Trades",
-            subItems: [
-              { name: "Interior Finishing", link: "/services/interior-buildouts", description: "Drywall, taping, fit-outs", icon: "Home" },
-              { name: "Tile Installation", link: "/services/tile-installation-toronto", description: "Porcelain, stone, waterproofing", icon: "Grid2X2" },
-              { name: "Flooring Installation", link: "/services/flooring-installation-gta", description: "LVT, laminate, hardwood", icon: "Grid2X2" },
-              { name: "Patching & Handyman", link: "/services/handyman-patching-toronto", description: "Drywall, turnovers, punch-list", icon: "Wrench" },
-              { name: "Sustainable Construction", link: "/services/sustainable-construction", description: "Green building practices", icon: "Leaf" },
-            ],
-          },
-        ],
+        cta: { text: "View all services", link: "/services", variant: "primary" },
+        categories: buildServicesCategories(),
       },
     ],
   },
