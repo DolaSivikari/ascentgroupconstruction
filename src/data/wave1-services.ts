@@ -68,7 +68,7 @@ export const WAVE1_PAGES: Record<string, Wave1ServicePage> = {
     heroAlt:
       "Commercial painting by Ascent Group Construction — Greater Toronto Area",
     directAnswer:
-      "Ascent Group Construction is a self-performing commercial painting contractor serving the Greater Toronto Area, including Toronto, Mississauga, Brampton, Vaughan, and Markham. We deliver interior and exterior repaints for offices, warehouses, ICI facilities, retail plazas, and multi-tenant buildings — including after-hours and weekend scheduling to avoid tenant disruption. Every project is executed by our own crew, not subcontracted out. We carry $2M commercial general liability, full WSIB coverage, and our crew brings 15+ years of combined hands-on experience applying Benjamin Moore, Sherwin-Williams, and PPG systems.",
+      "Ascent Group Construction is a specialty contractor that self-performs commercial painting as one of several trade scopes across the Greater Toronto Area, including Toronto, Mississauga, Brampton, Vaughan, and Markham. We deliver interior and exterior repaints for offices, warehouses, ICI facilities, retail plazas, and multi-tenant buildings — including after-hours and weekend scheduling to avoid tenant disruption. Every project is executed by our own crew, not subcontracted out. We carry $2M commercial general liability, full WSIB coverage, and our crew brings 15+ years of combined hands-on experience applying Benjamin Moore, Sherwin-Williams, and PPG systems.",
     scopeHeading: "What we deliver",
     scopeBullets: [
       "Office interiors, common corridors, and lobbies",
@@ -245,7 +245,7 @@ export const WAVE1_PAGES: Record<string, Wave1ServicePage> = {
     heroAlt:
       "Exterior painting and stucco recoat by Ascent Group Construction — Greater Toronto Area",
     directAnswer:
-      "Ascent Group Construction provides exterior painting and coating services across the Greater Toronto Area, including Toronto, Mississauga, Brampton, Vaughan, and Markham. We specialize in stucco repaints, EIFS recoats, brick and masonry coatings, metal siding, and commercial exterior refresh. Every project is self-performed by our own crew using manufacturer-specified elastomeric, acrylic, and weatherproof systems from Sherwin-Williams, Benjamin Moore, and Sto. We carry $2M commercial general liability, full WSIB coverage, and our crew brings 15+ years of combined building-envelope experience.",
+      "Ascent Group Construction is a specialty contractor delivering exterior painting and coating as part of our building-envelope scope across the Greater Toronto Area, including Toronto, Mississauga, Brampton, Vaughan, and Markham. We handle stucco repaints, EIFS recoats, brick and masonry coatings, metal siding, and commercial exterior refresh. Every project is self-performed by our own crew using manufacturer-specified elastomeric, acrylic, and weatherproof systems from Sherwin-Williams, Benjamin Moore, and Sto. We carry $2M commercial general liability, full WSIB coverage, and our crew brings 15+ years of combined building-envelope experience.",
     scopeHeading: "What we deliver",
     scopeBullets: [
       "Stucco and EIFS recoats (Sto, Dryvit, Parex compatible)",
@@ -400,7 +400,7 @@ export const WAVE1_PAGES: Record<string, Wave1ServicePage> = {
     eyebrow: "Interior Painting",
     heroAlt: "Interior painting by Ascent Group Construction — Toronto and Greater Toronto Area",
     directAnswer:
-      "Ascent Group Construction is a self-performing interior painting contractor serving Toronto and the Greater Toronto Area. We deliver interior repaints for offices, retail spaces, condos, multi-residential corridors, and residential homes, using low-VOC and zero-VOC systems from Benjamin Moore, Sherwin-Williams, and PPG. Every project includes full surface prep — patching, sanding, priming, and clean cut-lines — and is executed by our own crew. We carry $2M commercial general liability, full WSIB coverage, and our crew brings 15+ years of combined hands-on painting experience.",
+      "Ascent Group Construction is a specialty contractor that self-performs interior painting as one trade within a broader envelope, restoration, and interior-finishes capability across Toronto and the Greater Toronto Area. We deliver interior repaints for offices, retail spaces, condos, multi-residential corridors, and residential homes, using low-VOC and zero-VOC systems from Benjamin Moore, Sherwin-Williams, and PPG. Every project includes full surface prep — patching, sanding, priming, and clean cut-lines — and is executed by our own crew. We carry $2M commercial general liability, full WSIB coverage, and our crew brings 15+ years of combined hands-on painting experience.",
     scopeHeading: "What we deliver",
     scopeBullets: [
       "Office interior repaints and tenant fit-outs",
@@ -481,7 +481,7 @@ export const WAVE1_PAGES: Record<string, Wave1ServicePage> = {
     eyebrow: "Residential Exterior Painting",
     heroAlt: "Residential exterior house painting by Ascent Group Construction — Greater Toronto Area",
     directAnswer:
-      "Ascent Group Construction provides residential exterior painting across the Greater Toronto Area for detached homes, townhomes, and semi-detached properties. We repaint stucco, fibre-cement and wood siding, brick, fascia, soffits, trim, doors, and garages using premium exterior systems from Sherwin-Williams, Benjamin Moore, and Sto. Every project includes pressure washing, substrate repair, primer where required, and a weather-window schedule to protect cure times. We self-perform, carry $2M commercial general liability, full WSIB coverage, and our crew brings 15+ years of combined exterior painting experience.",
+      "Ascent Group Construction is a specialty contractor that self-performs residential exterior painting alongside our commercial envelope, EIFS, and restoration trades across the Greater Toronto Area. For detached homes, townhomes, and semi-detached properties we repaint stucco, fibre-cement and wood siding, brick, fascia, soffits, trim, doors, and garages using premium exterior systems from Sherwin-Williams, Benjamin Moore, and Sto. Every project includes pressure washing, substrate repair, primer where required, and a weather-window schedule to protect cure times. We carry $2M commercial general liability, full WSIB coverage, and our crew brings 15+ years of combined exterior painting experience.",
     scopeHeading: "What we deliver",
     scopeBullets: [
       "Full-house exterior repaints (stucco, siding, brick)",
@@ -562,7 +562,7 @@ export const WAVE1_PAGES: Record<string, Wave1ServicePage> = {
     eyebrow: "Tile Installation",
     heroAlt: "Tile installation by Ascent Group Construction — Toronto and Greater Toronto Area",
     directAnswer:
-      "Ascent Group Construction is a tile installation contractor serving Toronto and the Greater Toronto Area. We install porcelain, ceramic, natural stone, and large-format tile across commercial washrooms, retail floors, lobbies, residential bathrooms, kitchens, and entryways. Wet areas are waterproofed with Schluter-KERDI or Mapei Mapelastic systems before tile setting, and all installations follow TTMAC and TCNA guidelines. We self-perform, carry $2M commercial general liability and full WSIB coverage, and our crew brings 15+ years of combined tile and stone installation experience.",
+      "Ascent Group Construction is a specialty contractor that self-performs tile installation as one of our interior-finishing trades across Toronto and the Greater Toronto Area. We install porcelain, ceramic, natural stone, and large-format tile across commercial washrooms, retail floors, lobbies, residential bathrooms, kitchens, and entryways. Wet areas are waterproofed with Schluter-KERDI or Mapei Mapelastic systems before tile setting, and all installations follow TTMAC and TCNA guidelines. We carry $2M commercial general liability and full WSIB coverage, and our crew brings 15+ years of combined tile and stone installation experience.",
     scopeHeading: "What we deliver",
     scopeBullets: [
       "Porcelain, ceramic, and natural stone tile installation",
@@ -643,7 +643,7 @@ export const WAVE1_PAGES: Record<string, Wave1ServicePage> = {
     eyebrow: "Flooring Installation",
     heroAlt: "Flooring installation by Ascent Group Construction — Greater Toronto Area",
     directAnswer:
-      "Ascent Group Construction is a flooring installation contractor serving the Greater Toronto Area. We install luxury vinyl plank (LVP/LVT), laminate, engineered hardwood, sheet vinyl, and commercial vinyl roll goods across offices, retail, condos, multi-residential, and residential homes. Substrate prep — moisture testing, levelling compound, and underlayment — is part of every scope, and installations follow NWFA and CRI guidelines. Hardwood sand-and-refinish work is delivered through a vetted partner crew and identified upfront. We self-perform installation, carry $2M commercial general liability, and full WSIB coverage.",
+      "Ascent Group Construction is a specialty contractor that self-performs flooring installation as one of our interior-finishing trades across the Greater Toronto Area. We install luxury vinyl plank (LVP/LVT), laminate, engineered hardwood, sheet vinyl, and commercial vinyl roll goods across offices, retail, condos, multi-residential, and residential homes. Substrate prep — moisture testing, levelling compound, and underlayment — is part of every scope, and installations follow NWFA and CRI guidelines. Hardwood sand-and-refinish work is delivered through a vetted partner crew and identified upfront. We carry $2M commercial general liability and full WSIB coverage.",
     scopeHeading: "What we deliver",
     scopeBullets: [
       "Luxury vinyl plank and tile (LVP/LVT) — click-lock and glue-down",
