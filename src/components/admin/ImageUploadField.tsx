@@ -4,7 +4,8 @@ import { Button } from '@/ui/Button';
 import { uploadImage } from '@/utils/imageResolver';
 import { toast } from 'sonner';
 import { supabase } from '@/integrations/supabase/client';
-import { validateAspectRatio, calculateAspectRatio, validateImageFile } from '@/utils/image-optimizer';
+import { validateAspectRatio, calculateAspectRatio } from '@/utils/image-optimizer';
+import { normalizeImageFile } from '@/utils/image-normalizer';
 
 interface ImageUploadFieldProps {
   value?: string;
@@ -43,71 +44,100 @@ export const ImageUploadField = ({
     const file = e.target.files?.[0];
     if (!file) return;
 
-    // Validate file size (max 5MB)
-    if (file.size > 5 * 1024 * 1024) {
-      toast.error('File size must be less than 5MB');
+    // Hard guard against absurdly large source files (browser memory).
+    if (file.size > 15 * 1024 * 1024) {
+      toast.error('Image is over 15MB. Please use a smaller source file.');
       if (fileInputRef.current) fileInputRef.current.value = '';
       return;
     }
 
     setAspectRatioWarning(null);
-
-    // HARD validation: dimensions + orientation (rejects upload outright)
-    if (minWidth || minHeight || minAspectRatio) {
-      const validationError = await validateImageFile(file, {
-        minWidth,
-        minHeight,
-        minAspectRatio,
-      });
-      if (validationError) {
-        toast.error(validationError);
-        if (fileInputRef.current) fileInputRef.current.value = '';
-        return;
-      }
-    }
-
     setIsUploading(true);
 
     try {
-      // SOFT validation: aspect ratio guidance (warns but allows)
-      if (targetAspectRatio) {
-        const img = new Image();
-        const objectUrl = URL.createObjectURL(file);
+      // Auto-normalize: center-crop to landscape, downscale, re-encode.
+      // This replaces the old hard rejection for portrait / wrong-format images.
+      let uploadFile = file;
+      let normalizedNotice: string | null = null;
 
+      const wantsLandscape = Boolean(minAspectRatio || targetAspectRatio);
+      if (wantsLandscape) {
+        try {
+          const targetRatio =
+            minAspectRatio ??
+            (targetAspectRatio
+              ? (() => {
+                  const [w, h] = targetAspectRatio.split('/').map(Number);
+                  return w && h ? w / h : 16 / 9;
+                })()
+              : 16 / 9);
+
+          const result = await normalizeImageFile(file, {
+            targetAspectRatio: targetRatio,
+            maxWidth: 2400,
+            format: 'image/jpeg',
+            quality: 0.88,
+          });
+          uploadFile = result.file;
+
+          if (result.didCrop && result.didResize) {
+            normalizedNotice = 'Image auto-cropped to landscape and optimized for the web.';
+          } else if (result.didCrop) {
+            normalizedNotice = 'Image auto-cropped to landscape for the featured slot.';
+          } else if (result.didResize) {
+            normalizedNotice = 'Image optimized for the web (downscaled).';
+          }
+        } catch (normErr) {
+          console.warn('Image normalization failed, uploading original:', normErr);
+          toast.error(
+            normErr instanceof Error
+              ? normErr.message
+              : 'Could not process this image.'
+          );
+          setIsUploading(false);
+          if (fileInputRef.current) fileInputRef.current.value = '';
+          return;
+        }
+      }
+
+      // Final size guard on the (potentially smaller) output file.
+      if (uploadFile.size > 8 * 1024 * 1024) {
+        toast.error('Processed image is still over 8MB. Try a smaller source image.');
+        setIsUploading(false);
+        if (fileInputRef.current) fileInputRef.current.value = '';
+        return;
+      }
+
+      // Soft aspect-ratio note when targetAspectRatio is provided but normalization wasn't a perfect match.
+      if (targetAspectRatio && !normalizedNotice) {
+        const img = new Image();
+        const objectUrl = URL.createObjectURL(uploadFile);
         await new Promise((resolve, reject) => {
           img.onload = resolve;
           img.onerror = reject;
           img.src = objectUrl;
         });
-
         const isValid = validateAspectRatio(img.width, img.height, targetAspectRatio, 0.15);
-        const actualRatio = calculateAspectRatio(img.width, img.height);
-
         if (!isValid) {
-          setAspectRatioWarning(
-            `Image aspect ratio is ${actualRatio} but ${targetAspectRatio} is recommended. ` +
-            `It will be cropped to fit — center subjects accordingly.`
-          );
+          normalizedNotice =
+            `Image ratio is ${calculateAspectRatio(img.width, img.height)} — it will be cropped to fit ${targetAspectRatio} on display.`;
         }
-
         URL.revokeObjectURL(objectUrl);
       }
 
-      // Create preview
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setPreview(reader.result as string);
-      };
-      reader.readAsDataURL(file);
+      if (normalizedNotice) setAspectRatioWarning(normalizedNotice);
 
-      // PHASE 2: Use processing edge function or direct upload
-      let url: string;
+      // Preview from the (possibly normalized) file we'll actually upload.
+      const reader = new FileReader();
+      reader.onloadend = () => setPreview(reader.result as string);
+      reader.readAsDataURL(uploadFile);
+
+      let url: string | undefined;
       let error: string | undefined;
 
       if (useProcessingFunction) {
-        // Use edge function for metadata stripping and optimization
         const formData = new FormData();
-        formData.append('file', file);
+        formData.append('file', uploadFile);
         formData.append('bucket', bucket);
         formData.append('stripMetadata', 'true');
 
@@ -121,8 +151,7 @@ export const ImageUploadField = ({
           url = data.url;
         }
       } else {
-        // Direct upload (legacy method)
-        const result = await uploadImage(file, bucket);
+        const result = await uploadImage(uploadFile, bucket);
         url = result.url;
         error = result.error;
       }
@@ -206,7 +235,7 @@ export const ImageUploadField = ({
                 Click to upload or drag and drop
               </p>
               <p className="text-xs text-muted-foreground mt-1">
-                PNG, JPG, WEBP up to 5MB
+                PNG, JPG, WEBP — any orientation. Portrait images are auto-cropped to landscape.
               </p>
             </>
           )}

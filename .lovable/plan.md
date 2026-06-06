@@ -1,29 +1,45 @@
-## Add Procore Construction Network Badge
+## Problem
 
-Add Ascent Group's official Procore Construction Network listing as a verifiable network membership, linked back to the Procore profile (good for SEO via the dofollow backlink and for B2B credibility with GCs already using Procore).
+Featured project image uploads currently reject any image whose aspect ratio is narrower than 1.33:1 (landscape) with the error you saw. The user has to crop manually before uploading.
 
-### Where it goes
+## Goal
 
-Add **Procore Construction Network** as a new entry in the existing `TrustedPartners` component under the **"Affiliations & Community"** category. That component already powers the partners roster on the **Contact** page, so the badge will appear there alongside MÜSİAD Canada and Studios Holdings — consistent placement, no new section needed.
+Accept any reasonable image (portrait, square, landscape, PNG/JPG/WEBP/HEIC-converted) and let the system auto-process it to a web-compatible, landscape-cropped, optimized file before storing.
 
-### Changes
+## Approach
 
-1. **Save the badge asset locally** (don't hot-link to procore.com):
-   - Download `https://network.procore.com/assets/static/procore-white-badge.svg`
-   - Save to `src/assets/partners/procore-network.svg`
-   - Why local: faster, avoids third-party CDN failures, allows the existing grayscale→color hover treatment to apply consistently.
+Add a single client-side normalization utility and switch the hard rejection in `ImageUploadField` to an auto-fix path.
 
-2. **Update `src/components/partners/TrustedPartners.tsx`**:
-   - Import the new SVG.
-   - Add one entry to the `partners` array:
-     ```ts
-     { name: "Procore Construction Network", url: "https://network.procore.com/p/ascent-group-construction-toronto", category: "affiliations", logo: procoreNetwork }
-     ```
-   - The existing `<a>` wrapper uses `rel="noopener noreferrer"`. To preserve the SEO value of Procore's dofollow guidance, change the rel for this card to `rel="noopener external"` (drops `noreferrer`/`nofollow` while keeping security). Implementation: allow an optional `rel` override on the `Partner` type and apply it in `PartnerCard`.
+### 1. New utility `src/utils/image-normalizer.ts`
 
-3. **No layout / copy changes** elsewhere. The badge inherits the same card styling (aspect 4/3, grayscale hover-to-color, label underneath) so it doesn't visually clash with the white Procore mark.
+`normalizeImageFile(file, { targetAspectRatio = 16/9, maxWidth = 2400, format = 'image/jpeg', quality = 0.88 })`:
 
-### Notes
+- Loads the file into an `<img>` via object URL (reuses `readImageDimensions` pattern).
+- Draws to an offscreen `<canvas>`:
+  - If the source ratio is narrower than `targetAspectRatio` (portrait/square), crop horizontally centered to the target ratio (keep full width, trim top/bottom only when source is wider; trim left/right only when source is taller — i.e. center-crop to target).
+  - If the source ratio is wider than target, leave as-is (no forced crop) unless the caller passes `forceExactRatio: true`.
+  - Downscale so the longest edge ≤ `maxWidth`.
+- Exports via `canvas.toBlob(..., format, quality)` and returns a new `File` with a `.jpg`/`.webp` extension and the original base name.
+- Falls back to returning the original file if canvas export fails (with a console warning), so uploads never silently break.
 
-- The Procore badge SVG is white-on-transparent. Inside our card it sits on a light `from-muted/30 to-muted/10` background, so the white mark may be invisible. I'll verify after download — if it's unreadable I'll either (a) request the dark-variant badge URL from Procore or (b) wrap it in a subtle dark tile so it reads correctly. I'll flag this back if a swap is needed.
-- No homepage / footer placement — keeping the partners roster as the single source of truth per the existing Trusted Partners memory.
+### 2. Update `src/components/admin/ImageUploadField.tsx`
+
+- Remove the hard `minAspectRatio` rejection branch. Keep `minWidth`/`minHeight` as soft warnings (toast info, not blocker) — if the source is genuinely tiny (e.g. <800px wide) we still warn but proceed.
+- After the file-size check, always run `normalizeImageFile` when the field has `minAspectRatio` or `targetAspectRatio` set. Use the resulting `File` for both the preview and the upload.
+- Replace the existing aspect-ratio warning copy with a neutral note: "Image was auto-cropped to landscape for the featured slot." shown only when a crop actually happened (utility returns a `didCrop` flag).
+- Keep the 5MB size guard, but apply it to the *normalized* output so a 12MB phone photo that compresses down to 1.5MB still uploads. If the original is >15MB, reject up front (browser memory guard).
+
+### 3. Caller surface
+
+No prop changes required for existing call sites (`ImagesTab.tsx` still passes `minAspectRatio={1.33}`); the prop now acts as the auto-crop target rather than a rejection threshold. Project gallery / thumbnail uploads keep working unchanged.
+
+### 4. Out of scope
+
+- HEIC decoding (browsers don't decode HEIC on canvas reliably). If a user uploads HEIC we'll keep the current "Could not read image file" error and add a one-line hint telling them to export as JPG. Real HEIC support would need a server-side conversion step.
+- No edge-function changes. All work is client-side so it also works when `useProcessingFunction=false`.
+
+## Files touched
+
+- `src/utils/image-normalizer.ts` (new)
+- `src/components/admin/ImageUploadField.tsx` (swap reject → auto-crop, update warning UI)
+- `src/utils/image-optimizer.ts` (leave `validateImageFile` in place for any other caller; ImageUploadField just stops using the `minAspectRatio` branch)
