@@ -8,9 +8,17 @@ interface SEOProps {
   description?: string;
   keywords?: string;
   ogImage?: string;
+  ogType?: "website" | "article" | "profile" | "book" | "product";
   canonical?: string;
   structuredData?: object | object[];
   includeRating?: boolean;
+  articleMeta?: {
+    publishedTime?: string;
+    modifiedTime?: string;
+    author?: string;
+    section?: string;
+    tags?: string[];
+  };
 }
 
 const SEO = ({
@@ -18,10 +26,13 @@ const SEO = ({
   description = "Ontario building envelope & interior trades contractor. Professional execution of EIFS, masonry, painting, and restoration work. Established 2025 by experienced construction professionals. Serving property managers, GCs, and building owners across the GTA.",
   keywords,
   ogImage = "/og-image.png",
+  ogType = "website",
   canonical,
   structuredData,
   includeRating = false,
+  articleMeta,
 }: SEOProps) => {
+
   const fullTitle = title ? `${title} | ${COMPANY_NAME}` : `${COMPANY_NAME} - Ontario Building Envelope & Restoration Specialists`;
 
   // Fetch real aggregate rating from database
