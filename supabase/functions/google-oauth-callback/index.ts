@@ -59,13 +59,36 @@ Deno.serve(async (req) => {
     // Calculate token expiry
     const tokenExpiry = new Date(Date.now() + expires_in * 1000);
 
-    // Get user ID from state parameter
-    const userId = state;
-
-    if (!userId) {
-      console.error('No user ID in state parameter');
-      throw new Error('User authentication required');
+    // Validate the state nonce against the database (CSRF protection)
+    if (!state) {
+      console.error('Missing state parameter');
+      throw new Error('Invalid OAuth state');
     }
+
+    const { data: stateRow, error: stateErr } = await supabase
+      .from('google_oauth_states')
+      .select('user_id, expires_at, consumed_at')
+      .eq('state', state)
+      .maybeSingle();
+
+    if (stateErr || !stateRow) {
+      console.error('OAuth state lookup failed:', stateErr);
+      throw new Error('Invalid or expired OAuth state');
+    }
+    if (stateRow.consumed_at) {
+      throw new Error('OAuth state already used');
+    }
+    if (new Date(stateRow.expires_at).getTime() < Date.now()) {
+      throw new Error('OAuth state expired');
+    }
+
+    const userId = stateRow.user_id;
+
+    // Consume the nonce so it cannot be replayed
+    await supabase
+      .from('google_oauth_states')
+      .update({ consumed_at: new Date().toISOString() })
+      .eq('state', state);
 
     // Store tokens in database
     const { error: dbError } = await supabase
