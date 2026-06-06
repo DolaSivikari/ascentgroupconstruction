@@ -331,7 +331,7 @@ export const UnifiedSidebar = ({
             <div className="admin-sidebar-user">
               <div className="admin-sidebar-user__avatar">
                 {user.avatar_url ? (
-                  <img src={user.avatar_url} alt="" />
+                  <img src={user.avatar_url} alt="" width={40} height={40} loading="lazy" decoding="async" />
                 ) : (
                   <span>{userInitials || 'A'}</span>
                 )}

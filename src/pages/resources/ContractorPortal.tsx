@@ -154,6 +154,8 @@ const ContractorPortal = () => {
               alt="Building envelope restoration work" 
               loading="eager"
               decoding="async"
+              width={1920}
+              height={1080}
               {...({ fetchpriority: "high" } as Record<string, string>)}
               className="w-full h-full object-cover"
             />
