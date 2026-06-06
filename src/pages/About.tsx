@@ -373,7 +373,7 @@ const About = () => {
                         honest client relationships. Our focus is on being the most reliable envelope and interior
                         trade specialist in the GTA."
                       </p>
-                      <p className="text-white/50 text-sm uppercase tracking-wider">
+                      <p className="text-white/80 text-sm uppercase tracking-wider">
                         Hebun Isik · Founder &amp; Principal
                       </p>
                     </div>

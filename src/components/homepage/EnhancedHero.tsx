@@ -624,7 +624,7 @@ const EnhancedHero = ({ splashComplete = true }: { splashComplete?: boolean }) =
             </div>
 
             {/* Slide counter */}
-            <span className="text-xs font-medium text-white/40 tabular-nums tracking-wider">
+            <span className="text-xs font-medium text-white/80 tabular-nums tracking-wider">
               {String(currentSlide + 1).padStart(2, '0')} / {String(activeSlides.length).padStart(2, '0')}
             </span>
           </div>

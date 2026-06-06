@@ -337,7 +337,7 @@ const ForGeneralContractors = () => {
                   showIcon={false} 
                 />
               </div>
-              <div className="hidden sm:block text-muted-foreground/50">|</div>
+              <div className="hidden sm:block text-muted-foreground">|</div>
               <div className="flex items-center gap-2">
                 <Phone className="w-4 h-4" />
                 <PhoneLink showIcon={false} className="hover:text-primary transition-colors" />
