@@ -73,7 +73,7 @@ const Services = () => {
       <SEO 
         title="Specialty Contracting Services | Envelope, Restoration & Interior Trades"
         description="Self-performed and coordinated specialty contracting for building envelope, restoration, cladding, masonry, painting, tile, and interior trade packages across Ontario."
-        keywords="specialty contractor Ontario, building envelope contractor, EIFS stucco contractor, masonry restoration, interior buildouts, painting contractor, tile flooring, cladding systems, renovation contractor"
+        keywords="specialty contractor Ontario, multi-trade self-perform contractor, building envelope contractor, EIFS stucco contractor, masonry restoration, interior buildouts, commercial painting services, tile and flooring, cladding systems, renovation contractor"
         canonical={`${SITE_URL}/services`}
         structuredData={[breadcrumbSchema]}
       />
