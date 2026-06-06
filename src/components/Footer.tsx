@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { Link } from "react-router-dom";
 import { Mail, Phone, MapPin, Linkedin, Shield, Award, FileCheck, Building2 } from "lucide-react";
 
@@ -8,6 +8,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { supabase } from "@/integrations/supabase/client";
 import type { Database } from "@/integrations/supabase/types";
 import { UnifiedFooter } from "./footer/UnifiedFooter";
+import { SERVICE_REGISTRY } from "@/data/service-registry";
 
 
 type SiteSettingsRow = Database['public']['Tables']['site_settings']['Row'];
