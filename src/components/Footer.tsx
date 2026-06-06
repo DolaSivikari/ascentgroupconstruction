@@ -159,7 +159,7 @@ const Footer = () => {
             contactInfo={{ phone, email, address }}
             linkedinUrl={linkedinUrl}
             foundedYear={siteSettings?.founded_year || 2025}
-            services={services}
+            services={mergedServices}
             showLogo={false}
           />
         </div>
