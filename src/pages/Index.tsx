@@ -123,8 +123,8 @@ const Index = () => {
       <div className="min-h-screen relative">
         <SkipLink />
         <SEO
-          title="Building Envelope & Restoration Specialists | Specialty Contractor Ontario & GTA"
-          description="Specialty contractor in Ontario & GTA delivering façade remediation, waterproofing, EIFS, masonry, restoration. 15+ years crew experience, 85% self-performed. WSIB compliant, $2M CGL."
+          title="Specialty Contractor — Envelope & Restoration | GTA"
+          description="Specialty contractor in the GTA delivering façade remediation, waterproofing, EIFS, masonry & restoration. 15+ yrs crew, self-performed, WSIB, $2M CGL."
           keywords="specialty contractor Ontario, building envelope contractor GTA, facade remediation Toronto, waterproofing contractor, EIFS contractor, masonry restoration, parking garage repair"
           canonical={`${SITE_URL}/`}
           structuredData={[specialtyContractorSchema, howToChooseContractor, whatDoesAscentDo, whyChooseUsSchema, siteSearchSchema, ...videoSchemas]}
