@@ -285,6 +285,8 @@ export const ProjectCaseStudy = ({
                       alt={project.title}
                       loading="lazy"
                       decoding="async"
+                      width={1600}
+                      height={900}
                       className="w-full h-full object-cover transition-transform group-hover:scale-105"
                     />
                   </div>
