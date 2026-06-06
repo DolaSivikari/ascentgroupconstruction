@@ -1,37 +1,51 @@
-## Wave 2 — Dedicated Service Pages (AEO/GEO)
+## Bring the 9 Wave 1+2 SEO pages in line with the standard service layout
 
-### Scope reconciliation
-You listed 7 services. Two overlap with Wave 1 already live:
-- **Caulking & Sealants** → already at `/services/caulking-sealants-toronto` (Wave 1)
-- **Exterior commercial painting** → already covered by `/services/exterior-painting-toronto` (Wave 1, stucco/EIFS recoat slant) and `/services/commercial-painting-gta`
+### What's wrong today
+The Wave 1+2 pages use a custom `Wave1ServicePage.tsx` template that bypasses the project's canonical service page composition (`src/pages/ServiceDetail.tsx`). Specifically they:
 
-So Wave 2 builds **5 net-new pages**, and we add a "residential exterior" angle to the existing exterior page rather than duplicate it.
+- Use `PageHero` without an `image` — flat hero, no overlay, no imagery
+- Skip the **Hero Badges System** (frosted-glass pills) — violates `mem://design/hero-badges-system`
+- Use `ProofStrip` standalone instead of `TrustRibbon` (the standard service-page trust band)
+- Hand-roll their own related-services + final CTA blocks instead of `RelatedLinksGrid` + `CTABand`
+- Skip `DirectAnswer`, `QuickFacts`, `PeopleAlsoAsk`, `ServiceAreaSection` — the four AEO blocks the rest of the site (and ServiceDetail.tsx) ships
+- Skip the Service + HowTo JSON-LD pair that ServiceDetail emits
 
-### New pages (5)
-| Slug | Primary keyword | Audience |
-|---|---|---|
-| `/services/interior-painting-toronto` | interior painting contractor Toronto | Commercial + residential |
-| `/services/residential-exterior-painting-gta` | exterior house painters GTA | Homeowners (stucco, siding, trim, doors) |
-| `/services/tile-installation-toronto` | tile installation contractor Toronto | Commercial washrooms, residential bath/kitchen, lobbies |
-| `/services/flooring-installation-gta` | flooring contractor GTA | LVT, laminate, hardwood refinish, commercial vinyl |
-| `/services/handyman-patching-toronto` | drywall patching & handyman Toronto | Property managers, post-tenant turnovers, small punch-list |
+### The fix (per your choices)
+1. **Delete** `src/components/services/Wave1ServicePage.tsx`.
+2. **Convert each of the 9 pages** to a direct, self-contained component that mirrors `ServiceDetail.tsx`'s composition exactly — same imports, same section order, same components. Content still comes from `src/data/wave1-services.ts` (no copy rewrite — just rebind to the standard components).
+3. **Generate 9 branded hero images** via `imagegen` (one per service) at `src/assets/heroes/wave-<slug>.jpg`, then wire each into the page's `PageHero image` prop with the standard dark gradient overlay + hero badges.
 
-Patching is folded into the handyman page (single intent: small-scope repairs). If you want patching split out as its own page later, easy to lift.
+### Final page composition (matches ServiceDetail.tsx)
+```text
+Navigation
+PageHero  (image + overlay="dark" + eyebrow + breadcrumbs + hero badges + primary/secondary CTA)
+TrustRibbon  ($2M CGL · WSIB · Self-Perform · 15+ yrs)
+DirectAnswer  (citation paragraph)
+QuickFacts  (scope bullets → quick-facts grid)
+[Materials chips section]  (keep as-is, restyled to match Card pattern)
+PeopleAlsoAsk  (3-5 of the FAQ entries promoted)
+ServiceAreaSection  (GTA city grid)
+FAQAccordion  (full FAQ set, emits FAQPage JSON-LD)
+RelatedLinksGrid  (siblings from related[] + EIFS anchor)
+CTABand  (variant="dark", CTA → /estimate?service=<slug>)
+Footer
+```
 
-### Content payload per page (drives AI citation)
-Each page ships with the exact Wave 1 structure, no new component work:
-- `<title>` (≤60 char) + meta description (≤160 char)
-- **Direct Answer paragraph** (60–90 words, citation-ready, leads with "Ascent Group provides…")
-- Scope bullets (what's included)
-- Materials/systems list (Benjamin Moore, Sherwin-Williams, Schluter, Mapei, etc.)
-- **6–8 FAQs** with FAQPage JSON-LD
-- Trust strip ($2M CGL, WSIB, 15+ yrs crew, self-perform)
-- CTA → `/estimate?service=<slug>` (already attribution-wired)
-- Related sibling links
+### Data layer (`src/data/wave1-services.ts`)
+- **Extend** the `Wave1ServicePage` interface with optional `quickFacts` (4-6 items) and `peopleAlsoAsk` (3-5 promoted FAQs). Default both from existing `scopeBullets` and `faqs` so no content rewriting is required.
+- **Add** `heroImage` field per entry pointing to the generated asset path.
+- No copy changes — directAnswer, scope, materials, FAQs, related all stay byte-identical.
 
 ### Files
 
-**New:**
+**Deleted:**
+- `src/components/services/Wave1ServicePage.tsx`
+
+**Rewritten (9 — same filenames, new bodies):**
+- `src/pages/services/CommercialPaintingGTA.tsx`
+- `src/pages/services/ExteriorPaintingToronto.tsx`
+- `src/pages/services/CaulkingSealantsToronto.tsx`
+- `src/pages/services/FireRetardantCoatingsOntario.tsx` (keeps the `splitSections` rendering for its dual-audience scope)
 - `src/pages/services/InteriorPaintingToronto.tsx`
 - `src/pages/services/ResidentialExteriorPaintingGTA.tsx`
 - `src/pages/services/TileInstallationToronto.tsx`
@@ -39,23 +53,26 @@ Each page ships with the exact Wave 1 structure, no new component work:
 - `src/pages/services/HandymanPatchingToronto.tsx`
 
 **Edited:**
-- `src/data/wave1-services.ts` → rename internal export to `WAVE_SERVICES` (keep `WAVE1_PAGES` alias for back-compat) and append 5 entries. Same `Wave1ServicePage` interface — no schema change.
-- `src/routes/AppRoutes.tsx` → register 5 static routes BEFORE `/services/:slug` catch-all (same pattern as Wave 1).
-- `public/sitemap.xml` → add 5 `<url>` entries.
-- `public/llms.txt` → add 5 prose entries under Services.
-- `src/components/HomepageServiceHighlights.tsx` + `src/data/services-data.ts` (or equivalent ServicesDataGrid source) → cross-link the new pages from the services grid.
+- `src/data/wave1-services.ts` — add `heroImage`, optional `quickFacts`, optional `peopleAlsoAsk`
+- Optionally extract a small `Wave1Sections.tsx` helper for the shared section sequence so each page file stays a one-liner that passes its slug — keeps maintenance trivial without resurrecting a monolithic template
 
-### Out of scope (deferred)
-- New components or template refactor (reuse `Wave1ServicePage.tsx` as-is)
-- Database service rows (these are static SEO landing pages, like Wave 1)
-- New imagery — reuse existing project gallery photos; AGC fallback where missing
-- Splitting handyman vs patching into two pages
-- Wave 3 (epoxy floors, pressure washing, masonry repair) — queued, not built
+**Generated (9 new image assets):**
+- `src/assets/heroes/wave-commercial-painting.jpg`
+- `src/assets/heroes/wave-exterior-painting.jpg`
+- `src/assets/heroes/wave-caulking-sealants.jpg`
+- `src/assets/heroes/wave-fire-retardant.jpg`
+- `src/assets/heroes/wave-interior-painting.jpg`
+- `src/assets/heroes/wave-residential-exterior.jpg`
+- `src/assets/heroes/wave-tile-installation.jpg`
+- `src/assets/heroes/wave-flooring-installation.jpg`
+- `src/assets/heroes/wave-handyman-patching.jpg`
 
-### Confirmations before build
-1. **Handyman scope** — confirm we list: drywall patching, paint touch-ups, small carpentry, door/lock adjustments, fixture swaps, minor tile/grout repair. Exclude electrical/plumbing licensed work.
-2. **Flooring scope** — install only, or include hardwood sand/refinish? Default plan: install (LVT/laminate/vinyl sheet) + hardwood refinish via partner, called out honestly.
-3. **Tile scope** — confirm waterproofing systems (Schluter Kerdi, Mapei Mapelastic) for AI-citable specificity. OK to name?
-4. **Residential exterior** — confirm we include door/trim/garage painting (typical homeowner ask) alongside full-house stucco/siding.
+Image style brief (shared across all 9): professional documentary photography of GTA jobsite work, daylight, neutral Navy/Charcoal-friendly color grading, no faces, no logos, no AI-template gloss. 16:9, 1920x1080.
 
-Reply "go" with any tweaks and I'll build it.
+### Out of scope
+- Copy rewrites (Direct Answers and FAQs stay as-is)
+- Schema changes to the existing `services` Supabase table (these pages remain static)
+- Route registry changes — `AppRoutes.tsx` and sitemap entries already point to the same filenames
+- Wave 3 services
+
+### Reply "go" and I'll build it.
