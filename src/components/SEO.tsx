@@ -220,6 +220,10 @@ const SEO = ({
       : [defaultSchema, structuredData]
     : [defaultSchema];
 
+  // Enforce social-preview length constraints
+  const ogTitle = fullTitle.length > 60 ? `${fullTitle.slice(0, 57).trimEnd()}…` : fullTitle;
+  const ogDescription = description.length > 160 ? `${description.slice(0, 157).trimEnd()}…` : description;
+
   return (
     <Helmet>
       <title>{fullTitle}</title>
@@ -227,19 +231,36 @@ const SEO = ({
       <meta name="keywords" content={keywords} />
 
       {/* Open Graph */}
-      <meta property="og:title" content={fullTitle} />
-      <meta property="og:description" content={description} />
+      <meta property="og:title" content={ogTitle} />
+      <meta property="og:description" content={ogDescription} />
       <meta property="og:image" content={`${SITE_URL}${ogImage}`} />
       <meta property="og:url" content={currentUrl} />
-      <meta property="og:type" content="website" />
-      <meta property="og:image:alt" content={`${fullTitle} - Visual Preview`} />
+      <meta property="og:type" content={ogType} />
+      <meta property="og:image:alt" content={`${ogTitle} - Visual Preview`} />
+
+      {/* Article-specific Open Graph metadata */}
+      {ogType === "article" && articleMeta?.publishedTime && (
+        <meta property="article:published_time" content={articleMeta.publishedTime} />
+      )}
+      {ogType === "article" && articleMeta?.modifiedTime && (
+        <meta property="article:modified_time" content={articleMeta.modifiedTime} />
+      )}
+      {ogType === "article" && articleMeta?.author && (
+        <meta property="article:author" content={articleMeta.author} />
+      )}
+      {ogType === "article" && articleMeta?.section && (
+        <meta property="article:section" content={articleMeta.section} />
+      )}
+      {ogType === "article" && articleMeta?.tags?.map((tag) => (
+        <meta key={tag} property="article:tag" content={tag} />
+      ))}
 
       {/* Twitter Card - Enhanced */}
       <meta name="twitter:card" content="summary_large_image" />
-      <meta name="twitter:title" content={fullTitle} />
-      <meta name="twitter:description" content={description} />
+      <meta name="twitter:title" content={ogTitle} />
+      <meta name="twitter:description" content={ogDescription} />
       <meta name="twitter:image" content={`${SITE_URL}${ogImage}`} />
-      <meta name="twitter:image:alt" content={`${fullTitle} - Visual Preview`} />
+      <meta name="twitter:image:alt" content={`${ogTitle} - Visual Preview`} />
 
       {/* PHASE 1 FIX: Single Canonical URL - Prevents duplicate content penalty */}
       <link rel="canonical" href={currentUrl} />
