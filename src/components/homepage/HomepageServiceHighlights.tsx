@@ -269,7 +269,7 @@ export const HomepageServiceHighlights = () => {
                           {service.detail}
                         </p>
                         <span className="inline-flex items-center gap-1 mt-3 text-xs font-semibold text-primary">
-                          Learn more
+                          Learn more about {service.title}
                           <ArrowRight className="w-3 h-3" />
                         </span>
                       </div>
