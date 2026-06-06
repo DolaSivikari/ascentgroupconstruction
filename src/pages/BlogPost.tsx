@@ -166,6 +166,15 @@ const BlogPost = () => {
         title={post.seo_title || post.title}
         description={post.seo_description || post.summary}
         keywords={post.seo_keywords?.join(', ') || `${post.category}, blog`}
+        ogImage={post.featured_image || undefined}
+        ogType="article"
+        articleMeta={{
+          publishedTime: post.published_at || post.created_at,
+          modifiedTime: post.updated_at,
+          author: post.author_name || 'Ascent Group Construction',
+          section: post.category,
+          tags: post.seo_keywords || undefined,
+        }}
         structuredData={schemas}
       />
       <Navigation />
