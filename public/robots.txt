@@ -92,7 +92,6 @@ Disallow: /auth
 Disallow: /api/
 
 # Sitemaps
-Sitemap: https://ascentgroupconstruction.com/sitemap.xml
+Sitemap: https://www.ascentgroupconstruction.com/sitemap.xml
 
-# Host
-Host: https://ascentgroupconstruction.com
+Host: https://www.ascentgroupconstruction.com
