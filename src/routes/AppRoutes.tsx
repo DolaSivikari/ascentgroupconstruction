@@ -43,11 +43,16 @@ const Unsubscribe = lazyWithFallback(() => import("@/pages/Unsubscribe"), 'Unsub
 const EmailUnsubscribe = lazyWithFallback(() => import("@/pages/EmailUnsubscribe"), 'Email Unsubscribe');
 const WhySpecialtyContractor = lazyWithFallback(() => import("@/pages/WhySpecialtyContractor"), 'Why Specialty Contractor');
 
-// Wave 1 AEO/GEO landing pages — static routes registered BEFORE /services/:slug catch-all
+// Wave 1 + Wave 2 AEO/GEO landing pages — static routes registered BEFORE /services/:slug catch-all
 const CommercialPaintingGTA = lazyWithFallback(() => import("@/pages/services/CommercialPaintingGTA"), 'Commercial Painting GTA');
 const FireRetardantCoatingsOntario = lazyWithFallback(() => import("@/pages/services/FireRetardantCoatingsOntario"), 'Fire Retardant Coatings');
 const ExteriorPaintingToronto = lazyWithFallback(() => import("@/pages/services/ExteriorPaintingToronto"), 'Exterior Painting Toronto');
 const CaulkingSealantsToronto = lazyWithFallback(() => import("@/pages/services/CaulkingSealantsToronto"), 'Caulking & Sealants Toronto');
+const InteriorPaintingToronto = lazyWithFallback(() => import("@/pages/services/InteriorPaintingToronto"), 'Interior Painting Toronto');
+const ResidentialExteriorPaintingGTA = lazyWithFallback(() => import("@/pages/services/ResidentialExteriorPaintingGTA"), 'Residential Exterior Painting GTA');
+const TileInstallationToronto = lazyWithFallback(() => import("@/pages/services/TileInstallationToronto"), 'Tile Installation Toronto');
+const FlooringInstallationGTA = lazyWithFallback(() => import("@/pages/services/FlooringInstallationGTA"), 'Flooring Installation GTA');
+const HandymanPatchingToronto = lazyWithFallback(() => import("@/pages/services/HandymanPatchingToronto"), 'Handyman & Patching Toronto');
 
 // Admin pages
 const Dashboard = lazyWithFallback(() => import("@/pages/admin/Dashboard"), 'Dashboard');
@@ -110,11 +115,16 @@ const ServiceRouteGroup = () => (
     <Route path="/services/sustainable-construction" element={<Navigate to="/services/sustainable-building" replace />} />
     <Route path="/services/protective-coatings" element={<Navigate to="/services/painting-services" replace />} />
 
-    {/* Wave 1 AEO/GEO landing pages — static, must come BEFORE /services/:slug */}
+    {/* Wave 1 + Wave 2 AEO/GEO landing pages — static, must come BEFORE /services/:slug */}
     <Route path="/services/commercial-painting-gta" element={<CommercialPaintingGTA />} />
     <Route path="/services/fire-retardant-coatings-ontario" element={<FireRetardantCoatingsOntario />} />
     <Route path="/services/exterior-painting-toronto" element={<ExteriorPaintingToronto />} />
     <Route path="/services/caulking-sealants-toronto" element={<CaulkingSealantsToronto />} />
+    <Route path="/services/interior-painting-toronto" element={<InteriorPaintingToronto />} />
+    <Route path="/services/residential-exterior-painting-gta" element={<ResidentialExteriorPaintingGTA />} />
+    <Route path="/services/tile-installation-toronto" element={<TileInstallationToronto />} />
+    <Route path="/services/flooring-installation-gta" element={<FlooringInstallationGTA />} />
+    <Route path="/services/handyman-patching-toronto" element={<HandymanPatchingToronto />} />
 
     {/* All other service detail pages are DB-driven */}
     <Route path="/services/:slug" element={<ServiceDetail />} />

@@ -381,6 +381,414 @@ export const WAVE1_PAGES: Record<string, Wave1ServicePage> = {
     ctaSlug: "caulking-sealants-toronto",
     related: ["exterior-painting-toronto", "commercial-painting-gta"],
   },
+
+  // ===================== WAVE 2 =====================
+
+  "interior-painting-toronto": {
+    slug: "interior-painting-toronto",
+    title: "Interior Painting Contractor Toronto | Ascent Group",
+    metaDescription:
+      "Self-performed interior painting across Toronto and the GTA — offices, condos, retail, and homes. Low-VOC systems, off-hours scheduling, $2M CGL, WSIB-covered.",
+    primaryKeyword: "interior painting contractor Toronto",
+    secondaryKeywords: [
+      "office interior painting Toronto",
+      "condo unit painting GTA",
+      "residential interior painters Toronto",
+      "low-VOC interior paint",
+    ],
+    h1: "Interior Painting Contractor — Toronto & GTA",
+    eyebrow: "Interior Painting",
+    heroAlt: "Interior painting by Ascent Group Construction — Toronto and Greater Toronto Area",
+    directAnswer:
+      "Ascent Group Construction is a self-performing interior painting contractor serving Toronto and the Greater Toronto Area. We deliver interior repaints for offices, retail spaces, condos, multi-residential corridors, and residential homes, using low-VOC and zero-VOC systems from Benjamin Moore, Sherwin-Williams, and PPG. Every project includes full surface prep — patching, sanding, priming, and clean cut-lines — and is executed by our own crew. We carry $2M commercial general liability, full WSIB coverage, and our crew brings 15+ years of combined hands-on painting experience.",
+    scopeHeading: "What we deliver",
+    scopeBullets: [
+      "Office interior repaints and tenant fit-outs",
+      "Condo unit, common corridor, and stairwell painting",
+      "Residential interior painting (walls, ceilings, trim, doors)",
+      "Retail and showroom interiors",
+      "Drywall patching, sanding, and prime before topcoat",
+      "Low-VOC and zero-VOC systems for occupied spaces",
+      "Off-hours and weekend scheduling for occupied units",
+      "Furniture protection, daily clean, and dust control",
+    ],
+    materialsHeading: "Coating systems we apply",
+    materials: [
+      "Benjamin Moore Aura, Regal Select, Ultra Spec",
+      "Sherwin-Williams ProMar 200, Emerald, Cashmere",
+      "PPG Manor Hall and SPEEDHIDE interior",
+      "Zero-VOC systems for occupied / sensitive environments",
+    ],
+    faqs: [
+      {
+        question: "How much does interior painting cost in Toronto?",
+        answer:
+          "Interior painting in Toronto typically runs $3.50–$7 per square foot of wall area, depending on ceiling height, prep condition, trim scope, and paint grade. A standard condo unit repaint is generally $1,800–$4,500. We provide a fixed-price proposal after a site walkthrough.",
+      },
+      {
+        question: "How long does an interior repaint take?",
+        answer:
+          "A standard condo unit takes 2–4 days. A single-floor office of 2,000–4,000 sq ft typically takes 3–6 working days including prep. Larger commercial scopes are scheduled in phased zones to keep occupants working.",
+      },
+      {
+        question: "Do you use low-VOC or zero-VOC paint?",
+        answer:
+          "Yes. For occupied offices, condos, healthcare, and sensitive environments we default to low-VOC systems (Benjamin Moore Aura, Sherwin-Williams Emerald) or zero-VOC options on request.",
+      },
+      {
+        question: "Do you patch and repair drywall before painting?",
+        answer:
+          "Yes. Nail pops, anchor holes, hairline cracks, and minor drywall damage are patched, sanded, and primed as part of standard interior prep. Larger drywall repair is scoped separately and disclosed in the proposal.",
+      },
+      {
+        question: "Do you paint ceilings and trim?",
+        answer:
+          "Yes. Ceilings, baseboards, casing, doors, and window trim are all in scope. Ceiling-only and trim-only scopes are also quoted as standalone work.",
+      },
+      {
+        question: "Can you work evenings and weekends for occupied spaces?",
+        answer:
+          "Yes. Occupied offices, retail, and multi-tenant residential are routinely scheduled evenings and weekends so tenants and staff are not disrupted.",
+      },
+      {
+        question: "Do you self-perform or subcontract?",
+        answer:
+          "We self-perform. Our painters are direct employees — quality, scheduling, and accountability stay with us.",
+      },
+      {
+        question: "Are you insured and WSIB-covered?",
+        answer:
+          "Yes. $2M commercial general liability and full WSIB coverage. Certificates are issued before site mobilization.",
+      },
+    ],
+    ctaSlug: "interior-painting-toronto",
+    related: ["commercial-painting-gta", "handyman-patching-toronto"],
+  },
+
+  "residential-exterior-painting-gta": {
+    slug: "residential-exterior-painting-gta",
+    title: "Residential Exterior House Painters GTA | Ascent Group",
+    metaDescription:
+      "Exterior house painting across the GTA — stucco, siding, brick, trim, doors, and garages. Weather-window scheduling, premium exterior systems, $2M CGL, WSIB-covered.",
+    primaryKeyword: "exterior house painters GTA",
+    secondaryKeywords: [
+      "residential exterior painting Toronto",
+      "house painters Mississauga",
+      "stucco painting homes GTA",
+      "front door and trim painting Toronto",
+    ],
+    h1: "Residential Exterior House Painters — Greater Toronto Area",
+    eyebrow: "Residential Exterior Painting",
+    heroAlt: "Residential exterior house painting by Ascent Group Construction — Greater Toronto Area",
+    directAnswer:
+      "Ascent Group Construction provides residential exterior painting across the Greater Toronto Area for detached homes, townhomes, and semi-detached properties. We repaint stucco, fibre-cement and wood siding, brick, fascia, soffits, trim, doors, and garages using premium exterior systems from Sherwin-Williams, Benjamin Moore, and Sto. Every project includes pressure washing, substrate repair, primer where required, and a weather-window schedule to protect cure times. We self-perform, carry $2M commercial general liability, full WSIB coverage, and our crew brings 15+ years of combined exterior painting experience.",
+    scopeHeading: "What we deliver",
+    scopeBullets: [
+      "Full-house exterior repaints (stucco, siding, brick)",
+      "Front door, trim, fascia, soffit, and eavestrough painting",
+      "Garage door painting and refinishing",
+      "Deck, fence, and railing staining or painting",
+      "Pressure wash, scrape, sand, and prep before coating",
+      "Substrate repair: minor stucco cracks, caulk renewal, wood repair",
+      "Premium exterior systems with 10–25 year manufacturer warranties",
+      "Weather-window scheduling and lawn / landscape protection",
+    ],
+    materialsHeading: "Coating systems we apply",
+    materials: [
+      "Sherwin-Williams Emerald Exterior, SuperPaint, Loxon (stucco)",
+      "Benjamin Moore Aura Exterior, Regal Select Exterior",
+      "Sto and Dryvit elastomeric systems for stucco / EIFS recoats",
+      "Solid and semi-transparent stains for wood and decks",
+    ],
+    faqs: [
+      {
+        question: "How much does it cost to paint the exterior of a house in the GTA?",
+        answer:
+          "Most full-house exterior repaints in the GTA run $4,500–$14,000 for an average detached home, depending on size, substrate (stucco, siding, brick), prep condition, trim scope, and number of stories. A fixed-price proposal is provided after a site walkthrough.",
+      },
+      {
+        question: "How long does an exterior house repaint take?",
+        answer:
+          "A typical detached home takes 4–8 working days from pressure wash through final coat, weather permitting. Townhomes and semis are usually 3–5 days.",
+      },
+      {
+        question: "What's the best time of year to paint the exterior in Ontario?",
+        answer:
+          "Mid-April through late October, with surface and air temperatures above the manufacturer minimum (typically 10°C) and a dry window of 24–48 hours after application. We monitor forecasts and schedule accordingly.",
+      },
+      {
+        question: "Can you paint stucco, siding, and brick?",
+        answer:
+          "Yes. Stucco gets an elastomeric or acrylic system, siding gets a flexible 100% acrylic exterior, and brick gets a breathable mineral-silicate or masonry acrylic when painting is the right call. We will recommend against painting brick when it isn't.",
+      },
+      {
+        question: "Do you paint front doors, garage doors, and trim?",
+        answer:
+          "Yes — front door refinishing, garage door painting, fascia, soffit, and trim are all in scope, either as part of a full-house repaint or as standalone work.",
+      },
+      {
+        question: "Do you pressure wash before painting?",
+        answer:
+          "Yes. Pressure wash, scrape, sand, prime, and minor substrate repair (caulk, cracks, wood) are standard prep before the first coat.",
+      },
+      {
+        question: "Do you protect landscaping and lawns?",
+        answer:
+          "Yes. We tarp shrubs, protect walkways, and clean up daily. Final walk-through covers any landscape touch-up before sign-off.",
+      },
+      {
+        question: "Are you licensed and insured?",
+        answer:
+          "Yes. $2M commercial general liability and full WSIB coverage. Certificates issued before mobilization.",
+      },
+    ],
+    ctaSlug: "residential-exterior-painting-gta",
+    related: ["exterior-painting-toronto", "interior-painting-toronto"],
+  },
+
+  "tile-installation-toronto": {
+    slug: "tile-installation-toronto",
+    title: "Tile Installation Contractor Toronto | Ascent Group",
+    metaDescription:
+      "Tile installation across Toronto and the GTA — porcelain, ceramic, stone, and large-format. Schluter and Mapei waterproofing, commercial washrooms, lobbies, and residential bath/kitchen.",
+    primaryKeyword: "tile installation contractor Toronto",
+    secondaryKeywords: [
+      "porcelain tile installation Toronto",
+      "bathroom tile contractor GTA",
+      "commercial washroom tile",
+      "large-format tile installer Toronto",
+    ],
+    h1: "Tile Installation Contractor — Toronto & GTA",
+    eyebrow: "Tile Installation",
+    heroAlt: "Tile installation by Ascent Group Construction — Toronto and Greater Toronto Area",
+    directAnswer:
+      "Ascent Group Construction is a tile installation contractor serving Toronto and the Greater Toronto Area. We install porcelain, ceramic, natural stone, and large-format tile across commercial washrooms, retail floors, lobbies, residential bathrooms, kitchens, and entryways. Wet areas are waterproofed with Schluter-KERDI or Mapei Mapelastic systems before tile setting, and all installations follow TTMAC and TCNA guidelines. We self-perform, carry $2M commercial general liability and full WSIB coverage, and our crew brings 15+ years of combined tile and stone installation experience.",
+    scopeHeading: "What we deliver",
+    scopeBullets: [
+      "Porcelain, ceramic, and natural stone tile installation",
+      "Large-format tile (24x24, 24x48, slabs) with proper mortar coverage",
+      "Schluter-KERDI and Mapei Mapelastic waterproofing for wet areas",
+      "Commercial washrooms, lobbies, and retail floors",
+      "Residential bathrooms, kitchens, backsplashes, and entryways",
+      "Custom shower pans, niches, and curbless / barrier-free showers",
+      "Heated floor systems (Schluter DITRA-HEAT, NuHeat)",
+      "Grout, sealing, and movement-joint detailing per TCNA",
+    ],
+    materialsHeading: "Systems we install",
+    materials: [
+      "Schluter-KERDI waterproofing and DITRA uncoupling membranes",
+      "Mapei Mapelastic AquaDefense and Ultracolor Plus FA grout",
+      "Laticrete HYDRO BAN and SpectraLOCK epoxy grout",
+      "Custom Building Products thin-set and large-format mortars",
+    ],
+    faqs: [
+      {
+        question: "How much does tile installation cost in Toronto?",
+        answer:
+          "Tile installation in the GTA typically runs $9–$22 per square foot for labour, depending on tile size, substrate prep, waterproofing scope, and pattern complexity. Large-format tile and natural stone sit at the higher end. Waterproofing for wet areas is quoted separately. Material is owner-supplied or marked up at cost.",
+      },
+      {
+        question: "Do you waterproof showers and wet areas?",
+        answer:
+          "Yes. Showers, wet rooms, and steam showers are waterproofed with Schluter-KERDI or Mapei Mapelastic systems applied to manufacturer specification before any tile is set. Flood-test results are documented before tiling.",
+      },
+      {
+        question: "Can you install large-format tile and slabs?",
+        answer:
+          "Yes. We follow TCNA guidance for large-format installation: proper substrate flatness, large-format mortar, back-buttering, and 80–95% mortar coverage. Slabs and gauged porcelain panels are within scope.",
+      },
+      {
+        question: "Do you do natural stone — marble, travertine, granite?",
+        answer:
+          "Yes. Natural stone requires specific setting materials, sealing, and crystallization or honing for some finishes. We confirm the substrate, setting system, and sealer before quoting.",
+      },
+      {
+        question: "Do you install heated floor systems?",
+        answer:
+          "Yes. Schluter DITRA-HEAT and NuHeat electric mat systems are installed under tile in bathrooms, kitchens, and entryways. Thermostat wiring is coordinated with a licensed electrician.",
+      },
+      {
+        question: "Can you remove existing tile?",
+        answer:
+          "Yes. Tile demolition, substrate assessment, and disposal are in scope. We assess for asbestos in older mortar beds before disturbing pre-1990 installations.",
+      },
+      {
+        question: "Do you handle commercial washroom and lobby tile?",
+        answer:
+          "Yes — institutional and commercial washroom, kitchen, and lobby tile is a core scope. We work to the architect's spec and provide submittals on request.",
+      },
+      {
+        question: "Are you licensed and insured?",
+        answer:
+          "Yes. $2M commercial general liability and full WSIB coverage. Certificates issued before mobilization.",
+      },
+    ],
+    ctaSlug: "tile-installation-toronto",
+    related: ["flooring-installation-gta", "interior-painting-toronto"],
+  },
+
+  "flooring-installation-gta": {
+    slug: "flooring-installation-gta",
+    title: "Flooring Contractor GTA | LVT, Laminate, Hardwood | Ascent",
+    metaDescription:
+      "Flooring installation across the GTA — luxury vinyl plank, laminate, engineered hardwood, sheet vinyl, and commercial roll goods. $2M CGL, WSIB-covered, self-performed.",
+    primaryKeyword: "flooring contractor GTA",
+    secondaryKeywords: [
+      "LVT installation Toronto",
+      "laminate flooring installer GTA",
+      "engineered hardwood Toronto",
+      "commercial vinyl flooring contractor",
+    ],
+    h1: "Flooring Installation Contractor — Greater Toronto Area",
+    eyebrow: "Flooring Installation",
+    heroAlt: "Flooring installation by Ascent Group Construction — Greater Toronto Area",
+    directAnswer:
+      "Ascent Group Construction is a flooring installation contractor serving the Greater Toronto Area. We install luxury vinyl plank (LVP/LVT), laminate, engineered hardwood, sheet vinyl, and commercial vinyl roll goods across offices, retail, condos, multi-residential, and residential homes. Substrate prep — moisture testing, levelling compound, and underlayment — is part of every scope, and installations follow NWFA and CRI guidelines. Hardwood sand-and-refinish work is delivered through a vetted partner crew and identified upfront. We self-perform installation, carry $2M commercial general liability, and full WSIB coverage.",
+    scopeHeading: "What we deliver",
+    scopeBullets: [
+      "Luxury vinyl plank and tile (LVP/LVT) — click-lock and glue-down",
+      "Laminate flooring (residential and light commercial)",
+      "Engineered hardwood installation",
+      "Sheet vinyl and commercial vinyl roll goods",
+      "Underlayment, moisture barrier, and acoustic mat (condo IIC ratings)",
+      "Self-levelling compound and substrate prep",
+      "Baseboard and quarter-round trim install",
+      "Hardwood sand-and-refinish via vetted partner (disclosed in proposal)",
+    ],
+    materialsHeading: "Brands and systems we install",
+    materials: [
+      "Shaw, Mohawk, Mannington LVT/LVP",
+      "Karndean and COREtec luxury vinyl",
+      "Mirage, Lauzon, Preverco engineered hardwood",
+      "Armstrong and Tarkett commercial sheet vinyl",
+      "Mapei and Ardex self-levellers and adhesives",
+    ],
+    faqs: [
+      {
+        question: "How much does flooring installation cost in the GTA?",
+        answer:
+          "Installation labour in the GTA typically runs: LVP/LVT $2.50–$4.50/sq ft, laminate $2–$3.50/sq ft, engineered hardwood $3.50–$6/sq ft, sheet vinyl $3–$5/sq ft. Substrate prep, levelling, and demolition are quoted separately. Materials are owner-supplied or marked up at cost.",
+      },
+      {
+        question: "Do you do hardwood sanding and refinishing?",
+        answer:
+          "Hardwood sand-and-refinish is delivered through a vetted partner crew and called out clearly in the proposal — we don't pretend it's in-house. Install of pre-finished engineered hardwood is self-performed.",
+      },
+      {
+        question: "Do you do moisture testing and substrate prep?",
+        answer:
+          "Yes. Concrete moisture is tested (RH or calcium chloride) before glue-down vinyl or hardwood. Self-levelling compound is applied where the substrate exceeds manufacturer flatness tolerance.",
+      },
+      {
+        question: "Can you install acoustic underlayment for condos?",
+        answer:
+          "Yes. We install acoustic mats rated to condo IIC/STC requirements (typically IIC 60+) and provide product data for property manager / board approval.",
+      },
+      {
+        question: "Do you handle demolition of existing flooring?",
+        answer:
+          "Yes. Tear-out and disposal of existing carpet, vinyl, laminate, and hardwood are in scope. Pre-1990 vinyl and adhesive are assessed for asbestos before disturbance.",
+      },
+      {
+        question: "Can you install commercial vinyl in offices and clinics?",
+        answer:
+          "Yes. Commercial sheet vinyl, heat-welded seams, and integral cove base for clinics, labs, and institutional spaces are within scope.",
+      },
+      {
+        question: "How long does flooring installation take?",
+        answer:
+          "A standard 1,000 sq ft condo or office takes 2–4 working days including demolition, prep, install, and trim. Larger commercial floors are phased to keep the space partially operational.",
+      },
+      {
+        question: "Are you licensed and insured?",
+        answer:
+          "Yes. $2M commercial general liability and full WSIB coverage. Certificates issued before mobilization.",
+      },
+    ],
+    ctaSlug: "flooring-installation-gta",
+    related: ["tile-installation-toronto", "interior-painting-toronto"],
+  },
+
+  "handyman-patching-toronto": {
+    slug: "handyman-patching-toronto",
+    title: "Drywall Patching & Handyman Services Toronto | Ascent",
+    metaDescription:
+      "Drywall patching, paint touch-ups, and small-scope handyman services across Toronto and the GTA — turnovers, punch-list, property management. $2M CGL, WSIB-covered.",
+    primaryKeyword: "drywall patching and handyman Toronto",
+    secondaryKeywords: [
+      "drywall repair Toronto",
+      "handyman services GTA",
+      "tenant turnover repairs Toronto",
+      "punch-list contractor commercial",
+    ],
+    h1: "Drywall Patching & Handyman Services — Toronto & GTA",
+    eyebrow: "Patching & Handyman",
+    heroAlt: "Drywall patching and handyman services by Ascent Group Construction — Toronto and GTA",
+    directAnswer:
+      "Ascent Group Construction provides drywall patching and small-scope handyman services across Toronto and the Greater Toronto Area for property managers, condo boards, commercial owners, and homeowners. We handle drywall patching, paint touch-ups, small carpentry, door and lock adjustments, fixture swaps, minor tile and grout repair, and tenant turnover punch-lists. Licensed electrical and plumbing work is referred to qualified trades — we don't pretend otherwise. We self-perform, carry $2M commercial general liability, full WSIB coverage, and our crew brings 15+ years of combined trades experience.",
+    scopeHeading: "What we deliver",
+    scopeBullets: [
+      "Drywall patching: nail pops, anchor holes, hairline cracks, larger patch repairs",
+      "Paint touch-ups and small repaint scopes",
+      "Small carpentry: trim repair, shelving, baseboard, casing",
+      "Door adjustments, hinge replacement, lockset and deadbolt swaps",
+      "Fixture swaps: towel bars, blinds, curtain rods, mirrors, accessories",
+      "Minor tile and grout repair (replace cracked tiles, regrout joints)",
+      "Tenant turnover punch-lists for property managers",
+      "Commercial post-construction punch-list resolution",
+    ],
+    materialsHeading: "Out of scope (handled by licensed trades)",
+    materials: [
+      "Licensed electrical work — referred to ESA-licensed electrician",
+      "Licensed plumbing rough-in — referred to licensed plumber",
+      "HVAC repair — referred to TSSA-certified contractor",
+      "Gas appliance connection — referred to TSSA-certified contractor",
+    ],
+    faqs: [
+      {
+        question: "How much does drywall patching cost in Toronto?",
+        answer:
+          "Small drywall patches (nail pops, anchor holes, hairline cracks) typically run $250–$500 for a minimum visit. Larger patches (10\"+ holes, water damage, multiple rooms) are quoted by scope. Touch-up painting after patching is included on request.",
+      },
+      {
+        question: "Is there a minimum visit charge?",
+        answer:
+          "Yes. Our standard minimum is a 2-hour visit. For property managers with multiple units on the same property or street, we bundle visits to reduce per-unit cost.",
+      },
+      {
+        question: "Do you do tenant turnover repairs?",
+        answer:
+          "Yes — this is a core scope for property managers and condo boards. Standard turnover: full patch, paint touch-up, fixture re-tighten, door adjustments, and a written punch-list report.",
+      },
+      {
+        question: "Do you do electrical or plumbing work?",
+        answer:
+          "No. Licensed electrical, plumbing, gas, and HVAC work is referred to qualified trades. We handle fixture swaps and finish-level work that doesn't require a permit.",
+      },
+      {
+        question: "Can you match existing paint colour?",
+        answer:
+          "Yes. Existing paint is colour-matched on a sample or matched to the original product code if known. Sheen and batch variation can leave a visible 'picture frame' on flat finishes — we'll flag that before starting and recommend full-wall touch-up where it matters.",
+      },
+      {
+        question: "Can you handle commercial post-construction punch-lists?",
+        answer:
+          "Yes. We close out post-construction punch-lists for GCs, owners, and tenants — patching, touch-up, door fit, trim, and hardware adjustments. Sign-off is documented per item.",
+      },
+      {
+        question: "How fast can you respond?",
+        answer:
+          "Most small-scope visits in the GTA can be scheduled within 5–10 business days. Property manager retainer agreements get priority scheduling.",
+      },
+      {
+        question: "Are you insured and WSIB-covered?",
+        answer:
+          "Yes. $2M commercial general liability and full WSIB coverage. Certificates issued on request before site work.",
+      },
+    ],
+    ctaSlug: "handyman-patching-toronto",
+    related: ["interior-painting-toronto", "tile-installation-toronto"],
+  },
 };
 
 /** Pretty display name for the `?service=` query param echoed on the estimate form */
@@ -389,6 +797,11 @@ export const WAVE1_PRETTY_NAMES: Record<string, string> = {
   "fire-retardant-coatings-ontario": "Fire Retardant & Intumescent Coatings",
   "exterior-painting-toronto": "Exterior Painting (Toronto / GTA)",
   "caulking-sealants-toronto": "Caulking & Building Envelope Sealants",
+  "interior-painting-toronto": "Interior Painting (Toronto / GTA)",
+  "residential-exterior-painting-gta": "Residential Exterior House Painting (GTA)",
+  "tile-installation-toronto": "Tile Installation (Toronto / GTA)",
+  "flooring-installation-gta": "Flooring Installation (GTA)",
+  "handyman-patching-toronto": "Drywall Patching & Handyman (Toronto / GTA)",
 };
 
 export { TRUST_LINE };
