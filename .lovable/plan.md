@@ -1,73 +1,58 @@
-# Site-Wide Propagation of Today's Service-Page Changes
+## Goal
 
-Audit found **6 components / data files still out of sync** with the new service-registry, new Wave 2 pages, and simplified nav. Plan groups them by surface.
+Two things, in this order:
 
----
+1. **Positioning check** — confirm nothing introduced in the recent Wave 1/2 work, nav refactor, or footer/services-index propagation describes Ascent as a single-trade contractor. Positioning must stay **"specialty contractor (multi-trade self-perform) transitioning to GC"**.
+2. **Standards & template compliance audit** — verify every new/edited page and component obeys the project's established rules (memory: design system foundation, editorial standards, hero hierarchy, typography/colors, animation specs, SEO env standard, semantic tokens, admin UI consistency, etc.).
 
-## 1. Footer (currently DB-only — misses all 9 Wave 1+2 pages)
+No new features. Audit + targeted fixes only.
 
-`src/components/Footer.tsx` fetches services from `supabase.from('services')` and passes them to `UnifiedFooter`. Wave 1+2 static pages (commercial-painting-gta, caulking-sealants-toronto, …) never appear because they aren't DB rows.
+## Scope of files to audit
 
-**Fix:** Merge DB results with `SERVICE_REGISTRY` entries that have `showInNav: true`. The footer's "featured services" then matches the top-nav menu. Dedupe by slug, sort by category, cap at 6 visible + "View all".
+**Positioning (copy + metadata):**
+- `src/data/service-registry.ts` (nav labels + descriptions)
+- `src/data/navigation-structure-enhanced.ts` (mega-menu copy)
+- `src/components/Footer.tsx`
+- `src/pages/Services.tsx` + `src/components/services/ServicesDataGrid.tsx`
+- All 9 Wave 1/2 service pages under `src/pages/services/` and `src/components/services/Wave1ServicePage.tsx`
+- DB SEO metadata for the 4 services we updated (`facade-remediation`, `interior-finishing-renovations`, `parking-garage-restoration`, `sealant-programs`)
+- `public/llms.txt`, `public/sitemap.xml`
 
-## 2. `/services` index page (hardcoded categories + static cards)
+**Standards compliance (template/system):**
+- Wave service pages — confirm they use `SectionHeader`, `ProofStrip`, unified `Card`, `FAQAccordion`, `CTABand` instead of ad-hoc markup
+- Hero images — confirm dimensions/aspect, alt text, OptimizedImage usage, hero-hierarchy tier
+- Color usage — no hardcoded `text-white/bg-black/orange/green-500` etc.; semantic tokens only
+- Typography — Inter; Navy/Charcoal/Steel Blue tokens
+- Animation — Framer Motion `whileInView` staggered pattern + `useReducedMotion`
+- SEO — `SITE_URL` constant in canonical/OG, `<60` title, `140–160` description, single H1, FAQ JSON-LD where applicable
+- Admin UI — any admin surface touched uses custom `ConfirmDialog` + toast (no `alert/confirm`)
+- Routing — plain function route groups, no lazy-wrapping regressions
+- Data formatting — `formatPhone`, project value formatting unchanged
 
-`src/pages/Services.tsx` ships a hardcoded `SERVICE_CATEGORIES` array with 3 cards. `ServicesDataGrid` underneath also queries DB only.
+## Deliverables
 
-**Fix:**
-- Replace the local `SERVICE_CATEGORIES` constant with `SERVICE_CATEGORIES` + `getNavServicesByCategory()` from the registry so the three roll-up cards and their bullets stay aligned with the mega menu (Building Envelope / Restoration & Repair / Interior & Finishes).
-- In `ServicesDataGrid`, append registry entries (filtered to those NOT in the DB result, by slug) so the 9 Wave pages render alongside DB services. Tag each card with its category so the existing filter chips work.
+1. **`/mnt/documents/positioning-and-standards-audit.md`** — a single report with two sections:
+   - **Positioning findings** — per-file lines that suggest single-trade framing, with the exact corrected wording.
+   - **Standards findings** — per-file rule violations grouped by rule (design tokens, hero, typography, animation, SEO, admin UI, etc.), each with file:line and the fix.
+2. **Targeted fixes** for every issue surfaced — copy/token/import edits only. No structural rewrites.
+3. **Re-run** `bunx tsx scripts/audit-service-pages.ts` and confirm 0 failures after fixes.
 
-## 3. `public/sitemap.xml` (legacy slugs, hand-edited, partly wrong)
+## Method
 
-Current sitemap contains URLs that are now permanent redirects (`/services/building-envelope`, `/services/eifs-stucco`, `/services/interior-buildouts`, `/services/metal-cladding`, `/services/protective-coatings`, `/services/exterior-cladding`, `/services/exterior-siding`, `/services/exterior-envelope`, `/services/sustainable-construction`). Crawlers shouldn't be sent to redirected URLs.
-
-**Fix:** Rewrite the `<!-- Services -->` block by enumerating `SERVICE_REGISTRY` + every `publish_state='published'` row from `services`. Drop legacy/redirected slugs. Keep `lastmod` as today, `changefreq=monthly`, `priority=0.8`. Hand-edited file stays hand-edited (per sitemap rules — no migration to a generator without explicit OK).
-
-## 4. `public/llms.txt` (mostly fine, 3 DB pages missing)
-
-Has all Wave 1+2 entries. Missing: `facade-remediation`, `interior-finishing-renovations`, `sealant-programs`. Append three bullet lines under `## Services`.
-
-## 5. Navigation search (`src/hooks/useNavigationSearch.ts`)
-
-Reads `megaMenuDataEnhanced` only. Since the simplified menu drops Emergency Repair / Sealant Programs / Sustainable / 5 painting sub-pages from the visible list, search no longer finds them.
-
-**Fix:** Augment the search index with **all** `SERVICE_REGISTRY` entries (including `showInNav: false`) so users typing "fire retardant" or "tile installation" still get a hit.
-
-## 6. Backend / DB content gaps (4 published services with empty SEO)
-
-From the audit:
-
-| Slug | Missing |
-|---|---|
-| facade-remediation | seo_title, seo_description |
-| interior-finishing-renovations | seo_title, seo_description |
-| parking-garage-restoration | seo_title, seo_description |
-| sealant-programs | seo_title, seo_description |
-
-**Fix:** Single migration that fills `seo_title` (≤60 chars) and `seo_description` (140–160 chars) for these 4 rows using broad-trade language consistent with the SEO Meta Standardization memory. Content is editable later from the admin Services Manager (no schema change).
-
-## 7. Defensive cleanups
-
-- **`DynamicServicesMegaMenu.tsx`** — appears unused after today's changes. Confirm via `rg` and delete if zero imports, else leave alone.
-- **Admin Services Manager** — surface a small read-only "Static page" badge next to the 9 Wave slugs so editors know those pages aren't DB-editable (matches the Operational Transparency Labels memory). Just a UI nudge, no behavior change.
-
----
+1. Grep the codebase for positioning red-flag phrases ("painter", "painting contractor", "single trade", "we are a painting company", anything that narrows scope below "specialty contractor / multi-trade self-perform").
+2. Grep for standards red flags (hardcoded colors, raw `<h2>`/`<section>` headers instead of `SectionHeader`, missing `useReducedMotion`, hardcoded site URLs, native `alert/confirm`, `text-white`, etc.).
+3. Cross-check each Wave page against `Wave1ServicePage.tsx` template structure.
+4. Compile report → apply fixes → re-run audit script.
 
 ## Out of scope
 
-- No copy rewrites on Wave 1+2 pages (already audited clean).
-- No changes to RLS / auth / edge functions — backend is healthy, no schema changes were made today.
-- No new connectors, no new routes.
-- No homepage / about / capabilities / markets pages — they don't reference service slugs directly.
+- New service pages, new components, new routes
+- Homepage/About/Capabilities/Markets rewrites
+- Schema migrations beyond fixing copy in the 4 already-edited DB rows
+- RLS/auth/edge functions
 
-## Files touched
+## Question before I implement
 
-- **Edited**: `src/components/Footer.tsx`, `src/pages/Services.tsx`, `src/components/services/ServicesDataGrid.tsx`, `src/hooks/useNavigationSearch.ts`, `public/sitemap.xml`, `public/llms.txt`
-- **Possibly deleted**: `src/components/navigation/DynamicServicesMegaMenu.tsx` (only if unused)
-- **New migration**: fill `seo_title` + `seo_description` for 4 services rows
-- **Re-run**: `bunx tsx scripts/audit-service-pages.ts` to confirm clean report; attach updated artifact
+What I have flagged so far from a quick pass on the registry/nav looks **clean for positioning** — labels like "Painting Services", "Tile & Flooring", etc. are scoped as trade capabilities under the Ascent Group umbrella, not as company identity. The only place I'd tighten is the Services index hero/meta and Wave page intros, to make sure every page reinforces "specialty contractor doing this trade as one of many," not "we are a [trade] contractor."
 
-## Validation
-
-After edits: rerun the audit script (expect failing pages → 0), open `/services` to confirm Wave pages render as cards, open footer to confirm new links appear, open `/sitemap.xml` to confirm no redirected URLs.
+Approve this plan and I'll run the full audit + fixes in one pass.
