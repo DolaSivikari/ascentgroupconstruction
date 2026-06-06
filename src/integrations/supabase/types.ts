@@ -676,6 +676,7 @@ export type Database = {
           name: string
           newsletter_consent: boolean | null
           phone: string | null
+          service_origin: string | null
           status: string | null
           submission_type: string | null
         }
@@ -691,6 +692,7 @@ export type Database = {
           name: string
           newsletter_consent?: boolean | null
           phone?: string | null
+          service_origin?: string | null
           status?: string | null
           submission_type?: string | null
         }
@@ -706,6 +708,7 @@ export type Database = {
           name?: string
           newsletter_consent?: boolean | null
           phone?: string | null
+          service_origin?: string | null
           status?: string | null
           submission_type?: string | null
         }
@@ -1949,6 +1952,7 @@ export type Database = {
           quote_type: string
           role: string | null
           scope_categories: string[] | null
+          service_origin: string | null
           source: string | null
           status: string | null
           target_deadline: string | null
@@ -1980,6 +1984,7 @@ export type Database = {
           quote_type: string
           role?: string | null
           scope_categories?: string[] | null
+          service_origin?: string | null
           source?: string | null
           status?: string | null
           target_deadline?: string | null
@@ -2011,6 +2016,7 @@ export type Database = {
           quote_type?: string
           role?: string | null
           scope_categories?: string[] | null
+          service_origin?: string | null
           source?: string | null
           status?: string | null
           target_deadline?: string | null

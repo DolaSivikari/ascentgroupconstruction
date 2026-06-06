@@ -481,7 +481,7 @@ const ServiceDetail = () => {
                   </div>
                 )}
 
-                {/* FAQs — Accordion */}
+                {/* FAQs — Accordion w/ auto FAQPage JSON-LD (AEO) */}
                 {service.faq_items && service.faq_items.length > 0 && (
                   <div>
                     <SectionHeader
@@ -489,26 +489,9 @@ const ServiceDetail = () => {
                       title="Frequently Asked Questions"
                       align="left"
                     />
-                    <Accordion
-                      type="single"
-                      collapsible
-                      className="border rounded-lg bg-background divide-y"
-                    >
-                      {service.faq_items.map((faq, index) => (
-                        <AccordionItem
-                          key={index}
-                          value={`item-${index}`}
-                          className="border-b-0 px-6"
-                        >
-                          <AccordionTrigger className="text-left font-semibold hover:no-underline">
-                            {faq.question}
-                          </AccordionTrigger>
-                          <AccordionContent className="text-muted-foreground leading-relaxed">
-                            {faq.answer}
-                          </AccordionContent>
-                        </AccordionItem>
-                      ))}
-                    </Accordion>
+                    <div className="mt-6">
+                      <FAQAccordion faqs={service.faq_items} emitSchema />
+                    </div>
                   </div>
                 )}
 

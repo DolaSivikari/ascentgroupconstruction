@@ -88,6 +88,8 @@ const Estimate = () => {
     consent: false,
     // Tracking
     source: "",
+    // AEO/GEO attribution — which Wave 1 service page sent the lead
+    serviceOrigin: "",
   });
 
   useEffect(() => {
@@ -109,6 +111,19 @@ const Estimate = () => {
     
     if (typeParam && ['specialty_prime', 'trade_package', 'emergency', 'general'].includes(typeParam)) {
       setFormData(prev => ({ ...prev, quoteType: typeParam }));
+    }
+  }, []);
+
+  // Capture ?service=<slug> attribution from Wave 1 AEO/GEO landing pages
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const serviceParam = params.get('service');
+    if (serviceParam) {
+      // Sanitize: only allow slug-safe characters, cap length
+      const safe = serviceParam.replace(/[^a-z0-9-]/gi, '').slice(0, 80);
+      if (safe) {
+        setFormData(prev => ({ ...prev, serviceOrigin: safe }));
+      }
     }
   }, []);
 
@@ -282,6 +297,7 @@ Add-ons:
         message: sanitizedMessage,
         submission_type: "estimate",
         consent_timestamp: new Date().toISOString(),
+        service_origin: formData.serviceOrigin || null,
       });
 
       const timeoutPromise = new Promise((_, reject) =>
@@ -307,6 +323,7 @@ Add-ons:
             consent_given: validatedData.consent,
             consent_timestamp: new Date().toISOString(),
             source: formData.source,
+            service_origin: formData.serviceOrigin || null,
           })
           .select('lead_score, priority')
           .single();
@@ -418,6 +435,17 @@ Add-ons:
           columns={4}
         />
       </Section>
+
+      {/* Attribution chip — shows when arriving from a Wave 1 service page */}
+      {formData.serviceOrigin && (
+        <Section size="tight" disableAnimation>
+          <div className="max-w-4xl mx-auto">
+            <div className="rounded-lg border border-primary/30 bg-primary/5 px-4 py-3 text-sm text-foreground">
+              Requesting a quote for: <strong className="text-primary">{formData.serviceOrigin.replace(/-/g, ' ')}</strong>
+            </div>
+          </div>
+        </Section>
+      )}
 
       {/* Pathway Guidance */}
       <Section size="tight" disableAnimation>
