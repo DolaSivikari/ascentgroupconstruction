@@ -141,13 +141,13 @@ const EnhancedHero = ({ splashComplete = true }: { splashComplete?: boolean }) =
 
   const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
   const prefersReducedMotion = useReducedMotion();
-  // Skip heavy autoplay video on mobile / data-saver to cut ~5s off load.
-  // Show poster image only — desktop unchanged.
+  // Skip autoplay video only when the user explicitly opts out
+  // (Data Saver or prefers-reduced-motion). Poster image is used as fallback.
   const prefersReducedData =
     typeof window !== "undefined" &&
     // @ts-expect-error: connection is not in lib.dom but is widely supported
     (navigator.connection?.saveData === true);
-  const skipVideo = isMobile || prefersReducedData;
+  const skipVideo = prefersReducedData || prefersReducedMotion;
 
   // ── Page ready ──
   useEffect(() => {
@@ -235,15 +235,36 @@ const EnhancedHero = ({ splashComplete = true }: { splashComplete?: boolean }) =
   useEffect(() => {
     const v = videoRef.current;
     if (!v) return;
+    // Ensure muted before play() — iOS sometimes ignores the attribute on first paint
+    v.muted = true;
+    v.playsInline = true;
+    // Force a reload when the slide changes so the new source is fetched immediately
+    try { v.load(); } catch {}
+
+    const tryPlay = () => {
+      v.play().catch((err) => {
+        if (import.meta.env.DEV) {
+          console.warn('Hero video autoplay blocked, will retry on user gesture', err);
+        }
+        const resume = () => {
+          v.play().catch(() => {});
+          window.removeEventListener('touchstart', resume);
+          window.removeEventListener('click', resume);
+        };
+        window.addEventListener('touchstart', resume, { once: true, passive: true });
+        window.addEventListener('click', resume, { once: true });
+      });
+    };
+
     if (v.readyState >= 3) {
       setIsVideoLoaded(true);
-      v.play().catch(() => {});
+      tryPlay();
       return;
     }
     setIsVideoLoaded(false);
     const markReady = () => {
       setIsVideoLoaded(true);
-      v.play().catch(() => {});
+      tryPlay();
     };
     v.addEventListener('loadedmetadata', markReady);
     v.addEventListener('loadeddata', markReady);
@@ -350,13 +371,11 @@ const EnhancedHero = ({ splashComplete = true }: { splashComplete?: boolean }) =
   const headline = slide.headline;
   const subheadline = slide.subheadline;
   const videoUrl = getVideoUrl(slide.video);
-  const videoUrlMobile = slide.video.replace('.mp4', '-mobile.mp4');
   const posterUrl = slide.poster;
   const primaryCTA = slide.primaryCTA;
   const secondaryCTA = slide.secondaryCTA;
 
   const prevVideoUrl = prevSlide ? getVideoUrl(prevSlide.video) : null;
-  const prevVideoUrlMobile = prevSlide ? prevSlide.video.replace('.mp4', '-mobile.mp4') : null;
   const prevPosterUrl = prevSlide?.poster;
 
   // Reduced motion: no animations
@@ -459,7 +478,6 @@ const EnhancedHero = ({ splashComplete = true }: { splashComplete?: boolean }) =
               poster={prevPosterUrl}
               className="absolute inset-0 w-full h-full object-cover"
             >
-              {isMobile && prevVideoUrlMobile && <source src={prevVideoUrlMobile} type="video/mp4" />}
               {prevVideoUrl && <source src={prevVideoUrl} type="video/mp4" />}
             </video>
           )}
@@ -493,7 +511,8 @@ const EnhancedHero = ({ splashComplete = true }: { splashComplete?: boolean }) =
             loop
             muted
             playsInline
-            preload="metadata"
+            preload="auto"
+            disableRemotePlayback
             poster={posterUrl}
             onLoadedData={handleVideoReady}
             onCanPlay={handleVideoReady}
@@ -503,7 +522,6 @@ const EnhancedHero = ({ splashComplete = true }: { splashComplete?: boolean }) =
             }}
             className="absolute inset-0 w-full h-full object-cover"
           >
-            {isMobile && <source src={videoUrlMobile} type="video/mp4" />}
             <source src={videoUrl} type="video/mp4" />
           </video>
         )}

@@ -1,58 +1,60 @@
-# BATCH 2 — Critical Security (Database + Edge Functions)
+# Restore Hero Background Video (Desktop + Mobile)
 
-Single migration + edge function fixes. Approve to run.
+## What's happening
 
-## 1. Migration — `SET search_path` on all 37 SECURITY DEFINER functions
+The homepage hero (`src/components/homepage/EnhancedHero.tsx`) currently hides the `<video>` element on every mobile user-agent via this gate (added back in April):
 
-For every function in `public`, run `ALTER FUNCTION ... SET search_path = public, pg_temp`. Covers: `is_admin`, `has_role`, `get_user_role`, `can_edit_content`, `can_manage_settings`, `can_manage_users`, `can_view_analytics`, `handle_new_user`, `check_and_update_rate_limit`, `enforce_public_form_rate_limit`, `enqueue_email`, `read_email_batch`, `move_to_dlq`, `delete_email`, `create_notification`, `notify_admins`, `notify_new_contact`, `notify_new_quote`, `notify_new_rfp`, `notify_new_resume`, `notify_new_prequal`, `get_admin_dashboard_stats`, `get_security_audit_log`, `save_content_version`, `auto_save_version`, `get_active_featured_services`, `get_active_promotions`, `generate_unsubscribe_token`, `generate_preview_token_with_expiry`, `log_sensitive_access`, `log_project_save_attempt`, `track_service_interaction`, `set_lead_score_and_priority`, `calculate_lead_score`, `cleanup_old_error_logs`, `update_updated_at_column`, `normalize_slug`.
+```ts
+const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+const skipVideo = isMobile || prefersReducedData;
+```
 
-(Note: most already have `SET search_path = 'public'`. The migration is idempotent — re-running `ALTER FUNCTION ... SET search_path = public, pg_temp` is safe and standardizes `pg_temp` inclusion across all of them.)
+When `skipVideo` is true, the component renders the poster image instead of the `<video>`. That's why your mobile preview shows only the static image — by design, not from any recent batch (no batch 1–6 file touched the hero).
 
-## 2. Migration — Tighten wide-open RLS INSERT policies
+For the desktop case where the video also doesn't start, the likely culprits are:
+1. `preload="metadata"` on the active slide — some browsers don't fetch enough data to trigger `canplay`, so `autoPlay` never fires.
+2. The `mobile` `<source>` element points to a `-mobile.mp4` path derived by `string.replace('.mp4','-mobile.mp4')` — for hashed Vite asset URLs this resolves to a 404; if the browser picks it first, `<video>` errors out before falling back.
+3. The play attempt in the loading effect swallows errors silently (`v.play().catch(() => {})`), masking autoplay-policy rejections.
 
-| Table | Current | New |
-|---|---|---|
-| `suppressed_emails` | INSERT to `public`, no CHECK | INSERT restricted to `service_role` |
-| `google_auth_tokens` | INSERT to `public`, no CHECK | INSERT to `authenticated` with `WITH CHECK (auth.uid() = user_id)` |
-| `error_logs` | INSERT to `public`, no CHECK | INSERT to `service_role` only (client error logging routes through edge fn) |
-| `document_access_log` | INSERT to `public`, no CHECK | INSERT to `authenticated` only |
-| `search_console_data` | INSERT to `public`, no CHECK | INSERT to `service_role` only |
-| `email_unsubscribe_tokens` | INSERT to `public`, no CHECK | INSERT to `service_role` only |
-| `review_requests` | INSERT to `public`, no CHECK | INSERT to `service_role` only |
-| `ab_test_assignments` | INSERT to anon | Keep but add `WITH CHECK (true)` and rate-limit downstream |
-| `project-images` storage INSERT | `public`, no CHECK | `WITH CHECK (public.is_admin(auth.uid()))` |
+## Changes
 
-## 3. Migration — Storage hardening
+### 1. Enable video on mobile
+File: `src/components/homepage/EnhancedHero.tsx`
 
-- Add `file_size_limit` to all three buckets: `project-images` 5 MB, `rfp-attachments` 25 MB, `documents` 25 MB (done via `storage_update_bucket` after migration).
-- Flip `documents` bucket to private; add a `documents_signed_url(p_id uuid)` SECURITY DEFINER helper that returns a signed URL only when the row's `requires_authentication = false` OR caller is authenticated.
+- Replace the `skipVideo` gate so it only skips when the user has Data Saver on or `prefers-reduced-motion`:
+  ```ts
+  const skipVideo = prefersReducedData || prefersReducedMotion;
+  ```
+- Keep poster image as the fallback when `skipVideo` is true (current behavior preserved for accessibility / data-saver users).
 
-## 4. Edge function — fix broken brute-force lockout
+### 2. Make `<video>` reliably autoplay on both platforms
+Same file, both the current-slide and previous-slide `<video>` blocks:
 
-`check-login-attempt` currently queries non-existent `auth_account_lockouts`. Two options:
+- Change `preload="metadata"` → `preload="auto"` for the **current** slide (keep `metadata` for the outgoing/previous layer since it's transient).
+- Only emit the `-mobile.mp4` `<source>` when the slide explicitly provides a separate mobile URL (admin DB field) — drop the unreliable `string.replace` derivation for hashed Vite imports.
+- Add `muted`, `playsInline`, `autoPlay`, `loop` (already present) plus `disableRemotePlayback` for iOS Safari stability.
+- Set `video.muted = true` imperatively in the load effect before calling `.play()` (some iOS versions ignore the attribute on first paint).
 
-- **Option A (recommended)**: Create `auth_account_lockouts` table (columns: `email text primary key`, `locked_until timestamptz`, `failure_count int`, `updated_at`) with service-role-only RLS, then keep the existing edge function logic.
-- **Option B**: Rewrite the edge function to use the existing `auth_failed_attempts` table (compute lockout from row count in window).
+### 3. Robust play + visibility into failures
+In the `useEffect` that hooks `videoRef`:
 
-Plan defaults to **Option A** — minimal code change, cleaner separation. Confirm if you prefer B.
+- Replace the silent `.catch(() => {})` with a retry on user gesture (touchstart/click once) and a `console.warn` in dev only.
+- Trigger `v.load()` when `currentSlide` changes so the new source is fetched immediately.
 
-## 5. Edge function — strip PII from logs
+### 4. Sanity check / preserve fallback
+- Keep the poster image visible underneath via the `poster` attribute on `<video>` so if the video genuinely fails to load, the user sees the image (no broken UI) — exactly the current safety net.
+- Leave `useVideoPreloader` untouched (it's already only doing background prefetch and doesn't gate rendering).
 
-Edit `supabase/functions/check-login-attempt/index.ts` and `supabase/functions/invite-user/index.ts` to remove email addresses from `console.log` / `console.error` calls. Replace with hashed identifiers or generic strings.
+## Technical notes
 
-## 6. `supabase/config.toml` — explicit `verify_jwt` per function
+- No DB / schema / route changes.
+- No new dependencies.
+- Mobile data impact: enabling the hero MP4 on phones adds ~1–3 MB of download. The data-saver and reduced-motion fallbacks remain, so users who opted out still get the poster. If you'd rather provide a properly encoded smaller mobile MP4 later, the code path for `-mobile.mp4` stays in place — it just won't be emitted unless a real URL is supplied.
+- Files touched: `src/components/homepage/EnhancedHero.tsx` only.
 
-Add explicit `[functions.<name>] verify_jwt = ...` blocks for the 18 functions currently relying on the implicit default, so platform changes can't silently flip auth enforcement. Default `true` everywhere except `submit-form`, `google-oauth-callback`, `generate-sitemap` (public-facing → `false`).
+## Verification
 
----
-
-## What I won't touch in this batch
-- App code that calls these tables (no breakage expected; only INSERT policies tighten and those callsites already use service-role keys via edge functions).
-- Sitemap / SEO / perf / standards work — those are BATCH 3+.
-
-## Verification after migration runs
-- Run `supabase--linter` to confirm zero "function_search_path_mutable" warnings.
-- Spot-check `/contact` and `/rfp` forms still submit (they go through `submit-form` edge function which uses service-role).
-- Confirm admin login still works.
-
-Approve to run the migration.
+After the change I'll:
+1. Reload the preview at mobile (457×748) and desktop widths and confirm the `<video>` element is present and `readyState >= 3`.
+2. Watch console for any "Hero video failed to load" errors.
+3. Confirm the poster still appears instantly while the video buffers (no flash of empty black).
