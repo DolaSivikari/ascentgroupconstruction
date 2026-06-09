@@ -1,4 +1,7 @@
-# NOTE: These redirects only work on Netlify. For other hosts, configure at the server/CDN level.
+# NOTE: Lovable hosting IGNORES this file (Netlify-only format).
+# Legacy URL redirects are implemented in src/routes/AppRoutes.tsx using <Navigate>.
+# www → non-www canonical is enforced by Lovable's edge for the active custom domain.
+# This file is kept as documentation only and as a fallback for any Netlify-style host.
 # ============================================================================
 # Canonicalization
 # ============================================================================

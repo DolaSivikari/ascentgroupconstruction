@@ -114,6 +114,15 @@ const ServiceRouteGroup = () => (
     <Route path="/services/parking-rehabilitation" element={<Navigate to="/services/parking-garage-restoration" replace />} />
     <Route path="/services/sustainable-construction" element={<Navigate to="/services/sustainable-building" replace />} />
     <Route path="/services/protective-coatings" element={<Navigate to="/services/painting-services" replace />} />
+    {/* Legacy short slugs (previously handled by Netlify _redirects, which Lovable hosting ignores) */}
+    <Route path="/services/stucco" element={<Navigate to="/services/cladding-systems" replace />} />
+    <Route path="/services/stucco-eifs" element={<Navigate to="/services/eifs-stucco-systems" replace />} />
+    <Route path="/services/sealants" element={<Navigate to="/services/building-envelope-solutions" replace />} />
+    <Route path="/services/sealants-caulking" element={<Navigate to="/services/sealant-programs" replace />} />
+    <Route path="/services/parking-garage" element={<Navigate to="/services/parking-garage-restoration" replace />} />
+    <Route path="/services/commercial" element={<Navigate to="/services" replace />} />
+    <Route path="/services/condo" element={<Navigate to="/services/painting-services" replace />} />
+    <Route path="/services/masonry" element={<Navigate to="/services/masonry-restoration" replace />} />
 
     {/* Wave 1 + Wave 2 AEO/GEO landing pages — static, must come BEFORE /services/:slug */}
     <Route path="/services/commercial-painting-gta" element={<CommercialPaintingGTA />} />
@@ -202,6 +211,9 @@ export const AppRoutes = () => (
       <Route path="/sustainability" element={<Navigate to="/services/sustainable-building" replace />} />
       <Route path="/insights" element={<Navigate to="/blog" replace />} />
       <Route path="/service-selector" element={<Navigate to="/services" replace />} />
+      {/* Legacy CTA shortlinks (previously handled by Netlify _redirects, which Lovable hosting ignores) */}
+      <Route path="/free-quote" element={<Navigate to="/contact" replace />} />
+      <Route path="/get-estimate" element={<Navigate to="/contact" replace />} />
 
       {ServiceRouteGroup()}
 
