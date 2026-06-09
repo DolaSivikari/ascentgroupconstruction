@@ -230,6 +230,7 @@ const SEO = ({
     <Helmet>
       <title>{fullTitle}</title>
       <meta name="description" content={description} />
+      {noindex && <meta name="robots" content="noindex, nofollow" />}
       <meta name="keywords" content={keywords} />
 
       {/* Open Graph */}
