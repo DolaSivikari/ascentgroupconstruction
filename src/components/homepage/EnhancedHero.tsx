@@ -478,7 +478,6 @@ const EnhancedHero = ({ splashComplete = true }: { splashComplete?: boolean }) =
               poster={prevPosterUrl}
               className="absolute inset-0 w-full h-full object-cover"
             >
-              {isMobile && prevVideoUrlMobile && <source src={prevVideoUrlMobile} type="video/mp4" />}
               {prevVideoUrl && <source src={prevVideoUrl} type="video/mp4" />}
             </video>
           )}
