@@ -43,7 +43,7 @@ import {
 } from "lucide-react";
 import { mainPageHeroes } from "@/data/hero-images";
 import { usePageAnalytics } from "@/hooks/usePageAnalytics";
-import { generateBreadcrumbSchema, generateHowToSchema } from "@/utils/seo";
+import { generateBreadcrumbSchema, generateHowToSchema, generateFAQSchema } from "@/utils/seo";
 import { founderBio } from "@/data/enriched-company-content";
 import { aboutFaqs } from "@/data/page-faqs";
 
