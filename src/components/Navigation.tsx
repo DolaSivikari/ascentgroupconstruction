@@ -362,13 +362,40 @@ const Navigation = () => {
                 )}
               />
 
-              {/* Primary CTA — Submit RFP */}
-              <Button asChild variant="primary" size="sm" className="shadow-lg">
-                <Link to="/submit-rfp" className="gap-2">
-                  <FileText className="w-4 h-4" />
-                  Submit RFP
-                </Link>
-              </Button>
+              {/* Primary CTA — Start a Project (dropdown for all audiences) */}
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="primary" size="sm" className="shadow-lg gap-2">
+                    <FileText className="w-4 h-4" />
+                    Start a Project
+                    <ChevronDown className="w-4 h-4" />
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end" className="w-64">
+                  <DropdownMenuLabel className="text-xs uppercase tracking-wider text-muted-foreground">For GCs & Architects</DropdownMenuLabel>
+                  <DropdownMenuItem asChild>
+                    <Link to="/submit-rfp" className="cursor-pointer">Submit RFP</Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <Link to="/prequalification" className="cursor-pointer">Prequalification</Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <Link to="/resources/contractor-portal" className="cursor-pointer">Contractor Portal</Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuLabel className="text-xs uppercase tracking-wider text-muted-foreground">For Owners & Managers</DropdownMenuLabel>
+                  <DropdownMenuItem asChild>
+                    <Link to="/contact" className="cursor-pointer">Request Site Assessment</Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <Link to="/estimate" className="cursor-pointer">Request Estimate</Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <Link to="/emergency-repair" className="cursor-pointer">Emergency Repair</Link>
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+
 
               {/* Admin Dropdown - Only visible to admin users */}
               {isAdmin && (
