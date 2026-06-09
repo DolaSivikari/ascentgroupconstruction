@@ -106,7 +106,7 @@ export const ServiceCard = ({
 
         {/* Hover CTA */}
         <div className="flex items-center gap-2 mt-6 text-primary text-sm font-semibold opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-          <span>Learn More</span>
+          <span>Learn more about {name}</span>
           <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
         </div>
       </Card>
