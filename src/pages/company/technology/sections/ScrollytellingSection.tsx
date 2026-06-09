@@ -22,7 +22,7 @@ export const ScrollytellingSection = ({ rm }: Props) => {
 
   return (
     <div ref={containerRef} className={`relative ${rm ? 'h-auto' : 'h-[500vh]'}`}>
-      <div className={rm ? '' : 'sticky top-0 h-screen'}>
+      <div className={rm ? '' : 'sticky top-0 h-dvh'}>
         <div className="relative h-full flex items-center overflow-hidden bg-muted/30">
           <div className="absolute left-6 md:left-10 top-1/2 -translate-y-1/2 flex flex-col gap-3 z-20">
             {SCROLLYTELLING_PHASES.map((p, i) => (

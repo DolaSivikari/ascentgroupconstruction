@@ -7,7 +7,7 @@ export const HeroSkeleton = () => {
       <Skeleton className="absolute inset-0" />
       
       {/* Content Skeleton */}
-      <div className="relative z-10 container mx-auto px-4 h-screen flex items-center">
+      <div className="relative z-10 container mx-auto px-4 h-dvh flex items-center">
         <div className="max-w-4xl space-y-6">
           {/* Stat Badge */}
           <div className="flex items-center gap-4 mb-8">

@@ -100,7 +100,8 @@ const Testimonials = () => {
                     size="icon"
                     onClick={carousel.prev}
                     disabled={!carousel.canGoPrev}
-                    className="h-10 w-10"
+                    className="h-11 w-11"
+                    aria-label="Previous testimonial"
                   >
                     <ChevronLeft className="h-5 w-5" />
                   </Button>
@@ -109,7 +110,8 @@ const Testimonials = () => {
                     size="icon"
                     onClick={carousel.next}
                     disabled={!carousel.canGoNext}
-                    className="h-10 w-10"
+                    className="h-11 w-11"
+                    aria-label="Next testimonial"
                   >
                     <ChevronRight className="h-5 w-5" />
                   </Button>

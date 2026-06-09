@@ -128,7 +128,7 @@ export const AdminTopBar = () => {
 
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant="ghost" size="icon" className="rounded-full">
+                <Button variant="ghost" size="icon" className="rounded-full" aria-label="Open user menu">
                   <Avatar className="h-8 w-8">
                     <AvatarFallback>A</AvatarFallback>
                   </Avatar>
