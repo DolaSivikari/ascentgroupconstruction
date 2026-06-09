@@ -71,7 +71,7 @@ export const ServiceSelector = () => {
           "Concrete & Parking Garage Rehabilitation",
         ],
         cta: "Request a Proposal",
-        link: "/services/building-envelope",
+        link: "/services/building-envelope-solutions",
         icon: Building2,
       };
     }
