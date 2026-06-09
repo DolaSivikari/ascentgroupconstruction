@@ -86,7 +86,7 @@ export const ProjectGallery: React.FC<ProjectGalleryProps> = ({
             onClick={() => setSelectedTab('before-after')}
             className={`px-6 py-3 rounded-full font-semibold transition-all ${
               selectedTab === 'before-after'
-                ? 'bg-success text-[hsl(var(--bg))] shadow-lg scale-105'
+                ? 'bg-success text-success-foreground shadow-lg scale-105'
                 : 'bg-card hover:bg-accent shadow'
             }`}
           >

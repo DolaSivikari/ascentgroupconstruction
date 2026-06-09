@@ -40,6 +40,11 @@ All colors MUST be HSL.
     --popover: 0 0% 100%;
     --popover-foreground: 200 18% 26%;
 
+    /* Accessible yellow accent (WCAG AA on dark text) — used by .text-safety-yellow & .bg-safety-yellow */
+    --safety-yellow-accessible: 45 96% 45%;
+    --text-on-yellow: 0 0% 10%;
+
+
     /* Corporate Color Palette - Audit Aligned */
     --primary: 210 100% 20%;        /* Navy Blue #003366 */
     --primary-foreground: 0 0% 100%; /* White */
