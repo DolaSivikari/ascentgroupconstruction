@@ -10,7 +10,7 @@ import { TrustRibbon, SectionHeader, FAQAccordion, DetailCard } from "@/design-s
 import { Section } from "@/components/sections/Section";
 import { mainPageHeroes } from "@/data/hero-images";
 import { usePageAnalytics } from "@/hooks/usePageAnalytics";
-import { generateBreadcrumbSchema } from "@/utils/seo";
+import { generateBreadcrumbSchema, generateFAQSchema } from "@/utils/seo";
 import { SITE_URL } from "@/constants/company";
 import { servicesFaqs } from "@/data/page-faqs";
 
