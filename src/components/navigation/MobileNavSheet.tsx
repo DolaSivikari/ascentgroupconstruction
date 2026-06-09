@@ -371,11 +371,12 @@ export function MobileNavSheet({ open, onOpenChange }: MobileNavSheetProps) {
             size="lg"
             className="w-full h-12 gap-2 text-sm font-semibold bg-accent hover:bg-accent/90 text-accent-foreground active:scale-[0.98] transition-all touch-manipulation"
           >
-            <Link to="/estimate" onClick={handleLinkClick}>
-              Request a Quote
+            <Link to="/submit-rfp" onClick={handleLinkClick}>
+              Start a Project
               <ArrowRight className="h-4 w-4" aria-hidden="true" />
             </Link>
           </Button>
+
           {phoneHref && (
             <a
               href={phoneHref}
