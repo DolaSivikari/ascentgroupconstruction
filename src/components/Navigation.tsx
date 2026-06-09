@@ -210,7 +210,7 @@ const Navigation = () => {
               </Link>
             </div>
 
-            {/* Center: Main Navigation — About → Services → Markets → Projects → Trade Partners → Contact */}
+            {/* Center: Main Navigation — About → Capabilities → Services → Markets → Projects → Insights → Contact */}
             <nav className="flex items-center gap-2 lg:gap-3" aria-label="Main navigation">
               {/* About Mega-Menu */}
               <div
@@ -234,6 +234,31 @@ const Navigation = () => {
                   isOpen={activeMegaMenu === "company"}
                   onClose={closeMegaMenu}
                   config={megaMenuDataEnhanced.company}
+                />
+              </div>
+
+              {/* Capabilities Mega-Menu */}
+              <div
+                className="relative"
+                onMouseEnter={() => handleMegaMenuEnter("capabilities")}
+                onMouseLeave={handleMegaMenuLeave}
+              >
+                <Link
+                  to="/capabilities"
+                  className={navLinkClass("capabilities")}
+                  aria-expanded={activeMegaMenu === "capabilities"}
+                >
+                  Capabilities
+                  <ChevronDown className={cn(
+                    "w-4 h-4 transition-all duration-300",
+                    activeMegaMenu === "capabilities" && "rotate-180"
+                  )} />
+                </Link>
+                <MegaMenuWithSections
+                  sections={megaMenuDataEnhanced.capabilities.sections}
+                  isOpen={activeMegaMenu === "capabilities"}
+                  onClose={closeMegaMenu}
+                  config={megaMenuDataEnhanced.capabilities}
                 />
               </div>
 
@@ -262,6 +287,30 @@ const Navigation = () => {
                 />
               </div>
 
+              {/* Markets Mega-Menu */}
+              <div
+                className="relative"
+                onMouseEnter={() => handleMegaMenuEnter("markets")}
+                onMouseLeave={handleMegaMenuLeave}
+              >
+                <Link
+                  to="/markets"
+                  className={navLinkClass("markets")}
+                  aria-expanded={activeMegaMenu === "markets"}
+                >
+                  Markets
+                  <ChevronDown className={cn(
+                    "w-4 h-4 transition-all duration-300",
+                    activeMegaMenu === "markets" && "rotate-180"
+                  )} />
+                </Link>
+                <MegaMenuWithSections
+                  sections={megaMenuDataEnhanced.markets.sections}
+                  isOpen={activeMegaMenu === "markets"}
+                  onClose={closeMegaMenu}
+                  config={megaMenuDataEnhanced.markets}
+                />
+              </div>
 
               {/* Projects */}
               <Link
@@ -271,30 +320,13 @@ const Navigation = () => {
                 Projects
               </Link>
 
-              {/* Trade Partners Mega-Menu */}
-              <div
-                className="relative"
-                onMouseEnter={() => handleMegaMenuEnter("tradePartners")}
-                onMouseLeave={handleMegaMenuLeave}
+              {/* Insights */}
+              <Link
+                to="/blog"
+                className={navLinkClass(undefined, "/blog")}
               >
-                <Link
-                  to="/for-general-contractors"
-                  className={navLinkClass("tradePartners")}
-                  aria-expanded={activeMegaMenu === "tradePartners"}
-                >
-                  Trade Partners
-                  <ChevronDown className={cn(
-                    "w-4 h-4 transition-all duration-300",
-                    activeMegaMenu === "tradePartners" && "rotate-180"
-                  )} />
-                </Link>
-                <MegaMenuWithSections
-                  sections={megaMenuDataEnhanced.tradePartners.sections}
-                  isOpen={activeMegaMenu === "tradePartners"}
-                  onClose={closeMegaMenu}
-                  config={megaMenuDataEnhanced.tradePartners}
-                />
-              </div>
+                Insights
+              </Link>
 
               {/* Contact */}
               <Link
@@ -304,6 +336,7 @@ const Navigation = () => {
                 Contact
               </Link>
             </nav>
+
 
             {/* Right: Utility Items */}
             <div className="flex items-center gap-2">
@@ -329,13 +362,40 @@ const Navigation = () => {
                 )}
               />
 
-              {/* Primary CTA — Submit RFP */}
-              <Button asChild variant="primary" size="sm" className="shadow-lg">
-                <Link to="/submit-rfp" className="gap-2">
-                  <FileText className="w-4 h-4" />
-                  Submit RFP
-                </Link>
-              </Button>
+              {/* Primary CTA — Start a Project (dropdown for all audiences) */}
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="primary" size="sm" className="shadow-lg gap-2">
+                    <FileText className="w-4 h-4" />
+                    Start a Project
+                    <ChevronDown className="w-4 h-4" />
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end" className="w-64">
+                  <DropdownMenuLabel className="text-xs uppercase tracking-wider text-muted-foreground">For GCs & Architects</DropdownMenuLabel>
+                  <DropdownMenuItem asChild>
+                    <Link to="/submit-rfp" className="cursor-pointer">Submit RFP</Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <Link to="/prequalification" className="cursor-pointer">Prequalification</Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <Link to="/resources/contractor-portal" className="cursor-pointer">Contractor Portal</Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuLabel className="text-xs uppercase tracking-wider text-muted-foreground">For Owners & Managers</DropdownMenuLabel>
+                  <DropdownMenuItem asChild>
+                    <Link to="/contact" className="cursor-pointer">Request Site Assessment</Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <Link to="/estimate" className="cursor-pointer">Request Estimate</Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <Link to="/emergency-repair" className="cursor-pointer">Emergency Repair</Link>
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+
 
               {/* Admin Dropdown - Only visible to admin users */}
               {isAdmin && (

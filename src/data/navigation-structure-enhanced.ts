@@ -129,8 +129,8 @@ export const megaMenuDataEnhanced: MegaMenuDataEnhanced = {
   // COMPANY (ABOUT) MEGA MENU
   // ============================================
   company: {
-    width: 620,
-    columns: 3,
+    width: 560,
+    columns: 2,
     sections: [
       {
         sectionTitle: "About Ascent Group",
@@ -141,20 +141,8 @@ export const megaMenuDataEnhanced: MegaMenuDataEnhanced = {
             title: "Company",
             subItems: [
               { name: "About Ascent", link: "/about", description: "Our story and values", icon: "Info" },
-              { name: "Capabilities", link: "/capabilities", description: "What we deliver", icon: "Hammer" },
-              { name: "Why Specialty?", link: "/why-specialty-contractor", description: "Our advantage", icon: "Award" },
-              { name: "Our Process", link: "/our-process", description: "How we work", icon: "GitBranch" },
               { name: "Careers", link: "/careers", description: "Join our team", icon: "Users" },
               { name: "FAQ", link: "/faq", description: "Common questions", icon: "HelpCircle" },
-            ],
-          },
-          {
-            title: "Who We Serve",
-            subItems: [
-              { name: "Property Managers", link: "/property-managers", description: "Building maintenance solutions", icon: "Building2" },
-              { name: "Commercial Clients", link: "/commercial-clients", description: "Business property services", icon: "Briefcase" },
-              { name: "Homeowners", link: "/homeowners", description: "Residential services", icon: "Home" },
-              { name: "Developers", link: "/company/developers", description: "Development projects", icon: "Building" },
             ],
           },
           {
@@ -171,30 +159,64 @@ export const megaMenuDataEnhanced: MegaMenuDataEnhanced = {
   },
 
   // ============================================
-  // TRADE PARTNERS MEGA MENU
+  // CAPABILITIES MEGA MENU (promoted to top-level)
   // ============================================
-  tradePartners: {
-    width: 480,
+  capabilities: {
+    width: 520,
     columns: 2,
     sections: [
       {
-        sectionTitle: "Trade Partners",
-        sectionLink: "/for-general-contractors",
-        cta: { text: "Submit RFP", link: "/submit-rfp", variant: "primary" },
+        sectionTitle: "How We Deliver",
+        sectionLink: "/capabilities",
+        cta: { text: "View Capabilities", link: "/capabilities", variant: "primary" },
         categories: [
           {
-            title: "Get Started",
+            title: "Capability",
             subItems: [
-              { name: "Submit RFP", link: "/submit-rfp", description: "Formal proposal request", icon: "FileText", isFeatured: true },
-              { name: "Request Estimate", link: "/estimate", description: "Project estimate", icon: "Calculator" },
-              { name: "Prequalification", link: "/prequalification", description: "Vendor onboarding", icon: "FileCheck", isFeatured: true },
+              { name: "Capabilities Overview", link: "/capabilities", description: "Self-perform trades & delivery", icon: "Hammer" },
+              { name: "Why Specialty?", link: "/why-specialty-contractor", description: "Single-point accountability", icon: "Award" },
+              { name: "Our Process", link: "/our-process", description: "How we work end-to-end", icon: "GitBranch" },
             ],
           },
           {
-            title: "Resources",
+            title: "Proof",
             subItems: [
-              { name: "Contractor Portal", link: "/resources/contractor-portal", description: "Access your documents", icon: "Layout", isFeatured: true },
-              { name: "Blog", link: "/blog", description: "Industry insights", icon: "BookOpen" },
+              { name: "Projects", link: "/projects", description: "Recent work", icon: "FolderOpen" },
+              { name: "Certifications & Insurance", link: "/company/certifications-insurance", description: "$2M CGL, WSIB, training", icon: "Shield" },
+            ],
+          },
+        ],
+      },
+    ],
+  },
+
+  // ============================================
+  // START A PROJECT MEGA MENU (replaces Trade Partners)
+  // High-intent action surface for every audience.
+  // ============================================
+  startProject: {
+    width: 520,
+    columns: 2,
+    sections: [
+      {
+        sectionTitle: "Start a Project",
+        sectionLink: "/contact",
+        cta: { text: "Submit RFP", link: "/submit-rfp", variant: "primary" },
+        categories: [
+          {
+            title: "Procurement",
+            subItems: [
+              { name: "Submit RFP", link: "/submit-rfp", description: "Formal proposal request", icon: "FileText", isFeatured: true },
+              { name: "Prequalification", link: "/prequalification", description: "Vendor onboarding for GCs", icon: "FileCheck" },
+              { name: "Contractor Portal", link: "/resources/contractor-portal", description: "Vendor packet & WSIB", icon: "Layout" },
+            ],
+          },
+          {
+            title: "Owners & Managers",
+            subItems: [
+              { name: "Request Site Assessment", link: "/contact", description: "On-site walkthrough", icon: "MapPin", isFeatured: true },
+              { name: "Request Estimate", link: "/estimate", description: "Scope-based estimate", icon: "Calculator" },
+              { name: "Emergency Repair", link: "/emergency-repair", description: "Same-day envelope response", icon: "AlertTriangle" },
             ],
           },
         ],
@@ -202,6 +224,7 @@ export const megaMenuDataEnhanced: MegaMenuDataEnhanced = {
     ],
   },
 };
+
 
 // Helper to get sections array from config
 export const getMegaMenuSections = (key: string): Section[] => {
