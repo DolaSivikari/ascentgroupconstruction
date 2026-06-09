@@ -32,7 +32,7 @@ export const getEstimateStatusColor = (status: EstimateStatus): string => {
     accepted: 'bg-success/20 text-success border-success/30',
     rejected: 'bg-danger/20 text-danger/80 border-danger/30',
     expired: 'bg-warning/20 text-warning border-warning/30',
-    converted: 'bg-success/20 text-success border-emerald-500/30',
+    converted: 'bg-success/20 text-success border-success/30',
   };
   return colors[status] || colors.draft;
 };

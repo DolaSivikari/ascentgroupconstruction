@@ -34,24 +34,26 @@ export const usePerformanceMonitoring = (pageName: string) => {
           totalLoadTime: perfData.loadEventEnd - perfData.fetchStart,
         };
 
-        console.group(`📊 Performance Metrics - ${pageName}`);
-        console.log('⚡ TTFB:', `${metrics.ttfb.toFixed(2)}ms`);
-        console.log('📄 DOM Content Loaded:', `${metrics.domContentLoaded.toFixed(2)}ms`);
-        console.log('✅ Load Complete:', `${metrics.loadComplete.toFixed(2)}ms`);
-        console.log('🏁 Total Load Time:', `${metrics.totalLoadTime.toFixed(2)}ms`);
-        console.groupEnd();
+        if (import.meta.env.DEV) {
+          console.group(`📊 Performance Metrics - ${pageName}`);
+          console.log('⚡ TTFB:', `${metrics.ttfb.toFixed(2)}ms`);
+          console.log('📄 DOM Content Loaded:', `${metrics.domContentLoaded.toFixed(2)}ms`);
+          console.log('✅ Load Complete:', `${metrics.loadComplete.toFixed(2)}ms`);
+          console.log('🏁 Total Load Time:', `${metrics.totalLoadTime.toFixed(2)}ms`);
+          console.groupEnd();
 
-        // Performance targets
-        const targets = {
-          ttfb: 600, // Should be < 600ms
-          totalLoadTime: 3000, // Should be < 3s
-        };
+          // Performance targets
+          const targets = {
+            ttfb: 600, // Should be < 600ms
+            totalLoadTime: 3000, // Should be < 3s
+          };
 
-        if (metrics.ttfb > targets.ttfb) {
-          console.warn(`⚠️ TTFB is high (${metrics.ttfb.toFixed(0)}ms > ${targets.ttfb}ms)`);
-        }
-        if (metrics.totalLoadTime > targets.totalLoadTime) {
-          console.warn(`⚠️ Total load time is high (${metrics.totalLoadTime.toFixed(0)}ms > ${targets.totalLoadTime}ms)`);
+          if (metrics.ttfb > targets.ttfb) {
+            console.warn(`⚠️ TTFB is high (${metrics.ttfb.toFixed(0)}ms > ${targets.ttfb}ms)`);
+          }
+          if (metrics.totalLoadTime > targets.totalLoadTime) {
+            console.warn(`⚠️ Total load time is high (${metrics.totalLoadTime.toFixed(0)}ms > ${targets.totalLoadTime}ms)`);
+          }
         }
       }
     };
