@@ -5,7 +5,8 @@ import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
 import { SITE_URL } from "@/constants/company";
 import FilterBar from "@/components/FilterBar";
-import { CTABand, FAQAccordion, SectionHeader } from "@/design-system/components";
+import { FAQAccordion, SectionHeader } from "@/design-system/components";
+import { StartProjectCTA } from "@/components/shared/StartProjectCTA";
 import { projectsFaqs } from "@/data/page-faqs";
 import ProjectCard from "@/components/ProjectCard";
 import ProjectFeaturedCard from "@/components/ProjectFeaturedCard";
@@ -347,13 +348,7 @@ const Projects = () => {
         onOpenChange={(open) => !open && setQuickViewProject(null)}
       />
 
-      <CTABand
-        title="Ready to Start Your Project?"
-        description="Get a detailed proposal with transparent pricing and a clear timeline for your building envelope or restoration project."
-        primaryCta={{ text: "Request a Quote", href: "/estimate" }}
-        secondaryCta={{ text: "Contact Us", href: "/contact" }}
-        variant="dark"
-      />
+      <StartProjectCTA />
 
       <Footer />
     </div>
