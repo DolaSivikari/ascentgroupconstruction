@@ -1,124 +1,111 @@
-# Public Site Cohesion Pass
+# Full Website Audit — Findings & Fix Plan
 
-Goal: every public page reads as one company, one voice, one visual system — anchored on Home, Services, and Projects as the standard.
+Three parallel audits ran across frontend standards, backend (DB + edge functions), and SEO/routing/performance. **76 findings** total. Below: the headline issues and a 6-batch fix plan you approve one at a time.
 
-## What's actually wrong (audit findings)
+## Headline Issues (the ones costing you the most)
 
-**Information Architecture**
-- "Who We Serve" (Property Managers, Commercial Clients, Homeowners) is duplicated under both Markets and Company mega menus.
-- "Markets" and "Company → Who We Serve" overlap with "Trade Partners" (GCs, Architects, Developers) — three menus, same audiences.
-- "Trade Partners" label is ambiguous (reads as our suppliers; actually means GC/architect intake). Conflicts with the Trusted Partners roster on Contact.
-- Capabilities, Why Specialty, Our Process sit under Company, but tell the core sales story — buried.
-- 9 GTA service landing pages (Painting, Caulking, Tile, etc.) are not surfaced anywhere in nav.
+### 🔴 Site-breaking / security
+1. **All 38 database functions are missing `SET search_path`** — search-path hijack risk on every privileged DB call.
+2. **Brute-force lockout is silently broken** — `check-login-attempt` queries a table (`auth_account_lockouts`) that doesn't exist. Failed-login protection is a no-op.
+3. **5 RLS policies are wide open to anonymous users** — `suppressed_emails`, `google_auth_tokens` (INSERT), `error_logs`, `document_access_log`, `search_console_data`, `email_unsubscribe_tokens`, `review_requests`, `project-images` storage upload.
+4. **`/estimate` form bypasses the `submit-form` edge function** — no spam/honeypot/zod validation, direct anon insert.
+5. **`documents` storage bucket is fully public** — DB-level `requires_authentication` is bypassed by the raw storage URL.
+6. **Storage buckets have no file-size limits** — DoS / storage-exhaustion risk.
+7. **XSS risk in `ProjectCaseStudy.tsx`** — 5× `dangerouslySetInnerHTML` on CMS strings with no sanitization.
 
-**Visual consistency**
-- Hero treatment drifts: some pages use `PageHero`, Capabilities/About inject custom `bg-[hsl(var(--ink))]` sections, Markets uses a custom `who-we-work-with` band. No shared section wrapper.
-- Section padding, header alignment, card chrome, and proof-strip placement vary page to page.
-- Reference pages (Home/Services/Projects) already follow the design-system foundation (SectionHeader, ProofStrip, unified Card, 8px radius, navy/charcoal, Inter). Others don't fully.
+### 🔴 SEO / routing breakage (likely tanking rankings)
+8. **www vs non-www canonical war** — `_redirects` strips www, sitemap + robots.txt + Helmet declare www, `index.html` declares non-www. Google sees split signals on every URL.
+9. **6 `_redirects` rules point to routes that don't exist** (`/services/sealants`, `/services/parking-garage`, `/sustainability`, etc.) → 404s.
+10. **Static `<link rel="canonical">` in `index.html` duplicates every per-page Helmet canonical** → two canonicals per page.
+11. **`LocalBusiness` schema fires on every page** instead of just homepage → "multiple items" warnings.
+12. **16 public pages are missing `<SEO>` / Helmet** (Capabilities, Careers, Estimate, Homeowners, OurProcess, Prequalification, PropertyManagers, CommercialClients, all `/company/*`, all `/resources/*`, EmergencyRepair, NotFound). They inherit the generic homepage `<title>`.
+13. **Sitemap `lastmod` dates are in 2026** (future) — Google distrusts these.
+14. **Routes missing from sitemap**: `/for-architects`, `/emergency-repair`, `/why-specialty-contractor`, `/service-areas/:city`, all blog/project slugs.
 
-**Messaging & voice**
-- No single narrative thread. Home positions "specialty contractor becoming GC + prime accountability"; secondary pages restart from scratch with different value props.
-- Audience pages (Homeowners / PropertyManagers / CommercialClients / ForGCs / ForArchitects) repeat overlapping content without a clear "you are here / what's next" thread.
+### 🔴 Performance (explains your 5096ms LCP/FCP)
+15. **Inline service-worker purge script blocks first paint** and triggers `location.reload()` on visits with an existing SW.
+16. **`manualChunks` in `vite.config.ts`** — your own memory rule forbids this; forces radix + framer-motion to load on every route.
+17. **Hero MP4 not `preload="none"`** — competes with LCP.
 
-**Conversion paths**
-- CTA labels vary: "Get Estimate", "Request Site Assessment", "Submit RFP", "Get Quote" mixed across pages.
-- Some pages dead-end with no next step; others stack multiple competing CTAs.
-- Mobile nav surfaces Estimate; desktop Trade Partners surfaces Submit RFP — inconsistent primary CTA.
+### 🟠 Standards violations (your "AI template" smell)
+18. **Body font is Barlow, not Inter** — `src/index.css:209` overrides your design system; Barlow isn't even loaded so it falls back silently to system-ui.
+19. **7 admin screens use native `confirm()` / `alert()`** instead of your custom `ConfirmDialog` (violates your admin UI memory rule).
+20. **`SubmitRFPNew` form has no zod resolver.**
+21. **Three pages have duplicate `<main>` landmarks** (Blog, SubmitRFPNew, ServiceDetail) — WCAG violation.
+22. **~80 hardcoded `text-white` / `bg-white` / `bg-black/80`** instances in pages, primitives (`ui/Button.tsx`, `ui/Badge.tsx`), and overlays — violates your "no hardcoded colors" rule.
+23. **Broken CSS variables** — `--safety-yellow-accessible` and `--text-on-yellow` referenced but never defined → invisible text on accessible-yellow buttons.
+24. **Inflated-stat placeholder** in admin (`"e.g., 500+ Projects"`) directly contradicts your honesty rule.
+25. **FAQ + PeopleAlsoAsk schema injected via raw DOM** — accumulates duplicate `FAQPage` blocks on SPA navigation.
 
-## The plan
+Full findings (76 items) are saved as the reports below.
 
-### 1. Information Architecture (one source of truth)
+---
 
-Collapse to 6 top-level nav items, no duplication:
+## Fix Plan — 6 Approval Batches
 
-```text
-Services   Markets   Capabilities   Projects   Insights   Company
-                                                          (+ Contact CTA)
-```
+I'll auto-apply BATCH 1 immediately (low-risk cleanups, no DB/structural change), then pause for your approval on each subsequent batch.
 
-- **Services** — unchanged (auto-built from registry); add a "GTA Service Pages" subsection so the 9 location/service landings are reachable.
-- **Markets** — owns all audience pages: Commercial Clients, Property Managers, Developers, Homeowners, plus "For General Contractors" and "For Architects" as Industry Partners. This becomes the single home for audience routing.
-- **Capabilities** — promoted to top-level. Houses Capabilities, Why Specialty, Our Process, Self-Perform, Partnership Models.
-- **Company** — About, Certifications & Insurance, Technology, Careers, FAQ, Service Areas.
-- Remove "Trade Partners" mega menu. Its actions (Submit RFP, Prequalification, Estimate, Contractor Portal) move into a persistent "Start a Project" CTA group reachable from any audience page and from the header CTA.
-- Remove "Who We Serve" from Company menu (lives in Markets only).
+### ✅ BATCH 1 — Safe auto-fixes (apply immediately, no approval needed)
+**Cosmetic / hygiene only. No DB, no routing changes, no behavior change.**
+- Strip `console.log` from `EmailLink.tsx`, `personalization.ts`, `assetResolver.ts`, `devContactValidation.ts`, `webVitals.ts` (DEV-gate them).
+- Replace `text-white` / `bg-white` in `src/ui/Button.tsx`, `src/components/ui/button.tsx`, `src/components/ui/badge.tsx` with `text-primary-foreground` / `bg-card`.
+- Replace `bg-black/80` overlays in `dialog.tsx`/`drawer.tsx`/`sheet.tsx` with `bg-foreground/80`.
+- Fix `ProjectGallery.tsx` `text-[hsl(var(--bg))]` → `text-success-foreground` / `text-warning-foreground`.
+- Add missing `aria-label` to icon-only buttons (MobileNavSheet, SearchSuggestions, StickyPageNav, Capabilities, FAQ).
+- Remove `"e.g., 500+ Projects"` placeholder; replace with honest example.
+- Fix `company/Developers.tsx` malformed `canonical={`n=…`}` prop.
+- Add `<SEO noindex>` to `NotFound.tsx`.
+- Define the missing `--safety-yellow-accessible` and `--text-on-yellow` CSS variables in `:root`.
+- Future-date all sitemap `lastmod` entries to today.
 
-### 2. Unified page template
+### 🟠 BATCH 2 — Critical security (DB + RLS) — **approval required**
+- Migration: add `SET search_path = public, pg_temp` to **all 38** SECURITY DEFINER functions.
+- Migration: scope wide-open INSERT policies (`suppressed_emails`, `google_auth_tokens`, `error_logs`, `document_access_log`, `search_console_data`, `email_unsubscribe_tokens`, `review_requests`, `ab_test_assignments`) to `service_role` or add proper `WITH CHECK (auth.uid() = user_id)`.
+- Migration: tighten `project-images` storage INSERT policy to admins; add `file_size_limit` to all 3 buckets (project-images 5MB, rfp-attachments 25MB, documents 25MB).
+- Migration: make `documents` bucket private + add signed-URL helper for `requires_authentication=true` rows.
+- Fix `check-login-attempt` edge function: either create `auth_account_lockouts` table or rewrite against existing `auth_failed_attempts`.
+- Strip email PII from `console.log` in `check-login-attempt`, `invite-user`.
+- Add explicit `verify_jwt` entries for all 18 edge functions in `supabase/config.toml`.
 
-Every public page (except Home, which is bespoke) renders the same shell:
+### 🟠 BATCH 3 — SEO/routing critical — **approval required**
+- Decide www vs non-www (recommend **www** since sitemap/robots/llms already use it). Update `_redirects`, `index.html`, `SITE_URL` constant.
+- Fix the 6 broken `_redirects` targets (point to real slugs).
+- Remove static `<link rel="canonical">` and `twitter:url` from `index.html` (Helmet owns them).
+- Refactor `SEO.tsx`: emit `LocalBusiness` schema only when `isHomepage` prop is true.
+- Migrate sitemap to **generator script** (`scripts/generate-sitemap.ts`) so blog posts, projects, and location pages auto-populate. Add `predev` / `prebuild` hooks.
+- Add `<SEO>` component to the 16 missing pages.
+- Add proper `BlogPosting` JSON-LD to `BlogPost.tsx` via `structuredData` prop.
+- Refactor `FAQAccordion.tsx` + `PeopleAlsoAsk.tsx` + `schema-injector.ts` to use Helmet (no raw DOM mutation).
+- Dedupe `_headers` cache rules; move CSP from `/` to `/*`.
 
-```text
-PageHero (image, eyebrow, H1, subhead, 1 primary + 1 secondary CTA, optional badges)
-ProofStrip (always — same component, same metrics)
-[Page-specific sections, each wrapped in <Section> with standardized padding]
-Related links rail (3 cross-links to maintain cohesion)
-Closing CTA band (one primary action, audience-appropriate)
-Footer
-```
+### 🟠 BATCH 4 — Performance (LCP fix) — **approval required**
+- Move SW-purge inline script to a deferred module loaded on `window.load`.
+- Remove `manualChunks` from `vite.config.ts` (per your own memory rule).
+- Add `preload="none"` to hero `<video>` element.
+- Load GA4 on `requestIdleCallback` instead of the hardcoded 3000ms timeout.
+- Verify hero poster is the LCP element and is correctly preloaded.
 
-Build/extend two shared components:
-- `<Section>` — wraps every content band. Props: `tone` (`white | muted | ink`), `padding` (`md | lg`), `id`. Replaces ad-hoc `<section className="py-* bg-*">`.
-- `<RelatedLinks>` — 3-card rail driven by a per-page config so cross-page navigation is consistent.
+### 🟠 BATCH 5 — Standards & XSS — **approval required**
+- Replace Barlow with Inter in `src/index.css:209,215,244` (or load Barlow properly if you actually want it — confirm with me).
+- Sanitize all 5 `dangerouslySetInnerHTML` calls in `ProjectCaseStudy.tsx` with DOMPurify.
+- Add zod resolver to `SubmitRFPNew` form (schema already exists at `src/schemas/rfp-validation.ts`).
+- Route `/estimate` submission through the `submit-form` edge function.
+- Convert the 7 native `confirm()`/`alert()` admin calls to `ConfirmDialog` + toast.
+- Fix duplicate `<main>` landmarks in Blog, SubmitRFPNew, ServiceDetail.
+- Add `useReducedMotion` hook to nav `animate-pulse` orbs.
 
-Refactor these pages onto the template:
-About, Capabilities, Markets, ForArchitects, ForGeneralContractors, WhySpecialtyContractor, OurProcess, CommercialClients, PropertyManagers, Homeowners, CertificationsInsurance, Technology, ContractorPortal, ServiceAreas, FAQ, EmergencyRepair, Estimate, Prequalification, SubmitRFPNew, Careers, Blog, BlogPost, ProjectDetail.
+### 🟢 BATCH 6 — Polish & cleanup — **approval required**
+- Remove remaining ~70 page-level `text-white` instances (Capabilities, About, PageHeader, ContractorPortal).
+- Reduce `backdrop-blur` on enterprise cards (keep only on nav).
+- Remove duplicate/redundant INSERT policies (quote_requests, rfp_submissions).
+- Fix `featured_services` / `project_services` `USING(true)` to scope to `is_active=true`.
+- Add `deno.json` to each edge function for dependency pinning.
+- Guard `src/pages/dev/TokenPreview.tsx` behind production-mode check.
+- Audit and remove dead/unused files.
 
-### 3. Narrative thread
+---
 
-One sentence-level story applied across audience pages:
+## What happens next
+On your approval, I'll execute BATCH 1 immediately (safe), then propose BATCH 2 as a single migration for your review. Each subsequent batch waits for your go-ahead.
 
-> Specialty trade contractor with prime contractor capability — self-perform 8+ trades, single-point accountability across the GTA, $2M CGL, evolving into a building-envelope-led general contractor.
-
-- Every audience page opens with a one-line variant of this thread tailored to the reader (GC, architect, PM, owner, homeowner).
-- "What's next" rail on every page points to: relevant Service → relevant Project → Start a Project.
-
-### 4. CTA standardization
-
-| Context                     | Primary CTA              | Secondary             |
-|-----------------------------|--------------------------|-----------------------|
-| Commercial / GC / Architect | Request Site Assessment  | Submit RFP            |
-| Property Manager            | Request Site Assessment  | Emergency Repair      |
-| Developer                   | Submit RFP               | Request Site Assessment |
-| Homeowner                   | Request Estimate         | Call (647) 528-6804   |
-| Service detail              | Request Site Assessment  | View Related Projects |
-| Project detail              | Request Similar Project  | View All Projects     |
-| Blog / FAQ                  | Request Site Assessment  | Contact               |
-
-Header primary CTA: "Request Site Assessment" (replaces mixed Estimate/RFP labels). Mobile bottom CTA matches.
-
-### 5. Proof + credibility consistency
-
-- ProofStrip uses the same 4 metrics everywhere: 10-person self-perform crew, 15+ years crew experience, $2M CGL, GTA-wide.
-- Honest claims enforced (no inflated stats).
-- Every audience page surfaces the same Certifications & Insurance badge row above the closing CTA.
-
-### 6. Cleanup pass
-
-- Delete duplicate menu entries.
-- Remove orphan/legacy sections inside refactored pages.
-- Ensure all internal links use canonical paths (no leftover redirect targets in body copy).
-- Verify SEO meta on each refactored page uses broad trade language and `SITE_URL` constant.
-
-## Execution order
-
-1. Nav config + mega-menu restructure (single PR-equivalent change to `navigation-structure-enhanced.ts` + MobileNavSheet).
-2. Shared `<Section>` and `<RelatedLinks>` components.
-3. Refactor audience pages (Markets hub + 5 audience pages) onto the template.
-4. Refactor company-story pages (About, Capabilities, Why Specialty, Our Process).
-5. Refactor utility pages (Certifications, Technology, ContractorPortal, ServiceAreas, FAQ, Careers).
-6. CTA + ProofStrip sweep across all refactored pages.
-7. Final pass: cross-link rails + closing CTAs.
-
-## Out of scope (won't touch)
-
-- Home, Services index, Projects index — already the standard.
-- Admin pages, auth, dev/utility pages.
-- Backend, RLS, edge functions.
-- New content writing beyond the narrative thread one-liner and CTA labels.
-
-## Risks / things to confirm with you before I start
-
-1. **"Capabilities" as a top-level nav item** — agree to promote it out of Company?
-2. **Killing the "Trade Partners" menu** — its actions move into a unified "Start a Project" CTA surface. OK?
-3. **Single primary CTA = "Request Site Assessment"** for all B2B audiences — agree, or keep "Submit RFP" as primary for GC/architect?
-4. **Audience pages stay separate** (Homeowners, PropertyManagers, CommercialClients, ForGCs, ForArchitects) — confirm you don't want any merged.
+If you want a different ordering (e.g., "do SEO/perf first because rankings are bleeding" or "security first, perf can wait") — say so when you approve, and I'll resequence.

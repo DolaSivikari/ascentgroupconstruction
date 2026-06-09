@@ -5,6 +5,7 @@ import { Button } from "@/ui/Button";
 import { Home, Search, ArrowLeft } from "lucide-react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
+import SEO from "@/components/SEO";
 
 const NotFound = () => {
   const location = useLocation();
@@ -58,6 +59,7 @@ const NotFound = () => {
 
   return (
     <>
+      <SEO title="Page Not Found" description="The page you were looking for could not be found." noindex />
       <Navigation />
       <div className="flex min-h-screen items-center justify-center bg-background px-4">
       <div className="text-center max-w-2xl mx-auto">

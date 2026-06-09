@@ -12,6 +12,7 @@ interface SEOProps {
   canonical?: string;
   structuredData?: object | object[];
   includeRating?: boolean;
+  noindex?: boolean;
   articleMeta?: {
     publishedTime?: string;
     modifiedTime?: string;
@@ -30,6 +31,7 @@ const SEO = ({
   canonical,
   structuredData,
   includeRating = false,
+  noindex = false,
   articleMeta,
 }: SEOProps) => {
 
@@ -228,6 +230,7 @@ const SEO = ({
     <Helmet>
       <title>{fullTitle}</title>
       <meta name="description" content={description} />
+      {noindex && <meta name="robots" content="noindex, nofollow" />}
       <meta name="keywords" content={keywords} />
 
       {/* Open Graph */}
