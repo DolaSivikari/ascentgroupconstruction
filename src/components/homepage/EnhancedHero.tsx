@@ -503,27 +503,42 @@ const EnhancedHero = ({ splashComplete = true }: { splashComplete?: boolean }) =
             onLoad={handleVideoReady}
           />
         ) : (
-          <video
-            ref={videoRef}
-            width={1920}
-            height={1080}
-            autoPlay
-            loop
-            muted
-            playsInline
-            preload="auto"
-            disableRemotePlayback
-            poster={posterUrl}
-            onLoadedData={handleVideoReady}
-            onCanPlay={handleVideoReady}
-            onError={(e) => {
-              console.error('Hero video failed to load', { src: videoUrl, error: e });
-              setIsVideoLoaded(true);
-            }}
-            className="absolute inset-0 w-full h-full object-cover"
-          >
-            <source src={videoUrl} type="video/mp4" />
-          </video>
+          <>
+            {/* Poster sits underneath; video fades in over it once it can play */}
+            <img
+              src={posterUrl}
+              alt={headline}
+              loading="eager"
+              fetchPriority="high"
+              decoding="async"
+              width={1920}
+              height={1080}
+              className="absolute inset-0 w-full h-full object-cover"
+              aria-hidden={isVideoLoaded}
+            />
+            <video
+              ref={videoRef}
+              width={1920}
+              height={1080}
+              autoPlay
+              loop
+              muted
+              playsInline
+              preload="auto"
+              disableRemotePlayback
+              poster={posterUrl}
+              onLoadedData={handleVideoReady}
+              onCanPlay={handleVideoReady}
+              onError={(e) => {
+                console.error('Hero video failed to load', { src: videoUrl, error: e });
+                setIsVideoLoaded(true);
+              }}
+              className="absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ease-out"
+              style={{ opacity: isVideoLoaded ? 1 : 0 }}
+            >
+              <source src={videoUrl} type="video/mp4" />
+            </video>
+          </>
         )}
       </div>
 
