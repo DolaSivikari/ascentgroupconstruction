@@ -4,10 +4,10 @@ export const NAVIGATION_DESCRIPTIONS: Record<string, string> = {
   '/services/building-envelope-solutions': 'Weather Barrier',
   '/services/cladding-systems': 'Facade Systems',
   '/services/masonry-restoration': 'Historic Work',
-  '/services/painting-services': 'Surface Protection',
+  '/services/painting-services': 'Professional Finish',
   '/services/waterproofing-systems': 'Moisture Control',
   '/services/interior-buildouts-finishing': 'Tenant Fit-Out',
-  '/services/painting-services': 'Professional Finish',
+  '/services/parking-garage-restoration': 'Garage Repair',
   '/services/tile-flooring': 'Quality Surfaces',
   '/services/sustainable-building': 'Green Building',
   
