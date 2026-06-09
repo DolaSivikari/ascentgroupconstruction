@@ -123,7 +123,7 @@ const Index = () => {
       <div className="min-h-screen relative">
         <SkipLink />
         <SEO
-          title="Specialty Contractor — Envelope & Restoration | GTA"
+          title="Envelope & Restoration GTA"
           description="Specialty contractor in the GTA delivering façade remediation, waterproofing, EIFS, masonry & restoration. 15+ yrs crew, self-performed, WSIB, $2M CGL."
           keywords="specialty contractor Ontario, building envelope contractor GTA, facade remediation Toronto, waterproofing contractor, EIFS contractor, masonry restoration, parking garage repair"
           canonical={`${SITE_URL}/`}

@@ -14,7 +14,7 @@ export const SERVICE_PILLARS: readonly ServicePillar[] = [
     title: "Building Envelope & Restoration",
     description: "Full-scope envelope assessment, repair, and restoration for aging and damaged building exteriors.",
     scopes: ["Balcony & facade restoration", "Waterproofing & below-grade systems", "Window & door replacement"],
-    route: "/services/building-envelope",
+    route: "/services/building-envelope-solutions",
     icon: Building2,
   },
   {
@@ -35,7 +35,7 @@ export const SERVICE_PILLARS: readonly ServicePillar[] = [
     title: "Interior Buildouts & Finish Trades",
     description: "Drywall, framing, millwork, and finish carpentry for commercial and multi-unit interior spaces.",
     scopes: ["Drywall & steel stud framing", "Suite turnover packages", "Millwork & trim installation"],
-    route: "/services/interior-buildouts",
+    route: "/services/interior-buildouts-finishing",
     icon: Hammer,
   },
   {
@@ -56,7 +56,7 @@ export const SERVICE_PILLARS: readonly ServicePillar[] = [
     title: "Condo & Multi-Unit Work",
     description: "Interior finishing and turnover packages for occupied condominiums, apartment buildings, and multi-unit residential properties.",
     scopes: ["Suite turnover finishing", "Corridor & amenity upgrades", "Phased multi-floor execution"],
-    route: "/services/interior-buildouts",
+    route: "/services/interior-buildouts-finishing",
     icon: Home,
   },
   {

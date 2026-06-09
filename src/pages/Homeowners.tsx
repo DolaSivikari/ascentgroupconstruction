@@ -359,7 +359,7 @@ const Homeowners = () => {
             icon: Hammer,
             title: "Renovations & Buildouts",
             description: "Basement finishing, bathroom updates, and full interior renovation scopes for residential properties.",
-            href: "/services/interior-buildouts",
+            href: "/services/interior-buildouts-finishing",
           },
         ]}
       />

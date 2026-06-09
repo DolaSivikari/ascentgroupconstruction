@@ -15,7 +15,7 @@ export interface PopularService {
 const DEFAULT_SERVICES: PopularService[] = [
   {
     name: "Building Envelope Solutions",
-    link: "/services/building-envelope",
+    link: "/services/building-envelope-solutions",
     icon: Shield,
   },
   {
@@ -25,7 +25,7 @@ const DEFAULT_SERVICES: PopularService[] = [
   },
   {
     name: "Interior Buildouts",
-    link: "/services/interior-buildouts",
+    link: "/services/interior-buildouts-finishing",
     icon: Ruler,
   },
 ];

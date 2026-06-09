@@ -43,7 +43,7 @@ import {
 } from "lucide-react";
 import { mainPageHeroes } from "@/data/hero-images";
 import { usePageAnalytics } from "@/hooks/usePageAnalytics";
-import { generateBreadcrumbSchema, generateHowToSchema } from "@/utils/seo";
+import { generateBreadcrumbSchema, generateHowToSchema, generateFAQSchema } from "@/utils/seo";
 import { founderBio } from "@/data/enriched-company-content";
 import { aboutFaqs } from "@/data/page-faqs";
 
@@ -206,11 +206,11 @@ const About = () => {
   return (
     <div className="min-h-screen">
       <SEO
-        title="About Ascent — Envelope & Restoration Specialists | GTA"
+        title="About — Envelope & Restoration"
         description="15+ years of combined experience in building envelope, restoration & interior trades across the GTA — now operating as Ascent Group Construction."
         keywords="about Ascent Group, building envelope contractor, specialty contractor Ontario, restoration company, GTA contractor"
         canonical={`${SITE_URL}/about`}
-        structuredData={[breadcrumbSchema, processSchema]}
+        structuredData={[breadcrumbSchema, processSchema, generateFAQSchema(aboutFaqs)]}
       />
       <Navigation />
 

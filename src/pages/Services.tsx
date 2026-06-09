@@ -10,7 +10,7 @@ import { TrustRibbon, SectionHeader, FAQAccordion, DetailCard } from "@/design-s
 import { Section } from "@/components/sections/Section";
 import { mainPageHeroes } from "@/data/hero-images";
 import { usePageAnalytics } from "@/hooks/usePageAnalytics";
-import { generateBreadcrumbSchema } from "@/utils/seo";
+import { generateBreadcrumbSchema, generateFAQSchema } from "@/utils/seo";
 import { SITE_URL } from "@/constants/company";
 import { servicesFaqs } from "@/data/page-faqs";
 
@@ -71,11 +71,11 @@ const Services = () => {
   return (
     <div className="min-h-screen flex flex-col">
       <SEO 
-        title="Specialty Contracting Services | Envelope, Restoration & Interior Trades"
-        description="Self-performed and coordinated specialty contracting for building envelope, restoration, cladding, masonry, painting, tile, and interior trade packages across Ontario."
+        title="Specialty Contracting Services"
+        description="Self-performed and coordinated specialty contracting — envelope, restoration, cladding, masonry, painting, and interior trades across Ontario."
         keywords="specialty contractor Ontario, multi-trade self-perform contractor, building envelope contractor, EIFS stucco contractor, masonry restoration, interior buildouts, commercial painting services, tile and flooring, cladding systems, renovation contractor"
         canonical={`${SITE_URL}/services`}
-        structuredData={[breadcrumbSchema]}
+        structuredData={[breadcrumbSchema, generateFAQSchema(servicesFaqs)]}
       />
       <Navigation />
       
