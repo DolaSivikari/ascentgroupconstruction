@@ -51,8 +51,8 @@ export const EmailLink = ({
         });
       }
       
-      // Track in console for debugging (remove in production if needed)
-      console.log('[Analytics] Email link clicked:', email);
+      // Debug-only — email PII never leaves dev console
+      if (import.meta.env.DEV) console.log('[Analytics] Email link clicked:', email);
       
       window.location.href = `mailto:${email}`;
     }
