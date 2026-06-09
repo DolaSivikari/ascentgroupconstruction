@@ -7,7 +7,7 @@ export const NAVIGATION_ICONS: Record<string, string> = {
   '/services/painting-services': 'Shield',
   '/services/waterproofing-systems': 'Droplets',
   '/services/interior-buildouts-finishing': 'DoorOpen',
-  '/services/painting-services': 'Paintbrush',
+  '/services/parking-garage-restoration': 'ParkingCircle',
   '/services/tile-flooring': 'Layers',
   '/services/sustainable-building': 'Leaf',
   // Projects
