@@ -254,8 +254,23 @@ const ServiceDetail = () => {
     { name: service.name, url: `${SITE_URL}/services/${service.slug}` },
   ]);
 
-  const structuredDataArray = [serviceSchemaData, breadcrumbSchemaData];
+  const structuredDataArray: any[] = [serviceSchemaData, breadcrumbSchemaData];
   if (howToSchemaData) structuredDataArray.push(howToSchemaData);
+  const allFaqs = [
+    ...(Array.isArray(service.faq_items) ? service.faq_items : []),
+    ...serviceDetailFaqs,
+  ].filter((f) => f && f.question && f.answer);
+  if (allFaqs.length > 0) {
+    structuredDataArray.push({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: allFaqs.map((f) => ({
+        "@type": "Question",
+        name: f.question,
+        acceptedAnswer: { "@type": "Answer", text: f.answer },
+      })),
+    });
+  }
 
   return (
     <div className="min-h-screen">
