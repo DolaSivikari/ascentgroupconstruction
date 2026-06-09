@@ -1,111 +1,58 @@
-# Full Website Audit — Findings & Fix Plan
+# BATCH 2 — Critical Security (Database + Edge Functions)
 
-Three parallel audits ran across frontend standards, backend (DB + edge functions), and SEO/routing/performance. **76 findings** total. Below: the headline issues and a 6-batch fix plan you approve one at a time.
+Single migration + edge function fixes. Approve to run.
 
-## Headline Issues (the ones costing you the most)
+## 1. Migration — `SET search_path` on all 37 SECURITY DEFINER functions
 
-### 🔴 Site-breaking / security
-1. **All 38 database functions are missing `SET search_path`** — search-path hijack risk on every privileged DB call.
-2. **Brute-force lockout is silently broken** — `check-login-attempt` queries a table (`auth_account_lockouts`) that doesn't exist. Failed-login protection is a no-op.
-3. **5 RLS policies are wide open to anonymous users** — `suppressed_emails`, `google_auth_tokens` (INSERT), `error_logs`, `document_access_log`, `search_console_data`, `email_unsubscribe_tokens`, `review_requests`, `project-images` storage upload.
-4. **`/estimate` form bypasses the `submit-form` edge function** — no spam/honeypot/zod validation, direct anon insert.
-5. **`documents` storage bucket is fully public** — DB-level `requires_authentication` is bypassed by the raw storage URL.
-6. **Storage buckets have no file-size limits** — DoS / storage-exhaustion risk.
-7. **XSS risk in `ProjectCaseStudy.tsx`** — 5× `dangerouslySetInnerHTML` on CMS strings with no sanitization.
+For every function in `public`, run `ALTER FUNCTION ... SET search_path = public, pg_temp`. Covers: `is_admin`, `has_role`, `get_user_role`, `can_edit_content`, `can_manage_settings`, `can_manage_users`, `can_view_analytics`, `handle_new_user`, `check_and_update_rate_limit`, `enforce_public_form_rate_limit`, `enqueue_email`, `read_email_batch`, `move_to_dlq`, `delete_email`, `create_notification`, `notify_admins`, `notify_new_contact`, `notify_new_quote`, `notify_new_rfp`, `notify_new_resume`, `notify_new_prequal`, `get_admin_dashboard_stats`, `get_security_audit_log`, `save_content_version`, `auto_save_version`, `get_active_featured_services`, `get_active_promotions`, `generate_unsubscribe_token`, `generate_preview_token_with_expiry`, `log_sensitive_access`, `log_project_save_attempt`, `track_service_interaction`, `set_lead_score_and_priority`, `calculate_lead_score`, `cleanup_old_error_logs`, `update_updated_at_column`, `normalize_slug`.
 
-### 🔴 SEO / routing breakage (likely tanking rankings)
-8. **www vs non-www canonical war** — `_redirects` strips www, sitemap + robots.txt + Helmet declare www, `index.html` declares non-www. Google sees split signals on every URL.
-9. **6 `_redirects` rules point to routes that don't exist** (`/services/sealants`, `/services/parking-garage`, `/sustainability`, etc.) → 404s.
-10. **Static `<link rel="canonical">` in `index.html` duplicates every per-page Helmet canonical** → two canonicals per page.
-11. **`LocalBusiness` schema fires on every page** instead of just homepage → "multiple items" warnings.
-12. **16 public pages are missing `<SEO>` / Helmet** (Capabilities, Careers, Estimate, Homeowners, OurProcess, Prequalification, PropertyManagers, CommercialClients, all `/company/*`, all `/resources/*`, EmergencyRepair, NotFound). They inherit the generic homepage `<title>`.
-13. **Sitemap `lastmod` dates are in 2026** (future) — Google distrusts these.
-14. **Routes missing from sitemap**: `/for-architects`, `/emergency-repair`, `/why-specialty-contractor`, `/service-areas/:city`, all blog/project slugs.
+(Note: most already have `SET search_path = 'public'`. The migration is idempotent — re-running `ALTER FUNCTION ... SET search_path = public, pg_temp` is safe and standardizes `pg_temp` inclusion across all of them.)
 
-### 🔴 Performance (explains your 5096ms LCP/FCP)
-15. **Inline service-worker purge script blocks first paint** and triggers `location.reload()` on visits with an existing SW.
-16. **`manualChunks` in `vite.config.ts`** — your own memory rule forbids this; forces radix + framer-motion to load on every route.
-17. **Hero MP4 not `preload="none"`** — competes with LCP.
+## 2. Migration — Tighten wide-open RLS INSERT policies
 
-### 🟠 Standards violations (your "AI template" smell)
-18. **Body font is Barlow, not Inter** — `src/index.css:209` overrides your design system; Barlow isn't even loaded so it falls back silently to system-ui.
-19. **7 admin screens use native `confirm()` / `alert()`** instead of your custom `ConfirmDialog` (violates your admin UI memory rule).
-20. **`SubmitRFPNew` form has no zod resolver.**
-21. **Three pages have duplicate `<main>` landmarks** (Blog, SubmitRFPNew, ServiceDetail) — WCAG violation.
-22. **~80 hardcoded `text-white` / `bg-white` / `bg-black/80`** instances in pages, primitives (`ui/Button.tsx`, `ui/Badge.tsx`), and overlays — violates your "no hardcoded colors" rule.
-23. **Broken CSS variables** — `--safety-yellow-accessible` and `--text-on-yellow` referenced but never defined → invisible text on accessible-yellow buttons.
-24. **Inflated-stat placeholder** in admin (`"e.g., 500+ Projects"`) directly contradicts your honesty rule.
-25. **FAQ + PeopleAlsoAsk schema injected via raw DOM** — accumulates duplicate `FAQPage` blocks on SPA navigation.
+| Table | Current | New |
+|---|---|---|
+| `suppressed_emails` | INSERT to `public`, no CHECK | INSERT restricted to `service_role` |
+| `google_auth_tokens` | INSERT to `public`, no CHECK | INSERT to `authenticated` with `WITH CHECK (auth.uid() = user_id)` |
+| `error_logs` | INSERT to `public`, no CHECK | INSERT to `service_role` only (client error logging routes through edge fn) |
+| `document_access_log` | INSERT to `public`, no CHECK | INSERT to `authenticated` only |
+| `search_console_data` | INSERT to `public`, no CHECK | INSERT to `service_role` only |
+| `email_unsubscribe_tokens` | INSERT to `public`, no CHECK | INSERT to `service_role` only |
+| `review_requests` | INSERT to `public`, no CHECK | INSERT to `service_role` only |
+| `ab_test_assignments` | INSERT to anon | Keep but add `WITH CHECK (true)` and rate-limit downstream |
+| `project-images` storage INSERT | `public`, no CHECK | `WITH CHECK (public.is_admin(auth.uid()))` |
 
-Full findings (76 items) are saved as the reports below.
+## 3. Migration — Storage hardening
 
----
+- Add `file_size_limit` to all three buckets: `project-images` 5 MB, `rfp-attachments` 25 MB, `documents` 25 MB (done via `storage_update_bucket` after migration).
+- Flip `documents` bucket to private; add a `documents_signed_url(p_id uuid)` SECURITY DEFINER helper that returns a signed URL only when the row's `requires_authentication = false` OR caller is authenticated.
 
-## Fix Plan — 6 Approval Batches
+## 4. Edge function — fix broken brute-force lockout
 
-I'll auto-apply BATCH 1 immediately (low-risk cleanups, no DB/structural change), then pause for your approval on each subsequent batch.
+`check-login-attempt` currently queries non-existent `auth_account_lockouts`. Two options:
 
-### ✅ BATCH 1 — Safe auto-fixes (apply immediately, no approval needed)
-**Cosmetic / hygiene only. No DB, no routing changes, no behavior change.**
-- Strip `console.log` from `EmailLink.tsx`, `personalization.ts`, `assetResolver.ts`, `devContactValidation.ts`, `webVitals.ts` (DEV-gate them).
-- Replace `text-white` / `bg-white` in `src/ui/Button.tsx`, `src/components/ui/button.tsx`, `src/components/ui/badge.tsx` with `text-primary-foreground` / `bg-card`.
-- Replace `bg-black/80` overlays in `dialog.tsx`/`drawer.tsx`/`sheet.tsx` with `bg-foreground/80`.
-- Fix `ProjectGallery.tsx` `text-[hsl(var(--bg))]` → `text-success-foreground` / `text-warning-foreground`.
-- Add missing `aria-label` to icon-only buttons (MobileNavSheet, SearchSuggestions, StickyPageNav, Capabilities, FAQ).
-- Remove `"e.g., 500+ Projects"` placeholder; replace with honest example.
-- Fix `company/Developers.tsx` malformed `canonical={`n=…`}` prop.
-- Add `<SEO noindex>` to `NotFound.tsx`.
-- Define the missing `--safety-yellow-accessible` and `--text-on-yellow` CSS variables in `:root`.
-- Future-date all sitemap `lastmod` entries to today.
+- **Option A (recommended)**: Create `auth_account_lockouts` table (columns: `email text primary key`, `locked_until timestamptz`, `failure_count int`, `updated_at`) with service-role-only RLS, then keep the existing edge function logic.
+- **Option B**: Rewrite the edge function to use the existing `auth_failed_attempts` table (compute lockout from row count in window).
 
-### 🟠 BATCH 2 — Critical security (DB + RLS) — **approval required**
-- Migration: add `SET search_path = public, pg_temp` to **all 38** SECURITY DEFINER functions.
-- Migration: scope wide-open INSERT policies (`suppressed_emails`, `google_auth_tokens`, `error_logs`, `document_access_log`, `search_console_data`, `email_unsubscribe_tokens`, `review_requests`, `ab_test_assignments`) to `service_role` or add proper `WITH CHECK (auth.uid() = user_id)`.
-- Migration: tighten `project-images` storage INSERT policy to admins; add `file_size_limit` to all 3 buckets (project-images 5MB, rfp-attachments 25MB, documents 25MB).
-- Migration: make `documents` bucket private + add signed-URL helper for `requires_authentication=true` rows.
-- Fix `check-login-attempt` edge function: either create `auth_account_lockouts` table or rewrite against existing `auth_failed_attempts`.
-- Strip email PII from `console.log` in `check-login-attempt`, `invite-user`.
-- Add explicit `verify_jwt` entries for all 18 edge functions in `supabase/config.toml`.
+Plan defaults to **Option A** — minimal code change, cleaner separation. Confirm if you prefer B.
 
-### 🟠 BATCH 3 — SEO/routing critical — **approval required**
-- Decide www vs non-www (recommend **www** since sitemap/robots/llms already use it). Update `_redirects`, `index.html`, `SITE_URL` constant.
-- Fix the 6 broken `_redirects` targets (point to real slugs).
-- Remove static `<link rel="canonical">` and `twitter:url` from `index.html` (Helmet owns them).
-- Refactor `SEO.tsx`: emit `LocalBusiness` schema only when `isHomepage` prop is true.
-- Migrate sitemap to **generator script** (`scripts/generate-sitemap.ts`) so blog posts, projects, and location pages auto-populate. Add `predev` / `prebuild` hooks.
-- Add `<SEO>` component to the 16 missing pages.
-- Add proper `BlogPosting` JSON-LD to `BlogPost.tsx` via `structuredData` prop.
-- Refactor `FAQAccordion.tsx` + `PeopleAlsoAsk.tsx` + `schema-injector.ts` to use Helmet (no raw DOM mutation).
-- Dedupe `_headers` cache rules; move CSP from `/` to `/*`.
+## 5. Edge function — strip PII from logs
 
-### 🟠 BATCH 4 — Performance (LCP fix) — **approval required**
-- Move SW-purge inline script to a deferred module loaded on `window.load`.
-- Remove `manualChunks` from `vite.config.ts` (per your own memory rule).
-- Add `preload="none"` to hero `<video>` element.
-- Load GA4 on `requestIdleCallback` instead of the hardcoded 3000ms timeout.
-- Verify hero poster is the LCP element and is correctly preloaded.
+Edit `supabase/functions/check-login-attempt/index.ts` and `supabase/functions/invite-user/index.ts` to remove email addresses from `console.log` / `console.error` calls. Replace with hashed identifiers or generic strings.
 
-### 🟠 BATCH 5 — Standards & XSS — **approval required**
-- Replace Barlow with Inter in `src/index.css:209,215,244` (or load Barlow properly if you actually want it — confirm with me).
-- Sanitize all 5 `dangerouslySetInnerHTML` calls in `ProjectCaseStudy.tsx` with DOMPurify.
-- Add zod resolver to `SubmitRFPNew` form (schema already exists at `src/schemas/rfp-validation.ts`).
-- Route `/estimate` submission through the `submit-form` edge function.
-- Convert the 7 native `confirm()`/`alert()` admin calls to `ConfirmDialog` + toast.
-- Fix duplicate `<main>` landmarks in Blog, SubmitRFPNew, ServiceDetail.
-- Add `useReducedMotion` hook to nav `animate-pulse` orbs.
+## 6. `supabase/config.toml` — explicit `verify_jwt` per function
 
-### 🟢 BATCH 6 — Polish & cleanup — **approval required**
-- Remove remaining ~70 page-level `text-white` instances (Capabilities, About, PageHeader, ContractorPortal).
-- Reduce `backdrop-blur` on enterprise cards (keep only on nav).
-- Remove duplicate/redundant INSERT policies (quote_requests, rfp_submissions).
-- Fix `featured_services` / `project_services` `USING(true)` to scope to `is_active=true`.
-- Add `deno.json` to each edge function for dependency pinning.
-- Guard `src/pages/dev/TokenPreview.tsx` behind production-mode check.
-- Audit and remove dead/unused files.
+Add explicit `[functions.<name>] verify_jwt = ...` blocks for the 18 functions currently relying on the implicit default, so platform changes can't silently flip auth enforcement. Default `true` everywhere except `submit-form`, `google-oauth-callback`, `generate-sitemap` (public-facing → `false`).
 
 ---
 
-## What happens next
-On your approval, I'll execute BATCH 1 immediately (safe), then propose BATCH 2 as a single migration for your review. Each subsequent batch waits for your go-ahead.
+## What I won't touch in this batch
+- App code that calls these tables (no breakage expected; only INSERT policies tighten and those callsites already use service-role keys via edge functions).
+- Sitemap / SEO / perf / standards work — those are BATCH 3+.
 
-If you want a different ordering (e.g., "do SEO/perf first because rankings are bleeding" or "security first, perf can wait") — say so when you approve, and I'll resequence.
+## Verification after migration runs
+- Run `supabase--linter` to confirm zero "function_search_path_mutable" warnings.
+- Spot-check `/contact` and `/rfp` forms still submit (they go through `submit-form` edge function which uses service-role).
+- Confirm admin login still works.
+
+Approve to run the migration.
