@@ -30,7 +30,7 @@ export const useRealtimeProjects = (initialProjects: Project[]) => {
             filter: 'publish_state=eq.published'
           },
           (payload) => {
-            console.log('Realtime update:', payload);
+            if (import.meta.env.DEV) console.log('Realtime update:', payload);
 
             if (payload.eventType === 'INSERT') {
               setProjects((current) => [payload.new as Project, ...current]);
