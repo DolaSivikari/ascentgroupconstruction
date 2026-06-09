@@ -47,21 +47,23 @@ export function UnifiedFooter({
     { label: "Why Specialty Contractor", href: "/why-specialty-contractor" },
     { label: "Our Process", href: "/our-process" },
     { label: "Markets", href: "/markets" },
-    { label: "Trade Partners", href: "/for-general-contractors" },
     { label: "Careers", href: "/careers" },
     { label: "Contact", href: "/contact" },
-    { label: "Blog", href: "/blog" },
+    { label: "Insights", href: "/blog" },
     { label: "FAQ", href: "/faq" },
   ];
 
   const resourceLinks = [
+    { label: "Submit RFP", href: "/submit-rfp" },
+    { label: "Prequalification", href: "/prequalification" },
+    { label: "For General Contractors", href: "/for-general-contractors" },
+    { label: "For Architects", href: "/for-architects" },
+    { label: "Contractor Portal", href: "/resources/contractor-portal" },
     { label: "Certifications & Insurance", href: "/company/certifications-insurance" },
     { label: "Technology", href: "/company/technology" },
-    { label: "Developers", href: "/company/developers" },
     { label: "Service Areas", href: "/resources/service-areas" },
-    { label: "Contractor Portal", href: "/resources/contractor-portal" },
-    { label: "Prequalification", href: "/prequalification" },
   ];
+
 
   return (
     <div className="w-full">
