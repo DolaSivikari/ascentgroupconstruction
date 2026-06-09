@@ -12,6 +12,7 @@ interface SEOProps {
   canonical?: string;
   structuredData?: object | object[];
   includeRating?: boolean;
+  noindex?: boolean;
   articleMeta?: {
     publishedTime?: string;
     modifiedTime?: string;
@@ -30,6 +31,7 @@ const SEO = ({
   canonical,
   structuredData,
   includeRating = false,
+  noindex = false,
   articleMeta,
 }: SEOProps) => {
 
