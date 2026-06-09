@@ -48,7 +48,7 @@ Deno.serve(async (req) => {
       .single();
 
     if (lockoutData) {
-      console.log(`Account locked for ${email} until ${lockoutData.locked_until}`);
+      console.log(`Account locked until ${lockoutData.locked_until}`);
       return new Response(
         JSON.stringify({ 
           locked: true, 
@@ -111,7 +111,7 @@ Deno.serve(async (req) => {
         .delete()
         .eq('user_identifier', email);
 
-      console.log(`Successful login for ${email}, cleared failed attempts`);
+      console.log(`Successful login, cleared failed attempts`);
 
       return new Response(
         JSON.stringify({ success: true }),
@@ -156,7 +156,7 @@ Deno.serve(async (req) => {
           metadata: { ip_address: ipAddress, attempt_count: attemptCount },
         });
 
-        console.log(`Account locked for ${email} after ${attemptCount} failed attempts`);
+        console.log(`Account locked after ${attemptCount} failed attempts`);
 
         return new Response(
           JSON.stringify({ 
@@ -170,7 +170,7 @@ Deno.serve(async (req) => {
       }
 
       const attemptsRemaining = 5 - attemptCount;
-      console.log(`Failed attempt for ${email}. ${attemptsRemaining} attempts remaining.`);
+      console.log(`Failed login attempt. ${attemptsRemaining} attempts remaining.`);
 
       return new Response(
         JSON.stringify({ 
