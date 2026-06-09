@@ -98,7 +98,7 @@ export const ProjectGallery: React.FC<ProjectGalleryProps> = ({
             onClick={() => setSelectedTab('process')}
             className={`px-6 py-3 rounded-full font-semibold transition-all ${
               selectedTab === 'process'
-                ? 'bg-warning text-[hsl(var(--bg))] shadow-lg scale-105'
+                ? 'bg-warning text-warning-foreground shadow-lg scale-105'
                 : 'bg-card hover:bg-accent shadow'
             }`}
           >
@@ -165,7 +165,7 @@ export const ProjectGallery: React.FC<ProjectGalleryProps> = ({
               style={{ transition: 'var(--transition-base)' }}
             >
               <ZoomIn
-                className="text-[hsl(var(--bg))] opacity-0 group-hover:opacity-100 w-12 h-12 fade-transition"
+                className="text-white opacity-0 group-hover:opacity-100 w-12 h-12 fade-transition"
               />
             </div>
 
@@ -175,7 +175,7 @@ export const ProjectGallery: React.FC<ProjectGalleryProps> = ({
                 className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-[hsl(var(--ink))]/80 to-transparent p-4 translate-y-full group-hover:translate-y-0"
                 style={{ transition: 'var(--transition-transform)' }}
               >
-                <p className="text-[hsl(var(--bg))] text-sm font-medium">{image.caption}</p>
+                <p className="text-white text-sm font-medium">{image.caption}</p>
               </div>
             )}
 
