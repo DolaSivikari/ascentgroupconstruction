@@ -48,7 +48,7 @@ export const useRealtimeProjects = (initialProjects: Project[]) => {
           }
         )
         .subscribe((status) => {
-          console.log('Realtime subscription status:', status);
+          if (import.meta.env.DEV) console.log('Realtime subscription status:', status);
         });
     };
 
