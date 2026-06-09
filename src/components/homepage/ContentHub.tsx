@@ -178,7 +178,8 @@ const ContentHub = () => {
               size="icon"
               onClick={() => carousel.prev()}
               disabled={!carousel.canGoPrev}
-              className="h-10 w-10"
+              className="h-11 w-11"
+              aria-label="Previous content card"
             >
               <ChevronLeft className="h-5 w-5" />
             </Button>
@@ -187,7 +188,8 @@ const ContentHub = () => {
               size="icon"
               onClick={() => carousel.next()}
               disabled={!carousel.canGoNext}
-              className="h-10 w-10"
+              className="h-11 w-11"
+              aria-label="Next content card"
             >
               <ChevronRight className="h-5 w-5" />
             </Button>
