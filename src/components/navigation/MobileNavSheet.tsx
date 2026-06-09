@@ -53,14 +53,16 @@ type NavRow = DirectLink | ExpandableSection;
 
 const NAV_ROWS: NavRow[] = [
   { type: "link", label: "Home", to: "/" },
+  { type: "section", label: "About", key: "company", viewAll: "/about" },
+  { type: "section", label: "Capabilities", key: "capabilities", viewAll: "/capabilities" },
   { type: "section", label: "Services", key: "services", viewAll: "/services" },
   { type: "section", label: "Markets", key: "markets", viewAll: "/markets" },
-  { type: "section", label: "Company", key: "company" },
-  { type: "section", label: "Trade Partners", key: "tradePartners" },
   { type: "link", label: "Projects", to: "/projects" },
-  { type: "link", label: "Blog", to: "/blog" },
+  { type: "link", label: "Insights", to: "/blog" },
+  { type: "section", label: "Start a Project", key: "startProject", viewAll: "/submit-rfp" },
   { type: "link", label: "Contact", to: "/contact" },
 ];
+
 
 export function MobileNavSheet({ open, onOpenChange }: MobileNavSheetProps) {
   const location = useLocation();
