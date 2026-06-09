@@ -292,13 +292,11 @@ export const ProjectImageManager: React.FC<ProjectImageManagerProps> = ({
   };
 
   // Delete image
-  const handleDelete = async (imageId: string, imageUrl: string) => {
-    if (!confirm('Are you sure you want to delete this image?')) return;
-    
+  const performDelete = async (imageId: string, imageUrl: string) => {
     try {
       // Extract filename from URL
       const fileName = imageUrl.split('/').slice(-3).join('/');
-      
+
       // Delete from storage
       await supabase.storage
         .from('project-images')
@@ -306,11 +304,21 @@ export const ProjectImageManager: React.FC<ProjectImageManagerProps> = ({
 
       // Update state
       onImagesUpdate(images.filter(img => img.id !== imageId));
+      toast.success('Image deleted');
     } catch (error) {
       console.error('Delete error:', error);
-      alert('Failed to delete image');
+      toast.error('Failed to delete image');
     }
   };
+
+  const handleDelete = (imageId: string, imageUrl: string) => {
+    toast.warning('Delete this image?', {
+      action: { label: 'Delete', onClick: () => performDelete(imageId, imageUrl) },
+      cancel: { label: 'Cancel', onClick: () => {} },
+      duration: 8000,
+    });
+  };
+
 
   // Toggle featured status
   const handleToggleFeatured = (imageId: string) => {
