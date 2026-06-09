@@ -1,10 +1,11 @@
-import { Link } from "react-router-dom";
-import { Section } from "@/components/sections/Section";
-import { TYPOGRAPHY_STYLES } from "@/design-system/constants";
-import { Button } from "@/ui/Button";
-import { FileText, Calculator, MessageSquare } from "lucide-react";
+import { StartProjectCTA } from "@/components/shared/StartProjectCTA";
 
 export const ServicesCtaSection = () => {
+  return <StartProjectCTA />;
+};
+
+// Legacy default kept for any direct imports
+const _legacy = () => {
   return (
     <Section size="major" className="bg-primary text-primary-foreground">
       <div className="max-w-4xl mx-auto text-center">
