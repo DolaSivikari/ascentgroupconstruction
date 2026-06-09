@@ -97,7 +97,7 @@ Deno.serve(async (req) => {
       );
     }
 
-    console.log(`Creating user ${email} with role ${role} by admin ${user.email}`);
+    console.log(`Creating new user with role ${role} (invoked by admin ${user.id})`);
 
     // Create user with service role key (bypasses RLS)
     const { data: newUser, error: createError } = await supabase.auth.admin.createUser({
