@@ -211,6 +211,9 @@ export const AppRoutes = () => (
       <Route path="/sustainability" element={<Navigate to="/services/sustainable-building" replace />} />
       <Route path="/insights" element={<Navigate to="/blog" replace />} />
       <Route path="/service-selector" element={<Navigate to="/services" replace />} />
+      {/* Legacy CTA shortlinks (previously handled by Netlify _redirects, which Lovable hosting ignores) */}
+      <Route path="/free-quote" element={<Navigate to="/contact" replace />} />
+      <Route path="/get-estimate" element={<Navigate to="/contact" replace />} />
 
       {ServiceRouteGroup()}
 
