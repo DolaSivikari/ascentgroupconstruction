@@ -371,13 +371,11 @@ const EnhancedHero = ({ splashComplete = true }: { splashComplete?: boolean }) =
   const headline = slide.headline;
   const subheadline = slide.subheadline;
   const videoUrl = getVideoUrl(slide.video);
-  const videoUrlMobile = slide.video.replace('.mp4', '-mobile.mp4');
   const posterUrl = slide.poster;
   const primaryCTA = slide.primaryCTA;
   const secondaryCTA = slide.secondaryCTA;
 
   const prevVideoUrl = prevSlide ? getVideoUrl(prevSlide.video) : null;
-  const prevVideoUrlMobile = prevSlide ? prevSlide.video.replace('.mp4', '-mobile.mp4') : null;
   const prevPosterUrl = prevSlide?.poster;
 
   // Reduced motion: no animations
