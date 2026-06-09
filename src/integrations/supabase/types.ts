@@ -294,6 +294,36 @@ export type Database = {
           },
         ]
       }
+      auth_account_lockouts: {
+        Row: {
+          created_at: string
+          id: string
+          locked_at: string
+          locked_until: string
+          reason: string | null
+          unlocked_at: string | null
+          user_identifier: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          locked_at?: string
+          locked_until: string
+          reason?: string | null
+          unlocked_at?: string | null
+          user_identifier: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          locked_at?: string
+          locked_until?: string
+          reason?: string | null
+          unlocked_at?: string | null
+          user_identifier?: string
+        }
+        Relationships: []
+      }
       auth_failed_attempts: {
         Row: {
           attempt_time: string | null
@@ -2373,6 +2403,36 @@ export type Database = {
           site_url?: string
           updated_at?: string | null
           user_id?: string
+        }
+        Relationships: []
+      }
+      security_alerts: {
+        Row: {
+          alert_type: string
+          created_at: string
+          description: string | null
+          id: string
+          metadata: Json | null
+          resolved: boolean
+          severity: string
+        }
+        Insert: {
+          alert_type: string
+          created_at?: string
+          description?: string | null
+          id?: string
+          metadata?: Json | null
+          resolved?: boolean
+          severity: string
+        }
+        Update: {
+          alert_type?: string
+          created_at?: string
+          description?: string | null
+          id?: string
+          metadata?: Json | null
+          resolved?: boolean
+          severity?: string
         }
         Relationships: []
       }
