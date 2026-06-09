@@ -6,7 +6,7 @@ import SEO from "@/components/SEO";
 import { Card } from "@/design-system/components/Card";
 import { SectionHeader } from "@/design-system/components/SectionHeader";
 import { ProofStrip } from "@/design-system/components/ProofStrip";
-import { CTABand } from "@/design-system/components/CTABand";
+import { StartProjectCTA } from "@/components/shared/StartProjectCTA";
 import { TrustRibbon } from "@/design-system/components/TrustRibbon";
 import { TabbedSections, FAQAccordion } from "@/design-system/components";
 import { Section } from "@/components/sections/Section";
@@ -228,8 +228,8 @@ const About = () => {
           { value: "$2M",  label: "CGL Coverage" },
           { value: "100%", label: "WSIB Compliant" },
         ]}
-        primaryCta={{ text: "Request a Site Assessment", href: "/contact" }}
-        secondaryCta={{ text: "How We Work", href: "/our-process" }}
+        primaryCta={{ text: "Start a Project", href: "/submit-rfp" }}
+        secondaryCta={{ text: "Request Site Assessment", href: "/contact" }}
         breadcrumbs={[
           { label: "Home", href: "/" },
           { label: "About Us" },
@@ -555,14 +555,9 @@ const About = () => {
         </div>
       </Section>
 
-      {/* ── 10. CTA ──────────────────────────────────────────────────────── */}
-      <CTABand
-        title="Let's Talk About Your Project"
-        description="Site assessment, trade pricing, or just a conversation — we're straightforward to work with."
-        primaryCta={{ text: "Contact Us", href: "/contact" }}
-        secondaryCta={{ text: "Explore Our Services", href: "/services" }}
-        variant="dark"
-      />
+      {/* ── 10. Start a Project (unified CTA band) ───────────────────────── */}
+      <StartProjectCTA />
+
 
       <Footer />
     </div>

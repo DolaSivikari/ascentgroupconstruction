@@ -28,7 +28,7 @@ import { Card } from "@/design-system/components/Card";
 import { Section } from "@/components/sections/Section";
 import { SectionHeader } from "@/design-system/components/SectionHeader";
 import { ProofStrip } from "@/design-system/components/ProofStrip";
-import { CTABand } from "@/design-system/components/CTABand";
+import { StartProjectCTA } from "@/components/shared/StartProjectCTA";
 import { TrustRibbon, FAQAccordion, SectionHeader as DSSectionHeader, StickyPageNav } from "@/design-system/components";
 import { capabilitiesFaqs } from "@/data/page-faqs";
 import { Button } from "@/ui/Button";
@@ -167,7 +167,7 @@ const Capabilities = () => {
         image={companyHeroes["capabilities"]}
         imageAlt="Ascent Group crew executing building envelope restoration"
         height="large"
-        primaryCta={{ text: "Submit RFP", href: "/submit-rfp" }}
+        primaryCta={{ text: "Start a Project", href: "/submit-rfp" }}
         secondaryCta={{ text: "View Our Work", href: "/projects" }}
         stats={[
           { value: "85%",  label: "Self-Performed" },
@@ -451,12 +451,7 @@ const Capabilities = () => {
           </div>
         </Section>
         </div>
-        <CTABand
-          title="Ready to Partner?"
-          description="Whether you need a prime contractor for envelope scope or a trade partner for your next project, let's discuss how we can deliver."
-          primaryCta={{ text: "Submit RFP", href: "/submit-rfp" }}
-          secondaryCta={{ text: "Contact Us", href: "/contact" }}
-        />
+        <StartProjectCTA />
       </main>
 
       <Footer />

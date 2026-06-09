@@ -3,7 +3,8 @@ import Footer from "@/components/Footer";
 import { PageHero } from "@/components/shared/PageHero";
 import SEO from "@/components/SEO";
 import { SITE_URL } from "@/constants/company";
-import { SectionHeader, SegmentCard, CTABand, TrustRibbon, FAQAccordion, StickyPageNav } from "@/design-system/components";
+import { SectionHeader, SegmentCard, TrustRibbon, FAQAccordion, StickyPageNav } from "@/design-system/components";
+import { StartProjectCTA } from "@/components/shared/StartProjectCTA";
 import {
   Building2, Briefcase, Home, HardHat, Building, Layers, Target, Users,
   Store, Hotel, Stethoscope, GraduationCap, Factory, Hammer, Building as BuildingIcon, Boxes,
@@ -142,8 +143,8 @@ const Markets = () => {
           { icon: Target, text: "Tailored Solutions" },
           { icon: Users, text: "Trade Partnerships" },
         ]}
-        primaryCta={{ text: "Submit RFP", href: "/submit-rfp" }}
-        secondaryCta={{ text: "Contact Us", href: "/contact" }}
+        primaryCta={{ text: "Start a Project", href: "/submit-rfp" }}
+        secondaryCta={{ text: "Request Site Assessment", href: "/contact" }}
       />
 
       <TrustRibbon />
@@ -271,13 +272,7 @@ const Markets = () => {
       </Section>
       </div>
 
-      <CTABand
-        title="Ready to Discuss Your Project?"
-        description="Whether you're a property manager planning capital work or a GC looking for a trade partner, we're ready to talk scope."
-        primaryCta={{ text: "Submit RFP", href: "/submit-rfp" }}
-        secondaryCta={{ text: "Contact Us", href: "/contact" }}
-        variant="dark"
-      />
+      <StartProjectCTA />
 
       <Footer />
     </div>

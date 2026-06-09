@@ -86,8 +86,8 @@ const Services = () => {
         image={mainPageHeroes.services}
         imageAlt="Specialty contracting services — building envelope and interior trades"
         height="medium"
-        primaryCta={{ text: "Submit an RFP", href: "/submit-rfp" }}
-        secondaryCta={{ text: "Request an Estimate", href: "/estimate" }}
+        primaryCta={{ text: "Start a Project", href: "/submit-rfp" }}
+        secondaryCta={{ text: "Request Site Assessment", href: "/contact" }}
         breadcrumbs={[
           { label: "Home", href: "/" },
           { label: "Services" }
