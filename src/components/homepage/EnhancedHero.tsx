@@ -511,7 +511,8 @@ const EnhancedHero = ({ splashComplete = true }: { splashComplete?: boolean }) =
             loop
             muted
             playsInline
-            preload="metadata"
+            preload="auto"
+            disableRemotePlayback
             poster={posterUrl}
             onLoadedData={handleVideoReady}
             onCanPlay={handleVideoReady}
@@ -521,7 +522,6 @@ const EnhancedHero = ({ splashComplete = true }: { splashComplete?: boolean }) =
             }}
             className="absolute inset-0 w-full h-full object-cover"
           >
-            {isMobile && <source src={videoUrlMobile} type="video/mp4" />}
             <source src={videoUrl} type="video/mp4" />
           </video>
         )}
