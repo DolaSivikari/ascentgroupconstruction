@@ -235,15 +235,36 @@ const EnhancedHero = ({ splashComplete = true }: { splashComplete?: boolean }) =
   useEffect(() => {
     const v = videoRef.current;
     if (!v) return;
+    // Ensure muted before play() — iOS sometimes ignores the attribute on first paint
+    v.muted = true;
+    v.playsInline = true;
+    // Force a reload when the slide changes so the new source is fetched immediately
+    try { v.load(); } catch {}
+
+    const tryPlay = () => {
+      v.play().catch((err) => {
+        if (import.meta.env.DEV) {
+          console.warn('Hero video autoplay blocked, will retry on user gesture', err);
+        }
+        const resume = () => {
+          v.play().catch(() => {});
+          window.removeEventListener('touchstart', resume);
+          window.removeEventListener('click', resume);
+        };
+        window.addEventListener('touchstart', resume, { once: true, passive: true });
+        window.addEventListener('click', resume, { once: true });
+      });
+    };
+
     if (v.readyState >= 3) {
       setIsVideoLoaded(true);
-      v.play().catch(() => {});
+      tryPlay();
       return;
     }
     setIsVideoLoaded(false);
     const markReady = () => {
       setIsVideoLoaded(true);
-      v.play().catch(() => {});
+      tryPlay();
     };
     v.addEventListener('loadedmetadata', markReady);
     v.addEventListener('loadeddata', markReady);
