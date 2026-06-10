@@ -39,48 +39,49 @@ export const useScrollReveal = <T extends HTMLElement = HTMLDivElement>(
     const element = ref.current;
     if (!element) return;
 
-    // Check if element is already in viewport on mount
-    const rect = element.getBoundingClientRect();
-    const isInViewport = (
-      rect.top < window.innerHeight * 0.8 && 
-      rect.bottom > 0
-    );
+    let observer: IntersectionObserver | null = null;
+    let rafId = 0;
+    let timeoutId: ReturnType<typeof setTimeout> | null = null;
+    let firstCallback = true;
 
-    if (isInViewport) {
-      // Element already visible - show immediately without animation
-      setSkipAnimation(true);
-      setIsVisible(true);
-      return; // Don't set up observer
-    }
-
-    // Element not in viewport - set up normal scroll animation with slight delay
-    const timeoutId = setTimeout(() => {
-      const observer = new IntersectionObserver(
+    // Use the IntersectionObserver's first synchronous callback to determine
+    // initial visibility instead of calling getBoundingClientRect() during
+    // React's commit phase (which caused a forced reflow).
+    rafId = requestAnimationFrame(() => {
+      observer = new IntersectionObserver(
         ([entry]) => {
+          if (firstCallback) {
+            firstCallback = false;
+            if (entry.isIntersecting) {
+              // Already in view on mount — show without animating in.
+              setSkipAnimation(true);
+              setIsVisible(true);
+              if (triggerOnce) {
+                observer?.unobserve(element);
+              }
+              return;
+            }
+          }
+
           if (entry.isIntersecting) {
             setIsVisible(true);
             if (triggerOnce) {
-              observer.unobserve(element);
+              observer?.unobserve(element);
             }
           } else if (!triggerOnce) {
             setIsVisible(false);
           }
         },
-        {
-          threshold,
-          rootMargin,
-        }
+        { threshold, rootMargin }
       );
 
       observer.observe(element);
-
-      return () => {
-        observer.disconnect();
-      };
-    }, 350); // Wait for page-loading class to finish (300ms + 50ms buffer)
+    });
 
     return () => {
-      clearTimeout(timeoutId);
+      if (rafId) cancelAnimationFrame(rafId);
+      if (timeoutId) clearTimeout(timeoutId);
+      observer?.disconnect();
     };
   }, [threshold, rootMargin, triggerOnce]);
 

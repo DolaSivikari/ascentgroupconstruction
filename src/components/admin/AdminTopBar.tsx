@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { Button } from "@/ui/Button";
 import { ExternalLink, Home, LogOut, RefreshCw, Search } from "lucide-react";
-import ascentLogoHorizontalDark from "@/assets/ascent-logo-horizontal-dark.png";
+import ascentLogoHorizontalDark from "@/assets/ascent-logo-horizontal-dark.webp";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import { useKeyboardShortcuts } from "@/hooks/useKeyboardShortcuts";
