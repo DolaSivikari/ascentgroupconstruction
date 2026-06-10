@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useQuery } from '@tanstack/react-query';
 import { fetchActiveSettingsRow } from '@/hooks/useActiveSettings';
 import { COMPANY_PHONE, COMPANY_EMAIL } from '@/constants/company';
 
@@ -23,7 +23,6 @@ export interface CompanySettings {
   metaDescription: string;
 }
 
-
 interface SiteSettingsRow {
   company_name?: string;
   phone?: string;
@@ -42,63 +41,51 @@ interface UseCompanySettingsResult {
   error: Error | null;
 }
 
+const mapRow = (row: SiteSettingsRow | null): CompanySettings | null => {
+  if (!row) return null;
+  const businessHours = row.business_hours || null;
+  const socialLinks = row.social_links || null;
+  return {
+    companyName: row.company_name || 'Ascent Group Construction',
+    phone: row.phone || COMPANY_PHONE,
+    email: row.email || COMPANY_EMAIL,
+    address: row.address || '2 Jody Ave, North York, ON M3N 1H1',
+    businessHours: {
+      weekday: businessHours?.weekday || 'Mon-Fri: 8AM-6PM',
+      saturday: businessHours?.saturday || 'Sat: 9AM-4PM',
+      sunday: businessHours?.sunday || 'Closed',
+    },
+    socialLinks: {
+      linkedin: socialLinks?.linkedin || '',
+      facebook: socialLinks?.facebook || '',
+      instagram: socialLinks?.instagram || '',
+      twitter: socialLinks?.twitter || '',
+    },
+    certifications: (row.certifications as string[]) || [],
+    metaTitle: row.meta_title || 'Ascent Group Construction - Professional Painting & Restoration',
+    metaDescription: row.meta_description || 'Leading construction and project management services across the GTA',
+  };
+};
+
 export function useCompanySettings(): UseCompanySettingsResult {
-  const [settings, setSettings] = useState<CompanySettings | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<Error | null>(null);
-
-  useEffect(() => {
-    const fetchSettings = async () => {
-      try {
-        setLoading(true);
-        setError(null);
-        
-        const result = await fetchActiveSettingsRow<SiteSettingsRow>('site_settings');
-        if (result.warning) {
-          console.warn(result.warning);
-        }
-
-        const settingsData = result.data;
-
-        if (settingsData) {
-          const businessHours = settingsData.business_hours || null;
-          const socialLinks = settingsData.social_links || null;
-          
-          setSettings({
-            companyName: settingsData.company_name || 'Ascent Group Construction',
-            phone: settingsData.phone || COMPANY_PHONE,
-            email: settingsData.email || COMPANY_EMAIL,
-            address: settingsData.address || '2 Jody Ave, North York, ON M3N 1H1',
-            businessHours: {
-              weekday: businessHours?.weekday || 'Mon-Fri: 8AM-6PM',
-              saturday: businessHours?.saturday || 'Sat: 9AM-4PM',
-              sunday: businessHours?.sunday || 'Closed',
-            },
-            socialLinks: {
-              linkedin: socialLinks?.linkedin || '',
-              facebook: socialLinks?.facebook || '',
-              instagram: socialLinks?.instagram || '',
-              twitter: socialLinks?.twitter || '',
-            },
-            certifications: (settingsData.certifications as string[]) || [],
-            metaTitle: settingsData.meta_title || 'Ascent Group Construction - Professional Painting & Restoration',
-            metaDescription: settingsData.meta_description || 'Leading construction and project management services across the GTA',
-          });
-        } else {
-          const missingError = new Error('No active site_settings row found; components will use local fallbacks');
-          setError(missingError);
-          console.warn(missingError.message);
-        }
-      } catch (err) {
-        setError(err as Error);
-        console.error('Error fetching company settings:', err);
-      } finally {
-        setLoading(false);
+  // Shares cache with useSiteSettings via identical queryKey, so the
+  // homepage hits site_settings exactly once across Navigation, StickyInquiryBar,
+  // MobileNavSheet, InteractiveCTA, and DirectAnswer.
+  const { data, isLoading, error } = useQuery({
+    queryKey: ['site-settings'],
+    queryFn: async () => {
+      const result = await fetchActiveSettingsRow<SiteSettingsRow>('site_settings');
+      if (result.warning) {
+        console.warn(result.warning);
       }
-    };
+      return result.data;
+    },
+    staleTime: 5 * 60 * 1000,
+  });
 
-    fetchSettings();
-  }, []);
-
-  return { settings, loading, error };
+  return {
+    settings: mapRow((data as SiteSettingsRow | null) ?? null),
+    loading: isLoading,
+    error: (error as Error) || null,
+  };
 }
