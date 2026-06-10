@@ -1,60 +1,49 @@
-# Restore Hero Background Video (Desktop + Mobile)
+# Performance fix plan
 
-## What's happening
+Lighthouse score is **86 / Performance**. The biggest wins are concentrated in 4 hotspots — fixing them should push score to ~95+ and cut LCP from 2.0s toward ~1.2s.
 
-The homepage hero (`src/components/homepage/EnhancedHero.tsx`) currently hides the `<video>` element on every mobile user-agent via this gate (added back in April):
+## What's actually slow
 
-```ts
-const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-const skipVideo = isMobile || prefersReducedData;
-```
-
-When `skipVideo` is true, the component renders the poster image instead of the `<video>`. That's why your mobile preview shows only the static image — by design, not from any recent batch (no batch 1–6 file touched the hero).
-
-For the desktop case where the video also doesn't start, the likely culprits are:
-1. `preload="metadata"` on the active slide — some browsers don't fetch enough data to trigger `canplay`, so `autoPlay` never fires.
-2. The `mobile` `<source>` element points to a `-mobile.mp4` path derived by `string.replace('.mp4','-mobile.mp4')` — for hashed Vite asset URLs this resolves to a 404; if the browser picks it first, `<video>` errors out before falling back.
-3. The play attempt in the loading effect swallows errors silently (`v.play().catch(() => {})`), masking autoplay-policy rejections.
+| Hotspot | Today | Cost | Fix |
+|---|---|---|---|
+| **Header logo PNG** | 1920×986, 246 KB, rendered at 156×80 | ~245 KB wasted on every page | Resize + convert to WebP |
+| **Hero poster** | `/hero-poster-1.webp` 274 KB | LCP candidate, no long-term cache | Re-encode smaller + 1-year immutable header |
+| **`site_settings` fetched 6× on homepage** | `useCompanySettings` is a raw `useEffect`, called in Navigation, StickyInquiryBar, MobileNavSheet, InteractiveCTA, DirectAnswer | 5 duplicate network round-trips, ~1.9s tail on critical path | Move it into React Query under the same `['site-settings']` key already used by `useSiteSettings` |
+| **Forced reflow in `useScrollReveal`** | Calls `getBoundingClientRect()` synchronously in every reveal hook | 38 ms TBT, every component that uses the hook | Defer the read into `requestAnimationFrame` |
 
 ## Changes
 
-### 1. Enable video on mobile
-File: `src/components/homepage/EnhancedHero.tsx`
+### 1. Shrink the header logo
+- Resize `src/assets/ascent-logo-horizontal-light.png` to ~480×246 (2× display size) and convert to WebP at q=85.
+- Same treatment for the dark/round variants used in nav so theme switches don't pull a 250 KB PNG.
+- Update imports in `Navigation.tsx` / wherever the logo is loaded.
+- Expected: 245 KB → ~15 KB per page load.
 
-- Replace the `skipVideo` gate so it only skips when the user has Data Saver on or `prefers-reduced-motion`:
-  ```ts
-  const skipVideo = prefersReducedData || prefersReducedMotion;
+### 2. Re-encode the hero poster
+- Re-encode `public/hero-poster-1.webp` to ~1600×900 at q=72.
+- Bump cache lifetime in `public/_headers`:
   ```
-- Keep poster image as the fallback when `skipVideo` is true (current behavior preserved for accessibility / data-saver users).
+  /hero-poster-*.webp
+    Cache-Control: public, max-age=31536000, immutable
+  ```
+- Expected: 274 KB → ~90 KB and zero refetch on repeat visits.
 
-### 2. Make `<video>` reliably autoplay on both platforms
-Same file, both the current-slide and previous-slide `<video>` blocks:
+### 3. Dedupe `site_settings` queries
+- Rewrite `src/hooks/useCompanySettings.ts` on top of React Query with `queryKey: ['site-settings']` and `staleTime: 5 * 60 * 1000`, matching `useSiteSettings` exactly so both hooks share the same cache entry.
+- Keep the public API (`{ settings, loading, error }`) unchanged so the 5 call sites don't need edits.
+- Expected: 6 `site_settings` HTTP calls → 1.
 
-- Change `preload="metadata"` → `preload="auto"` for the **current** slide (keep `metadata` for the outgoing/previous layer since it's transient).
-- Only emit the `-mobile.mp4` `<source>` when the slide explicitly provides a separate mobile URL (admin DB field) — drop the unreliable `string.replace` derivation for hashed Vite imports.
-- Add `muted`, `playsInline`, `autoPlay`, `loop` (already present) plus `disableRemotePlayback` for iOS Safari stability.
-- Set `video.muted = true` imperatively in the load effect before calling `.play()` (some iOS versions ignore the attribute on first paint).
+### 4. Fix the forced reflow in `useScrollReveal`
+- In `src/hooks/useScrollReveal.ts`, wrap the initial `getBoundingClientRect()` viewport check in `requestAnimationFrame` so React's commit phase has flushed before we read layout, and skip the read entirely if `IntersectionObserver` is supported by using the observer's first synchronous callback for the in-view check instead.
+- Expected: 38 ms → ~0 ms TBT contribution from this hook.
 
-### 3. Robust play + visibility into failures
-In the `useEffect` that hooks `videoRef`:
+## Out of scope (intentionally)
 
-- Replace the silent `.catch(() => {})` with a retry on user gesture (touchstart/click once) and a `console.warn` in dev only.
-- Trigger `v.load()` when `currentSlide` changes so the new source is fetched immediately.
+- **`chunk-charts` (recharts) saving 88 KB** — already isolated to its own chunk and only imported by admin pages. Lighthouse flags it because a `<link rel="modulepreload">` is emitted; this is a Vite default and removing it requires touching build config. Low ROI on a public-page audit.
+- **Render-blocking CSS (110 ms)** — comes from the single hashed `index.css`. Splitting would hurt cacheability on internal pages where it pays off. Skip.
+- **Unsplash image (351 KB)** — comes from a CMS-driven testimonial/project record, not code. Surface to the user as a separate content task if they want to fix it.
+- **Minify JavaScript (62 KB)** — Lighthouse compares against terser; we already use esbuild minify. Switching costs build time without changing UX meaningfully.
 
-### 4. Sanity check / preserve fallback
-- Keep the poster image visible underneath via the `poster` attribute on `<video>` so if the video genuinely fails to load, the user sees the image (no broken UI) — exactly the current safety net.
-- Leave `useVideoPreloader` untouched (it's already only doing background prefetch and doesn't gate rendering).
+## Risk
 
-## Technical notes
-
-- No DB / schema / route changes.
-- No new dependencies.
-- Mobile data impact: enabling the hero MP4 on phones adds ~1–3 MB of download. The data-saver and reduced-motion fallbacks remain, so users who opted out still get the poster. If you'd rather provide a properly encoded smaller mobile MP4 later, the code path for `-mobile.mp4` stays in place — it just won't be emitted unless a real URL is supplied.
-- Files touched: `src/components/homepage/EnhancedHero.tsx` only.
-
-## Verification
-
-After the change I'll:
-1. Reload the preview at mobile (457×748) and desktop widths and confirm the `<video>` element is present and `readyState >= 3`.
-2. Watch console for any "Hero video failed to load" errors.
-3. Confirm the poster still appears instantly while the video buffers (no flash of empty black).
+All four changes are localized. The logo swap and poster re-encode are visual — quick eyeball before merging. The React Query refactor of `useCompanySettings` keeps the return shape identical so call sites don't change. The `useScrollReveal` change preserves the same "skip animation if already in view" semantics.
