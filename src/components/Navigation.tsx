@@ -6,8 +6,8 @@ import { ChevronDown, Shield, Phone, ArrowRight, FileText } from "lucide-react";
 import { useCompanySettings } from "@/hooks/useCompanySettings";
 import { MegaMenuWithSections } from "./navigation/MegaMenuWithSections";
 import { MobileNavSheet } from "./navigation/MobileNavSheet";
-import ascentLogoHorizontalDark from "@/assets/ascent-logo-horizontal-dark.png";
-import ascentLogoHorizontalLight from "@/assets/ascent-logo-horizontal-light.png";
+import ascentLogoHorizontalDark from "@/assets/ascent-logo-horizontal-dark.webp";
+import ascentLogoHorizontalLight from "@/assets/ascent-logo-horizontal-light.webp";
 
 import { megaMenuDataEnhanced } from "@/data/navigation-structure-enhanced";
 import { cn } from "@/lib/utils";
