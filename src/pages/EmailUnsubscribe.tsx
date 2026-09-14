@@ -5,7 +5,6 @@ import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
 import { Button } from "@/ui/Button";
 import { Card, CardContent } from "@/design-system/components/Card";
-import { supabase } from "@/integrations/supabase/client";
 import { CheckCircle2, AlertCircle, Loader2, Home } from "lucide-react";
 
 type Status = "loading" | "valid" | "already" | "invalid" | "confirming" | "done" | "error";
@@ -14,62 +13,17 @@ export default function EmailUnsubscribe() {
   const [status, setStatus] = useState<Status>("loading");
   const [errorMsg, setErrorMsg] = useState<string>("");
 
-  const params = new URLSearchParams(window.location.search);
-  const token = params.get("token") || "";
-
   useEffect(() => {
-    if (!token) {
-      setStatus("invalid");
-      setErrorMsg("No unsubscribe token was provided in the link.");
-      return;
-    }
+    // Email preferences are now handled directly from the unsubscribe link at
+    // the bottom of each email, so this page only points people back there.
+    setStatus("invalid");
+    setErrorMsg(
+      "Email preferences are managed from the unsubscribe link at the bottom of any email we send you. Open your most recent email and use that link, or contact us and we'll take care of it.",
+    );
+  }, []);
 
-    const validate = async () => {
-      try {
-        const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
-        const supabaseAnonKey = import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY;
-        const response = await fetch(
-          `${supabaseUrl}/functions/v1/handle-email-unsubscribe?token=${encodeURIComponent(token)}`,
-          { headers: { apikey: supabaseAnonKey } }
-        );
-        const data = await response.json();
-
-        if (response.ok && data.valid === true) {
-          setStatus("valid");
-        } else if (data.reason === "already_unsubscribed") {
-          setStatus("already");
-        } else {
-          setStatus("invalid");
-          setErrorMsg(data.error || "This unsubscribe link is invalid or has expired.");
-        }
-      } catch (err) {
-        setStatus("error");
-        setErrorMsg("Could not reach the unsubscribe service. Please try again.");
-      }
-    };
-
-    validate();
-  }, [token]);
-
-  const handleConfirm = async () => {
-    setStatus("confirming");
-    try {
-      const { data, error } = await supabase.functions.invoke("handle-email-unsubscribe", {
-        body: { token },
-      });
-      if (error) throw error;
-      if (data?.success) {
-        setStatus("done");
-      } else if (data?.reason === "already_unsubscribed") {
-        setStatus("already");
-      } else {
-        setStatus("error");
-        setErrorMsg(data?.error || "Could not complete the unsubscribe.");
-      }
-    } catch (err: any) {
-      setStatus("error");
-      setErrorMsg(err?.message || "Could not complete the unsubscribe.");
-    }
+  const handleConfirm = () => {
+    setStatus("invalid");
   };
 
   return (
