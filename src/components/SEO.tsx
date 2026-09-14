@@ -35,7 +35,7 @@ const SEO = ({
   articleMeta,
 }: SEOProps) => {
 
-  const fullTitle = title ? `${title} | ${COMPANY_NAME}` : `${COMPANY_NAME} — Envelope & Restoration`;
+  const fullTitle = title ? `${title} | ${COMPANY_NAME}` : `${COMPANY_NAME} | Building Envelope & Restoration`;
 
   // Fetch real aggregate rating from database
   const { aggregateRating, hasRatings } = useAggregateRating();
