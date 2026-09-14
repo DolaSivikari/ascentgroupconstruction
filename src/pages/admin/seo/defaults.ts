@@ -33,7 +33,7 @@ User-agent: *
 Allow: /
 
 # Sitemap
-Sitemap: https://ascentgroupconstruction.com/sitemap.xml
+Sitemap: https://www.ascentgroupconstruction.com/sitemap.xml
 
 # Block access to admin pages
 User-agent: *
