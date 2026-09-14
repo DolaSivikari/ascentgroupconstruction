@@ -1,7 +1,28 @@
+// @ts-nocheck — email_send_log is not present in the generated types
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 import { corsHeaders, handleCors } from '../_shared/http.ts';
+import { sendTemplateEmail } from '../_shared/transactional-email-templates/send-email.ts';
 
 const TRANSACTIONAL_TEMPLATE = 'review-request';
+
+// Notification-only bookkeeping for the admin dashboard.
+async function logSend(
+  supabase: any,
+  recipient: string,
+  status: string,
+  errorMessage?: string,
+) {
+  const { error } = await supabase.from('email_send_log').insert({
+    message_id: null,
+    template_name: TRANSACTIONAL_TEMPLATE,
+    recipient_email: recipient,
+    status,
+    error_message: errorMessage ?? null,
+  });
+  if (error) {
+    console.error('Failed to write email_send_log', { code: error.code, message: error.message });
+  }
+}
 const SITE_URL = 'https://ascentgroupconstruction.com';
 const GOOGLE_REVIEW_LINK = 'https://g.page/r/YOUR_GOOGLE_PLACE_ID/review';
 const HOMESTARS_REVIEW_LINK = 'https://homestars.com/companies/YOUR_COMPANY_ID';
@@ -46,39 +67,51 @@ Deno.serve(async (req) => {
       );
     }
 
-    // Enqueue email through the Lovable transactional-email pipeline
+    // Send through Lovable's managed email API
     const reviewLandingPage = `${SITE_URL}/reviews?r=${reviewRequest.id}`;
 
-    const { data: sendResult, error: sendError } = await supabase.functions.invoke(
-      'send-transactional-email',
-      {
-        body: {
-          templateName: TRANSACTIONAL_TEMPLATE,
-          recipientEmail: email,
-          idempotencyKey: `review-request:${reviewRequest.id}`,
-          templateData: {
-            clientName,
-            reviewLandingPage,
-            googleReviewLink: GOOGLE_REVIEW_LINK,
-            homestarsReviewLink: HOMESTARS_REVIEW_LINK,
-            trustedprosReviewLink: TRUSTEDPROS_REVIEW_LINK,
-          },
+    let sendResult;
+    try {
+      sendResult = await sendTemplateEmail(TRANSACTIONAL_TEMPLATE, email, {
+        idempotencyKey: `review-request-${reviewRequest.id}`,
+        templateData: {
+          clientName,
+          reviewLandingPage,
+          googleReviewLink: GOOGLE_REVIEW_LINK,
+          homestarsReviewLink: HOMESTARS_REVIEW_LINK,
+          trustedprosReviewLink: TRUSTEDPROS_REVIEW_LINK,
         },
-      }
-    );
-
-    if (sendError) {
-      console.error('send-transactional-email error:', sendError);
+      });
+    } catch (sendError) {
+      const message = sendError instanceof Error ? sendError.message : String(sendError);
+      console.error('Review request email failed:', message);
+      await logSend(supabase, email, 'failed', message.slice(0, 1000));
       await supabase
         .from('review_requests')
         .update({ status: 'bounced' })
         .eq('id', reviewRequest.id);
 
       return new Response(
-        JSON.stringify({ error: 'Failed to send email', details: sendError.message }),
+        JSON.stringify({ error: 'Failed to send email', details: message }),
         { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
       );
     }
+
+    if (!sendResult.sent) {
+      // Recipient previously bounced, complained, or unsubscribed.
+      await logSend(supabase, email, 'suppressed');
+      await supabase
+        .from('review_requests')
+        .update({ status: 'bounced' })
+        .eq('id', reviewRequest.id);
+
+      return new Response(
+        JSON.stringify({ success: false, reason: 'recipient_suppressed' }),
+        { status: 200, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
+    }
+
+    await logSend(supabase, email, 'sent');
 
     await supabase
       .from('review_requests')
@@ -88,13 +121,12 @@ Deno.serve(async (req) => {
       })
       .eq('id', reviewRequest.id);
 
-    console.log('Review request enqueued successfully:', sendResult);
+    console.log('Review request sent successfully:', reviewRequest.id);
 
     return new Response(
       JSON.stringify({
         success: true,
         reviewRequestId: reviewRequest.id,
-        result: sendResult,
       }),
       {
         status: 200,

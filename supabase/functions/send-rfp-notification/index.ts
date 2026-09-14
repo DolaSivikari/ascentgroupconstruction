@@ -1,4 +1,4 @@
-// FALLBACK SENDER — primary path is `send-transactional-email` (built-in Lovable email queue).
+// FALLBACK SENDER — primary path is `send-rfp-emails` (Lovable managed email).
 // This function is invoked from the client only when the primary send fails.
 // It also sends to estimating@ascentgroupconstruction.com via Resend.
 import { createClient } from 'npm:@supabase/supabase-js@2';

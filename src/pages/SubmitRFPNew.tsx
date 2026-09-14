@@ -23,7 +23,6 @@ import { PhoneLink } from "@/components/shared/PhoneLink";
 import { AscentEmailLink } from "@/components/EmailLink";
 import { useAdminRoleCheck } from "@/hooks/useAdminRoleCheck";
 
-const ESTIMATING_EMAIL = "estimating@ascentgroupconstruction.com";
 
 const stepFields: Record<number, (keyof RFPSubmission)[]> = {
   1: ["company_name", "contact_name", "email", "phone"],
@@ -197,47 +196,10 @@ export default function SubmitRFPNew() {
 
       // Send notifications: PRIMARY = built-in transactional email, FALLBACK = legacy Resend function
       const sendViaBuiltIn = async () => {
-        const customerPayload = {
-          templateName: "rfp-customer-confirmation",
-          recipientEmail: data.email,
-          idempotencyKey: `rfp-customer-${newId}`,
-          templateData: {
-            contactName: data.contact_name,
-            projectName: data.project_name,
-            projectType: data.project_type,
-            estimatedValueRange: data.estimated_value_range,
-            companyName: data.company_name,
-            referenceId: refId,
-          },
-        };
-        const internalPayload = {
-          templateName: "rfp-internal-notification",
-          recipientEmail: ESTIMATING_EMAIL,
-          idempotencyKey: `rfp-internal-${newId}`,
-          templateData: {
-            referenceId: refId,
-            rfpId: newId,
-            companyName: data.company_name,
-            contactName: data.contact_name,
-            email: data.email,
-            phone: data.phone,
-            projectName: data.project_name,
-            projectType: data.project_type,
-            projectLocation: data.project_location,
-            estimatedValueRange: data.estimated_value_range,
-            estimatedTimeline: data.estimated_timeline,
-            deliveryMethod: data.delivery_method,
-            scopeOfWork: data.scope_of_work,
-            attachmentsCount: attachmentFiles.length,
-            submittedAt: createdAt.toLocaleString(),
-          },
-        };
-        const [c, i] = await Promise.all([
-          supabase.functions.invoke("send-transactional-email", { body: customerPayload }),
-          supabase.functions.invoke("send-transactional-email", { body: internalPayload }),
-        ]);
-        if (c.error) throw c.error;
-        if (i.error) throw i.error;
+        const { error } = await supabase.functions.invoke("send-rfp-emails", {
+          body: { rfpId: newId },
+        });
+        if (error) throw error;
       };
 
       let notificationWarning = false;
