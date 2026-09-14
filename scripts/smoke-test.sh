@@ -5,7 +5,7 @@
 
 set -euo pipefail
 
-BASE_URL="${1:-https://ascentgroupconstruction.com}"
+BASE_URL="${1:-https://www.ascentgroupconstruction.com}"
 SUPABASE_PROJECT_ID="${VITE_SUPABASE_PROJECT_ID:-}"
 
 GREEN='\033[0;32m'

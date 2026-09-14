@@ -5,10 +5,10 @@
  * Tests if cache headers are properly configured for production deployment
  * 
  * Usage: node scripts/verify-headers.js [URL]
- * Default URL: https://ascentgroupconstruction.com
+ * Default URL: https://www.ascentgroupconstruction.com
  */
 
-const SITE_URL = process.argv[2] || 'https://ascentgroupconstruction.com';
+const SITE_URL = process.argv[2] || 'https://www.ascentgroupconstruction.com';
 
 // Test cases for different asset types
 const TEST_CASES = [

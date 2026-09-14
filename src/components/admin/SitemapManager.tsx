@@ -70,7 +70,7 @@ export const SitemapManager = () => {
   };
 
   const viewLiveSitemap = () => {
-    window.open('https://ascentgroupconstruction.com/sitemap.xml', '_blank');
+    window.open('https://www.ascentgroupconstruction.com/sitemap.xml', '_blank');
   };
 
   const latestLog = logs[0];

@@ -1,13 +1,13 @@
 # NOTE: Lovable hosting IGNORES this file (Netlify-only format).
 # Legacy URL redirects are implemented in src/routes/AppRoutes.tsx using <Navigate>.
-# www → non-www canonical is enforced by Lovable's edge for the active custom domain.
+# non-www → www canonical is enforced by Lovable's edge for the active custom domain.
 # This file is kept as documentation only and as a fallback for any Netlify-style host.
 # ============================================================================
 # Canonicalization
 # ============================================================================
-https://www.ascentgroupconstruction.com/*  https://ascentgroupconstruction.com/:splat  301!
-http://www.ascentgroupconstruction.com/*   https://ascentgroupconstruction.com/:splat  301!
-http://ascentgroupconstruction.com/*       https://ascentgroupconstruction.com/:splat  301!
+https://ascentgroupconstruction.com/*      https://www.ascentgroupconstruction.com/:splat  301!
+http://ascentgroupconstruction.com/*       https://www.ascentgroupconstruction.com/:splat  301!
+http://www.ascentgroupconstruction.com/*   https://www.ascentgroupconstruction.com/:splat  301!
 
 # Legacy service URL redirects to active routes
 /services/stucco                   /services/cladding-systems        301
