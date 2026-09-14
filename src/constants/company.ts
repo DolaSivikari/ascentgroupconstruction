@@ -5,7 +5,7 @@
  */
 
 export const SITE_URL =
-  import.meta.env.VITE_SITE_URL || "https://ascentgroupconstruction.com";
+  import.meta.env.VITE_SITE_URL || "https://www.ascentgroupconstruction.com";
 
 export const COMPANY_NAME = "Ascent Group Construction";
 
