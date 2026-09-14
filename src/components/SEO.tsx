@@ -24,7 +24,7 @@ interface SEOProps {
 
 const SEO = ({
   title,
-  description = "Ontario specialty contractor for building envelope, façade remediation, masonry, EIFS, and parking garage restoration across the GTA.",
+  description = "Self-performing specialty contractor delivering building envelope, façade, masonry, EIFS and parking garage restoration across the GTA and Ontario.",
   keywords,
   ogImage = "/og-image.png",
   ogType = "website",
@@ -35,7 +35,7 @@ const SEO = ({
   articleMeta,
 }: SEOProps) => {
 
-  const fullTitle = title ? `${title} | ${COMPANY_NAME}` : `${COMPANY_NAME} — Envelope & Restoration`;
+  const fullTitle = title ? `${title} | ${COMPANY_NAME}` : `${COMPANY_NAME} | Building Envelope & Restoration`;
 
   // Fetch real aggregate rating from database
   const { aggregateRating, hasRatings } = useAggregateRating();
