@@ -24,7 +24,7 @@ interface SEOProps {
 
 const SEO = ({
   title,
-  description = "Ontario specialty contractor for building envelope, façade remediation, masonry, EIFS, and parking garage restoration across the GTA.",
+  description = "Self-performing specialty contractor delivering building envelope, façade, masonry, EIFS and parking garage restoration across the GTA and Ontario.",
   keywords,
   ogImage = "/og-image.png",
   ogType = "website",
