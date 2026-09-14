@@ -1,7 +1,28 @@
+// @ts-nocheck — email_send_log is not present in the generated types
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 import { corsHeaders, handleCors } from '../_shared/http.ts';
+import { sendTemplateEmail } from '../_shared/transactional-email-templates/send-email.ts';
 
 const TRANSACTIONAL_TEMPLATE = 'review-request';
+
+// Notification-only bookkeeping for the admin dashboard.
+async function logSend(
+  supabase: any,
+  recipient: string,
+  status: string,
+  errorMessage?: string,
+) {
+  const { error } = await supabase.from('email_send_log').insert({
+    message_id: null,
+    template_name: TRANSACTIONAL_TEMPLATE,
+    recipient_email: recipient,
+    status,
+    error_message: errorMessage ?? null,
+  });
+  if (error) {
+    console.error('Failed to write email_send_log', { code: error.code, message: error.message });
+  }
+}
 const SITE_URL = 'https://ascentgroupconstruction.com';
 const GOOGLE_REVIEW_LINK = 'https://g.page/r/YOUR_GOOGLE_PLACE_ID/review';
 const HOMESTARS_REVIEW_LINK = 'https://homestars.com/companies/YOUR_COMPANY_ID';
