@@ -23,7 +23,6 @@ import { PhoneLink } from "@/components/shared/PhoneLink";
 import { AscentEmailLink } from "@/components/EmailLink";
 import { useAdminRoleCheck } from "@/hooks/useAdminRoleCheck";
 
-const ESTIMATING_EMAIL = "estimating@ascentgroupconstruction.com";
 
 const stepFields: Record<number, (keyof RFPSubmission)[]> = {
   1: ["company_name", "contact_name", "email", "phone"],
