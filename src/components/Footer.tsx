@@ -12,7 +12,7 @@ import { UnifiedFooter } from "./footer/UnifiedFooter";
 import { SERVICE_REGISTRY } from "@/data/service-registry";
 
 
-type SiteSettingsRow = Database['public']['Tables']['site_settings']['Row'];
+type SiteSettingsRow = Partial<Database['public']['Tables']['site_settings']['Row']>;
 type FooterSettingsRow = Database['public']['Tables']['footer_settings']['Row'];
 type ServiceLink = Pick<Database['public']['Tables']['services']['Row'], 'name' | 'slug' | 'service_tier'>;
 type FooterLink = { label: string; href: string };
@@ -41,7 +41,7 @@ const Footer = () => {
           supabase.from('services').select('name, slug, service_tier').eq('publish_state', 'published').order('service_tier, name')
         ]);
         
-        if (siteData.data) setSiteSettings(siteData.data);
+        if (siteData.data) setSiteSettings(siteData.data as SiteSettingsRow);
         if (footerData.data) setFooterSettings(footerData.data);
         if (servicesData.data) setServices(servicesData.data);
       } finally {
@@ -83,8 +83,10 @@ const Footer = () => {
   
   // Primary source: site_settings, fallback to footer_settings
   const address = siteSettings?.address || contactInfo.address || '';
-  const phone = siteSettings?.phone || contactInfo.phone || '';
-  const email = siteSettings?.email || contactInfo.email || '';
+  // Contact details come from app constants, not the public API, so they cannot
+  // be bulk harvested from the database by scrapers.
+  const phone = contactInfo.phone || COMPANY_PHONE;
+  const email = contactInfo.email || COMPANY_EMAIL;
   const linkedinUrl = socialMedia.linkedin || '';
 
   // Static fallback links if admin hasn't configured them
