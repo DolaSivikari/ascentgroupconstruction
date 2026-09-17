@@ -15,6 +15,13 @@
       "when": 1789642315209,
       "tag": "0001_harden_pii_grants_rls_and_definer_execute",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1789644346906,
+      "tag": "0002_restrict_admin_definer_and_storage_policies",
+      "breakpoints": true
     }
   ]
 }
