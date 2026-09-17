@@ -143,7 +143,7 @@ Deno.serve(async (req) => {
         logSecurityError('failed_attempt_count', countError, { email, ip_address: ipAddress });
       }
 
-      const attemptCount = recentAttempts?.length || 0;
+      const attemptCount = recentAttemptCount || 0;
 
       // Lock account after 5 failed attempts
       if (attemptCount >= 5) {
