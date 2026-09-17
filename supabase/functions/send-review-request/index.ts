@@ -2,6 +2,7 @@
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 import { corsHeaders, handleCors } from '../_shared/http.ts';
 import { sendTemplateEmail } from '../_shared/transactional-email-templates/send-email.ts';
+import { checkRateLimit, createRateLimitResponse } from '../_shared/rateLimiter.ts';
 
 const TRANSACTIONAL_TEMPLATE = 'review-request';
 
