@@ -28,7 +28,7 @@ export function useSiteSettings() {
   return useQuery({
     queryKey: ['site-settings'],
     queryFn: async () => {
-      const result = await fetchActiveSettingsRow<SiteSettings>('site_settings');
+      const result = await fetchActiveSettingsRow<SiteSettings>('site_settings', PUBLIC_SITE_SETTINGS_COLUMNS);
       if (result.warning) {
         console.warn(result.warning);
       }
