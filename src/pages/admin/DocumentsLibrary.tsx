@@ -93,16 +93,24 @@ export default function DocumentsLibrary() {
     }
   };
 
-  const uploadFile = async (file: File): Promise<string> => {
+  const uploadFile = async (file: File, requiresAuth: boolean): Promise<string> => {
     const fileExt = file.name.split('.').pop();
     const fileName = `${Date.now()}-${Math.random().toString(36).substring(7)}.${fileExt}`;
     const filePath = `${fileName}`;
 
+    // Documents flagged as sign-in only go to the private bucket and are served
+    // through short-lived signed URLs instead of a public link.
+    const bucket = requiresAuth ? RESTRICTED_BUCKET : 'documents';
+
     const { error: uploadError } = await supabase.storage
-      .from('documents')
+      .from(bucket)
       .upload(filePath, file);
 
     if (uploadError) throw uploadError;
+
+    if (requiresAuth) {
+      return `${RESTRICTED_PREFIX}${filePath}`;
+    }
 
     const { data: { publicUrl } } = supabase.storage
       .from('documents')
