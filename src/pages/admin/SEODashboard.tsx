@@ -126,7 +126,7 @@ export default function SEODashboard() {
 
       const { data, error } = await supabase
         .from('google_auth_tokens')
-        .select('access_token')
+        .select('user_id')
         .eq('user_id', session.user.id)
         .single();
 
