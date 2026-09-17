@@ -34,7 +34,7 @@ import { ScrollReveal } from "@/components/animations/ScrollReveal";
 
 const BlogPost = () => {
   const { slug } = useParams<{ slug: string }>();
-  const { isPreview } = usePreviewMode();
+  const { isPreview, previewToken } = usePreviewMode();
   const [post, setPost] = useState<any>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [relatedLinks, setRelatedLinks] = useState<SmartRelatedLink[]>([]);
