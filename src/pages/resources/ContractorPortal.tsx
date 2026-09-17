@@ -92,23 +92,27 @@ const ContractorPortal = () => {
     setIsSubmitting(true);
 
     try {
-      const { error } = await supabase.functions.invoke('submit-form', {
+      const { data: response, error } = await supabase.functions.invoke('submit-form', {
         body: {
-          formType: 'rfp',
+          // Unit-rate requests are prequalification leads, not RFPs. Keep their
+          // intentionally smaller data model rather than inventing RFP fields.
+          formType: 'prequalification',
           data: {
             companyName: formData.companyName,
             contactName: formData.contactName,
             email: formData.email,
             phone: formData.phone,
-            projectName: "Unit Rate Request",
-            projectType: "subcontractor_partnership",
-            scopeOfWork: `Trade Scope: ${formData.tradeScope}\n\n${formData.message}`
+            projectType: formData.tradeScope || 'unit_rate_request',
+            message: formData.message || 'Unit rate request',
           },
           honeypot: formData.honeypot
         }
       });
 
       if (error) throw error;
+      if (response && (response as { success?: boolean }).success === false) {
+        throw new Error('We could not submit that request. Please try again.');
+      }
 
       toast({
         title: "Request Submitted",

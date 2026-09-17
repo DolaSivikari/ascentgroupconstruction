@@ -92,6 +92,9 @@ const Contact = () => {
         }
         throw error;
       }
+      if (data && (data as { success?: boolean }).success === false) {
+        throw new Error('The submission was not accepted. Please try again.');
+      }
 
       let notificationWarning = false;
       try {

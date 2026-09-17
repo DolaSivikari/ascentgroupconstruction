@@ -1,6 +1,6 @@
 import { createClient } from "npm:@supabase/supabase-js@2";
 import { z } from "https://deno.land/x/zod@v3.22.4/mod.ts";
-import { getClientIdentifier } from "../_shared/rateLimiter.ts";
+import { checkRateLimit, createRateLimitResponse, getClientIdentifier } from "../_shared/rateLimiter.ts";
 import { createErrorResponse } from "../_shared/errorHandler.ts";
 import { corsHeaders, handleCors, jsonResponse } from "../_shared/http.ts";
 
@@ -68,6 +68,12 @@ function looksLikeLinkSpam(text: string | undefined | null): boolean {
   return (matches?.length ?? 0) >= 3;
 }
 
+function blockedResponse(reason: 'honeypot' | 'too_fast' | 'link_spam' | 'repeat_content'): Response {
+  // This is deliberately distinct from a persisted submission. Do not claim a
+  // record exists when anti-abuse controls rejected it.
+  return jsonResponse({ success: false, status: 'blocked', reason }, 202);
+}
+
 async function sha256Hex(input: string): Promise<string> {
   const buf = new TextEncoder().encode(input);
   const hash = await crypto.subtle.digest('SHA-256', buf);
@@ -90,10 +96,22 @@ Deno.serve(async (req) => {
 
     const clientId = getClientIdentifier(req);
 
+    if (!['contact', 'resume', 'prequalification', 'rfp'].includes(formType)) {
+      return createErrorResponse(new Error('Invalid form type'), 'Invalid form type', 400, 'submit-form');
+    }
+
+    // Limit each public form independently before any database insert. This
+    // keeps one noisy form type from consuming the allowance for another.
+    const rateLimit = await checkRateLimit(supabase, clientId, `submit-form:${formType}`, 5, 15);
+    if (!rateLimit.allowed) {
+      console.log(`[rate_limited] client=${clientId} type=${formType}`);
+      return createRateLimitResponse(rateLimit.retry_after_seconds ?? 900, corsHeaders);
+    }
+
     // --- Spam Filter 1: Honeypot ---
     if (honeypot && honeypot.trim().length > 0) {
       console.log(`[spam_blocked] reason=honeypot client=${clientId} type=${formType}`);
-      return jsonResponse({ success: true, message: 'Submission received' });
+      return blockedResponse('honeypot');
     }
 
     // --- Spam Filter 2: Submitted too fast (< 2s from form interaction) ---
@@ -101,7 +119,7 @@ Deno.serve(async (req) => {
       const elapsed = Date.now() - startedAt;
       if (elapsed < 2000) {
         console.log(`[spam_blocked] reason=too_fast elapsed=${elapsed}ms client=${clientId} type=${formType}`);
-        return jsonResponse({ success: true, message: 'Submission received' });
+        return blockedResponse('too_fast');
       }
     }
 
@@ -111,9 +129,11 @@ Deno.serve(async (req) => {
       payload.data?.scope_of_work ??
       payload.data?.coverMessage ??
       '';
-    if (looksLikeLinkSpam(messageBody)) {
+    // RFP scopes commonly include plan-room and document links. Apply this
+    // generic link heuristic only to the smaller public lead forms.
+    if (formType !== 'rfp' && looksLikeLinkSpam(messageBody)) {
       console.log(`[spam_blocked] reason=link_spam client=${clientId} type=${formType}`);
-      return jsonResponse({ success: true, message: 'Submission received' });
+      return blockedResponse('link_spam');
     }
 
     // --- Spam Filter 4: Repeat content (same message+email within 10 min) ---
@@ -145,11 +165,7 @@ Deno.serve(async (req) => {
     })();
     if (!repeatCheck.allowed) {
       console.log(`[spam_blocked] reason=repeat_content client=${clientId} type=${formType}`);
-      return jsonResponse({ success: true, message: 'Submission received' });
-    }
-
-    if (!['contact', 'resume', 'prequalification', 'rfp'].includes(formType)) {
-      return createErrorResponse(new Error('Invalid form type'), 'Invalid form type', 400, 'submit-form');
+      return blockedResponse('repeat_content');
     }
 
     let insertResult: any;
