@@ -15,6 +15,13 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Plus, Edit, Trash2, Download, FileText, Calendar } from "lucide-react";
 import { format } from "date-fns";
 import { AdminPageLayout } from "@/components/admin/AdminPageLayout";
+import {
+  RESTRICTED_BUCKET,
+  RESTRICTED_PREFIX,
+  isRestrictedDocument,
+  restrictedPath,
+  openDocumentUrl,
+} from "@/utils/documentUrl";
 
 interface Document {
   id: string;
