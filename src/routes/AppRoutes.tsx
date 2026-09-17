@@ -17,6 +17,7 @@ const Projects = lazyWithFallback(() => import("@/pages/Projects"), 'Projects');
 const Contact = lazyWithFallback(() => import("@/pages/Contact"), 'Contact');
 const Estimate = lazyWithFallback(() => import("@/pages/Estimate"), 'Estimate');
 const Auth = lazyWithFallback(() => import("@/pages/Auth"), 'Auth');
+const OAuthConsent = lazyWithFallback(() => import("@/pages/OAuthConsent"), 'Authorize access');
 const PropertyManagers = lazyWithFallback(() => import("@/pages/PropertyManagers"), 'Property Managers');
 const Homeowners = lazyWithFallback(() => import("@/pages/Homeowners"), 'Homeowners');
 const CommercialClients = lazyWithFallback(() => import("@/pages/CommercialClients"), 'Commercial Clients');
@@ -235,6 +236,7 @@ export const AppRoutes = () => (
       <Route path="/our-process" element={<OurProcess />} />
       <Route path="/faq" element={<FAQ />} />
       <Route path="/tekev" element={<Auth />} />
+      <Route path="/.lovable/oauth/consent" element={<OAuthConsent />} />
       <Route path="/company/certifications-insurance" element={<CertificationsInsurance />} />
       <Route path="/company/equipment-resources" element={<Navigate to="/company/technology" replace />} />
       <Route path="/company/technology" element={<Technology />} />

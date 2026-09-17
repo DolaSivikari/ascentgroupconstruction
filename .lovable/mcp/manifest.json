@@ -1,0 +1,274 @@
+{
+  "version": 1,
+  "sdk_version": "2.1.0",
+  "path": "/functions/v1/mcp",
+  "auth": {
+    "type": "oauth",
+    "issuer": "https://dinliarttwuzzozyvuiu.supabase.co/auth/v1",
+    "accepted_audiences": [
+      "authenticated"
+    ]
+  },
+  "mcp": {
+    "server": {
+      "name": "ascentgroupwebsitev1-47",
+      "version": "0.1.0",
+      "title": "AscentGroupWebsiteV1 (47)"
+    },
+    "tools": [
+      {
+        "name": "list_projects",
+        "title": "List projects",
+        "description": "List Ascent Group construction projects with their status, location, category and publish state.",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "$schema": "https://json-schema.org/draft/2020-12/schema",
+          "type": "object",
+          "properties": {
+            "search": {
+              "description": "Optional text to match against the project title or location.",
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "featured_only": {
+              "description": "When true, return only projects flagged as featured.",
+              "type": [
+                "boolean",
+                "null"
+              ]
+            },
+            "limit": {
+              "anyOf": [
+                {
+                  "type": "integer",
+                  "minimum": -9007199254740991,
+                  "maximum": 9007199254740991
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Maximum number of projects to return (default 20, max 100)."
+            }
+          },
+          "required": [
+            "search",
+            "featured_only",
+            "limit"
+          ]
+        },
+        "outputSchema": null
+      },
+      {
+        "name": "get_project",
+        "title": "Get project",
+        "description": "Get the full detail of one Ascent Group project by its slug, including scope, results and SEO fields.",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "$schema": "https://json-schema.org/draft/2020-12/schema",
+          "type": "object",
+          "properties": {
+            "slug": {
+              "type": "string",
+              "description": "The project slug, for example 'queen-street-facade-restoration'."
+            }
+          },
+          "required": [
+            "slug"
+          ]
+        },
+        "outputSchema": null
+      },
+      {
+        "name": "list_services",
+        "title": "List services",
+        "description": "List the services Ascent Group offers, with category, tier, short description and publish state.",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "$schema": "https://json-schema.org/draft/2020-12/schema",
+          "type": "object",
+          "properties": {
+            "category": {
+              "description": "Optional category to filter on.",
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "featured_only": {
+              "description": "When true, return only featured services.",
+              "type": [
+                "boolean",
+                "null"
+              ]
+            },
+            "limit": {
+              "anyOf": [
+                {
+                  "type": "integer",
+                  "minimum": -9007199254740991,
+                  "maximum": 9007199254740991
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Maximum number of services to return (default 50, max 100)."
+            }
+          },
+          "required": [
+            "category",
+            "featured_only",
+            "limit"
+          ]
+        },
+        "outputSchema": null
+      },
+      {
+        "name": "list_blog_posts",
+        "title": "List blog posts",
+        "description": "List blog and insight articles with their title, slug, category, publish state and publish date.",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "$schema": "https://json-schema.org/draft/2020-12/schema",
+          "type": "object",
+          "properties": {
+            "search": {
+              "description": "Optional text to match against the post title.",
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "publish_state": {
+              "description": "Optional publish state filter: draft, scheduled, published, archived or review.",
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "limit": {
+              "anyOf": [
+                {
+                  "type": "integer",
+                  "minimum": -9007199254740991,
+                  "maximum": 9007199254740991
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Maximum number of posts to return (default 20, max 100)."
+            }
+          },
+          "required": [
+            "search",
+            "publish_state",
+            "limit"
+          ]
+        },
+        "outputSchema": null
+      },
+      {
+        "name": "list_rfp_submissions",
+        "title": "List RFP submissions",
+        "description": "List tender and RFP submissions received through the website. Only returns rows the signed-in account is allowed to read.",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "$schema": "https://json-schema.org/draft/2020-12/schema",
+          "type": "object",
+          "properties": {
+            "status": {
+              "description": "Optional status filter, for example 'new'.",
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "limit": {
+              "anyOf": [
+                {
+                  "type": "integer",
+                  "minimum": -9007199254740991,
+                  "maximum": 9007199254740991
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Maximum number of submissions to return (default 20, max 100)."
+            }
+          },
+          "required": [
+            "status",
+            "limit"
+          ]
+        },
+        "outputSchema": null
+      },
+      {
+        "name": "list_contact_submissions",
+        "title": "List contact enquiries",
+        "description": "List contact-form enquiries received through the website. Only returns rows the signed-in account is allowed to read.",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "$schema": "https://json-schema.org/draft/2020-12/schema",
+          "type": "object",
+          "properties": {
+            "status": {
+              "description": "Optional status filter, for example 'new'.",
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "limit": {
+              "anyOf": [
+                {
+                  "type": "integer",
+                  "minimum": -9007199254740991,
+                  "maximum": 9007199254740991
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Maximum number of enquiries to return (default 20, max 100)."
+            }
+          },
+          "required": [
+            "status",
+            "limit"
+          ]
+        },
+        "outputSchema": null
+      }
+    ]
+  }
+}
