@@ -3316,6 +3316,174 @@ export type Database = {
           service_name: string
         }[]
       }
+      get_preview_blog_post: {
+        Args: { p_slug: string; p_token: string }
+        Returns: {
+          after_images: Json | null
+          author_id: string | null
+          before_images: Json | null
+          budget_range: string | null
+          canonical_url: string | null
+          category: string | null
+          challenge: string | null
+          client_name: string | null
+          content: string | null
+          content_type: Database["public"]["Enums"]["post_content_type"] | null
+          created_at: string | null
+          created_by: string | null
+          featured_image: string | null
+          id: string
+          is_pinned: boolean | null
+          og_image_url: string | null
+          preview_token: string | null
+          preview_token_created_by: string | null
+          preview_token_expires_at: string | null
+          process_steps: Json | null
+          project_duration: string | null
+          project_location: string | null
+          project_size: string | null
+          publish_state: Database["public"]["Enums"]["publish_state"] | null
+          published_at: string | null
+          read_time_minutes: number | null
+          results: string | null
+          scheduled_publish: string | null
+          scheduled_publish_at: string | null
+          sector: string | null
+          seo_description: string | null
+          seo_keywords: string[] | null
+          seo_title: string | null
+          slug: string
+          solution: string | null
+          source: string | null
+          summary: string | null
+          tags: string[] | null
+          title: string
+          updated_at: string | null
+          updated_by: string | null
+        }[]
+        SetofOptions: {
+          from: "*"
+          to: "blog_posts"
+          isOneToOne: false
+          isSetofReturn: true
+        }
+      }
+      get_preview_project: {
+        Args: { p_slug: string; p_token: string }
+        Returns: {
+          after_images: Json | null
+          before_images: Json | null
+          budget_range: string | null
+          canonical_url: string | null
+          category: string | null
+          challenge: string | null
+          client_name: string | null
+          client_type: string | null
+          completion_date: string | null
+          content_blocks: Json | null
+          created_at: string | null
+          created_by: string | null
+          delivery_method: string | null
+          description: string | null
+          draft_content: Json | null
+          duration: string | null
+          featured: boolean | null
+          featured_image: string | null
+          gallery: Json | null
+          id: string
+          location: string | null
+          og_image_url: string | null
+          on_budget: boolean | null
+          on_time_completion: boolean | null
+          peak_workforce: number | null
+          preview_token: string | null
+          preview_token_created_by: string | null
+          preview_token_expires_at: string | null
+          process_notes: string | null
+          project_size: string | null
+          project_status: string | null
+          project_value: string | null
+          publish_state: Database["public"]["Enums"]["publish_state"] | null
+          results: string | null
+          safety_incidents: number | null
+          scheduled_publish_at: string | null
+          scope_of_work: string | null
+          seo_description: string | null
+          seo_keywords: string[] | null
+          seo_title: string | null
+          slug: string
+          solution: string | null
+          square_footage: string | null
+          start_date: string | null
+          subtitle: string | null
+          summary: string | null
+          tags: string[] | null
+          team_credits: Json | null
+          title: string
+          trades_coordinated: number | null
+          updated_at: string | null
+          updated_by: string | null
+          version: number | null
+          year: string | null
+          your_role: string | null
+        }[]
+        SetofOptions: {
+          from: "*"
+          to: "projects"
+          isOneToOne: false
+          isSetofReturn: true
+        }
+      }
+      get_preview_service: {
+        Args: { p_slug: string; p_token: string }
+        Returns: {
+          canonical_url: string | null
+          category: string | null
+          category_color: string | null
+          category_description: string | null
+          category_icon: string | null
+          challenge_tags: string[] | null
+          created_at: string | null
+          created_by: string | null
+          faq_items: Json | null
+          featured: boolean | null
+          featured_image: string | null
+          icon_name: string | null
+          id: string
+          key_benefits: Json | null
+          long_description: string | null
+          name: string
+          og_image_url: string | null
+          preview_token: string | null
+          preview_token_created_by: string | null
+          preview_token_expires_at: string | null
+          process_steps: Json | null
+          project_types: string[] | null
+          publish_state: Database["public"]["Enums"]["publish_state"] | null
+          scheduled_publish_at: string | null
+          scope_template: string | null
+          seo_description: string | null
+          seo_keywords: string[] | null
+          seo_title: string | null
+          service_overview: string | null
+          service_tier: string | null
+          short_description: string | null
+          slug: string
+          thumbnail_url: string | null
+          typical_applications: Json | null
+          typical_timeline: string | null
+          updated_at: string | null
+          updated_by: string | null
+          video_url: string | null
+          what_we_provide: Json | null
+        }[]
+        SetofOptions: {
+          from: "*"
+          to: "services"
+          isOneToOne: false
+          isSetofReturn: true
+        }
+      }
       get_security_audit_log: {
         Args: { limit_count?: number }
         Returns: {
