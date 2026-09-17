@@ -195,9 +195,13 @@ export default function DocumentsLibrary() {
       if (error) throw error;
       
       // Optionally delete file from storage
-      const path = fileUrl.split('/documents/')[1];
-      if (path) {
-        await supabase.storage.from('documents').remove([path]);
+      if (isRestrictedDocument(fileUrl)) {
+        await supabase.storage.from(RESTRICTED_BUCKET).remove([restrictedPath(fileUrl)]);
+      } else {
+        const path = fileUrl.split('/documents/')[1];
+        if (path) {
+          await supabase.storage.from('documents').remove([path]);
+        }
       }
       
       toast({ title: "Success", description: "Document deleted successfully" });
