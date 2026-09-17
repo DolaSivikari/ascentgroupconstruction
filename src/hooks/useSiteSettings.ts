@@ -1,13 +1,14 @@
 import { useQuery } from '@tanstack/react-query';
 import type { Json } from '@/integrations/supabase/types';
 import { fetchActiveSettingsRow } from '@/hooks/useActiveSettings';
+import { PUBLIC_SITE_SETTINGS_COLUMNS } from '@/constants/siteSettingsColumns';
 
 export interface SiteSettings {
   id: string;
   company_name: string;
   company_tagline: string;
-  phone: string;
-  email: string;
+  phone?: string;
+  email?: string;
   address: string;
   business_hours: Json;
   social_links: Json;
@@ -27,7 +28,7 @@ export function useSiteSettings() {
   return useQuery({
     queryKey: ['site-settings'],
     queryFn: async () => {
-      const result = await fetchActiveSettingsRow<SiteSettings>('site_settings');
+      const result = await fetchActiveSettingsRow<SiteSettings>('site_settings', PUBLIC_SITE_SETTINGS_COLUMNS);
       if (result.warning) {
         console.warn(result.warning);
       }

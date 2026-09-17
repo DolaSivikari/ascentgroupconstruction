@@ -103,13 +103,8 @@ const Contact = () => {
           timeoutPromise
         ]);
 
-        await supabase.functions.invoke("send-review-request", {
-          body: {
-            email: validatedData.email,
-            clientName: validatedData.name,
-            templateName: 'review_request_day_0',
-          },
-        });
+        // Review requests are sent by staff from the admin area, not triggered
+        // by anonymous form submissions.
       } catch (emailError) {
         notificationWarning = true;
         console.error('Email notification failed:', emailError);

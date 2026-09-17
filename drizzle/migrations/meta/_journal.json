@@ -8,6 +8,13 @@
       "when": 1789641876209,
       "tag": "0000_harden_preview_tokens_versions_documents",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1789642315209,
+      "tag": "0001_harden_pii_grants_rls_and_definer_execute",
+      "breakpoints": true
     }
   ]
 }

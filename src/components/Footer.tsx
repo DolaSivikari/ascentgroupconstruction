@@ -3,7 +3,8 @@ import { Link } from "react-router-dom";
 import { Mail, Phone, MapPin, Linkedin, Shield, Award, FileCheck, Building2 } from "lucide-react";
 
 import SEO from "@/components/SEO";
-import { COMPANY_EMAIL, SITE_URL } from "@/constants/company";
+import { COMPANY_EMAIL, COMPANY_PHONE, SITE_URL } from "@/constants/company";
+import { PUBLIC_SITE_SETTINGS_COLUMNS } from "@/constants/siteSettingsColumns";
 import { Skeleton } from "@/components/ui/skeleton";
 import { supabase } from "@/integrations/supabase/client";
 import type { Database } from "@/integrations/supabase/types";
@@ -11,7 +12,7 @@ import { UnifiedFooter } from "./footer/UnifiedFooter";
 import { SERVICE_REGISTRY } from "@/data/service-registry";
 
 
-type SiteSettingsRow = Database['public']['Tables']['site_settings']['Row'];
+type SiteSettingsRow = Partial<Database['public']['Tables']['site_settings']['Row']>;
 type FooterSettingsRow = Database['public']['Tables']['footer_settings']['Row'];
 type ServiceLink = Pick<Database['public']['Tables']['services']['Row'], 'name' | 'slug' | 'service_tier'>;
 type FooterLink = { label: string; href: string };
@@ -35,12 +36,12 @@ const Footer = () => {
     const fetchSettings = async () => {
       try {
         const [siteData, footerData, servicesData] = await Promise.all([
-          supabase.from('site_settings').select('*').eq('is_active', true).single(),
+          supabase.from('site_settings').select(PUBLIC_SITE_SETTINGS_COLUMNS).eq('is_active', true).single(),
           supabase.from('footer_settings').select('*').eq('is_active', true).single(),
           supabase.from('services').select('name, slug, service_tier').eq('publish_state', 'published').order('service_tier, name')
         ]);
         
-        if (siteData.data) setSiteSettings(siteData.data);
+        if (siteData.data) setSiteSettings(siteData.data as SiteSettingsRow);
         if (footerData.data) setFooterSettings(footerData.data);
         if (servicesData.data) setServices(servicesData.data);
       } finally {
@@ -82,8 +83,10 @@ const Footer = () => {
   
   // Primary source: site_settings, fallback to footer_settings
   const address = siteSettings?.address || contactInfo.address || '';
-  const phone = siteSettings?.phone || contactInfo.phone || '';
-  const email = siteSettings?.email || contactInfo.email || '';
+  // Contact details come from app constants, not the public API, so they cannot
+  // be bulk harvested from the database by scrapers.
+  const phone = contactInfo.phone || COMPANY_PHONE;
+  const email = contactInfo.email || COMPANY_EMAIL;
   const linkedinUrl = socialMedia.linkedin || '';
 
   // Static fallback links if admin hasn't configured them

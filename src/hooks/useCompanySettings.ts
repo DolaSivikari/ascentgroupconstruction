@@ -1,6 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { fetchActiveSettingsRow } from '@/hooks/useActiveSettings';
 import { COMPANY_PHONE, COMPANY_EMAIL } from '@/constants/company';
+import { PUBLIC_SITE_SETTINGS_COLUMNS } from '@/constants/siteSettingsColumns';
 
 export interface CompanySettings {
   companyName: string;
@@ -74,7 +75,7 @@ export function useCompanySettings(): UseCompanySettingsResult {
   const { data, isLoading, error } = useQuery({
     queryKey: ['site-settings'],
     queryFn: async () => {
-      const result = await fetchActiveSettingsRow<SiteSettingsRow>('site_settings');
+      const result = await fetchActiveSettingsRow<SiteSettingsRow>('site_settings', PUBLIC_SITE_SETTINGS_COLUMNS);
       if (result.warning) {
         console.warn(result.warning);
       }

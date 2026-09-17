@@ -2,6 +2,7 @@
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 import { corsHeaders, handleCors } from '../_shared/http.ts';
 import { sendTemplateEmail } from '../_shared/transactional-email-templates/send-email.ts';
+import { checkRateLimit, createRateLimitResponse } from '../_shared/rateLimiter.ts';
 
 const TRANSACTIONAL_TEMPLATE = 'review-request';
 
@@ -67,11 +68,21 @@ Deno.serve(async (req) => {
       );
     }
 
+    // Cap how many review requests one staff account can trigger.
+    const rate = await checkRateLimit(supabase, userData.user.id, 'send-review-request', 20, 60);
+    if (!rate.allowed) {
+      return createRateLimitResponse(rate.retry_after_seconds ?? 60, corsHeaders);
+    }
+
     const { email, clientName, projectId } = await req.json();
 
-    if (!email || !clientName) {
+    const emailPattern = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
+    if (
+      typeof email !== 'string' || !emailPattern.test(email) || email.length > 255 ||
+      typeof clientName !== 'string' || clientName.trim().length === 0 || clientName.length > 200
+    ) {
       return new Response(
-        JSON.stringify({ error: 'Email and client name are required' }),
+        JSON.stringify({ error: 'A valid email and client name are required' }),
         { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
       );
     }
