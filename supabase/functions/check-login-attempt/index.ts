@@ -115,7 +115,7 @@ Deno.serve(async (req) => {
       await supabase
         .from('auth_failed_attempts')
         .delete()
-        .eq('user_identifier', email);
+        .eq('user_identifier', lockoutKey);
 
       console.log(`Successful login, cleared failed attempts`);
 
@@ -126,7 +126,7 @@ Deno.serve(async (req) => {
     } else {
       // Record failed attempt
       await supabase.from('auth_failed_attempts').insert({
-        user_identifier: email,
+        user_identifier: lockoutKey,
         ip_address: ipAddress,
         user_agent: userAgent,
       });
@@ -136,7 +136,7 @@ Deno.serve(async (req) => {
       const { data: recentAttempts, error: countError } = await supabase
         .from('auth_failed_attempts')
         .select('*', { count: 'exact', head: true })
-        .eq('user_identifier', email)
+        .eq('user_identifier', lockoutKey)
         .gte('attempt_time', fifteenMinutesAgo);
 
       if (countError) {
@@ -150,7 +150,7 @@ Deno.serve(async (req) => {
         const lockedUntil = new Date(Date.now() + 30 * 60 * 1000).toISOString();
         
         await supabase.from('auth_account_lockouts').insert({
-          user_identifier: email,
+          user_identifier: lockoutKey,
           locked_until: lockedUntil,
           reason: `Account locked due to ${attemptCount} failed login attempts`,
         });
