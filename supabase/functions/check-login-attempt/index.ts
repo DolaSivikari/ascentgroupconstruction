@@ -133,7 +133,7 @@ Deno.serve(async (req) => {
 
       // Count recent failed attempts (last 15 minutes)
       const fifteenMinutesAgo = new Date(Date.now() - 15 * 60 * 1000).toISOString();
-      const { data: recentAttempts, error: countError } = await supabase
+      const { count: recentAttemptCount, error: countError } = await supabase
         .from('auth_failed_attempts')
         .select('*', { count: 'exact', head: true })
         .eq('user_identifier', lockoutKey)
