@@ -144,7 +144,7 @@ export default function DocumentsLibrary() {
       let file_type = editingDoc?.file_type || '';
 
       if (formData.file) {
-        file_url = await uploadFile(formData.file);
+        file_url = await uploadFile(formData.file, formData.requires_authentication);
         file_name = formData.file.name;
         file_size = formData.file.size;
         file_type = formData.file.type;
