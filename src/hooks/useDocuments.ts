@@ -84,9 +84,9 @@ export function useTrackDownload() {
 }
 
 // Helper to trigger download
-export function downloadDocument(doc: Document, trackDownload?: (id: string) => void) {
+export async function downloadDocument(doc: Document, trackDownload?: (id: string) => void) {
   if (trackDownload) {
     trackDownload(doc.id);
   }
-  window.open(doc.file_url, '_blank');
+  await openDocumentUrl(doc.file_url);
 }
