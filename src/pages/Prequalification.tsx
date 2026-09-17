@@ -139,7 +139,7 @@ function DownloadableDocuments() {
       }
 
       // Open file
-      window.open(doc.file_url, '_blank');
+      await openDocumentUrl(doc.file_url);
     } catch (error: any) {
       toast({ title: "Error", description: "Failed to download document", variant: "destructive" });
     }
