@@ -6,6 +6,7 @@ import SEO from "@/components/SEO";
 import PageHero from "@/components/shared/PageHero";
 import { supabase } from "@/integrations/supabase/client";
 import { SITE_URL } from "@/constants/company";
+import { formatPhoneDisplay, formatPhoneTel } from "@/utils/formatPhone";
 import { Button } from "@/ui/Button";
 import {
   Phone,
@@ -551,11 +552,11 @@ const ServiceDetail = () => {
 
                       <div className="border-t pt-4 space-y-3 text-sm">
                         <a
-                          href="tel:+18005551234"
+                          href={formatPhoneTel()}
                           className="flex items-center gap-2.5 text-foreground hover:text-primary transition-colors"
                         >
                           <Phone className="w-4 h-4 text-primary" />
-                          <span className="font-medium">Call our team</span>
+                          <span className="font-medium">Call our team at {formatPhoneDisplay()}</span>
                         </a>
                         <a
                           href="mailto:projects@ascentgroupconstruction.com"

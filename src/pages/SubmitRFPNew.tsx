@@ -194,8 +194,9 @@ export default function SubmitRFPNew() {
       setSubmissionRef(refId);
       setSubmittedAt(createdAt);
 
-      // Send notifications: PRIMARY = built-in transactional email, FALLBACK = legacy Resend function
-      const sendViaBuiltIn = async () => {
+      // Notifications are derived from the stored RFP by the Edge Function.
+      // A saved submission remains successful even if the notification is queued/failed.
+      const sendStoredRecordNotifications = async () => {
         const { error } = await supabase.functions.invoke("send-rfp-emails", {
           body: { rfpId: newId },
         });
@@ -204,32 +205,15 @@ export default function SubmitRFPNew() {
 
       let notificationWarning = false;
       try {
-        await sendViaBuiltIn();
-      } catch (primaryError) {
-        console.warn("Built-in email failed, falling back to Resend:", primaryError);
-        try {
-          await supabase.functions.invoke("send-rfp-notification", {
-            body: {
-              company_name: data.company_name,
-              contact_name: data.contact_name,
-              email: data.email,
-              phone: data.phone,
-              project_name: data.project_name,
-              project_type: data.project_type,
-              estimated_value_range: data.estimated_value_range,
-              reference_id: refId,
-              rfp_id: newId,
-            },
-          });
-        } catch (fallbackError) {
-          notificationWarning = true;
-          console.error("Both email senders failed:", fallbackError);
-        }
+        await sendStoredRecordNotifications();
+      } catch (emailError) {
+        notificationWarning = true;
+        console.error("Stored-record RFP email notification failed:", emailError);
       }
 
       toast.success("RFP Submitted Successfully", {
         description: notificationWarning
-          ? `Saved as ${refId}. Our team has been alerted internally and will follow up within 2 business days.`
+          ? `Saved as ${refId}. We received your submission; confirmation email delivery is pending.`
           : `Saved as ${refId}. We'll review and respond within 2 business days.`,
       });
 
