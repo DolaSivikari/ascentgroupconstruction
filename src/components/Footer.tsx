@@ -3,7 +3,8 @@ import { Link } from "react-router-dom";
 import { Mail, Phone, MapPin, Linkedin, Shield, Award, FileCheck, Building2 } from "lucide-react";
 
 import SEO from "@/components/SEO";
-import { COMPANY_EMAIL, SITE_URL } from "@/constants/company";
+import { COMPANY_EMAIL, COMPANY_PHONE, SITE_URL } from "@/constants/company";
+import { PUBLIC_SITE_SETTINGS_COLUMNS } from "@/constants/siteSettingsColumns";
 import { Skeleton } from "@/components/ui/skeleton";
 import { supabase } from "@/integrations/supabase/client";
 import type { Database } from "@/integrations/supabase/types";
@@ -35,7 +36,7 @@ const Footer = () => {
     const fetchSettings = async () => {
       try {
         const [siteData, footerData, servicesData] = await Promise.all([
-          supabase.from('site_settings').select('*').eq('is_active', true).single(),
+          supabase.from('site_settings').select(PUBLIC_SITE_SETTINGS_COLUMNS).eq('is_active', true).single(),
           supabase.from('footer_settings').select('*').eq('is_active', true).single(),
           supabase.from('services').select('name, slug, service_tier').eq('publish_state', 'published').order('service_tier, name')
         ]);
