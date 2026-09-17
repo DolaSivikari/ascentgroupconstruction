@@ -15,6 +15,13 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Plus, Edit, Trash2, Download, FileText, Calendar } from "lucide-react";
 import { format } from "date-fns";
 import { AdminPageLayout } from "@/components/admin/AdminPageLayout";
+import {
+  RESTRICTED_BUCKET,
+  RESTRICTED_PREFIX,
+  isRestrictedDocument,
+  restrictedPath,
+  openDocumentUrl,
+} from "@/utils/documentUrl";
 
 interface Document {
   id: string;
@@ -93,16 +100,24 @@ export default function DocumentsLibrary() {
     }
   };
 
-  const uploadFile = async (file: File): Promise<string> => {
+  const uploadFile = async (file: File, requiresAuth: boolean): Promise<string> => {
     const fileExt = file.name.split('.').pop();
     const fileName = `${Date.now()}-${Math.random().toString(36).substring(7)}.${fileExt}`;
     const filePath = `${fileName}`;
 
+    // Documents flagged as sign-in only go to the private bucket and are served
+    // through short-lived signed URLs instead of a public link.
+    const bucket = requiresAuth ? RESTRICTED_BUCKET : 'documents';
+
     const { error: uploadError } = await supabase.storage
-      .from('documents')
+      .from(bucket)
       .upload(filePath, file);
 
     if (uploadError) throw uploadError;
+
+    if (requiresAuth) {
+      return `${RESTRICTED_PREFIX}${filePath}`;
+    }
 
     const { data: { publicUrl } } = supabase.storage
       .from('documents')
@@ -129,7 +144,7 @@ export default function DocumentsLibrary() {
       let file_type = editingDoc?.file_type || '';
 
       if (formData.file) {
-        file_url = await uploadFile(formData.file);
+        file_url = await uploadFile(formData.file, formData.requires_authentication);
         file_name = formData.file.name;
         file_size = formData.file.size;
         file_type = formData.file.type;
@@ -180,9 +195,13 @@ export default function DocumentsLibrary() {
       if (error) throw error;
       
       // Optionally delete file from storage
-      const path = fileUrl.split('/documents/')[1];
-      if (path) {
-        await supabase.storage.from('documents').remove([path]);
+      if (isRestrictedDocument(fileUrl)) {
+        await supabase.storage.from(RESTRICTED_BUCKET).remove([restrictedPath(fileUrl)]);
+      } else {
+        const path = fileUrl.split('/documents/')[1];
+        if (path) {
+          await supabase.storage.from('documents').remove([path]);
+        }
       }
       
       toast({ title: "Success", description: "Document deleted successfully" });
@@ -358,7 +377,7 @@ export default function DocumentsLibrary() {
                         </TableCell>
                         <TableCell>
                           <div className="flex gap-1">
-                            <Button variant="ghost" size="sm" onClick={() => window.open(doc.file_url, '_blank')}>
+                            <Button variant="ghost" size="sm" onClick={() => { void openDocumentUrl(doc.file_url); }}>
                               <Download className="w-4 h-4" />
                             </Button>
                             <Button variant="ghost" size="sm" onClick={() => openEditDialog(doc)}>

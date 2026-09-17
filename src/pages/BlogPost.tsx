@@ -34,7 +34,7 @@ import { ScrollReveal } from "@/components/animations/ScrollReveal";
 
 const BlogPost = () => {
   const { slug } = useParams<{ slug: string }>();
-  const { isPreview } = usePreviewMode();
+  const { isPreview, previewToken } = usePreviewMode();
   const [post, setPost] = useState<any>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [relatedLinks, setRelatedLinks] = useState<SmartRelatedLink[]>([]);
@@ -44,18 +44,28 @@ const BlogPost = () => {
       if (!slug) return;
       
       setIsLoading(true);
-      const query = supabase
+
+      // Draft previews go through a server-side check that validates the
+      // share token against the post; without a matching token nothing is returned.
+      if (isPreview && previewToken) {
+        const { data, error } = await supabase.rpc("get_preview_blog_post", {
+          p_slug: slug,
+          p_token: previewToken,
+        });
+        if (!error && data && data.length > 0) {
+          setPost(data[0]);
+        }
+        setIsLoading(false);
+        return;
+      }
+
+      const { data, error } = await supabase
         .from("blog_posts")
         .select("*")
-        .eq("slug", slug);
-      
-      // Only filter by publish_state if NOT in preview mode
-      if (!isPreview) {
-        query.eq("publish_state", "published");
-      }
-      
-      const { data, error } = await query.maybeSingle();
-      
+        .eq("slug", slug)
+        .eq("publish_state", "published")
+        .maybeSingle();
+
       if (!error && data) {
         setPost(data);
       }
@@ -63,7 +73,7 @@ const BlogPost = () => {
     };
     
     fetchPost();
-  }, [slug, isPreview]);
+  }, [slug, isPreview, previewToken]);
 
   // Resolve smart related links once post is loaded
   useEffect(() => {

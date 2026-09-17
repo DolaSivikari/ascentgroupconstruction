@@ -1,5 +1,6 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
+import { openDocumentUrl } from '@/utils/documentUrl';
 
 export interface Document {
   id: string;
@@ -84,9 +85,9 @@ export function useTrackDownload() {
 }
 
 // Helper to trigger download
-export function downloadDocument(doc: Document, trackDownload?: (id: string) => void) {
+export async function downloadDocument(doc: Document, trackDownload?: (id: string) => void) {
   if (trackDownload) {
     trackDownload(doc.id);
   }
-  window.open(doc.file_url, '_blank');
+  await openDocumentUrl(doc.file_url);
 }

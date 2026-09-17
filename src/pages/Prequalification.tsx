@@ -12,6 +12,7 @@ import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import SEO from "@/components/SEO";
 import { supabase } from "@/integrations/supabase/client";
+import { openDocumentUrl } from "@/utils/documentUrl";
 import { useToast } from "@/hooks/use-toast";
 import { resourceHeroes } from "@/data/hero-images";
 import { PhoneLink } from "@/components/shared/PhoneLink";
@@ -139,7 +140,7 @@ function DownloadableDocuments() {
       }
 
       // Open file
-      window.open(doc.file_url, '_blank');
+      await openDocumentUrl(doc.file_url);
     } catch (error: any) {
       toast({ title: "Error", description: "Failed to download document", variant: "destructive" });
     }

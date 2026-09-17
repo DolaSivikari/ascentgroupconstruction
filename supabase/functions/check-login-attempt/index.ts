@@ -34,13 +34,19 @@ Deno.serve(async (req) => {
     }
 
     const userAgent = req.headers.get('user-agent') || 'Unknown';
-    const ipAddress = req.headers.get('x-forwarded-for') || req.headers.get('x-real-ip') || 'Unknown';
+    const ipAddress = (req.headers.get('x-forwarded-for')?.split(',')[0]?.trim())
+      || req.headers.get('x-real-ip')
+      || 'Unknown';
 
-    // Check if account is currently locked
+    // Lockouts are scoped to email + source IP so a third party cannot lock a
+    // known account out of the admin area by spamming bad passwords.
+    const lockoutKey = `${email.toLowerCase()}|${ipAddress}`;
+
+    // Check if this account is currently locked from this source
     const { data: lockoutData } = await supabase
       .from('auth_account_lockouts')
       .select('*')
-      .eq('user_identifier', email)
+      .eq('user_identifier', lockoutKey)
       .gt('locked_until', new Date().toISOString())
       .is('unlocked_at', null)
       .order('locked_at', { ascending: false })
@@ -109,7 +115,7 @@ Deno.serve(async (req) => {
       await supabase
         .from('auth_failed_attempts')
         .delete()
-        .eq('user_identifier', email);
+        .eq('user_identifier', lockoutKey);
 
       console.log(`Successful login, cleared failed attempts`);
 
@@ -120,31 +126,31 @@ Deno.serve(async (req) => {
     } else {
       // Record failed attempt
       await supabase.from('auth_failed_attempts').insert({
-        user_identifier: email,
+        user_identifier: lockoutKey,
         ip_address: ipAddress,
         user_agent: userAgent,
       });
 
       // Count recent failed attempts (last 15 minutes)
       const fifteenMinutesAgo = new Date(Date.now() - 15 * 60 * 1000).toISOString();
-      const { data: recentAttempts, error: countError } = await supabase
+      const { count: recentAttemptCount, error: countError } = await supabase
         .from('auth_failed_attempts')
         .select('*', { count: 'exact', head: true })
-        .eq('user_identifier', email)
+        .eq('user_identifier', lockoutKey)
         .gte('attempt_time', fifteenMinutesAgo);
 
       if (countError) {
         logSecurityError('failed_attempt_count', countError, { email, ip_address: ipAddress });
       }
 
-      const attemptCount = recentAttempts?.length || 0;
+      const attemptCount = recentAttemptCount || 0;
 
       // Lock account after 5 failed attempts
       if (attemptCount >= 5) {
         const lockedUntil = new Date(Date.now() + 30 * 60 * 1000).toISOString();
         
         await supabase.from('auth_account_lockouts').insert({
-          user_identifier: email,
+          user_identifier: lockoutKey,
           locked_until: lockedUntil,
           reason: `Account locked due to ${attemptCount} failed login attempts`,
         });
