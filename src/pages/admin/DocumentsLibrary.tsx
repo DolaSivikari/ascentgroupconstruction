@@ -377,7 +377,7 @@ export default function DocumentsLibrary() {
                         </TableCell>
                         <TableCell>
                           <div className="flex gap-1">
-                            <Button variant="ghost" size="sm" onClick={() => window.open(doc.file_url, '_blank')}>
+                            <Button variant="ghost" size="sm" onClick={() => { void openDocumentUrl(doc.file_url); }}>
                               <Download className="w-4 h-4" />
                             </Button>
                             <Button variant="ghost" size="sm" onClick={() => openEditDialog(doc)}>
