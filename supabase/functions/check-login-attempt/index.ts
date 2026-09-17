@@ -34,13 +34,19 @@ Deno.serve(async (req) => {
     }
 
     const userAgent = req.headers.get('user-agent') || 'Unknown';
-    const ipAddress = req.headers.get('x-forwarded-for') || req.headers.get('x-real-ip') || 'Unknown';
+    const ipAddress = (req.headers.get('x-forwarded-for')?.split(',')[0]?.trim())
+      || req.headers.get('x-real-ip')
+      || 'Unknown';
 
-    // Check if account is currently locked
+    // Lockouts are scoped to email + source IP so a third party cannot lock a
+    // known account out of the admin area by spamming bad passwords.
+    const lockoutKey = `${email.toLowerCase()}|${ipAddress}`;
+
+    // Check if this account is currently locked from this source
     const { data: lockoutData } = await supabase
       .from('auth_account_lockouts')
       .select('*')
-      .eq('user_identifier', email)
+      .eq('user_identifier', lockoutKey)
       .gt('locked_until', new Date().toISOString())
       .is('unlocked_at', null)
       .order('locked_at', { ascending: false })
