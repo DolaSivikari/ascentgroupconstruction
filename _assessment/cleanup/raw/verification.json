@@ -1,0 +1,34 @@
+{
+  "sourceCommit": "d504e40ed1815579fa06bf4c786b85dc19bfbcb5",
+  "build": "pass",
+  "selectedTypes": "pass",
+  "serviceWorker": "pass",
+  "vitest": {
+    "files": 41,
+    "tests": 305,
+    "result": "pass"
+  },
+  "lint": {
+    "errors": 288,
+    "warnings": 34,
+    "newHelperMessages": 0
+  },
+  "unchangedMeasurements": {
+    "entryBundle": true,
+    "dist": true,
+    "src": true,
+    "public": true,
+    "images": true,
+    "videos": true,
+    "typescriptFiles": true,
+    "dependencies": true
+  },
+  "smokeComparison": {
+    "observations": 126,
+    "matches": true,
+    "externalRequestsForwarded": 0,
+    "blockedWriteAttempts": 0
+  },
+  "protectedAppFilesChanged": 0,
+  "deletions": 0
+}

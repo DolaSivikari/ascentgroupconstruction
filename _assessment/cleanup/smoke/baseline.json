@@ -1,0 +1,4893 @@
+{
+  "schemaVersion": 1,
+  "sourceCommit": "d504e40ed1815579fa06bf4c786b85dc19bfbcb5",
+  "mode": "Local production build with synthetic public fixtures; external requests and all writes blocked.",
+  "declaredPublicRoutes": [
+    "/services",
+    "/services/commercial-painting-gta",
+    "/services/fire-retardant-coatings-ontario",
+    "/services/exterior-painting-toronto",
+    "/services/caulking-sealants-toronto",
+    "/services/interior-painting-toronto",
+    "/services/residential-exterior-painting-gta",
+    "/services/tile-installation-toronto",
+    "/services/flooring-installation-gta",
+    "/services/handyman-patching-toronto",
+    "/services/:slug",
+    "/",
+    "/about",
+    "/markets",
+    "/why-specialty-contractor",
+    "/prequalification",
+    "/capabilities",
+    "/careers",
+    "/sustainability",
+    "/insights",
+    "/service-selector",
+    "/free-quote",
+    "/get-estimate",
+    "/projects",
+    "/contact",
+    "/estimate",
+    "/submit-rfp",
+    "/for-general-contractors",
+    "/for-architects",
+    "/emergency-repair",
+    "/privacy",
+    "/terms",
+    "/accessibility",
+    "/unsubscribe",
+    "/email-unsubscribe",
+    "/property-managers",
+    "/homeowners",
+    "/commercial-clients",
+    "/our-process",
+    "/faq",
+    "/tekev",
+    "/.lovable/oauth/consent",
+    "/company/certifications-insurance",
+    "/company/equipment-resources",
+    "/company/technology",
+    "/company/developers",
+    "/resources/contractor-portal",
+    "/resources/service-areas",
+    "/service-areas/:city",
+    "/blog",
+    "/blog/:slug",
+    "/case-studies",
+    "/case-study/:slug",
+    "/projects/:slug",
+    "/404"
+  ],
+  "excluded": [
+    "/admin/* (authentication required)",
+    "/dev/tokens (DEV only)"
+  ],
+  "fixtureDate": "2026-10-03T16:00:00.000Z",
+  "serviceWorkers": "blocked",
+  "reducedMotion": "reduce",
+  "colorScheme": "light",
+  "screenshots": [
+    {
+      "path": "/services",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "file": "baseline/services-desktop.png"
+    },
+    {
+      "path": "/services/painting-services",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "file": "baseline/services--painting-services-desktop.png"
+    },
+    {
+      "path": "/",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "file": "baseline/home-desktop.png"
+    },
+    {
+      "path": "/projects",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "file": "baseline/projects-desktop.png"
+    },
+    {
+      "path": "/contact",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "file": "baseline/contact-desktop.png"
+    },
+    {
+      "path": "/estimate",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "file": "baseline/estimate-desktop.png"
+    },
+    {
+      "path": "/submit-rfp",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "file": "baseline/submit-rfp-desktop.png"
+    },
+    {
+      "path": "/privacy",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "file": "baseline/privacy-desktop.png"
+    },
+    {
+      "path": "/service-areas/toronto",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "file": "baseline/service-areas--toronto-desktop.png"
+    },
+    {
+      "path": "/",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "file": "baseline/home-mobile.png"
+    },
+    {
+      "path": "/services",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "file": "baseline/services-mobile.png"
+    },
+    {
+      "path": "/contact",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "file": "baseline/contact-mobile.png"
+    },
+    {
+      "path": "/estimate",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "file": "baseline/estimate-mobile.png"
+    },
+    {
+      "path": "/submit-rfp",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "file": "baseline/submit-rfp-mobile.png"
+    },
+    {
+      "path": "/projects",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "file": "baseline/projects-mobile.png"
+    },
+    {
+      "path": "/services/painting-services",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "file": "baseline/services--painting-services-mobile.png"
+    },
+    {
+      "path": "/service-areas/toronto",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "file": "baseline/service-areas--toronto-mobile.png"
+    },
+    {
+      "path": "/privacy",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "file": "baseline/privacy-mobile.png"
+    }
+  ],
+  "summary": {
+    "desktopRoutes": 117,
+    "mobileRoutes": 9,
+    "observations": 126,
+    "failures": 0,
+    "observationsWithConsoleErrors": 2,
+    "externalRequestsForwarded": 0,
+    "blockedWriteAttempts": 0
+  },
+  "results": [
+    {
+      "path": "/services",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "expectedNotFound": false,
+      "expectedUtilityError": false,
+      "resolvedPath": "/services",
+      "title": "Specialty Contracting Services | Ascent Group Construction",
+      "canonicalCount": 1,
+      "canonicals": [
+        "https://www.ascentgroupconstruction.com/services"
+      ],
+      "h1": "Specialty contracting services for envelope, restoration, and interior trade execution",
+      "h1Count": 1,
+      "somethingWentWrong": false,
+      "notFoundView": false,
+      "unavailableView": false,
+      "failedLazyView": false,
+      "visibleTextSha256": "73b18c3a0d10bb0295e909f94b31462e0592898a0c51818b0687c3686054db1f",
+      "httpStatus": 200,
+      "consoleErrorCount": 0,
+      "consoleErrors": [],
+      "failedNetworkRequestCount": 0,
+      "failedNetworkRequests": [],
+      "failedResponses": [],
+      "mockedRequestCount": 6,
+      "mockedRequests": [
+        "GET external:/rest/v1/footer_settings",
+        "GET external:/rest/v1/services",
+        "GET external:/rest/v1/site_settings"
+      ],
+      "blockedSockets": [],
+      "blockedWriteAttempts": []
+    },
+    {
+      "path": "/services/commercial-painting-gta",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "expectedNotFound": false,
+      "expectedUtilityError": false,
+      "resolvedPath": "/services/commercial-painting-gta",
+      "title": "Commercial Painting Contractor GTA | Ascent Group",
+      "canonicalCount": 1,
+      "canonicals": [
+        "https://www.ascentgroupconstruction.com/services/commercial-painting-gta"
+      ],
+      "h1": "Commercial Painting Contractor — Greater Toronto Area",
+      "h1Count": 1,
+      "somethingWentWrong": false,
+      "notFoundView": false,
+      "unavailableView": false,
+      "failedLazyView": false,
+      "visibleTextSha256": "cfbd23508d92220b9cd62edf0fe1c1626831322c59ea322f5fbb666428d037ff",
+      "httpStatus": 200,
+      "consoleErrorCount": 0,
+      "consoleErrors": [],
+      "failedNetworkRequestCount": 0,
+      "failedNetworkRequests": [],
+      "failedResponses": [],
+      "mockedRequestCount": 5,
+      "mockedRequests": [
+        "GET external:/rest/v1/footer_settings",
+        "GET external:/rest/v1/services",
+        "GET external:/rest/v1/site_settings"
+      ],
+      "blockedSockets": [],
+      "blockedWriteAttempts": []
+    },
+    {
+      "path": "/services/fire-retardant-coatings-ontario",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "expectedNotFound": false,
+      "expectedUtilityError": false,
+      "resolvedPath": "/services/fire-retardant-coatings-ontario",
+      "title": "Fire Retardant & Intumescent Coatings Ontario | Ascent",
+      "canonicalCount": 1,
+      "canonicals": [
+        "https://www.ascentgroupconstruction.com/services/fire-retardant-coatings-ontario"
+      ],
+      "h1": "Fire Retardant & Intumescent Coatings — Ontario",
+      "h1Count": 1,
+      "somethingWentWrong": false,
+      "notFoundView": false,
+      "unavailableView": false,
+      "failedLazyView": false,
+      "visibleTextSha256": "0afa52e8573dbfa423a06f09285abf46fbbfb792edc2131df38730c7946486d3",
+      "httpStatus": 200,
+      "consoleErrorCount": 0,
+      "consoleErrors": [],
+      "failedNetworkRequestCount": 0,
+      "failedNetworkRequests": [],
+      "failedResponses": [],
+      "mockedRequestCount": 5,
+      "mockedRequests": [
+        "GET external:/rest/v1/footer_settings",
+        "GET external:/rest/v1/services",
+        "GET external:/rest/v1/site_settings"
+      ],
+      "blockedSockets": [],
+      "blockedWriteAttempts": []
+    },
+    {
+      "path": "/services/exterior-painting-toronto",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "expectedNotFound": false,
+      "expectedUtilityError": false,
+      "resolvedPath": "/services/exterior-painting-toronto",
+      "title": "Exterior Painting Toronto | Stucco & EIFS Recoats | Ascent Group Construction",
+      "canonicalCount": 1,
+      "canonicals": [
+        "https://www.ascentgroupconstruction.com/services/exterior-painting-toronto"
+      ],
+      "h1": "Exterior Painting — Toronto & GTA",
+      "h1Count": 1,
+      "somethingWentWrong": false,
+      "notFoundView": false,
+      "unavailableView": false,
+      "failedLazyView": false,
+      "visibleTextSha256": "f5e5fa96ac114091d0d9f56a9ff3c0bad0a051ab8b7a51a901d4721fa43b3f36",
+      "httpStatus": 200,
+      "consoleErrorCount": 0,
+      "consoleErrors": [],
+      "failedNetworkRequestCount": 0,
+      "failedNetworkRequests": [],
+      "failedResponses": [],
+      "mockedRequestCount": 5,
+      "mockedRequests": [
+        "GET external:/rest/v1/footer_settings",
+        "GET external:/rest/v1/services",
+        "GET external:/rest/v1/site_settings"
+      ],
+      "blockedSockets": [],
+      "blockedWriteAttempts": []
+    },
+    {
+      "path": "/services/caulking-sealants-toronto",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "expectedNotFound": false,
+      "expectedUtilityError": false,
+      "resolvedPath": "/services/caulking-sealants-toronto",
+      "title": "Caulking & Sealant Contractor Toronto | Ascent Group",
+      "canonicalCount": 1,
+      "canonicals": [
+        "https://www.ascentgroupconstruction.com/services/caulking-sealants-toronto"
+      ],
+      "h1": "Caulking & Building Envelope Sealants — Toronto & GTA",
+      "h1Count": 1,
+      "somethingWentWrong": false,
+      "notFoundView": false,
+      "unavailableView": false,
+      "failedLazyView": false,
+      "visibleTextSha256": "4f242385c827f4339f0bf1e9e937ebd92403226c905242d15523a780e11c4962",
+      "httpStatus": 200,
+      "consoleErrorCount": 0,
+      "consoleErrors": [],
+      "failedNetworkRequestCount": 0,
+      "failedNetworkRequests": [],
+      "failedResponses": [],
+      "mockedRequestCount": 5,
+      "mockedRequests": [
+        "GET external:/rest/v1/footer_settings",
+        "GET external:/rest/v1/services",
+        "GET external:/rest/v1/site_settings"
+      ],
+      "blockedSockets": [],
+      "blockedWriteAttempts": []
+    },
+    {
+      "path": "/services/interior-painting-toronto",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "expectedNotFound": false,
+      "expectedUtilityError": false,
+      "resolvedPath": "/services/interior-painting-toronto",
+      "title": "Interior Painting Contractor Toronto | Ascent Group",
+      "canonicalCount": 1,
+      "canonicals": [
+        "https://www.ascentgroupconstruction.com/services/interior-painting-toronto"
+      ],
+      "h1": "Interior Painting Contractor — Toronto & GTA",
+      "h1Count": 1,
+      "somethingWentWrong": false,
+      "notFoundView": false,
+      "unavailableView": false,
+      "failedLazyView": false,
+      "visibleTextSha256": "5b7b5de95af907d75146ef7a4b7f1e0a729d28f8d0bd11d65d8101acd5439897",
+      "httpStatus": 200,
+      "consoleErrorCount": 0,
+      "consoleErrors": [],
+      "failedNetworkRequestCount": 0,
+      "failedNetworkRequests": [],
+      "failedResponses": [],
+      "mockedRequestCount": 5,
+      "mockedRequests": [
+        "GET external:/rest/v1/footer_settings",
+        "GET external:/rest/v1/services",
+        "GET external:/rest/v1/site_settings"
+      ],
+      "blockedSockets": [],
+      "blockedWriteAttempts": []
+    },
+    {
+      "path": "/services/residential-exterior-painting-gta",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "expectedNotFound": false,
+      "expectedUtilityError": false,
+      "resolvedPath": "/services/residential-exterior-painting-gta",
+      "title": "Residential Exterior House Painters GTA | Ascent Group",
+      "canonicalCount": 1,
+      "canonicals": [
+        "https://www.ascentgroupconstruction.com/services/residential-exterior-painting-gta"
+      ],
+      "h1": "Residential Exterior House Painters — Greater Toronto Area",
+      "h1Count": 1,
+      "somethingWentWrong": false,
+      "notFoundView": false,
+      "unavailableView": false,
+      "failedLazyView": false,
+      "visibleTextSha256": "02e1534dbdb63d2c7b7f55e4c52354b8f6374d9611bd30b8510c7ff62077f1fb",
+      "httpStatus": 200,
+      "consoleErrorCount": 0,
+      "consoleErrors": [],
+      "failedNetworkRequestCount": 0,
+      "failedNetworkRequests": [],
+      "failedResponses": [],
+      "mockedRequestCount": 5,
+      "mockedRequests": [
+        "GET external:/rest/v1/footer_settings",
+        "GET external:/rest/v1/services",
+        "GET external:/rest/v1/site_settings"
+      ],
+      "blockedSockets": [],
+      "blockedWriteAttempts": []
+    },
+    {
+      "path": "/services/tile-installation-toronto",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "expectedNotFound": false,
+      "expectedUtilityError": false,
+      "resolvedPath": "/services/tile-installation-toronto",
+      "title": "Tile Installation Contractor Toronto | Ascent Group",
+      "canonicalCount": 1,
+      "canonicals": [
+        "https://www.ascentgroupconstruction.com/services/tile-installation-toronto"
+      ],
+      "h1": "Tile Installation Contractor — Toronto & GTA",
+      "h1Count": 1,
+      "somethingWentWrong": false,
+      "notFoundView": false,
+      "unavailableView": false,
+      "failedLazyView": false,
+      "visibleTextSha256": "3d2bf54d791b19f8684637b0d04bfa6715273eb8b06fd16760972e8cc9b24570",
+      "httpStatus": 200,
+      "consoleErrorCount": 0,
+      "consoleErrors": [],
+      "failedNetworkRequestCount": 0,
+      "failedNetworkRequests": [],
+      "failedResponses": [],
+      "mockedRequestCount": 5,
+      "mockedRequests": [
+        "GET external:/rest/v1/footer_settings",
+        "GET external:/rest/v1/services",
+        "GET external:/rest/v1/site_settings"
+      ],
+      "blockedSockets": [],
+      "blockedWriteAttempts": []
+    },
+    {
+      "path": "/services/flooring-installation-gta",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "expectedNotFound": false,
+      "expectedUtilityError": false,
+      "resolvedPath": "/services/flooring-installation-gta",
+      "title": "Flooring Contractor GTA | LVT, Laminate, Hardwood | Ascent",
+      "canonicalCount": 1,
+      "canonicals": [
+        "https://www.ascentgroupconstruction.com/services/flooring-installation-gta"
+      ],
+      "h1": "Flooring Installation Contractor — Greater Toronto Area",
+      "h1Count": 1,
+      "somethingWentWrong": false,
+      "notFoundView": false,
+      "unavailableView": false,
+      "failedLazyView": false,
+      "visibleTextSha256": "e59bc68bce376fe68d20de30f4570d7f1063cb8d49340d59a4f681f54ba9e19a",
+      "httpStatus": 200,
+      "consoleErrorCount": 0,
+      "consoleErrors": [],
+      "failedNetworkRequestCount": 0,
+      "failedNetworkRequests": [],
+      "failedResponses": [],
+      "mockedRequestCount": 5,
+      "mockedRequests": [
+        "GET external:/rest/v1/footer_settings",
+        "GET external:/rest/v1/services",
+        "GET external:/rest/v1/site_settings"
+      ],
+      "blockedSockets": [],
+      "blockedWriteAttempts": []
+    },
+    {
+      "path": "/services/handyman-patching-toronto",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "expectedNotFound": false,
+      "expectedUtilityError": false,
+      "resolvedPath": "/services/handyman-patching-toronto",
+      "title": "Drywall Patching & Handyman Services Toronto | Ascent",
+      "canonicalCount": 1,
+      "canonicals": [
+        "https://www.ascentgroupconstruction.com/services/handyman-patching-toronto"
+      ],
+      "h1": "Drywall Patching & Handyman Services — Toronto & GTA",
+      "h1Count": 1,
+      "somethingWentWrong": false,
+      "notFoundView": false,
+      "unavailableView": false,
+      "failedLazyView": false,
+      "visibleTextSha256": "e40332bc2f2209ef88969e59e5ac32101ca0cd46e27e04166c24305270814e5f",
+      "httpStatus": 200,
+      "consoleErrorCount": 0,
+      "consoleErrors": [],
+      "failedNetworkRequestCount": 0,
+      "failedNetworkRequests": [],
+      "failedResponses": [],
+      "mockedRequestCount": 5,
+      "mockedRequests": [
+        "GET external:/rest/v1/footer_settings",
+        "GET external:/rest/v1/services",
+        "GET external:/rest/v1/site_settings"
+      ],
+      "blockedSockets": [],
+      "blockedWriteAttempts": []
+    },
+    {
+      "path": "/services/painting-services",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "expectedNotFound": false,
+      "expectedUtilityError": false,
+      "resolvedPath": "/services/painting-services",
+      "title": "Painting Services | Ascent Group Construction",
+      "canonicalCount": 1,
+      "canonicals": [
+        "https://www.ascentgroupconstruction.com/services/painting-services"
+      ],
+      "h1": "Painting Services",
+      "h1Count": 1,
+      "somethingWentWrong": false,
+      "notFoundView": false,
+      "unavailableView": false,
+      "failedLazyView": false,
+      "visibleTextSha256": "197943a202c53e09799b8f7ef7f232d27f31d4d6bfb6696e71a582acdab41883",
+      "httpStatus": 200,
+      "consoleErrorCount": 0,
+      "consoleErrors": [],
+      "failedNetworkRequestCount": 0,
+      "failedNetworkRequests": [],
+      "failedResponses": [],
+      "mockedRequestCount": 11,
+      "mockedRequests": [
+        "GET external:/rest/v1/footer_settings",
+        "GET external:/rest/v1/project_services",
+        "GET external:/rest/v1/services",
+        "GET external:/rest/v1/site_settings"
+      ],
+      "blockedSockets": [],
+      "blockedWriteAttempts": []
+    },
+    {
+      "path": "/",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "expectedNotFound": false,
+      "expectedUtilityError": false,
+      "resolvedPath": "/",
+      "title": "Envelope & Restoration GTA | Ascent Group Construction",
+      "canonicalCount": 1,
+      "canonicals": [
+        "https://www.ascentgroupconstruction.com/"
+      ],
+      "h1": "We Restore, Repair & Protect Buildings Across the GTA",
+      "h1Count": 1,
+      "somethingWentWrong": false,
+      "notFoundView": false,
+      "unavailableView": false,
+      "failedLazyView": false,
+      "visibleTextSha256": "e05eb3178d64d4e66a2c4eef3ad3d025e6b38e3a1fcd8c5c13e8a5900fd3852d",
+      "httpStatus": 200,
+      "consoleErrorCount": 0,
+      "consoleErrors": [],
+      "failedNetworkRequestCount": 0,
+      "failedNetworkRequests": [],
+      "failedResponses": [],
+      "mockedRequestCount": 11,
+      "mockedRequests": [
+        "GET external:/photo-1504307651254-35680f356dfd",
+        "GET external:/rest/v1/footer_settings",
+        "GET external:/rest/v1/hero_slides",
+        "GET external:/rest/v1/homepage_settings",
+        "GET external:/rest/v1/projects",
+        "GET external:/rest/v1/services",
+        "GET external:/rest/v1/site_settings",
+        "GET external:/rest/v1/value_pillars",
+        "GET external:/rest/v1/why_choose_us_items"
+      ],
+      "blockedSockets": [],
+      "blockedWriteAttempts": []
+    },
+    {
+      "path": "/about",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "expectedNotFound": false,
+      "expectedUtilityError": false,
+      "resolvedPath": "/about",
+      "title": "About — Envelope & Restoration | Ascent Group Construction",
+      "canonicalCount": 1,
+      "canonicals": [
+        "https://www.ascentgroupconstruction.com/about"
+      ],
+      "h1": "15 Years of Experience. One Clear Mission.",
+      "h1Count": 1,
+      "somethingWentWrong": false,
+      "notFoundView": false,
+      "unavailableView": false,
+      "failedLazyView": false,
+      "visibleTextSha256": "0b533a28a881783d66a4405c1e7028746b196177f0a90ca35d95a75e0b056ff8",
+      "httpStatus": 200,
+      "consoleErrorCount": 0,
+      "consoleErrors": [],
+      "failedNetworkRequestCount": 0,
+      "failedNetworkRequests": [],
+      "failedResponses": [],
+      "mockedRequestCount": 5,
+      "mockedRequests": [
+        "GET external:/rest/v1/footer_settings",
+        "GET external:/rest/v1/services",
+        "GET external:/rest/v1/site_settings"
+      ],
+      "blockedSockets": [],
+      "blockedWriteAttempts": []
+    },
+    {
+      "path": "/markets",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "expectedNotFound": false,
+      "expectedUtilityError": false,
+      "resolvedPath": "/markets",
+      "title": "Markets We Serve | Ascent Group Construction",
+      "canonicalCount": 1,
+      "canonicals": [
+        "https://www.ascentgroupconstruction.com/markets"
+      ],
+      "h1": "Markets We Serve",
+      "h1Count": 1,
+      "somethingWentWrong": false,
+      "notFoundView": false,
+      "unavailableView": false,
+      "failedLazyView": false,
+      "visibleTextSha256": "31277478f018941a936a6d71d4b9be6ff2112bcda27439ea83cf85d98a6dfb55",
+      "httpStatus": 200,
+      "consoleErrorCount": 0,
+      "consoleErrors": [],
+      "failedNetworkRequestCount": 0,
+      "failedNetworkRequests": [],
+      "failedResponses": [],
+      "mockedRequestCount": 5,
+      "mockedRequests": [
+        "GET external:/rest/v1/footer_settings",
+        "GET external:/rest/v1/services",
+        "GET external:/rest/v1/site_settings"
+      ],
+      "blockedSockets": [],
+      "blockedWriteAttempts": []
+    },
+    {
+      "path": "/why-specialty-contractor",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "expectedNotFound": false,
+      "expectedUtilityError": false,
+      "resolvedPath": "/why-specialty-contractor",
+      "title": "Specialty Contractor vs General Contractor | Building Envelope & Restoration | Ascent Group Construction",
+      "canonicalCount": 1,
+      "canonicals": [
+        "https://www.ascentgroupconstruction.com/why-specialty-contractor"
+      ],
+      "h1": "Why We Focus on Specialty Trades",
+      "h1Count": 1,
+      "somethingWentWrong": false,
+      "notFoundView": false,
+      "unavailableView": false,
+      "failedLazyView": false,
+      "visibleTextSha256": "89448a25697833846c6e28b99bd33d868db0df902f96571de1c2e66eed8477eb",
+      "httpStatus": 200,
+      "consoleErrorCount": 0,
+      "consoleErrors": [],
+      "failedNetworkRequestCount": 0,
+      "failedNetworkRequests": [],
+      "failedResponses": [],
+      "mockedRequestCount": 5,
+      "mockedRequests": [
+        "GET external:/rest/v1/footer_settings",
+        "GET external:/rest/v1/services",
+        "GET external:/rest/v1/site_settings"
+      ],
+      "blockedSockets": [],
+      "blockedWriteAttempts": []
+    },
+    {
+      "path": "/prequalification",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "expectedNotFound": false,
+      "expectedUtilityError": false,
+      "resolvedPath": "/prequalification",
+      "title": "Vendor Pre-Qualification Package - Main Specialty Contractor | Ascent Group Construction",
+      "canonicalCount": 1,
+      "canonicals": [
+        "https://www.ascentgroupconstruction.com/prequalification"
+      ],
+      "h1": "Vendor Pre-Qualification Package",
+      "h1Count": 1,
+      "somethingWentWrong": false,
+      "notFoundView": false,
+      "unavailableView": false,
+      "failedLazyView": false,
+      "visibleTextSha256": "b4b8afc1997f6c584d037b1877c9841c5c6d59de103b8bd5d21e45f068287476",
+      "httpStatus": 200,
+      "consoleErrorCount": 0,
+      "consoleErrors": [],
+      "failedNetworkRequestCount": 0,
+      "failedNetworkRequests": [],
+      "failedResponses": [],
+      "mockedRequestCount": 5,
+      "mockedRequests": [
+        "GET external:/rest/v1/footer_settings",
+        "GET external:/rest/v1/services",
+        "GET external:/rest/v1/site_settings"
+      ],
+      "blockedSockets": [],
+      "blockedWriteAttempts": []
+    },
+    {
+      "path": "/capabilities",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "expectedNotFound": false,
+      "expectedUtilityError": false,
+      "resolvedPath": "/capabilities",
+      "title": "Capabilities | Self-Perform Specialty Contracting | Ascent Group Construction",
+      "canonicalCount": 1,
+      "canonicals": [
+        "https://www.ascentgroupconstruction.com/capabilities"
+      ],
+      "h1": "How Ascent Delivers Projects",
+      "h1Count": 1,
+      "somethingWentWrong": false,
+      "notFoundView": false,
+      "unavailableView": false,
+      "failedLazyView": false,
+      "visibleTextSha256": "816a6582afc97ef6509102427aec6a88269a855ecd829cc341c35cf12a5d13fd",
+      "httpStatus": 200,
+      "consoleErrorCount": 0,
+      "consoleErrors": [],
+      "failedNetworkRequestCount": 0,
+      "failedNetworkRequests": [],
+      "failedResponses": [],
+      "mockedRequestCount": 5,
+      "mockedRequests": [
+        "GET external:/rest/v1/footer_settings",
+        "GET external:/rest/v1/services",
+        "GET external:/rest/v1/site_settings"
+      ],
+      "blockedSockets": [],
+      "blockedWriteAttempts": []
+    },
+    {
+      "path": "/careers",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "expectedNotFound": false,
+      "expectedUtilityError": false,
+      "resolvedPath": "/careers",
+      "title": "Work With Ascent | Careers in Envelope Restoration & Interior Trades",
+      "canonicalCount": 1,
+      "canonicals": [
+        "https://www.ascentgroupconstruction.com/careers"
+      ],
+      "h1": "Work With Ascent",
+      "h1Count": 1,
+      "somethingWentWrong": false,
+      "notFoundView": false,
+      "unavailableView": false,
+      "failedLazyView": false,
+      "visibleTextSha256": "783fea84a7c5f67f2a4b99ae66b431d43c722d8edd6498227febd5652b913dec",
+      "httpStatus": 200,
+      "consoleErrorCount": 0,
+      "consoleErrors": [],
+      "failedNetworkRequestCount": 0,
+      "failedNetworkRequests": [],
+      "failedResponses": [],
+      "mockedRequestCount": 5,
+      "mockedRequests": [
+        "GET external:/rest/v1/footer_settings",
+        "GET external:/rest/v1/services",
+        "GET external:/rest/v1/site_settings"
+      ],
+      "blockedSockets": [],
+      "blockedWriteAttempts": []
+    },
+    {
+      "path": "/sustainability",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "expectedNotFound": false,
+      "expectedUtilityError": false,
+      "resolvedPath": "/services/sustainable-building",
+      "title": "Sustainable Construction | Ascent Group Construction",
+      "canonicalCount": 1,
+      "canonicals": [
+        "https://www.ascentgroupconstruction.com/services/sustainable-building"
+      ],
+      "h1": "Sustainable Construction",
+      "h1Count": 1,
+      "somethingWentWrong": false,
+      "notFoundView": false,
+      "unavailableView": false,
+      "failedLazyView": false,
+      "visibleTextSha256": "3e6368a048fbb15e16f9d47e9b3d29b092db56e7e005bbdedde85993df8f6dd1",
+      "httpStatus": 200,
+      "consoleErrorCount": 0,
+      "consoleErrors": [],
+      "failedNetworkRequestCount": 0,
+      "failedNetworkRequests": [],
+      "failedResponses": [],
+      "mockedRequestCount": 11,
+      "mockedRequests": [
+        "GET external:/rest/v1/footer_settings",
+        "GET external:/rest/v1/project_services",
+        "GET external:/rest/v1/services",
+        "GET external:/rest/v1/site_settings"
+      ],
+      "blockedSockets": [],
+      "blockedWriteAttempts": []
+    },
+    {
+      "path": "/insights",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "expectedNotFound": false,
+      "expectedUtilityError": false,
+      "resolvedPath": "/blog",
+      "title": "Construction Insights | Envelope & Restoration Contractor | Ascent Group Construction",
+      "canonicalCount": 1,
+      "canonicals": [
+        "https://www.ascentgroupconstruction.com/blog"
+      ],
+      "h1": "Blog & Case Studies",
+      "h1Count": 1,
+      "somethingWentWrong": false,
+      "notFoundView": false,
+      "unavailableView": false,
+      "failedLazyView": false,
+      "visibleTextSha256": "35c2ff5edbe032567c305229294e989a8130132cf9ed430ff7b2723b165c7139",
+      "httpStatus": 200,
+      "consoleErrorCount": 0,
+      "consoleErrors": [],
+      "failedNetworkRequestCount": 0,
+      "failedNetworkRequests": [],
+      "failedResponses": [],
+      "mockedRequestCount": 6,
+      "mockedRequests": [
+        "GET external:/rest/v1/blog_posts",
+        "GET external:/rest/v1/footer_settings",
+        "GET external:/rest/v1/services",
+        "GET external:/rest/v1/site_settings"
+      ],
+      "blockedSockets": [],
+      "blockedWriteAttempts": []
+    },
+    {
+      "path": "/service-selector",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "expectedNotFound": false,
+      "expectedUtilityError": false,
+      "resolvedPath": "/services",
+      "title": "Specialty Contracting Services | Ascent Group Construction",
+      "canonicalCount": 1,
+      "canonicals": [
+        "https://www.ascentgroupconstruction.com/services"
+      ],
+      "h1": "Specialty contracting services for envelope, restoration, and interior trade execution",
+      "h1Count": 1,
+      "somethingWentWrong": false,
+      "notFoundView": false,
+      "unavailableView": false,
+      "failedLazyView": false,
+      "visibleTextSha256": "73b18c3a0d10bb0295e909f94b31462e0592898a0c51818b0687c3686054db1f",
+      "httpStatus": 200,
+      "consoleErrorCount": 0,
+      "consoleErrors": [],
+      "failedNetworkRequestCount": 0,
+      "failedNetworkRequests": [],
+      "failedResponses": [],
+      "mockedRequestCount": 6,
+      "mockedRequests": [
+        "GET external:/rest/v1/footer_settings",
+        "GET external:/rest/v1/services",
+        "GET external:/rest/v1/site_settings"
+      ],
+      "blockedSockets": [],
+      "blockedWriteAttempts": []
+    },
+    {
+      "path": "/free-quote",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "expectedNotFound": false,
+      "expectedUtilityError": false,
+      "resolvedPath": "/contact",
+      "title": "Contact Us | Ascent Group Construction",
+      "canonicalCount": 1,
+      "canonicals": [
+        "https://www.ascentgroupconstruction.com/contact"
+      ],
+      "h1": "Contact Us",
+      "h1Count": 1,
+      "somethingWentWrong": false,
+      "notFoundView": false,
+      "unavailableView": false,
+      "failedLazyView": false,
+      "visibleTextSha256": "81daa52c2c2128861097fcc9c24831586c499ae88156f003ae5a86ddce0f3562",
+      "httpStatus": 200,
+      "consoleErrorCount": 0,
+      "consoleErrors": [],
+      "failedNetworkRequestCount": 0,
+      "failedNetworkRequests": [],
+      "failedResponses": [],
+      "mockedRequestCount": 8,
+      "mockedRequests": [
+        "GET external:/maps/embed",
+        "GET external:/rest/v1/contact_page_settings",
+        "GET external:/rest/v1/footer_settings",
+        "GET external:/rest/v1/services",
+        "GET external:/rest/v1/site_settings"
+      ],
+      "blockedSockets": [],
+      "blockedWriteAttempts": []
+    },
+    {
+      "path": "/get-estimate",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "expectedNotFound": false,
+      "expectedUtilityError": false,
+      "resolvedPath": "/contact",
+      "title": "Contact Us | Ascent Group Construction",
+      "canonicalCount": 1,
+      "canonicals": [
+        "https://www.ascentgroupconstruction.com/contact"
+      ],
+      "h1": "Contact Us",
+      "h1Count": 1,
+      "somethingWentWrong": false,
+      "notFoundView": false,
+      "unavailableView": false,
+      "failedLazyView": false,
+      "visibleTextSha256": "81daa52c2c2128861097fcc9c24831586c499ae88156f003ae5a86ddce0f3562",
+      "httpStatus": 200,
+      "consoleErrorCount": 0,
+      "consoleErrors": [],
+      "failedNetworkRequestCount": 0,
+      "failedNetworkRequests": [],
+      "failedResponses": [],
+      "mockedRequestCount": 8,
+      "mockedRequests": [
+        "GET external:/maps/embed",
+        "GET external:/rest/v1/contact_page_settings",
+        "GET external:/rest/v1/footer_settings",
+        "GET external:/rest/v1/services",
+        "GET external:/rest/v1/site_settings"
+      ],
+      "blockedSockets": [],
+      "blockedWriteAttempts": []
+    },
+    {
+      "path": "/projects",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "expectedNotFound": false,
+      "expectedUtilityError": false,
+      "resolvedPath": "/projects",
+      "title": "Our Projects | Ascent Group Construction",
+      "canonicalCount": 1,
+      "canonicals": [
+        "https://www.ascentgroupconstruction.com/projects"
+      ],
+      "h1": "Our Projects",
+      "h1Count": 1,
+      "somethingWentWrong": false,
+      "notFoundView": false,
+      "unavailableView": false,
+      "failedLazyView": false,
+      "visibleTextSha256": "db4bbc4bc510b0324764e7125b862617dfd39f7aaf36bb0c24e1973c03473c98",
+      "httpStatus": 200,
+      "consoleErrorCount": 0,
+      "consoleErrors": [],
+      "failedNetworkRequestCount": 0,
+      "failedNetworkRequests": [],
+      "failedResponses": [],
+      "mockedRequestCount": 6,
+      "mockedRequests": [
+        "GET external:/rest/v1/footer_settings",
+        "GET external:/rest/v1/projects",
+        "GET external:/rest/v1/services",
+        "GET external:/rest/v1/site_settings"
+      ],
+      "blockedSockets": [
+        "external:/realtime/v1/websocket"
+      ],
+      "blockedWriteAttempts": []
+    },
+    {
+      "path": "/contact",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "expectedNotFound": false,
+      "expectedUtilityError": false,
+      "resolvedPath": "/contact",
+      "title": "Contact Us | Ascent Group Construction",
+      "canonicalCount": 1,
+      "canonicals": [
+        "https://www.ascentgroupconstruction.com/contact"
+      ],
+      "h1": "Contact Us",
+      "h1Count": 1,
+      "somethingWentWrong": false,
+      "notFoundView": false,
+      "unavailableView": false,
+      "failedLazyView": false,
+      "visibleTextSha256": "81daa52c2c2128861097fcc9c24831586c499ae88156f003ae5a86ddce0f3562",
+      "httpStatus": 200,
+      "consoleErrorCount": 0,
+      "consoleErrors": [],
+      "failedNetworkRequestCount": 0,
+      "failedNetworkRequests": [],
+      "failedResponses": [],
+      "mockedRequestCount": 8,
+      "mockedRequests": [
+        "GET external:/maps/embed",
+        "GET external:/rest/v1/contact_page_settings",
+        "GET external:/rest/v1/footer_settings",
+        "GET external:/rest/v1/services",
+        "GET external:/rest/v1/site_settings"
+      ],
+      "blockedSockets": [],
+      "blockedWriteAttempts": []
+    },
+    {
+      "path": "/estimate",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "expectedNotFound": false,
+      "expectedUtilityError": false,
+      "resolvedPath": "/estimate",
+      "title": "Request Project Estimate | Ascent Group Construction",
+      "canonicalCount": 1,
+      "canonicals": [
+        "https://www.ascentgroupconstruction.com/estimate"
+      ],
+      "h1": "Request a Project Estimate",
+      "h1Count": 1,
+      "somethingWentWrong": false,
+      "notFoundView": false,
+      "unavailableView": false,
+      "failedLazyView": false,
+      "visibleTextSha256": "efdfb94b9f5a8f434015dc22d28d84b6863fe52fe07cd6516facd26f5707cb5c",
+      "httpStatus": 200,
+      "consoleErrorCount": 0,
+      "consoleErrors": [],
+      "failedNetworkRequestCount": 0,
+      "failedNetworkRequests": [],
+      "failedResponses": [],
+      "mockedRequestCount": 5,
+      "mockedRequests": [
+        "GET external:/rest/v1/footer_settings",
+        "GET external:/rest/v1/services",
+        "GET external:/rest/v1/site_settings"
+      ],
+      "blockedSockets": [],
+      "blockedWriteAttempts": []
+    },
+    {
+      "path": "/submit-rfp",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "expectedNotFound": false,
+      "expectedUtilityError": false,
+      "resolvedPath": "/submit-rfp",
+      "title": "Submit RFP - Request for Proposal | Ascent Group Construction",
+      "canonicalCount": 1,
+      "canonicals": [
+        "https://www.ascentgroupconstruction.com/submit-rfp"
+      ],
+      "h1": "Submit Your RFP",
+      "h1Count": 1,
+      "somethingWentWrong": false,
+      "notFoundView": false,
+      "unavailableView": false,
+      "failedLazyView": false,
+      "visibleTextSha256": "ac09f083672d0f5c8632f2e84fa54c61d40526299de82602f23106e3d269df5e",
+      "httpStatus": 200,
+      "consoleErrorCount": 0,
+      "consoleErrors": [],
+      "failedNetworkRequestCount": 0,
+      "failedNetworkRequests": [],
+      "failedResponses": [],
+      "mockedRequestCount": 7,
+      "mockedRequests": [
+        "GET external:/rest/v1/footer_settings",
+        "GET external:/rest/v1/services",
+        "GET external:/rest/v1/site_settings"
+      ],
+      "blockedSockets": [],
+      "blockedWriteAttempts": []
+    },
+    {
+      "path": "/for-general-contractors",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "expectedNotFound": false,
+      "expectedUtilityError": false,
+      "resolvedPath": "/for-general-contractors",
+      "title": "Trade Partner for General Contractors | Ascent Group Construction",
+      "canonicalCount": 1,
+      "canonicals": [
+        "https://www.ascentgroupconstruction.com/for-general-contractors"
+      ],
+      "h1": "Reliable Trade Partner for General Contractors",
+      "h1Count": 1,
+      "somethingWentWrong": false,
+      "notFoundView": false,
+      "unavailableView": false,
+      "failedLazyView": false,
+      "visibleTextSha256": "de3d77cac20a13d138e3c643d57f803d6a331a18083b936080985e44900b7bbd",
+      "httpStatus": 200,
+      "consoleErrorCount": 0,
+      "consoleErrors": [],
+      "failedNetworkRequestCount": 0,
+      "failedNetworkRequests": [],
+      "failedResponses": [],
+      "mockedRequestCount": 9,
+      "mockedRequests": [
+        "GET external:/rest/v1/footer_settings",
+        "GET external:/rest/v1/services",
+        "GET external:/rest/v1/site_settings"
+      ],
+      "blockedSockets": [],
+      "blockedWriteAttempts": []
+    },
+    {
+      "path": "/for-architects",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "expectedNotFound": false,
+      "expectedUtilityError": false,
+      "resolvedPath": "/for-architects",
+      "title": "For Architects & Building Science Consultants | Ascent Group",
+      "canonicalCount": 1,
+      "canonicals": [
+        "https://www.ascentgroupconstruction.com/for-architects"
+      ],
+      "h1": "A Contractor Who Speaks Building Science",
+      "h1Count": 1,
+      "somethingWentWrong": false,
+      "notFoundView": false,
+      "unavailableView": false,
+      "failedLazyView": false,
+      "visibleTextSha256": "5b426e5b5ee85cb52690ed977bd49884c6f389e867dcb337af315ef86b5683d2",
+      "httpStatus": 200,
+      "consoleErrorCount": 0,
+      "consoleErrors": [],
+      "failedNetworkRequestCount": 0,
+      "failedNetworkRequests": [],
+      "failedResponses": [],
+      "mockedRequestCount": 7,
+      "mockedRequests": [
+        "GET external:/rest/v1/footer_settings",
+        "GET external:/rest/v1/services",
+        "GET external:/rest/v1/site_settings"
+      ],
+      "blockedSockets": [],
+      "blockedWriteAttempts": []
+    },
+    {
+      "path": "/emergency-repair",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "expectedNotFound": false,
+      "expectedUtilityError": false,
+      "resolvedPath": "/emergency-repair",
+      "title": "Emergency Building Repair | 24/7 Façade & Envelope Response | Ascent Group",
+      "canonicalCount": 1,
+      "canonicals": [
+        "https://www.ascentgroupconstruction.com/emergency-repair"
+      ],
+      "h1": "Emergency Building Repair",
+      "h1Count": 1,
+      "somethingWentWrong": false,
+      "notFoundView": false,
+      "unavailableView": false,
+      "failedLazyView": false,
+      "visibleTextSha256": "880ee73dcf1082e841a333ecec34fd4e0f103235bd0df017804430e465d76d36",
+      "httpStatus": 200,
+      "consoleErrorCount": 0,
+      "consoleErrors": [],
+      "failedNetworkRequestCount": 0,
+      "failedNetworkRequests": [],
+      "failedResponses": [],
+      "mockedRequestCount": 7,
+      "mockedRequests": [
+        "GET external:/rest/v1/footer_settings",
+        "GET external:/rest/v1/services",
+        "GET external:/rest/v1/site_settings"
+      ],
+      "blockedSockets": [],
+      "blockedWriteAttempts": []
+    },
+    {
+      "path": "/privacy",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "expectedNotFound": false,
+      "expectedUtilityError": false,
+      "resolvedPath": "/privacy",
+      "title": "Privacy Policy | Ascent Group Construction",
+      "canonicalCount": 1,
+      "canonicals": [
+        "https://www.ascentgroupconstruction.com/privacy"
+      ],
+      "h1": "Privacy Policy",
+      "h1Count": 1,
+      "somethingWentWrong": false,
+      "notFoundView": false,
+      "unavailableView": false,
+      "failedLazyView": false,
+      "visibleTextSha256": "5263bd4cac78d42b0598882888a7fa0694290be0a37f7b52f1c1b9b8a7af8e22",
+      "httpStatus": 200,
+      "consoleErrorCount": 0,
+      "consoleErrors": [],
+      "failedNetworkRequestCount": 0,
+      "failedNetworkRequests": [],
+      "failedResponses": [],
+      "mockedRequestCount": 9,
+      "mockedRequests": [
+        "GET external:/rest/v1/footer_settings",
+        "GET external:/rest/v1/services",
+        "GET external:/rest/v1/site_settings"
+      ],
+      "blockedSockets": [],
+      "blockedWriteAttempts": []
+    },
+    {
+      "path": "/terms",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "expectedNotFound": false,
+      "expectedUtilityError": false,
+      "resolvedPath": "/terms",
+      "title": "Terms of Use | Ascent Group Construction",
+      "canonicalCount": 1,
+      "canonicals": [
+        "https://www.ascentgroupconstruction.com/terms"
+      ],
+      "h1": "Terms of Use",
+      "h1Count": 1,
+      "somethingWentWrong": false,
+      "notFoundView": false,
+      "unavailableView": false,
+      "failedLazyView": false,
+      "visibleTextSha256": "ff4748e3b1169ae49b7ac19a6f9db4b345433b593baee538db6e58ce41c27f0d",
+      "httpStatus": 200,
+      "consoleErrorCount": 0,
+      "consoleErrors": [],
+      "failedNetworkRequestCount": 0,
+      "failedNetworkRequests": [],
+      "failedResponses": [],
+      "mockedRequestCount": 7,
+      "mockedRequests": [
+        "GET external:/rest/v1/footer_settings",
+        "GET external:/rest/v1/services",
+        "GET external:/rest/v1/site_settings"
+      ],
+      "blockedSockets": [],
+      "blockedWriteAttempts": []
+    },
+    {
+      "path": "/accessibility",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "expectedNotFound": false,
+      "expectedUtilityError": false,
+      "resolvedPath": "/accessibility",
+      "title": "Accessibility Statement | Ascent Group Construction",
+      "canonicalCount": 1,
+      "canonicals": [
+        "https://www.ascentgroupconstruction.com/accessibility"
+      ],
+      "h1": "Accessibility Statement",
+      "h1Count": 1,
+      "somethingWentWrong": false,
+      "notFoundView": false,
+      "unavailableView": false,
+      "failedLazyView": false,
+      "visibleTextSha256": "9358967f6c7b6274bc5fcdde5d814efd19d63f66f9636f8a47ea0a21c095d9b2",
+      "httpStatus": 200,
+      "consoleErrorCount": 0,
+      "consoleErrors": [],
+      "failedNetworkRequestCount": 0,
+      "failedNetworkRequests": [],
+      "failedResponses": [],
+      "mockedRequestCount": 11,
+      "mockedRequests": [
+        "GET external:/rest/v1/footer_settings",
+        "GET external:/rest/v1/services",
+        "GET external:/rest/v1/site_settings"
+      ],
+      "blockedSockets": [],
+      "blockedWriteAttempts": []
+    },
+    {
+      "path": "/unsubscribe",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "expectedNotFound": false,
+      "expectedUtilityError": false,
+      "resolvedPath": "/unsubscribe",
+      "title": "Unsubscribe from Newsletter | Ascent Group Construction",
+      "canonicalCount": 0,
+      "canonicals": [],
+      "h1": "Newsletter Unsubscribe",
+      "h1Count": 1,
+      "somethingWentWrong": false,
+      "notFoundView": false,
+      "unavailableView": false,
+      "failedLazyView": false,
+      "visibleTextSha256": "79c4ef10e07419bb2094ca8322f6b5a63deeaa3a68ff1d88655b6940fc7dae61",
+      "httpStatus": 200,
+      "consoleErrorCount": 0,
+      "consoleErrors": [],
+      "failedNetworkRequestCount": 0,
+      "failedNetworkRequests": [],
+      "failedResponses": [],
+      "mockedRequestCount": 2,
+      "mockedRequests": [
+        "GET external:/rest/v1/site_settings"
+      ],
+      "blockedSockets": [],
+      "blockedWriteAttempts": []
+    },
+    {
+      "path": "/email-unsubscribe",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "expectedNotFound": false,
+      "expectedUtilityError": false,
+      "resolvedPath": "/email-unsubscribe",
+      "title": "Email Preferences | Ascent Group Construction",
+      "canonicalCount": 1,
+      "canonicals": [
+        "https://www.ascentgroupconstruction.com/email-unsubscribe"
+      ],
+      "h1": "Manage your email preferences",
+      "h1Count": 1,
+      "somethingWentWrong": false,
+      "notFoundView": false,
+      "unavailableView": false,
+      "failedLazyView": false,
+      "visibleTextSha256": "9cb92083863d975bbf1bf25ad6de3d235bd9e0b8bba0bbec4486be274447a9db",
+      "httpStatus": 200,
+      "consoleErrorCount": 0,
+      "consoleErrors": [],
+      "failedNetworkRequestCount": 0,
+      "failedNetworkRequests": [],
+      "failedResponses": [],
+      "mockedRequestCount": 5,
+      "mockedRequests": [
+        "GET external:/rest/v1/footer_settings",
+        "GET external:/rest/v1/services",
+        "GET external:/rest/v1/site_settings"
+      ],
+      "blockedSockets": [],
+      "blockedWriteAttempts": []
+    },
+    {
+      "path": "/property-managers",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "expectedNotFound": false,
+      "expectedUtilityError": false,
+      "resolvedPath": "/property-managers",
+      "title": "Property Management Services - Envelope & Restoration for Multi-Residential | Ascent Group Construction",
+      "canonicalCount": 1,
+      "canonicals": [
+        "https://www.ascentgroupconstruction.com/property-managers"
+      ],
+      "h1": "Envelope & Restoration Partner for Multi-Residential Properties",
+      "h1Count": 1,
+      "somethingWentWrong": false,
+      "notFoundView": false,
+      "unavailableView": false,
+      "failedLazyView": false,
+      "visibleTextSha256": "554122460f5b74b92eb307e24329b8d7e7009dbb9aa0b54cece923cf4f01bdb9",
+      "httpStatus": 200,
+      "consoleErrorCount": 0,
+      "consoleErrors": [],
+      "failedNetworkRequestCount": 0,
+      "failedNetworkRequests": [],
+      "failedResponses": [],
+      "mockedRequestCount": 5,
+      "mockedRequests": [
+        "GET external:/rest/v1/footer_settings",
+        "GET external:/rest/v1/services",
+        "GET external:/rest/v1/site_settings"
+      ],
+      "blockedSockets": [],
+      "blockedWriteAttempts": []
+    },
+    {
+      "path": "/homeowners",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "expectedNotFound": false,
+      "expectedUtilityError": false,
+      "resolvedPath": "/homeowners",
+      "title": "Residential Services for Homeowners | Painting, Renovations, Tile, Flooring | Ascent Group Construction",
+      "canonicalCount": 1,
+      "canonicals": [
+        "https://www.ascentgroupconstruction.com/homeowners"
+      ],
+      "h1": "Residential Services for Homeowners",
+      "h1Count": 1,
+      "somethingWentWrong": false,
+      "notFoundView": false,
+      "unavailableView": false,
+      "failedLazyView": false,
+      "visibleTextSha256": "297ec3e3ecc7b6faa56896d087c17564dddbe963180ce2ea505caa73cf1b721f",
+      "httpStatus": 200,
+      "consoleErrorCount": 0,
+      "consoleErrors": [],
+      "failedNetworkRequestCount": 0,
+      "failedNetworkRequests": [],
+      "failedResponses": [],
+      "mockedRequestCount": 5,
+      "mockedRequests": [
+        "GET external:/rest/v1/footer_settings",
+        "GET external:/rest/v1/services",
+        "GET external:/rest/v1/site_settings"
+      ],
+      "blockedSockets": [],
+      "blockedWriteAttempts": []
+    },
+    {
+      "path": "/commercial-clients",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "expectedNotFound": false,
+      "expectedUtilityError": false,
+      "resolvedPath": "/commercial-clients",
+      "title": "Commercial Building Envelope & Restoration Services - Toronto & GTA | Ascent Group Construction",
+      "canonicalCount": 1,
+      "canonicals": [
+        "https://www.ascentgroupconstruction.com/commercial-clients"
+      ],
+      "h1": "Envelope & Restoration for Commercial Properties",
+      "h1Count": 1,
+      "somethingWentWrong": false,
+      "notFoundView": false,
+      "unavailableView": false,
+      "failedLazyView": false,
+      "visibleTextSha256": "2ecf1300ba518035e05c4bb22e34307395d0a9435a460f69e527e7b19e17546a",
+      "httpStatus": 200,
+      "consoleErrorCount": 0,
+      "consoleErrors": [],
+      "failedNetworkRequestCount": 0,
+      "failedNetworkRequests": [],
+      "failedResponses": [],
+      "mockedRequestCount": 5,
+      "mockedRequests": [
+        "GET external:/rest/v1/footer_settings",
+        "GET external:/rest/v1/services",
+        "GET external:/rest/v1/site_settings"
+      ],
+      "blockedSockets": [],
+      "blockedWriteAttempts": []
+    },
+    {
+      "path": "/our-process",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "expectedNotFound": false,
+      "expectedUtilityError": false,
+      "resolvedPath": "/our-process",
+      "title": "How We Work — From Inquiry to Closeout | Ascent Group Construction",
+      "canonicalCount": 1,
+      "canonicals": [
+        "https://www.ascentgroupconstruction.com/our-process"
+      ],
+      "h1": "From Inquiry to Closeout",
+      "h1Count": 1,
+      "somethingWentWrong": false,
+      "notFoundView": false,
+      "unavailableView": false,
+      "failedLazyView": false,
+      "visibleTextSha256": "1372eaee400a85fefcbf774e49789efde453b131528f9dd715eb95cf471efac2",
+      "httpStatus": 200,
+      "consoleErrorCount": 0,
+      "consoleErrors": [],
+      "failedNetworkRequestCount": 0,
+      "failedNetworkRequests": [],
+      "failedResponses": [],
+      "mockedRequestCount": 5,
+      "mockedRequests": [
+        "GET external:/rest/v1/footer_settings",
+        "GET external:/rest/v1/services",
+        "GET external:/rest/v1/site_settings"
+      ],
+      "blockedSockets": [],
+      "blockedWriteAttempts": []
+    },
+    {
+      "path": "/faq",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "expectedNotFound": false,
+      "expectedUtilityError": false,
+      "resolvedPath": "/faq",
+      "title": "Frequently Asked Questions | Building Envelope & Restoration | Ascent Group Construction",
+      "canonicalCount": 1,
+      "canonicals": [
+        "https://www.ascentgroupconstruction.com/faq"
+      ],
+      "h1": "Frequently Asked Questions",
+      "h1Count": 1,
+      "somethingWentWrong": false,
+      "notFoundView": false,
+      "unavailableView": false,
+      "failedLazyView": false,
+      "visibleTextSha256": "a6921a9bcf4d0e853f469789a4b7d4b06a2ce8ec6e415c88b43a9b1e3b5fd27c",
+      "httpStatus": 200,
+      "consoleErrorCount": 0,
+      "consoleErrors": [],
+      "failedNetworkRequestCount": 0,
+      "failedNetworkRequests": [],
+      "failedResponses": [],
+      "mockedRequestCount": 7,
+      "mockedRequests": [
+        "GET external:/rest/v1/footer_settings",
+        "GET external:/rest/v1/services",
+        "GET external:/rest/v1/site_settings"
+      ],
+      "blockedSockets": [],
+      "blockedWriteAttempts": []
+    },
+    {
+      "path": "/tekev",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "expectedNotFound": false,
+      "expectedUtilityError": false,
+      "resolvedPath": "/tekev",
+      "title": "Admin sign in | Ascent Group Construction",
+      "canonicalCount": 0,
+      "canonicals": [],
+      "h1": null,
+      "h1Count": 0,
+      "somethingWentWrong": false,
+      "notFoundView": false,
+      "unavailableView": false,
+      "failedLazyView": false,
+      "visibleTextSha256": "102185c24fb1b729c4874c0800188aa96ae85a332cd109abe8f8f080b8a5bc0d",
+      "httpStatus": 200,
+      "consoleErrorCount": 0,
+      "consoleErrors": [],
+      "failedNetworkRequestCount": 0,
+      "failedNetworkRequests": [],
+      "failedResponses": [],
+      "mockedRequestCount": 2,
+      "mockedRequests": [
+        "GET external:/rest/v1/site_settings"
+      ],
+      "blockedSockets": [],
+      "blockedWriteAttempts": []
+    },
+    {
+      "path": "/.lovable/oauth/consent",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "expectedNotFound": false,
+      "expectedUtilityError": true,
+      "resolvedPath": "/.lovable/oauth/consent",
+      "title": "Ascent Group Construction | Building Envelope & Restoration",
+      "canonicalCount": 0,
+      "canonicals": [],
+      "h1": null,
+      "h1Count": 0,
+      "somethingWentWrong": true,
+      "notFoundView": false,
+      "unavailableView": false,
+      "failedLazyView": false,
+      "visibleTextSha256": "8851bf03bd0f784929c628807783ed382037548ae0a2787f6041fd7a9705bab6",
+      "httpStatus": 200,
+      "consoleErrorCount": 0,
+      "consoleErrors": [],
+      "failedNetworkRequestCount": 0,
+      "failedNetworkRequests": [],
+      "failedResponses": [],
+      "mockedRequestCount": 2,
+      "mockedRequests": [
+        "GET external:/rest/v1/site_settings"
+      ],
+      "blockedSockets": [],
+      "blockedWriteAttempts": []
+    },
+    {
+      "path": "/company/certifications-insurance",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "expectedNotFound": false,
+      "expectedUtilityError": false,
+      "resolvedPath": "/company/certifications-insurance",
+      "title": "Certifications & Insurance Coverage | Ascent Group Construction",
+      "canonicalCount": 1,
+      "canonicals": [
+        "https://www.ascentgroupconstruction.com/company/certifications-insurance"
+      ],
+      "h1": "Certifications & Insurance Coverage",
+      "h1Count": 1,
+      "somethingWentWrong": false,
+      "notFoundView": false,
+      "unavailableView": false,
+      "failedLazyView": false,
+      "visibleTextSha256": "0296a67466cc6062a5d497ee9707dbcae43327bdbaea2628a09e86cae1c82225",
+      "httpStatus": 200,
+      "consoleErrorCount": 0,
+      "consoleErrors": [],
+      "failedNetworkRequestCount": 0,
+      "failedNetworkRequests": [],
+      "failedResponses": [],
+      "mockedRequestCount": 10,
+      "mockedRequests": [
+        "GET external:/rest/v1/about_page_settings",
+        "GET external:/rest/v1/footer_settings",
+        "GET external:/rest/v1/services",
+        "GET external:/rest/v1/site_settings"
+      ],
+      "blockedSockets": [],
+      "blockedWriteAttempts": []
+    },
+    {
+      "path": "/company/equipment-resources",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "expectedNotFound": false,
+      "expectedUtilityError": false,
+      "resolvedPath": "/company/technology",
+      "title": "Technology & Digital Tools | Ascent Group Construction",
+      "canonicalCount": 1,
+      "canonicals": [
+        "https://www.ascentgroupconstruction.com/company/technology"
+      ],
+      "h1": "Built on Digital Precision",
+      "h1Count": 1,
+      "somethingWentWrong": false,
+      "notFoundView": false,
+      "unavailableView": false,
+      "failedLazyView": false,
+      "visibleTextSha256": "feb68e1ba9d192f86133ac2973055099ccc718db168e66078cd382c691a98041",
+      "httpStatus": 200,
+      "consoleErrorCount": 14,
+      "consoleErrors": [
+        "Error: <circle> attribute cx: Expected length, \"undefined\".",
+        "Error: <circle> attribute cy: Expected length, \"undefined\".",
+        "Error: <circle> attribute cx: Expected length, \"undefined\".",
+        "Error: <circle> attribute cy: Expected length, \"undefined\".",
+        "Error: <circle> attribute cx: Expected length, \"undefined\".",
+        "Error: <circle> attribute cy: Expected length, \"undefined\".",
+        "Error: <circle> attribute cx: Expected length, \"undefined\".",
+        "Error: <circle> attribute cy: Expected length, \"undefined\".",
+        "Error: <circle> attribute cx: Expected length, \"undefined\".",
+        "Error: <circle> attribute cy: Expected length, \"undefined\".",
+        "Error: <circle> attribute cx: Expected length, \"undefined\".",
+        "Error: <circle> attribute cy: Expected length, \"undefined\".",
+        "Error: <circle> attribute cx: Expected length, \"undefined\".",
+        "Error: <circle> attribute cy: Expected length, \"undefined\"."
+      ],
+      "failedNetworkRequestCount": 0,
+      "failedNetworkRequests": [],
+      "failedResponses": [],
+      "mockedRequestCount": 5,
+      "mockedRequests": [
+        "GET external:/rest/v1/footer_settings",
+        "GET external:/rest/v1/services",
+        "GET external:/rest/v1/site_settings"
+      ],
+      "blockedSockets": [],
+      "blockedWriteAttempts": []
+    },
+    {
+      "path": "/company/technology",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "expectedNotFound": false,
+      "expectedUtilityError": false,
+      "resolvedPath": "/company/technology",
+      "title": "Technology & Digital Tools | Ascent Group Construction",
+      "canonicalCount": 1,
+      "canonicals": [
+        "https://www.ascentgroupconstruction.com/company/technology"
+      ],
+      "h1": "Built on Digital Precision",
+      "h1Count": 1,
+      "somethingWentWrong": false,
+      "notFoundView": false,
+      "unavailableView": false,
+      "failedLazyView": false,
+      "visibleTextSha256": "feb68e1ba9d192f86133ac2973055099ccc718db168e66078cd382c691a98041",
+      "httpStatus": 200,
+      "consoleErrorCount": 14,
+      "consoleErrors": [
+        "Error: <circle> attribute cx: Expected length, \"undefined\".",
+        "Error: <circle> attribute cy: Expected length, \"undefined\".",
+        "Error: <circle> attribute cx: Expected length, \"undefined\".",
+        "Error: <circle> attribute cy: Expected length, \"undefined\".",
+        "Error: <circle> attribute cx: Expected length, \"undefined\".",
+        "Error: <circle> attribute cy: Expected length, \"undefined\".",
+        "Error: <circle> attribute cx: Expected length, \"undefined\".",
+        "Error: <circle> attribute cy: Expected length, \"undefined\".",
+        "Error: <circle> attribute cx: Expected length, \"undefined\".",
+        "Error: <circle> attribute cy: Expected length, \"undefined\".",
+        "Error: <circle> attribute cx: Expected length, \"undefined\".",
+        "Error: <circle> attribute cy: Expected length, \"undefined\".",
+        "Error: <circle> attribute cx: Expected length, \"undefined\".",
+        "Error: <circle> attribute cy: Expected length, \"undefined\"."
+      ],
+      "failedNetworkRequestCount": 0,
+      "failedNetworkRequests": [],
+      "failedResponses": [],
+      "mockedRequestCount": 5,
+      "mockedRequests": [
+        "GET external:/rest/v1/footer_settings",
+        "GET external:/rest/v1/services",
+        "GET external:/rest/v1/site_settings"
+      ],
+      "blockedSockets": [],
+      "blockedWriteAttempts": []
+    },
+    {
+      "path": "/company/developers",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "expectedNotFound": false,
+      "expectedUtilityError": false,
+      "resolvedPath": "/company/developers",
+      "title": "Developers & Contractors | Partnership Solutions | Ascent Group Construction",
+      "canonicalCount": 1,
+      "canonicals": [
+        "http://127.0.0.1:4190/company/developers"
+      ],
+      "h1": "Build With a Trusted Partner",
+      "h1Count": 1,
+      "somethingWentWrong": false,
+      "notFoundView": false,
+      "unavailableView": false,
+      "failedLazyView": false,
+      "visibleTextSha256": "579909d302cd7512aec9b966c64c9ad01284cabc30ee47b28f8596b7251de718",
+      "httpStatus": 200,
+      "consoleErrorCount": 0,
+      "consoleErrors": [],
+      "failedNetworkRequestCount": 0,
+      "failedNetworkRequests": [],
+      "failedResponses": [],
+      "mockedRequestCount": 5,
+      "mockedRequests": [
+        "GET external:/rest/v1/footer_settings",
+        "GET external:/rest/v1/services",
+        "GET external:/rest/v1/site_settings"
+      ],
+      "blockedSockets": [],
+      "blockedWriteAttempts": []
+    },
+    {
+      "path": "/resources/contractor-portal",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "expectedNotFound": false,
+      "expectedUtilityError": false,
+      "resolvedPath": "/resources/contractor-portal",
+      "title": "Partner With Ascent | Contractor Portal | Ascent Group Construction",
+      "canonicalCount": 1,
+      "canonicals": [
+        "https://www.ascentgroupconstruction.com/resources/contractor-portal"
+      ],
+      "h1": "Partner With Ascent",
+      "h1Count": 1,
+      "somethingWentWrong": false,
+      "notFoundView": false,
+      "unavailableView": false,
+      "failedLazyView": false,
+      "visibleTextSha256": "51f0b59481df2a70a4fd0d969d6cbb9ddf3e0f12cd4d138c0e808aef2ea6c2bb",
+      "httpStatus": 200,
+      "consoleErrorCount": 0,
+      "consoleErrors": [],
+      "failedNetworkRequestCount": 0,
+      "failedNetworkRequests": [],
+      "failedResponses": [],
+      "mockedRequestCount": 6,
+      "mockedRequests": [
+        "GET external:/rest/v1/documents_library",
+        "GET external:/rest/v1/footer_settings",
+        "GET external:/rest/v1/services",
+        "GET external:/rest/v1/site_settings"
+      ],
+      "blockedSockets": [],
+      "blockedWriteAttempts": []
+    },
+    {
+      "path": "/resources/service-areas",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "expectedNotFound": false,
+      "expectedUtilityError": false,
+      "resolvedPath": "/resources/service-areas",
+      "title": "Service Areas | Ascent Group Construction",
+      "canonicalCount": 1,
+      "canonicals": [
+        "https://www.ascentgroupconstruction.com/resources/service-areas"
+      ],
+      "h1": "Service Areas",
+      "h1Count": 1,
+      "somethingWentWrong": false,
+      "notFoundView": false,
+      "unavailableView": false,
+      "failedLazyView": false,
+      "visibleTextSha256": "3cd72c2d8be35f160bdb0a129fbbc71c8cf243c103806302e5ad40dfadb78ed3",
+      "httpStatus": 200,
+      "consoleErrorCount": 0,
+      "consoleErrors": [],
+      "failedNetworkRequestCount": 0,
+      "failedNetworkRequests": [],
+      "failedResponses": [],
+      "mockedRequestCount": 5,
+      "mockedRequests": [
+        "GET external:/rest/v1/footer_settings",
+        "GET external:/rest/v1/services",
+        "GET external:/rest/v1/site_settings"
+      ],
+      "blockedSockets": [],
+      "blockedWriteAttempts": []
+    },
+    {
+      "path": "/service-areas/toronto",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "expectedNotFound": false,
+      "expectedUtilityError": false,
+      "resolvedPath": "/service-areas/toronto",
+      "title": "Building Envelope Contractor in Toronto | Ascent Group",
+      "canonicalCount": 1,
+      "canonicals": [
+        "https://www.ascentgroupconstruction.com/service-areas/toronto"
+      ],
+      "h1": "Building Envelope Services in Toronto",
+      "h1Count": 1,
+      "somethingWentWrong": false,
+      "notFoundView": false,
+      "unavailableView": false,
+      "failedLazyView": false,
+      "visibleTextSha256": "2f13e82ea36f55da55c5bc560764880098a9e5cf7dfc920ff47dbb6250b88721",
+      "httpStatus": 200,
+      "consoleErrorCount": 0,
+      "consoleErrors": [],
+      "failedNetworkRequestCount": 0,
+      "failedNetworkRequests": [],
+      "failedResponses": [],
+      "mockedRequestCount": 9,
+      "mockedRequests": [
+        "GET external:/maps",
+        "GET external:/rest/v1/footer_settings",
+        "GET external:/rest/v1/projects",
+        "GET external:/rest/v1/services",
+        "GET external:/rest/v1/site_settings"
+      ],
+      "blockedSockets": [],
+      "blockedWriteAttempts": []
+    },
+    {
+      "path": "/blog",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "expectedNotFound": false,
+      "expectedUtilityError": false,
+      "resolvedPath": "/blog",
+      "title": "Construction Insights | Envelope & Restoration Contractor | Ascent Group Construction",
+      "canonicalCount": 1,
+      "canonicals": [
+        "https://www.ascentgroupconstruction.com/blog"
+      ],
+      "h1": "Blog & Case Studies",
+      "h1Count": 1,
+      "somethingWentWrong": false,
+      "notFoundView": false,
+      "unavailableView": false,
+      "failedLazyView": false,
+      "visibleTextSha256": "35c2ff5edbe032567c305229294e989a8130132cf9ed430ff7b2723b165c7139",
+      "httpStatus": 200,
+      "consoleErrorCount": 0,
+      "consoleErrors": [],
+      "failedNetworkRequestCount": 0,
+      "failedNetworkRequests": [],
+      "failedResponses": [],
+      "mockedRequestCount": 6,
+      "mockedRequests": [
+        "GET external:/rest/v1/blog_posts",
+        "GET external:/rest/v1/footer_settings",
+        "GET external:/rest/v1/services",
+        "GET external:/rest/v1/site_settings"
+      ],
+      "blockedSockets": [],
+      "blockedWriteAttempts": []
+    },
+    {
+      "path": "/blog/baseline-fixture-article",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "expectedNotFound": false,
+      "expectedUtilityError": false,
+      "resolvedPath": "/blog/baseline-fixture-article",
+      "title": "Baseline fixture article | Ascent Group Construction",
+      "canonicalCount": 1,
+      "canonicals": [
+        "https://www.ascentgroupconstruction.com/blog/baseline-fixture-article"
+      ],
+      "h1": "Baseline fixture article",
+      "h1Count": 1,
+      "somethingWentWrong": false,
+      "notFoundView": false,
+      "unavailableView": false,
+      "failedLazyView": false,
+      "visibleTextSha256": "9835b73d25f263617990212411ed4198999efdc77747b4a965d8cf167cb65a33",
+      "httpStatus": 200,
+      "consoleErrorCount": 0,
+      "consoleErrors": [],
+      "failedNetworkRequestCount": 0,
+      "failedNetworkRequests": [],
+      "failedResponses": [],
+      "mockedRequestCount": 7,
+      "mockedRequests": [
+        "GET external:/rest/v1/blog_posts",
+        "GET external:/rest/v1/footer_settings",
+        "GET external:/rest/v1/services",
+        "GET external:/rest/v1/site_settings"
+      ],
+      "blockedSockets": [],
+      "blockedWriteAttempts": []
+    },
+    {
+      "path": "/case-studies",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "expectedNotFound": false,
+      "expectedUtilityError": false,
+      "resolvedPath": "/blog",
+      "title": "Construction Insights | Envelope & Restoration Contractor | Ascent Group Construction",
+      "canonicalCount": 1,
+      "canonicals": [
+        "https://www.ascentgroupconstruction.com/blog"
+      ],
+      "h1": "Blog & Case Studies",
+      "h1Count": 1,
+      "somethingWentWrong": false,
+      "notFoundView": false,
+      "unavailableView": false,
+      "failedLazyView": false,
+      "visibleTextSha256": "35c2ff5edbe032567c305229294e989a8130132cf9ed430ff7b2723b165c7139",
+      "httpStatus": 200,
+      "consoleErrorCount": 0,
+      "consoleErrors": [],
+      "failedNetworkRequestCount": 0,
+      "failedNetworkRequests": [],
+      "failedResponses": [],
+      "mockedRequestCount": 6,
+      "mockedRequests": [
+        "GET external:/rest/v1/blog_posts",
+        "GET external:/rest/v1/footer_settings",
+        "GET external:/rest/v1/services",
+        "GET external:/rest/v1/site_settings"
+      ],
+      "blockedSockets": [],
+      "blockedWriteAttempts": []
+    },
+    {
+      "path": "/case-study/baseline-fixture-article",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "expectedNotFound": false,
+      "expectedUtilityError": false,
+      "resolvedPath": "/blog/baseline-fixture-article",
+      "title": "Baseline fixture article | Ascent Group Construction",
+      "canonicalCount": 1,
+      "canonicals": [
+        "https://www.ascentgroupconstruction.com/blog/baseline-fixture-article"
+      ],
+      "h1": "Baseline fixture article",
+      "h1Count": 1,
+      "somethingWentWrong": false,
+      "notFoundView": false,
+      "unavailableView": false,
+      "failedLazyView": false,
+      "visibleTextSha256": "9835b73d25f263617990212411ed4198999efdc77747b4a965d8cf167cb65a33",
+      "httpStatus": 200,
+      "consoleErrorCount": 0,
+      "consoleErrors": [],
+      "failedNetworkRequestCount": 0,
+      "failedNetworkRequests": [],
+      "failedResponses": [],
+      "mockedRequestCount": 7,
+      "mockedRequests": [
+        "GET external:/rest/v1/blog_posts",
+        "GET external:/rest/v1/footer_settings",
+        "GET external:/rest/v1/services",
+        "GET external:/rest/v1/site_settings"
+      ],
+      "blockedSockets": [],
+      "blockedWriteAttempts": []
+    },
+    {
+      "path": "/projects/baseline-fixture-project",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "expectedNotFound": false,
+      "expectedUtilityError": false,
+      "resolvedPath": "/projects/baseline-fixture-project",
+      "title": "Baseline fixture project | Ascent Group Construction",
+      "canonicalCount": 1,
+      "canonicals": [
+        "https://www.ascentgroupconstruction.com/projects/baseline-fixture-project"
+      ],
+      "h1": "Baseline fixture project",
+      "h1Count": 1,
+      "somethingWentWrong": false,
+      "notFoundView": false,
+      "unavailableView": false,
+      "failedLazyView": false,
+      "visibleTextSha256": "956e6e04a3a7f40a5fd4a188fabc736376d8339292cb49a6c102746f8a0d62d7",
+      "httpStatus": 200,
+      "consoleErrorCount": 0,
+      "consoleErrors": [],
+      "failedNetworkRequestCount": 0,
+      "failedNetworkRequests": [],
+      "failedResponses": [],
+      "mockedRequestCount": 12,
+      "mockedRequests": [
+        "GET external:/rest/v1/footer_settings",
+        "GET external:/rest/v1/project_images",
+        "GET external:/rest/v1/project_services",
+        "GET external:/rest/v1/projects",
+        "GET external:/rest/v1/services",
+        "GET external:/rest/v1/site_settings"
+      ],
+      "blockedSockets": [],
+      "blockedWriteAttempts": []
+    },
+    {
+      "path": "/404",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "expectedNotFound": true,
+      "expectedUtilityError": false,
+      "resolvedPath": "/404",
+      "title": "Page Not Found | Ascent Group Construction",
+      "canonicalCount": 1,
+      "canonicals": [
+        "https://www.ascentgroupconstruction.com/404"
+      ],
+      "h1": "404",
+      "h1Count": 1,
+      "somethingWentWrong": false,
+      "notFoundView": true,
+      "unavailableView": false,
+      "failedLazyView": false,
+      "visibleTextSha256": "da80c9188db7927b75e5f2b78d0b371730ad6eb82e9a78b393a5fa896b5899e4",
+      "httpStatus": 200,
+      "consoleErrorCount": 0,
+      "consoleErrors": [],
+      "failedNetworkRequestCount": 0,
+      "failedNetworkRequests": [],
+      "failedResponses": [],
+      "mockedRequestCount": 5,
+      "mockedRequests": [
+        "GET external:/rest/v1/footer_settings",
+        "GET external:/rest/v1/services",
+        "GET external:/rest/v1/site_settings"
+      ],
+      "blockedSockets": [],
+      "blockedWriteAttempts": []
+    },
+    {
+      "path": "/services/building-envelope",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "expectedNotFound": false,
+      "expectedUtilityError": false,
+      "resolvedPath": "/services/building-envelope-solutions",
+      "title": "Building Envelope Solutions | Ascent Group Construction",
+      "canonicalCount": 1,
+      "canonicals": [
+        "https://www.ascentgroupconstruction.com/services/building-envelope-solutions"
+      ],
+      "h1": "Building Envelope Solutions",
+      "h1Count": 1,
+      "somethingWentWrong": false,
+      "notFoundView": false,
+      "unavailableView": false,
+      "failedLazyView": false,
+      "visibleTextSha256": "620fff63841df586a134b6cdc8452e2015a89c827c7edbc1bbb97d91f687efaf",
+      "httpStatus": 200,
+      "consoleErrorCount": 0,
+      "consoleErrors": [],
+      "failedNetworkRequestCount": 0,
+      "failedNetworkRequests": [],
+      "failedResponses": [],
+      "mockedRequestCount": 11,
+      "mockedRequests": [
+        "GET external:/rest/v1/footer_settings",
+        "GET external:/rest/v1/project_services",
+        "GET external:/rest/v1/services",
+        "GET external:/rest/v1/site_settings"
+      ],
+      "blockedSockets": [],
+      "blockedWriteAttempts": []
+    },
+    {
+      "path": "/services/interior-buildouts",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "expectedNotFound": false,
+      "expectedUtilityError": false,
+      "resolvedPath": "/services/interior-buildouts-finishing",
+      "title": "Interior Finishing | Ascent Group Construction",
+      "canonicalCount": 1,
+      "canonicals": [
+        "https://www.ascentgroupconstruction.com/services/interior-buildouts-finishing"
+      ],
+      "h1": "Interior Finishing",
+      "h1Count": 1,
+      "somethingWentWrong": false,
+      "notFoundView": false,
+      "unavailableView": false,
+      "failedLazyView": false,
+      "visibleTextSha256": "29a13cc2e72c64b02b3c48d6ae10a09f6b95607b73e2fc57142d1679985c4bc1",
+      "httpStatus": 200,
+      "consoleErrorCount": 0,
+      "consoleErrors": [],
+      "failedNetworkRequestCount": 0,
+      "failedNetworkRequests": [],
+      "failedResponses": [],
+      "mockedRequestCount": 11,
+      "mockedRequests": [
+        "GET external:/rest/v1/footer_settings",
+        "GET external:/rest/v1/project_services",
+        "GET external:/rest/v1/services",
+        "GET external:/rest/v1/site_settings"
+      ],
+      "blockedSockets": [],
+      "blockedWriteAttempts": []
+    },
+    {
+      "path": "/services/eifs-stucco",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "expectedNotFound": false,
+      "expectedUtilityError": false,
+      "resolvedPath": "/services/eifs-stucco-systems",
+      "title": "EIFS & Stucco | Ascent Group Construction",
+      "canonicalCount": 1,
+      "canonicals": [
+        "https://www.ascentgroupconstruction.com/services/eifs-stucco-systems"
+      ],
+      "h1": "EIFS & Stucco",
+      "h1Count": 1,
+      "somethingWentWrong": false,
+      "notFoundView": false,
+      "unavailableView": false,
+      "failedLazyView": false,
+      "visibleTextSha256": "d350cf1902bc8641f5999e86945968a59bb10b78deddf8e4bc6f1950c46438da",
+      "httpStatus": 200,
+      "consoleErrorCount": 0,
+      "consoleErrors": [],
+      "failedNetworkRequestCount": 0,
+      "failedNetworkRequests": [],
+      "failedResponses": [],
+      "mockedRequestCount": 11,
+      "mockedRequests": [
+        "GET external:/rest/v1/footer_settings",
+        "GET external:/rest/v1/project_services",
+        "GET external:/rest/v1/services",
+        "GET external:/rest/v1/site_settings"
+      ],
+      "blockedSockets": [],
+      "blockedWriteAttempts": []
+    },
+    {
+      "path": "/services/metal-cladding",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "expectedNotFound": false,
+      "expectedUtilityError": false,
+      "resolvedPath": "/services/cladding-systems",
+      "title": "Cladding Systems | Ascent Group Construction",
+      "canonicalCount": 1,
+      "canonicals": [
+        "https://www.ascentgroupconstruction.com/services/cladding-systems"
+      ],
+      "h1": "Cladding Systems",
+      "h1Count": 1,
+      "somethingWentWrong": false,
+      "notFoundView": false,
+      "unavailableView": false,
+      "failedLazyView": false,
+      "visibleTextSha256": "f24b393049e1474ae3733375e6456ff694eded730e0003798b67fa2f13bb56eb",
+      "httpStatus": 200,
+      "consoleErrorCount": 0,
+      "consoleErrors": [],
+      "failedNetworkRequestCount": 0,
+      "failedNetworkRequests": [],
+      "failedResponses": [],
+      "mockedRequestCount": 11,
+      "mockedRequests": [
+        "GET external:/rest/v1/footer_settings",
+        "GET external:/rest/v1/project_services",
+        "GET external:/rest/v1/services",
+        "GET external:/rest/v1/site_settings"
+      ],
+      "blockedSockets": [],
+      "blockedWriteAttempts": []
+    },
+    {
+      "path": "/services/exterior-envelope",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "expectedNotFound": false,
+      "expectedUtilityError": false,
+      "resolvedPath": "/services/building-envelope-solutions",
+      "title": "Building Envelope Solutions | Ascent Group Construction",
+      "canonicalCount": 1,
+      "canonicals": [
+        "https://www.ascentgroupconstruction.com/services/building-envelope-solutions"
+      ],
+      "h1": "Building Envelope Solutions",
+      "h1Count": 1,
+      "somethingWentWrong": false,
+      "notFoundView": false,
+      "unavailableView": false,
+      "failedLazyView": false,
+      "visibleTextSha256": "620fff63841df586a134b6cdc8452e2015a89c827c7edbc1bbb97d91f687efaf",
+      "httpStatus": 200,
+      "consoleErrorCount": 0,
+      "consoleErrors": [],
+      "failedNetworkRequestCount": 0,
+      "failedNetworkRequests": [],
+      "failedResponses": [],
+      "mockedRequestCount": 11,
+      "mockedRequests": [
+        "GET external:/rest/v1/footer_settings",
+        "GET external:/rest/v1/project_services",
+        "GET external:/rest/v1/services",
+        "GET external:/rest/v1/site_settings"
+      ],
+      "blockedSockets": [],
+      "blockedWriteAttempts": []
+    },
+    {
+      "path": "/services/exterior-cladding",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "expectedNotFound": false,
+      "expectedUtilityError": false,
+      "resolvedPath": "/services/cladding-systems",
+      "title": "Cladding Systems | Ascent Group Construction",
+      "canonicalCount": 1,
+      "canonicals": [
+        "https://www.ascentgroupconstruction.com/services/cladding-systems"
+      ],
+      "h1": "Cladding Systems",
+      "h1Count": 1,
+      "somethingWentWrong": false,
+      "notFoundView": false,
+      "unavailableView": false,
+      "failedLazyView": false,
+      "visibleTextSha256": "f24b393049e1474ae3733375e6456ff694eded730e0003798b67fa2f13bb56eb",
+      "httpStatus": 200,
+      "consoleErrorCount": 0,
+      "consoleErrors": [],
+      "failedNetworkRequestCount": 0,
+      "failedNetworkRequests": [],
+      "failedResponses": [],
+      "mockedRequestCount": 11,
+      "mockedRequests": [
+        "GET external:/rest/v1/footer_settings",
+        "GET external:/rest/v1/project_services",
+        "GET external:/rest/v1/services",
+        "GET external:/rest/v1/site_settings"
+      ],
+      "blockedSockets": [],
+      "blockedWriteAttempts": []
+    },
+    {
+      "path": "/services/exterior-siding",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "expectedNotFound": false,
+      "expectedUtilityError": false,
+      "resolvedPath": "/services/cladding-systems",
+      "title": "Cladding Systems | Ascent Group Construction",
+      "canonicalCount": 1,
+      "canonicals": [
+        "https://www.ascentgroupconstruction.com/services/cladding-systems"
+      ],
+      "h1": "Cladding Systems",
+      "h1Count": 1,
+      "somethingWentWrong": false,
+      "notFoundView": false,
+      "unavailableView": false,
+      "failedLazyView": false,
+      "visibleTextSha256": "f24b393049e1474ae3733375e6456ff694eded730e0003798b67fa2f13bb56eb",
+      "httpStatus": 200,
+      "consoleErrorCount": 0,
+      "consoleErrors": [],
+      "failedNetworkRequestCount": 0,
+      "failedNetworkRequests": [],
+      "failedResponses": [],
+      "mockedRequestCount": 11,
+      "mockedRequests": [
+        "GET external:/rest/v1/footer_settings",
+        "GET external:/rest/v1/project_services",
+        "GET external:/rest/v1/services",
+        "GET external:/rest/v1/site_settings"
+      ],
+      "blockedSockets": [],
+      "blockedWriteAttempts": []
+    },
+    {
+      "path": "/services/drywall-finishing",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "expectedNotFound": false,
+      "expectedUtilityError": false,
+      "resolvedPath": "/services/interior-buildouts-finishing",
+      "title": "Interior Finishing | Ascent Group Construction",
+      "canonicalCount": 1,
+      "canonicals": [
+        "https://www.ascentgroupconstruction.com/services/interior-buildouts-finishing"
+      ],
+      "h1": "Interior Finishing",
+      "h1Count": 1,
+      "somethingWentWrong": false,
+      "notFoundView": false,
+      "unavailableView": false,
+      "failedLazyView": false,
+      "visibleTextSha256": "29a13cc2e72c64b02b3c48d6ae10a09f6b95607b73e2fc57142d1679985c4bc1",
+      "httpStatus": 200,
+      "consoleErrorCount": 0,
+      "consoleErrors": [],
+      "failedNetworkRequestCount": 0,
+      "failedNetworkRequests": [],
+      "failedResponses": [],
+      "mockedRequestCount": 11,
+      "mockedRequests": [
+        "GET external:/rest/v1/footer_settings",
+        "GET external:/rest/v1/project_services",
+        "GET external:/rest/v1/services",
+        "GET external:/rest/v1/site_settings"
+      ],
+      "blockedSockets": [],
+      "blockedWriteAttempts": []
+    },
+    {
+      "path": "/services/suite-buildouts",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "expectedNotFound": false,
+      "expectedUtilityError": false,
+      "resolvedPath": "/services/interior-buildouts-finishing",
+      "title": "Interior Finishing | Ascent Group Construction",
+      "canonicalCount": 1,
+      "canonicals": [
+        "https://www.ascentgroupconstruction.com/services/interior-buildouts-finishing"
+      ],
+      "h1": "Interior Finishing",
+      "h1Count": 1,
+      "somethingWentWrong": false,
+      "notFoundView": false,
+      "unavailableView": false,
+      "failedLazyView": false,
+      "visibleTextSha256": "29a13cc2e72c64b02b3c48d6ae10a09f6b95607b73e2fc57142d1679985c4bc1",
+      "httpStatus": 200,
+      "consoleErrorCount": 0,
+      "consoleErrors": [],
+      "failedNetworkRequestCount": 0,
+      "failedNetworkRequests": [],
+      "failedResponses": [],
+      "mockedRequestCount": 11,
+      "mockedRequests": [
+        "GET external:/rest/v1/footer_settings",
+        "GET external:/rest/v1/project_services",
+        "GET external:/rest/v1/services",
+        "GET external:/rest/v1/site_settings"
+      ],
+      "blockedSockets": [],
+      "blockedWriteAttempts": []
+    },
+    {
+      "path": "/services/painting",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "expectedNotFound": false,
+      "expectedUtilityError": false,
+      "resolvedPath": "/services/painting-services",
+      "title": "Painting Services | Ascent Group Construction",
+      "canonicalCount": 1,
+      "canonicals": [
+        "https://www.ascentgroupconstruction.com/services/painting-services"
+      ],
+      "h1": "Painting Services",
+      "h1Count": 1,
+      "somethingWentWrong": false,
+      "notFoundView": false,
+      "unavailableView": false,
+      "failedLazyView": false,
+      "visibleTextSha256": "197943a202c53e09799b8f7ef7f232d27f31d4d6bfb6696e71a582acdab41883",
+      "httpStatus": 200,
+      "consoleErrorCount": 0,
+      "consoleErrors": [],
+      "failedNetworkRequestCount": 0,
+      "failedNetworkRequests": [],
+      "failedResponses": [],
+      "mockedRequestCount": 11,
+      "mockedRequests": [
+        "GET external:/rest/v1/footer_settings",
+        "GET external:/rest/v1/project_services",
+        "GET external:/rest/v1/services",
+        "GET external:/rest/v1/site_settings"
+      ],
+      "blockedSockets": [],
+      "blockedWriteAttempts": []
+    },
+    {
+      "path": "/services/condo-multi-unit",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "expectedNotFound": false,
+      "expectedUtilityError": false,
+      "resolvedPath": "/services/interior-buildouts-finishing",
+      "title": "Interior Finishing | Ascent Group Construction",
+      "canonicalCount": 1,
+      "canonicals": [
+        "https://www.ascentgroupconstruction.com/services/interior-buildouts-finishing"
+      ],
+      "h1": "Interior Finishing",
+      "h1Count": 1,
+      "somethingWentWrong": false,
+      "notFoundView": false,
+      "unavailableView": false,
+      "failedLazyView": false,
+      "visibleTextSha256": "29a13cc2e72c64b02b3c48d6ae10a09f6b95607b73e2fc57142d1679985c4bc1",
+      "httpStatus": 200,
+      "consoleErrorCount": 0,
+      "consoleErrors": [],
+      "failedNetworkRequestCount": 0,
+      "failedNetworkRequests": [],
+      "failedResponses": [],
+      "mockedRequestCount": 11,
+      "mockedRequests": [
+        "GET external:/rest/v1/footer_settings",
+        "GET external:/rest/v1/project_services",
+        "GET external:/rest/v1/services",
+        "GET external:/rest/v1/site_settings"
+      ],
+      "blockedSockets": [],
+      "blockedWriteAttempts": []
+    },
+    {
+      "path": "/services/residential-painting",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "expectedNotFound": false,
+      "expectedUtilityError": false,
+      "resolvedPath": "/services/painting-services",
+      "title": "Painting Services | Ascent Group Construction",
+      "canonicalCount": 1,
+      "canonicals": [
+        "https://www.ascentgroupconstruction.com/services/painting-services"
+      ],
+      "h1": "Painting Services",
+      "h1Count": 1,
+      "somethingWentWrong": false,
+      "notFoundView": false,
+      "unavailableView": false,
+      "failedLazyView": false,
+      "visibleTextSha256": "197943a202c53e09799b8f7ef7f232d27f31d4d6bfb6696e71a582acdab41883",
+      "httpStatus": 200,
+      "consoleErrorCount": 0,
+      "consoleErrors": [],
+      "failedNetworkRequestCount": 0,
+      "failedNetworkRequests": [],
+      "failedResponses": [],
+      "mockedRequestCount": 11,
+      "mockedRequests": [
+        "GET external:/rest/v1/footer_settings",
+        "GET external:/rest/v1/project_services",
+        "GET external:/rest/v1/services",
+        "GET external:/rest/v1/site_settings"
+      ],
+      "blockedSockets": [],
+      "blockedWriteAttempts": []
+    },
+    {
+      "path": "/services/commercial-painting",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "expectedNotFound": false,
+      "expectedUtilityError": false,
+      "resolvedPath": "/services/painting-services",
+      "title": "Painting Services | Ascent Group Construction",
+      "canonicalCount": 1,
+      "canonicals": [
+        "https://www.ascentgroupconstruction.com/services/painting-services"
+      ],
+      "h1": "Painting Services",
+      "h1Count": 1,
+      "somethingWentWrong": false,
+      "notFoundView": false,
+      "unavailableView": false,
+      "failedLazyView": false,
+      "visibleTextSha256": "197943a202c53e09799b8f7ef7f232d27f31d4d6bfb6696e71a582acdab41883",
+      "httpStatus": 200,
+      "consoleErrorCount": 0,
+      "consoleErrors": [],
+      "failedNetworkRequestCount": 0,
+      "failedNetworkRequests": [],
+      "failedResponses": [],
+      "mockedRequestCount": 11,
+      "mockedRequests": [
+        "GET external:/rest/v1/footer_settings",
+        "GET external:/rest/v1/project_services",
+        "GET external:/rest/v1/services",
+        "GET external:/rest/v1/site_settings"
+      ],
+      "blockedSockets": [],
+      "blockedWriteAttempts": []
+    },
+    {
+      "path": "/services/general-contracting",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "expectedNotFound": false,
+      "expectedUtilityError": false,
+      "resolvedPath": "/services",
+      "title": "Specialty Contracting Services | Ascent Group Construction",
+      "canonicalCount": 1,
+      "canonicals": [
+        "https://www.ascentgroupconstruction.com/services"
+      ],
+      "h1": "Specialty contracting services for envelope, restoration, and interior trade execution",
+      "h1Count": 1,
+      "somethingWentWrong": false,
+      "notFoundView": false,
+      "unavailableView": false,
+      "failedLazyView": false,
+      "visibleTextSha256": "73b18c3a0d10bb0295e909f94b31462e0592898a0c51818b0687c3686054db1f",
+      "httpStatus": 200,
+      "consoleErrorCount": 0,
+      "consoleErrors": [],
+      "failedNetworkRequestCount": 0,
+      "failedNetworkRequests": [],
+      "failedResponses": [],
+      "mockedRequestCount": 6,
+      "mockedRequests": [
+        "GET external:/rest/v1/footer_settings",
+        "GET external:/rest/v1/services",
+        "GET external:/rest/v1/site_settings"
+      ],
+      "blockedSockets": [],
+      "blockedWriteAttempts": []
+    },
+    {
+      "path": "/services/construction-management",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "expectedNotFound": false,
+      "expectedUtilityError": false,
+      "resolvedPath": "/services",
+      "title": "Specialty Contracting Services | Ascent Group Construction",
+      "canonicalCount": 1,
+      "canonicals": [
+        "https://www.ascentgroupconstruction.com/services"
+      ],
+      "h1": "Specialty contracting services for envelope, restoration, and interior trade execution",
+      "h1Count": 1,
+      "somethingWentWrong": false,
+      "notFoundView": false,
+      "unavailableView": false,
+      "failedLazyView": false,
+      "visibleTextSha256": "73b18c3a0d10bb0295e909f94b31462e0592898a0c51818b0687c3686054db1f",
+      "httpStatus": 200,
+      "consoleErrorCount": 0,
+      "consoleErrors": [],
+      "failedNetworkRequestCount": 0,
+      "failedNetworkRequests": [],
+      "failedResponses": [],
+      "mockedRequestCount": 6,
+      "mockedRequests": [
+        "GET external:/rest/v1/footer_settings",
+        "GET external:/rest/v1/services",
+        "GET external:/rest/v1/site_settings"
+      ],
+      "blockedSockets": [],
+      "blockedWriteAttempts": []
+    },
+    {
+      "path": "/services/design-build",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "expectedNotFound": false,
+      "expectedUtilityError": false,
+      "resolvedPath": "/services",
+      "title": "Specialty Contracting Services | Ascent Group Construction",
+      "canonicalCount": 1,
+      "canonicals": [
+        "https://www.ascentgroupconstruction.com/services"
+      ],
+      "h1": "Specialty contracting services for envelope, restoration, and interior trade execution",
+      "h1Count": 1,
+      "somethingWentWrong": false,
+      "notFoundView": false,
+      "unavailableView": false,
+      "failedLazyView": false,
+      "visibleTextSha256": "73b18c3a0d10bb0295e909f94b31462e0592898a0c51818b0687c3686054db1f",
+      "httpStatus": 200,
+      "consoleErrorCount": 0,
+      "consoleErrors": [],
+      "failedNetworkRequestCount": 0,
+      "failedNetworkRequests": [],
+      "failedResponses": [],
+      "mockedRequestCount": 6,
+      "mockedRequests": [
+        "GET external:/rest/v1/footer_settings",
+        "GET external:/rest/v1/services",
+        "GET external:/rest/v1/site_settings"
+      ],
+      "blockedSockets": [],
+      "blockedWriteAttempts": []
+    },
+    {
+      "path": "/services/waterproofing",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "expectedNotFound": false,
+      "expectedUtilityError": false,
+      "resolvedPath": "/services/waterproofing-systems",
+      "title": "Waterproofing Systems | Ascent Group Construction",
+      "canonicalCount": 1,
+      "canonicals": [
+        "https://www.ascentgroupconstruction.com/services/waterproofing-systems"
+      ],
+      "h1": "Waterproofing Systems",
+      "h1Count": 1,
+      "somethingWentWrong": false,
+      "notFoundView": false,
+      "unavailableView": false,
+      "failedLazyView": false,
+      "visibleTextSha256": "5d242e87669e726147935d3ed1fdc705fa81dd3f8fe3c490b7bdaf59567d6572",
+      "httpStatus": 200,
+      "consoleErrorCount": 0,
+      "consoleErrors": [],
+      "failedNetworkRequestCount": 0,
+      "failedNetworkRequests": [],
+      "failedResponses": [],
+      "mockedRequestCount": 11,
+      "mockedRequests": [
+        "GET external:/rest/v1/footer_settings",
+        "GET external:/rest/v1/project_services",
+        "GET external:/rest/v1/services",
+        "GET external:/rest/v1/site_settings"
+      ],
+      "blockedSockets": [],
+      "blockedWriteAttempts": []
+    },
+    {
+      "path": "/services/sealant-replacement",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "expectedNotFound": false,
+      "expectedUtilityError": false,
+      "resolvedPath": "/services/sealant-programs",
+      "title": "Sealant Programs | Ascent Group Construction",
+      "canonicalCount": 1,
+      "canonicals": [
+        "https://www.ascentgroupconstruction.com/services/sealant-programs"
+      ],
+      "h1": "Sealant Programs",
+      "h1Count": 1,
+      "somethingWentWrong": false,
+      "notFoundView": false,
+      "unavailableView": false,
+      "failedLazyView": false,
+      "visibleTextSha256": "c1150b5f45fce064b4865da44432cf69e87a3677b48ae85b3325ed7051217764",
+      "httpStatus": 200,
+      "consoleErrorCount": 0,
+      "consoleErrors": [],
+      "failedNetworkRequestCount": 0,
+      "failedNetworkRequests": [],
+      "failedResponses": [],
+      "mockedRequestCount": 11,
+      "mockedRequests": [
+        "GET external:/rest/v1/footer_settings",
+        "GET external:/rest/v1/project_services",
+        "GET external:/rest/v1/services",
+        "GET external:/rest/v1/site_settings"
+      ],
+      "blockedSockets": [],
+      "blockedWriteAttempts": []
+    },
+    {
+      "path": "/services/roofing",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "expectedNotFound": false,
+      "expectedUtilityError": false,
+      "resolvedPath": "/services/building-envelope-solutions",
+      "title": "Building Envelope Solutions | Ascent Group Construction",
+      "canonicalCount": 1,
+      "canonicals": [
+        "https://www.ascentgroupconstruction.com/services/building-envelope-solutions"
+      ],
+      "h1": "Building Envelope Solutions",
+      "h1Count": 1,
+      "somethingWentWrong": false,
+      "notFoundView": false,
+      "unavailableView": false,
+      "failedLazyView": false,
+      "visibleTextSha256": "620fff63841df586a134b6cdc8452e2015a89c827c7edbc1bbb97d91f687efaf",
+      "httpStatus": 200,
+      "consoleErrorCount": 0,
+      "consoleErrors": [],
+      "failedNetworkRequestCount": 0,
+      "failedNetworkRequests": [],
+      "failedResponses": [],
+      "mockedRequestCount": 11,
+      "mockedRequests": [
+        "GET external:/rest/v1/footer_settings",
+        "GET external:/rest/v1/project_services",
+        "GET external:/rest/v1/services",
+        "GET external:/rest/v1/site_settings"
+      ],
+      "blockedSockets": [],
+      "blockedWriteAttempts": []
+    },
+    {
+      "path": "/services/windows-doors",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "expectedNotFound": false,
+      "expectedUtilityError": false,
+      "resolvedPath": "/services/building-envelope-solutions",
+      "title": "Building Envelope Solutions | Ascent Group Construction",
+      "canonicalCount": 1,
+      "canonicals": [
+        "https://www.ascentgroupconstruction.com/services/building-envelope-solutions"
+      ],
+      "h1": "Building Envelope Solutions",
+      "h1Count": 1,
+      "somethingWentWrong": false,
+      "notFoundView": false,
+      "unavailableView": false,
+      "failedLazyView": false,
+      "visibleTextSha256": "620fff63841df586a134b6cdc8452e2015a89c827c7edbc1bbb97d91f687efaf",
+      "httpStatus": 200,
+      "consoleErrorCount": 0,
+      "consoleErrors": [],
+      "failedNetworkRequestCount": 0,
+      "failedNetworkRequests": [],
+      "failedResponses": [],
+      "mockedRequestCount": 11,
+      "mockedRequests": [
+        "GET external:/rest/v1/footer_settings",
+        "GET external:/rest/v1/project_services",
+        "GET external:/rest/v1/services",
+        "GET external:/rest/v1/site_settings"
+      ],
+      "blockedSockets": [],
+      "blockedWriteAttempts": []
+    },
+    {
+      "path": "/services/preconstruction-services",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "expectedNotFound": false,
+      "expectedUtilityError": false,
+      "resolvedPath": "/services",
+      "title": "Specialty Contracting Services | Ascent Group Construction",
+      "canonicalCount": 1,
+      "canonicals": [
+        "https://www.ascentgroupconstruction.com/services"
+      ],
+      "h1": "Specialty contracting services for envelope, restoration, and interior trade execution",
+      "h1Count": 1,
+      "somethingWentWrong": false,
+      "notFoundView": false,
+      "unavailableView": false,
+      "failedLazyView": false,
+      "visibleTextSha256": "73b18c3a0d10bb0295e909f94b31462e0592898a0c51818b0687c3686054db1f",
+      "httpStatus": 200,
+      "consoleErrorCount": 0,
+      "consoleErrors": [],
+      "failedNetworkRequestCount": 0,
+      "failedNetworkRequests": [],
+      "failedResponses": [],
+      "mockedRequestCount": 6,
+      "mockedRequests": [
+        "GET external:/rest/v1/footer_settings",
+        "GET external:/rest/v1/services",
+        "GET external:/rest/v1/site_settings"
+      ],
+      "blockedSockets": [],
+      "blockedWriteAttempts": []
+    },
+    {
+      "path": "/services/virtual-design-construction",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "expectedNotFound": false,
+      "expectedUtilityError": false,
+      "resolvedPath": "/services",
+      "title": "Specialty Contracting Services | Ascent Group Construction",
+      "canonicalCount": 1,
+      "canonicals": [
+        "https://www.ascentgroupconstruction.com/services"
+      ],
+      "h1": "Specialty contracting services for envelope, restoration, and interior trade execution",
+      "h1Count": 1,
+      "somethingWentWrong": false,
+      "notFoundView": false,
+      "unavailableView": false,
+      "failedLazyView": false,
+      "visibleTextSha256": "73b18c3a0d10bb0295e909f94b31462e0592898a0c51818b0687c3686054db1f",
+      "httpStatus": 200,
+      "consoleErrorCount": 0,
+      "consoleErrors": [],
+      "failedNetworkRequestCount": 0,
+      "failedNetworkRequests": [],
+      "failedResponses": [],
+      "mockedRequestCount": 6,
+      "mockedRequests": [
+        "GET external:/rest/v1/footer_settings",
+        "GET external:/rest/v1/services",
+        "GET external:/rest/v1/site_settings"
+      ],
+      "blockedSockets": [],
+      "blockedWriteAttempts": []
+    },
+    {
+      "path": "/services/parking-rehabilitation",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "expectedNotFound": false,
+      "expectedUtilityError": false,
+      "resolvedPath": "/services/parking-garage-restoration",
+      "title": "Parking Garage Restoration | Ascent Group Construction",
+      "canonicalCount": 1,
+      "canonicals": [
+        "https://www.ascentgroupconstruction.com/services/parking-garage-restoration"
+      ],
+      "h1": "Parking Garage Restoration",
+      "h1Count": 1,
+      "somethingWentWrong": false,
+      "notFoundView": false,
+      "unavailableView": false,
+      "failedLazyView": false,
+      "visibleTextSha256": "e82088ea638d9b46028f41f466f020d1853e216f95017d1d0aed42742ff0b15c",
+      "httpStatus": 200,
+      "consoleErrorCount": 0,
+      "consoleErrors": [],
+      "failedNetworkRequestCount": 0,
+      "failedNetworkRequests": [],
+      "failedResponses": [],
+      "mockedRequestCount": 11,
+      "mockedRequests": [
+        "GET external:/rest/v1/footer_settings",
+        "GET external:/rest/v1/project_services",
+        "GET external:/rest/v1/services",
+        "GET external:/rest/v1/site_settings"
+      ],
+      "blockedSockets": [],
+      "blockedWriteAttempts": []
+    },
+    {
+      "path": "/services/sustainable-construction",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "expectedNotFound": false,
+      "expectedUtilityError": false,
+      "resolvedPath": "/services/sustainable-building",
+      "title": "Sustainable Construction | Ascent Group Construction",
+      "canonicalCount": 1,
+      "canonicals": [
+        "https://www.ascentgroupconstruction.com/services/sustainable-building"
+      ],
+      "h1": "Sustainable Construction",
+      "h1Count": 1,
+      "somethingWentWrong": false,
+      "notFoundView": false,
+      "unavailableView": false,
+      "failedLazyView": false,
+      "visibleTextSha256": "3e6368a048fbb15e16f9d47e9b3d29b092db56e7e005bbdedde85993df8f6dd1",
+      "httpStatus": 200,
+      "consoleErrorCount": 0,
+      "consoleErrors": [],
+      "failedNetworkRequestCount": 0,
+      "failedNetworkRequests": [],
+      "failedResponses": [],
+      "mockedRequestCount": 11,
+      "mockedRequests": [
+        "GET external:/rest/v1/footer_settings",
+        "GET external:/rest/v1/project_services",
+        "GET external:/rest/v1/services",
+        "GET external:/rest/v1/site_settings"
+      ],
+      "blockedSockets": [],
+      "blockedWriteAttempts": []
+    },
+    {
+      "path": "/services/protective-coatings",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "expectedNotFound": false,
+      "expectedUtilityError": false,
+      "resolvedPath": "/services/painting-services",
+      "title": "Painting Services | Ascent Group Construction",
+      "canonicalCount": 1,
+      "canonicals": [
+        "https://www.ascentgroupconstruction.com/services/painting-services"
+      ],
+      "h1": "Painting Services",
+      "h1Count": 1,
+      "somethingWentWrong": false,
+      "notFoundView": false,
+      "unavailableView": false,
+      "failedLazyView": false,
+      "visibleTextSha256": "197943a202c53e09799b8f7ef7f232d27f31d4d6bfb6696e71a582acdab41883",
+      "httpStatus": 200,
+      "consoleErrorCount": 0,
+      "consoleErrors": [],
+      "failedNetworkRequestCount": 0,
+      "failedNetworkRequests": [],
+      "failedResponses": [],
+      "mockedRequestCount": 11,
+      "mockedRequests": [
+        "GET external:/rest/v1/footer_settings",
+        "GET external:/rest/v1/project_services",
+        "GET external:/rest/v1/services",
+        "GET external:/rest/v1/site_settings"
+      ],
+      "blockedSockets": [],
+      "blockedWriteAttempts": []
+    },
+    {
+      "path": "/services/stucco",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "expectedNotFound": false,
+      "expectedUtilityError": false,
+      "resolvedPath": "/services/cladding-systems",
+      "title": "Cladding Systems | Ascent Group Construction",
+      "canonicalCount": 1,
+      "canonicals": [
+        "https://www.ascentgroupconstruction.com/services/cladding-systems"
+      ],
+      "h1": "Cladding Systems",
+      "h1Count": 1,
+      "somethingWentWrong": false,
+      "notFoundView": false,
+      "unavailableView": false,
+      "failedLazyView": false,
+      "visibleTextSha256": "f24b393049e1474ae3733375e6456ff694eded730e0003798b67fa2f13bb56eb",
+      "httpStatus": 200,
+      "consoleErrorCount": 0,
+      "consoleErrors": [],
+      "failedNetworkRequestCount": 0,
+      "failedNetworkRequests": [],
+      "failedResponses": [],
+      "mockedRequestCount": 11,
+      "mockedRequests": [
+        "GET external:/rest/v1/footer_settings",
+        "GET external:/rest/v1/project_services",
+        "GET external:/rest/v1/services",
+        "GET external:/rest/v1/site_settings"
+      ],
+      "blockedSockets": [],
+      "blockedWriteAttempts": []
+    },
+    {
+      "path": "/services/stucco-eifs",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "expectedNotFound": false,
+      "expectedUtilityError": false,
+      "resolvedPath": "/services/eifs-stucco-systems",
+      "title": "EIFS & Stucco | Ascent Group Construction",
+      "canonicalCount": 1,
+      "canonicals": [
+        "https://www.ascentgroupconstruction.com/services/eifs-stucco-systems"
+      ],
+      "h1": "EIFS & Stucco",
+      "h1Count": 1,
+      "somethingWentWrong": false,
+      "notFoundView": false,
+      "unavailableView": false,
+      "failedLazyView": false,
+      "visibleTextSha256": "d350cf1902bc8641f5999e86945968a59bb10b78deddf8e4bc6f1950c46438da",
+      "httpStatus": 200,
+      "consoleErrorCount": 0,
+      "consoleErrors": [],
+      "failedNetworkRequestCount": 0,
+      "failedNetworkRequests": [],
+      "failedResponses": [],
+      "mockedRequestCount": 11,
+      "mockedRequests": [
+        "GET external:/rest/v1/footer_settings",
+        "GET external:/rest/v1/project_services",
+        "GET external:/rest/v1/services",
+        "GET external:/rest/v1/site_settings"
+      ],
+      "blockedSockets": [],
+      "blockedWriteAttempts": []
+    },
+    {
+      "path": "/services/sealants",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "expectedNotFound": false,
+      "expectedUtilityError": false,
+      "resolvedPath": "/services/building-envelope-solutions",
+      "title": "Building Envelope Solutions | Ascent Group Construction",
+      "canonicalCount": 1,
+      "canonicals": [
+        "https://www.ascentgroupconstruction.com/services/building-envelope-solutions"
+      ],
+      "h1": "Building Envelope Solutions",
+      "h1Count": 1,
+      "somethingWentWrong": false,
+      "notFoundView": false,
+      "unavailableView": false,
+      "failedLazyView": false,
+      "visibleTextSha256": "620fff63841df586a134b6cdc8452e2015a89c827c7edbc1bbb97d91f687efaf",
+      "httpStatus": 200,
+      "consoleErrorCount": 0,
+      "consoleErrors": [],
+      "failedNetworkRequestCount": 0,
+      "failedNetworkRequests": [],
+      "failedResponses": [],
+      "mockedRequestCount": 11,
+      "mockedRequests": [
+        "GET external:/rest/v1/footer_settings",
+        "GET external:/rest/v1/project_services",
+        "GET external:/rest/v1/services",
+        "GET external:/rest/v1/site_settings"
+      ],
+      "blockedSockets": [],
+      "blockedWriteAttempts": []
+    },
+    {
+      "path": "/services/sealants-caulking",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "expectedNotFound": false,
+      "expectedUtilityError": false,
+      "resolvedPath": "/services/sealant-programs",
+      "title": "Sealant Programs | Ascent Group Construction",
+      "canonicalCount": 1,
+      "canonicals": [
+        "https://www.ascentgroupconstruction.com/services/sealant-programs"
+      ],
+      "h1": "Sealant Programs",
+      "h1Count": 1,
+      "somethingWentWrong": false,
+      "notFoundView": false,
+      "unavailableView": false,
+      "failedLazyView": false,
+      "visibleTextSha256": "c1150b5f45fce064b4865da44432cf69e87a3677b48ae85b3325ed7051217764",
+      "httpStatus": 200,
+      "consoleErrorCount": 0,
+      "consoleErrors": [],
+      "failedNetworkRequestCount": 0,
+      "failedNetworkRequests": [],
+      "failedResponses": [],
+      "mockedRequestCount": 11,
+      "mockedRequests": [
+        "GET external:/rest/v1/footer_settings",
+        "GET external:/rest/v1/project_services",
+        "GET external:/rest/v1/services",
+        "GET external:/rest/v1/site_settings"
+      ],
+      "blockedSockets": [],
+      "blockedWriteAttempts": []
+    },
+    {
+      "path": "/services/parking-garage",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "expectedNotFound": false,
+      "expectedUtilityError": false,
+      "resolvedPath": "/services/parking-garage-restoration",
+      "title": "Parking Garage Restoration | Ascent Group Construction",
+      "canonicalCount": 1,
+      "canonicals": [
+        "https://www.ascentgroupconstruction.com/services/parking-garage-restoration"
+      ],
+      "h1": "Parking Garage Restoration",
+      "h1Count": 1,
+      "somethingWentWrong": false,
+      "notFoundView": false,
+      "unavailableView": false,
+      "failedLazyView": false,
+      "visibleTextSha256": "e82088ea638d9b46028f41f466f020d1853e216f95017d1d0aed42742ff0b15c",
+      "httpStatus": 200,
+      "consoleErrorCount": 0,
+      "consoleErrors": [],
+      "failedNetworkRequestCount": 0,
+      "failedNetworkRequests": [],
+      "failedResponses": [],
+      "mockedRequestCount": 11,
+      "mockedRequests": [
+        "GET external:/rest/v1/footer_settings",
+        "GET external:/rest/v1/project_services",
+        "GET external:/rest/v1/services",
+        "GET external:/rest/v1/site_settings"
+      ],
+      "blockedSockets": [],
+      "blockedWriteAttempts": []
+    },
+    {
+      "path": "/services/commercial",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "expectedNotFound": false,
+      "expectedUtilityError": false,
+      "resolvedPath": "/services",
+      "title": "Specialty Contracting Services | Ascent Group Construction",
+      "canonicalCount": 1,
+      "canonicals": [
+        "https://www.ascentgroupconstruction.com/services"
+      ],
+      "h1": "Specialty contracting services for envelope, restoration, and interior trade execution",
+      "h1Count": 1,
+      "somethingWentWrong": false,
+      "notFoundView": false,
+      "unavailableView": false,
+      "failedLazyView": false,
+      "visibleTextSha256": "73b18c3a0d10bb0295e909f94b31462e0592898a0c51818b0687c3686054db1f",
+      "httpStatus": 200,
+      "consoleErrorCount": 0,
+      "consoleErrors": [],
+      "failedNetworkRequestCount": 0,
+      "failedNetworkRequests": [],
+      "failedResponses": [],
+      "mockedRequestCount": 6,
+      "mockedRequests": [
+        "GET external:/rest/v1/footer_settings",
+        "GET external:/rest/v1/services",
+        "GET external:/rest/v1/site_settings"
+      ],
+      "blockedSockets": [],
+      "blockedWriteAttempts": []
+    },
+    {
+      "path": "/services/condo",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "expectedNotFound": false,
+      "expectedUtilityError": false,
+      "resolvedPath": "/services/painting-services",
+      "title": "Painting Services | Ascent Group Construction",
+      "canonicalCount": 1,
+      "canonicals": [
+        "https://www.ascentgroupconstruction.com/services/painting-services"
+      ],
+      "h1": "Painting Services",
+      "h1Count": 1,
+      "somethingWentWrong": false,
+      "notFoundView": false,
+      "unavailableView": false,
+      "failedLazyView": false,
+      "visibleTextSha256": "197943a202c53e09799b8f7ef7f232d27f31d4d6bfb6696e71a582acdab41883",
+      "httpStatus": 200,
+      "consoleErrorCount": 0,
+      "consoleErrors": [],
+      "failedNetworkRequestCount": 0,
+      "failedNetworkRequests": [],
+      "failedResponses": [],
+      "mockedRequestCount": 11,
+      "mockedRequests": [
+        "GET external:/rest/v1/footer_settings",
+        "GET external:/rest/v1/project_services",
+        "GET external:/rest/v1/services",
+        "GET external:/rest/v1/site_settings"
+      ],
+      "blockedSockets": [],
+      "blockedWriteAttempts": []
+    },
+    {
+      "path": "/services/masonry",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "expectedNotFound": false,
+      "expectedUtilityError": false,
+      "resolvedPath": "/services/masonry-restoration",
+      "title": "Masonry Restoration | Ascent Group Construction",
+      "canonicalCount": 1,
+      "canonicals": [
+        "https://www.ascentgroupconstruction.com/services/masonry-restoration"
+      ],
+      "h1": "Masonry Restoration",
+      "h1Count": 1,
+      "somethingWentWrong": false,
+      "notFoundView": false,
+      "unavailableView": false,
+      "failedLazyView": false,
+      "visibleTextSha256": "906f9a187543718a0028a3767df35db7a0b6ea749c1baed3a46044d832b69d07",
+      "httpStatus": 200,
+      "consoleErrorCount": 0,
+      "consoleErrors": [],
+      "failedNetworkRequestCount": 0,
+      "failedNetworkRequests": [],
+      "failedResponses": [],
+      "mockedRequestCount": 11,
+      "mockedRequests": [
+        "GET external:/rest/v1/footer_settings",
+        "GET external:/rest/v1/project_services",
+        "GET external:/rest/v1/services",
+        "GET external:/rest/v1/site_settings"
+      ],
+      "blockedSockets": [],
+      "blockedWriteAttempts": []
+    },
+    {
+      "path": "/services/building-envelope-solutions",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "expectedNotFound": false,
+      "expectedUtilityError": false,
+      "resolvedPath": "/services/building-envelope-solutions",
+      "title": "Building Envelope Solutions | Ascent Group Construction",
+      "canonicalCount": 1,
+      "canonicals": [
+        "https://www.ascentgroupconstruction.com/services/building-envelope-solutions"
+      ],
+      "h1": "Building Envelope Solutions",
+      "h1Count": 1,
+      "somethingWentWrong": false,
+      "notFoundView": false,
+      "unavailableView": false,
+      "failedLazyView": false,
+      "visibleTextSha256": "620fff63841df586a134b6cdc8452e2015a89c827c7edbc1bbb97d91f687efaf",
+      "httpStatus": 200,
+      "consoleErrorCount": 0,
+      "consoleErrors": [],
+      "failedNetworkRequestCount": 0,
+      "failedNetworkRequests": [],
+      "failedResponses": [],
+      "mockedRequestCount": 11,
+      "mockedRequests": [
+        "GET external:/rest/v1/footer_settings",
+        "GET external:/rest/v1/project_services",
+        "GET external:/rest/v1/services",
+        "GET external:/rest/v1/site_settings"
+      ],
+      "blockedSockets": [],
+      "blockedWriteAttempts": []
+    },
+    {
+      "path": "/services/cladding-systems",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "expectedNotFound": false,
+      "expectedUtilityError": false,
+      "resolvedPath": "/services/cladding-systems",
+      "title": "Cladding Systems | Ascent Group Construction",
+      "canonicalCount": 1,
+      "canonicals": [
+        "https://www.ascentgroupconstruction.com/services/cladding-systems"
+      ],
+      "h1": "Cladding Systems",
+      "h1Count": 1,
+      "somethingWentWrong": false,
+      "notFoundView": false,
+      "unavailableView": false,
+      "failedLazyView": false,
+      "visibleTextSha256": "f24b393049e1474ae3733375e6456ff694eded730e0003798b67fa2f13bb56eb",
+      "httpStatus": 200,
+      "consoleErrorCount": 0,
+      "consoleErrors": [],
+      "failedNetworkRequestCount": 0,
+      "failedNetworkRequests": [],
+      "failedResponses": [],
+      "mockedRequestCount": 11,
+      "mockedRequests": [
+        "GET external:/rest/v1/footer_settings",
+        "GET external:/rest/v1/project_services",
+        "GET external:/rest/v1/services",
+        "GET external:/rest/v1/site_settings"
+      ],
+      "blockedSockets": [],
+      "blockedWriteAttempts": []
+    },
+    {
+      "path": "/services/waterproofing-systems",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "expectedNotFound": false,
+      "expectedUtilityError": false,
+      "resolvedPath": "/services/waterproofing-systems",
+      "title": "Waterproofing Systems | Ascent Group Construction",
+      "canonicalCount": 1,
+      "canonicals": [
+        "https://www.ascentgroupconstruction.com/services/waterproofing-systems"
+      ],
+      "h1": "Waterproofing Systems",
+      "h1Count": 1,
+      "somethingWentWrong": false,
+      "notFoundView": false,
+      "unavailableView": false,
+      "failedLazyView": false,
+      "visibleTextSha256": "5d242e87669e726147935d3ed1fdc705fa81dd3f8fe3c490b7bdaf59567d6572",
+      "httpStatus": 200,
+      "consoleErrorCount": 0,
+      "consoleErrors": [],
+      "failedNetworkRequestCount": 0,
+      "failedNetworkRequests": [],
+      "failedResponses": [],
+      "mockedRequestCount": 11,
+      "mockedRequests": [
+        "GET external:/rest/v1/footer_settings",
+        "GET external:/rest/v1/project_services",
+        "GET external:/rest/v1/services",
+        "GET external:/rest/v1/site_settings"
+      ],
+      "blockedSockets": [],
+      "blockedWriteAttempts": []
+    },
+    {
+      "path": "/services/eifs-stucco-systems",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "expectedNotFound": false,
+      "expectedUtilityError": false,
+      "resolvedPath": "/services/eifs-stucco-systems",
+      "title": "EIFS & Stucco | Ascent Group Construction",
+      "canonicalCount": 1,
+      "canonicals": [
+        "https://www.ascentgroupconstruction.com/services/eifs-stucco-systems"
+      ],
+      "h1": "EIFS & Stucco",
+      "h1Count": 1,
+      "somethingWentWrong": false,
+      "notFoundView": false,
+      "unavailableView": false,
+      "failedLazyView": false,
+      "visibleTextSha256": "d350cf1902bc8641f5999e86945968a59bb10b78deddf8e4bc6f1950c46438da",
+      "httpStatus": 200,
+      "consoleErrorCount": 0,
+      "consoleErrors": [],
+      "failedNetworkRequestCount": 0,
+      "failedNetworkRequests": [],
+      "failedResponses": [],
+      "mockedRequestCount": 11,
+      "mockedRequests": [
+        "GET external:/rest/v1/footer_settings",
+        "GET external:/rest/v1/project_services",
+        "GET external:/rest/v1/services",
+        "GET external:/rest/v1/site_settings"
+      ],
+      "blockedSockets": [],
+      "blockedWriteAttempts": []
+    },
+    {
+      "path": "/services/facade-remediation",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "expectedNotFound": false,
+      "expectedUtilityError": false,
+      "resolvedPath": "/services/facade-remediation",
+      "title": "Façade Remediation | Ascent Group Construction",
+      "canonicalCount": 1,
+      "canonicals": [
+        "https://www.ascentgroupconstruction.com/services/facade-remediation"
+      ],
+      "h1": "Façade Remediation",
+      "h1Count": 1,
+      "somethingWentWrong": false,
+      "notFoundView": false,
+      "unavailableView": false,
+      "failedLazyView": false,
+      "visibleTextSha256": "9d5260057901932682d5b7517df0c6018951c99204affd6d319de33be591421a",
+      "httpStatus": 200,
+      "consoleErrorCount": 0,
+      "consoleErrors": [],
+      "failedNetworkRequestCount": 0,
+      "failedNetworkRequests": [],
+      "failedResponses": [],
+      "mockedRequestCount": 11,
+      "mockedRequests": [
+        "GET external:/rest/v1/footer_settings",
+        "GET external:/rest/v1/project_services",
+        "GET external:/rest/v1/services",
+        "GET external:/rest/v1/site_settings"
+      ],
+      "blockedSockets": [],
+      "blockedWriteAttempts": []
+    },
+    {
+      "path": "/services/masonry-restoration",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "expectedNotFound": false,
+      "expectedUtilityError": false,
+      "resolvedPath": "/services/masonry-restoration",
+      "title": "Masonry Restoration | Ascent Group Construction",
+      "canonicalCount": 1,
+      "canonicals": [
+        "https://www.ascentgroupconstruction.com/services/masonry-restoration"
+      ],
+      "h1": "Masonry Restoration",
+      "h1Count": 1,
+      "somethingWentWrong": false,
+      "notFoundView": false,
+      "unavailableView": false,
+      "failedLazyView": false,
+      "visibleTextSha256": "906f9a187543718a0028a3767df35db7a0b6ea749c1baed3a46044d832b69d07",
+      "httpStatus": 200,
+      "consoleErrorCount": 0,
+      "consoleErrors": [],
+      "failedNetworkRequestCount": 0,
+      "failedNetworkRequests": [],
+      "failedResponses": [],
+      "mockedRequestCount": 11,
+      "mockedRequests": [
+        "GET external:/rest/v1/footer_settings",
+        "GET external:/rest/v1/project_services",
+        "GET external:/rest/v1/services",
+        "GET external:/rest/v1/site_settings"
+      ],
+      "blockedSockets": [],
+      "blockedWriteAttempts": []
+    },
+    {
+      "path": "/services/parking-garage-restoration",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "expectedNotFound": false,
+      "expectedUtilityError": false,
+      "resolvedPath": "/services/parking-garage-restoration",
+      "title": "Parking Garage Restoration | Ascent Group Construction",
+      "canonicalCount": 1,
+      "canonicals": [
+        "https://www.ascentgroupconstruction.com/services/parking-garage-restoration"
+      ],
+      "h1": "Parking Garage Restoration",
+      "h1Count": 1,
+      "somethingWentWrong": false,
+      "notFoundView": false,
+      "unavailableView": false,
+      "failedLazyView": false,
+      "visibleTextSha256": "e82088ea638d9b46028f41f466f020d1853e216f95017d1d0aed42742ff0b15c",
+      "httpStatus": 200,
+      "consoleErrorCount": 0,
+      "consoleErrors": [],
+      "failedNetworkRequestCount": 0,
+      "failedNetworkRequests": [],
+      "failedResponses": [],
+      "mockedRequestCount": 11,
+      "mockedRequests": [
+        "GET external:/rest/v1/footer_settings",
+        "GET external:/rest/v1/project_services",
+        "GET external:/rest/v1/services",
+        "GET external:/rest/v1/site_settings"
+      ],
+      "blockedSockets": [],
+      "blockedWriteAttempts": []
+    },
+    {
+      "path": "/services/interior-buildouts-finishing",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "expectedNotFound": false,
+      "expectedUtilityError": false,
+      "resolvedPath": "/services/interior-buildouts-finishing",
+      "title": "Interior Finishing | Ascent Group Construction",
+      "canonicalCount": 1,
+      "canonicals": [
+        "https://www.ascentgroupconstruction.com/services/interior-buildouts-finishing"
+      ],
+      "h1": "Interior Finishing",
+      "h1Count": 1,
+      "somethingWentWrong": false,
+      "notFoundView": false,
+      "unavailableView": false,
+      "failedLazyView": false,
+      "visibleTextSha256": "29a13cc2e72c64b02b3c48d6ae10a09f6b95607b73e2fc57142d1679985c4bc1",
+      "httpStatus": 200,
+      "consoleErrorCount": 0,
+      "consoleErrors": [],
+      "failedNetworkRequestCount": 0,
+      "failedNetworkRequests": [],
+      "failedResponses": [],
+      "mockedRequestCount": 11,
+      "mockedRequests": [
+        "GET external:/rest/v1/footer_settings",
+        "GET external:/rest/v1/project_services",
+        "GET external:/rest/v1/services",
+        "GET external:/rest/v1/site_settings"
+      ],
+      "blockedSockets": [],
+      "blockedWriteAttempts": []
+    },
+    {
+      "path": "/services/tile-flooring",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "expectedNotFound": false,
+      "expectedUtilityError": false,
+      "resolvedPath": "/services/tile-flooring",
+      "title": "Tile & Flooring | Ascent Group Construction",
+      "canonicalCount": 1,
+      "canonicals": [
+        "https://www.ascentgroupconstruction.com/services/tile-flooring"
+      ],
+      "h1": "Tile & Flooring",
+      "h1Count": 1,
+      "somethingWentWrong": false,
+      "notFoundView": false,
+      "unavailableView": false,
+      "failedLazyView": false,
+      "visibleTextSha256": "e77366fbb69f2155d03c962a7d7be093913ec4686916e378300e822a9586a362",
+      "httpStatus": 200,
+      "consoleErrorCount": 0,
+      "consoleErrors": [],
+      "failedNetworkRequestCount": 0,
+      "failedNetworkRequests": [],
+      "failedResponses": [],
+      "mockedRequestCount": 11,
+      "mockedRequests": [
+        "GET external:/rest/v1/footer_settings",
+        "GET external:/rest/v1/project_services",
+        "GET external:/rest/v1/services",
+        "GET external:/rest/v1/site_settings"
+      ],
+      "blockedSockets": [],
+      "blockedWriteAttempts": []
+    },
+    {
+      "path": "/services/interior-finishing-renovations",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "expectedNotFound": false,
+      "expectedUtilityError": false,
+      "resolvedPath": "/services/interior-finishing-renovations",
+      "title": "Interior Finishing & Renovations | Ascent Group Construction",
+      "canonicalCount": 1,
+      "canonicals": [
+        "https://www.ascentgroupconstruction.com/services/interior-finishing-renovations"
+      ],
+      "h1": "Interior Finishing & Renovations",
+      "h1Count": 1,
+      "somethingWentWrong": false,
+      "notFoundView": false,
+      "unavailableView": false,
+      "failedLazyView": false,
+      "visibleTextSha256": "71e949eb864d16f28b8e0bbf2688b9e13c6d387d1d94ce65670366aae645efc6",
+      "httpStatus": 200,
+      "consoleErrorCount": 0,
+      "consoleErrors": [],
+      "failedNetworkRequestCount": 0,
+      "failedNetworkRequests": [],
+      "failedResponses": [],
+      "mockedRequestCount": 11,
+      "mockedRequests": [
+        "GET external:/rest/v1/footer_settings",
+        "GET external:/rest/v1/project_services",
+        "GET external:/rest/v1/services",
+        "GET external:/rest/v1/site_settings"
+      ],
+      "blockedSockets": [],
+      "blockedWriteAttempts": []
+    },
+    {
+      "path": "/services/sealant-programs",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "expectedNotFound": false,
+      "expectedUtilityError": false,
+      "resolvedPath": "/services/sealant-programs",
+      "title": "Sealant Programs | Ascent Group Construction",
+      "canonicalCount": 1,
+      "canonicals": [
+        "https://www.ascentgroupconstruction.com/services/sealant-programs"
+      ],
+      "h1": "Sealant Programs",
+      "h1Count": 1,
+      "somethingWentWrong": false,
+      "notFoundView": false,
+      "unavailableView": false,
+      "failedLazyView": false,
+      "visibleTextSha256": "c1150b5f45fce064b4865da44432cf69e87a3677b48ae85b3325ed7051217764",
+      "httpStatus": 200,
+      "consoleErrorCount": 0,
+      "consoleErrors": [],
+      "failedNetworkRequestCount": 0,
+      "failedNetworkRequests": [],
+      "failedResponses": [],
+      "mockedRequestCount": 11,
+      "mockedRequests": [
+        "GET external:/rest/v1/footer_settings",
+        "GET external:/rest/v1/project_services",
+        "GET external:/rest/v1/services",
+        "GET external:/rest/v1/site_settings"
+      ],
+      "blockedSockets": [],
+      "blockedWriteAttempts": []
+    },
+    {
+      "path": "/services/sustainable-building",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "expectedNotFound": false,
+      "expectedUtilityError": false,
+      "resolvedPath": "/services/sustainable-building",
+      "title": "Sustainable Construction | Ascent Group Construction",
+      "canonicalCount": 1,
+      "canonicals": [
+        "https://www.ascentgroupconstruction.com/services/sustainable-building"
+      ],
+      "h1": "Sustainable Construction",
+      "h1Count": 1,
+      "somethingWentWrong": false,
+      "notFoundView": false,
+      "unavailableView": false,
+      "failedLazyView": false,
+      "visibleTextSha256": "3e6368a048fbb15e16f9d47e9b3d29b092db56e7e005bbdedde85993df8f6dd1",
+      "httpStatus": 200,
+      "consoleErrorCount": 0,
+      "consoleErrors": [],
+      "failedNetworkRequestCount": 0,
+      "failedNetworkRequests": [],
+      "failedResponses": [],
+      "mockedRequestCount": 11,
+      "mockedRequests": [
+        "GET external:/rest/v1/footer_settings",
+        "GET external:/rest/v1/project_services",
+        "GET external:/rest/v1/services",
+        "GET external:/rest/v1/site_settings"
+      ],
+      "blockedSockets": [],
+      "blockedWriteAttempts": []
+    },
+    {
+      "path": "/service-areas/mississauga",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "expectedNotFound": false,
+      "expectedUtilityError": false,
+      "resolvedPath": "/service-areas/mississauga",
+      "title": "Building Envelope Contractor in Mississauga | Ascent Group",
+      "canonicalCount": 1,
+      "canonicals": [
+        "https://www.ascentgroupconstruction.com/service-areas/mississauga"
+      ],
+      "h1": "Building Envelope Services in Mississauga",
+      "h1Count": 1,
+      "somethingWentWrong": false,
+      "notFoundView": false,
+      "unavailableView": false,
+      "failedLazyView": false,
+      "visibleTextSha256": "37ea64dedef37de30b400b233b649777e355e477dc7b2fc5b9c25340e4db172f",
+      "httpStatus": 200,
+      "consoleErrorCount": 0,
+      "consoleErrors": [],
+      "failedNetworkRequestCount": 0,
+      "failedNetworkRequests": [],
+      "failedResponses": [],
+      "mockedRequestCount": 9,
+      "mockedRequests": [
+        "GET external:/maps",
+        "GET external:/rest/v1/footer_settings",
+        "GET external:/rest/v1/projects",
+        "GET external:/rest/v1/services",
+        "GET external:/rest/v1/site_settings"
+      ],
+      "blockedSockets": [],
+      "blockedWriteAttempts": []
+    },
+    {
+      "path": "/service-areas/brampton",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "expectedNotFound": false,
+      "expectedUtilityError": false,
+      "resolvedPath": "/service-areas/brampton",
+      "title": "Building Envelope Contractor in Brampton | Ascent Group",
+      "canonicalCount": 1,
+      "canonicals": [
+        "https://www.ascentgroupconstruction.com/service-areas/brampton"
+      ],
+      "h1": "Building Envelope Services in Brampton",
+      "h1Count": 1,
+      "somethingWentWrong": false,
+      "notFoundView": false,
+      "unavailableView": false,
+      "failedLazyView": false,
+      "visibleTextSha256": "7f52b25788ac9968732f8b921e51ba194da26293d705a463a4dbbf98817acf10",
+      "httpStatus": 200,
+      "consoleErrorCount": 0,
+      "consoleErrors": [],
+      "failedNetworkRequestCount": 0,
+      "failedNetworkRequests": [],
+      "failedResponses": [],
+      "mockedRequestCount": 9,
+      "mockedRequests": [
+        "GET external:/maps",
+        "GET external:/rest/v1/footer_settings",
+        "GET external:/rest/v1/projects",
+        "GET external:/rest/v1/services",
+        "GET external:/rest/v1/site_settings"
+      ],
+      "blockedSockets": [],
+      "blockedWriteAttempts": []
+    },
+    {
+      "path": "/service-areas/vaughan",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "expectedNotFound": false,
+      "expectedUtilityError": false,
+      "resolvedPath": "/service-areas/vaughan",
+      "title": "Building Envelope Contractor in Vaughan | Ascent Group",
+      "canonicalCount": 1,
+      "canonicals": [
+        "https://www.ascentgroupconstruction.com/service-areas/vaughan"
+      ],
+      "h1": "Building Envelope Services in Vaughan",
+      "h1Count": 1,
+      "somethingWentWrong": false,
+      "notFoundView": false,
+      "unavailableView": false,
+      "failedLazyView": false,
+      "visibleTextSha256": "46099f14ecfe7cd8425fe90d8ee482f1ad684e97727f6ff75277a6e46072b2ad",
+      "httpStatus": 200,
+      "consoleErrorCount": 0,
+      "consoleErrors": [],
+      "failedNetworkRequestCount": 0,
+      "failedNetworkRequests": [],
+      "failedResponses": [],
+      "mockedRequestCount": 9,
+      "mockedRequests": [
+        "GET external:/maps",
+        "GET external:/rest/v1/footer_settings",
+        "GET external:/rest/v1/projects",
+        "GET external:/rest/v1/services",
+        "GET external:/rest/v1/site_settings"
+      ],
+      "blockedSockets": [],
+      "blockedWriteAttempts": []
+    },
+    {
+      "path": "/service-areas/markham",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "expectedNotFound": false,
+      "expectedUtilityError": false,
+      "resolvedPath": "/service-areas/markham",
+      "title": "Building Envelope Contractor in Markham | Ascent Group",
+      "canonicalCount": 1,
+      "canonicals": [
+        "https://www.ascentgroupconstruction.com/service-areas/markham"
+      ],
+      "h1": "Building Envelope Services in Markham",
+      "h1Count": 1,
+      "somethingWentWrong": false,
+      "notFoundView": false,
+      "unavailableView": false,
+      "failedLazyView": false,
+      "visibleTextSha256": "fcf5ad37e9500bbdc8aa4dd411a25319bf3280cca1aa700aaab6991a2ebda4f6",
+      "httpStatus": 200,
+      "consoleErrorCount": 0,
+      "consoleErrors": [],
+      "failedNetworkRequestCount": 0,
+      "failedNetworkRequests": [],
+      "failedResponses": [],
+      "mockedRequestCount": 9,
+      "mockedRequests": [
+        "GET external:/maps",
+        "GET external:/rest/v1/footer_settings",
+        "GET external:/rest/v1/projects",
+        "GET external:/rest/v1/services",
+        "GET external:/rest/v1/site_settings"
+      ],
+      "blockedSockets": [],
+      "blockedWriteAttempts": []
+    },
+    {
+      "path": "/service-areas/richmond-hill",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "expectedNotFound": false,
+      "expectedUtilityError": false,
+      "resolvedPath": "/service-areas/richmond-hill",
+      "title": "Building Envelope Contractor in Richmond Hill | Ascent Group",
+      "canonicalCount": 1,
+      "canonicals": [
+        "https://www.ascentgroupconstruction.com/service-areas/richmond-hill"
+      ],
+      "h1": "Building Envelope Services in Richmond Hill",
+      "h1Count": 1,
+      "somethingWentWrong": false,
+      "notFoundView": false,
+      "unavailableView": false,
+      "failedLazyView": false,
+      "visibleTextSha256": "d8272869cf37c9ed4568cfb5f2c44ed5a3136592bad427b13130ed132aecf099",
+      "httpStatus": 200,
+      "consoleErrorCount": 0,
+      "consoleErrors": [],
+      "failedNetworkRequestCount": 0,
+      "failedNetworkRequests": [],
+      "failedResponses": [],
+      "mockedRequestCount": 9,
+      "mockedRequests": [
+        "GET external:/maps",
+        "GET external:/rest/v1/footer_settings",
+        "GET external:/rest/v1/projects",
+        "GET external:/rest/v1/services",
+        "GET external:/rest/v1/site_settings"
+      ],
+      "blockedSockets": [],
+      "blockedWriteAttempts": []
+    },
+    {
+      "path": "/service-areas/oakville",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "expectedNotFound": false,
+      "expectedUtilityError": false,
+      "resolvedPath": "/service-areas/oakville",
+      "title": "Building Envelope Contractor in Oakville | Ascent Group",
+      "canonicalCount": 1,
+      "canonicals": [
+        "https://www.ascentgroupconstruction.com/service-areas/oakville"
+      ],
+      "h1": "Building Envelope Services in Oakville",
+      "h1Count": 1,
+      "somethingWentWrong": false,
+      "notFoundView": false,
+      "unavailableView": false,
+      "failedLazyView": false,
+      "visibleTextSha256": "7f0798fb4dafe405dd4dfd5572350f8decf3a1a206731e4f6fa0cb7c64c7e3f4",
+      "httpStatus": 200,
+      "consoleErrorCount": 0,
+      "consoleErrors": [],
+      "failedNetworkRequestCount": 0,
+      "failedNetworkRequests": [],
+      "failedResponses": [],
+      "mockedRequestCount": 9,
+      "mockedRequests": [
+        "GET external:/maps",
+        "GET external:/rest/v1/footer_settings",
+        "GET external:/rest/v1/projects",
+        "GET external:/rest/v1/services",
+        "GET external:/rest/v1/site_settings"
+      ],
+      "blockedSockets": [],
+      "blockedWriteAttempts": []
+    },
+    {
+      "path": "/service-areas/burlington",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "expectedNotFound": false,
+      "expectedUtilityError": false,
+      "resolvedPath": "/service-areas/burlington",
+      "title": "Building Envelope Contractor in Burlington | Ascent Group",
+      "canonicalCount": 1,
+      "canonicals": [
+        "https://www.ascentgroupconstruction.com/service-areas/burlington"
+      ],
+      "h1": "Building Envelope Services in Burlington",
+      "h1Count": 1,
+      "somethingWentWrong": false,
+      "notFoundView": false,
+      "unavailableView": false,
+      "failedLazyView": false,
+      "visibleTextSha256": "1981b9a6aeefb28e3005b77ec1081a33640c0e893acdbb47edf58ee2f2f544ee",
+      "httpStatus": 200,
+      "consoleErrorCount": 0,
+      "consoleErrors": [],
+      "failedNetworkRequestCount": 0,
+      "failedNetworkRequests": [],
+      "failedResponses": [],
+      "mockedRequestCount": 9,
+      "mockedRequests": [
+        "GET external:/maps",
+        "GET external:/rest/v1/footer_settings",
+        "GET external:/rest/v1/projects",
+        "GET external:/rest/v1/services",
+        "GET external:/rest/v1/site_settings"
+      ],
+      "blockedSockets": [],
+      "blockedWriteAttempts": []
+    },
+    {
+      "path": "/service-areas/milton",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "expectedNotFound": false,
+      "expectedUtilityError": false,
+      "resolvedPath": "/service-areas/milton",
+      "title": "Building Envelope Contractor in Milton | Ascent Group",
+      "canonicalCount": 1,
+      "canonicals": [
+        "https://www.ascentgroupconstruction.com/service-areas/milton"
+      ],
+      "h1": "Building Envelope Services in Milton",
+      "h1Count": 1,
+      "somethingWentWrong": false,
+      "notFoundView": false,
+      "unavailableView": false,
+      "failedLazyView": false,
+      "visibleTextSha256": "c6f49249c3e6df9c2efb9ac295f2634f9866890f360a43751657553acaf9d0a9",
+      "httpStatus": 200,
+      "consoleErrorCount": 0,
+      "consoleErrors": [],
+      "failedNetworkRequestCount": 0,
+      "failedNetworkRequests": [],
+      "failedResponses": [],
+      "mockedRequestCount": 9,
+      "mockedRequests": [
+        "GET external:/maps",
+        "GET external:/rest/v1/footer_settings",
+        "GET external:/rest/v1/projects",
+        "GET external:/rest/v1/services",
+        "GET external:/rest/v1/site_settings"
+      ],
+      "blockedSockets": [],
+      "blockedWriteAttempts": []
+    },
+    {
+      "path": "/service-areas/pickering",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "expectedNotFound": false,
+      "expectedUtilityError": false,
+      "resolvedPath": "/service-areas/pickering",
+      "title": "Building Envelope Contractor in Pickering | Ascent Group",
+      "canonicalCount": 1,
+      "canonicals": [
+        "https://www.ascentgroupconstruction.com/service-areas/pickering"
+      ],
+      "h1": "Building Envelope Services in Pickering",
+      "h1Count": 1,
+      "somethingWentWrong": false,
+      "notFoundView": false,
+      "unavailableView": false,
+      "failedLazyView": false,
+      "visibleTextSha256": "c9070285ec7ce0e77bc87fae980c164d5306fe34f45af4af5bcba56d47d3c297",
+      "httpStatus": 200,
+      "consoleErrorCount": 0,
+      "consoleErrors": [],
+      "failedNetworkRequestCount": 0,
+      "failedNetworkRequests": [],
+      "failedResponses": [],
+      "mockedRequestCount": 9,
+      "mockedRequests": [
+        "GET external:/maps",
+        "GET external:/rest/v1/footer_settings",
+        "GET external:/rest/v1/projects",
+        "GET external:/rest/v1/services",
+        "GET external:/rest/v1/site_settings"
+      ],
+      "blockedSockets": [],
+      "blockedWriteAttempts": []
+    },
+    {
+      "path": "/service-areas/ajax",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "expectedNotFound": false,
+      "expectedUtilityError": false,
+      "resolvedPath": "/service-areas/ajax",
+      "title": "Building Envelope Contractor in Ajax | Ascent Group",
+      "canonicalCount": 1,
+      "canonicals": [
+        "https://www.ascentgroupconstruction.com/service-areas/ajax"
+      ],
+      "h1": "Building Envelope Services in Ajax",
+      "h1Count": 1,
+      "somethingWentWrong": false,
+      "notFoundView": false,
+      "unavailableView": false,
+      "failedLazyView": false,
+      "visibleTextSha256": "2616dd11c7ea7bec06e84f819a3df3c52d23459b5d32060ceb6ceb9d5a50963f",
+      "httpStatus": 200,
+      "consoleErrorCount": 0,
+      "consoleErrors": [],
+      "failedNetworkRequestCount": 0,
+      "failedNetworkRequests": [],
+      "failedResponses": [],
+      "mockedRequestCount": 9,
+      "mockedRequests": [
+        "GET external:/maps",
+        "GET external:/rest/v1/footer_settings",
+        "GET external:/rest/v1/projects",
+        "GET external:/rest/v1/services",
+        "GET external:/rest/v1/site_settings"
+      ],
+      "blockedSockets": [],
+      "blockedWriteAttempts": []
+    },
+    {
+      "path": "/service-areas/whitby",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "expectedNotFound": false,
+      "expectedUtilityError": false,
+      "resolvedPath": "/service-areas/whitby",
+      "title": "Building Envelope Contractor in Whitby | Ascent Group",
+      "canonicalCount": 1,
+      "canonicals": [
+        "https://www.ascentgroupconstruction.com/service-areas/whitby"
+      ],
+      "h1": "Building Envelope Services in Whitby",
+      "h1Count": 1,
+      "somethingWentWrong": false,
+      "notFoundView": false,
+      "unavailableView": false,
+      "failedLazyView": false,
+      "visibleTextSha256": "e360978ddc4984973a0ca015ffe185ff929c7c0041f5dd76576edfce5b96ae6d",
+      "httpStatus": 200,
+      "consoleErrorCount": 0,
+      "consoleErrors": [],
+      "failedNetworkRequestCount": 0,
+      "failedNetworkRequests": [],
+      "failedResponses": [],
+      "mockedRequestCount": 9,
+      "mockedRequests": [
+        "GET external:/maps",
+        "GET external:/rest/v1/footer_settings",
+        "GET external:/rest/v1/projects",
+        "GET external:/rest/v1/services",
+        "GET external:/rest/v1/site_settings"
+      ],
+      "blockedSockets": [],
+      "blockedWriteAttempts": []
+    },
+    {
+      "path": "/service-areas/oshawa",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "expectedNotFound": false,
+      "expectedUtilityError": false,
+      "resolvedPath": "/service-areas/oshawa",
+      "title": "Building Envelope Contractor in Oshawa | Ascent Group",
+      "canonicalCount": 1,
+      "canonicals": [
+        "https://www.ascentgroupconstruction.com/service-areas/oshawa"
+      ],
+      "h1": "Building Envelope Services in Oshawa",
+      "h1Count": 1,
+      "somethingWentWrong": false,
+      "notFoundView": false,
+      "unavailableView": false,
+      "failedLazyView": false,
+      "visibleTextSha256": "5dd413736ee1ba3ecebbf7db9b218ededdde816ec105d2565db0b42069529c16",
+      "httpStatus": 200,
+      "consoleErrorCount": 0,
+      "consoleErrors": [],
+      "failedNetworkRequestCount": 0,
+      "failedNetworkRequests": [],
+      "failedResponses": [],
+      "mockedRequestCount": 9,
+      "mockedRequests": [
+        "GET external:/maps",
+        "GET external:/rest/v1/footer_settings",
+        "GET external:/rest/v1/projects",
+        "GET external:/rest/v1/services",
+        "GET external:/rest/v1/site_settings"
+      ],
+      "blockedSockets": [],
+      "blockedWriteAttempts": []
+    },
+    {
+      "path": "/service-areas/newmarket",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "expectedNotFound": false,
+      "expectedUtilityError": false,
+      "resolvedPath": "/service-areas/newmarket",
+      "title": "Building Envelope Contractor in Newmarket | Ascent Group",
+      "canonicalCount": 1,
+      "canonicals": [
+        "https://www.ascentgroupconstruction.com/service-areas/newmarket"
+      ],
+      "h1": "Building Envelope Services in Newmarket",
+      "h1Count": 1,
+      "somethingWentWrong": false,
+      "notFoundView": false,
+      "unavailableView": false,
+      "failedLazyView": false,
+      "visibleTextSha256": "5158912bd3fc09f3507a2ab4d2dcb828a6cce3c0a43148d42632ef06bdeb03b1",
+      "httpStatus": 200,
+      "consoleErrorCount": 0,
+      "consoleErrors": [],
+      "failedNetworkRequestCount": 0,
+      "failedNetworkRequests": [],
+      "failedResponses": [],
+      "mockedRequestCount": 9,
+      "mockedRequests": [
+        "GET external:/maps",
+        "GET external:/rest/v1/footer_settings",
+        "GET external:/rest/v1/projects",
+        "GET external:/rest/v1/services",
+        "GET external:/rest/v1/site_settings"
+      ],
+      "blockedSockets": [],
+      "blockedWriteAttempts": []
+    },
+    {
+      "path": "/service-areas/aurora",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "expectedNotFound": false,
+      "expectedUtilityError": false,
+      "resolvedPath": "/service-areas/aurora",
+      "title": "Building Envelope Contractor in Aurora | Ascent Group",
+      "canonicalCount": 1,
+      "canonicals": [
+        "https://www.ascentgroupconstruction.com/service-areas/aurora"
+      ],
+      "h1": "Building Envelope Services in Aurora",
+      "h1Count": 1,
+      "somethingWentWrong": false,
+      "notFoundView": false,
+      "unavailableView": false,
+      "failedLazyView": false,
+      "visibleTextSha256": "809b9814e71d1e6135d26921a936c27126166156a83313d9f4dfa975ef031a22",
+      "httpStatus": 200,
+      "consoleErrorCount": 0,
+      "consoleErrors": [],
+      "failedNetworkRequestCount": 0,
+      "failedNetworkRequests": [],
+      "failedResponses": [],
+      "mockedRequestCount": 9,
+      "mockedRequests": [
+        "GET external:/maps",
+        "GET external:/rest/v1/footer_settings",
+        "GET external:/rest/v1/projects",
+        "GET external:/rest/v1/services",
+        "GET external:/rest/v1/site_settings"
+      ],
+      "blockedSockets": [],
+      "blockedWriteAttempts": []
+    },
+    {
+      "path": "/service-areas/king-city",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "expectedNotFound": false,
+      "expectedUtilityError": false,
+      "resolvedPath": "/service-areas/king-city",
+      "title": "Building Envelope Contractor in King City | Ascent Group",
+      "canonicalCount": 1,
+      "canonicals": [
+        "https://www.ascentgroupconstruction.com/service-areas/king-city"
+      ],
+      "h1": "Building Envelope Services in King City",
+      "h1Count": 1,
+      "somethingWentWrong": false,
+      "notFoundView": false,
+      "unavailableView": false,
+      "failedLazyView": false,
+      "visibleTextSha256": "5a4e42267bafdf2d923164423ff157e8bef758616a3026f55147e165705435f8",
+      "httpStatus": 200,
+      "consoleErrorCount": 0,
+      "consoleErrors": [],
+      "failedNetworkRequestCount": 0,
+      "failedNetworkRequests": [],
+      "failedResponses": [],
+      "mockedRequestCount": 9,
+      "mockedRequests": [
+        "GET external:/maps",
+        "GET external:/rest/v1/footer_settings",
+        "GET external:/rest/v1/projects",
+        "GET external:/rest/v1/services",
+        "GET external:/rest/v1/site_settings"
+      ],
+      "blockedSockets": [],
+      "blockedWriteAttempts": []
+    },
+    {
+      "path": "/service-areas/hamilton",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "expectedNotFound": false,
+      "expectedUtilityError": false,
+      "resolvedPath": "/service-areas/hamilton",
+      "title": "Building Envelope Contractor in Hamilton | Ascent Group",
+      "canonicalCount": 1,
+      "canonicals": [
+        "https://www.ascentgroupconstruction.com/service-areas/hamilton"
+      ],
+      "h1": "Building Envelope Services in Hamilton",
+      "h1Count": 1,
+      "somethingWentWrong": false,
+      "notFoundView": false,
+      "unavailableView": false,
+      "failedLazyView": false,
+      "visibleTextSha256": "ed2d4706e9de263f8ac101488bab68261e318daef42b740b7ff52e70f6441574",
+      "httpStatus": 200,
+      "consoleErrorCount": 0,
+      "consoleErrors": [],
+      "failedNetworkRequestCount": 0,
+      "failedNetworkRequests": [],
+      "failedResponses": [],
+      "mockedRequestCount": 9,
+      "mockedRequests": [
+        "GET external:/maps",
+        "GET external:/rest/v1/footer_settings",
+        "GET external:/rest/v1/projects",
+        "GET external:/rest/v1/services",
+        "GET external:/rest/v1/site_settings"
+      ],
+      "blockedSockets": [],
+      "blockedWriteAttempts": []
+    },
+    {
+      "path": "/baseline-unknown-route",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "expectedNotFound": true,
+      "expectedUtilityError": false,
+      "resolvedPath": "/baseline-unknown-route",
+      "title": "Page Not Found | Ascent Group Construction",
+      "canonicalCount": 1,
+      "canonicals": [
+        "https://www.ascentgroupconstruction.com/baseline-unknown-route"
+      ],
+      "h1": "404",
+      "h1Count": 1,
+      "somethingWentWrong": false,
+      "notFoundView": true,
+      "unavailableView": false,
+      "failedLazyView": false,
+      "visibleTextSha256": "da80c9188db7927b75e5f2b78d0b371730ad6eb82e9a78b393a5fa896b5899e4",
+      "httpStatus": 200,
+      "consoleErrorCount": 0,
+      "consoleErrors": [],
+      "failedNetworkRequestCount": 0,
+      "failedNetworkRequests": [],
+      "failedResponses": [],
+      "mockedRequestCount": 5,
+      "mockedRequests": [
+        "GET external:/rest/v1/footer_settings",
+        "GET external:/rest/v1/services",
+        "GET external:/rest/v1/site_settings"
+      ],
+      "blockedSockets": [],
+      "blockedWriteAttempts": []
+    },
+    {
+      "path": "/",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "expectedNotFound": false,
+      "expectedUtilityError": false,
+      "resolvedPath": "/",
+      "title": "Envelope & Restoration GTA | Ascent Group Construction",
+      "canonicalCount": 1,
+      "canonicals": [
+        "https://www.ascentgroupconstruction.com/"
+      ],
+      "h1": "We Restore, Repair & Protect Buildings Across the GTA",
+      "h1Count": 1,
+      "somethingWentWrong": false,
+      "notFoundView": false,
+      "unavailableView": false,
+      "failedLazyView": false,
+      "visibleTextSha256": "14896915ca1128a2ec7da781444f842d736ab243e9ba48e859a53969d88d36b9",
+      "httpStatus": 200,
+      "consoleErrorCount": 0,
+      "consoleErrors": [],
+      "failedNetworkRequestCount": 0,
+      "failedNetworkRequests": [],
+      "failedResponses": [],
+      "mockedRequestCount": 11,
+      "mockedRequests": [
+        "GET external:/photo-1504307651254-35680f356dfd",
+        "GET external:/rest/v1/footer_settings",
+        "GET external:/rest/v1/hero_slides",
+        "GET external:/rest/v1/homepage_settings",
+        "GET external:/rest/v1/projects",
+        "GET external:/rest/v1/services",
+        "GET external:/rest/v1/site_settings",
+        "GET external:/rest/v1/value_pillars",
+        "GET external:/rest/v1/why_choose_us_items"
+      ],
+      "blockedSockets": [],
+      "blockedWriteAttempts": []
+    },
+    {
+      "path": "/services",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "expectedNotFound": false,
+      "expectedUtilityError": false,
+      "resolvedPath": "/services",
+      "title": "Specialty Contracting Services | Ascent Group Construction",
+      "canonicalCount": 1,
+      "canonicals": [
+        "https://www.ascentgroupconstruction.com/services"
+      ],
+      "h1": "Specialty contracting services for envelope, restoration, and interior trade execution",
+      "h1Count": 1,
+      "somethingWentWrong": false,
+      "notFoundView": false,
+      "unavailableView": false,
+      "failedLazyView": false,
+      "visibleTextSha256": "cf8701cfbb26bf45d862ec38bb604dc4117cfd250534b84fa73606e5eba87814",
+      "httpStatus": 200,
+      "consoleErrorCount": 0,
+      "consoleErrors": [],
+      "failedNetworkRequestCount": 0,
+      "failedNetworkRequests": [],
+      "failedResponses": [],
+      "mockedRequestCount": 6,
+      "mockedRequests": [
+        "GET external:/rest/v1/footer_settings",
+        "GET external:/rest/v1/services",
+        "GET external:/rest/v1/site_settings"
+      ],
+      "blockedSockets": [],
+      "blockedWriteAttempts": []
+    },
+    {
+      "path": "/contact",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "expectedNotFound": false,
+      "expectedUtilityError": false,
+      "resolvedPath": "/contact",
+      "title": "Contact Us | Ascent Group Construction",
+      "canonicalCount": 1,
+      "canonicals": [
+        "https://www.ascentgroupconstruction.com/contact"
+      ],
+      "h1": "Contact Us",
+      "h1Count": 1,
+      "somethingWentWrong": false,
+      "notFoundView": false,
+      "unavailableView": false,
+      "failedLazyView": false,
+      "visibleTextSha256": "fca2030eb60a87bf2d3b3168607b1127f98b91f45c47de63695bf164f55cd477",
+      "httpStatus": 200,
+      "consoleErrorCount": 0,
+      "consoleErrors": [],
+      "failedNetworkRequestCount": 0,
+      "failedNetworkRequests": [],
+      "failedResponses": [],
+      "mockedRequestCount": 7,
+      "mockedRequests": [
+        "GET external:/rest/v1/contact_page_settings",
+        "GET external:/rest/v1/footer_settings",
+        "GET external:/rest/v1/services",
+        "GET external:/rest/v1/site_settings"
+      ],
+      "blockedSockets": [],
+      "blockedWriteAttempts": []
+    },
+    {
+      "path": "/estimate",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "expectedNotFound": false,
+      "expectedUtilityError": false,
+      "resolvedPath": "/estimate",
+      "title": "Request Project Estimate | Ascent Group Construction",
+      "canonicalCount": 1,
+      "canonicals": [
+        "https://www.ascentgroupconstruction.com/estimate"
+      ],
+      "h1": "Request a Project Estimate",
+      "h1Count": 1,
+      "somethingWentWrong": false,
+      "notFoundView": false,
+      "unavailableView": false,
+      "failedLazyView": false,
+      "visibleTextSha256": "3a786251875856ba4d5ddbae3976bb0d5f526da0b3ea66c8b0d3b84fd44ce3c1",
+      "httpStatus": 200,
+      "consoleErrorCount": 0,
+      "consoleErrors": [],
+      "failedNetworkRequestCount": 0,
+      "failedNetworkRequests": [],
+      "failedResponses": [],
+      "mockedRequestCount": 5,
+      "mockedRequests": [
+        "GET external:/rest/v1/footer_settings",
+        "GET external:/rest/v1/services",
+        "GET external:/rest/v1/site_settings"
+      ],
+      "blockedSockets": [],
+      "blockedWriteAttempts": []
+    },
+    {
+      "path": "/submit-rfp",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "expectedNotFound": false,
+      "expectedUtilityError": false,
+      "resolvedPath": "/submit-rfp",
+      "title": "Submit RFP - Request for Proposal | Ascent Group Construction",
+      "canonicalCount": 1,
+      "canonicals": [
+        "https://www.ascentgroupconstruction.com/submit-rfp"
+      ],
+      "h1": "Submit Your RFP",
+      "h1Count": 1,
+      "somethingWentWrong": false,
+      "notFoundView": false,
+      "unavailableView": false,
+      "failedLazyView": false,
+      "visibleTextSha256": "f46a25c232c7d848cd1cf02fa33f885aa57b45fc2f7946ddfdde6a470c0f07d0",
+      "httpStatus": 200,
+      "consoleErrorCount": 0,
+      "consoleErrors": [],
+      "failedNetworkRequestCount": 0,
+      "failedNetworkRequests": [],
+      "failedResponses": [],
+      "mockedRequestCount": 7,
+      "mockedRequests": [
+        "GET external:/rest/v1/footer_settings",
+        "GET external:/rest/v1/services",
+        "GET external:/rest/v1/site_settings"
+      ],
+      "blockedSockets": [],
+      "blockedWriteAttempts": []
+    },
+    {
+      "path": "/projects",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "expectedNotFound": false,
+      "expectedUtilityError": false,
+      "resolvedPath": "/projects",
+      "title": "Our Projects | Ascent Group Construction",
+      "canonicalCount": 1,
+      "canonicals": [
+        "https://www.ascentgroupconstruction.com/projects"
+      ],
+      "h1": "Our Projects",
+      "h1Count": 1,
+      "somethingWentWrong": false,
+      "notFoundView": false,
+      "unavailableView": false,
+      "failedLazyView": false,
+      "visibleTextSha256": "863024c940cb39f176d536737b74aff480d7bcaebbe4c1d59cfb33ac3b8ce9be",
+      "httpStatus": 200,
+      "consoleErrorCount": 0,
+      "consoleErrors": [],
+      "failedNetworkRequestCount": 0,
+      "failedNetworkRequests": [],
+      "failedResponses": [],
+      "mockedRequestCount": 6,
+      "mockedRequests": [
+        "GET external:/rest/v1/footer_settings",
+        "GET external:/rest/v1/projects",
+        "GET external:/rest/v1/services",
+        "GET external:/rest/v1/site_settings"
+      ],
+      "blockedSockets": [
+        "external:/realtime/v1/websocket"
+      ],
+      "blockedWriteAttempts": []
+    },
+    {
+      "path": "/services/painting-services",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "expectedNotFound": false,
+      "expectedUtilityError": false,
+      "resolvedPath": "/services/painting-services",
+      "title": "Painting Services | Ascent Group Construction",
+      "canonicalCount": 1,
+      "canonicals": [
+        "https://www.ascentgroupconstruction.com/services/painting-services"
+      ],
+      "h1": "Painting Services",
+      "h1Count": 1,
+      "somethingWentWrong": false,
+      "notFoundView": false,
+      "unavailableView": false,
+      "failedLazyView": false,
+      "visibleTextSha256": "5032fd2d90f78d2fc8bdab84f88646021c34cf485302b0f0f069abef1cafc666",
+      "httpStatus": 200,
+      "consoleErrorCount": 0,
+      "consoleErrors": [],
+      "failedNetworkRequestCount": 0,
+      "failedNetworkRequests": [],
+      "failedResponses": [],
+      "mockedRequestCount": 11,
+      "mockedRequests": [
+        "GET external:/rest/v1/footer_settings",
+        "GET external:/rest/v1/project_services",
+        "GET external:/rest/v1/services",
+        "GET external:/rest/v1/site_settings"
+      ],
+      "blockedSockets": [],
+      "blockedWriteAttempts": []
+    },
+    {
+      "path": "/service-areas/toronto",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "expectedNotFound": false,
+      "expectedUtilityError": false,
+      "resolvedPath": "/service-areas/toronto",
+      "title": "Building Envelope Contractor in Toronto | Ascent Group",
+      "canonicalCount": 1,
+      "canonicals": [
+        "https://www.ascentgroupconstruction.com/service-areas/toronto"
+      ],
+      "h1": "Building Envelope Services in Toronto",
+      "h1Count": 1,
+      "somethingWentWrong": false,
+      "notFoundView": false,
+      "unavailableView": false,
+      "failedLazyView": false,
+      "visibleTextSha256": "30322ac9c6e2261f125490bb8b79f51e4a99e245d27ad577fa2199a5277a1d23",
+      "httpStatus": 200,
+      "consoleErrorCount": 0,
+      "consoleErrors": [],
+      "failedNetworkRequestCount": 0,
+      "failedNetworkRequests": [],
+      "failedResponses": [],
+      "mockedRequestCount": 8,
+      "mockedRequests": [
+        "GET external:/rest/v1/footer_settings",
+        "GET external:/rest/v1/projects",
+        "GET external:/rest/v1/services",
+        "GET external:/rest/v1/site_settings"
+      ],
+      "blockedSockets": [],
+      "blockedWriteAttempts": []
+    },
+    {
+      "path": "/privacy",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "expectedNotFound": false,
+      "expectedUtilityError": false,
+      "resolvedPath": "/privacy",
+      "title": "Privacy Policy | Ascent Group Construction",
+      "canonicalCount": 1,
+      "canonicals": [
+        "https://www.ascentgroupconstruction.com/privacy"
+      ],
+      "h1": "Privacy Policy",
+      "h1Count": 1,
+      "somethingWentWrong": false,
+      "notFoundView": false,
+      "unavailableView": false,
+      "failedLazyView": false,
+      "visibleTextSha256": "fb64940208763e76b53911d66723a0ae545921721fd728b6ddc0f6292372f538",
+      "httpStatus": 200,
+      "consoleErrorCount": 0,
+      "consoleErrors": [],
+      "failedNetworkRequestCount": 0,
+      "failedNetworkRequests": [],
+      "failedResponses": [],
+      "mockedRequestCount": 9,
+      "mockedRequests": [
+        "GET external:/rest/v1/footer_settings",
+        "GET external:/rest/v1/services",
+        "GET external:/rest/v1/site_settings"
+      ],
+      "blockedSockets": [],
+      "blockedWriteAttempts": []
+    }
+  ]
+}

@@ -1,0 +1,401 @@
+[
+  {
+    "file": "src/data/hero-images.ts",
+    "name": "HeroConfig",
+    "line": 176,
+    "col": 18,
+    "pos": 6868
+  },
+  {
+    "file": "src/data/wave1-services.ts",
+    "name": "Wave1FAQ",
+    "line": 14,
+    "col": 18,
+    "pos": 639
+  },
+  {
+    "file": "src/data/wave1-services.ts",
+    "name": "Wave1Section",
+    "line": 19,
+    "col": 18,
+    "pos": 708
+  },
+  {
+    "file": "src/components/ui/badge.tsx",
+    "name": "BadgeProps",
+    "line": 61,
+    "col": 18,
+    "pos": 3308
+  },
+  {
+    "file": "src/components/projects/ProjectFeaturedImage.tsx",
+    "name": "ProjectFeaturedImageVariant",
+    "line": 21,
+    "col": 13,
+    "pos": 729
+  },
+  {
+    "file": "src/integrations/supabase/types.ts",
+    "name": "Json",
+    "line": 1,
+    "col": 13,
+    "pos": 12
+  },
+  {
+    "file": "src/integrations/supabase/types.ts",
+    "name": "Tables",
+    "line": 3584,
+    "col": 13,
+    "pos": 112357
+  },
+  {
+    "file": "src/integrations/supabase/types.ts",
+    "name": "TablesInsert",
+    "line": 3613,
+    "col": 13,
+    "pos": 113450
+  },
+  {
+    "file": "src/integrations/supabase/types.ts",
+    "name": "TablesUpdate",
+    "line": 3638,
+    "col": 13,
+    "pos": 114282
+  },
+  {
+    "file": "src/integrations/supabase/types.ts",
+    "name": "Enums",
+    "line": 3663,
+    "col": 13,
+    "pos": 115114
+  },
+  {
+    "file": "src/integrations/supabase/types.ts",
+    "name": "CompositeTypes",
+    "line": 3680,
+    "col": 13,
+    "pos": 115801
+  },
+  {
+    "file": "src/design-system/components/TrustRibbon.tsx",
+    "name": "TrustRibbonItem",
+    "line": 4,
+    "col": 18,
+    "pos": 138
+  },
+  {
+    "file": "src/design-system/components/RelatedLinksGrid.tsx",
+    "name": "RelatedLink",
+    "line": 7,
+    "col": 18,
+    "pos": 279
+  },
+  {
+    "file": "src/data/navigation-structure-enhanced.ts",
+    "name": "AccordionCategory",
+    "line": 20,
+    "col": 18,
+    "pos": 471
+  },
+  {
+    "file": "src/data/navigation-structure-enhanced.ts",
+    "name": "SectionCTA",
+    "line": 26,
+    "col": 18,
+    "pos": 575
+  },
+  {
+    "file": "src/components/ui/button.tsx",
+    "name": "ButtonProps",
+    "line": 2,
+    "col": 39,
+    "pos": 121
+  },
+  {
+    "file": "src/design-system/components/index.ts",
+    "name": "DetailCardProps",
+    "line": 14,
+    "col": 15,
+    "pos": 429
+  },
+  {
+    "file": "src/design-system/components/index.ts",
+    "name": "DetailCardStat",
+    "line": 14,
+    "col": 32,
+    "pos": 446
+  },
+  {
+    "file": "src/design-system/components/index.ts",
+    "name": "TrustRibbonProps",
+    "line": 21,
+    "col": 15,
+    "pos": 693
+  },
+  {
+    "file": "src/design-system/components/index.ts",
+    "name": "TrustRibbonItem",
+    "line": 21,
+    "col": 33,
+    "pos": 711
+  },
+  {
+    "file": "src/design-system/components/index.ts",
+    "name": "RelatedLinksGridProps",
+    "line": 23,
+    "col": 15,
+    "pos": 820
+  },
+  {
+    "file": "src/design-system/components/index.ts",
+    "name": "RelatedLink",
+    "line": 23,
+    "col": 38,
+    "pos": 843
+  },
+  {
+    "file": "src/design-system/components/index.ts",
+    "name": "TabbedSectionsProps",
+    "line": 27,
+    "col": 15,
+    "pos": 969
+  },
+  {
+    "file": "src/design-system/components/index.ts",
+    "name": "TabbedSection",
+    "line": 27,
+    "col": 36,
+    "pos": 990
+  },
+  {
+    "file": "src/design-system/components/index.ts",
+    "name": "StickyPageNavProps",
+    "line": 29,
+    "col": 15,
+    "pos": 1094
+  },
+  {
+    "file": "src/design-system/components/index.ts",
+    "name": "FAQAccordionProps",
+    "line": 33,
+    "col": 15,
+    "pos": 1208
+  },
+  {
+    "file": "src/design-system/components/index.ts",
+    "name": "FAQItem",
+    "line": 33,
+    "col": 34,
+    "pos": 1227
+  },
+  {
+    "file": "src/utils/seo/index.ts",
+    "name": "PageMeta",
+    "line": 29,
+    "col": 8,
+    "pos": 559
+  },
+  {
+    "file": "src/utils/seo/index.ts",
+    "name": "MetaTag",
+    "line": 30,
+    "col": 8,
+    "pos": 576
+  },
+  {
+    "file": "src/schemas/rfp-validation.ts",
+    "name": "CompanyInfo",
+    "line": 104,
+    "col": 13,
+    "pos": 3494
+  },
+  {
+    "file": "src/schemas/rfp-validation.ts",
+    "name": "ProjectDetails",
+    "line": 105,
+    "col": 13,
+    "pos": 3555
+  },
+  {
+    "file": "src/schemas/rfp-validation.ts",
+    "name": "TimelineRequirements",
+    "line": 106,
+    "col": 13,
+    "pos": 3622
+  },
+  {
+    "file": "src/schemas/rfp-validation.ts",
+    "name": "ScopeOfWork",
+    "line": 107,
+    "col": 13,
+    "pos": 3701
+  },
+  {
+    "file": "src/components/ui/card.tsx",
+    "name": "CardProps",
+    "line": 25,
+    "col": 18,
+    "pos": 841
+  },
+  {
+    "file": "src/utils/image-optimizer.ts",
+    "name": "SrcSetOptions",
+    "line": 5,
+    "col": 18,
+    "pos": 114
+  },
+  {
+    "file": "src/design-system/components/DetailCard.tsx",
+    "name": "DetailCardStat",
+    "line": 9,
+    "col": 18,
+    "pos": 372
+  },
+  {
+    "file": "src/design-system/components/TabbedSections.tsx",
+    "name": "TabbedSection",
+    "line": 5,
+    "col": 18,
+    "pos": 140
+  },
+  {
+    "file": "src/utils/seo/meta-generator.ts",
+    "name": "PageMeta",
+    "line": 9,
+    "col": 18,
+    "pos": 229
+  },
+  {
+    "file": "src/utils/seo/meta-generator.ts",
+    "name": "MetaTag",
+    "line": 42,
+    "col": 18,
+    "pos": 891
+  },
+  {
+    "file": "src/data/page-headers.ts",
+    "name": "HeaderService",
+    "line": 39,
+    "col": 18,
+    "pos": 869
+  },
+  {
+    "file": "src/data/page-headers.ts",
+    "name": "HeaderProject",
+    "line": 46,
+    "col": 18,
+    "pos": 1010
+  },
+  {
+    "file": "src/data/page-headers.ts",
+    "name": "HeaderArticle",
+    "line": 52,
+    "col": 18,
+    "pos": 1125
+  },
+  {
+    "file": "src/data/page-headers.ts",
+    "name": "HeaderSlide",
+    "line": 58,
+    "col": 18,
+    "pos": 1240
+  },
+  {
+    "file": "src/lib/adminSearch.ts",
+    "name": "AdminSearchKind",
+    "line": 7,
+    "col": 13,
+    "pos": 322
+  },
+  {
+    "file": "src/components/shared/PageHero.tsx",
+    "name": "HeroVariant",
+    "line": 13,
+    "col": 13,
+    "pos": 525
+  },
+  {
+    "file": "src/components/shared/PageHero.tsx",
+    "name": "HeroHeight",
+    "line": 14,
+    "col": 13,
+    "pos": 600
+  },
+  {
+    "file": "src/components/shared/PageHero.tsx",
+    "name": "HeroOverlay",
+    "line": 15,
+    "col": 13,
+    "pos": 664
+  },
+  {
+    "file": "src/components/shared/PageHero.tsx",
+    "name": "HeroTextAlign",
+    "line": 16,
+    "col": 13,
+    "pos": 740
+  },
+  {
+    "file": "src/components/shared/PageHero.tsx",
+    "name": "HeroMaxWidth",
+    "line": 17,
+    "col": 13,
+    "pos": 787
+  },
+  {
+    "file": "src/components/shared/PageHero.tsx",
+    "name": "PageHeroBreadcrumb",
+    "line": 19,
+    "col": 18,
+    "pos": 860
+  },
+  {
+    "file": "src/components/shared/PageHero.tsx",
+    "name": "PageHeroStat",
+    "line": 24,
+    "col": 18,
+    "pos": 935
+  },
+  {
+    "file": "src/components/ui/textarea.tsx",
+    "name": "TextareaProps",
+    "line": 5,
+    "col": 18,
+    "pos": 85
+  },
+  {
+    "file": "src/hooks/useCompanySettings.ts",
+    "name": "CompanySettings",
+    "line": 6,
+    "col": 18,
+    "pos": 284
+  },
+  {
+    "file": "src/hooks/useTableFilters.ts",
+    "name": "DateRange",
+    "line": 3,
+    "col": 18,
+    "pos": 74
+  },
+  {
+    "file": "src/hooks/useTableSort.ts",
+    "name": "SortDirection",
+    "line": 3,
+    "col": 13,
+    "pos": 69
+  },
+  {
+    "file": "src/data/partnership-models.ts",
+    "name": "DiagramNode",
+    "line": 1,
+    "col": 18,
+    "pos": 17
+  },
+  {
+    "file": "src/data/partnership-models.ts",
+    "name": "DiagramEdge",
+    "line": 10,
+    "col": 18,
+    "pos": 244
+  }
+]

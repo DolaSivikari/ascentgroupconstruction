@@ -1,0 +1,5 @@
+$ node scripts/validate-sw.js
+✅ Service worker updates preserve open forms and editors
+✅ SW has install event
+✅ SW has activate event
+✅ SW has fetch event

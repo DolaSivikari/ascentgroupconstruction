@@ -1,0 +1,212 @@
+[
+  {
+    "file": "scripts/check-console-errors.js",
+    "name": "puppeteer",
+    "line": 9,
+    "col": 27,
+    "pos": 198
+  },
+  {
+    "file": "scripts/convert-images.js",
+    "name": "sharp",
+    "line": 23,
+    "col": 25,
+    "pos": 497
+  },
+  {
+    "file": "supabase/functions/analyze-performance/index.ts",
+    "name": "npm",
+    "line": 1,
+    "col": 30,
+    "pos": 29
+  },
+  {
+    "file": "supabase/functions/fetch-search-console-data/index.ts",
+    "name": "npm",
+    "line": 1,
+    "col": 30,
+    "pos": 29
+  },
+  {
+    "file": "supabase/functions/generate-keywords/index.ts",
+    "name": "npm",
+    "line": 1,
+    "col": 30,
+    "pos": 29
+  },
+  {
+    "file": "supabase/functions/check-login-attempt/index.ts",
+    "name": "npm",
+    "line": 1,
+    "col": 30,
+    "pos": 29
+  },
+  {
+    "file": "supabase/functions/google-oauth-callback/index.ts",
+    "name": "npm",
+    "line": 1,
+    "col": 30,
+    "pos": 29
+  },
+  {
+    "file": "supabase/functions/generate-sitemap/index.ts",
+    "name": "npm",
+    "line": 1,
+    "col": 30,
+    "pos": 29
+  },
+  {
+    "file": "supabase/functions/handle-email-events/index.ts",
+    "name": "npm",
+    "line": 2,
+    "col": 43,
+    "pos": 111
+  },
+  {
+    "file": "supabase/functions/google-search-console-auth/index.ts",
+    "name": "npm",
+    "line": 1,
+    "col": 30,
+    "pos": 29
+  },
+  {
+    "file": "supabase/functions/invite-user/index.ts",
+    "name": "npm",
+    "line": 1,
+    "col": 30,
+    "pos": 29
+  },
+  {
+    "file": "supabase/functions/mcp/index.ts",
+    "name": "npm",
+    "line": 6,
+    "col": 33,
+    "pos": 317
+  },
+  {
+    "file": "supabase/functions/_shared/transactional-email-templates/registry.ts",
+    "name": "npm",
+    "line": 2,
+    "col": 24,
+    "pos": 73
+  },
+  {
+    "file": "supabase/functions/preview-transactional-email/index.ts",
+    "name": "npm",
+    "line": 1,
+    "col": 24,
+    "pos": 23
+  },
+  {
+    "file": "supabase/functions/scheduled-fetch-search-console/index.ts",
+    "name": "npm",
+    "line": 1,
+    "col": 30,
+    "pos": 29
+  },
+  {
+    "file": "supabase/functions/process-image/index.ts",
+    "name": "npm",
+    "line": 2,
+    "col": 30,
+    "pos": 76
+  },
+  {
+    "file": "supabase/functions/_shared/rateLimiter.ts",
+    "name": "npm",
+    "line": 1,
+    "col": 32,
+    "pos": 31
+  },
+  {
+    "file": "supabase/functions/send-admin-notification/index.ts",
+    "name": "npm",
+    "line": 1,
+    "col": 30,
+    "pos": 29
+  },
+  {
+    "file": "supabase/functions/send-contact-notification/index.ts",
+    "name": "npm",
+    "line": 2,
+    "col": 30,
+    "pos": 99
+  },
+  {
+    "file": "supabase/functions/send-estimate-confirmation/index.ts",
+    "name": "npm",
+    "line": 2,
+    "col": 30,
+    "pos": 99
+  },
+  {
+    "file": "supabase/functions/send-package-notification/index.ts",
+    "name": "npm",
+    "line": 2,
+    "col": 30,
+    "pos": 99
+  },
+  {
+    "file": "supabase/functions/send-quote-confirmation/index.ts",
+    "name": "npm",
+    "line": 2,
+    "col": 30,
+    "pos": 99
+  },
+  {
+    "file": "supabase/functions/send-resume-notification/index.ts",
+    "name": "npm",
+    "line": 2,
+    "col": 30,
+    "pos": 99
+  },
+  {
+    "file": "supabase/functions/_shared/transactional-email-templates/send-email.ts",
+    "name": "npm",
+    "line": 1,
+    "col": 24,
+    "pos": 23
+  },
+  {
+    "file": "supabase/functions/send-rfp-emails/index.ts",
+    "name": "npm",
+    "line": 2,
+    "col": 30,
+    "pos": 99
+  },
+  {
+    "file": "supabase/functions/send-rfp-notification/index.ts",
+    "name": "npm",
+    "line": 4,
+    "col": 30,
+    "pos": 258
+  },
+  {
+    "file": "supabase/functions/submit-form/index.ts",
+    "name": "npm",
+    "line": 1,
+    "col": 30,
+    "pos": 29
+  },
+  {
+    "file": "supabase/functions/_shared/transactional-email-templates/rfp-customer-confirmation.tsx",
+    "name": "npm",
+    "line": 1,
+    "col": 24,
+    "pos": 23
+  },
+  {
+    "file": "supabase/functions/_shared/transactional-email-templates/rfp-internal-notification.tsx",
+    "name": "npm",
+    "line": 1,
+    "col": 24,
+    "pos": 23
+  },
+  {
+    "file": "supabase/functions/_shared/transactional-email-templates/review-request.tsx",
+    "name": "npm",
+    "line": 1,
+    "col": 24,
+    "pos": 23
+  }
+]

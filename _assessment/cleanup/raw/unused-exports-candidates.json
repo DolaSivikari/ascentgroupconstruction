@@ -1,0 +1,1535 @@
+[
+  {
+    "file": "src/lib/webVitals.ts",
+    "name": "getPerformanceMetrics",
+    "line": 179,
+    "col": 14,
+    "pos": 5117
+  },
+  {
+    "file": "src/utils/errorLogger.ts",
+    "name": "logError",
+    "line": 6,
+    "col": 14,
+    "pos": 134
+  },
+  {
+    "file": "src/data/service-registry.ts",
+    "name": "getStaticServiceEntries",
+    "line": 349,
+    "col": 17,
+    "pos": 9970
+  },
+  {
+    "file": "src/data/hero-images.ts",
+    "name": "getHeroImage",
+    "line": 159,
+    "col": 17,
+    "pos": 6485
+  },
+  {
+    "file": "src/data/hero-images.ts",
+    "name": "heroConfigs",
+    "line": 186,
+    "col": 14,
+    "pos": 7101
+  },
+  {
+    "file": "src/data/hero-images.ts",
+    "name": "cityHeroes",
+    "line": 334,
+    "col": 14,
+    "pos": 12304
+  },
+  {
+    "file": "src/lib/analytics.ts",
+    "name": "pushToDataLayer",
+    "line": 11,
+    "col": 14,
+    "pos": 283
+  },
+  {
+    "file": "src/lib/analytics.ts",
+    "name": "trackFormStart",
+    "line": 55,
+    "col": 14,
+    "pos": 1648
+  },
+  {
+    "file": "src/lib/analytics.ts",
+    "name": "trackFormError",
+    "line": 62,
+    "col": 14,
+    "pos": 1782
+  },
+  {
+    "file": "src/lib/analytics.ts",
+    "name": "trackFormAbandonment",
+    "line": 71,
+    "col": 14,
+    "pos": 2020
+  },
+  {
+    "file": "src/lib/analytics.ts",
+    "name": "trackCTAClick",
+    "line": 81,
+    "col": 14,
+    "pos": 2288
+  },
+  {
+    "file": "src/lib/analytics.ts",
+    "name": "trackFileDownload",
+    "line": 109,
+    "col": 14,
+    "pos": 3035
+  },
+  {
+    "file": "src/lib/analytics.ts",
+    "name": "trackOutboundLink",
+    "line": 118,
+    "col": 14,
+    "pos": 3244
+  },
+  {
+    "file": "src/lib/analytics.ts",
+    "name": "trackVideoPlay",
+    "line": 144,
+    "col": 14,
+    "pos": 3836
+  },
+  {
+    "file": "src/lib/analytics.ts",
+    "name": "trackVideoComplete",
+    "line": 152,
+    "col": 14,
+    "pos": 4021
+  },
+  {
+    "file": "src/lib/analytics.ts",
+    "name": "trackInteraction",
+    "line": 161,
+    "col": 14,
+    "pos": 4246
+  },
+  {
+    "file": "src/lib/analytics.ts",
+    "name": "trackBeforeAfterInteraction",
+    "line": 171,
+    "col": 14,
+    "pos": 4535
+  },
+  {
+    "file": "src/lib/analytics.ts",
+    "name": "trackFilterUsage",
+    "line": 179,
+    "col": 14,
+    "pos": 4736
+  },
+  {
+    "file": "src/lib/analytics.ts",
+    "name": "trackQuizStart",
+    "line": 189,
+    "col": 14,
+    "pos": 4995
+  },
+  {
+    "file": "src/lib/analytics.ts",
+    "name": "trackQuizComplete",
+    "line": 195,
+    "col": 14,
+    "pos": 5088
+  },
+  {
+    "file": "src/utils/cacheBuster.ts",
+    "name": "bustCache",
+    "line": 28,
+    "col": 14,
+    "pos": 885
+  },
+  {
+    "file": "src/utils/cacheBuster.ts",
+    "name": "needsCacheRefresh",
+    "line": 41,
+    "col": 14,
+    "pos": 1244
+  },
+  {
+    "file": "src/utils/cacheBuster.ts",
+    "name": "markCacheRefreshed",
+    "line": 49,
+    "col": 14,
+    "pos": 1434
+  },
+  {
+    "file": "src/utils/seo/structured-data.ts",
+    "name": "organizationSchema",
+    "line": 59,
+    "col": 14,
+    "pos": 1485
+  },
+  {
+    "file": "src/utils/seo/structured-data.ts",
+    "name": "localBusinessSchema",
+    "line": 134,
+    "col": 14,
+    "pos": 3391
+  },
+  {
+    "file": "src/utils/seo/structured-data.ts",
+    "name": "generateProjectSchema",
+    "line": 216,
+    "col": 17,
+    "pos": 5505
+  },
+  {
+    "file": "src/utils/seo/structured-data.ts",
+    "name": "generateArticleSchema",
+    "line": 259,
+    "col": 17,
+    "pos": 6547
+  },
+  {
+    "file": "src/utils/seo/structured-data.ts",
+    "name": "generateAggregateRatingSchema",
+    "line": 333,
+    "col": 17,
+    "pos": 8540
+  },
+  {
+    "file": "src/utils/seo/structured-data.ts",
+    "name": "generateSpeakableSchema",
+    "line": 350,
+    "col": 17,
+    "pos": 8993
+  },
+  {
+    "file": "src/utils/seo/structured-data.ts",
+    "name": "generateLocationSchema",
+    "line": 368,
+    "col": 17,
+    "pos": 9459
+  },
+  {
+    "file": "src/utils/seo/structured-data.ts",
+    "name": "getFullSchemaGraph",
+    "line": 396,
+    "col": 17,
+    "pos": 10222
+  },
+  {
+    "file": "src/utils/structured-data.ts",
+    "name": "organizationSchema",
+    "line": 17,
+    "col": 14,
+    "pos": 426
+  },
+  {
+    "file": "src/utils/structured-data.ts",
+    "name": "serviceSchema",
+    "line": 74,
+    "col": 14,
+    "pos": 2234
+  },
+  {
+    "file": "src/utils/structured-data.ts",
+    "name": "projectSchema",
+    "line": 182,
+    "col": 14,
+    "pos": 4689
+  },
+  {
+    "file": "src/utils/structured-data.ts",
+    "name": "reviewSchema",
+    "line": 216,
+    "col": 14,
+    "pos": 5397
+  },
+  {
+    "file": "src/utils/structured-data.ts",
+    "name": "aggregateReviewSchema",
+    "line": 261,
+    "col": 14,
+    "pos": 6522
+  },
+  {
+    "file": "src/data/wave1-services.ts",
+    "name": "TRUST_LINE",
+    "line": 807,
+    "col": 10,
+    "pos": 44859
+  },
+  {
+    "file": "supabase/functions/_shared/errorHandler.ts",
+    "name": "sanitizeErrorMessage",
+    "line": 17,
+    "col": 14,
+    "pos": 413
+  },
+  {
+    "file": "src/components/ui/sonner.tsx",
+    "name": "toast",
+    "line": 27,
+    "col": 19,
+    "pos": 868
+  },
+  {
+    "file": "src/design-system/constants.ts",
+    "name": "BRAND",
+    "line": 61,
+    "col": 14,
+    "pos": 2359
+  },
+  {
+    "file": "src/components/ui/badge.tsx",
+    "name": "badgeVariants",
+    "line": 78,
+    "col": 17,
+    "pos": 3832
+  },
+  {
+    "file": "src/components/projects/ProjectFeaturedImage.tsx",
+    "name": "default",
+    "line": 123,
+    "col": 16,
+    "pos": 3739
+  },
+  {
+    "file": "src/integrations/supabase/types.ts",
+    "name": "Constants",
+    "line": 3697,
+    "col": 14,
+    "pos": 116575
+  },
+  {
+    "file": "src/design-system/components/TrustRibbon.tsx",
+    "name": "default",
+    "line": 74,
+    "col": 16,
+    "pos": 2438
+  },
+  {
+    "file": "src/design-system/components/FAQAccordion.tsx",
+    "name": "default",
+    "line": 99,
+    "col": 16,
+    "pos": 2585
+  },
+  {
+    "file": "src/design-system/components/RelatedLinksGrid.tsx",
+    "name": "default",
+    "line": 82,
+    "col": 16,
+    "pos": 2675
+  },
+  {
+    "file": "src/utils/sanitize.ts",
+    "name": "sanitizeHTML",
+    "line": 8,
+    "col": 14,
+    "pos": 197
+  },
+  {
+    "file": "src/utils/sanitize.ts",
+    "name": "validateHTMLComplexity",
+    "line": 30,
+    "col": 14,
+    "pos": 931
+  },
+  {
+    "file": "src/components/animations/ReadingProgressBar.tsx",
+    "name": "default",
+    "line": 67,
+    "col": 16,
+    "pos": 1683
+  },
+  {
+    "file": "src/hooks/use-toast.ts",
+    "name": "reducer",
+    "line": 71,
+    "col": 14,
+    "pos": 1435
+  },
+  {
+    "file": "src/hooks/use-toast.ts",
+    "name": "toast",
+    "line": 186,
+    "col": 20,
+    "pos": 3921
+  },
+  {
+    "file": "src/components/ui/select.tsx",
+    "name": "SelectSeparator",
+    "line": 140,
+    "col": 3,
+    "pos": 5543
+  },
+  {
+    "file": "src/components/ui/select.tsx",
+    "name": "SelectScrollUpButton",
+    "line": 141,
+    "col": 3,
+    "pos": 5562
+  },
+  {
+    "file": "src/components/ui/select.tsx",
+    "name": "SelectScrollDownButton",
+    "line": 142,
+    "col": 3,
+    "pos": 5586
+  },
+  {
+    "file": "src/components/ui/dialog.tsx",
+    "name": "DialogPortal",
+    "line": 86,
+    "col": 3,
+    "pos": 3756
+  },
+  {
+    "file": "src/components/ui/dialog.tsx",
+    "name": "DialogOverlay",
+    "line": 87,
+    "col": 3,
+    "pos": 3772
+  },
+  {
+    "file": "src/components/ui/dialog.tsx",
+    "name": "DialogClose",
+    "line": 88,
+    "col": 3,
+    "pos": 3789
+  },
+  {
+    "file": "src/components/ui/table.tsx",
+    "name": "TableFooter",
+    "line": 72,
+    "col": 41,
+    "pos": 2633
+  },
+  {
+    "file": "src/components/ui/table.tsx",
+    "name": "TableCaption",
+    "line": 72,
+    "col": 86,
+    "pos": 2678
+  },
+  {
+    "file": "src/utils/documentUrl.ts",
+    "name": "resolveDocumentUrl",
+    "line": 19,
+    "col": 14,
+    "pos": 753
+  },
+  {
+    "file": "src/hooks/useFeaturedServices.ts",
+    "name": "useFeaturedServices",
+    "line": 32,
+    "col": 14,
+    "pos": 809
+  },
+  {
+    "file": "src/hooks/useFeaturedServices.ts",
+    "name": "useServicePromotions",
+    "line": 52,
+    "col": 14,
+    "pos": 1353
+  },
+  {
+    "file": "src/components/ui/alert.tsx",
+    "name": "AlertTitle",
+    "line": 43,
+    "col": 17,
+    "pos": 1514
+  },
+  {
+    "file": "src/data/navigation-structure-enhanced.ts",
+    "name": "getMegaMenuSections",
+    "line": 229,
+    "col": 14,
+    "pos": 7814
+  },
+  {
+    "file": "src/data/navigation-structure-enhanced.ts",
+    "name": "getMegaMenuConfig",
+    "line": 234,
+    "col": 14,
+    "pos": 7964
+  },
+  {
+    "file": "src/components/ui/dropdown-menu.tsx",
+    "name": "DropdownMenuCheckboxItem",
+    "line": 168,
+    "col": 3,
+    "pos": 6996
+  },
+  {
+    "file": "src/components/ui/dropdown-menu.tsx",
+    "name": "DropdownMenuRadioItem",
+    "line": 169,
+    "col": 3,
+    "pos": 7024
+  },
+  {
+    "file": "src/components/ui/dropdown-menu.tsx",
+    "name": "DropdownMenuShortcut",
+    "line": 172,
+    "col": 3,
+    "pos": 7095
+  },
+  {
+    "file": "src/components/ui/dropdown-menu.tsx",
+    "name": "DropdownMenuGroup",
+    "line": 173,
+    "col": 3,
+    "pos": 7119
+  },
+  {
+    "file": "src/components/ui/dropdown-menu.tsx",
+    "name": "DropdownMenuPortal",
+    "line": 174,
+    "col": 3,
+    "pos": 7140
+  },
+  {
+    "file": "src/components/ui/dropdown-menu.tsx",
+    "name": "DropdownMenuSub",
+    "line": 175,
+    "col": 3,
+    "pos": 7162
+  },
+  {
+    "file": "src/components/ui/dropdown-menu.tsx",
+    "name": "DropdownMenuSubContent",
+    "line": 176,
+    "col": 3,
+    "pos": 7181
+  },
+  {
+    "file": "src/components/ui/dropdown-menu.tsx",
+    "name": "DropdownMenuSubTrigger",
+    "line": 177,
+    "col": 3,
+    "pos": 7207
+  },
+  {
+    "file": "src/components/ui/dropdown-menu.tsx",
+    "name": "DropdownMenuRadioGroup",
+    "line": 178,
+    "col": 3,
+    "pos": 7233
+  },
+  {
+    "file": "src/utils/routeHelpers.ts",
+    "name": "ADMIN_ROUTES",
+    "line": 7,
+    "col": 14,
+    "pos": 205
+  },
+  {
+    "file": "src/utils/routeHelpers.ts",
+    "name": "getAdminEditRoute",
+    "line": 11,
+    "col": 14,
+    "pos": 277
+  },
+  {
+    "file": "src/utils/routeHelpers.ts",
+    "name": "getPublicRoute",
+    "line": 21,
+    "col": 14,
+    "pos": 597
+  },
+  {
+    "file": "src/utils/routeHelpers.ts",
+    "name": "isValidAdminRoute",
+    "line": 32,
+    "col": 14,
+    "pos": 903
+  },
+  {
+    "file": "src/utils/routeHelpers.ts",
+    "name": "getPreviewUrl",
+    "line": 37,
+    "col": 14,
+    "pos": 1129
+  },
+  {
+    "file": "src/utils/routeHelpers.ts",
+    "name": "VALID_PUBLIC_ROUTES",
+    "line": 46,
+    "col": 14,
+    "pos": 1457
+  },
+  {
+    "file": "src/utils/routeHelpers.ts",
+    "name": "isValidPublicRoute",
+    "line": 48,
+    "col": 14,
+    "pos": 1530
+  },
+  {
+    "file": "src/utils/routeHelpers.ts",
+    "name": "validateAdminUrl",
+    "line": 53,
+    "col": 14,
+    "pos": 1706
+  },
+  {
+    "file": "src/components/ui/toast.tsx",
+    "name": "ToastAction",
+    "line": 110,
+    "col": 3,
+    "pos": 4793
+  },
+  {
+    "file": "src/components/ui/button.tsx",
+    "name": "buttonVariants",
+    "line": 2,
+    "col": 18,
+    "pos": 100
+  },
+  {
+    "file": "src/utils/schema-injector.ts",
+    "name": "injectSchemas",
+    "line": 6,
+    "col": 14,
+    "pos": 136
+  },
+  {
+    "file": "src/data/video-metadata.ts",
+    "name": "heroVideo",
+    "line": 19,
+    "col": 14,
+    "pos": 436
+  },
+  {
+    "file": "src/data/video-metadata.ts",
+    "name": "splashVideo",
+    "line": 32,
+    "col": 14,
+    "pos": 1166
+  },
+  {
+    "file": "src/data/video-metadata.ts",
+    "name": "serviceDemoVideos",
+    "line": 46,
+    "col": 14,
+    "pos": 1764
+  },
+  {
+    "file": "src/data/video-metadata.ts",
+    "name": "getVideosByCategory",
+    "line": 87,
+    "col": 14,
+    "pos": 3890
+  },
+  {
+    "file": "src/data/video-metadata.ts",
+    "name": "getAllServiceVideos",
+    "line": 94,
+    "col": 14,
+    "pos": 4106
+  },
+  {
+    "file": "src/utils/ab-testing.ts",
+    "name": "abTesting",
+    "line": 124,
+    "col": 14,
+    "pos": 3141
+  },
+  {
+    "file": "src/hooks/useHomepageData.ts",
+    "name": "homepageQueryKeys",
+    "line": 121,
+    "col": 14,
+    "pos": 3051
+  },
+  {
+    "file": "src/components/shared/StartProjectCTA.tsx",
+    "name": "default",
+    "line": 142,
+    "col": 16,
+    "pos": 4996
+  },
+  {
+    "file": "src/design-system/components/index.ts",
+    "name": "Card",
+    "line": 7,
+    "col": 10,
+    "pos": 130
+  },
+  {
+    "file": "src/design-system/components/index.ts",
+    "name": "CardHeader",
+    "line": 7,
+    "col": 16,
+    "pos": 136
+  },
+  {
+    "file": "src/design-system/components/index.ts",
+    "name": "CardTitle",
+    "line": 7,
+    "col": 28,
+    "pos": 148
+  },
+  {
+    "file": "src/design-system/components/index.ts",
+    "name": "CardDescription",
+    "line": 7,
+    "col": 39,
+    "pos": 159
+  },
+  {
+    "file": "src/design-system/components/index.ts",
+    "name": "CardContent",
+    "line": 7,
+    "col": 56,
+    "pos": 176
+  },
+  {
+    "file": "src/design-system/components/index.ts",
+    "name": "CardFooter",
+    "line": 7,
+    "col": 69,
+    "pos": 189
+  },
+  {
+    "file": "src/design-system/components/index.ts",
+    "name": "CapabilityCard",
+    "line": 10,
+    "col": 10,
+    "pos": 244
+  },
+  {
+    "file": "src/design-system/components/index.ts",
+    "name": "ProofCard",
+    "line": 11,
+    "col": 10,
+    "pos": 295
+  },
+  {
+    "file": "src/design-system/components/index.ts",
+    "name": "CTABand",
+    "line": 19,
+    "col": 10,
+    "pos": 606
+  },
+  {
+    "file": "src/design-system/components/index.ts",
+    "name": "RelatedLinksGrid",
+    "line": 22,
+    "col": 10,
+    "pos": 760
+  },
+  {
+    "file": "src/utils/seo/index.ts",
+    "name": "organizationSchema",
+    "line": 7,
+    "col": 3,
+    "pos": 86
+  },
+  {
+    "file": "src/utils/seo/index.ts",
+    "name": "localBusinessSchema",
+    "line": 8,
+    "col": 3,
+    "pos": 108
+  },
+  {
+    "file": "src/utils/seo/index.ts",
+    "name": "generateProjectSchema",
+    "line": 10,
+    "col": 3,
+    "pos": 156
+  },
+  {
+    "file": "src/utils/seo/index.ts",
+    "name": "generateArticleSchema",
+    "line": 12,
+    "col": 3,
+    "pos": 202
+  },
+  {
+    "file": "src/utils/seo/index.ts",
+    "name": "generateAggregateRatingSchema",
+    "line": 15,
+    "col": 3,
+    "pos": 278
+  },
+  {
+    "file": "src/utils/seo/index.ts",
+    "name": "generateSpeakableSchema",
+    "line": 16,
+    "col": 3,
+    "pos": 311
+  },
+  {
+    "file": "src/utils/seo/index.ts",
+    "name": "generateLocationSchema",
+    "line": 17,
+    "col": 3,
+    "pos": 338
+  },
+  {
+    "file": "src/utils/seo/index.ts",
+    "name": "getFullSchemaGraph",
+    "line": 18,
+    "col": 3,
+    "pos": 364
+  },
+  {
+    "file": "src/utils/seo/index.ts",
+    "name": "generateMetaTags",
+    "line": 24,
+    "col": 3,
+    "pos": 458
+  },
+  {
+    "file": "src/utils/seo/index.ts",
+    "name": "defaultMeta",
+    "line": 25,
+    "col": 3,
+    "pos": 478
+  },
+  {
+    "file": "src/utils/seo/index.ts",
+    "name": "formatPageTitle",
+    "line": 26,
+    "col": 3,
+    "pos": 493
+  },
+  {
+    "file": "src/utils/seo/index.ts",
+    "name": "truncateDescription",
+    "line": 27,
+    "col": 3,
+    "pos": 512
+  },
+  {
+    "file": "src/utils/seo/index.ts",
+    "name": "extractKeywords",
+    "line": 28,
+    "col": 3,
+    "pos": 535
+  },
+  {
+    "file": "src/utils/seo/index.ts",
+    "name": "COMPANY_FACTS",
+    "line": 35,
+    "col": 3,
+    "pos": 642
+  },
+  {
+    "file": "src/utils/seo/index.ts",
+    "name": "AI_PAGE_DESCRIPTIONS",
+    "line": 36,
+    "col": 3,
+    "pos": 659
+  },
+  {
+    "file": "src/utils/seo/index.ts",
+    "name": "VOICE_OPTIMIZED_FAQS",
+    "line": 37,
+    "col": 3,
+    "pos": 683
+  },
+  {
+    "file": "src/utils/seo/index.ts",
+    "name": "CITABLE_CONTENT",
+    "line": 38,
+    "col": 3,
+    "pos": 707
+  },
+  {
+    "file": "src/utils/seo/index.ts",
+    "name": "SERVICE_AREAS",
+    "line": 39,
+    "col": 3,
+    "pos": 726
+  },
+  {
+    "file": "src/utils/seo/index.ts",
+    "name": "generateLocationContent",
+    "line": 40,
+    "col": 3,
+    "pos": 743
+  },
+  {
+    "file": "src/data/enriched-company-content.ts",
+    "name": "enrichedCompanyStory",
+    "line": 4,
+    "col": 14,
+    "pos": 116
+  },
+  {
+    "file": "src/data/enriched-company-content.ts",
+    "name": "whyChooseAscent",
+    "line": 43,
+    "col": 14,
+    "pos": 3424
+  },
+  {
+    "file": "src/data/enriched-company-content.ts",
+    "name": "companyValues",
+    "line": 107,
+    "col": 14,
+    "pos": 7415
+  },
+  {
+    "file": "src/data/enriched-company-content.ts",
+    "name": "serviceCommitments",
+    "line": 140,
+    "col": 14,
+    "pos": 8739
+  },
+  {
+    "file": "src/data/enriched-company-content.ts",
+    "name": "targetClients",
+    "line": 171,
+    "col": 14,
+    "pos": 10083
+  },
+  {
+    "file": "src/components/services/ServicesCtaSection.tsx",
+    "name": "default",
+    "line": 7,
+    "col": 16,
+    "pos": 163
+  },
+  {
+    "file": "src/utils/imageResolver.ts",
+    "name": "deleteImage",
+    "line": 91,
+    "col": 14,
+    "pos": 2225
+  },
+  {
+    "file": "src/components/animations/MagneticButton.tsx",
+    "name": "default",
+    "line": 76,
+    "col": 16,
+    "pos": 2192
+  },
+  {
+    "file": "src/utils/estimator.ts",
+    "name": "SERVICE_CLASSIFICATION",
+    "line": 4,
+    "col": 14,
+    "pos": 105
+  },
+  {
+    "file": "src/design-system/components/Typography.tsx",
+    "name": "H1",
+    "line": 34,
+    "col": 14,
+    "pos": 684
+  },
+  {
+    "file": "src/design-system/components/Typography.tsx",
+    "name": "H3",
+    "line": 56,
+    "col": 14,
+    "pos": 1172
+  },
+  {
+    "file": "src/design-system/components/Typography.tsx",
+    "name": "H4",
+    "line": 67,
+    "col": 14,
+    "pos": 1404
+  },
+  {
+    "file": "src/design-system/components/Typography.tsx",
+    "name": "Text",
+    "line": 78,
+    "col": 14,
+    "pos": 1652
+  },
+  {
+    "file": "src/utils/faq-schema.ts",
+    "name": "generateServiceSchema",
+    "line": 23,
+    "col": 14,
+    "pos": 446
+  },
+  {
+    "file": "src/components/shared/PhoneLink.tsx",
+    "name": "AscentPhoneLink",
+    "line": 43,
+    "col": 14,
+    "pos": 1256
+  },
+  {
+    "file": "src/utils/seo/ai-content.ts",
+    "name": "AI_PAGE_DESCRIPTIONS",
+    "line": 61,
+    "col": 14,
+    "pos": 1514
+  },
+  {
+    "file": "src/utils/seo/ai-content.ts",
+    "name": "generateLocationContent",
+    "line": 192,
+    "col": 17,
+    "pos": 11411
+  },
+  {
+    "file": "src/hooks/useDocuments.ts",
+    "name": "useDocuments",
+    "line": 21,
+    "col": 17,
+    "pos": 595
+  },
+  {
+    "file": "src/components/unified/index.ts",
+    "name": "ServiceSelector",
+    "line": 11,
+    "col": 10,
+    "pos": 270
+  },
+  {
+    "file": "src/components/unified/index.ts",
+    "name": "CapabilityCard",
+    "line": 14,
+    "col": 10,
+    "pos": 374
+  },
+  {
+    "file": "src/components/unified/index.ts",
+    "name": "ProofCard",
+    "line": 15,
+    "col": 10,
+    "pos": 450
+  },
+  {
+    "file": "src/components/unified/index.ts",
+    "name": "SegmentCard",
+    "line": 16,
+    "col": 10,
+    "pos": 516
+  },
+  {
+    "file": "src/components/unified/index.ts",
+    "name": "SectionHeader",
+    "line": 19,
+    "col": 10,
+    "pos": 621
+  },
+  {
+    "file": "src/components/unified/index.ts",
+    "name": "ProofStrip",
+    "line": 20,
+    "col": 10,
+    "pos": 695
+  },
+  {
+    "file": "src/components/unified/index.ts",
+    "name": "CTABand",
+    "line": 21,
+    "col": 10,
+    "pos": 763
+  },
+  {
+    "file": "src/schemas/rfp-validation.ts",
+    "name": "companyInfoSchema",
+    "line": 4,
+    "col": 14,
+    "pos": 70
+  },
+  {
+    "file": "src/schemas/rfp-validation.ts",
+    "name": "projectDetailsSchema",
+    "line": 30,
+    "col": 14,
+    "pos": 1037
+  },
+  {
+    "file": "src/schemas/rfp-validation.ts",
+    "name": "timelineRequirementsSchema",
+    "line": 62,
+    "col": 14,
+    "pos": 2056
+  },
+  {
+    "file": "src/schemas/rfp-validation.ts",
+    "name": "scopeOfWorkSchema",
+    "line": 84,
+    "col": 14,
+    "pos": 2751
+  },
+  {
+    "file": "src/components/services/Wave1ServicePage.tsx",
+    "name": "Wave1ServicePage",
+    "line": 102,
+    "col": 14,
+    "pos": 4056
+  },
+  {
+    "file": "src/utils/previewToken.ts",
+    "name": "validatePreviewToken",
+    "line": 11,
+    "col": 14,
+    "pos": 315
+  },
+  {
+    "file": "src/components/ui/pagination.tsx",
+    "name": "PaginationEllipsis",
+    "line": 76,
+    "col": 3,
+    "pos": 2573
+  },
+  {
+    "file": "src/components/ui/card.tsx",
+    "name": "CardFooter",
+    "line": 74,
+    "col": 28,
+    "pos": 2598
+  },
+  {
+    "file": "src/utils/image-optimizer.ts",
+    "name": "STANDARD_WIDTHS",
+    "line": 20,
+    "col": 14,
+    "pos": 383
+  },
+  {
+    "file": "src/utils/image-optimizer.ts",
+    "name": "generateFormatUrls",
+    "line": 114,
+    "col": 14,
+    "pos": 3211
+  },
+  {
+    "file": "src/utils/image-optimizer.ts",
+    "name": "getOptimalWidth",
+    "line": 132,
+    "col": 14,
+    "pos": 3776
+  },
+  {
+    "file": "src/utils/image-optimizer.ts",
+    "name": "isModernFormat",
+    "line": 156,
+    "col": 14,
+    "pos": 4485
+  },
+  {
+    "file": "src/utils/image-optimizer.ts",
+    "name": "convertToModernFormat",
+    "line": 166,
+    "col": 14,
+    "pos": 4779
+  },
+  {
+    "file": "src/utils/image-optimizer.ts",
+    "name": "LAZY_LOAD_CONFIG",
+    "line": 176,
+    "col": 14,
+    "pos": 5012
+  },
+  {
+    "file": "src/utils/image-optimizer.ts",
+    "name": "QUALITY_PRESETS",
+    "line": 184,
+    "col": 14,
+    "pos": 5148
+  },
+  {
+    "file": "src/utils/image-optimizer.ts",
+    "name": "readImageDimensions",
+    "line": 193,
+    "col": 14,
+    "pos": 5397
+  },
+  {
+    "file": "src/design-system/layouts.ts",
+    "name": "GAP",
+    "line": 30,
+    "col": 14,
+    "pos": 1005
+  },
+  {
+    "file": "src/design-system/layouts.ts",
+    "name": "getCardGridClasses",
+    "line": 37,
+    "col": 14,
+    "pos": 1113
+  },
+  {
+    "file": "src/design-system/layouts.ts",
+    "name": "getFeatureGridClasses",
+    "line": 51,
+    "col": 14,
+    "pos": 1453
+  },
+  {
+    "file": "src/design-system/layouts.ts",
+    "name": "getContentSidebarClasses",
+    "line": 62,
+    "col": 14,
+    "pos": 1659
+  },
+  {
+    "file": "src/design-system/layouts.ts",
+    "name": "GRID_PRESETS",
+    "line": 68,
+    "col": 14,
+    "pos": 1801
+  },
+  {
+    "file": "src/components/projects/GalleryThumbnail.tsx",
+    "name": "default",
+    "line": 55,
+    "col": 16,
+    "pos": 1561
+  },
+  {
+    "file": "src/components/ui/alert-dialog.tsx",
+    "name": "AlertDialogPortal",
+    "line": 94,
+    "col": 3,
+    "pos": 4084
+  },
+  {
+    "file": "src/components/ui/alert-dialog.tsx",
+    "name": "AlertDialogOverlay",
+    "line": 95,
+    "col": 3,
+    "pos": 4105
+  },
+  {
+    "file": "src/components/ui/alert-dialog.tsx",
+    "name": "AlertDialogTrigger",
+    "line": 96,
+    "col": 3,
+    "pos": 4127
+  },
+  {
+    "file": "src/components/ui/scroll-area.tsx",
+    "name": "ScrollBar",
+    "line": 38,
+    "col": 22,
+    "pos": 1595
+  },
+  {
+    "file": "src/components/ui/sheet.tsx",
+    "name": "SheetClose",
+    "line": 98,
+    "col": 3,
+    "pos": 4055
+  },
+  {
+    "file": "src/components/ui/sheet.tsx",
+    "name": "SheetFooter",
+    "line": 101,
+    "col": 3,
+    "pos": 4105
+  },
+  {
+    "file": "src/components/ui/sheet.tsx",
+    "name": "SheetOverlay",
+    "line": 103,
+    "col": 3,
+    "pos": 4135
+  },
+  {
+    "file": "src/components/ui/sheet.tsx",
+    "name": "SheetPortal",
+    "line": 104,
+    "col": 3,
+    "pos": 4151
+  },
+  {
+    "file": "src/components/ui/sheet.tsx",
+    "name": "SheetTrigger",
+    "line": 106,
+    "col": 3,
+    "pos": 4180
+  },
+  {
+    "file": "src/hooks/useNavigationSearch.ts",
+    "name": "getAllNavigationItems",
+    "line": 15,
+    "col": 14,
+    "pos": 508
+  },
+  {
+    "file": "src/utils/haptics.ts",
+    "name": "lightTap",
+    "line": 16,
+    "col": 14,
+    "pos": 404
+  },
+  {
+    "file": "src/utils/haptics.ts",
+    "name": "mediumTap",
+    "line": 22,
+    "col": 14,
+    "pos": 496
+  },
+  {
+    "file": "src/utils/haptics.ts",
+    "name": "successTap",
+    "line": 28,
+    "col": 14,
+    "pos": 589
+  },
+  {
+    "file": "src/routes/registry.ts",
+    "name": "ALL_KNOWN_ROUTE_PATTERNS",
+    "line": 64,
+    "col": 14,
+    "pos": 1428
+  },
+  {
+    "file": "src/routes/registry.ts",
+    "name": "routePatternToRegex",
+    "line": 69,
+    "col": 14,
+    "pos": 1555
+  },
+  {
+    "file": "src/design-system/components/ProofCard.tsx",
+    "name": "ProofCard",
+    "line": 18,
+    "col": 14,
+    "pos": 409
+  },
+  {
+    "file": "src/design-system/components/DetailCard.tsx",
+    "name": "default",
+    "line": 171,
+    "col": 16,
+    "pos": 5050
+  },
+  {
+    "file": "src/design-system/components/TabbedSections.tsx",
+    "name": "default",
+    "line": 95,
+    "col": 16,
+    "pos": 2942
+  },
+  {
+    "file": "src/design-system/components/StickyPageNav.tsx",
+    "name": "default",
+    "line": 110,
+    "col": 16,
+    "pos": 3327
+  },
+  {
+    "file": "src/utils/seo/meta-generator.ts",
+    "name": "generateMetaTags",
+    "line": 54,
+    "col": 17,
+    "pos": 1097
+  },
+  {
+    "file": "src/utils/seo/meta-generator.ts",
+    "name": "defaultMeta",
+    "line": 134,
+    "col": 14,
+    "pos": 4253
+  },
+  {
+    "file": "src/utils/seo/meta-generator.ts",
+    "name": "formatPageTitle",
+    "line": 175,
+    "col": 17,
+    "pos": 6788
+  },
+  {
+    "file": "src/utils/seo/meta-generator.ts",
+    "name": "truncateDescription",
+    "line": 185,
+    "col": 17,
+    "pos": 7060
+  },
+  {
+    "file": "src/utils/seo/meta-generator.ts",
+    "name": "extractKeywords",
+    "line": 193,
+    "col": 17,
+    "pos": 7285
+  },
+  {
+    "file": "src/design-system/typography.ts",
+    "name": "TYPOGRAPHY",
+    "line": 13,
+    "col": 14,
+    "pos": 313
+  },
+  {
+    "file": "src/design-system/typography.ts",
+    "name": "FONT_WEIGHT",
+    "line": 54,
+    "col": 14,
+    "pos": 1283
+  },
+  {
+    "file": "src/design-system/typography.ts",
+    "name": "LINE_HEIGHT",
+    "line": 64,
+    "col": 14,
+    "pos": 1500
+  },
+  {
+    "file": "src/design-system/animations.ts",
+    "name": "ANIMATIONS",
+    "line": 40,
+    "col": 14,
+    "pos": 1083
+  },
+  {
+    "file": "src/design-system/animations.ts",
+    "name": "INTERACTIONS",
+    "line": 62,
+    "col": 14,
+    "pos": 1527
+  },
+  {
+    "file": "src/design-system/animations.ts",
+    "name": "ANIMATION_CLASSES",
+    "line": 79,
+    "col": 14,
+    "pos": 2211
+  },
+  {
+    "file": "src/components/tools/ServiceSelector.tsx",
+    "name": "ServiceSelector",
+    "line": 27,
+    "col": 14,
+    "pos": 924
+  },
+  {
+    "file": "src/design-system/tokens.ts",
+    "name": "SPACING",
+    "line": 9,
+    "col": 14,
+    "pos": 229
+  },
+  {
+    "file": "src/design-system/tokens.ts",
+    "name": "RADIUS",
+    "line": 23,
+    "col": 14,
+    "pos": 627
+  },
+  {
+    "file": "src/design-system/tokens.ts",
+    "name": "BORDER_RADIUS",
+    "line": 32,
+    "col": 14,
+    "pos": 934
+  },
+  {
+    "file": "src/design-system/tokens.ts",
+    "name": "SHADOW",
+    "line": 42,
+    "col": 14,
+    "pos": 1319
+  },
+  {
+    "file": "src/design-system/tokens.ts",
+    "name": "TRANSITION",
+    "line": 55,
+    "col": 14,
+    "pos": 1942
+  },
+  {
+    "file": "src/design-system/tokens.ts",
+    "name": "DURATION",
+    "line": 62,
+    "col": 14,
+    "pos": 2177
+  },
+  {
+    "file": "src/design-system/tokens.ts",
+    "name": "DURATION_CLASS",
+    "line": 69,
+    "col": 14,
+    "pos": 2414
+  },
+  {
+    "file": "src/design-system/tokens.ts",
+    "name": "Z_INDEX",
+    "line": 78,
+    "col": 14,
+    "pos": 2741
+  },
+  {
+    "file": "src/design-system/tokens.ts",
+    "name": "TYPOGRAPHY",
+    "line": 93,
+    "col": 14,
+    "pos": 3020
+  },
+  {
+    "file": "src/design-system/tokens.ts",
+    "name": "ANIMATION",
+    "line": 122,
+    "col": 14,
+    "pos": 3684
+  },
+  {
+    "file": "src/design-system/tokens.ts",
+    "name": "INTERACTION",
+    "line": 144,
+    "col": 14,
+    "pos": 4094
+  },
+  {
+    "file": "src/design-system/tokens.ts",
+    "name": "GRID",
+    "line": 162,
+    "col": 14,
+    "pos": 4470
+  },
+  {
+    "file": "src/design-system/tokens.ts",
+    "name": "CONTAINER",
+    "line": 200,
+    "col": 14,
+    "pos": 5729
+  },
+  {
+    "file": "src/lib/motion-presets.ts",
+    "name": "EASE_EXPO_OUT",
+    "line": 13,
+    "col": 14,
+    "pos": 475
+  },
+  {
+    "file": "src/lib/motion-presets.ts",
+    "name": "DURATION",
+    "line": 23,
+    "col": 14,
+    "pos": 714
+  },
+  {
+    "file": "src/lib/motion-presets.ts",
+    "name": "fadeUp",
+    "line": 34,
+    "col": 14,
+    "pos": 997
+  },
+  {
+    "file": "src/lib/motion-presets.ts",
+    "name": "fadeIn",
+    "line": 43,
+    "col": 14,
+    "pos": 1178
+  },
+  {
+    "file": "src/lib/motion-presets.ts",
+    "name": "staggerContainer",
+    "line": 51,
+    "col": 14,
+    "pos": 1342
+  },
+  {
+    "file": "src/hooks/useOnPageNav.ts",
+    "name": "default",
+    "line": 48,
+    "col": 16,
+    "pos": 1389
+  }
+]

@@ -1,0 +1,118 @@
+200 /services -> /services | Specialty contracting services for envelope, restoration, and interior trade execution
+200 /services/commercial-painting-gta -> /services/commercial-painting-gta | Commercial Painting Contractor — Greater Toronto Area
+200 /services/fire-retardant-coatings-ontario -> /services/fire-retardant-coatings-ontario | Fire Retardant & Intumescent Coatings — Ontario
+200 /services/exterior-painting-toronto -> /services/exterior-painting-toronto | Exterior Painting — Toronto & GTA
+200 /services/caulking-sealants-toronto -> /services/caulking-sealants-toronto | Caulking & Building Envelope Sealants — Toronto & GTA
+200 /services/interior-painting-toronto -> /services/interior-painting-toronto | Interior Painting Contractor — Toronto & GTA
+200 /services/residential-exterior-painting-gta -> /services/residential-exterior-painting-gta | Residential Exterior House Painters — Greater Toronto Area
+200 /services/tile-installation-toronto -> /services/tile-installation-toronto | Tile Installation Contractor — Toronto & GTA
+200 /services/flooring-installation-gta -> /services/flooring-installation-gta | Flooring Installation Contractor — Greater Toronto Area
+200 /services/handyman-patching-toronto -> /services/handyman-patching-toronto | Drywall Patching & Handyman Services — Toronto & GTA
+200 /services/painting-services -> /services/painting-services | Painting Services
+200 / -> / | We Restore, Repair & Protect Buildings Across the GTA
+200 /about -> /about | 15 Years of Experience. One Clear Mission.
+200 /markets -> /markets | Markets We Serve
+200 /why-specialty-contractor -> /why-specialty-contractor | Why We Focus on Specialty Trades
+200 /prequalification -> /prequalification | Vendor Pre-Qualification Package
+200 /capabilities -> /capabilities | How Ascent Delivers Projects
+200 /careers -> /careers | Work With Ascent
+200 /sustainability -> /services/sustainable-building | Sustainable Construction
+200 /insights -> /blog | Blog & Case Studies
+200 /service-selector -> /services | Specialty contracting services for envelope, restoration, and interior trade execution
+200 /free-quote -> /contact | Contact Us
+200 /get-estimate -> /contact | Contact Us
+200 /projects -> /projects | Our Projects
+200 /contact -> /contact | Contact Us
+200 /estimate -> /estimate | Request a Project Estimate
+200 /submit-rfp -> /submit-rfp | Submit Your RFP
+200 /for-general-contractors -> /for-general-contractors | Reliable Trade Partner for General Contractors
+200 /for-architects -> /for-architects | A Contractor Who Speaks Building Science
+200 /emergency-repair -> /emergency-repair | Emergency Building Repair
+200 /privacy -> /privacy | Privacy Policy
+200 /terms -> /terms | Terms of Use
+200 /accessibility -> /accessibility | Accessibility Statement
+200 /unsubscribe -> /unsubscribe | Newsletter Unsubscribe
+200 /email-unsubscribe -> /email-unsubscribe | Manage your email preferences
+200 /property-managers -> /property-managers | Envelope & Restoration Partner for Multi-Residential Properties
+200 /homeowners -> /homeowners | Residential Services for Homeowners
+200 /commercial-clients -> /commercial-clients | Envelope & Restoration for Commercial Properties
+200 /our-process -> /our-process | From Inquiry to Closeout
+200 /faq -> /faq | Frequently Asked Questions
+200 /tekev -> /tekev | (no H1)
+200 /.lovable/oauth/consent -> /.lovable/oauth/consent | (no H1)
+200 /company/certifications-insurance -> /company/certifications-insurance | Certifications & Insurance Coverage
+200 /company/equipment-resources -> /company/technology | Built on Digital Precision
+200 /company/technology -> /company/technology | Built on Digital Precision
+200 /company/developers -> /company/developers | Build With a Trusted Partner
+200 /resources/contractor-portal -> /resources/contractor-portal | Partner With Ascent
+200 /resources/service-areas -> /resources/service-areas | Service Areas
+200 /service-areas/toronto -> /service-areas/toronto | Building Envelope Services in Toronto
+200 /blog -> /blog | Blog & Case Studies
+200 /blog/baseline-fixture-article -> /blog/baseline-fixture-article | Baseline fixture article
+200 /case-studies -> /blog | Blog & Case Studies
+200 /case-study/baseline-fixture-article -> /blog/baseline-fixture-article | Baseline fixture article
+200 /projects/baseline-fixture-project -> /projects/baseline-fixture-project | Baseline fixture project
+200 /404 -> /404 | 404
+200 /services/building-envelope -> /services/building-envelope-solutions | Building Envelope Solutions
+200 /services/interior-buildouts -> /services/interior-buildouts-finishing | Interior Finishing
+200 /services/eifs-stucco -> /services/eifs-stucco-systems | EIFS & Stucco
+200 /services/metal-cladding -> /services/cladding-systems | Cladding Systems
+200 /services/exterior-envelope -> /services/building-envelope-solutions | Building Envelope Solutions
+200 /services/exterior-cladding -> /services/cladding-systems | Cladding Systems
+200 /services/exterior-siding -> /services/cladding-systems | Cladding Systems
+200 /services/drywall-finishing -> /services/interior-buildouts-finishing | Interior Finishing
+200 /services/suite-buildouts -> /services/interior-buildouts-finishing | Interior Finishing
+200 /services/painting -> /services/painting-services | Painting Services
+200 /services/condo-multi-unit -> /services/interior-buildouts-finishing | Interior Finishing
+200 /services/residential-painting -> /services/painting-services | Painting Services
+200 /services/commercial-painting -> /services/painting-services | Painting Services
+200 /services/general-contracting -> /services | Specialty contracting services for envelope, restoration, and interior trade execution
+200 /services/construction-management -> /services | Specialty contracting services for envelope, restoration, and interior trade execution
+200 /services/design-build -> /services | Specialty contracting services for envelope, restoration, and interior trade execution
+200 /services/waterproofing -> /services/waterproofing-systems | Waterproofing Systems
+200 /services/sealant-replacement -> /services/sealant-programs | Sealant Programs
+200 /services/roofing -> /services/building-envelope-solutions | Building Envelope Solutions
+200 /services/windows-doors -> /services/building-envelope-solutions | Building Envelope Solutions
+200 /services/preconstruction-services -> /services | Specialty contracting services for envelope, restoration, and interior trade execution
+200 /services/virtual-design-construction -> /services | Specialty contracting services for envelope, restoration, and interior trade execution
+200 /services/parking-rehabilitation -> /services/parking-garage-restoration | Parking Garage Restoration
+200 /services/sustainable-construction -> /services/sustainable-building | Sustainable Construction
+200 /services/protective-coatings -> /services/painting-services | Painting Services
+200 /services/stucco -> /services/cladding-systems | Cladding Systems
+200 /services/stucco-eifs -> /services/eifs-stucco-systems | EIFS & Stucco
+200 /services/sealants -> /services/building-envelope-solutions | Building Envelope Solutions
+200 /services/sealants-caulking -> /services/sealant-programs | Sealant Programs
+200 /services/parking-garage -> /services/parking-garage-restoration | Parking Garage Restoration
+200 /services/commercial -> /services | Specialty contracting services for envelope, restoration, and interior trade execution
+200 /services/condo -> /services/painting-services | Painting Services
+200 /services/masonry -> /services/masonry-restoration | Masonry Restoration
+200 /services/building-envelope-solutions -> /services/building-envelope-solutions | Building Envelope Solutions
+200 /services/cladding-systems -> /services/cladding-systems | Cladding Systems
+200 /services/waterproofing-systems -> /services/waterproofing-systems | Waterproofing Systems
+200 /services/eifs-stucco-systems -> /services/eifs-stucco-systems | EIFS & Stucco
+200 /services/facade-remediation -> /services/facade-remediation | Façade Remediation
+200 /services/masonry-restoration -> /services/masonry-restoration | Masonry Restoration
+200 /services/parking-garage-restoration -> /services/parking-garage-restoration | Parking Garage Restoration
+200 /services/interior-buildouts-finishing -> /services/interior-buildouts-finishing | Interior Finishing
+200 /services/tile-flooring -> /services/tile-flooring | Tile & Flooring
+200 /services/interior-finishing-renovations -> /services/interior-finishing-renovations | Interior Finishing & Renovations
+200 /services/sealant-programs -> /services/sealant-programs | Sealant Programs
+200 /services/sustainable-building -> /services/sustainable-building | Sustainable Construction
+200 /service-areas/mississauga -> /service-areas/mississauga | Building Envelope Services in Mississauga
+200 /service-areas/brampton -> /service-areas/brampton | Building Envelope Services in Brampton
+200 /service-areas/vaughan -> /service-areas/vaughan | Building Envelope Services in Vaughan
+200 /service-areas/markham -> /service-areas/markham | Building Envelope Services in Markham
+200 /service-areas/richmond-hill -> /service-areas/richmond-hill | Building Envelope Services in Richmond Hill
+200 /service-areas/oakville -> /service-areas/oakville | Building Envelope Services in Oakville
+200 /service-areas/burlington -> /service-areas/burlington | Building Envelope Services in Burlington
+200 /service-areas/milton -> /service-areas/milton | Building Envelope Services in Milton
+200 /service-areas/pickering -> /service-areas/pickering | Building Envelope Services in Pickering
+200 /service-areas/ajax -> /service-areas/ajax | Building Envelope Services in Ajax
+200 /service-areas/whitby -> /service-areas/whitby | Building Envelope Services in Whitby
+200 /service-areas/oshawa -> /service-areas/oshawa | Building Envelope Services in Oshawa
+200 /service-areas/newmarket -> /service-areas/newmarket | Building Envelope Services in Newmarket
+200 /service-areas/aurora -> /service-areas/aurora | Building Envelope Services in Aurora
+200 /service-areas/king-city -> /service-areas/king-city | Building Envelope Services in King City
+200 /service-areas/hamilton -> /service-areas/hamilton | Building Envelope Services in Hamilton
+200 /baseline-unknown-route -> /baseline-unknown-route | 404
+{"desktopRoutes":117,"mobileRoutes":9,"observations":126,"failures":0,"observationsWithConsoleErrors":2,"externalRequestsForwarded":0,"blockedWriteAttempts":0}
