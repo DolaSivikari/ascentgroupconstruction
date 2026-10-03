@@ -1,0 +1,265 @@
+$ vite build
+vite v5.4.21 building for production...
+transforming...
+
+warn - The class `duration-[150ms]` is ambiguous and matches multiple utilities.
+warn - If this is content and not a class, replace it with `duration-&lsqb;150ms&rsqb;` to silence this warning.
+
+warn - The class `ease-[cubic-bezier(0.22,1,0.36,1)]` is ambiguous and matches multiple utilities.
+warn - If this is content and not a class, replace it with `ease-&lsqb;cubic-bezier(0.22,1,0.36,1)&rsqb;` to silence this warning.
+../../tmp/agc-ci-deps-p896bn/node_modules/zod/v4/core/regexes.js (74:0): A comment
+
+"/** Anchors a pattern source. The interpolation lives here rather than at the call site because
+ * esbuild will not drop a `@__PURE__` call whose own argument interpolates a variable, but it
+ * will drop `anchor(dateSource)`. Keeping it inline pinned `date` into every bundle. */"
+
+in "../../tmp/agc-ci-deps-p896bn/node_modules/zod/v4/core/regexes.js" contains an annotation that Rollup cannot interpret due to the position of the comment. The comment will be removed to avoid issues.
+../../tmp/agc-ci-deps-p896bn/node_modules/zod/v4/core/util.js (400:0): A comment
+
+"// Wrapped in a `@__PURE__` IIFE: esbuild never tree-shakes a top-level initializer that contains a member access on `Number`, so the bare object literal survived into every bundle."
+
+in "../../tmp/agc-ci-deps-p896bn/node_modules/zod/v4/core/util.js" contains an annotation that Rollup cannot interpret due to the position of the comment. The comment will be removed to avoid issues.
+✓ 3888 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/assets/miral-cladding-ADUhZZG4.png                          6.09 kB
+dist/assets/procore-network-CARZtQyR.svg                         9.64 kB │ gzip:   4.07 kB
+dist/index.html                                                 10.78 kB │ gzip:   3.18 kB
+dist/assets/elips-yapi-CntR0qz3.png                             12.46 kB
+dist/assets/skocc-B0A7tqSU.png                                  13.44 kB
+dist/assets/skocc-BW0a01Qs.jpg                                  14.19 kB
+dist/assets/musiad-canada-DK1KcUSV.png                          15.06 kB
+dist/assets/noble-exteriors-BwZTnN9X.webp                       16.07 kB
+dist/assets/durmus-group-D-KOqkLq.png                           16.85 kB
+dist/assets/noble-exteriors-Bs6yrQG7.png                        22.02 kB
+dist/assets/ascent-logo-horizontal-light-0plX3e6L.webp          29.93 kB
+dist/assets/ascent-logo-horizontal-dark-BsaJtUeZ.webp           30.41 kB
+dist/assets/ostim-CgFPwXPT.png                                  32.68 kB
+dist/assets/eagle-cladding-BspX3m8M.png                         32.75 kB
+dist/assets/eagle-contracting-ENmUG3DY.png                      48.43 kB
+dist/assets/wave-interior-painting-D4de2EWC.jpg                100.56 kB
+dist/assets/wave-flooring-installation-C6_sS3d3.jpg            105.22 kB
+dist/assets/studios-holdings-dgvS9WjF.png                      106.82 kB
+dist/assets/hero-financing-Gwmomlee.jpg                        111.46 kB
+dist/assets/wave-handyman-patching-B1eNrW8I.jpg                120.93 kB
+dist/assets/hero-construction-management-QHR8633S.jpg          129.78 kB
+dist/assets/hero-construction-management-D2mj_FYh.jpg          130.28 kB
+dist/assets/hero-contractor-portal-BTY-Vdq2.jpg                133.26 kB
+dist/assets/ascent-icon-BbQhq5Fw.png                           133.71 kB
+dist/assets/wave-caulking-sealants-BWLsSDXT.jpg                136.80 kB
+dist/assets/hero-sealant-replacement-C5Namy6i.jpg              141.15 kB
+dist/assets/hero-painting-CoweQAao.jpg                         147.80 kB
+dist/assets/hero-developers-hMomWEQ0.jpg                       155.72 kB
+dist/assets/hero-interior-buildouts-DXeluujV.jpg               163.01 kB
+dist/assets/hero-design-build-CPXciJnM.jpg                     163.12 kB
+dist/assets/wave-tile-installation-QuLkbaFn.jpg                165.67 kB
+dist/assets/hero-certifications-D15zDRr-.jpg                   167.91 kB
+dist/assets/hero-about-company-OCwSeMQt.jpg                    168.49 kB
+dist/assets/hero-design-build-DI-sEdhb.jpg                     175.18 kB
+dist/assets/hero-warranties-RAhTYDmk.jpg                       175.28 kB
+dist/assets/wave-exterior-painting-Bic62Rx3.jpg                176.26 kB
+dist/assets/hero-service-areas-C6HG_Ug2.jpg                    185.98 kB
+dist/assets/hero-tenant-improvements-DsFBeDA_.jpg              192.34 kB
+dist/assets/wave-fire-retardant-z8aD7jcE.jpg                   196.98 kB
+dist/assets/hero-tile-flooring-DH2IOl6P.jpg                    197.32 kB
+dist/assets/hero-parking-garage-DojFZ9Z-.jpg                   199.36 kB
+dist/assets/ascent-logo-vertical-dark-CtIUyUaR.png             199.69 kB
+dist/assets/hero-metal-cladding-CSkXo1GJ.jpg                   200.44 kB
+dist/assets/wave-commercial-painting-3t0N8jZe.jpg              202.66 kB
+dist/assets/silverstone-D2uHr4v0.png                           203.61 kB
+dist/assets/hero-protective-coatings-BlMjCjkV.jpg              204.64 kB
+dist/assets/hero-industrial-ByZfjX4w.jpg                       205.42 kB
+dist/assets/hero-building-envelope-Alltg3T-.jpg                212.99 kB
+dist/assets/hero-team-B2pjURaU.jpg                             214.67 kB
+dist/assets/ascent-logo-vertical-light-CiQ3gQE-.png            223.69 kB
+dist/assets/hero-general-contracting-Ctdm88PZ.jpg              229.76 kB
+dist/assets/hero-parking-rehabilitation-2Zm0wk2e.jpg           230.94 kB
+dist/assets/hero-commercial-CF8WQn6D.jpg                       232.21 kB
+dist/assets/hero-equipment-BQWbhydL.jpg                        234.66 kB
+dist/assets/hero-exterior-cladding-Bye3KwkD.jpg                235.05 kB
+dist/assets/ascent-icon-round-CrdDT0F1.png                     235.83 kB
+dist/assets/hero-cladding-CIpx4OMh.jpg                         248.91 kB
+dist/assets/hero-waterproofing-BBBinwz0.jpg                    249.17 kB
+dist/assets/hero-healthcare-BYUjtNd4.jpg                       249.82 kB
+dist/assets/ascent-logo-horizontal-dark-round-CM2xRtkV.png     250.39 kB
+dist/assets/ascent-logo-horizontal-light-round-Cou6dNve.png    252.50 kB
+dist/assets/hero-education-YPlfQ_Ik.jpg                        254.69 kB
+dist/assets/hero-multi-family-VJ9NkNJ2.jpg                     255.40 kB
+dist/assets/hero-hospitality-4hnL4T7e.jpg                      261.28 kB
+dist/assets/hero-markets-overview-SaGYLN0p.jpg                 263.08 kB
+dist/assets/hero-institutional-Bk3BB6Ud.jpg                    267.29 kB
+dist/assets/hero-facade-remediation-B0IFjyw1.jpg               268.51 kB
+dist/assets/hero-retail-DCQPD8Hn.jpg                           269.67 kB
+dist/assets/hero-masonry-restoration-FIIOguYF.jpg              273.30 kB
+dist/assets/hero-general-contracting-BeWogAXA.jpg              285.70 kB
+dist/assets/wave-residential-exterior-DejiyJV4.jpg             295.16 kB
+dist/assets/hero-eifs-stucco-c03sOqNO.jpg                      300.19 kB
+dist/assets/hero-sustainable-D0pcOKgz.jpg                      325.15 kB
+dist/assets/landing-bg-dark-B1Nag1Yg.png                       339.91 kB
+dist/assets/ascent-logo-vertical-dark-round-DARSe1cE.png       340.10 kB
+dist/assets/ascent-logo-vertical-white--QlYVqBc.png            342.74 kB
+dist/assets/landing-bg-light-D61tExcV.png                      356.24 kB
+dist/assets/hero-clipchamp-Dvrq_qFk.mp4                        578.55 kB
+dist/assets/ascent-logo-intro-CPvhd-1S.mp4                     833.37 kB
+dist/assets/ProjectDetail-DgZjG3NI.css                           6.45 kB │ gzip:   1.58 kB
+dist/assets/UnifiedAdminLayout-8t8tIXTk.css                     24.74 kB │ gzip:   4.43 kB
+dist/assets/index-D0_IuncR.css                                 186.25 kB │ gzip:  28.73 kB
+dist/assets/layouts-BpRhtuiY.js                                  0.19 kB │ gzip:   0.11 kB
+dist/assets/useScrollFadeIn-BRSuvUYw.js                          0.19 kB │ gzip:   0.17 kB
+dist/assets/StaggerContainer-ClUaVuBB.js                         0.26 kB │ gzip:   0.20 kB
+dist/assets/use-mobile-CFt2xxKe.js                               0.33 kB │ gzip:   0.25 kB
+dist/assets/label-afBMb1i2.js                                    0.35 kB │ gzip:   0.26 kB
+dist/assets/formatPhone-Bz-zeoIG.js                              0.36 kB │ gzip:   0.24 kB
+dist/assets/formatProjectValue-BtfjYoSG.js                       0.38 kB │ gzip:   0.27 kB
+dist/assets/faq-schema-CxYybm3p.js                               0.42 kB │ gzip:   0.25 kB
+dist/assets/useABTest-ClZSHA79.js                                0.43 kB │ gzip:   0.31 kB
+dist/assets/documentUrl-DQgPKzM_.js                              0.43 kB │ gzip:   0.30 kB
+dist/assets/progress-CisCz3A0.js                                 0.44 kB │ gzip:   0.31 kB
+dist/assets/useSettingsData-BOeyuZ6u.js                          0.52 kB │ gzip:   0.35 kB
+dist/assets/textarea-vmokv6_2.js                                 0.54 kB │ gzip:   0.34 kB
+dist/assets/Textarea-Dait6YBf.js                                 0.55 kB │ gzip:   0.37 kB
+dist/assets/Section-D1MNRTvv.js                                  0.65 kB │ gzip:   0.41 kB
+dist/assets/input-D7EUfD68.js                                    0.65 kB │ gzip:   0.39 kB
+dist/assets/useScrollReveal-CYvOVEJO.js                          0.65 kB │ gzip:   0.40 kB
+dist/assets/checkbox-dGJ3IzkH.js                                 0.67 kB │ gzip:   0.39 kB
+dist/assets/ScrollReveal-Cft9fhOQ.js                             0.67 kB │ gzip:   0.42 kB
+dist/assets/CapabilityCard-DU5AWQjT.js                           0.71 kB │ gzip:   0.42 kB
+dist/assets/PhoneLink-BZiyc8P_.js                                0.77 kB │ gzip:   0.48 kB
+dist/assets/scroll-to-top-TzYQSEpQ.js                            0.81 kB │ gzip:   0.50 kB
+dist/assets/switch-CXcghgCE.js                                   0.82 kB │ gzip:   0.44 kB
+dist/assets/CommercialPaintingGTA-ClAT7yIu.js                    0.86 kB │ gzip:   0.49 kB
+dist/assets/ExteriorPaintingToronto-zn6OPUjB.js                  0.87 kB │ gzip:   0.49 kB
+dist/assets/CaulkingSealantsToronto-BR2OlfOD.js                  0.87 kB │ gzip:   0.49 kB
+dist/assets/InteriorPaintingToronto-Dcm4UijD.js                  0.87 kB │ gzip:   0.49 kB
+dist/assets/TileInstallationToronto-ClxyiHyA.js                  0.87 kB │ gzip:   0.49 kB
+dist/assets/FlooringInstallationGTA-BT1tIc6M.js                  0.87 kB │ gzip:   0.49 kB
+dist/assets/HandymanPatchingToronto-D-3rBuJt.js                  0.87 kB │ gzip:   0.48 kB
+dist/assets/FireRetardantCoatingsOntario-D6-x_Zr5.js             0.87 kB │ gzip:   0.49 kB
+dist/assets/ResidentialExteriorPaintingGTA-DSjWBSbL.js           0.87 kB │ gzip:   0.49 kB
+dist/assets/ProofStrip-BxoImAHM.js                               0.93 kB │ gzip:   0.48 kB
+dist/assets/SegmentCard-BwOP5py-.js                              1.01 kB │ gzip:   0.53 kB
+dist/assets/CTABand-D1VsauqH.js                                  1.06 kB │ gzip:   0.52 kB
+dist/assets/tabs-D5_vYB-i.js                                     1.11 kB │ gzip:   0.47 kB
+dist/assets/structured-data-DDMu9kJp.js                          1.17 kB │ gzip:   0.54 kB
+dist/assets/constants-CP97Yhsb.js                                1.20 kB │ gzip:   0.61 kB
+dist/assets/image-optimizer-BgjiQb6E.js                          1.23 kB │ gzip:   0.69 kB
+dist/assets/FAQAccordion-BZwYR10Z.js                             1.25 kB │ gzip:   0.74 kB
+dist/assets/SectionHeader-D-JL5c6A.js                            1.29 kB │ gzip:   0.71 kB
+dist/assets/ProjectFeaturedImage-BRDpsPrk.js                     1.31 kB │ gzip:   0.71 kB
+dist/assets/TrustRibbon-DwtaEYTu.js                              1.31 kB │ gzip:   0.68 kB
+dist/assets/AdminPageLayout-Bc2DyHFG.js                          1.33 kB │ gzip:   0.57 kB
+dist/assets/Card-DZm8yk-X.js                                     1.36 kB │ gzip:   0.59 kB
+dist/assets/card-DcuLfQhM.js                                     1.43 kB │ gzip:   0.60 kB
+dist/assets/RelatedLinksGrid-DvNi8Ghn.js                         1.44 kB │ gzip:   0.72 kB
+dist/assets/table-B0evh1xp.js                                    1.53 kB │ gzip:   0.54 kB
+dist/assets/wave-handyman-patching-nD3_sqjZ.js                   1.71 kB │ gzip:   0.79 kB
+dist/assets/OperationalProofBar-Cu9zvAXK.js                      1.75 kB │ gzip:   0.94 kB
+dist/assets/AdminFeatureNotice-DGFlxzA4.js                       1.87 kB │ gzip:   0.87 kB
+dist/assets/HomepageParallaxBreak-CsvufuPY.js                    1.96 kB │ gzip:   1.07 kB
+dist/assets/StickyInquiryBar-BPs-_DPm.js                         1.97 kB │ gzip:   0.88 kB
+dist/assets/CookieBanner-DdWUsahe.js                             1.97 kB │ gzip:   0.88 kB
+dist/assets/useAdminAuth-CDxLZqrm.js                             2.19 kB │ gzip:   1.08 kB
+dist/assets/RichTextEditor-C_tLqNAT.js                           2.31 kB │ gzip:   1.13 kB
+dist/assets/StickyPageNav-p2FCbdzf.js                            2.32 kB │ gzip:   1.10 kB
+dist/assets/dialog-DT1QxiS8.js                                   2.32 kB │ gzip:   0.92 kB
+dist/assets/formatDistanceToNow-DgmyXGJl.js                      2.43 kB │ gzip:   0.95 kB
+dist/assets/ConfirmDialog-D-syT2Nq.js                            2.44 kB │ gzip:   0.91 kB
+dist/assets/Auth-BA0iYBwh.js                                     2.64 kB │ gzip:   1.21 kB
+dist/assets/StartProjectCTA-BFKBl3mm.js                          2.79 kB │ gzip:   1.20 kB
+dist/assets/OptimizedImage-KqnEO44a.js                           2.81 kB │ gzip:   1.31 kB
+dist/assets/hero-images-p8kRsxOw.js                              2.93 kB │ gzip:   1.39 kB
+dist/assets/OAuthConsent-BmsEBokb.js                             2.99 kB │ gzip:   1.37 kB
+dist/assets/select-CASU92Bk.js                                   3.03 kB │ gzip:   1.12 kB
+dist/assets/HomepageFinalCta-C7t61Oje.js                         3.42 kB │ gzip:   1.63 kB
+dist/assets/HomepageFeaturedProjects-CONLuiY_.js                 3.71 kB │ gzip:   1.58 kB
+dist/assets/EmailUnsubscribe-04s09TUm.js                         3.89 kB │ gzip:   1.21 kB
+dist/assets/MediaLibraryEnhanced-DJ_Hot6G.js                     4.14 kB │ gzip:   1.79 kB
+dist/assets/Unsubscribe-rh2Xb7cm.js                              4.18 kB │ gzip:   1.50 kB
+dist/assets/api-BarhA5Cw.js                                      4.41 kB │ gzip:   1.91 kB
+dist/assets/relatedLinks-B3HAOBJs.js                             4.70 kB │ gzip:   2.06 kB
+dist/assets/studios-holdings-IZud7Ld2.js                         4.76 kB │ gzip:   2.06 kB
+dist/assets/BlogPosts-6YrmzMpO.js                                4.90 kB │ gzip:   1.87 kB
+dist/assets/TokenPreview-BXk2r_2_.js                             5.02 kB │ gzip:   1.53 kB
+dist/assets/WhyChooseUs-CloUAsEu.js                              5.29 kB │ gzip:   2.34 kB
+dist/assets/Monitoring-qyhljXCz.js                               5.60 kB │ gzip:   1.54 kB
+dist/assets/ContentUnavailable-DlzMsh7C.js                       5.64 kB │ gzip:   2.02 kB
+dist/assets/PageHero-BTMVSH3o.js                                 6.09 kB │ gzip:   2.28 kB
+dist/assets/useUnsavedChanges-Ckhj5gRH.js                        6.38 kB │ gzip:   2.90 kB
+dist/assets/TestimonialsManager-ByX7Hk0l.js                      6.67 kB │ gzip:   2.28 kB
+dist/assets/AuditDashboard-CIqkUmEz.js                           6.78 kB │ gzip:   2.03 kB
+dist/assets/CommercialClients-B81HCNVV.js                        7.20 kB │ gzip:   2.92 kB
+dist/assets/WhoWeServeHomepage-DimBV8m0.js                       7.22 kB │ gzip:   2.92 kB
+dist/assets/PropertyManagers-TycGBI65.js                         7.29 kB │ gzip:   2.95 kB
+dist/assets/Projects-CeEesfpO.js                                 7.56 kB │ gzip:   2.92 kB
+dist/assets/ServiceSpecialties-yLDQkN-1.js                       7.60 kB │ gzip:   2.80 kB
+dist/assets/Developers-BJNLtGy9.js                               7.62 kB │ gzip:   2.86 kB
+dist/assets/en-US-DNUEYIb-.js                                    7.68 kB │ gzip:   2.73 kB
+dist/assets/ai-content-CQ3JNYAR.js                               7.83 kB │ gzip:   2.82 kB
+dist/assets/Markets-B-pvNxvh.js                                  8.01 kB │ gzip:   2.89 kB
+dist/assets/InboxDetailDialog-f2QNMAml.js                        8.01 kB │ gzip:   2.98 kB
+dist/assets/ServiceEditor-CwUf1U9g.js                            8.10 kB │ gzip:   2.83 kB
+dist/assets/Blog-DdYDv0ED.js                                     8.47 kB │ gzip:   3.18 kB
+dist/assets/SEODashboardAnalyticsTab-B-HMopH-.js                 8.55 kB │ gzip:   2.34 kB
+dist/assets/EmergencyRepair-Bwo6A7Yc.js                          8.64 kB │ gzip:   3.16 kB
+dist/assets/DocumentsLibrary-DL05KX_U.js                         8.91 kB │ gzip:   3.10 kB
+dist/assets/CertificationsInsurance-C5qqOonh.js                  8.93 kB │ gzip:   2.30 kB
+dist/assets/EstimatesQuotes-DIbLebsT.js                          9.31 kB │ gzip:   3.33 kB
+dist/assets/QAQuickContactForm-CcYcizuD.js                       9.47 kB │ gzip:   3.09 kB
+dist/assets/HeroSlidesManager-B-5Um6Sv.js                        9.62 kB │ gzip:   3.20 kB
+dist/assets/EmailTemplates-CVJ4dPZz.js                          10.11 kB │ gzip:   3.35 kB
+dist/assets/InteractiveCTA-R5qVyLGs.js                          10.29 kB │ gzip:   3.53 kB
+dist/assets/HomepageServiceHighlights-lOqbRflg.js               10.33 kB │ gzip:   3.76 kB
+dist/assets/ServiceAreas-DLo60Xrz.js                            10.57 kB │ gzip:   2.90 kB
+dist/assets/PageHeaders-CCPc4QRb.js                             10.88 kB │ gzip:   4.07 kB
+dist/assets/Homeowners-CeQqox2G.js                              11.25 kB │ gzip:   4.05 kB
+dist/assets/Services-4Co2zEfD.js                                11.60 kB │ gzip:   4.37 kB
+dist/assets/imageResolver-BYRdyCRN.js                           12.33 kB │ gzip:   4.37 kB
+dist/assets/format-DgcdkoaH.js                                  12.82 kB │ gzip:   3.37 kB
+dist/assets/Careers-CEbftT2o.js                                 13.13 kB │ gzip:   4.68 kB
+dist/assets/Users-l9-Wz8Uf.js                                   13.41 kB │ gzip:   3.45 kB
+dist/assets/BlogPostEditor-Bn4qS7y0.js                          13.50 kB │ gzip:   4.09 kB
+dist/assets/ForArchitects-BCWXlA1Q.js                           13.89 kB │ gzip:   4.99 kB
+dist/assets/OurProcess-JnYDKhlL.js                              14.37 kB │ gzip:   5.19 kB
+dist/assets/ContractorPortal-IX_9NoNO.js                        14.51 kB │ gzip:   4.66 kB
+dist/assets/HomepageBuilder-D50yTK3W.js                         14.97 kB │ gzip:   4.09 kB
+dist/assets/ForGeneralContractors-TAwN641Y.js                   15.02 kB │ gzip:   4.64 kB
+dist/assets/UnifiedInbox-C11RYDhM.js                            15.73 kB │ gzip:   5.58 kB
+dist/assets/Dashboard-FsACNzKW.js                               16.22 kB │ gzip:   4.93 kB
+dist/assets/Prequalification-ByLvTFK1.js                        16.68 kB │ gzip:   4.80 kB
+dist/assets/Privacy-cioma1Mn.js                                 17.01 kB │ gzip:   4.38 kB
+dist/assets/Terms-DxfqbzYG.js                                   17.17 kB │ gzip:   4.92 kB
+dist/assets/LocationPage-p40w67Km.js                            18.00 kB │ gzip:   4.76 kB
+dist/assets/About-B0k16hy6.js                                   18.03 kB │ gzip:   6.11 kB
+dist/assets/Accessibility-iwtUyNvi.js                           18.33 kB │ gzip:   4.48 kB
+dist/assets/WhySpecialtyContractor-CLadg10P.js                  20.26 kB │ gzip:   5.37 kB
+dist/assets/BlogPost-YrYEHIRV.js                                20.50 kB │ gzip:   7.46 kB
+dist/assets/page-faqs-BKNKeZKQ.js                               20.76 kB │ gzip:   6.86 kB
+dist/assets/Contact-C1MSfJ6d.js                                 21.46 kB │ gzip:   7.04 kB
+dist/assets/ServiceDetail-DJ7HvAi0.js                           22.15 kB │ gzip:   7.75 kB
+dist/assets/ServicesManager-BbRJWqdp.js                         22.69 kB │ gzip:   5.08 kB
+dist/assets/FAQ-fYJAePeS.js                                     24.01 kB │ gzip:   8.99 kB
+dist/assets/Technology-7eTWFeDu.js                              24.73 kB │ gzip:   7.98 kB
+dist/assets/Capabilities-GgEeHUAT.js                            26.23 kB │ gzip:   8.06 kB
+dist/assets/Settings-fx1Q3ST-.js                                28.00 kB │ gzip:   5.41 kB
+dist/assets/UnifiedAdminLayout-DNoWzAVB.js                      28.35 kB │ gzip:   9.14 kB
+dist/assets/SEODashboard-BeznIKol.js                            28.42 kB │ gzip:   7.82 kB
+dist/assets/purify.es-Bszxp-Ae.js                               29.04 kB │ gzip:  11.17 kB
+dist/assets/Projects-Bc_sZ1bw.js                                32.83 kB │ gzip:   9.37 kB
+dist/assets/Wave1ServicePage-DQgRuPrc.js                        44.26 kB │ gzip:  12.58 kB
+dist/assets/chunk-query-DiZO5GhR.js                             44.78 kB │ gzip:  13.31 kB
+dist/assets/sortable.esm-DWQUDUPi.js                            45.89 kB │ gzip:  15.28 kB
+dist/assets/Estimate-D0OGEQZm.js                                52.20 kB │ gzip:  13.98 kB
+dist/assets/ProjectEditor-DQPlcOK4.js                           61.07 kB │ gzip:  16.22 kB
+dist/assets/SubmitRFPNew-BcexhPtb.js                            63.17 kB │ gzip:  20.08 kB
+dist/assets/ProjectDetail-BPFW-OKA.js                           71.63 kB │ gzip:  22.66 kB
+dist/assets/schemas-K61bGzQn.js                                 83.63 kB │ gzip:  24.11 kB
+dist/assets/chunk-motion-Cj7IwRle.js                           136.92 kB │ gzip:  45.25 kB
+dist/assets/chunk-radix-L0YPMtke.js                            324.03 kB │ gzip: 100.90 kB
+dist/assets/chunk-charts-CIUG4S4s.js                           400.13 kB │ gzip: 115.65 kB
+dist/assets/index-7stgXnhG.js                                1,382.04 kB │ gzip: 306.36 kB
+
+(!) Some chunks are larger than 400 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+✓ built in 17.86s

@@ -1,0 +1,14 @@
+{
+  "entry": [
+    "src/main.tsx",
+    "supabase/functions/**/index.ts",
+    "scripts/**/*.{js,mjs,ts}",
+    "drizzle.config.ts"
+  ],
+  "project": [
+    "src/**/*.{ts,tsx}",
+    "supabase/functions/**/*.{ts,tsx}",
+    "scripts/**/*.{js,mjs,ts}",
+    "drizzle.config.ts"
+  ]
+}
