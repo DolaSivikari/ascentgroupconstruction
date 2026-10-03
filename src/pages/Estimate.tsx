@@ -309,7 +309,7 @@ Add-ons:
       trackFormSubmit("estimate_form", { service: formData.service || "general", region: formData.region });
 
       if (formData.quoteType) {
-        const { data: quoteData, error: quoteError } = await supabase
+        const { error: quoteError } = await supabase
           .from("quote_requests")
           .insert({
             quote_type: formData.quoteType,
@@ -325,15 +325,15 @@ Add-ons:
             consent_timestamp: new Date().toISOString(),
             source: formData.source,
             service_origin: formData.serviceOrigin || null,
-          })
-          .select('lead_score, priority')
-          .single();
+          });
 
-        if (!quoteError && quoteData) {
+        if (quoteError) {
+          // Anonymous visitors can insert quotes but cannot read them back.
+          // The primary estimate is already saved; keep that successful flow.
+          console.error("Quote request save failed", { code: quoteError.code });
+        } else {
           trackConversion('quote_form_submitted', {
             quote_type: formData.quoteType,
-            lead_score: quoteData.lead_score,
-            priority: quoteData.priority
           });
         }
       }
