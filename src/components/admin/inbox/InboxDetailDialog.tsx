@@ -7,6 +7,13 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+} from "@/components/ui/sheet";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/ui/Button";
 import { Textarea } from "@/components/ui/textarea";
@@ -23,6 +30,11 @@ import { format } from "date-fns";
 import { ConfirmDialog } from "@/components/admin/ConfirmDialog";
 import { signRfpAttachment, saveInboxItem } from "@/lib/inbox/api";
 import {
+  formatLeadReceived,
+  leadType,
+  LEAD_TYPE_LABELS,
+} from "@/lib/leads/model";
+import {
   STATUS_LABELS,
   inboxDate,
   inboxName,
@@ -38,6 +50,8 @@ interface InboxDetailDialogProps {
   open: boolean;
   onClose: () => void;
   onUpdate: () => void;
+  presentation?: "dialog" | "panel";
+  allowDelete?: boolean;
 }
 
 const fieldsByType: Record<InboxItem["type"], [string, string][]> = {
@@ -106,15 +120,21 @@ const fileName = (value: string) => {
 };
 
 export const InboxDetailDialog = ({
-  item,
+  item: incomingItem,
   open,
   onClose,
   onUpdate,
+  presentation = "dialog",
+  allowDelete = true,
 }: InboxDetailDialogProps) => {
+  // Freeze the edit baseline. A realtime refetch must not silently move our
+  // optimistic-concurrency check forward while staff are editing old values.
+  const [item] = useState(incomingItem);
   const [status, setStatus] = useState(item.status || "new");
   const [adminNotes, setAdminNotes] = useState(inboxText(item, "admin_notes"));
   const [isSaving, setIsSaving] = useState(false);
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
+  const [showDiscardConfirm, setShowDiscardConfirm] = useState(false);
   const [openingFile, setOpeningFile] = useState<string | null>(null);
   const [attachmentLink, setAttachmentLink] = useState<{
     name: string;
@@ -127,6 +147,17 @@ export const InboxDetailDialog = ({
     status !== (item.status || "new") ||
     (hasNotes && adminNotes !== inboxText(item, "admin_notes"));
   const submitted = inboxDate(item.created_at);
+  const isPanel = presentation === "panel";
+  const Root = isPanel ? Sheet : Dialog;
+  const Content = isPanel ? SheetContent : DialogContent;
+  const Header = isPanel ? SheetHeader : DialogHeader;
+  const Title = isPanel ? SheetTitle : DialogTitle;
+  const Description = isPanel ? SheetDescription : DialogDescription;
+  const requestClose = () => {
+    if (isSaving) return;
+    if (changed) setShowDiscardConfirm(true);
+    else onClose();
+  };
 
   const handleSave = async () => {
     if (isSaving || !changed) return;
@@ -136,10 +167,14 @@ export const InboxDetailDialog = ({
       toast({ title: "Saved", description: "Request updated successfully." });
       onUpdate();
       onClose();
-    } catch {
+    } catch (error) {
       toast({
         title: "Could not save",
-        description: "Your changes have not been saved. Please try again.",
+        description:
+          error instanceof Error &&
+          error.message.startsWith("This request changed")
+            ? `${error.message} Your unsaved edits remain here.`
+            : "Your changes have not been saved. Please try again.",
         variant: "destructive",
       });
     } finally {
@@ -194,28 +229,38 @@ export const InboxDetailDialog = ({
   };
 
   return (
-    <Dialog
+    <Root
       open={open}
       onOpenChange={(next) => {
-        if (!next && !isSaving) onClose();
+        if (!next) requestClose();
       }}
     >
-      <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
-        <DialogHeader>
-          <DialogTitle className="flex flex-wrap items-center gap-2">
+      <Content
+        className={
+          isPanel
+            ? "w-full sm:max-w-2xl h-dvh overflow-y-auto"
+            : "max-w-2xl max-h-[90vh] overflow-y-auto"
+        }
+      >
+        <Header>
+          <Title className="flex flex-wrap items-center gap-2 break-words pr-6">
             <Badge>
-              {item.type === "Quote" && item.source === "estimator"
-                ? "Estimate"
-                : item.type}
+              {isPanel
+                ? LEAD_TYPE_LABELS[leadType(item)]
+                : leadType(item) === "estimate"
+                  ? "Estimate"
+                  : item.type}
             </Badge>
             {inboxName(item)}
-          </DialogTitle>
-          <DialogDescription>
-            {submitted
-              ? `Submitted on ${format(submitted, "MMMM d, yyyy 'at' HH:mm")}`
-              : "Submission date unavailable"}
-          </DialogDescription>
-        </DialogHeader>
+          </Title>
+          <Description>
+            {isPanel
+              ? `Received ${formatLeadReceived(item.created_at)}`
+              : submitted
+                ? `Submitted on ${format(submitted, "MMMM d, yyyy 'at' HH:mm")}`
+                : "Submission date unavailable"}
+          </Description>
+        </Header>
         <div className="space-y-6 py-4">
           <section className="space-y-3">
             <h3 className="text-sm font-semibold">Contact information</h3>
@@ -238,7 +283,13 @@ export const InboxDetailDialog = ({
               inboxText(item, field) ? (
                 <DetailRow
                   key={field}
-                  label={label}
+                  label={
+                    field === "company" &&
+                    item.table === "contact_submissions" &&
+                    leadType(item) === "estimate"
+                      ? "Property / address"
+                      : label
+                  }
                   value={inboxText(item, field)}
                 />
               ) : null,
@@ -419,16 +470,22 @@ export const InboxDetailDialog = ({
             )
           )}
           <div className="flex flex-wrap justify-between items-center gap-3 pt-4 border-t">
-            <Button
-              variant="destructive"
-              onClick={() => setShowDeleteConfirm(true)}
-              disabled={isSaving}
-            >
-              <Trash2 className="mr-2 h-4 w-4" />
-              Delete
-            </Button>
+            {allowDelete && (
+              <Button
+                variant="destructive"
+                onClick={() => setShowDeleteConfirm(true)}
+                disabled={isSaving}
+              >
+                <Trash2 className="mr-2 h-4 w-4" />
+                Delete
+              </Button>
+            )}
             <div className="flex gap-2">
-              <Button variant="outline" onClick={onClose} disabled={isSaving}>
+              <Button
+                variant="outline"
+                onClick={requestClose}
+                disabled={isSaving}
+              >
                 Close
               </Button>
               {statuses.length > 0 && (
@@ -442,7 +499,7 @@ export const InboxDetailDialog = ({
             </div>
           </div>
         </div>
-      </DialogContent>
+      </Content>
       <ConfirmDialog
         open={showDeleteConfirm}
         onOpenChange={setShowDeleteConfirm}
@@ -452,7 +509,16 @@ export const InboxDetailDialog = ({
         confirmText="Delete"
         variant="destructive"
       />
-    </Dialog>
+      <ConfirmDialog
+        open={showDiscardConfirm}
+        onOpenChange={setShowDiscardConfirm}
+        onConfirm={onClose}
+        title="Discard unsaved changes?"
+        description="Your status and note changes have not been saved. Keep editing to preserve them."
+        confirmText="Discard changes"
+        cancelText="Keep editing"
+      />
+    </Root>
   );
 };
 

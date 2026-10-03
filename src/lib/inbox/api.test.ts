@@ -125,19 +125,31 @@ describe("inbox loading", () => {
 describe("inbox saves and signing", () => {
   const single = vi.fn();
   const update = vi.fn();
+  const eq = vi.fn();
+  const guard = vi.fn();
   beforeEach(() => {
     const query = {
       update: (patch: unknown) => {
         update(patch);
         return query;
       },
-      eq: () => query,
+      eq: (field: string, value: unknown) => {
+        eq(field, value);
+        return query;
+      },
+      is: () => query,
+      filter: (field: string, operator: string, value: unknown) => {
+        guard(field, operator, value);
+        return query;
+      },
       select: () => query,
       single,
     };
     mock.from.mockReturnValue(query);
     single.mockResolvedValue({ data: { id: "lead" }, error: null });
     update.mockClear();
+    eq.mockClear();
+    guard.mockClear();
     mock.storageFrom.mockReturnValue({ createSignedUrl: mock.sign });
   });
   it.each(["quote", "prequal"] as const)(
@@ -173,6 +185,45 @@ describe("inbox saves and signing", () => {
       ),
     ).rejects.toThrow("No authorized row");
     expect(update).toHaveBeenCalledWith({ status: "contacted" });
+  });
+  it("only changes status if its original value still matches, preserving current notes", async () => {
+    const item = normalizeInboxItem("contact", {
+      id: "lead",
+      email: "client@example.test",
+      status: "new",
+      admin_notes: "Original note",
+    });
+    await saveInboxItem(item, "contacted", "Original note");
+    expect(eq).toHaveBeenCalledWith("status", "new");
+    expect(update).toHaveBeenCalledWith({ status: "contacted" });
+    expect(guard).not.toHaveBeenCalled();
+  });
+  it("guards note edits against overwriting another staff member's note", async () => {
+    const item = normalizeInboxItem("contact", {
+      id: "lead",
+      email: "client@example.test",
+      status: "new",
+      admin_notes: "Original note",
+    });
+    single.mockResolvedValueOnce({ data: null, error: { code: "PGRST116" } });
+    await expect(saveInboxItem(item, "new", "New note")).rejects.toThrow(
+      "changed or is no longer editable",
+    );
+    expect(guard).toHaveBeenCalledWith("admin_notes", "eq", "Original note");
+    expect(update).toHaveBeenCalledWith({ admin_notes: "New note" });
+  });
+  it("uses SQL null semantics when adding the first note", async () => {
+    await saveInboxItem(
+      normalizeInboxItem("contact", {
+        id: "lead",
+        email: "client@example.test",
+        status: "new",
+        admin_notes: null,
+      }),
+      "new",
+      "First note",
+    );
+    expect(guard).toHaveBeenCalledWith("admin_notes", "is", null);
   });
   it("signs only a valid RFP path for five minutes", async () => {
     mock.sign.mockResolvedValueOnce({

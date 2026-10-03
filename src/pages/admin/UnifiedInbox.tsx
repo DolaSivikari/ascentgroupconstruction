@@ -1,11 +1,17 @@
-import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { AdminPageLayout } from "@/components/admin/AdminPageLayout";
 import { InboxDashboard } from "@/components/admin/inbox/InboxDashboard";
 import { InboxTable } from "@/components/admin/inbox/InboxTable";
+import { LeadsWorkspace } from "@/components/admin/leads/LeadsWorkspace";
+import {
+  isLeadSource,
+  type LeadTypeFilter,
+  type LeadRef,
+} from "@/lib/leads/model";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 const allowedTabs = new Set([
+  "leads",
   "all",
   "work",
   "rfp",
@@ -18,21 +24,46 @@ const allowedTabs = new Set([
 
 export default function UnifiedInbox() {
   const [searchParams, setSearchParams] = useSearchParams();
-  const queryTab = searchParams.get("tab") || "all";
-  const initialTab = allowedTabs.has(queryTab) ? queryTab : "all";
-
-  const [activeTab, setActiveTab] = useState(initialTab);
-
-  useEffect(() => {
-    const nextTab = allowedTabs.has(queryTab) ? queryTab : "all";
-    setActiveTab(nextTab);
-  }, [queryTab]);
+  const queryTab = searchParams.get("tab") || "leads";
+  const activeTab =
+    queryTab === "work"
+      ? "leads"
+      : allowedTabs.has(queryTab)
+        ? queryTab
+        : "leads";
+  const source = searchParams.get("source");
+  const requestedType = searchParams.get("type");
+  const initialType: LeadTypeFilter =
+    requestedType &&
+    [
+      "all",
+      "commercial",
+      "estimate",
+      "quote",
+      "general",
+      "rfp",
+      "prequal",
+    ].includes(requestedType)
+      ? (requestedType as LeadTypeFilter)
+      : queryTab === "work"
+        ? "commercial"
+        : "all";
+  const handleSelectionChange = (ref: LeadRef | null) => {
+    const next = new URLSearchParams(searchParams);
+    if (ref) {
+      next.set("highlight", ref.id);
+      next.set("source", ref.source);
+    } else {
+      next.delete("highlight");
+      next.delete("source");
+    }
+    setSearchParams(next, { replace: true });
+  };
 
   const handleTabChange = (tab: string) => {
-    setActiveTab(tab);
     const nextParams = new URLSearchParams(searchParams);
 
-    if (tab === "all") {
+    if (tab === "leads") {
       nextParams.delete("tab");
       setSearchParams(nextParams, { replace: true });
       return;
@@ -44,8 +75,8 @@ export default function UnifiedInbox() {
 
   return (
     <AdminPageLayout
-      title="Unified Inbox"
-      description="All communications in one place - RFPs, contacts, resumes, and more"
+      title="Leads & Inbox"
+      description="Review incoming requests, follow up with clients and manage all website communications"
     >
       <div className="space-y-6">
         <InboxDashboard />
@@ -57,7 +88,7 @@ export default function UnifiedInbox() {
         >
           <div className="max-w-full overflow-x-auto pb-1">
             <TabsList className="w-max min-w-full justify-start">
-              <TabsTrigger value="work">Bids &amp; Estimates</TabsTrigger>
+              <TabsTrigger value="leads">Leads</TabsTrigger>
               <TabsTrigger value="all">All</TabsTrigger>
               <TabsTrigger value="rfp">RFPs</TabsTrigger>
               <TabsTrigger value="contact">Contacts</TabsTrigger>
@@ -68,10 +99,12 @@ export default function UnifiedInbox() {
             </TabsList>
           </div>
 
-          <TabsContent value="work" className="mt-6">
-            <InboxTable
-              type="work"
+          <TabsContent value="leads" className="mt-6">
+            <LeadsWorkspace
               highlightId={searchParams.get("highlight")}
+              source={isLeadSource(source) ? source : undefined}
+              initialType={initialType}
+              onSelectionChange={handleSelectionChange}
             />
           </TabsContent>
 

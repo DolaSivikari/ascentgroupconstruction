@@ -1,6 +1,7 @@
 import { supabase } from "@/integrations/supabase/client";
 import { INBOX_SOURCES, type InboxKind } from "./model";
 import type { Database } from "@/integrations/supabase/types";
+import { isLeadSource } from "@/lib/leads/model";
 
 export type InboxNotification =
   Database["public"]["Tables"]["admin_notifications"]["Row"];
@@ -14,9 +15,10 @@ export function notificationDestination(
     ? (notification.notification_type as InboxKind)
     : "all";
   const params = new URLSearchParams({
-    tab,
+    tab: isLeadSource(tab) ? "leads" : tab,
     highlight: notification.reference_id,
   });
+  if (isLeadSource(tab)) params.set("source", tab);
   return `/admin/inbox?${params}`;
 }
 export async function loadNotifications(userId: string) {

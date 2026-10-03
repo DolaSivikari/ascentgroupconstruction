@@ -1,15 +1,21 @@
-import { AdminPageLayout } from "@/components/admin/AdminPageLayout";
-import { EstimatesQuotesTable } from "@/components/admin/inbox/EstimatesQuotesTable";
-import { DollarSign } from "lucide-react";
+import { Navigate, useLocation } from "react-router-dom";
 
 export default function EstimatesQuotes() {
+  const location = useLocation();
+  const params = new URLSearchParams(location.search);
+  params.set("tab", "leads");
+  params.set("type", "commercial");
+  if (params.get("id") && !params.get("highlight"))
+    params.set("highlight", params.get("id")!);
+  if (params.get("highlight")) params.set("source", "quote");
   return (
-    <AdminPageLayout
-      title="Estimates & Quotes"
-      description="Track every estimate and quote request — search, filter by status, and update progress as leads move through your pipeline."
-      icon={<DollarSign className="h-6 w-6" />}
-    >
-      <EstimatesQuotesTable />
-    </AdminPageLayout>
+    <Navigate
+      replace
+      to={{
+        pathname: "/admin/inbox",
+        search: `?${params}`,
+        hash: location.hash,
+      }}
+    />
   );
 }
