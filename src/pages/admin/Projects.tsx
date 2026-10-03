@@ -26,26 +26,31 @@ import {
   PaginationPrevious,
 } from '@/components/ui/pagination';
 import { AdminPageLayout } from '@/components/admin/AdminPageLayout';
+import type { Database } from "@/integrations/supabase/types";
+
+type ProjectRow = Database["public"]["Tables"]["projects"]["Row"];
+type ServiceSummary = Pick<Database["public"]["Tables"]["services"]["Row"], "id" | "name" | "category">;
+type ProjectWithServices = ProjectRow & { services: ServiceSummary[] };
 
 const Projects = () => {
   const navigate = useNavigate();
   const { isLoading: authLoading, isAdmin } = useAdminAuth();
-  const [projects, setProjects] = useState<any[]>([]);
+  const [projects, setProjects] = useState<ProjectWithServices[]>([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [services, setServices] = useState<any[]>([]);
+  const [services, setServices] = useState<ServiceSummary[]>([]);
   const [selectedService, setSelectedService] = useState<string>('all');
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
   const [projectToDelete, setProjectToDelete] = useState<string | null>(null);
   const [previewModalOpen, setPreviewModalOpen] = useState(false);
-  const [previewProject, setPreviewProject] = useState<any>(null);
+  const [previewProject, setPreviewProject] = useState<ProjectWithServices | null>(null);
   
   // Filtering, sorting, pagination
   const { filters, updateFilter, clearFilters, hasActiveFilters, applyFilters } = useTableFilters();
-  const { sortConfig, requestSort, sortData } = useTableSort<any>();
+  const { sortConfig, requestSort, sortData } = useTableSort<ProjectWithServices>();
   
   // Apply filters and sort
   const filteredByService = selectedService === 'all' ? projects : projects.filter(project => 
-    project.services?.some((s: any) => s.id === selectedService)
+    project.services?.some((s) => s.id === selectedService)
   );
   const filteredProjects = applyFilters(filteredByService, ['title', 'client_name'], 'created_at', 'publish_state');
   const sortedProjects = sortData(filteredProjects);
@@ -111,7 +116,7 @@ const Projects = () => {
           
           return {
             ...project,
-            services: projectServices?.map((ps: any) => ps.services) || []
+            services: projectServices?.map((ps) => ps.services).filter((service): service is ServiceSummary => !!service) || []
           };
         })
       );
@@ -144,7 +149,7 @@ const Projects = () => {
     setDeleteDialogOpen(false);
   };
 
-  const handleViewProject = (project: any) => {
+  const handleViewProject = (project: ProjectWithServices) => {
     setPreviewProject(project);
     setPreviewModalOpen(true);
   };
@@ -188,7 +193,7 @@ const Projects = () => {
     return sortConfig.direction === 'asc' ? '↑' : '↓';
   };
 
-  const getStatusColor = (status: string) => {
+  const getStatusColor = (status: ProjectRow["publish_state"]) => {
     switch (status) {
       case "published": return "success";
       case "draft": return "warning";
@@ -232,7 +237,7 @@ const Projects = () => {
               <option value="all">All Services ({projects.length})</option>
               {services.map(service => {
                 const count = projects.filter(p => 
-                  p.services?.some((s: any) => s.id === service.id)
+                  p.services?.some((s) => s.id === service.id)
                 ).length;
                 return (
                   <option key={service.id} value={service.id}>
@@ -315,7 +320,7 @@ const Projects = () => {
                   )}
                   {project.services && project.services.length > 0 && (
                     <div className="flex flex-wrap gap-2 mt-2">
-                      {project.services.map((service: any) => (
+                      {project.services.map((service) => (
                         <Badge 
                           key={service.id} 
                           variant="secondary"

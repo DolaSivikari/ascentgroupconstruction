@@ -28,7 +28,8 @@ import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
 import SEO from "@/components/SEO";
 import { supabase } from "@/integrations/supabase/client";
-import heroImage from "@/assets/hero-building-envelope.jpg";
+import PageHero from "@/components/shared/PageHero";
+import { resourceHeroes } from "@/data/hero-images";
 import { useDocument, useTrackDownload, downloadDocument } from "@/hooks/useDocuments";
 import { TrustRibbon } from "@/design-system/components/TrustRibbon";
 import { FAQAccordion } from "@/design-system/components/FAQAccordion";
@@ -150,56 +151,21 @@ const ContractorPortal = () => {
       <div className="min-h-screen bg-background">
         <Navigation />
         
-        {/* Hero Section */}
-        <section className="relative h-[60vh] min-h-[500px] flex items-center justify-center overflow-hidden">
-          <div className="absolute inset-0">
-            <img 
-              src={heroImage} 
-              alt="Building envelope restoration work" 
-              loading="eager"
-              decoding="async"
-              width={1920}
-              height={1080}
-              {...({ fetchpriority: "high" } as Record<string, string>)}
-              className="w-full h-full object-cover"
-            />
-            <div className="absolute inset-0 bg-gradient-to-r from-slate-900/90 via-slate-900/70 to-slate-900/50" />
-          </div>
-          
-          <div className="relative z-10 container mx-auto px-4 text-center">
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/20 backdrop-blur-sm rounded-full border border-primary/30 mb-6">
-              <Building2 className="w-4 h-4 text-primary" />
-              <span className="text-sm font-medium text-primary">For General Contractors & Property Managers</span>
-            </div>
-            
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">
-              Partner With Ascent
-            </h1>
-            
-            <p className="text-xl md:text-2xl text-white/90 max-w-3xl mx-auto mb-8">
-              Trade partner for building envelope & restoration packages
-            </p>
-
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button size="lg" className="gap-2" asChild>
-                <a href="#download-section">
-                  <Download className="w-5 h-5" />
-                  Download Vendor Packet
-                </a>
-              </Button>
-              <Button size="lg" variant="outline" className="gap-2 bg-white/10 border-white/30 text-white hover:bg-white/20" asChild>
-                <a href="#unit-rate-form">
-                  <FileText className="w-5 h-5" />
-                  Request Unit Rates
-                </a>
-              </Button>
-            </div>
-          </div>
-        </section>
+        <PageHero
+          title="Partner With Ascent"
+          description="Trade partner for building envelope & restoration packages"
+          image={resourceHeroes["contractor-portal"]}
+          imageAlt="Reviewing contractor project documents"
+          variant="centered"
+          height="medium"
+          badges={[{ icon: Building2, text: "For General Contractors & Property Managers" }]}
+          primaryCta={{ text: "Download Vendor Packet", href: "#download-section", icon: Download }}
+          secondaryCta={{ text: "Request Unit Rates", href: "#unit-rate-form", icon: FileText }}
+        />
 
         <TrustRibbon />
 
-        <main id="main-content" className="container mx-auto px-4 py-16 space-y-20">
+        <main className="container mx-auto px-4 py-16 space-y-20">
           
           {/* Why Partner With Us */}
           <section>

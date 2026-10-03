@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/ui/Button";
 import { ChevronLeft, ChevronRight, MapPin, Award } from "lucide-react";
+import { useHeroRegistration } from "@/hooks/useHeroPresence";
 
 interface HeroProject {
   title: string;
@@ -16,6 +17,7 @@ interface Props {
 }
 
 export const PremiumProjectHero = ({ featuredProjects }: Props) => {
+  useHeroRegistration();
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
 

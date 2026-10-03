@@ -8,22 +8,50 @@ import { Button } from "@/ui/Button";
 import { Sparkles } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
+import type { ProjectFormData } from "@/lib/admin/projectEditor";
 
 interface SEOTabProps {
-  formData: any;
-  onFormChange: (updates: any) => void;
+  formData: ProjectFormData;
+  onFormChange: (updates: Partial<ProjectFormData>) => void;
+}
+
+interface SEOSuggestions {
+  seo_title: string;
+  seo_description: string;
+}
+
+function readSuggestions(value: unknown): SEOSuggestions {
+  if (!value || typeof value !== "object" || !("seo_title" in value) || !("seo_description" in value)
+      || typeof value.seo_title !== "string" || !value.seo_title.trim()
+      || typeof value.seo_description !== "string" || !value.seo_description.trim()
+      || value.seo_title.trim().length > 60 || value.seo_description.trim().length > 160) {
+    throw new Error("The AI service returned invalid SEO suggestions. Your current SEO fields are unchanged.");
+  }
+  return { seo_title: value.seo_title.trim(), seo_description: value.seo_description.trim() };
+}
+
+function generationErrorMessage(error: unknown): string {
+  const context = error && typeof error === "object" && "context" in error ? error.context : null;
+  const status = context && typeof context === "object" && "status" in context ? context.status : undefined;
+  if (status === 402) return "AI generation requires additional credits. You can keep editing SEO manually or try again when credits are available.";
+  if (status === 429) return "The AI service is rate limited. Wait a moment and try again. Your current SEO fields are unchanged.";
+  return error instanceof Error ? error.message : "Could not generate SEO suggestions. Your current SEO fields are unchanged.";
 }
 
 export const SEOTab = ({ formData, onFormChange }: SEOTabProps) => {
   const [isGenerating, setIsGenerating] = useState(false);
+  const [suggestions, setSuggestions] = useState<SEOSuggestions | null>(null);
+  const [generationError, setGenerationError] = useState<string | null>(null);
   const { toast } = useToast();
 
   const canGenerate = formData.title && (formData.subtitle || formData.summary || formData.description);
 
   const handleGenerateSEO = async () => {
-    if (!canGenerate) return;
+    if (!canGenerate || isGenerating) return;
 
     setIsGenerating(true);
+    setSuggestions(null);
+    setGenerationError(null);
     try {
       const { data, error } = await supabase.functions.invoke('generate-seo-content', {
         body: {
@@ -36,21 +64,19 @@ export const SEOTab = ({ formData, onFormChange }: SEOTabProps) => {
 
       if (error) throw error;
 
-      // Update form with generated content
-      onFormChange({
-        seo_title: data.seo_title,
-        seo_description: data.seo_description
-      });
+      // Review first: asynchronous responses must not replace current manual edits.
+      setSuggestions(readSuggestions(data));
 
       toast({
-        title: "SEO Content Generated",
-        description: "Review and adjust the generated content as needed"
+        title: "SEO Suggestions Ready",
+        description: "Review the suggestions before applying them. Your current SEO fields are unchanged."
       });
-    } catch (error: any) {
-      console.error('SEO generation error:', error);
+    } catch (error) {
+      const description = generationErrorMessage(error);
+      setGenerationError(description);
       toast({
         title: "Generation Failed",
-        description: error.message || "Failed to generate SEO content",
+        description,
         variant: "destructive"
       });
     } finally {
@@ -81,10 +107,26 @@ export const SEOTab = ({ formData, onFormChange }: SEOTabProps) => {
         </Button>
         <p className="text-xs text-muted-foreground">
           {canGenerate 
-            ? "AI will analyze your project details to create search-optimized content" 
+            ? "AI uses your project details to suggest SEO content and may require credits. Suggestions are applied only when you choose Apply."
             : "Fill in title and at least one description field in Basic Info to enable"}
         </p>
       </div>
+
+      {generationError && <p role="alert" className="text-sm text-destructive">{generationError}</p>}
+      {suggestions && (
+        <section aria-label="Generated SEO suggestions" className="space-y-4 rounded-lg border border-border bg-muted/30 p-4">
+          <h3 className="font-semibold">Review SEO suggestions</h3>
+          <dl className="space-y-3 text-sm">
+            <div><dt className="font-medium">Suggested title</dt><dd className="mt-1 break-words">{suggestions.seo_title}</dd></div>
+            <div><dt className="font-medium">Suggested description</dt><dd className="mt-1 break-words">{suggestions.seo_description}</dd></div>
+          </dl>
+          <p className="text-xs text-muted-foreground">Apply replaces the current SEO title and description with these suggestions.</p>
+          <div className="flex flex-wrap gap-2">
+            <Button type="button" onClick={() => { onFormChange(suggestions); setSuggestions(null); }}>Apply suggestions</Button>
+            <Button type="button" variant="outline" onClick={() => setSuggestions(null)}>Discard suggestions</Button>
+          </div>
+        </section>
+      )}
 
       {/* SEO Title */}
       <div className="space-y-2">
@@ -129,7 +171,9 @@ export const SEOTab = ({ formData, onFormChange }: SEOTabProps) => {
         </div>
         <Select
           value={formData.publish_state}
-          onValueChange={(value) => onFormChange({ publish_state: value })}
+          onValueChange={(value) => {
+            if (value === "draft" || value === "published" || value === "archived") onFormChange({ publish_state: value });
+          }}
         >
           <SelectTrigger className="h-12 text-base font-medium">
             <SelectValue />

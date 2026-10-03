@@ -43,7 +43,7 @@ import { ServiceSpecialties } from "@/components/services/ServiceSpecialties";
 import { createServiceSchema, createHowToSchema } from "@/utils/schema-injector";
 import { breadcrumbSchema } from "@/utils/structured-data";
 import { getIconForService } from "@/utils/serviceIcons";
-import { serviceHeroes } from "@/data/hero-images";
+import { resolveServiceHero } from "@/data/hero-images";
 import { TrustRibbon } from "@/design-system/components/TrustRibbon";
 import { FAQAccordion } from "@/design-system/components/FAQAccordion";
 import { RelatedLinksGrid } from "@/design-system/components/RelatedLinksGrid";
@@ -140,14 +140,6 @@ const serviceBadges: Record<
   ],
 };
 
-// Resolve hero image: prefer Vite-imported map, fall back to DB featured_image
-const getHeroImage = (slug: string, fallback?: string | null): string | undefined => {
-  const mapped = (serviceHeroes as Record<string, string>)[slug];
-  if (mapped) return mapped;
-  if (fallback && !fallback.startsWith("/src/")) return fallback;
-  return undefined;
-};
-
 const ServiceDetail = () => {
   const { slug } = useParams<{ slug: string }>();
   const parent = getServiceParent(slug ?? "");
@@ -224,7 +216,7 @@ const ServiceDetail = () => {
   const quickFacts = serviceQuickFacts[serviceKey] || [];
   const peopleAsk = servicePeopleAlsoAsk[serviceKey] || [];
   const ServiceIcon = getIconForService(service.name);
-  const heroImage = getHeroImage(service.slug, service.featured_image);
+  const hero = resolveServiceHero(service.slug, service.featured_image, service.category);
   const badges = serviceBadges[service.slug];
 
   // Normalize legacy data shapes ([{label}] -> [string])
@@ -290,8 +282,8 @@ const ServiceDetail = () => {
       <PageHero
         title={service.name}
         description={service.short_description || ""}
-        image={heroImage}
-        imageAlt={`${service.name} services`}
+        image={hero.image}
+        imageAlt={hero.imageAlt}
         primaryCta={{ text: CTA_TEXT.primary, href: "/contact" }}
         breadcrumbs={[
           { label: "Home", href: "/" },

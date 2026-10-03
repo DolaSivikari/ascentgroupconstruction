@@ -20,51 +20,56 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
-          cache: 'npm'
+          node-version: '24'
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: '1.3.11'
+
+      - name: Cache locked dependency downloads
+        uses: actions/cache@v4
+        with:
+          path: ~/.bun/install/cache
+          key: ${{ runner.os }}-bun-1.3.11-${{ hashFiles('bun.lock') }}
 
       - name: Install system dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y curl jq bc
+          sudo apt-get install -y curl
 
       - name: Install project dependencies
-        run: npm ci
+        run: node scripts/install-ci-dependencies.mjs
 
-      - name: Make smoke test script executable
-        run: chmod +x scripts/smoke-test.sh
+      - name: Run regression tests
+        run: node node_modules/vitest/vitest.mjs run
 
-      - name: Run smoke tests (Production)
-        env:
-          VITE_SUPABASE_PROJECT_ID: ${{ secrets.VITE_SUPABASE_PROJECT_ID }}
-        run: |
-          ./scripts/smoke-test.sh https://ascentgroupconstruction.com
-
-      - name: Run route audit
-        run: |
-          if [ -f scripts/audit-routes.ts ]; then
-            echo "Running route audit..."
-            npx tsx scripts/audit-routes.ts
-            npx ts-node scripts/audit-routes.ts
-          fi
-
-      - name: Check bundle size
+      - name: Build current branch
         env:
           ENABLE_IMAGE_OPTIMIZATION: "false"
         run: |
-          echo "Checking bundle size..."
-          if [ -f package.json ]; then
-            npm run build 2>&1 | tee build.log
-            if [ -f dist/index.html ]; then
-              DIST_SIZE=$(du -sh dist | cut -f1)
-              echo "📦 Build size: $DIST_SIZE"
-            fi
-          fi
+          set -o pipefail
+          npm run build 2>&1 | tee build.log
 
-      - name: Security audit
+      - name: Run smoke tests against this build
         run: |
-          echo "Running security audit..."
-          npm audit --production || echo "Security audit completed with warnings"
+          node node_modules/vite/bin/vite.js preview --host 127.0.0.1 --port 4173 > preview.log 2>&1 &
+          PREVIEW_PID=$!
+          trap 'kill "$PREVIEW_PID" 2>/dev/null || true' EXIT
+          for attempt in {1..30}; do
+            if curl --fail --silent http://127.0.0.1:4173/ -o /dev/null; then break; fi
+            sleep 1
+          done
+          set -o pipefail
+          bash scripts/smoke-test.sh http://127.0.0.1:4173 2>&1 | tee smoke.log
+
+      - name: Run route audit
+        run: |
+          set -o pipefail
+          bun scripts/audit-routes.ts 2>&1 | tee routes.log
+
+      - name: Validate service worker
+        run: npm run validate:sw
 
       - name: Upload test results
         if: always()
@@ -72,10 +77,23 @@ jobs:
         with:
           name: smoke-test-results
           path: |
-            *.log
-            *.json
+            build.log
+            preview.log
+            smoke.log
+            routes.log
 
       - name: Notify on failure
         if: failure()
         run: |
           echo "::error::Smoke tests failed! Check the logs for details."
+
+  production-availability:
+    # Production availability is separate from testing code that is not deployed yet.
+    if: github.event_name == 'schedule'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Read-only production availability
+        env:
+          VITE_SUPABASE_PROJECT_ID: ${{ secrets.VITE_SUPABASE_PROJECT_ID }}
+        run: bash scripts/smoke-test.sh https://www.ascentgroupconstruction.com

@@ -3,16 +3,15 @@
  * Ensures users always get fresh content after CMS updates
  */
 
-// Build version — bumped to force a fresh production deploy.
-const BUILD_TAG = '2026-04-26-redeploy';
-const APP_VERSION = `${BUILD_TAG}-${Date.now()}`;
+// Vite's hashed bundle URL is stable across visits and changes on a deployment.
+const APP_VERSION = new URL(import.meta.url).pathname;
 const VERSION_KEY = 'app_deployment_version';
 const LAST_CHECK_KEY = 'last_version_check';
+const CACHE_PREFIXES = ['app-precache-', 'app-runtime-', 'app-api-'];
 
 // Expose build version for quick diagnostics
 if (typeof window !== 'undefined') {
-  // @ts-ignore
-  (window as any).__BUILD_VERSION = APP_VERSION;
+  (window as Window & { __BUILD_VERSION?: string }).__BUILD_VERSION = APP_VERSION;
 }
 
 /**
@@ -20,24 +19,15 @@ if (typeof window !== 'undefined') {
  */
 export const addCacheBuster = (url: string): string => {
   const separator = url.includes('?') ? '&' : '?';
-  return `${url}${separator}v=${APP_VERSION}`;
+  return `${url}${separator}v=${encodeURIComponent(APP_VERSION)}`;
 };
 
 /**
  * Force reload with cache invalidation
  */
 export const bustCache = (): void => {
-  const timestamp = Date.now();
-  
-  // Clear service worker caches if available
-  if ('caches' in window) {
-    caches.keys().then((names) => {
-      names.forEach(name => caches.delete(name));
-    });
-  }
-  
-  // Force reload with new timestamp
-  window.location.search = `?v=${timestamp}`;
+  // Explicit admin action only; preserve the current URL, query and auth state.
+  void clearAllCaches().then(() => window.location.reload());
 };
 
 /**
@@ -69,7 +59,7 @@ export const checkForDeploymentUpdate = async (): Promise<boolean> => {
     const lastCheck = localStorage.getItem(LAST_CHECK_KEY);
     const now = Date.now();
     
-    // Only check once per hour
+    // Only check once per minute.
     if (lastCheck && now - parseInt(lastCheck) < 60000) {
       return false;
     }
@@ -79,12 +69,8 @@ export const checkForDeploymentUpdate = async (): Promise<boolean> => {
     const storedVersion = localStorage.getItem(VERSION_KEY);
     const currentVersion = APP_VERSION;
     
-    if (storedVersion && storedVersion !== currentVersion) {
-      return true;
-    }
-    
     localStorage.setItem(VERSION_KEY, currentVersion);
-    return false;
+    return !!storedVersion && storedVersion !== currentVersion;
   } catch (error) {
     console.error('[Cache Buster] Error checking for updates:', error);
     return false;
@@ -96,19 +82,22 @@ export const checkForDeploymentUpdate = async (): Promise<boolean> => {
  */
 export const clearAllCaches = async (): Promise<void> => {
   try {
-    // Ask active SW (if any) to clear its caches first
-    if ('serviceWorker' in navigator && navigator.serviceWorker.controller) {
-      try { navigator.serviceWorker.controller.postMessage({ type: 'CLEAR_CACHE' }); } catch {}
+    // Only unregister this application's worker, never another worker on the origin.
+    if ('serviceWorker' in navigator) {
       const regs = await navigator.serviceWorker.getRegistrations();
-      await Promise.all(regs.map((reg) => reg.unregister()));
-      if (import.meta.env.DEV) console.log('[Cache Buster] Unregistered all service workers');
+      const ownRegs = regs.filter(reg => [reg.active, reg.waiting, reg.installing].some(worker => {
+        if (!worker) return false;
+        const url = new URL(worker.scriptURL);
+        return url.origin === window.location.origin && url.pathname === '/service-worker.js';
+      }));
+      await Promise.all(ownRegs.map(reg => reg.unregister()));
     }
 
     // Clear service worker caches
     if ('caches' in window) {
       const cacheNames = await caches.keys();
-      await Promise.all(cacheNames.map(name => caches.delete(name)));
-      if (import.meta.env.DEV) console.log('[Cache Buster] Cleared all service worker caches');
+      await Promise.all(cacheNames.filter(name => CACHE_PREFIXES.some(prefix => name.startsWith(prefix)))
+        .map(name => caches.delete(name)));
     }
 
     // Clear localStorage version

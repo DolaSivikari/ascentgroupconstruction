@@ -8,6 +8,7 @@ interface ProjectEditorHeaderProps {
   isNew: boolean;
   isLoading: boolean;
   isSaving: boolean;
+  saveDisabled?: boolean;
   lastSaved: Date | null;
   completionPercentage: number;
   publishState?: string;
@@ -20,6 +21,7 @@ export const ProjectEditorHeader = ({
   isNew,
   isLoading,
   isSaving,
+  saveDisabled = false,
   lastSaved,
   completionPercentage,
   publishState = "draft",
@@ -78,7 +80,7 @@ export const ProjectEditorHeader = ({
                   <div className="flex items-center gap-2 text-sm text-muted-foreground">
                     <Clock className="w-3.5 h-3.5" />
                     <span>
-                      {isSaving ? "Saving..." : `Saved ${formatDistanceToNow(lastSaved, { addSuffix: true })}`}
+                      {isSaving ? "Saving..." : `Details autosaved ${formatDistanceToNow(lastSaved, { addSuffix: true })}`}
                     </span>
                   </div>
                 )}
@@ -95,7 +97,7 @@ export const ProjectEditorHeader = ({
             )}
             <Button 
               onClick={onSave} 
-              disabled={isLoading || isSaving}
+              disabled={saveDisabled || isLoading || isSaving}
             >
               <Save className="h-4 w-4 mr-2" />
               {isLoading || isSaving ? "Saving..." : "Save Project"}

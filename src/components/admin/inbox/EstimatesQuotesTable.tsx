@@ -246,7 +246,7 @@ export const EstimatesQuotesTable = () => {
             placeholder="Search by name, email, company, or scope..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="pl-10"
+            className="!pl-10"
           />
         </div>
         <Select value={typeFilter} onValueChange={(v) => setTypeFilter(v as TypeFilter)}>

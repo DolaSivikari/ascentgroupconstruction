@@ -36,7 +36,7 @@
   z-index: 100;
   transition: width 0.3s var(--admin-sb-ease), transform 0.3s var(--admin-sb-ease);
   border-right: 1px solid var(--admin-sb-border);
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-family: var(--font-sans);
 }
 
 .admin-sidebar.is-collapsed {

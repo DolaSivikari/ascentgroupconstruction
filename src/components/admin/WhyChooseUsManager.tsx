@@ -10,6 +10,7 @@ import { Plus, Pencil, Trash2, GripVertical } from "lucide-react";
 import { DndContext, closestCenter, KeyboardSensor, PointerSensor, useSensor, useSensors } from "@dnd-kit/core";
 import { arrayMove, SortableContext, sortableKeyboardCoordinates, verticalListSortingStrategy, useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
+import { ConfirmDialog } from "@/components/admin/ConfirmDialog";
 
 const SortableItem = ({ item, onEdit, onDelete, onToggle }: any) => {
   const { attributes, listeners, setNodeRef, transform, transition } = useSortable({ id: item.id });
@@ -36,7 +37,7 @@ const SortableItem = ({ item, onEdit, onDelete, onToggle }: any) => {
         <Button variant="ghost" size="sm" onClick={() => onEdit(item)}>
           <Pencil className="h-4 w-4" />
         </Button>
-        <Button variant="ghost" size="sm" onClick={() => onDelete(item.id)}>
+        <Button variant="ghost" size="sm" aria-label={`Delete ${item.title}`} onClick={() => onDelete(item.id)}>
           <Trash2 className="h-4 w-4" />
         </Button>
       </div>
@@ -48,6 +49,7 @@ export const WhyChooseUsManager = () => {
   const { items, isLoading, createItem, updateItem, deleteItem, reorderItems } = useWhyChooseUsAdmin();
   const [editingItem, setEditingItem] = useState<any>(null);
   const [isCreating, setIsCreating] = useState(false);
+  const [itemToDelete, setItemToDelete] = useState<{ id: string; title: string } | null>(null);
   const [formData, setFormData] = useState({ title: "", description: "", stats_badge: "", icon_name: "" });
 
   const sensors = useSensors(
@@ -143,13 +145,22 @@ export const WhyChooseUsManager = () => {
                 key={item.id}
                 item={item}
                 onEdit={(item: any) => { setEditingItem(item); setFormData({ title: item.title, description: item.description, stats_badge: item.stats_badge || "", icon_name: item.icon_name || "" }); }}
-                onDelete={(id: string) => { if (confirm("Delete this item?")) deleteItem.mutate(id); }}
+                onDelete={(id: string) => { if (!deleteItem.isPending) { const item = items.find((candidate) => candidate.id === id); if (item) setItemToDelete({ id, title: item.title }); } }}
                 onToggle={(id: string, isActive: boolean) => updateItem.mutate({ id, is_active: isActive })}
               />
             ))}
           </div>
         </SortableContext>
       </DndContext>
+      <ConfirmDialog
+        open={!!itemToDelete}
+        onOpenChange={(open) => { if (!open) setItemToDelete(null); }}
+        onConfirm={() => { if (itemToDelete && !deleteItem.isPending) deleteItem.mutate(itemToDelete.id); }}
+        title="Delete Item"
+        description={`Delete “${itemToDelete?.title}”? This action cannot be undone.`}
+        confirmText="Delete"
+        variant="destructive"
+      />
     </div>
   );
 };

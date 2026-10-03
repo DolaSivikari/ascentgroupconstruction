@@ -30,8 +30,8 @@ export const getPublicRoute = (type: string, slug: string): string => {
 };
 
 export const isValidAdminRoute = (path: string): boolean => {
-  const normalized = path.split('#')[0].split('?')[0];
-  return Object.values(ADMIN_ROUTES).some((route) => normalized.startsWith(route.split('?')[0]));
+  const normalized = path.split(/[?#]/, 1)[0] ?? '';
+  return Object.values(ADMIN_ROUTES).some((route) => normalized.startsWith(route.split('?')[0] ?? route));
 };
 
 export const getPreviewUrl = (type: string, slug: string, token: string): string => {
@@ -46,7 +46,7 @@ export const generatePreviewToken = (): string => {
 export const VALID_PUBLIC_ROUTES = [...PUBLIC_ROUTE_PATTERNS] as const;
 
 export const isValidPublicRoute = (path: string): boolean => {
-  const normalized = path.split('#')[0].split('?')[0];
+  const normalized = path.split(/[?#]/, 1)[0] ?? '';
   return isKnownRoute(normalized, VALID_PUBLIC_ROUTES);
 };
 

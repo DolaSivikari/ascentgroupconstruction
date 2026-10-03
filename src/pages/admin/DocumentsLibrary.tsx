@@ -15,6 +15,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Plus, Edit, Trash2, Download, FileText, Calendar } from "lucide-react";
 import { format } from "date-fns";
 import { AdminPageLayout } from "@/components/admin/AdminPageLayout";
+import { ConfirmDialog } from "@/components/admin/ConfirmDialog";
 import {
   RESTRICTED_BUCKET,
   RESTRICTED_PREFIX,
@@ -58,6 +59,8 @@ export default function DocumentsLibrary() {
   const [dialogOpen, setDialogOpen] = useState(false);
   const [editingDoc, setEditingDoc] = useState<Document | null>(null);
   const [uploading, setUploading] = useState(false);
+  const [documentToDelete, setDocumentToDelete] = useState<Document | null>(null);
+  const [deleting, setDeleting] = useState(false);
 
   const [formData, setFormData] = useState({
     title: "",
@@ -189,25 +192,37 @@ export default function DocumentsLibrary() {
   };
 
   const handleDelete = async (id: string, fileUrl: string) => {
-    if (!confirm('Are you sure you want to delete this document?')) return;
+    if (deleting) return;
+    setDeleting(true);
     try {
       const { error } = await supabase.from('documents_library').delete().eq('id', id);
       if (error) throw error;
       
       // Optionally delete file from storage
-      if (isRestrictedDocument(fileUrl)) {
-        await supabase.storage.from(RESTRICTED_BUCKET).remove([restrictedPath(fileUrl)]);
-      } else {
-        const path = fileUrl.split('/documents/')[1];
-        if (path) {
-          await supabase.storage.from('documents').remove([path]);
+      let cleanupError: { message: string } | null = null;
+      try {
+        if (isRestrictedDocument(fileUrl)) {
+          const result = await supabase.storage.from(RESTRICTED_BUCKET).remove([restrictedPath(fileUrl)]);
+          cleanupError = result.error;
+        } else {
+          const path = fileUrl.split('/documents/')[1];
+          if (path) {
+            const result = await supabase.storage.from('documents').remove([path]);
+            cleanupError = result.error;
+          }
         }
+      } catch (error) {
+        cleanupError = { message: error instanceof Error ? error.message : "Storage cleanup failed" };
       }
       
-      toast({ title: "Success", description: "Document deleted successfully" });
+      toast(cleanupError
+        ? { title: "Document record deleted", description: "The stored file could not be removed. Please remove it from the storage library.", variant: "destructive" }
+        : { title: "Success", description: "Document deleted successfully" });
       fetchDocuments();
     } catch (error: any) {
       toast({ title: "Error", description: error.message, variant: "destructive" });
+    } finally {
+      setDeleting(false);
     }
   };
 
@@ -383,7 +398,7 @@ export default function DocumentsLibrary() {
                             <Button variant="ghost" size="sm" onClick={() => openEditDialog(doc)}>
                               <Edit className="w-4 h-4" />
                             </Button>
-                            <Button variant="ghost" size="sm" onClick={() => handleDelete(doc.id, doc.file_url)}>
+                            <Button variant="ghost" size="sm" disabled={deleting} aria-label={`Delete ${doc.title}`} onClick={() => setDocumentToDelete(doc)}>
                               <Trash2 className="w-4 h-4 text-destructive" />
                             </Button>
                           </div>
@@ -395,6 +410,15 @@ export default function DocumentsLibrary() {
               </Table>
             </CardContent>
       </Card>
+      <ConfirmDialog
+        open={!!documentToDelete}
+        onOpenChange={(open) => { if (!open) setDocumentToDelete(null); }}
+        onConfirm={() => { if (documentToDelete) void handleDelete(documentToDelete.id, documentToDelete.file_url); }}
+        title="Delete Document"
+        description={`Delete “${documentToDelete?.title}” and its stored file? This action cannot be undone.`}
+        confirmText="Delete"
+        variant="destructive"
+      />
     </AdminPageLayout>
   );
 }

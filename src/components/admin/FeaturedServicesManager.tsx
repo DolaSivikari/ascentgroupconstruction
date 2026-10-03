@@ -8,10 +8,13 @@ import { Badge } from "@/components/ui/badge";
 import { useFeaturedServicesAdmin } from "@/hooks/useFeaturedServices";
 import { Plus, Trash2, Star } from "lucide-react";
 import { toast } from "sonner";
+import { ConfirmDialog } from "@/components/admin/ConfirmDialog";
 
 export function FeaturedServicesManager() {
   const { allFeaturedServices, isLoading, createFeaturedService, updateFeaturedService, deleteFeaturedService } = useFeaturedServicesAdmin();
   const [isCreating, setIsCreating] = useState(false);
+  const [serviceToDelete, setServiceToDelete] = useState<{ id: string; name: string } | null>(null);
+  const [deleting, setDeleting] = useState(false);
   const [newService, setNewService] = useState({
     service_name: '',
     service_link: '',
@@ -51,10 +54,13 @@ export function FeaturedServicesManager() {
   };
 
   const handleDelete = (id: string) => {
-    if (confirm('Are you sure you want to delete this featured service?')) {
-      deleteFeaturedService(id);
-      toast.success('Featured service deleted');
-    }
+    if (deleting) return;
+    setDeleting(true);
+    deleteFeaturedService(id, {
+      onSuccess: () => toast.success('Featured service deleted'),
+      onError: () => toast.error('Failed to delete featured service'),
+      onSettled: () => setDeleting(false),
+    });
   };
 
   return (
@@ -180,7 +186,9 @@ export function FeaturedServicesManager() {
                 <Button
                   variant="ghost"
                   size="sm"
-                  onClick={() => handleDelete(service.id)}
+                  disabled={deleting}
+                  aria-label={`Delete ${service.service_name}`}
+                  onClick={() => setServiceToDelete({ id: service.id, name: service.service_name })}
                 >
                   <Trash2 className="h-4 w-4 text-destructive" />
                 </Button>
@@ -189,6 +197,15 @@ export function FeaturedServicesManager() {
           ))}
         </div>
       </CardContent>
+      <ConfirmDialog
+        open={!!serviceToDelete}
+        onOpenChange={(open) => { if (!open) setServiceToDelete(null); }}
+        onConfirm={() => { if (serviceToDelete) handleDelete(serviceToDelete.id); }}
+        title="Delete Featured Service"
+        description={`Remove “${serviceToDelete?.name}” from featured services? This action cannot be undone.`}
+        confirmText="Delete"
+        variant="destructive"
+      />
     </Card>
   );
 }

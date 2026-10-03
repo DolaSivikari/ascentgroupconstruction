@@ -41,30 +41,7 @@ import {
   type Wave1ServicePage as Wave1PageData,
 } from "@/data/wave1-services";
 
-// Hero images — co-located with the page composition so adding a new wave
-// service only requires dropping a file in src/assets/heroes and updating
-// this map plus wave1-services.ts.
-import heroCommercialPainting from "@/assets/heroes/wave-commercial-painting.jpg";
-import heroExteriorPainting from "@/assets/heroes/wave-exterior-painting.jpg";
-import heroCaulkingSealants from "@/assets/heroes/wave-caulking-sealants.jpg";
-import heroFireRetardant from "@/assets/heroes/wave-fire-retardant.jpg";
-import heroInteriorPainting from "@/assets/heroes/wave-interior-painting.jpg";
-import heroResidentialExterior from "@/assets/heroes/wave-residential-exterior.jpg";
-import heroTileInstallation from "@/assets/heroes/wave-tile-installation.jpg";
-import heroFlooringInstallation from "@/assets/heroes/wave-flooring-installation.jpg";
-import heroHandymanPatching from "@/assets/heroes/wave-handyman-patching.jpg";
-
-const HERO_IMAGE_MAP: Record<string, string> = {
-  "commercial-painting-gta": heroCommercialPainting,
-  "exterior-painting-toronto": heroExteriorPainting,
-  "caulking-sealants-toronto": heroCaulkingSealants,
-  "fire-retardant-coatings-ontario": heroFireRetardant,
-  "interior-painting-toronto": heroInteriorPainting,
-  "residential-exterior-painting-gta": heroResidentialExterior,
-  "tile-installation-toronto": heroTileInstallation,
-  "flooring-installation-gta": heroFlooringInstallation,
-  "handyman-patching-toronto": heroHandymanPatching,
-};
+import { resolveServiceHero } from "@/data/hero-images";
 
 // Standard hero badges per slug (frosted-glass pills — see mem://design/hero-badges-system)
 const HERO_BADGES_MAP: Record<
@@ -128,7 +105,7 @@ export const Wave1ServicePage = ({ slug }: Wave1ServicePageProps) => {
   if (!page) return null;
 
   const canonical = `${SITE_URL}/services/${page.slug}`;
-  const heroImage = HERO_IMAGE_MAP[page.slug];
+  const heroImage = resolveServiceHero(page.slug).image;
   const badges = HERO_BADGES_MAP[page.slug];
 
   // JSON-LD payload (Service + FAQPage + BreadcrumbList)

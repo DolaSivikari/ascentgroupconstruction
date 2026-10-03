@@ -16,6 +16,7 @@ import { useHoverTimeout } from "@/hooks/useHoverTimeout";
 import { useAdminRoleCheck } from "@/hooks/useAdminRoleCheck";
 import { useScrollDirection } from "@/hooks/useScrollDirection";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
+import { useHeroPresence } from "@/hooks/useHeroPresence";
 
 import {
   DropdownMenu,
@@ -90,18 +91,7 @@ const Navigation = () => {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // Pages with hero backgrounds that should have transparent navigation
-  const heroPagePrefixes = ['/services/', '/service-areas/', '/blog/', '/projects/', '/company/', '/resources/'];
-  const heroPageExact = new Set([
-    '/', '/services', '/about', '/careers', '/capabilities',
-    '/contact', '/why-specialty-contractor', '/prequalification',
-    '/submit-rfp', '/for-general-contractors', '/property-managers',
-    '/commercial-clients', '/homeowners', '/our-process', '/markets',
-    '/faq', '/blog', '/estimate', '/projects', '/for-architects',
-    '/emergency-repair', '/privacy', '/terms', '/accessibility',
-  ]);
-  const isHeroPage = heroPageExact.has(location.pathname) ||
-    heroPagePrefixes.some(prefix => location.pathname.startsWith(prefix));
+  const isHeroPage = useHeroPresence();
 
   const [isOpen, setIsOpen] = useState(false);
   const [activeMegaMenu, setActiveMegaMenu] = useState<string | null>(null);
@@ -484,7 +474,12 @@ const Navigation = () => {
 
             {/* Mobile Menu Button */}
             <button
-              className="md:hidden text-foreground relative flex items-center justify-center h-11 w-11 min-h-[44px] min-w-[44px] rounded-md hover:bg-muted active:bg-muted/70 active:scale-95 transition-all duration-[150ms] touch-manipulation"
+              className={cn(
+                "md:hidden relative flex items-center justify-center h-11 w-11 min-h-[44px] min-w-[44px] rounded-md active:scale-95 transition-all duration-[150ms] touch-manipulation",
+                isHeroPage && isAtTop
+                  ? "text-white hover:bg-white/10 active:bg-white/20"
+                  : "text-foreground hover:bg-muted active:bg-muted/70"
+              )}
               onClick={() => setIsOpen(!isOpen)}
               aria-label={isOpen ? "Close menu" : "Open menu"}
               aria-expanded={isOpen}

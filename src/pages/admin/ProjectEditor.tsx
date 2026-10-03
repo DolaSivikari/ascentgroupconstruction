@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState, useCallback, useRef } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
@@ -18,22 +18,63 @@ import { ProjectDetailsTab } from "@/components/admin/project-tabs/ProjectDetail
 import { ServicesTab } from "@/components/admin/project-tabs/ServicesTab";
 import { MetricsTab } from "@/components/admin/project-tabs/MetricsTab";
 import { SEOTab } from "@/components/admin/project-tabs/SEOTab";
-import { cn } from "@/lib/utils";
+import { projectSavePayload, type ProjectFormData } from "@/lib/admin/projectEditor";
+import { loadProjectRelationships, saveProjectRelationships, type ProjectRelationships } from "@/lib/admin/projectPersistence";
+import { Button } from "@/ui/Button";
 
-interface ProjectImage {
-  id: string;
-  url: string;
-  category: 'before' | 'after' | 'process' | 'gallery';
-  caption?: string;
-  order: number;
-  featured: boolean;
-}
+
+const INITIAL_PROJECT_FORM: ProjectFormData = {
+  slug: "",
+  title: "",
+  subtitle: "",
+  summary: "",
+  description: "",
+  featured_image: "",
+  client_name: "",
+  location: "",
+  category: "",
+  project_size: "",
+  duration: "",
+  year: "",
+  budget_range: "",
+  start_date: "",
+  completion_date: "",
+  project_status: "Completed",
+  process_notes: "",
+  featured: false,
+  publish_state: "draft",
+  seo_title: "",
+  seo_description: "",
+  content_blocks: [],
+  project_images: [],
+  service_ids: [] as string[],
+  project_value: "",
+  square_footage: "",
+  your_role: "",
+  delivery_method: "",
+  client_type: "",
+  trades_coordinated: "",
+  peak_workforce: "",
+  on_time_completion: false,
+  on_budget: false,
+  safety_incidents: "",
+  scope_of_work: "",
+  team_credits: [] as Array<{ role: string; name: string; company?: string }>,
+};
 
 const ProjectEditor = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const { toast } = useToast();
   const [isLoading, setIsLoading] = useState(false);
+  const [loadedProjectId, setLoadedProjectId] = useState<string | null>(null);
+  const [loadError, setLoadError] = useState<string | null>(null);
+  const [saveError, setSaveError] = useState<string | null>(null);
+  const [autoSaveError, setAutoSaveError] = useState<string | null>(null);
+  const [createdProjectId, setCreatedProjectId] = useState<string | null>(null);
+  const [relationships, setRelationships] = useState<ProjectRelationships>({ images: [], serviceIds: [] });
+  const loadSequence = useRef(0);
+  const canEditProject = id === "new" || loadedProjectId === id;
   const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false);
   const { showDialog, confirmNavigation, cancelNavigation, message } = useUnsavedChanges({ hasUnsavedChanges });
   const [slugStatus, setSlugStatus] = useState<{
@@ -41,50 +82,13 @@ const ProjectEditor = () => {
     isAvailable: boolean;
     message: string;
   }>({ isChecking: false, isAvailable: true, message: "" });
-  
-  const [formData, setFormData] = useState<any>({
-    slug: "",
-    title: "",
-    subtitle: "",
-    summary: "",
-    description: "",
-    featured_image: "",
-    client_name: "",
-    location: "",
-    category: "",
-    project_size: "",
-    duration: "",
-    year: "",
-    budget_range: "",
-    start_date: "",
-    completion_date: "",
-    project_status: "Completed",
-    process_notes: "",
-    featured: false,
-    publish_state: "draft",
-    seo_title: "",
-    seo_description: "",
-    content_blocks: [],
-    project_images: [] as ProjectImage[],
-    service_ids: [] as string[],
-    project_value: "",
-    square_footage: "",
-    your_role: "",
-    delivery_method: "",
-    client_type: "",
-    trades_coordinated: "",
-    peak_workforce: "",
-    on_time_completion: false,
-    on_budget: false,
-    safety_incidents: "",
-    scope_of_work: "",
-    team_credits: [] as Array<{ role: string; name: string; company?: string }>,
-  });
+
+  const [formData, setFormData] = useState<ProjectFormData>(INITIAL_PROJECT_FORM);
 
   useEffect(() => {
     if (formData.title && !formData.slug && id === "new") {
       const autoSlug = formData.title.toLowerCase().replace(/\s+/g, "-").replace(/[^a-z0-9-]/g, "");
-      setFormData((prev: any) => ({ ...prev, slug: autoSlug }));
+      setFormData((prev) => ({ ...prev, slug: autoSlug }));
     }
   }, [formData.title, id]);
 
@@ -96,7 +100,7 @@ const ProjectEditor = () => {
       }
       setSlugStatus({ isChecking: true, isAvailable: true, message: "Checking..." });
       const { data } = await supabase.from("projects").select("id, slug").eq("slug", formData.slug);
-      const existingProject = data?.find((p: any) => p.id !== id);
+      const existingProject = data?.find((p) => p.id !== (id === "new" ? createdProjectId : id));
       setSlugStatus({
         isChecking: false,
         isAvailable: !existingProject,
@@ -105,12 +109,20 @@ const ProjectEditor = () => {
     };
     const timer = setTimeout(checkSlugUniqueness, 500);
     return () => clearTimeout(timer);
-  }, [formData.slug, id]);
+  }, [formData.slug, id, createdProjectId]);
 
   useEffect(() => {
+    setCreatedProjectId(null);
+    setLoadedProjectId(null);
+    setLoadError(null);
+    setSaveError(null);
+    setAutoSaveError(null);
+    setRelationships({ images: [], serviceIds: [] });
     if (id && id !== "new") {
-      loadProject();
+      void loadProject();
     } else if (id === "new") {
+      setFormData(INITIAL_PROJECT_FORM);
+      setHasUnsavedChanges(false);
       // Show reminder for new projects
       toast({
         title: "📝 Remember to publish",
@@ -118,45 +130,60 @@ const ProjectEditor = () => {
         duration: 6000,
       });
     }
+    return () => { loadSequence.current += 1; };
   }, [id]);
 
   const loadProject = async () => {
     if (!id || id === "new") return;
+    const request = ++loadSequence.current;
     setIsLoading(true);
-    const { data, error } = await supabase.from("projects").select("*").eq("id", id).single();
-    if (error || !data) {
-      toast({ title: "Error", description: "Failed to load project", variant: "destructive" });
-      setIsLoading(false);
-      return;
+    setLoadedProjectId(null);
+    setLoadError(null);
+    try {
+      const { data, error } = await supabase.from("projects").select("*").eq("id", id).single();
+      if (error || !data) throw new Error("Could not load this project.");
+      const related = await loadProjectRelationships(id);
+      if (request !== loadSequence.current) return;
+      const loadedForm: ProjectFormData = { ...data, project_images: related.images, service_ids: related.serviceIds, team_credits: data.team_credits || [] };
+      const draft = loadFromLocalStorage();
+      const draftAge = draft ? Date.now() - new Date(draft.timestamp).getTime() : Infinity;
+      const restore = draft && draftAge >= 0 && draftAge < 24 * 60 * 60 * 1000
+        && draft.data && Array.isArray(draft.data.project_images) && Array.isArray(draft.data.service_ids);
+      setFormData(restore ? { ...loadedForm, ...draft.data } : loadedForm);
+      setRelationships(related);
+      setHasUnsavedChanges(!!restore);
+      setLoadedProjectId(id);
+      if (restore) toast({ title: "Draft Restored", description: "Your unsaved changes have been restored" });
+    } catch (error) {
+      if (request !== loadSequence.current) return;
+      setLoadError(error instanceof Error ? error.message : "Could not load the complete project.");
+    } finally {
+      if (request === loadSequence.current) setIsLoading(false);
     }
-    const { data: images } = await supabase.from("project_images").select("*").eq("project_id", id).order("display_order");
-    const { data: projectServices } = await supabase.from("project_services").select("service_id").eq("project_id", id);
-    setFormData({
-      ...data,
-      project_images: images?.map((img: any) => ({ id: img.id, url: img.url, category: img.category, caption: img.caption, order: img.display_order, featured: img.featured })) || [],
-      service_ids: projectServices?.map((ps: any) => ps.service_id) || [],
-      team_credits: data.team_credits || [],
-    });
-    setHasUnsavedChanges(false);
-    setIsLoading(false);
   };
 
   // Form completion tracking
   const completion = useFormCompletion(formData);
 
   // Auto-save functionality
-  const autoSaveHandler = useCallback(async (data: any) => {
-    if (!id || id === "new") return;
-    const { project_images, service_ids, ...projectData } = data;
-    await supabase.from("projects").update(projectData).eq("id", id);
-  }, [id]);
+  const autoSaveHandler = useCallback(async (data: ProjectFormData) => {
+    if (!id || id === "new" || loadedProjectId !== id) return;
+    try {
+      const { error } = await supabase.from("projects").update(projectSavePayload(data)).eq("id", id).select("id").single();
+      if (error) throw error;
+      setAutoSaveError(null);
+    } catch (error) {
+      setAutoSaveError("Project details could not be autosaved. Your unsaved form is retained; use Save Project to retry.");
+      throw error;
+    }
+  }, [id, loadedProjectId]);
 
   const { lastSaved, isSaving, loadFromLocalStorage, clearLocalStorage } = useAutoSave(
     formData,
     autoSaveHandler,
     { 
       interval: 30000, 
-      enabled: id !== "new",
+      enabled: id !== "new" && loadedProjectId === id && hasUnsavedChanges && !isLoading,
       storageKey: `project-draft-${id}` 
     }
   );
@@ -168,42 +195,26 @@ const ProjectEditor = () => {
       ctrl: true,
       handler: (e) => {
         e.preventDefault();
-        handleSubmit(e as any);
+        void handleSubmit();
       }
     }
   ]);
 
-  // Restore draft on mount
-  useEffect(() => {
-    if (id && id !== "new") {
-      const draft = loadFromLocalStorage();
-      if (draft && draft.data) {
-        const draftAge = Date.now() - new Date(draft.timestamp).getTime();
-        // Only restore if draft is less than 24 hours old
-        if (draftAge < 24 * 60 * 60 * 1000) {
-          toast({
-            title: "Draft Restored",
-            description: "Your unsaved changes have been restored",
-          });
-          setFormData(draft.data);
-        }
-      }
-    }
-  }, [id]);
-
-  const handleFormChange = (updates: any) => {
-    setFormData((prev: any) => ({ ...prev, ...updates }));
+  const handleFormChange = (updates: Partial<ProjectFormData>) => {
+    setFormData((prev) => ({ ...prev, ...updates }));
     setHasUnsavedChanges(true);
   };
 
   const handleSubmit = async (e?: React.FormEvent) => {
     e?.preventDefault();
+    if (!canEditProject || isLoading || isSaving) return;
     if (!slugStatus.isAvailable) {
       toast({ title: "Error", description: "Please choose a unique slug", variant: "destructive" });
       return;
     }
     setIsLoading(true);
-    setHasUnsavedChanges(false);
+    setSaveError(null);
+    let projectDetailsSaved = false;
     try {
       const { data: { user } } = await supabase.auth.getUser();
       if (!user) {
@@ -211,31 +222,29 @@ const ProjectEditor = () => {
         setIsLoading(false);
         return;
       }
-      const { project_images, service_ids, ...projectData } = formData;
-      const finalProjectData: any = { ...projectData, updated_by: user.id, ...(id === "new" && { created_by: user.id }) };
-      const { error, data } = id === "new"
+      const savedId = id === "new" ? createdProjectId : id;
+      const finalProjectData = { ...projectSavePayload(formData), updated_by: user.id, ...(!savedId && { created_by: user.id }) };
+      const { error, data } = !savedId
         ? await supabase.from("projects").insert([finalProjectData]).select().single()
-        : await supabase.from("projects").update(finalProjectData).eq("id", id).select().single();
-      if (error) {
-        toast({ title: "Error Saving Project", description: error.message, variant: "destructive" });
-        setIsLoading(false);
-        return;
-      }
+        : await supabase.from("projects").update(finalProjectData).eq("id", savedId).select().single();
+      if (error || !data) throw new Error(error?.message || "Could not save project details.");
+      projectDetailsSaved = true;
       const projectId = data.id;
-      await supabase.from("project_images").delete().eq("project_id", projectId);
-      if (formData.project_images.length > 0) {
-        await supabase.from("project_images").insert(formData.project_images.map((img: any, idx: number) => ({
-          project_id: projectId, url: img.url, category: img.category, caption: img.caption, display_order: idx, featured: img.featured
-        })));
-      }
-      await supabase.from("project_services").delete().eq("project_id", projectId);
-      if (formData.service_ids.length > 0) {
-        await supabase.from("project_services").insert(formData.service_ids.map((serviceId: string) => ({ project_id: projectId, service_id: serviceId })));
-      }
+      if (id === "new") setCreatedProjectId(projectId);
+      const savedRelationships = await saveProjectRelationships(projectId, { images: formData.project_images, serviceIds: formData.service_ids }, relationships);
+      setRelationships(savedRelationships);
+      setFormData((current) => ({ ...current, project_images: savedRelationships.images, service_ids: savedRelationships.serviceIds }));
       toast({ title: "Success", description: id === "new" ? "Project created" : "Project updated" });
+      setHasUnsavedChanges(false);
+      setAutoSaveError(null);
+      clearLocalStorage();
       if (id === "new") navigate(`/admin/projects/${projectId}`);
     } catch (error) {
-      toast({ title: "Error", description: "An unexpected error occurred", variant: "destructive" });
+      const message = error instanceof Error ? error.message : "An unexpected error occurred";
+      const description = projectDetailsSaved ? `Project details were saved, but the full save is incomplete. ${message}` : message;
+      setSaveError(description);
+      setHasUnsavedChanges(true);
+      toast({ title: "Project Save Incomplete", description, variant: "destructive" });
     } finally {
       setIsLoading(false);
     }
@@ -246,6 +255,7 @@ const ProjectEditor = () => {
       toast({ title: "Save First", description: "Please save before previewing", variant: "destructive" });
       return;
     }
+    if (!canEditProject) return;
     const token = generatePreviewToken();
     await supabase.from("projects").update({ preview_token: token, preview_token_expires_at: new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString() }).eq("id", id);
     window.open(`/projects/${formData.slug}?preview=${token}`, "_blank");
@@ -264,6 +274,7 @@ const ProjectEditor = () => {
         <ProjectEditorHeader
           isNew={id === "new"}
           isLoading={isLoading}
+          saveDisabled={!canEditProject}
           isSaving={isSaving}
           lastSaved={lastSaved}
           completionPercentage={completion.overall.percentage}
@@ -274,6 +285,12 @@ const ProjectEditor = () => {
         />
         
         <main className="container mx-auto px-4 py-8">
+          {autoSaveError && <p role="alert" className="mb-4 rounded-lg border border-destructive/40 p-4 text-sm text-destructive">{autoSaveError}</p>}
+          {saveError && <p role="alert" className="mb-4 rounded-lg border border-destructive/40 p-4 text-sm text-destructive">{saveError} Your unsaved form is retained. Retry with Save Project.</p>}
+          {!canEditProject ? (
+            loadError ? <div role="alert" className="rounded-lg border border-destructive/40 p-4 space-y-3"><p>{loadError} Editing is unavailable until the full project loads.</p><Button variant="outline" onClick={() => void loadProject()}>Retry loading project</Button></div>
+              : <p className="text-muted-foreground">Loading complete project…</p>
+          ) : <fieldset disabled={isLoading || isSaving} className="min-w-0">
           <div className="flex gap-6">
             {/* Main Content */}
             <div className="flex-1">
@@ -328,6 +345,7 @@ const ProjectEditor = () => {
               <CompletionChecklist completion={completion} />
             </div>
           </div>
+          </fieldset>}
         </main>
       </div>
     </>

@@ -19,6 +19,7 @@ import {
 } from "@/utils/seo";
 import { usePageAnalytics } from "@/hooks/usePageAnalytics";
 import { supabase } from "@/integrations/supabase/client";
+import { getCityHero } from "@/data/hero-images";
 
 interface AreaProject {
   id: string;
@@ -264,6 +265,8 @@ const LocationPage = () => {
     }
   };
 
+  const hero = getCityHero(location.slug);
+
   const otherCities = Object.values(locationDetails)
     .filter(l => l.slug !== location.slug)
     .slice(0, 6);
@@ -282,6 +285,8 @@ const LocationPage = () => {
         title={`Building Envelope Services in ${location.name}`}
         description={`Professional façade remediation, waterproofing, and restoration services for ${location.name} properties. WSIB compliant, $2M CGL insured specialty contractor.`}
         height="medium"
+        image={hero.image}
+        imageAlt={hero.imageAlt}
         primaryCta={{ text: CTA_TEXT.contact, href: "/contact" }}
         secondaryCta={{ text: "Get Estimate", href: "/estimate" }}
         breadcrumbs={[

@@ -4,6 +4,7 @@ import { ChevronRight, ChevronDown, LucideIcon } from "lucide-react";
 import { Button } from "@/ui/Button";
 import { ProgressiveImage } from "@/components/ui/ProgressiveImage";
 import { cn } from "@/lib/utils";
+import { useHeroRegistration } from "@/hooks/useHeroPresence";
 
 // ============================================================================
 // Types
@@ -29,6 +30,7 @@ export interface PageHeroCTA {
   text: string;
   href: string;
   variant?: "primary" | "secondary" | "outline";
+  icon?: LucideIcon;
 }
 
 export interface PageHeroProps {
@@ -107,6 +109,14 @@ const staggerStyle = (delayMs: number): React.CSSProperties => ({
   animation: `fade-in 0.5s ease-out ${delayMs}ms both`,
 });
 
+const heroCtaLink = (cta: PageHeroCTA) => {
+  const Icon = cta.icon;
+  const content = <>{Icon && <Icon className="w-5 h-5" aria-hidden="true" />}{cta.text}</>;
+  return cta.href.startsWith("#")
+    ? <a href={cta.href}>{content}</a>
+    : <Link to={cta.href}>{content}</Link>;
+};
+
 export function PageHero({
   // Content
   title,
@@ -143,6 +153,7 @@ export function PageHero({
 }: PageHeroProps) {
   const isCentered = variant === "centered" || textAlign === "center";
   const isMinimal = variant === "minimal";
+  useHeroRegistration(isMinimal || ["gradient", "dark", "brand"].includes(overlay));
   
   return (
     <section
@@ -304,11 +315,12 @@ export function PageHero({
                   size="lg"
                   variant={primaryCta.variant === "outline" ? "outline" : "primary"}
                   className={cn(
+                    "gap-2",
                     primaryCta.variant === "outline" && 
                     "border-[hsl(var(--bg))] text-[hsl(var(--bg))] hover:bg-[hsl(var(--bg))]/10"
                   )}
                 >
-                  <Link to={primaryCta.href}>{primaryCta.text}</Link>
+                  {heroCtaLink(primaryCta)}
                 </Button>
               )}
               {secondaryCta && (
@@ -316,9 +328,9 @@ export function PageHero({
                   asChild
                   size="lg"
                   variant="outline"
-                  className="border-[hsl(var(--bg))] text-[hsl(var(--bg))] hover:bg-[hsl(var(--bg))]/10"
+                  className="gap-2 border-[hsl(var(--bg))] text-[hsl(var(--bg))] hover:bg-[hsl(var(--bg))]/10"
                 >
-                  <Link to={secondaryCta.href}>{secondaryCta.text}</Link>
+                  {heroCtaLink(secondaryCta)}
                 </Button>
               )}
             </div>

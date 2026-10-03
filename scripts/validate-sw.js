@@ -11,13 +11,18 @@ if (!fs.existsSync(swPath)) {
 const swContent = fs.readFileSync(swPath, 'utf-8');
 
 const checks = [
-  { name: 'SW has skipWaiting', pattern: /self\.skipWaiting\(\)/ },
   { name: 'SW has install event', pattern: /addEventListener\(['"]install['"]/ },
   { name: 'SW has activate event', pattern: /addEventListener\(['"]activate['"]/ },
   { name: 'SW has fetch event', pattern: /addEventListener\(['"]fetch['"]/ },
 ];
 
 let failed = false;
+if (/\bskipWaiting\s*\(/.test(swContent)) {
+  console.error('❌ Service worker must wait for existing tabs to close before activating an update');
+  failed = true;
+} else {
+  console.log('✅ Service worker updates preserve open forms and editors');
+}
 checks.forEach(({ name, pattern }) => {
   if (pattern.test(swContent)) {
     console.log(`✅ ${name}`);

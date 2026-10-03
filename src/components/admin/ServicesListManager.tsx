@@ -5,13 +5,15 @@ import { Input } from "@/ui/Input";
 import { Badge } from "@/components/ui/badge";
 import { Plus, Pencil, Trash2, Eye } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { ConfirmDialog } from "@/components/admin/ConfirmDialog";
 
 export const ServicesListManager = () => {
   const { services, isLoading, deleteService } = useServicesAdmin();
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState("");
+  const [serviceToDelete, setServiceToDelete] = useState<{ id: string; name: string } | null>(null);
 
-  const filteredServices = services.filter((service: any) =>
+  const filteredServices = services.filter((service) =>
     service.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
     service.category?.toLowerCase().includes(searchQuery.toLowerCase())
   );
@@ -45,7 +47,7 @@ export const ServicesListManager = () => {
             </Button>
           </div>
         ) : (
-          filteredServices.map((service: any) => (
+          filteredServices.map((service) => (
             <div
               key={service.id}
               className="flex items-center justify-between p-4 border rounded-lg hover:bg-accent/50 transition-colors"
@@ -97,11 +99,9 @@ export const ServicesListManager = () => {
                 <Button
                   variant="ghost"
                   size="sm"
-                  onClick={() => {
-                    if (confirm("Are you sure you want to delete this service?")) {
-                      deleteService.mutate(service.id);
-                    }
-                  }}
+                  disabled={deleteService.isPending}
+                  aria-label={`Delete ${service.name}`}
+                  onClick={() => setServiceToDelete({ id: service.id, name: service.name })}
                 >
                   <Trash2 className="h-4 w-4" />
                 </Button>
@@ -110,6 +110,15 @@ export const ServicesListManager = () => {
           ))
         )}
       </div>
+      <ConfirmDialog
+        open={!!serviceToDelete}
+        onOpenChange={(open) => { if (!open) setServiceToDelete(null); }}
+        onConfirm={() => { if (serviceToDelete && !deleteService.isPending) deleteService.mutate(serviceToDelete.id); }}
+        title="Delete Service"
+        description={`Delete “${serviceToDelete?.name}”? This action cannot be undone.`}
+        confirmText="Delete"
+        variant="destructive"
+      />
     </div>
   );
 };

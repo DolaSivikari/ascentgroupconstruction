@@ -6,6 +6,7 @@
 set -euo pipefail
 
 BASE_URL="${1:-https://www.ascentgroupconstruction.com}"
+BASE_URL="${BASE_URL%/}"
 SUPABASE_PROJECT_ID="${VITE_SUPABASE_PROJECT_ID:-}"
 
 GREEN='\033[0;32m'
@@ -25,7 +26,6 @@ status_code() {
     code="000"
   fi
   echo "$code"
-  curl -s -o /dev/null -w "%{http_code}" "$1"
 }
 
 echo "🚀 Starting smoke tests for: $BASE_URL"
@@ -66,7 +66,7 @@ done
 
 # 4) Homepage content sanity signal
 echo -e "\n${YELLOW}Test 4: Homepage sanity signal${NC}"
-HOME_HTML=$(curl -s "$BASE_URL")
+HOME_HTML=$(curl -L -s --connect-timeout 10 --max-time 30 "$BASE_URL")
 if echo "$HOME_HTML" | grep -qi "Ascent Group Construction"; then
   pass "Homepage contains expected brand signal"
 else
@@ -77,7 +77,7 @@ fi
 echo -e "\n${YELLOW}Test 5: Supabase Edge Function reachability (optional)${NC}"
 if [ -n "$SUPABASE_PROJECT_ID" ]; then
   FN_URL="https://${SUPABASE_PROJECT_ID}.functions.supabase.co/submit-form"
-  FN_CODE=$(curl -s -o /dev/null -w "%{http_code}" -X OPTIONS "$FN_URL" -H "Origin: $BASE_URL" -H "Access-Control-Request-Method: POST")
+  FN_CODE=$(curl -s --connect-timeout 10 --max-time 30 -o /dev/null -w "%{http_code}" -X OPTIONS "$FN_URL" -H "Origin: $BASE_URL" -H "Access-Control-Request-Method: POST" || true)
 
   # 200/204 = good CORS response, 401/403/405 can still indicate endpoint exists behind auth/method controls
   if [[ "$FN_CODE" =~ ^(200|204|401|403|405)$ ]]; then
@@ -91,7 +91,7 @@ fi
 
 # 6) Basic performance signal
 echo -e "\n${YELLOW}Test 6: Response time signal${NC}"
-LOAD_TIME=$(curl -s -o /dev/null -w "%{time_total}" "$BASE_URL")
+LOAD_TIME=$(curl -L -s --connect-timeout 10 --max-time 30 -o /dev/null -w "%{time_total}" "$BASE_URL")
 if awk "BEGIN { exit !($LOAD_TIME < 3.0) }"; then
   pass "Base response time acceptable (${LOAD_TIME}s)"
 else

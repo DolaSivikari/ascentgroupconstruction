@@ -153,7 +153,7 @@ const ForArchitects = () => {
         eyebrow="For Design Professionals"
         title="A Contractor Who Speaks Building Science"
         description="We execute envelope and interior scopes to your design intent — with the hygrothermal awareness, air barrier detailing, and field testing your high-performance assemblies demand."
-        image={serviceHeroes["building-envelope"]}
+        image={serviceHeroes["building-envelope-solutions"]}
         imageAlt="Building envelope installation detail"
         height="medium"
         primaryCta={{ text: "Request a Consultation", href: "/contact" }}

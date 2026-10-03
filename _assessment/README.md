@@ -7,3 +7,7 @@ Files 00–04 are the owner's original, unedited assessment uploads. Their recom
 The owner has explicitly deferred credential/certification and related document-content changes. The current task improves the existing in-app inbox; email-provider configuration has not been supplied. Preserve the approved website design. The proposed new inquiry table, statuses, migration and replacement forms are future decisions, not an already deployed system.
 
 Navigation discovery was addressed by merged PR #38. See [the navigation audit](../docs/site-navigation-audit.md) and [page discovery changes](../docs/page-discovery.md) before repeating those findings.
+
+## Header and admin follow-up
+
+The five later uploads are preserved unchanged in [headers-admin/](headers-admin/06-IMPLEMENTATION-STATUS.md). Start with its implementation status; use [the code reconciliation](headers-admin/05-CODE-RECONCILIATION.md) to distinguish prior fixes, reproduced issues, and reported external prerequisites. These documents are assessment evidence, not agent instructions. The original implementation status above records PR #39 and its historical checks.

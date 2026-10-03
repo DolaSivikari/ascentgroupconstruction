@@ -1,6 +1,8 @@
 import { lazy, type ComponentType } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
 import { PageTransition } from "@/components/animations/PageTransition";
+import { SERVICE_REDIRECTS } from "@/data/service-redirects";
+import { LegacyInboxRedirect } from "@/components/admin/LegacyInboxRedirect";
 import Index from "@/pages/Index";
 import NotFound from "@/pages/NotFound";
 
@@ -56,6 +58,8 @@ const FlooringInstallationGTA = lazyWithFallback(() => import("@/pages/services/
 const HandymanPatchingToronto = lazyWithFallback(() => import("@/pages/services/HandymanPatchingToronto"), 'Handyman & Patching Toronto');
 
 // Admin pages
+const PageHeaders = lazyWithFallback(() => import("@/pages/admin/PageHeaders"), "Page Headers");
+const AdminFeatureNotice = lazy(() => import("@/pages/admin/AdminFeatureNotice"));
 const Dashboard = lazyWithFallback(() => import("@/pages/admin/Dashboard"), 'Dashboard');
 const AdminProjects = lazyWithFallback(() => import("@/pages/admin/Projects"), 'Projects');
 const ServiceEditor = lazyWithFallback(() => import("@/pages/admin/ServiceEditor"), 'Service Editor');
@@ -89,41 +93,10 @@ const ServiceRouteGroup = () => (
   <>
     <Route path="/services" element={<Services />} />
 
-    {/* Legacy slug redirects — map old slugs to current DB slugs */}
-    <Route path="/services/building-envelope" element={<Navigate to="/services/building-envelope-solutions" replace />} />
-    <Route path="/services/interior-buildouts" element={<Navigate to="/services/interior-buildouts-finishing" replace />} />
-    <Route path="/services/eifs-stucco" element={<Navigate to="/services/eifs-stucco-systems" replace />} />
-    <Route path="/services/metal-cladding" element={<Navigate to="/services/cladding-systems" replace />} />
-    <Route path="/services/exterior-envelope" element={<Navigate to="/services/building-envelope-solutions" replace />} />
-    <Route path="/services/exterior-cladding" element={<Navigate to="/services/cladding-systems" replace />} />
-    <Route path="/services/exterior-siding" element={<Navigate to="/services/cladding-systems" replace />} />
-    <Route path="/services/drywall-finishing" element={<Navigate to="/services/interior-buildouts-finishing" replace />} />
-    <Route path="/services/suite-buildouts" element={<Navigate to="/services/interior-buildouts-finishing" replace />} />
-    <Route path="/services/painting" element={<Navigate to="/services/painting-services" replace />} />
-    <Route path="/services/condo-multi-unit" element={<Navigate to="/services/interior-buildouts-finishing" replace />} />
-    <Route path="/services/residential-painting" element={<Navigate to="/services/painting-services" replace />} />
-    <Route path="/services/commercial-painting" element={<Navigate to="/services/painting-services" replace />} />
-    <Route path="/services/general-contracting" element={<Navigate to="/services" replace />} />
-    <Route path="/services/construction-management" element={<Navigate to="/services" replace />} />
-    <Route path="/services/design-build" element={<Navigate to="/services" replace />} />
-    <Route path="/services/waterproofing" element={<Navigate to="/services/waterproofing-systems" replace />} />
-    <Route path="/services/sealant-replacement" element={<Navigate to="/services/sealant-programs" replace />} />
-    <Route path="/services/roofing" element={<Navigate to="/services/building-envelope-solutions" replace />} />
-    <Route path="/services/windows-doors" element={<Navigate to="/services/building-envelope-solutions" replace />} />
-    <Route path="/services/preconstruction-services" element={<Navigate to="/services" replace />} />
-    <Route path="/services/virtual-design-construction" element={<Navigate to="/services" replace />} />
-    <Route path="/services/parking-rehabilitation" element={<Navigate to="/services/parking-garage-restoration" replace />} />
-    <Route path="/services/sustainable-construction" element={<Navigate to="/services/sustainable-building" replace />} />
-    <Route path="/services/protective-coatings" element={<Navigate to="/services/painting-services" replace />} />
-    {/* Legacy short slugs (previously handled by Netlify _redirects, which Lovable hosting ignores) */}
-    <Route path="/services/stucco" element={<Navigate to="/services/cladding-systems" replace />} />
-    <Route path="/services/stucco-eifs" element={<Navigate to="/services/eifs-stucco-systems" replace />} />
-    <Route path="/services/sealants" element={<Navigate to="/services/building-envelope-solutions" replace />} />
-    <Route path="/services/sealants-caulking" element={<Navigate to="/services/sealant-programs" replace />} />
-    <Route path="/services/parking-garage" element={<Navigate to="/services/parking-garage-restoration" replace />} />
-    <Route path="/services/commercial" element={<Navigate to="/services" replace />} />
-    <Route path="/services/condo" element={<Navigate to="/services/painting-services" replace />} />
-    <Route path="/services/masonry" element={<Navigate to="/services/masonry-restoration" replace />} />
+    {/* Legacy service aliases stay out of the canonical page inventory. */}
+    {Object.entries(SERVICE_REDIRECTS).map(([slug, destination]) => (
+      <Route key={slug} path={`/services/${slug}`} element={<Navigate to={destination} replace />} />
+    ))}
 
     {/* Wave 1 + Wave 2 AEO/GEO landing pages — static, must come BEFORE /services/:slug */}
     <Route path="/services/commercial-painting-gta" element={<CommercialPaintingGTA />} />
@@ -155,16 +128,16 @@ const AdminRouteGroup = () => (
     <Route path="media" element={<MediaLibrary />} />
     <Route path="media-library" element={<MediaLibrary />} />
     <Route path="users" element={<Users />} />
-    <Route path="stats" element={<Navigate to="/admin" replace />} />
+    <Route path="stats" element={<Navigate to="/admin/seo-dashboard" replace />} />
     <Route path="testimonials" element={<TestimonialsManager />} />
     <Route path="documents-library" element={<DocumentsLibrary />} />
-    <Route path="contacts" element={<Navigate to="/admin/inbox" replace />} />
-    <Route path="resumes" element={<Navigate to="/admin/inbox" replace />} />
-    <Route path="prequalifications" element={<Navigate to="/admin/inbox" replace />} />
-    <Route path="rfp" element={<Navigate to="/admin/inbox" replace />} />
-    <Route path="rfp-submissions" element={<Navigate to="/admin/inbox" replace />} />
-    <Route path="newsletter-subscribers" element={<Navigate to="/admin/inbox" replace />} />
-    <Route path="quote-requests" element={<Navigate to="/admin/estimates-quotes" replace />} />
+    <Route path="contacts" element={<LegacyInboxRedirect kind="contact" />} />
+    <Route path="resumes" element={<LegacyInboxRedirect kind="resume" />} />
+    <Route path="prequalifications" element={<LegacyInboxRedirect kind="prequal" />} />
+    <Route path="rfp" element={<LegacyInboxRedirect kind="rfp" />} />
+    <Route path="rfp-submissions" element={<LegacyInboxRedirect kind="rfp" />} />
+    <Route path="newsletter-subscribers" element={<LegacyInboxRedirect kind="newsletter" />} />
+    <Route path="quote-requests" element={<LegacyInboxRedirect kind="quote" />} />
     <Route path="estimates-quotes" element={<EstimatesQuotes />} />
     <Route path="settings" element={<Settings />} />
     <Route path="site-settings" element={<Navigate to="/admin/settings?tab=general" replace />} />
@@ -175,16 +148,17 @@ const AdminRouteGroup = () => (
     <Route path="security-settings" element={<Navigate to="/admin/settings?tab=security" replace />} />
     <Route path="settings-health" element={<Navigate to="/admin/settings?tab=health" replace />} />
     <Route path="seo-dashboard" element={<SEODashboard />} />
-    <Route path="redirects" element={<Navigate to="/admin" replace />} />
+    <Route path="redirects" element={<AdminFeatureNotice feature="redirects" />} />
     <Route path="performance-dashboard" element={<Navigate to="/admin/monitoring" replace />} />
     <Route path="search-analytics" element={<Navigate to="/admin/seo-dashboard" replace />} />
     <Route path="audit" element={<AuditDashboard />} />
-    <Route path="content-versions" element={<Navigate to="/admin" replace />} />
+    <Route path="content-versions" element={<AdminFeatureNotice feature="versions" />} />
     <Route path="monitoring" element={<Monitoring />} />
     <Route path="inbox" element={<UnifiedInbox />} />
-    <Route path="notifications" element={<Navigate to="/admin/inbox" replace />} />
+    <Route path="notifications" element={<LegacyInboxRedirect />} />
     <Route path="email-templates" element={<EmailTemplates />} />
     <Route path="homepage-builder" element={<HomepageBuilder />} />
+    <Route path="page-headers" element={<PageHeaders />} />
     <Route path="qa/quick-contact-form" element={<QAQuickContactForm />} />
     <Route path="homepage-content" element={<Navigate to="/admin/homepage-builder" replace />} />
     <Route path="homepage-settings" element={<Navigate to="/admin/homepage-builder" replace />} />
@@ -192,8 +166,8 @@ const AdminRouteGroup = () => (
     <Route path="homepage-company-overview" element={<Navigate to="/admin/homepage-builder?tab=overview" replace />} />
     <Route path="hero-slides" element={<Navigate to="/admin/homepage-builder?tab=hero" replace />} />
     <Route path="hero-images" element={<Navigate to="/admin/homepage-builder?tab=hero" replace />} />
-    <Route path="navigation" element={<Navigate to="/admin" replace />} />
-    <Route path="navigation-builder" element={<Navigate to="/admin" replace />} />
+    <Route path="navigation" element={<AdminFeatureNotice feature="navigation" />} />
+    <Route path="navigation-builder" element={<AdminFeatureNotice feature="navigation" />} />
   </Route>
 );
 

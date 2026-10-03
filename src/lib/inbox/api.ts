@@ -2,6 +2,7 @@ import { supabase } from "@/integrations/supabase/client";
 import {
   INBOX_SOURCES,
   inboxDate,
+  inboxKinds,
   inboxUpdate,
   normalizeInboxItem,
   rfpAttachmentPath,
@@ -13,8 +14,7 @@ import {
 export async function loadInbox(
   kind: InboxFilter,
 ): Promise<{ items: InboxItem[]; failed: string[] }> {
-  const kinds =
-    kind === "all" ? (Object.keys(INBOX_SOURCES) as InboxKind[]) : [kind];
+  const kinds = inboxKinds(kind);
   const results = await Promise.all(
     kinds.map(async (key) => {
       const source = INBOX_SOURCES[key];

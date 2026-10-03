@@ -8,6 +8,7 @@ import ErrorBoundary from "./components/ErrorBoundary";
 import ScrollToTop from "./components/ScrollToTop";
 import { trackPageView } from "@/lib/analytics";
 import { AppRoutes } from "@/routes/AppRoutes";
+import { HeroPresenceProvider } from "@/components/shared/HeroPresenceProvider";
 
 // Non-critical UI: lazy-loaded so they don't block initial paint or inflate the main chunk.
 // Both render conditionally (cookie banner only when no consent stored, sticky bar only after scroll)
@@ -53,28 +54,30 @@ const App = () => (
         <Toaster />
         <Sonner />
         <BrowserRouter>
-          <ScrollToTop />
-          <RouteTracker>
-            <Suspense fallback={null}>
-              <CookieBanner />
-            </Suspense>
-            <a
-              href="#main-content"
-              className="fixed top-0 left-0 -translate-y-full focus:translate-y-0 z-[100] bg-primary text-primary-foreground px-6 py-3 font-semibold transition-transform focus:outline-none focus:ring-4 focus:ring-primary/50"
-              aria-label="Skip to main content"
-            >
-              Skip to main content
-            </a>
-            <Suspense fallback={<PageLoader />}>
-              <AppRoutes />
-            </Suspense>
-            <Suspense fallback={null}>
-              <StickyInquiryBar />
-            </Suspense>
-            <Suspense fallback={null}>
-              <ScrollToTopButton />
-            </Suspense>
-          </RouteTracker>
+          <HeroPresenceProvider>
+            <ScrollToTop />
+            <RouteTracker>
+              <Suspense fallback={null}>
+                <CookieBanner />
+              </Suspense>
+              <a
+                href="#main-content"
+                className="fixed top-0 left-0 -translate-y-full focus:translate-y-0 z-[100] bg-primary text-primary-foreground px-6 py-3 font-semibold transition-transform focus:outline-none focus:ring-4 focus:ring-primary/50"
+                aria-label="Skip to main content"
+              >
+                Skip to main content
+              </a>
+              <Suspense fallback={<PageLoader />}>
+                <AppRoutes />
+              </Suspense>
+              <Suspense fallback={null}>
+                <StickyInquiryBar />
+              </Suspense>
+              <Suspense fallback={null}>
+                <ScrollToTopButton />
+              </Suspense>
+            </RouteTracker>
+          </HeroPresenceProvider>
         </BrowserRouter>
       </TooltipProvider>
     </QueryClientProvider>

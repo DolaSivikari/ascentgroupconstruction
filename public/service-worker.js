@@ -1,202 +1,62 @@
-/**
- * Permanent Service Worker - No dependencies
- * Ensures fresh HTML + cached assets never mix versions
- */
-
-const CACHE_VERSION = '4.0.0';
+/** Public asset caching only. HTML and private/API requests always use the network. */
+const CACHE_VERSION = '5.0.0';
 const PRECACHE_NAME = `app-precache-${CACHE_VERSION}`;
 const RUNTIME_CACHE = `app-runtime-${CACHE_VERSION}`;
-const API_CACHE = `app-api-${CACHE_VERSION}`;
+const OWNED_PREFIXES = ['app-precache-', 'app-runtime-', 'app-api-'];
+const CURRENT_CACHES = [PRECACHE_NAME, RUNTIME_CACHE];
+const MAX_RUNTIME_ENTRIES = 100;
 
-// Activate immediately & take control of all pages
-self.skipWaiting();
-
+// Leave updates waiting while existing tabs are open. Even a legacy page's
+// SKIP_WAITING message must not interrupt an unsaved inquiry or admin editor.
 self.addEventListener('install', event => {
-  // Precache only static assets - NEVER cache HTML
-  // Only include assets actually referenced by the app to avoid SW install warnings
-  const precacheUrls = [
-    '/hero-poster-1.webp',
-  ];
-  
-  event.waitUntil(
-    caches.open(PRECACHE_NAME)
-      .then(cache => {
-        // Use addAll but catch failures gracefully
-        return Promise.allSettled(
-          precacheUrls.map(url => cache.add(url))
-        ).catch(() => {
-          // If precache fails, continue anyway
-          console.warn('[SW] Precache failed, continuing');
-        });
-      })
-  );
+  event.waitUntil(caches.open(PRECACHE_NAME)
+    .then(cache => Promise.allSettled(['/hero-poster-1.webp'].map(url => cache.add(url)))));
 });
 
 self.addEventListener('activate', event => {
-  event.waitUntil(
-    (async () => {
-      // Claim all clients immediately
-      await self.clients.claim();
-      
-      // Delete old caches
-      const cacheNames = await caches.keys();
-      await Promise.all(
-        cacheNames
-          .filter(name => !name.includes(CACHE_VERSION))
-          .map(name => caches.delete(name))
-      );
-    })()
-  );
+  event.waitUntil((async () => {
+    const names = await caches.keys();
+    await Promise.all(names
+      .filter(name => OWNED_PREFIXES.some(prefix => name.startsWith(prefix)) && !CURRENT_CACHES.includes(name))
+      .map(name => caches.delete(name)));
+    await self.clients.claim();
+  })());
 });
+
+const saveAsset = async (request, response) => {
+  const cache = await caches.open(RUNTIME_CACHE);
+  await cache.put(request, response);
+  const keys = await cache.keys();
+  await Promise.all(keys.slice(0, Math.max(0, keys.length - MAX_RUNTIME_ENTRIES)).map(key => cache.delete(key)));
+};
 
 self.addEventListener('fetch', event => {
   const { request } = event;
   const url = new URL(request.url);
-  
-  // Skip non-GET requests
-  if (request.method !== 'GET') {
-    return;
-  }
+  if (request.method !== 'GET' || !['http:', 'https:'].includes(url.protocol)) return;
+  if (request.headers.has('authorization') || request.headers.has('range')) return;
+  const sameOrigin = url.origin === self.location.origin;
+  const fontCDN = ['https://fonts.googleapis.com', 'https://fonts.gstatic.com'].includes(url.origin);
+  if (!sameOrigin && !fontCDN) return;
 
-  // Filter out browser extensions and unsupported protocols
-  if (
-    url.protocol === 'chrome-extension:' ||
-    url.protocol === 'moz-extension:' ||
-    url.protocol === 'safari-extension:' ||
-    url.protocol === 'edge-extension:' ||
-    url.protocol === 'about:' ||
-    url.protocol === 'data:' ||
-    url.protocol === 'blob:'
-  ) {
-    return; // Don't cache these at all
-  }
+  // No caching or fallback for documents, JSON, inquiries, auth or API responses.
+  // The browser retains its normal network error handling for these requests.
+  if (request.mode === 'navigate' || request.destination === 'document' || url.pathname.startsWith('/api/')) return;
+  if (!['script', 'style', 'image', 'font'].includes(request.destination)) return;
 
-  // Only cache same-origin requests or specific allowed CDNs
-  const allowedOrigins = [
-    self.location.origin,
-    'https://fonts.googleapis.com',
-    'https://fonts.gstatic.com'
-  ];
-
-  const isSameOrigin = url.origin === self.location.origin;
-  const isAllowedCDN = allowedOrigins.some(allowed => url.origin === allowed);
-
-  if (!isSameOrigin && !isAllowedCDN) {
-    return; // Don't cache third-party resources
-  }
-
-  // Skip analytics and tracking scripts
-  if (
-    url.hostname.includes('googletagmanager') ||
-    url.hostname.includes('google-analytics') ||
-    url.pathname.includes('/gtag/') ||
-    url.pathname.includes('/analytics/')
-  ) {
-    return; // Don't cache analytics
-  }
-
-  // HTML pages: ALWAYS network-first, NEVER serve stale cache
-  if (request.destination === 'document' || request.mode === 'navigate') {
-    event.respondWith(
-      fetch(request, { cache: 'no-cache' })
-        .then(response => {
-          // Don't cache HTML at all to prevent stale content
-          return response;
-        })
-        .catch(() => {
-          // Only use cache as last resort fallback when offline
-          return caches.match(request)
-            .then(cached => cached || new Response('Offline', { status: 503 }));
-        })
-    );
-    return;
-  }
-
-  // API calls (Supabase, etc.): Network-first with timeout
-  if (url.hostname.includes('supabase') || url.pathname.includes('/api/')) {
-    event.respondWith(
-      Promise.race([
-        fetch(request),
-        new Promise((_, reject) => 
-          setTimeout(() => reject(new Error('timeout')), 5000)
-        ),
-      ])
-        .then(response => {
-          if (response.ok) {
-            const responseToCache = response.clone();
-            caches.open(API_CACHE)
-              .then(cache => cache.put(request, responseToCache))
-              .catch(err => console.warn('[SW] API cache failed:', err));
-          }
-          return response;
-        })
-        .catch(() => {
-          return caches.match(request)
-            .then(cached => cached || new Response('API Offline', { status: 503 }));
-        })
-    );
-    return;
-  }
-
-  // JS/CSS: network-first to avoid serving stale bundles after deploys
-  if (request.destination === 'script' || request.destination === 'style') {
-    event.respondWith(
-      fetch(request, { cache: 'no-cache' })
-        .then(response => {
-          if (response.ok) {
-            const responseToCache = response.clone();
-            caches.open(RUNTIME_CACHE)
-              .then(cache => cache.put(request, responseToCache))
-              .catch(err => console.warn('[SW] Script/style cache failed:', err));
-          }
-          return response;
-        })
-        .catch(() => caches.match(request))
-    );
-    return;
-  }
-
-  // Images/fonts: Cache-first
-  if (request.destination === 'image' || request.destination === 'font') {
-    event.respondWith(
-      caches.match(request)
-        .then(cached => {
-          if (cached) return cached;
-          
-          return fetch(request).then(response => {
-            if (response.ok) {
-              const responseToCache = response.clone();
-              caches.open(RUNTIME_CACHE)
-                .then(cache => cache.put(request, responseToCache))
-                .catch(err => console.warn('[SW] Image cache failed:', err));
-            }
-            return response;
-          });
-        })
-        .catch(() => new Response('Not found', { status: 404 }))
-    );
-    return;
-  }
-
-  // Default: Network-first
-  event.respondWith(
-    fetch(request)
-      .then(response => {
-        if (response.ok) {
-          const responseToCache = response.clone();
-          caches.open(RUNTIME_CACHE)
-            .then(cache => cache.put(request, responseToCache))
-            .catch(err => console.warn('[SW] Default cache failed:', err));
-        }
-        return response;
-      })
-      .catch(() => caches.match(request))
-  );
-});
-
-// Handle messages from page
-self.addEventListener('message', event => {
-  if (event.data?.type === 'SKIP_WAITING') {
-    self.skipWaiting();
-  }
+  // Revalidate mutable asset URLs; hashed bundles still benefit from HTTP caching.
+  // CacheStorage is a fallback only when the network is unavailable.
+  event.respondWith(fetch(request, { cache: 'no-cache' })
+    .then(response => {
+      if (response.ok && response.type !== 'opaque') {
+        event.waitUntil(saveAsset(request, response.clone()).catch(() => undefined));
+      }
+      return response;
+    })
+    .catch(async () => {
+      const runtime = await caches.open(RUNTIME_CACHE);
+      const precache = await caches.open(PRECACHE_NAME);
+      return await runtime.match(request) || await precache.match(request)
+        || new Response('Asset unavailable offline', { status: 503 });
+    }));
 });
