@@ -1,3 +1,5 @@
+import { hasAnalyticsConsent } from "./analyticsConsent";
+
 // Google Analytics & GTM Helper Functions
 
 interface GTMEvent {
@@ -7,13 +9,14 @@ interface GTMEvent {
 
 // Push events to GTM dataLayer
 export const pushToDataLayer = (event: GTMEvent) => {
-  if (typeof window !== 'undefined' && window.dataLayer) {
+  if (typeof window !== 'undefined' && hasAnalyticsConsent() && window.dataLayer) {
     window.dataLayer.push(event);
   }
 };
 
 // Page view tracking
 export const trackPageView = (url: string, title: string) => {
+  if (hasAnalyticsConsent()) window.gtag?.('event', 'page_view', { page_path: url, page_title: title });
   pushToDataLayer({
     event: 'pageview',
     page_path: url,

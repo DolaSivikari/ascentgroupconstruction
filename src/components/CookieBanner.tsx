@@ -3,13 +3,15 @@ import { Button } from "@/ui/Button";
 import { X } from "lucide-react";
 import { Link } from "react-router-dom";
 
+import { readAnalyticsConsent, setAnalyticsConsent } from "@/lib/analyticsConsent";
+
 const CookieBanner = () => {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
     // Check if user has already made a choice
-    const cookieConsent = localStorage.getItem("cookie-consent");
-    if (!cookieConsent) {
+    const cookieConsent = readAnalyticsConsent();
+    if (cookieConsent !== "accepted" && cookieConsent !== "rejected") {
       // Show banner after a short delay for better UX
       const timer = setTimeout(() => {
         setIsVisible(true);
@@ -18,31 +20,8 @@ const CookieBanner = () => {
     }
   }, []);
 
-  const handleAccept = () => {
-    localStorage.setItem("cookie-consent", "accepted");
-    localStorage.setItem("cookie-consent-date", new Date().toISOString());
-    setIsVisible(false);
-    
-    // Initialize analytics if not already done
-    if (typeof (window as any).gtag === 'function') {
-      (window as any).gtag('consent', 'update', {
-        analytics_storage: 'granted'
-      });
-    }
-  };
-
-  const handleReject = () => {
-    localStorage.setItem("cookie-consent", "rejected");
-    localStorage.setItem("cookie-consent-date", new Date().toISOString());
-    setIsVisible(false);
-    
-    // Disable analytics
-    if (typeof (window as any).gtag === 'function') {
-      (window as any).gtag('consent', 'update', {
-        analytics_storage: 'denied'
-      });
-    }
-  };
+  const handleAccept = () => { setAnalyticsConsent("accepted"); setIsVisible(false); };
+  const handleReject = () => { setAnalyticsConsent("rejected"); setIsVisible(false); };
 
   const handleClose = () => {
     // Treat close as rejection
@@ -81,7 +60,7 @@ const CookieBanner = () => {
               id="cookie-banner-description" 
               className="text-sm text-muted-foreground max-w-4xl"
             >
-              We use cookies to analyze website traffic and improve your experience. Essential cookies are required for the website to function properly. Analytics cookies help us understand how visitors interact with our website by collecting and reporting information anonymously.
+              We use optional analytics to understand website visits. You can accept or reject analytics; essential website features work either way.
             </p>
             
             <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 pt-2">
@@ -91,7 +70,7 @@ const CookieBanner = () => {
                   size="sm"
                   className="whitespace-nowrap"
                 >
-                  Accept All
+                  Accept Analytics
                 </Button>
                 <Button 
                   onClick={handleReject}

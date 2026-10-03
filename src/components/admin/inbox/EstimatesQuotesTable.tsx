@@ -1,5 +1,5 @@
 import { useState, useEffect, useMemo } from "react";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import {
   Table,
@@ -26,21 +26,10 @@ import { InboxDetailDialog } from "./InboxDetailDialog";
 import { useToast } from "@/hooks/use-toast";
 import { ConfirmDialog } from "@/components/admin/ConfirmDialog";
 
-type QuoteRow = {
-  id: string;
-  quote_type: string;
-  name: string;
-  email: string;
-  phone: string | null;
-  company: string | null;
-  status: string | null;
-  priority: string | null;
-  lead_score: number | null;
-  estimated_value: number | null;
-  source: string | null;
-  scope_categories: string[] | null;
-  created_at: string;
-};
+import type { Database } from "@/integrations/supabase/types";
+import { normalizeInboxItem, inboxDate, type InboxItem } from "@/lib/inbox/model";
+
+type QuoteRow = Database["public"]["Tables"]["quote_requests"]["Row"];
 
 type StatusFilter = "all" | "new" | "contacted" | "quoted" | "won" | "lost";
 type TypeFilter = "all" | "estimate" | "quote";
@@ -100,27 +89,31 @@ export const EstimatesQuotesTable = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [statusFilter, setStatusFilter] = useState<StatusFilter>("all");
   const [typeFilter, setTypeFilter] = useState<TypeFilter>("all");
-  const [selectedItem, setSelectedItem] = useState<any>(null);
+  const [selectedItem, setSelectedItem] = useState<InboxItem | null>(null);
   const [deleteItem, setDeleteItem] = useState<QuoteRow | null>(null);
   const { toast } = useToast();
+  const queryClient = useQueryClient();
+  const refresh = () => {
+    void queryClient.invalidateQueries({ queryKey: ["estimates-quotes"] });
+    void queryClient.invalidateQueries({ queryKey: ["inbox-items"] });
+    void queryClient.invalidateQueries({ queryKey: ["inbox-stats"] });
+  };
 
-  const { data: items, isLoading, refetch } = useQuery({
+  const { data: items, isLoading, error, refetch } = useQuery({
     queryKey: ["estimates-quotes", statusFilter],
+    refetchInterval: 60_000,
     queryFn: async () => {
-      let query = supabase
-        .from("quote_requests")
-        .select(
-          "id, quote_type, name, email, phone, company, status, priority, lead_score, estimated_value, source, scope_categories, created_at"
-        )
-        .order("created_at", { ascending: false });
-
-      if (statusFilter !== "all") {
-        query = query.eq("status", statusFilter);
+      const rows: QuoteRow[] = [];
+      for (let offset = 0; ; offset += 1000) {
+        let query = supabase.from("quote_requests").select("*")
+          .order("created_at", { ascending: false }).order("id").range(offset, offset + 999);
+        if (statusFilter !== "all") query = query.eq("status", statusFilter);
+        const { data, error } = await query;
+        if (error) throw error;
+        rows.push(...(data || []));
+        if (!data || data.length < 1000) break;
       }
-
-      const { data, error } = await query;
-      if (error) throw error;
-      return (data || []) as QuoteRow[];
+      return rows;
     },
   });
 
@@ -132,7 +125,9 @@ export const EstimatesQuotesTable = () => {
         "postgres_changes",
         { event: "*", schema: "public", table: "quote_requests" },
         (payload) => {
-          refetch();
+          void queryClient.invalidateQueries({ queryKey: ["estimates-quotes"] });
+          void queryClient.invalidateQueries({ queryKey: ["inbox-items"] });
+          void queryClient.invalidateQueries({ queryKey: ["inbox-stats"] });
           if (payload.eventType === "INSERT") {
             const row = payload.new as QuoteRow;
             toast({
@@ -147,7 +142,7 @@ export const EstimatesQuotesTable = () => {
     return () => {
       supabase.removeChannel(channel);
     };
-  }, [refetch, toast]);
+  }, [queryClient, toast]);
 
   const filteredItems = useMemo(() => {
     if (!items) return [];
@@ -195,10 +190,10 @@ export const EstimatesQuotesTable = () => {
       const { error } = await supabase
         .from("quote_requests")
         .delete()
-        .eq("id", deleteItem.id);
+        .eq("id", deleteItem.id).select("id").single();
       if (error) throw error;
       toast({ title: "Deleted", description: "Submission removed." });
-      refetch();
+      refresh();
       setDeleteItem(null);
     } catch (error) {
       console.error(error);
@@ -215,10 +210,10 @@ export const EstimatesQuotesTable = () => {
       const { error } = await supabase
         .from("quote_requests")
         .update({ status: newStatus })
-        .eq("id", id);
+        .eq("id", id).select("id").single();
       if (error) throw error;
       toast({ title: "Status updated", description: `Marked as ${STATUS_LABEL[newStatus] || newStatus}.` });
-      refetch();
+      refresh();
     } catch (error) {
       console.error(error);
       toast({
@@ -231,6 +226,7 @@ export const EstimatesQuotesTable = () => {
 
   return (
     <div className="space-y-6">
+      {error && <div role="alert" className="rounded-md border border-destructive/50 p-4 text-sm">Could not load requests. Counts and rows may be incomplete. <Button variant="outline" onClick={() => void refetch()}>Retry</Button></div>}
       {/* Stats */}
       <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-3">
         <StatTile label="Total" value={stats.total} />
@@ -358,7 +354,7 @@ export const EstimatesQuotesTable = () => {
                       </Select>
                     </TableCell>
                     <TableCell className="text-muted-foreground whitespace-nowrap">
-                      {format(new Date(item.created_at), "MMM d, yyyy")}
+                      {inboxDate(item.created_at) ? format(inboxDate(item.created_at)!, "MMM d, yyyy") : "—"}
                     </TableCell>
                     <TableCell>
                       <div className="flex items-center justify-end gap-1">
@@ -366,11 +362,7 @@ export const EstimatesQuotesTable = () => {
                           variant="ghost"
                           size="icon"
                           onClick={() =>
-                            setSelectedItem({
-                              ...item,
-                              type: estimate ? "Estimate" : "Quote",
-                              table: "quote_requests",
-                            })
+                            setSelectedItem(normalizeInboxItem("quote", item))
                           }
                           title="View details"
                         >
@@ -409,10 +401,11 @@ export const EstimatesQuotesTable = () => {
 
       {selectedItem && (
         <InboxDetailDialog
+          key={selectedItem.id}
           item={selectedItem}
           open={!!selectedItem}
           onClose={() => setSelectedItem(null)}
-          onUpdate={refetch}
+          onUpdate={refresh}
         />
       )}
 

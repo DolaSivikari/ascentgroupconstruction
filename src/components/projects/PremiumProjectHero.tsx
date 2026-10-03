@@ -47,7 +47,7 @@ export const PremiumProjectHero = ({ featuredProjects }: Props) => {
   const currentProject = featuredProjects[currentIndex] || featuredProjects[0];
 
   return (
-    <section className="relative min-h-[60vh] md:min-h-[75vh] md:h-[80vh] overflow-hidden pt-20 md:pt-0">
+    <section className="relative min-h-[60vh] md:min-h-[75vh] md:h-[80vh] bg-primary overflow-hidden pt-20 md:pt-0">
       {/* Project showcase carousel background */}
       <div className="absolute inset-0">
         {currentProject && (
@@ -71,9 +71,10 @@ export const PremiumProjectHero = ({ featuredProjects }: Props) => {
               </span>
             </div>
 
-            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-3 md:mb-4 text-primary-foreground leading-tight">
+            <h1 className="sr-only">Our Projects</h1>
+            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-3 md:mb-4 text-primary-foreground leading-tight">
               {currentProject?.title || "Our Project Portfolio"}
-            </h1>
+            </h2>
 
             <p className="text-base sm:text-lg md:text-2xl text-primary-foreground/90 mb-5 md:mb-8">
               {currentProject?.category || "Professional Project Execution"}

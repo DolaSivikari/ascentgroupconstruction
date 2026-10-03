@@ -35,7 +35,7 @@ const SEO = ({
   articleMeta,
 }: SEOProps) => {
 
-  const fullTitle = title ? `${title} | ${COMPANY_NAME}` : `${COMPANY_NAME} | Building Envelope & Restoration`;
+  const fullTitle = title ? (title.includes(COMPANY_NAME) ? title : `${title} | ${COMPANY_NAME}`) : `${COMPANY_NAME} | Building Envelope & Restoration`;
 
   // Fetch real aggregate rating from database
   const { aggregateRating, hasRatings } = useAggregateRating();
@@ -230,7 +230,7 @@ const SEO = ({
     <Helmet>
       <title>{fullTitle}</title>
       <meta name="description" content={description} />
-      {noindex && <meta name="robots" content="noindex, nofollow" />}
+      <meta name="robots" content={noindex ? "noindex, nofollow" : "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"} />
       <meta name="keywords" content={keywords} />
 
       {/* Open Graph */}
@@ -259,6 +259,7 @@ const SEO = ({
       ))}
 
       {/* Twitter Card - Enhanced */}
+      <meta name="twitter:url" content={currentUrl} />
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:title" content={ogTitle} />
       <meta name="twitter:description" content={ogDescription} />

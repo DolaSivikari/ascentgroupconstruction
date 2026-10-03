@@ -2,8 +2,7 @@ import { useState, useEffect, useMemo } from "react";
 import { Link } from "react-router-dom";
 import { Mail, Phone, MapPin, Linkedin, Shield, Award, FileCheck, Building2 } from "lucide-react";
 
-import SEO from "@/components/SEO";
-import { COMPANY_EMAIL, COMPANY_PHONE, SITE_URL } from "@/constants/company";
+import { COMPANY_EMAIL, COMPANY_PHONE } from "@/constants/company";
 import { PUBLIC_SITE_SETTINGS_COLUMNS } from "@/constants/siteSettingsColumns";
 import { Skeleton } from "@/components/ui/skeleton";
 import { supabase } from "@/integrations/supabase/client";
@@ -117,23 +116,9 @@ const Footer = () => {
     { icon: Building2, title: "Established 2025", subtitle: "Growing in GTA" },
   ];
 
-  const citationSchema = {
-    "@context": "https://schema.org",
-    "@type": "ProfessionalService",
-    "@id": `${SITE_URL}/#organization`,
-    name: "Ascent Group Construction",
-    image: `${SITE_URL}/og-image.jpg`,
-    email: COMPANY_EMAIL,
-    areaServed: { "@type": "State", name: "Ontario" },
-    address: { "@type": "PostalAddress", addressRegion: "ON", addressCountry: "CA" },
-    serviceType: ["Building Envelope", "Interior Construction", "Specialty Contracting"],
-    priceRange: "$$-$$$",
-  };
-
   if (loading) {
     return (
       <>
-        <SEO structuredData={citationSchema} />
         <footer className="w-full bg-background border-t border-border">
           <div className="container mx-auto px-4 py-12">
             <div className="grid grid-cols-1 md:grid-cols-5 gap-8">
@@ -153,7 +138,6 @@ const Footer = () => {
 
   return (
     <>
-      <SEO structuredData={citationSchema} />
       <footer className="relative w-full bg-background border-t border-border">
         
         {/* Main footer content */}

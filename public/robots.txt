@@ -87,7 +87,6 @@ Allow: /
 User-agent: *
 Disallow: /admin
 Disallow: /admin/
-Disallow: /tekev
 Disallow: /auth
 Disallow: /api/
 

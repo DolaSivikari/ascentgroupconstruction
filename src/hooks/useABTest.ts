@@ -1,3 +1,4 @@
+import { hasAnalyticsConsent } from "@/lib/analyticsConsent";
 import { useState, useEffect } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 
@@ -22,6 +23,7 @@ export const useABTest = (testName: string, defaultVariant: string = 'control'):
 
   useEffect(() => {
     const initializeTest = async () => {
+      if (!hasAnalyticsConsent()) { setVariant(defaultVariant); return; }
       try {
         // Get user identifier (localStorage-based session ID)
         let userId = localStorage.getItem('ab_test_user_id');
@@ -38,6 +40,7 @@ export const useABTest = (testName: string, defaultVariant: string = 'control'):
         .eq('user_identifier', userId)
         .single();
 
+      if (!hasAnalyticsConsent()) return;
       if (existingAssignment && 'variant' in existingAssignment) {
         setVariant(existingAssignment.variant as string);
         return;
@@ -65,6 +68,8 @@ export const useABTest = (testName: string, defaultVariant: string = 'control'):
       const randomVariant = variants[Math.floor(Math.random() * variants.length)];
       const assignedVariantValue = randomVariant.value;
 
+      // A consent change during the reads must prevent the write.
+      if (!hasAnalyticsConsent()) return;
       // Save assignment
       await supabase.from('ab_test_assignments' as any).insert({
         test_name: testName,
@@ -79,7 +84,10 @@ export const useABTest = (testName: string, defaultVariant: string = 'control'):
       }
     };
 
-    initializeTest();
+    void initializeTest();
+    const consentChanged = () => { void initializeTest(); };
+    window.addEventListener("analytics-consent-changed", consentChanged);
+    return () => window.removeEventListener("analytics-consent-changed", consentChanged);
   }, [testName, defaultVariant]);
 
   return variant;
@@ -94,6 +102,7 @@ export const trackABTestConversion = async (
   testName: string,
   conversionValue?: number
 ) => {
+  if (!hasAnalyticsConsent()) return;
   try {
     const userId = localStorage.getItem('ab_test_user_id');
     if (!userId) return;

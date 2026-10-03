@@ -21,6 +21,7 @@ import { PageHero } from "@/components/shared/PageHero";
 import { resourceHeroes } from "@/data/hero-images";
 import { PhoneLink } from "@/components/shared/PhoneLink";
 import { AscentEmailLink } from "@/components/EmailLink";
+import { uploadRfpAttachments } from "@/lib/rfpAttachments";
 import { useAdminRoleCheck } from "@/hooks/useAdminRoleCheck";
 
 
@@ -49,6 +50,7 @@ export default function SubmitRFPNew() {
   const [refCopied, setRefCopied] = useState(false);
   const [attachmentFiles, setAttachmentFiles] = useState<File[]>([]);
   const [honeypot, setHoneypot] = useState("");
+  const uploadedAttachmentsRef = useRef(new Map<File, string>());
   const formStartedAtRef = useRef<number>(Date.now());
   const { isAdmin } = useAdminRoleCheck();
 
@@ -113,30 +115,11 @@ export default function SubmitRFPNew() {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
-  const uploadAttachments = async (): Promise<string[]> => {
-    if (attachmentFiles.length === 0) return [];
-
-    const uploadedUrls: string[] = [];
-
-    for (const file of attachmentFiles) {
-      const timestamp = Date.now();
-      const safeName = file.name.replace(/[^a-zA-Z0-9._-]/g, "_");
-      const filePath = `${timestamp}-${safeName}`;
-
-      const { error } = await supabase.storage
-        .from("rfp-attachments")
-        .upload(filePath, file);
-
-      if (error) {
-        console.error("File upload error:", error);
-        continue;
-      }
-
-      uploadedUrls.push(filePath);
-    }
-
-    return uploadedUrls;
-  };
+  const uploadAttachments = () => uploadRfpAttachments(
+    attachmentFiles,
+    uploadedAttachmentsRef.current,
+    async (path, file) => supabase.storage.from("rfp-attachments").upload(path, file),
+  );
 
   const handleSubmit = async (data: RFPSubmission) => {
     setSubmitting(true);
@@ -337,7 +320,7 @@ export default function SubmitRFPNew() {
 
             {attachmentFiles.length > 0 && (
               <p className="text-sm text-muted-foreground text-center mb-2">
-                {attachmentFiles.length} file{attachmentFiles.length > 1 ? "s" : ""} uploaded successfully.
+                {attachmentFiles.length} file{attachmentFiles.length > 1 ? "s" : ""} selected for upload.
               </p>
             )}
             <p className="text-sm text-muted-foreground text-center mb-8">

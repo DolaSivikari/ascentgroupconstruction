@@ -41,7 +41,7 @@ export default function UnifiedInbox() {
         <InboxDashboard />
 
         <Tabs value={activeTab} onValueChange={handleTabChange} className="w-full">
-          <TabsList className="w-full justify-start">
+          <div className="max-w-full overflow-x-auto pb-1"><TabsList className="w-max min-w-full justify-start">
             <TabsTrigger value="all">All</TabsTrigger>
             <TabsTrigger value="rfp">RFPs</TabsTrigger>
             <TabsTrigger value="contact">Contacts</TabsTrigger>
@@ -49,7 +49,7 @@ export default function UnifiedInbox() {
             <TabsTrigger value="prequal">Prequalifications</TabsTrigger>
             <TabsTrigger value="quote">Quote Requests</TabsTrigger>
             <TabsTrigger value="newsletter">Newsletter</TabsTrigger>
-          </TabsList>
+          </TabsList></div>
 
           <TabsContent value="all" className="mt-6">
             <InboxTable type="all" highlightId={searchParams.get("highlight")} />

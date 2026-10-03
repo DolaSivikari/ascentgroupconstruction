@@ -1,49 +1,15 @@
 import { useQuery } from "@tanstack/react-query";
-import { supabase } from "@/integrations/supabase/client";
+import { loadInboxCounts } from "@/lib/inbox/api";
 import { Card } from "@/ui/Card";
 import { FileText, Mail, FileUser, Download, DollarSign, Newspaper } from "lucide-react";
+import { Button } from "@/ui/Button";
 import { Skeleton } from "@/components/ui/skeleton";
 
 export const InboxDashboard = () => {
-  const { data: stats, isLoading } = useQuery({
+  const { data: stats, isLoading, error, refetch } = useQuery({
     queryKey: ["inbox-stats"],
-    queryFn: async () => {
-      const [rfp, contact, resume, prequal, quote, newsletter] = await Promise.all([
-        supabase
-          .from("rfp_submissions")
-          .select("*", { count: "exact", head: true })
-          .eq("status", "new"),
-        supabase
-          .from("contact_submissions")
-          .select("*", { count: "exact", head: true })
-          .eq("status", "new"),
-        supabase
-          .from("resume_submissions")
-          .select("*", { count: "exact", head: true })
-          .eq("status", "new"),
-        supabase
-          .from("prequalification_downloads")
-          .select("*", { count: "exact", head: true })
-          .eq("status", "new"),
-        supabase
-          .from("quote_requests")
-          .select("*", { count: "exact", head: true })
-          .eq("status", "new"),
-        supabase
-          .from("newsletter_subscribers")
-          .select("*", { count: "exact", head: true })
-          .eq("is_active", true),
-      ]);
-
-      return {
-        rfp: rfp.count || 0,
-        contact: contact.count || 0,
-        resume: resume.count || 0,
-        prequal: prequal.count || 0,
-        quote: quote.count || 0,
-        newsletter: newsletter.count || 0,
-      };
-    },
+    refetchInterval: 60_000,
+    queryFn: loadInboxCounts,
   });
 
   const cards = [
@@ -108,6 +74,8 @@ export const InboxDashboard = () => {
       </div>
     );
   }
+
+  if (error) return <div role="alert" className="rounded-md border border-destructive/50 p-4 text-sm">Inbox counts are unavailable. <Button variant="outline" onClick={() => void refetch()}>Retry counts</Button></div>;
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4">
