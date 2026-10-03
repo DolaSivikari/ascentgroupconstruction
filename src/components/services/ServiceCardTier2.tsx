@@ -1,3 +1,4 @@
+import { TYPOGRAPHY_STYLES } from "@/design-system/constants";
 import { Card } from "@/design-system/components/Card";
 import { Button } from "@/ui/Button";
 import { ArrowRight, Wrench } from "lucide-react";
@@ -54,11 +55,11 @@ export const ServiceCardTier2 = ({
         </div>
       </div>
 
-      <h3 className="text-lg font-semibold leading-tight tracking-tight text-foreground mb-3">
+      <h3 className={`${TYPOGRAPHY_STYLES.cardTitle} text-foreground mb-3`}>
         {name}
       </h3>
 
-      <p className="text-sm text-muted-foreground line-clamp-3 mb-4 flex-grow">
+      <p className={`${TYPOGRAPHY_STYLES.cardBody} text-muted-foreground line-clamp-3 mb-4 flex-grow`}>
         {short_description}
       </p>
 

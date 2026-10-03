@@ -57,8 +57,8 @@ export const ScrollReveal = ({
     !skipAnimation && delay > 0
       ? {
           transitionProperty: "opacity, transform",
-          transitionDuration: "700ms",
-          transitionTimingFunction: "cubic-bezier(0.16, 1, 0.3, 1)",
+          transitionDuration: "var(--motion-reveal-duration)",
+          transitionTimingFunction: "var(--motion-ease)",
           transitionDelay: `${delay}ms`,
         }
       : undefined;

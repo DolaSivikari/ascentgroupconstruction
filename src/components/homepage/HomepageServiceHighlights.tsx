@@ -1,3 +1,5 @@
+import { CARD_STYLES, TYPOGRAPHY_STYLES } from "@/design-system/constants";
+import { cn } from "@/lib/utils";
 import { Link } from "react-router-dom";
 import {
   Building2,
@@ -143,7 +145,7 @@ export const HomepageServiceHighlights = () => {
           {/* Two-column body */}
           <div className="grid md:grid-cols-2 gap-x-12 gap-y-6 mb-12">
             <div className="space-y-4">
-              <p className="text-base text-muted-foreground leading-relaxed">
+              <p className={`${TYPOGRAPHY_STYLES.cardBody} text-muted-foreground`}>
                 Ascent Group Construction protects and improves buildings — from exterior envelope
                 and <span className="font-medium text-foreground">façade restoration</span> to{" "}
                 <span className="font-medium text-foreground">interior buildouts</span>,{" "}
@@ -151,14 +153,14 @@ export const HomepageServiceHighlights = () => {
                 trades. We act as the lead contractor, planning access and safety, self-performing
                 the core trades, and communicating clearly from site walk to closeout.
               </p>
-              <p className="text-base text-muted-foreground leading-relaxed">
+              <p className={`${TYPOGRAPHY_STYLES.cardBody} text-muted-foreground`}>
                 Our foundation is building envelope — but our capability extends across the full
                 scope of restoration, interior construction, and specialty trades that commercial
                 and multi-unit properties require.
               </p>
             </div>
             <div className="space-y-4">
-              <p className="text-base text-muted-foreground leading-relaxed">
+              <p className={`${TYPOGRAPHY_STYLES.cardBody} text-muted-foreground`}>
                 We self-perform key trades —{" "}
                 <span className="font-medium text-foreground">
                   sealants/caulking, EIFS &amp; stucco, masonry repairs and tuckpointing,
@@ -167,7 +169,7 @@ export const HomepageServiceHighlights = () => {
                 </span>{" "}
                 — coordinating trusted partners only when needed.
               </p>
-              <p className="text-base text-muted-foreground leading-relaxed">
+              <p className={`${TYPOGRAPHY_STYLES.cardBody} text-muted-foreground`}>
                 We work safely in occupied buildings, document progress with photo logs, and
                 provide applicable manufacturer and workmanship warranties.
               </p>
@@ -189,7 +191,7 @@ export const HomepageServiceHighlights = () => {
                   <h3 className="text-base font-bold text-foreground mb-1.5">
                     {item.title}
                   </h3>
-                  <p className="text-base text-muted-foreground leading-relaxed">
+                  <p className={`${TYPOGRAPHY_STYLES.cardBody} text-muted-foreground`}>
                     {item.description}
                   </p>
                 </div>
@@ -241,11 +243,10 @@ export const HomepageServiceHighlights = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.1 }}
                 transition={rm ? { duration: 0 } : { delay: index * 0.08, duration: 0.4 }}
-                whileHover={rm ? {} : { y: -6, transition: springHover }}
               >
                 <Link
                   to={service.href}
-                  className="group/card block p-6 rounded-xl border border-border/60 bg-card hover:border-primary/40 hover:shadow-md focus-within:border-primary/40 focus-within:shadow-md transition-all duration-300 h-full"
+                  className={cn(CARD_STYLES.base, CARD_STYLES.motion, CARD_STYLES.hover, CARD_STYLES.interactive, "group/card block p-6 h-full")}
                 >
                   <motion.div
                     className="w-11 h-11 rounded-lg bg-primary/10 flex items-center justify-center mb-4 group-hover/card:bg-primary/20 transition-colors duration-300"
@@ -254,10 +255,10 @@ export const HomepageServiceHighlights = () => {
                   >
                     <Icon className="w-5 h-5 text-primary" />
                   </motion.div>
-                  <h3 className="text-base font-bold text-foreground mb-2 leading-snug">
+                  <h3 className={`${TYPOGRAPHY_STYLES.cardTitle} text-foreground mb-2`}>
                     {service.title}
                   </h3>
-                  <p className="text-base text-muted-foreground leading-relaxed">
+                  <p className={`${TYPOGRAPHY_STYLES.cardBody} text-muted-foreground`}>
                     {service.description}
                   </p>
 

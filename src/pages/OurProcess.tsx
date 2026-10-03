@@ -1,3 +1,4 @@
+import { Card, CardTitle, CardDescription } from "@/design-system/components/Card";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
@@ -201,42 +202,42 @@ const OurProcess = () => {
       <div id="process-cross" className="scroll-mt-24">
       <Section size="major" className="bg-muted/30">
         <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-          <div className="p-6 bg-background rounded-lg border">
-            <h3 className="text-xl font-bold mb-3">View Our Services</h3>
-            <p className="text-muted-foreground mb-4">
+          <Card>
+            <CardTitle className="mb-3">View Our Services</CardTitle>
+            <CardDescription className="mb-4">
               Building envelope, restoration, interior finishes, and specialty coatings — see the full scope of what we execute.
-            </p>
+            </CardDescription>
             <Link
               to="/services"
               className="inline-flex items-center gap-2 text-primary font-medium hover:underline"
             >
               Explore Services <ArrowRight className="w-4 h-4" />
             </Link>
-          </div>
-          <div className="p-6 bg-background rounded-lg border">
-            <h3 className="text-xl font-bold mb-3">See Our Project Work</h3>
-            <p className="text-muted-foreground mb-4">
+          </Card>
+          <Card>
+            <CardTitle className="mb-3">See Our Project Work</CardTitle>
+            <CardDescription className="mb-4">
               Browse completed envelope, restoration, and interior projects across the GTA.
-            </p>
+            </CardDescription>
             <Link
               to="/projects"
               className="inline-flex items-center gap-2 text-primary font-medium hover:underline"
             >
               View Projects <ArrowRight className="w-4 h-4" />
             </Link>
-          </div>
-          <div className="p-6 bg-background rounded-lg border">
-            <h3 className="text-xl font-bold mb-3">Pre-Qualification Docs</h3>
-            <p className="text-muted-foreground mb-4">
+          </Card>
+          <Card>
+            <CardTitle className="mb-3">Pre-Qualification Docs</CardTitle>
+            <CardDescription className="mb-4">
               Download our capability statement, insurance certificates, and safety documentation.
-            </p>
+            </CardDescription>
             <Link
               to="/prequalification"
               className="inline-flex items-center gap-2 text-primary font-medium hover:underline"
             >
               View Pre-Qualification <ArrowRight className="w-4 h-4" />
             </Link>
-          </div>
+          </Card>
         </div>
       </Section>
       </div>

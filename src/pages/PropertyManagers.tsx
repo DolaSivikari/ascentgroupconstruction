@@ -1,3 +1,4 @@
+import { TYPOGRAPHY_STYLES } from "@/design-system/constants";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
@@ -142,7 +143,7 @@ const PropertyManagers = () => {
             {services.map((service, index) => (
               <Card key={index} variant="elevated" size="md" className="border-l-4 border-l-primary">
                 <div className="flex items-start justify-between mb-3">
-                  <h3 className="text-2xl font-bold text-primary">{service.title}</h3>
+                  <h3 className={`${TYPOGRAPHY_STYLES.cardTitle} text-primary`}>{service.title}</h3>
                   <TrendingUp className="w-6 h-6 text-muted-foreground flex-shrink-0" />
                 </div>
                 <p className="text-muted-foreground mb-4">{service.description}</p>

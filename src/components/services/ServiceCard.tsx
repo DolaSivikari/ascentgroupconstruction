@@ -1,3 +1,4 @@
+import { TYPOGRAPHY_STYLES } from "@/design-system/constants";
 import { Link } from "react-router-dom";
 import { Card } from "@/design-system/components/Card";
 import { Badge } from "@/components/ui/badge";
@@ -37,7 +38,7 @@ export const ServiceCard = ({
   return (
     <Link
       to={`/services/${slug}`}
-      className="group block transition-transform duration-300 hover:-translate-y-2 motion-reduce:transform-none motion-reduce:hover:transform-none h-full"
+      className="group block h-full"
     >
       <Card
         variant="interactive"
@@ -60,7 +61,7 @@ export const ServiceCard = ({
         </div>
 
         {/* Service Name */}
-        <h3 className="text-xl md:text-2xl font-bold mb-3 text-foreground group-hover:text-primary transition-colors leading-tight">
+        <h3 className={`${TYPOGRAPHY_STYLES.cardTitle} mb-3 text-foreground group-hover:text-primary transition-colors`}>
           {name}
         </h3>
 
@@ -72,7 +73,7 @@ export const ServiceCard = ({
         </div>
 
         {/* Description */}
-        <p className="text-muted-foreground text-sm mb-6 line-clamp-3 flex-grow leading-relaxed">
+        <p className={`${TYPOGRAPHY_STYLES.cardBody} text-muted-foreground mb-6 line-clamp-3 flex-grow`}>
           {short_description || "Professional construction service tailored to your project requirements"}
         </p>
 

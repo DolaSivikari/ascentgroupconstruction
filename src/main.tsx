@@ -2,8 +2,6 @@ import { createRoot } from "react-dom/client";
 import { HelmetProvider } from "react-helmet-async";
 import App from "./App.tsx";
 import { ThemeProvider } from "./components/ThemeProvider";
-import "./styles/tokens.css";
-import "./styles/typography.css";
 import "./styles/animations.css";
 import "./styles/mobile-nav.css";
 import "./styles/textures.css";

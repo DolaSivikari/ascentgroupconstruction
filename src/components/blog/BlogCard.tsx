@@ -1,3 +1,4 @@
+import { TYPOGRAPHY_STYLES } from "@/design-system/constants";
 import { Link } from "react-router-dom";
 import { Card } from "@/design-system/components/Card";
 import { Badge } from "@/components/ui/badge";
@@ -32,7 +33,7 @@ const BlogCard = ({ post }: BlogCardProps) => {
   return (
     <Link
       to={`/blog/${post.slug}`}
-      className="block group h-full transition-transform duration-300 hover:-translate-y-2 motion-reduce:transform-none motion-reduce:hover:transform-none"
+      className="block group h-full"
     >
       <Card
         variant="interactive"
@@ -55,10 +56,10 @@ const BlogCard = ({ post }: BlogCardProps) => {
             </div>
           </div>
         </div>
-        <h3 className="text-2xl font-bold mb-3 group-hover:text-primary transition-colors leading-tight">
+        <h3 className={`${TYPOGRAPHY_STYLES.cardTitle} mb-3 group-hover:text-primary transition-colors`}>
           {post.title}
         </h3>
-        <p className="text-muted-foreground line-clamp-3 leading-relaxed flex-grow">
+        <p className={`${TYPOGRAPHY_STYLES.cardBody} text-muted-foreground line-clamp-3 flex-grow`}>
           {excerpt}
         </p>
       </Card>

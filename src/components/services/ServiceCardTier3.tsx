@@ -1,3 +1,4 @@
+import { TYPOGRAPHY_STYLES } from "@/design-system/constants";
 import { Card } from "@/design-system/components/Card";
 import { ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
@@ -20,7 +21,7 @@ export const ServiceCardTier3 = ({
   return (
     <Card variant="interactive" size="md" className="h-full flex flex-col">
       <div className="flex items-start justify-between gap-2 mb-2">
-        <h4 className="font-semibold text-foreground">{name}</h4>
+        <h4 className={`${TYPOGRAPHY_STYLES.cardTitle} text-foreground`}>{name}</h4>
         {challenge_tags && challenge_tags.length > 0 && (
           <span
             className="text-xs px-2 py-0.5 rounded-full font-medium shrink-0"
@@ -33,7 +34,7 @@ export const ServiceCardTier3 = ({
           </span>
         )}
       </div>
-      <p className="text-sm text-muted-foreground line-clamp-2 mb-3 flex-grow">
+      <p className={`${TYPOGRAPHY_STYLES.cardBody} text-muted-foreground line-clamp-2 mb-3 flex-grow`}>
         {short_description}
       </p>
       <Link

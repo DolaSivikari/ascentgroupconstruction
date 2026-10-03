@@ -1,3 +1,5 @@
+import { CARD_STYLES, TYPOGRAPHY_STYLES } from "@/design-system/constants";
+import { cn } from "@/lib/utils";
 import { Link } from "react-router-dom";
 import { PartnershipModel } from "@/data/partnership-models";
 import { PartnershipDiagram } from "./PartnershipDiagram";
@@ -12,7 +14,7 @@ export const PartnershipModelCard = ({ model }: PartnershipModelCardProps) => {
   return (
     <Link
       to={`/capabilities#${model.id}`}
-      className="group block relative rounded-[var(--radius-lg)] border border-border/40 bg-card/50 hover:bg-accent/50 hover:border-primary/20 transition-all duration-200 ease-out hover:shadow-[var(--shadow-md)] hover:-translate-y-0.5 overflow-hidden"
+      className={cn(CARD_STYLES.base, CARD_STYLES.motion, CARD_STYLES.hover, CARD_STYLES.interactive, "group block relative overflow-hidden")}
     >
       {/* Diagram Preview */}
       <div className="p-6 pb-4 bg-gradient-to-b from-background/5 to-transparent">
@@ -21,10 +23,10 @@ export const PartnershipModelCard = ({ model }: PartnershipModelCardProps) => {
 
       {/* Content */}
       <div className="p-6 pt-4">
-        <h3 className="text-lg font-semibold text-foreground mb-2 group-hover:text-primary transition-colors duration-200 ease-out">
+        <h3 className={`${TYPOGRAPHY_STYLES.cardTitle} text-foreground mb-2 group-hover:text-primary transition-colors`}>
           {model.shortTitle}
         </h3>
-        <p className="text-sm text-muted-foreground mb-4 line-clamp-2">
+        <p className={`${TYPOGRAPHY_STYLES.cardBody} text-muted-foreground mb-4 line-clamp-2`}>
           {model.shortDescription}
         </p>
 

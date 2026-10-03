@@ -1,3 +1,4 @@
+import { TYPOGRAPHY_STYLES } from "@/design-system/constants";
 import { Building2, Users, Home, Briefcase, Award, CheckCircle2 } from "lucide-react";
 import { Section } from "@/components/sections/Section";
 import { SectionBadge } from "@/components/ui/SectionBadge";
@@ -115,7 +116,7 @@ const WhoWeServeHomepage = () => {
                 <div className="flex gap-3">
                   <CheckCircle2 className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
                   <div>
-                    <h3 className="font-semibold text-foreground text-base mb-1">{b.title}</h3>
+                    <h3 className={`${TYPOGRAPHY_STYLES.cardTitle} text-foreground mb-1`}>{b.title}</h3>
                     <p className="text-base text-muted-foreground leading-relaxed">{b.desc}</p>
                   </div>
                 </div>
