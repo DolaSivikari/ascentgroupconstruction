@@ -1,31 +1,31 @@
 import { hasAnalyticsConsent } from "./analyticsConsent";
 
-// Google Analytics & GTM Helper Functions
+// Consent-aware events for the site's gtag.js installation.
 
 interface GTMEvent {
   event: string;
-  [key: string]: any;
+  [key: string]: unknown;
 }
 
-// Push events to GTM dataLayer
+// Keep the existing helper API, but deliver the command format gtag.js consumes.
 export const pushToDataLayer = (event: GTMEvent) => {
-  if (typeof window !== 'undefined' && hasAnalyticsConsent() && window.dataLayer) {
-    window.dataLayer.push(event);
+  if (typeof window !== 'undefined' && hasAnalyticsConsent()) {
+    const { event: name, ...parameters } = event;
+    window.gtag?.('event', name, parameters);
   }
 };
 
 // Page view tracking
 export const trackPageView = (url: string, title: string) => {
-  if (hasAnalyticsConsent()) window.gtag?.('event', 'page_view', { page_path: url, page_title: title });
   pushToDataLayer({
-    event: 'pageview',
+    event: 'page_view',
     page_path: url,
     page_title: title,
   });
 };
 
 // Conversion tracking
-export const trackConversion = (eventName: string, data?: Record<string, any>) => {
+export const trackConversion = (eventName: string, data?: Record<string, unknown>) => {
   pushToDataLayer({
     event: eventName,
     ...data,
@@ -33,12 +33,22 @@ export const trackConversion = (eventName: string, data?: Record<string, any>) =
 };
 
 // Form submission tracking
-export const trackFormSubmit = (formName: string, formData?: Record<string, any>) => {
+export const trackFormSubmit = (formName: string, formData?: Record<string, unknown>) => {
   pushToDataLayer({
     event: 'form_submit',
     form_name: formName,
     ...formData,
   });
+  pushToDataLayer({ event: 'generate_lead', form_name: formName, ...formData });
+};
+
+/** Block honeypot/rate-limit/null responses from becoming lead conversions. */
+export const trackSavedFormSubmit = (formName: string, response: unknown, formData?: Record<string, unknown>) => {
+  if (!response || typeof response !== 'object') return;
+  const result = response as { success?: boolean; id?: string };
+  if (result.success === true && typeof result.id === 'string' && result.id.trim()) {
+    trackFormSubmit(formName, formData);
+  }
 };
 
 // Form interaction tracking - NEW
@@ -83,6 +93,7 @@ export const trackPhoneClick = (location: string = 'unknown') => {
     conversion_label: 'phone_call',
     click_location: location,
   });
+  pushToDataLayer({ event: 'click_to_call', click_location: location });
 };
 
 // Email click tracking - NEW
@@ -91,6 +102,7 @@ export const trackEmailClick = (location: string = 'unknown') => {
     event: 'email_click',
     click_location: location,
   });
+  pushToDataLayer({ event: 'click_email', click_location: location });
 };
 
 // File download tracking
@@ -190,6 +202,6 @@ export const trackQuizComplete = (results: string[]) => {
 // TypeScript declaration for window.dataLayer
 declare global {
   interface Window {
-    dataLayer: any[];
+    dataLayer: unknown[];
   }
 }

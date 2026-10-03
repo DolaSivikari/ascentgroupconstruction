@@ -9,7 +9,7 @@ import { Card } from "@/design-system/components/Card";
 import { Button } from "@/ui/Button";
 import { CTA_TEXT } from "@/design-system/constants";
 import { MapPin, Phone, Clock, CheckCircle, Building2, Home, Factory, HardHat, ArrowRight } from "lucide-react";
-import { COMPANY_PHONE, SITE_URL } from "@/constants/company";
+import { COMPANY_PHONE } from "@/constants/company";
 import { PhoneLink } from "@/components/shared/PhoneLink";
 import { serviceAreaCities, primaryServiceCities } from "@/data/service-area-cities";
 import { 
@@ -213,6 +213,7 @@ const LocationPage = () => {
   if (!location) {
     return (
       <div className="min-h-screen">
+        <SEO title="Service Area Not Found" description="The requested service area could not be found." noindex />
         <Navigation />
         <Section size="major">
           <div className="text-center">
@@ -241,29 +242,9 @@ const LocationPage = () => {
     name: `Building Envelope Services in ${location.name}`,
     description: `Professional building envelope, façade remediation, and restoration services in ${location.name}, ${location.region}. WSIB compliant, $2M insured specialty contractor.`,
     slug: `service-areas/${location.slug}`,
+    path: `/service-areas/${location.slug}`,
+    areaServed: location.name,
   });
-
-  // LocalBusiness schema for this location
-  const localBusinessSchema = {
-    "@context": "https://schema.org",
-    "@type": "HomeAndConstructionBusiness",
-    "@id": `${SITE_URL}/service-areas/${location.slug}#business`,
-    "name": `Ascent Group Construction - ${location.name}`,
-    "description": `Building envelope and restoration contractor serving ${location.name}, ${location.region}`,
-    "url": `${SITE_URL}/service-areas/${location.slug}`,
-    "telephone": COMPANY.phone,
-    "email": COMPANY.email,
-    "areaServed": {
-      "@type": "City",
-      "name": location.name,
-      "addressRegion": location.region,
-      "addressCountry": "CA"
-    },
-    "serviceType": services,
-    "parentOrganization": {
-      "@id": `${SITE_URL}/#organization`
-    }
-  };
 
   const hero = getCityHero(location.slug);
 
@@ -277,7 +258,7 @@ const LocationPage = () => {
         title={`Building Envelope Contractor in ${location.name} | Ascent Group`}
         description={`Professional building envelope, façade remediation, waterproofing, and restoration services in ${location.name}, ${location.region}. WSIB compliant, $2M insured. Call ${COMPANY_PHONE}.`}
         keywords={`building envelope contractor ${location.name}, facade remediation ${location.name}, waterproofing ${location.name}, EIFS contractor ${location.name}, masonry restoration ${location.name}`}
-        structuredData={[breadcrumbSchema, serviceSchema, localBusinessSchema]}
+        structuredData={[breadcrumbSchema, serviceSchema]}
       />
       <Navigation />
 

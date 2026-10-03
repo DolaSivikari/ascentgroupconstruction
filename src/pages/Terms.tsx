@@ -1,3 +1,4 @@
+import { SITE_URL } from "@/constants/company";
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
 import Navigation from "@/components/Navigation";
@@ -10,6 +11,7 @@ const Terms = () => {
   return (
     <>
       <Helmet>
+        <link rel="canonical" href={`${SITE_URL}/terms`} />
         <title>Terms of Use | Ascent Group Construction</title>
         <meta name="description" content="Terms of Use for Ascent Group Construction website - legal terms, disclaimers, and conditions for using our services." />
         <meta name="robots" content="index, follow" />

@@ -1,7 +1,10 @@
 import { Helmet } from "react-helmet-async";
-import { useAggregateRating } from "@/hooks/useAggregateRating";
 import { useMemo } from "react";
 import { SITE_URL, COMPANY_NAME, COMPANY_PHONE_E164, COMPANY_EMAIL, COMPANY_ADDRESS } from "@/constants/company";
+import { serviceAreaCities } from "@/data/service-area-cities";
+import { pageTitle, publicImageUrl } from "@/utils/seo/metadata";
+
+const DEFAULT_DESCRIPTION = "Self-performing specialty contractor delivering building envelope, façade, masonry, EIFS and parking garage restoration across the GTA and Ontario.";
 
 interface SEOProps {
   title?: string;
@@ -11,6 +14,7 @@ interface SEOProps {
   ogType?: "website" | "article" | "profile" | "book" | "product";
   canonical?: string;
   structuredData?: object | object[];
+  /** Retained for caller compatibility; business review stars are not emitted. */
   includeRating?: boolean;
   noindex?: boolean;
   articleMeta?: {
@@ -24,21 +28,18 @@ interface SEOProps {
 
 const SEO = ({
   title,
-  description = "Self-performing specialty contractor delivering building envelope, façade, masonry, EIFS and parking garage restoration across the GTA and Ontario.",
-  keywords,
+  description: requestedDescription,
   ogImage = "/og-image.png",
   ogType = "website",
   canonical,
   structuredData,
-  includeRating = false,
   noindex = false,
   articleMeta,
 }: SEOProps) => {
 
-  const fullTitle = title ? (title.includes(COMPANY_NAME) ? title : `${title} | ${COMPANY_NAME}`) : `${COMPANY_NAME} | Building Envelope & Restoration`;
-
-  // Fetch real aggregate rating from database
-  const { aggregateRating, hasRatings } = useAggregateRating();
+  const description = requestedDescription || DEFAULT_DESCRIPTION;
+  const fullTitle = pageTitle(title);
+  const imageUrl = publicImageUrl(ogImage);
 
   const cleanPath = window.location.pathname;
   const currentUrl = canonical || `${SITE_URL}${cleanPath}`;
@@ -52,7 +53,7 @@ const SEO = ({
     name: COMPANY_NAME,
     alternateName: "Ascent Group",
     slogan: "Envelope & Restoration Contractor — Ontario & GTA",
-    description: description,
+    description: DEFAULT_DESCRIPTION,
     url: SITE_URL,
     telephone: COMPANY_PHONE_E164,
     logo: {
@@ -77,36 +78,8 @@ const SEO = ({
       longitude: "-79.4111"
     },
     areaServed: [
-      {
-        "@type": "City",
-        name: "Toronto",
-        "@id": "https://en.wikipedia.org/wiki/Toronto"
-      },
-      {
-        "@type": "City",
-        name: "Mississauga",
-        "@id": "https://en.wikipedia.org/wiki/Mississauga"
-      },
-      {
-        "@type": "City",
-        name: "Brampton",
-        "@id": "https://en.wikipedia.org/wiki/Brampton"
-      },
-      {
-        "@type": "City",
-        name: "Vaughan",
-        "@id": "https://en.wikipedia.org/wiki/Vaughan"
-      },
-      {
-        "@type": "City",
-        name: "Markham",
-        "@id": "https://en.wikipedia.org/wiki/Markham,_Ontario"
-      },
-      {
-        "@type": "State",
-        name: "Ontario",
-        "@id": "https://en.wikipedia.org/wiki/Ontario"
-      }
+      ...serviceAreaCities.map(name => ({ "@type": "City", name })),
+      { "@type": "State", name: "Ontario", "@id": "https://en.wikipedia.org/wiki/Ontario" },
     ],
     openingHoursSpecification: [
       {
@@ -201,19 +174,10 @@ const SEO = ({
     }
   };
 
-  // Add aggregate rating if includeRating is true and there are real ratings
-  if (includeRating && hasRatings && parseInt(aggregateRating.reviewCount) > 0) {
-    schema.aggregateRating = {
-      "@type": "AggregateRating",
-      ratingValue: aggregateRating.ratingValue,
-      reviewCount: aggregateRating.reviewCount,
-      bestRating: aggregateRating.bestRating,
-      worstRating: aggregateRating.worstRating
-    };
-  }
-
+  // Self-serving LocalBusiness ratings are not eligible for Google's review stars.
+  // Visible reviews stay in their own components; SEO performs no review queries.
   return schema;
-}, [description, includeRating, hasRatings, aggregateRating]);
+}, []);
 
   // Combine schemas if custom structured data is provided
   const schemas = structuredData
@@ -222,8 +186,8 @@ const SEO = ({
       : [defaultSchema, structuredData]
     : [defaultSchema];
 
-  // Enforce social-preview length constraints
-  const ogTitle = fullTitle.length > 60 ? `${fullTitle.slice(0, 57).trimEnd()}…` : fullTitle;
+  // Keep the complete title for social previews; platforms choose their display length.
+  const ogTitle = fullTitle;
   const ogDescription = description.length > 160 ? `${description.slice(0, 157).trimEnd()}…` : description;
 
   return (
@@ -231,12 +195,11 @@ const SEO = ({
       <title>{fullTitle}</title>
       <meta name="description" content={description} />
       <meta name="robots" content={noindex ? "noindex, nofollow" : "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"} />
-      <meta name="keywords" content={keywords} />
 
       {/* Open Graph */}
       <meta property="og:title" content={ogTitle} />
       <meta property="og:description" content={ogDescription} />
-      <meta property="og:image" content={`${SITE_URL}${ogImage}`} />
+      <meta property="og:image" content={imageUrl} />
       <meta property="og:url" content={currentUrl} />
       <meta property="og:type" content={ogType} />
       <meta property="og:image:alt" content={`${ogTitle} - Visual Preview`} />
@@ -263,7 +226,7 @@ const SEO = ({
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:title" content={ogTitle} />
       <meta name="twitter:description" content={ogDescription} />
-      <meta name="twitter:image" content={`${SITE_URL}${ogImage}`} />
+      <meta name="twitter:image" content={imageUrl} />
       <meta name="twitter:image:alt" content={`${ogTitle} - Visual Preview`} />
 
       {/* PHASE 1 FIX: Single Canonical URL - Prevents duplicate content penalty */}

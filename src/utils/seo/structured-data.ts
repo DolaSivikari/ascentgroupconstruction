@@ -3,6 +3,7 @@
  * Comprehensive schemas for SEO and AI discoverability
  */
 
+import { publicImageUrl } from "./metadata";
 import { SITE_URL, COMPANY_NAME, COMPANY_PHONE_E164, COMPANY_EMAIL } from '@/constants/company';
 
 // Company constants
@@ -178,21 +179,24 @@ export function generateServiceSchema(service: {
   description: string;
   slug: string;
   image?: string;
+  path?: string;
+  areaServed?: string;
 }) {
+  const url = `${SITE_URL}${service.path || `/services/${service.slug}`}`;
   return {
     "@context": "https://schema.org",
     "@type": "Service",
-    "@id": `${SITE_URL}/services/${service.slug}#service`,
+    "@id": `${url}#service`,
     "name": service.name,
     "description": service.description,
-    "url": `${SITE_URL}/services/${service.slug}`,
-    "image": service.image || `${SITE_URL}/og-image.jpg`,
+    "url": url,
+    "image": publicImageUrl(service.image),
     "provider": {
       "@id": `${SITE_URL}/#organization`
     },
     "areaServed": {
-      "@type": "AdministrativeArea",
-      "name": "Ontario, Canada"
+      "@type": service.areaServed ? "City" : "AdministrativeArea",
+      "name": service.areaServed || "Ontario, Canada"
     },
     "hasOfferCatalog": {
       "@type": "OfferCatalog",

@@ -1,7 +1,13 @@
 import { describe, expect, it } from "vitest";
-import { createSitemapXml, extractSitemapRoutes } from "../sitemap";
+import { createSitemapXml, extractSitemapRoutes, publishedContentPath } from "../sitemap";
 
 describe("public sitemap", () => {
+  it("keeps published content but excludes redirect-only service records", () => {
+    expect(publishedContentPath("services", "painting")).toBeNull();
+    expect(publishedContentPath("services", "painting-services")).toBe("/services/painting-services");
+    expect(publishedContentPath("projects", "painting")).toBe("/projects/painting");
+    expect(publishedContentPath("blog_posts", "restoration-guide")).toBe("/blog/restoration-guide");
+  });
   it("excludes redirects, aliases, utilities, admin and dynamic route patterns", () => {
     const source = [
       ['/', 'Index'], ['/for-architects', 'ForArchitects'], ['/services/tile-installation-toronto', 'Tile'],

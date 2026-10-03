@@ -1,3 +1,4 @@
+import { publicImageUrl } from "@/utils/seo/metadata";
 import { COMPANY_NAME, COMPANY_PHONE_E164, COMPANY_EMAIL, COMPANY_ADDRESS, SITE_URL } from "@/constants/company";
 
 interface OrganizationSchemaOptions {
@@ -14,7 +15,7 @@ interface OrganizationSchemaOptions {
 }
 
 export const organizationSchema = (options?: OrganizationSchemaOptions) => {
-  const siteUrl = typeof window !== "undefined" ? window.location.origin : SITE_URL;
+  const siteUrl = SITE_URL;
   
   const schema: any = {
     "@context": "https://schema.org",
@@ -71,7 +72,7 @@ interface ServiceSchemaOptions {
 }
 
 export const serviceSchema = (options: ServiceSchemaOptions) => {
-  const siteUrl = typeof window !== "undefined" ? window.location.origin : "";
+  const siteUrl = SITE_URL;
   
   return {
     "@context": "https://schema.org",
@@ -102,7 +103,7 @@ interface ArticleSchemaOptions {
 }
 
 export const articleSchema = (options: ArticleSchemaOptions) => {
-  const siteUrl = typeof window !== "undefined" ? window.location.origin : "";
+  const siteUrl = SITE_URL;
   
   return {
     "@context": "https://schema.org",
@@ -118,13 +119,13 @@ export const articleSchema = (options: ArticleSchemaOptions) => {
       name: "Ascent Group Construction",
       logo: {
         "@type": "ImageObject",
-        url: `${siteUrl}/logo.png`,
+        url: `${siteUrl}/ascent-logo.png`,
       },
     },
     datePublished: options.datePublished,
     dateModified: options.dateModified || options.datePublished,
-    image: options.image || `${siteUrl}/og-image.jpg`,
-    url: options.url || (typeof window !== "undefined" ? window.location.href : ""),
+    image: publicImageUrl(options.image),
+    url: options.url || `${SITE_URL}${typeof window !== "undefined" ? window.location.pathname : "/"}`,
   };
 };
 
@@ -154,7 +155,7 @@ interface BreadcrumbItem {
 }
 
 export const breadcrumbSchema = (items: BreadcrumbItem[]) => {
-  const siteUrl = typeof window !== "undefined" ? window.location.origin : "";
+  const siteUrl = SITE_URL;
   
   return {
     "@context": "https://schema.org",
@@ -213,7 +214,7 @@ interface ReviewSchemaOptions {
 }
 
 export const reviewSchema = (options: ReviewSchemaOptions) => {
-  const siteUrl = typeof window !== "undefined" ? window.location.origin : "";
+  const siteUrl = SITE_URL;
   
   return {
     "@context": "https://schema.org",

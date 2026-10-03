@@ -14,7 +14,7 @@ import { rfpSubmissionSchema, type RFPSubmission } from "@/schemas/rfp-validatio
 import { RFPStep1Company } from "@/components/rfp/RFPStep1Company";
 import { RFPStep2Project } from "@/components/rfp/RFPStep2Project";
 import { RFPStep3Timeline } from "@/components/rfp/RFPStep3Timeline";
-import { trackConversion } from "@/lib/analytics";
+import { trackSavedFormSubmit } from "@/lib/analytics";
 import { trackABTestConversion } from "@/hooks/useABTest";
 import { RFPStep4Scope } from "@/components/rfp/RFPStep4Scope";
 import { PageHero } from "@/components/shared/PageHero";
@@ -176,6 +176,8 @@ export default function SubmitRFPNew() {
       setSubmissionId(newId);
       setSubmissionRef(refId);
       setSubmittedAt(createdAt);
+
+      trackSavedFormSubmit("rfp_form", invokeResponse);
 
       // Notifications are derived from the stored RFP by the Edge Function.
       // A saved submission remains successful even if the notification is queued/failed.

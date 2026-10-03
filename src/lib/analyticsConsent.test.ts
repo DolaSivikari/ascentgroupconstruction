@@ -41,6 +41,26 @@ describe("analytics consent", () => {
       "page_view",
       { page_path: "/services", page_title: "Services" },
     ]);
+    expect(window.dataLayer.filter(entry => Array.isArray(entry) && entry[0] === "event" && entry[1] === "page_view" && entry[2].page_path === "/services")).toHaveLength(1);
+  });
+  it("delivers custom and lead events through gtag without personal form values", async () => {
+    const { setAnalyticsConsent } = await import("./analyticsConsent");
+    const { trackSavedFormSubmit, trackConversion } = await import("./analytics");
+    setAnalyticsConsent("accepted");
+    trackConversion("cta_click", { cta_name: "Estimate" });
+    trackSavedFormSubmit("contact_form", { success: true, id: "fixture", name: "Private name", email: "private@example.com" }, { has_phone: true });
+    expect(window.dataLayer).toContainEqual(["event", "cta_click", { cta_name: "Estimate" }]);
+    expect(window.dataLayer).toContainEqual(["event", "generate_lead", { form_name: "contact_form", has_phone: true }]);
+    expect(JSON.stringify(window.dataLayer)).not.toContain("private@example.com");
+    expect(JSON.stringify(window.dataLayer)).not.toContain("Private name");
+  });
+  it.each([null, {}, { success: false, id: "blocked" }, { success: true }, { success: true, id: "" }])("does not count an unconfirmed or blocked result: %j", async (response) => {
+    const { setAnalyticsConsent } = await import("./analyticsConsent");
+    const { trackSavedFormSubmit } = await import("./analytics");
+    setAnalyticsConsent("accepted");
+    const before = window.dataLayer.length;
+    trackSavedFormSubmit("rfp_form", response);
+    expect(window.dataLayer).toHaveLength(before);
   });
   it("honours a returning accepted choice and disables events after Reject", async () => {
     localStorage.setItem("cookie-consent", "accepted");

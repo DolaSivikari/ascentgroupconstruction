@@ -32,6 +32,11 @@ afterEach(() => {
   document.head.querySelectorAll("[data-rh]").forEach((node) => node.remove());
 });
 describe("head ownership", () => {
+  it("handles a nullable description from a content record", async () => {
+    render(<HelmetProvider><SEO title="Article" description={null} /></HelmetProvider>);
+    await waitFor(() => expect(document.title).toContain("Article"));
+    expect(document.querySelector('meta[name="description"]')?.getAttribute("content")).toContain("Self-performing specialty contractor");
+  });
   it("keeps page metadata through both loading and loaded footer states", async () => {
     let resolve: (value: { data: null; error: null }) => void;
     mock.result = new Promise((done) => {
@@ -97,5 +102,31 @@ describe("head ownership", () => {
     await waitFor(() =>
       expect(document.title).toBe("Services | Ascent Group Construction"),
     );
+  });
+  it("preserves a short-brand title and complete social title with an absolute image", async () => {
+    const title = "Building Envelope Contractor in Richmond Hill | Ascent Group";
+    const image = "https://images.example.com/public/project.webp";
+    render(<HelmetProvider><SEO title={title} ogImage={image} keywords="obsolete keyword" /></HelmetProvider>);
+    await waitFor(() => expect(document.title).toBe(title));
+    expect(document.querySelector('meta[property="og:title"]')).toHaveAttribute("content", title);
+    expect(document.querySelector('meta[property="og:image"]')).toHaveAttribute("content", image);
+    expect(document.querySelector('meta[name="twitter:image"]')).toHaveAttribute("content", image);
+    expect(document.querySelector('meta[name="keywords"]')).toBeNull();
+  });
+  it("does not turn a service description into the company's identity", async () => {
+    render(<HelmetProvider><SEO title="Painting" description="Specific painting scope" /></HelmetProvider>);
+    await waitFor(() => expect(document.title).toContain("Painting"));
+    const business = JSON.parse(document.querySelector('script[type="application/ld+json"]')!.textContent!);
+    expect(business.description).not.toBe("Specific painting scope");
+    expect(business["@id"]).toBe("https://www.ascentgroupconstruction.com/#organization");
+    expect(document.querySelector('meta[name="description"]')).toHaveAttribute("content", "Specific painting scope");
+  });
+  it("keeps the existing city list aligned without self-serving business review stars", async () => {
+    render(<HelmetProvider><SEO title="Home" includeRating /></HelmetProvider>);
+    await waitFor(() => expect(document.title).toContain("Home"));
+    const business = JSON.parse(document.querySelector('script[type="application/ld+json"]')!.textContent!);
+    expect(business.areaServed.filter((area: { "@type": string }) => area["@type"] === "City")).toHaveLength(17);
+    expect(business.areaServed).toContainEqual({ "@type": "City", name: "King City" });
+    expect(business.aggregateRating).toBeUndefined();
   });
 });

@@ -1,3 +1,4 @@
+import { trackFormSubmit } from "@/lib/analytics";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { z } from "zod";
@@ -75,6 +76,7 @@ Ballpark Range: ${serviceMessage.ballparkRange || "Custom pricing"}
       });
 
       if (error) throw error;
+      trackFormSubmit("quote_request_form");
 
       // Fire-and-forget customer + admin emails (don't block success on failure)
       try {

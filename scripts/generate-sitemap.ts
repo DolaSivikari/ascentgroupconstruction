@@ -3,7 +3,7 @@ import { execFileSync } from "node:child_process";
 import { resolve } from "node:path";
 import { loadEnv } from "vite";
 import { serviceAreaCities, getServiceAreaPath } from "../src/data/service-area-cities";
-import { createSitemapXml, extractSitemapRoutes, type SitemapEntry } from "../src/utils/seo/sitemap";
+import { createSitemapXml, extractSitemapRoutes, publishedContentPath, type SitemapEntry } from "../src/utils/seo/sitemap";
 
 // Public read credentials only. This command does not modify the database.
 const root = process.cwd();
@@ -63,8 +63,10 @@ for (const city of serviceAreaCities) entries.push({ path: getServiceAreaPath(ci
 const tables = ["services", "projects", "blog_posts"] as const;
 const published = await Promise.all(tables.map(publishedRows));
 published.forEach((rows, index) => {
-  const prefix = tables[index] === "blog_posts" ? "blog" : tables[index];
-  rows.forEach(row => entries.push({ path: `/${prefix}/${row.slug}`, lastmod: row.updated_at || row.published_at }));
+  rows.forEach(row => {
+    const path = publishedContentPath(tables[index], row.slug);
+    if (path) entries.push({ path, lastmod: row.updated_at || row.published_at });
+  });
 });
 const xml = createSitemapXml(env.VITE_SITE_URL || "https://www.ascentgroupconstruction.com", entries);
 const target = resolve(root, "public/sitemap.xml");

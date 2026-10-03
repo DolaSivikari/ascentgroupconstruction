@@ -1,6 +1,14 @@
+import { SERVICE_REDIRECTS } from "../../data/service-redirects";
+
 export interface SitemapEntry {
   path: string;
   lastmod?: string | null;
+}
+
+/** A published historical service can still be a redirect rather than a content page. */
+export function publishedContentPath(table: "services" | "projects" | "blog_posts", slug: string): string | null {
+  if (table === "services" && Object.prototype.hasOwnProperty.call(SERVICE_REDIRECTS, slug)) return null;
+  return `/${table === "blog_posts" ? "blog" : table}/${slug}`;
 }
 
 const excludedComponents = new Set([

@@ -1,3 +1,4 @@
+import { trackEmailClick } from "@/lib/analytics";
 import { useState, useEffect } from 'react';
 import { Mail } from 'lucide-react';
 import { cn } from '@/lib/utils';
@@ -42,18 +43,8 @@ export const EmailLink = ({
     if (email) {
       setIsRevealed(true);
       
-      // Track email click in analytics
-      if (typeof window !== 'undefined' && (window as any).gtag) {
-        (window as any).gtag('event', 'email_click', {
-          event_category: 'contact',
-          event_label: 'Email Link',
-          value: email
-        });
-      }
-      
-      // Debug-only — email PII never leaves dev console
-      if (import.meta.env.DEV) console.log('[Analytics] Email link clicked:', email);
-      
+      trackEmailClick(window.location.pathname);
+
       window.location.href = `mailto:${email}`;
     }
   };

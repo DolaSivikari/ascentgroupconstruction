@@ -1,4 +1,3 @@
-import { trackPhoneClick } from "@/lib/analytics";
 import { useSettingsData } from "@/hooks/useSettingsData";
 import { Phone } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -20,10 +19,6 @@ export const PhoneLink = ({
   const { data: settings } = useSettingsData('site_settings');
   const phone = formatPhoneDisplay(settings?.phone);
 
-  const handleClick = () => {
-    trackPhoneClick();
-  };
-
   const baseClasses = "inline-flex items-center gap-2 transition-colors";
   
   const variantClasses = {
@@ -35,7 +30,6 @@ export const PhoneLink = ({
   return (
     <a
       href={formatPhoneTel(settings?.phone)}
-      onClick={handleClick}
       className={cn(baseClasses, variantClasses[variant], className)}
       aria-label="Call Ascent Group Construction"
     >

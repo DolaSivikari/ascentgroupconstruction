@@ -11,7 +11,7 @@ import { contactFaqs } from "@/data/page-faqs";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import { COMPANY_PHONE, SITE_URL } from "@/constants/company";
-import { trackFormSubmit } from "@/lib/analytics";
+import { trackSavedFormSubmit } from "@/lib/analytics";
 import { trackABTestConversion } from "@/hooks/useABTest";
 import { Button } from "@/ui/Button";
 import { Input } from "@/ui/Input";
@@ -62,12 +62,6 @@ const Contact = () => {
     try {
       const validatedData = contactSchema.parse(formData);
       
-      trackFormSubmit('contact_form', {
-        has_phone: !!validatedData.phone,
-        has_company: !!validatedData.company,
-        newsletter_opt_in: validatedData.newsletterConsent
-      });
-      
       const { data, error } = await supabase.functions.invoke('submit-form', {
         body: {
           formType: 'contact',
@@ -95,6 +89,12 @@ const Contact = () => {
       if (data && (data as { success?: boolean }).success === false) {
         throw new Error('The submission was not accepted. Please try again.');
       }
+
+      trackSavedFormSubmit('contact_form', data, {
+        has_phone: !!validatedData.phone,
+        has_company: !!validatedData.company,
+        newsletter_opt_in: validatedData.newsletterConsent
+      });
 
       let notificationWarning = false;
       try {

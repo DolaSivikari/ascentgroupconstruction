@@ -3,6 +3,7 @@ import { Navigate, Route, Routes } from "react-router-dom";
 import { PageTransition } from "@/components/animations/PageTransition";
 import { SERVICE_REDIRECTS } from "@/data/service-redirects";
 import { LegacyInboxRedirect } from "@/components/admin/LegacyInboxRedirect";
+import { LegacyArticleRedirect } from "@/components/blog/LegacyArticleRedirect";
 import Index from "@/pages/Index";
 import NotFound from "@/pages/NotFound";
 
@@ -220,8 +221,8 @@ export const AppRoutes = () => (
       <Route path="/service-areas/:city" element={<LocationPage />} />
       <Route path="/blog" element={<Blog />} />
       <Route path="/blog/:slug" element={<BlogPost />} />
-      <Route path="/case-studies" element={<Blog />} />
-      <Route path="/case-study/:slug" element={<BlogPost />} />
+      <Route path="/case-studies" element={<Navigate to="/blog" replace />} />
+      <Route path="/case-study/:slug" element={<LegacyArticleRedirect />} />
       <Route path="/projects/:slug" element={<ProjectDetail />} />
 
       {AdminRouteGroup()}

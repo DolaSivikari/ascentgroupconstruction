@@ -31,6 +31,8 @@ import {
 import { sanitizeAndValidate } from "@/utils/sanitize";
 import { ReadingProgressBar } from "@/components/animations/ReadingProgressBar";
 import { ScrollReveal } from "@/components/animations/ScrollReveal";
+import { ContentUnavailable } from "@/components/shared/ContentUnavailable";
+import { SITE_URL } from "@/constants/company";
 import { resolveBlogHero } from "@/data/hero-images";
 
 const BlogPost = () => {
@@ -38,42 +40,46 @@ const BlogPost = () => {
   const { isPreview, previewToken } = usePreviewMode();
   const [post, setPost] = useState<any>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [loadFailed, setLoadFailed] = useState(false);
   const [relatedLinks, setRelatedLinks] = useState<SmartRelatedLink[]>([]);
 
   useEffect(() => {
+    let cancelled = false;
+    setPost(null);
+    setRelatedLinks([]);
+    setLoadFailed(false);
+    setIsLoading(true);
+
     const fetchPost = async () => {
-      if (!slug) return;
-      
-      setIsLoading(true);
-
-      // Draft previews go through a server-side check that validates the
-      // share token against the post; without a matching token nothing is returned.
-      if (isPreview && previewToken) {
-        const { data, error } = await supabase.rpc("get_preview_blog_post", {
-          p_slug: slug,
-          p_token: previewToken,
-        });
-        if (!error && data && data.length > 0) {
-          setPost(data[0]);
+      try {
+        if (!slug) return;
+        // The RPC validates the draft token. Public reads remain published-only.
+        if (isPreview && previewToken) {
+          const { data, error } = await supabase.rpc("get_preview_blog_post", {
+            p_slug: slug,
+            p_token: previewToken,
+          });
+          if (error) throw error;
+          if (!cancelled) setPost(data?.[0] || null);
+          return;
         }
-        setIsLoading(false);
-        return;
+        const { data, error } = await supabase
+          .from("blog_posts")
+          .select("*")
+          .eq("slug", slug)
+          .eq("publish_state", "published")
+          .maybeSingle();
+        if (error) throw error;
+        if (!cancelled) setPost(data);
+      } catch {
+        if (!cancelled) setLoadFailed(true);
+      } finally {
+        if (!cancelled) setIsLoading(false);
       }
-
-      const { data, error } = await supabase
-        .from("blog_posts")
-        .select("*")
-        .eq("slug", slug)
-        .eq("publish_state", "published")
-        .maybeSingle();
-
-      if (!error && data) {
-        setPost(data);
-      }
-      setIsLoading(false);
     };
-    
-    fetchPost();
+
+    void fetchPost();
+    return () => { cancelled = true; };
   }, [slug, isPreview, previewToken]);
 
   // Resolve smart related links once post is loaded
@@ -104,16 +110,7 @@ const BlogPost = () => {
   }
 
   if (!post) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="text-center">
-          <h1 className="text-4xl font-bold mb-4">Article Not Found</h1>
-          <Link to="/blog">
-            <Button>Back to Blog</Button>
-          </Link>
-        </div>
-      </div>
-    );
+    return <ContentUnavailable kind="Article" failed={loadFailed} backTo="/blog" backLabel="Back to Blog" />;
   }
 
   const hero = resolveBlogHero(post.featured_image, post.title);
@@ -159,6 +156,8 @@ const BlogPost = () => {
       description: post.summary || post.seo_description,
       author: "Ascent Group Construction",
       datePublished: post.published_at || post.created_at,
+      dateModified: post.updated_at,
+      url: `${SITE_URL}/blog/${post.slug}`,
       image: hero.image,
     }),
     breadcrumbSchema([
@@ -181,6 +180,8 @@ const BlogPost = () => {
         keywords={post.seo_keywords?.join(', ') || `${post.category}, blog`}
         ogImage={hero.image}
         ogType="article"
+        canonical={`${SITE_URL}/blog/${post.slug}`}
+        noindex={isPreview}
         articleMeta={{
           publishedTime: post.published_at || post.created_at,
           modifiedTime: post.updated_at,

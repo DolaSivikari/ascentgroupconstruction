@@ -1,3 +1,4 @@
+import { SITE_URL } from "@/constants/company";
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
 import Navigation from "@/components/Navigation";
@@ -10,6 +11,7 @@ const Accessibility = () => {
   return (
     <>
       <Helmet>
+        <link rel="canonical" href={`${SITE_URL}/accessibility`} />
         <title>Accessibility Statement | Ascent Group Construction</title>
         <meta name="description" content="Ascent Group Construction's commitment to web accessibility - WCAG 2.0 Level AA compliance, accessibility features, and how to request assistance." />
         <meta name="robots" content="index, follow" />

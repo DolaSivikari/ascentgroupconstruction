@@ -7,6 +7,7 @@ import { lazy, Suspense, useEffect } from "react";
 import ErrorBoundary from "./components/ErrorBoundary";
 import ScrollToTop from "./components/ScrollToTop";
 import { trackPageView } from "@/lib/analytics";
+import { useContactClickAnalytics } from "@/hooks/useContactClickAnalytics";
 import { AppRoutes } from "@/routes/AppRoutes";
 import { HeroPresenceProvider } from "@/components/shared/HeroPresenceProvider";
 
@@ -39,6 +40,7 @@ const PageLoader = () => (
 
 const RouteTracker = ({ children }: { children: React.ReactNode }) => {
   const location = useLocation();
+  useContactClickAnalytics();
 
   useEffect(() => {
     trackPageView(location.pathname + location.search, document.title);
