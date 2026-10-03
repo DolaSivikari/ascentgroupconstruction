@@ -5,6 +5,7 @@ import { sanitizeAndValidate } from '@/utils/sanitize';
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
+import { ContentUnavailable } from "@/components/shared/ContentUnavailable";
 
 import { Card, CardContent } from "@/design-system/components/Card";
 import { CTABand } from "@/design-system/components/CTABand";
@@ -18,7 +19,6 @@ import { InteractiveLightbox } from "@/components/InteractiveLightbox";
 import { ProjectGallery } from "@/components/ProjectGallery";
 import { ProjectCaseStudy } from "@/components/projects/ProjectCaseStudy";
 import { ChevronRight, Maximize2 } from "lucide-react";
-import { toast } from "sonner";
 import { formatProjectValue } from "@/utils/formatProjectValue";
 import OptimizedImage from "@/components/OptimizedImage";
 import { ProjectFeaturedImage } from "@/components/projects/ProjectFeaturedImage";
@@ -103,23 +103,30 @@ export default function ProjectDetail() {
   const navigate = useNavigate();
   const [project, setProject] = useState<ProjectData | null>(null);
   const [loading, setLoading] = useState(true);
+  const [loadFailed, setLoadFailed] = useState(false);
   const [relatedLinks, setRelatedLinks] = useState<SmartRelatedLink[]>([]);
   const [lightboxOpen, setLightboxOpen] = useState(false);
 
   useEffect(() => {
+    let cancelled = false;
+    setProject(null);
+    setRelatedLinks([]);
+    setLightboxOpen(false);
+    setLoadFailed(false);
+    setLoading(true);
     const fetchProject = async () => {
-      if (!slug) return;
-
       try {
+        if (!slug) return;
         // Fetch project
         const { data, error } = await supabase
           .from("projects")
           .select("*")
           .eq("slug", slug)
           .eq("publish_state", "published")
-          .single();
+          .maybeSingle();
 
         if (error) throw error;
+        if (!data || cancelled) return;
 
         // Fetch project images
         const { data: images, error: imagesError } = await supabase
@@ -151,18 +158,18 @@ export default function ProjectDetail() {
           services: projectServices?.map((ps) => ps.services).filter(Boolean) || []
         };
 
-        setProject(projectData as any);
+        if (!cancelled) setProject(projectData as any);
       } catch (error: unknown) {
         console.error("Error fetching project:", error);
-        toast.error("Failed to load project");
-        navigate("/projects");
+        if (!cancelled) setLoadFailed(true);
       } finally {
-        setLoading(false);
+        if (!cancelled) setLoading(false);
       }
     };
 
-    fetchProject();
-  }, [slug, navigate]);
+    void fetchProject();
+    return () => { cancelled = true; };
+  }, [slug]);
 
   // Resolve smart related links once project is loaded
   useEffect(() => {
@@ -205,7 +212,7 @@ export default function ProjectDetail() {
   }
 
   if (!project) {
-    return null;
+    return <ContentUnavailable kind="Project" failed={loadFailed} backTo="/projects" backLabel="Back to Projects" />;
   }
 
   const processSteps = (project.content_blocks || []).filter(

@@ -22,7 +22,7 @@ import EstimatorStep3 from "@/components/estimator/EstimatorStep3";
 import EstimatorStep4 from "@/components/estimator/EstimatorStep4";
 import EstimatorStep5 from "@/components/estimator/EstimatorStep5";
 import { calculateEstimate, EstimateInput } from "@/utils/estimator";
-import { trackConversion } from "@/lib/analytics";
+import { trackConversion, trackFormSubmit } from "@/lib/analytics";
 import { trackABTestConversion } from "@/hooks/useABTest";
 import { resourceHeroes } from "@/data/hero-images";
 
@@ -306,6 +306,7 @@ Add-ons:
 
       const insertResult = await Promise.race([insertPromise, timeoutPromise as Promise<never>]);
       if (insertResult.error) throw insertResult.error;
+      trackFormSubmit("estimate_form", { service: formData.service || "general", region: formData.region });
 
       if (formData.quoteType) {
         const { data: quoteData, error: quoteError } = await supabase

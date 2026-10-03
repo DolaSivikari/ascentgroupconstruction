@@ -8,7 +8,7 @@ import { Label } from "@/components/ui/label";
 import { Card } from "@/design-system/components/Card";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
-import { trackFormSubmit } from "@/lib/analytics";
+import { trackSavedFormSubmit } from "@/lib/analytics";
 import { cn } from "@/lib/utils";
 
 const leadSchema = z.object({
@@ -74,9 +74,7 @@ export const InlineLeadForm = ({
     try {
       const validated = leadSchema.parse(data);
 
-      trackFormSubmit("inline_lead_form", { audience });
-
-      const { error } = await supabase.functions.invoke("submit-form", {
+      const { data: response, error } = await supabase.functions.invoke("submit-form", {
         body: {
           formType: "contact",
           data: {
@@ -92,6 +90,8 @@ export const InlineLeadForm = ({
       });
 
       if (error) throw error;
+      if (response?.success === false) throw new Error("The submission was not accepted. Please try again.");
+      trackSavedFormSubmit("inline_lead_form", response, { audience });
 
       setSubmitted(true);
       toast({

@@ -1,3 +1,4 @@
+import { SITE_URL } from "@/constants/company";
 import { Helmet } from "react-helmet-async";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
@@ -9,6 +10,7 @@ const Privacy = () => {
   return (
     <>
       <Helmet>
+        <link rel="canonical" href={`${SITE_URL}/privacy`} />
         <title>Privacy Policy | Ascent Group Construction</title>
         <meta name="description" content="Privacy policy for Ascent Group Construction - PIPEDA compliant information about how we collect, use, and protect your personal information." />
         <meta name="robots" content="index, follow" />

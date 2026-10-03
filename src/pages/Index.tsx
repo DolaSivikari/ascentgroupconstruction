@@ -7,7 +7,7 @@ import { HeroSurface } from "@/components/shared/HeroPresenceProvider";
 import SEO from "@/components/SEO";
 import SkipLink from "@/components/SkipLink";
 import { createHowToSchema, createQASchema, createSiteSearchSchema } from "@/utils/schema-injector";
-import { SITE_URL, COMPANY_EMAIL } from "@/constants/company";
+import { SITE_URL } from "@/constants/company";
 // Above-the-fold proof strip stays eager (renders immediately under hero)
 import { HomepageProofStrip } from "@/components/homepage/HomepageProofStrip";
 // Below-the-fold sections are lazy-loaded to slim the initial JS bundle and reduce TBT.
@@ -70,31 +70,6 @@ const Index = () => {
     "Ascent Group Construction is a specialty contractor for building envelope and restoration across Ontario. We deliver complete cladding systems (metal panels, EIFS, stucco), building envelope solutions, masonry restoration, protective coatings, interior construction, painting services, tile & flooring, and sustainable building practices. With self-performed core trades and 15+ years of team experience, we serve developers, property managers, and building owners across Toronto and the GTA."
   );
 
-  const specialtyContractorSchema = {
-    "@context": "https://schema.org",
-    "@type": "ProfessionalService",
-    "name": "Ascent Group Construction",
-    "description": "Specialty contractor for building envelope and restoration: complete cladding systems, building envelope solutions, masonry restoration, interior construction, and sustainable building across Ontario & the GTA.",
-    "url": `${SITE_URL}/`,
-    "email": `mailto:${COMPANY_EMAIL}`,
-    "areaServed": [
-      { "@type": "State", "name": "Ontario" },
-      { "@type": "City", "name": "Toronto" },
-      { "@type": "City", "name": "Mississauga" },
-      { "@type": "City", "name": "Brampton" },
-      { "@type": "City", "name": "Vaughan" },
-      { "@type": "City", "name": "Markham" },
-    ],
-    "priceRange": "$25000-$150000",
-    "serviceType": "Building Envelope & Restoration Contractor",
-    "knowsAbout": [
-      "building envelope systems", "cladding systems", "metal panels", "EIFS and stucco",
-      "masonry restoration", "protective coatings", "interior construction", "painting services",
-      "tile and flooring", "sustainable building practices", "energy-efficient envelope systems",
-      "commercial construction", "multi-family construction",
-    ],
-  };
-
   const whyChooseUsSchema = {
     "@context": "https://schema.org",
     "@type": "ItemList",
@@ -113,9 +88,9 @@ const Index = () => {
   const videoSchemas = homepageVideos.map(video => videoSchema({
     name: video.name,
     description: video.description,
-    thumbnailUrl: `${window.location.origin}${video.thumbnailUrl}`,
+    thumbnailUrl: `${SITE_URL}${video.thumbnailUrl}`,
     uploadDate: video.uploadDate,
-    contentUrl: `${window.location.origin}${video.contentUrl}`,
+    contentUrl: `${SITE_URL}${video.contentUrl}`,
     duration: video.duration,
   }));
 
@@ -128,8 +103,7 @@ const Index = () => {
           description="Specialty contractor in the GTA delivering façade remediation, waterproofing, EIFS, masonry & restoration. 15+ yrs crew, self-performed, WSIB, $2M CGL."
           keywords="specialty contractor Ontario, building envelope contractor GTA, facade remediation Toronto, waterproofing contractor, EIFS contractor, masonry restoration, parking garage repair"
           canonical={`${SITE_URL}/`}
-          structuredData={[specialtyContractorSchema, howToChooseContractor, whatDoesAscentDo, whyChooseUsSchema, siteSearchSchema, ...videoSchemas]}
-          includeRating={true}
+          structuredData={[howToChooseContractor, whatDoesAscentDo, whyChooseUsSchema, siteSearchSchema, ...videoSchemas]}
         />
         <Navigation />
 

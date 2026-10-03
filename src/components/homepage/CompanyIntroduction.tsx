@@ -1,34 +1,18 @@
 import { Button } from "@/ui/Button";
 import { ArrowRight, Building, HardHat, Award, MapPin, Clock } from "lucide-react";
 import { Link } from "react-router-dom";
-import { organizationSchema } from "@/utils/structured-data";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { cn } from "@/lib/utils";
 import { SectionBadge } from "@/components/ui/SectionBadge";
 import { Section } from "@/components/sections/Section";
-import { useAggregateRating } from "@/hooks/useAggregateRating";
 
 export default function CompanyIntroduction() {
   const { ref: headerRef, isVisible: headerVisible } = useScrollReveal({ threshold: 0.2 });
   const { ref: contentRef, isVisible: contentVisible } = useScrollReveal({ threshold: 0.1 });
   const { ref: highlightsRef, isVisible: highlightsVisible } = useScrollReveal({ threshold: 0.1 });
   
-  // Fetch real aggregate rating
-  const { aggregateRating, hasRatings } = useAggregateRating();
-  
-  const schema = organizationSchema({
-    name: "Ascent Group Construction",
-    description: "Lead/specialty contractor for building envelope & restoration in Toronto (GTA) — façade remediation, waterproofing, sealants, EIFS/stucco, masonry, concrete & parking-garage repair.",
-    url: typeof window !== "undefined" ? window.location.origin : "",
-    aggregateRating: hasRatings ? aggregateRating : undefined,
-  });
-
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
-      />
       <Section 
         size="major" 
         className="bg-gradient-to-b from-background via-construction-orange/5 to-background relative overflow-hidden"
