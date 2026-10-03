@@ -1,16 +1,15 @@
 import { TYPOGRAPHY_STYLES } from "@/design-system/constants";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { formatProjectValue } from "@/utils/formatProjectValue";
 import { Card, CardContent } from "@/design-system/components/Card";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/ui/Button";
-import { MapPin, Calendar, Ruler, Eye, CheckCircle2, DollarSign, Shield } from "lucide-react";
+import { Button, buttonVariants } from "@/ui/Button";
+import { MapPin, Calendar, Eye, CheckCircle2, DollarSign, Shield } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { resolveAssetPath } from "@/utils/assetResolver";
 
-import OptimizedImage from "./OptimizedImage";
 import { ProjectFeaturedImage } from "@/components/projects/ProjectFeaturedImage";
-import { ASPECT_RATIOS } from "@/design-system/image-system";
 
 const stripHtml = (html: string) => html.replace(/<[^>]*>/g, '').trim();
 
@@ -25,7 +24,6 @@ interface ProjectCardProps {
   tags?: string[];
   description: string;
   highlights?: string[];
-  onViewDetails: (slug: string) => void;
   onQuickView?: (slug: string) => void;
   // GC Metrics
   project_value?: number;
@@ -44,13 +42,9 @@ const ProjectCard = ({
   category,
   location,
   year,
-  size,
   image,
   slug,
-  tags,
   description,
-  highlights,
-  onViewDetails,
   onQuickView,
   project_value,
   your_role,
@@ -67,10 +61,9 @@ const ProjectCard = ({
       variant="interactive"
       hover
       size="sm"
-      className="group overflow-hidden p-0"
+      className="relative group overflow-hidden p-0"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      onClick={() => onViewDetails(slug)}
     >
       {/* Image Container - shared featured image renderer */}
       <ProjectFeaturedImage
@@ -80,20 +73,22 @@ const ProjectCard = ({
       >
         {/* Clean overlay on hover */}
         <div className={cn(
-          "absolute inset-0 bg-primary/90 flex items-center justify-center transition-opacity duration-300",
+          "absolute inset-0 z-20 pointer-events-none bg-primary/90 flex items-center justify-center transition-opacity duration-300 group-focus-within:opacity-100",
           isHovered ? "opacity-100" : "opacity-0"
         )}>
           <div className="flex items-center gap-3 px-6">
-            <Button variant="secondary" size="sm">
+            <span aria-hidden="true" className={cn(buttonVariants({ variant: "secondary", size: "sm" }), "border-white bg-white text-primary")}>
               <Eye className="w-4 h-4 mr-2" />
               View Project
-            </Button>
+            </span>
             {onQuickView && (
               <Button
                 variant="outline"
                 size="sm"
-                className="border-secondary/50 text-secondary hover:bg-secondary/20"
-                onClick={(e) => { e.stopPropagation(); onQuickView(slug); }}
+                type="button"
+                aria-label={`Quick view: ${title}`}
+                className="relative pointer-events-none group-hover:pointer-events-auto group-focus-within:pointer-events-auto border-white/70 text-white hover:bg-white/20"
+                onClick={() => onQuickView(slug)}
               >
                 Quick View
               </Button>
@@ -109,7 +104,15 @@ const ProjectCard = ({
       
       {/* Card Content - Clean PCL style */}
       <CardContent className="p-6">
-        <h3 className={`${TYPOGRAPHY_STYLES.cardTitle} mb-3 line-clamp-2`}>{title}</h3>
+        <h3 className={`${TYPOGRAPHY_STYLES.cardTitle} mb-3`}>
+          <Link
+            to={`/projects/${slug}`}
+            aria-label={`View project: ${title}`}
+            className="after:absolute after:inset-0 after:z-10 after:rounded-[var(--card-border-radius)] focus-visible:outline-none focus-visible:after:ring-2 focus-visible:after:ring-inset focus-visible:after:ring-ring"
+          >
+            <span className="line-clamp-2">{title}</span>
+          </Link>
+        </h3>
         
         {/* Compact stats */}
         <div className="flex items-center gap-4 text-sm text-muted-foreground mb-3">

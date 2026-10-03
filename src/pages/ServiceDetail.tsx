@@ -38,6 +38,8 @@ import DirectAnswer from "@/components/seo/DirectAnswer";
 import { serviceQuickFacts } from "@/data/service-quick-facts";
 import { servicePeopleAlsoAsk } from "@/data/service-people-ask";
 import { serviceAreaCities } from "@/data/service-area-cities";
+import { getServiceParent } from "@/data/service-registry";
+import { ServiceSpecialties } from "@/components/services/ServiceSpecialties";
 import { createServiceSchema, createHowToSchema } from "@/utils/schema-injector";
 import { breadcrumbSchema } from "@/utils/structured-data";
 import { getIconForService } from "@/utils/serviceIcons";
@@ -148,6 +150,7 @@ const getHeroImage = (slug: string, fallback?: string | null): string | undefine
 
 const ServiceDetail = () => {
   const { slug } = useParams<{ slug: string }>();
+  const parent = getServiceParent(slug ?? "");
   const [service, setService] = useState<Service | null>(null);
   const [loading, setLoading] = useState(true);
   const [notFound, setNotFound] = useState(false);
@@ -252,6 +255,7 @@ const ServiceDetail = () => {
   const breadcrumbSchemaData = breadcrumbSchema([
     { name: "Home", url: `${SITE_URL}/` },
     { name: "Services", url: `${SITE_URL}/services` },
+    ...(parent ? [{ name: parent.navLabel, url: `${SITE_URL}${parent.path}` }] : []),
     { name: service.name, url: `${SITE_URL}/services/${service.slug}` },
   ]);
 
@@ -292,6 +296,7 @@ const ServiceDetail = () => {
         breadcrumbs={[
           { label: "Home", href: "/" },
           { label: "Services", href: "/services" },
+          ...(parent ? [{ label: parent.navLabel, href: parent.path }] : []),
           { label: service.name },
         ]}
         height="medium"
@@ -610,6 +615,8 @@ const ServiceDetail = () => {
             </div>
           </section>
         )}
+
+        <ServiceSpecialties slug={service.slug} />
 
         {/* Service Area */}
         <section className="py-16 bg-background">

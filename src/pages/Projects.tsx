@@ -1,5 +1,4 @@
 import { useState, useEffect, useMemo } from "react";
-import { useNavigate } from "react-router-dom";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
@@ -44,7 +43,6 @@ type ProjectViewModel = {
 };
 
 const Projects = () => {
-  const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [selectedYear, setSelectedYear] = useState("All");
@@ -194,10 +192,6 @@ const Projects = () => {
   const regularProjects = filteredProjects;
   const visibleProjects = regularProjects.slice(0, visibleCount);
 
-  const handleViewDetails = (slug: string) => {
-    navigate(`/projects/${slug}`);
-  };
-
   const loadMore = () => {
     setVisibleCount(prev => prev + 6);
   };
@@ -308,7 +302,6 @@ const Projects = () => {
                     key={project.slug}
                     {...project}
                     slug={project.slug}
-                    onViewDetails={handleViewDetails}
                     onQuickView={() => setQuickViewProject(project)}
                   />
                 ))}

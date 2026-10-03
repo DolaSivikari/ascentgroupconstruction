@@ -3,12 +3,12 @@ Main hubs,Home,/,True,False,Header / menu,True
 Company and trust,About,/about,True,True,Header / menu,True
 Legal pages,Accessibility,/accessibility,False,True,Footer,True
 Main hubs,Insights,/blog,True,True,Header / menu,True
-Insight articles,Early Signs Your Building Envelope Needs Attention,/blog/early-signs-your-building-envelope-needs-attention,False,False,/blog,False
-Insight articles,EIFS vs Stucco: What Building Owners Need to Know,/blog/eifs-vs-stucco-what-building-owners-need-to-know,False,False,/blog,False
-Insight articles,How General Contractors Should Evaluate a Specialty Trade Partner,/blog/how-general-contractors-should-evaluate-specialty-trade-partner,False,False,/blog,False
+Insight articles,Early Signs Your Building Envelope Needs Attention,/blog/early-signs-your-building-envelope-needs-attention,False,False,/blog,True
+Insight articles,EIFS vs Stucco: What Building Owners Need to Know,/blog/eifs-vs-stucco-what-building-owners-need-to-know,False,False,/blog,True
+Insight articles,How General Contractors Should Evaluate a Specialty Trade Partner,/blog/how-general-contractors-should-evaluate-specialty-trade-partner,False,False,/blog,True
 Insight articles,The Ultimate Building Envelope Maintenance Checklist for Toronto Property Managers,/blog/toronto-property-manager-maintenance-guide,False,False,/blog,True
-Insight articles,What Property Managers Should Prepare Before Starting Envelope Restoration,/blog/what-property-managers-should-prepare-before-envelope-restoration,False,False,/blog,False
-Insight articles,"Why Self-Performed Work Changes Quality, Cost, and Accountability",/blog/why-self-performed-work-changes-quality-cost-accountability,False,False,/blog,False
+Insight articles,What Property Managers Should Prepare Before Starting Envelope Restoration,/blog/what-property-managers-should-prepare-before-envelope-restoration,False,False,/blog,True
+Insight articles,"Why Self-Performed Work Changes Quality, Cost, and Accountability",/blog/why-self-performed-work-changes-quality-cost-accountability,False,False,/blog,True
 Company and trust,Capabilities,/capabilities,True,True,Header / menu,True
 Company and trust,Careers,/careers,True,True,Header / menu,True
 Audience pages,Commercial Clients,/commercial-clients,True,False,Header / menu,True
@@ -16,10 +16,10 @@ Company and trust,Certifications & Insurance,/company/certifications-insurance,T
 Audience pages,Developers,/company/developers,True,False,Header / menu,True
 Company and trust,Technology & Innovation,/company/technology,True,True,Header / menu,True
 Project actions,Contact / Site Assessment,/contact,True,True,Header / menu,True
-Project actions,Emergency Repair,/emergency-repair,True,False,Header / menu,False
+Project actions,Emergency Repair,/emergency-repair,True,False,Header / menu,True
 Project actions,Request Estimate,/estimate,True,True,Header / menu,True
 Company and trust,FAQ,/faq,True,True,Header / menu,True
-Audience pages,For Architects,/for-architects,True,True,Header / menu,False
+Audience pages,For Architects,/for-architects,True,True,Header / menu,True
 Audience pages,For General Contractors,/for-general-contractors,True,True,Header / menu,True
 Audience pages,Homeowners,/homeowners,True,False,Header / menu,True
 Main hubs,Markets,/markets,True,True,Header / menu,True
@@ -27,37 +27,37 @@ Company and trust,Our Process,/our-process,True,True,Header / menu,True
 Project actions,Prequalification,/prequalification,True,True,Header / menu,True
 Legal pages,Privacy,/privacy,False,True,Footer,True
 Main hubs,Projects,/projects,True,False,Header / menu,True
-Project details,65 Westmount Avenue,/projects/65-westmount-avenue,False,False,/projects → Show More Projects → card click,False
-Project details,67 Edgecroft Rd Etobicoke,/projects/67-edgecroft-rd-etobicoke,False,False,/projects → Show More Projects → card click,False
-Project details,Blackhurst Cultural Centre ,/projects/blackhurst-cultural-centre-,False,False,/projects → Show More Projects → card click,False
-Project details,Café Luka,/projects/caf-luka,False,False,/projects → Show More Projects → card click,False
-Project details,Comfort Inn & Suites,/projects/comfort-inn--suites,False,False,/projects → Show More Projects → card click,False
-Project details,Dunnville Secondary School,/projects/dunnville-secondary-school,False,False,/projects → Show More Projects → card click,False
-Project details,Innisfil Catholic School,/projects/innisfil-catholic-school,False,False,/projects → Show More Projects → card click,False
-Project details,KW Habilitation Affordable Housing,/projects/kw-habilitation-affordable-housing,False,False,/projects → Show More Projects → card click,False
-Project details,Oakley Ridge,/projects/oakley-ridge,False,False,/projects → Show More Projects → card click,False
-Project details,Queensland Condos,/projects/queensland-condos,False,False,/projects → Show More Projects → card click,False
-Project details,York Region Warehouse,/projects/york-region-warehouse,False,False,/projects → Show More Projects → card click,False
+Project details,65 Westmount Avenue,/projects/65-westmount-avenue,False,False,/projects → native project link (Show More after first six),True
+Project details,67 Edgecroft Rd Etobicoke,/projects/67-edgecroft-rd-etobicoke,False,False,/projects → native project link (Show More after first six),True
+Project details,Blackhurst Cultural Centre ,/projects/blackhurst-cultural-centre-,False,False,/projects → native project link (Show More after first six),True
+Project details,Café Luka,/projects/caf-luka,False,False,/projects → native project link (Show More after first six),True
+Project details,Comfort Inn & Suites,/projects/comfort-inn--suites,False,False,/projects → native project link (Show More after first six),True
+Project details,Dunnville Secondary School,/projects/dunnville-secondary-school,False,False,/projects → native project link (Show More after first six),True
+Project details,Innisfil Catholic School,/projects/innisfil-catholic-school,False,False,/projects → native project link (Show More after first six),True
+Project details,KW Habilitation Affordable Housing,/projects/kw-habilitation-affordable-housing,False,False,/projects → native project link (Show More after first six),True
+Project details,Oakley Ridge,/projects/oakley-ridge,False,False,/projects → native project link (Show More after first six),True
+Project details,Queensland Condos,/projects/queensland-condos,False,False,/projects → native project link (Show More after first six),True
+Project details,York Region Warehouse,/projects/york-region-warehouse,False,False,/projects → native project link (Show More after first six),True
 Audience pages,Property Managers,/property-managers,True,False,Header / menu,True
 Project actions,Contractor Portal,/resources/contractor-portal,True,True,Header / menu,True
 Coverage directory,Service Areas Directory,/resources/service-areas,True,True,Header / menu,True
-City landing pages,Ajax,/service-areas/ajax,False,False,About → /resources/service-areas,False
-City landing pages,Aurora,/service-areas/aurora,False,False,About → /resources/service-areas,False
-City landing pages,Brampton,/service-areas/brampton,False,False,About → /resources/service-areas,False
-City landing pages,Burlington,/service-areas/burlington,False,False,About → /resources/service-areas,False
-City landing pages,Hamilton,/service-areas/hamilton,False,False,About → /resources/service-areas,False
-City landing pages,King City,/service-areas/king-city,False,False,About → /resources/service-areas,False
-City landing pages,Markham,/service-areas/markham,False,False,About → /resources/service-areas,False
-City landing pages,Milton,/service-areas/milton,False,False,About → /resources/service-areas,False
-City landing pages,Mississauga,/service-areas/mississauga,False,False,About → /resources/service-areas,False
-City landing pages,Newmarket,/service-areas/newmarket,False,False,About → /resources/service-areas,False
-City landing pages,Oakville,/service-areas/oakville,False,False,About → /resources/service-areas,False
-City landing pages,Oshawa,/service-areas/oshawa,False,False,About → /resources/service-areas,False
-City landing pages,Pickering,/service-areas/pickering,False,False,About → /resources/service-areas,False
-City landing pages,Richmond Hill,/service-areas/richmond-hill,False,False,About → /resources/service-areas,False
-City landing pages,Toronto,/service-areas/toronto,False,False,About → /resources/service-areas,False
-City landing pages,Vaughan,/service-areas/vaughan,False,False,About → /resources/service-areas,False
-City landing pages,Whitby,/service-areas/whitby,False,False,About → /resources/service-areas,False
+City landing pages,Ajax,/service-areas/ajax,False,False,Service pages / About → Service Areas,True
+City landing pages,Aurora,/service-areas/aurora,False,False,Service pages / About → Service Areas,True
+City landing pages,Brampton,/service-areas/brampton,False,False,Service pages / About → Service Areas,True
+City landing pages,Burlington,/service-areas/burlington,False,False,Service pages / About → Service Areas,True
+City landing pages,Hamilton,/service-areas/hamilton,False,False,Service pages / About → Service Areas,True
+City landing pages,King City,/service-areas/king-city,False,False,Service pages / About → Service Areas,True
+City landing pages,Markham,/service-areas/markham,False,False,Service pages / About → Service Areas,True
+City landing pages,Milton,/service-areas/milton,False,False,Service pages / About → Service Areas,True
+City landing pages,Mississauga,/service-areas/mississauga,False,False,Service pages / About → Service Areas,True
+City landing pages,Newmarket,/service-areas/newmarket,False,False,Service pages / About → Service Areas,True
+City landing pages,Oakville,/service-areas/oakville,False,False,Service pages / About → Service Areas,True
+City landing pages,Oshawa,/service-areas/oshawa,False,False,Service pages / About → Service Areas,True
+City landing pages,Pickering,/service-areas/pickering,False,False,Service pages / About → Service Areas,True
+City landing pages,Richmond Hill,/service-areas/richmond-hill,False,False,Service pages / About → Service Areas,True
+City landing pages,Toronto,/service-areas/toronto,False,False,Service pages / About → Service Areas,True
+City landing pages,Vaughan,/service-areas/vaughan,False,False,Service pages / About → Service Areas,True
+City landing pages,Whitby,/service-areas/whitby,False,False,Service pages / About → Service Areas,True
 Main hubs,Services,/services,True,True,Header / menu,True
 Service details,Building Envelope Solutions,/services/building-envelope-solutions,True,True,/services,True
 Service details,Caulking & Sealants,/services/caulking-sealants-toronto,True,False,/services,True
@@ -83,4 +83,4 @@ Service details,Tile Installation (Toronto),/services/tile-installation-toronto,
 Service details,Waterproofing Systems,/services/waterproofing-systems,True,True,/services,True
 Project actions,Submit RFP,/submit-rfp,True,True,Header / menu,True
 Legal pages,Terms,/terms,False,True,Footer,True
-Company and trust,Why Specialty Contractor,/why-specialty-contractor,True,True,Header / menu,False
+Company and trust,Why Specialty Contractor,/why-specialty-contractor,True,True,Header / menu,True

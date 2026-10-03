@@ -4,8 +4,8 @@
 
 import {
   SERVICE_CATEGORIES,
+  SERVICE_CATEGORY_ORDER,
   getNavServicesByCategory,
-  type ServiceCategory,
 } from "./service-registry";
 
 export interface SubItem {
@@ -50,8 +50,7 @@ export interface MegaMenuDataEnhanced {
 // routes, and audit in sync from one source.
 function buildServicesCategories(): AccordionCategory[] {
   const grouped = getNavServicesByCategory();
-  const order: ServiceCategory[] = ["envelope", "restoration", "interior"];
-  return order
+  return SERVICE_CATEGORY_ORDER
     .map((key) => {
       const meta = SERVICE_CATEGORIES[key];
       const subItems: SubItem[] = grouped[key].map((entry) => ({

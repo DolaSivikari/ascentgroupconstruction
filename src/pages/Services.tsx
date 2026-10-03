@@ -13,33 +13,34 @@ import { usePageAnalytics } from "@/hooks/usePageAnalytics";
 import { generateBreadcrumbSchema, generateFAQSchema } from "@/utils/seo";
 import { SITE_URL } from "@/constants/company";
 import { servicesFaqs } from "@/data/page-faqs";
+import { SERVICE_CATEGORIES as SERVICE_CATEGORY_LABELS } from "@/data/service-registry";
 
 const SERVICE_CATEGORIES = [
   {
     icon: Building2,
-    title: "Building Envelope",
+    title: SERVICE_CATEGORY_LABELS.envelope.title,
     description:
-      "EIFS & stucco, masonry restoration, sealants, balcony waterproofing, and architectural cladding — the systems that keep buildings dry, efficient, and intact.",
+      "EIFS & stucco, balcony waterproofing, and architectural cladding — the systems that keep buildings dry, efficient, and intact.",
     bullets: [
       "Sto Canada Listed Installer (SCL-001 → SCL-010)",
       "Dryvit, Parex, and Sto cladding systems",
-      "Sealant renewal & joint replacement programs",
+      "Exterior waterproofing and envelope systems",
     ],
   },
   {
     icon: Hammer,
-    title: "Restoration",
+    title: SERVICE_CATEGORY_LABELS.restoration.title,
     description:
-      "Concrete repair, parking garage rehabilitation, and balcony restoration — full lifecycle scopes for property managers and capital planners.",
+      "Masonry restoration, sealant renewal, concrete repair, and parking garage rehabilitation — full lifecycle scopes for property managers and capital planners.",
     bullets: [
       "Concrete spall repair & rebar treatment",
       "Parking garage coatings & line marking",
-      "Balcony deck membrane systems",
+      "Masonry repair & sealant replacement programs",
     ],
   },
   {
     icon: PaintBucket,
-    title: "Interior Trades",
+    title: SERVICE_CATEGORY_LABELS.interior.title,
     description:
       "Painting, tile, drywall, and flooring — interior buildouts and finishing work executed by the same self-perform crews running our envelope scopes.",
     bullets: [

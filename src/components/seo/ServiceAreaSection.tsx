@@ -1,5 +1,7 @@
 import { MapPin } from "lucide-react";
 import { Card, CardContent } from "@/ui/Card";
+import { Link } from "react-router-dom";
+import { getServiceAreaPath } from "@/data/service-area-cities";
 
 interface ServiceAreaSectionProps {
   cities: string[];
@@ -32,15 +34,27 @@ const ServiceAreaSection = ({
             </div>
             
             <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-              {cities.map((city, index) => (
+              {cities.map((city, index) => {
+                const path = getServiceAreaPath(city);
+                return (
                 <div 
                   key={index}
                   className="flex items-center gap-2 text-sm"
                 >
                   <div className="w-2 h-2 rounded-full bg-primary" />
-                  <span>{city}</span>
+                  {path ? (
+                    <Link
+                      to={path}
+                      className="hover:text-primary hover:underline underline-offset-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 rounded-sm"
+                    >
+                      {city}
+                    </Link>
+                  ) : (
+                    <span>{city}</span>
+                  )}
                 </div>
-              ))}
+                );
+              })}
             </div>
             
             <p className="text-sm text-muted-foreground mt-4 pt-4 border-t">
