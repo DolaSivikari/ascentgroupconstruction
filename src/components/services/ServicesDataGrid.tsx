@@ -9,7 +9,8 @@ import { Skeleton } from "@/components/ui/skeleton";
 import {
   SERVICE_REGISTRY,
   SERVICE_CATEGORIES,
-  type ServiceCategory,
+  SERVICE_CATEGORY_ORDER,
+  getServiceCategoryTitle,
 } from "@/data/service-registry";
 
 interface ServiceRow {
@@ -19,13 +20,6 @@ interface ServiceRow {
   category: string | null;
   icon_name: string | null;
 }
-
-// Map registry category keys → human labels used by DB rows.
-const REGISTRY_TO_DB_CATEGORY: Record<ServiceCategory, string> = {
-  envelope: "Building Envelope",
-  restoration: "Restoration & Repair",
-  interior: "Interior Construction",
-};
 
 export const ServicesDataGrid = () => {
   const { data: services, isLoading } = useQuery({
@@ -65,7 +59,7 @@ export const ServicesDataGrid = () => {
       slug: e.slug,
       name: e.navLabel,
       short_description: e.navDescription,
-      category: REGISTRY_TO_DB_CATEGORY[e.category],
+      category: SERVICE_CATEGORIES[e.category].title,
       icon_name: e.icon,
     }));
   const allServices: ServiceRow[] = [...(services ?? []), ...registryRows];
@@ -74,13 +68,13 @@ export const ServicesDataGrid = () => {
 
   // Group by category
   const grouped = allServices.reduce<Record<string, ServiceRow[]>>((acc, svc) => {
-    const cat = svc.category || "Other";
+    const cat = getServiceCategoryTitle(svc.slug, svc.category);
     if (!acc[cat]) acc[cat] = [];
     acc[cat].push(svc);
     return acc;
   }, {});
 
-  const categoryOrder = ["Building Envelope", "Restoration & Repair", "Interior Construction", "Specialized Services"];
+  const categoryOrder = SERVICE_CATEGORY_ORDER.map((category) => SERVICE_CATEGORIES[category].title);
   const sortedCategories = Object.keys(grouped).sort(
     (a, b) => (categoryOrder.indexOf(a) === -1 ? 99 : categoryOrder.indexOf(a)) -
               (categoryOrder.indexOf(b) === -1 ? 99 : categoryOrder.indexOf(b))

@@ -1,0 +1,43 @@
+export interface SitemapEntry {
+  path: string;
+  lastmod?: string | null;
+}
+
+const excludedComponents = new Set([
+  "Navigate", "Auth", "OAuthConsent", "Unsubscribe", "EmailUnsubscribe",
+  "NotFound", "TokenPreview", "UnifiedAdminLayout",
+]);
+
+/** Canonical static content routes; dynamic destinations come from published records. */
+export function extractSitemapRoutes(source: string): { path: string; component: string }[] {
+  const routes = [...source.matchAll(/<Route\s+path="([^"]+)"\s+element=\{<([A-Za-z]\w*)\b/g)];
+  return routes.flatMap(([, path, component]) => {
+    if (!path.startsWith("/") || path.includes(":") || path.includes("*") ||
+      /^\/(admin|dev)(\/|$)/.test(path) || path === "/case-studies" ||
+      excludedComponents.has(component)) return [];
+    return [{ path, component }];
+  });
+}
+
+const escapeXml = (value: string) => value.replace(/[&<>"']/g, (character) => ({
+  "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&apos;",
+})[character]!);
+
+/** Deduplicate canonical destinations and never invent a modification date. */
+export function createSitemapXml(origin: string, entries: SitemapEntry[]): string {
+  const base = new URL(origin);
+  if (!/^https?:$/.test(base.protocol)) throw new Error("Sitemap origin must use HTTP or HTTPS");
+  const unique = new Map<string, string | undefined>();
+  for (const { path, lastmod } of entries) {
+    if (!path.startsWith("/") || path.startsWith("//") || /[?#:*]/.test(path)) {
+      throw new Error(`Invalid sitemap path: ${path}`);
+    }
+    const date = lastmod && Number.isFinite(Date.parse(lastmod))
+      ? new Date(lastmod).toISOString().slice(0, 10) : undefined;
+    const previous = unique.get(path);
+    unique.set(path, date && (!previous || date > previous) ? date : previous);
+  }
+  const rows = [...unique.entries()].sort(([a], [b]) => a.localeCompare(b)).map(([path, date]) =>
+    `  <url>\n    <loc>${escapeXml(base.origin + path)}</loc>${date ? `\n    <lastmod>${date}</lastmod>` : ""}\n  </url>`);
+  return `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${rows.join("\n")}\n</urlset>\n`;
+}

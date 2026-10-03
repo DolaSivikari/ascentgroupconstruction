@@ -37,7 +37,11 @@ export interface ServiceRegistryEntry {
   navOrder: number;
   /** "static" = hard-coded React page; "db" = rendered via ServiceDetail */
   source: "static" | "db";
+  /** Broader service page that introduces this specialty. */
+  parentSlug?: string;
 }
+
+export const SERVICE_CATEGORY_ORDER: ServiceCategory[] = ["envelope", "restoration", "interior"];
 
 export const SERVICE_CATEGORIES: Record<
   ServiceCategory,
@@ -200,6 +204,18 @@ export const SERVICE_REGISTRY: ServiceRegistryEntry[] = [
 
   // ── Hidden from nav, but still part of the site / audit ──────────────
   {
+    slug: "interior-finishing-renovations",
+    path: "/services/interior-finishing-renovations",
+    navLabel: "Interior Finishing & Renovations",
+    navDescription: "Interior renovation and finishing work",
+    icon: "Home",
+    category: "interior",
+    showInNav: false,
+    navOrder: 17,
+    source: "db",
+    parentSlug: "interior-buildouts-finishing",
+  },
+  {
     slug: "commercial-painting-gta",
     path: "/services/commercial-painting-gta",
     navLabel: "Commercial Painting (GTA)",
@@ -209,6 +225,7 @@ export const SERVICE_REGISTRY: ServiceRegistryEntry[] = [
     showInNav: false,
     navOrder: 10,
     source: "static",
+    parentSlug: "painting-services",
   },
   {
     slug: "interior-painting-toronto",
@@ -220,6 +237,7 @@ export const SERVICE_REGISTRY: ServiceRegistryEntry[] = [
     showInNav: false,
     navOrder: 11,
     source: "static",
+    parentSlug: "painting-services",
   },
   {
     slug: "exterior-painting-toronto",
@@ -231,6 +249,7 @@ export const SERVICE_REGISTRY: ServiceRegistryEntry[] = [
     showInNav: false,
     navOrder: 12,
     source: "static",
+    parentSlug: "painting-services",
   },
   {
     slug: "residential-exterior-painting-gta",
@@ -242,6 +261,7 @@ export const SERVICE_REGISTRY: ServiceRegistryEntry[] = [
     showInNav: false,
     navOrder: 13,
     source: "static",
+    parentSlug: "painting-services",
   },
   {
     slug: "fire-retardant-coatings-ontario",
@@ -253,6 +273,7 @@ export const SERVICE_REGISTRY: ServiceRegistryEntry[] = [
     showInNav: false,
     navOrder: 14,
     source: "static",
+    parentSlug: "painting-services",
   },
   {
     slug: "tile-installation-toronto",
@@ -264,6 +285,7 @@ export const SERVICE_REGISTRY: ServiceRegistryEntry[] = [
     showInNav: false,
     navOrder: 15,
     source: "static",
+    parentSlug: "tile-flooring",
   },
   {
     slug: "flooring-installation-gta",
@@ -275,6 +297,7 @@ export const SERVICE_REGISTRY: ServiceRegistryEntry[] = [
     showInNav: false,
     navOrder: 16,
     source: "static",
+    parentSlug: "tile-flooring",
   },
   {
     slug: "sealant-programs",
@@ -286,6 +309,7 @@ export const SERVICE_REGISTRY: ServiceRegistryEntry[] = [
     showInNav: false,
     navOrder: 10,
     source: "db",
+    parentSlug: "caulking-sealants-toronto",
   },
   {
     slug: "sustainable-building",
@@ -297,6 +321,7 @@ export const SERVICE_REGISTRY: ServiceRegistryEntry[] = [
     showInNav: false,
     navOrder: 10,
     source: "db",
+    parentSlug: "building-envelope-solutions",
   },
 ];
 
@@ -324,3 +349,23 @@ export function getNavServicesByCategory(): Record<
 export function getStaticServiceEntries(): ServiceRegistryEntry[] {
   return SERVICE_REGISTRY.filter((e) => e.source === "static");
 }
+
+export const getServiceEntry = (slug: string): ServiceRegistryEntry | undefined =>
+  SERVICE_REGISTRY.find((entry) => entry.slug === slug);
+
+export const getServiceParent = (slug: string): ServiceRegistryEntry | undefined => {
+  const parentSlug = getServiceEntry(slug)?.parentSlug;
+  return parentSlug ? getServiceEntry(parentSlug) : undefined;
+};
+
+export const getServiceSpecialties = (slug: string): ServiceRegistryEntry[] =>
+  SERVICE_REGISTRY.filter((entry) => entry.parentSlug === slug)
+    .sort((a, b) => a.navOrder - b.navOrder);
+
+/** Registered services use the same grouping in the menu and directory. */
+export const getServiceCategoryTitle = (slug: string, databaseCategory: string | null): string => {
+  const entry = getServiceEntry(slug);
+  if (entry) return SERVICE_CATEGORIES[entry.category].title;
+  if (databaseCategory === "Interior Construction") return SERVICE_CATEGORIES.interior.title;
+  return databaseCategory || "Other";
+};

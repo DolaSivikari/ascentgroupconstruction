@@ -28,6 +28,8 @@ import { CheckCircle2, ShieldCheck, Award, Building2 } from "lucide-react";
 
 import { SITE_URL } from "@/constants/company";
 import { serviceAreaCities } from "@/data/service-area-cities";
+import { getServiceParent } from "@/data/service-registry";
+import { ServiceSpecialties } from "./ServiceSpecialties";
 import {
   generateFAQSchema,
   generateBreadcrumbSchema,
@@ -122,6 +124,7 @@ interface Wave1ServicePageProps {
 
 export const Wave1ServicePage = ({ slug }: Wave1ServicePageProps) => {
   const page: Wave1PageData = WAVE1_PAGES[slug];
+  const parent = getServiceParent(slug);
   if (!page) return null;
 
   const canonical = `${SITE_URL}/services/${page.slug}`;
@@ -139,6 +142,7 @@ export const Wave1ServicePage = ({ slug }: Wave1ServicePageProps) => {
   const breadcrumbSchema = generateBreadcrumbSchema([
     { name: "Home", url: `${SITE_URL}/` },
     { name: "Services", url: `${SITE_URL}/services` },
+    ...(parent ? [{ name: parent.navLabel, url: `${SITE_URL}${parent.path}` }] : []),
     { name: page.eyebrow, url: canonical },
   ]);
 
@@ -207,6 +211,7 @@ export const Wave1ServicePage = ({ slug }: Wave1ServicePageProps) => {
         breadcrumbs={[
           { label: "Home", href: "/" },
           { label: "Services", href: "/services" },
+          ...(parent ? [{ label: parent.navLabel, href: parent.path }] : []),
           { label: page.eyebrow },
         ]}
         {...(badges ? { badges } : {})}
@@ -322,6 +327,8 @@ export const Wave1ServicePage = ({ slug }: Wave1ServicePageProps) => {
             </div>
           </section>
         )}
+
+        <ServiceSpecialties slug={slug} />
 
         {/* Service Area */}
         <section className="py-16 bg-background">

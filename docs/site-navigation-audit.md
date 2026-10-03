@@ -1,5 +1,7 @@
 # Page inventory and navigation audit
 
+> Historical audit: the findings below describe the site before the navigation fixes. See [the implementation notes](page-discovery.md) for the October 3 changes. The map and CSV now reflect those changes: all 85 audited pages are in the repository sitemap, city names are links, and project cards have native links. The Services menu and directory share categories, mobile search includes the missing renovations service, and broader services link to their specialties.
+
 Verified against GitHub `main` at `99dd592bac1cec945216cc96ee75d1a3b1a0baf9`, the public Supabase published-content queries, and the current production build. Audit performed October 2, 2026 (America/New_York). Existing uncommitted design changes were preserved. This audit does not change navigation, content, or the sitemap.
 
 The public domain returned HTTP 403 to the environment's direct fetch of `/sitemap.xml`, so live deployment parity and search-engine indexing were not established. Sitemap findings below refer to `public/sitemap.xml` in the repository. Browser navigation checks use the local production build with the real public read API. They do not submit forms or change database records.
