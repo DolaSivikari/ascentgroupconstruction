@@ -1,5 +1,6 @@
 import { cn } from "@/lib/utils";
 import { RevealText } from "@/components/ui/RevealText";
+import { TYPOGRAPHY_STYLES } from "@/design-system/constants";
 
 interface SectionHeaderProps {
   title: string;
@@ -40,17 +41,18 @@ export const SectionHeader = ({
       )}
     >
       {badge && (
-        <span className="inline-block text-sm font-medium uppercase tracking-wider text-primary mb-3">
+        <span className={cn(TYPOGRAPHY_STYLES.label, "inline-block text-primary mb-3")}>
           {badge}
         </span>
       )}
-      <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4">
+      <h2 className={cn(TYPOGRAPHY_STYLES.sectionTitle, "mb-4")}>
         <RevealText>{title}</RevealText>
       </h2>
       {description && (
         <p
           className={cn(
-            "text-lg text-muted-foreground leading-relaxed",
+            TYPOGRAPHY_STYLES.bodyLarge,
+            "text-muted-foreground",
             maxWidthMap[maxWidth],
             align === "center" && "mx-auto"
           )}

@@ -83,7 +83,7 @@
 }
 
 .hover-lift:hover {
-  transform: translateY(-8px);
+  transform: translateY(-4px);
   box-shadow: var(--shadow-card-hover);
 }
 
@@ -288,8 +288,8 @@
 /* Scroll-triggered animations */
 .scroll-reveal {
   opacity: 0;
-  transform: translateY(40px);
-  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  transform: translateY(16px);
+  transition: opacity var(--motion-reveal-duration) var(--motion-ease), transform var(--motion-reveal-duration) var(--motion-ease);
 }
 
 .scroll-reveal.is-visible {
@@ -299,8 +299,8 @@
 
 .scroll-reveal-left {
   opacity: 0;
-  transform: translateX(-40px);
-  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  transform: translateX(-16px);
+  transition: opacity var(--motion-reveal-duration) var(--motion-ease), transform var(--motion-reveal-duration) var(--motion-ease);
 }
 
 .scroll-reveal-left.is-visible {
@@ -310,8 +310,8 @@
 
 .scroll-reveal-right {
   opacity: 0;
-  transform: translateX(40px);
-  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  transform: translateX(16px);
+  transition: opacity var(--motion-reveal-duration) var(--motion-ease), transform var(--motion-reveal-duration) var(--motion-ease);
 }
 
 .scroll-reveal-right.is-visible {

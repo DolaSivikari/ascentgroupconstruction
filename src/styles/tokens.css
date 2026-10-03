@@ -1,10 +1,10 @@
+@layer base {
 :root {
   /* Brand Colors - Corporate Palette - ALL IN HSL FORMAT */
   --brand-primary: 210 100% 20%; /* Navy Blue #003366 */
   --brand-accent: 24 95% 53%; /* Construction Orange #F97316 */
   --brand-gray: 200 18% 26%; /* Charcoal Gray #36454F */
   --ink: 210 100% 20%; /* Text - Navy Blue */
-  --muted: 200 18% 46%; /* Secondary text - Lighter Charcoal */
   --line: 210 20% 90%; /* Borders - Light Blue-Gray */
   --bg: 0 0% 100%; /* White */
   --bg-soft: 210 20% 98%; /* Soft background */
@@ -14,6 +14,8 @@
   --warning: 38 92% 50%; /* Yellow #D97706 */
   --danger: 0 84% 60%; /* Red #DC2626 */
   --info: 217 91% 60%; /* Blue #2563EB */
+
+  --font-sans: 'Barlow', system-ui, -apple-system, 'Segoe UI', sans-serif;
 
   /* Elevation System */
   --radius-xs: 8px;
@@ -53,19 +55,19 @@
   --badge-glow-danger: 0 0 12px hsl(var(--danger) / 0.4);
 
   /* Card System - Unified Design */
-  --card-border-radius: var(--radius-lg);
-  --card-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  --shadow-card: 0 4px 6px -1px hsl(var(--brand-primary) / 0.1), 0 2px 4px -2px hsl(var(--brand-primary) / 0.1);
-  --shadow-card-elevated: 0 10px 15px -3px hsl(var(--brand-primary) / 0.1), 0 4px 6px -4px hsl(var(--brand-primary) / 0.1);
-  --shadow-card-hover: 0 20px 25px -5px hsl(var(--brand-primary) / 0.15), 0 8px 10px -6px hsl(var(--brand-primary) / 0.1);
+  --card-border-radius: var(--radius-sm);
+  --card-transition: transform 300ms var(--motion-ease), box-shadow 300ms var(--motion-ease), border-color 300ms var(--motion-ease), background-color 300ms var(--motion-ease);
+
+  --motion-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --motion-reveal-duration: 500ms;
 
   /* Transition System */
-  --transition-fast: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-  --transition-base: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  --transition-slow: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-  --transition-transform: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-  --transition-opacity: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  --transition-colors: color 0.2s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.2s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-fast: all 150ms var(--motion-ease);
+  --transition-base: all 300ms var(--motion-ease);
+  --transition-slow: all 500ms var(--motion-ease);
+  --transition-transform: transform 150ms var(--motion-ease);
+  --transition-opacity: opacity 300ms var(--motion-ease);
+  --transition-colors: color 150ms var(--motion-ease), background-color 150ms var(--motion-ease), border-color 150ms var(--motion-ease);
 
   /* Typography Scale - Proper hierarchy with minimum sizes */
   --text-xs: 0.75rem;      /* 12px - smallest allowed (labels, badges) */
@@ -165,5 +167,7 @@
   
   /* Admin Transitions & Radius */
   --admin-transition: var(--transition-base);
-  --admin-radius: var(--radius-md);
+  --admin-radius: var(--radius-sm);
+}
+
 }

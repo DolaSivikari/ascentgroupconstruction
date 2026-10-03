@@ -1,9 +1,7 @@
 /**
  * Unified Typography System
- * Enforces strict heading hierarchy across the entire site
- * 
- * Enterprise Rule: Use ONLY these typography classes
- * No ad-hoc text sizing allowed
+ * Heading and body presets. Card copy uses TYPOGRAPHY_STYLES.cardTitle/cardBody.
+ * Page-specific hero layouts can retain their own display sizing.
  */
 
 import { cn } from "@/lib/utils";
@@ -20,14 +18,14 @@ export const TYPOGRAPHY = {
     combined: 'text-4xl md:text-6xl',
   },
   
-  /** H2 - Major section headers (48px desktop / 30px mobile) */
+  /** H2 - Major section headers (36px desktop / 30px mobile) */
   h2: {
-    desktop: 'text-5xl',
+    desktop: 'text-4xl',
     mobile: 'text-3xl',
-    combined: 'text-3xl md:text-5xl',
+    combined: 'text-3xl md:text-4xl',
   },
   
-  /** H3 - Subsection headers, card titles (30px desktop / 24px mobile) */
+  /** H3 - Subsection headers (card titles use the dedicated 20px preset) */
   h3: {
     desktop: 'text-3xl',
     mobile: 'text-2xl',

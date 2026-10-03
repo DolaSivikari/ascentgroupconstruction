@@ -1,3 +1,4 @@
+import { TYPOGRAPHY_STYLES } from "@/design-system/constants";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { ArrowRight, MapPin, Building2, Calendar } from "lucide-react";
@@ -128,12 +129,12 @@ export const HomepageFeaturedProjects = () => {
                       )}
                     </div>
                     <Link to={`/projects/${project.slug}`}>
-                      <h3 className="text-lg font-bold mb-2 hover:text-primary link-hover line-clamp-2">
+                      <h3 className={`${TYPOGRAPHY_STYLES.cardTitle} mb-2 hover:text-primary link-hover line-clamp-2`}>
                         {project.title}
                       </h3>
                     </Link>
                     {project.summary && (
-                      <p className="text-sm text-muted-foreground line-clamp-3 flex-1">{project.summary}</p>
+                      <p className={`${TYPOGRAPHY_STYLES.cardBody} text-muted-foreground line-clamp-3 flex-1`}>{project.summary}</p>
                     )}
                   </CardContent>
                 </Card>

@@ -1,3 +1,4 @@
+import { TYPOGRAPHY_STYLES } from "@/design-system/constants";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
@@ -149,7 +150,7 @@ const CommercialClients = () => {
               <Card key={index} variant="elevated" size="lg">
                 <div className="flex items-start gap-3 mb-3">
                   <Building2 className="w-6 h-6 text-primary flex-shrink-0 mt-1" />
-                  <h3 className="text-2xl font-bold text-primary">{industry.title}</h3>
+                  <h3 className={`${TYPOGRAPHY_STYLES.cardTitle} text-primary`}>{industry.title}</h3>
                 </div>
                 <p className="text-muted-foreground mb-4">{industry.description}</p>
                 <ul className="space-y-2">

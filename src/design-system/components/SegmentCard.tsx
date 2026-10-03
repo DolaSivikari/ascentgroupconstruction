@@ -1,3 +1,4 @@
+import { TYPOGRAPHY_STYLES } from "@/design-system/constants";
 import { LucideIcon } from "lucide-react";
 import { Card } from "@/design-system/components/Card";
 import { cn } from "@/lib/utils";
@@ -41,14 +42,14 @@ export const SegmentCard = ({
         </div>
         <div className="flex-1">
           <div className="flex items-center gap-2 mb-1">
-            <h3 className="text-lg font-semibold">{title}</h3>
+            <h3 className={`${TYPOGRAPHY_STYLES.cardTitle} `}>{title}</h3>
             {badge && (
               <span className="text-xs font-medium text-primary bg-primary/10 px-2 py-0.5 rounded-full">
                 {badge}
               </span>
             )}
           </div>
-          <p className="text-sm text-muted-foreground leading-relaxed">{description}</p>
+          <p className={`${TYPOGRAPHY_STYLES.cardBody} text-muted-foreground`}>{description}</p>
         </div>
       </div>
     </Card>

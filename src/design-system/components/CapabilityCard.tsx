@@ -1,3 +1,4 @@
+import { TYPOGRAPHY_STYLES } from "@/design-system/constants";
 import { LucideIcon } from "lucide-react";
 import { Card } from "@/design-system/components/Card";
 import { cn } from "@/lib/utils";
@@ -30,8 +31,8 @@ export const CapabilityCard = ({
       <div className="w-12 h-12 rounded-[var(--radius-sm)] bg-primary/10 flex items-center justify-center mb-3">
         <Icon className="w-6 h-6 text-primary" />
       </div>
-      <h3 className="text-lg font-semibold mb-2">{title}</h3>
-      <p className="text-sm text-muted-foreground leading-relaxed">{description}</p>
+      <h3 className={`${TYPOGRAPHY_STYLES.cardTitle} mb-2`}>{title}</h3>
+      <p className={`${TYPOGRAPHY_STYLES.cardBody} text-muted-foreground`}>{description}</p>
       {stat && (
         <p className="text-sm font-medium text-primary mt-3">{stat}</p>
       )}

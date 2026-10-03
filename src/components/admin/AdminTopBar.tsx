@@ -62,7 +62,7 @@ export const AdminTopBar = () => {
               className="h-10"
             />
             <div>
-              <h1 className="text-xl font-bold" style={{ fontFamily: 'Playfair Display, serif' }}>
+              <h1 className="text-xl font-bold">
                 Ascent Group Construction
               </h1>
               <p className="text-xs text-muted-foreground">Admin Panel</p>

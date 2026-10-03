@@ -1,6 +1,6 @@
 import { ReactNode, forwardRef } from "react";
 import { cn } from "@/lib/utils";
-import { RADIUS, SHADOW, TRANSITION } from "@/design-system/tokens";
+import { CARD_STYLES, TYPOGRAPHY_STYLES } from "@/design-system/constants";
 
 /**
  * Unified Card Component
@@ -18,9 +18,9 @@ interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 const cardVariants: Record<CardVariant, string> = {
-  default: 'bg-card border border-border',
-  elevated: 'bg-card border border-border shadow-[var(--shadow-card-elevated)]',
-  interactive: 'bg-card border border-border shadow-[var(--shadow-card)] hover:shadow-[var(--shadow-card-hover)] hover:scale-[1.015] hover:brightness-[1.03] cursor-pointer motion-reduce:hover:scale-100',
+  default: '',
+  elevated: CARD_STYLES.elevated,
+  interactive: cn('shadow-[var(--shadow-card)]', CARD_STYLES.hover, CARD_STYLES.interactive),
   ghost: 'bg-transparent border-0',
   outline: 'bg-transparent border-2 border-border',
 };
@@ -39,10 +39,11 @@ export const Card = forwardRef<HTMLDivElement, CardProps>(
     return (
       <div
         ref={ref}
+        data-slot="card"
         className={cn(
           // Base styles
-          'rounded-[var(--radius-sm)] origin-center',
-          'transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]',
+          CARD_STYLES.base,
+          CARD_STYLES.motion,
           
           // Variant
           cardVariants[variant],
@@ -51,7 +52,7 @@ export const Card = forwardRef<HTMLDivElement, CardProps>(
           cardSizes[size],
           
           // Hover effect (subtle lift only)
-          hover && 'hover:-translate-y-1',
+          hover && CARD_STYLES.hover,
           
           // Custom className
           className
@@ -88,7 +89,7 @@ export const CardTitle = forwardRef<HTMLHeadingElement, React.HTMLAttributes<HTM
   ({ className, ...props }, ref) => (
     <h3
       ref={ref}
-      className={cn("text-xl font-semibold leading-tight tracking-tight text-foreground", className)}
+      className={cn(TYPOGRAPHY_STYLES.cardTitle, "text-foreground", className)}
       {...props}
     />
   )
@@ -103,7 +104,7 @@ export const CardDescription = forwardRef<HTMLParagraphElement, React.HTMLAttrib
   ({ className, ...props }, ref) => (
     <p
       ref={ref}
-      className={cn("text-sm text-muted-foreground leading-relaxed", className)}
+      className={cn(TYPOGRAPHY_STYLES.cardBody, "text-muted-foreground", className)}
       {...props}
     />
   )

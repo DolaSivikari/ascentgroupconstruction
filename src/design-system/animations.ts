@@ -3,7 +3,7 @@
  * Consistent animation patterns across the entire site
  */
 
-import { DURATION, TRANSITION } from './tokens';
+import { CARD_STYLES } from './constants';
 
 /**
  * Standard stagger delays for card grids
@@ -61,16 +61,16 @@ export const ANIMATIONS = {
  */
 export const INTERACTIONS = {
   /** Standard card hover - lift + shadow increase */
-  cardHover: `hover:-translate-y-2 hover:shadow-[var(--shadow-3)] transition-all duration-[${DURATION.base}ms]`,
+  cardHover: `${CARD_STYLES.motion} ${CARD_STYLES.hover}`,
   
   /** Button hover - slight opacity change */
-  buttonHover: `hover:opacity-90 transition-opacity duration-[${DURATION.base}ms]`,
+  buttonHover: 'hover:opacity-90 transition-opacity duration-300 motion-reduce:transition-none',
   
   /** Link hover - color change */
-  linkHover: `hover:text-primary transition-colors duration-[${DURATION.fast}ms]`,
+  linkHover: 'hover:text-primary transition-colors duration-150 motion-reduce:transition-none',
   
   /** Active/click state - slight scale down */
-  activeClick: `active:scale-[0.98] transition-transform duration-[${DURATION.fast}ms]`,
+  activeClick: 'active:scale-[0.98] transition-transform duration-150 motion-reduce:active:scale-100 motion-reduce:transition-none',
 } as const;
 
 /**
@@ -87,5 +87,5 @@ export const ANIMATION_CLASSES = {
   hero: 'animate-fade-in',
   
   /** Navigation items */
-  navItem: `transition-colors duration-[${DURATION.fast}ms]`,
+  navItem: 'transition-colors duration-150 motion-reduce:transition-none',
 } as const;

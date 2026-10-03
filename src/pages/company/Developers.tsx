@@ -1,3 +1,4 @@
+import { TYPOGRAPHY_STYLES } from "@/design-system/constants";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { PageHero } from "@/components/shared/PageHero";
@@ -147,7 +148,7 @@ const Developers = () => {
             <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
               {services.map((service, index) => (
                 <Card key={index} variant="elevated" size="lg">
-                  <h3 className="text-2xl font-bold mb-3 text-primary">{service.title}</h3>
+                  <h3 className={`${TYPOGRAPHY_STYLES.cardTitle} mb-3 text-primary`}>{service.title}</h3>
                   <p className="text-muted-foreground mb-6">{service.description}</p>
                   <ul className="space-y-2">
                     {service.details.map((detail, idx) => (

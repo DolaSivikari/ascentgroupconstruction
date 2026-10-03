@@ -1,3 +1,4 @@
+import { TYPOGRAPHY_STYLES } from "@/design-system/constants";
 import { ReactNode, useState } from "react";
 import { Link } from "react-router-dom";
 import { LucideIcon, ChevronDown, ArrowRight } from "lucide-react";
@@ -90,10 +91,10 @@ export const DetailCard = ({
         )}
       </div>
 
-      <h3 className="text-lg font-semibold text-foreground mb-2 leading-tight">
+      <h3 className={`${TYPOGRAPHY_STYLES.cardTitle} text-foreground mb-2`}>
         {title}
       </h3>
-      <p className="text-sm text-muted-foreground leading-relaxed mb-4">
+      <p className={`${TYPOGRAPHY_STYLES.cardBody} text-muted-foreground mb-4`}>
         {description}
       </p>
 
@@ -118,7 +119,7 @@ export const DetailCard = ({
               <div className="text-base font-semibold text-foreground leading-tight">
                 {s.value}
               </div>
-              <div className="text-[11px] uppercase tracking-wide text-muted-foreground mt-0.5">
+              <div className="text-xs uppercase tracking-wide text-muted-foreground mt-0.5">
                 {s.label}
               </div>
             </div>

@@ -27,7 +27,7 @@ export default {
     },
     extend: {
       fontFamily: {
-        sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+        sans: ['var(--font-sans)'],
       },
       fontSize: {
         'xs': 'var(--text-xs)',
@@ -182,9 +182,9 @@ export default {
         },
       },
       borderRadius: {
-        lg: "var(--radius)",
-        md: "calc(var(--radius) - 2px)",
-        sm: "calc(var(--radius) - 4px)",
+        lg: "var(--radius-sm)",
+        md: "var(--radius-sm)",
+        sm: "var(--radius-sm)",
         xs: "var(--radius-xs)",
       },
       boxShadow: {

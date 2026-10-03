@@ -1,3 +1,4 @@
+import { TYPOGRAPHY_STYLES } from "@/design-system/constants";
 import { Link } from "react-router-dom";
 import { MessageSquare, FolderOpen, ClipboardList, ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
@@ -36,7 +37,6 @@ const ctaCards = [
   },
 ];
 
-const springHover = { type: "spring" as const, stiffness: 300, damping: 20 };
 
 export const HomepageFinalCta = () => {
   const rm = useReducedMotion();
@@ -101,13 +101,13 @@ export const HomepageFinalCta = () => {
                   whileInView={{ opacity: 1, scale: 1, y: 0 }}
                   viewport={{ once: true, amount: 0.1 }}
                   transition={rm ? { duration: 0 } : { delay: index * 0.08, duration: 0.4 }}
-                  whileHover={rm ? {} : { y: -4, scale: 1.02, transition: springHover }}
-                  className="flex flex-col p-8 rounded-xl bg-white/10 border border-white/15 hover:bg-white/15 hover:border-white/25 transition-all duration-300"
+                  whileHover={rm ? {} : { y: -4, transition: { duration: 0.3, ease: [0.22, 1, 0.36, 1] } }}
+                  className="flex flex-col p-6 rounded-[var(--card-border-radius)] bg-white/10 border border-white/15 hover:bg-white/15 hover:border-white/25 transition-all duration-300"
                 >
                   <div className="w-12 h-12 rounded-lg bg-white/15 flex items-center justify-center mb-5">
                     <Icon className="w-6 h-6 text-white" />
                   </div>
-                  <h3 className="text-xl font-bold text-white mb-3">{card.title}</h3>
+                  <h3 className={`${TYPOGRAPHY_STYLES.cardTitle} text-white mb-3`}>{card.title}</h3>
                   <p className="text-base text-white/75 leading-relaxed flex-1 mb-6">
                     {card.description}
                   </p>

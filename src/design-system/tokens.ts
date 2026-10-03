@@ -12,9 +12,9 @@ export const SPACING = {
   md: '1rem',      // 16px
   lg: '1.5rem',    // 24px
   xl: '2rem',      // 32px
-  '2xl': '3rem',   // 48px
-  '3xl': '4rem',   // 64px
-  '4xl': '6rem',   // 96px
+  '2xl': '2.5rem', // 40px
+  '3xl': '3rem',   // 48px
+  '4xl': '4rem',   // 64px
 } as const;
 
 // ============================================
@@ -23,7 +23,7 @@ export const SPACING = {
 export const RADIUS = {
   none: '0',
   sm: '0.5rem',    // 8px - Buttons, badges
-  md: '0.75rem',   // 12px - Standard cards, inputs
+  md: '0.75rem',   // 12px - Dedicated image/feature frames
   lg: '1rem',      // 16px - Hero sections, large features
   full: '9999px',  // Circles only
 } as const;
@@ -31,7 +31,7 @@ export const RADIUS = {
 // Border Radius Utility Classes (USE THESE IN COMPONENTS)
 export const BORDER_RADIUS = {
   button: 'rounded-[var(--radius-sm)]',    // 8px
-  card: 'rounded-[var(--radius-lg)]',      // 16px  
+  card: 'rounded-[var(--card-border-radius)]', // 8px
   hero: 'rounded-[var(--radius-lg)]',      // 16px
   full: 'rounded-full',                     // Circles only
 } as const;
@@ -53,10 +53,10 @@ export const SHADOW = {
 // TRANSITIONS (Timing System)
 // ============================================
 export const TRANSITION = {
-  fast: '150ms cubic-bezier(0.4, 0, 0.2, 1)',
-  base: '200ms cubic-bezier(0.4, 0, 0.2, 1)',
-  medium: '300ms cubic-bezier(0.4, 0, 0.2, 1)',
-  slow: '500ms cubic-bezier(0.4, 0, 0.2, 1)',
+  fast: '150ms cubic-bezier(0.22, 1, 0.36, 1)',
+  base: '300ms cubic-bezier(0.22, 1, 0.36, 1)',
+  medium: '300ms cubic-bezier(0.22, 1, 0.36, 1)',
+  slow: '500ms cubic-bezier(0.22, 1, 0.36, 1)',
 } as const;
 
 export const DURATION = {
@@ -67,7 +67,7 @@ export const DURATION = {
 
 // Duration Utility Classes (USE THESE IN COMPONENTS)
 export const DURATION_CLASS = {
-  fast: 'duration-[150ms]',   // Hover states, clicks
+  fast: 'duration-150',   // Hover states, clicks
   base: 'duration-300',        // Default for most animations
   slow: 'duration-500',        // Page transitions only
 } as const;

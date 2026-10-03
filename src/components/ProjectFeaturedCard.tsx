@@ -1,3 +1,4 @@
+import { TYPOGRAPHY_STYLES } from "@/design-system/constants";
 import { Card, CardContent } from "@/design-system/components/Card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/ui/Button";
@@ -56,8 +57,8 @@ const ProjectFeaturedCard = ({
         
         {/* Bottom Content */}
         <div className="absolute bottom-0 left-0 right-0 p-6 space-y-2 overflow-hidden">
-          <h3 className="text-2xl font-bold text-foreground line-clamp-2">{title}</h3>
-          <p className="text-muted-foreground text-sm line-clamp-2">{stripHtml(description)}</p>
+          <h3 className={`${TYPOGRAPHY_STYLES.cardTitle} text-foreground line-clamp-2`}>{title}</h3>
+          <p className={`${TYPOGRAPHY_STYLES.cardBody} text-muted-foreground line-clamp-2`}>{stripHtml(description)}</p>
           
           {/* Stats Grid */}
           <div className="flex flex-wrap gap-2 text-xs max-h-[3rem] overflow-hidden">

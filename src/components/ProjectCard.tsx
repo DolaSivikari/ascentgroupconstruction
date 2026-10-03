@@ -1,3 +1,4 @@
+import { TYPOGRAPHY_STYLES } from "@/design-system/constants";
 import { useState } from "react";
 import { formatProjectValue } from "@/utils/formatProjectValue";
 import { Card, CardContent } from "@/design-system/components/Card";
@@ -66,7 +67,7 @@ const ProjectCard = ({
       variant="interactive"
       hover
       size="sm"
-      className="group cursor-pointer overflow-hidden transition-all duration-300 hover:-translate-y-2 hover:shadow-xl motion-reduce:transform-none motion-reduce:hover:transform-none"
+      className="group overflow-hidden p-0"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       onClick={() => onViewDetails(slug)}
@@ -108,7 +109,7 @@ const ProjectCard = ({
       
       {/* Card Content - Clean PCL style */}
       <CardContent className="p-6">
-        <h3 className="text-lg font-bold mb-3 line-clamp-2">{title}</h3>
+        <h3 className={`${TYPOGRAPHY_STYLES.cardTitle} mb-3 line-clamp-2`}>{title}</h3>
         
         {/* Compact stats */}
         <div className="flex items-center gap-4 text-sm text-muted-foreground mb-3">

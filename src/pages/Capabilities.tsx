@@ -1,3 +1,5 @@
+import { CARD_STYLES, TYPOGRAPHY_STYLES } from "@/design-system/constants";
+import { cn } from "@/lib/utils";
 import { useState } from "react";
 import {
   Building2,
@@ -228,13 +230,13 @@ const Capabilities = () => {
               {WHY_SELF_PERFORM.map(({ icon: Icon, title, description }, i) => (
                 <div
                   key={i}
-                  className="bg-white/5 border border-white/10 rounded-xl p-6 hover:bg-white/10 transition-colors"
+                  className="bg-white/5 border border-white/10 rounded-[var(--card-border-radius)] p-6 hover:bg-white/10 transition-colors"
                 >
                   <div className="p-2.5 bg-[hsl(var(--accent))]/20 rounded-lg w-fit mb-4">
                     <Icon className="w-5 h-5 text-[hsl(var(--accent))]" />
                   </div>
-                  <h3 className="text-white font-semibold mb-2">{title}</h3>
-                  <p className="text-white/60 text-sm leading-relaxed">{description}</p>
+                  <h3 className={`${TYPOGRAPHY_STYLES.cardTitle} text-white mb-2`}>{title}</h3>
+                  <p className={`${TYPOGRAPHY_STYLES.cardBody} text-white/60`}>{description}</p>
                 </div>
               ))}
             </div>
@@ -335,8 +337,8 @@ const Capabilities = () => {
                 <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-5">
                   <Icon className="h-6 w-6 text-primary" />
                 </div>
-                <h3 className="text-xl font-semibold mb-2">{title}</h3>
-                <p className="text-muted-foreground text-sm mb-5 leading-relaxed">{description}</p>
+                <h3 className={`${TYPOGRAPHY_STYLES.cardTitle} mb-2`}>{title}</h3>
+                <p className={`${TYPOGRAPHY_STYLES.cardBody} text-muted-foreground mb-5`}>{description}</p>
                 <ul className="space-y-2.5">
                   {details.map((detail, di) => (
                     <li key={di} className="flex items-start gap-2.5 text-sm">
@@ -422,10 +424,10 @@ const Capabilities = () => {
             {CROSS_LINKS.map(({ title, body, href, label }, i) => (
               <div
                 key={i}
-                className="p-6 bg-background rounded-lg border border-border hover:shadow-md transition-shadow"
+                className={cn(CARD_STYLES.base, CARD_STYLES.motion, CARD_STYLES.hover, "p-6")}
               >
-                <h3 className="font-bold text-foreground mb-2">{title}</h3>
-                <p className="text-sm text-muted-foreground mb-4 leading-relaxed">{body}</p>
+                <h3 className={`${TYPOGRAPHY_STYLES.cardTitle} text-foreground mb-2`}>{title}</h3>
+                <p className={`${TYPOGRAPHY_STYLES.cardBody} text-muted-foreground mb-4`}>{body}</p>
                 <Link
                   to={href}
                   className="inline-flex items-center gap-1.5 text-sm text-primary font-medium hover:underline"
