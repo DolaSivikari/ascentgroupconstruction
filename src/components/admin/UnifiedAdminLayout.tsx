@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
-import { Outlet, Navigate } from 'react-router-dom';
+import { Outlet, Navigate, Link, useLocation, useNavigate } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 import { UnifiedSidebar } from './UnifiedSidebar';
 import { useAdminAuth } from '@/hooks/useAdminAuth';
 import { Menu } from 'lucide-react';
@@ -7,32 +8,46 @@ import { supabase } from '@/integrations/supabase/client';
 import { PageTransition } from '@/components/animations/PageTransition';
 import { OnboardingTour } from '@/components/admin/OnboardingTour';
 import { NotificationBellInbox } from './NotificationBellInbox';
+import { Button } from '@/ui/Button';
 import '@/styles/admin-theme.css';
 import '@/styles/admin-sidebar.css';
 import '@/styles/admin-page-shell.css';
 
 export const UnifiedAdminLayout = () => {
-  const { isLoading, isAdmin, retry } = useAdminAuth();
+  const { isLoading, isAdmin, isVerifying, status, user, retry } = useAdminAuth();
+  const location = useLocation();
+  const navigate = useNavigate();
   const [loadingTime, setLoadingTime] = useState(0);
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [user, setUser] = useState<any>(null);
   const [showOnboarding, setShowOnboarding] = useState(false);
+  const [signingOut, setSigningOut] = useState(false);
+  const [signOutError, setSignOutError] = useState(false);
 
   useEffect(() => {
-    const getUser = async () => {
-      const { data: { user } } = await supabase.auth.getUser();
-      setUser(user);
-    };
-    getUser();
-    
+    if (!isAdmin) return;
     // Check if user has seen onboarding
     const hasSeenOnboarding = localStorage.getItem('admin-onboarding-complete');
     if (!hasSeenOnboarding) {
       // Small delay to let the page render first
-      setTimeout(() => setShowOnboarding(true), 1500);
+      const timer = setTimeout(() => setShowOnboarding(true), 1500);
+      return () => clearTimeout(timer);
     }
-  }, []);
+  }, [isAdmin]);
+
+  const handleSignOut = async () => {
+    setSigningOut(true);
+    setSignOutError(false);
+    try {
+      const { error } = await supabase.auth.signOut();
+      if (error) throw error;
+      navigate('/', { replace: true });
+    } catch {
+      setSignOutError(true);
+    } finally {
+      setSigningOut(false);
+    }
+  };
 
   const handleOnboardingComplete = () => {
     setShowOnboarding(false);
@@ -44,7 +59,6 @@ export const UnifiedAdminLayout = () => {
     setShowOnboarding(true);
   };
 
-  // Apply body-level dark theme variables for portal-based components (Radix portals)
   // Apply body-level dark theme variables for portal-based components (Radix portals)
   useEffect(() => {
     document.body.classList.add('admin-dark-portal');
@@ -93,11 +107,34 @@ export const UnifiedAdminLayout = () => {
   }
 
   if (!isAdmin) {
-    return <Navigate to="/" replace />;
+    if (status === 'signed-out') {
+      const destination = location.pathname + location.search + location.hash;
+      return <Navigate to={`/tekev?next=${encodeURIComponent(destination)}`} replace />;
+    }
+    return (
+      <main className="min-h-screen bg-background text-foreground flex items-center justify-center p-6">
+        <Helmet><title>Admin access | Ascent Group Construction</title><meta name="robots" content="noindex, nofollow" /></Helmet>
+        <div className="max-w-md w-full rounded-lg border border-border bg-card p-8 space-y-5">
+          <h1 className="text-2xl font-semibold">{status === 'denied' ? 'Admin access required' : 'Unable to verify admin access'}</h1>
+          <p className="text-muted-foreground">
+            {status === 'denied'
+              ? 'You are signed in, but this account does not have permission to use the admin panel.'
+              : 'We could not verify your permissions. Check your connection and try again.'}
+          </p>
+          <div className="flex flex-wrap gap-3">
+            {status === 'error' && <Button onClick={retry}>Try again</Button>}
+            <Button asChild variant="outline"><Link to="/">Return to website</Link></Button>
+            {user && <Button onClick={handleSignOut} disabled={signingOut}>{signingOut ? 'Signing out…' : 'Sign out'}</Button>}
+          </div>
+          {signOutError && <p role="alert" className="text-sm text-destructive">Could not sign out. Please try again.</p>}
+        </div>
+      </main>
+    );
   }
 
   return (
     <div className="business-admin-container admin-dark-theme">
+      <Helmet><meta name="robots" content="noindex, nofollow" /></Helmet>
       <UnifiedSidebar
         collapsed={sidebarCollapsed} 
         onToggle={() => setSidebarCollapsed(!sidebarCollapsed)}
@@ -109,11 +146,13 @@ export const UnifiedAdminLayout = () => {
         <header className="bg-background border-b border-border px-6 py-4 flex items-center justify-between">
           <button 
             onClick={() => setMobileMenuOpen(true)}
+            aria-label="Open admin navigation"
             className="lg:hidden p-2 hover:bg-muted rounded-md"
           >
             <Menu className="w-6 h-6" />
           </button>
           <div className="flex items-center gap-4 ml-auto">
+            {isVerifying && <span role="status" className="sr-only">Verifying admin access</span>}
             <NotificationBellInbox />
             <span className="text-sm text-muted-foreground">{user?.email}</span>
           </div>

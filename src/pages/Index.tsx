@@ -3,6 +3,7 @@ import { lazy, Suspense, useEffect } from "react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import EnhancedHero from "@/components/homepage/EnhancedHero";
+import { HeroSurface } from "@/components/shared/HeroPresenceProvider";
 import SEO from "@/components/SEO";
 import SkipLink from "@/components/SkipLink";
 import { createHowToSchema, createQASchema, createSiteSearchSchema } from "@/utils/schema-injector";
@@ -134,7 +135,7 @@ const Index = () => {
 
         <main id="main-content" role="main">
           {/* 1. Hero */}
-          <EnhancedHero />
+          <HeroSurface><EnhancedHero /></HeroSurface>
 
           {/* ── Zone A: White background ── */}
           <div className="bg-background">

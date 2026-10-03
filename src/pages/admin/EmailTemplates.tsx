@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/ui/Button";
 import { AdminPageLayout } from "@/components/admin/AdminPageLayout";
+import { ConfirmDialog } from "@/components/admin/ConfirmDialog";
 import { useToast } from "@/hooks/use-toast";
 import { useAdminAuth } from "@/hooks/useAdminAuth";
 import DOMPurify from "dompurify";
@@ -83,6 +84,8 @@ const EmailTemplates = () => {
   const [currentTemplate, setCurrentTemplate] = useState<Partial<EmailTemplate>>(defaultTemplate);
   const [saving, setSaving] = useState(false);
   const [previewOpen, setPreviewOpen] = useState(false);
+  const [templateToDelete, setTemplateToDelete] = useState<EmailTemplate | null>(null);
+  const [deleting, setDeleting] = useState(false);
 
   useEffect(() => {
     if (isAdmin) {
@@ -175,8 +178,8 @@ const EmailTemplates = () => {
   };
 
   const handleDelete = async (id: string) => {
-    if (!confirm('Are you sure you want to delete this template?')) return;
-
+    if (deleting) return;
+    setDeleting(true);
     try {
       const { error } = await supabase
         .from('email_templates')
@@ -193,6 +196,8 @@ const EmailTemplates = () => {
         variant: "destructive",
         title: "Failed to delete template",
       });
+    } finally {
+      setDeleting(false);
     }
   };
 
@@ -361,7 +366,8 @@ const EmailTemplates = () => {
                     variant="ghost"
                     size="icon"
                     className="h-8 w-8 text-muted-foreground hover:text-destructive"
-                    onClick={() => handleDelete(template.id)}
+                    onClick={() => setTemplateToDelete(template)}
+                    disabled={deleting}
                     title="Delete"
                   >
                     <Trash2 className="h-4 w-4" />
@@ -520,6 +526,15 @@ const EmailTemplates = () => {
           </DialogFooter>
         </DialogContent>
       </Dialog>
+      <ConfirmDialog
+        open={!!templateToDelete}
+        onOpenChange={(open) => { if (!open) setTemplateToDelete(null); }}
+        onConfirm={() => { if (templateToDelete) void handleDelete(templateToDelete.id); }}
+        title="Delete Email Template"
+        description={`Delete “${templateToDelete?.name}”? This action cannot be undone.`}
+        confirmText="Delete"
+        variant="destructive"
+      />
     </AdminPageLayout>
   );
 };

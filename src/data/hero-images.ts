@@ -6,9 +6,9 @@
 // Import hero images from assets
 import heroAboutCompany from "@/assets/heroes/hero-about-company.jpg";
 import heroCertifications from "@/assets/heroes/hero-certifications.jpg";
-import heroCladding from "@/assets/heroes/hero-cladding.jpg";
 import heroCommercial from "@/assets/heroes/hero-commercial.jpg";
 import heroConstructionManagement from "@/assets/heroes/hero-construction-management.jpg";
+import { getServiceEntry, type ServiceCategory } from "@/data/service-registry";
 import heroContractorPortal from "@/assets/heroes/hero-contractor-portal.jpg";
 import heroDesignBuild from "@/assets/heroes/hero-design-build.jpg";
 import heroDevelopers from "@/assets/heroes/hero-developers.jpg";
@@ -24,14 +24,11 @@ import heroInstitutional from "@/assets/heroes/hero-institutional.jpg";
 import heroMarketsOverview from "@/assets/heroes/hero-markets-overview.jpg";
 import heroMultiFamily from "@/assets/heroes/hero-multi-family.jpg";
 import heroPainting from "@/assets/heroes/hero-painting.jpg";
-import heroParkingGarage from "@/assets/heroes/hero-parking-garage.jpg";
-import heroProtectiveCoatings from "@/assets/heroes/hero-protective-coatings.jpg";
 import heroRetail from "@/assets/heroes/hero-retail.jpg";
 import heroSealantReplacement from "@/assets/heroes/hero-sealant-replacement.jpg";
 import heroServiceAreas from "@/assets/heroes/hero-service-areas.jpg";
 import heroSustainable from "@/assets/heroes/hero-sustainable.jpg";
 import heroTeam from "@/assets/heroes/hero-team.jpg";
-import heroTenantImprovements from "@/assets/heroes/hero-tenant-improvements.jpg";
 import heroTileFlooring from "@/assets/heroes/hero-tile-flooring.jpg";
 import heroWarranties from "@/assets/heroes/hero-warranties.jpg";
 
@@ -43,7 +40,17 @@ import heroInteriorBuildouts from "@/assets/hero-interior-buildouts.jpg";
 import heroMasonryRestoration from "@/assets/hero-masonry-restoration.jpg";
 import heroWaterproofing from "@/assets/hero-waterproofing.jpg";
 import heroParkingRehabilitation from "@/assets/hero-parking-rehabilitation.jpg";
-import heroMetalCladding from "@/assets/hero-metal-cladding.jpg";
+
+// Static specialty services use the same registry as database-driven services.
+import heroCommercialPainting from "@/assets/heroes/wave-commercial-painting.jpg";
+import heroExteriorPainting from "@/assets/heroes/wave-exterior-painting.jpg";
+import heroCaulkingSealants from "@/assets/heroes/wave-caulking-sealants.jpg";
+import heroFireRetardant from "@/assets/heroes/wave-fire-retardant.jpg";
+import heroInteriorPainting from "@/assets/heroes/wave-interior-painting.jpg";
+import heroResidentialExterior from "@/assets/heroes/wave-residential-exterior.jpg";
+import heroTileInstallation from "@/assets/heroes/wave-tile-installation.jpg";
+import heroFlooringInstallation from "@/assets/heroes/wave-flooring-installation.jpg";
+import heroHandymanPatching from "@/assets/heroes/wave-handyman-patching.jpg";
 
 /**
  * Main Pages Hero Images
@@ -64,7 +71,7 @@ export const mainPageHeroes = {
  */
 export const serviceHeroes = {
   // Building Envelope Category
-  "building-envelope": heroBuildingEnvelope,
+  "building-envelope-solutions": heroBuildingEnvelope,
   "cladding-systems": heroExteriorCladding,
   "eifs-stucco-systems": heroEifsStucco,
   "masonry-restoration": heroMasonryRestoration,
@@ -74,15 +81,24 @@ export const serviceHeroes = {
   "sealant-programs": heroSealantReplacement,
   
   // Interior Construction Category
-  "interior-buildouts": heroInteriorBuildouts,
+  "interior-buildouts-finishing": heroInteriorBuildouts,
+  "interior-finishing-renovations": heroInteriorBuildouts,
   "painting-services": heroPainting,
   "tile-flooring": heroTileFlooring,
-  "tenant-improvements": heroTenantImprovements,
   
   // Specialized Services Category
-  "protective-coatings": heroProtectiveCoatings,
   "sustainable-building": heroSustainable,
-  "metal-panel-systems": heroMetalCladding,
+
+  // Static specialty pages
+  "commercial-painting-gta": heroCommercialPainting,
+  "exterior-painting-toronto": heroExteriorPainting,
+  "caulking-sealants-toronto": heroCaulkingSealants,
+  "fire-retardant-coatings-ontario": heroFireRetardant,
+  "interior-painting-toronto": heroInteriorPainting,
+  "residential-exterior-painting-gta": heroResidentialExterior,
+  "tile-installation-toronto": heroTileInstallation,
+  "flooring-installation-gta": heroFlooringInstallation,
+  "handyman-patching-toronto": heroHandymanPatching,
 } as const;
 
 /**
@@ -191,7 +207,7 @@ export const heroConfigs: Record<string, HeroConfig> = {
   },
   
   // Service Pages
-  "building-envelope": {
+  "building-envelope-solutions": {
     image: heroBuildingEnvelope,
     imageAlt: "Building envelope restoration and repair services",
     defaultHeight: "medium",
@@ -216,7 +232,7 @@ export const heroConfigs: Record<string, HeroConfig> = {
     imageAlt: "Waterproofing and moisture protection",
     defaultHeight: "medium",
   },
-  "interior-buildouts": {
+  "interior-buildouts-finishing": {
     image: heroInteriorBuildouts,
     imageAlt: "Commercial interior construction",
     defaultHeight: "medium",
@@ -229,11 +245,6 @@ export const heroConfigs: Record<string, HeroConfig> = {
   "tile-flooring": {
     image: heroTileFlooring,
     imageAlt: "Tile and flooring installation",
-    defaultHeight: "medium",
-  },
-  "protective-coatings": {
-    image: heroProtectiveCoatings,
-    imageAlt: "Industrial protective coatings",
     defaultHeight: "medium",
   },
   "sustainable-building": {
@@ -269,3 +280,69 @@ export const heroConfigs: Record<string, HeroConfig> = {
     defaultHeight: "medium",
   },
 };
+
+
+/** A stored image must be deployable, rather than a development source path. */
+export function isUsableHeroImage(value: unknown): value is string {
+  if (typeof value !== "string" || !value.trim() || value !== value.trim()) return false;
+  if (value.includes("\\") || [...value].some(character => character.charCodeAt(0) < 32) || value.startsWith("//")) return false;
+  try {
+    const parsed = new URL(value, "https://site.example");
+    if (!value.startsWith("/") && !value.startsWith("https://")) return false;
+    if (parsed.protocol !== "https:") return false;
+    const pathname = decodeURIComponent(parsed.pathname).toLowerCase();
+    return !pathname.startsWith("/src/") && !pathname.endsWith("/placeholder.svg");
+  } catch {
+    return false;
+  }
+}
+
+export interface ResolvedHeroImage {
+  image: string;
+  imageAlt: string;
+}
+
+const categoryHeroes: Record<ServiceCategory, ResolvedHeroImage> = {
+  envelope: { image: heroBuildingEnvelope, imageAlt: "Building envelope exterior" },
+  restoration: { image: heroFacadeRemediation, imageAlt: "Building exterior restoration" },
+  interior: { image: heroInteriorBuildouts, imageAlt: "Interior construction and finishing" },
+};
+
+/** Admin-selected images take precedence; every service retains a local fallback. */
+export function resolveServiceHero(slug: string, featuredImage?: string | null, category?: string | null): ResolvedHeroImage & { source: "database" | "service" | "category" } {
+  const entry = getServiceEntry(slug);
+  if (isUsableHeroImage(featuredImage)) {
+    return { image: featuredImage, imageAlt: entry?.navLabel ?? "Construction services", source: "database" };
+  }
+  const mapped = (serviceHeroes as Record<string, string>)[slug];
+  if (mapped) {
+    return { image: mapped, imageAlt: entry?.navLabel ?? "Construction services", source: "service" };
+  }
+  // Registered categories are authoritative; newer database services may use legacy labels.
+  const categoryKey = entry?.category ?? (
+    category === "Building Envelope" || category === "envelope" ? "envelope" :
+    category === "Restoration & Repair" || category === "restoration" ? "restoration" :
+    category === "Interior Construction" || category === "Interior & Finishes" || category === "interior" ? "interior" : null
+  );
+  return {
+    ...(categoryKey ? categoryHeroes[categoryKey] : { image: mainPageHeroes.services, imageAlt: "Construction services illustration" }),
+    source: "category",
+  };
+}
+
+/** Add only verified city-specific imagery, with an accurate description of the photo. */
+export const cityHeroes: Record<string, ResolvedHeroImage> = {};
+
+export function getCityHero(citySlug: string): ResolvedHeroImage & { source: "city" | "regional" } {
+  const cityImage = cityHeroes[citySlug];
+  return cityImage
+    ? { ...cityImage, source: "city" }
+    : { image: resourceHeroes["service-areas"], imageAlt: "Illustrated regional service-area map", source: "regional" };
+}
+
+/** Missing article imagery gets an illustration, never a claimed case-study project photo. */
+export function resolveBlogHero(featuredImage?: string | null, title?: string): ResolvedHeroImage & { source: "database" | "fallback" } {
+  return isUsableHeroImage(featuredImage)
+    ? { image: featuredImage, imageAlt: title ?? "Article illustration", source: "database" }
+    : { image: mainPageHeroes.blog, imageAlt: "Building exterior used as an article illustration", source: "fallback" };
+}

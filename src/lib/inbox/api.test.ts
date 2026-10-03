@@ -70,6 +70,57 @@ describe("inbox loading", () => {
     expect(result.items).toHaveLength(5);
     expect(result.items.some((item) => item.type === "Newsletter")).toBe(true);
   });
+  it("combines RFPs with all quotes, including estimator records, without loading unrelated inbox sources", async () => {
+    mock.from.mockImplementation((table: string) => {
+      const query = {
+        select: () => query,
+        order: () => query,
+        range: async () => ({
+          data:
+            table === "rfp_submissions"
+              ? [
+                  {
+                    id: "rfp",
+                    email: "bid@example.test",
+                    created_at: "2026-10-02T15:00:00Z",
+                    scope_of_work: "Facade restoration",
+                    attachment_urls: ["plans.pdf"],
+                  },
+                ]
+              : [
+                  {
+                    id: "estimate",
+                    email: "owner@example.test",
+                    source: "estimator",
+                    target_deadline: null,
+                    created_at: "2026-10-01T15:00:00Z",
+                  },
+                  {
+                    id: "quote",
+                    email: "gc@example.test",
+                    source: "service-page",
+                    target_deadline: "2026-10-10",
+                    created_at: "2026-10-01T14:00:00Z",
+                  },
+                ],
+          error: null,
+        }),
+      };
+      return query;
+    });
+    const result = await loadInbox("work");
+    expect(mock.from.mock.calls.map(([table]) => table)).toEqual([
+      "rfp_submissions",
+      "quote_requests",
+    ]);
+    expect(result.items.map((item) => item.id)).toEqual([
+      "rfp",
+      "estimate",
+      "quote",
+    ]);
+    expect(result.items[0].attachment_urls).toEqual(["plans.pdf"]);
+    expect(result.failed).toEqual([]);
+  });
 });
 describe("inbox saves and signing", () => {
   const single = vi.fn();

@@ -20,7 +20,7 @@ export const INBOX_SOURCES = {
 } as const;
 
 export type InboxKind = keyof typeof INBOX_SOURCES;
-export type InboxFilter = "all" | InboxKind;
+export type InboxFilter = "all" | "work" | InboxKind;
 export type InboxTableName = (typeof INBOX_SOURCES)[InboxKind]["table"];
 export interface InboxItem extends Record<string, unknown> {
   id: string;
@@ -90,9 +90,14 @@ export function inboxStatuses(table: InboxTableName): string[] {
       : GENERAL_STATUSES;
 }
 export function filterStatuses(kind: InboxFilter): string[] {
-  return kind === "all"
+  return kind === "all" || kind === "work"
     ? [...new Set([...GENERAL_STATUSES, ...QUOTE_STATUSES])]
     : inboxStatuses(INBOX_SOURCES[kind].table);
+}
+export function inboxKinds(filter: InboxFilter): InboxKind[] {
+  if (filter === "all") return Object.keys(INBOX_SOURCES) as InboxKind[];
+  if (filter === "work") return ["rfp", "quote"];
+  return [filter];
 }
 export const supportsAdminNotes = (item: InboxItem) =>
   ["rfp_submissions", "contact_submissions", "resume_submissions"].includes(

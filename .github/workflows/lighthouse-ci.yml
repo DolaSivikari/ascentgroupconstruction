@@ -1,4 +1,4 @@
-name: Lighthouse CI
+name: Build and Service Worker Validation
 
 on:
   push:
@@ -7,14 +7,20 @@ on:
     branches: [main, develop]
 
 jobs:
-  lighthouse:
+  build-and-service-worker:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: '18'
-          cache: 'npm'
-      - run: npm ci --legacy-peer-deps
+          node-version: '24'
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: '1.3.11'
+      - uses: actions/cache@v4
+        with:
+          path: ~/.bun/install/cache
+          key: ${{ runner.os }}-bun-1.3.11-${{ hashFiles('bun.lock') }}
+      - run: node scripts/install-ci-dependencies.mjs
       - run: npm run build
       - run: npm run validate:sw

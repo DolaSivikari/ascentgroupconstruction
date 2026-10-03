@@ -137,35 +137,6 @@
   </head>
 
   <body>
-    <!-- NUCLEAR: Force-clear all service workers and caches; auto-reload once if stale SW detected -->
-    <script>
-      (function(){
-        try {
-          var RELOAD_KEY = '__agc_sw_purge_v2';
-          var didPurge = sessionStorage.getItem(RELOAD_KEY);
-          if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.getRegistrations().then(function(regs){
-              var hadSW = regs && regs.length > 0;
-              regs.forEach(function(reg){ reg.unregister(); });
-              if ('caches' in window) {
-                caches.keys().then(function(keys){
-                  keys.forEach(function(k){ caches.delete(k); });
-                  // If we just unregistered a stale SW and haven't yet reloaded, do it once
-                  if (hadSW && !didPurge) {
-                    sessionStorage.setItem(RELOAD_KEY, '1');
-                    location.reload();
-                  }
-                });
-              } else if (hadSW && !didPurge) {
-                sessionStorage.setItem(RELOAD_KEY, '1');
-                location.reload();
-              }
-            }).catch(function(){});
-          }
-        } catch(e) {}
-      })();
-    </script>
-
     <div id="root">
       <!-- Loading fallback - replaced automatically when React mounts -->
       <div style="min-height:100vh;display:flex;align-items:center;justify-content:center;background:#1a1a1a;">

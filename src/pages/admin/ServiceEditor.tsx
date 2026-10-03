@@ -8,6 +8,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { ImageUploadField } from "@/components/admin/ImageUploadField";
+import type { Database } from "@/integrations/supabase/types";
 import { ArrowLeft, Save, HelpCircle } from "lucide-react";
 import { useUnsavedChanges } from "@/hooks/useUnsavedChanges";
 import { ConfirmDialog } from "@/components/admin/ConfirmDialog";
@@ -30,6 +31,7 @@ const ServiceEditor = () => {
     publish_state: "draft",
     seo_title: "",
     seo_description: "",
+    featured_image: "",
   });
 
   useEffect(() => {
@@ -63,6 +65,7 @@ const ServiceEditor = () => {
         publish_state: data.publish_state || "draft",
         seo_title: data.seo_title || "",
         seo_description: data.seo_description || "",
+        featured_image: data.featured_image || "",
       });
     }
   };
@@ -70,7 +73,6 @@ const ServiceEditor = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
-    setHasUnsavedChanges(false);
 
     // Validate content length (client-side check before DB constraint)
     const MAX_LONG_DESC_LENGTH = 20000;
@@ -96,10 +98,18 @@ const ServiceEditor = () => {
       return;
     }
 
+    const featuredImage = formData.featured_image.trim();
+    if (featuredImage && !isServiceImageUrl(featuredImage)) {
+      toast({ title: "Invalid image URL", description: "Use an HTTPS image URL or a public asset path. Source paths beginning with /src/ cannot be used on the published website.", variant: "destructive" });
+      setIsLoading(false);
+      return;
+    }
     const { data: { user } } = await supabase.auth.getUser();
     
-    const serviceData: any = {
+    const serviceData: Database["public"]["Tables"]["services"]["Insert"] = {
       ...formData,
+      publish_state: formData.publish_state as Database["public"]["Enums"]["publish_state"],
+      featured_image: featuredImage || null,
       updated_by: user?.id,
       ...(id === "new" && { created_by: user?.id }),
     };
@@ -115,6 +125,7 @@ const ServiceEditor = () => {
         variant: "destructive",
       });
     } else {
+      setHasUnsavedChanges(false);
       toast({
         title: "Success",
         description: `Service ${id === "new" ? "created" : "updated"} successfully`,
@@ -173,10 +184,33 @@ const ServiceEditor = () => {
               <Input
                 id="slug"
                 value={formData.slug}
-                onChange={(e) => setFormData({ ...formData, slug: e.target.value.toLowerCase().replace(/\s+/g, "-") })}
+                onChange={(e) => handleFormChange({ slug: e.target.value.toLowerCase().replace(/\s+/g, "-") })}
                 required
               />
             </div>
+          </div>
+
+          <div className="space-y-2">
+            <ImageUploadField
+              key={`${id}-${formData.featured_image}`}
+              value={formData.featured_image}
+              onChange={(url) => handleFormChange({ featured_image: url })}
+              label="Featured Image"
+              targetAspectRatio="16/9"
+            />
+            <Label htmlFor="featured_image">Image URL</Label>
+            <Input
+              id="featured_image"
+              value={formData.featured_image}
+              onChange={(e) => handleFormChange({ featured_image: e.target.value })}
+              placeholder="https://… or /image.webp"
+            />
+            <p className="text-sm text-muted-foreground">This image replaces the default header on database-driven service pages. Upload a landscape photo or enter a public image URL. Clear this field to restore the default service image. Specialty landing pages use images managed in code.</p>
+            {/^\/src(?:\/|$)/i.test(formData.featured_image.trim()) && (
+              <p role="alert" className="text-sm text-destructive">
+                This source-file path will not work after publishing. Upload the image or choose a public image URL.
+              </p>
+            )}
           </div>
 
           <div className="space-y-2">
@@ -184,7 +218,7 @@ const ServiceEditor = () => {
             <Textarea
               id="short_description"
               value={formData.short_description}
-              onChange={(e) => setFormData({ ...formData, short_description: e.target.value })}
+              onChange={(e) => handleFormChange({ short_description: e.target.value })}
               rows={2}
               maxLength={500}
             />
@@ -201,7 +235,7 @@ const ServiceEditor = () => {
             <Textarea
               id="long_description"
               value={formData.long_description}
-              onChange={(e) => setFormData({ ...formData, long_description: e.target.value })}
+              onChange={(e) => handleFormChange({ long_description: e.target.value })}
               rows={6}
             />
             <p className="text-xs text-muted-foreground">
@@ -220,7 +254,7 @@ const ServiceEditor = () => {
             <Textarea
               id="scope"
               value={formData.scope_template}
-              onChange={(e) => setFormData({ ...formData, scope_template: e.target.value })}
+              onChange={(e) => handleFormChange({ scope_template: e.target.value })}
               rows={4}
               placeholder="Bullet points of deliverables..."
             />
@@ -232,7 +266,7 @@ const ServiceEditor = () => {
               <Input
                 id="seo_title"
                 value={formData.seo_title}
-                onChange={(e) => setFormData({ ...formData, seo_title: e.target.value })}
+                onChange={(e) => handleFormChange({ seo_title: e.target.value })}
               />
             </div>
             <div className="space-y-2">
@@ -240,7 +274,7 @@ const ServiceEditor = () => {
                 <div className="flex items-center gap-2">
                   <Label htmlFor="publish_state">Publishing Status</Label>
                   <Tooltip>
-                    <TooltipTrigger>
+                    <TooltipTrigger type="button">
                       <HelpCircle className="h-4 w-4 text-muted-foreground" />
                     </TooltipTrigger>
                     <TooltipContent>
@@ -251,7 +285,7 @@ const ServiceEditor = () => {
               </TooltipProvider>
               <Select
                 value={formData.publish_state}
-                onValueChange={(value: any) => setFormData({ ...formData, publish_state: value })}
+                onValueChange={(value) => handleFormChange({ publish_state: value })}
               >
                 <SelectTrigger>
                   <SelectValue />
@@ -271,7 +305,7 @@ const ServiceEditor = () => {
             <Textarea
               id="seo_description"
               value={formData.seo_description}
-              onChange={(e) => setFormData({ ...formData, seo_description: e.target.value })}
+              onChange={(e) => handleFormChange({ seo_description: e.target.value })}
               rows={2}
             />
           </div>
@@ -293,3 +327,9 @@ const ServiceEditor = () => {
 };
 
 export default ServiceEditor;
+
+function isServiceImageUrl(value: string): boolean {
+  if (/^\/src(?:\/|$)/i.test(value) || Array.from(value).some((character) => character.charCodeAt(0) <= 32 || character === "\\")) return false;
+  if (value.startsWith("/") && !value.startsWith("//")) return true;
+  try { return new URL(value).protocol === "https:"; } catch { return false; }
+}

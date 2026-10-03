@@ -1,3 +1,4 @@
+import type { LucideIcon } from 'lucide-react';
 import { NavLink, useNavigate, useLocation } from 'react-router-dom';
 import {
   LayoutDashboard,
@@ -22,7 +23,6 @@ import {
   Globe,
   ShieldCheck,
   History,
-  Search,
   Sparkles,
   DollarSign,
 } from 'lucide-react';
@@ -64,7 +64,13 @@ export const UnifiedSidebar = ({
   const [user, setUser] = useState<{ email?: string; full_name?: string; avatar_url?: string } | null>(null);
 
   const handleSignOut = async () => {
-    await supabase.auth.signOut();
+    try {
+      const { error } = await supabase.auth.signOut();
+      if (error) throw error;
+    } catch {
+      toast({ title: 'Could not sign out', description: 'Please try again.', variant: 'destructive' });
+      return;
+    }
     toast({ title: 'Signed out', description: "You've been successfully signed out." });
     navigate('/tekev');
   };
@@ -105,11 +111,16 @@ export const UnifiedSidebar = ({
   const isActive = (path: string) =>
     path === '/admin' ? currentPath === '/admin' : currentPath === path || currentPath.startsWith(path + '/');
 
-  const isWebsiteActive = ['/admin/homepage-builder', '/admin/seo-dashboard'].some((p) => currentPath.startsWith(p));
+  const isWebsiteActive = ['/admin/homepage-builder', '/admin/seo-dashboard', '/admin/page-headers'].some((p) => currentPath.startsWith(p));
   const isToolsActive = ['/admin/monitoring', '/admin/audit'].some((p) => currentPath.startsWith(p));
 
   const [websiteOpen, setWebsiteOpen] = useState(isWebsiteActive);
   const [toolsOpen, setToolsOpen] = useState(isToolsActive);
+
+  useEffect(() => {
+    if (isWebsiteActive) setWebsiteOpen(true);
+    if (isToolsActive) setToolsOpen(true);
+  }, [currentPath, isWebsiteActive, isToolsActive]);
 
   const userInitials = (user?.full_name || user?.email || 'A')
     .split(/[\s@]/)
@@ -126,7 +137,7 @@ export const UnifiedSidebar = ({
     badge,
   }: {
     to: string;
-    icon: any;
+    icon: LucideIcon;
     label: string;
     badge?: number;
   }) => {
@@ -179,7 +190,7 @@ export const UnifiedSidebar = ({
     children,
   }: {
     label: string;
-    icon: any;
+    icon: LucideIcon;
     open: boolean;
     onOpenChange: (v: boolean) => void;
     active?: boolean;
@@ -244,22 +255,9 @@ export const UnifiedSidebar = ({
         </div>
 
         {/* ── Search ── */}
-        {!collapsed ? (
-          <div className="admin-sidebar-search">
-            <GlobalSearch />
-          </div>
-        ) : (
-          <button
-            className="admin-nav-item is-collapsed admin-sidebar-search-collapsed"
-            title="Search (⌘K)"
-            onClick={onToggle}
-            aria-label="Expand to search"
-          >
-            <span className="admin-nav-item__icon">
-              <Search size={18} strokeWidth={1.75} />
-            </span>
-          </button>
-        )}
+        <div className={collapsed ? undefined : "admin-sidebar-search"}>
+          <GlobalSearch collapsed={collapsed} />
+        </div>
 
         {/* ── Scrollable nav ── */}
         <div className="admin-sidebar-scroll">
@@ -292,6 +290,7 @@ export const UnifiedSidebar = ({
             active={isWebsiteActive}
           >
             <NavItem to="/admin/homepage-builder" icon={Layout} label="Homepage Builder" />
+            <NavItem to="/admin/page-headers" icon={Image} label="Page Headers" />
             <NavItem to="/admin/seo-dashboard" icon={Sparkles} label="SEO Dashboard" />
           </NavGroup>
 

@@ -31,6 +31,7 @@ import {
 import { sanitizeAndValidate } from "@/utils/sanitize";
 import { ReadingProgressBar } from "@/components/animations/ReadingProgressBar";
 import { ScrollReveal } from "@/components/animations/ScrollReveal";
+import { resolveBlogHero } from "@/data/hero-images";
 
 const BlogPost = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -115,6 +116,8 @@ const BlogPost = () => {
     );
   }
 
+  const hero = resolveBlogHero(post.featured_image, post.title);
+
   const formattedDate = post.published_at 
     ? new Date(post.published_at).toLocaleDateString('en-US', {
         month: 'long',
@@ -156,7 +159,7 @@ const BlogPost = () => {
       description: post.summary || post.seo_description,
       author: "Ascent Group Construction",
       datePublished: post.published_at || post.created_at,
-      image: post.featured_image || '',
+      image: hero.image,
     }),
     breadcrumbSchema([
       { name: "Home", url: "/" },
@@ -176,7 +179,7 @@ const BlogPost = () => {
         title={post.seo_title || post.title}
         description={post.seo_description || post.summary}
         keywords={post.seo_keywords?.join(', ') || `${post.category}, blog`}
-        ogImage={post.featured_image || undefined}
+        ogImage={hero.image}
         ogType="article"
         articleMeta={{
           publishedTime: post.published_at || post.created_at,
@@ -200,8 +203,8 @@ const BlogPost = () => {
         <PageHero
           title={post.title}
           subtitle={`${post.category} · ${formattedDate} · ${post.read_time_minutes || 5} min read`}
-          image={post.featured_image || '/placeholder.svg'}
-          imageAlt={post.title}
+          image={hero.image}
+          imageAlt={hero.imageAlt}
           height="small"
           breadcrumbs={[
             { label: "Home", href: "/" },

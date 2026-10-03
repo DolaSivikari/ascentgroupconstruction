@@ -43,6 +43,7 @@ export const PUBLIC_ROUTE_PATTERNS = [
 
 export const ADMIN_ROUTES = {
   dashboard: '/admin',
+  pageHeaders: '/admin/page-headers',
   services: '/admin/services',
   servicesManager: '/admin/services-manager',
   projects: '/admin/projects',

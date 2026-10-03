@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import type { Database } from "@/integrations/supabase/types";
 import { supabase } from "@/integrations/supabase/client";
 import { useNavigate, useParams } from "react-router-dom";
 import { Button } from "@/ui/Button";
@@ -158,7 +159,7 @@ const BlogPostEditor = () => {
     const { data: { user } } = await supabase.auth.getUser();
     if (!user) return;
 
-    const postData = {
+    const postData: Database["public"]["Tables"]["blog_posts"]["Insert"] = {
       title: formData.title,
       slug: formData.slug || generateSlug(formData.title),
       summary: formData.summary,

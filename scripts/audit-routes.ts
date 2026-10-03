@@ -1,20 +1,21 @@
-#!/usr/bin/env ts-node
+#!/usr/bin/env bun
 
 /**
  * Route Integrity Audit
- * - Extracts source-of-truth routes from src/App.tsx
+ * - Extracts source-of-truth routes from AppRoutes.tsx (or legacy App.tsx)
+ * - Includes service redirects generated from the shared route map
  * - Supports nested /admin child routes
  * - Scans src for internal links (to/href)
  */
 
 import * as fs from 'fs';
 import * as path from 'path';
+import { SERVICE_REDIRECTS } from '../src/data/service-redirects';
 
 const APP_PATHS = [
   path.join(process.cwd(), 'src', 'routes', 'AppRoutes.tsx'),
   path.join(process.cwd(), 'src', 'App.tsx'),
 ];
-const APP_PATH = path.join(process.cwd(), 'src', 'App.tsx');
 const SRC_DIR = path.join(process.cwd(), 'src');
 
 function extractRoutes(appContent: string): string[] {
@@ -50,7 +51,7 @@ function findLinks(dir: string): Array<{ link: string; file: string }> {
 
       if (entry.isDirectory()) {
         walk(fullPath);
-      } else if (entry.name.endsWith('.tsx') || entry.name.endsWith('.ts')) {
+      } else if (/\.(tsx|ts)$/.test(entry.name) && !/\.(test|spec)\.(tsx|ts)$/.test(entry.name)) {
         const content = fs.readFileSync(fullPath, 'utf-8');
         const patterns = [/to=["']([^"']+)["']/g, /href=["']([^"']+)["']/g];
 
@@ -95,14 +96,7 @@ if (!appPath) {
 }
 
 const appContent = fs.readFileSync(appPath, 'utf-8');
-
-if (!appPath) {
-  console.error('❌ Could not find route declaration file for extraction');
-  process.exit(1);
-}
-
-const appContent = fs.readFileSync(appPath, 'utf-8');
-const routes = extractRoutes(appContent);
+const routes = [...extractRoutes(appContent), ...Object.keys(SERVICE_REDIRECTS).map(slug => `/services/${slug}`)];
 const foundLinks = findLinks(SRC_DIR);
 
 const unknown = new Map<string, Set<string>>();
@@ -112,28 +106,6 @@ for (const { link, file } of foundLinks) {
     unknown.get(link)!.add(file);
   }
 }
-
-
-const appContent = fs.readFileSync(appPath, 'utf-8');
-
-const appContent = fs.readFileSync(appPath, 'utf-8');
-if (!fs.existsSync(APP_PATH)) {
-  console.error('❌ Could not find src/App.tsx for route extraction');
-  process.exit(1);
-}
-
-const appContent = fs.readFileSync(APP_PATH, 'utf-8');
-const routes = extractRoutes(appContent);
-const foundLinks = findLinks(SRC_DIR);
-
-const unknown = new Map<string, Set<string>>();
-for (const { link, file } of foundLinks) {
-  if (!matchesRoute(link, routes)) {
-    if (!unknown.has(link)) unknown.set(link, new Set<string>());
-    unknown.get(link)!.add(file);
-  }
-}
-
 if (unknown.size === 0) {
   console.log('✅ Route audit passed - all internal links map to declared routes');
 } else {
@@ -142,5 +114,6 @@ if (unknown.size === 0) {
     const sample = [...files].slice(0, 2).join(', ');
     console.log(`  - ${link}  (e.g. ${sample})`);
   }
-  console.log('\nUpdate links or add route declarations in src/App.tsx.\n');
+  console.log(`\nUpdate links or add route declarations in ${path.relative(process.cwd(), appPath)}.\n`);
+  process.exitCode = 1;
 }

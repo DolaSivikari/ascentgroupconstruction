@@ -1,25 +1,12 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { supabase } from "@/integrations/supabase/client";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Input } from "@/ui/Input";
+import { Button } from "@/ui/Button";
 import { Badge } from "@/components/ui/badge";
-import { Search, FileText, Folder, Mail, Users } from "lucide-react";
-import { Skeleton } from "@/components/ui/skeleton";
-
-interface SearchResult {
-  id: string;
-  title: string;
-  type: string;
-  description?: string;
-  url: string;
-}
+import { Alert, AlertDescription } from "@/components/ui/alert";
+import { Search, FileText, Folder, Mail, Users, Briefcase } from "lucide-react";
+import { searchAdmin, type AdminSearchResult } from "@/lib/adminSearch";
 
 interface GlobalSearchDialogProps {
   open: boolean;
@@ -29,120 +16,53 @@ interface GlobalSearchDialogProps {
 export const GlobalSearchDialog = ({ open, onOpenChange }: GlobalSearchDialogProps) => {
   const navigate = useNavigate();
   const [query, setQuery] = useState("");
-  const [results, setResults] = useState<SearchResult[]>([]);
+  const [results, setResults] = useState<AdminSearchResult[]>([]);
+  const [failedSources, setFailedSources] = useState<string[]>([]);
   const [isSearching, setIsSearching] = useState(false);
+  const [retry, setRetry] = useState(0);
 
   useEffect(() => {
-    if (!open) {
-      setQuery("");
-      setResults([]);
-    }
+    if (!open) setQuery("");
   }, [open]);
 
   useEffect(() => {
-    const searchContent = async () => {
-      if (query.length < 2) {
-        setResults([]);
-        return;
-      }
+    const controller = new AbortController();
+    let active = true;
+    setResults([]);
+    setFailedSources([]);
+    const canSearch = open && query.trim().length >= 2;
+    setIsSearching(canSearch);
+    if (!canSearch) return () => { controller.abort(); };
 
-      setIsSearching(true);
-      const searchResults: SearchResult[] = [];
-
+    const debounce = setTimeout(async () => {
       try {
-        // Search blog posts
-        const { data: posts } = await supabase
-          .from("blog_posts")
-          .select("id, title, summary, slug")
-          .or(`title.ilike.%${query}%,summary.ilike.%${query}%`)
-          .limit(5);
-
-        posts?.forEach(post => {
-          searchResults.push({
-            id: post.id,
-            title: post.title,
-            type: "Blog Post",
-            description: post.summary,
-            url: `/admin/blog/${post.id}`,
-          });
-        });
-
-        // Search projects
-        const { data: projects } = await supabase
-          .from("projects")
-          .select("id, title, summary, slug")
-          .or(`title.ilike.%${query}%,summary.ilike.%${query}%`)
-          .limit(5);
-
-        projects?.forEach(project => {
-          searchResults.push({
-            id: project.id,
-            title: project.title,
-            type: "Project",
-            description: project.summary,
-            url: `/admin/projects/${project.id}`,
-          });
-        });
-
-        // Search contact submissions
-        const { data: contacts } = await supabase
-          .from("contact_submissions")
-          .select("id, name, email, message")
-          .or(`name.ilike.%${query}%,email.ilike.%${query}%`)
-          .limit(5);
-
-        contacts?.forEach(contact => {
-          searchResults.push({
-            id: contact.id,
-            title: contact.name,
-            type: "Contact",
-            description: contact.email,
-            url: "/admin/inbox",
-          });
-        });
-
-        // Search users
-        const { data: users } = await supabase
-          .from("profiles")
-          .select("id, full_name, email")
-          .or(`full_name.ilike.%${query}%,email.ilike.%${query}%`)
-          .limit(5);
-
-        users?.forEach(user => {
-          searchResults.push({
-            id: user.id,
-            title: user.full_name || user.email,
-            type: "User",
-            description: user.email,
-            url: "/admin/users",
-          });
-        });
-
-        setResults(searchResults);
-      } catch (error) {
-        console.error("Search error:", error);
+        const response = await searchAdmin(query, controller.signal);
+        if (!active) return;
+        setResults(response.results);
+        setFailedSources(response.failedSources);
+      } catch {
+        if (active) setFailedSources(["search"]);
       } finally {
-        setIsSearching(false);
+        if (active) setIsSearching(false);
       }
+    }, 300);
+    return () => {
+      active = false;
+      clearTimeout(debounce);
+      controller.abort();
     };
+  }, [open, query, retry]);
 
-    const debounce = setTimeout(searchContent, 300);
-    return () => clearTimeout(debounce);
-  }, [query]);
-
-  const handleSelect = (result: SearchResult) => {
+  const selectResult = (result: AdminSearchResult) => {
     navigate(result.url);
     onOpenChange(false);
   };
-
-  const getIcon = (type: string) => {
-    switch (type) {
-      case "Blog Post": return <FileText className="h-4 w-4" />;
-      case "Project": return <Folder className="h-4 w-4" />;
-      case "Contact": return <Mail className="h-4 w-4" />;
-      case "User": return <Users className="h-4 w-4" />;
-      default: return <Search className="h-4 w-4" />;
-    }
+  const icon = (result: AdminSearchResult) => {
+    if (result.kind === "blog") return <FileText className="h-4 w-4" />;
+    if (result.kind === "project") return <Folder className="h-4 w-4" />;
+    if (result.kind === "service") return <Briefcase className="h-4 w-4" />;
+    if (["user", "testimonial", "resume"].includes(result.kind)) return <Users className="h-4 w-4" />;
+    return <Mail className="h-4 w-4" />;
   };
 
   return (
@@ -150,63 +70,34 @@ export const GlobalSearchDialog = ({ open, onOpenChange }: GlobalSearchDialogPro
       <DialogContent className="max-w-2xl">
         <DialogHeader>
           <DialogTitle>Search Everything</DialogTitle>
-          <DialogDescription>
-            Search across all content, users, and submissions
-          </DialogDescription>
+          <DialogDescription>Search services, projects, posts, users, and every inbox request type.</DialogDescription>
         </DialogHeader>
-        
         <div className="relative">
-          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-          <Input
-            placeholder="Type to search..."
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            className="pl-10"
-            autoFocus
-          />
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+          <Input aria-label="Search admin content and inquiries" placeholder="Type at least 2 characters..." maxLength={200} value={query} onChange={(event) => setQuery(event.target.value)} className="pl-10" autoFocus />
         </div>
-
-        <div className="mt-4 max-h-[400px] overflow-y-auto space-y-2">
-          {isSearching ? (
-            Array.from({ length: 3 }).map((_, i) => (
-              <Skeleton key={i} className="h-16 w-full" />
-            ))
-          ) : results.length > 0 ? (
-            results.map((result) => (
-              <button
-                key={result.id}
-                onClick={() => handleSelect(result)}
-                className="w-full text-left p-3 rounded-lg border border-border hover:bg-muted transition-colors"
-              >
-                <div className="flex items-start gap-3">
-                  <div className="p-2 bg-primary/10 rounded">
-                    {getIcon(result.type)}
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <div className="flex items-center gap-2 mb-1">
-                      <p className="font-medium truncate">{result.title}</p>
-                      <Badge variant="outline" className="text-xs">
-                        {result.type}
-                      </Badge>
-                    </div>
-                    {result.description && (
-                      <p className="text-sm text-muted-foreground truncate">
-                        {result.description}
-                      </p>
-                    )}
-                  </div>
+        {failedSources.length > 0 && (
+          <Alert variant="destructive">
+            <AlertDescription className="flex flex-wrap items-center justify-between gap-2">
+              <span>Could not search: {failedSources.join(", ")}. Retry to include those sources.</span>
+              <Button size="sm" variant="outline" onClick={() => setRetry((value) => value + 1)}>Retry search</Button>
+            </AlertDescription>
+          </Alert>
+        )}
+        <div className="mt-2 max-h-[400px] overflow-y-auto space-y-2" aria-live="polite">
+          {isSearching ? <p className="text-center py-8 text-muted-foreground" role="status">Searching...</p> : results.length > 0 ? results.map((result) => (
+            <button key={`${result.kind}-${result.id}`} onClick={() => selectResult(result)} className="w-full text-left p-3 rounded-lg border border-border hover:bg-muted transition-colors">
+              <div className="flex items-start gap-3">
+                <div className="p-2 bg-primary/10 rounded">{icon(result)}</div>
+                <div className="flex-1 min-w-0">
+                  <div className="flex flex-wrap items-center gap-2 mb-1"><p className="font-medium truncate">{result.title}</p><Badge variant="outline" className="text-xs">{result.label}</Badge></div>
+                  {result.description && <p className="text-sm text-muted-foreground truncate">{result.description}</p>}
                 </div>
-              </button>
-            ))
-          ) : query.length >= 2 ? (
-            <div className="text-center py-8 text-muted-foreground">
-              No results found for "{query}"
-            </div>
-          ) : (
-            <div className="text-center py-8 text-muted-foreground">
-              Start typing to search...
-            </div>
-          )}
+              </div>
+            </button>
+          )) : failedSources.length === 0 ? (
+            <p className="text-center py-8 text-muted-foreground">{query.trim().length >= 2 ? `No results found for “${query.trim()}”` : "Start typing to search..."}</p>
+          ) : null}
         </div>
       </DialogContent>
     </Dialog>
