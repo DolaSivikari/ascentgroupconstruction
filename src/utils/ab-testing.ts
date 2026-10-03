@@ -1,3 +1,5 @@
+import { hasAnalyticsConsent } from "@/lib/analyticsConsent";
+
 // A/B Testing Framework
 interface ABTest {
   id: string;
@@ -75,7 +77,7 @@ class ABTestingFramework {
    */
   private trackEvent(testId: string, variant: string, action: string): void {
     // Send to analytics platform (Google Analytics, Mixpanel, etc.)
-    if (typeof window !== 'undefined' && window.dataLayer) {
+    if (typeof window !== 'undefined' && hasAnalyticsConsent() && window.dataLayer) {
       window.dataLayer.push({
         event: 'ab_test_event',
         test_id: testId,

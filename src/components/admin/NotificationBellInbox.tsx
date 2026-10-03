@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { useNavigate } from "react-router-dom";
 import { Bell } from "lucide-react";
@@ -14,119 +15,104 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { formatDistanceToNow } from "date-fns";
-
-interface Notification {
-  id: string;
-  notification_type: string;
-  title: string;
-  message: string;
-  is_read: boolean;
-  created_at: string;
-  reference_id: string;
-}
+import { useToast } from "@/hooks/use-toast";
+import { inboxDate } from "@/lib/inbox/model";
+import {
+  loadNotifications,
+  markNotificationsRead,
+  notificationDestination,
+  type InboxNotification,
+} from "@/lib/inbox/notifications";
 
 export const NotificationBellInbox = () => {
-  const [notifications, setNotifications] = useState<Notification[]>([]);
-  const [unreadCount, setUnreadCount] = useState(0);
+  const [userId, setUserId] = useState<string | null>(null);
+  const [authFailed, setAuthFailed] = useState(false);
+  const [busy, setBusy] = useState(false);
+  const queryClient = useQueryClient();
   const navigate = useNavigate();
-
+  const { toast } = useToast();
   useEffect(() => {
-    loadNotifications();
-    subscribeToNotifications();
-  }, []);
-
-  const loadNotifications = async () => {
-    try {
-      const { data: { user } } = await supabase.auth.getUser();
-      if (!user) return;
-
-      const { data, error } = await supabase
-        .from("admin_notifications")
-        .select("*")
-        .eq("user_id", user.id)
-        .order("created_at", { ascending: false })
-        .limit(10);
-
-      if (error) throw error;
-
-      if (data) {
-        setNotifications(data);
-        setUnreadCount(data.filter((n) => !n.is_read).length);
+    let cancelled = false;
+    void supabase.auth.getUser().then(({ data, error }) => {
+      if (!cancelled) {
+        setUserId(data.user?.id || null);
+        setAuthFailed(!!error);
       }
-    } catch (error) {
-      console.error("Error loading notifications:", error);
-    }
-  };
-
-  const subscribeToNotifications = () => {
+    });
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((_event, session) => {
+      if (!cancelled) {
+        setUserId(session?.user.id || null);
+        setAuthFailed(false);
+      }
+    });
+    return () => {
+      cancelled = true;
+      subscription.unsubscribe();
+    };
+  }, []);
+  const { data, isLoading, error, refetch } = useQuery({
+    queryKey: ["admin-notifications", userId],
+    enabled: !!userId,
+    queryFn: () => loadNotifications(userId!),
+    refetchInterval: 60_000,
+  });
+  useEffect(() => {
+    if (!userId) return;
     const channel = supabase
-      .channel("admin-notifications-changes")
+      .channel(`admin-notifications-${userId}`)
       .on(
         "postgres_changes",
         {
-          event: "INSERT",
+          event: "*",
           schema: "public",
           table: "admin_notifications",
+          filter: `user_id=eq.${userId}`,
         },
-        (payload) => {
-          console.log("New notification:", payload);
-          loadNotifications();
-        }
+        () => {
+          void queryClient.invalidateQueries({
+            queryKey: ["admin-notifications", userId],
+          });
+        },
       )
       .subscribe();
-
     return () => {
-      supabase.removeChannel(channel);
+      void supabase.removeChannel(channel);
     };
-  };
-
-  const markAsRead = async (id: string) => {
+  }, [userId, queryClient]);
+  const markRead = async (notification?: InboxNotification) => {
+    if (!userId || busy || notification?.is_read) return;
+    setBusy(true);
     try {
-      const { error } = await supabase
-        .from("admin_notifications")
-        .update({ is_read: true })
-        .eq("id", id);
-
-      if (error) throw error;
-
-      setNotifications((prev) =>
-        prev.map((n) => (n.id === id ? { ...n, is_read: true } : n))
-      );
-      setUnreadCount((prev) => Math.max(0, prev - 1));
-    } catch (error) {
-      console.error("Error marking notification as read:", error);
+      await markNotificationsRead(userId, notification?.id);
+      await queryClient.invalidateQueries({
+        queryKey: ["admin-notifications", userId],
+      });
+    } catch {
+      toast({
+        title: "Could not mark notifications as read",
+        description: "Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setBusy(false);
     }
   };
-
-  const markAllAsRead = async () => {
-    try {
-      const { data: { user } } = await supabase.auth.getUser();
-      if (!user) return;
-
-      const { error } = await supabase
-        .from("admin_notifications")
-        .update({ is_read: true })
-        .eq("user_id", user.id)
-        .eq("is_read", false);
-
-      if (error) throw error;
-
-      setNotifications((prev) => prev.map((n) => ({ ...n, is_read: true })));
-      setUnreadCount(0);
-    } catch (error) {
-      console.error("Error marking all as read:", error);
-    }
-  };
-
-  const handleNotificationClick = async (notification: Notification) => {
-    await markAsRead(notification.id);
-    navigate("/admin/inbox");
-  };
-
+  const unreadCount = error || authFailed ? 0 : data?.unread || 0;
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="ghost" size="icon" className="relative" aria-label="Inbox notifications">
+        <Button
+          variant="ghost"
+          size="icon"
+          className="relative"
+          aria-label={
+            error || authFailed
+              ? "Inbox notifications unavailable"
+              : `Inbox notifications, ${unreadCount} unread`
+          }
+        >
           <Bell className="h-5 w-5" />
           {unreadCount > 0 && (
             <Badge
@@ -138,15 +124,19 @@ export const NotificationBellInbox = () => {
           )}
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end" className="w-80">
+      <DropdownMenuContent
+        align="end"
+        className="w-80 max-w-[calc(100vw-2rem)]"
+      >
         <DropdownMenuLabel className="flex items-center justify-between">
           <span>Notifications</span>
           {unreadCount > 0 && (
             <Button
               variant="ghost"
               size="sm"
-              onClick={markAllAsRead}
-              className="h-auto p-0 text-xs text-primary hover:text-primary"
+              onClick={() => void markRead()}
+              disabled={busy}
+              className="h-auto p-0 text-xs text-primary"
             >
               Mark all as read
             </Button>
@@ -154,28 +144,52 @@ export const NotificationBellInbox = () => {
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
         <ScrollArea className="h-[400px]">
-          {notifications.length === 0 ? (
-            <div className="py-8 text-center text-sm text-muted-foreground">
-              No notifications
+          {error || authFailed ? (
+            <div role="alert" className="p-4 text-sm">
+              Could not load notifications.{" "}
+              <Button
+                variant="outline"
+                onClick={() => {
+                  if (authFailed) window.location.reload();
+                  else void refetch();
+                }}
+              >
+                Retry
+              </Button>
             </div>
+          ) : isLoading || !userId ? (
+            <p className="p-4 text-sm">Loading notifications...</p>
+          ) : !data?.recent.length ? (
+            <p className="py-8 text-center text-sm text-muted-foreground">
+              No notifications
+            </p>
           ) : (
-            notifications.map((notification) => (
+            data.recent.map((notification) => (
               <DropdownMenuItem
                 key={notification.id}
-                className={`flex flex-col items-start gap-1 p-3 cursor-pointer ${
-                  !notification.is_read ? "bg-muted/50" : ""
-                }`}
-                onClick={() => handleNotificationClick(notification)}
+                className={`flex flex-col items-start gap-1 p-3 cursor-pointer ${!notification.is_read ? "bg-muted/50" : ""}`}
+                onClick={() => {
+                  void markRead(notification);
+                  navigate(notificationDestination(notification));
+                }}
               >
-                <div className="flex items-start justify-between w-full">
-                  <p className="font-medium text-sm">{notification.title}</p>
+                <div className="flex items-start justify-between w-full gap-2">
+                  <p className="font-medium text-sm break-words">
+                    {notification.title}
+                  </p>
                   {!notification.is_read && (
                     <div className="h-2 w-2 rounded-full bg-primary flex-shrink-0 mt-1" />
                   )}
                 </div>
-                <p className="text-xs text-muted-foreground">{notification.message}</p>
+                <p className="text-xs text-muted-foreground break-words">
+                  {notification.message}
+                </p>
                 <p className="text-xs text-muted-foreground mt-1">
-                  {formatDistanceToNow(new Date(notification.created_at), { addSuffix: true })}
+                  {inboxDate(notification.created_at)
+                    ? formatDistanceToNow(inboxDate(notification.created_at)!, {
+                        addSuffix: true,
+                      })
+                    : "Date unavailable"}
                 </p>
               </DropdownMenuItem>
             ))
@@ -183,7 +197,7 @@ export const NotificationBellInbox = () => {
         </ScrollArea>
         <DropdownMenuSeparator />
         <DropdownMenuItem
-          className="justify-center text-center cursor-pointer"
+          className="justify-center cursor-pointer"
           onClick={() => navigate("/admin/inbox")}
         >
           View all in Unified Inbox

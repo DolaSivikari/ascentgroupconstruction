@@ -1,5 +1,5 @@
-import { useState, useEffect } from "react";
-import { useQuery } from "@tanstack/react-query";
+import { useEffect, useState } from "react";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import {
   Table,
@@ -24,280 +24,114 @@ import { format } from "date-fns";
 import { InboxDetailDialog } from "./InboxDetailDialog";
 import { useToast } from "@/hooks/use-toast";
 import { ConfirmDialog } from "@/components/admin/ConfirmDialog";
+import { loadInbox } from "@/lib/inbox/api";
+import {
+  INBOX_SOURCES,
+  STATUS_LABELS,
+  filterStatuses,
+  inboxDate,
+  inboxName,
+  inboxText,
+  matchesInboxSearch,
+  type InboxFilter,
+  type InboxItem,
+  type InboxKind,
+} from "@/lib/inbox/model";
 
 interface InboxTableProps {
-  type: "all" | "rfp" | "contact" | "resume" | "prequal" | "quote" | "newsletter";
+  type: InboxFilter;
   highlightId?: string | null;
 }
-
-// Map tables to their date column names
-const dateColumnMap: Record<string, string> = {
-  'rfp_submissions': 'created_at',
-  'contact_submissions': 'created_at',
-  'resume_submissions': 'created_at',
-  'prequalification_downloads': 'downloaded_at',
-  'quote_requests': 'created_at',
-  'newsletter_subscribers': 'created_at',
-};
-
 export const InboxTable = ({ type, highlightId }: InboxTableProps) => {
   const [searchQuery, setSearchQuery] = useState("");
-  const [statusFilter, setStatusFilter] = useState<string>("all");
-  const [selectedItem, setSelectedItem] = useState<any>(null);
-  const [deleteItem, setDeleteItem] = useState<any>(null);
+  const [statusFilter, setStatusFilter] = useState("all");
+  const [selectedItem, setSelectedItem] = useState<InboxItem | null>(null);
+  const [deleteItem, setDeleteItem] = useState<InboxItem | null>(null);
+  const [deleting, setDeleting] = useState(false);
   const [activeHighlight, setActiveHighlight] = useState<string | null>(null);
   const { toast } = useToast();
-
-  const { data: items, isLoading, refetch } = useQuery({
-    queryKey: ["inbox-items", type, statusFilter],
-    queryFn: async () => {
-      const allItems: any[] = [];
-
-      const fetchFromTable = async (
-        table: string,
-        typeLabel: string,
-        selectFields: string,
-        dateColumn: string = 'created_at'
-      ) => {
-        try {
-          const baseQuery: any = supabase.from(table as any);
-          let query = baseQuery.select(selectFields).order(dateColumn, { ascending: false });
-          
-          if (statusFilter !== "all" && table !== "newsletter_subscribers") {
-            query = query.eq("status", statusFilter);
-          }
-
-          const { data, error } = await query;
-          if (error) {
-            console.error(`Error fetching from ${table}:`, error);
-            return [];
-          }
-
-          return data?.map((item: any) => ({
-            ...item,
-            // Normalize the date column to created_at for consistent sorting/display
-            created_at: item[dateColumn] || item.created_at,
-            type: typeLabel,
-            table: table,
-          })) || [];
-        } catch (error) {
-          console.error(`Error fetching from ${table}:`, error);
-          return [];
-        }
-      };
-
-      if (type === "all" || type === "rfp") {
-        const rfps = await fetchFromTable(
-          "rfp_submissions",
-          "RFP",
-          "id, contact_name, company_name, email, phone, project_name, status, created_at, estimated_value_range",
-          dateColumnMap['rfp_submissions']
-        );
-        allItems.push(...rfps);
-      }
-
-      if (type === "all" || type === "contact") {
-        const contacts = await fetchFromTable(
-          "contact_submissions",
-          "Contact",
-          "id, name, email, phone, company, message, status, created_at, submission_type",
-          dateColumnMap['contact_submissions']
-        );
-        allItems.push(...contacts);
-      }
-
-      if (type === "all" || type === "resume") {
-        const resumes = await fetchFromTable(
-          "resume_submissions",
-          "Resume",
-          "id, applicant_name, email, phone, status, created_at, resume_url",
-          dateColumnMap['resume_submissions']
-        );
-        allItems.push(...resumes);
-      }
-
-      if (type === "all" || type === "prequal") {
-        const prequals = await fetchFromTable(
-          "prequalification_downloads",
-          "Prequal",
-          "id, contact_name, company_name, email, phone, status, downloaded_at, project_type",
-          dateColumnMap['prequalification_downloads']
-        );
-        allItems.push(...prequals);
-      }
-
-      if (type === "all" || type === "quote") {
-        const quotes = await fetchFromTable(
-          "quote_requests",
-          "Quote",
-          "id, name, email, phone, company, status, created_at, quote_type, priority",
-          dateColumnMap['quote_requests']
-        );
-        allItems.push(...quotes);
-      }
-
-      if (type === "all" || type === "newsletter") {
-        const newsletters = await fetchFromTable(
-          "newsletter_subscribers",
-          "Newsletter",
-          "id, email, created_at, is_active, source",
-          dateColumnMap['newsletter_subscribers']
-        );
-        allItems.push(...newsletters);
-      }
-
-      return allItems.sort(
-        (a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
-      );
-    },
+  const queryClient = useQueryClient();
+  const { data, isLoading, isFetching, error, refetch } = useQuery({
+    queryKey: ["inbox-items", type],
+    queryFn: () => loadInbox(type),
+    refetchInterval: 60_000,
   });
+  const items = data?.items;
+  const refresh = () => {
+    void queryClient.invalidateQueries({ queryKey: ["inbox-items"] });
+    void queryClient.invalidateQueries({ queryKey: ["inbox-stats"] });
+    void queryClient.invalidateQueries({ queryKey: ["estimates-quotes"] });
+  };
 
-  // Realtime subscriptions
   useEffect(() => {
-    const channels: any[] = [];
-
-    const tables = type === "all" 
-      ? ["rfp_submissions", "contact_submissions", "resume_submissions", "prequalification_downloads", "quote_requests"]
-      : type === "rfp" ? ["rfp_submissions"]
-      : type === "contact" ? ["contact_submissions"]
-      : type === "resume" ? ["resume_submissions"]
-      : type === "prequal" ? ["prequalification_downloads"]
-      : type === "quote" ? ["quote_requests"]
-      : [];
-
-    tables.forEach((table) => {
-      const channel = supabase
-        .channel(`${table}-changes`)
-        .on(
-          "postgres_changes",
-          {
-            event: "*",
-            schema: "public",
-            table: table,
-          },
-          (payload) => {
-            console.log("Realtime update:", payload);
-            refetch();
-            
-            if (payload.eventType === "INSERT") {
-              toast({
-                title: "New Submission",
-                description: `A new ${table.replace("_", " ")} has been received.`,
-              });
-            }
-          }
-        )
-        .subscribe();
-
-      channels.push(channel);
-    });
-
+    const kinds =
+      type === "all" ? (Object.keys(INBOX_SOURCES) as InboxKind[]) : [type];
+    const channel = supabase
+      .channel(`inbox-${type}`)
+      .on("postgres_changes", { event: "*", schema: "public" }, (payload) => {
+        if (kinds.some((kind) => INBOX_SOURCES[kind].table === payload.table)) {
+          void queryClient.invalidateQueries({ queryKey: ["inbox-items"] });
+          void queryClient.invalidateQueries({ queryKey: ["inbox-stats"] });
+          if (payload.eventType === "INSERT")
+            toast({
+              title: "New Submission",
+              description: "A new message has arrived in the inbox.",
+            });
+        }
+      })
+      .subscribe();
     return () => {
-      channels.forEach((channel) => supabase.removeChannel(channel));
+      void supabase.removeChannel(channel);
     };
-  }, [type, refetch, toast]);
+  }, [type, queryClient, toast]);
 
-  // Highlight a specific row when navigated to via ?highlight=<id>
   useEffect(() => {
-    if (!highlightId || !items || items.length === 0) return;
-    const match = items.find((i) => i.id === highlightId);
-    if (!match) return;
-
+    if (!highlightId || !items?.some((item) => item.id === highlightId)) return;
     setActiveHighlight(highlightId);
-    // Wait for render before scrolling
-    const scrollTimer = window.setTimeout(() => {
-      const el = document.getElementById(`inbox-row-${highlightId}`);
-      if (el) {
-        el.scrollIntoView({ behavior: "smooth", block: "center" });
-      }
-    }, 100);
-    const clearTimer = window.setTimeout(() => setActiveHighlight(null), 3500);
-
+    const scroll = window.setTimeout(
+      () =>
+        document
+          .getElementById(`inbox-row-${highlightId}`)
+          ?.scrollIntoView({ behavior: "smooth", block: "center" }),
+      100,
+    );
+    const clear = window.setTimeout(() => setActiveHighlight(null), 3500);
     return () => {
-      window.clearTimeout(scrollTimer);
-      window.clearTimeout(clearTimer);
+      window.clearTimeout(scroll);
+      window.clearTimeout(clear);
     };
   }, [highlightId, items]);
 
   const handleDelete = async () => {
-    if (!deleteItem) return;
-
+    if (!deleteItem || deleting) return;
+    setDeleting(true);
     try {
       const { error } = await supabase
         .from(deleteItem.table)
         .delete()
-        .eq("id", deleteItem.id);
-
+        .eq("id", deleteItem.id)
+        .select("id")
+        .single();
       if (error) throw error;
-
-      toast({
-        title: "Success",
-        description: "Item deleted successfully",
-      });
-
-      refetch();
+      toast({ title: "Deleted", description: "Submission removed." });
+      refresh();
       setDeleteItem(null);
-    } catch (error) {
-      console.error("Error deleting item:", error);
+    } catch {
       toast({
         title: "Error",
-        description: "Failed to delete item. Please try again.",
+        description: "Could not delete this submission. Please try again.",
         variant: "destructive",
       });
+    } finally {
+      setDeleting(false);
     }
   };
-
-  const filteredItems = items?.filter((item) => {
-    const searchLower = searchQuery.toLowerCase();
-    const name =
-      item.contact_name ||
-      item.name ||
-      item.applicant_name ||
-      item.company_name ||
-      "";
-    const email = item.email || "";
-    const company = item.company || item.company_name || "";
-
-    return (
-      name.toLowerCase().includes(searchLower) ||
-      email.toLowerCase().includes(searchLower) ||
-      company.toLowerCase().includes(searchLower)
-    );
-  });
-
-  const getStatusVariant = (status: string) => {
-    switch (status) {
-      case "new":
-        return "new" as const;
-      case "in_progress":
-      case "contacted":
-        return "warning" as const;
-      case "completed":
-      case "resolved":
-        return "success" as const;
-      default:
-        return "secondary" as const;
-    }
-  };
-
-  const getTypeVariant = (type: string) => {
-    switch (type) {
-      case "RFP":
-        return "danger" as const;
-      case "Contact":
-        return "info" as const;
-      case "Resume":
-        return "success" as const;
-      case "Prequal":
-        return "primary" as const;
-      case "Quote":
-        return "warning" as const;
-      case "Newsletter":
-        return "info" as const;
-      default:
-        return "secondary" as const;
-    }
-  };
+  const filteredItems = items?.filter(
+    (item) =>
+      matchesInboxSearch(item, searchQuery) &&
+      (statusFilter === "all" || item.status === statusFilter),
+  );
+  const hasFailure = !!error || !!data?.failed.length;
 
   return (
     <div className="space-y-4">
@@ -305,39 +139,59 @@ export const InboxTable = ({ type, highlightId }: InboxTableProps) => {
         <div className="relative flex-1">
           <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
           <Input
-            placeholder="Search by name, email, or company..."
+            aria-label="Search inbox"
+            placeholder="Search name, company, project, or scope..."
             value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
+            onChange={(event) => setSearchQuery(event.target.value)}
             className="pl-10"
           />
         </div>
         {type !== "newsletter" && (
           <Select value={statusFilter} onValueChange={setStatusFilter}>
-            <SelectTrigger className="w-[180px]">
+            <SelectTrigger
+              aria-label="Filter inbox status"
+              className="w-full sm:w-[180px]"
+            >
               <SelectValue placeholder="Filter by status" />
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="all">All Statuses</SelectItem>
-              <SelectItem value="new">New</SelectItem>
-              <SelectItem value="in_progress">In Progress</SelectItem>
-              <SelectItem value="contacted">Contacted</SelectItem>
-              <SelectItem value="completed">Completed</SelectItem>
-              <SelectItem value="resolved">Resolved</SelectItem>
+              {filterStatuses(type).map((status) => (
+                <SelectItem key={status} value={status}>
+                  {STATUS_LABELS[status]}
+                </SelectItem>
+              ))}
             </SelectContent>
           </Select>
         )}
+        <Button
+          variant="outline"
+          onClick={() => void refetch()}
+          disabled={isFetching}
+        >
+          {isFetching ? "Refreshing..." : "Refresh"}
+        </Button>
       </div>
-
-      <div className="rounded-md border">
+      {hasFailure && (
+        <div
+          role="alert"
+          className="rounded-md border border-destructive/50 p-4 text-sm"
+        >
+          Could not load {data?.failed.join(", ") || "the inbox"}. Any messages
+          shown below are from the sources that loaded successfully. Please
+          refresh to try again.
+        </div>
+      )}
+      <div className="rounded-md border overflow-x-auto">
         <Table>
           <TableHeader>
             <TableRow>
               <TableHead>Type</TableHead>
-              <TableHead>Name/Contact</TableHead>
+              <TableHead>Name / Project</TableHead>
               <TableHead>Email</TableHead>
               <TableHead>Phone</TableHead>
               {type !== "newsletter" && <TableHead>Status</TableHead>}
-              <TableHead>Date</TableHead>
+              <TableHead>Received</TableHead>
               <TableHead>Actions</TableHead>
             </TableRow>
           </TableHeader>
@@ -348,60 +202,88 @@ export const InboxTable = ({ type, highlightId }: InboxTableProps) => {
                   Loading...
                 </TableCell>
               </TableRow>
-            ) : filteredItems && filteredItems.length > 0 ? (
+            ) : filteredItems?.length ? (
               filteredItems.map((item) => (
                 <TableRow
-                  key={`${item.type}-${item.id}`}
+                  key={`${item.table}-${item.id}`}
                   id={`inbox-row-${item.id}`}
-                  className={`hover:bg-muted/50 transition-shadow ${
-                    activeHighlight === item.id
-                      ? "ring-2 ring-primary ring-inset bg-primary/5"
-                      : ""
-                  }`}
+                  className={`hover:bg-muted/50 ${activeHighlight === item.id ? "ring-2 ring-primary ring-inset bg-primary/5" : ""}`}
                 >
                   <TableCell>
-                    <Badge variant={getTypeVariant(item.type)}>{item.type}</Badge>
+                    <Badge
+                      variant={
+                        item.type === "RFP"
+                          ? "danger"
+                          : item.type === "Quote"
+                            ? "warning"
+                            : "info"
+                      }
+                    >
+                      {item.type}
+                    </Badge>
                   </TableCell>
                   <TableCell className="font-medium">
-                    {item.contact_name || item.name || item.applicant_name || item.company_name}
+                    {inboxName(item)}
+                    {inboxText(item, "project_name") && (
+                      <div className="text-xs text-muted-foreground">
+                        {inboxText(item, "project_name")}
+                      </div>
+                    )}
                   </TableCell>
                   <TableCell>{item.email}</TableCell>
-                  <TableCell>{item.phone || "-"}</TableCell>
+                  <TableCell>{inboxText(item, "phone") || "—"}</TableCell>
                   {type !== "newsletter" && (
                     <TableCell>
-                      <Badge variant={getStatusVariant(item.status || "new")}>
-                        {item.status || "new"}
-                      </Badge>
+                      {item.type === "Newsletter" ? (
+                        <Badge>{item.is_active ? "Active" : "Inactive"}</Badge>
+                      ) : (
+                        <Badge
+                          variant={
+                            item.status === "new"
+                              ? "new"
+                              : ["completed", "resolved", "won"].includes(
+                                    item.status || "",
+                                  )
+                                ? "success"
+                                : item.status === "lost"
+                                  ? "destructive"
+                                  : "secondary"
+                          }
+                        >
+                          {STATUS_LABELS[item.status || "new"] || item.status}
+                        </Badge>
+                      )}
                     </TableCell>
                   )}
                   <TableCell>
-                    {item.created_at ? format(new Date(item.created_at), "MMM d, yyyy HH:mm") : "-"}
+                    {inboxDate(item.created_at)
+                      ? format(inboxDate(item.created_at)!, "MMM d, yyyy HH:mm")
+                      : "—"}
                   </TableCell>
                   <TableCell>
                     <div className="flex items-center gap-2">
                       <Button
                         variant="ghost"
                         size="icon"
+                        aria-label={`View ${inboxName(item)}`}
                         onClick={() => setSelectedItem(item)}
                       >
                         <Eye className="h-4 w-4" />
                       </Button>
-                      <Button
-                        variant="ghost"
-                        size="icon"
-                        asChild
-                      >
-                        <a href={`mailto:${item.email}`}>
+                      <Button variant="ghost" size="icon" asChild>
+                        <a
+                          href={`mailto:${item.email}`}
+                          aria-label={`Email ${inboxName(item)}`}
+                        >
                           <Mail className="h-4 w-4" />
                         </a>
                       </Button>
-                      {item.phone && (
-                        <Button
-                          variant="ghost"
-                          size="icon"
-                          asChild
-                        >
-                          <a href={`tel:${item.phone}`}>
+                      {inboxText(item, "phone") && (
+                        <Button variant="ghost" size="icon" asChild>
+                          <a
+                            href={`tel:${inboxText(item, "phone")}`}
+                            aria-label={`Call ${inboxName(item)}`}
+                          >
                             <Phone className="h-4 w-4" />
                           </a>
                         </Button>
@@ -409,8 +291,9 @@ export const InboxTable = ({ type, highlightId }: InboxTableProps) => {
                       <Button
                         variant="ghost"
                         size="icon"
+                        aria-label={`Delete ${inboxName(item)}`}
                         onClick={() => setDeleteItem(item)}
-                        className="text-destructive hover:text-destructive"
+                        className="text-destructive"
                       >
                         <Trash2 className="h-4 w-4" />
                       </Button>
@@ -420,31 +303,37 @@ export const InboxTable = ({ type, highlightId }: InboxTableProps) => {
               ))
             ) : (
               <TableRow>
-                <TableCell colSpan={7} className="text-center py-8 text-muted-foreground">
-                  No items found
+                <TableCell
+                  colSpan={7}
+                  className="text-center py-8 text-muted-foreground"
+                >
+                  {hasFailure
+                    ? "Some inbox sources could not be loaded."
+                    : "No messages match these filters."}
                 </TableCell>
               </TableRow>
             )}
           </TableBody>
         </Table>
       </div>
-
       {selectedItem && (
         <InboxDetailDialog
+          key={`${selectedItem.table}-${selectedItem.id}`}
           item={selectedItem}
-          open={!!selectedItem}
+          open
           onClose={() => setSelectedItem(null)}
-          onUpdate={refetch}
+          onUpdate={refresh}
         />
       )}
-
       <ConfirmDialog
         open={!!deleteItem}
-        onOpenChange={(open) => !open && setDeleteItem(null)}
+        onOpenChange={(open) => {
+          if (!open && !deleting) setDeleteItem(null);
+        }}
         onConfirm={handleDelete}
         title="Delete Item"
-        description="Are you sure you want to delete this item? This action cannot be undone."
-        confirmText="Delete"
+        description="This permanently deletes the submission. This action cannot be undone."
+        confirmText={deleting ? "Deleting..." : "Delete"}
         cancelText="Cancel"
         variant="destructive"
       />

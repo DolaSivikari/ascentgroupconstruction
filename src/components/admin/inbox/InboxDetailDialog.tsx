@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, type ReactNode } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import {
   Dialog,
@@ -18,256 +18,410 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
-import { Mail, Phone, Building, Calendar, FileText, Download, Trash2 } from "lucide-react";
+import { Download, Trash2 } from "lucide-react";
 import { format } from "date-fns";
 import { ConfirmDialog } from "@/components/admin/ConfirmDialog";
+import { signRfpAttachment, saveInboxItem } from "@/lib/inbox/api";
+import {
+  STATUS_LABELS,
+  inboxDate,
+  inboxName,
+  inboxStatuses,
+  inboxStrings,
+  inboxText,
+  supportsAdminNotes,
+  type InboxItem,
+} from "@/lib/inbox/model";
 
 interface InboxDetailDialogProps {
-  item: any;
+  item: InboxItem;
   open: boolean;
   onClose: () => void;
   onUpdate: () => void;
 }
 
-export const InboxDetailDialog = ({ item, open, onClose, onUpdate }: InboxDetailDialogProps) => {
+const fieldsByType: Record<InboxItem["type"], [string, string][]> = {
+  RFP: [
+    ["company_name", "Company"],
+    ["title", "Contact title"],
+    ["project_name", "Project"],
+    ["project_type", "Project type"],
+    ["project_location", "Location"],
+    ["estimated_value_range", "Estimated value"],
+    ["estimated_timeline", "Timeline"],
+    ["project_start_date", "Project start date"],
+    ["estimated_start_date", "Estimated start date"],
+    ["delivery_method", "Delivery method"],
+    ["scope_of_work", "Scope of work"],
+    ["project_description", "Project description"],
+    ["additional_requirements", "Additional requirements"],
+    ["special_requirements", "Special requirements"],
+  ],
+  Contact: [
+    ["company", "Company"],
+    ["submission_type", "Type"],
+    ["message", "Message"],
+  ],
+  Resume: [
+    ["position_applied", "Position applied for"],
+    ["cover_letter", "Cover letter"],
+  ],
+  Prequal: [
+    ["company_name", "Company"],
+    ["project_type", "Project type"],
+    ["project_value_range", "Project value"],
+    ["message", "Message"],
+  ],
+  Quote: [
+    ["company", "Company"],
+    ["quote_type", "Request type"],
+    ["source", "Source"],
+    ["role", "Role"],
+    ["service_origin", "Service"],
+    ["project_address", "Project address"],
+    ["city", "City"],
+    ["target_deadline", "Target deadline"],
+    ["access_hours", "Access hours"],
+    ["priority", "Priority"],
+    ["additional_notes", "Submitted notes"],
+  ],
+  Newsletter: [["source", "Source"]],
+};
+
+const safeFileUrl = (value: string): string | null => {
+  try {
+    const url = new URL(value);
+    return url.protocol === "https:" ? url.href : null;
+  } catch {
+    return null;
+  }
+};
+const fileName = (value: string) => {
+  const name = value.split("?")[0].split("/").pop() || "Attachment";
+  try {
+    return decodeURIComponent(name);
+  } catch {
+    return name;
+  }
+};
+
+export const InboxDetailDialog = ({
+  item,
+  open,
+  onClose,
+  onUpdate,
+}: InboxDetailDialogProps) => {
   const [status, setStatus] = useState(item.status || "new");
-  const [adminNotes, setAdminNotes] = useState(item.admin_notes || "");
+  const [adminNotes, setAdminNotes] = useState(inboxText(item, "admin_notes"));
   const [isSaving, setIsSaving] = useState(false);
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
+  const [openingFile, setOpeningFile] = useState<string | null>(null);
+  const [attachmentLink, setAttachmentLink] = useState<{
+    name: string;
+    url: string;
+  } | null>(null);
   const { toast } = useToast();
+  const statuses = inboxStatuses(item.table);
+  const hasNotes = supportsAdminNotes(item);
+  const changed =
+    status !== (item.status || "new") ||
+    (hasNotes && adminNotes !== inboxText(item, "admin_notes"));
+  const submitted = inboxDate(item.created_at);
 
   const handleSave = async () => {
+    if (isSaving || !changed) return;
     setIsSaving(true);
     try {
-      const { error } = await supabase
-        .from(item.table)
-        .update({
-          status,
-          admin_notes: adminNotes,
-        })
-        .eq("id", item.id);
-
-      if (error) throw error;
-
-      toast({
-        title: "Success",
-        description: "Item updated successfully",
-      });
-
+      await saveInboxItem(item, status, adminNotes);
+      toast({ title: "Saved", description: "Request updated successfully." });
       onUpdate();
       onClose();
-    } catch (error) {
-      console.error("Error updating item:", error);
+    } catch {
       toast({
-        title: "Error",
-        description: "Failed to update item",
+        title: "Could not save",
+        description: "Your changes have not been saved. Please try again.",
         variant: "destructive",
       });
     } finally {
       setIsSaving(false);
     }
   };
-
   const handleDelete = async () => {
+    if (isSaving) return;
     setIsSaving(true);
     try {
       const { error } = await supabase
         .from(item.table)
         .delete()
-        .eq("id", item.id);
-
+        .eq("id", item.id)
+        .select("id")
+        .single();
       if (error) throw error;
-
-      toast({
-        title: "Success",
-        description: "Item deleted successfully",
-      });
-
+      toast({ title: "Deleted", description: "Submission removed." });
       onUpdate();
       onClose();
-    } catch (error) {
-      console.error("Error deleting item:", error);
+    } catch {
       toast({
-        title: "Error",
-        description: "Failed to delete item",
+        title: "Could not delete",
+        description: "Please try again.",
         variant: "destructive",
       });
     } finally {
       setIsSaving(false);
     }
   };
-
-  const renderDetails = () => {
-    switch (item.type) {
-      case "RFP":
-        return (
-          <div className="space-y-4">
-            <DetailRow icon={<Building />} label="Company" value={item.company_name} />
-            <DetailRow icon={<FileText />} label="Project" value={item.project_name} />
-            <DetailRow icon={<FileText />} label="Project Type" value={item.project_type} />
-            <DetailRow icon={<FileText />} label="Estimated Value" value={item.estimated_value_range} />
-            {item.project_description && (
-              <div>
-                <p className="text-sm font-medium mb-2">Project Description:</p>
-                <p className="text-sm text-muted-foreground whitespace-pre-wrap">{item.project_description}</p>
-              </div>
-            )}
-          </div>
-        );
-
-      case "Contact":
-        return (
-          <div className="space-y-4">
-            {item.company && <DetailRow icon={<Building />} label="Company" value={item.company} />}
-            <DetailRow icon={<FileText />} label="Type" value={item.submission_type} />
-            <div>
-              <p className="text-sm font-medium mb-2">Message:</p>
-              <p className="text-sm text-muted-foreground whitespace-pre-wrap">{item.message}</p>
-            </div>
-          </div>
-        );
-
-      case "Resume":
-        return (
-          <div className="space-y-4">
-            {item.resume_url && (
-              <Button variant="outline" asChild className="w-full">
-                <a href={item.resume_url} target="_blank" rel="noopener noreferrer">
-                  <Download className="mr-2 h-4 w-4" />
-                  Download Resume
-                </a>
-              </Button>
-            )}
-            {item.cover_message && (
-              <div>
-                <p className="text-sm font-medium mb-2">Cover Message:</p>
-                <p className="text-sm text-muted-foreground whitespace-pre-wrap">{item.cover_message}</p>
-              </div>
-            )}
-          </div>
-        );
-
-      case "Prequal":
-        return (
-          <div className="space-y-4">
-            <DetailRow icon={<Building />} label="Company" value={item.company_name} />
-            {item.project_type && <DetailRow icon={<FileText />} label="Project Type" value={item.project_type} />}
-            {item.project_value_range && <DetailRow icon={<FileText />} label="Project Value" value={item.project_value_range} />}
-            {item.message && (
-              <div>
-                <p className="text-sm font-medium mb-2">Message:</p>
-                <p className="text-sm text-muted-foreground whitespace-pre-wrap">{item.message}</p>
-              </div>
-            )}
-          </div>
-        );
-
-      case "Quote":
-        return (
-          <div className="space-y-4">
-            {item.company && <DetailRow icon={<Building />} label="Company" value={item.company} />}
-            <DetailRow icon={<FileText />} label="Quote Type" value={item.quote_type} />
-            {item.priority && (
-              <DetailRow 
-                icon={<FileText />} 
-                label="Priority" 
-                value={<Badge variant={item.priority === "hot" ? "destructive" : "secondary"}>{item.priority}</Badge>}
-              />
-            )}
-            {item.additional_notes && (
-              <div>
-                <p className="text-sm font-medium mb-2">Additional Notes:</p>
-                <p className="text-sm text-muted-foreground whitespace-pre-wrap">{item.additional_notes}</p>
-              </div>
-            )}
-          </div>
-        );
-
-      case "Newsletter":
-        return (
-          <div className="space-y-4">
-            <DetailRow icon={<FileText />} label="Source" value={item.source || "Website"} />
-            <DetailRow 
-              icon={<FileText />} 
-              label="Status" 
-              value={item.is_active ? "Active" : "Inactive"}
-            />
-          </div>
-        );
-
-      default:
-        return null;
+  const openAttachment = async (path: string) => {
+    if (openingFile) return;
+    // Open during the click, before awaiting the signed URL, to avoid popup blocking.
+    const tab = window.open("about:blank", "_blank");
+    if (tab) tab.opener = null;
+    setOpeningFile(path);
+    setAttachmentLink(null);
+    try {
+      const url = await signRfpAttachment(path);
+      if (tab && !tab.closed) tab.location.replace(url);
+      else setAttachmentLink({ name: fileName(path), url });
+    } catch {
+      tab?.close();
+      toast({
+        title: "Attachment unavailable",
+        description: "Could not open this file. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setOpeningFile(null);
     }
   };
 
   return (
-    <Dialog open={open} onOpenChange={onClose}>
+    <Dialog
+      open={open}
+      onOpenChange={(next) => {
+        if (!next && !isSaving) onClose();
+      }}
+    >
       <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
         <DialogHeader>
-          <DialogTitle className="flex items-center gap-2">
-            <Badge>{item.type}</Badge>
-            {item.contact_name || item.name || item.applicant_name || item.company_name}
+          <DialogTitle className="flex flex-wrap items-center gap-2">
+            <Badge>
+              {item.type === "Quote" && item.source === "estimator"
+                ? "Estimate"
+                : item.type}
+            </Badge>
+            {inboxName(item)}
           </DialogTitle>
           <DialogDescription>
-            Submitted on {format(new Date(item.created_at), "MMMM d, yyyy 'at' HH:mm")}
+            {submitted
+              ? `Submitted on ${format(submitted, "MMMM d, yyyy 'at' HH:mm")}`
+              : "Submission date unavailable"}
           </DialogDescription>
         </DialogHeader>
-
         <div className="space-y-6 py-4">
-          {/* Contact Information */}
-          <div className="space-y-3">
-            <h3 className="text-sm font-semibold">Contact Information</h3>
-            <div className="space-y-2">
-              <DetailRow icon={<Mail />} label="Email" value={item.email} link={`mailto:${item.email}`} />
-              {item.phone && (
-                <DetailRow icon={<Phone />} label="Phone" value={item.phone} link={`tel:${item.phone}`} />
+          <section className="space-y-3">
+            <h3 className="text-sm font-semibold">Contact information</h3>
+            <DetailRow
+              label="Email"
+              value={item.email}
+              link={`mailto:${item.email}`}
+            />
+            {inboxText(item, "phone") && (
+              <DetailRow
+                label="Phone"
+                value={inboxText(item, "phone")}
+                link={`tel:${inboxText(item, "phone")}`}
+              />
+            )}
+          </section>
+          <section className="space-y-3">
+            <h3 className="text-sm font-semibold">Request details</h3>
+            {fieldsByType[item.type].map(([field, label]) =>
+              inboxText(item, field) ? (
+                <DetailRow
+                  key={field}
+                  label={label}
+                  value={inboxText(item, field)}
+                />
+              ) : null,
+            )}
+            {item.type === "RFP" &&
+              (
+                [
+                  ["bonding_required", "Bonding required"],
+                  ["plans_available", "Plans available"],
+                  ["site_visit_required", "Site visit required"],
+                  ["prequalification_complete", "Prequalification complete"],
+                ] as const
+              ).map(([field, label]) =>
+                typeof item[field] === "boolean" ? (
+                  <DetailRow
+                    key={field}
+                    label={label}
+                    value={item[field] ? "Yes" : "No"}
+                  />
+                ) : null,
               )}
-            </div>
-          </div>
-
-          {/* Type-specific Details */}
-          <div className="space-y-3">
-            <h3 className="text-sm font-semibold">Details</h3>
-            {renderDetails()}
-          </div>
-
-          {/* Status Update */}
-          {item.type !== "Newsletter" && (
-            <div className="space-y-3">
-              <h3 className="text-sm font-semibold">Update Status</h3>
-              <Select value={status} onValueChange={setStatus}>
-                <SelectTrigger>
+            {item.type === "Quote" && (
+              <>
+                {inboxStrings(item, "scope_categories").length > 0 && (
+                  <DetailRow
+                    label="Scope categories"
+                    value={inboxStrings(item, "scope_categories").join(", ")}
+                  />
+                )}
+                {[
+                  ["estimated_value", "Estimated value"],
+                  ["nte_budget", "Budget limit"],
+                ].map(([field, label]) =>
+                  typeof item[field] === "number" ? (
+                    <DetailRow
+                      key={field}
+                      label={label}
+                      value={new Intl.NumberFormat("en-CA", {
+                        style: "currency",
+                        currency: "CAD",
+                      }).format(item[field] as number)}
+                    />
+                  ) : null,
+                )}
+                {typeof item.after_hours_required === "boolean" && (
+                  <DetailRow
+                    label="After hours required"
+                    value={item.after_hours_required ? "Yes" : "No"}
+                  />
+                )}
+              </>
+            )}
+            {item.type === "Newsletter" && (
+              <DetailRow
+                label="Subscription"
+                value={item.is_active ? "Active" : "Inactive"}
+              />
+            )}
+          </section>
+          {item.type === "RFP" &&
+            inboxStrings(item, "attachment_urls").length > 0 && (
+              <section className="space-y-3">
+                <h3 className="text-sm font-semibold">Attachments</h3>
+                <p className="text-xs text-muted-foreground">
+                  Private files open with a link that expires in five minutes.
+                </p>
+                {inboxStrings(item, "attachment_urls").map((path) => (
+                  <Button
+                    key={path}
+                    variant="outline"
+                    className="w-full justify-start h-auto whitespace-normal text-left break-all"
+                    disabled={!!openingFile}
+                    onClick={() => void openAttachment(path)}
+                  >
+                    <Download className="mr-2 h-4 w-4 shrink-0" />
+                    {openingFile === path ? "Opening..." : fileName(path)}
+                  </Button>
+                ))}
+                {attachmentLink && (
+                  <a
+                    className="block text-sm underline break-all"
+                    href={attachmentLink.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Open {attachmentLink.name}
+                  </a>
+                )}
+              </section>
+            )}
+          {item.type === "Resume" &&
+            inboxText(item, "resume_url") &&
+            (safeFileUrl(inboxText(item, "resume_url")) ? (
+              <Button variant="outline" asChild>
+                <a
+                  href={safeFileUrl(inboxText(item, "resume_url"))!}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <Download className="mr-2 h-4 w-4" />
+                  Download resume
+                </a>
+              </Button>
+            ) : (
+              <p className="text-sm text-muted-foreground">
+                Resume link unavailable.
+              </p>
+            ))}
+          {item.type === "Quote" &&
+            inboxStrings(item, "uploaded_files").map((file) =>
+              safeFileUrl(file) ? (
+                <a
+                  key={file}
+                  className="block text-sm underline break-all"
+                  href={safeFileUrl(file)!}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {fileName(file)}
+                </a>
+              ) : (
+                <DetailRow
+                  key={file}
+                  label="Attached file reference"
+                  value={file}
+                />
+              ),
+            )}
+          {statuses.length > 0 && (
+            <section className="space-y-3">
+              <h3 className="text-sm font-semibold">Update status</h3>
+              <Select
+                value={status}
+                onValueChange={setStatus}
+                disabled={isSaving}
+              >
+                <SelectTrigger aria-label="Request status">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="new">New</SelectItem>
-                  <SelectItem value="in_progress">In Progress</SelectItem>
-                  <SelectItem value="contacted">Contacted</SelectItem>
-                  <SelectItem value="completed">Completed</SelectItem>
-                  <SelectItem value="resolved">Resolved</SelectItem>
+                  {!statuses.includes(status) && (
+                    <SelectItem value={status} disabled>
+                      {status}
+                    </SelectItem>
+                  )}
+                  {statuses.map((value) => (
+                    <SelectItem key={value} value={value}>
+                      {STATUS_LABELS[value]}
+                    </SelectItem>
+                  ))}
                 </SelectContent>
               </Select>
-            </div>
+            </section>
           )}
-
-          {/* Admin Notes */}
-          {item.type !== "Newsletter" && (
-            <div className="space-y-3">
-              <h3 className="text-sm font-semibold">Admin Notes</h3>
+          {hasNotes ? (
+            <section className="space-y-3">
+              <label
+                htmlFor="inbox-admin-notes"
+                className="text-sm font-semibold"
+              >
+                Admin notes
+              </label>
               <Textarea
+                id="inbox-admin-notes"
                 placeholder="Add internal notes..."
                 value={adminNotes}
-                onChange={(e) => setAdminNotes(e.target.value)}
+                onChange={(event) => setAdminNotes(event.target.value)}
                 rows={4}
+                disabled={isSaving}
               />
-            </div>
+            </section>
+          ) : (
+            statuses.length > 0 && (
+              <p className="text-xs text-muted-foreground">
+                Internal notes are not available for this request type yet.
+                Submitted information is read-only.
+              </p>
+            )
           )}
-
-          {/* Actions */}
-          <div className="flex justify-between items-center gap-2 pt-4 border-t">
-            <Button 
-              variant="destructive" 
-              onClick={() => setShowDeleteConfirm(true)} 
+          <div className="flex flex-wrap justify-between items-center gap-3 pt-4 border-t">
+            <Button
+              variant="destructive"
+              onClick={() => setShowDeleteConfirm(true)}
               disabled={isSaving}
             >
               <Trash2 className="mr-2 h-4 w-4" />
@@ -275,10 +429,13 @@ export const InboxDetailDialog = ({ item, open, onClose, onUpdate }: InboxDetail
             </Button>
             <div className="flex gap-2">
               <Button variant="outline" onClick={onClose} disabled={isSaving}>
-                Cancel
+                Close
               </Button>
-              {item.type !== "Newsletter" && (
-                <Button onClick={handleSave} disabled={isSaving}>
+              {statuses.length > 0 && (
+                <Button
+                  onClick={() => void handleSave()}
+                  disabled={isSaving || !changed}
+                >
                   {isSaving ? "Saving..." : "Save Changes"}
                 </Button>
               )}
@@ -286,33 +443,36 @@ export const InboxDetailDialog = ({ item, open, onClose, onUpdate }: InboxDetail
           </div>
         </div>
       </DialogContent>
-
       <ConfirmDialog
         open={showDeleteConfirm}
         onOpenChange={setShowDeleteConfirm}
         onConfirm={handleDelete}
-        title="Delete Item"
-        description="Are you sure you want to delete this item? This action cannot be undone."
+        title="Delete item"
+        description="This permanently deletes the submission. This action cannot be undone."
         confirmText="Delete"
-        cancelText="Cancel"
         variant="destructive"
       />
     </Dialog>
   );
 };
 
-const DetailRow = ({ icon, label, value, link }: { icon: React.ReactNode; label: string; value: any; link?: string }) => (
-  <div className="flex items-start gap-3">
-    <div className="mt-0.5 text-muted-foreground">{icon}</div>
-    <div className="flex-1">
-      <p className="text-xs text-muted-foreground">{label}</p>
-      {link ? (
-        <a href={link} className="text-sm font-medium hover:underline">
-          {value}
-        </a>
-      ) : (
-        <p className="text-sm font-medium">{typeof value === 'string' ? value : value}</p>
-      )}
-    </div>
+const DetailRow = ({
+  label,
+  value,
+  link,
+}: {
+  label: string;
+  value: ReactNode;
+  link?: string;
+}) => (
+  <div className="min-w-0">
+    <p className="text-xs text-muted-foreground">{label}</p>
+    {link ? (
+      <a href={link} className="text-sm font-medium hover:underline break-all">
+        {value}
+      </a>
+    ) : (
+      <p className="text-sm whitespace-pre-wrap break-words">{value}</p>
+    )}
   </div>
 );

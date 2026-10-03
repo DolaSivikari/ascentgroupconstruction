@@ -582,6 +582,7 @@
    ============================================================================ */
 
 .business-main-content {
+  min-width: 0;
   margin-left: var(--admin-sb-width);
   transition: margin-left 0.3s var(--admin-sb-ease);
 }

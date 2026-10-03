@@ -27,6 +27,9 @@ import {
   DollarSign,
 } from 'lucide-react';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
+import { loadInboxCounts } from '@/lib/inbox/api';
+import { INBOX_SOURCES } from '@/lib/inbox/model';
 import { useState, useEffect } from 'react';
 import { GlobalSearch } from './GlobalSearch';
 import { supabase } from '@/integrations/supabase/client';
@@ -53,7 +56,11 @@ export const UnifiedSidebar = ({
   const { toast } = useToast();
   const navigate = useNavigate();
 
-  const [newSubmissions, setNewSubmissions] = useState(0);
+  const queryClient = useQueryClient();
+  const { data: counts, error: countsError } = useQuery({
+    queryKey: ["inbox-stats"], queryFn: loadInboxCounts, refetchInterval: 60_000,
+  });
+  const newSubmissions = !countsError && counts ? counts.rfp + counts.contact + counts.resume + counts.prequal + counts.quote : 0;
   const [user, setUser] = useState<{ email?: string; full_name?: string; avatar_url?: string } | null>(null);
 
   const handleSignOut = async () => {
@@ -81,29 +88,14 @@ export const UnifiedSidebar = ({
   }, []);
 
   useEffect(() => {
-    const loadCounts = async () => {
-      try {
-        const { count } = await supabase
-          .from('contact_submissions')
-          .select('*', { count: 'exact', head: true })
-          .eq('status', 'new');
-        setNewSubmissions(count || 0);
-      } catch {
-        /* silent */
-      }
-    };
-
-    loadCounts();
-
-    const channel = supabase
-      .channel('sidebar-counts')
-      .on('postgres_changes', { event: '*', schema: 'public', table: 'contact_submissions' }, loadCounts)
-      .subscribe();
-
-    return () => {
-      supabase.removeChannel(channel);
-    };
-  }, []);
+    const channel = supabase.channel("sidebar-counts")
+      .on("postgres_changes", { event: "*", schema: "public" }, payload => {
+        if (Object.values(INBOX_SOURCES).some(source => source.table === payload.table)) {
+          void queryClient.invalidateQueries({ queryKey: ["inbox-stats"] });
+        }
+      }).subscribe();
+    return () => { void supabase.removeChannel(channel); };
+  }, [queryClient]);
 
   useEffect(() => {
     if (mobileOpen && onMobileClose) onMobileClose();

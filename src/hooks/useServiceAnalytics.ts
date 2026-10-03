@@ -1,3 +1,4 @@
+import { hasAnalyticsConsent } from "@/lib/analyticsConsent";
 import { supabase } from "@/integrations/supabase/client";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 
@@ -98,6 +99,7 @@ export const useServiceAnalytics = () => {
   // Track analytics event
   const trackEvent = useMutation({
     mutationFn: async (event: AnalyticsEvent) => {
+      if (!hasAnalyticsConsent()) return;
       const { error } = await supabase
         .from('popular_services_analytics')
         .insert({
@@ -125,6 +127,7 @@ export const useServiceAnalytics = () => {
       timeSpent?: number;
       fromPopular?: boolean;
     }) => {
+      if (!hasAnalyticsConsent()) return;
       const { error } = await supabase.rpc('track_service_interaction', {
         p_user_identifier: getUserIdentifier(),
         p_service_link: serviceLink,

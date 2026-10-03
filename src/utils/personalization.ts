@@ -1,3 +1,4 @@
+import { hasAnalyticsConsent } from "@/lib/analyticsConsent";
 // Personalization Engine
 interface UserProfile {
   id?: string;
@@ -26,7 +27,7 @@ class PersonalizationEngine {
    * Initialize user profile
    */
   initialize(): UserProfile {
-    const stored = localStorage.getItem('user_profile');
+    const stored = hasAnalyticsConsent() ? localStorage.getItem('user_profile') : null;
     
     if (stored) {
       this.profile = JSON.parse(stored);
@@ -100,6 +101,7 @@ class PersonalizationEngine {
    * Track user interaction
    */
   trackInteraction(element: string, data?: any): void {
+    if (!hasAnalyticsConsent()) return;
     if (!this.profile) {
       this.initialize();
     }
@@ -177,11 +179,12 @@ class PersonalizationEngine {
    * Detect user location (basic implementation)
    */
   private async detectLocation(): Promise<void> {
+    if (!hasAnalyticsConsent()) return;
     try {
       // Using a free IP geolocation service
       const response = await fetch('https://ipapi.co/json/');
       const data = await response.json();
-      if (this.profile) {
+      if (this.profile && hasAnalyticsConsent()) {
         this.profile.location = `${data.city}, ${data.region}`;
         this.save();
       }
@@ -194,7 +197,7 @@ class PersonalizationEngine {
    * Save profile to localStorage
    */
   private save(): void {
-    if (this.profile) {
+    if (this.profile && hasAnalyticsConsent()) {
       localStorage.setItem('user_profile', JSON.stringify(this.profile));
     }
   }

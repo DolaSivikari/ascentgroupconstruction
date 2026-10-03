@@ -10,6 +10,10 @@ import { reportWebVitals } from "./lib/webVitals";
 import { initErrorLogging } from "./utils/errorLogger";
 import { checkForDeploymentUpdate, clearAllCaches } from "./utils/cacheBuster";
 
+import { initializeAnalyticsConsent } from "./lib/analyticsConsent";
+
+initializeAnalyticsConsent();
+
 // Reload guard to prevent multiple simultaneous reloads
 let isReloading = false;
 

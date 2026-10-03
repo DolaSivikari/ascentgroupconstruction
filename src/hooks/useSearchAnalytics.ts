@@ -1,3 +1,4 @@
+import { hasAnalyticsConsent } from "@/lib/analyticsConsent";
 import { useCallback, useRef, useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
 
@@ -23,12 +24,13 @@ const getSessionId = (): string => {
 };
 
 export function useSearchAnalytics() {
-  const sessionId = useRef(getSessionId());
+  const sessionId = useRef<string | null>(null);
   const lastTrackedQuery = useRef<string>("");
   const trackingTimeout = useRef<ReturnType<typeof setTimeout>>();
 
   // Debounced search tracking to avoid excessive database writes
   const trackSearch = useCallback(async (data: SearchAnalyticsData) => {
+    if (!hasAnalyticsConsent()) return;
     // Avoid tracking empty queries or duplicate consecutive searches
     if (!data.search_query.trim() || data.search_query === lastTrackedQuery.current) {
       return;
@@ -43,6 +45,8 @@ export function useSearchAnalytics() {
 
     // Debounce the tracking by 1 second
     trackingTimeout.current = setTimeout(async () => {
+      if (!hasAnalyticsConsent()) return;
+      sessionId.current ||= getSessionId();
       try {
         await supabase.from("search_analytics").insert({
           search_query: data.search_query.toLowerCase().trim(),
@@ -64,6 +68,8 @@ export function useSearchAnalytics() {
     resultName: string,
     resultLink: string
   ) => {
+    if (!hasAnalyticsConsent()) return;
+    sessionId.current ||= getSessionId();
     try {
       await supabase.from("search_analytics").insert({
         search_query: searchQuery.toLowerCase().trim(),
