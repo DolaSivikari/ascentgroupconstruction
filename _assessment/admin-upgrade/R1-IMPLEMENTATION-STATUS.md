@@ -64,7 +64,7 @@ See [browser evidence and screenshots](../../docs/admin-r1/README.md). All brows
 ## Owner steps
 
 1. Review and merge this R1 PR. No SQL, package install or secret change is needed for R1.
-2. In Lovable preview, create a project with no dates, change and restore an unsaved draft, open a project/blog preview, and change Contact office hours. Check the changed hours in a private visitor window. Confirm the shortened menu and Monitoring error states.
+2. In Lovable preview, if a manual create check is needed, use `TEST – delete me`, leave it Draft, delete it afterwards; otherwise use the fixture tests. Check local draft restoration, open a project/blog preview, and compare the existing Contact office hours in Settings with `/contact` in a private visitor window. Do not change live office hours for a test. Confirm the shortened menu and Monitoring error states.
 3. Use **Lovable Publish → Update** to put the approved build on the production website.
 
 **Merging does not publish.** R2 and later phases remain separate PRs.

@@ -29,6 +29,10 @@ Defaults used until the owner says otherwise:
 PHASE = R1
 (Allowed, in order: R1, R2, R3, R4, R5, R6. One phase, one PR, report, stop.)
 
+**FIRST read `_assessment/admin-upgrade/16-RISK-REVIEW-AND-SAFE-DELIVERY-PLAN.md`. Its section 7 rules apply to every phase here and override this file where they conflict.**
+- R1 may start only after S0-1 and S0-2 (the production baseline and the comparison gate) are merged. If they aren't, build S0-1 and S0-2 first, as their own PR, and stop.
+- R2 must use the content-module approach (file 16, D1) for the About page: step 1 is an identical-text refactor; step 2 adds the database layer.
+
 # Role and context
 
 You are a senior engineer improving the admin panel of `DolaSivikari/ascentgroupconstruction`:
@@ -191,6 +195,7 @@ The Tiptap packages are installed (3.31.4).
   - Remove the always-empty IP and browser columns.
   - Draft SQL (stop for approval) to add the audit trigger to `services`, `blog_posts`, the settings tables and `hero_slides`.
 - **Users:** use `rpc('set_user_role')` (from 0001) when that is applied; show "At least one super admin must remain".
+- **Email Delivery** (from file 12, section 2.5): a page under Admin → Activity that reads `email_send_log`. It is read-only and paginated, with filters for status, template and date. Recipients are masked by default (`j***@domain.com`), with a reveal toggle. A second tab shows `suppressed_emails`. Rows link to the lead when `metadata.inquiry_id` is present (after file 12's P2). It must also work today with RFP-only rows.
 - **Monitoring:**
   - Error list with filters and grouping by message.
   - Web vitals section only if `VITE_ENABLE_PERFORMANCE_TRACKING` is enabled by the owner; otherwise hide it.
