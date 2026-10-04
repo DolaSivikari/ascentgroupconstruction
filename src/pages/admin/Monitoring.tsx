@@ -16,6 +16,7 @@ import { format } from "date-fns";
 import { Button } from "@/ui/Button";
 import { adminErrorMessage } from "@/lib/admin/editorValues";
 import { Skeleton } from "@/components/ui/skeleton";
+import { SiteHealthWorkspace } from "@/components/admin/SiteHealthWorkspace";
 
 export default function Monitoring() {
   const {
@@ -79,8 +80,8 @@ export default function Monitoring() {
 
   return (
     <AdminPageLayout
-      title="System Monitoring"
-      description="Recorded errors and performance metrics"
+      title="Site Health"
+      description="Nightly visitor checks, recorded errors and performance metrics"
       actions={
         <Button
           variant="outline"
@@ -95,6 +96,7 @@ export default function Monitoring() {
       }
     >
       <div className="space-y-6">
+        <SiteHealthWorkspace />
         {/* Stats Cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <Card className="p-6">

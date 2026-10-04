@@ -1,0 +1,41 @@
+name: Nightly Site Health
+on:
+  schedule:
+    - cron: "0 7 * * *"
+  workflow_dispatch:
+    inputs:
+      upload:
+        description: Save results to the admin (requires completed setup)
+        type: boolean
+        default: false
+permissions:
+  contents: read
+concurrency:
+  group: nightly-site-health
+  cancel-in-progress: false
+jobs:
+  crawl:
+    if: github.event_name == 'workflow_dispatch' || vars.SITE_HEALTH_ENABLED == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: "1.3.11"
+      - run: node scripts/install-ci-dependencies.mjs
+      - uses: ./.github/actions/baseline-tools
+      - name: Check every public page without submitting forms
+        env:
+          SITE_HEALTH_INGEST_TOKEN: ${{ secrets.SITE_HEALTH_INGEST_TOKEN }}
+          UPLOAD: ${{ github.event_name == 'schedule' || inputs.upload }}
+        run: node --import tsx scripts/site-health/crawl.ts --out="$RUNNER_TEMP/site-health" --upload="$UPLOAD"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: site-health-report
+          path: ${{ runner.temp }}/site-health
+          retention-days: 90

@@ -3,6 +3,9 @@ import { cleanup, render, screen, waitFor } from "@testing-library/react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import type { ReactNode } from "react";
 import Monitoring from "./Monitoring";
+vi.mock("@/components/admin/SiteHealthWorkspace", () => ({
+  SiteHealthWorkspace: () => null,
+}));
 const mock = vi.hoisted(() => ({
   error: false,
   count: 0,

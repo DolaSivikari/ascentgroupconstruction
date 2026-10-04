@@ -305,7 +305,7 @@ export const UnifiedSidebar = ({
             onOpenChange={setToolsOpen}
             active={isToolsActive}
           >
-            <NavItem to="/admin/monitoring" icon={ShieldCheck} label="Monitoring" />
+            <NavItem to="/admin/monitoring" icon={ShieldCheck} label="Site Health" />
             <NavItem to="/admin/audit" icon={History} label="Audit Log" />
           </NavGroup>
         </div>

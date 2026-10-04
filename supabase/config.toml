@@ -1,5 +1,12 @@
 project_id = "dinliarttwuzzozyvuiu"
 
+# Phase 2: authentication is enforced inside these dedicated monitoring functions.
+[functions.ingest-site-health]
+verify_jwt = false
+
+[functions.health-ping]
+verify_jwt = false
+
 # ─── Public / unauthenticated endpoints ────────────────────────────────────
 # These functions are intentionally callable without a JWT.
 
