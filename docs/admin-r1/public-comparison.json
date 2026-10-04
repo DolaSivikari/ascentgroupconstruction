@@ -1,0 +1,147 @@
+[
+  {
+    "page": "project",
+    "width": 1440,
+    "beforeSize": [
+      1440,
+      3517
+    ],
+    "afterSize": [
+      1440,
+      3517
+    ],
+    "identical": false,
+    "differenceBox": [
+      36,
+      1179,
+      342,
+      1448
+    ]
+  },
+  {
+    "page": "project",
+    "width": 390,
+    "beforeSize": [
+      390,
+      4135
+    ],
+    "afterSize": [
+      390,
+      3842
+    ],
+    "identical": false,
+    "differenceBox": null
+  },
+  {
+    "page": "certifications",
+    "width": 1440,
+    "beforeSize": [
+      1440,
+      3336
+    ],
+    "afterSize": [
+      1440,
+      3336
+    ],
+    "identical": true,
+    "differenceBox": null
+  },
+  {
+    "page": "certifications",
+    "width": 390,
+    "beforeSize": [
+      390,
+      4831
+    ],
+    "afterSize": [
+      390,
+      4831
+    ],
+    "identical": true,
+    "differenceBox": null
+  },
+  {
+    "page": "contact",
+    "width": 1440,
+    "beforeSize": [
+      1440,
+      5445
+    ],
+    "afterSize": [
+      1440,
+      5445
+    ],
+    "identical": true,
+    "differenceBox": null
+  },
+  {
+    "page": "contact",
+    "width": 390,
+    "beforeSize": [
+      390,
+      6846
+    ],
+    "afterSize": [
+      390,
+      6846
+    ],
+    "identical": true,
+    "differenceBox": null
+  },
+  {
+    "page": "about",
+    "width": 1440,
+    "beforeSize": [
+      1440,
+      4398
+    ],
+    "afterSize": [
+      1440,
+      4398
+    ],
+    "identical": true,
+    "differenceBox": null
+  },
+  {
+    "page": "about",
+    "width": 390,
+    "beforeSize": [
+      390,
+      5847
+    ],
+    "afterSize": [
+      390,
+      5847
+    ],
+    "identical": true,
+    "differenceBox": null
+  },
+  {
+    "page": "privacy",
+    "width": 1440,
+    "beforeSize": [
+      1440,
+      5663
+    ],
+    "afterSize": [
+      1440,
+      5663
+    ],
+    "identical": true,
+    "differenceBox": null
+  },
+  {
+    "page": "privacy",
+    "width": 390,
+    "beforeSize": [
+      390,
+      8116
+    ],
+    "afterSize": [
+      390,
+      8116
+    ],
+    "identical": true,
+    "differenceBox": null
+  }
+]

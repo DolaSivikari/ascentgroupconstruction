@@ -8,23 +8,30 @@ import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/ui/Card";
 import { Switch } from "@/components/ui/switch";
 import { toast } from "sonner";
+import { adminErrorMessage, nullableInteger } from "@/lib/admin/editorValues";
+import { useUnsavedChanges } from "@/hooks/useUnsavedChanges";
+import { ConfirmDialog } from "@/components/admin/ConfirmDialog";
+import { SettingsRecordState } from "./SettingsRecordState";
 import { Save, Globe, Building, Mail } from "lucide-react";
 
 export const GeneralSettingsTab = () => {
-  const { data: settings, loading, refetch } = useSettingsData("site_settings");
-  const [formData, setFormData] = useState<any>({});
+  const { data: settings, loading, error, refetch } = useSettingsData("site_settings", "*");
+  const [formData, setRawFormData] = useState<any>({});
   const [saving, setSaving] = useState(false);
+  const [dirty, setDirty] = useState(false);
+  const guard = useUnsavedChanges({ hasUnsavedChanges: dirty });
+  const setFormData = (value: typeof formData) => { setRawFormData(value); setDirty(true); };
 
   useEffect(() => {
     if (settings) {
       const socialLinks = settings.social_links as Record<string, string> | null;
-      setFormData({
+      setRawFormData({
         company_name: settings.company_name || "",
         company_tagline: settings.company_tagline || "",
         phone: settings.phone || "",
         email: settings.email || "",
         address: settings.address || "",
-        founded_year: settings.founded_year || 2025,
+        founded_year: settings.founded_year ?? "",
         meta_title: settings.meta_title || "",
         meta_description: settings.meta_description || "",
         // Social links
@@ -38,6 +45,7 @@ export const GeneralSettingsTab = () => {
   }, [settings]);
 
   const handleSave = async () => {
+    if (!settings || saving) return;
     setSaving(true);
     try {
       const updateData = {
@@ -46,7 +54,7 @@ export const GeneralSettingsTab = () => {
         phone: formData.phone,
         email: formData.email,
         address: formData.address,
-        founded_year: formData.founded_year,
+        founded_year: nullableInteger(formData.founded_year, "Founded year"),
         meta_title: formData.meta_title,
         meta_description: formData.meta_description,
         social_links: {
@@ -58,26 +66,31 @@ export const GeneralSettingsTab = () => {
         },
       };
 
-      const { error } = await supabase
+      const { data: savedRow, error } = await supabase
         .from("site_settings")
         .update(updateData)
-        .eq("id", settings.id);
+        .eq("id", settings.id).select("id").single();
 
       if (error) throw error;
+      if (!savedRow) throw new Error("The saved settings could not be verified.");
+      setDirty(false);
+      guard.markSaved();
       
       toast.success("Settings saved successfully");
-      refetch();
-    } catch (error: any) {
-      toast.error("Failed to save settings: " + error.message);
+      void refetch();
+    } catch (error) {
+      toast.error("Settings could not be saved: " + adminErrorMessage(error));
     } finally {
       setSaving(false);
     }
   };
 
-  if (loading) return <div className="flex items-center justify-center py-12">Loading...</div>;
+  if (loading || error || !settings) return <SettingsRecordState table="site_settings" loading={loading} error={error} onRetry={refetch} />;
 
   return (
-    <div className="space-y-6">
+    <>
+    <ConfirmDialog open={guard.showDialog} onOpenChange={guard.cancelNavigation} onConfirm={guard.confirmNavigation} title="Unsaved changes" description={guard.message} confirmText="Leave" cancelText="Stay" />
+    <fieldset disabled={saving} className="min-w-0">    <div className="space-y-6">
       {/* Company Information */}
       <Card>
         <CardHeader>
@@ -92,25 +105,28 @@ export const GeneralSettingsTab = () => {
         <CardContent className="space-y-4">
           <div className="grid md:grid-cols-2 gap-4">
             <div>
-              <Label>Company Name</Label>
+              <Label htmlFor="site_settings-company_name">Company Name</Label>
               <Input
+                id="site_settings-company_name"
                 value={formData.company_name || ""}
                 onChange={(e) => setFormData({ ...formData, company_name: e.target.value })}
               />
             </div>
             <div>
-              <Label>Founded Year</Label>
+              <Label htmlFor="site_settings-founded_year">Founded Year</Label>
               <Input
+                id="site_settings-founded_year"
                 type="number"
                 value={formData.founded_year || ""}
-                onChange={(e) => setFormData({ ...formData, founded_year: parseInt(e.target.value) })}
+                onChange={(e) => setFormData({ ...formData, founded_year: e.target.value })}
               />
             </div>
           </div>
 
           <div>
-            <Label>Company Tagline</Label>
+            <Label htmlFor="site_settings-company_tagline">Company Tagline</Label>
             <Input
+                id="site_settings-company_tagline"
               value={formData.company_tagline || ""}
               onChange={(e) => setFormData({ ...formData, company_tagline: e.target.value })}
               placeholder="Your complete construction partner..."
@@ -119,16 +135,18 @@ export const GeneralSettingsTab = () => {
 
           <div className="grid md:grid-cols-2 gap-4">
             <div>
-              <Label>Phone Number</Label>
+              <Label htmlFor="site_settings-phone">Phone Number</Label>
               <Input
+                id="site_settings-phone"
                 value={formData.phone || ""}
                 onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                 placeholder="(647) 528-6804"
               />
             </div>
             <div>
-              <Label>Email Address</Label>
+              <Label htmlFor="site_settings-email">Email Address</Label>
               <Input
+                id="site_settings-email"
                 type="email"
                 value={formData.email || ""}
                 onChange={(e) => setFormData({ ...formData, email: e.target.value })}
@@ -138,8 +156,9 @@ export const GeneralSettingsTab = () => {
           </div>
 
           <div>
-            <Label>Business Address</Label>
+            <Label htmlFor="site_settings-address">Business Address</Label>
             <Textarea
+                id="site_settings-address"
               value={formData.address || ""}
               onChange={(e) => setFormData({ ...formData, address: e.target.value })}
               placeholder="123 Main St, City, State 12345"
@@ -163,40 +182,45 @@ export const GeneralSettingsTab = () => {
         <CardContent className="space-y-4">
           <div className="grid md:grid-cols-2 gap-4">
             <div>
-              <Label>LinkedIn</Label>
+              <Label htmlFor="site_settings-social_linkedin">LinkedIn</Label>
               <Input
+                id="site_settings-social_linkedin"
                 value={formData.social_linkedin || ""}
                 onChange={(e) => setFormData({ ...formData, social_linkedin: e.target.value })}
                 placeholder="https://linkedin.com/company/..."
               />
             </div>
             <div>
-              <Label>Facebook</Label>
+              <Label htmlFor="site_settings-social_facebook">Facebook</Label>
               <Input
+                id="site_settings-social_facebook"
                 value={formData.social_facebook || ""}
                 onChange={(e) => setFormData({ ...formData, social_facebook: e.target.value })}
                 placeholder="https://facebook.com/..."
               />
             </div>
             <div>
-              <Label>Instagram</Label>
+              <Label htmlFor="site_settings-social_instagram">Instagram</Label>
               <Input
+                id="site_settings-social_instagram"
                 value={formData.social_instagram || ""}
                 onChange={(e) => setFormData({ ...formData, social_instagram: e.target.value })}
                 placeholder="https://instagram.com/..."
               />
             </div>
             <div>
-              <Label>Twitter / X</Label>
+              <Label htmlFor="site_settings-social_twitter">Twitter / X</Label>
               <Input
+                id="site_settings-social_twitter"
                 value={formData.social_twitter || ""}
                 onChange={(e) => setFormData({ ...formData, social_twitter: e.target.value })}
                 placeholder="https://twitter.com/..."
               />
             </div>
             <div>
-              <Label>YouTube</Label>
+              <Label htmlFor="site_settings-social_youtube">YouTube</Label>
               <Input
+                id="site_settings-social_youtube"
                 value={formData.social_youtube || ""}
                 onChange={(e) => setFormData({ ...formData, social_youtube: e.target.value })}
                 placeholder="https://youtube.com/..."
@@ -219,8 +243,9 @@ export const GeneralSettingsTab = () => {
         </CardHeader>
         <CardContent className="space-y-4">
           <div>
-            <Label>Default Meta Title</Label>
+            <Label htmlFor="site_settings-meta_title">Default Meta Title</Label>
             <Input
+                id="site_settings-meta_title"
               value={formData.meta_title || ""}
               onChange={(e) => setFormData({ ...formData, meta_title: e.target.value })}
               placeholder="Company Name - Tagline"
@@ -230,8 +255,9 @@ export const GeneralSettingsTab = () => {
             </p>
           </div>
           <div>
-            <Label>Default Meta Description</Label>
+            <Label htmlFor="site_settings-meta_description">Default Meta Description</Label>
             <Textarea
+                id="site_settings-meta_description"
               value={formData.meta_description || ""}
               onChange={(e) => setFormData({ ...formData, meta_description: e.target.value })}
               placeholder="Brief description of your business..."
@@ -252,5 +278,7 @@ export const GeneralSettingsTab = () => {
         </Button>
       </div>
     </div>
+    </fieldset>
+    </>
   );
 };

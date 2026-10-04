@@ -1,3 +1,6 @@
+import { useQueryClient } from "@tanstack/react-query";
+import { invalidateHomepageQueries, saveHeroOrder } from "@/lib/admin/homepageEditing";
+import { adminErrorMessage } from "@/lib/admin/editorValues";
 import { useState, useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { AdminPageLayout } from "@/components/admin/AdminPageLayout";
@@ -13,6 +16,7 @@ import { Plus, Pencil, GripVertical, Eye, EyeOff, Trash2, AlertTriangle } from "
 import { DndContext, closestCenter, KeyboardSensor, PointerSensor, useSensor, useSensors, DragEndEvent } from '@dnd-kit/core';
 import { arrayMove, SortableContext, sortableKeyboardCoordinates, useSortable, verticalListSortingStrategy } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
+import { useUnsavedChanges } from "@/hooks/useUnsavedChanges";
 import { ConfirmDialog } from "@/components/admin/ConfirmDialog";
 
 interface HeroSlide {
@@ -108,10 +112,17 @@ const SortableSlideItem = ({ slide, onEdit, onToggle, onDelete }: {
 };
 
 const HeroSlidesManager = () => {
+  const queryClient = useQueryClient();
+  const [reordering, setReordering] = useState(false);
   const [slides, setSlides] = useState<HeroSlide[]>([]);
   const [loading, setLoading] = useState(true);
   const [editingSlide, setEditingSlide] = useState<HeroSlide | null>(null);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [originalSlide, setOriginalSlide] = useState<HeroSlide | null>(null);
+  const [saving, setSaving] = useState(false);
+  const guard = useUnsavedChanges({ hasUnsavedChanges: isDialogOpen && JSON.stringify(editingSlide) !== JSON.stringify(originalSlide) });
+  const openSlide = (slide: HeroSlide) => { setOriginalSlide(slide); setEditingSlide(slide); setIsDialogOpen(true); };
+  const closeEditor = () => guard.requestDiscard(() => { setIsDialogOpen(false); setEditingSlide(null); setOriginalSlide(null); });
 
   const sensors = useSensors(
     useSensor(PointerSensor),
@@ -143,34 +154,19 @@ const HeroSlidesManager = () => {
 
   const handleDragEnd = async (event: DragEndEvent) => {
     const { active, over } = event;
-
-    if (over && active.id !== over.id) {
-      const oldIndex = slides.findIndex((s) => s.id === active.id);
-      const newIndex = slides.findIndex((s) => s.id === over.id);
-      
-      const newSlides = arrayMove(slides, oldIndex, newIndex);
-      setSlides(newSlides);
-
-      // Update display_order in database
-      try {
-        const updates = newSlides.map((slide, index) => ({
-          id: slide.id,
-          display_order: index + 1
-        }));
-
-        for (const update of updates) {
-          await supabase
-            .from('hero_slides')
-            .update({ display_order: update.display_order })
-            .eq('id', update.id);
-        }
-
-        toast.success('Slide order updated');
-      } catch (error) {
-        console.error('Error updating order:', error);
-        toast.error('Failed to update slide order');
-        fetchSlides(); // Revert on error
-      }
+    if (reordering || !over || active.id === over.id) return;
+    const oldIndex = slides.findIndex(slide => slide.id === active.id);
+    const newIndex = slides.findIndex(slide => slide.id === over.id);
+    if (oldIndex < 0 || newIndex < 0) return;
+    setReordering(true);
+    try {
+      await saveHeroOrder(arrayMove(slides, oldIndex, newIndex));
+      toast.success("Slide order updated");
+    } catch (error) { toast.error(adminErrorMessage(error)); }
+    finally {
+      invalidateHomepageQueries(queryClient);
+      await fetchSlides();
+      setReordering(false);
     }
   };
 
@@ -184,10 +180,11 @@ const HeroSlidesManager = () => {
       if (error) throw error;
       
       setSlides(slides.map(s => s.id === id ? { ...s, is_active: isActive } : s));
+      invalidateHomepageQueries(queryClient);
       toast.success(isActive ? 'Slide activated' : 'Slide deactivated');
     } catch (error) {
       console.error('Error toggling slide:', error);
-      toast.error('Failed to update slide');
+      toast.error(adminErrorMessage(error));
     }
   };
 
@@ -211,6 +208,7 @@ const HeroSlidesManager = () => {
       if (error) throw error;
       
       setSlides(slides.filter(s => s.id !== slideToDelete));
+      invalidateHomepageQueries(queryClient);
       toast.success('Slide deleted');
     } catch (error) {
       console.error('Error deleting slide:', error);
@@ -222,8 +220,8 @@ const HeroSlidesManager = () => {
 
   const handleSave = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!editingSlide) return;
-
+    if (!editingSlide || saving) return;
+    setSaving(true);
     try {
       const { id, ...slideData } = editingSlide;
       
@@ -243,23 +241,26 @@ const HeroSlidesManager = () => {
         const { error } = await supabase
           .from('hero_slides')
           .update(slideData)
-          .eq('id', id);
+          .eq('id', id).select('id').single();
 
         if (error) throw error;
         toast.success('Slide updated');
       }
 
+      guard.markSaved();
       setIsDialogOpen(false);
       setEditingSlide(null);
-      fetchSlides();
+      setOriginalSlide(null);
+      invalidateHomepageQueries(queryClient);
+      void fetchSlides();
     } catch (error) {
       console.error('Error saving slide:', error);
-      toast.error('Failed to save slide');
-    }
+      toast.error(adminErrorMessage(error));
+    } finally { setSaving(false); }
   };
 
   const openNewSlideDialog = () => {
-    setEditingSlide({
+    const slide: HeroSlide = {
       id: 'new-' + Date.now(),
       display_order: slides.length + 1,
       is_active: true,
@@ -275,15 +276,15 @@ const HeroSlidesManager = () => {
       secondary_cta_url: '',
       video_url: '/hero-clipchamp.mp4',
       poster_url: '/hero-poster-1.webp'
-    });
-    setIsDialogOpen(true);
+    };
+    openSlide(slide);
   };
 
   return (
     <AdminPageLayout
       title="Hero Slides Manager"
       description="Manage homepage hero carousel slides - reorder, edit, and toggle visibility"
-      backTo="/admin/dashboard"
+      backTo="/admin"
       backLabel="Back to Dashboard"
       actions={
         <Button onClick={openNewSlideDialog}>
@@ -300,7 +301,7 @@ const HeroSlidesManager = () => {
           </div>
           <div className="rounded-lg border border-warning/30 bg-warning/10 p-3 text-sm text-amber-200 flex items-start gap-2 mb-4">
             <AlertTriangle className="h-4 w-4 mt-0.5" />
-            <span>Truth label: Hero slide records are currently an admin-managed dataset and may not be the active data source used by the live homepage renderer.</span>
+            <span>The homepage reads active slides from this list. Check your saved changes in preview before publishing the website.</span>
           </div>
 
           <DndContext
@@ -316,7 +317,7 @@ const HeroSlidesManager = () => {
                 <SortableSlideItem
                   key={slide.id}
                   slide={slide}
-                  onEdit={(s) => { setEditingSlide(s); setIsDialogOpen(true); }}
+                  onEdit={openSlide}
                   onToggle={handleToggle}
                   onDelete={handleDeleteClick}
                 />
@@ -332,7 +333,8 @@ const HeroSlidesManager = () => {
         </div>
       </Card>
 
-      <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+      <ConfirmDialog open={guard.showDialog} onOpenChange={guard.cancelNavigation} onConfirm={guard.confirmNavigation} title="Unsaved changes" description={guard.message} confirmText="Leave" cancelText="Stay" />
+      <Dialog open={isDialogOpen} onOpenChange={open => { if (!open && !saving) closeEditor(); }}>
         <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
           <DialogHeader>
             <DialogTitle>
@@ -477,10 +479,10 @@ const HeroSlidesManager = () => {
             </div>
 
             <div className="flex gap-2 justify-end pt-4">
-              <Button type="button" variant="outline" onClick={() => setIsDialogOpen(false)}>
+              <Button type="button" variant="outline" onClick={closeEditor} disabled={saving}>
                 Cancel
               </Button>
-              <Button type="submit">
+              <Button type="submit" disabled={saving}>
                 Save Slide
               </Button>
             </div>

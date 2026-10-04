@@ -11,7 +11,7 @@ interface UseSettingsDataResult<T> {
 
 export function useSettingsData<T = any>(
   tableName: string,
-  selectQuery: string = '*'
+  selectQuery: string
 ): UseSettingsDataResult<T> {
   const [data, setData] = useState<T | null>(null);
   const [loading, setLoading] = useState(true);
@@ -28,13 +28,10 @@ export function useSettingsData<T = any>(
         console.warn(result.warning);
       }
 
-      if (!result.data) {
-        setError(new Error(result.warning || `No active settings found in ${tableName}`));
-      }
-
       setData(result.data);
     } catch (err) {
-      setError(err as Error);
+      setData(null);
+      setError(err instanceof Error ? err : Object.assign(new Error(String((err as { message?: string })?.message || "Could not load settings.")), { code: (err as { code?: string })?.code }));
       console.error(`Error fetching ${tableName}:`, err);
     } finally {
       setLoading(false);

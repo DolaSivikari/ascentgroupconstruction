@@ -41,7 +41,6 @@ interface UnifiedSidebarProps {
   onToggle: () => void;
   mobileOpen?: boolean;
   onMobileClose?: () => void;
-  onRestartOnboarding?: () => void;
 }
 
 export const UnifiedSidebar = ({
@@ -273,8 +272,6 @@ export const UnifiedSidebar = ({
             <NavItem to="/admin/projects" icon={Building} label="Projects" />
             <NavItem to="/admin/services-manager" icon={Wrench} label="Services" />
             <NavItem to="/admin/blog" icon={FileText} label="Blog Posts" />
-            <NavItem to="/admin/testimonials" icon={MessageSquare} label="Testimonials" />
-            <NavItem to="/admin/media" icon={Image} label="Media Library" />
             <NavItem to="/admin/documents-library" icon={FileCheck} label="Documents" />
           </nav>
 
@@ -297,7 +294,6 @@ export const UnifiedSidebar = ({
           <nav className="admin-nav-list">
             <NavItem to="/admin/settings" icon={Settings} label="Site Settings" />
             <NavItem to="/admin/users" icon={Users} label="Users & Roles" />
-            <NavItem to="/admin/email-templates" icon={Mail} label="Email Templates" />
           </nav>
 
           {/* TOOLS */}

@@ -8,7 +8,8 @@ import { useToast } from "@/hooks/use-toast";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useAdminAuth } from "@/hooks/useAdminAuth";
 import { format } from "date-fns";
-import { generatePreviewToken } from "@/utils/previewToken";
+import { savePreviewLink } from "@/lib/admin/contentPreview";
+import { adminErrorMessage } from "@/lib/admin/editorValues";
 import { ConfirmDialog } from "@/components/admin/ConfirmDialog";
 import { AdminPageLayout } from "@/components/admin/AdminPageLayout";
 
@@ -99,12 +100,12 @@ const BlogPosts = () => {
     return null;
   }
 
-  const handleViewPost = (post: any) => {
-    if (post.publish_state === 'published') {
-      window.open(`/blog/${post.slug}`, '_blank');
-    } else {
-      const token = generatePreviewToken();
-      window.open(`/blog/${post.slug}?preview=true&token=${token}`, '_blank');
+  const handleViewPost = async (post: { id: string; slug: string; publish_state: string }) => {
+    try {
+      const url = post.publish_state === "published" ? `/blog/${post.slug}` : await savePreviewLink("blog_posts", post.id, post.slug);
+      window.open(url, "_blank", "noopener,noreferrer");
+    } catch (error) {
+      toast({ title: "Preview unavailable", description: adminErrorMessage(error), variant: "destructive" });
     }
   };
 

@@ -1,4 +1,5 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from "react";
+import { useBlocker } from "react-router-dom";
 
 interface UseUnsavedChangesProps {
   hasUnsavedChanges: boolean;
@@ -7,65 +8,54 @@ interface UseUnsavedChangesProps {
 
 export const useUnsavedChanges = ({
   hasUnsavedChanges,
-  message = 'You have unsaved changes. Are you sure you want to leave?',
+  message = "You have unsaved changes. Are you sure you want to leave?",
 }: UseUnsavedChangesProps) => {
-  const [showDialog, setShowDialog] = useState(false);
-  const [pendingNavigation, setPendingNavigation] = useState<string | null>(null);
-
-  // Show browser alert on page reload/close
+  const dirty = useRef(hasUnsavedChanges);
+  const proceeding = useRef(false);
+  const [pendingAction, setPendingAction] = useState<(() => void) | null>(null);
+  dirty.current = hasUnsavedChanges;
+  const blocker = useBlocker(
+    ({ currentLocation, nextLocation }) =>
+      dirty.current &&
+      (currentLocation.pathname !== nextLocation.pathname ||
+        currentLocation.search !== nextLocation.search ||
+        currentLocation.hash !== nextLocation.hash),
+  );
   useEffect(() => {
-    const handleBeforeUnload = (e: BeforeUnloadEvent) => {
-      if (hasUnsavedChanges) {
-        e.preventDefault();
-        e.returnValue = message;
-        return message;
-      }
-    };
-
-    window.addEventListener('beforeunload', handleBeforeUnload);
-    return () => window.removeEventListener('beforeunload', handleBeforeUnload);
-  }, [hasUnsavedChanges, message]);
-
-  // Intercept navigation clicks
+    if (blocker.state !== "blocked") proceeding.current = false;
+  }, [blocker.state]);
   useEffect(() => {
-    if (!hasUnsavedChanges) return;
-
-    const handleClick = (e: MouseEvent) => {
-      const target = e.target as HTMLElement;
-      const link = target.closest('a[href]') as HTMLAnchorElement;
-      
-      if (link && link.href && !link.target && hasUnsavedChanges) {
-        const url = new URL(link.href);
-        if (url.origin === window.location.origin && url.pathname !== window.location.pathname) {
-          e.preventDefault();
-          setPendingNavigation(url.pathname);
-          setShowDialog(true);
-        }
-      }
+    const beforeUnload = (event: BeforeUnloadEvent) => {
+      if (!dirty.current) return;
+      event.preventDefault();
+      event.returnValue = message;
     };
-
-    document.addEventListener('click', handleClick, true);
-    return () => document.removeEventListener('click', handleClick, true);
-  }, [hasUnsavedChanges]);
-
-  const confirmNavigation = () => {
-    if (pendingNavigation) {
-      window.location.href = pendingNavigation;
-    }
-    setShowDialog(false);
-    setPendingNavigation(null);
-  };
-
-  const cancelNavigation = () => {
-    setShowDialog(false);
-    setPendingNavigation(null);
-  };
-
+    window.addEventListener("beforeunload", beforeUnload);
+    return () => window.removeEventListener("beforeunload", beforeUnload);
+  }, [message]);
   return {
-    showDialog,
-    setShowDialog,
-    confirmNavigation,
-    cancelNavigation,
+    showDialog: !!pendingAction || blocker.state === "blocked",
+    confirmNavigation: () => {
+      if (pendingAction) {
+        setPendingAction(null);
+        pendingAction();
+      } else if (blocker.state === "blocked") {
+        proceeding.current = true;
+        blocker.proceed();
+      }
+    },
+    cancelNavigation: () => {
+      setPendingAction(null);
+      if (blocker.state === "blocked" && !proceeding.current) blocker.reset();
+    },
+    requestDiscard: (action: () => void) => {
+      if (dirty.current) setPendingAction(() => action);
+      else action();
+    },
+    // Successful saves can navigate before React commits the clean state.
+    markSaved: () => {
+      dirty.current = false;
+    },
     message,
   };
 };

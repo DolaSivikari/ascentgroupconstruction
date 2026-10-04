@@ -1,4 +1,4 @@
-import { useEffect, useState, type ReactNode } from "react";
+import { act, useEffect, useState, type ReactNode } from "react";
 import { cleanup, fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { HelmetProvider } from "react-helmet-async";
 import { MemoryRouter, Route, Routes, useLocation } from "react-router-dom";
@@ -54,9 +54,14 @@ beforeEach(() => {
   mocks.signOut.mockResolvedValue({ error: null });
   mocks.isVerifying = false;
 });
-afterEach(cleanup);
+afterEach(() => { cleanup(); vi.useRealTimers(); });
 
 describe("admin access screens", () => {
+  it("does not automatically start the unsupported tour for a new admin", async () => {
+    vi.useFakeTimers(); mocks.status = "allowed";
+    render(<Harness />); await act(async () => { await vi.advanceTimersByTimeAsync(3000); });
+    expect(screen.getByText("Private inbox contents")).toBeInTheDocument(); expect(screen.queryByText("Admin onboarding")).toBeNull();
+  });
   it("keeps signed-in non-admins on an explicit no-access screen with safe actions", () => {
     render(<Harness />);
     expect(screen.getByRole("heading", { name: "Admin access required" })).toBeInTheDocument();

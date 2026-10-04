@@ -9,13 +9,13 @@ const mock = vi.hoisted(() => ({
 }));
 vi.mock("react-router-dom", async (original) => ({ ...(await original<typeof import("react-router-dom")>()), useNavigate: () => mock.navigate }));
 vi.mock("@/integrations/supabase/client", () => ({ supabase: {
-  from: () => ({ select: () => ({ eq: () => ({ single: mock.load }) }), update: (data: unknown) => ({ eq: (column: string, id: string) => mock.update(data, column, id) }), insert: mock.insert }),
+  from: () => ({ select: () => ({ eq: () => ({ single: mock.load }) }), update: (data: unknown) => ({ eq: (column: string, id: string) => ({ select: () => ({ single: () => mock.update(data, column, id) }) }) }), insert: (data: unknown) => ({ select: () => ({ single: () => mock.insert(data) }) }) }),
   auth: { getUser: async () => ({ data: { user: { id: "fixture-admin" } }, error: null }) },
 } }));
 vi.mock("@/hooks/use-toast", () => ({ useToast: () => ({ toast: mock.toast }) }));
 vi.mock("@/hooks/useUnsavedChanges", () => ({ useUnsavedChanges: ({ hasUnsavedChanges }: { hasUnsavedChanges: boolean }) => {
   mock.unsaved = hasUnsavedChanges;
-  return { showDialog: false, confirmNavigation: vi.fn(), cancelNavigation: vi.fn(), message: "" };
+  return { showDialog: false, confirmNavigation: vi.fn(), cancelNavigation: vi.fn(), message: "", markSaved: vi.fn() };
 } }));
 vi.mock("@/components/admin/ImageUploadField", () => ({ ImageUploadField: ({ value, onChange }: { value: string; onChange: (url: string) => void }) => <div><span data-testid="image-preview">{value}</span><button type="button" onClick={() => onChange("https://assets.example.test/upload.jpg")}>Upload fixture</button><button type="button" onClick={() => onChange("")}>Clear image</button></div> }));
 vi.mock("@/components/ui/select", () => ({
@@ -26,7 +26,7 @@ afterEach(cleanup);
 beforeEach(() => {
   vi.clearAllMocks(); mock.unsaved = false;
   mock.load.mockResolvedValue({ data: { id: "service-1", name: "Fixture service", slug: "fixture-service", featured_image: "https://assets.example.test/current.jpg", publish_state: "published" }, error: null });
-  mock.update.mockResolvedValue({ error: null }); mock.insert.mockResolvedValue({ error: null });
+  mock.update.mockResolvedValue({ data: { id: "service-1" }, error: null }); mock.insert.mockResolvedValue({ data: { id: "new-service" }, error: null });
 });
 const open = (id = "service-1") => render(<MemoryRouter initialEntries={[`/admin/services/${id}`]}><Routes><Route path="/admin/services/:id" element={<ServiceEditor />} /></Routes></MemoryRouter>);
 const ready = async () => { open(); await screen.findByDisplayValue("Fixture service"); };

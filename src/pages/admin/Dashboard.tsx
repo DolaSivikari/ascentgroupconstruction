@@ -82,11 +82,6 @@ const contentTiles: Array<{
     to: "/admin/homepage-builder?tab=why-choose",
   },
   {
-    title: "Featured testimonials",
-    key: "testimonials",
-    to: "/admin/testimonials",
-  },
-  {
     title: "Active value pillars",
     key: "valuePillars",
     to: "/admin/homepage-builder",
@@ -95,7 +90,6 @@ const contentTiles: Array<{
 const quickLinks = [
   ["Homepage Builder", "/admin/homepage-builder"],
   ["Page Headers", "/admin/page-headers"],
-  ["Media Library", "/admin/media"],
   ["Users & Roles", "/admin/users"],
   ["Site Settings", "/admin/settings"],
   ["SEO Dashboard", "/admin/seo-dashboard"],

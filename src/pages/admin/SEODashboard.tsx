@@ -15,7 +15,6 @@ import { SEODashboardSettingsTab } from '@/components/admin/seo/SEODashboardSett
 import { useSeoOverviewStats } from '@/hooks/admin/useSeoOverviewStats';
 import { useSearchConsoleMetrics } from '@/hooks/admin/useSearchConsoleMetrics';
 import { calculateSEOScore } from './seo/scoring';
-import { DEFAULT_ROBOTS_TXT } from './seo/defaults';
 import { supabase } from '@/integrations/supabase/client';
 import type {
   AnalyticsSnapshot,
@@ -38,7 +37,6 @@ export default function SEODashboard() {
   const [seoSettings] = useState<SEOSettings[]>([]);
   const [analytics, setAnalytics] = useState<AnalyticsSnapshot[]>([]);
   const [contentItems, setContentItems] = useState<SeoContentItem[]>([]);
-  const [robotsTxt, setRobotsTxt] = useState('');
   const [generatingKeywords, setGeneratingKeywords] = useState(false);
   const [selectedContent, setSelectedContent] = useState('');
   const [siteUrl, setSiteUrl] = useState('');
@@ -49,7 +47,6 @@ export default function SEODashboard() {
   const [dateRange, setDateRange] = useState<'7' | '30' | '90'>('30');
   const [lastSyncTime, setLastSyncTime] = useState<string | null>(null);
   const [currentUserId, setCurrentUserId] = useState<string | null>(null);
-  const [isSavingRobotsTxt, setIsSavingRobotsTxt] = useState(false);
 
   const overviewStats = useSeoOverviewStats(seoSettings, analytics, contentItems);
   const { metrics, dailyMetrics, topPages, topQueries, clicksChange, impressionsChange } =
@@ -190,16 +187,6 @@ export default function SEODashboard() {
       setContentItems(items);
       if (analyticsRes.data) setAnalytics(analyticsRes.data);
 
-      const { data: settings } = await supabase
-        .from('site_settings')
-        .select('robots_txt')
-        .eq('is_active', true)
-        .single();
-
-      setRobotsTxt(
-        settings?.robots_txt ||
-          `User-agent: *\nAllow: /\nSitemap: ${window.location.origin}/sitemap.xml`,
-      );
     } catch (error) {
       console.error('Error loading SEO data:', error);
       toast({ variant: 'destructive', title: 'Error', description: 'Failed to load SEO data' });
@@ -222,49 +209,6 @@ export default function SEODashboard() {
       toast({ variant: 'destructive', title: 'Error', description: errMsg(error, 'Failed to generate keywords') });
     } finally {
       setGeneratingKeywords(false);
-    }
-  };
-
-  const saveRobotsTxt = async () => {
-    try {
-      setIsSavingRobotsTxt(true);
-      if (!robotsTxt.includes('User-agent:')) {
-        toast({ variant: 'destructive', title: 'Invalid robots.txt', description: 'Must contain at least one User-agent directive' });
-        return;
-      }
-      if (!robotsTxt.includes('Sitemap:')) {
-        toast({ title: 'Warning', description: 'robots.txt should include a Sitemap directive' });
-      }
-      const { error } = await supabase
-        .from('site_settings')
-        .update({ robots_txt: robotsTxt, updated_at: new Date().toISOString() })
-        .eq('is_active', true);
-      if (error) throw error;
-      toast({ title: 'Success', description: 'Robots.txt updated successfully! Changes will be live after next deployment.' });
-    } catch (error) {
-      console.error('Error saving robots.txt:', error);
-      toast({ variant: 'destructive', title: 'Error', description: 'Failed to save robots.txt' });
-    } finally {
-      setIsSavingRobotsTxt(false);
-    }
-  };
-
-  const resetRobotsTxtToDefault = () => {
-    setRobotsTxt(DEFAULT_ROBOTS_TXT);
-    toast({ title: 'Reset Complete', description: 'Robots.txt reset to default. Click Save to apply changes.' });
-  };
-
-  const regenerateSitemap = async () => {
-    try {
-      toast({ title: 'Generating Sitemap', description: 'Please wait while we regenerate your sitemap...' });
-      const { data, error } = await supabase.functions.invoke('generate-sitemap');
-      if (error) throw error;
-      await supabase.from('sitemap_logs').insert({ url_count: data.url_count, status: 'success' });
-      toast({ title: 'Success', description: `Sitemap generated with ${data.url_count} URLs` });
-    } catch (error) {
-      const message = errMsg(error, 'Failed to generate sitemap');
-      await supabase.from('sitemap_logs').insert({ url_count: 0, status: 'error', error_message: message });
-      toast({ variant: 'destructive', title: 'Error', description: message });
     }
   };
 
@@ -386,7 +330,6 @@ export default function SEODashboard() {
             setSelectedContent={setSelectedContent}
             generatingKeywords={generatingKeywords}
             onGenerateKeywords={generateKeywordSuggestions}
-            onRegenerateSitemap={regenerateSitemap}
           />
         </TabsContent>
 
@@ -395,13 +338,7 @@ export default function SEODashboard() {
         </TabsContent>
 
         <TabsContent value="settings" className="space-y-6">
-          <SEODashboardSettingsTab
-            robotsTxt={robotsTxt}
-            setRobotsTxt={setRobotsTxt}
-            isSaving={isSavingRobotsTxt}
-            onSave={saveRobotsTxt}
-            onReset={resetRobotsTxtToDefault}
-          />
+          <SEODashboardSettingsTab />
         </TabsContent>
       </Tabs>
     </AdminPageLayout>

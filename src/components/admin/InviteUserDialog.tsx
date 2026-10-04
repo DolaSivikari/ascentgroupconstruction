@@ -31,7 +31,7 @@ export const InviteUserDialog = ({ onUserCreated }: InviteUserDialogProps) => {
   const [isLoading, setIsLoading] = useState(false);
   const [email, setEmail] = useState("");
   const [fullName, setFullName] = useState("");
-  const [role, setRole] = useState<string>("editor");
+  const [role, setRole] = useState<string>("admin");
   const [password, setPassword] = useState("");
 
   const handleInvite = async (e: React.FormEvent) => {
@@ -63,7 +63,7 @@ export const InviteUserDialog = ({ onUserCreated }: InviteUserDialogProps) => {
       // Reset form
       setEmail("");
       setFullName("");
-      setRole("editor");
+      setRole("admin");
       setPassword("");
       setOpen(false);
 
@@ -130,7 +130,7 @@ export const InviteUserDialog = ({ onUserCreated }: InviteUserDialogProps) => {
               minLength={12}
             />
             <p className="text-xs text-muted-foreground">
-              User will be prompted to change this on first login
+              Share this temporary password securely.
             </p>
           </div>
           <div className="space-y-2">
@@ -142,9 +142,6 @@ export const InviteUserDialog = ({ onUserCreated }: InviteUserDialogProps) => {
               <SelectContent>
                 <SelectItem value="super_admin">Super Admin</SelectItem>
                 <SelectItem value="admin">Admin</SelectItem>
-                <SelectItem value="editor">Editor</SelectItem>
-                <SelectItem value="contributor">Contributor</SelectItem>
-                <SelectItem value="viewer">Viewer</SelectItem>
               </SelectContent>
             </Select>
           </div>

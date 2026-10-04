@@ -2,7 +2,7 @@
  * Generate a secure preview token for draft content
  */
 export const generatePreviewToken = (): string => {
-  return `preview_${Date.now()}_${Math.random().toString(36).substring(2, 15)}${Math.random().toString(36).substring(2, 15)}`;
+  return `preview_${Date.now()}_${crypto.randomUUID().replace(/-/g, "")}`;
 };
 
 /**

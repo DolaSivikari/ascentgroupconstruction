@@ -1,30 +1,28 @@
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Settings as SettingsIcon, Shield, MapPin, Info, Activity, FileText } from "lucide-react";
+import { Settings as SettingsIcon, MapPin, Info, Activity, FileText } from "lucide-react";
 import { GeneralSettingsTab } from "@/components/admin/settings/GeneralSettingsTab";
 import { FooterSettingsTab } from "@/components/admin/settings/FooterSettingsTab";
 import { ContactPageSettingsTab } from "@/components/admin/settings/ContactPageSettingsTab";
 import { AboutPageSettingsTab } from "@/components/admin/settings/AboutPageSettingsTab";
-import { SecuritySettingsTab } from "@/components/admin/settings/SecuritySettingsTab";
 import { HealthCheckTab } from "@/components/admin/settings/HealthCheckTab";
 import { AdminPageLayout } from "@/components/admin/AdminPageLayout";
 
 const Settings = () => {
   const [searchParams, setSearchParams] = useSearchParams();
-  const allowedTabs = new Set(["general", "footer", "contact", "about", "security", "health"]);
+  const allowedTabs = new Set(["general", "footer", "contact", "about", "health"]);
   const queryTab = searchParams.get("tab") || "general";
   const initialTab = allowedTabs.has(queryTab) ? queryTab : "general";
 
   const [activeTab, setActiveTab] = useState(initialTab);
 
   useEffect(() => {
-    const nextTab = new Set(["general", "footer", "contact", "about", "security", "health"]).has(queryTab) ? queryTab : "general";
+    const nextTab = new Set(["general", "footer", "contact", "about", "health"]).has(queryTab) ? queryTab : "general";
     setActiveTab(nextTab);
   }, [queryTab]);
 
   const handleTabChange = (tab: string) => {
-    setActiveTab(tab);
     const nextParams = new URLSearchParams(searchParams);
 
     if (tab === "general") {
@@ -43,30 +41,26 @@ const Settings = () => {
       description="Manage all site-wide settings and configurations"
     >
       <Tabs value={activeTab} onValueChange={handleTabChange} className="space-y-6">
-        <TabsList className="grid w-full grid-cols-6">
-          <TabsTrigger value="general" className="flex items-center gap-2">
+        <TabsList className="grid w-full grid-cols-5">
+          <TabsTrigger value="general" className="flex items-center gap-1 px-1">
             <SettingsIcon className="h-4 w-4" />
-            <span className="hidden sm:inline">General</span>
+            <span className="text-xs sm:text-sm">General</span>
           </TabsTrigger>
-          <TabsTrigger value="footer" className="flex items-center gap-2">
+          <TabsTrigger value="footer" className="flex items-center gap-1 px-1">
             <FileText className="h-4 w-4" />
-            <span className="hidden sm:inline">Footer</span>
+            <span className="text-xs sm:text-sm">Footer</span>
           </TabsTrigger>
-          <TabsTrigger value="contact" className="flex items-center gap-2">
+          <TabsTrigger value="contact" className="flex items-center gap-1 px-1">
             <MapPin className="h-4 w-4" />
-            <span className="hidden sm:inline">Contact</span>
+            <span className="text-xs sm:text-sm">Contact</span>
           </TabsTrigger>
-          <TabsTrigger value="about" className="flex items-center gap-2">
+          <TabsTrigger value="about" className="flex items-center gap-1 px-1">
             <Info className="h-4 w-4" />
-            <span className="hidden sm:inline">About</span>
+            <span className="text-xs sm:text-sm">About</span>
           </TabsTrigger>
-          <TabsTrigger value="security" className="flex items-center gap-2">
-            <Shield className="h-4 w-4" />
-            <span className="hidden sm:inline">Security</span>
-          </TabsTrigger>
-          <TabsTrigger value="health" className="flex items-center gap-2">
+          <TabsTrigger value="health" className="flex items-center gap-1 px-1">
             <Activity className="h-4 w-4" />
-            <span className="hidden sm:inline">Health</span>
+            <span className="text-xs sm:text-sm">Health</span>
           </TabsTrigger>
         </TabsList>
 
@@ -84,10 +78,6 @@ const Settings = () => {
 
         <TabsContent value="about" className="space-y-4">
           <AboutPageSettingsTab />
-        </TabsContent>
-
-        <TabsContent value="security" className="space-y-4">
-          <SecuritySettingsTab />
         </TabsContent>
 
         <TabsContent value="health" className="space-y-4">

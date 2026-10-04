@@ -6,6 +6,10 @@ describe("project editor persistence contract", () => {
   it("normalizes blank integer metrics to null and keeps zero", () => {
     expect(projectSavePayload({ ...form, safety_incidents: "0" })).toMatchObject({ trades_coordinated: null, peak_workforce: null, safety_incidents: 0 });
   });
+  it("saves a new project without dates and clears dates on edit", () => {
+    expect(projectSavePayload({ ...form, start_date: "", completion_date: "" })).toMatchObject({ start_date: null, completion_date: null });
+    expect(projectSavePayload({ ...form, start_date: "2026-10-01", completion_date: "" })).toMatchObject({ start_date: "2026-10-01", completion_date: null });
+  });
   it("preserves existing project fields and omits editor-only relationships", () => {
     const result = projectSavePayload({ ...form, description: "Existing description", peak_workforce: "42", trades_coordinated: 7 });
     expect(result).toMatchObject({ description: "Existing description", peak_workforce: 42, trades_coordinated: 7, team_credits: form.team_credits });

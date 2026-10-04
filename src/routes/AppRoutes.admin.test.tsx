@@ -77,30 +77,10 @@ describe("legacy admin inquiry destinations", () => {
   });
 });
 
-describe("unavailable admin feature routes", () => {
-  it.each(["navigation", "navigation-builder"])("explains /admin/%s is code managed without presenting a live menu editor", async path => {
+describe("hidden placeholder admin routes", () => {
+  it.each(["navigation", "navigation-builder", "redirects", "content-versions"])("does not mount /admin/%s as an available feature", async path => {
     renderRoute(`/admin/${path}`);
-    expect(await screen.findByRole("heading", { name: "Navigation management", level: 1 })).toBeInTheDocument();
-    expect(screen.getByText(/A menu editor is not connected to the live navigation/)).toBeInTheDocument();
-    expect(screen.getByRole("link", { name: "View website" })).toHaveAttribute("href", "/");
-    expect(screen.getByRole("link", { name: "Site settings" })).toHaveAttribute("href", "/admin/settings");
-    expect(screen.queryByRole("button", { name: /save|publish/i })).not.toBeInTheDocument();
-  });
-
-  it("explains redirects are code managed and provides a supported SEO destination", async () => {
-    renderRoute("/admin/redirects");
-    expect(await screen.findByRole("heading", { name: "URL redirects", level: 1 })).toBeInTheDocument();
-    expect(screen.getByText(/A redirect editor is not connected to the live website/)).toBeInTheDocument();
-    expect(screen.getByRole("link", { name: "SEO dashboard" })).toHaveAttribute("href", "/admin/seo-dashboard");
-  });
-
-  it("does not promise a working version restore and links to actual content editors", async () => {
-    renderRoute("/admin/content-versions");
-    expect(await screen.findByRole("heading", { name: "Content version history", level: 1 })).toBeInTheDocument();
-    expect(screen.getByText("Version restore is not available in this admin panel.")).toBeInTheDocument();
-    expect(screen.getByRole("link", { name: "Projects" })).toHaveAttribute("href", "/admin/projects");
-    expect(screen.getByRole("link", { name: "Services" })).toHaveAttribute("href", "/admin/services-manager");
-    expect(screen.getByRole("link", { name: "Blog posts" })).toHaveAttribute("href", "/admin/blog");
-    expect(screen.queryByRole("button", { name: /restore/i })).not.toBeInTheDocument();
+    expect(await screen.findByText("Missing page")).toBeInTheDocument();
+    expect(screen.queryByRole("button", { name: /save|publish|restore/i })).not.toBeInTheDocument();
   });
 });

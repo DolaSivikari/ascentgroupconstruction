@@ -1,8 +1,10 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useRef } from 'react';
 import { Upload, X, Image as ImageIcon, Grid, List, Eye, Trash2, Star, GripVertical } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
 import { validateImageFile } from '@/utils/image-optimizer';
 import { toast } from 'sonner';
+import { ConfirmDialog } from '@/components/admin/ConfirmDialog';
+import { adminErrorMessage } from '@/lib/admin/editorValues';
 import {
   DndContext,
   closestCenter,
@@ -42,7 +44,7 @@ interface SortableImageCardProps {
   categories: Array<{ value: string; label: string; color: string; icon: string }>;
   onPreview: (image: ProjectImage) => void;
   onToggleFeatured: (imageId: string) => void;
-  onDelete: (imageId: string, imageUrl: string) => void;
+  onDelete: (imageId: string) => void;
   onUpdateCaption: (imageId: string, caption: string) => void;
   onMoveCategory: (imageId: string, newCategory: string) => void;
 }
@@ -135,9 +137,9 @@ const SortableImageCard: React.FC<SortableImageCardProps> = ({
           <Star className={`w-4 h-4 ${image.featured ? 'fill-warning text-warning' : 'text-muted-foreground'}`} />
         </button>
         <button
-          onClick={() => onDelete(image.id, image.url)}
+          onClick={() => onDelete(image.id)}
           className="p-2 bg-background rounded-full hover:bg-destructive/10 transition-colors"
-          title="Delete"
+          title="Remove gallery image"
         >
           <Trash2 className="w-4 h-4 text-destructive" />
         </button>
@@ -175,6 +177,9 @@ export const ProjectImageManager: React.FC<ProjectImageManagerProps> = ({
   images,
   onImagesUpdate,
 }) => {
+  const latestImages = useRef(images);
+  latestImages.current = images;
+  const [imageToRemove, setImageToRemove] = useState<string | null>(null);
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [isDragging, setIsDragging] = useState(false);
@@ -202,7 +207,7 @@ export const ProjectImageManager: React.FC<ProjectImageManagerProps> = ({
   };
 
   // Handle file drop
-  const handleDrop = useCallback(async (e: React.DragEvent, category: string = 'gallery') => {
+  const handleDrop = async (e: React.DragEvent, category: string = 'gallery') => {
     e.preventDefault();
     setIsDragging(false);
     
@@ -211,7 +216,7 @@ export const ProjectImageManager: React.FC<ProjectImageManagerProps> = ({
     );
     
     await uploadImages(files, category);
-  }, []);
+  };
 
   // Handle file input
   const handleFileInput = async (e: React.ChangeEvent<HTMLInputElement>, category: string) => {
@@ -271,7 +276,7 @@ export const ProjectImageManager: React.FC<ProjectImageManagerProps> = ({
           id: fileId,
           url: publicUrl,
           category: category as any,
-          order: images.length + i,
+          order: latestImages.current.length + i,
           featured: false,
         });
 
@@ -280,45 +285,19 @@ export const ProjectImageManager: React.FC<ProjectImageManagerProps> = ({
 
       } catch (error) {
         console.error('Upload error:', error);
-        toast.error(`Failed to upload ${file.name}`);
+        toast.error(`Could not upload ${file.name}: ${adminErrorMessage(error)}`);
       }
     }
 
     // Update parent component
-    onImagesUpdate([...images, ...newImages]);
+    onImagesUpdate([...latestImages.current, ...newImages]);
 
     // Clear progress after delay
     setTimeout(() => setUploadProgress({}), 2000);
   };
 
-  // Delete image
-  const performDelete = async (imageId: string, imageUrl: string) => {
-    try {
-      // Extract filename from URL
-      const fileName = imageUrl.split('/').slice(-3).join('/');
-
-      // Delete from storage
-      await supabase.storage
-        .from('project-images')
-        .remove([fileName]);
-
-      // Update state
-      onImagesUpdate(images.filter(img => img.id !== imageId));
-      toast.success('Image deleted');
-    } catch (error) {
-      console.error('Delete error:', error);
-      toast.error('Failed to delete image');
-    }
-  };
-
-  const handleDelete = (imageId: string, imageUrl: string) => {
-    toast.warning('Delete this image?', {
-      action: { label: 'Delete', onClick: () => performDelete(imageId, imageUrl) },
-      cancel: { label: 'Cancel', onClick: () => {} },
-      duration: 8000,
-    });
-  };
-
+  // Only stage removals. Storage cleanup belongs to the successful Save flow.
+  const handleDelete = (imageId: string) => setImageToRemove(imageId);
 
   // Toggle featured status
   const handleToggleFeatured = (imageId: string) => {
@@ -381,19 +360,22 @@ export const ProjectImageManager: React.FC<ProjectImageManagerProps> = ({
 
   return (
     <div className="space-y-6">
+      <ConfirmDialog open={imageToRemove !== null} onOpenChange={open => { if (!open) setImageToRemove(null); }}
+        title="Remove gallery image?" description="This removal will take effect when you save the project. Leaving without saving keeps the image."
+        confirmText="Stage removal" onConfirm={() => { onImagesUpdate(latestImages.current.filter(image => image.id !== imageToRemove)); setImageToRemove(null); }} />
       {/* Header with Stats */}
       <div className="bg-card p-6 rounded-[var(--radius-lg)] border border-border shadow-sm">
-        <div className="flex items-center justify-between mb-4">
-          <h2 className="text-2xl font-bold">📸 Project Gallery Manager</h2>
+        <div className="flex flex-wrap items-center justify-between gap-3 mb-4">
+          <h2 className="text-xl sm:text-2xl font-bold"> Project Gallery Manager</h2>
           <div className="flex gap-2">
             <button
-              onClick={() => setViewMode('grid')}
+              aria-label="Grid view" onClick={() => setViewMode('grid')}
               className={`p-2 rounded-lg ${viewMode === 'grid' ? 'bg-primary text-primary-foreground' : 'bg-background'}`}
             >
               <Grid className="w-5 h-5" />
             </button>
             <button
-              onClick={() => setViewMode('list')}
+              aria-label="List view" onClick={() => setViewMode('list')}
               className={`p-2 rounded-lg ${viewMode === 'list' ? 'bg-primary text-primary-foreground' : 'bg-background'}`}
             >
               <List className="w-5 h-5" />

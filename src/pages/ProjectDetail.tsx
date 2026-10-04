@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import { usePreviewMode } from "@/hooks/usePreviewMode";
 import { supabase } from "@/integrations/supabase/client";
 import { sanitizeAndValidate } from '@/utils/sanitize';
 import Navigation from "@/components/Navigation";
@@ -88,11 +89,11 @@ interface ProjectData {
   your_role?: string;
   delivery_method?: string;
   client_type?: string;
-  trades_coordinated?: number;
-  peak_workforce?: number;
-  on_time_completion?: boolean;
-  on_budget?: boolean;
-  safety_incidents?: number;
+  trades_coordinated?: number | null;
+  peak_workforce?: number | null;
+  on_time_completion?: boolean | null;
+  on_budget?: boolean | null;
+  safety_incidents?: number | null;
   scope_of_work?: string;
   team_credits?: Array<{ role: string; name: string; company?: string }>;
   tags?: string[] | null;
@@ -101,6 +102,7 @@ interface ProjectData {
 export default function ProjectDetail() {
   const { slug } = useParams();
   const navigate = useNavigate();
+  const { isPreview, previewToken } = usePreviewMode();
   const [project, setProject] = useState<ProjectData | null>(null);
   const [loading, setLoading] = useState(true);
   const [loadFailed, setLoadFailed] = useState(false);
@@ -117,14 +119,13 @@ export default function ProjectDetail() {
     const fetchProject = async () => {
       try {
         if (!slug) return;
-        // Fetch project
-        const { data, error } = await supabase
-          .from("projects")
-          .select("*")
-          .eq("slug", slug)
-          .eq("publish_state", "published")
-          .maybeSingle();
-
+        // Draft reads go through the existing token-validating RPC. Ordinary
+        // visitor reads remain restricted to published content.
+        const result = isPreview && previewToken
+          ? await supabase.rpc("get_preview_project", { p_slug: slug, p_token: previewToken })
+          : await supabase.from("projects").select("*").eq("slug", slug).eq("publish_state", "published").maybeSingle();
+        const error = result.error;
+        const data = Array.isArray(result.data) ? result.data[0] : result.data;
         if (error) throw error;
         if (!data || cancelled) return;
 
@@ -169,7 +170,7 @@ export default function ProjectDetail() {
 
     void fetchProject();
     return () => { cancelled = true; };
-  }, [slug]);
+  }, [slug, isPreview, previewToken]);
 
   // Resolve smart related links once project is loaded
   useEffect(() => {
@@ -226,6 +227,7 @@ export default function ProjectDetail() {
         description={project.seo_description || project.summary || project.description || ""}
         keywords={project.seo_keywords?.join(", ")}
         ogImage={project.featured_image}
+        noindex={isPreview}
       />
       
       <div className="min-h-screen flex flex-col">
@@ -397,26 +399,26 @@ export default function ProjectDetail() {
               )}
 
               {/* Performance Metrics Card */}
-              {(project.trades_coordinated || project.peak_workforce || project.on_time_completion !== undefined || project.on_budget !== undefined || project.safety_incidents !== undefined) && (
+              {([project.trades_coordinated, project.peak_workforce, project.on_time_completion, project.on_budget, project.safety_incidents].some(value => value != null)) && (
                 <Card>
                   <CardContent className="p-6 space-y-4">
                     <h3 className="font-bold text-lg border-b pb-2">Performance</h3>
                     
-                    {project.trades_coordinated && (
+                    {project.trades_coordinated != null && (
                       <div className="flex justify-between items-center">
                         <p className="text-sm text-muted-foreground">Trades Coordinated</p>
                         <p className="font-bold text-lg">{project.trades_coordinated}</p>
                       </div>
                     )}
                     
-                    {project.peak_workforce && (
+                    {project.peak_workforce != null && (
                       <div className="flex justify-between items-center">
                         <p className="text-sm text-muted-foreground">Peak Workforce</p>
                         <p className="font-bold text-lg">{project.peak_workforce}</p>
                       </div>
                     )}
                     
-                    {project.on_time_completion !== undefined && (
+                    {project.on_time_completion != null && (
                       <div className="flex justify-between items-center">
                         <p className="text-sm text-muted-foreground">On-Time Completion</p>
                         <Badge variant={project.on_time_completion ? "default" : "destructive"}>
@@ -425,7 +427,7 @@ export default function ProjectDetail() {
                       </div>
                     )}
                     
-                    {project.on_budget !== undefined && (
+                    {project.on_budget != null && (
                       <div className="flex justify-between items-center">
                         <p className="text-sm text-muted-foreground">On Budget</p>
                         <Badge variant={project.on_budget ? "default" : "destructive"}>
@@ -434,7 +436,7 @@ export default function ProjectDetail() {
                       </div>
                     )}
                     
-                    {project.safety_incidents !== undefined && (
+                    {project.safety_incidents != null && (
                       <div className="flex justify-between items-center">
                         <p className="text-sm text-muted-foreground">Safety Incidents</p>
                         <Badge variant={project.safety_incidents === 0 ? "default" : "secondary"}>

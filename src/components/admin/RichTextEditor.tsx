@@ -44,6 +44,7 @@ export const RichTextEditor = ({
       )}
       <textarea
         id={id}
+        required={required}
         value={value}
         onChange={(e) => handleChange(e.target.value)}
         placeholder={placeholder}

@@ -1,29 +1,27 @@
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
-import { Layout, Home, Sparkles } from "lucide-react";
+import { Layout, Sparkles } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { AdminPageLayout } from "@/components/admin/AdminPageLayout";
 
 import HeroSlidesManager from "./HeroSlidesManager";
 import { WhyChooseUsManager } from "@/components/admin/WhyChooseUsManager";
-import { CompanyOverviewManager } from "@/components/admin/CompanyOverviewManager";
 
 const HomepageBuilder = () => {
   const [searchParams, setSearchParams] = useSearchParams();
-  const allowedTabs = new Set(["hero", "why-choose", "overview"]);
+  const allowedTabs = new Set(["hero", "why-choose"]);
   const queryTab = searchParams.get("tab") || "hero";
   const initialTab = allowedTabs.has(queryTab) ? queryTab : "hero";
 
   const [activeTab, setActiveTab] = useState(initialTab);
 
   useEffect(() => {
-    const nextTab = new Set(["hero", "why-choose", "overview"]).has(queryTab) ? queryTab : "hero";
+    const nextTab = new Set(["hero", "why-choose"]).has(queryTab) ? queryTab : "hero";
     setActiveTab(nextTab);
   }, [queryTab]);
 
   const handleTabChange = (tab: string) => {
-    setActiveTab(tab);
     const nextParams = new URLSearchParams(searchParams);
 
     if (tab === "hero") {
@@ -39,10 +37,10 @@ const HomepageBuilder = () => {
   return (
     <AdminPageLayout
       title="Homepage Builder"
-      description="Manage all homepage content in one place — hero slides, company overview, and why choose us section"
+      description="Manage all homepage content in one place — hero slides and why choose us section"
     >
       <Tabs value={activeTab} onValueChange={handleTabChange} className="space-y-6">
-        <TabsList className="grid w-full grid-cols-3">
+        <TabsList className="grid w-full grid-cols-2">
           <TabsTrigger value="hero" className="flex items-center gap-2">
             <Layout className="h-4 w-4" />
             <span className="hidden sm:inline">Hero Slides</span>
@@ -50,10 +48,6 @@ const HomepageBuilder = () => {
           <TabsTrigger value="why-choose" className="flex items-center gap-2">
             <Sparkles className="h-4 w-4" />
             <span className="hidden sm:inline">Why Choose Us</span>
-          </TabsTrigger>
-          <TabsTrigger value="overview" className="flex items-center gap-2">
-            <Home className="h-4 w-4" />
-            <span className="hidden sm:inline">Company Overview</span>
           </TabsTrigger>
         </TabsList>
 
@@ -85,19 +79,6 @@ const HomepageBuilder = () => {
           </Card>
         </TabsContent>
 
-        <TabsContent value="overview" className="space-y-4">
-          <Card>
-            <CardHeader>
-              <CardTitle>Company Overview</CardTitle>
-              <CardDescription>
-                Manage the company overview section including mission, vision, and values
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <CompanyOverviewManager />
-            </CardContent>
-          </Card>
-        </TabsContent>
       </Tabs>
     </AdminPageLayout>
   );

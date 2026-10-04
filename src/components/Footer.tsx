@@ -12,7 +12,7 @@ import { SERVICE_REGISTRY } from "@/data/service-registry";
 
 
 type SiteSettingsRow = Partial<Database['public']['Tables']['site_settings']['Row']>;
-type FooterSettingsRow = Database['public']['Tables']['footer_settings']['Row'];
+type FooterSettingsRow = Pick<Database['public']['Tables']['footer_settings']['Row'], 'id' | 'social_media' | 'contact_info' | 'quick_links' | 'sectors_links' | 'trust_bar_items' | 'is_active'>;
 type ServiceLink = Pick<Database['public']['Tables']['services']['Row'], 'name' | 'slug' | 'service_tier'>;
 type FooterLink = { label: string; href: string };
 
@@ -36,7 +36,7 @@ const Footer = () => {
       try {
         const [siteData, footerData, servicesData] = await Promise.all([
           supabase.from('site_settings').select(PUBLIC_SITE_SETTINGS_COLUMNS).eq('is_active', true).single(),
-          supabase.from('footer_settings').select('*').eq('is_active', true).single(),
+          supabase.from('footer_settings').select('id,social_media,contact_info,quick_links,sectors_links,trust_bar_items,is_active').eq('is_active', true).single(),
           supabase.from('services').select('name, slug, service_tier').eq('publish_state', 'published').order('service_tier, name')
         ]);
         

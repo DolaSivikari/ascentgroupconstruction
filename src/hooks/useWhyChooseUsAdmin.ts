@@ -1,5 +1,6 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
+import { invalidateHomepageQueries } from "@/lib/admin/homepageEditing";
 import { toast } from "sonner";
 
 export const useWhyChooseUsAdmin = () => {
@@ -31,6 +32,7 @@ export const useWhyChooseUsAdmin = () => {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["why-choose-us-admin"] });
+      invalidateHomepageQueries(queryClient);
       toast.success("Item created successfully");
     },
     onError: (error) => {
@@ -52,6 +54,7 @@ export const useWhyChooseUsAdmin = () => {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["why-choose-us-admin"] });
+      invalidateHomepageQueries(queryClient);
       toast.success("Item updated successfully");
     },
     onError: (error) => {
@@ -70,6 +73,7 @@ export const useWhyChooseUsAdmin = () => {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["why-choose-us-admin"] });
+      invalidateHomepageQueries(queryClient);
       toast.success("Item deleted successfully");
     },
     onError: (error) => {
@@ -92,10 +96,13 @@ export const useWhyChooseUsAdmin = () => {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["why-choose-us-admin"] });
+      invalidateHomepageQueries(queryClient);
       toast.success("Items reordered successfully");
     },
     onError: (error) => {
-      toast.error("Failed to reorder items: " + error.message);
+      void queryClient.invalidateQueries({ queryKey: ["why-choose-us-admin"] });
+      invalidateHomepageQueries(queryClient);
+      toast.error("Order may be partly saved; the list has been reloaded. " + error.message);
     },
   });
 

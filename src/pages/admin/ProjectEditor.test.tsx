@@ -6,7 +6,7 @@ import ProjectEditor from "./ProjectEditor";
 import type { ProjectFormData } from "@/lib/admin/projectEditor";
 
 const mock = vi.hoisted(() => ({
-  load: vi.fn(), update: vi.fn(), insert: vi.fn(), joins: vi.fn(), saveJoins: vi.fn(), toast: vi.fn(), navigate: vi.fn(), unsaved: false,
+  load: vi.fn(), update: vi.fn(), insert: vi.fn(), joins: vi.fn(), saveJoins: vi.fn(), cleanup: vi.fn(), toast: vi.fn(), navigate: vi.fn(), unsaved: false,
 }));
 vi.mock("react-router-dom", async (original) => ({ ...(await original<typeof import("react-router-dom")>()), useNavigate: () => mock.navigate }));
 vi.mock("@/integrations/supabase/client", () => ({ supabase: {
@@ -20,10 +20,10 @@ vi.mock("@/integrations/supabase/client", () => ({ supabase: {
   },
   auth: { getUser: async () => ({ data: { user: { id: "fixture-admin" } }, error: null }) },
 } }));
-vi.mock("@/lib/admin/projectPersistence", () => ({ loadProjectRelationships: mock.joins, saveProjectRelationships: mock.saveJoins }));
+vi.mock("@/lib/admin/projectPersistence", () => ({ loadProjectRelationships: mock.joins, saveProjectRelationships: mock.saveJoins, removeSavedGalleryFiles: mock.cleanup }));
 vi.mock("@/hooks/use-toast", () => ({ useToast: () => ({ toast: mock.toast }) }));
 vi.mock("@/hooks/useUnsavedChanges", () => ({ useUnsavedChanges: ({ hasUnsavedChanges }: { hasUnsavedChanges: boolean }) => {
-  mock.unsaved = hasUnsavedChanges; return { showDialog: false, cancelNavigation: vi.fn(), confirmNavigation: vi.fn(), message: "" };
+  mock.unsaved = hasUnsavedChanges; return { showDialog: false, cancelNavigation: vi.fn(), confirmNavigation: vi.fn(), message: "", markSaved: vi.fn() };
 } }));
 vi.mock("@/hooks/useFormCompletion", () => ({ useFormCompletion: () => ({ tabs: {}, overall: { percentage: 0 } }) }));
 vi.mock("@/components/admin/CompletionChecklist", () => ({ CompletionChecklist: () => null }));
@@ -39,7 +39,7 @@ beforeEach(() => {
   vi.clearAllMocks(); localStorage.clear(); mock.unsaved = false;
   mock.load.mockResolvedValue({ data: { id: "project-1", title: "Fixture project", slug: "fixture-project", publish_state: "draft" }, error: null });
   mock.update.mockResolvedValue({ data: { id: "project-1" }, error: null }); mock.insert.mockResolvedValue({ data: { id: "created-project" }, error: null });
-  mock.joins.mockResolvedValue(related); mock.saveJoins.mockResolvedValue(related);
+  mock.joins.mockResolvedValue(related); mock.saveJoins.mockResolvedValue(related); mock.cleanup.mockResolvedValue(null);
 });
 afterEach(() => { cleanup(); vi.useRealTimers(); });
 const open = (id = "project-1") => render(<MemoryRouter initialEntries={[`/admin/projects/${id}`]}><Routes><Route path="/admin/projects/:id" element={<ProjectEditor />} /></Routes></MemoryRouter>);
@@ -63,7 +63,7 @@ describe("safe project-editor saves", () => {
     expect(await screen.findByRole("alert")).toHaveTextContent("full save is incomplete");
     expect(screen.getByLabelText("Project title")).toHaveValue("Unsaved fixture edit"); expect(mock.unsaved).toBe(true);
     expect(mock.toast).not.toHaveBeenCalledWith(expect.objectContaining({ title: "Success" }));
-    expect(mock.saveJoins).toHaveBeenCalledWith("project-1", related, related);
+    expect(mock.saveJoins).toHaveBeenCalledWith("project-1", related, related); expect(mock.cleanup).not.toHaveBeenCalled();
   });
   it("retries a partially created project using its saved ID instead of inserting it again", async () => {
     mock.saveJoins.mockRejectedValueOnce(new Error("Fixture relationship failure"));
@@ -76,13 +76,29 @@ describe("safe project-editor saves", () => {
     await waitFor(() => expect(mock.navigate).toHaveBeenCalledWith("/admin/projects/created-project"));
     expect(mock.insert).toHaveBeenCalledOnce(); expect(mock.update).toHaveBeenCalledWith(expect.any(Object), "id", "created-project");
   });
-  it("preserves manual edits and reports failed autosave without marking it saved", async () => {
-    vi.useFakeTimers(); mock.update.mockResolvedValue({ data: null, error: { message: "Fixture update failure" } });
+  it("autosaves published-project edits on this device without any database write", async () => {
+    vi.useFakeTimers(); mock.load.mockResolvedValue({ data: { id: "project-1", title: "Fixture project", slug: "fixture-project", publish_state: "published" }, error: null });
     open(); await act(async () => { await vi.advanceTimersByTimeAsync(0); });
-    fireEvent.change(screen.getByLabelText("Project title"), { target: { value: "Unsaved autosave edit" } });
-    await act(async () => { await vi.advanceTimersByTimeAsync(30_000); });
-    expect(screen.getByRole("alert")).toHaveTextContent("could not be autosaved");
-    expect(screen.getByLabelText("Project title")).toHaveValue("Unsaved autosave edit"); expect(mock.unsaved).toBe(true);
-    expect(screen.queryByText(/Details autosaved/)).not.toBeInTheDocument();
+    fireEvent.change(screen.getByLabelText("Project title"), { target: { value: "Unsaved local edit" } });
+    await act(async () => { await vi.advanceTimersByTimeAsync(60_000); });
+    expect(mock.update).not.toHaveBeenCalled(); expect(mock.saveJoins).not.toHaveBeenCalled();
+    expect(JSON.parse(localStorage.getItem("project-draft-project-1")!).data.title).toBe("Unsaved local edit");
+    expect(screen.getByText(/Draft saved on this device/)).toBeInTheDocument(); expect(mock.unsaved).toBe(true);
+  });
+  it("offers a local draft without silently replacing the saved project", async () => {
+    localStorage.setItem("project-draft-project-1", JSON.stringify({ timestamp: new Date().toISOString(), data: { title: "Restorable edit", slug: "fixture-project", project_images: [], service_ids: [] } }));
+    open(); await screen.findByLabelText("Project title");
+    expect(screen.getByLabelText("Project title")).toHaveValue("Fixture project");
+    fireEvent.click(screen.getByRole("button", { name: "Restore unsaved changes" }));
+    expect(screen.getByLabelText("Project title")).toHaveValue("Restorable edit"); expect(mock.unsaved).toBe(true); expect(mock.update).not.toHaveBeenCalled();
+  });
+  it("clears the local draft only after a successful complete save", async () => {
+    open(); await screen.findByLabelText("Project title");
+    fireEvent.change(screen.getByLabelText("Project title"), { target: { value: "Explicitly saved edit" } });
+    expect(localStorage.getItem("project-draft-project-1")).not.toBeNull();
+    fireEvent.click(screen.getByRole("button", { name: "Save Project" }));
+    await waitFor(() => expect(mock.cleanup).toHaveBeenCalled());
+    await waitFor(() => expect(localStorage.getItem("project-draft-project-1")).toBeNull());
+    expect(mock.unsaved).toBe(false);
   });
 });

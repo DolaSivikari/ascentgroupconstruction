@@ -2,7 +2,11 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, useLocation } from "react-router-dom";
+import {
+  createBrowserRouter,
+  RouterProvider,
+  useLocation,
+} from "react-router-dom";
 import { lazy, Suspense, useEffect } from "react";
 import ErrorBoundary from "./components/ErrorBoundary";
 import ScrollToTop from "./components/ScrollToTop";
@@ -17,7 +21,9 @@ import { HeroPresenceProvider } from "@/components/shared/HeroPresenceProvider";
 const CookieBanner = lazy(() => import("./components/CookieBanner"));
 const StickyInquiryBar = lazy(() => import("./components/StickyInquiryBar"));
 const ScrollToTopButton = lazy(() =>
-  import("./components/ui/scroll-to-top").then(m => ({ default: m.ScrollToTop }))
+  import("./components/ui/scroll-to-top").then((m) => ({
+    default: m.ScrollToTop,
+  })),
 );
 
 const queryClient = new QueryClient();
@@ -49,38 +55,43 @@ const RouteTracker = ({ children }: { children: React.ReactNode }) => {
   return <>{children}</>;
 };
 
+// A data-router context enables the editing guard for Back/Forward and links.
+// The existing public and admin route tree stays in AppRoutes.
+const RouterContent = () => (
+  <HeroPresenceProvider>
+    <ScrollToTop />
+    <RouteTracker>
+      <Suspense fallback={null}>
+        <CookieBanner />
+      </Suspense>
+      <a
+        href="#main-content"
+        className="fixed top-0 left-0 -translate-y-full focus:translate-y-0 z-[100] bg-primary text-primary-foreground px-6 py-3 font-semibold transition-transform focus:outline-none focus:ring-4 focus:ring-primary/50"
+        aria-label="Skip to main content"
+      >
+        Skip to main content
+      </a>
+      <Suspense fallback={<PageLoader />}>
+        <AppRoutes />
+      </Suspense>
+      <Suspense fallback={null}>
+        <StickyInquiryBar />
+      </Suspense>
+      <Suspense fallback={null}>
+        <ScrollToTopButton />
+      </Suspense>
+    </RouteTracker>
+  </HeroPresenceProvider>
+);
+const router = createBrowserRouter([{ path: "*", element: <RouterContent /> }]);
+
 const App = () => (
   <ErrorBoundary>
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
         <Toaster />
         <Sonner />
-        <BrowserRouter>
-          <HeroPresenceProvider>
-            <ScrollToTop />
-            <RouteTracker>
-              <Suspense fallback={null}>
-                <CookieBanner />
-              </Suspense>
-              <a
-                href="#main-content"
-                className="fixed top-0 left-0 -translate-y-full focus:translate-y-0 z-[100] bg-primary text-primary-foreground px-6 py-3 font-semibold transition-transform focus:outline-none focus:ring-4 focus:ring-primary/50"
-                aria-label="Skip to main content"
-              >
-                Skip to main content
-              </a>
-              <Suspense fallback={<PageLoader />}>
-                <AppRoutes />
-              </Suspense>
-              <Suspense fallback={null}>
-                <StickyInquiryBar />
-              </Suspense>
-              <Suspense fallback={null}>
-                <ScrollToTopButton />
-              </Suspense>
-            </RouteTracker>
-          </HeroPresenceProvider>
-        </BrowserRouter>
+        <RouterProvider router={router} />
       </TooltipProvider>
     </QueryClientProvider>
   </ErrorBoundary>
