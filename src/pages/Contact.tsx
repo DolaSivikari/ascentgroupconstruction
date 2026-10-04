@@ -1,3 +1,4 @@
+import { PUBLIC_CONTACT_PAGE_SETTINGS_COLUMNS } from "@/constants/siteSettingsColumns";
 import { useState, useRef } from "react";
 import { z } from "zod";
 import Navigation from "@/components/Navigation";
@@ -40,7 +41,7 @@ const contactSchema = z.object({
 
 const Contact = () => {
   const { toast } = useToast();
-  const { data: contactSettings, loading } = useSettingsData('contact_page_settings');
+  const { data: contactSettings, loading } = useSettingsData('contact_page_settings', PUBLIC_CONTACT_PAGE_SETTINGS_COLUMNS);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const isSubmittingRef = useRef(false);
   const [formData, setFormData] = useState({
