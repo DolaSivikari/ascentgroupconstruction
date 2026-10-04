@@ -42,20 +42,20 @@ export const ProjectEditorHeader = ({
   return (
     <header className="sticky top-0 z-10 border-b bg-background shadow-sm">
       <div className="container mx-auto px-4 py-4">
-        <div className="flex justify-between items-center">
-          <div className="flex items-center gap-4">
+        <div className="flex flex-wrap justify-between items-center gap-3">
+          <div className="flex flex-wrap items-center gap-4">
             <Button variant="ghost" size="sm" onClick={onBack}>
               <ArrowLeft className="h-4 w-4 mr-2" />
               Back
             </Button>
             <div>
-              <div className="flex items-center gap-3">
+              <div className="flex flex-wrap items-center gap-3">
                 <h1 className="text-2xl font-bold">
                   {isNew ? "New Project" : "Edit Project"}
                 </h1>
                 {!isNew && getStatusBadge()}
               </div>
-              <div className="flex items-center gap-3 mt-1">
+              <div className="flex flex-wrap items-center gap-3 mt-1">
                 {/* Completion Status */}
                 <div className="flex items-center gap-2 text-sm">
                   <div className="relative w-16 h-2 bg-muted rounded-full overflow-hidden">
@@ -80,7 +80,7 @@ export const ProjectEditorHeader = ({
                   <div className="flex items-center gap-2 text-sm text-muted-foreground">
                     <Clock className="w-3.5 h-3.5" />
                     <span>
-                      {isSaving ? "Saving..." : `Details autosaved ${formatDistanceToNow(lastSaved, { addSuffix: true })}`}
+                      {isSaving ? "Saving..." : `Draft saved on this device ${formatDistanceToNow(lastSaved, { addSuffix: true })}`}
                     </span>
                   </div>
                 )}

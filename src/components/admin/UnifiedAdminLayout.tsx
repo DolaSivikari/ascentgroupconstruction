@@ -6,7 +6,6 @@ import { useAdminAuth } from '@/hooks/useAdminAuth';
 import { Menu } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
 import { PageTransition } from '@/components/animations/PageTransition';
-import { OnboardingTour } from '@/components/admin/OnboardingTour';
 import { NotificationBellInbox } from './NotificationBellInbox';
 import { Button } from '@/ui/Button';
 import '@/styles/admin-theme.css';
@@ -20,20 +19,8 @@ export const UnifiedAdminLayout = () => {
   const [loadingTime, setLoadingTime] = useState(0);
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [showOnboarding, setShowOnboarding] = useState(false);
   const [signingOut, setSigningOut] = useState(false);
   const [signOutError, setSignOutError] = useState(false);
-
-  useEffect(() => {
-    if (!isAdmin) return;
-    // Check if user has seen onboarding
-    const hasSeenOnboarding = localStorage.getItem('admin-onboarding-complete');
-    if (!hasSeenOnboarding) {
-      // Small delay to let the page render first
-      const timer = setTimeout(() => setShowOnboarding(true), 1500);
-      return () => clearTimeout(timer);
-    }
-  }, [isAdmin]);
 
   const handleSignOut = async () => {
     setSigningOut(true);
@@ -47,16 +34,6 @@ export const UnifiedAdminLayout = () => {
     } finally {
       setSigningOut(false);
     }
-  };
-
-  const handleOnboardingComplete = () => {
-    setShowOnboarding(false);
-    localStorage.setItem('admin-onboarding-complete', 'true');
-  };
-
-  const handleRestartOnboarding = () => {
-    localStorage.removeItem('admin-onboarding-complete');
-    setShowOnboarding(true);
   };
 
   // Apply body-level dark theme variables for portal-based components (Radix portals)
@@ -140,7 +117,6 @@ export const UnifiedAdminLayout = () => {
         onToggle={() => setSidebarCollapsed(!sidebarCollapsed)}
         mobileOpen={mobileMenuOpen}
         onMobileClose={() => setMobileMenuOpen(false)}
-        onRestartOnboarding={handleRestartOnboarding}
       />
       <div className={`business-main-content ${sidebarCollapsed ? 'sidebar-collapsed' : ''}`}>
         <header className="bg-background border-b border-border px-6 py-4 flex items-center justify-between">
@@ -164,9 +140,7 @@ export const UnifiedAdminLayout = () => {
         </div>
       </div>
       
-      {showOnboarding && (
-        <OnboardingTour onComplete={handleOnboardingComplete} />
-      )}
+
     </div>
   );
 };

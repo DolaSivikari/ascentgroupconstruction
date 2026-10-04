@@ -7,7 +7,7 @@ export interface ActiveSettingsFetchResult<T> {
 
 export const fetchActiveSettingsRow = async <T>(
   tableName: string,
-  selectQuery: string = '*'
+  selectQuery: string
 ): Promise<ActiveSettingsFetchResult<T>> => {
   const { data: result, error } = await (supabase
     .from(tableName as any)

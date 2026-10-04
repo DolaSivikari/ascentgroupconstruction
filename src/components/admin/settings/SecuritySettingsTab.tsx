@@ -10,7 +10,7 @@ import { toast } from "sonner";
 import { Save, Shield } from "lucide-react";
 
 export const SecuritySettingsTab = () => {
-  const { data: settings, loading, refetch } = useSettingsData("security_settings");
+  const { data: settings, loading, refetch } = useSettingsData("security_settings", "*");
   const [formData, setFormData] = useState<any>({});
   const [saving, setSaving] = useState(false);
 

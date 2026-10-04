@@ -114,13 +114,14 @@ export const MetricsTab = ({ formData, onFormChange }: MetricsTabProps) => {
         <div className="space-y-2">
           <Label htmlFor="on_time_completion">On-Time Completion</Label>
           <Select
-            value={formData.on_time_completion ? "yes" : "no"}
-            onValueChange={(value) => onFormChange({ on_time_completion: value === "yes" })}
+            value={formData.on_time_completion == null ? "unset" : formData.on_time_completion ? "yes" : "no"}
+            onValueChange={(value) => onFormChange({ on_time_completion: value === "unset" ? null : value === "yes" })}
           >
             <SelectTrigger>
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
+              <SelectItem value="unset">Not recorded</SelectItem>
               <SelectItem value="yes">Yes</SelectItem>
               <SelectItem value="no">No</SelectItem>
             </SelectContent>
@@ -129,13 +130,14 @@ export const MetricsTab = ({ formData, onFormChange }: MetricsTabProps) => {
         <div className="space-y-2">
           <Label htmlFor="on_budget">On Budget</Label>
           <Select
-            value={formData.on_budget ? "yes" : "no"}
-            onValueChange={(value) => onFormChange({ on_budget: value === "yes" })}
+            value={formData.on_budget == null ? "unset" : formData.on_budget ? "yes" : "no"}
+            onValueChange={(value) => onFormChange({ on_budget: value === "unset" ? null : value === "yes" })}
           >
             <SelectTrigger>
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
+              <SelectItem value="unset">Not recorded</SelectItem>
               <SelectItem value="yes">Yes</SelectItem>
               <SelectItem value="no">No</SelectItem>
             </SelectContent>

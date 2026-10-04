@@ -10,6 +10,7 @@ import { Plus, Pencil, Trash2, GripVertical } from "lucide-react";
 import { DndContext, closestCenter, KeyboardSensor, PointerSensor, useSensor, useSensors } from "@dnd-kit/core";
 import { arrayMove, SortableContext, sortableKeyboardCoordinates, verticalListSortingStrategy, useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
+import { useUnsavedChanges } from "@/hooks/useUnsavedChanges";
 import { ConfirmDialog } from "@/components/admin/ConfirmDialog";
 
 const SortableItem = ({ item, onEdit, onDelete, onToggle }: any) => {
@@ -52,6 +53,9 @@ export const WhyChooseUsManager = () => {
   const [itemToDelete, setItemToDelete] = useState<{ id: string; title: string } | null>(null);
   const [formData, setFormData] = useState({ title: "", description: "", stats_badge: "", icon_name: "" });
 
+  const [originalForm, setOriginalForm] = useState(formData);
+  const guard = useUnsavedChanges({ hasUnsavedChanges: (isCreating || !!editingItem) && JSON.stringify(formData) !== JSON.stringify(originalForm) });
+  const closeEditor = () => guard.requestDiscard(() => { setIsCreating(false); setEditingItem(null); setFormData({ title: "", description: "", stats_badge: "", icon_name: "" }); });
   const sensors = useSensors(
     useSensor(PointerSensor),
     useSensor(KeyboardSensor, { coordinateGetter: sortableKeyboardCoordinates })
@@ -59,7 +63,7 @@ export const WhyChooseUsManager = () => {
 
   const handleDragEnd = (event: any) => {
     const { active, over } = event;
-    if (active.id !== over.id) {
+    if (over && active.id !== over.id) {
       const oldIndex = items.findIndex((item: any) => item.id === active.id);
       const newIndex = items.findIndex((item: any) => item.id === over.id);
       const newOrder = arrayMove(items, oldIndex, newIndex);
@@ -70,20 +74,20 @@ export const WhyChooseUsManager = () => {
   const handleSubmit = async () => {
     if (!formData.title || !formData.description) return;
 
-    if (editingItem) {
-      await updateItem.mutateAsync({ id: editingItem.id, ...formData });
-      setEditingItem(null);
-    } else {
-      await createItem.mutateAsync({ ...formData, display_order: items.length });
-      setIsCreating(false);
-    }
-    setFormData({ title: "", description: "", stats_badge: "", icon_name: "" });
+    try {
+      if (editingItem) await updateItem.mutateAsync({ id: editingItem.id, ...formData });
+      else await createItem.mutateAsync({ ...formData, display_order: items.length });
+      guard.markSaved();
+      setEditingItem(null); setIsCreating(false);
+      setFormData({ title: "", description: "", stats_badge: "", icon_name: "" });
+    } catch { /* The mutation reports the error; retain edits and the guard. */ }
   };
 
   if (isLoading) return <div>Loading...</div>;
 
   return (
     <div className="space-y-6">
+      <ConfirmDialog open={guard.showDialog} onOpenChange={guard.cancelNavigation} onConfirm={guard.confirmNavigation} title="Unsaved changes" description={guard.message} confirmText="Leave" cancelText="Stay" />
       {(isCreating || editingItem) && (
         <Card>
           <CardContent className="pt-6 space-y-4">
@@ -121,8 +125,8 @@ export const WhyChooseUsManager = () => {
               />
             </div>
             <div className="flex gap-2">
-              <Button onClick={handleSubmit}>{editingItem ? "Update" : "Create"}</Button>
-              <Button variant="outline" onClick={() => { setIsCreating(false); setEditingItem(null); setFormData({ title: "", description: "", stats_badge: "", icon_name: "" }); }}>
+              <Button onClick={handleSubmit} disabled={updateItem.isPending || createItem.isPending}>{editingItem ? "Update" : "Create"}</Button>
+              <Button variant="outline" onClick={closeEditor} disabled={updateItem.isPending || createItem.isPending}>
                 Cancel
               </Button>
             </div>
@@ -131,7 +135,7 @@ export const WhyChooseUsManager = () => {
       )}
 
       {!isCreating && !editingItem && (
-        <Button onClick={() => setIsCreating(true)}>
+        <Button onClick={() => { setOriginalForm({ title: "", description: "", stats_badge: "", icon_name: "" }); setIsCreating(true); }}>
           <Plus className="h-4 w-4 mr-2" />
           Add Item
         </Button>
@@ -144,7 +148,7 @@ export const WhyChooseUsManager = () => {
               <SortableItem
                 key={item.id}
                 item={item}
-                onEdit={(item: any) => { setEditingItem(item); setFormData({ title: item.title, description: item.description, stats_badge: item.stats_badge || "", icon_name: item.icon_name || "" }); }}
+                onEdit={(item: any) => { setEditingItem(item); const form = { title: item.title, description: item.description, stats_badge: item.stats_badge || "", icon_name: item.icon_name || "" }; setFormData(form); setOriginalForm(form); }}
                 onDelete={(id: string) => { if (!deleteItem.isPending) { const item = items.find((candidate) => candidate.id === id); if (item) setItemToDelete({ id, title: item.title }); } }}
                 onToggle={(id: string, isActive: boolean) => updateItem.mutate({ id, is_active: isActive })}
               />

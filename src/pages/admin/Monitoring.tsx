@@ -3,13 +3,27 @@ import { supabase } from "@/integrations/supabase/client";
 import { AdminPageLayout } from "@/components/admin/AdminPageLayout";
 import { Card } from "@/ui/Card";
 import { Badge } from "@/components/ui/badge";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 import { Activity, AlertCircle, TrendingUp, Zap } from "lucide-react";
 import { format } from "date-fns";
+import { Button } from "@/ui/Button";
+import { adminErrorMessage } from "@/lib/admin/editorValues";
 import { Skeleton } from "@/components/ui/skeleton";
 
 export default function Monitoring() {
-  const { data: errorLogs, isLoading: errorsLoading } = useQuery({
+  const {
+    data: errorLogs,
+    isLoading: errorsLoading,
+    error: logsError,
+    refetch: refreshLogs,
+  } = useQuery({
     queryKey: ["error-logs"],
     queryFn: async () => {
       const { data, error } = await supabase
@@ -22,7 +36,12 @@ export default function Monitoring() {
     },
   });
 
-  const { data: performanceMetrics, isLoading: metricsLoading } = useQuery({
+  const {
+    data: performanceMetrics,
+    isLoading: metricsLoading,
+    error: metricsError,
+    refetch: refreshMetrics,
+  } = useQuery({
     queryKey: ["performance-metrics"],
     queryFn: async () => {
       const { data, error } = await supabase
@@ -35,32 +54,65 @@ export default function Monitoring() {
     },
   });
 
-  const todayErrors = errorLogs?.filter(log =>
-    new Date(log.created_at).toDateString() === new Date().toDateString()
-  ).length || 0;
-
-  const avgMetric = (metricName: string) => {
-    const metrics = performanceMetrics?.filter(m => m.metric_name === metricName);
-    if (!metrics || metrics.length === 0) return 0;
-    return (metrics.reduce((sum, m) => sum + Number(m.value), 0) / metrics.length).toFixed(2);
-  };
+  const {
+    data: dayErrors,
+    isLoading: countLoading,
+    error: countError,
+    refetch: refreshCount,
+  } = useQuery({
+    queryKey: ["monitoring-errors-24h"],
+    queryFn: async () => {
+      const { count, error } = await supabase
+        .from("error_logs")
+        .select("id", { count: "exact", head: true })
+        .gte(
+          "created_at",
+          new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString(),
+        );
+      if (error) throw error;
+      if (count == null)
+        throw new Error("The last 24 hours' error count is unavailable.");
+      return count;
+    },
+  });
+  const statusUnavailable = !!countError || !!logsError;
 
   return (
     <AdminPageLayout
-      title="📊 System Monitoring"
-      description="Real-time performance metrics and error tracking"
+      title="System Monitoring"
+      description="Recorded errors and performance metrics"
+      actions={
+        <Button
+          variant="outline"
+          onClick={() => {
+            void refreshLogs();
+            void refreshMetrics();
+            void refreshCount();
+          }}
+        >
+          Refresh monitoring
+        </Button>
+      }
     >
       <div className="space-y-6">
         {/* Stats Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <Card className="p-6">
             <div className="flex items-center gap-3">
               <div className="p-3 bg-accent/10 rounded-lg">
                 <AlertCircle className="h-5 w-5 text-accent" />
               </div>
               <div>
-                <p className="text-sm text-muted-foreground">Total Errors</p>
-                <p className="text-2xl font-bold">{errorLogs?.length || 0}</p>
+                <p className="text-sm text-muted-foreground">
+                  Recent errors loaded
+                </p>
+                <p className="text-2xl font-bold">
+                  {logsError
+                    ? "Unavailable"
+                    : errorsLoading
+                      ? "Loading…"
+                      : (errorLogs?.length ?? 0)}
+                </p>
               </div>
             </div>
           </Card>
@@ -71,20 +123,16 @@ export default function Monitoring() {
                 <TrendingUp className="h-5 w-5 text-accent" />
               </div>
               <div>
-                <p className="text-sm text-muted-foreground">Today's Errors</p>
-                <p className="text-2xl font-bold">{todayErrors}</p>
-              </div>
-            </div>
-          </Card>
-
-          <Card className="p-6">
-            <div className="flex items-center gap-3">
-              <div className="p-3 bg-accent/10 rounded-lg">
-                <Activity className="h-5 w-5 text-accent" />
-              </div>
-              <div>
-                <p className="text-sm text-muted-foreground">Avg Load Time</p>
-                <p className="text-2xl font-bold">{avgMetric("page_load")}ms</p>
+                <p className="text-sm text-muted-foreground">
+                  Errors in last 24 hours
+                </p>
+                <p className="text-2xl font-bold">
+                  {countError
+                    ? "Unavailable"
+                    : countLoading
+                      ? "Loading…"
+                      : dayErrors}
+                </p>
               </div>
             </div>
           </Card>
@@ -96,12 +144,47 @@ export default function Monitoring() {
               </div>
               <div>
                 <p className="text-sm text-muted-foreground">System Status</p>
-                <Badge variant="success" className="mt-1">Healthy</Badge>
+                <Badge
+                  variant={
+                    statusUnavailable
+                      ? "secondary"
+                      : dayErrors
+                        ? "destructive"
+                        : "outline"
+                  }
+                  className="mt-1"
+                >
+                  {statusUnavailable
+                    ? "Unavailable"
+                    : countLoading || errorsLoading
+                      ? "Checking…"
+                      : dayErrors
+                        ? "Errors reported"
+                        : "No errors reported in 24 hours"}
+                </Badge>
               </div>
             </div>
           </Card>
         </div>
 
+        {(logsError || countError) && (
+          <div
+            role="alert"
+            className="rounded-lg border border-destructive/40 p-4 text-sm"
+          >
+            Error monitoring is unavailable.{" "}
+            {adminErrorMessage(logsError || countError)}
+          </div>
+        )}
+        {metricsError && (
+          <div
+            role="alert"
+            className="rounded-lg border border-destructive/40 p-4 text-sm"
+          >
+            Performance metrics are unavailable.{" "}
+            {adminErrorMessage(metricsError)}
+          </div>
+        )}
         {/* Error Logs */}
         <Card>
           <div className="p-6 border-b border-border">
@@ -109,10 +192,14 @@ export default function Monitoring() {
               <AlertCircle className="h-5 w-5 text-danger" />
               <h3 className="text-lg font-semibold">Recent Errors</h3>
             </div>
-            <p className="text-sm text-muted-foreground">Client-side and server errors</p>
+            <p className="text-sm text-muted-foreground">
+              Client-side and server errors
+            </p>
           </div>
           <div className="overflow-x-auto">
-            {errorsLoading ? (
+            {logsError ? (
+              <p className="p-6">Could not load recent errors.</p>
+            ) : errorsLoading ? (
               <div className="p-6 space-y-4">
                 {Array.from({ length: 5 }).map((_, i) => (
                   <Skeleton key={i} className="h-16 w-full" />
@@ -162,10 +249,14 @@ export default function Monitoring() {
               <Activity className="h-5 w-5 text-primary" />
               <h3 className="text-lg font-semibold">Performance Metrics</h3>
             </div>
-            <p className="text-sm text-muted-foreground">Application performance data</p>
+            <p className="text-sm text-muted-foreground">
+              Application performance data
+            </p>
           </div>
           <div className="overflow-x-auto">
-            {metricsLoading ? (
+            {metricsError ? (
+              <p className="p-6">Could not load performance metrics.</p>
+            ) : metricsLoading ? (
               <div className="p-6 space-y-4">
                 {Array.from({ length: 5 }).map((_, i) => (
                   <Skeleton key={i} className="h-16 w-full" />
@@ -186,14 +277,23 @@ export default function Monitoring() {
                   {performanceMetrics.slice(0, 20).map((metric) => (
                     <TableRow key={metric.id}>
                       <TableCell className="text-sm whitespace-nowrap">
-                        {format(new Date(metric.recorded_at), "MMM dd, HH:mm:ss")}
+                        {format(
+                          new Date(metric.recorded_at),
+                          "MMM dd, HH:mm:ss",
+                        )}
                       </TableCell>
-                      <TableCell className="font-medium">{metric.metric_name}</TableCell>
+                      <TableCell className="font-medium">
+                        {metric.metric_name}
+                      </TableCell>
                       <TableCell>
                         <Badge variant="info">{metric.metric_type}</Badge>
                       </TableCell>
-                      <TableCell className="font-mono">{Number(metric.value).toFixed(2)}</TableCell>
-                      <TableCell className="text-muted-foreground">{metric.unit || "N/A"}</TableCell>
+                      <TableCell className="font-mono">
+                        {Number(metric.value).toFixed(2)}
+                      </TableCell>
+                      <TableCell className="text-muted-foreground">
+                        {metric.unit || "N/A"}
+                      </TableCell>
                     </TableRow>
                   ))}
                 </TableBody>

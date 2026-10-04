@@ -32,7 +32,7 @@ interface AboutPageSettings {
 }
 
 const CertificationsInsurance = () => {
-  const { data: aboutSettings, loading } = useSettingsData<AboutPageSettings>('about_page_settings');
+  const { data: aboutSettings, loading } = useSettingsData<AboutPageSettings>('about_page_settings', 'licenses,memberships,certifications');
 
   // Insurance coverage — accurate values only
   const insuranceCoverage = [

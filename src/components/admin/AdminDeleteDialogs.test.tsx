@@ -1,6 +1,6 @@
 import { cleanup, fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import { MemoryRouter } from "react-router-dom";
+import { createMemoryRouter, RouterProvider } from "react-router-dom";
 import type { ReactNode } from "react";
 import DocumentsLibrary from "@/pages/admin/DocumentsLibrary";
 import EmailTemplates from "@/pages/admin/EmailTemplates";
@@ -46,7 +46,7 @@ const cases = [
 ];
 describe("admin delete confirmation", () => {
   it.each(cases)("requires confirmation and supports cancellation for $name", async ({ component: Component, button, check }) => {
-    render(<MemoryRouter><Component /></MemoryRouter>);
+    render(<RouterProvider router={createMemoryRouter([{ path: "*", element: <Component /> }])} />);
     fireEvent.click(await screen.findByRole("button", { name: button }));
     expect(await screen.findByRole("alertdialog")).toBeVisible();
     expect(mock.deleteRow).not.toHaveBeenCalled(); expect(mock.featuredDelete).not.toHaveBeenCalled(); expect(mock.serviceDelete).not.toHaveBeenCalled(); expect(mock.whyDelete).not.toHaveBeenCalled();
@@ -59,7 +59,7 @@ describe("admin delete confirmation", () => {
     await waitFor(check);
   });
   it("waits for mutation success before reporting a featured-service deletion", async () => {
-    render(<MemoryRouter><FeaturedServicesManager /></MemoryRouter>);
+    render(<RouterProvider router={createMemoryRouter([{ path: "*", element: <FeaturedServicesManager /> }])} />);
     fireEvent.click(screen.getByRole("button", { name: "Delete Fixture featured" }));
     fireEvent.click(screen.getByRole("button", { name: /^Delete$/ }));
     expect(mock.success).not.toHaveBeenCalled();
@@ -69,7 +69,7 @@ describe("admin delete confirmation", () => {
   });
   it("reports partial document cleanup after a record is deleted but storage fails", async () => {
     mock.remove.mockResolvedValue({ error: { message: "Fixture storage failure" } });
-    render(<MemoryRouter><DocumentsLibrary /></MemoryRouter>);
+    render(<RouterProvider router={createMemoryRouter([{ path: "*", element: <DocumentsLibrary /> }])} />);
     fireEvent.click(await screen.findByRole("button", { name: "Delete Fixture document" })); fireEvent.click(screen.getByRole("button", { name: /^Delete$/ }));
     await waitFor(() => expect(mock.toast).toHaveBeenCalledWith(expect.objectContaining({ title: "Document record deleted", description: expect.stringContaining("stored file could not be removed"), variant: "destructive" })));
     expect(mock.remove).toHaveBeenCalledWith("documents", ["fixture.pdf"]);
@@ -77,7 +77,7 @@ describe("admin delete confirmation", () => {
   });
   it("preserves the record and reports an error when document deletion fails", async () => {
     mock.deleteRow.mockResolvedValue({ error: { message: "Fixture delete failure" } });
-    render(<MemoryRouter><DocumentsLibrary /></MemoryRouter>);
+    render(<RouterProvider router={createMemoryRouter([{ path: "*", element: <DocumentsLibrary /> }])} />);
     fireEvent.click(await screen.findByRole("button", { name: "Delete Fixture document" })); fireEvent.click(screen.getByRole("button", { name: /^Delete$/ }));
     await waitFor(() => expect(mock.toast).toHaveBeenCalledWith(expect.objectContaining({ title: "Error", description: "Fixture delete failure" })));
     expect(mock.remove).not.toHaveBeenCalled(); expect(screen.getByText("Fixture document")).toBeInTheDocument();

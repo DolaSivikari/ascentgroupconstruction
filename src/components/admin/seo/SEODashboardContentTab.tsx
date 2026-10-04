@@ -1,4 +1,4 @@
-import { Loader2, RefreshCw } from 'lucide-react';
+import { Loader2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
@@ -9,7 +9,6 @@ interface Props {
   setSelectedContent: (v: string) => void;
   generatingKeywords: boolean;
   onGenerateKeywords: () => void;
-  onRegenerateSitemap: () => void;
 }
 
 export const SEODashboardContentTab = ({
@@ -17,7 +16,6 @@ export const SEODashboardContentTab = ({
   setSelectedContent,
   generatingKeywords,
   onGenerateKeywords,
-  onRegenerateSitemap,
 }: Props) => (
   <>
     <Card>
@@ -49,17 +47,5 @@ export const SEODashboardContentTab = ({
       </CardContent>
     </Card>
 
-    <Card>
-      <CardHeader>
-        <CardTitle>Sitemap Generator</CardTitle>
-        <CardDescription>Regenerate your XML sitemap with the latest content</CardDescription>
-      </CardHeader>
-      <CardContent>
-        <Button onClick={onRegenerateSitemap}>
-          <RefreshCw className="h-4 w-4 mr-2" />
-          Regenerate Sitemap
-        </Button>
-      </CardContent>
-    </Card>
   </>
 );

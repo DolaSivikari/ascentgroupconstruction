@@ -1,3 +1,4 @@
+import { normalizeSlug } from "@/lib/admin/editorValues";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/ui/Input";
 import { Textarea } from "@/components/ui/textarea";
@@ -40,10 +41,7 @@ export const BasicInfoTab = ({ formData, slugStatus, onFormChange }: BasicInfoTa
               variant="ghost"
               size="sm"
               onClick={() => {
-                const autoSlug = formData.title
-                  .toLowerCase()
-                  .replace(/\s+/g, "-")
-                  .replace(/[^a-z0-9-]/g, "");
+                const autoSlug = normalizeSlug(formData.title);
                 onFormChange({ slug: autoSlug });
               }}
               disabled={!formData.title}
@@ -56,10 +54,7 @@ export const BasicInfoTab = ({ formData, slugStatus, onFormChange }: BasicInfoTa
             id="slug"
             value={formData.slug}
             onChange={(e) => {
-              const sanitized = e.target.value
-                .toLowerCase()
-                .replace(/\s+/g, "-")
-                .replace(/[^a-z0-9-]/g, "");
+              const sanitized = normalizeSlug(e.target.value);
               onFormChange({ slug: sanitized });
             }}
             required

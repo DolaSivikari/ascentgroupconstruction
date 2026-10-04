@@ -60,7 +60,6 @@ const HandymanPatchingToronto = lazyWithFallback(() => import("@/pages/services/
 
 // Admin pages
 const PageHeaders = lazyWithFallback(() => import("@/pages/admin/PageHeaders"), "Page Headers");
-const AdminFeatureNotice = lazy(() => import("@/pages/admin/AdminFeatureNotice"));
 const Dashboard = lazyWithFallback(() => import("@/pages/admin/Dashboard"), 'Dashboard');
 const AdminProjects = lazyWithFallback(() => import("@/pages/admin/Projects"), 'Projects');
 const ServiceEditor = lazyWithFallback(() => import("@/pages/admin/ServiceEditor"), 'Service Editor');
@@ -149,11 +148,9 @@ const AdminRouteGroup = () => (
     <Route path="security-settings" element={<Navigate to="/admin/settings?tab=security" replace />} />
     <Route path="settings-health" element={<Navigate to="/admin/settings?tab=health" replace />} />
     <Route path="seo-dashboard" element={<SEODashboard />} />
-    <Route path="redirects" element={<AdminFeatureNotice feature="redirects" />} />
     <Route path="performance-dashboard" element={<Navigate to="/admin/monitoring" replace />} />
     <Route path="search-analytics" element={<Navigate to="/admin/seo-dashboard" replace />} />
     <Route path="audit" element={<AuditDashboard />} />
-    <Route path="content-versions" element={<AdminFeatureNotice feature="versions" />} />
     <Route path="monitoring" element={<Monitoring />} />
     <Route path="inbox" element={<UnifiedInbox />} />
     <Route path="notifications" element={<LegacyInboxRedirect />} />
@@ -167,8 +164,6 @@ const AdminRouteGroup = () => (
     <Route path="homepage-company-overview" element={<Navigate to="/admin/homepage-builder?tab=overview" replace />} />
     <Route path="hero-slides" element={<Navigate to="/admin/homepage-builder?tab=hero" replace />} />
     <Route path="hero-images" element={<Navigate to="/admin/homepage-builder?tab=hero" replace />} />
-    <Route path="navigation" element={<AdminFeatureNotice feature="navigation" />} />
-    <Route path="navigation-builder" element={<AdminFeatureNotice feature="navigation" />} />
   </Route>
 );
 

@@ -1,0 +1,40 @@
+{
+  "status": "passed",
+  "checks": [
+    "Unsupported sidebar items hidden; dashboard and leads still load",
+    "New project with blank dates and unset performance values saves",
+    "Published project autosave remains local",
+    "Back guard retains edits on Stay and leaves through React Router",
+    "Failed save keeps edits; explicit save clears existing dates",
+    "Gallery files are deleted only after a successful full Save",
+    "Saved project preview uses the validating RPC in a fresh visitor context",
+    "Header Save validates required fields and persists blog metadata with sanitized slug",
+    "Blog list persists a draft token before opening a working visitor preview",
+    "Saved Contact hours appear in a fresh anonymous visitor session with restricted column grants",
+    "Settings tab navigation warns and retains edits on Stay",
+    "Missing settings records offer Create without guessed business statistics",
+    "Hero dialog Cancel preserves unsaved fields until discard is confirmed",
+    "SEO shows served crawler files and URL count without write controls",
+    "Monitoring derives the 24-hour status and shows failed reads as unavailable",
+    "Only verified super admins see invite and role controls; no invented active status",
+    "Editors, Settings, Users, Monitoring and the guard fit 390px without horizontal overflow"
+  ],
+  "runtimeErrors": [],
+  "backendRequests": 378,
+  "fixtureMutationRequests": 13,
+  "notes": [
+    "All auth and database responses are synthetic fixtures. External traffic was blocked. No real database, email, migration, merge or publishing action occurred."
+  ],
+  "public": {
+    "captures": 10,
+    "pixelIdentical": 8,
+    "intendedChange": "Hide wholly unrecorded project Performance card",
+    "runtimeErrors": 0,
+    "horizontalOverflow": false
+  },
+  "dashboardAndLeads": {
+    "scenarios": 13,
+    "runtimeErrors": 0,
+    "mobileDocumentWidth": 390
+  }
+}
