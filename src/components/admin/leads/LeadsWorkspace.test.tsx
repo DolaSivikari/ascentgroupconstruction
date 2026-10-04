@@ -59,6 +59,21 @@ function mount(props = {}) {
   return { onSelectionChange };
 }
 describe("Leads workspace behavior", () => {
+  it("applies a dashboard's source and status filters to the actual server read", async () => {
+    mount({ initialStatus: "new", initialSource: "contact" });
+    await screen.findAllByText("Fixture estimate");
+    expect(mocks.load).toHaveBeenCalledWith(
+      { search: "", type: "all", status: "new", source: "contact" },
+      null,
+      expect.any(AbortSignal),
+    );
+    expect(
+      screen.getByRole("combobox", { name: "Filter lead source" }),
+    ).toHaveTextContent("Contact requests");
+    expect(
+      screen.getByRole("combobox", { name: "Filter lead status" }),
+    ).toHaveTextContent("New");
+  });
   it("includes estimates filed under Contacts and opens a source-specific detail link", async () => {
     const { onSelectionChange } = mount();
     await screen.findAllByText("Fixture estimate");

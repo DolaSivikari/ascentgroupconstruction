@@ -30,7 +30,23 @@ export interface LeadFilters {
   search: string;
   type: LeadTypeFilter;
   status: string;
+  source?: LeadSource;
 }
+export const isLeadStatus = (value: string | null): value is string =>
+  value !== null &&
+  [
+    "all",
+    "open",
+    "closed",
+    "new",
+    "in_progress",
+    "contacted",
+    "completed",
+    "resolved",
+    "quoted",
+    "won",
+    "lost",
+  ].includes(value);
 export interface LeadRef {
   id: string;
   source: LeadSource;

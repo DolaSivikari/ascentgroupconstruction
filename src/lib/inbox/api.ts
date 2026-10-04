@@ -97,23 +97,32 @@ export async function saveInboxItem(
   if (error) throw error;
 }
 
+export async function loadNewInboxCount(
+  kind: InboxKind,
+  signal?: AbortSignal,
+): Promise<number> {
+  const table = INBOX_SOURCES[kind].table;
+  let query =
+    table === "newsletter_subscribers"
+      ? supabase
+          .from(table)
+          .select("id", { count: "exact", head: true })
+          .eq("is_active", true)
+      : supabase
+          .from(table)
+          .select("id", { count: "exact", head: true })
+          .or("status.is.null,status.eq.new");
+  if (signal) query = query.abortSignal(signal);
+  const { count, error } = await query;
+  if (error || count === null || !Number.isSafeInteger(count) || count < 0)
+    throw new Error("Could not load inbox counts");
+  return count;
+}
+
 export async function loadInboxCounts(): Promise<Record<InboxKind, number>> {
   const results = await Promise.all(
     (Object.keys(INBOX_SOURCES) as InboxKind[]).map(async (kind) => {
-      const table = INBOX_SOURCES[kind].table;
-      const query =
-        table === "newsletter_subscribers"
-          ? supabase
-              .from(table)
-              .select("id", { count: "exact", head: true })
-              .eq("is_active", true)
-          : supabase
-              .from(table)
-              .select("id", { count: "exact", head: true })
-              .eq("status", "new");
-      const { count, error } = await query;
-      if (error || count === null)
-        throw new Error("Could not load inbox counts");
+      const count = await loadNewInboxCount(kind);
       return [kind, count] as const;
     }),
   );

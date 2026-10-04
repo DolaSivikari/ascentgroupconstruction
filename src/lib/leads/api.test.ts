@@ -177,6 +177,23 @@ beforeEach(() => {
 });
 
 describe("bounded lead paging", () => {
+  it("reads only the dashboard's selected source and includes its null/new rows", async () => {
+    tables.contact_submissions = [
+      row(1, undefined, { status: null }),
+      row(2, undefined, { status: "new", submission_type: "estimate" }),
+      row(3, undefined, { status: "resolved" }),
+    ];
+    tables.rfp_submissions = [row(4)];
+    const result = await loadLeadPage({
+      ...filters,
+      status: "new",
+      source: "contact",
+    });
+    expect(result.items.map((item) => item.id)).toEqual([id(1), id(2)]);
+    expect(requests.map((request) => request.table)).toEqual([
+      "contact_submissions",
+    ]);
+  });
   it("preserves PostgreSQL microsecond precision across source ordering and cursor boundaries", async () => {
     tables.contact_submissions = [
       row(1, "2026-10-02T20:00:00.123500Z"),

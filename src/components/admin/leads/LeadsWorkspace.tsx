@@ -49,19 +49,24 @@ interface LeadsWorkspaceProps {
   highlightId?: string | null;
   source?: LeadSource;
   initialType?: LeadTypeFilter;
+  initialStatus?: string;
+  initialSource?: LeadSource;
   onSelectionChange: (ref: LeadRef | null) => void;
 }
 export function LeadsWorkspace({
   highlightId,
   source,
   initialType = "all",
+  initialStatus = "open",
+  initialSource,
   onSelectionChange,
 }: LeadsWorkspaceProps) {
   const [search, setSearch] = useState("");
   const [filters, setFilters] = useState<LeadFilters>({
     search: "",
     type: initialType,
-    status: "open",
+    status: initialStatus,
+    ...(initialSource ? { source: initialSource } : {}),
   });
   const [cursors, setCursors] = useState<Array<LeadCursor | null>>([null]);
   const queryClient = useQueryClient();
@@ -86,9 +91,14 @@ export function LeadsWorkspace({
     return () => clearTimeout(timer);
   }, [search, filters.search]);
   useEffect(() => {
-    setFilters((previous) => ({ ...previous, type: initialType }));
+    setFilters((previous) => ({
+      ...previous,
+      type: initialType,
+      status: initialStatus,
+      source: initialSource,
+    }));
     setCursors([null]);
-  }, [initialType]);
+  }, [initialType, initialStatus, initialSource]);
   const refresh = () => {
     for (const key of [
       "lead-pages",
@@ -97,6 +107,7 @@ export function LeadsWorkspace({
       "inbox-stats",
       "dashboard-stats",
       "dashboard-activity",
+      "dashboard-leads",
       "estimates-quotes",
     ])
       void queryClient.invalidateQueries({ queryKey: [key] });
@@ -135,7 +146,12 @@ export function LeadsWorkspace({
     onSelectionChange({ id: item.id, source: leadSource(item) });
   const clearFilters = () => {
     setSearch("");
-    changeFilters({ search: "", type: "all", status: "all" });
+    changeFilters({
+      search: "",
+      type: "all",
+      status: "all",
+      source: undefined,
+    });
   };
   const typeBadge = (item: InboxItem) => (
     <Badge variant="info">{LEAD_TYPE_LABELS[leadType(item)]}</Badge>
@@ -207,6 +223,29 @@ export function LeadsWorkspace({
             {Object.entries(STATUS_LABELS).map(([value, label]) => (
               <SelectItem key={value} value={value}>
                 {label}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+        <Select
+          value={filters.source || "all"}
+          onValueChange={(value) =>
+            changeFilters({
+              source: value === "all" ? undefined : (value as LeadSource),
+            })
+          }
+        >
+          <SelectTrigger
+            aria-label="Filter lead source"
+            className="w-full xl:w-[180px]"
+          >
+            <SelectValue />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="all">All form sources</SelectItem>
+            {LEAD_SOURCES.map((source) => (
+              <SelectItem key={source} value={source}>
+                {INBOX_SOURCES[source].label} requests
               </SelectItem>
             ))}
           </SelectContent>

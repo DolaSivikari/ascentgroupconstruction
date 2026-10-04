@@ -30,13 +30,24 @@ vi.mock("@/components/admin/leads/LeadsWorkspace", () => ({
   LeadsWorkspace: ({
     highlightId,
     initialType,
+    initialStatus,
+    initialSource,
+    source,
     onSelectionChange,
   }: {
     highlightId?: string;
     initialType: string;
+    initialStatus: string;
+    initialSource?: string;
+    source?: string;
     onSelectionChange: (ref: null) => void;
   }) => (
-    <div>
+    <div
+      data-testid="workspace"
+      data-status={initialStatus}
+      data-list-source={initialSource || "all"}
+      data-detail-source={source || "all"}
+    >
       leads inbox; highlighted {highlightId || "none"}; type {initialType}
       <button onClick={() => onSelectionChange(null)}>Close request</button>
     </div>
@@ -62,6 +73,38 @@ function renderAt(path: string) {
 }
 
 describe("inbox tab URL compatibility", () => {
+  it("honours dashboard source/status links separately from detail source links", () => {
+    renderAt(
+      "/admin/inbox?tab=leads&status=new&lead_source=contact&source=quote&highlight=quote-id",
+    );
+    expect(screen.getByTestId("workspace")).toHaveAttribute(
+      "data-status",
+      "new",
+    );
+    expect(screen.getByTestId("workspace")).toHaveAttribute(
+      "data-list-source",
+      "contact",
+    );
+    expect(screen.getByTestId("workspace")).toHaveAttribute(
+      "data-detail-source",
+      "quote",
+    );
+    fireEvent.click(screen.getByRole("button", { name: "Close request" }));
+    expect(screen.getByLabelText("Current inbox URL")).toHaveTextContent(
+      "/admin/inbox?tab=leads&status=new&lead_source=contact",
+    );
+  });
+  it("falls back safely when a dashboard source or status is unsupported", () => {
+    renderAt("/admin/inbox?status=unsupported&lead_source=resume");
+    expect(screen.getByTestId("workspace")).toHaveAttribute(
+      "data-status",
+      "open",
+    );
+    expect(screen.getByTestId("workspace")).toHaveAttribute(
+      "data-list-source",
+      "all",
+    );
+  });
   it("makes Leads the default while keeping the All inbox available", () => {
     renderAt("/admin/inbox");
     expect(

@@ -121,7 +121,7 @@ describe("recent activity", () => {
     for (const request of requests) {
       expect(request.fields).toBe("*");
       expect(request.limit).toBe(5);
-      expect(request.orders).toEqual([[request.table === "prequalification_downloads" ? "downloaded_at" : "created_at", { ascending: false }], ["id", undefined]]);
+      expect(request.orders).toEqual([[request.table === "prequalification_downloads" ? "downloaded_at" : "created_at", { ascending: false, nullsFirst: false }], ["id", undefined]]);
     }
   });
 

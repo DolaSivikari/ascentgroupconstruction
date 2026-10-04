@@ -5,6 +5,7 @@ import { InboxTable } from "@/components/admin/inbox/InboxTable";
 import { LeadsWorkspace } from "@/components/admin/leads/LeadsWorkspace";
 import {
   isLeadSource,
+  isLeadStatus,
   type LeadTypeFilter,
   type LeadRef,
 } from "@/lib/leads/model";
@@ -33,6 +34,8 @@ export default function UnifiedInbox() {
         : "leads";
   const source = searchParams.get("source");
   const requestedType = searchParams.get("type");
+  const requestedStatus = searchParams.get("status");
+  const requestedSource = searchParams.get("lead_source");
   const initialType: LeadTypeFilter =
     requestedType &&
     [
@@ -104,6 +107,12 @@ export default function UnifiedInbox() {
               highlightId={searchParams.get("highlight")}
               source={isLeadSource(source) ? source : undefined}
               initialType={initialType}
+              initialStatus={
+                isLeadStatus(requestedStatus) ? requestedStatus : "open"
+              }
+              initialSource={
+                isLeadSource(requestedSource) ? requestedSource : undefined
+              }
               onSelectionChange={handleSelectionChange}
             />
           </TabsContent>
