@@ -7,6 +7,7 @@ import {
   type InboxFilter,
   type InboxItem,
 } from "./model";
+import { leadType } from "@/lib/leads/model";
 
 export type InboxSort = "received" | "deadline";
 export type CommercialType = "all" | "rfp" | "estimate" | "quote";
@@ -18,14 +19,19 @@ export const isOpenInboxItem = (item: InboxItem): boolean =>
 export function commercialType(
   item: InboxItem,
 ): Exclude<CommercialType, "all"> | null {
-  if (item.table === "rfp_submissions") return "rfp";
-  if (item.table === "quote_requests")
-    return item.source === "estimator" ? "estimate" : "quote";
-  return null;
+  const type = leadType(item);
+  return type === "rfp" || type === "estimate" || type === "quote"
+    ? type
+    : null;
 }
 
 export function inboxTypeLabel(item: InboxItem): string {
-  return commercialType(item) === "estimate" ? "Estimate" : item.type;
+  const type = commercialType(item);
+  return type === "estimate"
+    ? "Estimate"
+    : type === "quote"
+      ? "Quote"
+      : item.type;
 }
 
 /** PostgreSQL DATE values stay calendar dates; never infer a bid time or use RFP start dates. */
@@ -147,7 +153,7 @@ export function inboxCsv(items: readonly InboxItem[]): string {
 
 export function downloadInboxCsv(
   items: readonly InboxItem[],
-  filter: InboxFilter,
+  filter: InboxFilter | "leads",
 ): void {
   const url = URL.createObjectURL(
     new Blob(["\uFEFF", inboxCsv(items)], { type: "text/csv;charset=utf-8" }),

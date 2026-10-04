@@ -26,6 +26,22 @@ vi.mock("@/components/admin/inbox/InboxTable", () => ({
   ),
 }));
 
+vi.mock("@/components/admin/leads/LeadsWorkspace", () => ({
+  LeadsWorkspace: ({
+    highlightId,
+    initialType,
+    onSelectionChange,
+  }: {
+    highlightId?: string;
+    initialType: string;
+    onSelectionChange: (ref: null) => void;
+  }) => (
+    <div>
+      leads inbox; highlighted {highlightId || "none"}; type {initialType}
+      <button onClick={() => onSelectionChange(null)}>Close request</button>
+    </div>
+  ),
+}));
 afterEach(cleanup);
 function Location() {
   const location = useLocation();
@@ -46,20 +62,18 @@ function renderAt(path: string) {
 }
 
 describe("inbox tab URL compatibility", () => {
-  it("keeps All as the default and adds the combined workspace before it", () => {
+  it("makes Leads the default while keeping the All inbox available", () => {
     renderAt("/admin/inbox");
     expect(
-      screen.getByRole("tab", { name: "All", selected: true }),
+      screen.getByRole("tab", { name: "Leads", selected: true }),
     ).toBeInTheDocument();
-    expect(screen.getAllByRole("tab")[0]).toHaveTextContent("Bids & Estimates");
-    fireEvent.mouseDown(screen.getByRole("tab", { name: "Bids & Estimates" }), {
+    expect(screen.getAllByRole("tab")[0]).toHaveTextContent("Leads");
+    fireEvent.mouseDown(screen.getByRole("tab", { name: "All" }), {
       button: 0,
     });
-    expect(
-      screen.getByText("work inbox; highlighted none"),
-    ).toBeInTheDocument();
+    expect(screen.getByText("all inbox; highlighted none")).toBeInTheDocument();
     expect(screen.getByLabelText("Current inbox URL")).toHaveTextContent(
-      "/admin/inbox?tab=work",
+      "/admin/inbox?tab=all",
     );
   });
   it.each(["rfp", "quote", "contact", "resume", "prequal", "newsletter"])(
@@ -69,34 +83,35 @@ describe("inbox tab URL compatibility", () => {
       expect(
         screen.getByText(`${tab} inbox; highlighted lead-123`),
       ).toBeInTheDocument();
-      fireEvent.mouseDown(
-        screen.getByRole("tab", { name: "Bids & Estimates" }),
-        { button: 0 },
-      );
+      fireEvent.mouseDown(screen.getByRole("tab", { name: "Leads" }), {
+        button: 0,
+      });
       expect(
-        screen.getByText("work inbox; highlighted lead-123"),
+        screen.getByText("leads inbox; highlighted lead-123; type all"),
       ).toBeInTheDocument();
       expect(screen.getByLabelText("Current inbox URL")).toHaveTextContent(
-        "tab=work&highlight=lead-123&extra=keep",
+        "/admin/inbox?highlight=lead-123&extra=keep",
       );
       fireEvent.mouseDown(screen.getByRole("tab", { name: "All" }), {
         button: 0,
       });
       expect(screen.getByLabelText("Current inbox URL")).toHaveTextContent(
-        "/admin/inbox?highlight=lead-123&extra=keep",
+        "/admin/inbox?highlight=lead-123&extra=keep&tab=all",
       );
     },
   );
   it("accepts direct workspace links and safely falls back for an unknown tab", () => {
     const first = renderAt("/admin/inbox?tab=work&highlight=quote-id");
     expect(
-      screen.getByText("work inbox; highlighted quote-id"),
+      screen.getByText("leads inbox; highlighted quote-id; type commercial"),
     ).toBeInTheDocument();
     first.unmount();
     renderAt("/admin/inbox?tab=unknown");
     expect(
-      screen.getByRole("tab", { name: "All", selected: true }),
+      screen.getByRole("tab", { name: "Leads", selected: true }),
     ).toBeInTheDocument();
-    expect(screen.getByText("all inbox; highlighted none")).toBeInTheDocument();
+    expect(
+      screen.getByText("leads inbox; highlighted none; type all"),
+    ).toBeInTheDocument();
   });
 });

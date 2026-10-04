@@ -172,14 +172,16 @@ describe("activity navigation", () => {
     });
     const destination = new URL(activityDestination(item), "https://site.example");
     expect(destination.pathname).toBe("/admin/inbox");
-    expect(destination.searchParams.get("tab")).toBe(kind);
+    expect(destination.searchParams.get("tab")).toBe(kind === "resume" ? "resume" : "leads");
+    if (kind !== "resume") expect(destination.searchParams.get("source")).toBe(kind);
     expect(destination.searchParams.get("highlight")).toBe(item.id);
   });
 
   it("encodes record identifiers rather than allowing them to change the selected tab", () => {
     const item = normalizeInboxItem("quote", { id: "lead&tab=resume", email: "owner@example.test" });
     const params = new URL(activityDestination(item), "https://site.example").searchParams;
-    expect(params.get("tab")).toBe("quote");
+    expect(params.get("tab")).toBe("leads");
+    expect(params.get("source")).toBe("quote");
     expect(params.get("highlight")).toBe("lead&tab=resume");
   });
 });

@@ -23,7 +23,7 @@ beforeEach(() => vi.clearAllMocks());
 describe("inbox notifications", () => {
   it("links to the relevant tab and highlights the submitted request", () => {
     expect(notificationDestination(notification)).toBe(
-      "/admin/inbox?tab=rfp&highlight=lead-1",
+      "/admin/inbox?tab=leads&highlight=lead-1&source=rfp",
     );
     expect(
       notificationDestination({

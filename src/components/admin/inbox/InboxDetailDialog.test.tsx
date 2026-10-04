@@ -62,6 +62,62 @@ const record = {
   created_at: "2026-10-02T15:00:00Z",
 };
 describe("request detail form", () => {
+  it("protects unsaved notes when closing the detail panel and provides no hard-delete action", () => {
+    const handlers = callbacks();
+    render(
+      <InboxDetailDialog
+        item={normalizeInboxItem("contact", {
+          ...record,
+          name: "Fixture",
+          submission_type: "estimate",
+          admin_notes: "Original",
+        })}
+        open
+        {...handlers}
+        presentation="panel"
+        allowDelete={false}
+      />,
+    );
+    expect(
+      screen.queryByRole("button", { name: "Delete" }),
+    ).not.toBeInTheDocument();
+    fireEvent.change(screen.getByLabelText("Admin notes"), {
+      target: { value: "Unsaved follow-up" },
+    });
+    fireEvent.click(screen.getAllByRole("button", { name: "Close" })[0]);
+    expect(screen.getByRole("alertdialog")).toHaveTextContent(
+      "Discard unsaved changes?",
+    );
+    expect(handlers.onClose).not.toHaveBeenCalled();
+    fireEvent.click(screen.getByRole("button", { name: "Keep editing" }));
+    expect(screen.getByLabelText("Admin notes")).toHaveValue(
+      "Unsaved follow-up",
+    );
+  });
+  it("retains the original edit baseline if realtime supplies a newer record", async () => {
+    const item = normalizeInboxItem("contact", {
+      ...record,
+      admin_notes: "Original",
+    });
+    const handlers = callbacks();
+    const { rerender } = render(
+      <InboxDetailDialog item={item} open {...handlers} />,
+    );
+    rerender(
+      <InboxDetailDialog
+        item={{ ...item, admin_notes: "Another staff member's change" }}
+        open
+        {...handlers}
+      />,
+    );
+    fireEvent.change(screen.getByLabelText("Admin notes"), {
+      target: { value: "My edit" },
+    });
+    fireEvent.click(screen.getByRole("button", { name: "Save Changes" }));
+    await waitFor(() =>
+      expect(mock.save).toHaveBeenCalledWith(item, "new", "My edit"),
+    );
+  });
   it("shows stored RFP scope, requirements, files, and existing internal notes", async () => {
     const item = normalizeInboxItem("rfp", {
       ...record,

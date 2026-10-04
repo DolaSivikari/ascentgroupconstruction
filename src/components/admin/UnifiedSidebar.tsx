@@ -24,7 +24,6 @@ import {
   ShieldCheck,
   History,
   Sparkles,
-  DollarSign,
 } from 'lucide-react';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
@@ -265,8 +264,7 @@ export const UnifiedSidebar = ({
           <SectionLabel>Overview</SectionLabel>
           <nav className="admin-nav-list">
             <NavItem to="/admin" icon={LayoutDashboard} label="Dashboard" />
-            <NavItem to="/admin/inbox" icon={Inbox} label="Inbox" badge={newSubmissions} />
-            <NavItem to="/admin/estimates-quotes" icon={DollarSign} label="Estimates & Quotes" />
+            <NavItem to="/admin/inbox" icon={Inbox} label="Leads & Inbox" badge={newSubmissions} />
           </nav>
 
           {/* CONTENT */}

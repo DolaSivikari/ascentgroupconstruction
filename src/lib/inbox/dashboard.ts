@@ -6,6 +6,7 @@ import {
   type InboxItem,
   type InboxKind,
 } from "./model";
+import { isLeadSource } from "@/lib/leads/model";
 
 export const EMPTY_DASHBOARD_STATS = {
   projectsPublished: 0,
@@ -134,5 +135,10 @@ export function activityDestination(item: InboxItem): string {
     (Object.keys(INBOX_SOURCES) as InboxKind[]).find(
       (key) => INBOX_SOURCES[key].table === item.table,
     ) || "all";
-  return `/admin/inbox?${new URLSearchParams({ tab: kind, highlight: item.id })}`;
+  const params = new URLSearchParams({
+    tab: isLeadSource(kind) ? "leads" : kind,
+    highlight: item.id,
+  });
+  if (isLeadSource(kind)) params.set("source", kind);
+  return `/admin/inbox?${params}`;
 }

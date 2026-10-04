@@ -3,6 +3,7 @@ import {
   INBOX_SOURCES,
   inboxDate,
   inboxKinds,
+  inboxText,
   inboxUpdate,
   normalizeInboxItem,
   rfpAttachmentPath,
@@ -71,12 +72,28 @@ export async function saveInboxItem(
   if (!Object.keys(patch).length) return;
   if (item.table === "newsletter_subscribers")
     throw new Error("Unsupported update");
-  const query =
+  let query =
     item.table === "quote_requests" ||
     item.table === "prequalification_downloads"
       ? supabase.from(item.table).update({ status: patch.status })
       : supabase.from(item.table).update(patch);
+  // Protect edits against another staff member's changes while details are open.
+  if (patch.status !== undefined)
+    query =
+      item.status === null
+        ? query.is("status", null)
+        : query.eq("status", item.status);
+  if (patch.admin_notes !== undefined)
+    query = query.filter(
+      "admin_notes",
+      item.admin_notes === null ? "is" : "eq",
+      item.admin_notes === null ? null : inboxText(item, "admin_notes"),
+    );
   const { error } = await query.eq("id", item.id).select("id").single();
+  if (error?.code === "PGRST116")
+    throw new Error(
+      "This request changed or is no longer editable. Reopen it before saving.",
+    );
   if (error) throw error;
 }
 
