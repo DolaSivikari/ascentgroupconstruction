@@ -103,8 +103,11 @@ export async function loadLeadPage(
   )
     throw new Error("Invalid lead status");
 
+  const sources = sourcesForType(filters.type).filter(
+    key => !filters.source || filters.source === key,
+  );
   const results = await Promise.all(
-    sourcesForType(filters.type).map(async (key) => {
+    sources.map(async (key) => {
       const source = INBOX_SOURCES[key];
       try {
         let query = supabase

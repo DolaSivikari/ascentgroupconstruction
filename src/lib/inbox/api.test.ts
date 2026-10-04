@@ -259,6 +259,10 @@ describe("inbox counts", () => {
           filters.push([table, field, value]);
           return Promise.resolve({ count: counts[table], error: null });
         },
+        or: (value: string) => {
+          filters.push([table, "or", value]);
+          return Promise.resolve({ count: counts[table], error: null });
+        },
       };
       return query;
     });
@@ -275,13 +279,15 @@ describe("inbox counts", () => {
       "is_active",
       true,
     ]);
-    expect(filters.filter((filter) => filter[1] === "status")).toHaveLength(5);
+    expect(filters.filter((filter) => filter[1] === "or")).toHaveLength(5);
+    expect(filters.filter((filter) => filter[1] === "or").every(filter => filter[2] === "status.is.null,status.eq.new")).toBe(true);
   });
   it("reports unavailable counts instead of turning a failed query into zero", async () => {
     const { loadInboxCounts } = await import("./api");
     const query = {
       select: () => query,
       eq: async () => ({ count: null, error: new Error("offline") }),
+      or: async () => ({ count: null, error: new Error("offline") }),
     };
     mock.from.mockReturnValue(query);
     await expect(loadInboxCounts()).rejects.toThrow(

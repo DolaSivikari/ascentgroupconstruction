@@ -1,10 +1,15 @@
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/ui/Button";
 import { Bell, Mail, AlertCircle, Clock, CheckCircle } from "lucide-react";
-import { format } from "date-fns";
+import {
+  formatLeadReceived,
+  leadType,
+  LEAD_TYPE_LABELS,
+  LEAD_SOURCES,
+} from "@/lib/leads/model";
 import { useNavigate } from "react-router-dom";
 import {
-  inboxDate,
+  INBOX_SOURCES,
   inboxName,
   inboxText,
   type InboxItem,
@@ -17,6 +22,7 @@ interface ActivityFeedProps {
   loading?: boolean;
   failed?: string[];
   onRetry?: () => void;
+  limit?: number;
 }
 const ActivityFeed = ({
   submissions,
@@ -24,6 +30,7 @@ const ActivityFeed = ({
   loading,
   failed = [],
   onRetry,
+  limit = 5,
 }: ActivityFeedProps) => {
   const navigate = useNavigate();
   return (
@@ -60,8 +67,7 @@ const ActivityFeed = ({
           </p>
         ) : (
           <div className="space-y-3">
-            {submissions.slice(0, 5).map((item) => {
-              const received = inboxDate(item.created_at);
+            {submissions.slice(0, limit).map((item) => {
               const preview = [
                 "scope_of_work",
                 "message",
@@ -99,8 +105,11 @@ const ActivityFeed = ({
                         </p>
                       </div>
                       <Badge variant="outline" size="xs" className="shrink-0">
-                        {item.type === "Quote" && item.source === "estimator"
-                          ? "Estimate"
+                        {LEAD_SOURCES.some(
+                          (source) =>
+                            INBOX_SOURCES[source].table === item.table,
+                        )
+                          ? LEAD_TYPE_LABELS[leadType(item)]
                           : item.type}
                       </Badge>
                     </div>
@@ -109,9 +118,7 @@ const ActivityFeed = ({
                     </p>
                     <div className="flex items-center gap-1 text-xs text-muted-foreground">
                       <Clock className="h-3 w-3" />
-                      {received
-                        ? format(received, "MMM d, h:mm a")
-                        : "Date unavailable"}
+                      {formatLeadReceived(item.created_at)}
                     </div>
                   </div>
                 </button>

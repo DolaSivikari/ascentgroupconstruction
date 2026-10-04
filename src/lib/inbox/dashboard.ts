@@ -1,12 +1,11 @@
 import { supabase } from "@/integrations/supabase/client";
 import {
   INBOX_SOURCES,
-  inboxDate,
   normalizeInboxItem,
   type InboxItem,
   type InboxKind,
 } from "./model";
-import { isLeadSource } from "@/lib/leads/model";
+import { isLeadSource, compareLeads } from "@/lib/leads/model";
 
 export const EMPTY_DASHBOARD_STATS = {
   projectsPublished: 0,
@@ -93,27 +92,40 @@ export async function loadHomepageContentStatus() {
     valuePillars: results[3].count!,
   };
 }
-export async function loadRecentInboxActivity(): Promise<{
+export async function loadRecentInboxActivity(
+  kinds: readonly InboxKind[] = [
+    "contact",
+    "rfp",
+    "quote",
+    "prequal",
+    "resume",
+  ],
+  limit = 5,
+  signal?: AbortSignal,
+): Promise<{
   items: InboxItem[];
   failed: string[];
 }> {
-  const kinds: InboxKind[] = ["contact", "rfp", "quote", "prequal", "resume"];
+  if (!Number.isInteger(limit) || limit < 1 || limit > 10)
+    throw new Error("Invalid activity limit");
   const results = await Promise.all(
     kinds.map(async (kind) => {
       const source = INBOX_SOURCES[kind];
       try {
-        const { data, error } = await supabase
+        let query = supabase
           .from(source.table)
           .select("*")
-          .order(source.date, { ascending: false })
-          .order("id")
-          .limit(5);
+          .order(source.date, { ascending: false, nullsFirst: false })
+          .order("id");
+        if (signal) query = query.abortSignal(signal);
+        const { data, error } = await query.limit(limit);
         if (error) throw error;
         return {
           items: (data || []).map((row) => normalizeInboxItem(kind, row)),
           failed: [] as string[],
         };
-      } catch {
+      } catch (error) {
+        if (signal?.aborted) throw error;
         return { items: [] as InboxItem[], failed: [source.label] };
       }
     }),
@@ -121,12 +133,8 @@ export async function loadRecentInboxActivity(): Promise<{
   return {
     items: results
       .flatMap((result) => result.items)
-      .sort(
-        (a, b) =>
-          (inboxDate(b.created_at)?.getTime() || 0) -
-          (inboxDate(a.created_at)?.getTime() || 0),
-      )
-      .slice(0, 5),
+      .sort(compareLeads)
+      .slice(0, limit),
     failed: results.flatMap((result) => result.failed),
   };
 }

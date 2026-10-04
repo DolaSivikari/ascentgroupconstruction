@@ -1,493 +1,396 @@
+import { useEffect, type ReactNode } from "react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-import type { User } from "@supabase/supabase-js";
-import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
-import { useNavigate } from "react-router-dom";
-import { Button } from "@/ui/Button";
-import {
-  LayoutDashboard,
-  FileText,
-  Briefcase,
-  Users,
-  Mail,
-  TrendingUp,
-  Settings,
-  Layout,
-  Package,
-  Image,
-  CheckCircle,
-  AlertCircle,
-  Send,
-  ClipboardList,
-} from "lucide-react";
-import { Skeleton } from "@/components/ui/skeleton";
-import { loadInboxCounts } from "@/lib/inbox/api";
-import { INBOX_SOURCES } from "@/lib/inbox/model";
-import {
-  EMPTY_DASHBOARD_STATS,
-  loadDashboardStats,
-  loadHomepageContentStatus,
-  loadRecentInboxActivity,
-} from "@/lib/inbox/dashboard";
-import MetricCard from "@/components/admin/MetricCard";
-import ActivityFeed from "@/components/admin/ActivityFeed";
-import { StaggerContainer } from "@/components/animations/StaggerContainer";
-import { ScrollReveal } from "@/components/animations/ScrollReveal";
 import { AdminPageLayout } from "@/components/admin/AdminPageLayout";
+import ActivityFeed from "@/components/admin/ActivityFeed";
+import { Button } from "@/ui/Button";
+import { INBOX_SOURCES, STATUS_LABELS } from "@/lib/inbox/model";
+import { LEAD_SOURCES } from "@/lib/leads/model";
+import {
+  dashboardLeadDestination,
+  loadDashboardContent,
+  loadLegacyLeadSummary,
+  type DashboardContentKey,
+} from "@/lib/inbox/dashboard-v2";
 
-const Dashboard = () => {
-  const navigate = useNavigate();
+function Tile({
+  title,
+  value,
+  detail,
+  to,
+}: {
+  title: string;
+  value: number | string;
+  detail?: ReactNode;
+  to?: string;
+}) {
+  const content = (
+    <>
+      <h3 className="text-sm font-semibold text-muted-foreground">{title}</h3>
+      <div
+        className={`my-2 break-words font-bold tabular-nums ${typeof value === "number" ? "text-3xl" : "text-xl"}`}
+      >
+        {value}
+      </div>
+      {detail && <p className="text-xs text-muted-foreground">{detail}</p>}
+    </>
+  );
+  const className = "business-glass-card min-w-0 p-5";
+  return to ? (
+    <Link
+      to={to}
+      className={`${className} block transition-colors hover:bg-muted/40 focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary`}
+      aria-label={`${title}: ${value}`}
+    >
+      {content}
+    </Link>
+  ) : (
+    <div className={className} role="group" aria-label={title}>
+      {content}
+    </div>
+  );
+}
+
+const contentTiles: Array<{
+  title: string;
+  key: DashboardContentKey;
+  to: string;
+  draft?: DashboardContentKey;
+}> = [
+  {
+    title: "Published projects",
+    key: "projectsPublished",
+    draft: "projectsDraft",
+    to: "/admin/projects",
+  },
+  {
+    title: "Published blog posts",
+    key: "blogPublished",
+    draft: "blogDraft",
+    to: "/admin/blog",
+  },
+  { title: "Services", key: "services", to: "/admin/services-manager" },
+  {
+    title: "Active hero slides",
+    key: "heroSlides",
+    to: "/admin/homepage-builder?tab=hero",
+  },
+  {
+    title: "Active Why Choose Us items",
+    key: "whyChooseUs",
+    to: "/admin/homepage-builder?tab=why-choose",
+  },
+  {
+    title: "Featured testimonials",
+    key: "testimonials",
+    to: "/admin/testimonials",
+  },
+  {
+    title: "Active value pillars",
+    key: "valuePillars",
+    to: "/admin/homepage-builder",
+  },
+];
+const quickLinks = [
+  ["Homepage Builder", "/admin/homepage-builder"],
+  ["Page Headers", "/admin/page-headers"],
+  ["Media Library", "/admin/media"],
+  ["Users & Roles", "/admin/users"],
+  ["Site Settings", "/admin/settings"],
+  ["SEO Dashboard", "/admin/seo-dashboard"],
+];
+
+export default function Dashboard() {
   const queryClient = useQueryClient();
-  const [user, setUser] = useState<User | null>(null);
-  const statsQuery = useQuery({
-    queryKey: ["dashboard-stats"],
-    queryFn: loadDashboardStats,
-    refetchInterval: 60_000,
+  const leads = useQuery({
+    queryKey: ["dashboard-leads"],
+    queryFn: ({ signal }) => loadLegacyLeadSummary(signal),
+    staleTime: 0,
+    retry: false,
   });
-  const countsQuery = useQuery({
-    queryKey: ["inbox-stats"],
-    queryFn: loadInboxCounts,
-    refetchInterval: 60_000,
+  const content = useQuery({
+    queryKey: ["dashboard-content"],
+    queryFn: ({ signal }) => loadDashboardContent(signal),
+    staleTime: 300_000,
+    retry: false,
   });
-  const contentQuery = useQuery({
-    queryKey: ["homepage-content-status"],
-    queryFn: loadHomepageContentStatus,
-    refetchInterval: 60_000,
-  });
-  const activityQuery = useQuery({
-    queryKey: ["dashboard-activity"],
-    queryFn: loadRecentInboxActivity,
-    refetchInterval: 60_000,
-  });
-  const stats = statsQuery.data || EMPTY_DASHBOARD_STATS;
-  const statsLoaded = !!statsQuery.data && !statsQuery.error;
-  const contentStatus = contentQuery.data || {
-    heroSlides: 0,
-    whyChooseUs: 0,
-    testimonials: 0,
-    valuePillars: 0,
-  };
-  const contentStatusLoaded = !!contentQuery.data && !contentQuery.error;
-  const newCounts = countsQuery.data;
-  const totalNew = newCounts
-    ? newCounts.contact +
-      newCounts.prequal +
-      newCounts.rfp +
-      newCounts.quote +
-      newCounts.resume
-    : 0;
-  const hasContent =
-    stats.projectsPublished > 0 ||
-    stats.blogPublished > 0 ||
-    stats.services > 0;
-  const greeting = () => {
-    const h = new Date().getHours();
-    return h < 12 ? "Good morning" : h < 18 ? "Good afternoon" : "Good evening";
-  };
   useEffect(() => {
-    let cancelled = false;
-    void supabase.auth.getSession().then(({ data }) => {
-      if (!cancelled) setUser(data.session?.user || null);
-    });
-    const channel = supabase
-      .channel("dashboard-realtime")
-      .on("postgres_changes", { event: "*", schema: "public" }, (payload) => {
-        if (
-          Object.values(INBOX_SOURCES).some(
-            (source) => source.table === payload.table,
-          )
-        ) {
-          void queryClient.invalidateQueries({ queryKey: ["dashboard-stats"] });
-          void queryClient.invalidateQueries({ queryKey: ["inbox-stats"] });
-          void queryClient.invalidateQueries({
-            queryKey: ["dashboard-activity"],
-          });
-        } else if (
-          ["projects", "services", "blog_posts"].includes(payload.table)
-        ) {
-          void queryClient.invalidateQueries({ queryKey: ["dashboard-stats"] });
-        } else if (
-          [
-            "hero_slides",
-            "why_choose_us_items",
-            "testimonials",
-            "value_pillars",
-          ].includes(payload.table)
-        ) {
-          void queryClient.invalidateQueries({
-            queryKey: ["homepage-content-status"],
-          });
-        }
-      })
-      .subscribe();
+    const channel = supabase.channel("dashboard-leads");
+    for (const source of LEAD_SOURCES)
+      channel.on(
+        "postgres_changes",
+        {
+          event: "*",
+          schema: "public",
+          table: INBOX_SOURCES[source].table,
+        },
+        () => {
+          void queryClient.invalidateQueries({ queryKey: ["dashboard-leads"] });
+        },
+      );
+    channel.subscribe();
     return () => {
-      cancelled = true;
       void supabase.removeChannel(channel);
     };
   }, [queryClient]);
-
-  const contentItems = [
-    {
-      label: "Hero Slides",
-      count: contentStatus.heroSlides,
-      route: "/admin/homepage-builder?tab=hero",
-      warning: contentStatus.heroSlides === 0,
-    },
-    {
-      label: "Why Choose Us",
-      count: contentStatus.whyChooseUs,
-      route: "/admin/homepage-builder?tab=why-choose",
-      warning: contentStatus.whyChooseUs === 0,
-    },
-    {
-      label: "Testimonials",
-      count: contentStatus.testimonials,
-      route: "/admin/testimonials",
-      warning: false,
-    },
-    {
-      label: "Value Pillars",
-      count: contentStatus.valuePillars,
-      route: "/admin/homepage-builder",
-      warning: false,
-    },
+  const summary = leads.error ? undefined : leads.data;
+  const leadValue = (value: number | null | undefined): number | string =>
+    leads.isPending ? "—" : (value ?? "Unavailable");
+  const contentValue = (key: DashboardContentKey): number | string =>
+    content.isPending
+      ? "—"
+      : content.error
+        ? "Unavailable"
+        : (content.data?.[key] ?? "Unavailable");
+  const failed = summary?.failed || (leads.error ? ["all lead sources"] : []);
+  const newLink = dashboardLeadDestination("new");
+  const refresh = () => {
+    void leads.refetch();
+    void content.refetch();
+  };
+  const contentFailed =
+    !!content.error ||
+    (!!content.data &&
+      Object.values(content.data).some((value) => value === null));
+  const byStatus = summary?.byStatus;
+  const statuses = [
+    ...new Set([...Object.keys(STATUS_LABELS), ...Object.keys(byStatus || {})]),
   ];
 
   return (
     <AdminPageLayout
-      title={`${greeting()}!`}
-      description={
-        user?.email
-          ? `${user.email} — here's what's happening on your site`
-          : "Welcome to your admin dashboard"
+      title="Dashboard"
+      description="Review new requests, follow up with clients and check your website content"
+      actions={
+        <Button
+          variant="outline"
+          disabled={leads.isFetching || content.isFetching}
+          onClick={refresh}
+        >
+          {leads.isFetching || content.isFetching
+            ? "Refreshing…"
+            : "Refresh dashboard"}
+        </Button>
       }
     >
-      {(statsQuery.error || countsQuery.error) && (
-        <div
-          role="alert"
-          className="rounded-md border border-destructive/50 p-4 text-sm"
-        >
-          Some dashboard counts are unavailable.{" "}
-          <Button
-            variant="outline"
-            onClick={() => {
-              void statsQuery.refetch();
-              void countsQuery.refetch();
-            }}
+      <div className="min-w-0 space-y-8">
+        {failed.length > 0 && (
+          <div
+            role="alert"
+            className="space-y-3 rounded-lg border border-destructive/50 p-4 text-sm"
           >
-            Retry counts
-          </Button>
-        </div>
-      )}
-      {/* Content Stats */}
-      {statsQuery.error ? null : !statsLoaded ? (
-        <div className="business-stats-grid">
-          {[1, 2, 3, 4].map((i) => (
-            <div key={i} className="business-glass-card p-6">
-              <Skeleton className="h-4 w-24 mb-4" />
-              <Skeleton className="h-8 w-16 mb-2" />
-              <Skeleton className="h-3 w-20" />
-            </div>
-          ))}
-        </div>
-      ) : !hasContent ? (
-        <div className="business-glass-card p-8">
-          <div className="text-center space-y-4 py-8">
-            <Briefcase className="h-16 w-16 mx-auto text-muted-foreground" />
-            <div>
-              <h3 className="business-section-title mb-2">No content yet</h3>
-              <p className="business-section-subtitle mb-6">
-                Get started by creating your first project, blog post, or
-                service
-              </p>
-              <div className="flex gap-3 justify-center flex-wrap">
-                <button
-                  className="business-btn business-btn-primary"
-                  onClick={() => navigate("/admin/projects/new")}
-                >
-                  Create Project
-                </button>
-                <button
-                  className="business-btn business-btn-ghost"
-                  onClick={() => navigate("/admin/blog")}
-                >
-                  Write Blog Post
-                </button>
-                <button
-                  className="business-btn business-btn-ghost"
-                  onClick={() => navigate("/admin/services-manager")}
-                >
-                  Add Service
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      ) : (
-        <StaggerContainer type="fade" className="business-stats-grid">
-          <MetricCard
-            title="Published Projects"
-            value={stats.projectsPublished}
-            icon={Briefcase}
-            trend={{
-              value: `${stats.projectsDraft} drafts`,
-              isPositive: false,
-            }}
-            onClick={() => navigate("/admin/projects")}
-          />
-          <MetricCard
-            title="Blog Posts"
-            value={stats.blogPublished}
-            icon={FileText}
-            trend={{ value: `${stats.blogDraft} drafts`, isPositive: false }}
-            onClick={() => navigate("/admin/blog")}
-          />
-          <MetricCard
-            title="Services"
-            value={stats.services}
-            icon={TrendingUp}
-            onClick={() => navigate("/admin/services-manager")}
-          />
-          <MetricCard
-            title="New Submissions"
-            value={
-              countsQuery.error
-                ? "Unavailable"
-                : countsQuery.isLoading
-                  ? "—"
-                  : totalNew
-            }
-            icon={Mail}
-            badge={countsQuery.error ? 0 : totalNew}
-            onClick={() => navigate("/admin/inbox")}
-          />
-        </StaggerContainer>
-      )}
-
-      {/* Submissions breakdown + Activity */}
-      <ScrollReveal direction="up">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          {/* Submissions breakdown */}
-          <div className="business-glass-card p-6">
-            <h2 className="business-section-title mb-1">All Submissions</h2>
-            <p className="business-section-subtitle mb-4">
-              Total received across all channels
+            <p>
+              Some request data is unavailable: {failed.join(", ")}. Affected
+              totals show Unavailable.
             </p>
-            <div className="space-y-3">
-              {[
-                {
-                  label: "Contact Forms",
-                  value: stats.contactTotal,
-                  newCount: countsQuery.error ? 0 : newCounts?.contact || 0,
-                  icon: Mail,
-                  tab: "contact",
-                },
-                {
-                  label: "Quotes & Estimates",
-                  value: stats.quoteTotal,
-                  newCount: countsQuery.error ? 0 : newCounts?.quote || 0,
-                  icon: ClipboardList,
-                  tab: "quote",
-                },
-                {
-                  label: "RFP Submissions",
-                  value: stats.rfpTotal,
-                  newCount: countsQuery.error ? 0 : newCounts?.rfp || 0,
-                  icon: Send,
-                  tab: "rfp",
-                },
-                {
-                  label: "Prequalification",
-                  value: stats.prequalTotal,
-                  newCount: countsQuery.error ? 0 : newCounts?.prequal || 0,
-                  icon: Package,
-                  tab: "prequal",
-                },
-                {
-                  label: "Resumes",
-                  value: stats.resumeTotal,
-                  newCount: countsQuery.error ? 0 : newCounts?.resume || 0,
-                  icon: Users,
-                  tab: "resume",
-                },
-              ].map((item) => (
-                <button
-                  key={item.label}
-                  onClick={() => navigate(`/admin/inbox?tab=${item.tab}`)}
-                  className="w-full flex items-center justify-between p-3 rounded-lg hover:bg-muted/40 transition-colors text-left"
-                >
-                  <div className="flex items-center gap-3">
-                    <item.icon className="h-4 w-4 text-muted-foreground" />
-                    <span className="text-sm font-medium">{item.label}</span>
-                    {item.newCount > 0 && (
-                      <span className="bg-destructive text-destructive-foreground text-[10px] font-bold px-1.5 py-0.5 rounded-full">
-                        {item.newCount} new
-                      </span>
-                    )}
-                  </div>
-                  <span className="text-sm font-semibold tabular-nums">
-                    {statsLoaded ? item.value : "—"}
-                  </span>
-                </button>
-              ))}
-            </div>
-            <div className="mt-4 pt-4 border-t border-border">
-              <button
-                className="business-btn business-btn-ghost w-full text-sm"
-                onClick={() => navigate("/admin/inbox")}
-              >
-                Open Inbox
-              </button>
-            </div>
-          </div>
-
-          {/* Activity feed */}
-          <ActivityFeed
-            submissions={activityQuery.data?.items || []}
-            newCount={countsQuery.error ? 0 : totalNew}
-            loading={activityQuery.isLoading}
-            failed={
-              activityQuery.data?.failed ||
-              (activityQuery.error ? ["Activity"] : [])
-            }
-            onRetry={() => void activityQuery.refetch()}
-          />
-        </div>
-      </ScrollReveal>
-
-      {/* Live Content Status */}
-      <ScrollReveal direction="up">
-        <div className="business-glass-card p-6">
-          <div className="flex items-center justify-between mb-1">
-            <h2 className="business-section-title">Live Content Status</h2>
-            <button
-              className="text-xs text-muted-foreground hover:text-foreground transition-colors"
-              onClick={() => navigate("/admin/homepage-builder")}
+            <Button
+              variant="outline"
+              size="sm"
+              disabled={leads.isFetching}
+              onClick={() => void leads.refetch()}
             >
-              Manage →
-            </button>
+              Retry request data
+            </Button>
           </div>
-          <p className="business-section-subtitle mb-5">
-            What's currently active and showing on your public website
+        )}
+        <section aria-label="Today" className="space-y-4">
+          <div className="flex flex-wrap items-center justify-between gap-3">
+            <h2 className="business-section-title">Today</h2>
+            <Link
+              to="/admin/inbox"
+              className="text-sm font-semibold text-primary underline underline-offset-4"
+            >
+              Open Leads
+            </Link>
+          </div>
+          <p className="text-sm text-muted-foreground">
+            Unopened and Needs action count requests with New status, including
+            estimates and quotes filed under Contacts. Opening a request does
+            not change its status.
           </p>
-          {contentQuery.error ? (
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3">
+            <Tile
+              title="Unopened"
+              value={leadValue(summary?.newTotal)}
+              detail="New requests"
+              to={newLink}
+            />
+            <Tile
+              title="Needs action"
+              value={leadValue(summary?.newTotal)}
+              detail="New requests awaiting follow-up"
+              to={newLink}
+            />
+            <Tile
+              title="Due in 7 days"
+              value="Unavailable"
+              detail="Bid closing times are not recorded yet."
+            />
+            <Tile
+              title="Overdue"
+              value="Unavailable"
+              detail="Project start dates and requested deadlines are not bid closing times."
+            />
+            <Tile
+              title="Alerts needing attention"
+              value="Unavailable"
+              detail="Lead-linked delivery tracking is not available yet."
+            />
+            <Tile
+              title="Unassigned"
+              value="Unavailable"
+              detail="Staff assignments are not recorded yet."
+            />
+          </div>
+          <div
+            className="grid grid-cols-1 gap-3 sm:grid-cols-2 xl:grid-cols-4"
+            aria-label="New requests by source"
+          >
+            {LEAD_SOURCES.map((source) => (
+              <Tile
+                key={source}
+                title={`${INBOX_SOURCES[source].label} requests`}
+                value={leadValue(summary?.newBySource[source])}
+                detail="New status"
+                to={dashboardLeadDestination("new", source)}
+              />
+            ))}
+          </div>
+        </section>
+        <section
+          aria-label="Bids due soon"
+          className="business-glass-card space-y-3 p-6"
+        >
+          <h2 className="business-section-title">Bids due soon</h2>
+          <p className="text-sm text-muted-foreground">
+            Unavailable until bid closing dates and times are captured. Existing
+            requests remain available in Leads.
+          </p>
+          <Link
+            to="/admin/inbox"
+            className="text-sm font-semibold text-primary underline underline-offset-4"
+          >
+            Review requests
+          </Link>
+        </section>
+        <section aria-label="Pipeline" className="space-y-4">
+          <h2 className="business-section-title">Pipeline</h2>
+          <p className="text-sm text-muted-foreground">
+            Current status across all received lead requests. Total:{" "}
+            <strong>{leadValue(summary?.total)}</strong>.
+          </p>
+          <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
+            {statuses.map((status) => (
+              <Tile
+                key={status}
+                title={
+                  Object.prototype.hasOwnProperty.call(STATUS_LABELS, status)
+                    ? STATUS_LABELS[status]
+                    : status || "Unknown status"
+                }
+                value={leadValue(byStatus ? byStatus[status] || 0 : null)}
+                to={
+                  Object.prototype.hasOwnProperty.call(STATUS_LABELS, status)
+                    ? dashboardLeadDestination(status)
+                    : undefined
+                }
+              />
+            ))}
+          </div>
+          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+            <Tile
+              title="Closed bids in the last 90 days"
+              value="Unavailable"
+              detail="Closing dates and No bid decisions are not recorded for existing requests. Win rate is unavailable."
+            />
+            <Tile
+              title="Submitted value still open"
+              value="Unavailable"
+              detail="Submitted bid amounts are not recorded for existing requests."
+            />
+          </div>
+        </section>
+        <section aria-label="Recent requests">
+          <ActivityFeed
+            submissions={summary?.activity.items || []}
+            newCount={summary?.newTotal ?? 0}
+            loading={leads.isPending}
+            failed={
+              summary?.activity.failed ||
+              (leads.error ? ["all lead sources"] : [])
+            }
+            onRetry={() => void leads.refetch()}
+            limit={10}
+          />
+          <p className="mt-3 text-xs text-muted-foreground">
+            Received times use Toronto time. Request change history and staff
+            attribution will appear when activity tracking is available.
+          </p>
+        </section>
+        <section aria-label="Content status" className="space-y-4">
+          <h2 className="business-section-title">Content status</h2>
+          {contentFailed && (
             <div
               role="alert"
-              className="rounded-md border border-destructive/50 p-4 text-sm"
+              className="space-y-2 rounded-lg border border-destructive/50 p-4 text-sm"
             >
-              Could not load homepage content status.{" "}
+              <p>
+                Some content counts are unavailable. Other content tiles remain
+                visible.
+              </p>
               <Button
                 variant="outline"
-                onClick={() => void contentQuery.refetch()}
+                size="sm"
+                disabled={content.isFetching}
+                onClick={() => void content.refetch()}
               >
                 Retry content status
               </Button>
             </div>
-          ) : !contentStatusLoaded ? (
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-              {[1, 2, 3, 4].map((i) => (
-                <Skeleton key={i} className="h-20 rounded-lg" />
-              ))}
-            </div>
-          ) : (
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-              {contentItems.map((item) => (
-                <button
-                  key={item.label}
-                  onClick={() => navigate(item.route)}
-                  className="p-4 rounded-lg border border-border hover:border-primary/40 hover:bg-muted/30 transition-all text-left group"
-                >
-                  <div className="flex items-center gap-2 mb-2">
-                    {item.count > 0 ? (
-                      <CheckCircle className="h-4 w-4 text-success shrink-0" />
-                    ) : (
-                      <AlertCircle className="h-4 w-4 text-warning shrink-0" />
-                    )}
-                    <span className="text-xs font-medium text-muted-foreground group-hover:text-foreground transition-colors">
-                      {item.label}
-                    </span>
-                  </div>
-                  <div className="text-2xl font-bold tabular-nums">
-                    {item.count}
-                  </div>
-                  <div className="text-xs text-muted-foreground mt-0.5">
-                    {item.count > 0
-                      ? "active"
-                      : item.warning
-                        ? "using fallback"
-                        : "none set"}
-                  </div>
-                </button>
-              ))}
-            </div>
           )}
-          {contentStatusLoaded &&
-            (contentStatus.heroSlides === 0 ||
-              contentStatus.whyChooseUs === 0) && (
-              <div className="mt-4 flex items-start gap-2 p-3 bg-warning/10 border border-warning/20 rounded-lg">
-                <AlertCircle className="h-4 w-4 text-warning shrink-0 mt-0.5" />
-                <p className="text-sm text-warning dark:text-warning">
-                  Some homepage sections are showing fallback content because no
-                  active records exist in the database. Go to{" "}
-                  <button
-                    className="underline font-medium"
-                    onClick={() => navigate("/admin/homepage-builder")}
-                  >
-                    Homepage Builder
-                  </button>{" "}
-                  to add content and toggle items active.
-                </p>
-              </div>
-            )}
-        </div>
-      </ScrollReveal>
-
-      {/* Quick navigation */}
-      <ScrollReveal direction="up">
-        <div className="business-glass-card p-6">
-          <h2 className="business-section-title mb-1">Quick Access</h2>
-          <p className="business-section-subtitle mb-4">Jump to common tasks</p>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-            {[
-              {
-                label: "Homepage Builder",
-                icon: Layout,
-                route: "/admin/homepage-builder",
-              },
-              {
-                label: "Page Headers",
-                icon: Image,
-                route: "/admin/page-headers",
-              },
-              { label: "Media Library", icon: Image, route: "/admin/media" },
-              { label: "Users & Roles", icon: Users, route: "/admin/users" },
-              {
-                label: "Site Settings",
-                icon: Settings,
-                route: "/admin/settings",
-              },
-              {
-                label: "SEO Dashboard",
-                icon: LayoutDashboard,
-                route: "/admin/seo-dashboard",
-              },
-            ].map((item) => (
-              <button
-                key={item.label}
-                className="business-btn business-btn-ghost justify-start h-auto p-4"
-                onClick={() => navigate(item.route)}
-              >
-                <item.icon size={18} className="mr-3 text-primary shrink-0" />
-                <span className="text-sm font-semibold text-left">
-                  {item.label}
-                </span>
-              </button>
+          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 xl:grid-cols-4">
+            {contentTiles.map((tile) => (
+              <Tile
+                key={tile.key}
+                title={tile.title}
+                value={contentValue(tile.key)}
+                to={tile.to}
+                detail={
+                  tile.draft
+                    ? `${contentValue(tile.draft)} drafts`
+                    : "Active website content"
+                }
+              />
             ))}
           </div>
-        </div>
-      </ScrollReveal>
+          {content.data &&
+            (content.data.heroSlides === 0 ||
+              content.data.whyChooseUs === 0) && (
+              <p className="rounded-lg border border-warning/30 bg-warning/10 p-4 text-sm">
+                Some homepage sections use fallback content. Add active records
+                in Homepage Builder to replace it.
+              </p>
+            )}
+        </section>
+        <section
+          aria-label="Quick access"
+          className="business-glass-card space-y-4 p-6"
+        >
+          <h2 className="business-section-title">Quick access</h2>
+          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 xl:grid-cols-3">
+            {quickLinks.map(([label, to]) => (
+              <Link
+                key={to}
+                to={to}
+                className="rounded-lg border p-4 text-sm font-semibold transition-colors hover:bg-muted/40 focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary"
+              >
+                {label}
+              </Link>
+            ))}
+          </div>
+        </section>
+      </div>
     </AdminPageLayout>
   );
-};
-
-export default Dashboard;
+}
