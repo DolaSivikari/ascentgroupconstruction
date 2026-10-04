@@ -43,3 +43,9 @@ Existing errors are recorded; new runtime/console errors fail comparisons. This 
 Review the PR and artifacts, then merge and publish using Lovable when ready. Inspect the published site in a private window at desktop and phone widths. Once the approved version is published, run **Actions → Capture approved production baseline** on **main** with its published commit. Future public PRs require that manual main-branch artifact; only this first Phase 0 PR can bootstrap it. Optionally pin its run with `PUBLIC_BASELINE_RUN_ID` and require the `compare` check in branch protection.
 
 The outstanding read-only Lovable questions, second-super-admin and external-uptime steps are recorded in [environment facts](ENVIRONMENT-FACTS.md). No dependent migration or secret/role change is authorized here. Phase 2/nightly checks have not started.
+
+## Follow-up after PR #47
+
+The owner merged and published PR #47 and confirmed a private-window check. The complete cloud comparison passed all 86 URLs / 172 captures with zero changed pixels and no new runtime errors; the public bundle gate passed 113 loaded chunks. Approved main baseline workflow [37176842362](https://github.com/DolaSivikari/ascentgroupconstruction/actions/runs/37176842362) passed against published commit `b547195` and saved its complete artifact and negative-control proof.
+
+The remaining GitHub comparison [37175775511](https://github.com/DolaSivikari/ascentgroupconstruction/actions/runs/37175775511) was cancelled at the owner's explicit request to skip that test and continue to Phase 2. It is **skipped**, not claimed as passed. See PR #47 for the earlier cancellation history. Phase 2 is tracked separately in `PHASE-2-IMPLEMENTATION-STATUS.md`.

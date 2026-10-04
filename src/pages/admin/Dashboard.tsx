@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { AdminPageLayout } from "@/components/admin/AdminPageLayout";
 import ActivityFeed from "@/components/admin/ActivityFeed";
+import { SiteHealthTile } from "@/components/admin/SiteHealthWorkspace";
 import { Button } from "@/ui/Button";
 import { INBOX_SOURCES, STATUS_LABELS } from "@/lib/inbox/model";
 import { LEAD_SOURCES } from "@/lib/leads/model";
@@ -169,6 +170,9 @@ export default function Dashboard() {
       }
     >
       <div className="min-w-0 space-y-8">
+        <section aria-label="Website health">
+          <SiteHealthTile />
+        </section>
         {failed.length > 0 && (
           <div
             role="alert"
