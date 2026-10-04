@@ -142,7 +142,7 @@ function DownloadableDocuments() {
       // Open file
       await openDocumentUrl(doc.file_url);
     } catch (error: any) {
-      toast({ title: "Error", description: "Failed to download document", variant: "destructive" });
+      toast({ title: "Download unavailable", description: error?.message || "Failed to download document", variant: "destructive" });
     }
   };
 

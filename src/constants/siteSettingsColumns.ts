@@ -23,3 +23,17 @@ export const PUBLIC_SITE_SETTINGS_COLUMNS = [
   'knows_about',
   'founded_year',
 ].join(', ');
+
+/**
+ * Columns of contact_page_settings readable by anonymous visitors.
+ * Phone/email columns are excluded; the page falls back to company constants.
+ */
+export const PUBLIC_CONTACT_PAGE_SETTINGS_COLUMNS = [
+  'id',
+  'office_address',
+  'weekday_hours',
+  'saturday_hours',
+  'sunday_hours',
+  'map_embed_url',
+  'is_active',
+].join(', ');

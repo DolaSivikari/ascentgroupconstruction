@@ -252,7 +252,7 @@ const ContractorPortal = () => {
                 <CardContent>
                   <Button 
                     className="w-full gap-2" 
-                    onClick={() => vendorPacket && downloadDocument(vendorPacket, (id) => trackDownload.mutate(id))}
+                    onClick={() => vendorPacket && downloadDocument(vendorPacket, (id) => trackDownload.mutate(id)).catch((err) => toast({ title: "Download unavailable", description: err instanceof Error ? err.message : "Failed to download document", variant: "destructive" }))}
                     disabled={vendorLoading || !vendorPacket}
                   >
                     {vendorLoading ? (

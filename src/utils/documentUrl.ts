@@ -32,7 +32,9 @@ export const resolveDocumentUrl = async (
 /** Open a document in a new tab, signing restricted files first. */
 export const openDocumentUrl = async (fileUrl: string): Promise<boolean> => {
   const url = await resolveDocumentUrl(fileUrl);
-  if (!url) return false;
+  if (!url) {
+    throw new Error("You don't have access to this document. Please contact us to request it.");
+  }
   window.open(url, "_blank", "noopener,noreferrer");
   return true;
 };

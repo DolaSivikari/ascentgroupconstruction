@@ -1,4 +1,4 @@
-import { useSettingsData } from "@/hooks/useSettingsData";
+import { COMPANY_PHONE } from "@/constants/company";
 import { Phone } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { formatPhoneDisplay, formatPhoneTel } from "@/utils/formatPhone";
@@ -16,8 +16,7 @@ export const PhoneLink = ({
   variant = "text",
   children 
 }: PhoneLinkProps) => {
-  const { data: settings } = useSettingsData('site_settings');
-  const phone = formatPhoneDisplay(settings?.phone);
+  const phone = formatPhoneDisplay(COMPANY_PHONE);
 
   const baseClasses = "inline-flex items-center gap-2 transition-colors";
   
@@ -29,7 +28,7 @@ export const PhoneLink = ({
 
   return (
     <a
-      href={formatPhoneTel(settings?.phone)}
+      href={formatPhoneTel(COMPANY_PHONE)}
       className={cn(baseClasses, variantClasses[variant], className)}
       aria-label="Call Ascent Group Construction"
     >

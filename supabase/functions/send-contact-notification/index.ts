@@ -4,7 +4,6 @@ import { Resend } from "https://esm.sh/resend@2.0.0";
 import { createErrorResponse, createRateLimitResponse, logSecurityError } from "../_shared/errorHandler.ts";
 import { renderBrandedEmail, renderPlainText, REPLY_TO_EMAIL } from "../_shared/emailTemplate.ts";
 
-const resend = new Resend(Deno.env.get("RESEND_API_KEY"));
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -138,6 +137,16 @@ const handler = async (req: Request): Promise<Response> => {
     };
 
     // Send notification to admin
+    const resendKey = Deno.env.get("RESEND_API_KEY");
+    if (!resendKey) {
+      console.error("RESEND_API_KEY is not configured; skipping notification emails");
+      return new Response(JSON.stringify({ success: false, reason: "email_not_configured" }), {
+        status: 200,
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
+    }
+    const resend = new Resend(resendKey);
+
     const adminEmail = await resend.emails.send({
       from: "Ascent Group <onboarding@resend.dev>",
       to: ["info@ascentgroupconstruction.com"],
