@@ -1,0 +1,129 @@
+name: Public comparison and bundle gates
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - "src/**"
+      - "public/**"
+      - "index.html"
+      - "vite.config.ts"
+      - "scripts/baseline/**"
+      - ".github/actions/baseline-tools/**"
+      - ".github/workflows/public-safety.yml"
+      - ".github/workflows/public-baseline.yml"
+      - "_assessment/baseline/**"
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: public-safety-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+jobs:
+  compare:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Detect public or gate changes
+        id: scope
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+        run: |
+          python - <<'PY'
+          import os,subprocess
+          files=subprocess.check_output(['git','diff','--name-only',os.environ['BASE_SHA'],'HEAD'],text=True).splitlines()
+          def public(path):
+            if '/admin/' in path or path.startswith('src/lib/admin/'): return False
+            return path.startswith(('src/','public/','scripts/baseline/','_assessment/baseline/','.github/actions/baseline-tools/')) or path in ['index.html','vite.config.ts','.github/workflows/public-safety.yml','.github/workflows/public-baseline.yml']
+          with open(os.environ['GITHUB_OUTPUT'],'a') as out:
+            out.write('run='+str(any(map(public,files))).lower()+'\n')
+            # Only the PR that introduces Phase 0 may bootstrap the first baseline.
+            exists=subprocess.run(['git','cat-file','-e',os.environ['BASE_SHA']+':scripts/baseline/capture.ts'],capture_output=True).returncode==0
+            out.write('bootstrap='+str(not exists and 'scripts/baseline/capture.ts' in files).lower()+'\n')
+          PY
+      - uses: actions/setup-node@v4
+        if: steps.scope.outputs.run == 'true'
+        with:
+          node-version: "24"
+      - uses: oven-sh/setup-bun@v2
+        if: steps.scope.outputs.run == 'true'
+        with:
+          bun-version: "1.3.11"
+      - run: node scripts/install-ci-dependencies.mjs
+        if: steps.scope.outputs.run == 'true'
+      - uses: ./.github/actions/baseline-tools
+        if: steps.scope.outputs.run == 'true'
+      - name: Select an approved main-branch baseline
+        if: steps.scope.outputs.run == 'true'
+        id: baseline
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PINNED_RUN: ${{ vars.PUBLIC_BASELINE_RUN_ID }}
+          BOOTSTRAP: ${{ steps.scope.outputs.bootstrap }}
+        run: |
+          python - <<'PY'
+          import os,json,urllib.request,urllib.error
+          base='https://api.github.com/repos/'+os.environ['GITHUB_REPOSITORY']
+          h={'Authorization':'Bearer '+os.environ['GH_TOKEN'],'Accept':'application/vnd.github+json'}
+          def get(path):
+            with urllib.request.urlopen(urllib.request.Request(base+path,headers=h)) as r: return json.load(r)
+          run=os.environ.get('PINNED_RUN','')
+          if run:
+            if not run.isdigit(): raise SystemExit('PUBLIC_BASELINE_RUN_ID must be a run number.')
+            data=get('/actions/runs/'+run)
+            if data['event']!='workflow_dispatch' or data['head_branch']!='main' or data['conclusion']!='success' or not data['path'].endswith('/public-baseline.yml'): raise SystemExit('Pinned baseline must be a successful manual main-branch baseline run.')
+          else:
+            try: data=get('/actions/workflows/public-baseline.yml/runs?event=workflow_dispatch&status=success&branch=main&per_page=20')
+            except urllib.error.HTTPError as e:
+              if e.code!=404: raise
+              data={'workflow_runs':[]}
+            for candidate in data['workflow_runs']:
+              artifacts=get('/actions/runs/'+str(candidate['id'])+'/artifacts')['artifacts']
+              if any(a['name']=='public-baseline' and not a['expired'] for a in artifacts): run=str(candidate['id']); break
+          if not run and os.environ['BOOTSTRAP']!='true': raise SystemExit('No approved baseline artifact. Run Capture approved production baseline on main; never replace it silently inside a PR.')
+          with open(os.environ['GITHUB_OUTPUT'],'a') as out: out.write('run_id='+run+'\n')
+          PY
+      - name: Download baseline fixtures and snapshots
+        if: steps.scope.outputs.run == 'true' && steps.baseline.outputs.run_id != ''
+        env:
+          GH_TOKEN: ${{ github.token }}
+          BASELINE_RUN: ${{ steps.baseline.outputs.run_id }}
+        run: gh run download "$BASELINE_RUN" --repo "$GITHUB_REPOSITORY" --name public-baseline --dir "$RUNNER_TEMP/public-baseline"
+      - name: Bootstrap Phase 0 only
+        if: steps.scope.outputs.run == 'true' && steps.baseline.outputs.run_id == '' && steps.scope.outputs.bootstrap == 'true'
+        env:
+          PUBLISHED_SHA: ${{ github.event.pull_request.base.sha }}
+        run: node --import tsx scripts/baseline/capture.ts --mode=production --out="$RUNNER_TEMP/public-baseline" --published-sha="$PUBLISHED_SHA"
+      - name: Build the PR with module provenance for the bundle gate
+        if: steps.scope.outputs.run == 'true'
+        run: npm run build -- --sourcemap --manifest
+      - name: Replay recorded public data and compare every URL
+        if: steps.scope.outputs.run == 'true'
+        run: |
+          node node_modules/vite/bin/vite.js preview --host 127.0.0.1 --port 4176 > "$RUNNER_TEMP/preview.log" 2>&1 &
+          PREVIEW_PID=$!
+          trap 'kill "$PREVIEW_PID" 2>/dev/null || true' EXIT
+          for attempt in {1..30}; do if curl --fail --silent http://127.0.0.1:4176/ -o /dev/null; then break; fi; sleep 1; done
+          node --import tsx scripts/baseline/capture.ts --mode=replay --baseline="$RUNNER_TEMP/public-baseline" --out="$RUNNER_TEMP/public-candidate"
+          node --import tsx scripts/baseline/compare.ts "$RUNNER_TEMP/public-baseline" "$RUNNER_TEMP/public-candidate" "$RUNNER_TEMP/public-comparison" _assessment/baseline/intentional-changes.json
+          node --import tsx scripts/baseline/bundle-check.ts dist "$RUNNER_TEMP/public-candidate" "$RUNNER_TEMP/bundle-results.json"
+          node --import tsx scripts/baseline/self-test.ts "$RUNNER_TEMP/public-baseline" "$RUNNER_TEMP/comparison-proof"
+      - uses: actions/upload-artifact@v4
+        if: always() && steps.scope.outputs.run == 'true'
+        with:
+          name: public-safety-results
+          path: |
+            ${{ runner.temp }}/public-candidate
+            ${{ runner.temp }}/public-comparison
+            ${{ runner.temp }}/bundle-results.json
+            ${{ runner.temp }}/comparison-proof/proof.json
+            ${{ runner.temp }}/preview.log
+          retention-days: 14
+      - uses: actions/upload-artifact@v4
+        if: always() && steps.scope.outputs.bootstrap == 'true' && steps.baseline.outputs.run_id == ''
+        with:
+          name: public-baseline
+          path: ${{ runner.temp }}/public-baseline
+          retention-days: 90

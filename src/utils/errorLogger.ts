@@ -1,9 +1,14 @@
 import { supabase } from "@/integrations/supabase/client";
+import { CRAWLER_USER_AGENT } from "@/lib/baseline/policy";
+
+const isSiteHealthCrawler = () => typeof navigator !== 'undefined'
+  && navigator.userAgent.includes(CRAWLER_USER_AGENT);
 
 /**
  * Log client-side errors to database for monitoring
  */
 export const logError = async (error: Error, context?: Record<string, any>) => {
+  if (isSiteHealthCrawler()) return;
   try {
     // Avoid logging in development to reduce noise
     if (import.meta.env.DEV) {
@@ -28,6 +33,7 @@ export const logError = async (error: Error, context?: Record<string, any>) => {
  * Initialize error logging interceptors
  */
 export const initErrorLogging = () => {
+  if (isSiteHealthCrawler()) return;
   // Intercept window.onerror
   const originalOnError = window.onerror;
   window.onerror = (message, source, lineno, colno, error) => {

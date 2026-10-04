@@ -1,0 +1,45 @@
+name: Capture approved production baseline
+on:
+  workflow_dispatch:
+    inputs:
+      published_sha:
+        description: Git commit the owner has published and checked in a private window
+        required: true
+        type: string
+permissions:
+  contents: read
+jobs:
+  capture:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: "1.3.11"
+      - run: node scripts/install-ci-dependencies.mjs
+      - uses: ./.github/actions/baseline-tools
+      - name: Capture public production without submitting forms
+        env:
+          PUBLISHED_SHA: ${{ inputs.published_sha }}
+        run: |
+          if [[ ! "$PUBLISHED_SHA" =~ ^[a-f0-9]{7,40}$ ]]; then echo 'Supply the published Git commit.'; exit 1; fi
+          node --import tsx scripts/baseline/capture.ts --mode=production --out="$RUNNER_TEMP/public-baseline" --published-sha="$PUBLISHED_SHA"
+      - name: Prove the comparison detects deliberate changes
+        run: node --import tsx scripts/baseline/self-test.ts "$RUNNER_TEMP/public-baseline" "$RUNNER_TEMP/comparison-proof"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: public-baseline
+          path: ${{ runner.temp }}/public-baseline
+          retention-days: 90
+          if-no-files-found: error
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: comparison-proof
+          path: ${{ runner.temp }}/comparison-proof/proof.json
+          retention-days: 90

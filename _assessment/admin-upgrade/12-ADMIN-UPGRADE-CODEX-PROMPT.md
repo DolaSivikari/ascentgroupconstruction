@@ -290,7 +290,7 @@ Revised v2 order. Nothing that hides a live source ships before the switch-over 
 | **P0** ✅ | PR #43 | L1 fixed: the `quote_requests` insert no longer asks for the row back; the conversion fires only after a successful save; a secondary failure is reported by error code only. The **`SITE_NAME` fix is still open**, so carry it into P2 | Merge, then Lovable Publish |
 | **P3a** (in progress) | `feat/admin-leads-workspace` | 2.3 Stage 1: Leads list and detail panel over the **existing tables** through the source adapter, with bounded paging, conflict check on save, draft preservation and explicit source failures. Legacy tabs unchanged. No schema dependency | none |
 | **P4a** | `feat/admin-dashboard-v2` | 2.4 on legacy counts only; `rpc` behind the capability check | none |
-| **P5** | `feat/admin-usability` | 2.5 except the parts that need P1 (Notifications settings, `set_user_role`). Includes header, sidebar persistence, Email Delivery (reads existing `email_send_log`), idle timeout, tour, mobile, cleanup | Choose the idle timeout (O-7) |
+| ~~P5~~ | **Superseded by file 14** | Do not run P5. Header, sidebar, theme, mobile and idle timeout move to **R3**; tour removal and cleanup to **R1**; Email Delivery to **R6** (see `14-ADMIN-REDESIGN-CODEX-PROMPT.md`) | Idle timeout fixed at 30 min unless the owner says otherwise |
 | **P1** | `feat/inquiries-schema` | Copy the approved v2 `0001` SQL unchanged into `supabase/migrations/<timestamp>_inquiries_workflow.sql`. Hand-written types in `src/lib/inquiry/` | Run preflight (all 16 queries), review, back up, apply through Lovable, regenerate `types.ts`, run the verification queries |
 | **P2** | `feat/inquiry-intake-and-alerts` | 2.2 items 1–10, including `SITE_NAME`; Deno unit tests; Vitest parity test | Lovable deploys `submit-form`, `send-rfp-emails`, `inquiry-alert-resend` and the `send-email` shared code; owner adds at least two recipients |
 | **P3b** | `feat/leads-inquiries-source` | 2.3 Stage 2: the `inquiries` adapter, notes thread, timeline, alert panel, assign, due, archive; Settings → Notifications; Users page switched to `set_user_role` | none |
@@ -326,8 +326,10 @@ Paste everything between the markers. Change `PHASE` to run one phase per sessio
 
 === BEGIN PROMPT ===
 
-PHASE = P3a
-(Allowed, in this order: P3a, P4a, P5, P1, P2, P3b, P4b, P6, P7, P8, P9. P0 is done (PR #43). Do only the named phase, open one PR, report, stop.)
+PHASE = P1
+(Allowed, in this order: P1, P2, P3b, P4b, P6, P7, P8, P9. Already done: P0 (PR #43), P3a, P4a. P5 is superseded by file 14 (R1–R6), so do not run it. Do only the named phase, open one PR, report, stop.)
+
+**FIRST read `_assessment/admin-upgrade/16-RISK-REVIEW-AND-SAFE-DELIVERY-PLAN.md`.** Its section 7 rules apply here and override this file where they conflict. The overall phase order is file 16, section 6. In particular, the Lovable preview is treated as the live database, so no test writes go to it.
 
 # Role and context
 

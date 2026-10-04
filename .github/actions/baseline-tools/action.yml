@@ -1,0 +1,11 @@
+name: Isolated browser tooling
+description: Install pinned capture tooling outside the application dependency graph
+runs:
+  using: composite
+  steps:
+    - name: Install isolated Playwright tooling
+      shell: bash
+      run: |
+        npm install --prefix "$RUNNER_TEMP/baseline-tools" --no-save --package-lock=false --ignore-scripts --registry=https://registry.npmjs.org playwright@1.62.1
+        echo "BASELINE_PLAYWRIGHT=$RUNNER_TEMP/baseline-tools/node_modules/playwright" >> "$GITHUB_ENV"
+        "$RUNNER_TEMP/baseline-tools/node_modules/.bin/playwright" install --with-deps chromium
