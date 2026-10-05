@@ -200,6 +200,36 @@ describe("Technology interactions", () => {
       screen.getByRole("heading", { name: /3. Glass-mat sheathing/ }),
     ).toBeVisible();
   });
+  it("selects a model surface on click and rotates a surface drag without selecting it", () => {
+    vi.stubGlobal("PointerEvent", MouseEvent);
+    render(<InteractiveModels />);
+    fireEvent.mouseDown(
+      screen.getByRole("tab", { name: "Stucco & EIFS wall section" }),
+      { button: 0, ctrlKey: false },
+    );
+    const viewer = screen.getByRole("application");
+    const capture = vi.fn();
+    viewer.setPointerCapture = capture;
+    const gypsum = screen.getByRole("button", {
+      name: "Select 3D layer: Gypsum board",
+    });
+    fireEvent.pointerDown(gypsum, { clientX: 100, clientY: 100 });
+    fireEvent.pointerUp(gypsum, { clientX: 100, clientY: 100 });
+    fireEvent.click(gypsum);
+    expect(gypsum).toHaveAttribute("aria-pressed", "true");
+    expect(capture).not.toHaveBeenCalled();
+    const finish = screen.getByRole("button", {
+      name: "Select 3D layer: Textured finish",
+    });
+    fireEvent.pointerDown(finish, { clientX: 100, clientY: 100 });
+    fireEvent.pointerMove(finish, { clientX: 160, clientY: 110 });
+    fireEvent.pointerUp(finish, { clientX: 160, clientY: 110 });
+    fireEvent.click(finish);
+    expect(capture).toHaveBeenCalledOnce();
+    expect(gypsum).toHaveAttribute("aria-pressed", "true");
+    expect(finish).toHaveAttribute("aria-pressed", "false");
+  });
+
   it("highlights the sheets produced by a tool and qualifies GC system use", () => {
     const { container } = render(<InteractiveModels />);
     fireEvent.mouseDown(screen.getByRole("tab", { name: "Project record" }), {

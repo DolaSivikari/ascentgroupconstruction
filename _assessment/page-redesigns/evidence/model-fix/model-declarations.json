@@ -1,0 +1,18 @@
+[
+  {
+    "path": "/company/technology",
+    "fields": [
+      "visibleText",
+      "screenshot"
+    ],
+    "reason": "Restore the supplied construction models and access drawing; verify existing route, SEO and error fields unchanged."
+  },
+  {
+    "path": "/capabilities",
+    "fields": [
+      "visibleText",
+      "screenshot"
+    ],
+    "reason": "Restore the supplied construction models and access drawing; verify existing route, SEO and error fields unchanged."
+  }
+]

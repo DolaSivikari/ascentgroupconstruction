@@ -1,0 +1,117 @@
+{
+  "baseCommit": "f4008ff",
+  "scope": "Model corrections on top of merged PR #50; offline fixtures; no deployments or live writes",
+  "checks": {
+    "vitest": {
+      "status": "passed",
+      "tests": 518,
+      "files": 79,
+      "newTests": 4
+    },
+    "selectedTypeScript": "passed",
+    "fullAppTypeScript": "passed",
+    "productionBuild": "passed",
+    "serviceWorker": "passed",
+    "routeAudit": "passed",
+    "smoke": "passed; optional live Edge Function reachability skipped",
+    "changedFilesLint": {
+      "status": "passed",
+      "errors": 0,
+      "warnings": 0
+    },
+    "repositoryLint": {
+      "errors": 271,
+      "warnings": 31,
+      "allowedErrors": 288,
+      "allowedWarnings": 34
+    },
+    "publicComparison": {
+      "status": "passed",
+      "urls": 2,
+      "captures": 4,
+      "unexpectedDifferences": 0,
+      "allowedFields": [
+        "visibleText",
+        "screenshot"
+      ]
+    },
+    "publicBundleGate": {
+      "status": "passed",
+      "urls": 2,
+      "loadedPublicChunks": 33,
+      "failures": []
+    },
+    "geometryComparison": {
+      "status": "passed",
+      "models": 4,
+      "boxes": 47,
+      "commonFaces": 235
+    },
+    "browserRenderedStates": {
+      "status": "passed",
+      "states": 22,
+      "widths": [
+        1440,
+        390
+      ],
+      "clipping": false
+    },
+    "accessPlanner": {
+      "status": "passed",
+      "states": 52,
+      "storeys": [
+        1,
+        3,
+        8,
+        12,
+        20,
+        30
+      ]
+    },
+    "modelSurfaceControls": {
+      "surfaceClick": "passed",
+      "surfaceDrag": "passed",
+      "documentClick": "passed",
+      "autoTurn": "passed",
+      "offscreenPause": "passed"
+    },
+    "browserIntegration": "passed; four partnership hashes, six section hashes, build controls and offscreen pause",
+    "browserThemes": "passed; dark/light paper contrast and desktop theme toggle"
+  },
+  "captures": [
+    {
+      "path": "/company/technology",
+      "width": 1440,
+      "height": 5478,
+      "overflow": false,
+      "pageErrors": []
+    },
+    {
+      "path": "/company/technology",
+      "width": 390,
+      "height": 8289,
+      "overflow": false,
+      "pageErrors": []
+    },
+    {
+      "path": "/capabilities",
+      "width": 1440,
+      "height": 9418,
+      "overflow": false,
+      "pageErrors": []
+    },
+    {
+      "path": "/capabilities",
+      "width": 390,
+      "height": 13766,
+      "overflow": false,
+      "pageErrors": []
+    }
+  ],
+  "coverageLimits": [
+    "Chromium exercised; Firefox and Safari not exercised",
+    "Model dimensions/face transforms/positions matched to the supplied previews; this is not a claim of pixel-identical pages",
+    "Focused public comparison covers the two redesigned URLs against the PR #50 implementation captures, with deterministic synthetic data; no approved production replay",
+    "Current main also contains auth hook configuration/templates outside the public app; these are preserved and undeployed"
+  ]
+}

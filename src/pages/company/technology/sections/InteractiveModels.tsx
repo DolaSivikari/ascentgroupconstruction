@@ -15,54 +15,77 @@ import {
   WALL_ASSEMBLIES,
 } from "../interactive-data";
 import { FloorPlan, WallDetail } from "./Drawings";
+import {
+  BLUEPRINT_OUTLINE,
+  BLUEPRINT_SLABS,
+  wallLayout,
+} from "../model-geometry";
 import { SampleDocument, SampleLabel } from "./SampleDocuments";
 
-function WindowFace({
-  width,
-  height,
-  storefront,
-}: {
-  width: number;
-  height: number;
-  storefront: boolean;
-}) {
-  const count = Math.max(1, Math.floor(width / (storefront ? 60 : 40)));
-  const spacing = width / count;
+function WindowFace({ width, height }: { width: number; height: number }) {
+  // Repeat the supplied façade tiles without stretching a floor as the building rises.
+  const rows = Math.ceil(height / 30);
   return (
     <svg
       width={width}
       height={height}
-      viewBox={`0 0 ${width} 30`}
-      preserveAspectRatio="none"
+      viewBox={`0 0 ${width} ${height}`}
       aria-hidden="true"
     >
-      {Array.from({ length: count }, (_, i) => {
-        const x = i * spacing + (storefront ? 3 : 10),
-          w = spacing - (storefront ? 6 : 20);
+      <rect width={width} height={height} fill="#d8d2c6" />
+      {Array.from({ length: rows }, (_, floor) => {
+        const y = height - (floor + 1) * 30;
+        const storefront = floor === 0;
+        const spacing = storefront ? 60 : 40;
         return (
-          <g key={i}>
+          <g key={floor} transform={`translate(0 ${y})`}>
             <rect
-              x={x}
-              y={storefront ? 5 : 7}
-              width={w}
-              height={storefront ? 25 : 17}
-              fill="hsl(var(--primary) / .55)"
-              stroke="hsl(var(--muted-foreground))"
-              strokeWidth="1.5"
+              width={width}
+              height="30"
+              fill={storefront ? "#7f8a94" : "#d8d2c6"}
             />
-            <path
-              d={`M${x + w / 2} ${storefront ? 5 : 7}V${storefront ? 30 : 24}`}
-              stroke="hsl(var(--background))"
-              strokeWidth="1.1"
-            />
-            <path
-              d={`M${x - 2} 25H${x + w + 2}`}
-              stroke="hsl(var(--muted-foreground))"
-              strokeWidth="2"
-            />
-            {storefront && (
-              <path d={`M${x} 13H${x + w}`} stroke="hsl(var(--background))" />
-            )}
+            <rect y="27" width={width} height="3" fill="#a69f92" />
+            {Array.from({ length: Math.ceil(width / spacing) }, (_, i) => {
+              const x = i * spacing + (storefront ? 3 : 11),
+                w = storefront ? 54 : 18;
+              return (
+                <g key={i}>
+                  <rect
+                    x={x}
+                    y={storefront ? 6 : 7}
+                    width={w}
+                    height={storefront ? 24 : 15}
+                    fill="#3d5a78"
+                    stroke="#f4f1ea"
+                    strokeWidth="1.6"
+                  />
+                  <path
+                    d={`M${x + w / 2} ${storefront ? 6 : 7}V${storefront ? 30 : 22}`}
+                    stroke="#f4f1ea"
+                    strokeWidth="1.2"
+                  />
+                  <rect
+                    x={x + 1}
+                    y="8"
+                    width="7"
+                    height="5"
+                    fill="#7d9bb8"
+                    opacity=".6"
+                  />
+                  {storefront ? (
+                    <path d={`M${x} 13h${w}`} stroke="#cfd6dd" />
+                  ) : (
+                    <rect
+                      x={x - 1.5}
+                      y="22"
+                      width="21"
+                      height="2"
+                      fill="#bfb7a8"
+                    />
+                  )}
+                </g>
+              );
+            })}
           </g>
         );
       })}
@@ -77,6 +100,7 @@ function Box({
   height: h,
   className = "",
   top,
+  faceClasses,
   style,
 }: {
   width: number;
@@ -84,6 +108,7 @@ function Box({
   height: number;
   className?: string;
   top?: ReactNode;
+  faceClasses?: { top?: string; side?: string; edge?: string };
   style?: CSSProperties;
 }) {
   const faces = [
@@ -124,7 +149,7 @@ function Box({
       {faces.map((face, i) => (
         <div
           key={i}
-          className={`tech-face ${i > 1 && className.includes("building") ? "tech-wall-face" : ""}`}
+          className={`tech-face ${i === 0 ? (faceClasses?.top ?? "") : i > 3 ? (faceClasses?.edge ?? faceClasses?.side ?? "") : (faceClasses?.side ?? "")}`}
           style={{
             width: face.width,
             height: face.height,
@@ -132,12 +157,8 @@ function Box({
           }}
         >
           {face.content}
-          {i > 1 && className.includes("building") && (
-            <WindowFace
-              width={face.width}
-              height={face.height}
-              storefront={className.includes("storefront")}
-            />
+          {(i === 2 || i === 3) && className.includes("building") && (
+            <WindowFace width={face.width} height={face.height} />
           )}
         </div>
       ))}
@@ -145,91 +166,75 @@ function Box({
   );
 }
 
-function BlueprintModel({
-  progress,
-  exploded,
-}: {
-  progress: number;
-  exploded: boolean;
-}) {
+function BlueprintModel({ progress }: { progress: number }) {
   const floors = Math.max(0, ((progress - 42) / 58) * 5);
-  const rectangles = [
-    { x: -50, y: -75, w: 300, d: 130 },
-    { x: 140, y: -30, w: 80, d: 40 },
-    { x: 115, y: 50, w: 130, d: 120 },
-  ];
+  const height = floors * 30;
   return (
     <>
-      <div
-        style={{ transform: "translateZ(-4px)", transformStyle: "preserve-3d" }}
-      >
-        <FloorPlan />
-      </div>
-      {Array.from({ length: 5 }, (_, floor) => {
-        const growth = Math.min(1, Math.max(0, floors - floor));
-        return (
-          growth > 0 &&
-          rectangles.map((r, part) => (
-            <div
-              className="tech-model-part"
-              key={`${floor}-${part}`}
-              style={{
-                transform: `translate3d(${r.x}px,${r.y}px,${floor * (exploded ? 48 : 30)}px)`,
-              }}
-            >
-              <Box
-                width={r.w}
-                depth={r.d}
-                height={Math.max(0.5, growth * 30 - 2)}
-                className={`tech-building ${floor === 0 ? "tech-storefront" : ""}`}
-              />
-              <Box
-                width={r.w + 2}
-                depth={r.d + 2}
-                height={2}
-                style={{ transform: `translateZ(${growth * 30 - 2}px)` }}
-              />
-            </div>
-          ))
-        );
-      })}
-      {floors >= 5 && (
-        <>
-          {[
-            [-50, -140, 300, 2],
-            [100, -95, 2, 90],
-            [140, -50, 80, 2],
-            [180, 30, 2, 160],
-            [115, 110, 130, 2],
-            [50, 50, 2, 120],
-            [-75, -10, 250, 2],
-            [-200, -75, 2, 130],
-          ].map(([x, y, w, d], i) => (
+      <Box
+        width={640}
+        depth={440}
+        height={2}
+        style={{ transform: "translateZ(-2px)" }}
+        faceClasses={{
+          top: "tech-blueprint-paper",
+          side: "tech-blueprint-edge",
+        }}
+        top={<FloorPlan />}
+      />
+      {height > 0.5 &&
+        BLUEPRINT_OUTLINE.map(([x, y], i) => {
+          const [endX, endY] =
+            BLUEPRINT_OUTLINE[(i + 1) % BLUEPRINT_OUTLINE.length];
+          const angle = (Math.atan2(endY - y, endX - x) * 180) / Math.PI;
+          return (
             <Box
               key={i}
-              width={w}
-              depth={d}
-              height={6}
+              width={Math.hypot(endX - x, endY - y) + 3}
+              depth={3}
+              height={height + (floors >= 5 ? 5 : 0)}
+              className="tech-building"
+              faceClasses={{ top: "tech-parapet", edge: "tech-facade-edge" }}
               style={{
-                transform: `translate3d(${x}px,${y}px,${exploded ? 242 : 152}px)`,
+                transform: `translate3d(${(x + endX) / 2}px,${(y + endY) / 2}px,0) rotateZ(${angle}deg)`,
               }}
             />
-          ))}
+          );
+        })}
+      {Array.from({ length: 5 }, (_, i) => i + 1).map(
+        (floor) =>
+          floors >= floor - 0.02 &&
+          BLUEPRINT_SLABS.map(([x, y, w, d], part) => (
+            <Box
+              key={`${floor}-${part}`}
+              width={w - 6}
+              depth={d - 6}
+              height={2}
+              faceClasses={{ top: "tech-slab", side: "tech-slab-edge" }}
+              style={{
+                transform: `translate3d(${x + w / 2}px,${y + d / 2}px,${floor * 30 - 2}px)`,
+              }}
+            />
+          )),
+      )}
+      {floors >= 5 && (
+        <>
           <Box
-            width={85}
-            depth={45}
-            height={22}
-            className="tech-roof-face"
+            width={40}
+            depth={26}
+            height={14}
+            faceClasses={{ top: "tech-rtu-top", side: "tech-rtu" }}
             style={{
-              transform: `translate3d(74px,-29px,${exploded ? 258 : 152}px)`,
+              transform: `translate3d(-120px,-60px,${150}px)`,
             }}
           />
           <Box
-            width={35}
-            depth={22}
-            height={12}
+            width={46}
+            depth={36}
+            height={22}
+            faceClasses={{ top: "tech-slab", side: "tech-facade-edge" }}
             style={{
-              transform: `translate3d(-120px,-75px,${exploded ? 255 : 152}px)`,
+              transform: `translate3d(65px,-10px,${150}px)`,
             }}
           />
         </>
@@ -243,6 +248,7 @@ export default function InteractiveModels() {
   const [view, setView] = useState("blueprint");
   const [progress, setProgress] = useState(0);
   const [playing, setPlaying] = useState(false);
+  const [spinning, setSpinning] = useState(false);
   const [exploded, setExploded] = useState(false);
   const [rotation, setRotation] = useState({ x: 0, z: 0 });
   const [scale, setScale] = useState(0.8);
@@ -253,6 +259,7 @@ export default function InteractiveModels() {
     useState<(typeof RECORD_SHEETS)[number]["id"]>("takeoff");
   const ref = useRef<HTMLDivElement>(null);
   const drag = useRef<{ x: number; y: number; rotation: typeof rotation }>();
+  const dragged = useRef(false);
   const animationStart = useRef(0);
   const animationProgress = useRef(0);
 
@@ -260,15 +267,27 @@ export default function InteractiveModels() {
     const viewer = ref.current;
     if (!viewer) return;
     const resize = new ResizeObserver(([entry]) =>
-      setScale(Math.min(0.95, entry.contentRect.width / 680)),
+      setScale(
+        Math.min(
+          1,
+          entry.contentRect.width / 850,
+          entry.contentRect.height / 650,
+        ),
+      ),
     );
     resize.observe(viewer);
     const observer = new IntersectionObserver(([entry]) => {
-      if (!entry.isIntersecting) setPlaying(false);
+      if (!entry.isIntersecting) {
+        setPlaying(false);
+        setSpinning(false);
+      }
     });
     observer.observe(viewer);
     const stop = () => {
-      if (document.hidden) setPlaying(false);
+      if (document.hidden) {
+        setPlaying(false);
+        setSpinning(false);
+      }
     };
     document.addEventListener("visibilitychange", stop);
     return () => {
@@ -295,11 +314,26 @@ export default function InteractiveModels() {
     return () => cancelAnimationFrame(frame);
   }, [playing, rm]);
 
+  useEffect(() => {
+    if (!spinning || rm) return;
+    let frame: number,
+      previous = performance.now();
+    const tick = (now: number) => {
+      const change = (now - previous) * 0.01;
+      previous = now;
+      setRotation((r) => ({ ...r, z: r.z + change }));
+      frame = requestAnimationFrame(tick);
+    };
+    frame = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(frame);
+  }, [spinning, rm]);
+
   const selectView = (next: string) => {
     setPlaying(false);
+    setSpinning(false);
     setView(next);
     setRotation({ x: 0, z: 0 });
-    setExploded(false);
+    setExploded(next === "record");
   };
   const play = () => {
     if (rm) {
@@ -310,15 +344,12 @@ export default function InteractiveModels() {
     animationStart.current = 0;
     setPlaying(true);
   };
-  const tilt =
-    view === "blueprint"
-      ? Math.min(60, Math.max(0, ((progress - 24) / 18) * 60))
-      : 58;
-  const spin =
-    view === "blueprint"
-      ? -Math.min(25, Math.max(0, ((progress - 24) / 18) * 25))
-      : -25;
+  const camera = Math.max(0, Math.min(1, (progress - 24) / 18));
+  const ease = camera < 0.5 ? 4 * camera ** 3 : 1 - (-2 * camera + 2) ** 3 / 2;
+  const tilt = view === "blueprint" ? ease * 56 : view === "wall" ? 66 : 58;
+  const spin = view === "blueprint" ? -ease * 32 : view === "wall" ? 128 : -30;
   const wall = WALL_ASSEMBLIES[assembly];
+  const layers = wallLayout(wall.layers, exploded);
   const stage = progress < 24 ? 0 : progress < 42 ? 1 : 2;
   const currentTool = RECORD_TOOLS[tool];
 
@@ -342,15 +373,18 @@ export default function InteractiveModels() {
             tabIndex={0}
             className="tech-viewer focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
             onPointerDown={(e) => {
-              if ((e.target as HTMLElement).closest("button")) return;
+              setSpinning(false);
+              dragged.current = false;
               drag.current = { x: e.clientX, y: e.clientY, rotation };
-              e.currentTarget.setPointerCapture(e.pointerId);
             }}
             onPointerMove={(e) => {
               if (!drag.current) return;
               const dx = e.clientX - drag.current.x,
                 dy = e.clientY - drag.current.y;
-              if (Math.abs(dx) > 5) e.currentTarget.style.touchAction = "none";
+              if (!dragged.current && Math.max(Math.abs(dx), Math.abs(dy)) < 5)
+                return;
+              dragged.current = true;
+              e.currentTarget.setPointerCapture(e.pointerId);
               setRotation({
                 z: drag.current.rotation.z + dx * 0.4,
                 x: Math.max(
@@ -363,8 +397,17 @@ export default function InteractiveModels() {
               drag.current = undefined;
               e.currentTarget.style.touchAction = "pan-y";
             }}
-            onPointerCancel={() => {
+            onClickCapture={(e) => {
+              if (dragged.current) {
+                e.preventDefault();
+                e.stopPropagation();
+                dragged.current = false;
+              }
+            }}
+            onPointerCancel={(e) => {
+              dragged.current = false;
               drag.current = undefined;
+              e.currentTarget.style.touchAction = "pan-y";
             }}
             onKeyDown={(e) => {
               if (
@@ -408,58 +451,69 @@ export default function InteractiveModels() {
             <div className="absolute right-3 top-3 z-10 tech-control-label">
               DRAG TO ROTATE
             </div>
-            <div
-              className="tech-world"
-              style={{
-                transform: `scale(${scale}) rotateX(${tilt + rotation.x}deg) rotateZ(${spin + rotation.z}deg)`,
-              }}
-            >
-              {view === "blueprint" && (
-                <BlueprintModel progress={progress} exploded={exploded} />
-              )}
-              {view === "wall" &&
-                wall.layers.map((item, i) => (
-                  <button
-                    type="button"
-                    aria-label={`Select 3D layer: ${item.name}`}
-                    aria-pressed={layer === i}
-                    onClick={() => setLayer(i)}
-                    className={`tech-model-part ${layer === i ? "tech-highlight" : ""}`}
-                    key={item.name}
-                    style={{
-                      transform: `translate3d(${i * (exploded ? 28 : 6) - 70}px,${i * 5}px,${i * (exploded ? 28 : 9)}px) rotateX(90deg)`,
-                    }}
-                  >
-                    <Box
-                      width={270 - i * 15}
-                      depth={Math.max(5, Math.min(60, item.mm * 0.4))}
-                      height={210 - i * 13}
-                      className={`tech-layer-face tech-layer-${item.material}`}
-                    />
-                  </button>
-                ))}
-              {view === "record" &&
-                RECORD_SHEETS.map((item, i) => (
-                  <button
-                    type="button"
-                    key={item.id}
-                    aria-label={`Open ${item.label}`}
-                    aria-pressed={sheet === item.id}
-                    data-highlighted={currentTool.produces.includes(item.id)}
-                    className="tech-model-sheet"
-                    onClick={() => setSheet(item.id)}
-                    style={{
-                      transform: `translate3d(${(i - 2) * (exploded ? 40 : 18)}px,${(i - 2) * 22}px,${i * (exploded ? 48 : 10)}px) rotateZ(${(i - 2) * 5}deg)`,
-                      boxShadow: currentTool.produces.includes(item.id)
-                        ? "inset 0 0 0 2px hsl(var(--brand-accent))"
-                        : undefined,
-                    }}
-                  >
-                    <div aria-hidden="true">
-                      <SampleDocument sheet={item.id} compact />
-                    </div>
-                  </button>
-                ))}
+            <div className="tech-scene">
+              <div
+                className="tech-world"
+                style={{
+                  transform: `scale(${scale}) rotateX(${Math.max(0, Math.min(85, tilt + rotation.x))}deg) rotateZ(${spin + rotation.z}deg)`,
+                }}
+              >
+                {view === "blueprint" && <BlueprintModel progress={progress} />}
+                {view === "wall" &&
+                  wall.layers.map((item, i) => (
+                    <button
+                      type="button"
+                      aria-label={`Select 3D layer: ${item.name}`}
+                      aria-pressed={layer === i}
+                      onClick={() => setLayer(i)}
+                      className={`tech-model-part ${layer === i ? "tech-highlight" : exploded ? "tech-layer-dim" : ""}`}
+                      key={item.name}
+                      style={{
+                        transform: `translate3d(${layers[i].x}px,${layers[i].y}px,-140px)`,
+                      }}
+                    >
+                      <Box
+                        width={layers[i].thickness}
+                        depth={layers[i].width}
+                        height={layers[i].height}
+                        className={`tech-layer-material tech-material-${assembly}-${i}`}
+                      />
+                    </button>
+                  ))}
+                {view === "record" &&
+                  RECORD_SHEETS.map((item, i) => (
+                    <button
+                      type="button"
+                      key={item.id}
+                      aria-label={`Open ${item.label}`}
+                      aria-pressed={sheet === item.id}
+                      data-highlighted={currentTool.produces.includes(item.id)}
+                      className="tech-model-part tech-record-sheet"
+                      onClick={() => setSheet(item.id)}
+                      style={{
+                        transform: `translate3d(${(i - 2) * (exploded ? 14 : 0)}px,${(i - 2) * (exploded ? -10 : 0)}px,${(i - 2) * (exploded ? 64 : 8) + (sheet === item.id ? (exploded ? 30 : 18) : 0)}px)`,
+                      }}
+                    >
+                      <Box
+                        width={280}
+                        depth={190}
+                        height={5}
+                        faceClasses={{
+                          top: "tech-model-sheet",
+                          side: "tech-sheet-edge",
+                        }}
+                        top={
+                          <div
+                            className="tech-sheet-content"
+                            aria-hidden="true"
+                          >
+                            <SampleDocument sheet={item.id} compact />
+                          </div>
+                        }
+                      />
+                    </button>
+                  ))}
+              </div>
             </div>
           </div>
           <div className="space-y-3 bg-background p-4">
@@ -508,21 +562,35 @@ export default function InteractiveModels() {
               >
                 Rotate right
               </Button>
-              <Button
-                size="sm"
-                variant={exploded ? "primary" : "outline"}
-                aria-pressed={exploded}
-                onClick={() => setExploded(!exploded)}
-              >
-                Exploded view
-              </Button>
+              {view !== "blueprint" && (
+                <>
+                  <Button
+                    size="sm"
+                    variant={exploded ? "primary" : "outline"}
+                    aria-pressed={exploded}
+                    onClick={() => setExploded(!exploded)}
+                  >
+                    Exploded view
+                  </Button>
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    disabled={rm}
+                    aria-pressed={spinning}
+                    onClick={() => setSpinning(!spinning)}
+                  >
+                    Auto-turn
+                  </Button>
+                </>
+              )}
               <Button
                 size="sm"
                 variant="outline"
                 onClick={() => {
                   setPlaying(false);
+                  setSpinning(false);
                   setProgress(0);
-                  setExploded(false);
+                  setExploded(view === "record");
                   setRotation({ x: 0, z: 0 });
                 }}
               >
@@ -584,8 +652,10 @@ export default function InteractiveModels() {
                     variant={assembly === id ? "primary" : "outline"}
                     aria-pressed={assembly === id}
                     onClick={() => {
+                      setSpinning(false);
+                      setRotation({ x: 0, z: 0 });
                       setAssembly(id);
-                      setLayer(5);
+                      setLayer(id === "stucco" ? 4 : 5);
                     }}
                   >
                     {item.name}

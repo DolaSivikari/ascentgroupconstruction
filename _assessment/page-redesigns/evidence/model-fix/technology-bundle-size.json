@@ -1,0 +1,31 @@
+{
+  "kind": "Technology route and redesign-specific JavaScript; excludes existing shared React/router/UI vendor chunks",
+  "totalGzipBytes": 21047,
+  "limitGzipBytes": 60000,
+  "chunks": [
+    {
+      "file": "assets/ClientDeliverables-DRNRh3cI.js",
+      "gzipBytes": 5283
+    },
+    {
+      "file": "assets/DeferredContent-Bv6mY92D.js",
+      "gzipBytes": 425
+    },
+    {
+      "file": "assets/ExplorerTabs-DoMx6DC1.js",
+      "gzipBytes": 442
+    },
+    {
+      "file": "assets/InteractiveModels-k9Kw_GcZ.js",
+      "gzipBytes": 5000
+    },
+    {
+      "file": "assets/SampleDocuments-BDOHuJUv.js",
+      "gzipBytes": 3908
+    },
+    {
+      "file": "assets/Technology-_9oQMv9S.js",
+      "gzipBytes": 5989
+    }
+  ]
+}
