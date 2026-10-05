@@ -15,97 +15,135 @@
 }
 
 .technology-redesign .tech-viewer {
-  perspective: 1100px;
-  height: 450px;
+  height: 540px;
   position: relative;
   overflow: hidden;
   touch-action: pan-y;
-  background-color: hsl(var(--muted));
+  background-color: #f4f6f9;
   background-image:
-    linear-gradient(hsl(var(--primary) / 0.06) 1px, transparent 1px),
-    linear-gradient(90deg, hsl(var(--primary) / 0.06) 1px, transparent 1px);
+    linear-gradient(rgba(0, 51, 102, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 51, 102, 0.06) 1px, transparent 1px);
   background-size: 24px 24px;
+}
+.technology-redesign .tech-scene {
+  position: absolute;
+  inset: 0;
+  perspective: 1600px;
+  perspective-origin: 50% 38%;
 }
 .technology-redesign .tech-world {
   position: absolute;
   left: 50%;
-  top: 54%;
+  top: 52%;
+  width: 0;
+  height: 0;
   transform-style: preserve-3d;
 }
 .technology-redesign .tech-box,
 .technology-redesign .tech-model-part {
   position: absolute;
+  left: 0;
+  top: 0;
+  width: 0;
+  height: 0;
+  padding: 0;
+  border: 0;
+  background: none;
   transform-style: preserve-3d;
 }
 .technology-redesign .tech-face {
   position: absolute;
+  left: 0;
+  top: 0;
   backface-visibility: hidden;
-  border: 1px solid hsl(var(--primary) / 0.3);
-  background-color: hsl(var(--muted));
-}
-.technology-redesign .tech-wall-face {
-  background-color: hsl(var(--background));
-  background-image: repeating-linear-gradient(
-    0deg,
-    transparent 0 27px,
-    hsl(var(--primary) / 0.18) 27px 30px
-  );
-}
-
-.technology-redesign .tech-roof-face {
-  background: hsl(var(--muted));
-  border: 3px solid hsl(var(--primary) / 0.3);
+  background: #efede8;
 }
 .technology-redesign .tech-floor-plan {
   position: absolute;
-  width: 620px;
-  height: 460px;
-  left: -310px;
-  top: -230px;
-  color: hsl(var(--primary-foreground));
+  inset: 0;
+  width: 640px;
+  height: 440px;
+  max-width: none;
+  pointer-events: none;
 }
-.technology-redesign .tech-layer-face {
-  background-color: hsl(var(--background));
-  background-image: repeating-linear-gradient(
-    45deg,
-    transparent 0 5px,
-    hsl(var(--primary) / 0.14) 5px 6px
-  );
+.technology-redesign .tech-blueprint-paper {
+  background: #0d2c52;
+  border: 1px solid #5b8fd0;
+  background-image:
+    linear-gradient(rgba(91, 143, 208, 0.16) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(91, 143, 208, 0.16) 1px, transparent 1px);
+  background-size: 10px 10px;
 }
-.technology-redesign .tech-layer-batt {
+.technology-redesign .tech-blueprint-edge {
+  background: #0a2343;
+}
+.technology-redesign .tech-facade-edge {
+  background: #cfc8bb;
+}
+.technology-redesign .tech-parapet {
+  background: #b9b1a3;
+}
+.technology-redesign .tech-slab {
+  background: #e9e4da;
+  border: 1px solid #b9b1a3;
+}
+.technology-redesign .tech-slab-edge {
+  background: #9d968a;
+}
+.technology-redesign .tech-rtu {
+  background: #8e98a2;
+}
+.technology-redesign .tech-rtu-top {
+  background: #a7b0b9;
+  border: 1px solid #6e7983;
   background-image: repeating-linear-gradient(
     90deg,
-    hsl(var(--primary) / 0.22) 0 4px,
-    transparent 4px 36px
+    transparent 0 5px,
+    rgba(0, 0, 0, 0.2) 5px 6px
   );
 }
-.technology-redesign .tech-layer-barrier {
-  background: hsl(var(--primary));
-}
-.technology-redesign .tech-layer-mesh {
-  background-size: 8px 8px;
-  background-image:
-    linear-gradient(hsl(var(--primary) / 0.25) 1px, transparent 1px),
-    linear-gradient(90deg, hsl(var(--primary) / 0.25) 1px, transparent 1px);
+.technology-redesign .tech-layer-material > .tech-face {
+  border: 1px solid rgba(0, 0, 0, 0.28);
 }
 .technology-redesign .tech-highlight .tech-face {
-  box-shadow: inset 0 0 0 2px hsl(var(--brand-accent));
+  outline: 2px solid hsl(var(--brand-accent));
+  outline-offset: -2px;
 }
 .technology-redesign .tech-model-sheet {
-  position: absolute;
-  width: 360px;
-  height: 255px;
-  left: -180px;
-  top: -127px;
   background: white;
-  border: 2px solid hsl(var(--primary) / 0.3);
-  box-shadow: 0 3px 0 hsl(var(--border));
   overflow: hidden;
+  border: 1px solid #9dabb9;
 }
-.technology-redesign .tech-model-sheet > div {
+.technology-redesign .tech-sheet-content {
+  position: absolute;
+  left: 0;
+  top: 0;
   width: 600px;
-  transform: scale(0.6);
+  height: 407px;
+  transform: scale(0.4666667);
   transform-origin: top left;
+  pointer-events: none;
+}
+.technology-redesign .tech-sheet-edge {
+  background: #a8b7c5;
+}
+.technology-redesign
+  .tech-record-sheet[data-highlighted="true"]
+  .tech-model-sheet {
+  box-shadow: inset 0 0 0 2px hsl(var(--brand-accent));
+}
+.technology-redesign .tech-record-sheet[aria-pressed="true"] .tech-model-sheet {
+  outline: 3px solid hsl(var(--brand-accent));
+  outline-offset: -3px;
+}
+.technology-redesign
+  .tech-record-sheet[data-highlighted="false"]
+  .tech-model-sheet {
+  filter: brightness(0.6) saturate(0.5);
+}
+.technology-redesign .tech-model-part:focus-visible .tech-face {
+  outline: 3px solid hsl(var(--brand-accent));
+  outline-offset: -3px;
 }
 .technology-redesign .tech-document {
   background: white;
@@ -197,7 +235,7 @@
 }
 @media (max-width: 640px) {
   .technology-redesign .tech-viewer {
-    height: 320px;
+    height: 460px;
   }
   .technology-redesign .tech-document {
     padding: 12px;
@@ -213,44 +251,143 @@
   }
 }
 
-.technology-redesign .tech-layer-face > .tech-face {
-  background-color: hsl(var(--background));
-  background-image: repeating-linear-gradient(
-    45deg,
-    transparent 0 5px,
-    hsl(var(--primary) / 0.16) 5px 6px
-  );
+/* Material colours and hatch patterns from the supplied wall cutaways. */
+.technology-redesign .tech-material-eifs-0 > .tech-face,
+.technology-redesign .tech-material-stucco-0 > .tech-face {
+  background: #efede8;
+  background-image: radial-gradient(rgba(0, 0, 0, 0.05) 1px, transparent 1.2px);
+  background-size: 5px 5px;
 }
-.technology-redesign .tech-layer-batt > .tech-face {
+.technology-redesign .tech-material-eifs-1 > .tech-face {
+  background: #e8cf6c;
   background-image:
     repeating-linear-gradient(
       90deg,
-      hsl(var(--primary) / 0.25) 0 4px,
-      transparent 4px 36px
+      #a7adb3 0 7px,
+      #c9ced3 7px 9px,
+      transparent 9px 64px
+    ),
+    repeating-radial-gradient(
+      circle at 50% 0,
+      rgba(160, 120, 20, 0.35) 0 2px,
+      transparent 2px 7px
+    );
+  background-size:
+    64px 100%,
+    14px 14px;
+}
+.technology-redesign .tech-material-eifs-2 > .tech-face {
+  background: #d9b44f;
+  background-image:
+    radial-gradient(rgba(120, 80, 0, 0.25) 0.8px, transparent 1.2px),
+    linear-gradient(90deg, transparent 98%, rgba(0, 0, 0, 0.25) 98%);
+  background-size:
+    4px 4px,
+    120px 100%;
+}
+.technology-redesign .tech-material-eifs-3 > .tech-face {
+  background: linear-gradient(160deg, #2f7ea8, #1f5f86 55%, #2a739b);
+}
+.technology-redesign .tech-material-eifs-4 > .tech-face {
+  background: rgba(255, 255, 255, 0.08);
+  background-image: repeating-linear-gradient(
+    90deg,
+    transparent 0 18px,
+    #9a9a96 18px 26px
+  );
+  border-color: rgba(0, 0, 0, 0.15);
+}
+.technology-redesign .tech-material-eifs-5 > .tech-face {
+  background: #f7f7f3;
+  background-image:
+    radial-gradient(circle, rgba(0, 0, 0, 0.09) 1.2px, transparent 1.6px),
+    radial-gradient(circle, rgba(0, 0, 0, 0.06) 1px, transparent 1.4px);
+  background-size:
+    7px 7px,
+    5px 5px;
+  background-position:
+    0 0,
+    3px 2px;
+}
+.technology-redesign .tech-material-eifs-6 > .tech-face {
+  background: #b8bdc2;
+  background-image:
+    linear-gradient(rgba(238, 214, 120, 0.75) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(238, 214, 120, 0.75) 1px, transparent 1px);
+  background-size: 6px 6px;
+}
+.technology-redesign .tech-material-eifs-7 > .tech-face {
+  background: #d7b48c;
+  background-image:
+    radial-gradient(rgba(90, 60, 30, 0.28) 0.9px, transparent 1.3px),
+    radial-gradient(rgba(255, 255, 255, 0.35) 0.8px, transparent 1.2px);
+  background-size:
+    4px 4px,
+    5px 5px;
+  background-position:
+    0 0,
+    2px 1px;
+}
+.technology-redesign .tech-material-stucco-1 > .tech-face {
+  background: #e8cf6c;
+  background-image: repeating-linear-gradient(
+    90deg,
+    #c8955b 0 9px,
+    #b47f46 9px 10px,
+    transparent 10px 64px
+  );
+  background-size: 64px 100%;
+}
+.technology-redesign .tech-material-stucco-2 > .tech-face {
+  background: #c99b5e;
+  background-image:
+    repeating-linear-gradient(
+      35deg,
+      rgba(120, 80, 30, 0.35) 0 3px,
+      transparent 3px 9px
     ),
     repeating-linear-gradient(
-      45deg,
-      transparent 0 8px,
-      hsl(var(--primary) / 0.12) 8px 10px
+      -25deg,
+      rgba(255, 230, 180, 0.25) 0 2px,
+      transparent 2px 7px
     );
 }
-.technology-redesign .tech-layer-barrier > .tech-face {
-  background: hsl(var(--primary));
+.technology-redesign .tech-material-stucco-3 > .tech-face {
+  background: #3b3a36;
+  background-image: repeating-linear-gradient(
+    0deg,
+    transparent 0 46px,
+    rgba(255, 255, 255, 0.25) 46px 48px
+  );
 }
-.technology-redesign .tech-layer-mesh > .tech-face {
-  background-size: 8px 8px;
+.technology-redesign .tech-material-stucco-4 > .tech-face {
+  background: #9aa3aa;
   background-image:
-    linear-gradient(hsl(var(--primary) / 0.3) 1px, transparent 1px),
-    linear-gradient(90deg, hsl(var(--primary) / 0.3) 1px, transparent 1px);
+    repeating-linear-gradient(60deg, transparent 0 4px, #d6dbdf 4px 5px),
+    repeating-linear-gradient(-60deg, transparent 0 4px, #d6dbdf 4px 5px);
 }
-.technology-redesign .tech-layer-finish > .tech-face {
+.technology-redesign .tech-material-stucco-5 > .tech-face {
+  background: #b9b3a6;
+  background-image: repeating-linear-gradient(
+    8deg,
+    transparent 0 7px,
+    rgba(0, 0, 0, 0.25) 7px 8px
+  );
+}
+.technology-redesign .tech-material-stucco-6 > .tech-face {
+  background: #a59e90;
+  background-image: radial-gradient(rgba(0, 0, 0, 0.12) 1px, transparent 1.4px);
+  background-size: 5px 5px;
+}
+.technology-redesign .tech-material-stucco-7 > .tech-face {
+  background: #e2c9a2;
   background-image: radial-gradient(
-    hsl(var(--primary) / 0.3) 0.7px,
-    transparent 0.7px
+    rgba(90, 60, 30, 0.25) 0.9px,
+    transparent 1.3px
   );
   background-size: 4px 4px;
 }
-.technology-redesign .tech-model-sheet[data-highlighted="true"] {
-  outline: 2px solid hsl(var(--brand-accent));
-  outline-offset: -3px;
+
+.technology-redesign .tech-layer-dim .tech-face {
+  filter: brightness(0.62) saturate(0.6);
 }

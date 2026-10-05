@@ -1,0 +1,7 @@
+{
+  "surfaceClick": "passed",
+  "surfaceDrag": "passed",
+  "documentClick": "passed",
+  "autoTurn": "passed",
+  "offscreenPause": "passed"
+}

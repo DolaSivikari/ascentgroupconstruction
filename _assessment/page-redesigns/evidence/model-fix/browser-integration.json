@@ -1,0 +1,216 @@
+[
+  {
+    "width": 1440,
+    "incomingHash": "prime-contractor",
+    "selectedTab": "Prime Contractor",
+    "position": {
+      "top": 95.984375,
+      "scroll": 1987
+    },
+    "status": "passed"
+  },
+  {
+    "width": 1440,
+    "incomingHash": "trade-partner",
+    "selectedTab": "Trade Partner",
+    "position": {
+      "top": 95.984375,
+      "scroll": 1987
+    },
+    "status": "passed"
+  },
+  {
+    "width": 1440,
+    "incomingHash": "consultant-led",
+    "selectedTab": "Consultant-Led",
+    "position": {
+      "top": 95.984375,
+      "scroll": 1987
+    },
+    "status": "passed"
+  },
+  {
+    "width": 1440,
+    "incomingHash": "direct-service",
+    "selectedTab": "Direct Service",
+    "position": {
+      "top": 95.984375,
+      "scroll": 1987
+    },
+    "status": "passed"
+  },
+  {
+    "width": 1440,
+    "sectionHash": "partnership-models",
+    "position": {
+      "top": 95.984375,
+      "scroll": 1987
+    },
+    "status": "passed"
+  },
+  {
+    "width": 1440,
+    "sectionHash": "self-perform-scope",
+    "position": {
+      "top": 96.421875,
+      "scroll": 3005
+    },
+    "status": "passed"
+  },
+  {
+    "width": 1440,
+    "sectionHash": "access-planning",
+    "position": {
+      "top": 129.646484375,
+      "scroll": 4423
+    },
+    "status": "passed"
+  },
+  {
+    "width": 1440,
+    "sectionHash": "quality-control",
+    "position": {
+      "top": 95.578125,
+      "scroll": 5378
+    },
+    "status": "passed"
+  },
+  {
+    "width": 1440,
+    "sectionHash": "project-capacity",
+    "position": {
+      "top": 95.84375,
+      "scroll": 6356
+    },
+    "status": "passed"
+  },
+  {
+    "width": 1440,
+    "sectionHash": "capabilities-faq",
+    "position": {
+      "top": 96.3125,
+      "scroll": 7618
+    },
+    "status": "passed"
+  },
+  {
+    "width": 1440,
+    "heroToolChips": {
+      "top": 735.875,
+      "bottom": 765.0625,
+      "buttonsBottom": 693.0625,
+      "visible": true
+    },
+    "status": "passed"
+  },
+  {
+    "width": 390,
+    "incomingHash": "prime-contractor",
+    "selectedTab": "Prime Contractor",
+    "position": {
+      "top": 95.65625,
+      "scroll": 3397
+    },
+    "status": "passed"
+  },
+  {
+    "width": 390,
+    "incomingHash": "trade-partner",
+    "selectedTab": "Trade Partner",
+    "position": {
+      "top": 95.65625,
+      "scroll": 3397
+    },
+    "status": "passed"
+  },
+  {
+    "width": 390,
+    "incomingHash": "consultant-led",
+    "selectedTab": "Consultant-Led",
+    "position": {
+      "top": 95.65625,
+      "scroll": 3397
+    },
+    "status": "passed"
+  },
+  {
+    "width": 390,
+    "incomingHash": "direct-service",
+    "selectedTab": "Direct Service",
+    "position": {
+      "top": 95.65625,
+      "scroll": 3397
+    },
+    "status": "passed"
+  },
+  {
+    "width": 390,
+    "sectionHash": "partnership-models",
+    "position": {
+      "top": 95.65625,
+      "scroll": 3397
+    },
+    "status": "passed"
+  },
+  {
+    "width": 390,
+    "sectionHash": "self-perform-scope",
+    "position": {
+      "top": 96.09375,
+      "scroll": 4791
+    },
+    "status": "passed"
+  },
+  {
+    "width": 390,
+    "sectionHash": "access-planning",
+    "position": {
+      "top": 95.765625,
+      "scroll": 6377
+    },
+    "status": "passed"
+  },
+  {
+    "width": 390,
+    "sectionHash": "quality-control",
+    "position": {
+      "top": 95.59375,
+      "scroll": 7719
+    },
+    "status": "passed"
+  },
+  {
+    "width": 390,
+    "sectionHash": "project-capacity",
+    "position": {
+      "top": 96.09375,
+      "scroll": 9333
+    },
+    "status": "passed"
+  },
+  {
+    "width": 390,
+    "sectionHash": "capabilities-faq",
+    "position": {
+      "top": 96,
+      "scroll": 11465
+    },
+    "status": "passed"
+  },
+  {
+    "width": 390,
+    "heroToolChips": {
+      "top": 829.0625,
+      "bottom": 895.4375,
+      "buttonsBottom": 807.4375,
+      "visible": true
+    },
+    "status": "passed"
+  },
+  {
+    "normalMotion": "user-triggered build progresses, pauses offscreen, resets",
+    "status": "passed",
+    "active": 13,
+    "stopped": 13
+  }
+]
