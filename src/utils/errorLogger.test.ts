@@ -1,5 +1,5 @@
-import { afterEach, beforeEach, expect, it, vi } from "vitest";
-import { initErrorLogging, logError } from "./errorLogger";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import { initErrorLogging, logError, errorFromRejection } from "./errorLogger";
 const mock = vi.hoisted(() => ({ insert: vi.fn() }));
 vi.mock("@/integrations/supabase/client", () => ({
   supabase: { from: () => ({ insert: mock.insert }) },
@@ -34,4 +34,29 @@ it("preserves normal visitor error reporting", async () => {
       user_agent: "Ordinary browser",
     }),
   );
+  expect(
+    JSON.parse(mock.insert.mock.calls[0][0].context).buildVersion,
+  ).toBeTruthy();
+});
+
+describe("promise rejection diagnostics", () => {
+  it("retains the failure stack and existing message grouping", () => {
+    const reason = new TypeError("this.o.at is not a function");
+    reason.stack =
+      "TypeError: this.o.at is not a function\n at original-bundle.js:123:4";
+    const logged = errorFromRejection(reason);
+    expect(logged.message).toBe(
+      "Unhandled Promise Rejection: TypeError: this.o.at is not a function",
+    );
+    expect(logged.stack).toBe(reason.stack);
+    expect(reason.message).toBe("this.o.at is not a function");
+  });
+  it("handles non-Error rejections without failing the interceptor", () => {
+    expect(errorFromRejection(null).message).toBe(
+      "Unhandled Promise Rejection: null",
+    );
+    expect(errorFromRejection("Object Not Found").message).toContain(
+      "Object Not Found",
+    );
+  });
 });

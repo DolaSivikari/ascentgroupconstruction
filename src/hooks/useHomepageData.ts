@@ -68,7 +68,7 @@ const fetchValuePillars = async (): Promise<ValuePillar[]> => {
     console.error("Error fetching value pillars:", error);
     return [];
   }
-  return data as ValuePillar[];
+  return (data || []) as ValuePillar[];
 };
 
 export const fetchHeroSlides = async (): Promise<HeroSlide[]> => {
@@ -82,7 +82,7 @@ export const fetchHeroSlides = async (): Promise<HeroSlide[]> => {
     console.error("Error fetching hero slides:", error);
     return [];
   }
-  return data as HeroSlide[];
+  return (data || []) as HeroSlide[];
 };
 
 /**
@@ -93,33 +93,33 @@ export const useHomepageData = () => {
   return useQueries({
     queries: [
       {
-        queryKey: ['homepage-settings'],
+        queryKey: ["homepage-settings"],
         queryFn: fetchHomepageSettings,
         staleTime: 10 * 60 * 1000, // 10 minutes
         gcTime: 15 * 60 * 1000, // 15 minutes (renamed from cacheTime)
         refetchOnWindowFocus: false,
       },
       {
-        queryKey: ['value-pillars'],
+        queryKey: ["value-pillars"],
         queryFn: fetchValuePillars,
         staleTime: 10 * 60 * 1000,
         gcTime: 15 * 60 * 1000,
         refetchOnWindowFocus: false,
       },
       {
-        queryKey: ['hero-slides'],
+        queryKey: ["hero-slides"],
         queryFn: fetchHeroSlides,
         staleTime: 10 * 60 * 1000,
         gcTime: 15 * 60 * 1000,
         refetchOnWindowFocus: false,
-      }
-    ]
+      },
+    ],
   });
 };
 
 // Export individual query keys for use in other components
 export const homepageQueryKeys = {
-  settings: ['homepage-settings'],
-  pillars: ['value-pillars'],
-  slides: ['hero-slides'],
+  settings: ["homepage-settings"],
+  pillars: ["value-pillars"],
+  slides: ["hero-slides"],
 } as const;
