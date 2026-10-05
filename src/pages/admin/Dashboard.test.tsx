@@ -29,6 +29,13 @@ vi.mock("@/lib/inbox/dashboard-v2", async (importOriginal) => ({
   loadLegacyLeadSummary: mock.leads,
   loadDashboardContent: mock.content,
 }));
+vi.mock("@/lib/inquiry/summary", () => ({
+  loadCombinedLeadSummary: mock.leads,
+}));
+// This suite exercises lead/content tiles; nightly health has its own suite.
+vi.mock("@/components/admin/SiteHealthWorkspace", () => ({
+  SiteHealthTile: () => <p>Nightly monitoring not configured</p>,
+}));
 vi.mock("@/integrations/supabase/client", () => ({
   supabase: { channel: mock.channel, removeChannel: mock.remove },
 }));
@@ -247,11 +254,12 @@ describe("P4a dashboard", () => {
       "Other content tiles remain visible",
     );
   });
-  it("subscribes only to the four active lead tables and does not refresh content for lead events", async () => {
+  it("subscribes to the four legacy tables and optional inquiries and does not refresh content for lead events", async () => {
     const { unmount } = mount();
     await screen.findByRole("link", { name: "Unopened: 10" });
     expect(mock.on.mock.calls.map((call) => call[1].table).sort()).toEqual([
       "contact_submissions",
+      "inquiries",
       "prequalification_downloads",
       "quote_requests",
       "rfp_submissions",

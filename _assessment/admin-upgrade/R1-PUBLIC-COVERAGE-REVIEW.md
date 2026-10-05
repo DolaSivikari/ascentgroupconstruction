@@ -21,38 +21,38 @@ Every R1 file outside `src/pages/admin`, `src/components/admin` and `src/lib/adm
 | `_assessment/admin-upgrade/sql/0000_preflight_readonly.sql` | Assessment/report/SQL draft or evidence metadata; not executable public-site code. No SQL was applied. |
 | `_assessment/admin-upgrade/sql/0001_inquiries_workflow.sql` | Assessment/report/SQL draft or evidence metadata; not executable public-site code. No SQL was applied. |
 | `_assessment/admin-upgrade/sql/0002_about_page_fields.sql` | Assessment/report/SQL draft or evidence metadata; not executable public-site code. No SQL was applied. |
-| `docs/admin-r1/README.md` | Assessment/report/SQL draft or evidence metadata; not executable public-site code. No SQL was applied. |
-| `docs/admin-r1/browser-results.json` | Assessment/report/SQL draft or evidence metadata; not executable public-site code. No SQL was applied. |
-| `docs/admin-r1/public-comparison.json` | Assessment/report/SQL draft or evidence metadata; not executable public-site code. No SQL was applied. |
-| `docs/admin-r1/screenshots/admin/blog-390.png` | Evidence artifact: admin fixture screenshot, not a public change. |
-| `docs/admin-r1/screenshots/admin/crawler-files-desktop.png` | Evidence artifact: admin fixture screenshot, not a public change. |
-| `docs/admin-r1/screenshots/admin/dashboard-desktop.png` | Evidence artifact: admin fixture screenshot, not a public change. |
-| `docs/admin-r1/screenshots/admin/guard-390.png` | Evidence artifact: admin fixture screenshot, not a public change. |
-| `docs/admin-r1/screenshots/admin/monitoring-390.png` | Evidence artifact: admin fixture screenshot, not a public change. |
-| `docs/admin-r1/screenshots/admin/project-390.png` | Evidence artifact: admin fixture screenshot, not a public change. |
-| `docs/admin-r1/screenshots/admin/settings-390.png` | Evidence artifact: admin fixture screenshot, not a public change. |
-| `docs/admin-r1/screenshots/admin/sidebar-390.png` | Evidence artifact: admin fixture screenshot, not a public change. |
-| `docs/admin-r1/screenshots/admin/users-390.png` | Evidence artifact: admin fixture screenshot, not a public change. |
-| `docs/admin-r1/screenshots/after/about-1440.png` | Evidence artifact: one of the ten public before/after captures (five pages × two widths). |
-| `docs/admin-r1/screenshots/after/about-390.png` | Evidence artifact: one of the ten public before/after captures (five pages × two widths). |
-| `docs/admin-r1/screenshots/after/certifications-1440.png` | Evidence artifact: one of the ten public before/after captures (five pages × two widths). |
-| `docs/admin-r1/screenshots/after/certifications-390.png` | Evidence artifact: one of the ten public before/after captures (five pages × two widths). |
-| `docs/admin-r1/screenshots/after/contact-1440.png` | Evidence artifact: one of the ten public before/after captures (five pages × two widths). |
-| `docs/admin-r1/screenshots/after/contact-390.png` | Evidence artifact: one of the ten public before/after captures (five pages × two widths). |
-| `docs/admin-r1/screenshots/after/privacy-1440.png` | Evidence artifact: one of the ten public before/after captures (five pages × two widths). |
-| `docs/admin-r1/screenshots/after/privacy-390.png` | Evidence artifact: one of the ten public before/after captures (five pages × two widths). |
-| `docs/admin-r1/screenshots/after/project-1440.png` | Evidence artifact: one of the ten public before/after captures (five pages × two widths). |
-| `docs/admin-r1/screenshots/after/project-390.png` | Evidence artifact: one of the ten public before/after captures (five pages × two widths). |
-| `docs/admin-r1/screenshots/before/about-1440.png` | Evidence artifact: one of the ten public before/after captures (five pages × two widths). |
-| `docs/admin-r1/screenshots/before/about-390.png` | Evidence artifact: one of the ten public before/after captures (five pages × two widths). |
-| `docs/admin-r1/screenshots/before/certifications-1440.png` | Evidence artifact: one of the ten public before/after captures (five pages × two widths). |
-| `docs/admin-r1/screenshots/before/certifications-390.png` | Evidence artifact: one of the ten public before/after captures (five pages × two widths). |
-| `docs/admin-r1/screenshots/before/contact-1440.png` | Evidence artifact: one of the ten public before/after captures (five pages × two widths). |
-| `docs/admin-r1/screenshots/before/contact-390.png` | Evidence artifact: one of the ten public before/after captures (five pages × two widths). |
-| `docs/admin-r1/screenshots/before/privacy-1440.png` | Evidence artifact: one of the ten public before/after captures (five pages × two widths). |
-| `docs/admin-r1/screenshots/before/privacy-390.png` | Evidence artifact: one of the ten public before/after captures (five pages × two widths). |
-| `docs/admin-r1/screenshots/before/project-1440.png` | Evidence artifact: one of the ten public before/after captures (five pages × two widths). |
-| `docs/admin-r1/screenshots/before/project-390.png` | Evidence artifact: one of the ten public before/after captures (five pages × two widths). |
+| `docs/archive/admin-r1/README.md` | Assessment/report/SQL draft or evidence metadata; not executable public-site code. No SQL was applied. |
+| `docs/archive/admin-r1/browser-results.json` | Assessment/report/SQL draft or evidence metadata; not executable public-site code. No SQL was applied. |
+| `docs/archive/admin-r1/public-comparison.json` | Assessment/report/SQL draft or evidence metadata; not executable public-site code. No SQL was applied. |
+| `docs/archive/admin-r1/screenshots/admin/blog-390.png` | Evidence artifact: admin fixture screenshot, not a public change. |
+| `docs/archive/admin-r1/screenshots/admin/crawler-files-desktop.png` | Evidence artifact: admin fixture screenshot, not a public change. |
+| `docs/archive/admin-r1/screenshots/admin/dashboard-desktop.png` | Evidence artifact: admin fixture screenshot, not a public change. |
+| `docs/archive/admin-r1/screenshots/admin/guard-390.png` | Evidence artifact: admin fixture screenshot, not a public change. |
+| `docs/archive/admin-r1/screenshots/admin/monitoring-390.png` | Evidence artifact: admin fixture screenshot, not a public change. |
+| `docs/archive/admin-r1/screenshots/admin/project-390.png` | Evidence artifact: admin fixture screenshot, not a public change. |
+| `docs/archive/admin-r1/screenshots/admin/settings-390.png` | Evidence artifact: admin fixture screenshot, not a public change. |
+| `docs/archive/admin-r1/screenshots/admin/sidebar-390.png` | Evidence artifact: admin fixture screenshot, not a public change. |
+| `docs/archive/admin-r1/screenshots/admin/users-390.png` | Evidence artifact: admin fixture screenshot, not a public change. |
+| `docs/archive/admin-r1/screenshots/after/about-1440.png` | Evidence artifact: one of the ten public before/after captures (five pages × two widths). |
+| `docs/archive/admin-r1/screenshots/after/about-390.png` | Evidence artifact: one of the ten public before/after captures (five pages × two widths). |
+| `docs/archive/admin-r1/screenshots/after/certifications-1440.png` | Evidence artifact: one of the ten public before/after captures (five pages × two widths). |
+| `docs/archive/admin-r1/screenshots/after/certifications-390.png` | Evidence artifact: one of the ten public before/after captures (five pages × two widths). |
+| `docs/archive/admin-r1/screenshots/after/contact-1440.png` | Evidence artifact: one of the ten public before/after captures (five pages × two widths). |
+| `docs/archive/admin-r1/screenshots/after/contact-390.png` | Evidence artifact: one of the ten public before/after captures (five pages × two widths). |
+| `docs/archive/admin-r1/screenshots/after/privacy-1440.png` | Evidence artifact: one of the ten public before/after captures (five pages × two widths). |
+| `docs/archive/admin-r1/screenshots/after/privacy-390.png` | Evidence artifact: one of the ten public before/after captures (five pages × two widths). |
+| `docs/archive/admin-r1/screenshots/after/project-1440.png` | Evidence artifact: one of the ten public before/after captures (five pages × two widths). |
+| `docs/archive/admin-r1/screenshots/after/project-390.png` | Evidence artifact: one of the ten public before/after captures (five pages × two widths). |
+| `docs/archive/admin-r1/screenshots/before/about-1440.png` | Evidence artifact: one of the ten public before/after captures (five pages × two widths). |
+| `docs/archive/admin-r1/screenshots/before/about-390.png` | Evidence artifact: one of the ten public before/after captures (five pages × two widths). |
+| `docs/archive/admin-r1/screenshots/before/certifications-1440.png` | Evidence artifact: one of the ten public before/after captures (five pages × two widths). |
+| `docs/archive/admin-r1/screenshots/before/certifications-390.png` | Evidence artifact: one of the ten public before/after captures (five pages × two widths). |
+| `docs/archive/admin-r1/screenshots/before/contact-1440.png` | Evidence artifact: one of the ten public before/after captures (five pages × two widths). |
+| `docs/archive/admin-r1/screenshots/before/contact-390.png` | Evidence artifact: one of the ten public before/after captures (five pages × two widths). |
+| `docs/archive/admin-r1/screenshots/before/privacy-1440.png` | Evidence artifact: one of the ten public before/after captures (five pages × two widths). |
+| `docs/archive/admin-r1/screenshots/before/privacy-390.png` | Evidence artifact: one of the ten public before/after captures (five pages × two widths). |
+| `docs/archive/admin-r1/screenshots/before/project-1440.png` | Evidence artifact: one of the ten public before/after captures (five pages × two widths). |
+| `docs/archive/admin-r1/screenshots/before/project-390.png` | Evidence artifact: one of the ten public before/after captures (five pages × two widths). |
 | `scripts/admin-r1-admin-browser.cjs` | Fixture-only verification runner; not bundled or executed on the public site. |
 | `scripts/admin-r1-public-browser.cjs` | Fixture-only verification runner; not bundled or executed on the public site. |
 | `src/App.tsx` | All five routes at both widths; R1 dashboard/Leads scenarios also exercise SPA navigation. This is representative coverage, not every public route. |

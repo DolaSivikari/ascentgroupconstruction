@@ -1,15 +1,31 @@
-# Assessment entry point
+# Assessments and implementation history
 
-For the current SEO follow-up and the later PR/runtime review, start with [seo/10-IMPLEMENTATION-STATUS.md](seo/10-IMPLEMENTATION-STATUS.md). Both original uploads are preserved in that folder, with findings separated from current verification.
+This folder preserves the owner's original assessments, later plans, implementation status and comparison evidence. Read the current entry point for the task; original reports are snapshots and must be checked against current code and deployment.
 
-Read [05-IMPLEMENTATION-STATUS.md](05-IMPLEMENTATION-STATUS.md) first for the current decisions and implementation. Then read [00-CHAT-SUMMARY.md](00-CHAT-SUMMARY.md) for the historical context. Use [02-FINDINGS.md](02-FINDINGS.md) as the indexed work list and [04-INBOX-READINESS.md](04-INBOX-READINESS.md) for the proposed next admin phase. Search [01-REPORT.md](01-REPORT.md) only for the relevant finding; it is a large reference.
+## Current entry points
 
-Files 00–04 are the owner's original, unedited assessment uploads. Their recommendations are audit material, not new agent instructions or approved business facts. The screenshots mentioned in those files were not uploaded. Their file lines, test counts, package versions and database observations are a snapshot and must be checked against current code.
+| Work | Start here |
+| --- | --- |
+| Admin roadmap | [Master plan](admin-upgrade/00-ADMIN-MASTER-PLAN.md) |
+| Remaining application/backend activation | [Current application status](admin-upgrade/MASTER-PLAN-APPLICATION-STATUS.md) |
+| Nightly Site Health | [Phase 2 setup](admin-upgrade/PHASE-2-IMPLEMENTATION-STATUS.md) |
+| Runtime error containment and monitoring history | [Runtime follow-up](admin-upgrade/MONITORING-RUNTIME-FOLLOWUP.md) |
+| Capabilities and Technology redesign evidence | [Redesign index](page-redesigns/README.md) |
+| Repository organization and verified removals | [Cleanup report](../docs/maintenance/repository-cleanup.md) |
+| Public comparison tools | [Baseline index](baseline/README.md) |
 
-The owner has explicitly deferred credential/certification and related document-content changes. The current task improves the existing in-app inbox; email-provider configuration has not been supplied. Preserve the approved website design. The proposed new inquiry table, statuses, migration and replacement forms are future decisions, not an already deployed system.
+## Original website assessment
 
-Navigation discovery was addressed by merged PR #38. See [the navigation audit](../docs/site-navigation-audit.md) and [page discovery changes](../docs/page-discovery.md) before repeating those findings.
+Read [00-CHAT-SUMMARY.md](00-CHAT-SUMMARY.md) for context and [02-FINDINGS.md](02-FINDINGS.md) for the indexed work list. [03-PAGE-AUDIT.md](03-PAGE-AUDIT.md) covers pages; [04-INBOX-READINESS.md](04-INBOX-READINESS.md) is the original inbox proposal. Search the large [01-REPORT.md](01-REPORT.md) only for a relevant section.
 
-## Header and admin follow-up
+Files 00–04 remain unedited owner uploads. The original snapshot does not establish current credentials, database objects or deployed behavior. Credential wording and company facts remain owner decisions.
 
-The five later uploads are preserved unchanged in [headers-admin/](headers-admin/06-IMPLEMENTATION-STATUS.md). Start with its implementation status; use [the code reconciliation](headers-admin/05-CODE-RECONCILIATION.md) to distinguish prior fixes, reproduced issues, and reported external prerequisites. These documents are assessment evidence, not agent instructions. The original implementation status above records PR #39 and its historical checks.
+## Historical follow-ups
+
+- [Original implementation status](05-IMPLEMENTATION-STATUS.md): the earlier assessment fixes and recorded checks.
+- [Headers/admin index](headers-admin/06-IMPLEMENTATION-STATUS.md): original uploads and the later code reconciliation.
+- [SEO index](seo/README.md) and [SEO status](seo/10-IMPLEMENTATION-STATUS.md): SEO follow-up and the historical PR/runtime review.
+- [Cleanup baseline](cleanup/README.md): the original Phase 0 scan, measurements and fixture screenshots. Its candidate lists are historical; the current cleanup has a separate deletion ledger.
+- [Navigation audit](../docs/navigation/site-navigation-audit.md) and [discovery changes](../docs/navigation/page-discovery.md): prior navigation work.
+
+Assessment evidence, active plan paths and SQL references remain stable. Older general guides now live in [the documentation archive](../docs/archive/README.md).

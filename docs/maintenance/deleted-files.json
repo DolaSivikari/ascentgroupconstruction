@@ -1,0 +1,949 @@
+{
+  "baseCommit": "5c79160bd66f6afc532360a6e411d5a3db7d64d0",
+  "removedFiles": 157,
+  "removedBytes": 669727,
+  "files": [
+    {
+      "path": "src/components/BlogPreview.tsx",
+      "bytes": 6007,
+      "sha256": "ec8d39f364a4fda9f19a07af1814bd65983cf32c02ef9d4604c31598b496a68e",
+      "reason": "Unreachable in current graph; no references in retained code/config"
+    },
+    {
+      "path": "src/components/Breadcrumb.tsx",
+      "bytes": 2249,
+      "sha256": "2e5062051f02c275a31dcc95aad445d81dcc67ae19b6b8328eebca769b0fdbd7",
+      "reason": "Unreachable in current graph; no references in retained code/config"
+    },
+    {
+      "path": "src/components/FeaturedProjects.tsx",
+      "bytes": 4490,
+      "sha256": "24deddae0fbc85f4502545d8dcc1b2f050e68d5a5c613da71613ce9d27870f1b",
+      "reason": "Unreachable in current graph; no references in retained code/config"
+    },
+    {
+      "path": "src/components/PaintCalculator.tsx",
+      "bytes": 3488,
+      "sha256": "9270b7e6290924b7bfaf81d89fb24e7601c6ed0e9565fb5b84c9f814407e972d",
+      "reason": "Unreachable in current graph; no references in retained code/config"
+    },
+    {
+      "path": "src/components/QuoteWidget.tsx",
+      "bytes": 3672,
+      "sha256": "31c1c3439afc75450341700b9b3ed6b00f43260cf9224e5c5abda8fa9ef4a76d",
+      "reason": "Unreachable in current graph; no references in retained code/config"
+    },
+    {
+      "path": "src/components/Testimonials.tsx",
+      "bytes": 7923,
+      "sha256": "87ddaf91fe028f4845d5bc9b3571f19ada0ffb79ab2bbd34d10d724d8faafe88",
+      "reason": "Unreachable in current graph; no references in retained code/config"
+    },
+    {
+      "path": "src/data/case-study-faq-data.ts",
+      "bytes": 8075,
+      "sha256": "a033b879b2b6bcdb397957a41ebf4cd453f3e6eaf917950a65753f350e538842",
+      "reason": "Unreachable in current graph; no references in retained code/config"
+    },
+    {
+      "path": "src/data/merged-services-data.ts",
+      "bytes": 21385,
+      "sha256": "ebb1a134b3aa60b9a2ee13580d1e5748da7e52b1eaa7b30d7fc4c09d3e185b70",
+      "reason": "Unreachable in current graph; no references in retained code/config"
+    },
+    {
+      "path": "src/data/navigation-descriptions.ts",
+      "bytes": 838,
+      "sha256": "044ff05ed9a69301c7eebc9f04bd894b3064d4f2f01d5c4c47e42afb3d57f09e",
+      "reason": "Unreachable in current graph; no references in retained code/config"
+    },
+    {
+      "path": "src/data/service-faqs-enriched.ts",
+      "bytes": 32210,
+      "sha256": "8274ac641b55c80ec9b4e444d454cf73a6267d3d0b03dbf7ee857725155aa884",
+      "reason": "Unreachable in current graph; no references in retained code/config"
+    },
+    {
+      "path": "src/data/service-pillars.ts",
+      "bytes": 3123,
+      "sha256": "79ac457508e0dfd346e71f23404ded954321a12e4d611d3fb1a3e79836bf4d6b",
+      "reason": "Unreachable in current graph; no references in retained code/config"
+    },
+    {
+      "path": "src/design-system/image-system.ts",
+      "bytes": 1635,
+      "sha256": "978c5877275af83460c92df4972e117be244b2c5a569aef4e737ab2490e93995",
+      "reason": "Unreachable in current graph; no references in retained code/config"
+    },
+    {
+      "path": "src/hooks/use3DTilt.ts",
+      "bytes": 1443,
+      "sha256": "c7801da50a62bd748982bd4e02f5ad54a42e5017fe2957ae1b11763f2893bf21",
+      "reason": "Unreachable in current graph; no references in retained code/config"
+    },
+    {
+      "path": "src/hooks/useAggregateRating.ts",
+      "bytes": 1107,
+      "sha256": "de32b8c8ef2f833364d41e8934e6e1e62d94badd7a8a1f6aac5546669bec15d4",
+      "reason": "Unreachable in current graph; no references in retained code/config"
+    },
+    {
+      "path": "src/hooks/useAutoSave.ts",
+      "bytes": 2576,
+      "sha256": "79ddc0f9246cbbb6d59a29d58c51b7335f42b98c6596d56e7c35a3fcfffaf54c",
+      "reason": "Unreachable in current graph; no references in retained code/config"
+    },
+    {
+      "path": "src/hooks/useCarousel.ts",
+      "bytes": 1359,
+      "sha256": "1fa86029198cfad713dfb42ac1bfee5224ba4bf47437034fbf70c23a88d346bf",
+      "reason": "Unreachable in current graph; no references in retained code/config"
+    },
+    {
+      "path": "src/hooks/useCompanyOverview.ts",
+      "bytes": 1258,
+      "sha256": "84e357be522a4e87767818daff9066a9eef6bdb5e4d98f70455d15d87f0540ba",
+      "reason": "Unreachable in current graph; no references in retained code/config"
+    },
+    {
+      "path": "src/hooks/useCompanyOverviewAdmin.ts",
+      "bytes": 4592,
+      "sha256": "913102d6bbcc69786ac46d2393ef023a0bfdee805cf1c5ce8c438cc6c5e2eb74",
+      "reason": "Unreachable in current graph; no references in retained code/config"
+    },
+    {
+      "path": "src/hooks/useCountUpOnView.ts",
+      "bytes": 1498,
+      "sha256": "7a33de92afe26b0eca67b253f97b996e5dfdb317d5bef029ed15d093d071b4bb",
+      "reason": "Unreachable in current graph; no references in retained code/config"
+    },
+    {
+      "path": "src/hooks/useNavigationHistory.ts",
+      "bytes": 2106,
+      "sha256": "071c5517657035f7e219eec8c0d9aaa8c3faceab0b39e98418627f55cdc44e19",
+      "reason": "Unreachable in current graph; no references in retained code/config"
+    },
+    {
+      "path": "src/hooks/usePermissions.ts",
+      "bytes": 2925,
+      "sha256": "238e8bf287f4276aa912a7f0f85d6c9a15da64a345f57667eb1fba03361ae668",
+      "reason": "Unreachable in current graph; no references in retained code/config"
+    },
+    {
+      "path": "src/hooks/usePersonalizedRecommendations.ts",
+      "bytes": 1279,
+      "sha256": "b731e6ba54a549f2422b4107f986a61ab1ae421c60f6b878d22963aafe4541cc",
+      "reason": "Unreachable in current graph; no references in retained code/config"
+    },
+    {
+      "path": "src/hooks/usePopularSearches.ts",
+      "bytes": 1446,
+      "sha256": "720e5667adebe9a0847d9b4ed63370bed036a31b4bd3adcbb01b1e43efecaaf7",
+      "reason": "Unreachable in current graph; no references in retained code/config"
+    },
+    {
+      "path": "src/hooks/usePopularServices.ts",
+      "bytes": 4635,
+      "sha256": "3f4384d63cdacda1dacd4a586141da9f2d9231bc4b8cca1f275fb7f2300b02b2",
+      "reason": "Unreachable in current graph; no references in retained code/config"
+    },
+    {
+      "path": "src/hooks/useRecentSearches.ts",
+      "bytes": 2604,
+      "sha256": "610ad6c29e3cdf4d610d48e6474047edc1a6437994066cf9a6858e35805285d3",
+      "reason": "Unreachable in current graph; no references in retained code/config"
+    },
+    {
+      "path": "src/hooks/useSEOKeywords.ts",
+      "bytes": 3732,
+      "sha256": "357c35b6509116e7be0335b04d465b5dc9132f2c611a9ef81b188d3997698b92",
+      "reason": "Unreachable in current graph; no references in retained code/config"
+    },
+    {
+      "path": "src/hooks/useScrollIndicator.ts",
+      "bytes": 1125,
+      "sha256": "96ef1fcdb20edb7b6019b3871792e6fb6dd1275a2d66b2a5b05614de48cc4c9e",
+      "reason": "Unreachable in current graph; no references in retained code/config"
+    },
+    {
+      "path": "src/hooks/useSettingsValidation.ts",
+      "bytes": 918,
+      "sha256": "c1bd6ed60f12491c81be8f7937c8404b742e62cdec3df5c9a8463131fba7ab08",
+      "reason": "Unreachable in current graph; no references in retained code/config"
+    },
+    {
+      "path": "src/hooks/useUrlFilters.ts",
+      "bytes": 1846,
+      "sha256": "98d10e597a62e0846e3c1519a1690d1b2b13388416b19c20abed5e83079f9ede",
+      "reason": "Unreachable in current graph; no references in retained code/config"
+    },
+    {
+      "path": "src/schemas/settings-validation.ts",
+      "bytes": 3663,
+      "sha256": "40d8d0c9ad976ea1ec7a90068c188ae36fb5a46de73ad77798d8a1b21b9a0ca8",
+      "reason": "Unreachable in current graph; no references in retained code/config"
+    },
+    {
+      "path": "src/utils/devContactValidation.ts",
+      "bytes": 5139,
+      "sha256": "43404d767481ef71fdc2f656afcc7e9668bbbace85add588da2ffed529737505",
+      "reason": "Unreachable in current graph; no references in retained code/config"
+    },
+    {
+      "path": "src/utils/review-helpers.ts",
+      "bytes": 3441,
+      "sha256": "51899cb2a79ebb49ab9793403dbe9fe5c9d06f5e65ed3b8b8928a8c323d2109c",
+      "reason": "Unreachable in current graph; no references in retained code/config"
+    },
+    {
+      "path": "src/utils/schemaGenerators.ts",
+      "bytes": 6227,
+      "sha256": "06e3cdd5d635e5721eb3e3699e43ac777ffcd1c33d1bfa3458612129dc6ca844",
+      "reason": "Unreachable in current graph; no references in retained code/config"
+    },
+    {
+      "path": "src/utils/statusHelpers.ts",
+      "bytes": 3376,
+      "sha256": "adb446b18ae8ac4034e62f65f01286068c92c758711c344e6b101115cba2c74c",
+      "reason": "Unreachable in current graph; no references in retained code/config"
+    },
+    {
+      "path": "src/components/animations/ParallaxSection.tsx",
+      "bytes": 2541,
+      "sha256": "97e0c260bf876f498d17fe29eb4affa73378e186413b2adde81ca2f15ff780d4",
+      "reason": "Unreachable in current graph; no references in retained code/config"
+    },
+    {
+      "path": "src/components/animations/index.ts",
+      "bytes": 505,
+      "sha256": "ec3c3a47931ef0fdcd0d11798b8e7c3756f484c0a057d6495455ff356e58baab",
+      "reason": "Unreachable in current graph; no references in retained code/config"
+    },
+    {
+      "path": "src/components/blog/Breadcrumbs.tsx",
+      "bytes": 1209,
+      "sha256": "96819c129afea204d86f4101b89e840068eb3fa066f6786f0cc76f038cb15455",
+      "reason": "Unreachable in current graph; no references in retained code/config"
+    },
+    {
+      "path": "src/components/blog/ReadingProgress.tsx",
+      "bytes": 843,
+      "sha256": "ecbb972aca418c67724137866c581b0536a2d260884d452ba1aa0a85b7fa6253",
+      "reason": "Unreachable in current graph; no references in retained code/config"
+    },
+    {
+      "path": "src/components/contact/PremiumContactHero.tsx",
+      "bytes": 6833,
+      "sha256": "89ca243c9da5d3751e2e52ab0d6f05932955643fdf03d7ef888559489117e56c",
+      "reason": "Unreachable in current graph; no references in retained code/config"
+    },
+    {
+      "path": "src/components/admin/AdminPage.tsx",
+      "bytes": 258,
+      "sha256": "bc6fe021e7a572af9695bd8409162e9d384414c996f9b3762687dd72a25b8b5b",
+      "reason": "Unreachable in current graph; no references in retained code/config"
+    },
+    {
+      "path": "src/components/admin/ChangesDiffDialog.tsx",
+      "bytes": 5197,
+      "sha256": "c89fda143bfb49f8f7a9eba8616396f1df559e6bd4920626364ac6523879918d",
+      "reason": "Unreachable in current graph; no references in retained code/config"
+    },
+    {
+      "path": "src/components/admin/CompanyOverviewManager.tsx",
+      "bytes": 8830,
+      "sha256": "c1c654fabce35b432aea3145437f1ab86bce10f6e36e9050fb7ba0d2e274ed7b",
+      "reason": "Unreachable in current graph; no references in retained code/config"
+    },
+    {
+      "path": "src/components/admin/CompletionChecklist.tsx",
+      "bytes": 4520,
+      "sha256": "bea8024b06439744ede5514ae7ecd94d79b974aa0723ff2204272b7109f95eba",
+      "reason": "Unreachable in current graph; no references in retained code/config"
+    },
+    {
+      "path": "src/components/admin/ContentHealthCheck.tsx",
+      "bytes": 9858,
+      "sha256": "172d0c231d4f3c83be8b6b4e0d675b4412aab9015951ce187ed873853966863c",
+      "reason": "Unreachable in current graph; no references in retained code/config"
+    },
+    {
+      "path": "src/components/admin/ExportButton.tsx",
+      "bytes": 6942,
+      "sha256": "fd5ce25ccbb89003b1b70a7e02a8672e5882711a7442a1a9dab3f60dce65aaee",
+      "reason": "Unreachable in current graph; no references in retained code/config"
+    },
+    {
+      "path": "src/components/admin/FieldPreviewButton.tsx",
+      "bytes": 897,
+      "sha256": "254f5aed31f4be40c2757447f287c7f56a9b46f7fc77413e7f2f3d46297d2e92",
+      "reason": "Unreachable in current graph; no references in retained code/config"
+    },
+    {
+      "path": "src/components/admin/FieldPreviewDialog.tsx",
+      "bytes": 1698,
+      "sha256": "5e311cc01f2178408ed97998f9f06299429e18b062b479abafecc8181f6bfa18",
+      "reason": "Unreachable in current graph; no references in retained code/config"
+    },
+    {
+      "path": "src/components/admin/FilterPresets.tsx",
+      "bytes": 6978,
+      "sha256": "80934cb1a0f00a9002dea9cb8259717bf3a312895e42d998bdbb78b61eecdd72",
+      "reason": "Unreachable in current graph; no references in retained code/config"
+    },
+    {
+      "path": "src/components/admin/MetricCard.tsx",
+      "bytes": 2184,
+      "sha256": "dadbe464988721b7ca8bc978967ba95536b968020bdea3cef0e850f1197d6ce2",
+      "reason": "Unreachable in current graph; no references in retained code/config"
+    },
+    {
+      "path": "src/components/admin/NotificationBell.tsx",
+      "bytes": 5464,
+      "sha256": "33217a72cf845356336809a8cb1c373bb1dfbdb0878f87f5f0851700f7d34904",
+      "reason": "Unreachable in current graph; no references in retained code/config"
+    },
+    {
+      "path": "src/components/admin/OnboardingTour.tsx",
+      "bytes": 6341,
+      "sha256": "eb5f63a7bfcf24548fe4ba9d544cc1c873737823531cab15f351dd4ddbe46f29",
+      "reason": "Unreachable in current graph; no references in retained code/config"
+    },
+    {
+      "path": "src/components/admin/PasswordStrengthIndicator.tsx",
+      "bytes": 3036,
+      "sha256": "c47d8594cca0e17787f17d0f7ad2fb599dcc5e2d8096dd3812590f977e229372",
+      "reason": "Unreachable in current graph; no references in retained code/config"
+    },
+    {
+      "path": "src/components/admin/PerformanceChart.tsx",
+      "bytes": 5708,
+      "sha256": "6ab414ce5af1bde20d28a5ca1c8a7553aa13bbdd1c3e6e7c8a9d95f42b4b19f8",
+      "reason": "Unreachable in current graph; no references in retained code/config"
+    },
+    {
+      "path": "src/components/admin/PermissionMatrix.tsx",
+      "bytes": 4617,
+      "sha256": "ad1b3cfcbbf244226438d9de2d32274d2ab035e6bbeabee4cded2e60e952f851",
+      "reason": "Unreachable in current graph; no references in retained code/config"
+    },
+    {
+      "path": "src/components/admin/PromotionsManager.tsx",
+      "bytes": 9644,
+      "sha256": "2e1b4cadbbe9a2140e476d66db28a23b490bf8c3e8f2b97b5ed7c17883a46712",
+      "reason": "Unreachable in current graph; no references in retained code/config"
+    },
+    {
+      "path": "src/components/admin/QuickActions.tsx",
+      "bytes": 2372,
+      "sha256": "192645c2e8bed5c5295bc3ce240ce5648446567f42bcefa231d80f6362fc0d50",
+      "reason": "Unreachable in current graph; no references in retained code/config"
+    },
+    {
+      "path": "src/components/admin/RealTimeMetricsCard.tsx",
+      "bytes": 5699,
+      "sha256": "bff615c28588d59a0276a3b590c571eb75ff3add6af7ee832bb8dd9d0ac1bf2a",
+      "reason": "Unreachable in current graph; no references in retained code/config"
+    },
+    {
+      "path": "src/components/admin/RoleDistributionCard.tsx",
+      "bytes": 2327,
+      "sha256": "10150a03e3f4a12d7c58499050bddf85a4ee1a727b8baadbb2b256528ce1aaf3",
+      "reason": "Unreachable in current graph; no references in retained code/config"
+    },
+    {
+      "path": "src/components/admin/SitemapManager.tsx",
+      "bytes": 7231,
+      "sha256": "0b5208f1e97e68cfb10d3ea0a7bb13adb0acabb0744dc4a1c1ee8b4fcd6724e5",
+      "reason": "Unreachable in current graph; no references in retained code/config"
+    },
+    {
+      "path": "src/components/contractor/PremiumDocumentSuite.tsx",
+      "bytes": 6818,
+      "sha256": "40538c99bd24f6d3e1ea625b73d96440de709abf6a52ff23555e8309e0c4104f",
+      "reason": "Unreachable in current graph; no references in retained code/config"
+    },
+    {
+      "path": "src/components/footer/FooterNavCard.tsx",
+      "bytes": 1055,
+      "sha256": "38102d46efdcc05cadfc71f92c38e1f984dfbe19ed75315f75c80f691939e821",
+      "reason": "Unreachable in current graph; no references in retained code/config"
+    },
+    {
+      "path": "src/components/footer/NewsletterBackend.tsx",
+      "bytes": 796,
+      "sha256": "cfda48fe30659675dd01df669d36e18c9e8dd604d94ee0717aaddbd5883f732a",
+      "reason": "Unreachable in current graph; no references in retained code/config"
+    },
+    {
+      "path": "src/components/footer/SocialMediaButton.tsx",
+      "bytes": 559,
+      "sha256": "cdc90b360fb1df733933c35fcbf3cad40cc3cdc2b315f391bdcf6d76696d2910",
+      "reason": "Unreachable in current graph; no references in retained code/config"
+    },
+    {
+      "path": "src/components/forms/BudgetSlider.tsx",
+      "bytes": 3084,
+      "sha256": "9990911e1e1516bb904e104b4e2245aceef86e4d627646f3659386a5b1102b5e",
+      "reason": "Unreachable in current graph; no references in retained code/config"
+    },
+    {
+      "path": "src/components/forms/InlineLeadForm.tsx",
+      "bytes": 8175,
+      "sha256": "147bea5fa491404037b14d674c7a455a53dc93e3611ecb32cb9424564227c936",
+      "reason": "Unreachable in current graph; no references in retained code/config"
+    },
+    {
+      "path": "src/components/forms/MultiStepForm.tsx",
+      "bytes": 3606,
+      "sha256": "1fd63603ac673e35d92835bf096a7db57a1630a1acda6f99e10af19e2eb3664d",
+      "reason": "Unreachable in current graph; no references in retained code/config"
+    },
+    {
+      "path": "src/components/forms/ProjectTypeSelector.tsx",
+      "bytes": 3372,
+      "sha256": "ae4d5aa22b1e3097444a80f73b182561157e2e68bb50190f1c3e62bfa6195ec3",
+      "reason": "Unreachable in current graph; no references in retained code/config"
+    },
+    {
+      "path": "src/components/forms/TimelineSelector.tsx",
+      "bytes": 5511,
+      "sha256": "3b2350edfb293dc00cab904c80cdcf788ec28e33beb0757b3a0e51bc962efc90",
+      "reason": "Unreachable in current graph; no references in retained code/config"
+    },
+    {
+      "path": "src/components/forms/UnifiedFormField.tsx",
+      "bytes": 858,
+      "sha256": "1342382f07dff8d39a6cb62b7a393a9d5f3c88a9772098f55518cf203b62f48b",
+      "reason": "Unreachable in current graph; no references in retained code/config"
+    },
+    {
+      "path": "src/components/homepage/CertificationsBar.tsx",
+      "bytes": 3006,
+      "sha256": "38be072ad62f2d2fae666fbd884f96c81f0a70b0592bb4edbdf9ccfc943fd5e2",
+      "reason": "Unreachable in current graph; no references in retained code/config"
+    },
+    {
+      "path": "src/components/homepage/ClientSelector.tsx",
+      "bytes": 1769,
+      "sha256": "fe5f1ce4ddafd554f7fc08e006021b3c04a0828a69397a7b2d13a9768f4d3dec",
+      "reason": "Unreachable in current graph; no references in retained code/config"
+    },
+    {
+      "path": "src/components/homepage/ClientValueProposition.tsx",
+      "bytes": 6303,
+      "sha256": "f79565260a1cbf7b167f4a3339eb4435c10564f22be81f3f3ddc35de378770b4",
+      "reason": "Unreachable in current graph; no references in retained code/config"
+    },
+    {
+      "path": "src/components/homepage/CompanyIntroduction.tsx",
+      "bytes": 11038,
+      "sha256": "9d2828151ae288e39b1839923a75d4f9db2100efbd2ddb2f1514738e1d18c78c",
+      "reason": "Unreachable in current graph; no references in retained code/config"
+    },
+    {
+      "path": "src/components/homepage/CompanyOverviewHub.tsx",
+      "bytes": 8616,
+      "sha256": "d7d980d0abac694b52e43cc110ac782f896b524e2b59ba1a44d782a8acef6fe2",
+      "reason": "Unreachable in current graph; no references in retained code/config"
+    },
+    {
+      "path": "src/components/homepage/CompanyResponse.tsx",
+      "bytes": 3289,
+      "sha256": "78c73bcb5712e08da5b1de12d1206a38adf2168c28ccb186b30daef15d3ecb57",
+      "reason": "Unreachable in current graph; no references in retained code/config"
+    },
+    {
+      "path": "src/components/homepage/CompanyTimeline.tsx",
+      "bytes": 4035,
+      "sha256": "e9d9d111284f36bdb919f49bfc1a1ac1bc4f0786af0c9221d321fa1b24693ea9",
+      "reason": "Unreachable in current graph; no references in retained code/config"
+    },
+    {
+      "path": "src/components/homepage/ContentHub.tsx",
+      "bytes": 11288,
+      "sha256": "26f7613add52fbb6c774da16061caf06a915093fbd2f74cc2cc7e8c3ad65bba8",
+      "reason": "Unreachable in current graph; no references in retained code/config"
+    },
+    {
+      "path": "src/components/homepage/CredentialBadge.tsx",
+      "bytes": 958,
+      "sha256": "b96dafe7119e19d158dc57613a502150e22b417208e0bacaf73d50730be8b8d4",
+      "reason": "Unreachable in current graph; no references in retained code/config"
+    },
+    {
+      "path": "src/components/homepage/GCTrustStrip.tsx",
+      "bytes": 3015,
+      "sha256": "a0495a28a2c076eb212295386e5cd83383e1d05a1b3b258a914d09cd302b96ad",
+      "reason": "Unreachable in current graph; no references in retained code/config"
+    },
+    {
+      "path": "src/components/homepage/HeroGeometry.tsx",
+      "bytes": 16288,
+      "sha256": "e6a79bb9a89a8910617ac5f7f3357a4d2843c34170507de0088e667f8bac80e5",
+      "reason": "Unreachable in current graph; no references in retained code/config"
+    },
+    {
+      "path": "src/components/homepage/HeroTabNavigation.tsx",
+      "bytes": 1181,
+      "sha256": "6bf23bcc37c72e37a7b6b445aab423ffe9581defcf6073c02b3cfb143dde260b",
+      "reason": "Unreachable in current graph; no references in retained code/config"
+    },
+    {
+      "path": "src/components/homepage/HomepageProcessStrip.tsx",
+      "bytes": 12588,
+      "sha256": "9c0c09b237a5676659c66cc53de45e600a20e6247ecd15b4cb40c34cf9b86a4b",
+      "reason": "Unreachable in current graph; no references in retained code/config"
+    },
+    {
+      "path": "src/components/homepage/MarketChallenge.tsx",
+      "bytes": 3435,
+      "sha256": "04ab36da594ec34bafa67b8be1909be11293c57b67f61cc7605e6c570cdda84e",
+      "reason": "Unreachable in current graph; no references in retained code/config"
+    },
+    {
+      "path": "src/components/homepage/PartnershipCarousel.tsx",
+      "bytes": 4480,
+      "sha256": "2623adca4005149c0f37801ae8e950c3541de5abbe3526d91c7364786021ae5b",
+      "reason": "Unreachable in current graph; no references in retained code/config"
+    },
+    {
+      "path": "src/components/homepage/PrequalPackage.tsx",
+      "bytes": 16706,
+      "sha256": "768339b270f6c4e4c57123d9574b259dcdf65ba9611cc5ea1eef324a050c3caf",
+      "reason": "Unreachable in current graph; no references in retained code/config"
+    },
+    {
+      "path": "src/components/homepage/ProvenTrackRecord.tsx",
+      "bytes": 3570,
+      "sha256": "6dad0925523a94e5268e49967500292c1d96ffdff7524587f8e6beac8b1b4def",
+      "reason": "Unreachable in current graph; no references in retained code/config"
+    },
+    {
+      "path": "src/components/homepage/QuickFactsSidebar.tsx",
+      "bytes": 3570,
+      "sha256": "dc7afc5fceff03950c4d2c3da80a4229d9637a7b95f254666e6a3c39707d7c2f",
+      "reason": "Unreachable in current graph; no references in retained code/config"
+    },
+    {
+      "path": "src/components/homepage/ValuePillars.tsx",
+      "bytes": 3562,
+      "sha256": "64904ee33071302182c019c70e802f9259644b4d1a2e70545465679a03f40078",
+      "reason": "Unreachable in current graph; no references in retained code/config"
+    },
+    {
+      "path": "src/components/layout/PageLayout.tsx",
+      "bytes": 426,
+      "sha256": "64d4100af6a4f83b66666f18817823740c0e623db16a29e770711fb5adf766dc",
+      "reason": "Unreachable in current graph; no references in retained code/config"
+    },
+    {
+      "path": "src/components/navigation/EnhancedPopularServices.tsx",
+      "bytes": 6147,
+      "sha256": "69df823a48f20b72e77f8412a7d9240b4fb2c5c14c9861d47c2bf755e211356f",
+      "reason": "Unreachable in current graph; no references in retained code/config"
+    },
+    {
+      "path": "src/components/navigation/GridMegaMenuCard.tsx",
+      "bytes": 1823,
+      "sha256": "2dccac7e59529557168b67ca08e652584354b238fddd042b484cedeb66a3c8d1",
+      "reason": "Unreachable in current graph; no references in retained code/config"
+    },
+    {
+      "path": "src/components/navigation/GridMegaMenuSection.tsx",
+      "bytes": 1390,
+      "sha256": "b95b79f961e3dbeb9960d410a67d0fb257857655c3acfb4f2b756b4c306d3526",
+      "reason": "Unreachable in current graph; no references in retained code/config"
+    },
+    {
+      "path": "src/components/navigation/MegaMenuAccordionCategory.tsx",
+      "bytes": 1858,
+      "sha256": "8e30a716cf82e7eadffe4c6c9a86b130c2eae82f00d4705ff7246d467997abe1",
+      "reason": "Unreachable in current graph; no references in retained code/config"
+    },
+    {
+      "path": "src/components/navigation/NavCategoryCard.tsx",
+      "bytes": 1224,
+      "sha256": "b803c3fd2d3f49e42d9693d163a2195c1297eb40193e659678742e23af0a1475",
+      "reason": "Unreachable in current graph; no references in retained code/config"
+    },
+    {
+      "path": "src/components/navigation/RecentlyViewed.tsx",
+      "bytes": 2392,
+      "sha256": "f6a752031dcbd0e0b4da13b2e3d364ef5d47b58c59ae8e3eb31af51face00cb0",
+      "reason": "Unreachable in current graph; no references in retained code/config"
+    },
+    {
+      "path": "src/components/navigation/SearchSuggestions.tsx",
+      "bytes": 4847,
+      "sha256": "51fbd93f76f6c219b58e14244de55a407d7989434071146f60082672f7eeec38",
+      "reason": "Unreachable in current graph; no references in retained code/config"
+    },
+    {
+      "path": "src/components/navigation/SmartPopularServices.tsx",
+      "bytes": 9952,
+      "sha256": "303fa6e477d6b6557cb40f20a069ffd7728692419d5b3bdec53f003487d09d81",
+      "reason": "Unreachable in current graph; no references in retained code/config"
+    },
+    {
+      "path": "src/components/partnerships/PartnershipDiagram.tsx",
+      "bytes": 7729,
+      "sha256": "3bd8650cdcb592982657a4b0a6c2ad4b6aeaab668fa727a3c545b1dce555c3a5",
+      "reason": "Unreachable in current graph; no references in retained code/config"
+    },
+    {
+      "path": "src/components/partnerships/PartnershipModelCard.tsx",
+      "bytes": 2147,
+      "sha256": "100d08315088cd2c352064050cb8cd5c3ba4a44d44a85544557f596f338f8b54",
+      "reason": "Unreachable in current graph; no references in retained code/config"
+    },
+    {
+      "path": "src/components/partnerships/PartnershipModelDetail.tsx",
+      "bytes": 3410,
+      "sha256": "de0eacca5d07286a01dd279a7449f1f5c4b5e6b3b0890963d4026138fe8e1382",
+      "reason": "Unreachable in current graph; no references in retained code/config"
+    },
+    {
+      "path": "src/components/partnerships/PartnershipModelsSection.tsx",
+      "bytes": 1098,
+      "sha256": "68a690b66ba8e1f75d36a1f480ed52c869be767740324f4ca50d0571f1f8b9c1",
+      "reason": "Unreachable in current graph; no references in retained code/config"
+    },
+    {
+      "path": "src/components/partnerships/index.ts",
+      "bytes": 260,
+      "sha256": "3b540b4c3f624258d7985b73585628c8a9ab865f9e0d076b1f534d1fffcd4065",
+      "reason": "Unreachable in current graph; no references in retained code/config"
+    },
+    {
+      "path": "src/components/projects/FilterChips.tsx",
+      "bytes": 1489,
+      "sha256": "802a785604ba0b31c933d50a79e9f4691dc691fd2906456383879ff265acdba8",
+      "reason": "Unreachable in current graph; no references in retained code/config"
+    },
+    {
+      "path": "src/components/projects/FilterDrawer.tsx",
+      "bytes": 7059,
+      "sha256": "e63fe3bb21a23a279dd7a4c24729a034e3fb17077c4e85a461e63ca869a36455",
+      "reason": "Unreachable in current graph; no references in retained code/config"
+    },
+    {
+      "path": "src/components/sections/BenefitsSection.tsx",
+      "bytes": 1562,
+      "sha256": "9a46089992268d3db21618b05c3c691751efdf1b939bf07181b4ce4d3ff81bd3",
+      "reason": "Unreachable in current graph; no references in retained code/config"
+    },
+    {
+      "path": "src/components/sections/CTASection.tsx",
+      "bytes": 1613,
+      "sha256": "f914014ffb3f75afc42bafc5284f2a18e6aa2141ee670a13aa844902e7a16852",
+      "reason": "Unreachable in current graph; no references in retained code/config"
+    },
+    {
+      "path": "src/components/skeletons/HeroSkeleton.tsx",
+      "bytes": 1489,
+      "sha256": "53408a6e1e4da625b47258a03b94b7a2b728eb58cd3f9c4883cdfe20864bdac1",
+      "reason": "Unreachable in current graph; no references in retained code/config"
+    },
+    {
+      "path": "src/components/skeletons/ServicesSkeleton.tsx",
+      "bytes": 1401,
+      "sha256": "4d9ac39666b0494ad2b5efc676db889fa803002cba74f9aa72437ae89d079936",
+      "reason": "Unreachable in current graph; no references in retained code/config"
+    },
+    {
+      "path": "src/components/shared/AnimatedCounter.tsx",
+      "bytes": 1516,
+      "sha256": "6e75ede351cb0b4ca326455575ec0667ae17deeb00d91016b5825e2042c6f5e8",
+      "reason": "Unreachable in current graph; no references in retained code/config"
+    },
+    {
+      "path": "src/components/shared/CertificationBadges.tsx",
+      "bytes": 3540,
+      "sha256": "6eed011d5cfcb5fb367529baa4b13604dd8854c4a52daaa60994c4630c18aab1",
+      "reason": "Unreachable in current graph; no references in retained code/config"
+    },
+    {
+      "path": "src/components/shared/ProjectCompletionTicker.tsx",
+      "bytes": 3352,
+      "sha256": "2ef111ae013fd2e94e820020f90ec83f304784c27f0b53c7165a00a53c26b31b",
+      "reason": "Unreachable in current graph; no references in retained code/config"
+    },
+    {
+      "path": "src/components/shared/RelatedLinks.tsx",
+      "bytes": 2404,
+      "sha256": "f086fbdac5c0be0e6245b19cd0e551a55370472d1adcd3b381068802735bcbe8",
+      "reason": "Unreachable in current graph; no references in retained code/config"
+    },
+    {
+      "path": "src/components/shared/Section.tsx",
+      "bytes": 1697,
+      "sha256": "4a99dd89708710fe2f1368a021b74bb37a251055db07fbc445b8b4306ae075d3",
+      "reason": "Unreachable in current graph; no references in retained code/config"
+    },
+    {
+      "path": "src/components/shared/TestimonialRatings.tsx",
+      "bytes": 3490,
+      "sha256": "da4cadb9c31e0728005ef7b4e107189c4c07d32c74dca9074ce16a7d992fd7b4",
+      "reason": "Unreachable in current graph; no references in retained code/config"
+    },
+    {
+      "path": "src/components/shared/VideoBackground.tsx",
+      "bytes": 3238,
+      "sha256": "26ea5d3a326742872d2cb9400723c6eb28f30131a70364df79e23a027a8237b2",
+      "reason": "Unreachable in current graph; no references in retained code/config"
+    },
+    {
+      "path": "src/components/services/CategoryTabs.tsx",
+      "bytes": 1076,
+      "sha256": "c99a1ea179496ca69c2660aafc998bf286bdfcb278f8b6e3f54639cd13ace2ac",
+      "reason": "Unreachable in current graph; no references in retained code/config"
+    },
+    {
+      "path": "src/components/services/FeaturedServicesGrid.tsx",
+      "bytes": 7680,
+      "sha256": "76a00cd855a20af1853f44d2e60d51c663c8d3198a27c2f82fc4b6624b4e12d3",
+      "reason": "Unreachable in current graph; no references in retained code/config"
+    },
+    {
+      "path": "src/components/services/MarketSegmentHeader.tsx",
+      "bytes": 2491,
+      "sha256": "a5327491a39f9299ca13889e1a68e21362ab93d2baca39615f11cafe2201d47c",
+      "reason": "Unreachable in current graph; no references in retained code/config"
+    },
+    {
+      "path": "src/components/services/MarketSegmentedServices.tsx",
+      "bytes": 4213,
+      "sha256": "2c77e9a46b7bea16f47583e34a0c4ec34cf376facf6eee062416ee3a456fb528",
+      "reason": "Unreachable in current graph; no references in retained code/config"
+    },
+    {
+      "path": "src/components/services/OperationalCapabilities.tsx",
+      "bytes": 2381,
+      "sha256": "1bfc4af9fbb47e9960fb3c64aa21b17766d1575f1ec7962b83c75f68f2384b84",
+      "reason": "Unreachable in current graph; no references in retained code/config"
+    },
+    {
+      "path": "src/components/services/PremiumServiceHero.tsx",
+      "bytes": 4167,
+      "sha256": "30a79bdee7b59435b0bd73561ba851c25135a43f44c1efa1972e9e3eef9ea85e",
+      "reason": "Unreachable in current graph; no references in retained code/config"
+    },
+    {
+      "path": "src/components/services/RelatedServices.tsx",
+      "bytes": 3415,
+      "sha256": "eac98da59e331cecc8ea1e0fb61b12401a73f23481295b761b3f5c5b790712ae",
+      "reason": "Unreachable in current graph; no references in retained code/config"
+    },
+    {
+      "path": "src/components/services/SearchBar.tsx",
+      "bytes": 2430,
+      "sha256": "461ba7913d6d8b96c1fc73bfa3e03033df7d2a50009debc653c734c005481dcc",
+      "reason": "Unreachable in current graph; no references in retained code/config"
+    },
+    {
+      "path": "src/components/services/ServiceCard.tsx",
+      "bytes": 3949,
+      "sha256": "2af4b1a92fd278233f32043bb2499ff4cd5f004e848ee4f4804ccb79d6284e80",
+      "reason": "Unreachable in current graph; no references in retained code/config"
+    },
+    {
+      "path": "src/components/services/ServiceCard3D.tsx",
+      "bytes": 5840,
+      "sha256": "eec7d78aabafc428f71993138b8c80e81a0c5c21ecda11ebd4e55e0d28e83eff",
+      "reason": "Unreachable in current graph; no references in retained code/config"
+    },
+    {
+      "path": "src/components/services/ServiceCardTier1.tsx",
+      "bytes": 2848,
+      "sha256": "0462a6bcf2633fe6292751e6c63c6f04aeab036cddbce8c72c7cebc6e804eaa1",
+      "reason": "Unreachable in current graph; no references in retained code/config"
+    },
+    {
+      "path": "src/components/services/ServiceCardTier2.tsx",
+      "bytes": 2484,
+      "sha256": "6bec3865cd5e26f36adae636e4495e4412a1d1ada06077763ff77898da962f1b",
+      "reason": "Unreachable in current graph; no references in retained code/config"
+    },
+    {
+      "path": "src/components/services/ServiceCardTier3.tsx",
+      "bytes": 1609,
+      "sha256": "77a364b690d90917bd6a25478d2e03c3b03cb4c985911b723a41e0b12a0041db",
+      "reason": "Unreachable in current graph; no references in retained code/config"
+    },
+    {
+      "path": "src/components/services/ServiceCategoryCard.tsx",
+      "bytes": 3551,
+      "sha256": "f10b1bbfe2f05360a91a8e673ff01f58577c2357c4c373843d5f39d4f95b7eed",
+      "reason": "Unreachable in current graph; no references in retained code/config"
+    },
+    {
+      "path": "src/components/services/ServiceCitySection.tsx",
+      "bytes": 5001,
+      "sha256": "d8ee0c77696954270bbab50476db81213dc1bd0261cdb38de7575447d5852677",
+      "reason": "Unreachable in current graph; no references in retained code/config"
+    },
+    {
+      "path": "src/components/services/ServiceDetailsModal.tsx",
+      "bytes": 4900,
+      "sha256": "c42c6823384d52ad9ad2d408c83c67cc68f018b7eab940c0244cbac57c21e328",
+      "reason": "Unreachable in current graph; no references in retained code/config"
+    },
+    {
+      "path": "src/components/services/ServicePageLayout.tsx",
+      "bytes": 2314,
+      "sha256": "6a8bd45d6a7b1287c4b7cc8d3cb7101f449567eefc359ad37aacdb44028bfdd7",
+      "reason": "Unreachable in current graph; no references in retained code/config"
+    },
+    {
+      "path": "src/components/services/ServicePageTemplate.tsx",
+      "bytes": 21254,
+      "sha256": "cd09d8c3b9eea9e96f37f788ec0d651c49e117d47c9072cf3977c605ded05f39",
+      "reason": "Unreachable in current graph; no references in retained code/config"
+    },
+    {
+      "path": "src/components/services/ServicePillarsGrid.tsx",
+      "bytes": 2323,
+      "sha256": "7832e36421b2745ced21b346d2203ca3cb626c07e1cbc7d7dbf5e65cf81afb19",
+      "reason": "Unreachable in current graph; no references in retained code/config"
+    },
+    {
+      "path": "src/components/services/ServicePromotionsSection.tsx",
+      "bytes": 2929,
+      "sha256": "6e3bab9dbe6cb3e1a59db3b15d28b0f463db598ab68bf127c14e37be0c003a7a",
+      "reason": "Unreachable in current graph; no references in retained code/config"
+    },
+    {
+      "path": "src/components/services/ServiceQuickViewModal.tsx",
+      "bytes": 4539,
+      "sha256": "293e05fbc93290b45221c30d43e2ea18aea8df4fb2a20baa992f81d32f5357e2",
+      "reason": "Unreachable in current graph; no references in retained code/config"
+    },
+    {
+      "path": "src/components/services/ServiceStats.tsx",
+      "bytes": 1192,
+      "sha256": "e7b42a453e6056a21478f59f9f1c758279f009b2abd7b09fd9454ddd7010865d",
+      "reason": "Unreachable in current graph; no references in retained code/config"
+    },
+    {
+      "path": "src/components/services/ServiceTabs.tsx",
+      "bytes": 6279,
+      "sha256": "e99650f5b23ca1fcb9cc4e8f28d9e28240597b4c5d7f849ac98e98c83afc2ba6",
+      "reason": "Unreachable in current graph; no references in retained code/config"
+    },
+    {
+      "path": "src/components/services/ServicesClientSegments.tsx",
+      "bytes": 2211,
+      "sha256": "6e5f14dc8402862887d50ca20788129ad1c614b99aa28736b48101164313d30e",
+      "reason": "Unreachable in current graph; no references in retained code/config"
+    },
+    {
+      "path": "src/components/services/ServicesExplorer.tsx",
+      "bytes": 9913,
+      "sha256": "002ef9a3550c7117c50847da6429799e373d6937e22ec29f79abfb2dea1a581e",
+      "reason": "Unreachable in current graph; no references in retained code/config"
+    },
+    {
+      "path": "src/components/services/ServicesFeaturedWork.tsx",
+      "bytes": 3744,
+      "sha256": "da11242afb7de9cc38a69cd4bed084ecde0c071c6abb87b8959c30bd56fa59c0",
+      "reason": "Unreachable in current graph; no references in retained code/config"
+    },
+    {
+      "path": "src/components/services/ServicesTrustBar.tsx",
+      "bytes": 905,
+      "sha256": "de49a50dea2aa1d255877266304de4e7141b23a72d02d854923115774e556ce3",
+      "reason": "Unreachable in current graph; no references in retained code/config"
+    },
+    {
+      "path": "src/components/services/TieredServicesGrid.tsx",
+      "bytes": 3326,
+      "sha256": "4334ae96e8e8fc6e985045bcbcd6cb82b2f83ffd90aab714de77ab1e783d2704",
+      "reason": "Unreachable in current graph; no references in retained code/config"
+    },
+    {
+      "path": "src/components/services/UnifiedServiceCard.tsx",
+      "bytes": 3731,
+      "sha256": "2f3368ff7a074d45391950db13b9cf435a49dd61cede093240619a0393bed528",
+      "reason": "Unreachable in current graph; no references in retained code/config"
+    },
+    {
+      "path": "src/components/services/categoryMapping.ts",
+      "bytes": 1868,
+      "sha256": "c01b857878007848b5ee035a25b3fc798ac504901058e2d54afcdbea2fd206c8",
+      "reason": "Unreachable in current graph; no references in retained code/config"
+    },
+    {
+      "path": "src/components/services/challengeMapping.ts",
+      "bytes": 1592,
+      "sha256": "d449db6b2c9923d81eb3b7f59e21009a2d687f69336c07e802710fd52bf1229e",
+      "reason": "Unreachable in current graph; no references in retained code/config"
+    },
+    {
+      "path": "src/pages/admin/AdminFeatureNotice.tsx",
+      "bytes": 2114,
+      "sha256": "de806939baf3aa125d5092c376851b88ac45e63736001b4ad862a58166b3c3ac",
+      "reason": "Unreachable in current graph; no references in retained code/config"
+    },
+    {
+      "path": "src/pages/admin/TestimonialsManager.tsx",
+      "bytes": 12528,
+      "sha256": "0715386e5ff3d97b68e19db647c1c5bb12b568c2475cda59053564743d3e7e63",
+      "reason": "Unreachable in current graph; no references in retained code/config"
+    },
+    {
+      "path": "src/components/admin/filters/DateRangePicker.tsx",
+      "bytes": 1967,
+      "sha256": "9644ac436405974aa35149bb22410c988a3428dd959428591bd64c3ccf9e622a",
+      "reason": "Unreachable in current graph; no references in retained code/config"
+    },
+    {
+      "path": "src/components/admin/filters/FilterBar.tsx",
+      "bytes": 1099,
+      "sha256": "9cc2a5f7949dab7cfa6dc4b7184d1891037d62a0c02a3aa265f61eff6ae1b1b9",
+      "reason": "Unreachable in current graph; no references in retained code/config"
+    },
+    {
+      "path": "src/components/admin/filters/MultiSelectFilter.tsx",
+      "bytes": 3286,
+      "sha256": "2d85fa39649312b00d73dc2f6a66ccdfdc47955b1bc269de2b551a4789e86c16",
+      "reason": "Unreachable in current graph; no references in retained code/config"
+    },
+    {
+      "path": "src/components/admin/filters/SearchInput.tsx",
+      "bytes": 1116,
+      "sha256": "29113652c0b9655b126c70f45996780cac2ce8e7f9350f0527b8fbd3fcb0f93d",
+      "reason": "Unreachable in current graph; no references in retained code/config"
+    },
+    {
+      "path": "src/components/admin/filters/TagFilter.tsx",
+      "bytes": 1534,
+      "sha256": "7afe1fcdd4561b7f0195410821dbcbe51b460b64a07cbadeaaf305811a787d01",
+      "reason": "Unreachable in current graph; no references in retained code/config"
+    },
+    {
+      "path": "src/components/admin/inbox/EstimatesQuotesTable.tsx",
+      "bytes": 16713,
+      "sha256": "7c821e8c42ed83467d0d3cf527fe1898e090a586f2446b33d74901c6bc5bf7c4",
+      "reason": "Unreachable in current graph; no references in retained code/config"
+    },
+    {
+      "path": "src/components/admin/settings/SecuritySettingsTab.tsx",
+      "bytes": 6406,
+      "sha256": "a4276a21eb29b04afb703753d8ac3564db11657af0029746864360d86ab34f67",
+      "reason": "Unreachable in current graph; no references in retained code/config"
+    },
+    {
+      "path": "src/pages/admin/seo/defaults.ts",
+      "bytes": 591,
+      "sha256": "bf2a23acbc1b92141341dbd49c84a61618c9b6de4c0c239fc74d3d4f972abfa2",
+      "reason": "Unreachable in current graph; no references in retained code/config"
+    },
+    {
+      "path": "0===",
+      "bytes": 12,
+      "sha256": "e00097488fb45f17ffac0ab1a4b33612135fa3cd3fbe92a8f58de61ff4bf7348",
+      "reason": "Unreferenced shell artifact"
+    }
+  ]
+}

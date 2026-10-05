@@ -13,12 +13,7 @@ const mock = vi.hoisted(() => ({
     social_links?: Record<string, string>;
   },
 }));
-vi.mock("@/hooks/useAggregateRating", () => ({
-  useAggregateRating: () => ({
-    aggregateRating: { reviewCount: "0" },
-    hasRatings: false,
-  }),
-}));
+
 vi.mock("@/integrations/supabase/client", () => ({
   supabase: {
     from: () => {

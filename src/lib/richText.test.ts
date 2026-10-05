@@ -1,9 +1,11 @@
-import { describe, expect, it } from "vitest";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import {
   isSafeEditorLink,
   plainTextToHtml,
   sanitizeRichText,
 } from "./richText";
+beforeEach(() => vi.stubEnv("VITE_SUPABASE_URL", "https://media.fixture.supabase.co"));
+afterEach(() => vi.unstubAllEnvs());
 describe("public rich text", () => {
   it("preserves legacy paragraphs and single line breaks while escaping text", () => {
     expect(plainTextToHtml("One & two\nLine two\n\nNext <literal>")).toBe(
@@ -15,7 +17,7 @@ describe("public rich text", () => {
   });
   it("keeps headings, formatting, lists and approved images but removes executable markup and Word styles", () => {
     const html = sanitizeRichText(
-      '<h2 style="color:red" onclick="alert(1)">Heading</h2><ul><li><strong>Item</strong></li></ul><script>alert(1)</script><img src="https://dinliarttwuzzozyvuiu.supabase.co/storage/v1/object/public/project-images/image.jpg" alt="Building" onerror="alert(1)"><iframe src="https://bad.test"></iframe>',
+      '<h2 style="color:red" onclick="alert(1)">Heading</h2><ul><li><strong>Item</strong></li></ul><script>alert(1)</script><img src="https://media.fixture.supabase.co/storage/v1/object/public/project-images/image.jpg" alt="Building" onerror="alert(1)"><iframe src="https://bad.test"></iframe>',
     );
     expect(html).toContain("<h2>Heading</h2>");
     expect(html).toContain("<strong>Item</strong>");
@@ -49,7 +51,7 @@ describe("public rich text", () => {
 });
 it("blocks remote tracking images and signed/private storage links in public rich text", () => {
   const html = sanitizeRichText(
-    '<img src="https://tracker.example.test/pixel"><img src="https://dinliarttwuzzozyvuiu.supabase.co/storage/v1/object/sign/project-images/private.jpg?token=secret"><img src="data:image/svg+xml,bad">',
+    '<img src="https://tracker.example.test/pixel"><img src="https://media.fixture.supabase.co/storage/v1/object/sign/project-images/private.jpg?token=secret"><img src="data:image/svg+xml,bad">',
   );
   expect(html).not.toContain("<img");
 });

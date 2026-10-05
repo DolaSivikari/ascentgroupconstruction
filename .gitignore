@@ -23,3 +23,10 @@ dist-ssr
 *.sln
 *.sw?
 .claude/
+
+# Generated local verification output (keep approved evidence under _assessment)
+/coverage/
+/playwright-report/
+/test-results/
+/.cache/
+*.tsbuildinfo

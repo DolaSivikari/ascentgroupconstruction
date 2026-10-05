@@ -1,5 +1,7 @@
 # Contributing to Ascent Group Construction
 
+Start with [the development guide](docs/development/README.md) and [AGENTS.md](AGENTS.md).
+
 Thanks for working on this codebase. This guide focuses on the rules that the
 linter cannot enforce — most importantly, the **design token system**.
 
@@ -88,7 +90,7 @@ Almost never. If the design calls for a new accent, **add it as a token first**:
 3. Use `bg-eco-accent` / `text-eco-accent` in components.
 
 Document the new token in the relevant section of this file and in
-`docs/DESIGN_SYSTEM.md`.
+`docs/design/README.md`.
 
 ### Status badges
 
@@ -118,12 +120,12 @@ continues to work.
 - **Supabase client**: import from `@/integrations/supabase/client`. Never
   edit `src/integrations/supabase/client.ts` or `types.ts` — both are
   auto-generated.
-- **Edge functions**: live in `supabase/functions/<name>/index.ts` and deploy
-  automatically on save.
+- **Edge functions**: live in `supabase/functions/<name>/index.ts`. Verify
+  deployment separately; a Git commit or frontend publish does not prove deployment.
 - **Routes**: registered in `src/routes/AppRoutes.tsx`. Lazy-load anything
   outside the homepage entry path.
-- **Memory files** (`mem://`): persistent project rules. Read the index for
-  context before making sweeping changes.
+- **Project instructions**: read `AGENTS.md` and the current assessment/plan
+  entry point before making sweeping changes.
 
-For a deep dive on architecture see `docs/ARCHITECTURE_OVERVIEW.md`. For brand
-guidelines see `docs/BRAND_GUIDELINES.md`.
+For a deep dive on architecture see `docs/archive/guides/ARCHITECTURE_OVERVIEW.md`. For brand
+guidelines see `docs/archive/guides/BRAND_GUIDELINES.md`.

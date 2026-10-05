@@ -26,7 +26,7 @@ vi.mock("@/integrations/supabase/client", () => ({ supabase: { auth: { signOut: 
 vi.mock("./UnifiedSidebar", () => ({ UnifiedSidebar: () => <aside>Admin sidebar</aside> }));
 vi.mock("./NotificationBellInbox", () => ({ NotificationBellInbox: () => <button>Notifications</button> }));
 vi.mock("@/components/animations/PageTransition", () => ({ PageTransition: ({ children }: { children: ReactNode }) => <>{children}</> }));
-vi.mock("@/components/admin/OnboardingTour", () => ({ OnboardingTour: () => <div>Admin onboarding</div> }));
+
 const SignIn = () => {
   const location = useLocation();
   return <p>Sign in destination: {new URLSearchParams(location.search).get("next")}</p>;
