@@ -1,0 +1,256 @@
+.technology-redesign .tech-document,
+.technology-redesign .tech-model-sheet,
+.technology-redesign .tech-viewer,
+.technology-redesign .tech-drawing,
+.technology-redesign .tech-control-label {
+  /* Construction drawings retain their paper palette in either site theme. */
+  --primary: 210 100% 20%;
+  --primary-foreground: 0 0% 100%;
+  --background: 0 0% 100%;
+  --foreground: 200 18% 26%;
+  --muted: 210 20% 97%;
+  --muted-foreground: 210 10% 40%;
+  --border: 210 15% 85%;
+  --brand-accent: 24 95% 53%;
+}
+
+.technology-redesign .tech-viewer {
+  perspective: 1100px;
+  height: 450px;
+  position: relative;
+  overflow: hidden;
+  touch-action: pan-y;
+  background-color: hsl(var(--muted));
+  background-image:
+    linear-gradient(hsl(var(--primary) / 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, hsl(var(--primary) / 0.06) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+.technology-redesign .tech-world {
+  position: absolute;
+  left: 50%;
+  top: 54%;
+  transform-style: preserve-3d;
+}
+.technology-redesign .tech-box,
+.technology-redesign .tech-model-part {
+  position: absolute;
+  transform-style: preserve-3d;
+}
+.technology-redesign .tech-face {
+  position: absolute;
+  backface-visibility: hidden;
+  border: 1px solid hsl(var(--primary) / 0.3);
+  background-color: hsl(var(--muted));
+}
+.technology-redesign .tech-wall-face {
+  background-color: hsl(var(--background));
+  background-image: repeating-linear-gradient(
+    0deg,
+    transparent 0 27px,
+    hsl(var(--primary) / 0.18) 27px 30px
+  );
+}
+
+.technology-redesign .tech-roof-face {
+  background: hsl(var(--muted));
+  border: 3px solid hsl(var(--primary) / 0.3);
+}
+.technology-redesign .tech-floor-plan {
+  position: absolute;
+  width: 620px;
+  height: 460px;
+  left: -310px;
+  top: -230px;
+  color: hsl(var(--primary-foreground));
+}
+.technology-redesign .tech-layer-face {
+  background-color: hsl(var(--background));
+  background-image: repeating-linear-gradient(
+    45deg,
+    transparent 0 5px,
+    hsl(var(--primary) / 0.14) 5px 6px
+  );
+}
+.technology-redesign .tech-layer-batt {
+  background-image: repeating-linear-gradient(
+    90deg,
+    hsl(var(--primary) / 0.22) 0 4px,
+    transparent 4px 36px
+  );
+}
+.technology-redesign .tech-layer-barrier {
+  background: hsl(var(--primary));
+}
+.technology-redesign .tech-layer-mesh {
+  background-size: 8px 8px;
+  background-image:
+    linear-gradient(hsl(var(--primary) / 0.25) 1px, transparent 1px),
+    linear-gradient(90deg, hsl(var(--primary) / 0.25) 1px, transparent 1px);
+}
+.technology-redesign .tech-highlight .tech-face {
+  box-shadow: inset 0 0 0 2px hsl(var(--brand-accent));
+}
+.technology-redesign .tech-model-sheet {
+  position: absolute;
+  width: 360px;
+  height: 255px;
+  left: -180px;
+  top: -127px;
+  background: white;
+  border: 2px solid hsl(var(--primary) / 0.3);
+  box-shadow: 0 3px 0 hsl(var(--border));
+  overflow: hidden;
+}
+.technology-redesign .tech-model-sheet > div {
+  width: 600px;
+  transform: scale(0.6);
+  transform-origin: top left;
+}
+.technology-redesign .tech-document {
+  background: white;
+  color: hsl(var(--primary));
+  border: 1px solid hsl(var(--border));
+  padding: 20px;
+  font-size: 14px;
+}
+.technology-redesign .tech-document-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+}
+.technology-redesign .tech-document-table th {
+  text-align: left;
+  background: hsl(var(--muted));
+}
+.technology-redesign .tech-document-table th,
+.technology-redesign .tech-document-table td {
+  padding: 7px;
+  border: 1px solid hsl(var(--border));
+  vertical-align: top;
+}
+.technology-redesign .tech-title-block {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: space-between;
+  border: 1px solid hsl(var(--primary));
+  padding: 10px;
+  font-size: 10px;
+}
+.technology-redesign .tech-title-block strong,
+.technology-redesign .tech-title-block span {
+  display: block;
+}
+.technology-redesign .tech-title-block strong {
+  font-size: 16px;
+}
+.technology-redesign .tech-sample-label {
+  margin-top: 12px;
+  border: 1px solid hsl(var(--brand-accent) / 0.4);
+  background: hsl(var(--brand-accent) / 0.08);
+  color: hsl(var(--primary));
+  padding: 6px 10px;
+  font-size: 12px;
+  font-weight: 600;
+}
+.technology-redesign .tech-photo-frame {
+  min-height: 100px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: hsl(var(--muted));
+  border: 1px dashed hsl(var(--border));
+  font-size: 11px;
+  padding: 12px 4px 32px;
+}
+.technology-redesign .tech-photo-frame img {
+  width: 100%;
+  height: 120px;
+  object-fit: cover;
+}
+.technology-redesign .tech-photo-frame small {
+  position: absolute;
+  bottom: 0;
+  inset-inline: 0;
+  background: hsl(var(--primary));
+  color: white;
+  padding: 5px;
+  font-size: 9px;
+}
+.technology-redesign .tech-redaction {
+  display: inline-block;
+  width: 72px;
+  height: 12px;
+  background: hsl(var(--primary));
+}
+.technology-redesign .tech-control-label {
+  padding: 8px;
+  background: white;
+  border: 1px solid hsl(var(--border));
+  font-size: 10px;
+  font-weight: 600;
+  color: hsl(var(--primary));
+}
+@media (max-width: 640px) {
+  .technology-redesign .tech-viewer {
+    height: 320px;
+  }
+  .technology-redesign .tech-document {
+    padding: 12px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .technology-redesign *,
+  .technology-redesign *::before,
+  .technology-redesign *::after {
+    transition: none !important;
+    animation: none !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+.technology-redesign .tech-layer-face > .tech-face {
+  background-color: hsl(var(--background));
+  background-image: repeating-linear-gradient(
+    45deg,
+    transparent 0 5px,
+    hsl(var(--primary) / 0.16) 5px 6px
+  );
+}
+.technology-redesign .tech-layer-batt > .tech-face {
+  background-image:
+    repeating-linear-gradient(
+      90deg,
+      hsl(var(--primary) / 0.25) 0 4px,
+      transparent 4px 36px
+    ),
+    repeating-linear-gradient(
+      45deg,
+      transparent 0 8px,
+      hsl(var(--primary) / 0.12) 8px 10px
+    );
+}
+.technology-redesign .tech-layer-barrier > .tech-face {
+  background: hsl(var(--primary));
+}
+.technology-redesign .tech-layer-mesh > .tech-face {
+  background-size: 8px 8px;
+  background-image:
+    linear-gradient(hsl(var(--primary) / 0.3) 1px, transparent 1px),
+    linear-gradient(90deg, hsl(var(--primary) / 0.3) 1px, transparent 1px);
+}
+.technology-redesign .tech-layer-finish > .tech-face {
+  background-image: radial-gradient(
+    hsl(var(--primary) / 0.3) 0.7px,
+    transparent 0.7px
+  );
+  background-size: 4px 4px;
+}
+.technology-redesign .tech-model-sheet[data-highlighted="true"] {
+  outline: 2px solid hsl(var(--brand-accent));
+  outline-offset: -3px;
+}
