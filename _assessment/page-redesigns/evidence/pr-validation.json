@@ -1,0 +1,79 @@
+{
+  "baseCommit": "668279c87def8067d1125431b176db7cb93088af",
+  "testedCodeCommit": "1500437",
+  "scope": "Rebased redesign against current main; offline fixtures; no live writes",
+  "checks": {
+    "vitest": {
+      "status": "passed",
+      "tests": 514,
+      "files": 78,
+      "newTests": 18
+    },
+    "fullAppTypeScript": "passed",
+    "selectedTypeScript": "passed",
+    "productionBuild": "passed",
+    "serviceWorker": "passed",
+    "routeAudit": "passed",
+    "smoke": "passed; optional live Edge Function reachability skipped",
+    "changedFilesLint": {
+      "status": "passed",
+      "errors": 0,
+      "warnings": 0
+    },
+    "repositoryLint": {
+      "errors": 270,
+      "warnings": 31,
+      "allowedErrors": 288,
+      "allowedWarnings": 34
+    },
+    "browserControls": "passed at 1440 and 390 px",
+    "browserIntegration": "passed at 1440 and 390 px, including all partnership and section anchors",
+    "browserTheme": "passed at 1440 and 390 px",
+    "publicBundleGate": {
+      "status": "passed",
+      "urls": 2,
+      "loadedPublicChunks": 33,
+      "failures": []
+    }
+  },
+  "focusedCapture": {
+    "urls": 2,
+    "captures": 4,
+    "pages": [
+      {
+        "path": "/company/technology",
+        "width": 1440,
+        "height": 5388,
+        "overflow": false,
+        "errors": []
+      },
+      {
+        "path": "/company/technology",
+        "width": 390,
+        "height": 8149,
+        "overflow": false,
+        "errors": []
+      },
+      {
+        "path": "/capabilities",
+        "width": 1440,
+        "height": 9396,
+        "overflow": false,
+        "errors": []
+      },
+      {
+        "path": "/capabilities",
+        "width": 390,
+        "height": 13755,
+        "overflow": false,
+        "errors": []
+      }
+    ]
+  },
+  "coverageLimits": [
+    "Full approved production replay not run; GitHub API access unavailable",
+    "Current rebase browser capture and public bundle proof cover the two redesigned URLs only",
+    "Original 86-URL comparison is historical evidence from before the latest main changes; 11 strict screenshot differences remain in that report",
+    "Firefox and Safari not exercised; external requests blocked"
+  ]
+}

@@ -1,0 +1,100 @@
+{
+  "startingCommit": "18ba4e5c843e7e7939a0ce6d581bdd24703705f8",
+  "validationScope": "Local production build; synthetic public fixtures, external requests blocked; production replay not performed",
+  "checks": {
+    "vitest": {
+      "status": "passed",
+      "files": 70,
+      "tests": 479,
+      "newTests": 18
+    },
+    "selectedTypeScript": "passed",
+    "fullAppTypeScript": "passed",
+    "productionBuild": "passed with existing dependency and large bundle warnings",
+    "serviceWorker": "passed",
+    "routeAudit": "passed",
+    "smoke": "passed; optional live Edge Function check skipped",
+    "changedFilesLint": {
+      "status": "passed",
+      "errors": 0,
+      "warnings": 0
+    },
+    "repositoryLint": {
+      "errors": 279,
+      "warnings": 32,
+      "beforeErrors": 279,
+      "beforeWarnings": 32,
+      "allowedErrors": 288,
+      "allowedWarnings": 34
+    },
+    "gitDiffCheck": "passed",
+    "publicComparison": {
+      "status": "failed",
+      "urls": 86,
+      "captures": 172,
+      "identical": 157,
+      "declared": 4,
+      "failed": 11,
+      "reason": "Remaining failures are screenshots only; 1–4 RGB levels in unchanged hero images; text, metadata, status and error checks pass"
+    },
+    "publicBundleGate": {
+      "status": "passed",
+      "urls": 86,
+      "loadedPublicChunks": 121,
+      "failures": []
+    }
+  },
+  "publicCapture": {
+    "urls": 86,
+    "captures": 172,
+    "uncaughtPageErrors": 0,
+    "schemaNormalization": "Sort JSON-LD script blocks before hashing; compare block contents strictly",
+    "consolePolicy": "Record unique error messages; compare against the offline baseline, which includes expected blocked-resource/no-row fixture errors"
+  },
+  "redesignedPages": [
+    {
+      "path": "/capabilities",
+      "width": 1440,
+      "viewportHeight": 900,
+      "beforeHeight": 10302,
+      "afterHeight": 9396,
+      "documentOverflow": false,
+      "pageErrors": []
+    },
+    {
+      "path": "/capabilities",
+      "width": 390,
+      "viewportHeight": 900,
+      "beforeHeight": 16275,
+      "afterHeight": 13755,
+      "documentOverflow": false,
+      "pageErrors": []
+    },
+    {
+      "path": "/company/technology",
+      "width": 1440,
+      "viewportHeight": 900,
+      "beforeHeight": 7041,
+      "afterHeight": 5388,
+      "documentOverflow": false,
+      "pageErrors": []
+    },
+    {
+      "path": "/company/technology",
+      "width": 390,
+      "viewportHeight": 900,
+      "beforeHeight": 9451,
+      "afterHeight": 8149,
+      "documentOverflow": false,
+      "pageErrors": []
+    }
+  ],
+  "coverageLimits": [
+    "No approved production baseline artifact available; production CI replay not run",
+    "No live CMS reads or backend/form writes",
+    "Chromium only; Firefox and Safari not exercised",
+    "External maps and analytics blocked",
+    "Mobile dark mode uses persisted theme; mobile theme toggle not exercised",
+    "Exact-pixel screenshot gate has 11 local rendering-noise failures; production replay remains unverified"
+  ]
+}

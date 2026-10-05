@@ -102,7 +102,7 @@
   },
   {
     "path": "/capabilities",
-    "reason": "Connect saved footer tagline and validated HTTPS social profiles; use owner meta defaults only where a page supplies none. Public header, hero, contact constants and credential wording remain protected.",
+    "reason": "Connect saved footer tagline and validated HTTPS social profiles; use owner meta defaults only where a page supplies none. Public header, hero, contact constants and credential wording remain protected. Owner-requested Claude Design enhancement: site model comparison, partnership charts, capability matrix, access planner, sample inspection plan and capacity range. Existing hero figures, SEO, FAQ and shared navigation retained.",
     "fields": [
       "visibleText",
       "screenshot",
@@ -162,7 +162,7 @@
   },
   {
     "path": "/company/technology",
-    "reason": "Connect saved footer tagline and validated HTTPS social profiles; use owner meta defaults only where a page supplies none. Public header, hero, contact constants and credential wording remain protected.",
+    "reason": "Connect saved footer tagline and validated HTTPS social profiles; use owner meta defaults only where a page supplies none. Public header, hero, contact constants and credential wording remain protected. Owner-requested Claude Design redesign: compact process-fact hero, interactive construction models, clearly labelled sample deliverables, process explorer and compact comparison/role cards. Existing SEO and FAQ schema retained.",
     "fields": [
       "visibleText",
       "screenshot",
