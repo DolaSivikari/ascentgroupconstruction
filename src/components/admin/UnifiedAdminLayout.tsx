@@ -1,23 +1,41 @@
-import { useState, useEffect } from 'react';
-import { Outlet, Navigate, Link, useLocation, useNavigate } from 'react-router-dom';
-import { Helmet } from 'react-helmet-async';
-import { UnifiedSidebar } from './UnifiedSidebar';
-import { useAdminAuth } from '@/hooks/useAdminAuth';
-import { Menu } from 'lucide-react';
-import { supabase } from '@/integrations/supabase/client';
-import { PageTransition } from '@/components/animations/PageTransition';
-import { NotificationBellInbox } from './NotificationBellInbox';
-import { Button } from '@/ui/Button';
-import '@/styles/admin-theme.css';
-import '@/styles/admin-sidebar.css';
-import '@/styles/admin-page-shell.css';
+import { useState, useEffect } from "react";
+import {
+  Outlet,
+  Navigate,
+  Link,
+  useLocation,
+  useNavigate,
+} from "react-router-dom";
+import { Helmet } from "react-helmet-async";
+import { UnifiedSidebar } from "./UnifiedSidebar";
+import { useAdminAuth } from "@/hooks/useAdminAuth";
+import { supabase } from "@/integrations/supabase/client";
+import { PageTransition } from "@/components/animations/PageTransition";
+import { AdminTopBar } from "./AdminTopBar";
+import { IdleTimeoutWrapper } from "./IdleTimeoutWrapper";
+import {
+  readAdminPreference,
+  writeAdminPreference,
+  type AdminTheme,
+} from "@/lib/admin/preferences";
+import { Button } from "@/ui/Button";
+import "@/styles/admin-theme.css";
+import "@/styles/admin-sidebar.css";
+import "@/styles/admin-page-shell.css";
+import "@/styles/admin-workspace.css";
 
 export const UnifiedAdminLayout = () => {
-  const { isLoading, isAdmin, isVerifying, status, user, retry } = useAdminAuth();
+  const { isLoading, isAdmin, isVerifying, status, user, retry } =
+    useAdminAuth();
   const location = useLocation();
   const navigate = useNavigate();
   const [loadingTime, setLoadingTime] = useState(0);
-  const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(
+    () => readAdminPreference("admin-sidebar-collapsed", "false") === "true",
+  );
+  const [theme, setTheme] = useState<AdminTheme>(() =>
+    readAdminPreference("admin-theme", "light") === "dark" ? "dark" : "light",
+  );
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [signingOut, setSigningOut] = useState(false);
   const [signOutError, setSignOutError] = useState(false);
@@ -28,7 +46,7 @@ export const UnifiedAdminLayout = () => {
     try {
       const { error } = await supabase.auth.signOut();
       if (error) throw error;
-      navigate('/', { replace: true });
+      navigate("/", { replace: true });
     } catch {
       setSignOutError(true);
     } finally {
@@ -36,13 +54,33 @@ export const UnifiedAdminLayout = () => {
     }
   };
 
-  // Apply body-level dark theme variables for portal-based components (Radix portals)
   useEffect(() => {
-    document.body.classList.add('admin-dark-portal');
+    document.body.dataset.adminTheme = theme;
+    writeAdminPreference("admin-theme", theme);
     return () => {
-      document.body.classList.remove('admin-dark-portal');
+      delete document.body.dataset.adminTheme;
     };
-  }, []);
+  }, [theme]);
+  useEffect(() => {
+    writeAdminPreference("admin-sidebar-collapsed", String(sidebarCollapsed));
+  }, [sidebarCollapsed]);
+  useEffect(() => {
+    setMobileMenuOpen(false);
+  }, [location.pathname]);
+
+  useEffect(() => {
+    if (!mobileMenuOpen) return;
+    const overflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    const close = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setMobileMenuOpen(false);
+    };
+    window.addEventListener("keydown", close);
+    return () => {
+      document.body.style.overflow = overflow;
+      window.removeEventListener("keydown", close);
+    };
+  }, [mobileMenuOpen]);
 
   // Track loading time
   useEffect(() => {
@@ -67,10 +105,12 @@ export const UnifiedAdminLayout = () => {
           <div className="space-y-2">
             <p className="text-lg font-medium">Verifying access...</p>
             {loadingTime > 3000 && (
-              <p className="text-sm text-warning">Taking longer than usual...</p>
+              <p className="text-sm text-warning">
+                Taking longer than usual...
+              </p>
             )}
             {loadingTime > 5000 && (
-              <button 
+              <button
                 onClick={retry}
                 className="mt-4 px-4 py-2 bg-info hover:bg-info text-white rounded-md transition-colors"
               >
@@ -84,63 +124,93 @@ export const UnifiedAdminLayout = () => {
   }
 
   if (!isAdmin) {
-    if (status === 'signed-out') {
+    if (status === "signed-out") {
       const destination = location.pathname + location.search + location.hash;
-      return <Navigate to={`/tekev?next=${encodeURIComponent(destination)}`} replace />;
+      return (
+        <Navigate
+          to={`/tekev?next=${encodeURIComponent(destination)}`}
+          replace
+        />
+      );
     }
     return (
       <main className="min-h-screen bg-background text-foreground flex items-center justify-center p-6">
-        <Helmet><title>Admin access | Ascent Group Construction</title><meta name="robots" content="noindex, nofollow" /></Helmet>
+        <Helmet>
+          <title>Admin access | Ascent Group Construction</title>
+          <meta name="robots" content="noindex, nofollow" />
+        </Helmet>
         <div className="max-w-md w-full rounded-lg border border-border bg-card p-8 space-y-5">
-          <h1 className="text-2xl font-semibold">{status === 'denied' ? 'Admin access required' : 'Unable to verify admin access'}</h1>
+          <h1 className="text-2xl font-semibold">
+            {status === "denied"
+              ? "Admin access required"
+              : "Unable to verify admin access"}
+          </h1>
           <p className="text-muted-foreground">
-            {status === 'denied'
-              ? 'You are signed in, but this account does not have permission to use the admin panel.'
-              : 'We could not verify your permissions. Check your connection and try again.'}
+            {status === "denied"
+              ? "You are signed in, but this account does not have permission to use the admin panel."
+              : "We could not verify your permissions. Check your connection and try again."}
           </p>
           <div className="flex flex-wrap gap-3">
-            {status === 'error' && <Button onClick={retry}>Try again</Button>}
-            <Button asChild variant="outline"><Link to="/">Return to website</Link></Button>
-            {user && <Button onClick={handleSignOut} disabled={signingOut}>{signingOut ? 'Signing out…' : 'Sign out'}</Button>}
+            {status === "error" && <Button onClick={retry}>Try again</Button>}
+            <Button asChild variant="outline">
+              <Link to="/">Return to website</Link>
+            </Button>
+            {user && (
+              <Button onClick={handleSignOut} disabled={signingOut}>
+                {signingOut ? "Signing out…" : "Sign out"}
+              </Button>
+            )}
           </div>
-          {signOutError && <p role="alert" className="text-sm text-destructive">Could not sign out. Please try again.</p>}
+          {signOutError && (
+            <p role="alert" className="text-sm text-destructive">
+              Could not sign out. Please try again.
+            </p>
+          )}
         </div>
       </main>
     );
   }
 
   return (
-    <div className="business-admin-container admin-dark-theme">
-      <Helmet><meta name="robots" content="noindex, nofollow" /></Helmet>
-      <UnifiedSidebar
-        collapsed={sidebarCollapsed} 
-        onToggle={() => setSidebarCollapsed(!sidebarCollapsed)}
-        mobileOpen={mobileMenuOpen}
-        onMobileClose={() => setMobileMenuOpen(false)}
-      />
-      <div className={`business-main-content ${sidebarCollapsed ? 'sidebar-collapsed' : ''}`}>
-        <header className="bg-background border-b border-border px-6 py-4 flex items-center justify-between">
-          <button 
-            onClick={() => setMobileMenuOpen(true)}
-            aria-label="Open admin navigation"
-            className="lg:hidden p-2 hover:bg-muted rounded-md"
-          >
-            <Menu className="w-6 h-6" />
-          </button>
-          <div className="flex items-center gap-4 ml-auto">
-            {isVerifying && <span role="status" className="sr-only">Verifying admin access</span>}
-            <NotificationBellInbox />
-            <span className="text-sm text-muted-foreground">{user?.email}</span>
+    <IdleTimeoutWrapper>
+      <div className="business-admin-container" data-admin-theme={theme}>
+        <Helmet>
+          <meta name="robots" content="noindex, nofollow" />
+        </Helmet>
+        <UnifiedSidebar
+          collapsed={sidebarCollapsed && !mobileMenuOpen}
+          onToggle={() => setSidebarCollapsed(!sidebarCollapsed)}
+          mobileOpen={mobileMenuOpen}
+          onMobileClose={() => setMobileMenuOpen(false)}
+        />
+        <div
+          className={`business-main-content ${sidebarCollapsed ? "sidebar-collapsed" : ""}`}
+        >
+          <AdminTopBar
+            theme={theme}
+            onThemeChange={() => setTheme(theme === "light" ? "dark" : "light")}
+            onOpenMenu={() => setMobileMenuOpen(true)}
+            email={user?.email}
+            onSignOut={handleSignOut}
+            signingOut={signingOut}
+          />
+          {isVerifying && (
+            <span role="status" className="sr-only">
+              Verifying admin access
+            </span>
+          )}
+          {signOutError && (
+            <p role="alert" className="p-4 text-destructive">
+              Could not sign out. Please try again.
+            </p>
+          )}
+          <div className="business-page-content">
+            <PageTransition type="fade" duration={300}>
+              <Outlet />
+            </PageTransition>
           </div>
-        </header>
-        <div className="business-page-content">
-          <PageTransition type="fade" duration={300}>
-            <Outlet />
-          </PageTransition>
         </div>
       </div>
-      
-
-    </div>
+    </IdleTimeoutWrapper>
   );
 };

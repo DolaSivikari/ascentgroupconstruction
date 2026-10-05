@@ -1,3 +1,4 @@
+import { MemoryRouter } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { cleanup, render, screen, waitFor } from "@testing-library/react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
@@ -60,7 +61,9 @@ const open = () =>
         new QueryClient({ defaultOptions: { queries: { retry: false } } })
       }
     >
-      <Monitoring />
+      <MemoryRouter>
+        <Monitoring />
+      </MemoryRouter>
     </QueryClientProvider>,
   );
 describe("truthful monitoring", () => {
@@ -86,7 +89,7 @@ describe("truthful monitoring", () => {
   it("shows failed reads as unavailable rather than zero or healthy", async () => {
     mock.error = true;
     open();
-    await waitFor(() => expect(screen.getAllByRole("alert")).toHaveLength(2));
+    await waitFor(() => expect(screen.getAllByRole("alert")).toHaveLength(1));
     expect(screen.getAllByText("Unavailable").length).toBe(3);
     expect(screen.queryByText("No errors logged")).toBeNull();
     expect(screen.queryByText("No errors reported in 24 hours")).toBeNull();

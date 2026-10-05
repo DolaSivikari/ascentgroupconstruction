@@ -1,3 +1,6 @@
+import { ContentRowActions } from "@/components/admin/ContentRowActions";
+import { ListControls, ListPagination } from "@/components/admin/ListControls";
+import { useContentList } from "@/hooks/useContentList";
 import { useState, useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
@@ -9,9 +12,28 @@ import { Input } from "@/ui/Input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Switch } from "@/components/ui/switch";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 import { Plus, Edit, Trash2, Download, FileText, Calendar } from "lucide-react";
 import { format } from "date-fns";
 import { AdminPageLayout } from "@/components/admin/AdminPageLayout";
@@ -40,6 +62,7 @@ interface Document {
   display_order: number;
   download_count: number;
   created_at: string;
+  updated_at?: string;
 }
 
 const categoryLabels: Record<string, string> = {
@@ -48,18 +71,22 @@ const categoryLabels: Record<string, string> = {
   "capability-statement": "Capability Statements",
   safety: "Safety Documentation",
   certifications: "Certifications",
-  other: "Other"
+  other: "Other",
 };
 
 export default function DocumentsLibrary() {
   const { isLoading, isAdmin } = useAdminAuth();
   const { toast } = useToast();
   const [documents, setDocuments] = useState<Document[]>([]);
+  const list = useContentList(documents);
+  const [loadError, setLoadError] = useState("");
   const [loading, setLoading] = useState(true);
   const [dialogOpen, setDialogOpen] = useState(false);
   const [editingDoc, setEditingDoc] = useState<Document | null>(null);
   const [uploading, setUploading] = useState(false);
-  const [documentToDelete, setDocumentToDelete] = useState<Document | null>(null);
+  const [documentToDelete, setDocumentToDelete] = useState<Document | null>(
+    null,
+  );
   const [deleting, setDeleting] = useState(false);
 
   const [formData, setFormData] = useState({
@@ -71,7 +98,7 @@ export default function DocumentsLibrary() {
     is_active: true,
     requires_authentication: false,
     expiry_date: "",
-    display_order: 0
+    display_order: 0,
   });
 
   useEffect(() => {
@@ -81,17 +108,24 @@ export default function DocumentsLibrary() {
   }, [isLoading, isAdmin]);
 
   const fetchDocuments = async () => {
+    setLoadError("");
+    setLoading(true);
     try {
       const { data, error } = await supabase
-        .from('documents_library')
-        .select('*')
-        .order('category')
-        .order('display_order');
+        .from("documents_library")
+        .select("*")
+        .order("category")
+        .order("display_order");
 
       if (error) throw error;
       setDocuments(data || []);
     } catch (error: any) {
-      toast({ title: "Error", description: error.message, variant: "destructive" });
+      setLoadError("Could not load documents. " + error.message);
+      toast({
+        title: "Error",
+        description: error.message,
+        variant: "destructive",
+      });
     } finally {
       setLoading(false);
     }
@@ -103,14 +137,17 @@ export default function DocumentsLibrary() {
     }
   };
 
-  const uploadFile = async (file: File, requiresAuth: boolean): Promise<string> => {
-    const fileExt = file.name.split('.').pop();
+  const uploadFile = async (
+    file: File,
+    requiresAuth: boolean,
+  ): Promise<string> => {
+    const fileExt = file.name.split(".").pop();
     const fileName = `${Date.now()}-${Math.random().toString(36).substring(7)}.${fileExt}`;
     const filePath = `${fileName}`;
 
     // Documents flagged as sign-in only go to the private bucket and are served
     // through short-lived signed URLs instead of a public link.
-    const bucket = requiresAuth ? RESTRICTED_BUCKET : 'documents';
+    const bucket = requiresAuth ? RESTRICTED_BUCKET : "documents";
 
     const { error: uploadError } = await supabase.storage
       .from(bucket)
@@ -122,9 +159,9 @@ export default function DocumentsLibrary() {
       return `${RESTRICTED_PREFIX}${filePath}`;
     }
 
-    const { data: { publicUrl } } = supabase.storage
-      .from('documents')
-      .getPublicUrl(filePath);
+    const {
+      data: { publicUrl },
+    } = supabase.storage.from("documents").getPublicUrl(filePath);
 
     return publicUrl;
   };
@@ -132,22 +169,31 @@ export default function DocumentsLibrary() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!formData.file && !editingDoc) {
-      toast({ title: "Error", description: "Please select a file", variant: "destructive" });
+      toast({
+        title: "Error",
+        description: "Please select a file",
+        variant: "destructive",
+      });
       return;
     }
 
     try {
       setUploading(true);
-      const { data: { user } } = await supabase.auth.getUser();
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
       if (!user) throw new Error("Not authenticated");
 
-      let file_url = editingDoc?.file_url || '';
-      let file_name = editingDoc?.file_name || '';
+      let file_url = editingDoc?.file_url || "";
+      let file_name = editingDoc?.file_name || "";
       let file_size = editingDoc?.file_size || 0;
-      let file_type = editingDoc?.file_type || '';
+      let file_type = editingDoc?.file_type || "";
 
       if (formData.file) {
-        file_url = await uploadFile(formData.file, formData.requires_authentication);
+        file_url = await uploadFile(
+          formData.file,
+          formData.requires_authentication,
+        );
         file_name = formData.file.name;
         file_size = formData.file.size;
         file_type = formData.file.type;
@@ -166,26 +212,35 @@ export default function DocumentsLibrary() {
         requires_authentication: formData.requires_authentication,
         expiry_date: formData.expiry_date || null,
         display_order: formData.display_order,
-        ...(editingDoc ? { updated_by: user.id } : { created_by: user.id })
+        ...(editingDoc ? { updated_by: user.id } : { created_by: user.id }),
       };
 
       if (editingDoc) {
         const { error } = await supabase
-          .from('documents_library')
+          .from("documents_library")
           .update(payload)
-          .eq('id', editingDoc.id);
+          .eq("id", editingDoc.id);
         if (error) throw error;
       } else {
-        const { error } = await supabase.from('documents_library').insert([payload]);
+        const { error } = await supabase
+          .from("documents_library")
+          .insert([payload]);
         if (error) throw error;
       }
 
-      toast({ title: "Success", description: `Document ${editingDoc ? 'updated' : 'uploaded'} successfully` });
+      toast({
+        title: "Success",
+        description: `Document ${editingDoc ? "updated" : "uploaded"} successfully`,
+      });
       setDialogOpen(false);
       resetForm();
       fetchDocuments();
     } catch (error: any) {
-      toast({ title: "Error", description: error.message, variant: "destructive" });
+      toast({
+        title: "Error",
+        description: error.message,
+        variant: "destructive",
+      });
     } finally {
       setUploading(false);
     }
@@ -195,32 +250,67 @@ export default function DocumentsLibrary() {
     if (deleting) return;
     setDeleting(true);
     try {
-      const { error } = await supabase.from('documents_library').delete().eq('id', id);
+      const { error } = await supabase
+        .from("documents_library")
+        .delete()
+        .eq("id", id);
       if (error) throw error;
-      
+
+      // A duplicated document shares its file. Retain it while any record uses it.
+      const references = await supabase
+        .from("documents_library")
+        .select("id")
+        .eq("file_url", fileUrl)
+        .limit(1);
+      if (references.error || references.data?.length) {
+        toast({
+          title: "Document record deleted",
+          description: "The shared file was retained in storage.",
+        });
+        await fetchDocuments();
+        return;
+      }
       // Optionally delete file from storage
       let cleanupError: { message: string } | null = null;
       try {
         if (isRestrictedDocument(fileUrl)) {
-          const result = await supabase.storage.from(RESTRICTED_BUCKET).remove([restrictedPath(fileUrl)]);
+          const result = await supabase.storage
+            .from(RESTRICTED_BUCKET)
+            .remove([restrictedPath(fileUrl)]);
           cleanupError = result.error;
         } else {
-          const path = fileUrl.split('/documents/')[1];
+          const path = fileUrl.split("/documents/")[1];
           if (path) {
-            const result = await supabase.storage.from('documents').remove([path]);
+            const result = await supabase.storage
+              .from("documents")
+              .remove([path]);
             cleanupError = result.error;
           }
         }
       } catch (error) {
-        cleanupError = { message: error instanceof Error ? error.message : "Storage cleanup failed" };
+        cleanupError = {
+          message:
+            error instanceof Error ? error.message : "Storage cleanup failed",
+        };
       }
-      
-      toast(cleanupError
-        ? { title: "Document record deleted", description: "The stored file could not be removed. Please remove it from the storage library.", variant: "destructive" }
-        : { title: "Success", description: "Document deleted successfully" });
+
+      toast(
+        cleanupError
+          ? {
+              title: "Document record deleted",
+              description:
+                "The stored file could not be removed. Please remove it from the storage library.",
+              variant: "destructive",
+            }
+          : { title: "Success", description: "Document deleted successfully" },
+      );
       fetchDocuments();
     } catch (error: any) {
-      toast({ title: "Error", description: error.message, variant: "destructive" });
+      toast({
+        title: "Error",
+        description: error.message,
+        variant: "destructive",
+      });
     } finally {
       setDeleting(false);
     }
@@ -237,7 +327,7 @@ export default function DocumentsLibrary() {
       is_active: doc.is_active,
       requires_authentication: doc.requires_authentication,
       expiry_date: doc.expiry_date || "",
-      display_order: doc.display_order
+      display_order: doc.display_order,
     });
     setDialogOpen(true);
   };
@@ -253,7 +343,7 @@ export default function DocumentsLibrary() {
       is_active: true,
       requires_authentication: false,
       expiry_date: "",
-      display_order: 0
+      display_order: 0,
     });
   };
 
@@ -269,74 +359,158 @@ export default function DocumentsLibrary() {
 
   return (
     <AdminPageLayout
+      error={loadError}
       title="Documents Library"
       description="Manage downloadable documents and resources"
       actions={
-        <Dialog open={dialogOpen} onOpenChange={(open) => { setDialogOpen(open); if (!open) resetForm(); }}>
+        <Dialog
+          open={dialogOpen}
+          onOpenChange={(open) => {
+            setDialogOpen(open);
+            if (!open) resetForm();
+          }}
+        >
           <DialogTrigger asChild>
-            <Button><Plus className="w-4 h-4 mr-2" />Upload Document</Button>
+            <Button>
+              <Plus className="w-4 h-4 mr-2" />
+              Upload Document
+            </Button>
           </DialogTrigger>
           <DialogContent className="max-w-2xl">
             <DialogHeader>
-              <DialogTitle>{editingDoc ? 'Edit' : 'Upload'} Document</DialogTitle>
+              <DialogTitle>
+                {editingDoc ? "Edit" : "Upload"} Document
+              </DialogTitle>
             </DialogHeader>
             <form onSubmit={handleSubmit} className="space-y-4">
               <div>
                 <Label>Title *</Label>
-                <Input required value={formData.title} onChange={(e) => setFormData({ ...formData, title: e.target.value })} />
+                <Input
+                  required
+                  value={formData.title}
+                  onChange={(e) =>
+                    setFormData({ ...formData, title: e.target.value })
+                  }
+                />
               </div>
               <div>
                 <Label>Description</Label>
-                <Textarea rows={3} value={formData.description} onChange={(e) => setFormData({ ...formData, description: e.target.value })} />
+                <Textarea
+                  rows={3}
+                  value={formData.description}
+                  onChange={(e) =>
+                    setFormData({ ...formData, description: e.target.value })
+                  }
+                />
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <Label>Category *</Label>
-                  <Select value={formData.category} onValueChange={(value) => setFormData({ ...formData, category: value })}>
+                  <Select
+                    value={formData.category}
+                    onValueChange={(value) =>
+                      setFormData({ ...formData, category: value })
+                    }
+                  >
                     <SelectTrigger>
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
                       {Object.entries(categoryLabels).map(([value, label]) => (
-                        <SelectItem key={value} value={value}>{label}</SelectItem>
+                        <SelectItem key={value} value={value}>
+                          {label}
+                        </SelectItem>
                       ))}
                     </SelectContent>
                   </Select>
                 </div>
                 <div>
                   <Label>Version</Label>
-                  <Input value={formData.version} onChange={(e) => setFormData({ ...formData, version: e.target.value })} />
+                  <Input
+                    value={formData.version}
+                    onChange={(e) =>
+                      setFormData({ ...formData, version: e.target.value })
+                    }
+                  />
                 </div>
               </div>
               <div>
-                <Label>File {editingDoc && '(leave empty to keep current file)'}</Label>
-                <Input type="file" onChange={handleFileSelect} accept=".pdf,.doc,.docx,.xls,.xlsx" />
-                {editingDoc && <p className="text-xs text-muted-foreground mt-1">Current: {editingDoc.file_name}</p>}
+                <Label>
+                  File {editingDoc && "(leave empty to keep current file)"}
+                </Label>
+                <Input
+                  type="file"
+                  onChange={handleFileSelect}
+                  accept=".pdf,.doc,.docx,.xls,.xlsx"
+                />
+                {editingDoc && (
+                  <p className="text-xs text-muted-foreground mt-1">
+                    Current: {editingDoc.file_name}
+                  </p>
+                )}
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <Label>Expiry Date</Label>
-                  <Input type="date" value={formData.expiry_date} onChange={(e) => setFormData({ ...formData, expiry_date: e.target.value })} />
+                  <Input
+                    type="date"
+                    value={formData.expiry_date}
+                    onChange={(e) =>
+                      setFormData({ ...formData, expiry_date: e.target.value })
+                    }
+                  />
                 </div>
                 <div>
                   <Label>Display Order</Label>
-                  <Input type="number" value={formData.display_order} onChange={(e) => setFormData({ ...formData, display_order: parseInt(e.target.value) || 0 })} />
+                  <Input
+                    type="number"
+                    value={formData.display_order}
+                    onChange={(e) =>
+                      setFormData({
+                        ...formData,
+                        display_order: parseInt(e.target.value) || 0,
+                      })
+                    }
+                  />
                 </div>
               </div>
               <div className="flex gap-4">
                 <div className="flex items-center space-x-2">
-                  <Switch checked={formData.is_active} onCheckedChange={(checked) => setFormData({ ...formData, is_active: checked })} />
+                  <Switch
+                    checked={formData.is_active}
+                    onCheckedChange={(checked) =>
+                      setFormData({ ...formData, is_active: checked })
+                    }
+                  />
                   <Label>Active</Label>
                 </div>
                 <div className="flex items-center space-x-2">
-                  <Switch checked={formData.requires_authentication} onCheckedChange={(checked) => setFormData({ ...formData, requires_authentication: checked })} />
+                  <Switch
+                    checked={formData.requires_authentication}
+                    onCheckedChange={(checked) =>
+                      setFormData({
+                        ...formData,
+                        requires_authentication: checked,
+                      })
+                    }
+                  />
                   <Label>Requires Login</Label>
                 </div>
               </div>
               <div className="flex gap-2 justify-end">
-                <Button type="button" variant="outline" onClick={() => setDialogOpen(false)}>Cancel</Button>
+                <Button
+                  type="button"
+                  variant="outline"
+                  onClick={() => setDialogOpen(false)}
+                >
+                  Cancel
+                </Button>
                 <Button type="submit" disabled={uploading}>
-                  {uploading ? 'Uploading...' : (editingDoc ? 'Update' : 'Upload')}
+                  {uploading
+                    ? "Uploading..."
+                    : editingDoc
+                      ? "Update"
+                      : "Upload"}
                 </Button>
               </div>
             </form>
@@ -344,76 +518,105 @@ export default function DocumentsLibrary() {
         </Dialog>
       }
     >
+      <ListControls
+        search={list.search}
+        onSearch={list.setSearch}
+        status={list.status}
+        onStatus={list.setStatus}
+        sort={list.sort}
+        onSort={list.setSort}
+      />
       <Card>
-            <CardHeader>
-              <CardTitle>Documents ({documents.length})</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead>Title</TableHead>
-                    <TableHead>Category</TableHead>
-                    <TableHead>Version</TableHead>
-                    <TableHead>Downloads</TableHead>
-                    <TableHead>Expires</TableHead>
-                    <TableHead>Status</TableHead>
-                    <TableHead>Actions</TableHead>
+        <CardHeader>
+          <CardTitle>Documents ({documents.length})</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead>Title</TableHead>
+                <TableHead>Category</TableHead>
+                <TableHead>Updated</TableHead>
+                <TableHead>Version</TableHead>
+                <TableHead>Downloads</TableHead>
+                <TableHead>Expires</TableHead>
+                <TableHead>Status</TableHead>
+                <TableHead>Actions</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {documents.length === 0 ? (
+                <TableRow>
+                  <TableCell
+                    colSpan={7}
+                    className="text-center py-8 text-muted-foreground"
+                  >
+                    No documents uploaded yet
+                  </TableCell>
+                </TableRow>
+              ) : (
+                list.rows.map((doc) => (
+                  <TableRow key={doc.id}>
+                    <TableCell className="font-medium">
+                      <div className="flex items-center gap-2">
+                        <FileText className="w-4 h-4" />
+                        {doc.title}
+                      </div>
+                    </TableCell>
+                    <TableCell>{categoryLabels[doc.category]}</TableCell>
+                    <TableCell className="text-sm">
+                      {doc.updated_at
+                        ? new Date(doc.updated_at).toLocaleDateString()
+                        : "date not recorded"}
+                    </TableCell>
+                    <TableCell>{doc.version}</TableCell>
+                    <TableCell>{doc.download_count}</TableCell>
+                    <TableCell>
+                      {doc.expiry_date
+                        ? format(new Date(doc.expiry_date), "MMM d, yyyy")
+                        : "-"}
+                    </TableCell>
+                    <TableCell>
+                      {doc.is_active ? (
+                        <Badge variant="success">Active</Badge>
+                      ) : (
+                        <Badge variant="inactive">Inactive</Badge>
+                      )}
+                    </TableCell>
+                    <TableCell>
+                      <ContentRowActions
+                        table="documents_library"
+                        id={doc.id}
+                        title={doc.title}
+                        state={doc.is_active ? "published" : "draft"}
+                        documentUrl={doc.file_url}
+                        onEdit={() => openEditDialog(doc)}
+                        onDelete={() => setDocumentToDelete(doc)}
+                        onDone={() => void fetchDocuments()}
+                      />
+                    </TableCell>
                   </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {documents.length === 0 ? (
-                    <TableRow>
-                      <TableCell colSpan={7} className="text-center py-8 text-muted-foreground">
-                        No documents uploaded yet
-                      </TableCell>
-                    </TableRow>
-                  ) : (
-                    documents.map((doc) => (
-                      <TableRow key={doc.id}>
-                        <TableCell className="font-medium">
-                          <div className="flex items-center gap-2">
-                            <FileText className="w-4 h-4" />
-                            {doc.title}
-                          </div>
-                        </TableCell>
-                        <TableCell>{categoryLabels[doc.category]}</TableCell>
-                        <TableCell>{doc.version}</TableCell>
-                        <TableCell>{doc.download_count}</TableCell>
-                        <TableCell>
-                          {doc.expiry_date ? format(new Date(doc.expiry_date), 'MMM d, yyyy') : '-'}
-                        </TableCell>
-                        <TableCell>
-                          {doc.is_active ? (
-                            <Badge variant="success">Active</Badge>
-                          ) : (
-                            <Badge variant="inactive">Inactive</Badge>
-                          )}
-                        </TableCell>
-                        <TableCell>
-                          <div className="flex gap-1">
-                            <Button variant="ghost" size="sm" onClick={() => { openDocumentUrl(doc.file_url).catch(() => undefined); }}>
-                              <Download className="w-4 h-4" />
-                            </Button>
-                            <Button variant="ghost" size="sm" onClick={() => openEditDialog(doc)}>
-                              <Edit className="w-4 h-4" />
-                            </Button>
-                            <Button variant="ghost" size="sm" disabled={deleting} aria-label={`Delete ${doc.title}`} onClick={() => setDocumentToDelete(doc)}>
-                              <Trash2 className="w-4 h-4 text-destructive" />
-                            </Button>
-                          </div>
-                        </TableCell>
-                      </TableRow>
-                    ))
-                  )}
-                </TableBody>
-              </Table>
-            </CardContent>
+                ))
+              )}
+            </TableBody>
+          </Table>
+        </CardContent>
       </Card>
+      <ListPagination
+        page={list.page}
+        pages={list.pages}
+        count={list.count}
+        onPage={list.setPage}
+      />
       <ConfirmDialog
         open={!!documentToDelete}
-        onOpenChange={(open) => { if (!open) setDocumentToDelete(null); }}
-        onConfirm={() => { if (documentToDelete) void handleDelete(documentToDelete.id, documentToDelete.file_url); }}
+        onOpenChange={(open) => {
+          if (!open) setDocumentToDelete(null);
+        }}
+        onConfirm={() => {
+          if (documentToDelete)
+            void handleDelete(documentToDelete.id, documentToDelete.file_url);
+        }}
         title="Delete Document"
         description={`Delete “${documentToDelete?.title}” and its stored file? This action cannot be undone.`}
         confirmText="Delete"

@@ -1,3 +1,8 @@
+import { EditorActions } from "@/components/admin/EditorActions";
+import { LocalDraftRecovery } from "@/components/admin/LocalDraftRecovery";
+import { ProcessStepsEditor } from "@/components/admin/ProcessStepsEditor";
+import { useLocalDraft } from "@/hooks/useLocalDraft";
+import { useSlugAvailability } from "@/hooks/useSlugAvailability";
 import { useEffect, useState, useRef } from "react";
 import type { Database } from "@/integrations/supabase/types";
 import { supabase } from "@/integrations/supabase/client";
@@ -84,6 +89,18 @@ const BlogPostEditor = () => {
   const [ready, setReady] = useState(isNewPost);
   const [formData, setFormData] = useState(INITIAL_BLOG_FORM);
   const loadSequence = useRef(0);
+  const [serverSavedAt, setServerSavedAt] = useState<Date | null>(null);
+  const draftKey = `blog-draft-${id || "new"}`;
+  const localDraft = useLocalDraft(
+    formData,
+    draftKey,
+    ready && hasUnsavedChanges,
+  );
+  const slugAvailability = useSlugAvailability(
+    "blog_posts",
+    formData.slug || normalizeSlug(formData.title),
+    id,
+  );
 
   useEffect(() => {
     void checkAuth();
@@ -168,6 +185,14 @@ const BlogPostEditor = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (slugAvailability.checking || !slugAvailability.available) {
+      toast({
+        title: "Check the slug",
+        description: slugAvailability.message,
+        variant: "destructive",
+      });
+      return;
+    }
     if (!ready || saving) return;
 
     if (
@@ -242,7 +267,8 @@ const BlogPostEditor = () => {
             ? nullableDate(formData.published_at) || new Date().toISOString()
             : null,
         content_type: formData.content_type,
-        ...(formData.content_type === "case-study" && {
+        ...((formData.content_type === "case-study" ||
+          formData.content_type === "case_study") && {
           project_location: formData.project_location,
           project_size: formData.project_size,
           project_duration: formData.project_duration,
@@ -288,7 +314,9 @@ const BlogPostEditor = () => {
 
         setHasUnsavedChanges(false);
         markSaved();
-        navigate("/admin/blog");
+        localDraft.clearLocalStorage();
+        setServerSavedAt(new Date());
+        if (isNewPost) navigate(`/admin/blog/${data.id}`, { replace: true });
       }
     } catch (error) {
       toast({
@@ -337,47 +365,95 @@ const BlogPostEditor = () => {
         variant="destructive"
       />
       <div className="min-h-screen bg-muted/30">
-        <header className="border-b bg-background">
-          <div className="container mx-auto px-4 py-4">
-            <div className="flex flex-wrap items-center justify-between gap-3">
-              <div className="flex items-center gap-4">
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  onClick={() => navigate("/admin/blog")}
-                >
-                  <ArrowLeft className="h-4 w-4 mr-2" />
-                  Back
-                </Button>
-                <h1 className="text-2xl font-bold">
-                  {isNewPost ? "New Blog Post" : "Edit Blog Post"}
-                </h1>
-              </div>
-              <div className="flex gap-2">
-                {!isNewPost && (
-                  <Button
-                    variant="outline"
-                    onClick={handlePreview}
-                    type="button"
-                  >
-                    <Eye className="h-4 w-4 mr-2" />
-                    Preview Draft
-                  </Button>
-                )}
-                <Button
-                  type="submit"
-                  form="blog-editor-form"
-                  disabled={!ready || saving}
-                >
-                  <Save className="h-4 w-4 mr-2" />
-                  Save
-                </Button>
-              </div>
-            </div>
-          </div>
-        </header>
-
+        <EditorActions
+          title={isNewPost ? "New blog post" : "Edit blog post"}
+          state={formData.publish_state}
+          onStateChange={(publish_state) => handleFormChange({ publish_state })}
+          formId="blog-editor-form"
+          disabled={
+            !ready ||
+            saving ||
+            slugAvailability.checking ||
+            !slugAvailability.available
+          }
+          onPreview={!isNewPost ? handlePreview : undefined}
+          savedAt={serverSavedAt}
+          draftAt={localDraft.lastSaved}
+        />
         <main className="container mx-auto px-4 py-8 max-w-4xl">
+          <LocalDraftRecovery
+            storageKey={draftKey}
+            load={localDraft.loadFromLocalStorage}
+            discard={localDraft.clearLocalStorage}
+            restore={(value) => {
+              setFormData(value);
+              setHasUnsavedChanges(true);
+            }}
+          />
+          {localDraft.error && (
+            <p role="alert" className="text-destructive">
+              {localDraft.error}
+            </p>
+          )}
+          <p role="status" className="text-sm mb-3">
+            {slugAvailability.message}
+          </p>
+          <nav aria-label="Blog editor sections" className="admin-blog-outline">
+            <label className="sr-only" htmlFor="blog-section-selector">
+              Jump to blog section
+            </label>
+            <select
+              id="blog-section-selector"
+              className="lg:hidden border rounded-md bg-background px-3 py-2 mb-4 w-full"
+              defaultValue=""
+              onChange={(event) =>
+                document
+                  .getElementById(event.target.value)
+                  ?.scrollIntoView({ behavior: "smooth" })
+              }
+            >
+              <option value="" disabled>
+                Jump to section
+              </option>
+              {[
+                "Basics",
+                "Content",
+                "Images",
+                "Details",
+                "SEO",
+                ...(["case-study", "case_study"].includes(formData.content_type)
+                  ? ["Case study"]
+                  : []),
+              ].map((label) => (
+                <option
+                  key={label}
+                  value={`blog-${label.toLowerCase().replace(/ /g, "-")}`}
+                >
+                  {label}
+                </option>
+              ))}
+            </select>
+            <div className="hidden lg:flex lg:flex-col gap-2">
+              {[
+                "Basics",
+                "Content",
+                "Images",
+                "Details",
+                "SEO",
+                ...(["case-study", "case_study"].includes(formData.content_type)
+                  ? ["Case study"]
+                  : []),
+              ].map((label) => (
+                <a
+                  key={label}
+                  className="text-sm rounded-md px-3 py-2 hover:bg-muted"
+                  href={`#blog-${label.toLowerCase().replace(/ /g, "-")}`}
+                >
+                  {label}
+                </a>
+              ))}
+            </div>
+          </nav>
           <form
             id="blog-editor-form"
             onSubmit={handleSubmit}
@@ -386,7 +462,9 @@ const BlogPostEditor = () => {
             <fieldset disabled={!ready || saving} className="space-y-6 min-w-0">
               <Card>
                 <CardHeader>
-                  <CardTitle>Basic Information</CardTitle>
+                  <CardTitle id="blog-basics" className="admin-editor-section">
+                    Basic Information
+                  </CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-4">
                   <div>
@@ -437,7 +515,7 @@ const BlogPostEditor = () => {
                   </div>
 
                   <RichTextEditor
-                    id="content"
+                    id="blog-content"
                     label="Content *"
                     value={formData.content || ""}
                     onChange={(value) => handleFormChange({ content: value })}
@@ -447,7 +525,10 @@ const BlogPostEditor = () => {
                     maxLength={50000}
                   />
 
-                  <div className="grid sm:grid-cols-2 gap-4">
+                  <div
+                    id="blog-details"
+                    className="admin-editor-section grid sm:grid-cols-2 gap-4"
+                  >
                     <div>
                       <Label htmlFor="content_type">Content Type</Label>
                       <Select
@@ -578,6 +659,7 @@ const BlogPostEditor = () => {
                     />
                   </div>
 
+                  <div id="blog-images" className="admin-editor-section" />
                   <ImageUploadField
                     value={formData.featured_image}
                     onChange={(url) =>
@@ -586,44 +668,14 @@ const BlogPostEditor = () => {
                     bucket="project-images"
                     label="Featured Image"
                   />
-
-                  <div>
-                    <div className="flex items-center gap-2">
-                      <Label htmlFor="publish_state">Publishing Status</Label>
-                      <span className="text-xs text-muted-foreground">
-                        {formData.publish_state === "draft" &&
-                          "(Not visible to public)"}
-                        {(formData.publish_state as string) === "review" &&
-                          "(Awaiting approval)"}
-                        {formData.publish_state === "published" &&
-                          "(Live on site)"}
-                      </span>
-                    </div>
-                    <Select
-                      value={formData.publish_state}
-                      onValueChange={(value: typeof formData.publish_state) =>
-                        handleFormChange({ publish_state: value })
-                      }
-                    >
-                      <SelectTrigger id="publish_state">
-                        <SelectValue />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="draft">📝 Draft</SelectItem>
-                        <SelectItem value="review">
-                          👀 Ready for Review
-                        </SelectItem>
-                        <SelectItem value="published">✅ Published</SelectItem>
-                        <SelectItem value="archived">📦 Archived</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
                 </CardContent>
               </Card>
 
               <Card>
                 <CardHeader>
-                  <CardTitle>SEO Settings</CardTitle>
+                  <CardTitle id="blog-seo" className="admin-editor-section">
+                    SEO Settings
+                  </CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-4">
                   <div>
@@ -667,10 +719,16 @@ const BlogPostEditor = () => {
                 </CardContent>
               </Card>
 
-              {formData.content_type === "case-study" && (
+              {(formData.content_type === "case-study" ||
+                formData.content_type === "case_study") && (
                 <Card>
                   <CardHeader>
-                    <CardTitle>Case Study Details</CardTitle>
+                    <CardTitle
+                      id="blog-case-study"
+                      className="admin-editor-section"
+                    >
+                      Case Study Details
+                    </CardTitle>
                   </CardHeader>
                   <CardContent className="space-y-4">
                     <div className="grid sm:grid-cols-2 gap-4">
@@ -716,30 +774,30 @@ const BlogPostEditor = () => {
                           placeholder="e.g., 6 months"
                         />
                       </div>
-                      <div>
-                        <Label htmlFor="client_name">Client Name</Label>
-                        <Input
-                          id="client_name"
-                          value={formData.client_name}
-                          onChange={(e) =>
-                            handleFormChange({ client_name: e.target.value })
-                          }
-                        />
-                      </div>
                     </div>
 
+                    <MultiImageUpload
+                      images={formData.before_images}
+                      onChange={(before_images) =>
+                        handleFormChange({ before_images })
+                      }
+                      title="Before images"
+                    />
+                    <MultiImageUpload
+                      images={formData.after_images}
+                      onChange={(after_images) =>
+                        handleFormChange({ after_images })
+                      }
+                      title="After images"
+                    />
                     <div>
-                      <Label htmlFor="budget_range">Budget Range</Label>
-                      <Input
-                        id="budget_range"
-                        value={formData.budget_range}
-                        onChange={(e) =>
-                          handleFormChange({ budget_range: e.target.value })
+                      <ProcessStepsEditor
+                        steps={formData.process_steps}
+                        onChange={(process_steps) =>
+                          handleFormChange({ process_steps })
                         }
-                        placeholder="e.g., $500K - $1M"
                       />
                     </div>
-
                     <RichTextEditor
                       id="challenge"
                       label="Challenge"

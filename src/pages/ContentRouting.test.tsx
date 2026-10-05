@@ -230,3 +230,38 @@ describe("dynamic content indexing", () => {
     );
   });
 });
+
+vi.mock("@/hooks/usePublicSettings", () => ({
+  usePublicSettings: () => ({ data: null }),
+}));
+
+describe("editable case study content", () => {
+  it("renders legacy case_study sections with rich formatting and sanitizes stored HTML", async () => {
+    mock.preview.mockResolvedValue({
+      data: [
+        {
+          slug: "draft-case",
+          title: "Fixture case",
+          content: "Body",
+          created_at: "2026-10-01",
+          category: "Fixture",
+          content_type: "case_study",
+          challenge:
+            '<h3>Existing challenge</h3><p onclick="alert(1)">Challenge detail</p>',
+          solution: "First line\nSecond line",
+          results: "Fixture result",
+        },
+      ],
+      error: null,
+    });
+    mount("/blog/draft-case?preview=true&token=fixture");
+    expect(
+      await screen.findByRole("heading", { name: "Existing challenge" }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("heading", { name: "Solution" }),
+    ).toBeInTheDocument();
+    expect(screen.getByText("Fixture result")).toBeInTheDocument();
+    expect(document.querySelector("[onclick]")).toBeNull();
+  });
+});

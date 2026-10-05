@@ -1,7 +1,17 @@
+import { RichText } from "@/components/RichText";
 import { Card, CardContent } from "@/design-system/components/Card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/ui/Button";
-import { Quote, CheckCircle, TrendingUp, Users, ArrowRight, Clipboard, Settings, AlertTriangle } from "lucide-react";
+import {
+  Quote,
+  CheckCircle,
+  TrendingUp,
+  Users,
+  ArrowRight,
+  Clipboard,
+  Settings,
+  AlertTriangle,
+} from "lucide-react";
 import { Link } from "react-router-dom";
 
 interface CaseStudyMetric {
@@ -68,9 +78,9 @@ export const ProjectCaseStudy = ({
           </div>
           <Card className="border-l-4 border-l-destructive">
             <CardContent className="p-6">
-              <div 
+              <RichText
                 className="prose prose-lg max-w-none text-muted-foreground leading-relaxed"
-                dangerouslySetInnerHTML={{ __html: challenge }}
+                content={challenge}
               />
             </CardContent>
           </Card>
@@ -88,9 +98,9 @@ export const ProjectCaseStudy = ({
           </div>
           <Card className="border-l-4 border-l-primary">
             <CardContent className="p-6">
-              <div 
+              <RichText
                 className="prose prose-lg max-w-none text-muted-foreground leading-relaxed"
-                dangerouslySetInnerHTML={{ __html: scopeDelivered }}
+                content={scopeDelivered}
               />
             </CardContent>
           </Card>
@@ -108,7 +118,11 @@ export const ProjectCaseStudy = ({
           </div>
           <div className="flex flex-wrap gap-2">
             {constraints.map((constraint, index) => (
-              <Badge key={index} variant="outline" className="text-sm py-1.5 px-3">
+              <Badge
+                key={index}
+                variant="outline"
+                className="text-sm py-1.5 px-3"
+              >
                 {constraint}
               </Badge>
             ))}
@@ -127,9 +141,9 @@ export const ProjectCaseStudy = ({
           </div>
           <Card className="border-l-4 border-l-accent">
             <CardContent className="p-6">
-              <div 
+              <RichText
                 className="prose prose-lg max-w-none text-muted-foreground leading-relaxed"
-                dangerouslySetInnerHTML={{ __html: solution }}
+                content={solution}
               />
             </CardContent>
           </Card>
@@ -147,9 +161,9 @@ export const ProjectCaseStudy = ({
           </div>
           <Card className="border-l-4 border-l-secondary">
             <CardContent className="p-6">
-              <div 
+              <RichText
                 className="prose prose-lg max-w-none text-muted-foreground leading-relaxed"
-                dangerouslySetInnerHTML={{ __html: executionApproach }}
+                content={executionApproach}
               />
             </CardContent>
           </Card>
@@ -178,11 +192,17 @@ export const ProjectCaseStudy = ({
                       {metric.label}
                     </div>
                     {metric.trend && (
-                      <Badge 
-                        variant={metric.trend === "up" ? "default" : "secondary"}
+                      <Badge
+                        variant={
+                          metric.trend === "up" ? "default" : "secondary"
+                        }
                         className="mt-2"
                       >
-                        {metric.trend === "up" ? "↑" : metric.trend === "down" ? "↓" : "→"}
+                        {metric.trend === "up"
+                          ? "↑"
+                          : metric.trend === "down"
+                            ? "↓"
+                            : "→"}
                       </Badge>
                     )}
                   </CardContent>
@@ -223,9 +243,9 @@ export const ProjectCaseStudy = ({
           </div>
           <Card className="border-l-4 border-l-primary bg-gradient-to-br from-primary/5 to-transparent">
             <CardContent className="p-6">
-              <div 
+              <RichText
                 className="prose prose-lg max-w-none text-muted-foreground leading-relaxed"
-                dangerouslySetInnerHTML={{ __html: results }}
+                content={results}
               />
             </CardContent>
           </Card>
@@ -246,8 +266,8 @@ export const ProjectCaseStudy = ({
                   </p>
                   <div className="flex items-center gap-4">
                     {testimonial.image && (
-                      <img 
-                        src={testimonial.image} 
+                      <img
+                        src={testimonial.image}
                         alt={testimonial.author}
                         loading="lazy"
                         decoding="async"
@@ -257,7 +277,9 @@ export const ProjectCaseStudy = ({
                       />
                     )}
                     <div>
-                      <p className="font-bold text-foreground">{testimonial.author}</p>
+                      <p className="font-bold text-foreground">
+                        {testimonial.author}
+                      </p>
                       <p className="text-sm text-muted-foreground">
                         {testimonial.position}
                         {testimonial.company && ` at ${testimonial.company}`}
@@ -280,8 +302,8 @@ export const ProjectCaseStudy = ({
               <Link key={project.id} to={`/projects/${project.slug}`}>
                 <Card className="hover:shadow-lg transition-all group overflow-hidden">
                   <div className="aspect-video overflow-hidden">
-                    <img 
-                      src={project.image} 
+                    <img
+                      src={project.image}
                       alt={project.title}
                       loading="lazy"
                       decoding="async"

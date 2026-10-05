@@ -1,3 +1,5 @@
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import type { ReactNode } from "react";
 import {
   cleanup,
   fireEvent,
@@ -20,6 +22,9 @@ vi.mock("@/utils/image-optimizer", () => ({
 vi.mock("sonner", () => ({ toast: { error: mock.error } }));
 vi.mock("@/integrations/supabase/client", () => ({
   supabase: {
+    from: () => ({
+      select: () => ({ limit: async () => ({ data: [], error: null }) }),
+    }),
     storage: {
       from: () => ({
         upload: mock.upload,
@@ -38,6 +43,13 @@ const image: ProjectImage = {
   order: 0,
   featured: false,
 };
+const QueryWrapper = ({ children }: { children: ReactNode }) => (
+  <QueryClientProvider
+    client={new QueryClient({ defaultOptions: { queries: { retry: false } } })}
+  >
+    {children}
+  </QueryClientProvider>
+);
 afterEach(cleanup);
 beforeEach(() => {
   vi.clearAllMocks();
@@ -51,6 +63,7 @@ describe("staged gallery editing", () => {
         images={[image]}
         onImagesUpdate={mock.update}
       />,
+      { wrapper: QueryWrapper },
     );
     fireEvent.click(screen.getByTitle("Remove gallery image"));
     expect(await screen.findByRole("alertdialog")).toHaveTextContent(
@@ -77,6 +90,7 @@ describe("staged gallery editing", () => {
         images={[image]}
         onImagesUpdate={mock.update}
       />,
+      { wrapper: QueryWrapper },
     );
     const zone =
       document.querySelector<HTMLInputElement>(

@@ -1,13 +1,14 @@
-import { useState } from 'react';
-import { useDropzone } from 'react-dropzone';
-import { Upload, X, Edit2, GripVertical, Loader2 } from 'lucide-react';
-import { Button } from '@/ui/Button';
-import { Input } from '@/ui/Input';
-import { Label } from '@/components/ui/label';
-import { Textarea } from '@/ui/Textarea';
-import { Card } from '@/ui/Card';
-import { uploadImage } from '@/utils/imageResolver';
-import { toast } from 'sonner';
+import { MediaPicker } from "./MediaPicker";
+import { useState } from "react";
+import { useDropzone } from "react-dropzone";
+import { Upload, X, Edit2, GripVertical, Loader2 } from "lucide-react";
+import { Button } from "@/ui/Button";
+import { Input } from "@/ui/Input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/ui/Textarea";
+import { Card } from "@/ui/Card";
+import { uploadImage } from "@/utils/imageResolver";
+import { toast } from "sonner";
 import {
   DndContext,
   closestCenter,
@@ -16,22 +17,22 @@ import {
   useSensor,
   useSensors,
   DragEndEvent,
-} from '@dnd-kit/core';
+} from "@dnd-kit/core";
 import {
   arrayMove,
   SortableContext,
   sortableKeyboardCoordinates,
   useSortable,
   verticalListSortingStrategy,
-} from '@dnd-kit/sortable';
-import { CSS } from '@dnd-kit/utilities';
+} from "@dnd-kit/sortable";
+import { CSS } from "@dnd-kit/utilities";
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from '@/components/ui/dialog';
+} from "@/components/ui/dialog";
 
 export interface GalleryImage {
   url: string;
@@ -48,22 +49,17 @@ interface MultiImageUploadProps {
   bucket?: string;
 }
 
-const SortableImageCard = ({ 
-  image, 
-  onEdit, 
-  onDelete 
-}: { 
-  image: GalleryImage; 
-  onEdit: (image: GalleryImage) => void; 
+const SortableImageCard = ({
+  image,
+  onEdit,
+  onDelete,
+}: {
+  image: GalleryImage;
+  onEdit: (image: GalleryImage) => void;
   onDelete: (order: number) => void;
 }) => {
-  const {
-    attributes,
-    listeners,
-    setNodeRef,
-    transform,
-    transition,
-  } = useSortable({ id: image.order.toString() });
+  const { attributes, listeners, setNodeRef, transform, transition } =
+    useSortable({ id: image.order.toString() });
 
   const style = {
     transform: CSS.Transform.toString(transform),
@@ -109,7 +105,9 @@ const SortableImageCard = ({
         </div>
         {image.caption && (
           <div className="p-2">
-            <p className="text-xs text-muted-foreground truncate">{image.caption}</p>
+            <p className="text-xs text-muted-foreground truncate">
+              {image.caption}
+            </p>
           </div>
         )}
       </Card>
@@ -122,18 +120,19 @@ export const MultiImageUpload = ({
   onChange,
   title,
   maxImages = 10,
-  bucket = 'project-images',
+  bucket = "project-images",
 }: MultiImageUploadProps) => {
+  const [pickerOpen, setPickerOpen] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
   const [editingImage, setEditingImage] = useState<GalleryImage | null>(null);
-  const [editCaption, setEditCaption] = useState('');
-  const [editAlt, setEditAlt] = useState('');
+  const [editCaption, setEditCaption] = useState("");
+  const [editAlt, setEditAlt] = useState("");
 
   const sensors = useSensors(
     useSensor(PointerSensor),
     useSensor(KeyboardSensor, {
       coordinateGetter: sortableKeyboardCoordinates,
-    })
+    }),
   );
 
   const onDrop = async (acceptedFiles: File[]) => {
@@ -160,21 +159,21 @@ export const MultiImageUpload = ({
 
         return {
           url,
-          caption: '',
-          alt: file.name.replace(/\.[^/.]+$/, ''),
+          caption: "",
+          alt: file.name.replace(/\.[^/.]+$/, ""),
           order: images.length + acceptedFiles.indexOf(file),
         };
       });
 
       const uploadedImages = (await Promise.all(uploadPromises)).filter(
-        (img): img is GalleryImage => img !== null
+        (img): img is GalleryImage => img !== null,
       );
 
       onChange([...images, ...uploadedImages]);
       toast.success(`${uploadedImages.length} image(s) uploaded successfully`);
     } catch (error) {
-      console.error('Upload error:', error);
-      toast.error('Failed to upload images');
+      console.error("Upload error:", error);
+      toast.error("Failed to upload images");
     } finally {
       setIsUploading(false);
     }
@@ -182,7 +181,7 @@ export const MultiImageUpload = ({
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
-    accept: { 'image/*': ['.png', '.jpg', '.jpeg', '.webp'] },
+    accept: { "image/*": [".png", ".jpg", ".jpeg", ".webp"] },
     multiple: true,
     maxFiles: maxImages - images.length,
   });
@@ -191,13 +190,19 @@ export const MultiImageUpload = ({
     const { active, over } = event;
 
     if (over && active.id !== over.id) {
-      const oldIndex = images.findIndex((img) => img.order.toString() === active.id);
-      const newIndex = images.findIndex((img) => img.order.toString() === over.id);
+      const oldIndex = images.findIndex(
+        (img) => img.order.toString() === active.id,
+      );
+      const newIndex = images.findIndex(
+        (img) => img.order.toString() === over.id,
+      );
 
-      const reorderedImages = arrayMove(images, oldIndex, newIndex).map((img, index) => ({
-        ...img,
-        order: index,
-      }));
+      const reorderedImages = arrayMove(images, oldIndex, newIndex).map(
+        (img, index) => ({
+          ...img,
+          order: index,
+        }),
+      );
 
       onChange(reorderedImages);
     }
@@ -208,7 +213,7 @@ export const MultiImageUpload = ({
       .filter((img) => img.order !== order)
       .map((img, index) => ({ ...img, order: index }));
     onChange(filtered);
-    toast.success('Image removed');
+    toast.success("Image removed");
   };
 
   const handleEdit = (image: GalleryImage) => {
@@ -223,16 +228,43 @@ export const MultiImageUpload = ({
     const updated = images.map((img) =>
       img.order === editingImage.order
         ? { ...img, caption: editCaption, alt: editAlt }
-        : img
+        : img,
     );
 
     onChange(updated);
     setEditingImage(null);
-    toast.success('Image updated');
+    toast.success("Image updated");
   };
 
   return (
     <div className="space-y-4">
+      {bucket === "project-images" && (
+        <>
+          <Button
+            type="button"
+            variant="outline"
+            disabled={images.length >= maxImages}
+            onClick={() => setPickerOpen(true)}
+          >
+            Choose from library
+          </Button>
+          <MediaPicker
+            open={pickerOpen}
+            onOpenChange={setPickerOpen}
+            onChoose={(asset) =>
+              onChange([
+                ...images,
+                {
+                  url: asset.url,
+                  caption: "",
+                  alt: asset.altText,
+                  order: images.length,
+                },
+              ])
+            }
+          />
+        </>
+      )}
       <div className="flex items-center justify-between">
         <Label className="text-lg font-semibold">{title}</Label>
         <span className="text-sm text-muted-foreground">
@@ -245,7 +277,7 @@ export const MultiImageUpload = ({
         <div
           {...getRootProps()}
           className={`border-2 border-dashed rounded-lg p-8 text-center hover:border-primary transition-colors cursor-pointer ${
-            isDragActive ? 'border-primary bg-primary/5' : ''
+            isDragActive ? "border-primary bg-primary/5" : ""
           }`}
         >
           <input {...getInputProps()} />
@@ -256,8 +288,8 @@ export const MultiImageUpload = ({
               <Upload className="w-8 h-8 mx-auto mb-2 text-muted-foreground" />
               <p className="text-sm text-muted-foreground">
                 {isDragActive
-                  ? 'Drop images here...'
-                  : 'Click to upload or drag and drop'}
+                  ? "Drop images here..."
+                  : "Click to upload or drag and drop"}
               </p>
               <p className="text-xs text-muted-foreground mt-1">
                 PNG, JPG, WEBP up to 5MB each

@@ -1,8 +1,9 @@
+import { sanitizeRichText } from "@/lib/richText";
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { usePreviewMode } from "@/hooks/usePreviewMode";
 import { supabase } from "@/integrations/supabase/client";
-import { sanitizeAndValidate } from '@/utils/sanitize';
+import { sanitizeAndValidate } from "@/utils/sanitize";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
@@ -28,7 +29,10 @@ import { FAQAccordion } from "@/design-system/components/FAQAccordion";
 import { RelatedLinksGrid } from "@/design-system/components/RelatedLinksGrid";
 import { projectDetailFaqs } from "@/data/page-faqs";
 import { Wrench, Briefcase, Building2 } from "lucide-react";
-import { getRelatedForProject, type SmartRelatedLink } from "@/utils/relatedLinks";
+import {
+  getRelatedForProject,
+  type SmartRelatedLink,
+} from "@/utils/relatedLinks";
 
 interface ProcessStep {
   type: string;
@@ -43,8 +47,9 @@ interface ProcessStep {
 interface GalleryImage {
   id: string;
   url: string;
-  category: 'before' | 'after' | 'process' | 'gallery';
+  category: "before" | "after" | "process" | "gallery";
   caption?: string;
+  altText?: string;
   order: number;
   featured: boolean;
 }
@@ -72,6 +77,7 @@ interface ProjectData {
   start_date?: string;
   completion_date?: string;
   status?: string;
+  project_status?: string;
   before_images?: Array<{ url: string; alt: string; caption?: string }>;
   after_images?: Array<{ url: string; alt: string; caption?: string }>;
   content_blocks?: ProcessStep[];
@@ -121,9 +127,18 @@ export default function ProjectDetail() {
         if (!slug) return;
         // Draft reads go through the existing token-validating RPC. Ordinary
         // visitor reads remain restricted to published content.
-        const result = isPreview && previewToken
-          ? await supabase.rpc("get_preview_project", { p_slug: slug, p_token: previewToken })
-          : await supabase.from("projects").select("*").eq("slug", slug).eq("publish_state", "published").maybeSingle();
+        const result =
+          isPreview && previewToken
+            ? await supabase.rpc("get_preview_project", {
+                p_slug: slug,
+                p_token: previewToken,
+              })
+            : await supabase
+                .from("projects")
+                .select("*")
+                .eq("slug", slug)
+                .eq("publish_state", "published")
+                .maybeSingle();
         const error = result.error;
         const data = Array.isArray(result.data) ? result.data[0] : result.data;
         if (error) throw error;
@@ -153,10 +168,13 @@ export default function ProjectDetail() {
             url: img.url,
             category: img.category as any,
             caption: img.caption,
+            altText:
+              (img as unknown as { alt_text?: string }).alt_text || undefined,
             order: img.display_order,
-            featured: img.featured
+            featured: img.featured,
           })) || []) as any[],
-          services: projectServices?.map((ps) => ps.services).filter(Boolean) || []
+          services:
+            projectServices?.map((ps) => ps.services).filter(Boolean) || [],
         };
 
         if (!cancelled) setProject(projectData as any);
@@ -169,7 +187,9 @@ export default function ProjectDetail() {
     };
 
     void fetchProject();
-    return () => { cancelled = true; };
+    return () => {
+      cancelled = true;
+    };
   }, [slug, isPreview, previewToken]);
 
   // Resolve smart related links once project is loaded
@@ -213,39 +233,59 @@ export default function ProjectDetail() {
   }
 
   if (!project) {
-    return <ContentUnavailable kind="Project" failed={loadFailed} backTo="/projects" backLabel="Back to Projects" />;
+    return (
+      <ContentUnavailable
+        kind="Project"
+        failed={loadFailed}
+        backTo="/projects"
+        backLabel="Back to Projects"
+      />
+    );
   }
 
   const processSteps = (project.content_blocks || []).filter(
-    (block: ProcessStep) => block.type === "process_step"
+    (block: ProcessStep) => block.type === "process_step",
   );
 
   return (
     <>
       <SEO
         title={project.seo_title || project.title}
-        description={project.seo_description || project.summary || project.description || ""}
+        description={
+          project.seo_description ||
+          project.summary ||
+          project.description ||
+          ""
+        }
         keywords={project.seo_keywords?.join(", ")}
         ogImage={project.featured_image}
         noindex={isPreview}
       />
-      
+
       <div className="min-h-screen flex flex-col">
         <Navigation />
-        
+
         {/* Breadcrumb */}
         <div className="border-b border-border/50 bg-muted/20 mt-24">
           <div className="container mx-auto px-6 py-6 md:py-8">
             <div className="flex items-center gap-2 text-sm text-muted-foreground">
-              <button onClick={() => navigate("/")} className="hover:text-foreground transition-colors font-medium">
+              <button
+                onClick={() => navigate("/")}
+                className="hover:text-foreground transition-colors font-medium"
+              >
                 Home
               </button>
               <ChevronRight className="h-4 w-4 opacity-50" />
-              <button onClick={() => navigate("/projects")} className="hover:text-foreground transition-colors font-medium">
+              <button
+                onClick={() => navigate("/projects")}
+                className="hover:text-foreground transition-colors font-medium"
+              >
                 Projects
               </button>
               <ChevronRight className="h-4 w-4 opacity-50" />
-              <span className="text-foreground font-semibold">{project.title}</span>
+              <span className="text-foreground font-semibold">
+                {project.title}
+              </span>
             </div>
           </div>
         </div>
@@ -256,15 +296,13 @@ export default function ProjectDetail() {
             <div className="max-w-4xl">
               <div className="flex flex-wrap items-center gap-2 mb-4">
                 {project.category && (
-                  <Badge variant="secondary">
-                    {project.category}
-                  </Badge>
+                  <Badge variant="secondary">{project.category}</Badge>
                 )}
                 {project.services && project.services.length > 0 && (
                   <>
                     {project.services.map((service) => (
-                      <Badge 
-                        key={service.id} 
+                      <Badge
+                        key={service.id}
                         variant="outline"
                         className="cursor-pointer hover:bg-accent"
                         onClick={() => navigate(`/services/${service.slug}`)}
@@ -349,48 +387,67 @@ export default function ProjectDetail() {
                 projectSize={project.project_size}
                 budgetRange={project.budget_range}
                 category={project.category}
-                status={project.status}
+                status={project.project_status || project.status}
               />
 
               {/* GC Metrics Card */}
-              {(project.project_value || project.square_footage || project.your_role || project.delivery_method) && (
+              {(project.project_value ||
+                project.square_footage ||
+                project.your_role ||
+                project.delivery_method) && (
                 <Card>
                   <CardContent className="p-6 space-y-4">
-                    <h3 className="font-bold text-lg border-b pb-2">Project Metrics</h3>
-                    
-                    {formatProjectValue(project.project_value, 'full') && (
+                    <h3 className="font-bold text-lg border-b pb-2">
+                      Project Metrics
+                    </h3>
+
+                    {formatProjectValue(project.project_value, "full") && (
                       <div>
-                        <p className="text-sm text-muted-foreground mb-1">Contract Value</p>
+                        <p className="text-sm text-muted-foreground mb-1">
+                          Contract Value
+                        </p>
                         <p className="font-semibold text-lg">
-                          {formatProjectValue(project.project_value, 'full')}
+                          {formatProjectValue(project.project_value, "full")}
                         </p>
                       </div>
                     )}
-                    
+
                     {project.square_footage && (
                       <div>
-                        <p className="text-sm text-muted-foreground mb-1">Square Footage</p>
-                        <p className="font-semibold">{project.square_footage.toLocaleString()} sq ft</p>
+                        <p className="text-sm text-muted-foreground mb-1">
+                          Square Footage
+                        </p>
+                        <p className="font-semibold">
+                          {project.square_footage.toLocaleString()} sq ft
+                        </p>
                       </div>
                     )}
-                    
+
                     {project.your_role && (
                       <div>
-                        <p className="text-sm text-muted-foreground mb-1">Our Role</p>
+                        <p className="text-sm text-muted-foreground mb-1">
+                          Our Role
+                        </p>
                         <Badge variant="secondary">{project.your_role}</Badge>
                       </div>
                     )}
-                    
+
                     {project.delivery_method && (
                       <div>
-                        <p className="text-sm text-muted-foreground mb-1">Delivery Method</p>
-                        <p className="font-semibold">{project.delivery_method}</p>
+                        <p className="text-sm text-muted-foreground mb-1">
+                          Delivery Method
+                        </p>
+                        <p className="font-semibold">
+                          {project.delivery_method}
+                        </p>
                       </div>
                     )}
-                    
+
                     {project.client_type && (
                       <div>
-                        <p className="text-sm text-muted-foreground mb-1">Client Type</p>
+                        <p className="text-sm text-muted-foreground mb-1">
+                          Client Type
+                        </p>
                         <p className="font-semibold">{project.client_type}</p>
                       </div>
                     )}
@@ -399,47 +456,85 @@ export default function ProjectDetail() {
               )}
 
               {/* Performance Metrics Card */}
-              {([project.trades_coordinated, project.peak_workforce, project.on_time_completion, project.on_budget, project.safety_incidents].some(value => value != null)) && (
+              {[
+                project.trades_coordinated,
+                project.peak_workforce,
+                project.on_time_completion,
+                project.on_budget,
+                project.safety_incidents,
+              ].some((value) => value != null) && (
                 <Card>
                   <CardContent className="p-6 space-y-4">
-                    <h3 className="font-bold text-lg border-b pb-2">Performance</h3>
-                    
+                    <h3 className="font-bold text-lg border-b pb-2">
+                      Performance
+                    </h3>
+
                     {project.trades_coordinated != null && (
                       <div className="flex justify-between items-center">
-                        <p className="text-sm text-muted-foreground">Trades Coordinated</p>
-                        <p className="font-bold text-lg">{project.trades_coordinated}</p>
+                        <p className="text-sm text-muted-foreground">
+                          Trades Coordinated
+                        </p>
+                        <p className="font-bold text-lg">
+                          {project.trades_coordinated}
+                        </p>
                       </div>
                     )}
-                    
+
                     {project.peak_workforce != null && (
                       <div className="flex justify-between items-center">
-                        <p className="text-sm text-muted-foreground">Peak Workforce</p>
-                        <p className="font-bold text-lg">{project.peak_workforce}</p>
+                        <p className="text-sm text-muted-foreground">
+                          Peak Workforce
+                        </p>
+                        <p className="font-bold text-lg">
+                          {project.peak_workforce}
+                        </p>
                       </div>
                     )}
-                    
+
                     {project.on_time_completion != null && (
                       <div className="flex justify-between items-center">
-                        <p className="text-sm text-muted-foreground">On-Time Completion</p>
-                        <Badge variant={project.on_time_completion ? "default" : "destructive"}>
+                        <p className="text-sm text-muted-foreground">
+                          On-Time Completion
+                        </p>
+                        <Badge
+                          variant={
+                            project.on_time_completion
+                              ? "default"
+                              : "destructive"
+                          }
+                        >
                           {project.on_time_completion ? "Yes" : "No"}
                         </Badge>
                       </div>
                     )}
-                    
+
                     {project.on_budget != null && (
                       <div className="flex justify-between items-center">
-                        <p className="text-sm text-muted-foreground">On Budget</p>
-                        <Badge variant={project.on_budget ? "default" : "destructive"}>
+                        <p className="text-sm text-muted-foreground">
+                          On Budget
+                        </p>
+                        <Badge
+                          variant={
+                            project.on_budget ? "default" : "destructive"
+                          }
+                        >
                           {project.on_budget ? "Yes" : "No"}
                         </Badge>
                       </div>
                     )}
-                    
+
                     {project.safety_incidents != null && (
                       <div className="flex justify-between items-center">
-                        <p className="text-sm text-muted-foreground">Safety Incidents</p>
-                        <Badge variant={project.safety_incidents === 0 ? "default" : "secondary"}>
+                        <p className="text-sm text-muted-foreground">
+                          Safety Incidents
+                        </p>
+                        <Badge
+                          variant={
+                            project.safety_incidents === 0
+                              ? "default"
+                              : "secondary"
+                          }
+                        >
                           {project.safety_incidents}
                         </Badge>
                       </div>
@@ -454,72 +549,87 @@ export default function ProjectDetail() {
               {/* Project Summary */}
               {project.summary && (
                 <section>
-                  <h2 className="text-2xl md:text-3xl font-bold mb-4">Project Overview</h2>
+                  <h2 className="text-2xl md:text-3xl font-bold mb-4">
+                    Project Overview
+                  </h2>
                   <p className="text-lg text-muted-foreground leading-relaxed">
                     {project.summary}
                   </p>
                 </section>
               )}
 
-              {/* Full Description (Rich Text) */}
-              {project.description && (
-                <section>
-                  <h2 className="text-2xl md:text-3xl font-bold mb-4">Project Description</h2>
-                  <Card>
-                    <CardContent className="p-6">
-                      <div 
-                        className="prose prose-lg max-w-none text-muted-foreground"
-                        dangerouslySetInnerHTML={{ __html: sanitizeAndValidate(project.description || '').sanitized }}
-                      />
-                    </CardContent>
-                  </Card>
-                </section>
-              )}
-
-              {/* Scope of Work */}
-              {project.scope_of_work && (
-                <section>
-                  <h2 className="text-2xl md:text-3xl font-bold mb-4">Scope of Work</h2>
-                  <Card>
-                    <CardContent className="p-6">
-                      <div 
-                        className="prose prose-lg max-w-none text-muted-foreground"
-                        dangerouslySetInnerHTML={{ __html: sanitizeAndValidate(project.scope_of_work || '').sanitized }}
-                      />
-                    </CardContent>
-                  </Card>
-                </section>
-              )}
-
               {/* Enhanced Case Study Component */}
               <ProjectCaseStudy
-                challenge={project.challenge ? sanitizeAndValidate(project.challenge).sanitized : undefined}
-                scopeDelivered={project.scope_of_work ? sanitizeAndValidate(project.scope_of_work).sanitized : undefined}
-                solution={project.description ? sanitizeAndValidate(project.description).sanitized : undefined}
-                results={project.results ? sanitizeAndValidate(project.results).sanitized : undefined}
+                challenge={
+                  project.challenge
+                    ? sanitizeRichText(project.challenge)
+                    : undefined
+                }
+                scopeDelivered={
+                  project.scope_of_work
+                    ? sanitizeRichText(project.scope_of_work)
+                    : undefined
+                }
+                solution={
+                  project.description
+                    ? sanitizeRichText(project.description)
+                    : undefined
+                }
+                results={
+                  project.results
+                    ? sanitizeRichText(project.results)
+                    : undefined
+                }
                 metrics={[
-                  ...(formatProjectValue(project.project_value, 'full') ? [{
-                    label: "Contract Value",
-                    value: formatProjectValue(project.project_value, 'full')!,
-                  }] : []),
-                  ...(project.square_footage ? [{
-                    label: "Square Footage",
-                    value: `${project.square_footage.toLocaleString()} sq ft`,
-                  }] : []),
-                  ...(project.trades_coordinated ? [{
-                    label: "Trades Coordinated",
-                    value: project.trades_coordinated.toString(),
-                  }] : []),
-                  ...(project.peak_workforce ? [{
-                    label: "Peak Workforce",
-                    value: `${project.peak_workforce} workers`,
-                  }] : []),
+                  ...(formatProjectValue(project.project_value, "full")
+                    ? [
+                        {
+                          label: "Contract Value",
+                          value: formatProjectValue(
+                            project.project_value,
+                            "full",
+                          )!,
+                        },
+                      ]
+                    : []),
+                  ...(project.square_footage
+                    ? [
+                        {
+                          label: "Square Footage",
+                          value: `${project.square_footage.toLocaleString()} sq ft`,
+                        },
+                      ]
+                    : []),
+                  ...(project.trades_coordinated
+                    ? [
+                        {
+                          label: "Trades Coordinated",
+                          value: project.trades_coordinated.toString(),
+                        },
+                      ]
+                    : []),
+                  ...(project.peak_workforce
+                    ? [
+                        {
+                          label: "Peak Workforce",
+                          value: `${project.peak_workforce} workers`,
+                        },
+                      ]
+                    : []),
                 ]}
                 keyOutcomes={[
-                  ...(project.on_time_completion ? ["✓ Completed on-time as scheduled"] : []),
-                  ...(project.on_budget ? ["✓ Delivered on-budget without overruns"] : []),
-                  ...(project.safety_incidents === 0 ? ["✓ Zero safety incidents recorded"] : []),
-                  ...(project.duration ? [`✓ Project duration: ${project.duration}`] : []),
+                  ...(project.on_time_completion
+                    ? ["✓ Completed on-time as scheduled"]
+                    : []),
+                  ...(project.on_budget
+                    ? ["✓ Delivered on-budget without overruns"]
+                    : []),
+                  ...(project.safety_incidents === 0
+                    ? ["✓ Zero safety incidents recorded"]
+                    : []),
+                  ...(project.duration
+                    ? [`✓ Project duration: ${project.duration}`]
+                    : []),
                 ]}
               />
 
@@ -534,41 +644,54 @@ export default function ProjectDetail() {
               )}
 
               {/* Legacy Before & After (fallback for old projects) */}
-              {(!project.project_images || project.project_images.length === 0) &&
-               project.before_images && project.before_images.length > 0 && 
-               project.after_images && project.after_images.length > 0 && (
-                <section>
-                  <h2 className="text-2xl md:text-3xl font-bold mb-6">Before & After</h2>
-                  <div className="space-y-8">
-                    {project.before_images.map((beforeImg: any, index: number) => {
-                      const afterImg = project.after_images?.[index];
-                      if (!afterImg) return null;
-                      
-                      return (
-                        <div key={index} className="space-y-4">
-                          <BeforeAfterSlider
-                            beforeImage={beforeImg.url}
-                            afterImage={afterImg.url}
-                            altBefore={beforeImg.alt || "Before image"}
-                            altAfter={afterImg.alt || "After image"}
-                          />
-                          {(beforeImg.caption || afterImg.caption) && (
-                            <div className="grid grid-cols-2 gap-4 text-sm text-muted-foreground">
-                              <div className="text-center italic">{beforeImg.caption}</div>
-                              <div className="text-center italic">{afterImg.caption}</div>
+              {(!project.project_images ||
+                project.project_images.length === 0) &&
+                project.before_images &&
+                project.before_images.length > 0 &&
+                project.after_images &&
+                project.after_images.length > 0 && (
+                  <section>
+                    <h2 className="text-2xl md:text-3xl font-bold mb-6">
+                      Before & After
+                    </h2>
+                    <div className="space-y-8">
+                      {project.before_images.map(
+                        (beforeImg: any, index: number) => {
+                          const afterImg = project.after_images?.[index];
+                          if (!afterImg) return null;
+
+                          return (
+                            <div key={index} className="space-y-4">
+                              <BeforeAfterSlider
+                                beforeImage={beforeImg.url}
+                                afterImage={afterImg.url}
+                                altBefore={beforeImg.alt || "Before image"}
+                                altAfter={afterImg.alt || "After image"}
+                              />
+                              {(beforeImg.caption || afterImg.caption) && (
+                                <div className="grid grid-cols-2 gap-4 text-sm text-muted-foreground">
+                                  <div className="text-center italic">
+                                    {beforeImg.caption}
+                                  </div>
+                                  <div className="text-center italic">
+                                    {afterImg.caption}
+                                  </div>
+                                </div>
+                              )}
                             </div>
-                          )}
-                        </div>
-                      );
-                    })}
-                  </div>
-                </section>
-              )}
+                          );
+                        },
+                      )}
+                    </div>
+                  </section>
+                )}
 
               {/* Project Process Timeline */}
               {processSteps.length > 0 && (
                 <section>
-                  <h2 className="text-2xl md:text-3xl font-bold mb-6">Project Process</h2>
+                  <h2 className="text-2xl md:text-3xl font-bold mb-6">
+                    Project Process
+                  </h2>
                   <div className="space-y-6">
                     {processSteps.map((step: ProcessStep) => (
                       <ProcessTimelineStep
@@ -589,7 +712,9 @@ export default function ProjectDetail() {
               {/* Team Credits */}
               {project.team_credits && project.team_credits.length > 0 && (
                 <section>
-                  <h2 className="text-2xl md:text-3xl font-bold mb-6">Project Team</h2>
+                  <h2 className="text-2xl md:text-3xl font-bold mb-6">
+                    Project Team
+                  </h2>
                   <Card>
                     <CardContent className="p-6">
                       <div className="grid md:grid-cols-2 gap-6">
@@ -597,14 +722,21 @@ export default function ProjectDetail() {
                           <div key={index} className="flex items-start gap-3">
                             <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
                               <span className="text-primary font-bold text-sm">
-                                {member.name.split(' ').map(n => n[0]).join('')}
+                                {member.name
+                                  .split(" ")
+                                  .map((n) => n[0])
+                                  .join("")}
                               </span>
                             </div>
                             <div>
                               <p className="font-semibold">{member.name}</p>
-                              <p className="text-sm text-primary">{member.role}</p>
+                              <p className="text-sm text-primary">
+                                {member.role}
+                              </p>
                               {member.company && (
-                                <p className="text-xs text-muted-foreground">{member.company}</p>
+                                <p className="text-xs text-muted-foreground">
+                                  {member.company}
+                                </p>
                               )}
                             </div>
                           </div>
@@ -618,7 +750,9 @@ export default function ProjectDetail() {
               {/* Related Services Cross-link */}
               {project.services && project.services.length > 0 && (
                 <section>
-                  <h2 className="text-2xl md:text-3xl font-bold mb-4">Related Services</h2>
+                  <h2 className="text-2xl md:text-3xl font-bold mb-4">
+                    Related Services
+                  </h2>
                   <div className="flex flex-wrap gap-3">
                     {project.services.map((service) => (
                       <Badge
@@ -638,7 +772,9 @@ export default function ProjectDetail() {
 
           {/* Project FAQ (auto FAQ schema) */}
           <div className="mt-16 max-w-3xl mx-auto">
-            <h2 className="text-3xl font-bold text-center mb-4">Common Project Questions</h2>
+            <h2 className="text-3xl font-bold text-center mb-4">
+              Common Project Questions
+            </h2>
             <p className="text-center text-muted-foreground mb-8">
               How we scope, price, and manage projects of this type.
             </p>
@@ -653,9 +789,25 @@ export default function ProjectDetail() {
               relatedLinks.length > 0
                 ? relatedLinks
                 : [
-                    { title: "More Projects", description: "Browse our full portfolio across the GTA.", href: "/projects", icon: Briefcase },
-                    { title: "All Services", description: "What we self-perform on similar scopes.", href: "/services", icon: Wrench },
-                    { title: "Capabilities", description: "How we deliver — process and accountability.", href: "/capabilities", icon: Building2 },
+                    {
+                      title: "More Projects",
+                      description: "Browse our full portfolio across the GTA.",
+                      href: "/projects",
+                      icon: Briefcase,
+                    },
+                    {
+                      title: "All Services",
+                      description: "What we self-perform on similar scopes.",
+                      href: "/services",
+                      icon: Wrench,
+                    },
+                    {
+                      title: "Capabilities",
+                      description:
+                        "How we deliver — process and accountability.",
+                      href: "/capabilities",
+                      icon: Building2,
+                    },
                   ]
             }
             background="default"

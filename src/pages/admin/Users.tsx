@@ -184,7 +184,7 @@ const Users = () => {
                   {user.roles.includes("super_admin") &&
                     superAdminCount <= 1 && (
                       <p className="text-xs text-muted-foreground">
-                        Keep at least one super admin.
+                        At least one super admin must remain.
                       </p>
                     )}
                 </div>

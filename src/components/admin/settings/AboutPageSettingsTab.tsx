@@ -1,232 +1,388 @@
-import { useState, useEffect } from "react";
+import type { SupabaseClient } from "@supabase/supabase-js";
+import { useEffect, useState } from "react";
 import { useSettingsData } from "@/hooks/useSettingsData";
 import { supabase } from "@/integrations/supabase/client";
+import {
+  ABOUT_DEFAULTS,
+  resolveAboutContent,
+  type AboutContent,
+} from "@/lib/aboutContent";
+import {
+  PUBLIC_ABOUT_COLUMNS,
+  notifySettingsSaved,
+} from "@/lib/publicSettings";
 import { Button } from "@/ui/Button";
 import { Input } from "@/ui/Input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/ui/Card";
-import { toast } from "sonner";
-import { adminErrorMessage, nullableInteger } from "@/lib/admin/editorValues";
+import { ImageUploadField } from "../ImageUploadField";
+import { ConfirmDialog } from "../ConfirmDialog";
 import { useUnsavedChanges } from "@/hooks/useUnsavedChanges";
-import { ConfirmDialog } from "@/components/admin/ConfirmDialog";
+import { adminErrorMessage } from "@/lib/admin/editorValues";
 import { SettingsRecordState } from "./SettingsRecordState";
-import { Save } from "lucide-react";
+import { toast } from "sonner";
 
 export const AboutPageSettingsTab = () => {
-  const { data: settings, loading, error, refetch } = useSettingsData("about_page_settings", "*");
-  const [formData, setRawFormData] = useState<any>({});
-  const [saving, setSaving] = useState(false);
+  const {
+    data: record,
+    loading,
+    error,
+    refetch,
+  } = useSettingsData<Partial<AboutContent> & { id: string }>(
+    "about_page_settings",
+    PUBLIC_ABOUT_COLUMNS,
+  );
+  const [values, setValues] = useState<AboutContent>({
+    ...ABOUT_DEFAULTS,
+    story_content: [],
+    stats: [],
+    hero_headline: "",
+    hero_intro: "",
+    story_headline: "",
+    founder_name: "",
+    founder_title: "",
+    founder_bio: "",
+    founder_quote: "",
+  });
   const [dirty, setDirty] = useState(false);
+  const [saving, setSaving] = useState(false);
+  const [publishOpen, setPublishOpen] = useState(false);
+  const [saveError, setSaveError] = useState("");
   const guard = useUnsavedChanges({ hasUnsavedChanges: dirty });
-  const setFormData = (value: typeof formData) => { setRawFormData(value); setDirty(true); };
-
   useEffect(() => {
-    if (settings) {
-      setRawFormData({
-        story_headline: settings.story_headline || "",
-        story_promise_title: settings.story_promise_title || "",
-        story_promise_text: settings.story_promise_text || "",
-        sustainability_headline: settings.sustainability_headline || "",
-        sustainability_commitment: settings.sustainability_commitment || "",
-        safety_headline: settings.safety_headline || "",
-        safety_commitment: settings.safety_commitment || "",
-        years_in_business: settings.years_in_business ?? "",
-        total_projects: settings.total_projects ?? "",
-        satisfaction_rate: settings.satisfaction_rate ?? "",
-        cta_headline: settings.cta_headline || "",
-        cta_subheadline: settings.cta_subheadline || "",
-      });
-    }
-  }, [settings]);
-
-  const handleSave = async () => {
-    if (!settings || saving) return;
+    if (record)
+      setValues((current) => ({
+        ...current,
+        ...Object.fromEntries(
+          Object.entries(record).filter(([key]) => key in ABOUT_DEFAULTS),
+        ),
+        story_content: Array.isArray(record.story_content)
+          ? record.story_content
+          : [],
+        stats: Array.isArray(record.stats) ? record.stats : [],
+      }));
+  }, [record]);
+  const change = (updates: Partial<AboutContent>) => {
+    setValues((current) => ({ ...current, ...updates }));
+    setDirty(true);
+  };
+  const publish = async () => {
+    if (!record || saving) return;
     setSaving(true);
+    setSaveError("");
     try {
-      const { data: savedRow, error } = await supabase
+      if (
+        values.founder_image_url &&
+        !/^(https:\/\/|\/(?!\/))/i.test(values.founder_image_url)
+      )
+        throw new Error(
+          "Use an HTTPS founder image URL or a public asset path.",
+        );
+      const result = await (supabase as SupabaseClient)
         .from("about_page_settings")
-        .update({ ...formData, years_in_business: nullableInteger(formData.years_in_business, "Years in business"), total_projects: nullableInteger(formData.total_projects, "Total projects"), satisfaction_rate: nullableInteger(formData.satisfaction_rate, "Satisfaction rate") })
-        .eq("id", settings.id).select("id").single();
-
-      if (error) throw error;
-      if (!savedRow) throw new Error("The saved settings could not be verified.");
+        .update({
+          ...values,
+          stats: values.stats.slice(0, 6),
+          story_content: values.story_content.filter((value) => value.trim()),
+        })
+        .eq("id", record.id)
+        .select("id")
+        .single();
+      if (result.error) throw result.error;
+      if (!result.data) throw new Error("Could not verify the saved row.");
       setDirty(false);
       guard.markSaved();
-      
-      toast.success("About page settings saved successfully");
-      void refetch();
-    } catch (error) {
-      toast.error("Settings could not be saved: " + adminErrorMessage(error));
+      notifySettingsSaved("about_page_settings");
+      setPublishOpen(false);
+      await refetch();
+      toast.success("About page published");
+    } catch (failure) {
+      setSaveError(adminErrorMessage(failure));
     } finally {
       setSaving(false);
     }
   };
-
-  if (loading || error || !settings) return <SettingsRecordState table="about_page_settings" loading={loading} error={error} onRetry={refetch} />;
-
-  return (
-    <>
-    <ConfirmDialog open={guard.showDialog} onOpenChange={guard.cancelNavigation} onConfirm={guard.confirmNavigation} title="Unsaved changes" description={guard.message} confirmText="Leave" cancelText="Stay" />
-    <fieldset disabled={saving} className="min-w-0">    <Card>
-      <CardHeader>
-        <CardTitle>About Page Configuration</CardTitle>
-        <CardDescription>
-          These saved settings do not change the public About page yet. The next
-          upgrade will connect the About page editor.
-        </CardDescription>
-      </CardHeader>
-      <CardContent className="space-y-6">
-        <div className="space-y-6">
-          <div>
-            <h3 className="font-semibold mb-3">Company Story</h3>
-            <div className="space-y-3">
-              <div>
-                <Label htmlFor="about_page_settings-story_headline">Story Headline</Label>
-                <Input
-                id="about_page_settings-story_headline"
-                  value={formData.story_headline || ""}
-                  onChange={(e) => setFormData({ ...formData, story_headline: e.target.value })}
-                  placeholder="Our Story"
-                />
-              </div>
-              <div>
-                <Label htmlFor="about_page_settings-story_promise_title">Promise Title</Label>
-                <Input
-                id="about_page_settings-story_promise_title"
-                  value={formData.story_promise_title || ""}
-                  onChange={(e) => setFormData({ ...formData, story_promise_title: e.target.value })}
-                  placeholder="Our Promise"
-                />
-              </div>
-              <div>
-                <Label htmlFor="about_page_settings-story_promise_text">Promise Text</Label>
-                <Textarea
-                id="about_page_settings-story_promise_text"
-                  value={formData.story_promise_text || ""}
-                  onChange={(e) => setFormData({ ...formData, story_promise_text: e.target.value })}
-                  placeholder="Our commitment to you..."
-                  rows={3}
-                />
-              </div>
-            </div>
-          </div>
-
-          <div>
-            <h3 className="font-semibold mb-3">Sustainability</h3>
-            <div className="space-y-3">
-              <div>
-                <Label htmlFor="about_page_settings-sustainability_headline">Sustainability Headline</Label>
-                <Input
-                id="about_page_settings-sustainability_headline"
-                  value={formData.sustainability_headline || ""}
-                  onChange={(e) => setFormData({ ...formData, sustainability_headline: e.target.value })}
-                  placeholder="Sustainability Commitment"
-                />
-              </div>
-              <div>
-                <Label htmlFor="about_page_settings-sustainability_commitment">Sustainability Commitment</Label>
-                <Textarea
-                id="about_page_settings-sustainability_commitment"
-                  value={formData.sustainability_commitment || ""}
-                  onChange={(e) => setFormData({ ...formData, sustainability_commitment: e.target.value })}
-                  placeholder="Our environmental commitment..."
-                  rows={3}
-                />
-              </div>
-            </div>
-          </div>
-
-          <div>
-            <h3 className="font-semibold mb-3">Safety</h3>
-            <div className="space-y-3">
-              <div>
-                <Label htmlFor="about_page_settings-safety_headline">Safety Headline</Label>
-                <Input
-                id="about_page_settings-safety_headline"
-                  value={formData.safety_headline || ""}
-                  onChange={(e) => setFormData({ ...formData, safety_headline: e.target.value })}
-                  placeholder="Safety First, Always"
-                />
-              </div>
-              <div>
-                <Label htmlFor="about_page_settings-safety_commitment">Safety Commitment</Label>
-                <Textarea
-                id="about_page_settings-safety_commitment"
-                  value={formData.safety_commitment || ""}
-                  onChange={(e) => setFormData({ ...formData, safety_commitment: e.target.value })}
-                  placeholder="Our safety commitment..."
-                  rows={3}
-                />
-              </div>
-            </div>
-          </div>
-
-          <div>
-            <h3 className="font-semibold mb-3">Key Statistics</h3>
-            <div className="grid grid-cols-3 gap-4">
-              <div>
-                <Label htmlFor="about_page_settings-years_in_business">Years in Business</Label>
-                <Input
-                id="about_page_settings-years_in_business"
-                  type="number"
-                  value={formData.years_in_business ?? ""}
-                  onChange={(e) => setFormData({ ...formData, years_in_business: e.target.value })}
-                />
-              </div>
-              <div>
-                <Label htmlFor="about_page_settings-total_projects">Total Projects</Label>
-                <Input
-                id="about_page_settings-total_projects"
-                  type="number"
-                  value={formData.total_projects ?? ""}
-                  onChange={(e) => setFormData({ ...formData, total_projects: e.target.value })}
-                />
-              </div>
-              <div>
-                <Label htmlFor="about_page_settings-satisfaction_rate">Satisfaction Rate (%)</Label>
-                <Input
-                id="about_page_settings-satisfaction_rate"
-                  type="number"
-                  value={formData.satisfaction_rate ?? ""}
-                  onChange={(e) => setFormData({ ...formData, satisfaction_rate: e.target.value })}
-                />
-              </div>
-            </div>
-          </div>
-
-          <div>
-            <h3 className="font-semibold mb-3">Call to Action</h3>
-            <div className="space-y-3">
-              <div>
-                <Label htmlFor="about_page_settings-cta_headline">CTA Headline</Label>
-                <Input
-                id="about_page_settings-cta_headline"
-                  value={formData.cta_headline || ""}
-                  onChange={(e) => setFormData({ ...formData, cta_headline: e.target.value })}
-                  placeholder="Ready to Work with Us?"
-                />
-              </div>
-              <div>
-                <Label htmlFor="about_page_settings-cta_subheadline">CTA Subheadline</Label>
-                <Input
-                id="about_page_settings-cta_subheadline"
-                  value={formData.cta_subheadline || ""}
-                  onChange={(e) => setFormData({ ...formData, cta_subheadline: e.target.value })}
-                  placeholder="Get in touch today"
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <Button onClick={handleSave} disabled={saving}>
-          <Save className="h-4 w-4 mr-2" />
-          {saving ? "Saving..." : "Save Changes"}
+  if (loading) return <p role="status">Loading About settings…</p>;
+  if (error)
+    return (
+      <div role="alert" className="space-y-3 rounded-lg border p-4">
+        <p>
+          About editing needs the reviewed 0002_about_page_fields.sql and
+          visitor read permission. Public text continues to use its existing
+          defaults.
+        </p>
+        <p className="text-sm">{error.message}</p>
+        <Button variant="outline" onClick={() => void refetch()}>
+          Recheck setup
         </Button>
-      </CardContent>
-    </Card>
-    </fieldset>
-    </>
+      </div>
+    );
+  if (!record)
+    return (
+      <SettingsRecordState
+        table="about_page_settings"
+        loading={false}
+        error={null}
+        onRetry={refetch}
+      />
+    );
+  const preview = resolveAboutContent(values);
+  const reorder = <T,>(rows: T[], index: number, direction: number): T[] => {
+    const next = [...rows];
+    if (index + direction < 0 || index + direction >= rows.length) return rows;
+    [next[index], next[index + direction]] = [
+      next[index + direction],
+      next[index],
+    ];
+    return next;
+  };
+  return (
+    <div className="space-y-4">
+      <a
+        href="/about"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="text-primary underline"
+      >
+        View About page
+      </a>
+      <ConfirmDialog
+        open={guard.showDialog}
+        onOpenChange={guard.cancelNavigation}
+        onConfirm={guard.confirmNavigation}
+        title="Unsaved changes"
+        description={guard.message}
+        confirmText="Leave"
+        cancelText="Stay"
+      />
+      <ConfirmDialog
+        open={publishOpen}
+        onOpenChange={setPublishOpen}
+        onConfirm={publish}
+        title="Publish About changes?"
+        description="Changes become public. Empty fields restore the original text; credential wording remains protected."
+        confirmText="Publish"
+      />
+      <div className="grid xl:grid-cols-2 gap-6">
+        <fieldset disabled={saving} className="space-y-5 min-w-0">
+          {[
+            ["hero_headline", "Hero headline", 160],
+            ["hero_intro", "Hero intro", 600],
+            ["story_headline", "Story heading", 160],
+            ["founder_name", "Founder name", 120],
+            ["founder_title", "Founder title", 120],
+            ["founder_bio", "Founder biography", 4000],
+            ["founder_quote", "Founder quote", 600],
+          ].map(([key, label, limit]) => (
+            <div key={String(key)} className="space-y-2">
+              <Label htmlFor={`about-${key}`}>{label}</Label>
+              <Textarea
+                id={`about-${key}`}
+                value={String(values[key as keyof AboutContent] || "")}
+                maxLength={Number(limit)}
+                placeholder={String(ABOUT_DEFAULTS[key as keyof AboutContent])}
+                onChange={(event) => change({ [key]: event.target.value })}
+              />
+            </div>
+          ))}
+          <section className="space-y-3">
+            <h2 className="text-xl font-semibold">Story paragraphs</h2>
+            {values.story_content.map((paragraph, index) => (
+              <div key={index} className="space-y-2">
+                <Textarea
+                  aria-label={`Story paragraph ${index + 1}`}
+                  value={paragraph}
+                  onChange={(event) =>
+                    change({
+                      story_content: values.story_content.map(
+                        (value, position) =>
+                          position === index ? event.target.value : value,
+                      ),
+                    })
+                  }
+                />
+                <div className="flex gap-2">
+                  <Button
+                    type="button"
+                    size="sm"
+                    variant="outline"
+                    disabled={index === 0}
+                    onClick={() =>
+                      change({
+                        story_content: reorder(values.story_content, index, -1),
+                      })
+                    }
+                  >
+                    Up
+                  </Button>
+                  <Button
+                    type="button"
+                    size="sm"
+                    variant="outline"
+                    disabled={index === values.story_content.length - 1}
+                    onClick={() =>
+                      change({
+                        story_content: reorder(values.story_content, index, 1),
+                      })
+                    }
+                  >
+                    Down
+                  </Button>
+                  <Button
+                    type="button"
+                    size="sm"
+                    variant="outline"
+                    onClick={() =>
+                      change({
+                        story_content: values.story_content.filter(
+                          (_, position) => position !== index,
+                        ),
+                      })
+                    }
+                  >
+                    Remove
+                  </Button>
+                </div>
+              </div>
+            ))}
+            <Button
+              type="button"
+              variant="outline"
+              onClick={() =>
+                change({ story_content: [...values.story_content, ""] })
+              }
+            >
+              Add paragraph
+            </Button>
+          </section>
+          <ImageUploadField
+            value={values.founder_image_url}
+            onChange={(founder_image_url) => change({ founder_image_url })}
+            label="Founder image"
+          />
+          <section className="space-y-3">
+            <h2 className="text-xl font-semibold">Stats</h2>
+            <p className="text-sm text-muted-foreground">
+              CGL and WSIB values remain in code until the credentials phase.
+            </p>
+            {values.stats.map((stat, index) => (
+              <div key={index} className="space-y-2">
+                <div className="grid grid-cols-2 gap-2">
+                  <Input
+                    aria-label={`Stat ${index + 1} value`}
+                    value={stat.value}
+                    onChange={(event) =>
+                      change({
+                        stats: values.stats.map((value, position) =>
+                          position === index
+                            ? { ...value, value: event.target.value }
+                            : value,
+                        ),
+                      })
+                    }
+                  />
+                  <Input
+                    aria-label={`Stat ${index + 1} label`}
+                    value={stat.label}
+                    onChange={(event) =>
+                      change({
+                        stats: values.stats.map((value, position) =>
+                          position === index
+                            ? { ...value, label: event.target.value }
+                            : value,
+                        ),
+                      })
+                    }
+                  />
+                </div>
+                <div className="flex gap-2">
+                  <Button
+                    type="button"
+                    size="sm"
+                    variant="outline"
+                    disabled={index === 0}
+                    onClick={() =>
+                      change({ stats: reorder(values.stats, index, -1) })
+                    }
+                  >
+                    Up
+                  </Button>
+                  <Button
+                    type="button"
+                    size="sm"
+                    variant="outline"
+                    disabled={index === values.stats.length - 1}
+                    onClick={() =>
+                      change({ stats: reorder(values.stats, index, 1) })
+                    }
+                  >
+                    Down
+                  </Button>
+                  <Button
+                    type="button"
+                    size="sm"
+                    variant="outline"
+                    onClick={() =>
+                      change({
+                        stats: values.stats.filter(
+                          (_, position) => position !== index,
+                        ),
+                      })
+                    }
+                  >
+                    Remove
+                  </Button>
+                </div>
+              </div>
+            ))}
+            <Button
+              type="button"
+              variant="outline"
+              disabled={values.stats.length >= 4}
+              onClick={() =>
+                change({ stats: [...values.stats, { value: "", label: "" }] })
+              }
+            >
+              Add stat
+            </Button>
+          </section>
+          {saveError && (
+            <p role="alert" className="text-destructive">
+              {saveError} Your edits are retained.
+            </p>
+          )}
+          <Button
+            disabled={!dirty || saving}
+            onClick={() => setPublishOpen(true)}
+          >
+            Publish About changes
+          </Button>
+        </fieldset>
+        <aside
+          className="rounded-lg border bg-card p-5 space-y-4 self-start xl:sticky xl:top-24"
+          aria-label="About content preview"
+        >
+          <p className="text-sm text-muted-foreground">
+            Unsaved preview — does not publish
+          </p>
+          <h2 className="text-2xl font-semibold">{preview.hero_headline}</h2>
+          <p>{preview.hero_intro}</p>
+          <h3 className="text-xl font-semibold whitespace-pre-line">
+            {preview.story_headline}
+          </h3>
+          {preview.story_content.map((paragraph, index) => (
+            <p key={index}>{paragraph}</p>
+          ))}
+          <div className="grid grid-cols-2 gap-3">
+            {preview.stats.map((stat, index) => (
+              <div key={index}>
+                <strong>{stat.value}</strong>
+                <p>{stat.label}</p>
+              </div>
+            ))}
+          </div>
+        </aside>
+      </div>
+    </div>
   );
 };

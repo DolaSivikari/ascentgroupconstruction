@@ -1,14 +1,14 @@
-import { useState } from 'react';
-import { Button } from '@/ui/Button';
-import { Badge } from '@/components/ui/badge';
-import { Trash2, Download, Edit, X } from 'lucide-react';
+import { useState } from "react";
+import { Button } from "@/ui/Button";
+import { Badge } from "@/components/ui/badge";
+import { Trash2, Download, Edit, X } from "lucide-react";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select';
+} from "@/components/ui/select";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -18,8 +18,8 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-} from '@/components/ui/alert-dialog';
-import { toast } from 'sonner';
+} from "@/components/ui/alert-dialog";
+import { toast } from "sonner";
 
 interface BulkActionsBarProps {
   selectedCount: number;
@@ -38,11 +38,12 @@ export const BulkActionsBar = ({
   onExport,
   onStatusChange,
   statusOptions = [],
-  className = '',
+  className = "",
 }: BulkActionsBarProps) => {
   const [isDeleting, setIsDeleting] = useState(false);
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
   const [isUpdating, setIsUpdating] = useState(false);
+  const [pendingStatus, setPendingStatus] = useState<string | null>(null);
 
   if (selectedCount === 0) return null;
 
@@ -55,8 +56,8 @@ export const BulkActionsBar = ({
       toast.success(`${selectedCount} items deleted successfully`);
       setDeleteDialogOpen(false);
     } catch (error) {
-      console.error('Bulk delete error:', error);
-      toast.error('Failed to delete items');
+      console.error("Bulk delete error:", error);
+      toast.error("Failed to delete items");
     } finally {
       setIsDeleting(false);
     }
@@ -70,8 +71,8 @@ export const BulkActionsBar = ({
       await onStatusChange(status);
       toast.success(`${selectedCount} items updated successfully`);
     } catch (error) {
-      console.error('Bulk status change error:', error);
-      toast.error('Failed to update items');
+      console.error("Bulk status change error:", error);
+      toast.error("Failed to update items");
     } finally {
       setIsUpdating(false);
     }
@@ -82,6 +83,33 @@ export const BulkActionsBar = ({
       <div
         className={`fixed bottom-6 left-1/2 -translate-x-1/2 z-50 animate-in slide-in-from-bottom-5 ${className}`}
       >
+        <AlertDialog
+          open={pendingStatus !== null}
+          onOpenChange={(open) => {
+            if (!open) setPendingStatus(null);
+          }}
+        >
+          <AlertDialogContent>
+            <AlertDialogHeader>
+              <AlertDialogTitle>Change publication status?</AlertDialogTitle>
+              <AlertDialogDescription>
+                Apply {pendingStatus} to {selectedCount} selected items? This
+                changes their public visibility.
+              </AlertDialogDescription>
+            </AlertDialogHeader>
+            <AlertDialogFooter>
+              <AlertDialogCancel>Cancel</AlertDialogCancel>
+              <AlertDialogAction
+                onClick={() => {
+                  if (pendingStatus) void handleStatusChange(pendingStatus);
+                  setPendingStatus(null);
+                }}
+              >
+                Apply status
+              </AlertDialogAction>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialog>
         <div className="bg-primary text-primary-foreground rounded-full shadow-lg px-6 py-4 flex items-center gap-4">
           <Badge variant="glass" size="md">
             {selectedCount} selected
@@ -91,7 +119,11 @@ export const BulkActionsBar = ({
 
           <div className="flex items-center gap-2">
             {statusOptions.length > 0 && onStatusChange && (
-              <Select onValueChange={handleStatusChange} disabled={isUpdating}>
+              <Select
+                value=""
+                onValueChange={setPendingStatus}
+                disabled={isUpdating}
+              >
                 <SelectTrigger className="h-9 w-[160px] bg-primary-foreground/10 border-primary-foreground/20 text-primary-foreground">
                   <SelectValue placeholder="Change status" />
                 </SelectTrigger>
@@ -146,8 +178,8 @@ export const BulkActionsBar = ({
           <AlertDialogHeader>
             <AlertDialogTitle>Delete {selectedCount} items?</AlertDialogTitle>
             <AlertDialogDescription>
-              This action cannot be undone. This will permanently delete {selectedCount} items from
-              the database.
+              This action cannot be undone. This will permanently delete{" "}
+              {selectedCount} items from the database.
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
@@ -157,7 +189,7 @@ export const BulkActionsBar = ({
               disabled={isDeleting}
               className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
             >
-              {isDeleting ? 'Deleting...' : 'Delete'}
+              {isDeleting ? "Deleting..." : "Delete"}
             </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>

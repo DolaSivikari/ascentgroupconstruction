@@ -1,3 +1,6 @@
+import { useState } from "react";
+import { Input } from "@/ui/Input";
+import { ActivityTabs } from "@/components/admin/ActivityTabs";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { AdminPageLayout } from "@/components/admin/AdminPageLayout";
@@ -19,6 +22,11 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { SiteHealthWorkspace } from "@/components/admin/SiteHealthWorkspace";
 
 export default function Monitoring() {
+  const performanceEnabled =
+    import.meta.env.VITE_ENABLE_PERFORMANCE_TRACKING === "true";
+  const [errorSearch, setErrorSearch] = useState("");
+  const [groupErrors, setGroupErrors] = useState(true);
+
   const {
     data: errorLogs,
     isLoading: errorsLoading,
@@ -44,6 +52,7 @@ export default function Monitoring() {
     refetch: refreshMetrics,
   } = useQuery({
     queryKey: ["performance-metrics"],
+    enabled: performanceEnabled,
     queryFn: async () => {
       const { data, error } = await supabase
         .from("performance_metrics")
@@ -77,6 +86,26 @@ export default function Monitoring() {
     },
   });
   const statusUnavailable = !!countError || !!logsError;
+  const matchingErrors = (errorLogs || []).filter((error) =>
+    `${error.message} ${error.url}`
+      .toLowerCase()
+      .includes(errorSearch.toLowerCase()),
+  );
+  const groups = new Map<
+    string,
+    { message: string; count: number; latest: string; urls: Set<string> }
+  >();
+  for (const error of matchingErrors) {
+    const group = groups.get(error.message) || {
+      message: error.message,
+      count: 0,
+      latest: error.created_at,
+      urls: new Set<string>(),
+    };
+    group.count++;
+    if (error.url) group.urls.add(error.url);
+    groups.set(error.message, group);
+  }
 
   return (
     <AdminPageLayout
@@ -87,7 +116,7 @@ export default function Monitoring() {
           variant="outline"
           onClick={() => {
             void refreshLogs();
-            void refreshMetrics();
+            if (performanceEnabled) void refreshMetrics();
             void refreshCount();
           }}
         >
@@ -96,6 +125,7 @@ export default function Monitoring() {
       }
     >
       <div className="space-y-6">
+        <ActivityTabs />
         <SiteHealthWorkspace />
         {/* Stats Cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -178,7 +208,7 @@ export default function Monitoring() {
             {adminErrorMessage(logsError || countError)}
           </div>
         )}
-        {metricsError && (
+        {performanceEnabled && metricsError && (
           <div
             role="alert"
             className="rounded-lg border border-destructive/40 p-4 text-sm"
@@ -187,126 +217,171 @@ export default function Monitoring() {
             {adminErrorMessage(metricsError)}
           </div>
         )}
-        {/* Error Logs */}
-        <Card>
-          <div className="p-6 border-b border-border">
-            <div className="flex items-center gap-2">
-              <AlertCircle className="h-5 w-5 text-danger" />
-              <h3 className="text-lg font-semibold">Recent Errors</h3>
-            </div>
-            <p className="text-sm text-muted-foreground">
-              Client-side and server errors
-            </p>
-          </div>
-          <div className="overflow-x-auto">
-            {logsError ? (
-              <p className="p-6">Could not load recent errors.</p>
-            ) : errorsLoading ? (
-              <div className="p-6 space-y-4">
-                {Array.from({ length: 5 }).map((_, i) => (
-                  <Skeleton key={i} className="h-16 w-full" />
-                ))}
+        <div className="flex flex-wrap gap-3">
+          <Input
+            className="max-w-sm"
+            aria-label="Filter recorded errors"
+            placeholder="Filter loaded errors by message or URL"
+            value={errorSearch}
+            onChange={(event) => setErrorSearch(event.target.value)}
+          />
+          <Button
+            variant="outline"
+            onClick={() => setGroupErrors(!groupErrors)}
+          >
+            {groupErrors ? "Show individual errors" : "Group by message"}
+          </Button>
+        </div>
+        {groupErrors && !logsError && (
+          <div className="space-y-3">
+            {[...groups.values()].map((group) => (
+              <div
+                key={group.message}
+                className="rounded-lg border p-4 space-y-2"
+              >
+                <p className="break-words font-medium">{group.message}</p>
+                <p className="text-sm text-muted-foreground">
+                  {group.count} recorded event(s) · latest{" "}
+                  {new Date(group.latest).toLocaleString()}
+                </p>
+                <p className="text-xs break-all">
+                  {[...group.urls].join(", ")}
+                </p>
               </div>
-            ) : errorLogs && errorLogs.length > 0 ? (
-              <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead>Timestamp</TableHead>
-                    <TableHead>Error Message</TableHead>
-                    <TableHead>URL</TableHead>
-                    <TableHead>User Agent</TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {errorLogs.slice(0, 20).map((error) => (
-                    <TableRow key={error.id}>
-                      <TableCell className="text-sm whitespace-nowrap">
-                        {format(new Date(error.created_at), "MMM dd, HH:mm:ss")}
-                      </TableCell>
-                      <TableCell className="font-mono text-xs max-w-[300px] truncate">
-                        {error.message}
-                      </TableCell>
-                      <TableCell className="text-xs max-w-[200px] truncate">
-                        {error.url || "N/A"}
-                      </TableCell>
-                      <TableCell className="text-xs text-muted-foreground max-w-[200px] truncate">
-                        {error.user_agent || "N/A"}
-                      </TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            ) : (
-              <div className="p-12 text-center text-muted-foreground">
-                No errors logged
-              </div>
+            ))}
+            {!groups.size && !errorsLoading && (
+              <p>No errors match the filter.</p>
             )}
           </div>
-        </Card>
-
+        )}
+        {!groupErrors && (
+          <>
+            {/* Error Logs */}
+            <Card>
+              <div className="p-6 border-b border-border">
+                <div className="flex items-center gap-2">
+                  <AlertCircle className="h-5 w-5 text-danger" />
+                  <h3 className="text-lg font-semibold">Recent Errors</h3>
+                </div>
+                <p className="text-sm text-muted-foreground">
+                  Client-side and server errors
+                </p>
+              </div>
+              <div className="overflow-x-auto">
+                {logsError ? (
+                  <p className="p-6">Could not load recent errors.</p>
+                ) : errorsLoading ? (
+                  <div className="p-6 space-y-4">
+                    {Array.from({ length: 5 }).map((_, i) => (
+                      <Skeleton key={i} className="h-16 w-full" />
+                    ))}
+                  </div>
+                ) : errorLogs && errorLogs.length > 0 ? (
+                  <Table>
+                    <TableHeader>
+                      <TableRow>
+                        <TableHead>Timestamp</TableHead>
+                        <TableHead>Error Message</TableHead>
+                        <TableHead>URL</TableHead>
+                        <TableHead>User Agent</TableHead>
+                      </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                      {matchingErrors.slice(0, 20).map((error) => (
+                        <TableRow key={error.id}>
+                          <TableCell className="text-sm whitespace-nowrap">
+                            {format(
+                              new Date(error.created_at),
+                              "MMM dd, HH:mm:ss",
+                            )}
+                          </TableCell>
+                          <TableCell className="font-mono text-xs max-w-[300px] truncate">
+                            {error.message}
+                          </TableCell>
+                          <TableCell className="text-xs max-w-[200px] truncate">
+                            {error.url || "N/A"}
+                          </TableCell>
+                          <TableCell className="text-xs text-muted-foreground max-w-[200px] truncate">
+                            {error.user_agent || "N/A"}
+                          </TableCell>
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  </Table>
+                ) : (
+                  <div className="p-12 text-center text-muted-foreground">
+                    No errors logged
+                  </div>
+                )}
+              </div>
+            </Card>
+          </>
+        )}
         {/* Performance Metrics */}
-        <Card>
-          <div className="p-6 border-b border-border">
-            <div className="flex items-center gap-2">
-              <Activity className="h-5 w-5 text-primary" />
-              <h3 className="text-lg font-semibold">Performance Metrics</h3>
+        {performanceEnabled && (
+          <Card>
+            <div className="p-6 border-b border-border">
+              <div className="flex items-center gap-2">
+                <Activity className="h-5 w-5 text-primary" />
+                <h3 className="text-lg font-semibold">Performance Metrics</h3>
+              </div>
+              <p className="text-sm text-muted-foreground">
+                Application performance data
+              </p>
             </div>
-            <p className="text-sm text-muted-foreground">
-              Application performance data
-            </p>
-          </div>
-          <div className="overflow-x-auto">
-            {metricsError ? (
-              <p className="p-6">Could not load performance metrics.</p>
-            ) : metricsLoading ? (
-              <div className="p-6 space-y-4">
-                {Array.from({ length: 5 }).map((_, i) => (
-                  <Skeleton key={i} className="h-16 w-full" />
-                ))}
-              </div>
-            ) : performanceMetrics && performanceMetrics.length > 0 ? (
-              <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead>Timestamp</TableHead>
-                    <TableHead>Metric Name</TableHead>
-                    <TableHead>Type</TableHead>
-                    <TableHead>Value</TableHead>
-                    <TableHead>Unit</TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {performanceMetrics.slice(0, 20).map((metric) => (
-                    <TableRow key={metric.id}>
-                      <TableCell className="text-sm whitespace-nowrap">
-                        {format(
-                          new Date(metric.recorded_at),
-                          "MMM dd, HH:mm:ss",
-                        )}
-                      </TableCell>
-                      <TableCell className="font-medium">
-                        {metric.metric_name}
-                      </TableCell>
-                      <TableCell>
-                        <Badge variant="info">{metric.metric_type}</Badge>
-                      </TableCell>
-                      <TableCell className="font-mono">
-                        {Number(metric.value).toFixed(2)}
-                      </TableCell>
-                      <TableCell className="text-muted-foreground">
-                        {metric.unit || "N/A"}
-                      </TableCell>
-                    </TableRow>
+            <div className="overflow-x-auto">
+              {metricsError ? (
+                <p className="p-6">Could not load performance metrics.</p>
+              ) : metricsLoading ? (
+                <div className="p-6 space-y-4">
+                  {Array.from({ length: 5 }).map((_, i) => (
+                    <Skeleton key={i} className="h-16 w-full" />
                   ))}
-                </TableBody>
-              </Table>
-            ) : (
-              <div className="p-12 text-center text-muted-foreground">
-                No performance metrics recorded
-              </div>
-            )}
-          </div>
-        </Card>
+                </div>
+              ) : performanceMetrics && performanceMetrics.length > 0 ? (
+                <Table>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead>Timestamp</TableHead>
+                      <TableHead>Metric Name</TableHead>
+                      <TableHead>Type</TableHead>
+                      <TableHead>Value</TableHead>
+                      <TableHead>Unit</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    {performanceMetrics.slice(0, 20).map((metric) => (
+                      <TableRow key={metric.id}>
+                        <TableCell className="text-sm whitespace-nowrap">
+                          {format(
+                            new Date(metric.recorded_at),
+                            "MMM dd, HH:mm:ss",
+                          )}
+                        </TableCell>
+                        <TableCell className="font-medium">
+                          {metric.metric_name}
+                        </TableCell>
+                        <TableCell>
+                          <Badge variant="info">{metric.metric_type}</Badge>
+                        </TableCell>
+                        <TableCell className="font-mono">
+                          {Number(metric.value).toFixed(2)}
+                        </TableCell>
+                        <TableCell className="text-muted-foreground">
+                          {metric.unit || "N/A"}
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              ) : (
+                <div className="p-12 text-center text-muted-foreground">
+                  No performance metrics recorded
+                </div>
+              )}
+            </div>
+          </Card>
+        )}
       </div>
     </AdminPageLayout>
   );

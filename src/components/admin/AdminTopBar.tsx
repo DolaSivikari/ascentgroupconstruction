@@ -1,157 +1,118 @@
-import { useNavigate } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { Link, useLocation } from "react-router-dom";
+import { Menu, Moon, Sun, Plus, ExternalLink, User } from "lucide-react";
 import { Button } from "@/ui/Button";
-import { ExternalLink, Home, LogOut, RefreshCw, Search } from "lucide-react";
-import ascentLogoHorizontalDark from "@/assets/ascent-logo-horizontal-dark.webp";
-import { supabase } from "@/integrations/supabase/client";
-import { useToast } from "@/hooks/use-toast";
-import { useKeyboardShortcuts } from "@/hooks/useKeyboardShortcuts";
-import { bustCache } from "@/utils/cacheBuster";
-import OptimizedImage from "../OptimizedImage";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
+  DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu";
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import { NotificationBell } from "./NotificationBell";
-import { GlobalSearchDialog } from "./GlobalSearchDialog";
+import { GlobalSearch } from "./GlobalSearch";
+import { NotificationBellInbox } from "./NotificationBellInbox";
+import type { AdminTheme } from "@/lib/admin/preferences";
 
-export const AdminTopBar = () => {
-  const navigate = useNavigate();
-  const { toast } = useToast();
-  const [searchOpen, setSearchOpen] = useState(false);
-
-  // Keyboard shortcut for global search (Cmd+K or Ctrl+K)
-  useKeyboardShortcuts([
-    {
-      key: 'k',
-      meta: true,
-      callback: () => setSearchOpen(true),
-    },
-  ]);
-
-  const handleSignOut = async () => {
-    await supabase.auth.signOut();
-    toast({
-      title: "Signed out",
-      description: "You've been successfully signed out.",
-    });
-    navigate("/tekev");
-  };
-
-  const handleViewSite = () => {
-    window.open("/", "_blank");
-  };
-
+export function AdminTopBar({
+  theme,
+  onThemeChange,
+  onOpenMenu,
+  email,
+  onSignOut,
+  signingOut,
+}: {
+  theme: AdminTheme;
+  onThemeChange: () => void;
+  onOpenMenu: () => void;
+  email?: string;
+  onSignOut: () => void;
+  signingOut: boolean;
+}) {
+  const location = useLocation();
+  const label =
+    location.pathname.split("/")[2]?.replace(/-/g, " ") || "Dashboard";
   return (
-    <header className="sticky top-0 z-50 border-b bg-background shadow-sm">
-      <div className="container mx-auto px-4 py-3">
-        <div className="flex items-center justify-between">
-          {/* Left: Logo + Title */}
-          <div className="flex items-center gap-3">
-            <OptimizedImage
-              src={ascentLogoHorizontalDark}
-              alt="Ascent Group Construction"
-              width={160}
-              height={40}
-              aspectRatio="4/1"
-              generateSrcSet={true}
-              className="h-10"
-            />
-            <div>
-              <h1 className="text-xl font-bold">
-                Ascent Group Construction
-              </h1>
-              <p className="text-xs text-muted-foreground">Admin Panel</p>
-            </div>
-          </div>
-
-          {/* Right: Action Buttons */}
-          <div className="flex items-center gap-3">
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={() => setSearchOpen(true)}
-              className="gap-2"
-              aria-label="Search"
-            >
-              <Search className="h-4 w-4" />
-              <span className="hidden sm:inline">Search</span>
-              <kbd className="hidden md:inline-flex h-5 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium">
-                <span className="text-xs">⌘</span>K
-              </kbd>
-            </Button>
-            
-            <Button
-              variant="default"
-              size="sm"
-              onClick={handleViewSite}
-              className="gap-2"
-              aria-label="View public website"
-            >
-              <ExternalLink className="h-4 w-4" />
-              <span className="hidden sm:inline">View Site</span>
-            </Button>
-            
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={() => {
-                bustCache();
-                toast({
-                  title: "Cache Cleared",
-                  description: "Site cache has been refreshed successfully",
-                });
-              }}
-              className="gap-2"
-              aria-label="Force refresh site cache"
-            >
-              <RefreshCw className="h-4 w-4" />
-              <span className="hidden sm:inline">Refresh</span>
-            </Button>
-            
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={() => navigate("/admin/hero")}
-              className="gap-2"
-              aria-label="Edit homepage content"
-            >
-              <Home className="h-4 w-4" />
-              <span className="hidden sm:inline">Edit Homepage</span>
-            </Button>
-
-            <NotificationBell />
-
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button variant="ghost" size="icon" className="rounded-full" aria-label="Open user menu">
-                  <Avatar className="h-8 w-8">
-                    <AvatarFallback>A</AvatarFallback>
-                  </Avatar>
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="end">
-                <DropdownMenuItem onClick={() => navigate("/admin")}>
-                  <Home className="h-4 w-4 mr-2" />
-                  Dashboard
-                </DropdownMenuItem>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem onClick={handleSignOut}>
-                  <LogOut className="h-4 w-4 mr-2" />
-                  Sign Out
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
-          </div>
-        </div>
+    <header className="admin-topbar flex flex-wrap items-center gap-3 border-b bg-background px-4 py-3">
+      <Button
+        type="button"
+        variant="ghost"
+        size="icon"
+        className="lg:hidden"
+        aria-label="Open admin navigation"
+        onClick={onOpenMenu}
+      >
+        <Menu size={20} />
+      </Button>
+      <div className="min-w-0 mr-auto">
+        <p className="text-xs text-muted-foreground">
+          Admin / <span className="capitalize">{label}</span>
+        </p>
+        <p className="font-semibold capitalize">{label}</p>
       </div>
-      
-      {/* Global Search Dialog */}
-      <GlobalSearchDialog open={searchOpen} onOpenChange={setSearchOpen} />
+      <div className="w-9 sm:w-52 admin-topbar-search">
+        <GlobalSearch />
+      </div>
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <Button variant="outline" className="hidden sm:inline-flex">
+            <Plus size={16} className="mr-1" />
+            New
+          </Button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent align="end">
+          {[
+            ["Project", "/admin/projects/new"],
+            ["Blog post", "/admin/blog/new"],
+            ["Service", "/admin/services/new"],
+          ].map(([name, to]) => (
+            <DropdownMenuItem key={to} asChild>
+              <Link to={to}>{name}</Link>
+            </DropdownMenuItem>
+          ))}
+        </DropdownMenuContent>
+      </DropdownMenu>
+      <NotificationBellInbox />
+      <Button
+        variant="ghost"
+        size="icon"
+        aria-label={`Switch to ${theme === "light" ? "dark" : "light"} theme`}
+        onClick={onThemeChange}
+      >
+        {theme === "light" ? <Moon size={19} /> : <Sun size={19} />}
+      </Button>
+      <Button asChild variant="outline" className="hidden sm:inline-flex">
+        <a href="/" target="_blank" rel="noopener noreferrer">
+          <ExternalLink size={16} className="mr-2" />
+          View site
+        </a>
+      </Button>
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <Button variant="ghost" size="icon" aria-label="User menu">
+            <User size={20} />
+          </Button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent align="end" className="max-w-[90vw]">
+          <div className="px-2 py-2 text-sm break-all">{email}</div>
+          <DropdownMenuSeparator />
+          <DropdownMenuItem asChild>
+            <a href="/" target="_blank" rel="noopener noreferrer">
+              View site
+            </a>
+          </DropdownMenuItem>
+          {[
+            ["New project", "/admin/projects/new"],
+            ["New blog post", "/admin/blog/new"],
+            ["New service", "/admin/services/new"],
+          ].map(([name, to]) => (
+            <DropdownMenuItem key={to} className="sm:hidden" asChild>
+              <Link to={to}>{name}</Link>
+            </DropdownMenuItem>
+          ))}
+          <DropdownMenuItem disabled={signingOut} onSelect={onSignOut}>
+            Sign out
+          </DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>
     </header>
   );
-};
+}

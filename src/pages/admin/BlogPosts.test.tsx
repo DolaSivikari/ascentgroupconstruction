@@ -13,6 +13,7 @@ const mock = vi.hoisted(() => ({ preview: vi.fn(), toast: vi.fn() }));
 vi.mock("@/lib/admin/contentPreview", () => ({
   savePreviewLink: mock.preview,
 }));
+vi.mock("sonner", () => ({ toast: { error: mock.toast, success: vi.fn() } }));
 vi.mock("@/hooks/use-toast", () => ({
   useToast: () => ({ toast: mock.toast }),
 }));
@@ -62,7 +63,11 @@ describe("blog list preview", () => {
       </MemoryRouter>,
     );
     await screen.findByText("Fixture draft");
-    fireEvent.click(screen.getByTitle("Preview draft"));
+    fireEvent.keyDown(
+      screen.getByRole("button", { name: "Actions for Fixture draft" }),
+      { key: "Enter" },
+    );
+    fireEvent.click(await screen.findByRole("menuitem", { name: "Preview" }));
     expect(mock.preview).toHaveBeenCalledWith(
       "blog_posts",
       "draft-post",
@@ -87,12 +92,14 @@ describe("blog list preview", () => {
       </MemoryRouter>,
     );
     await screen.findByText("Fixture draft");
-    fireEvent.click(screen.getByTitle("Preview draft"));
+    fireEvent.keyDown(
+      screen.getByRole("button", { name: "Actions for Fixture draft" }),
+      { key: "Enter" },
+    );
+    fireEvent.click(await screen.findByRole("menuitem", { name: "Preview" }));
     await waitFor(() =>
       expect(mock.toast).toHaveBeenCalledWith(
-        expect.objectContaining({
-          description: expect.stringContaining("permission"),
-        }),
+        expect.stringContaining("permission"),
       ),
     );
     expect(open).not.toHaveBeenCalled();

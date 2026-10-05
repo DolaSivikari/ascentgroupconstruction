@@ -1,3 +1,4 @@
+import { RichText } from "@/components/RichText";
 import { useEffect, useState } from "react";
 import { useParams, Navigate, Link } from "react-router-dom";
 import Navigation from "@/components/Navigation";
@@ -40,7 +41,10 @@ import { servicePeopleAlsoAsk } from "@/data/service-people-ask";
 import { serviceAreaCities } from "@/data/service-area-cities";
 import { getServiceParent } from "@/data/service-registry";
 import { ServiceSpecialties } from "@/components/services/ServiceSpecialties";
-import { createServiceSchema, createHowToSchema } from "@/utils/schema-injector";
+import {
+  createServiceSchema,
+  createHowToSchema,
+} from "@/utils/schema-injector";
 import { breadcrumbSchema } from "@/utils/structured-data";
 import { getIconForService } from "@/utils/serviceIcons";
 import { resolveServiceHero } from "@/data/hero-images";
@@ -49,7 +53,10 @@ import { FAQAccordion } from "@/design-system/components/FAQAccordion";
 import { RelatedLinksGrid } from "@/design-system/components/RelatedLinksGrid";
 import { serviceDetailFaqs } from "@/data/page-faqs";
 import { Wrench, Briefcase } from "lucide-react";
-import { getRelatedForService, type SmartRelatedLink } from "@/utils/relatedLinks";
+import {
+  getRelatedForService,
+  type SmartRelatedLink,
+} from "@/utils/relatedLinks";
 
 interface ProcessStep {
   step_number: number;
@@ -91,9 +98,9 @@ const normalizeStringArray = (arr: unknown): string[] =>
         .map((v) =>
           typeof v === "string"
             ? v
-            : (v as { label?: string; title?: string })?.label ??
+            : ((v as { label?: string; title?: string })?.label ??
               (v as { label?: string; title?: string })?.title ??
-              ""
+              ""),
         )
         .filter(Boolean)
     : [];
@@ -216,12 +223,18 @@ const ServiceDetail = () => {
   const quickFacts = serviceQuickFacts[serviceKey] || [];
   const peopleAsk = servicePeopleAlsoAsk[serviceKey] || [];
   const ServiceIcon = getIconForService(service.name);
-  const hero = resolveServiceHero(service.slug, service.featured_image, service.category);
+  const hero = resolveServiceHero(
+    service.slug,
+    service.featured_image,
+    service.category,
+  );
   const badges = serviceBadges[service.slug];
 
   // Normalize legacy data shapes ([{label}] -> [string])
   const whatWeProvide = normalizeStringArray(service.what_we_provide);
-  const typicalApplications = normalizeStringArray(service.typical_applications);
+  const typicalApplications = normalizeStringArray(
+    service.typical_applications,
+  );
 
   // Generate AEO/GEO structured data
   const serviceSchemaData = createServiceSchema({
@@ -247,7 +260,9 @@ const ServiceDetail = () => {
   const breadcrumbSchemaData = breadcrumbSchema([
     { name: "Home", url: `${SITE_URL}/` },
     { name: "Services", url: `${SITE_URL}/services` },
-    ...(parent ? [{ name: parent.navLabel, url: `${SITE_URL}${parent.path}` }] : []),
+    ...(parent
+      ? [{ name: parent.navLabel, url: `${SITE_URL}${parent.path}` }]
+      : []),
     { name: service.name, url: `${SITE_URL}/services/${service.slug}` },
   ]);
 
@@ -339,9 +354,10 @@ const ServiceDetail = () => {
                       title="Service Overview"
                       align="left"
                     />
-                    <p className="text-lg text-muted-foreground leading-relaxed whitespace-pre-wrap">
-                      {service.service_overview}
-                    </p>
+                    <RichText
+                      className="text-lg text-muted-foreground leading-relaxed [&>p]:mb-4 [&>p:last-child]:mb-0"
+                      content={service.service_overview}
+                    />
                   </div>
                 )}
 
@@ -458,10 +474,7 @@ const ServiceDetail = () => {
                     <div className="border-l-4 border-primary bg-muted/30 rounded-r-lg p-6">
                       <div className="grid sm:grid-cols-2 gap-x-6 gap-y-3">
                         {whatWeProvide.map((item, index) => (
-                          <div
-                            key={index}
-                            className="flex items-start gap-2.5"
-                          >
+                          <div key={index} className="flex items-start gap-2.5">
                             <CheckCircle className="w-4 h-4 text-primary flex-shrink-0 mt-1" />
                             <span className="text-sm text-foreground/90 leading-relaxed">
                               {item}
@@ -511,12 +524,7 @@ const ServiceDetail = () => {
                 {/* Fallback: Long Description */}
                 {!service.service_overview && service.long_description && (
                   <div className="prose prose-lg max-w-none">
-                    <div
-                      dangerouslySetInnerHTML={{
-                        __html: sanitizeAndValidate(service.long_description)
-                          .sanitized,
-                      }}
-                    />
+                    <RichText content={service.long_description} />
                   </div>
                 )}
               </div>
@@ -539,11 +547,7 @@ const ServiceDetail = () => {
                           <ArrowRight className="w-4 h-4 ml-1" />
                         </Link>
                       </Button>
-                      <Button
-                        asChild
-                        variant="outline"
-                        className="w-full mb-5"
-                      >
+                      <Button asChild variant="outline" className="w-full mb-5">
                         <Link to="/contact">{CTA_TEXT.contact}</Link>
                       </Button>
 
@@ -553,7 +557,9 @@ const ServiceDetail = () => {
                           className="flex items-center gap-2.5 text-foreground hover:text-primary transition-colors"
                         >
                           <Phone className="w-4 h-4 text-primary" />
-                          <span className="font-medium">Call our team at {formatPhoneDisplay()}</span>
+                          <span className="font-medium">
+                            Call our team at {formatPhoneDisplay()}
+                          </span>
                         </a>
                         <a
                           href="mailto:projects@ascentgroupconstruction.com"
@@ -620,9 +626,12 @@ const ServiceDetail = () => {
         {/* Service-level FAQ (auto FAQ schema) */}
         <section className="py-16 bg-muted/30">
           <div className="container mx-auto px-4 max-w-3xl">
-            <h2 className="text-3xl font-bold text-center mb-4">Common Questions</h2>
+            <h2 className="text-3xl font-bold text-center mb-4">
+              Common Questions
+            </h2>
             <p className="text-center text-muted-foreground mb-8">
-              Standard answers about scope, schedule, and warranty for {service.name.toLowerCase()}.
+              Standard answers about scope, schedule, and warranty for{" "}
+              {service.name.toLowerCase()}.
             </p>
             <FAQAccordion faqs={serviceDetailFaqs} />
           </div>
@@ -636,9 +645,26 @@ const ServiceDetail = () => {
             relatedLinks.length > 0
               ? relatedLinks
               : [
-                  { title: "All Services", description: "Browse the full envelope, restoration & interior catalog.", href: "/services", icon: Wrench },
-                  { title: "Recent Projects", description: "See similar projects delivered across the GTA.", href: "/projects", icon: Briefcase },
-                  { title: "Capabilities", description: "What we self-perform and how we deliver.", href: "/capabilities", icon: Building2 },
+                  {
+                    title: "All Services",
+                    description:
+                      "Browse the full envelope, restoration & interior catalog.",
+                    href: "/services",
+                    icon: Wrench,
+                  },
+                  {
+                    title: "Recent Projects",
+                    description:
+                      "See similar projects delivered across the GTA.",
+                    href: "/projects",
+                    icon: Briefcase,
+                  },
+                  {
+                    title: "Capabilities",
+                    description: "What we self-perform and how we deliver.",
+                    href: "/capabilities",
+                    icon: Building2,
+                  },
                 ]
           }
           background="default"

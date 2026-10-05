@@ -7,6 +7,11 @@ import SEO from "./SEO";
 import Footer from "./Footer";
 const mock = vi.hoisted(() => ({
   result: Promise.resolve({ data: null, error: null }),
+  site: null as null | {
+    meta_title?: string;
+    meta_description?: string;
+    social_links?: Record<string, string>;
+  },
 }));
 vi.mock("@/hooks/useAggregateRating", () => ({
   useAggregateRating: () => ({
@@ -28,14 +33,23 @@ vi.mock("@/integrations/supabase/client", () => ({
   },
 }));
 afterEach(() => {
+  mock.site = null;
   cleanup();
   document.head.querySelectorAll("[data-rh]").forEach((node) => node.remove());
 });
 describe("head ownership", () => {
   it("handles a nullable description from a content record", async () => {
-    render(<HelmetProvider><SEO title="Article" description={null} /></HelmetProvider>);
+    render(
+      <HelmetProvider>
+        <SEO title="Article" description={null} />
+      </HelmetProvider>,
+    );
     await waitFor(() => expect(document.title).toContain("Article"));
-    expect(document.querySelector('meta[name="description"]')?.getAttribute("content")).toContain("Self-performing specialty contractor");
+    expect(
+      document
+        .querySelector('meta[name="description"]')
+        ?.getAttribute("content"),
+    ).toContain("Self-performing specialty contractor");
   });
   it("keeps page metadata through both loading and loaded footer states", async () => {
     let resolve: (value: { data: null; error: null }) => void;
@@ -104,29 +118,130 @@ describe("head ownership", () => {
     );
   });
   it("preserves a short-brand title and complete social title with an absolute image", async () => {
-    const title = "Building Envelope Contractor in Richmond Hill | Ascent Group";
+    const title =
+      "Building Envelope Contractor in Richmond Hill | Ascent Group";
     const image = "https://images.example.com/public/project.webp";
-    render(<HelmetProvider><SEO title={title} ogImage={image} keywords="obsolete keyword" /></HelmetProvider>);
+    render(
+      <HelmetProvider>
+        <SEO title={title} ogImage={image} keywords="obsolete keyword" />
+      </HelmetProvider>,
+    );
     await waitFor(() => expect(document.title).toBe(title));
-    expect(document.querySelector('meta[property="og:title"]')).toHaveAttribute("content", title);
-    expect(document.querySelector('meta[property="og:image"]')).toHaveAttribute("content", image);
-    expect(document.querySelector('meta[name="twitter:image"]')).toHaveAttribute("content", image);
+    expect(document.querySelector('meta[property="og:title"]')).toHaveAttribute(
+      "content",
+      title,
+    );
+    expect(document.querySelector('meta[property="og:image"]')).toHaveAttribute(
+      "content",
+      image,
+    );
+    expect(
+      document.querySelector('meta[name="twitter:image"]'),
+    ).toHaveAttribute("content", image);
     expect(document.querySelector('meta[name="keywords"]')).toBeNull();
   });
   it("does not turn a service description into the company's identity", async () => {
-    render(<HelmetProvider><SEO title="Painting" description="Specific painting scope" /></HelmetProvider>);
+    render(
+      <HelmetProvider>
+        <SEO title="Painting" description="Specific painting scope" />
+      </HelmetProvider>,
+    );
     await waitFor(() => expect(document.title).toContain("Painting"));
-    const business = JSON.parse(document.querySelector('script[type="application/ld+json"]')!.textContent!);
+    const business = JSON.parse(
+      document.querySelector('script[type="application/ld+json"]')!
+        .textContent!,
+    );
     expect(business.description).not.toBe("Specific painting scope");
-    expect(business["@id"]).toBe("https://www.ascentgroupconstruction.com/#organization");
-    expect(document.querySelector('meta[name="description"]')).toHaveAttribute("content", "Specific painting scope");
+    expect(business["@id"]).toBe(
+      "https://www.ascentgroupconstruction.com/#organization",
+    );
+    expect(document.querySelector('meta[name="description"]')).toHaveAttribute(
+      "content",
+      "Specific painting scope",
+    );
   });
   it("keeps the existing city list aligned without self-serving business review stars", async () => {
-    render(<HelmetProvider><SEO title="Home" includeRating /></HelmetProvider>);
+    render(
+      <HelmetProvider>
+        <SEO title="Home" includeRating />
+      </HelmetProvider>,
+    );
     await waitFor(() => expect(document.title).toContain("Home"));
-    const business = JSON.parse(document.querySelector('script[type="application/ld+json"]')!.textContent!);
-    expect(business.areaServed.filter((area: { "@type": string }) => area["@type"] === "City")).toHaveLength(17);
-    expect(business.areaServed).toContainEqual({ "@type": "City", name: "King City" });
+    const business = JSON.parse(
+      document.querySelector('script[type="application/ld+json"]')!
+        .textContent!,
+    );
+    expect(
+      business.areaServed.filter(
+        (area: { "@type": string }) => area["@type"] === "City",
+      ),
+    ).toHaveLength(17);
+    expect(business.areaServed).toContainEqual({
+      "@type": "City",
+      name: "King City",
+    });
     expect(business.aggregateRating).toBeUndefined();
+  });
+});
+
+vi.mock("@/hooks/usePublicSettings", () => ({
+  usePublicSettings: (table: string) => ({
+    data: table === "site_settings" ? mock.site : null,
+  }),
+}));
+
+describe("owner metadata defaults", () => {
+  it("uses configured defaults only when the page supplies no metadata", async () => {
+    mock.site = {
+      meta_title: "Owner default title",
+      meta_description: "Owner default description",
+    };
+    const { rerender } = render(
+      <HelmetProvider>
+        <SEO />
+      </HelmetProvider>,
+    );
+    await waitFor(() =>
+      expect(document.title).toContain("Owner default title"),
+    );
+    expect(document.querySelector('meta[name="description"]')).toHaveAttribute(
+      "content",
+      "Owner default description",
+    );
+    rerender(
+      <HelmetProvider>
+        <SEO title="Page title" description="Page description" />
+      </HelmetProvider>,
+    );
+    await waitFor(() => expect(document.title).toContain("Page title"));
+    expect(document.querySelector('meta[name="description"]')).toHaveAttribute(
+      "content",
+      "Page description",
+    );
+  });
+  it("uses only valid HTTPS social profiles in organization structured data", async () => {
+    mock.site = {
+      social_links: {
+        linkedin: "https://example.test/company",
+        facebook: "javascript:alert(1)",
+      },
+    };
+    render(
+      <HelmetProvider>
+        <SEO />
+      </HelmetProvider>,
+    );
+    await waitFor(() =>
+      expect(
+        [...document.querySelectorAll('script[type="application/ld+json"]')]
+          .map((n) => n.textContent)
+          .join(),
+      ).toContain("https://example.test/company"),
+    );
+    expect(
+      [...document.querySelectorAll('script[type="application/ld+json"]')]
+        .map((n) => n.textContent)
+        .join(),
+    ).not.toContain("javascript:");
   });
 });

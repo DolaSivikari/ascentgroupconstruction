@@ -1,5 +1,5 @@
-import type { LucideIcon } from 'lucide-react';
-import { NavLink, useNavigate, useLocation } from 'react-router-dom';
+import type { LucideIcon } from "lucide-react";
+import { NavLink, useNavigate, useLocation } from "react-router-dom";
 import {
   LayoutDashboard,
   FileText,
@@ -24,17 +24,20 @@ import {
   ShieldCheck,
   History,
   Sparkles,
-} from 'lucide-react';
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
-import { useQuery, useQueryClient } from '@tanstack/react-query';
-import { loadInboxCounts } from '@/lib/inbox/api';
-import { INBOX_SOURCES } from '@/lib/inbox/model';
-import { useState, useEffect } from 'react';
-import { GlobalSearch } from './GlobalSearch';
-import { supabase } from '@/integrations/supabase/client';
-import { useToast } from '@/hooks/use-toast';
-import { Badge } from '@/components/ui/badge';
-import { cn } from '@/lib/utils';
+} from "lucide-react";
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from "@/components/ui/collapsible";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { loadInboxCounts } from "@/lib/inbox/api";
+import { INBOX_SOURCES } from "@/lib/inbox/model";
+import { useState, useEffect } from "react";
+import { supabase } from "@/integrations/supabase/client";
+import { useToast } from "@/hooks/use-toast";
+import { Badge } from "@/components/ui/badge";
+import { cn } from "@/lib/utils";
 
 interface UnifiedSidebarProps {
   collapsed: boolean;
@@ -56,31 +59,53 @@ export const UnifiedSidebar = ({
 
   const queryClient = useQueryClient();
   const { data: counts, error: countsError } = useQuery({
-    queryKey: ["inbox-stats"], queryFn: loadInboxCounts, refetchInterval: 60_000,
+    queryKey: ["inbox-stats"],
+    queryFn: loadInboxCounts,
+    refetchInterval: 60_000,
   });
-  const newSubmissions = !countsError && counts ? counts.rfp + counts.contact + counts.resume + counts.prequal + counts.quote : 0;
-  const [user, setUser] = useState<{ email?: string; full_name?: string; avatar_url?: string } | null>(null);
+  const newSubmissions =
+    !countsError && counts
+      ? counts.rfp +
+        counts.contact +
+        counts.resume +
+        counts.prequal +
+        counts.quote
+      : 0;
+  const [user, setUser] = useState<{
+    email?: string;
+    full_name?: string;
+    avatar_url?: string;
+  } | null>(null);
 
   const handleSignOut = async () => {
     try {
       const { error } = await supabase.auth.signOut();
       if (error) throw error;
     } catch {
-      toast({ title: 'Could not sign out', description: 'Please try again.', variant: 'destructive' });
+      toast({
+        title: "Could not sign out",
+        description: "Please try again.",
+        variant: "destructive",
+      });
       return;
     }
-    toast({ title: 'Signed out', description: "You've been successfully signed out." });
-    navigate('/tekev');
+    toast({
+      title: "Signed out",
+      description: "You've been successfully signed out.",
+    });
+    navigate("/tekev");
   };
 
   useEffect(() => {
     const loadUser = async () => {
-      const { data: { user: authUser } } = await supabase.auth.getUser();
+      const {
+        data: { user: authUser },
+      } = await supabase.auth.getUser();
       if (!authUser) return;
       const { data: profile } = await supabase
-        .from('profiles')
-        .select('full_name, avatar_url, email')
-        .eq('id', authUser.id)
+        .from("profiles")
+        .select("full_name, avatar_url, email")
+        .eq("id", authUser.id)
         .maybeSingle();
       setUser({
         email: authUser.email,
@@ -92,13 +117,21 @@ export const UnifiedSidebar = ({
   }, []);
 
   useEffect(() => {
-    const channel = supabase.channel("sidebar-counts")
-      .on("postgres_changes", { event: "*", schema: "public" }, payload => {
-        if (Object.values(INBOX_SOURCES).some(source => source.table === payload.table)) {
+    const channel = supabase
+      .channel("sidebar-counts")
+      .on("postgres_changes", { event: "*", schema: "public" }, (payload) => {
+        if (
+          Object.values(INBOX_SOURCES).some(
+            (source) => source.table === payload.table,
+          )
+        ) {
           void queryClient.invalidateQueries({ queryKey: ["inbox-stats"] });
         }
-      }).subscribe();
-    return () => { void supabase.removeChannel(channel); };
+      })
+      .subscribe();
+    return () => {
+      void supabase.removeChannel(channel);
+    };
   }, [queryClient]);
 
   useEffect(() => {
@@ -107,10 +140,18 @@ export const UnifiedSidebar = ({
   }, [currentPath]);
 
   const isActive = (path: string) =>
-    path === '/admin' ? currentPath === '/admin' : currentPath === path || currentPath.startsWith(path + '/');
+    path === "/admin"
+      ? currentPath === "/admin"
+      : currentPath === path || currentPath.startsWith(path + "/");
 
-  const isWebsiteActive = ['/admin/homepage-builder', '/admin/seo-dashboard', '/admin/page-headers'].some((p) => currentPath.startsWith(p));
-  const isToolsActive = ['/admin/monitoring', '/admin/audit'].some((p) => currentPath.startsWith(p));
+  const isWebsiteActive = [
+    "/admin/homepage-builder",
+    "/admin/seo-dashboard",
+    "/admin/page-headers",
+  ].some((p) => currentPath.startsWith(p));
+  const isToolsActive = ["/admin/monitoring", "/admin/audit"].some((p) =>
+    currentPath.startsWith(p),
+  );
 
   const [websiteOpen, setWebsiteOpen] = useState(isWebsiteActive);
   const [toolsOpen, setToolsOpen] = useState(isToolsActive);
@@ -120,12 +161,12 @@ export const UnifiedSidebar = ({
     if (isToolsActive) setToolsOpen(true);
   }, [currentPath, isWebsiteActive, isToolsActive]);
 
-  const userInitials = (user?.full_name || user?.email || 'A')
+  const userInitials = (user?.full_name || user?.email || "A")
     .split(/[\s@]/)
     .filter(Boolean)
     .slice(0, 2)
     .map((s) => s[0]?.toUpperCase())
-    .join('');
+    .join("");
 
   // ── Nav item ───────────────────────────────────────────────
   const NavItem = ({
@@ -144,7 +185,11 @@ export const UnifiedSidebar = ({
       <NavLink
         to={to}
         title={collapsed ? label : undefined}
-        className={cn('admin-nav-item group', active && 'is-active', collapsed && 'is-collapsed')}
+        className={cn(
+          "admin-nav-item group",
+          active && "is-active",
+          collapsed && "is-collapsed",
+        )}
       >
         <span className="admin-nav-item__indicator" aria-hidden="true" />
         <span className="admin-nav-item__icon">
@@ -158,7 +203,7 @@ export const UnifiedSidebar = ({
                 variant="destructive"
                 className="ml-auto h-5 min-w-[20px] rounded-full px-1.5 text-[10px] font-semibold tabular-nums shadow-sm"
               >
-                {badge > 99 ? '99+' : badge}
+                {badge > 99 ? "99+" : badge}
               </Badge>
             )}
           </>
@@ -200,14 +245,19 @@ export const UnifiedSidebar = ({
     }
     return (
       <Collapsible open={open} onOpenChange={onOpenChange}>
-        <CollapsibleTrigger className={cn('admin-nav-group-trigger', active && 'is-active-parent')}>
+        <CollapsibleTrigger
+          className={cn(
+            "admin-nav-group-trigger",
+            active && "is-active-parent",
+          )}
+        >
           <span className="admin-nav-item__icon">
             <Icon size={18} strokeWidth={1.75} />
           </span>
           <span className="admin-nav-item__label">{label}</span>
           <ChevronDown
             size={14}
-            className={cn('admin-nav-group-chevron', open && 'is-open')}
+            className={cn("admin-nav-group-chevron", open && "is-open")}
           />
         </CollapsibleTrigger>
         <CollapsibleContent className="admin-nav-group-content">
@@ -220,14 +270,18 @@ export const UnifiedSidebar = ({
   return (
     <>
       {mobileOpen && (
-        <div className="admin-sidebar-backdrop" onClick={onMobileClose} aria-hidden="true" />
+        <div
+          className="admin-sidebar-backdrop"
+          onClick={onMobileClose}
+          aria-hidden="true"
+        />
       )}
 
       <aside
         className={cn(
-          'admin-sidebar',
-          collapsed && 'is-collapsed',
-          mobileOpen && 'is-mobile-open',
+          "admin-sidebar",
+          collapsed && "is-collapsed",
+          mobileOpen && "is-mobile-open",
         )}
       >
         {/* Mobile close */}
@@ -252,27 +306,36 @@ export const UnifiedSidebar = ({
           )}
         </div>
 
-        {/* ── Search ── */}
-        <div className={collapsed ? undefined : "admin-sidebar-search"}>
-          <GlobalSearch collapsed={collapsed} />
-        </div>
-
         {/* ── Scrollable nav ── */}
         <div className="admin-sidebar-scroll">
           {/* OVERVIEW */}
-          <SectionLabel>Overview</SectionLabel>
+          <SectionLabel>Today</SectionLabel>
           <nav className="admin-nav-list">
             <NavItem to="/admin" icon={LayoutDashboard} label="Dashboard" />
-            <NavItem to="/admin/inbox" icon={Inbox} label="Leads & Inbox" badge={newSubmissions} />
+            <NavItem
+              to="/admin/inbox"
+              icon={Inbox}
+              label="Leads"
+              badge={newSubmissions}
+            />
           </nav>
 
           {/* CONTENT */}
           <SectionLabel>Content</SectionLabel>
           <nav className="admin-nav-list">
             <NavItem to="/admin/projects" icon={Building} label="Projects" />
-            <NavItem to="/admin/services-manager" icon={Wrench} label="Services" />
+            <NavItem
+              to="/admin/services-manager"
+              icon={Wrench}
+              label="Services"
+            />
             <NavItem to="/admin/blog" icon={FileText} label="Blog Posts" />
-            <NavItem to="/admin/documents-library" icon={FileCheck} label="Documents" />
+            <NavItem
+              to="/admin/documents-library"
+              icon={FileCheck}
+              label="Documents"
+            />
+            <NavItem to="/admin/media" icon={Image} label="Media" />
           </nav>
 
           {/* WEBSITE */}
@@ -284,29 +347,64 @@ export const UnifiedSidebar = ({
             onOpenChange={setWebsiteOpen}
             active={isWebsiteActive}
           >
-            <NavItem to="/admin/homepage-builder" icon={Layout} label="Homepage Builder" />
-            <NavItem to="/admin/page-headers" icon={Image} label="Page Headers" />
-            <NavItem to="/admin/seo-dashboard" icon={Sparkles} label="SEO Dashboard" />
+            <NavItem
+              to="/admin/homepage-builder"
+              icon={Layout}
+              label="Homepage Builder"
+            />
+            <NavItem
+              to="/admin/settings?tab=about"
+              icon={FileText}
+              label="About"
+            />
+            <NavItem
+              to="/admin/settings?tab=contact"
+              icon={Mail}
+              label="Contact & Footer"
+            />
+            <NavItem
+              to="/admin/page-headers"
+              icon={Image}
+              label="Page Headers"
+            />
+            <NavItem
+              to="/admin/seo-dashboard"
+              icon={Sparkles}
+              label="SEO Dashboard"
+            />
           </NavGroup>
 
           {/* SETTINGS */}
-          <SectionLabel>Settings</SectionLabel>
+          <SectionLabel>Admin</SectionLabel>
           <nav className="admin-nav-list">
-            <NavItem to="/admin/settings" icon={Settings} label="Site Settings" />
+            <NavItem
+              to="/admin/settings"
+              icon={Settings}
+              label="Site Settings"
+            />
             <NavItem to="/admin/users" icon={Users} label="Users & Roles" />
           </nav>
 
           {/* TOOLS */}
-          <SectionLabel>Tools</SectionLabel>
+
           <NavGroup
-            label="Analytics & Logs"
+            label="Activity"
             icon={BarChart2}
             open={toolsOpen}
             onOpenChange={setToolsOpen}
             active={isToolsActive}
           >
-            <NavItem to="/admin/monitoring" icon={ShieldCheck} label="Site Health" />
+            <NavItem
+              to="/admin/monitoring"
+              icon={ShieldCheck}
+              label="Site Health"
+            />
             <NavItem to="/admin/audit" icon={History} label="Audit Log" />
+            <NavItem
+              to="/admin/email-delivery"
+              icon={Mail}
+              label="Email Delivery"
+            />
           </NavGroup>
         </div>
 
@@ -316,13 +414,22 @@ export const UnifiedSidebar = ({
             <div className="admin-sidebar-user">
               <div className="admin-sidebar-user__avatar">
                 {user.avatar_url ? (
-                  <img src={user.avatar_url} alt="" width={40} height={40} loading="lazy" decoding="async" />
+                  <img
+                    src={user.avatar_url}
+                    alt=""
+                    width={40}
+                    height={40}
+                    loading="lazy"
+                    decoding="async"
+                  />
                 ) : (
-                  <span>{userInitials || 'A'}</span>
+                  <span>{userInitials || "A"}</span>
                 )}
               </div>
               <div className="admin-sidebar-user__meta">
-                <div className="admin-sidebar-user__name">{user.full_name || 'Administrator'}</div>
+                <div className="admin-sidebar-user__name">
+                  {user.full_name || "Administrator"}
+                </div>
                 <div className="admin-sidebar-user__email">{user.email}</div>
               </div>
             </div>
@@ -333,26 +440,33 @@ export const UnifiedSidebar = ({
               href="/"
               target="_blank"
               rel="noopener noreferrer"
-              className={cn('admin-nav-item admin-nav-item--ghost', collapsed && 'is-collapsed')}
-              title={collapsed ? 'View site' : undefined}
+              className={cn(
+                "admin-nav-item admin-nav-item--ghost",
+                collapsed && "is-collapsed",
+              )}
+              title={collapsed ? "View site" : undefined}
             >
               <span className="admin-nav-item__icon">
                 <ExternalLink size={18} strokeWidth={1.75} />
               </span>
-              {!collapsed && <span className="admin-nav-item__label">View site</span>}
+              {!collapsed && (
+                <span className="admin-nav-item__label">View site</span>
+              )}
             </a>
             <button
               onClick={handleSignOut}
               className={cn(
-                'admin-nav-item admin-nav-item--ghost admin-nav-item--danger w-full text-left',
-                collapsed && 'is-collapsed',
+                "admin-nav-item admin-nav-item--ghost admin-nav-item--danger w-full text-left",
+                collapsed && "is-collapsed",
               )}
-              title={collapsed ? 'Sign out' : undefined}
+              title={collapsed ? "Sign out" : undefined}
             >
               <span className="admin-nav-item__icon">
                 <LogOut size={18} strokeWidth={1.75} />
               </span>
-              {!collapsed && <span className="admin-nav-item__label">Sign out</span>}
+              {!collapsed && (
+                <span className="admin-nav-item__label">Sign out</span>
+              )}
             </button>
           </div>
         </div>
@@ -361,7 +475,7 @@ export const UnifiedSidebar = ({
         <button
           className="admin-sidebar-toggle"
           onClick={onToggle}
-          aria-label={collapsed ? 'Expand sidebar' : 'Collapse sidebar'}
+          aria-label={collapsed ? "Expand sidebar" : "Collapse sidebar"}
         >
           {collapsed ? <ChevronRight size={14} /> : <ChevronLeft size={14} />}
         </button>
