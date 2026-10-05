@@ -36,7 +36,7 @@ The cited garbled labels were already clean on current main; an encoding regress
 
 Source changes are grouped in the shared editor/preview helpers, project persistence, editing guards, project/blog/service editors, settings tabs, homepage managers, Users, Monitoring, SEO, admin layout/sidebar, router, and the public ProjectDetail/Footer/Certifications settings reads. The PR's Files changed view is the complete inventory. Each fix has regression coverage; reusable fixture browser checks are in `scripts/admin-r1-{admin,public}-browser.cjs`.
 
-See [browser evidence and screenshots](../../docs/admin-r1/README.md). All browser backend responses are synthetic; external backend traffic is blocked. No live records were read or changed, no email was sent, and no secrets were changed by verification.
+See [browser evidence and screenshots](../../docs/archive/admin-r1/README.md). All browser backend responses are synthetic; external backend traffic is blocked. No live records were read or changed, no email was sent, and no secrets were changed by verification.
 
 | Gate | Result |
 | --- | --- |

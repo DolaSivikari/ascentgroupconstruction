@@ -1,0 +1,53 @@
+{
+  "baseCommit": "699a6b0a22cfc0c3e14fef70ddfd001fb977ac21",
+  "productionOutput": {
+    "beforeFiles": 340,
+    "afterFiles": 340,
+    "byteIdentical": true,
+    "changed": [],
+    "removed": [],
+    "added": []
+  },
+  "fixtureBackend": "https://baseline.invalid",
+  "deletedSourceModules": 149,
+  "strayFilesRemoved": 0,
+  "utilityCompatibilityTokens": 249,
+  "retainedSourceReferencesToRemovedModules": [],
+  "beforeUnusedCandidates": 181,
+  "retainedCandidateFamilies": [
+    "Reusable UI primitives",
+    "Lovable convention-loaded MCP modules",
+    "Explicit selected-typecheck entry point"
+  ],
+  "originalAssessmentUploadsPreserved": true,
+  "publicAssetsAndDatabaseMigrationFilesChanged": false,
+  "liveDatabaseOrPublishingActions": false,
+  "afterUnusedCandidates": 32,
+  "checks": {
+    "vitest": {
+      "passedTests": 561,
+      "passedFiles": 87
+    },
+    "appTypeScript": "passed",
+    "selectedStrictTypeScript": "passed",
+    "productionBuild": "passed",
+    "serviceWorker": "passed",
+    "routeAudit": "passed",
+    "lint": {
+      "errors": 213,
+      "warnings": 29,
+      "withinRepositoryCeiling": true,
+      "commandPasses": false
+    },
+    "localDocumentationLinks": "passed",
+    "fullLiveBrowserReplay": "not run",
+    "databaseOrDeploymentVerification": "not run"
+  },
+  "initialAnalysisCommit": "5c79160bd66f6afc532360a6e411d5a3db7d64d0",
+  "alreadyRemovedByPR54": {
+    "sourceModules": 7,
+    "strayFiles": 1
+  },
+  "initialScanCandidates": 188,
+  "fixtureProjectId": "offline-baseline"
+}

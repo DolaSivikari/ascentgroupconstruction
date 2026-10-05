@@ -3,7 +3,9 @@ import tailwindcssAnimate from "tailwindcss-animate";
 
 export default {
   darkMode: ["class"],
-  content: ["./pages/**/*.{ts,tsx}", "./components/**/*.{ts,tsx}", "./app/**/*.{ts,tsx}", "./src/**/*.{ts,tsx}"],
+  // Preserve the existing utility CSS while retiring unused components. CMS
+  // content may contain these classes; remove only after that use is reviewed.
+  content: ["./pages/**/*.{ts,tsx}", "./components/**/*.{ts,tsx}", "./app/**/*.{ts,tsx}", "./src/**/*.{ts,tsx}", "./docs/maintenance/retained-utility-classes.txt"],
   // Safelist dynamic semantic classes used by /dev/tokens preview page
   safelist: [
     "bg-success", "bg-warning", "bg-danger", "bg-info",

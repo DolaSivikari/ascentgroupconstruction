@@ -1,49 +1,25 @@
-# Ascent Group Construction - Documentation
+# Documentation
 
-This folder contains all essential documentation for the Ascent Group Construction web application.
+Start with the current guides below. Historical documentation and assessment findings describe earlier snapshots; they do not establish today's database or deployment state.
 
-## 📚 Documentation Index
+## Current guides
 
-### Architecture & Development
-- **[ARCHITECTURE_OVERVIEW.md](./ARCHITECTURE_OVERVIEW.md)** - System architecture and technical design
-- **[DEVELOPER_ONBOARDING.md](./DEVELOPER_ONBOARDING.md)** - New developer onboarding guide
-- **[DEPLOYMENT.md](./DEPLOYMENT.md)** - Deployment procedures and configuration
-- **[DATABASE_ERD.md](./DATABASE_ERD.md)** - Database schema and entity relationships
+| Area | Entry point |
+| --- | --- |
+| Local development and checks | [Development](development/README.md) |
+| Folder structure and retained files | [Repository map](maintenance/repository-map.md) |
+| Website typography, cards and motion | [Design system](design/README.md) |
+| Publishing, functions and database activation | [Operations](operations/README.md) |
+| Existing Leads workspace | [Leads](admin-leads-workspace.md) |
+| Admin roadmap and current application status | [Admin master plan](../_assessment/admin-upgrade/00-ADMIN-MASTER-PLAN.md) · [Implementation status](../_assessment/admin-upgrade/MASTER-PLAN-APPLICATION-STATUS.md) |
+| Website navigation | [Audit](navigation/site-navigation-audit.md) · [Discovery changes](navigation/page-discovery.md) · [Map](navigation/site-navigation-map.html) · [Inventory](navigation/site-page-inventory.csv) |
+| Repository maintenance | [Cleanup report](maintenance/repository-cleanup.md) |
 
-### Design & Brand
-- **[DESIGN_SYSTEM.md](./DESIGN_SYSTEM.md)** - Design system, components, and usage patterns
-- **[BRAND_GUIDELINES.md](./BRAND_GUIDELINES.md)** - Brand assets and design system
+## Assessments and history
 
-### Admin & Business Features
-- **[ADMIN_GUIDE.md](./ADMIN_GUIDE.md)** - Admin panel usage and management
-- **[BUSINESS_MODULE_GUIDE.md](./BUSINESS_MODULE_GUIDE.md)** - Business features and workflows
-- **[COMPANY_SETTINGS.md](./COMPANY_SETTINGS.md)** - Configuration and settings management
-- **[SERVICES_MANAGEMENT.md](./SERVICES_MANAGEMENT.md)** - Service categories and management
+- [Owner assessment index](../_assessment/README.md): original findings, follow-up plans and preserved evidence.
+- [Nightly Site Health setup](../_assessment/admin-upgrade/PHASE-2-IMPLEMENTATION-STATUS.md): the actual database/function/scheduler checklist.
+- [Historical guide archive](archive/README.md): prior architecture, onboarding, admin, security and performance documents.
+- [R1 browser evidence](archive/admin-r1/README.md): historical fixture checks and screenshots.
 
-### Quality & Standards
-- **[PERFORMANCE_OPTIMIZATION_2025.md](./PERFORMANCE_OPTIMIZATION_2025.md)** - Performance optimization guide
-- **[RLS_AUDIT_RESULTS.md](./RLS_AUDIT_RESULTS.md)** - Row-level security policies and audit
-- **[RESPONSIVE_TESTING_RESULTS.md](./RESPONSIVE_TESTING_RESULTS.md)** - Mobile and responsive design guide
-- **[ACCESSIBILITY.md](./ACCESSIBILITY.md)** - Accessibility standards and compliance
-- **[VIDEO_OPTIMIZATION_GUIDE.md](./VIDEO_OPTIMIZATION_GUIDE.md)** - Video optimization best practices
-
-### Historical Reference
-- **[AUDIT_IMPLEMENTATION_COMPLETE.md](./AUDIT_IMPLEMENTATION_COMPLETE.md)** - Comprehensive audit summary
-
-## 🎯 Quick Start
-
-1. **New Developers**: Start with [DEVELOPER_ONBOARDING.md](./DEVELOPER_ONBOARDING.md)
-2. **Deployment**: See [DEPLOYMENT.md](./DEPLOYMENT.md)
-3. **Admin Users**: Reference [ADMIN_GUIDE.md](./ADMIN_GUIDE.md)
-4. **Architecture Questions**: Check [ARCHITECTURE_OVERVIEW.md](./ARCHITECTURE_OVERVIEW.md)
-
-## 📝 Documentation Standards
-
-- All documentation uses Markdown format
-- Keep documentation up-to-date with code changes
-- Use clear headings and examples
-- Include code snippets where applicable
-
-## 🔄 Maintenance
-
-Last major cleanup: 2026-03-01 (removed 20+ outdated phase reports and unused files)
+The existing Leads guide retains its path because the owner's master plan references it. Active plans, SQL references, baseline artifacts and migration paths also remain stable.

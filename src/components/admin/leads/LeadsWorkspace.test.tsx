@@ -63,9 +63,17 @@ describe("Leads workspace behavior", () => {
     mount({ initialStatus: "new", initialSource: "contact" });
     await screen.findAllByText("Fixture estimate");
     expect(mocks.load).toHaveBeenCalledWith(
-      { search: "", type: "all", status: "new", source: "contact" },
+      {
+        search: "",
+        type: "all",
+        status: "new",
+        source: "contact",
+        attention: undefined,
+      },
       null,
       expect.any(AbortSignal),
+      50,
+      true,
     );
     expect(
       screen.getByRole("combobox", { name: "Filter lead source" }),
@@ -86,9 +94,17 @@ describe("Leads workspace behavior", () => {
       source: "contact",
     });
     expect(mocks.load).toHaveBeenCalledWith(
-      { search: "", status: "open", type: "all" },
+      {
+        search: "",
+        status: "open",
+        type: "all",
+        source: undefined,
+        attention: undefined,
+      },
       null,
       expect.any(AbortSignal),
+      50,
+      true,
     );
   });
   it("uses the continuation cursor, restores the previous page, and resets pagination when search changes", async () => {
@@ -102,6 +118,8 @@ describe("Leads workspace behavior", () => {
         expect.anything(),
         cursor,
         expect.any(AbortSignal),
+        50,
+        true,
       ),
     );
     expect(await screen.findByText(/Page 2/)).toBeInTheDocument();
@@ -114,6 +132,8 @@ describe("Leads workspace behavior", () => {
         expect.objectContaining({ search: "Roof" }),
         null,
         expect.any(AbortSignal),
+        50,
+        true,
       ),
     );
     expect(await screen.findByText(/Page 1/)).toBeInTheDocument();

@@ -7,6 +7,8 @@ on:
       - "public/**"
       - "index.html"
       - "vite.config.ts"
+      - "tailwind.config.ts"
+      - "docs/maintenance/retained-utility-classes.txt"
       - "scripts/baseline/**"
       - ".github/actions/baseline-tools/**"
       - ".github/workflows/public-safety.yml"

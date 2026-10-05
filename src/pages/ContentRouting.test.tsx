@@ -58,12 +58,7 @@ vi.mock("@/components/shared/PageHero", () => ({
 vi.mock("@/hooks/useScrollReveal", () => ({
   useScrollReveal: () => ({ ref: null, isVisible: true, skipAnimation: true }),
 }));
-vi.mock("@/hooks/useAggregateRating", () => ({
-  useAggregateRating: () => ({
-    aggregateRating: { reviewCount: "0" },
-    hasRatings: false,
-  }),
-}));
+
 vi.mock("@/utils/relatedLinks", () => ({
   getRelatedForBlogPost: async () => [],
   getRelatedForProject: async () => [],

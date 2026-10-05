@@ -84,9 +84,7 @@ vi.mock("@/hooks/useUnsavedChanges", () => ({
 vi.mock("@/hooks/useFormCompletion", () => ({
   useFormCompletion: () => ({ tabs: {}, overall: { percentage: 0 } }),
 }));
-vi.mock("@/components/admin/CompletionChecklist", () => ({
-  CompletionChecklist: () => null,
-}));
+
 vi.mock("@/components/admin/project-tabs/BasicInfoTab", () => ({
   BasicInfoTab: ({
     formData,
