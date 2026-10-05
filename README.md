@@ -66,13 +66,13 @@ git diff --check
 
 Public-facing changes also require the applicable baseline comparison and bundle gates described in [AGENTS.md](AGENTS.md). Browser verification must use offline fixtures; do not submit production forms or write to live storage while testing.
 
-### Cleanup branch verification — 2026-10-05
+### Cleanup verification — 2026-10-05
 
-This branch removes seven confirmed unused source modules and one accidental shell artifact: **8 files / 18,755 bytes / 470 lines**. The [cleanup report](_assessment/cleanup/UNUSED-FILES-CLEANUP-2026-10-05.md) and [deletion ledger](_assessment/cleanup/unused-files-2026-10-05.json) document evidence, original hashes and recovery.
+[PR #54](https://github.com/DolaSivikari/ascentgroupconstruction/pull/54) removed seven confirmed unused source modules and one accidental shell artifact: **8 files / 18,755 bytes / 470 lines**. The [cleanup report](_assessment/cleanup/UNUSED-FILES-CLEANUP-2026-10-05.md) and [deletion ledger](_assessment/cleanup/unused-files-2026-10-05.json) document evidence, original hashes and recovery.
 
 Build, selected/full application TypeScript, route audit and service-worker validation pass. Lint reports 266 errors and 34 warnings, within the existing ceiling. Full tests report 548 passes and 13 failures; the same failures reproduce with the original files restored. The focused public comparison has unresolved text/screenshot differences and does not constitute a passing full public gate. No production speed improvement is claimed.
 
-These results describe this cleanup branch, not a completed deployment. The [cleanup PR](https://github.com/DolaSivikari/ascentgroupconstruction/pull/54) remains a draft. Uncertain assets, archived evidence, migrations and historical logs were preserved.
+The cleanup PR is merged into main. Its verification limits remain unresolved; merge status does not establish a completed production deployment. Uncertain assets, archived evidence, migrations and historical logs were preserved.
 
 ## Site Health activation
 
