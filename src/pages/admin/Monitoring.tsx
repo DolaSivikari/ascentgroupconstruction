@@ -26,6 +26,7 @@ export default function Monitoring() {
     import.meta.env.VITE_ENABLE_PERFORMANCE_TRACKING === "true";
   const [errorSearch, setErrorSearch] = useState("");
   const [groupErrors, setGroupErrors] = useState(true);
+  const [errorPeriod, setErrorPeriod] = useState("7");
 
   const {
     data: errorLogs,
@@ -33,13 +34,22 @@ export default function Monitoring() {
     error: logsError,
     refetch: refreshLogs,
   } = useQuery({
-    queryKey: ["error-logs"],
+    queryKey: ["error-logs", errorPeriod],
     queryFn: async () => {
-      const { data, error } = await supabase
+      let query = supabase
         .from("error_logs")
         .select("*")
         .order("created_at", { ascending: false })
         .limit(50);
+      if (errorPeriod !== "all") {
+        query = query.gte(
+          "created_at",
+          new Date(
+            Date.now() - Number(errorPeriod) * 24 * 60 * 60 * 1000,
+          ).toISOString(),
+        );
+      }
+      const { data, error } = await query;
       if (error) throw error;
       return data || [];
     },
@@ -93,7 +103,13 @@ export default function Monitoring() {
   );
   const groups = new Map<
     string,
-    { message: string; count: number; latest: string; urls: Set<string> }
+    {
+      message: string;
+      count: number;
+      latest: string;
+      urls: Set<string>;
+      sample: NonNullable<typeof errorLogs>[number];
+    }
   >();
   for (const error of matchingErrors) {
     const group = groups.get(error.message) || {
@@ -101,6 +117,7 @@ export default function Monitoring() {
       count: 0,
       latest: error.created_at,
       urls: new Set<string>(),
+      sample: error,
     };
     group.count++;
     if (error.url) group.urls.add(error.url);
@@ -136,7 +153,7 @@ export default function Monitoring() {
               </div>
               <div>
                 <p className="text-sm text-muted-foreground">
-                  Recent errors loaded
+                  Recorded errors loaded
                 </p>
                 <p className="text-2xl font-bold">
                   {logsError
@@ -175,7 +192,9 @@ export default function Monitoring() {
                 <Zap className="h-5 w-5 text-[hsl(var(--steel-blue))]" />
               </div>
               <div>
-                <p className="text-sm text-muted-foreground">System Status</p>
+                <p className="text-sm text-muted-foreground">
+                  Recorded error status
+                </p>
                 <Badge
                   variant={
                     statusUnavailable
@@ -218,6 +237,16 @@ export default function Monitoring() {
           </div>
         )}
         <div className="flex flex-wrap gap-3">
+          <select
+            aria-label="Recorded error period"
+            className="rounded border bg-background px-3 py-2 text-sm"
+            value={errorPeriod}
+            onChange={(event) => setErrorPeriod(event.target.value)}
+          >
+            <option value="1">Past 24 hours</option>
+            <option value="7">Past 7 days</option>
+            <option value="all">Older records included</option>
+          </select>
           <Input
             className="max-w-sm"
             aria-label="Filter recorded errors"
@@ -232,6 +261,12 @@ export default function Monitoring() {
             {groupErrors ? "Show individual errors" : "Group by message"}
           </Button>
         </div>
+        <p className="text-sm text-muted-foreground">
+          Showing up to 50 latest records in the selected period. Counts below
+          describe these loaded records, not all occurrences. A recorded error
+          does not confirm that the issue still occurs; no records are deleted
+          when you change the period.
+        </p>
         {groupErrors && !logsError && (
           <div className="space-y-3">
             {[...groups.values()].map((group) => (
@@ -244,9 +279,33 @@ export default function Monitoring() {
                   {group.count} recorded event(s) · latest{" "}
                   {new Date(group.latest).toLocaleString()}
                 </p>
+                {Date.parse(group.latest) <
+                  Date.now() - 24 * 60 * 60 * 1000 && (
+                  <p className="text-sm text-muted-foreground">
+                    Last recorded more than 24 hours ago.
+                  </p>
+                )}
                 <p className="text-xs break-all">
                   {[...group.urls].join(", ")}
                 </p>
+                <details className="text-sm">
+                  <summary className="cursor-pointer">
+                    Latest event details
+                  </summary>
+                  <p className="mt-2 break-words">
+                    Browser: {group.sample.user_agent || "Not recorded"}
+                  </p>
+                  <pre className="mt-2 whitespace-pre-wrap break-words text-xs">
+                    {group.sample.stack || "No stack trace recorded."}
+                  </pre>
+                  {group.sample.context != null && (
+                    <pre className="mt-2 whitespace-pre-wrap break-words text-xs">
+                      {typeof group.sample.context === "string"
+                        ? group.sample.context
+                        : JSON.stringify(group.sample.context, null, 2)}
+                    </pre>
+                  )}
+                </details>
               </div>
             ))}
             {!groups.size && !errorsLoading && (
@@ -261,10 +320,10 @@ export default function Monitoring() {
               <div className="p-6 border-b border-border">
                 <div className="flex items-center gap-2">
                   <AlertCircle className="h-5 w-5 text-danger" />
-                  <h3 className="text-lg font-semibold">Recent Errors</h3>
+                  <h3 className="text-lg font-semibold">Recorded Errors</h3>
                 </div>
                 <p className="text-sm text-muted-foreground">
-                  Client-side and server errors
+                  Browser errors in the selected period
                 </p>
               </div>
               <div className="overflow-x-auto">

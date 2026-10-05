@@ -10,6 +10,7 @@ import {
 } from "react-router-dom";
 import { lazy, Suspense, useEffect } from "react";
 import ErrorBoundary from "./components/ErrorBoundary";
+import { DeferredBoundary } from "./components/DeferredBoundary";
 import ScrollToTop from "./components/ScrollToTop";
 import { trackPageView } from "@/lib/analytics";
 import { useContactClickAnalytics } from "@/hooks/useContactClickAnalytics";
@@ -70,9 +71,11 @@ const RouterContent = () => {
     <HeroPresenceProvider>
       <ScrollToTop />
       <RouteTracker>
-        <Suspense fallback={null}>
-          <CookieBanner />
-        </Suspense>
+        <DeferredBoundary name="Cookie preferences" optional>
+          <Suspense fallback={null}>
+            <CookieBanner />
+          </Suspense>
+        </DeferredBoundary>
         <a
           href="#main-content"
           className="fixed top-0 left-0 -translate-y-full focus:translate-y-0 z-[100] bg-primary text-primary-foreground px-6 py-3 font-semibold transition-transform focus:outline-none focus:ring-4 focus:ring-primary/50"
@@ -85,12 +88,16 @@ const RouterContent = () => {
             <AppRoutes />
           </PageVisibility>
         </Suspense>
-        <Suspense fallback={null}>
-          <StickyInquiryBar />
-        </Suspense>
-        <Suspense fallback={null}>
-          <ScrollToTopButton />
-        </Suspense>
+        <DeferredBoundary name="Quick inquiry bar" optional>
+          <Suspense fallback={null}>
+            <StickyInquiryBar />
+          </Suspense>
+        </DeferredBoundary>
+        <DeferredBoundary name="Scroll to top" optional>
+          <Suspense fallback={null}>
+            <ScrollToTopButton />
+          </Suspense>
+        </DeferredBoundary>
       </RouteTracker>
     </HeroPresenceProvider>
   );

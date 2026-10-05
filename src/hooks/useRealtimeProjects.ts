@@ -1,65 +1,68 @@
-import { useEffect, useState } from 'react';
-import { supabase } from '@/integrations/supabase/client';
-import { RealtimeChannel } from '@supabase/supabase-js';
+import { useEffect, useRef } from "react";
+import { supabase } from "@/integrations/supabase/client";
+import type { RealtimeChannel } from "@supabase/supabase-js";
+import { logError } from "@/utils/errorLogger";
 
-interface Project {
-  id: string;
-  title: string;
-  slug: string;
-  featured_image: string | null;
-  category: string | null;
-  publish_state: string;
-  created_at: string;
-}
-
-export const useRealtimeProjects = (initialProjects: Project[]) => {
-  const [projects, setProjects] = useState<Project[]>(initialProjects);
+/** Live updates are optional; an unavailable socket must not break the HTTP list. */
+export const useRealtimeProjects = (refreshProjects: () => void) => {
+  const refresh = useRef(refreshProjects);
+  refresh.current = refreshProjects;
 
   useEffect(() => {
-    let channel: RealtimeChannel;
-
-    const setupRealtimeSubscription = async () => {
-      channel = supabase
-        .channel('public-projects-changes')
-        .on(
-          'postgres_changes',
-          {
-            event: '*',
-            schema: 'public',
-            table: 'projects',
-            filter: 'publish_state=eq.published'
-          },
-          (payload) => {
-            if (import.meta.env.DEV) console.log('Realtime update:', payload);
-
-            if (payload.eventType === 'INSERT') {
-              setProjects((current) => [payload.new as Project, ...current]);
-            } else if (payload.eventType === 'UPDATE') {
-              setProjects((current) =>
-                current.map((project) =>
-                  project.id === payload.new.id ? (payload.new as Project) : project
-                )
-              );
-            } else if (payload.eventType === 'DELETE') {
-              setProjects((current) =>
-                current.filter((project) => project.id !== payload.old.id)
-              );
-            }
-          }
-        )
-        .subscribe((status) => {
-          if (import.meta.env.DEV) console.log('Realtime subscription status:', status);
-        });
+    let channel: RealtimeChannel | undefined;
+    let active = true;
+    let reported = false;
+    const reportFailure = (reason: unknown) => {
+      if (!active || reported) return;
+      reported = true;
+      void logError(
+        reason instanceof Error ? reason : new Error(String(reason)),
+        { feature: "projects-realtime", fallback: "HTTP project list" },
+      );
     };
 
-    setupRealtimeSubscription();
+    try {
+      // Keep the reference even if subscribe throws, so cleanup can remove it.
+      channel = supabase.channel("public-projects-changes");
+      channel
+        .on(
+          "postgres_changes",
+          { event: "*", schema: "public", table: "projects" },
+          () => {
+            // Re-read only published rows, including after unpublishing/deletion.
+            // Applying events to an empty initial snapshot would lose updates.
+            if (active) refresh.current();
+          },
+        )
+        .subscribe((status, error) => {
+          if (status === "SUBSCRIBED") reported = false;
+          if (status === "CHANNEL_ERROR" || status === "TIMED_OUT") {
+            reportFailure(
+              error || new Error(`Project live updates: ${status}`),
+            );
+          }
+        });
+    } catch (error) {
+      reportFailure(error);
+    }
 
     return () => {
+      active = false;
       if (channel) {
-        supabase.removeChannel(channel);
+        const reportCleanup = (error: unknown) => {
+          void logError(
+            error instanceof Error ? error : new Error(String(error)),
+            {
+              feature: "projects-realtime-cleanup",
+            },
+          );
+        };
+        try {
+          void supabase.removeChannel(channel).catch(reportCleanup);
+        } catch (error) {
+          reportCleanup(error);
+        }
       }
     };
   }, []);
-
-  return projects;
 };

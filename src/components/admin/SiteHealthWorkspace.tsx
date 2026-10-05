@@ -285,6 +285,14 @@ export function SiteHealthWorkspace() {
               setup checklist to connect nightly results. Existing error and
               performance monitoring remains available below.
             </p>
+            <a
+              className="mt-3 inline-block text-sm underline"
+              href="https://github.com/DolaSivikari/ascentgroupconstruction/blob/main/_assessment/admin-upgrade/PHASE-2-IMPLEMENTATION-STATUS.md#owner-setup-in-order"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Open the Phase 2 setup checklist
+            </a>
           </div>
         ) : !run ? (
           <p>

@@ -1,6 +1,12 @@
 import { MemoryRouter } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { cleanup, render, screen, waitFor } from "@testing-library/react";
+import {
+  cleanup,
+  render,
+  screen,
+  waitFor,
+  fireEvent,
+} from "@testing-library/react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import type { ReactNode } from "react";
 import Monitoring from "./Monitoring";
@@ -11,6 +17,7 @@ const mock = vi.hoisted(() => ({
   error: false,
   count: 0,
   cutoff: "",
+  rowCutoff: "",
   countProjection: null as unknown,
   rows: [] as Record<string, unknown>[],
 }));
@@ -21,6 +28,7 @@ vi.mock("@/integrations/supabase/client", () => ({
   supabase: {
     from: (table: string) => {
       let head = false;
+      let rowCutoff = "";
       const query = {
         select: (_columns: string, options?: { head?: boolean }) => {
           head = !!options?.head;
@@ -30,7 +38,11 @@ vi.mock("@/integrations/supabase/client", () => ({
         order: () => query,
         limit: () => query,
         gte: (_field: string, cutoff: string) => {
-          mock.cutoff = cutoff;
+          if (head) mock.cutoff = cutoff;
+          else {
+            mock.rowCutoff = cutoff;
+            rowCutoff = cutoff;
+          }
           return query;
         },
         then: (resolve: (value: unknown) => unknown) =>
@@ -40,7 +52,15 @@ vi.mock("@/integrations/supabase/client", () => ({
               : {
                   error: null,
                   count: head ? mock.count : null,
-                  data: table === "error_logs" ? mock.rows : [],
+                  data:
+                    table === "error_logs"
+                      ? mock.rows.filter(
+                          (row) =>
+                            !rowCutoff ||
+                            Date.parse(String(row.created_at)) >=
+                              Date.parse(rowCutoff),
+                        )
+                      : [],
                 },
           ).then(resolve),
       };
@@ -52,6 +72,7 @@ beforeEach(() => {
   mock.error = false;
   mock.count = 0;
   mock.rows = [];
+  mock.rowCutoff = "";
 });
 afterEach(cleanup);
 const open = () =>
@@ -93,5 +114,32 @@ describe("truthful monitoring", () => {
     expect(screen.getAllByText("Unavailable").length).toBe(3);
     expect(screen.queryByText("No errors logged")).toBeNull();
     expect(screen.queryByText("No errors reported in 24 hours")).toBeNull();
+  });
+  it("keeps older records accessible without presenting them as current failures", async () => {
+    mock.rows = [
+      {
+        id: "old",
+        message: "Old browser error",
+        created_at: "2026-01-01T00:00:00Z",
+        url: "/",
+        user_agent: "Older browser",
+        stack: "original.js:123",
+        context: "{}",
+      },
+    ];
+    open();
+    await screen.findByText("No errors match the filter.");
+    expect(screen.queryByText("Old browser error")).toBeNull();
+    fireEvent.change(screen.getByLabelText("Recorded error period"), {
+      target: { value: "all" },
+    });
+    expect(await screen.findByText("Old browser error")).toBeInTheDocument();
+    expect(
+      screen.getByText("Last recorded more than 24 hours ago."),
+    ).toBeInTheDocument();
+    expect(screen.getByText("original.js:123")).toBeInTheDocument();
+    expect(
+      screen.getByText("No errors reported in 24 hours"),
+    ).toBeInTheDocument();
   });
 });

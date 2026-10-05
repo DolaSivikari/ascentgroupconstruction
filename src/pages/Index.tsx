@@ -1,7 +1,8 @@
 import { usePageContent } from "@/hooks/usePageContent";
 import contentModule from "@/content/pages/home";
 // Build trigger: 2026-03-09T18:55
-import { lazy, Suspense, useEffect } from "react";
+import { lazy, Suspense, useEffect, type ReactNode } from "react";
+import { DeferredBoundary } from "@/components/DeferredBoundary";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import EnhancedHero from "@/components/homepage/EnhancedHero";
@@ -59,6 +60,17 @@ import { useHomepageData } from "@/hooks/useHomepageData";
 // without pulling extra components into the critical path.
 const SectionFallback = () => (
   <div aria-hidden="true" className="min-h-[400px]" />
+);
+const DeferredSection = ({
+  name,
+  children,
+}: {
+  name: string;
+  children: ReactNode;
+}) => (
+  <DeferredBoundary name={name}>
+    <Suspense fallback={<SectionFallback />}>{children}</Suspense>
+  </DeferredBoundary>
 );
 
 const Index = () => {
@@ -146,33 +158,42 @@ const Index = () => {
           {/* ── Zone A: White background ── */}
           <div className="bg-background">
             <HomepageProofStrip />
-            <Suspense fallback={<SectionFallback />}>
+            <DeferredSection name="Service highlights">
               <HomepageServiceHighlights />
-            </Suspense>
+            </DeferredSection>
           </div>
 
-          {/* All below-the-fold sections share one Suspense boundary so chunks can stream in together */}
-          <Suspense fallback={<SectionFallback />}>
-            {/* ── Zone B: Muted background ── */}
-            <div className="bg-muted/30">
+          {/* ── Zone B: Muted background ── */}
+          <div className="bg-muted/30">
+            <DeferredSection name="Who we serve">
               <WhoWeServeHomepage />
+            </DeferredSection>
+            <DeferredSection name="Featured projects">
               <HomepageFeaturedProjects />
-            </div>
+            </DeferredSection>
+          </div>
 
-            {/* ── Full-bleed parallax break ── */}
+          {/* ── Full-bleed parallax break ── */}
+          <DeferredSection name="Project showcase">
             <HomepageParallaxBreak />
+          </DeferredSection>
 
-            {/* ── Zone B continued ── */}
-            <div className="bg-muted/30">
+          {/* ── Zone B continued ── */}
+          <div className="bg-muted/30">
+            <DeferredSection name="Why choose us">
               <WhyChooseUs />
-            </div>
+            </DeferredSection>
+          </div>
 
-            {/* ── Inline Conversion Form ── */}
+          {/* ── Inline Conversion Form ── */}
+          <DeferredSection name="Project inquiry">
             <InteractiveCTA />
+          </DeferredSection>
 
-            {/* ── Zone D: Primary CTA ── */}
+          {/* ── Zone D: Primary CTA ── */}
+          <DeferredSection name="Get in touch">
             <HomepageFinalCta />
-          </Suspense>
+          </DeferredSection>
         </main>
 
         <Footer />

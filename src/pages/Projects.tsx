@@ -1,6 +1,6 @@
 import { usePageContent } from "@/hooks/usePageContent";
 import contentModule from "@/content/pages/projects";
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo, useCallback, useRef } from "react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
@@ -52,6 +52,32 @@ type ProjectViewModel = {
   safety_incidents?: number | null;
 };
 
+const transformProject = (project: any): ProjectViewModel => ({
+  title: project.title,
+  category: project.category || "General",
+  location: project.location || "N/A",
+  year: project.year || new Date(project.created_at).getFullYear().toString(),
+  size: project.project_size || "N/A",
+  duration: project.duration || "N/A",
+  image: resolveImagePath(project.featured_image),
+  images: (project.gallery || []) as any[],
+  tags:
+    project.tags ||
+    [project.category, project.duration, project.project_size].filter(Boolean),
+  description: project.description || project.summary || "",
+  highlights: project.summary ? [project.summary] : [],
+  slug: project.slug,
+  featured: project.featured,
+  id: project.id,
+  rawData: project as any,
+  // GC Metrics
+  project_value: project.project_value,
+  your_role: project.your_role,
+  on_time_completion: project.on_time_completion,
+  on_budget: project.on_budget,
+  safety_incidents: project.safety_incidents,
+});
+
 const Projects = () => {
   const projectsFaqs = useSharedFaqs("projectsFaqs");
   const c = usePageContent(contentModule);
@@ -90,65 +116,40 @@ const Projects = () => {
     zeroIncidents: false,
   });
 
-  const transformProject = (project: any): ProjectViewModel => ({
-    title: project.title,
-    category: project.category || "General",
-    location: project.location || "N/A",
-    year: project.year || new Date(project.created_at).getFullYear().toString(),
-    size: project.project_size || "N/A",
-    duration: project.duration || "N/A",
-    image: resolveImagePath(project.featured_image),
-    images: (project.gallery || []) as any[],
-    tags:
-      project.tags ||
-      [project.category, project.duration, project.project_size].filter(
-        Boolean,
-      ),
-    description: project.description || project.summary || "",
-    highlights: project.summary ? [project.summary] : [],
-    slug: project.slug,
-    featured: project.featured,
-    id: project.id,
-    rawData: project as any,
-    // GC Metrics
-    project_value: project.project_value,
-    your_role: project.your_role,
-    on_time_completion: project.on_time_completion,
-    on_budget: project.on_budget,
-    safety_incidents: project.safety_incidents,
-  });
-
-  // Fetch projects from database with realtime updates
-  useEffect(() => {
-    const fetchProjects = async () => {
-      setIsLoading(true);
+  const mounted = useRef(false);
+  const latestFetch = useRef(0);
+  const fetchProjects = useCallback(async () => {
+    const request = ++latestFetch.current;
+    try {
       const { data, error } = await supabase
         .from("projects")
         .select("*")
         .eq("publish_state", "published")
         .order("created_at", { ascending: false });
 
-      if (error) {
-        console.error("Error fetching projects:", error);
-      } else if (data) {
+      if (error) throw error;
+      if (mounted.current && request === latestFetch.current && data) {
         setAllProjects(data.map(transformProject));
       }
-      setIsLoading(false);
-    };
-
-    fetchProjects();
+    } catch (error) {
+      console.error("Error fetching projects:", error);
+    } finally {
+      if (mounted.current && request === latestFetch.current)
+        setIsLoading(false);
+    }
   }, []);
 
-  // Enable realtime subscription for instant updates
-  const realtimeProjects = useRealtimeProjects(
-    allProjects.map((p) => p.rawData) as any[],
-  );
-
+  // The ordinary HTTP fetch remains available when live updates cannot connect.
   useEffect(() => {
-    if (realtimeProjects.length > 0) {
-      setAllProjects(realtimeProjects.map(transformProject));
-    }
-  }, [realtimeProjects]);
+    mounted.current = true;
+    void fetchProjects();
+    return () => {
+      mounted.current = false;
+    };
+  }, [fetchProjects]);
+  useRealtimeProjects(() => {
+    void fetchProjects();
+  });
 
   const filteredProjects = allProjects.filter((project) => {
     const matchesSearch =
