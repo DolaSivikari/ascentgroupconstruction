@@ -27,7 +27,7 @@ import { ProjectFeaturedImage } from "@/components/projects/ProjectFeaturedImage
 import { TrustRibbon } from "@/design-system/components/TrustRibbon";
 import { FAQAccordion } from "@/design-system/components/FAQAccordion";
 import { RelatedLinksGrid } from "@/design-system/components/RelatedLinksGrid";
-import { projectDetailFaqs } from "@/data/page-faqs";
+import { useSharedFaqs } from "@/hooks/useSharedContent";
 import { Wrench, Briefcase, Building2 } from "lucide-react";
 import {
   getRelatedForProject,
@@ -106,6 +106,7 @@ interface ProjectData {
 }
 
 export default function ProjectDetail() {
+  const projectDetailFaqs = useSharedFaqs("projectDetailFaqs");
   const { slug } = useParams();
   const navigate = useNavigate();
   const { isPreview, previewToken } = usePreviewMode();

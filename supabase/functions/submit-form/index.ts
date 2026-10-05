@@ -1,6 +1,12 @@
+import { handleNewsletterIntake } from "../_shared/newsletter-intake.ts";
+import { handleInquiryIntake } from "../_shared/inquiry-intake.ts";
 import { createClient } from "npm:@supabase/supabase-js@2";
 import { z } from "https://deno.land/x/zod@v3.22.4/mod.ts";
-import { checkRateLimit, createRateLimitResponse, getClientIdentifier } from "../_shared/rateLimiter.ts";
+import {
+  checkRateLimit,
+  createRateLimitResponse,
+  getClientIdentifier,
+} from "../_shared/rateLimiter.ts";
 import { createErrorResponse } from "../_shared/errorHandler.ts";
 import { corsHeaders, handleCors, jsonResponse } from "../_shared/http.ts";
 
@@ -19,7 +25,10 @@ const resumeSchema = z.object({
   phone: z.string().max(20).optional().nullable(),
   coverMessage: z.string().max(2000).optional().nullable(),
   // Frontend may send either a newline-separated string OR an array of links
-  portfolioLinks: z.union([z.string().max(1000), z.array(z.string()).max(20)]).optional().nullable(),
+  portfolioLinks: z
+    .union([z.string().max(1000), z.array(z.string()).max(20)])
+    .optional()
+    .nullable(),
 });
 
 const prequalificationSchema = z.object({
@@ -55,7 +64,13 @@ const rfpSchema = z.object({
 });
 
 type FormSubmission = {
-  formType: 'contact' | 'resume' | 'prequalification' | 'rfp';
+  formType:
+    | "contact"
+    | "resume"
+    | "prequalification"
+    | "rfp"
+    | "inquiry"
+    | "newsletter";
   data: any;
   honeypot?: string;
   startedAt?: number;
@@ -68,58 +83,82 @@ function looksLikeLinkSpam(text: string | undefined | null): boolean {
   return (matches?.length ?? 0) >= 3;
 }
 
-function blockedResponse(reason: 'honeypot' | 'too_fast' | 'link_spam' | 'repeat_content'): Response {
+function blockedResponse(
+  reason: "honeypot" | "too_fast" | "link_spam" | "repeat_content",
+): Response {
   // This is deliberately distinct from a persisted submission. Do not claim a
   // record exists when anti-abuse controls rejected it.
-  return jsonResponse({ success: false, status: 'blocked', reason }, 202);
+  return jsonResponse({ success: false, status: "blocked", reason }, 202);
 }
 
 async function sha256Hex(input: string): Promise<string> {
   const buf = new TextEncoder().encode(input);
-  const hash = await crypto.subtle.digest('SHA-256', buf);
+  const hash = await crypto.subtle.digest("SHA-256", buf);
   return Array.from(new Uint8Array(hash))
-    .map((b) => b.toString(16).padStart(2, '0'))
-    .join('');
+    .map((b) => b.toString(16).padStart(2, "0"))
+    .join("");
 }
 
 Deno.serve(async (req) => {
   const cors = handleCors(req);
   if (cors) return cors;
 
-  const supabaseUrl = Deno.env.get('SUPABASE_URL')!;
-  const supabaseKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!;
+  const supabaseUrl = Deno.env.get("SUPABASE_URL")!;
+  const supabaseKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
   const supabase = createClient(supabaseUrl, supabaseKey);
 
   try {
     const payload = (await req.json()) as FormSubmission;
     const { formType, honeypot, startedAt } = payload;
+    if (formType === "newsletter")
+      return await handleNewsletterIntake(req, payload, supabase);
+    if (formType === "inquiry")
+      return await handleInquiryIntake(req, payload, supabase);
 
     const clientId = getClientIdentifier(req);
 
-    if (!['contact', 'resume', 'prequalification', 'rfp'].includes(formType)) {
-      return createErrorResponse(new Error('Invalid form type'), 'Invalid form type', 400, 'submit-form');
+    if (!["contact", "resume", "prequalification", "rfp"].includes(formType)) {
+      return createErrorResponse(
+        new Error("Invalid form type"),
+        "Invalid form type",
+        400,
+        "submit-form",
+      );
     }
 
     // Limit each public form independently before any database insert. This
     // keeps one noisy form type from consuming the allowance for another.
-    const rateLimit = await checkRateLimit(supabase, clientId, `submit-form:${formType}`, 5, 15);
+    const rateLimit = await checkRateLimit(
+      supabase,
+      clientId,
+      `submit-form:${formType}`,
+      5,
+      15,
+    );
     if (!rateLimit.allowed) {
       console.log(`[rate_limited] client=${clientId} type=${formType}`);
-      return createRateLimitResponse(rateLimit.retry_after_seconds ?? 900, corsHeaders);
+      return createRateLimitResponse(
+        rateLimit.retry_after_seconds ?? 900,
+        corsHeaders,
+      );
     }
 
     // --- Spam Filter 1: Honeypot ---
     if (honeypot && honeypot.trim().length > 0) {
-      console.log(`[spam_blocked] reason=honeypot client=${clientId} type=${formType}`);
-      return blockedResponse('honeypot');
+      console.log(
+        `[spam_blocked] reason=honeypot client=${clientId} type=${formType}`,
+      );
+      return blockedResponse("honeypot");
     }
 
     // --- Spam Filter 2: Submitted too fast (< 2s from form interaction) ---
-    if (typeof startedAt === 'number' && startedAt > 0) {
+    if (typeof startedAt === "number" && startedAt > 0) {
       const elapsed = Date.now() - startedAt;
       if (elapsed < 2000) {
-        console.log(`[spam_blocked] reason=too_fast elapsed=${elapsed}ms client=${clientId} type=${formType}`);
-        return blockedResponse('too_fast');
+        console.log(
+          `[spam_blocked] reason=too_fast elapsed=${elapsed}ms client=${clientId} type=${formType}`,
+        );
+        return blockedResponse("too_fast");
       }
     }
 
@@ -128,12 +167,14 @@ Deno.serve(async (req) => {
       payload.data?.message ??
       payload.data?.scope_of_work ??
       payload.data?.coverMessage ??
-      '';
+      "";
     // RFP scopes commonly include plan-room and document links. Apply this
     // generic link heuristic only to the smaller public lead forms.
-    if (formType !== 'rfp' && looksLikeLinkSpam(messageBody)) {
-      console.log(`[spam_blocked] reason=link_spam client=${clientId} type=${formType}`);
-      return blockedResponse('link_spam');
+    if (formType !== "rfp" && looksLikeLinkSpam(messageBody)) {
+      console.log(
+        `[spam_blocked] reason=link_spam client=${clientId} type=${formType}`,
+      );
+      return blockedResponse("link_spam");
     }
 
     // --- Spam Filter 4: Repeat content (same message+email within 10 min) ---
@@ -142,9 +183,11 @@ Deno.serve(async (req) => {
     const repeatCheck = await (async (): Promise<{ allowed: boolean }> => {
       if (!messageBody || !payload.data?.email) return { allowed: true };
       try {
-        const fingerprint = await sha256Hex(`${payload.data.email}:${messageBody}`.toLowerCase());
+        const fingerprint = await sha256Hex(
+          `${payload.data.email}:${messageBody}`.toLowerCase(),
+        );
         const { data: rateData, error: rateErr } = await supabase.rpc(
-          'check_and_update_rate_limit',
+          "check_and_update_rate_limit",
           {
             p_identifier: `${clientId}:${fingerprint.slice(0, 16)}`,
             p_endpoint: `submit-form-dup:${formType}`,
@@ -153,19 +196,27 @@ Deno.serve(async (req) => {
           },
         );
         if (rateErr) {
-          console.warn('[spam_filter] repeat-content RPC error (allowing through):', rateErr);
+          console.warn(
+            "[spam_filter] repeat-content RPC error (allowing through):",
+            rateErr,
+          );
           return { allowed: true };
         }
         const allowed = !(rateData && (rateData as any).allowed === false);
         return { allowed };
       } catch (e) {
-        console.warn('[spam_filter] repeat-content check threw (allowing through):', e);
+        console.warn(
+          "[spam_filter] repeat-content check threw (allowing through):",
+          e,
+        );
         return { allowed: true };
       }
     })();
     if (!repeatCheck.allowed) {
-      console.log(`[spam_blocked] reason=repeat_content client=${clientId} type=${formType}`);
-      return blockedResponse('repeat_content');
+      console.log(
+        `[spam_blocked] reason=repeat_content client=${clientId} type=${formType}`,
+      );
+      return blockedResponse("repeat_content");
     }
 
     let insertResult: any;
@@ -174,51 +225,48 @@ Deno.serve(async (req) => {
 
     try {
       switch (formType) {
-        case 'contact': {
+        case "contact": {
           const validatedData = contactSchema.parse(payload.data);
-          insertResult = await supabase
-            .from('contact_submissions')
-            .insert({
-              name: validatedData.name,
-              email: validatedData.email,
-              phone: validatedData.phone || null,
-              company: validatedData.company || null,
-              message: validatedData.message,
-              submission_type: validatedData.submission_type || 'contact',
-              status: 'new'
-            });
+          insertResult = await supabase.from("contact_submissions").insert({
+            name: validatedData.name,
+            email: validatedData.email,
+            phone: validatedData.phone || null,
+            company: validatedData.company || null,
+            message: validatedData.message,
+            submission_type: validatedData.submission_type || "contact",
+            status: "new",
+          });
           break;
         }
-        case 'resume': {
+        case "resume": {
           const validatedData = resumeSchema.parse(payload.data);
           // Normalize portfolioLinks (string or array) into a single text block,
           // then combine with the cover message since resume_submissions has only
           // a `cover_letter` column (no portfolio_links column).
           const portfolioText = Array.isArray(validatedData.portfolioLinks)
-            ? validatedData.portfolioLinks.filter(Boolean).join('\n')
-            : (validatedData.portfolioLinks ?? '').trim();
-          const coverLetterBody = [
-            validatedData.coverMessage?.trim(),
-            portfolioText ? `\n\nPortfolio links:\n${portfolioText}` : null,
-          ]
-            .filter(Boolean)
-            .join('') || null;
+            ? validatedData.portfolioLinks.filter(Boolean).join("\n")
+            : (validatedData.portfolioLinks ?? "").trim();
+          const coverLetterBody =
+            [
+              validatedData.coverMessage?.trim(),
+              portfolioText ? `\n\nPortfolio links:\n${portfolioText}` : null,
+            ]
+              .filter(Boolean)
+              .join("") || null;
 
-          insertResult = await supabase
-            .from('resume_submissions')
-            .insert({
-              applicant_name: validatedData.name,
-              email: validatedData.email,
-              phone: validatedData.phone || null,
-              cover_letter: coverLetterBody,
-              status: 'new'
-            });
+          insertResult = await supabase.from("resume_submissions").insert({
+            applicant_name: validatedData.name,
+            email: validatedData.email,
+            phone: validatedData.phone || null,
+            cover_letter: coverLetterBody,
+            status: "new",
+          });
           break;
         }
-        case 'prequalification': {
+        case "prequalification": {
           const validatedData = prequalificationSchema.parse(payload.data);
           insertResult = await supabase
-            .from('prequalification_downloads')
+            .from("prequalification_downloads")
             .insert({
               company_name: validatedData.companyName,
               contact_name: validatedData.contactName,
@@ -227,14 +275,14 @@ Deno.serve(async (req) => {
               project_type: validatedData.projectType || null,
               project_value_range: validatedData.projectValueRange || null,
               message: validatedData.message || null,
-              status: 'new'
+              status: "new",
             });
           break;
         }
-        case 'rfp': {
+        case "rfp": {
           const validatedData = rfpSchema.parse(payload.data);
           insertResult = await supabase
-            .from('rfp_submissions')
+            .from("rfp_submissions")
             .insert({
               company_name: validatedData.company_name,
               contact_name: validatedData.contact_name,
@@ -249,17 +297,21 @@ Deno.serve(async (req) => {
               project_start_date: validatedData.project_start_date || null,
               delivery_method: validatedData.delivery_method,
               bonding_required: validatedData.bonding_required ?? false,
-              prequalification_complete: validatedData.prequalification_complete ?? false,
+              prequalification_complete:
+                validatedData.prequalification_complete ?? false,
               scope_of_work: validatedData.scope_of_work,
-              additional_requirements: validatedData.additional_requirements || null,
+              additional_requirements:
+                validatedData.additional_requirements || null,
               plans_available: validatedData.plans_available ?? false,
               site_visit_required: validatedData.site_visit_required ?? false,
               consent_timestamp: new Date().toISOString(),
-              attachment_urls: validatedData.attachment_urls && validatedData.attachment_urls.length > 0
-                ? validatedData.attachment_urls
-                : null,
+              attachment_urls:
+                validatedData.attachment_urls &&
+                validatedData.attachment_urls.length > 0
+                  ? validatedData.attachment_urls
+                  : null,
             })
-            .select('id, created_at')
+            .select("id, created_at")
             .single();
           if (insertResult?.data) {
             insertedId = (insertResult.data as any).id;
@@ -269,8 +321,13 @@ Deno.serve(async (req) => {
         }
       }
     } catch (validationError) {
-      console.error('[Validation Error]', validationError);
-      return createErrorResponse(validationError, 'Invalid form data', 400, 'submit-form');
+      console.error("[Validation Error]", validationError);
+      return createErrorResponse(
+        validationError,
+        "Invalid form data",
+        400,
+        "submit-form",
+      );
     }
 
     if (insertResult?.error) {
@@ -280,12 +337,17 @@ Deno.serve(async (req) => {
     console.log(`[Success] ${formType} submission from ${clientId}`);
     return jsonResponse({
       success: true,
-      message: 'Submission received successfully',
+      message: "Submission received successfully",
       id: insertedId,
       created_at: createdAt,
     });
   } catch (error) {
-    console.error('[Error]', error);
-    return createErrorResponse(error, 'Failed to process submission', 500, 'submit-form');
+    console.error("[Error]", error);
+    return createErrorResponse(
+      error,
+      "Failed to process submission",
+      500,
+      "submit-form",
+    );
   }
 });

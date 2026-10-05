@@ -160,6 +160,19 @@ const HandymanPatchingToronto = lazyWithFallback(
   "Handyman & Patching Toronto",
 );
 
+const CredentialPackage = lazyWithFallback(
+  () => import("@/pages/CredentialPackage"),
+  "Credential Package",
+);
+const AdminPages = lazyWithFallback(
+  () => import("@/pages/admin/Pages"),
+  "Pages",
+);
+const CredentialsVault = lazyWithFallback(
+  () => import("@/pages/admin/CredentialsVault"),
+  "Credentials Vault",
+);
+
 // Admin pages
 const PageHeaders = lazyWithFallback(
   () => import("@/pages/admin/PageHeaders"),
@@ -180,10 +193,6 @@ const ServiceEditor = lazyWithFallback(
 const ProjectEditor = lazyWithFallback(
   () => import("@/pages/admin/ProjectEditor"),
   "Project Editor",
-);
-const TestimonialsManager = lazyWithFallback(
-  () => import("@/pages/admin/TestimonialsManager"),
-  "Testimonials Manager",
 );
 const DocumentsLibrary = lazyWithFallback(
   () => import("@/pages/admin/DocumentsLibrary"),
@@ -241,10 +250,6 @@ const Settings = lazyWithFallback(
 const ServicesManager = lazyWithFallback(
   () => import("@/pages/admin/ServicesManager"),
   "Services Manager",
-);
-const EmailTemplates = lazyWithFallback(
-  () => import("@/pages/admin/EmailTemplates"),
-  "Email Templates",
 );
 const QAQuickContactForm = lazyWithFallback(
   () => import("@/pages/admin/QAQuickContactForm"),
@@ -352,7 +357,10 @@ const AdminRouteGroup = () => (
       path="stats"
       element={<Navigate to="/admin/seo-dashboard" replace />}
     />
-    <Route path="testimonials" element={<TestimonialsManager />} />
+    <Route
+      path="testimonials"
+      element={<Navigate to="/admin/pages" replace />}
+    />
     <Route path="documents-library" element={<DocumentsLibrary />} />
     <Route path="contacts" element={<LegacyInboxRedirect kind="contact" />} />
     <Route path="resumes" element={<LegacyInboxRedirect kind="resume" />} />
@@ -417,9 +425,14 @@ const AdminRouteGroup = () => (
     <Route path="monitoring" element={<Monitoring />} />
     <Route path="inbox" element={<UnifiedInbox />} />
     <Route path="notifications" element={<LegacyInboxRedirect />} />
-    <Route path="email-templates" element={<EmailTemplates />} />
+    <Route
+      path="email-templates"
+      element={<Navigate to="/admin/email-delivery" replace />}
+    />
     <Route path="homepage-builder" element={<HomepageBuilder />} />
     <Route path="page-headers" element={<PageHeaders />} />
+    <Route path="pages" element={<AdminPages />} />
+    <Route path="credentials" element={<CredentialsVault />} />
     <Route path="qa/quick-contact-form" element={<QAQuickContactForm />} />
     <Route
       path="homepage-content"
@@ -483,6 +496,7 @@ export const AppRoutes = () => (
 
       <Route path="/projects" element={<Projects />} />
       <Route path="/contact" element={<Contact />} />
+      <Route path="/prequal-package/:token" element={<CredentialPackage />} />
       <Route path="/estimate" element={<Estimate />} />
       <Route path="/submit-rfp" element={<SubmitRFPNew />} />
       <Route

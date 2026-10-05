@@ -1,3 +1,4 @@
+import type { LeadFilters } from "@/lib/leads/model";
 import { useSearchParams } from "react-router-dom";
 import { AdminPageLayout } from "@/components/admin/AdminPageLayout";
 import { InboxDashboard } from "@/components/admin/inbox/InboxDashboard";
@@ -46,6 +47,7 @@ export default function UnifiedInbox() {
       "general",
       "rfp",
       "prequal",
+      "bid",
     ].includes(requestedType)
       ? (requestedType as LeadTypeFilter)
       : queryTab === "work"
@@ -109,6 +111,13 @@ export default function UnifiedInbox() {
               initialType={initialType}
               initialStatus={
                 isLeadStatus(requestedStatus) ? requestedStatus : "open"
+              }
+              initialAttention={
+                ["due", "overdue", "unassigned", "alerts"].includes(
+                  searchParams.get("attention") || "",
+                )
+                  ? (searchParams.get("attention") as LeadFilters["attention"])
+                  : undefined
               }
               initialSource={
                 isLeadSource(requestedSource) ? requestedSource : undefined

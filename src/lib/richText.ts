@@ -10,6 +10,24 @@ export function isSafeEditorLink(value: string): boolean {
     return false;
   }
 }
+/** Rich text may embed only this project's public storage images. */
+export function isSafeContentImage(value: string): boolean {
+  try {
+    const url = new URL(value);
+    return (
+      url.protocol === "https:" &&
+      url.origin === new URL(import.meta.env.VITE_SUPABASE_URL).origin &&
+      !url.username &&
+      !url.password &&
+      !url.search &&
+      !url.hash &&
+      url.pathname.startsWith("/storage/v1/object/public/project-images/") &&
+      !decodeURIComponent(url.pathname).split("/").includes("..")
+    );
+  } catch {
+    return false;
+  }
+}
 export function plainTextToHtml(value: string): string {
   const escape = (text: string) =>
     text
@@ -76,6 +94,9 @@ export function sanitizeRichText(value: string): string {
     if (!/^(https:\/\/|mailto:|\/(?!\/)|#)/i.test(href))
       link.removeAttribute("href");
     link.setAttribute("rel", "noopener noreferrer");
+  });
+  template.content.querySelectorAll("img").forEach((img) => {
+    if (!isSafeContentImage(img.getAttribute("src") || "")) img.remove();
   });
   return template.innerHTML;
 }

@@ -329,6 +329,54 @@ describe("bounded lead paging", () => {
   });
 });
 
+describe("new inquiries alongside legacy leads", () => {
+  it("merges inquiry and legacy cursor pages without omitting same-time records", async () => {
+    tables.contact_submissions = [row(1), row(2)];
+    tables.inquiries = [
+      row(3, undefined, {
+        contact_name: "New inquiry",
+        inquiry_type: "general",
+      }),
+      row(4),
+    ];
+    const first = await loadLeadPage(filters, null, undefined, 3, true);
+    expect(first.items.map((i) => i.id)).toEqual([id(1), id(2), id(3)]);
+    expect(first.inquiryAvailable).toBe(true);
+    const second = await loadLeadPage(
+      filters,
+      first.nextCursor,
+      undefined,
+      3,
+      true,
+    );
+    expect(second.items.map((i) => i.id)).toEqual([id(4)]);
+    expect(second.nextCursor).toBeNull();
+  });
+  it("retains legacy results and stops paging if new inquiries cannot load", async () => {
+    tables.contact_submissions = [row(1), row(2), row(3)];
+    unavailable.add("inquiries");
+    const page = await loadLeadPage(filters, null, undefined, 2, true);
+    expect(page.items).toHaveLength(2);
+    expect(page.failed).toEqual(["New inquiries"]);
+    expect(page.nextCursor).toBeNull();
+  });
+  it("filters bid invitations at the server without querying legacy sources", async () => {
+    tables.inquiries = [
+      row(1, undefined, { inquiry_type: "bid_invitation" }),
+      row(2, undefined, { inquiry_type: "general" }),
+    ];
+    const page = await loadLeadPage(
+      { ...filters, type: "bid" },
+      null,
+      undefined,
+      50,
+      true,
+    );
+    expect(page.items.map((i) => i.id)).toEqual([id(1)]);
+    expect(requests.map((r) => r.table)).toEqual(["inquiries"]);
+  });
+});
+
 describe("independent request detail loading", () => {
   it("opens an old closed request directly, independent of page or list filters", async () => {
     tables.contact_submissions = [

@@ -1,3 +1,5 @@
+import { usePageContent } from "@/hooks/usePageContent";
+import contentModule from "@/content/pages/home-projects";
 import { TYPOGRAPHY_STYLES } from "@/design-system/constants";
 import { useState } from "react";
 import { Link } from "react-router-dom";
@@ -23,13 +25,16 @@ function shuffleArray<T>(arr: T[]): T[] {
 }
 
 export const HomepageFeaturedProjects = () => {
+  const c = usePageContent(contentModule);
+
   // Per-mount random seed so each visit/refresh fetches a fresh sample
   const [mountId] = useState(() => Math.random().toString(36).slice(2));
 
   const { data: projects, isLoading } = useQuery({
     queryKey: ["homepage-featured-projects", mountId],
     queryFn: async () => {
-      const cols = "id, title, slug, category, location, featured_image, summary, year, featured";
+      const cols =
+        "id, title, slug, category, location, featured_image, summary, year, featured";
       // Fetch ALL published projects (small payload)
       const { data: all } = await supabase
         .from("projects")
@@ -59,7 +64,7 @@ export const HomepageFeaturedProjects = () => {
       <section className="py-16 md:py-20 lg:py-24">
         <div className="container mx-auto px-4">
           <div className="text-center">
-            <p className="text-muted-foreground">Loading projects...</p>
+            <p className="text-muted-foreground">{c.f001}</p>
           </div>
         </div>
       </section>
@@ -75,20 +80,20 @@ export const HomepageFeaturedProjects = () => {
           <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-12">
             <div>
               <p className="text-sm font-medium uppercase tracking-wider text-accent mb-3">
-                Recent Work
+                {c.f002}
               </p>
               <h2 className="text-3xl md:text-4xl font-bold mb-2 text-foreground">
-                Featured Projects
+                {c.f003}
               </h2>
               <p className="text-base md:text-lg text-muted-foreground max-w-2xl">
-                Selected projects demonstrating our scope of work across Ontario.
+                {c.f004}
               </p>
             </div>
             <Link
               to="/projects"
               className="inline-flex items-center gap-2 text-sm font-semibold text-primary hover:text-accent transition-colors whitespace-nowrap"
             >
-              View all projects
+              {c.f005}
               <ArrowRight className="w-4 h-4" aria-hidden="true" />
             </Link>
           </div>
@@ -99,10 +104,15 @@ export const HomepageFeaturedProjects = () => {
             {projects.map((project, index) => (
               <ScrollReveal
                 key={project.id}
-                direction={index % 3 === 0 ? "left" : index % 3 === 1 ? "up" : "right"}
+                direction={
+                  index % 3 === 0 ? "left" : index % 3 === 1 ? "up" : "right"
+                }
                 delay={index * 100}
               >
-                <Card variant="interactive" className="group overflow-hidden hover-subtle h-full flex flex-col">
+                <Card
+                  variant="interactive"
+                  className="group overflow-hidden hover-subtle h-full flex flex-col"
+                >
                   <Link to={`/projects/${project.slug}`} className="block">
                     <ProjectFeaturedImage
                       src={project.featured_image}
@@ -129,12 +139,18 @@ export const HomepageFeaturedProjects = () => {
                       )}
                     </div>
                     <Link to={`/projects/${project.slug}`}>
-                      <h3 className={`${TYPOGRAPHY_STYLES.cardTitle} mb-2 hover:text-primary link-hover line-clamp-2`}>
+                      <h3
+                        className={`${TYPOGRAPHY_STYLES.cardTitle} mb-2 hover:text-primary link-hover line-clamp-2`}
+                      >
                         {project.title}
                       </h3>
                     </Link>
                     {project.summary && (
-                      <p className={`${TYPOGRAPHY_STYLES.cardBody} text-muted-foreground line-clamp-3 flex-1`}>{project.summary}</p>
+                      <p
+                        className={`${TYPOGRAPHY_STYLES.cardBody} text-muted-foreground line-clamp-3 flex-1`}
+                      >
+                        {project.summary}
+                      </p>
                     )}
                   </CardContent>
                 </Card>
@@ -147,7 +163,8 @@ export const HomepageFeaturedProjects = () => {
           <div className="text-center mt-10">
             <Button size="lg" variant="outline" asChild>
               <Link to="/projects">
-                View All Projects <ArrowRight className="ml-2 h-5 w-5" />
+                {c.f006}
+                <ArrowRight className="ml-2 h-5 w-5" />
               </Link>
             </Button>
           </div>

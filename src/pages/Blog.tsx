@@ -1,3 +1,5 @@
+import { usePageContent } from "@/hooks/usePageContent";
+import contentModule from "@/content/pages/blog";
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Navigation from "@/components/Navigation";
@@ -27,45 +29,55 @@ interface BlogPost {
 }
 
 const Blog = () => {
+  const c = usePageContent(contentModule);
+
   const [filter, setFilter] = useState<string>("all");
   const [visiblePosts, setVisiblePosts] = React.useState(6);
-  const [animatedCards, setAnimatedCards] = React.useState<Set<number>>(new Set());
+  const [animatedCards, setAnimatedCards] = React.useState<Set<number>>(
+    new Set(),
+  );
   const [posts, setPosts] = useState<BlogPost[]>([]);
   const [loading, setLoading] = useState(true);
-  
+
   useEffect(() => {
     const loadPosts = async () => {
       const today = new Date().toISOString();
       const { data } = await supabase
-        .from('blog_posts')
-        .select('id, slug, title, summary, category, featured_image, published_at, author_id, content_type, project_location, project_duration, project_size')
-        .eq('publish_state', 'published')
-        .lte('published_at', today)
-        .order('published_at', { ascending: false });
-      
+        .from("blog_posts")
+        .select(
+          "id, slug, title, summary, category, featured_image, published_at, author_id, content_type, project_location, project_duration, project_size",
+        )
+        .eq("publish_state", "published")
+        .lte("published_at", today)
+        .order("published_at", { ascending: false });
+
       if (data) {
         setPosts(data);
       }
       setLoading(false);
     };
-    
+
     loadPosts();
   }, []);
 
-  const categories = ["all", ...Array.from(new Set(posts.map(p => p.category)))];
-  
+  const categories = [
+    "all",
+    ...Array.from(new Set(posts.map((p) => p.category))),
+  ];
+
   // Featured section (top 3)
   const featuredPosts = posts.slice(0, 3);
-  
+
   // All content section (exclude featured posts to avoid duplication)
   const allContentPosts = posts.slice(3);
-  
-  const filteredPosts = filter === "all" 
-    ? allContentPosts 
-    : allContentPosts.filter(p => p.category === filter);
+
+  const filteredPosts =
+    filter === "all"
+      ? allContentPosts
+      : allContentPosts.filter((p) => p.category === filter);
 
   const loadMore = () => {
-    setVisiblePosts(prev => Math.min(prev + 6, filteredPosts.length));
+    setVisiblePosts((prev) => Math.min(prev + 6, filteredPosts.length));
   };
 
   React.useEffect(() => {
@@ -73,15 +85,15 @@ const Blog = () => {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            const index = Number(entry.target.getAttribute('data-index'));
-            setAnimatedCards(prev => new Set([...prev, index]));
+            const index = Number(entry.target.getAttribute("data-index"));
+            setAnimatedCards((prev) => new Set([...prev, index]));
           }
         });
       },
-      { threshold: 0.1, rootMargin: '50px' }
+      { threshold: 0.1, rootMargin: "50px" },
     );
 
-    document.querySelectorAll('.blog-card-animate').forEach((card) => {
+    document.querySelectorAll(".blog-card-animate").forEach((card) => {
       observer.observe(card);
     });
 
@@ -90,127 +102,142 @@ const Blog = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <SEO 
-        title="Construction Insights | Envelope & Restoration Contractor"
-        description="Expert insights on building envelope restoration, façade remediation, parking garage restoration, and real-world case studies showcasing successful specialty projects from Ascent Group Construction."
+      <SEO
+        title={c.f001}
+        description={c.f002}
         keywords="envelope restoration blog, facade remediation tips, building envelope guides, parking garage restoration, waterproofing insights, construction case studies, specialty contractor projects"
       />
       <Navigation />
-      
+
       {loading ? (
-        <div className="container mx-auto px-4 py-20 text-center"><div className="animate-pulse">Loading content...</div></div>
+        <div className="container mx-auto px-4 py-20 text-center">
+          <div className="animate-pulse">{c.f003}</div>
+        </div>
       ) : posts.length === 0 ? (
         <main className="relative overflow-hidden">
           <PageHero
-            title="Blog & Case Studies"
-            description="Expert insights, success stories, and real-world projects from industry professionals"
+            title={c.f004}
+            description={c.f005}
             image={mainPageHeroes.blog}
-            imageAlt="Construction insights and case studies"
-            breadcrumbs={[
-              { label: "Home", href: "/" },
-              { label: "Blog & Case Studies" }
-            ]}
+            imageAlt={c.f006}
+            breadcrumbs={[{ label: c.f007, href: "/" }, { label: c.f008 }]}
             height="medium"
           />
           <section className="container mx-auto px-4 py-20 text-center">
-            <h2 className="text-3xl font-bold mb-4">Coming Soon</h2>
+            <h2 className="text-3xl font-bold mb-4">{c.f009}</h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              We're launching our content library. Check back soon for insights on building envelope restoration, project planning, and specialty contracting.
+              {c.f010}
             </p>
           </section>
         </main>
       ) : (
-      <main className="relative overflow-hidden">
-        <PageHero
-          title="Blog & Case Studies"
-          description="Expert insights, success stories, and real-world projects from industry professionals"
-          image={mainPageHeroes.blog}
-          imageAlt="Construction insights and case studies"
-          breadcrumbs={[
-            { label: "Home", href: "/" },
-            { label: "Blog & Case Studies" }
-          ]}
-          height="medium"
-        />
+        <main className="relative overflow-hidden">
+          <PageHero
+            title={c.f011}
+            description={c.f012}
+            image={mainPageHeroes.blog}
+            imageAlt={c.f013}
+            breadcrumbs={[{ label: c.f014, href: "/" }, { label: c.f015 }]}
+            height="medium"
+          />
 
-        {/* Enhanced Featured Posts */}
-        {featuredPosts.length > 0 && (
-          <section className="container mx-auto px-4 py-20 border-b">
-            <div className="text-center mb-12 animate-fade-in-up">
-              <h2 className="text-4xl font-bold mb-4">Featured Content</h2>
-              <p className="text-lg text-muted-foreground">Latest insights and success stories from our team</p>
-            </div>
-            <div className="grid md:grid-cols-2 gap-8">
-              {featuredPosts.map((post, index) => (
-                <div key={post.id} className="blog-card-animate transition-all duration-600 opacity-100 hover-scale" data-index={index} style={{ animationDelay: `${index * 100}ms` }}>
-                  <BlogCard post={post} />
-                </div>
-              ))}
-            </div>
-          </section>
-        )}
-
-        {/* Enhanced All Posts with Filter */}
-        <section className="container mx-auto px-4 py-20">
-          <div className="text-center mb-12 animate-fade-in-up">
-            <h2 className="text-4xl font-bold mb-4">All Content</h2>
-            <p className="text-lg text-muted-foreground">Browse our complete library of articles and case studies</p>
-          </div>
-          
-          <Tabs defaultValue="all" className="w-full" onValueChange={setFilter}>
-            <TabsList className="mb-12 flex-wrap h-auto gap-2 bg-muted/50 p-2 rounded-[var(--radius-sm)]">
-              {categories.map((category) => (
-                <TabsTrigger key={category} value={category} className="capitalize rounded-[var(--radius-sm)] data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">
-                  {category === "all" ? "All Posts" : category}
-                </TabsTrigger>
-              ))}
-            </TabsList>
-
-            <TabsContent value={filter} className="mt-0">
-              {filteredPosts.length > 0 ? (
-                <>
-                  <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    {filteredPosts.slice(0, visiblePosts).map((post, index) => (
-                      <div
-                        key={post.id}
-                        className={`blog-card-animate card-hover ${
-                          animatedCards.has(index) ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-                        }`}
-                        data-index={index}
-                        style={{ transitionDelay: `${(index % 6) * 100}ms` }}
-                      >
-                        <BlogCard post={post} />
-                      </div>
-                    ))}
+          {/* Enhanced Featured Posts */}
+          {featuredPosts.length > 0 && (
+            <section className="container mx-auto px-4 py-20 border-b">
+              <div className="text-center mb-12 animate-fade-in-up">
+                <h2 className="text-4xl font-bold mb-4">{c.f016}</h2>
+                <p className="text-lg text-muted-foreground">{c.f017}</p>
+              </div>
+              <div className="grid md:grid-cols-2 gap-8">
+                {featuredPosts.map((post, index) => (
+                  <div
+                    key={post.id}
+                    className="blog-card-animate transition-all duration-600 opacity-100 hover-scale"
+                    data-index={index}
+                    style={{ animationDelay: `${index * 100}ms` }}
+                  >
+                    <BlogCard post={post} />
                   </div>
-                  
-                  {visiblePosts < filteredPosts.length && (
-                    <div className="text-center mt-12">
-                      <Button
-                        onClick={loadMore}
-                        size="lg"
-                        variant="outline"
-                        className="hover:bg-secondary hover:text-primary hover:border-secondary card-hover"
-                      >
-                        Load More Articles
-                      </Button>
+                ))}
+              </div>
+            </section>
+          )}
+
+          {/* Enhanced All Posts with Filter */}
+          <section className="container mx-auto px-4 py-20">
+            <div className="text-center mb-12 animate-fade-in-up">
+              <h2 className="text-4xl font-bold mb-4">{c.f018}</h2>
+              <p className="text-lg text-muted-foreground">{c.f019}</p>
+            </div>
+
+            <Tabs
+              defaultValue="all"
+              className="w-full"
+              onValueChange={setFilter}
+            >
+              <TabsList className="mb-12 flex-wrap h-auto gap-2 bg-muted/50 p-2 rounded-[var(--radius-sm)]">
+                {categories.map((category) => (
+                  <TabsTrigger
+                    key={category}
+                    value={category}
+                    className="capitalize rounded-[var(--radius-sm)] data-[state=active]:bg-primary data-[state=active]:text-primary-foreground"
+                  >
+                    {category === "all" ? "All Posts" : category}
+                  </TabsTrigger>
+                ))}
+              </TabsList>
+
+              <TabsContent value={filter} className="mt-0">
+                {filteredPosts.length > 0 ? (
+                  <>
+                    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                      {filteredPosts
+                        .slice(0, visiblePosts)
+                        .map((post, index) => (
+                          <div
+                            key={post.id}
+                            className={`blog-card-animate card-hover ${
+                              animatedCards.has(index)
+                                ? "opacity-100 translate-y-0"
+                                : "opacity-0 translate-y-8"
+                            }`}
+                            data-index={index}
+                            style={{
+                              transitionDelay: `${(index % 6) * 100}ms`,
+                            }}
+                          >
+                            <BlogCard post={post} />
+                          </div>
+                        ))}
                     </div>
-                  )}
-                </>
-              ) : (
-                <div className="text-center py-12">
-                  <p className="text-muted-foreground">No articles found in this category.</p>
-                </div>
-              )}
-            </TabsContent>
-          </Tabs>
-        </section>
-        
-        {/* Newsletter Signup */}
-        <NewsletterSection />
-      </main>
+
+                    {visiblePosts < filteredPosts.length && (
+                      <div className="text-center mt-12">
+                        <Button
+                          onClick={loadMore}
+                          size="lg"
+                          variant="outline"
+                          className="hover:bg-secondary hover:text-primary hover:border-secondary card-hover"
+                        >
+                          {c.f020}
+                        </Button>
+                      </div>
+                    )}
+                  </>
+                ) : (
+                  <div className="text-center py-12">
+                    <p className="text-muted-foreground">{c.f021}</p>
+                  </div>
+                )}
+              </TabsContent>
+            </Tabs>
+          </section>
+
+          {/* Newsletter Signup */}
+          <NewsletterSection />
+        </main>
       )}
-      
+
       <Footer />
     </div>
   );

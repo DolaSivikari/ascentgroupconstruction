@@ -1,3 +1,5 @@
+import { usePageContent } from "@/hooks/usePageContent";
+import contentModule from "@/content/pages/homeowners";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
@@ -8,12 +10,12 @@ import { CapabilityCard } from "@/design-system/components/CapabilityCard";
 import { CTABand } from "@/design-system/components/CTABand";
 import { Button } from "@/ui/Button";
 import { Badge } from "@/components/ui/badge";
-import { 
-  Home, 
-  Paintbrush, 
-  Hammer, 
-  Droplets, 
-  Square, 
+import {
+  Home,
+  Paintbrush,
+  Hammer,
+  Droplets,
+  Square,
   Shield,
   CheckCircle,
   DollarSign,
@@ -32,161 +34,131 @@ import { TrustRibbon } from "@/design-system/components/TrustRibbon";
 import { FAQAccordion } from "@/design-system/components/FAQAccordion";
 import { RelatedLinksGrid } from "@/design-system/components/RelatedLinksGrid";
 import { H2 } from "@/design-system/components/Typography";
-import { homeownersFaqs } from "@/data/page-faqs";
+import { useSharedFaqs } from "@/hooks/useSharedContent";
 
 const Homeowners = () => {
-  usePageAnalytics('homeowners');
+  const homeownersFaqs = useSharedFaqs("homeownersFaqs");
+  const c = usePageContent(contentModule);
+
+  usePageAnalytics("homeowners");
 
   const residentialServices = [
     {
       icon: Paintbrush,
-      title: "Interior & Exterior Painting",
-      description: "Complete painting services for homes, condos, and townhouses. Professional prep work, quality finishes, and clean execution.",
-      scope: [
-        "Full interior painting (walls, ceilings, trim)",
-        "Exterior painting (siding, stucco, brick)",
-        "Color consultation and matching",
-        "Minor drywall repair included"
-      ],
+      title: c.f001,
+      description: c.f002,
+      scope: [c.f003, c.f004, c.f005, c.f006],
       typical: "$2,000 - $15,000",
-      timeline: "3-7 days"
+      timeline: "3-7 days",
     },
     {
       icon: Home,
-      title: "Stucco & EIFS Repair",
-      description: "Residential stucco repairs, EIFS damage correction, and color-matched finishing. We fix cracks, water damage, and impact damage.",
-      scope: [
-        "Stucco crack repair and patching",
-        "EIFS impact damage restoration",
-        "Water damage investigation and repair",
-        "Color and texture matching"
-      ],
+      title: c.f007,
+      description: c.f008,
+      scope: [c.f009, c.f010, c.f011, c.f012],
       typical: "$1,500 - $8,000",
-      timeline: "2-5 days"
+      timeline: "2-5 days",
     },
     {
       icon: Square,
-      title: "Tile & Flooring Installation",
-      description: "Ceramic, porcelain, vinyl plank, and laminate installation for kitchens, bathrooms, basements, and living areas.",
-      scope: [
-        "Tile installation (floor and wall)",
-        "Vinyl plank and laminate flooring",
-        "Bathroom and kitchen backsplashes",
-        "Subfloor prep and leveling"
-      ],
+      title: c.f013,
+      description: c.f014,
+      scope: [c.f015, c.f016, c.f017, c.f018],
       typical: "$3,000 - $12,000",
-      timeline: "3-8 days"
+      timeline: "3-8 days",
     },
     {
       icon: Droplets,
-      title: "Waterproofing & Caulking",
-      description: "Residential waterproofing for basements, balconies, and building perimeter. Caulking replacement for windows and doors.",
-      scope: [
-        "Window and door caulking replacement",
-        "Balcony waterproofing (condo units)",
-        "Basement waterproofing (interior/exterior)",
-        "Foundation crack repair"
-      ],
+      title: c.f019,
+      description: c.f020,
+      scope: [c.f021, c.f022, c.f023, c.f024],
       typical: "$1,200 - $6,000",
-      timeline: "1-4 days"
+      timeline: "1-4 days",
     },
     {
       icon: Hammer,
-      title: "Renovation & Finishing",
-      description: "Basement finishing, bathroom renovations, kitchen updates, and general home improvements.",
-      scope: [
-        "Basement finishing and drywall",
-        "Bathroom renovation and tiling",
-        "Kitchen backsplash and painting",
-        "Trim, doors, and finishing carpentry"
-      ],
+      title: c.f025,
+      description: c.f026,
+      scope: [c.f027, c.f028, c.f029, c.f030],
       typical: "$5,000 - $35,000",
-      timeline: "1-4 weeks"
+      timeline: "1-4 weeks",
     },
     {
       icon: Home,
-      title: "Exterior Cladding & Siding",
-      description: "Siding repair and replacement for residential homes. Hardie board, vinyl, and wood siding services.",
-      scope: [
-        "Siding repair and replacement",
-        "Hardie board installation",
-        "Trim and soffit work",
-        "Color-matched finishing"
-      ],
+      title: c.f031,
+      description: c.f032,
+      scope: [c.f033, c.f034, c.f035, c.f036],
       typical: "$4,000 - $20,000",
-      timeline: "5-10 days"
-    }
+      timeline: "5-10 days",
+    },
   ];
 
   const whyChooseUs = [
     {
       icon: Shield,
-      title: "Fully Insured & WSIB Compliant",
-      description: "$2M CGL liability coverage and full WSIB compliance protect you and your property."
+      title: c.f037,
+      description: c.f038,
     },
     {
       icon: Award,
-      title: "15+ Years Team Experience",
-      description: "Our crew brings hands-on experience from a wide range of residential and commercial projects across the GTA."
+      title: c.f039,
+      description: c.f040,
     },
     {
       icon: CheckCircle,
-      title: "Clear Quotes, No Surprises",
-      description: "Detailed written estimates with itemized pricing. You know exactly what you're paying for."
+      title: c.f041,
+      description: c.f042,
     },
     {
       icon: Clock,
-      title: "On-Time, Professional Execution",
-      description: "We show up when we say we will, work efficiently, and clean up thoroughly every day."
-    }
+      title: c.f043,
+      description: c.f044,
+    },
   ];
 
   const processSteps = [
     {
       icon: DollarSign,
-      title: "Request an Estimate",
-      description: "Fill out our estimate form or call us directly. Describe your project and upload photos if available."
+      title: c.f045,
+      description: c.f046,
     },
     {
       icon: Home,
-      title: "Site Visit & Estimate",
-      description: "We'll visit your home to assess the work, take measurements, and answer your questions. You'll receive a detailed written estimate within 2-3 days."
+      title: c.f047,
+      description: c.f048,
     },
     {
       icon: Hammer,
-      title: "Schedule & Execute",
-      description: "Once you approve the estimate, we'll schedule your project (typically 1-3 weeks out). We arrive on time, work cleanly, and communicate throughout."
+      title: c.f049,
+      description: c.f050,
     },
     {
       icon: CheckCircle,
-      title: "Final Walkthrough",
-      description: "We'll walk through the completed work with you, address any concerns, and provide care instructions and warranty information."
-    }
+      title: c.f051,
+      description: c.f052,
+    },
   ];
 
   return (
     <div className="min-h-screen">
-      <SEO 
-        title="Residential Services for Homeowners | Painting, Renovations, Tile, Flooring | Ascent Group Construction"
-        description="Professional residential construction services in Toronto and the GTA. Interior/exterior painting, stucco repair, tile & flooring, renovations, waterproofing. 15+ years experience, fully insured. Serving Toronto & GTA."
+      <SEO
+        title={c.f053}
+        description={c.f054}
         keywords="residential painting Toronto, home renovation GTA, tile installation Toronto, flooring contractor, stucco repair homeowners, basement finishing, bathroom renovation, EIFS repair residential"
       />
 
       <Navigation />
 
       <PageHero
-        title="Residential Services for Homeowners"
-        description="Professional Painting, Renovations, Tile, Flooring & More • 15+ Years Experience • Fully Insured • Serving Toronto & GTA"
+        title={c.f055}
+        description={c.f056}
         image={audienceHeroes["homeowners"]}
-        imageAlt="Quality home improvement services"
-        breadcrumbs={[
-          { label: "Home", href: "/" },
-          { label: "Homeowners" }
-        ]}
+        imageAlt={c.f057}
+        breadcrumbs={[{ label: c.f058, href: "/" }, { label: c.f059 }]}
         badges={[
-          { icon: User, text: "Owner-Operated" },
-          { icon: Shield, text: "Fully Insured" },
-          { icon: DollarSign, text: "Free Estimates" },
+          { icon: User, text: c.f060 },
+          { icon: Shield, text: c.f061 },
+          { icon: DollarSign, text: c.f062 },
         ]}
       />
 
@@ -196,15 +168,16 @@ const Homeowners = () => {
       <Section>
         <ScrollReveal>
           <div className="max-w-3xl mx-auto text-center mb-12">
-            <Badge variant="secondary" className="mb-4">Trusted by Homeowners Across the GTA</Badge>
-            <h2 className="text-3xl md:text-4xl font-bold mb-6">
-              Quality Construction Services for Your Home
-            </h2>
+            <Badge variant="secondary" className="mb-4">
+              {c.f063}
+            </Badge>
+            <h2 className="text-3xl md:text-4xl font-bold mb-6">{c.f064}</h2>
             <p className="text-lg text-muted-foreground leading-relaxed mb-4">
-              Whether you're looking to refresh your home with new paint, repair exterior stucco damage, renovate your bathroom, or install new tile and flooring—we bring <strong>15+ years of professional construction experience</strong> to residential projects across Toronto and the Greater Toronto Area.
+              {c.f065}
+              <strong>{c.f066}</strong> {c.f067}
             </p>
             <p className="text-lg text-muted-foreground leading-relaxed">
-              We're a small, owner-operated team that delivers the same professional standards, quality materials, and clean execution you'd expect from larger firms—with the personalized attention and clear communication you deserve as a homeowner.
+              {c.f068}
             </p>
           </div>
         </ScrollReveal>
@@ -229,9 +202,9 @@ const Homeowners = () => {
       <Section className="bg-muted/30">
         <ScrollReveal>
           <div className="text-center mb-12">
-            <H2 className="mb-4">Our Residential Services</H2>
+            <H2 className="mb-4">{c.f069}</H2>
             <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-              From simple repairs to complete renovations, we handle a wide range of residential construction services with professional execution and fair pricing.
+              {c.f070}
             </p>
           </div>
         </ScrollReveal>
@@ -241,7 +214,12 @@ const Homeowners = () => {
             const Icon = service.icon;
             return (
               <ScrollReveal key={index} delay={index * 0.1}>
-                <Card variant="elevated" size="md" hover className="h-full flex flex-col group">
+                <Card
+                  variant="elevated"
+                  size="md"
+                  hover
+                  className="h-full flex flex-col group"
+                >
                   <div className="w-14 h-14 rounded-[var(--radius-sm)] bg-primary/10 flex items-center justify-center mb-6 group-hover:bg-primary/20 transition-colors">
                     <Icon className="w-7 h-7 text-primary" />
                   </div>
@@ -252,10 +230,15 @@ const Homeowners = () => {
                     {service.description}
                   </p>
                   <div className="mb-6 flex-grow">
-                    <h4 className="font-semibold text-sm mb-3 text-foreground">Typical Scope:</h4>
+                    <h4 className="font-semibold text-sm mb-3 text-foreground">
+                      {c.f071}
+                    </h4>
                     <ul className="space-y-2">
                       {service.scope.map((item, idx) => (
-                        <li key={idx} className="text-sm text-muted-foreground flex items-start gap-2">
+                        <li
+                          key={idx}
+                          className="text-sm text-muted-foreground flex items-start gap-2"
+                        >
                           <CheckCircle className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
                           <span>{item}</span>
                         </li>
@@ -263,11 +246,17 @@ const Homeowners = () => {
                     </ul>
                   </div>
                   <div className="pt-6 border-t border-border flex items-center gap-3 flex-wrap mt-auto">
-                    <UIBadge variant="secondary" className="flex items-center gap-1.5 px-3 py-1">
+                    <UIBadge
+                      variant="secondary"
+                      className="flex items-center gap-1.5 px-3 py-1"
+                    >
                       <DollarSign className="w-3.5 h-3.5" />
                       <span className="font-medium">{service.typical}</span>
                     </UIBadge>
-                    <UIBadge variant="outline" className="flex items-center gap-1.5 px-3 py-1">
+                    <UIBadge
+                      variant="outline"
+                      className="flex items-center gap-1.5 px-3 py-1"
+                    >
                       <Clock className="w-3.5 h-3.5" />
                       <span className="font-medium">{service.timeline}</span>
                     </UIBadge>
@@ -281,10 +270,10 @@ const Homeowners = () => {
         <ScrollReveal>
           <div className="text-center mt-12">
             <p className="text-sm text-muted-foreground mb-4">
-              <strong>Note:</strong> Costs and timelines are estimates based on typical residential projects. Your actual project will be priced after a site visit.
+              <strong>{c.f072}</strong> {c.f073}
             </p>
             <Button asChild size="lg">
-              <Link to="/estimate">Request an Estimate</Link>
+              <Link to="/estimate">{c.f074}</Link>
             </Button>
           </div>
         </ScrollReveal>
@@ -293,10 +282,7 @@ const Homeowners = () => {
       {/* How It Works */}
       <Section>
         <ScrollReveal>
-          <SectionHeader
-            title="How It Works"
-            description="We've made it simple to get started. Here's what you can expect when working with Ascent Group Construction."
-          />
+          <SectionHeader title={c.f075} description={c.f076} />
         </ScrollReveal>
 
         <StaggerContainer className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -316,9 +302,9 @@ const Homeowners = () => {
       <Section className="bg-accent">
         <ScrollReveal>
           <div className="text-center mb-12">
-            <H2 className="mb-4">Common Questions from Homeowners</H2>
+            <H2 className="mb-4">{c.f077}</H2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Everything you need to know before getting started
+              {c.f078}
             </p>
           </div>
         </ScrollReveal>
@@ -332,33 +318,33 @@ const Homeowners = () => {
 
       {/* Final CTA */}
       <CTABand
-        title="Ready to Start Your Home Project?"
-        description="Get a detailed estimate in 2-3 days. No pressure, no obligation—just professional advice and transparent pricing."
-        primaryCta={{ text: "Request an Estimate", href: "/estimate" }}
-        secondaryCta={{ text: "Contact Us", href: "/contact" }}
+        title={c.f079}
+        description={c.f080}
+        primaryCta={{ text: c.f081, href: "/estimate" }}
+        secondaryCta={{ text: c.f082, href: "/contact" }}
         variant="dark"
       />
 
       {/* Related Resources */}
       <RelatedLinksGrid
-        title="Explore More for Homeowners"
+        title={c.f083}
         links={[
           {
             icon: Paintbrush,
-            title: "Painting & Finishes",
-            description: "Interior and exterior painting, color matching, and clean execution backed by professional crews.",
+            title: c.f084,
+            description: c.f085,
             href: "/services/painting-services",
           },
           {
             icon: Square,
-            title: "Tile & Flooring",
-            description: "Ceramic, porcelain, vinyl plank, and laminate installation for kitchens, bathrooms, and living spaces.",
+            title: c.f086,
+            description: c.f087,
             href: "/services/tile-flooring",
           },
           {
             icon: Hammer,
-            title: "Renovations & Buildouts",
-            description: "Basement finishing, bathroom updates, and full interior renovation scopes for residential properties.",
+            title: c.f088,
+            description: c.f089,
             href: "/services/interior-buildouts-finishing",
           },
         ]}

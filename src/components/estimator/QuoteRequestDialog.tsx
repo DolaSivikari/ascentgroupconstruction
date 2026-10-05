@@ -1,3 +1,6 @@
+import { useIntakeEnabled } from "@/hooks/useIntakeEnabled";
+import { useInquirySubmit } from "@/hooks/useInquirySubmit";
+import { CONSENT_TEXT } from "@/lib/inquiry/schema";
 import { trackFormSubmit } from "@/lib/analytics";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -32,7 +35,11 @@ const quoteSchema = z.object({
   name: z.string().trim().min(1, "Name is required").max(100),
   email: z.string().trim().email("Invalid email").max(255),
   phone: z.string().trim().min(1, "Phone is required").max(20),
-  projectDescription: z.string().trim().min(10, "Please provide at least 10 characters").max(2000),
+  projectDescription: z
+    .string()
+    .trim()
+    .min(10, "Please provide at least 10 characters")
+    .max(2000),
 });
 
 export const QuoteRequestDialog = ({
@@ -41,6 +48,10 @@ export const QuoteRequestDialog = ({
   serviceName,
   serviceMessage,
 }: QuoteRequestDialogProps) => {
+  const intakeV2 = useIntakeEnabled();
+  const submitInquiry = useInquirySubmit();
+  const [consent, setConsent] = useState(false);
+  const [projectLocation, setProjectLocation] = useState("");
   const navigate = useNavigate();
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -66,6 +77,28 @@ ${validatedData.projectDescription}
 
 Ballpark Range: ${serviceMessage.ballparkRange || "Custom pricing"}
       `.trim();
+
+      if (intakeV2) {
+        await submitInquiry({
+          inquiry_type: "estimate",
+          contact_name: validatedData.name,
+          email: validatedData.email,
+          phone: validatedData.phone,
+          project_location: projectLocation,
+          message,
+          service_origin: serviceName,
+          consent_given: consent,
+        });
+        trackFormSubmit("quote_request_form");
+        toast({
+          title: "Quote Request Submitted!",
+          description:
+            "We'll contact you within 24 hours to schedule a consultation.",
+        });
+        onOpenChange(false);
+        navigate("/");
+        return;
+      }
 
       const { error } = await supabase.from("contact_submissions").insert({
         name: validatedData.name,
@@ -96,7 +129,8 @@ Ballpark Range: ${serviceMessage.ballparkRange || "Custom pricing"}
 
       toast({
         title: "Quote Request Submitted!",
-        description: "We'll contact you within 24 hours to schedule a consultation.",
+        description:
+          "We'll contact you within 24 hours to schedule a consultation.",
       });
 
       setTimeout(() => {
@@ -105,7 +139,7 @@ Ballpark Range: ${serviceMessage.ballparkRange || "Custom pricing"}
       }, 2000);
     } catch (error) {
       console.error("Error submitting quote request:", error);
-      
+
       if (error instanceof z.ZodError) {
         toast({
           title: "Validation Error",
@@ -149,7 +183,9 @@ Ballpark Range: ${serviceMessage.ballparkRange || "Custom pricing"}
             <Input
               id="name"
               value={formData.name}
-              onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+              onChange={(e) =>
+                setFormData({ ...formData, name: e.target.value })
+              }
               placeholder="John Doe"
               required
             />
@@ -161,7 +197,9 @@ Ballpark Range: ${serviceMessage.ballparkRange || "Custom pricing"}
               id="email"
               type="email"
               value={formData.email}
-              onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+              onChange={(e) =>
+                setFormData({ ...formData, email: e.target.value })
+              }
               placeholder="john@example.com"
               required
             />
@@ -173,7 +211,9 @@ Ballpark Range: ${serviceMessage.ballparkRange || "Custom pricing"}
               id="phone"
               type="tel"
               value={formData.phone}
-              onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+              onChange={(e) =>
+                setFormData({ ...formData, phone: e.target.value })
+              }
               placeholder="(647) 123-4567"
               required
             />
@@ -197,6 +237,27 @@ Ballpark Range: ${serviceMessage.ballparkRange || "Custom pricing"}
             </p>
           </div>
 
+          {intakeV2 && (
+            <>
+              <label className="block space-y-2 text-sm">
+                Project location *
+                <Input
+                  required
+                  value={projectLocation}
+                  onChange={(e) => setProjectLocation(e.target.value)}
+                />
+              </label>
+              <label className="flex items-start gap-2 text-sm">
+                <input
+                  type="checkbox"
+                  required
+                  checked={consent}
+                  onChange={(e) => setConsent(e.target.checked)}
+                />
+                {CONSENT_TEXT}
+              </label>
+            </>
+          )}
           <div className="flex gap-3 pt-4">
             <Button
               type="button"

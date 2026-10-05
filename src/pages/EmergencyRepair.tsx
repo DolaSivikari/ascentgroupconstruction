@@ -1,3 +1,5 @@
+import { usePageContent } from "@/hooks/usePageContent";
+import contentModule from "@/content/pages/emergency-repair";
 import SEO from "@/components/SEO";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
@@ -14,7 +16,7 @@ import { Link } from "react-router-dom";
 import { TrustRibbon } from "@/design-system/components/TrustRibbon";
 import { FAQAccordion } from "@/design-system/components/FAQAccordion";
 import { RelatedLinksGrid } from "@/design-system/components/RelatedLinksGrid";
-import { emergencyRepairFaqs } from "@/data/page-faqs";
+import { useSharedFaqs } from "@/hooks/useSharedContent";
 import {
   Phone,
   Droplets,
@@ -31,85 +33,86 @@ import {
   Zap,
 } from "lucide-react";
 import { serviceHeroes } from "@/data/hero-images";
-import { serviceAreaCities, primaryServiceCities } from "@/data/service-area-cities";
-
-const emergencyServices = [
-  {
-    icon: Droplets,
-    title: "Water Infiltration",
-    description: "Active leaks through walls, windows, balconies, or parking decks. Temporary containment and permanent envelope repair.",
-  },
-  {
-    icon: Building2,
-    title: "Façade Failure",
-    description: "Loose cladding, falling masonry, EIFS delamination, or spalling concrete. Emergency stabilization and safe access.",
-  },
-  {
-    icon: Wind,
-    title: "Storm Damage",
-    description: "Wind-driven rain damage, displaced siding or panels, compromised sealant joints, and membrane blow-offs.",
-  },
-  {
-    icon: AlertTriangle,
-    title: "Sealant & Joint Failure",
-    description: "Failed caulking, expansion joint leaks, window perimeter failures. Emergency re-sealing to prevent interior damage.",
-  },
-];
-
-const responseProcess = [
-  {
-    step: "1",
-    title: "Call Us",
-    description: `Call ${COMPANY_PHONE} directly. Describe the issue, location, and urgency. We triage immediately.`,
-    icon: Phone,
-  },
-  {
-    step: "2",
-    title: "Same-Day Site Assessment",
-    description: "A crew lead arrives on-site to assess the damage, document conditions, and determine temporary containment needs.",
-    icon: ClipboardCheck,
-  },
-  {
-    step: "3",
-    title: "Temporary Measures",
-    description: "Immediate containment — tarping, temporary sealant, water diversion, or shoring — to stop further damage.",
-    icon: Wrench,
-  },
-  {
-    step: "4",
-    title: "Permanent Repair",
-    description: "Scope, price, and schedule the permanent fix. We handle the full restoration — from envelope diagnosis to final coating.",
-    icon: Shield,
-  },
-];
+import {
+  serviceAreaCities,
+  primaryServiceCities,
+} from "@/data/service-area-cities";
 
 const EmergencyRepair = () => {
+  const emergencyRepairFaqs = useSharedFaqs("emergencyRepairFaqs");
+  const c = usePageContent(contentModule);
+  const emergencyServices = [
+    {
+      icon: Droplets,
+      title: c.f040,
+      description: c.f041,
+    },
+    {
+      icon: Building2,
+      title: c.f042,
+      description: c.f043,
+    },
+    {
+      icon: Wind,
+      title: c.f044,
+      description: c.f045,
+    },
+    {
+      icon: AlertTriangle,
+      title: c.f046,
+      description: c.f047,
+    },
+  ];
+  const responseProcess = [
+    {
+      step: "1",
+      title: c.f048,
+      description: `Call ${COMPANY_PHONE} directly. Describe the issue, location, and urgency. We triage immediately.`,
+      icon: Phone,
+    },
+    {
+      step: "2",
+      title: c.f049,
+      description: c.f050,
+      icon: ClipboardCheck,
+    },
+    {
+      step: "3",
+      title: c.f051,
+      description: c.f052,
+      icon: Wrench,
+    },
+    {
+      step: "4",
+      title: c.f053,
+      description: c.f054,
+      icon: Shield,
+    },
+  ];
+
   return (
     <div className="min-h-screen">
       <SEO
-        title="Emergency Building Repair | 24/7 Façade & Envelope Response | Ascent Group"
+        title={c.f001}
         description={`Emergency water infiltration, facade failure, and storm damage repair across the GTA. Same-day site assessment. Call ${COMPANY_PHONE} for immediate response.`}
         keywords="emergency water infiltration Toronto, emergency facade repair GTA, storm damage building repair, emergency building envelope contractor, urgent leak repair Ontario"
       />
       <Navigation />
 
       <PageHero
-        eyebrow="Emergency Response"
-        title="Emergency Building Repair"
-        description="Same-day site assessment for active leaks, façade failures, and storm damage — GTA-wide."
+        eyebrow={c.f002}
+        title={c.f003}
+        description={c.f004}
         image={serviceHeroes["waterproofing-systems"]}
-        imageAlt="Emergency building envelope repair"
+        imageAlt={c.f005}
         height="medium"
         primaryCta={{ text: `Call ${COMPANY_PHONE}`, href: COMPANY_PHONE_TEL }}
-        secondaryCta={{ text: "Contact Form", href: "/contact" }}
-        breadcrumbs={[
-          { label: "Home", href: "/" },
-          { label: "Emergency Repair" },
-        ]}
+        secondaryCta={{ text: c.f006, href: "/contact" }}
+        breadcrumbs={[{ label: c.f007, href: "/" }, { label: c.f008 }]}
         badges={[
-          { icon: Clock, text: "Same-Day Assessment" },
-          { icon: Zap, text: "24/7 Available" },
-          { icon: MapPin, text: "GTA-Wide" },
+          { icon: Clock, text: c.f009 },
+          { icon: Zap, text: c.f010 },
+          { icon: MapPin, text: c.f011 },
         ]}
       />
 
@@ -118,7 +121,7 @@ const EmergencyRepair = () => {
         <div className="container mx-auto px-4 py-4 flex flex-col sm:flex-row items-center justify-center gap-4 text-center">
           <Phone className="w-6 h-6 animate-pulse" />
           <span className="text-lg font-semibold">
-            Need immediate help? Call now:{" "}
+            {c.f012}{" "}
             <a href={COMPANY_PHONE_TEL} className="underline font-bold">
               {COMPANY_PHONE}
             </a>
@@ -132,8 +135,8 @@ const EmergencyRepair = () => {
       <Section size="major">
         <SectionHeader
           badge="What We Respond To"
-          title="Emergency Envelope Services"
-          description="Our crews respond to urgent building envelope failures across the Greater Toronto Area."
+          title={c.f013}
+          description={c.f014}
         />
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
           {emergencyServices.map((service) => (
@@ -151,12 +154,17 @@ const EmergencyRepair = () => {
       <Section size="major" className="bg-muted/30">
         <SectionHeader
           badge="Our Process"
-          title="How We Respond"
-          description="From your first call to permanent repair — here's what to expect."
+          title={c.f015}
+          description={c.f016}
         />
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
           {responseProcess.map((item) => (
-            <Card key={item.step} variant="elevated" size="md" className="relative">
+            <Card
+              key={item.step}
+              variant="elevated"
+              size="md"
+              className="relative"
+            >
               <span className="text-5xl font-bold text-primary/10 absolute top-4 right-4">
                 {item.step}
               </span>
@@ -172,18 +180,16 @@ const EmergencyRepair = () => {
 
       {/* Service Area */}
       <Section size="major">
-        <SectionHeader
-          badge="Coverage"
-          title="GTA-Wide Emergency Coverage"
-          description="Same-day response available across the Greater Toronto Area for active envelope failures."
-        />
+        <SectionHeader badge="Coverage" title={c.f017} description={c.f018} />
         <div className="max-w-4xl mx-auto">
           <Card variant="elevated" size="lg">
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
               {serviceAreaCities.map((city) => (
                 <div key={city} className="flex items-center gap-2">
                   <MapPin className="w-4 h-4 text-primary flex-shrink-0" />
-                  <span className={`text-sm ${primaryServiceCities.includes(city) ? "font-semibold" : ""}`}>
+                  <span
+                    className={`text-sm ${primaryServiceCities.includes(city) ? "font-semibold" : ""}`}
+                  >
                     {city}
                   </span>
                 </div>
@@ -195,31 +201,22 @@ const EmergencyRepair = () => {
 
       {/* Why Call Ascent */}
       <Section size="major" className="bg-muted/30">
-        <SectionHeader
-          badge="Why Ascent"
-          title="Why Call Us for Emergencies"
-        />
+        <SectionHeader badge="Why Ascent" title={c.f019} />
         <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
           <Card variant="elevated" size="md" hover>
             <Clock className="w-10 h-10 text-primary mb-4" />
-            <h3 className="font-semibold mb-2">Same-Day Response</h3>
-            <p className="text-sm text-muted-foreground">
-              Call in the morning, crew on-site by afternoon. We prioritize active failures that risk interior damage or occupant safety.
-            </p>
+            <h3 className="font-semibold mb-2">{c.f020}</h3>
+            <p className="text-sm text-muted-foreground">{c.f021}</p>
           </Card>
           <Card variant="elevated" size="md" hover>
             <Wrench className="w-10 h-10 text-primary mb-4" />
-            <h3 className="font-semibold mb-2">Self-Performed Crews</h3>
-            <p className="text-sm text-muted-foreground">
-              No waiting for sub-tiers. Our own 10-person crew handles containment and permanent repair — EIFS, masonry, sealant, coatings.
-            </p>
+            <h3 className="font-semibold mb-2">{c.f022}</h3>
+            <p className="text-sm text-muted-foreground">{c.f023}</p>
           </Card>
           <Card variant="elevated" size="md" hover>
             <Shield className="w-10 h-10 text-primary mb-4" />
-            <h3 className="font-semibold mb-2">WSIB & $2M Insured</h3>
-            <p className="text-sm text-muted-foreground">
-              Fully compliant for commercial and multi-family properties. Certificate of insurance available within 24 hours of your request.
-            </p>
+            <h3 className="font-semibold mb-2">{c.f024}</h3>
+            <p className="text-sm text-muted-foreground">{c.f025}</p>
           </Card>
         </div>
       </Section>
@@ -227,26 +224,23 @@ const EmergencyRepair = () => {
       {/* CTA */}
       <Section size="major">
         <div className="max-w-3xl mx-auto text-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            Don't Wait — Active Leaks Get Worse
-          </h2>
-          <p className="text-lg text-muted-foreground mb-4">
-            Every hour of water infiltration increases repair costs and damage scope.
-            Call us now for a same-day site assessment.
-          </p>
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">{c.f026}</h2>
+          <p className="text-lg text-muted-foreground mb-4">{c.f027}</p>
           <p className="text-muted-foreground mb-8">
-            Direct line: <PhoneLink className="text-primary font-bold text-lg" />
+            {c.f028}
+            <PhoneLink className="text-primary font-bold text-lg" />
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button asChild size="lg">
               <a href={COMPANY_PHONE_TEL}>
                 <Phone className="mr-2 w-4 h-4" />
-                Call Now: {COMPANY_PHONE}
+                {c.f029}
+                {COMPANY_PHONE}
               </a>
             </Button>
             <Button asChild variant="outline" size="lg">
               <Link to="/contact">
-                Submit Details Online
+                {c.f030}
                 <ArrowRight className="ml-2 w-4 h-4" />
               </Link>
             </Button>
@@ -258,31 +252,31 @@ const EmergencyRepair = () => {
       <Section size="major" maxWidth="narrow" className="bg-muted/30">
         <SectionHeader
           badge="Emergency FAQs"
-          title="Common Questions in an Emergency"
-          description="Response time, insurance documentation, temporary containment, and coverage areas."
+          title={c.f031}
+          description={c.f032}
         />
         <FAQAccordion faqs={emergencyRepairFaqs} />
       </Section>
 
       <RelatedLinksGrid
-        title="After the Emergency: Plan Permanent Repair"
+        title={c.f033}
         links={[
           {
             icon: Droplets,
-            title: "Waterproofing & Sealants",
-            description: "Long-term envelope and waterproofing systems to prevent recurrence after temporary repair.",
+            title: c.f034,
+            description: c.f035,
             href: "/services/waterproofing",
           },
           {
             icon: Building2,
-            title: "Property Manager Programs",
-            description: "Convert one-off emergency response into recurring envelope and capital maintenance programs.",
+            title: c.f036,
+            description: c.f037,
             href: "/property-managers",
           },
           {
             icon: Shield,
-            title: "Capabilities Statement",
-            description: "Prequalification, insurance, and operational capability brief for ongoing engagements.",
+            title: c.f038,
+            description: c.f039,
             href: "/capabilities",
           },
         ]}

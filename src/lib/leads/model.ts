@@ -6,10 +6,18 @@ import {
 } from "@/lib/inbox/model";
 
 export const LEAD_SOURCES = ["rfp", "contact", "quote", "prequal"] as const;
-export type LeadSource = (typeof LEAD_SOURCES)[number];
-export type LeadType = "general" | "estimate" | "quote" | "rfp" | "prequal";
+export type LegacyLeadSource = (typeof LEAD_SOURCES)[number];
+export type LeadSource = LegacyLeadSource | "inquiry";
+export type LeadType =
+  | "general"
+  | "estimate"
+  | "quote"
+  | "rfp"
+  | "prequal"
+  | "bid";
 export type LeadTypeFilter = "all" | "commercial" | LeadType;
 export const LEAD_TYPE_LABELS: Record<LeadType, string> = {
+  bid: "Invitation to bid",
   general: "General inquiry",
   estimate: "Estimate",
   quote: "Service quote",
@@ -31,6 +39,7 @@ export interface LeadFilters {
   type: LeadTypeFilter;
   status: string;
   source?: LeadSource;
+  attention?: "due" | "overdue" | "unassigned" | "alerts";
 }
 export const isLeadStatus = (value: string | null): value is string =>
   value !== null &&
@@ -46,6 +55,11 @@ export const isLeadStatus = (value: string | null): value is string =>
     "quoted",
     "won",
     "lost",
+    "reviewing",
+    "bidding",
+    "submitted",
+    "no_bid",
+    "archived",
   ].includes(value);
 export interface LeadRef {
   id: string;
@@ -58,9 +72,10 @@ export interface LeadCursor {
 }
 
 export function isLeadSource(value: string | null): value is LeadSource {
-  return LEAD_SOURCES.some((source) => source === value);
+  return value === "inquiry" || LEAD_SOURCES.some((source) => source === value);
 }
 export function leadSource(item: InboxItem): LeadSource {
+  if (item.table === "inquiries") return "inquiry";
   const source = LEAD_SOURCES.find(
     (key) => INBOX_SOURCES[key].table === item.table,
   );
@@ -68,6 +83,10 @@ export function leadSource(item: InboxItem): LeadSource {
   return source;
 }
 export function leadType(item: InboxItem): LeadType {
+  if (item.table === "inquiries")
+    return ({ bid_invitation: "bid", prequal_request: "prequal" }[
+      String(item.inquiry_type)
+    ] || item.inquiry_type) as LeadType;
   if (item.table === "rfp_submissions") return "rfp";
   if (item.table === "prequalification_downloads") return "prequal";
   if (item.table === "quote_requests")

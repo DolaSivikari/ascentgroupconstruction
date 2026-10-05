@@ -1,7 +1,14 @@
+import { NotificationsSettingsTab } from "@/components/admin/settings/NotificationsSettingsTab";
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Settings as SettingsIcon, MapPin, Info, Activity, FileText } from "lucide-react";
+import {
+  Settings as SettingsIcon,
+  MapPin,
+  Info,
+  Activity,
+  FileText,
+} from "lucide-react";
 import { GeneralSettingsTab } from "@/components/admin/settings/GeneralSettingsTab";
 import { FooterSettingsTab } from "@/components/admin/settings/FooterSettingsTab";
 import { ContactPageSettingsTab } from "@/components/admin/settings/ContactPageSettingsTab";
@@ -11,14 +18,30 @@ import { AdminPageLayout } from "@/components/admin/AdminPageLayout";
 
 const Settings = () => {
   const [searchParams, setSearchParams] = useSearchParams();
-  const allowedTabs = new Set(["general", "footer", "contact", "about", "health"]);
+  const allowedTabs = new Set([
+    "general",
+    "footer",
+    "contact",
+    "about",
+    "health",
+    "notifications",
+  ]);
   const queryTab = searchParams.get("tab") || "general";
   const initialTab = allowedTabs.has(queryTab) ? queryTab : "general";
 
   const [activeTab, setActiveTab] = useState(initialTab);
 
   useEffect(() => {
-    const nextTab = new Set(["general", "footer", "contact", "about", "health"]).has(queryTab) ? queryTab : "general";
+    const nextTab = new Set([
+      "general",
+      "footer",
+      "contact",
+      "about",
+      "health",
+      "notifications",
+    ]).has(queryTab)
+      ? queryTab
+      : "general";
     setActiveTab(nextTab);
   }, [queryTab]);
 
@@ -40,8 +63,12 @@ const Settings = () => {
       title="Settings"
       description="Manage all site-wide settings and configurations"
     >
-      <Tabs value={activeTab} onValueChange={handleTabChange} className="space-y-6">
-        <TabsList className="grid w-full grid-cols-5">
+      <Tabs
+        value={activeTab}
+        onValueChange={handleTabChange}
+        className="space-y-6"
+      >
+        <TabsList className="grid w-full grid-cols-2 sm:grid-cols-3 xl:grid-cols-6">
           <TabsTrigger value="general" className="flex items-center gap-1 px-1">
             <SettingsIcon className="h-4 w-4" />
             <span className="text-xs sm:text-sm">General</span>
@@ -62,6 +89,7 @@ const Settings = () => {
             <Activity className="h-4 w-4" />
             <span className="text-xs sm:text-sm">Health</span>
           </TabsTrigger>
+          <TabsTrigger value="notifications">Notifications</TabsTrigger>
         </TabsList>
 
         <TabsContent value="general" className="space-y-4">
@@ -82,6 +110,9 @@ const Settings = () => {
 
         <TabsContent value="health" className="space-y-4">
           <HealthCheckTab />
+        </TabsContent>
+        <TabsContent value="notifications">
+          <NotificationsSettingsTab />
         </TabsContent>
       </Tabs>
     </AdminPageLayout>

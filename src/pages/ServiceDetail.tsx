@@ -51,7 +51,7 @@ import { resolveServiceHero } from "@/data/hero-images";
 import { TrustRibbon } from "@/design-system/components/TrustRibbon";
 import { FAQAccordion } from "@/design-system/components/FAQAccordion";
 import { RelatedLinksGrid } from "@/design-system/components/RelatedLinksGrid";
-import { serviceDetailFaqs } from "@/data/page-faqs";
+import { useSharedFaqs } from "@/hooks/useSharedContent";
 import { Wrench, Briefcase } from "lucide-react";
 import {
   getRelatedForService,
@@ -148,6 +148,7 @@ const serviceBadges: Record<
 };
 
 const ServiceDetail = () => {
+  const serviceDetailFaqs = useSharedFaqs("serviceDetailFaqs");
   const { slug } = useParams<{ slug: string }>();
   const parent = getServiceParent(slug ?? "");
   const [service, setService] = useState<Service | null>(null);

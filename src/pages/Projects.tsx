@@ -1,3 +1,5 @@
+import { usePageContent } from "@/hooks/usePageContent";
+import contentModule from "@/content/pages/projects";
 import { useState, useEffect, useMemo } from "react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
@@ -6,7 +8,7 @@ import { SITE_URL } from "@/constants/company";
 import FilterBar from "@/components/FilterBar";
 import { FAQAccordion, SectionHeader } from "@/design-system/components";
 import { StartProjectCTA } from "@/components/shared/StartProjectCTA";
-import { projectsFaqs } from "@/data/page-faqs";
+import { useSharedFaqs } from "@/hooks/useSharedContent";
 import ProjectCard from "@/components/ProjectCard";
 import ProjectFeaturedCard from "@/components/ProjectFeaturedCard";
 import { Section } from "@/components/sections/Section";
@@ -24,25 +26,43 @@ import { VideoTestimonials } from "@/components/shared/VideoTestimonials";
 import { usePageAnalytics } from "@/hooks/usePageAnalytics";
 import { TYPOGRAPHY_STYLES } from "@/design-system/constants";
 
-
-const categories = [
-  { label: "All Projects", value: "All", icon: Building2 },
-  { label: "Commercial", value: "Commercial", icon: Building2 },
-  { label: "Residential", value: "Residential", icon: Home },
-  { label: "Institutional", value: "Institutional", icon: School },
-  { label: "Industrial", value: "Industrial", icon: Factory },
-];
-
 const years = ["All", "2024", "2023", "2022", "2021"];
 
 type ProjectRecord = Record<string, any>;
 type ProjectViewModel = {
-  title: string; category: string; location: string; year: string; size: string; duration: string; image: string;
-  images: any[]; tags: string[]; description: string; highlights: string[]; slug: string; featured: boolean; id: string; rawData: ProjectRecord;
-  project_value?: any; your_role?: string | null; on_time_completion?: boolean | null; on_budget?: boolean | null; safety_incidents?: number | null;
+  title: string;
+  category: string;
+  location: string;
+  year: string;
+  size: string;
+  duration: string;
+  image: string;
+  images: any[];
+  tags: string[];
+  description: string;
+  highlights: string[];
+  slug: string;
+  featured: boolean;
+  id: string;
+  rawData: ProjectRecord;
+  project_value?: any;
+  your_role?: string | null;
+  on_time_completion?: boolean | null;
+  on_budget?: boolean | null;
+  safety_incidents?: number | null;
 };
 
 const Projects = () => {
+  const projectsFaqs = useSharedFaqs("projectsFaqs");
+  const c = usePageContent(contentModule);
+  const categories = [
+    { label: c.f017, value: "All", icon: Building2 },
+    { label: c.f019, value: "Commercial", icon: Building2 },
+    { label: c.f021, value: "Residential", icon: Home },
+    { label: c.f023, value: "Institutional", icon: School },
+    { label: c.f025, value: "Industrial", icon: Factory },
+  ];
+
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [selectedYear, setSelectedYear] = useState("All");
@@ -50,15 +70,16 @@ const Projects = () => {
   const [visibleCount, setVisibleCount] = useState(6);
   const [allProjects, setAllProjects] = useState<ProjectViewModel[]>([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [quickViewProject, setQuickViewProject] = useState<ProjectViewModel | null>(null);
+  const [quickViewProject, setQuickViewProject] =
+    useState<ProjectViewModel | null>(null);
 
   // Per-mount random seed so featured/hero samples re-shuffle on every visit.
   // Manual refresh updates the seed to trigger a fresh shuffle in place.
   const [rotationSeed, setRotationSeed] = useState(() => Math.random());
 
   // Analytics tracking
-  usePageAnalytics('projects');
-  
+  usePageAnalytics("projects");
+
   // Advanced filters
   const [selectedDeliveryMethod, setSelectedDeliveryMethod] = useState("All");
   const [selectedClientType, setSelectedClientType] = useState("All");
@@ -78,7 +99,11 @@ const Projects = () => {
     duration: project.duration || "N/A",
     image: resolveImagePath(project.featured_image),
     images: (project.gallery || []) as any[],
-    tags: project.tags || [project.category, project.duration, project.project_size].filter(Boolean),
+    tags:
+      project.tags ||
+      [project.category, project.duration, project.project_size].filter(
+        Boolean,
+      ),
     description: project.description || project.summary || "",
     highlights: project.summary ? [project.summary] : [],
     slug: project.slug,
@@ -115,7 +140,9 @@ const Projects = () => {
   }, []);
 
   // Enable realtime subscription for instant updates
-  const realtimeProjects = useRealtimeProjects(allProjects.map(p => p.rawData) as any[]);
+  const realtimeProjects = useRealtimeProjects(
+    allProjects.map((p) => p.rawData) as any[],
+  );
 
   useEffect(() => {
     if (realtimeProjects.length > 0) {
@@ -124,51 +151,60 @@ const Projects = () => {
   }, [realtimeProjects]);
 
   const filteredProjects = allProjects.filter((project) => {
-    const matchesSearch = 
+    const matchesSearch =
       project.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
       project.location.toLowerCase().includes(searchTerm.toLowerCase()) ||
       project.description.toLowerCase().includes(searchTerm.toLowerCase());
-    
-    const matchesCategory = selectedCategory === "All" || project.category.includes(selectedCategory);
+
+    const matchesCategory =
+      selectedCategory === "All" || project.category.includes(selectedCategory);
     const matchesYear = selectedYear === "All" || project.year === selectedYear;
 
     // Advanced filters
-    const matchesDeliveryMethod = 
-      selectedDeliveryMethod === "All" || 
+    const matchesDeliveryMethod =
+      selectedDeliveryMethod === "All" ||
       project.rawData?.delivery_method === selectedDeliveryMethod;
 
-    const matchesClientType = 
-      selectedClientType === "All" || 
+    const matchesClientType =
+      selectedClientType === "All" ||
       project.rawData?.client_type === selectedClientType;
 
     const matchesValueRange = (() => {
       if (selectedValueRange === "All") return true;
       const projectValue = project.project_value || 0;
-      
+
       if (selectedValueRange === "0-500000") return projectValue < 500000;
-      if (selectedValueRange === "500000-1000000") return projectValue >= 500000 && projectValue < 1000000;
-      if (selectedValueRange === "1000000-2500000") return projectValue >= 1000000 && projectValue < 2500000;
-      if (selectedValueRange === "2500000-5000000") return projectValue >= 2500000 && projectValue < 5000000;
+      if (selectedValueRange === "500000-1000000")
+        return projectValue >= 500000 && projectValue < 1000000;
+      if (selectedValueRange === "1000000-2500000")
+        return projectValue >= 1000000 && projectValue < 2500000;
+      if (selectedValueRange === "2500000-5000000")
+        return projectValue >= 2500000 && projectValue < 5000000;
       if (selectedValueRange === "5000000+") return projectValue >= 5000000;
       return true;
     })();
 
-    const matchesPerformance = (
+    const matchesPerformance =
       (!performanceBadges.onTime || project.on_time_completion === true) &&
       (!performanceBadges.onBudget || project.on_budget === true) &&
-      (!performanceBadges.zeroIncidents || project.safety_incidents === 0)
-    );
+      (!performanceBadges.zeroIncidents || project.safety_incidents === 0);
 
-    return matchesSearch && matchesCategory && matchesYear && 
-           matchesDeliveryMethod && matchesClientType && matchesValueRange && 
-           matchesPerformance;
+    return (
+      matchesSearch &&
+      matchesCategory &&
+      matchesYear &&
+      matchesDeliveryMethod &&
+      matchesClientType &&
+      matchesValueRange &&
+      matchesPerformance
+    );
   });
 
   // Two independent shuffles: hero and spotlight each get their own random sample
   // from the full pool (featured-first). Overlap is allowed when pool is small.
   const { heroSample, featuredSample } = useMemo(() => {
-    const featuredFirst = allProjects.filter(p => p.featured);
-    const rest = allProjects.filter(p => !p.featured);
+    const featuredFirst = allProjects.filter((p) => p.featured);
+    const rest = allProjects.filter((p) => !p.featured);
 
     const shuffle = <T,>(arr: T[]): T[] => {
       const a = [...arr];
@@ -193,35 +229,38 @@ const Projects = () => {
   const visibleProjects = regularProjects.slice(0, visibleCount);
 
   const loadMore = () => {
-    setVisibleCount(prev => prev + 6);
+    setVisibleCount((prev) => prev + 6);
   };
 
   return (
     <div className="min-h-screen text-foreground">
       <SEO
-        title="Our Projects | Ascent Group Construction"
-        description="Browse our growing portfolio of construction and restoration projects across the GTA. Commercial, residential, and institutional envelope and interior work."
+        title={c.f001}
+        description={c.f002}
         canonical={`${SITE_URL}/projects`}
       />
       <Navigation />
 
-      <PremiumProjectHero 
-        featuredProjects={heroSample.map(p => ({
+      <PremiumProjectHero
+        featuredProjects={heroSample.map((p) => ({
           title: p.title,
           location: p.location,
           category: p.category,
           image: p.image,
-          value: formatProjectValue(p.project_value) ?? undefined
+          value: formatProjectValue(p.project_value) ?? undefined,
         }))}
       />
-
 
       {/* Featured Projects Spotlight */}
       {featuredProjects.length > 0 && (
         <Section size="subsection" className="bg-muted/30 py-12">
           <div className="text-center mb-8 relative">
-            <h2 className={`${TYPOGRAPHY_STYLES.sectionTitle} mb-2 text-foreground`}>Featured Projects</h2>
-            <p className="text-muted-foreground">Showcasing our most notable work</p>
+            <h2
+              className={`${TYPOGRAPHY_STYLES.sectionTitle} mb-2 text-foreground`}
+            >
+              {c.f003}
+            </h2>
+            <p className="text-muted-foreground">{c.f004}</p>
             <div className="mt-4 flex justify-center">
               <Button
                 variant="ghost"
@@ -229,7 +268,7 @@ const Projects = () => {
                 onClick={() => setRotationSeed(Math.random())}
                 aria-label="Refresh featured project selection"
               >
-                ↻ Refresh selection
+                {c.f005}
               </Button>
             </div>
           </div>
@@ -267,65 +306,78 @@ const Projects = () => {
       {/* Projects Grid */}
       <div id="all-projects" className="scroll-mt-24" />
       <Section size="major">
-          {isLoading ? (
-            <div className="text-center py-16">
-              <p className="text-muted-foreground">Loading projects...</p>
-            </div>
-          ) : visibleProjects.length === 0 ? (
-            <div className="text-center py-16">
-              <p className="text-muted-foreground mb-4">No projects found matching your criteria</p>
-              <Button
-                variant="outline"
-                onClick={() => {
-                  setSearchTerm("");
-                  setSelectedCategory("All");
-                  setSelectedYear("All");
-                  setSelectedDeliveryMethod("All");
-                  setSelectedClientType("All");
-                  setSelectedValueRange("All");
-                  setPerformanceBadges({ onTime: false, onBudget: false, zeroIncidents: false });
-                }}
+        {isLoading ? (
+          <div className="text-center py-16">
+            <p className="text-muted-foreground">{c.f006}</p>
+          </div>
+        ) : visibleProjects.length === 0 ? (
+          <div className="text-center py-16">
+            <p className="text-muted-foreground mb-4">{c.f007}</p>
+            <Button
+              variant="outline"
+              onClick={() => {
+                setSearchTerm("");
+                setSelectedCategory("All");
+                setSelectedYear("All");
+                setSelectedDeliveryMethod("All");
+                setSelectedClientType("All");
+                setSelectedValueRange("All");
+                setPerformanceBadges({
+                  onTime: false,
+                  onBudget: false,
+                  zeroIncidents: false,
+                });
+              }}
+            >
+              {c.f008}
+            </Button>
+          </div>
+        ) : (
+          <>
+            <div className="text-center mb-8">
+              <h2
+                className={`${TYPOGRAPHY_STYLES.sectionTitle} mb-2 text-foreground`}
               >
-                Clear Filters
-              </Button>
+                {c.f009}
+              </h2>
+              <p className="text-muted-foreground">
+                {filteredProjects.length} {c.f010}
+                {filteredProjects.length !== 1 ? "s" : ""} {c.f011}
+              </p>
             </div>
-          ) : (
-            <>
-              <div className="text-center mb-8">
-                <h2 className={`${TYPOGRAPHY_STYLES.sectionTitle} mb-2 text-foreground`}>All Projects</h2>
-                <p className="text-muted-foreground">{filteredProjects.length} project{filteredProjects.length !== 1 ? 's' : ''} found</p>
-              </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {visibleProjects.map((project) => (
-                  <ProjectCard
-                    key={project.slug}
-                    {...project}
-                    slug={project.slug}
-                    onQuickView={() => setQuickViewProject(project)}
-                  />
-                ))}
-              </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {visibleProjects.map((project) => (
+                <ProjectCard
+                  key={project.slug}
+                  {...project}
+                  slug={project.slug}
+                  onQuickView={() => setQuickViewProject(project)}
+                />
+              ))}
+            </div>
 
-              {visibleCount < regularProjects.length && (
-                <div className="text-center mt-12">
-                  <Button variant="outline" onClick={loadMore} size="lg">
-                    Show More Projects
-                    <span className="ml-2 text-muted-foreground text-sm">
-                      Showing {Math.min(visibleCount, regularProjects.length)} of {regularProjects.length}
-                    </span>
-                  </Button>
-                </div>
-              )}
-            </>
-          )}
+            {visibleCount < regularProjects.length && (
+              <div className="text-center mt-12">
+                <Button variant="outline" onClick={loadMore} size="lg">
+                  {c.f012}
+                  <span className="ml-2 text-muted-foreground text-sm">
+                    {c.f013}
+                    {Math.min(visibleCount, regularProjects.length)} {c.f014}
+                    {regularProjects.length}
+                  </span>
+                </Button>
+              </div>
+            )}
+          </>
+        )}
       </Section>
 
       {/* People Also Ask */}
       <Section size="major" className="bg-muted/30">
         <SectionHeader
-          title="People Also Ask"
-          description="Common questions about our project portfolio."
+          title={c.f015}
+          description={c.f016}
           badge="FAQ"
           maxWidth="md"
         />

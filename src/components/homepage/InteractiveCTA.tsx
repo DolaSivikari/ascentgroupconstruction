@@ -1,9 +1,21 @@
+import { useIntakeEnabled } from "@/hooks/useIntakeEnabled";
+import { useInquirySubmit } from "@/hooks/useInquirySubmit";
+import { CONSENT_TEXT } from "@/lib/inquiry/schema";
+import { usePageContent } from "@/hooks/usePageContent";
+import contentModule from "@/content/pages/home-inquiry";
 import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/ui/Button";
 import { Input } from "@/ui/Input";
 import { Textarea } from "@/ui/Textarea";
-import { Phone, Mail, ArrowRight, CheckCircle2, Clock, Shield } from "lucide-react";
+import {
+  Phone,
+  Mail,
+  ArrowRight,
+  CheckCircle2,
+  Clock,
+  Shield,
+} from "lucide-react";
 import { cn } from "@/lib/utils";
 
 import { supabase } from "@/integrations/supabase/client";
@@ -26,31 +38,36 @@ const contactSchema = z.object({
   message: z.string().trim().max(1000).optional(),
 });
 
-type FieldErrors = Partial<Record<"name" | "email" | "phone" | "message", string>>;
-
-const stories = [
-  {
-    stat: "15+",
-    label: "Years Team Experience",
-    detail:
-      "Our crew brings hands-on experience from envelope, restoration, and interior trades projects across the GTA.",
-    icon: CheckCircle2,
-  },
-  {
-    stat: "85%",
-    label: "Self-Performed Work",
-    detail: "New company. Experienced team. Building trust project by project.",
-    icon: Clock,
-  },
-  {
-    stat: "$2M",
-    label: "CGL Coverage",
-    detail: "Fully insured with comprehensive liability coverage on every project.",
-    icon: Shield,
-  },
-];
+type FieldErrors = Partial<
+  Record<"name" | "email" | "phone" | "message", string>
+>;
 
 const InteractiveCTA = () => {
+  const intakeV2 = useIntakeEnabled();
+  const submitInquiry = useInquirySubmit();
+  const [consent, setConsent] = useState(false);
+  const c = usePageContent(contentModule);
+  const stories = [
+    {
+      stat: "15+",
+      label: c.f028,
+      detail: c.f029,
+      icon: CheckCircle2,
+    },
+    {
+      stat: "85%",
+      label: c.f030,
+      detail: c.f031,
+      icon: Clock,
+    },
+    {
+      stat: "$2M",
+      label: c.f032,
+      detail: c.f033,
+      icon: Shield,
+    },
+  ];
+
   const { settings } = useCompanySettings();
   const [currentStory, setCurrentStory] = useState(0);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -97,6 +114,7 @@ const InteractiveCTA = () => {
   };
 
   const resetForm = () => {
+    setConsent(false);
     setFormData({ name: "", email: "", phone: "", message: "" });
     setFieldErrors({});
     setHoneypot("");
@@ -130,9 +148,28 @@ const InteractiveCTA = () => {
     try {
       const validatedData = result.data;
 
-      const { data: response, error: invokeError } = await supabase.functions.invoke(
-        "submit-form",
-        {
+      if (intakeV2) {
+        await submitInquiry(
+          {
+            inquiry_type: "general",
+            contact_name: validatedData.name,
+            email: validatedData.email,
+            phone: validatedData.phone,
+            message: validatedData.message
+              ? `Quick quote request: ${validatedData.message}`
+              : "Quick estimate request",
+            consent_given: consent,
+          },
+          honeypot,
+          formStartedAtRef.current ?? undefined,
+        );
+        setSubmittedEmail(validatedData.email);
+        setSubmitted(true);
+        return;
+      }
+
+      const { data: response, error: invokeError } =
+        await supabase.functions.invoke("submit-form", {
           body: {
             formType: "contact",
             honeypot,
@@ -145,8 +182,7 @@ const InteractiveCTA = () => {
               submission_type: "quote",
             },
           },
-        },
-      );
+        });
 
       if (invokeError) throw invokeError;
       if (response && (response as any).success === false) {
@@ -163,7 +199,9 @@ const InteractiveCTA = () => {
             message: validatedData.message || "Quick estimate request",
           },
         })
-        .catch((err) => console.warn("Notification email failed (non-blocking):", err));
+        .catch((err) =>
+          console.warn("Notification email failed (non-blocking):", err),
+        );
 
       setSubmittedEmail(validatedData.email);
       setSubmitted(true);
@@ -173,8 +211,8 @@ const InteractiveCTA = () => {
     } catch (error) {
       console.error("Form submission error:", error);
       toast({
-        title: "Something went wrong",
-        description: "We couldn't send your request. Please try again or call us directly.",
+        title: c.f001,
+        description: c.f002,
         variant: "destructive",
       });
     } finally {
@@ -191,11 +229,10 @@ const InteractiveCTA = () => {
           <div className="text-[hsl(var(--bg))] space-y-8">
             <div>
               <h2 className="text-4xl md:text-5xl font-bold mb-4 leading-tight">
-                Your Envelope, Restoration & Trades Partner
+                {c.f003}
               </h2>
               <p className="text-xl text-[hsl(var(--bg))]/90 leading-relaxed">
-                From concept to completion, we deliver exceptional results with transparent communication
-                and expert craftsmanship.
+                {c.f004}
               </p>
             </div>
 
@@ -208,13 +245,17 @@ const InteractiveCTA = () => {
                 >
                   <div className="flex items-start gap-4">
                     <div className="bg-secondary/20 rounded-full p-3 flex-shrink-0">
-                      {CurrentIcon && <CurrentIcon className="h-8 w-8 text-secondary" />}
+                      {CurrentIcon && (
+                        <CurrentIcon className="h-8 w-8 text-secondary" />
+                      )}
                     </div>
                     <div>
                       <div className="text-5xl font-bold mb-2 text-secondary">
                         {stories[currentStory].stat}
                       </div>
-                      <div className="text-xl font-semibold mb-1">{stories[currentStory].label}</div>
+                      <div className="text-xl font-semibold mb-1">
+                        {stories[currentStory].label}
+                      </div>
                       <p className="text-[hsl(var(--bg))]/80 text-sm">
                         {stories[currentStory].detail}
                       </p>
@@ -242,15 +283,15 @@ const InteractiveCTA = () => {
             <div className="grid grid-cols-3 gap-4 pt-4 border-t border-[hsl(var(--bg))]/20">
               <div className="text-center">
                 <Shield className="h-6 w-6 mx-auto mb-2 text-secondary" />
-                <div className="text-xs text-[hsl(var(--bg))]/80">Fully Licensed</div>
+                <div className="text-xs text-[hsl(var(--bg))]/80">{c.f005}</div>
               </div>
               <div className="text-center">
                 <CheckCircle2 className="h-6 w-6 mx-auto mb-2 text-secondary" />
-                <div className="text-xs text-[hsl(var(--bg))]/80">WSIB Compliant</div>
+                <div className="text-xs text-[hsl(var(--bg))]/80">{c.f006}</div>
               </div>
               <div className="text-center">
                 <Clock className="h-6 w-6 mx-auto mb-2 text-secondary" />
-                <div className="text-xs text-[hsl(var(--bg))]/80">Responsive Support</div>
+                <div className="text-xs text-[hsl(var(--bg))]/80">{c.f007}</div>
               </div>
             </div>
           </div>
@@ -264,24 +305,33 @@ const InteractiveCTA = () => {
                 className="text-center py-6 animate-fade-in"
               >
                 <div className="w-16 h-16 rounded-full bg-success/10 flex items-center justify-center mx-auto mb-4">
-                  <CheckCircle2 className="w-8 h-8 text-success" aria-hidden="true" />
+                  <CheckCircle2
+                    className="w-8 h-8 text-success"
+                    aria-hidden="true"
+                  />
                 </div>
-                <h3 className="text-2xl font-bold text-foreground mb-2">Request Received</h3>
+                <h3 className="text-2xl font-bold text-foreground mb-2">
+                  {c.f008}
+                </h3>
                 <p className="text-muted-foreground mb-6">
-                  Thanks — we&apos;ll reach out within 24 hours
+                  {c.f009}
                   {submittedEmail ? (
                     <>
-                      {" "}at <span className="font-semibold text-foreground">{submittedEmail}</span>
+                      {" "}
+                      {c.f010}
+                      <span className="font-semibold text-foreground">
+                        {submittedEmail}
+                      </span>
                     </>
                   ) : null}
                   .
                 </p>
                 <div className="flex flex-col sm:flex-row gap-3 justify-center">
                   <Button onClick={resetForm} variant="secondary">
-                    Submit another inquiry
+                    {c.f011}
                   </Button>
                   <Button asChild>
-                    <Link to="/projects">View our work</Link>
+                    <Link to="/projects">{c.f012}</Link>
                   </Button>
                 </div>
               </div>
@@ -289,11 +339,9 @@ const InteractiveCTA = () => {
               <>
                 <div className="mb-6">
                   <h3 className="text-2xl font-bold text-foreground mb-2">
-                    Start a Project Conversation
+                    {c.f013}
                   </h3>
-                  <p className="text-muted-foreground">
-                    Scope review and pricing within 48 hours. No obligation.
-                  </p>
+                  <p className="text-muted-foreground">{c.f014}</p>
                 </div>
 
                 <form
@@ -314,11 +362,11 @@ const InteractiveCTA = () => {
                     }}
                   >
                     <label htmlFor="quick-contact-company-website">
-                      Company website (leave blank)
+                      {c.f015}
                     </label>
                     <input
                       id="quick-contact-company-website"
-                      name="company_website"
+                      name={"company_website"}
                       type="text"
                       tabIndex={-1}
                       autoComplete="off"
@@ -330,20 +378,28 @@ const InteractiveCTA = () => {
                   {/* Name */}
                   <div>
                     <label htmlFor="quick-contact-name" className="sr-only">
-                      Your full name
+                      {c.f017}
                     </label>
                     <Input
                       id="quick-contact-name"
-                      name="name"
+                      name={"name"}
                       type="text"
                       autoComplete="name"
                       placeholder="Your Name"
                       aria-label="Your full name"
                       aria-required="true"
                       aria-invalid={!!fieldErrors.name}
-                      aria-describedby={fieldErrors.name ? "quick-contact-name-error" : undefined}
+                      aria-describedby={
+                        fieldErrors.name
+                          ? "quick-contact-name-error"
+                          : undefined
+                      }
                       required
-                      className={cn("h-12", fieldErrors.name && "border-destructive focus:ring-destructive/30")}
+                      className={cn(
+                        "h-12",
+                        fieldErrors.name &&
+                          "border-destructive focus:ring-destructive/30",
+                      )}
                       value={formData.name}
                       onChange={(e) => updateField("name", e.target.value)}
                     />
@@ -361,20 +417,28 @@ const InteractiveCTA = () => {
                   {/* Email */}
                   <div>
                     <label htmlFor="quick-contact-email" className="sr-only">
-                      Email address
+                      {c.f019}
                     </label>
                     <Input
                       id="quick-contact-email"
-                      name="email"
+                      name={"email"}
                       type="email"
                       autoComplete="email"
                       placeholder="Email Address"
                       aria-label="Email address"
                       aria-required="true"
                       aria-invalid={!!fieldErrors.email}
-                      aria-describedby={fieldErrors.email ? "quick-contact-email-error" : undefined}
+                      aria-describedby={
+                        fieldErrors.email
+                          ? "quick-contact-email-error"
+                          : undefined
+                      }
                       required
-                      className={cn("h-12", fieldErrors.email && "border-destructive focus:ring-destructive/30")}
+                      className={cn(
+                        "h-12",
+                        fieldErrors.email &&
+                          "border-destructive focus:ring-destructive/30",
+                      )}
                       value={formData.email}
                       onChange={(e) => updateField("email", e.target.value)}
                     />
@@ -392,20 +456,28 @@ const InteractiveCTA = () => {
                   {/* Phone */}
                   <div>
                     <label htmlFor="quick-contact-phone" className="sr-only">
-                      Phone number
+                      {c.f021}
                     </label>
                     <Input
                       id="quick-contact-phone"
-                      name="phone"
+                      name={"phone"}
                       type="tel"
                       autoComplete="tel"
                       placeholder="Phone Number"
                       aria-label="Phone number"
                       aria-required="true"
                       aria-invalid={!!fieldErrors.phone}
-                      aria-describedby={fieldErrors.phone ? "quick-contact-phone-error" : undefined}
+                      aria-describedby={
+                        fieldErrors.phone
+                          ? "quick-contact-phone-error"
+                          : undefined
+                      }
                       required
-                      className={cn("h-12", fieldErrors.phone && "border-destructive focus:ring-destructive/30")}
+                      className={cn(
+                        "h-12",
+                        fieldErrors.phone &&
+                          "border-destructive focus:ring-destructive/30",
+                      )}
                       value={formData.phone}
                       onChange={(e) => updateField("phone", e.target.value)}
                     />
@@ -423,18 +495,26 @@ const InteractiveCTA = () => {
                   {/* Message */}
                   <div>
                     <label htmlFor="quick-contact-message" className="sr-only">
-                      Project description
+                      {c.f023}
                     </label>
                     <Textarea
                       id="quick-contact-message"
-                      name="message"
+                      name={"message"}
                       autoComplete="off"
                       placeholder="Tell us about your project..."
                       aria-label="Project description"
                       aria-invalid={!!fieldErrors.message}
-                      aria-describedby={fieldErrors.message ? "quick-contact-message-error" : undefined}
+                      aria-describedby={
+                        fieldErrors.message
+                          ? "quick-contact-message-error"
+                          : undefined
+                      }
                       rows={4}
-                      className={cn("resize-none", fieldErrors.message && "border-destructive focus:ring-destructive/30")}
+                      className={cn(
+                        "resize-none",
+                        fieldErrors.message &&
+                          "border-destructive focus:ring-destructive/30",
+                      )}
                       value={formData.message}
                       onChange={(e) => updateField("message", e.target.value)}
                     />
@@ -449,6 +529,18 @@ const InteractiveCTA = () => {
                     )}
                   </div>
 
+                  {intakeV2 && (
+                    <label className="flex items-start gap-2 text-sm">
+                      <input
+                        type="checkbox"
+                        required
+                        checked={consent}
+                        disabled={isSubmitting}
+                        onChange={(e) => setConsent(e.target.checked)}
+                      />
+                      {CONSENT_TEXT}
+                    </label>
+                  )}
                   <Button
                     type="submit"
                     size="lg"
@@ -460,7 +552,7 @@ const InteractiveCTA = () => {
                       "Sending..."
                     ) : (
                       <>
-                        Submit Inquiry
+                        {c.f025}
                         <ArrowRight className="ml-2 w-4 h-4" />
                       </>
                     )}
@@ -469,7 +561,7 @@ const InteractiveCTA = () => {
 
                 <div className="mt-6 pt-6 border-t border-border">
                   <p className="text-sm text-muted-foreground mb-3 text-center">
-                    Prefer to talk directly?
+                    {c.f026}
                   </p>
                   <div className="grid grid-cols-2 gap-3">
                     <Button variant="secondary" asChild>
@@ -481,7 +573,7 @@ const InteractiveCTA = () => {
                     <Button variant="secondary" asChild>
                       <Link to="/contact">
                         <Mail className="h-4 w-4" />
-                        Email Us
+                        {c.f027}
                       </Link>
                     </Button>
                   </div>

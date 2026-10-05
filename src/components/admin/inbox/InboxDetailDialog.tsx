@@ -54,7 +54,10 @@ interface InboxDetailDialogProps {
   allowDelete?: boolean;
 }
 
-const fieldsByType: Record<InboxItem["type"], [string, string][]> = {
+const fieldsByType: Record<
+  Exclude<InboxItem["type"], "Inquiry">,
+  [string, string][]
+> = {
   RFP: [
     ["company_name", "Company"],
     ["title", "Contact title"],
@@ -185,6 +188,8 @@ export const InboxDetailDialog = ({
     if (isSaving) return;
     setIsSaving(true);
     try {
+      if (item.table === "inquiries")
+        throw new Error("Archive inquiries from Leads instead.");
       const { error } = await supabase
         .from(item.table)
         .delete()

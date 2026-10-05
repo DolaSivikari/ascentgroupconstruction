@@ -1,3 +1,5 @@
+import { usePageContent } from "@/hooks/usePageContent";
+import contentModule from "@/content/pages/why-specialty-contractor";
 import { PageHero } from "@/components/shared/PageHero";
 import { Section } from "@/components/sections/Section";
 import SEO from "@/components/SEO";
@@ -12,15 +14,15 @@ import { TrustRibbon } from "@/design-system/components/TrustRibbon";
 import { RelatedLinksGrid } from "@/design-system/components/RelatedLinksGrid";
 import { ScrollReveal } from "@/components/animations/ScrollReveal";
 import { specialtyContractorComparison } from "@/data/specialty-contractor-comparison";
-import { 
-  Building2, 
-  Layers, 
-  Building, 
+import {
+  Building2,
+  Layers,
+  Building,
   CheckCircle2,
   XCircle,
   ArrowRight,
   ArrowDown,
-  TrendingUp
+  TrendingUp,
 } from "lucide-react";
 import { generateFAQSchema } from "@/utils/faq-schema";
 import { companyHeroes } from "@/data/hero-images";
@@ -32,34 +34,45 @@ const iconMap = {
 };
 
 const WhySpecialtyContractor = () => {
-  const { hero, introduction, comparisonTable, scenarios, costBreakdown, faqs, testimonials, finalCTA } = specialtyContractorComparison;
+  const c = usePageContent(contentModule);
+
+  const {
+    hero,
+    introduction,
+    comparisonTable,
+    scenarios,
+    costBreakdown,
+    faqs,
+    testimonials,
+    finalCTA,
+  } = specialtyContractorComparison;
 
   const faqSchema = generateFAQSchema(faqs);
 
   const breadcrumbSchema = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
-    "itemListElement": [
+    itemListElement: [
       {
         "@type": "ListItem",
-        "position": 1,
-        "name": "Home",
-        "item": SITE_URL
+        position: 1,
+        name: c.f001,
+        item: SITE_URL,
       },
       {
         "@type": "ListItem",
-        "position": 2,
-        "name": "Why Specialty Contractor",
-        "item": `${SITE_URL}/why-specialty-contractor`
-      }
-    ]
+        position: 2,
+        name: c.f002,
+        item: `${SITE_URL}/why-specialty-contractor`,
+      },
+    ],
   };
 
   return (
     <div>
       <SEO
-        title="Specialty Contractor vs General Contractor | Building Envelope & Restoration"
-        description="Understand why building envelope & restoration projects benefit from specialty contractors. Compare delivery models, cost structures, and project approaches for Ontario & GTA projects."
+        title={c.f003}
+        description={c.f004}
         keywords="specialty contractor, general contractor comparison, building envelope contractor, specialty vs general contractor, construction contractor differences, self-performed construction, Ontario specialty contractor, GTA building envelope"
         canonical={`${SITE_URL}/why-specialty-contractor`}
         structuredData={[faqSchema, breadcrumbSchema]}
@@ -71,13 +84,10 @@ const WhySpecialtyContractor = () => {
         title={hero.title}
         description={hero.subtitle}
         image={companyHeroes["why-specialty-contractor"]}
-        imageAlt="Specialty contractor building envelope work"
+        imageAlt={c.f005}
         height="small"
         primaryCta={{ text: CTA_TEXT.contact, href: "/contact" }}
-        breadcrumbs={[
-          { label: "Home", href: "/" },
-          { label: "Why Specialty Contractor" }
-        ]}
+        breadcrumbs={[{ label: c.f006, href: "/" }, { label: c.f007 }]}
       />
 
       <main>
@@ -86,10 +96,14 @@ const WhySpecialtyContractor = () => {
         {/* Introduction Section */}
         <Section>
           <div className="max-w-4xl mx-auto">
-            <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-center mb-8">{introduction.title}</h2>
+            <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-center mb-8">
+              {introduction.title}
+            </h2>
             <div className="space-y-6 text-lg leading-relaxed">
               {introduction.content.map((paragraph, index) => (
-                <p key={index} className="text-muted-foreground">{paragraph}</p>
+                <p key={index} className="text-muted-foreground">
+                  {paragraph}
+                </p>
               ))}
             </div>
           </div>
@@ -99,8 +113,12 @@ const WhySpecialtyContractor = () => {
         <Section className="bg-muted/30">
           <div className="max-w-7xl mx-auto">
             <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4">{comparisonTable.title}</h2>
-              <p className="text-xl text-muted-foreground">{comparisonTable.subtitle}</p>
+              <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4">
+                {comparisonTable.title}
+              </h2>
+              <p className="text-xl text-muted-foreground">
+                {comparisonTable.subtitle}
+              </p>
             </div>
 
             {/* Desktop Table View */}
@@ -108,14 +126,19 @@ const WhySpecialtyContractor = () => {
               <table className="w-full border-collapse bg-background rounded-lg overflow-hidden shadow-lg">
                 <thead>
                   <tr className="border-b-2 border-border">
-                    <th className="p-4 text-left font-bold">Factor</th>
-                    <th className="p-4 text-left font-bold bg-primary/5">Specialty Contractor</th>
-                    <th className="p-4 text-left font-bold">General Contractor</th>
+                    <th className="p-4 text-left font-bold">{c.f008}</th>
+                    <th className="p-4 text-left font-bold bg-primary/5">
+                      {c.f009}
+                    </th>
+                    <th className="p-4 text-left font-bold">{c.f010}</th>
                   </tr>
                 </thead>
                 <tbody>
                   {comparisonTable.factors.map((factor, index) => (
-                    <tr key={index} className="border-b border-border hover:bg-muted/30 transition-colors">
+                    <tr
+                      key={index}
+                      className="border-b border-border hover:bg-muted/30 transition-colors"
+                    >
                       <td className="p-4 font-semibold">{factor.category}</td>
                       <td className="p-4 bg-primary/5">
                         <div className="flex items-start gap-2">
@@ -126,7 +149,9 @@ const WhySpecialtyContractor = () => {
                       <td className="p-4">
                         <div className="flex items-start gap-2">
                           <XCircle className="w-5 h-5 text-muted-foreground flex-shrink-0 mt-0.5" />
-                          <span className="text-muted-foreground">{factor.generalContractor}</span>
+                          <span className="text-muted-foreground">
+                            {factor.generalContractor}
+                          </span>
                         </div>
                       </td>
                     </tr>
@@ -144,16 +169,22 @@ const WhySpecialtyContractor = () => {
                     <div className="p-4 bg-primary/5 rounded-lg">
                       <div className="flex items-start gap-2 mb-2">
                         <CheckCircle2 className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
-                        <span className="font-semibold text-sm">Specialty Contractor</span>
+                        <span className="font-semibold text-sm">{c.f011}</span>
                       </div>
-                      <p className="text-sm ml-7">{factor.specialtyContractor}</p>
+                      <p className="text-sm ml-7">
+                        {factor.specialtyContractor}
+                      </p>
                     </div>
                     <div className="p-4 bg-muted/30 rounded-lg">
                       <div className="flex items-start gap-2 mb-2">
                         <XCircle className="w-5 h-5 text-muted-foreground flex-shrink-0 mt-0.5" />
-                        <span className="font-semibold text-sm text-muted-foreground">General Contractor</span>
+                        <span className="font-semibold text-sm text-muted-foreground">
+                          {c.f012}
+                        </span>
                       </div>
-                      <p className="text-sm text-muted-foreground ml-7">{factor.generalContractor}</p>
+                      <p className="text-sm text-muted-foreground ml-7">
+                        {factor.generalContractor}
+                      </p>
                     </div>
                   </div>
                 </Card>
@@ -166,24 +197,34 @@ const WhySpecialtyContractor = () => {
         <Section>
           <div className="max-w-7xl mx-auto">
             <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4">Understanding Different Project Approaches</h2>
-              <p className="text-xl text-muted-foreground">When to use specialty contractors, general contractors, or hybrid approaches</p>
+              <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4">
+                {c.f013}
+              </h2>
+              <p className="text-xl text-muted-foreground">{c.f014}</p>
             </div>
 
             <ScrollReveal direction="up">
               <div className="grid md:grid-cols-3 gap-6">
                 {scenarios.map((scenario, index) => {
-                  const IconComponent = iconMap[scenario.icon as keyof typeof iconMap];
+                  const IconComponent =
+                    iconMap[scenario.icon as keyof typeof iconMap];
                   return (
                     <Card key={index} size="md" variant="elevated" hover>
                       <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4">
                         <IconComponent className="w-6 h-6 text-primary" />
                       </div>
-                      <h3 className="text-xl font-bold mb-3">{scenario.title}</h3>
-                      <p className="text-sm text-muted-foreground mb-4">{scenario.description}</p>
+                      <h3 className="text-xl font-bold mb-3">
+                        {scenario.title}
+                      </h3>
+                      <p className="text-sm text-muted-foreground mb-4">
+                        {scenario.description}
+                      </p>
                       <ul className="space-y-2">
                         {scenario.examples.map((example, idx) => (
-                          <li key={idx} className="text-sm flex items-start gap-2">
+                          <li
+                            key={idx}
+                            className="text-sm flex items-start gap-2"
+                          >
                             <CheckCircle2 className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />
                             <span>{example}</span>
                           </li>
@@ -201,85 +242,125 @@ const WhySpecialtyContractor = () => {
         <Section className="bg-muted/30">
           <div className="max-w-7xl mx-auto">
             <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4">{costBreakdown.title}</h2>
-              <p className="text-muted-foreground">How project budgets flow through different delivery models</p>
+              <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4">
+                {costBreakdown.title}
+              </h2>
+              <p className="text-muted-foreground">{c.f015}</p>
             </div>
 
             <div className="grid md:grid-cols-2 gap-8">
               {/* General Contractor Model */}
               <Card size="lg" variant="elevated">
-                <h3 className="text-xl font-bold mb-6 text-center">{costBreakdown.generalContractorModel.title}</h3>
+                <h3 className="text-xl font-bold mb-6 text-center">
+                  {costBreakdown.generalContractorModel.title}
+                </h3>
                 <div className="space-y-4 mb-8">
-                  {costBreakdown.generalContractorModel.steps.map((step, index) => (
-                    <div key={index} className="relative">
-                      <div className={`p-4 rounded-lg border-2 ${step.highlight ? 'border-primary bg-primary/5' : 'border-border'}`}>
-                        <div className="flex items-center justify-between mb-2">
-                          <span className="font-semibold">{step.layer}</span>
-                          <span className={`text-2xl font-bold ${step.highlight ? 'text-primary' : ''}`}>
-                            {step.percentage}%
-                          </span>
+                  {costBreakdown.generalContractorModel.steps.map(
+                    (step, index) => (
+                      <div key={index} className="relative">
+                        <div
+                          className={`p-4 rounded-lg border-2 ${step.highlight ? "border-primary bg-primary/5" : "border-border"}`}
+                        >
+                          <div className="flex items-center justify-between mb-2">
+                            <span className="font-semibold">{step.layer}</span>
+                            <span
+                              className={`text-2xl font-bold ${step.highlight ? "text-primary" : ""}`}
+                            >
+                              {step.percentage}%
+                            </span>
+                          </div>
+                          <p className="text-sm text-muted-foreground">
+                            {step.description}
+                          </p>
                         </div>
-                        <p className="text-sm text-muted-foreground">{step.description}</p>
+                        {index <
+                          costBreakdown.generalContractorModel.steps.length -
+                            1 && (
+                          <div className="flex justify-center py-2">
+                            <ArrowDown className="w-6 h-6 text-muted-foreground" />
+                          </div>
+                        )}
                       </div>
-                      {index < costBreakdown.generalContractorModel.steps.length - 1 && (
-                        <div className="flex justify-center py-2">
-                          <ArrowDown className="w-6 h-6 text-muted-foreground" />
-                        </div>
-                      )}
-                    </div>
-                  ))}
+                    ),
+                  )}
                 </div>
                 <div className="p-4 bg-primary/10 rounded-lg">
                   <p className="font-semibold mb-3 flex items-center gap-2">
                     <CheckCircle2 className="w-5 h-5 text-primary" />
-                    Benefits of this model:
+                    {c.f016}
                   </p>
                   <ul className="space-y-2">
-                    {costBreakdown.generalContractorModel.benefits.map((benefit, index) => (
-                      <li key={index} className="text-sm flex items-start gap-2">
-                        <CheckCircle2 className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />
-                        <span>{benefit}</span>
-                      </li>
-                    ))}
+                    {costBreakdown.generalContractorModel.benefits.map(
+                      (benefit, index) => (
+                        <li
+                          key={index}
+                          className="text-sm flex items-start gap-2"
+                        >
+                          <CheckCircle2 className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />
+                          <span>{benefit}</span>
+                        </li>
+                      ),
+                    )}
                   </ul>
                 </div>
               </Card>
 
               {/* Specialty Contractor Model */}
-              <Card size="lg" variant="elevated" className="border-2 border-primary">
-                <h3 className="text-xl font-bold mb-6 text-center">{costBreakdown.specialtyContractorModel.title}</h3>
+              <Card
+                size="lg"
+                variant="elevated"
+                className="border-2 border-primary"
+              >
+                <h3 className="text-xl font-bold mb-6 text-center">
+                  {costBreakdown.specialtyContractorModel.title}
+                </h3>
                 <div className="space-y-4 mb-8">
-                  {costBreakdown.specialtyContractorModel.steps.map((step, index) => (
-                    <div key={index} className="relative">
-                      <div className={`p-4 rounded-lg border-2 ${step.highlight ? 'border-primary bg-primary/5' : 'border-border'}`}>
-                        <div className="flex items-center justify-between mb-2">
-                          <span className="font-semibold">{step.layer}</span>
-                          <span className={`text-2xl font-bold ${step.highlight ? 'text-primary' : ''}`}>
-                            {step.percentage}%
-                          </span>
+                  {costBreakdown.specialtyContractorModel.steps.map(
+                    (step, index) => (
+                      <div key={index} className="relative">
+                        <div
+                          className={`p-4 rounded-lg border-2 ${step.highlight ? "border-primary bg-primary/5" : "border-border"}`}
+                        >
+                          <div className="flex items-center justify-between mb-2">
+                            <span className="font-semibold">{step.layer}</span>
+                            <span
+                              className={`text-2xl font-bold ${step.highlight ? "text-primary" : ""}`}
+                            >
+                              {step.percentage}%
+                            </span>
+                          </div>
+                          <p className="text-sm text-muted-foreground">
+                            {step.description}
+                          </p>
                         </div>
-                        <p className="text-sm text-muted-foreground">{step.description}</p>
+                        {index <
+                          costBreakdown.specialtyContractorModel.steps.length -
+                            1 && (
+                          <div className="flex justify-center py-2">
+                            <ArrowDown className="w-6 h-6 text-primary" />
+                          </div>
+                        )}
                       </div>
-                      {index < costBreakdown.specialtyContractorModel.steps.length - 1 && (
-                        <div className="flex justify-center py-2">
-                          <ArrowDown className="w-6 h-6 text-primary" />
-                        </div>
-                      )}
-                    </div>
-                  ))}
+                    ),
+                  )}
                 </div>
                 <div className="p-4 bg-primary/10 rounded-lg">
                   <p className="font-semibold mb-3 flex items-center gap-2">
                     <TrendingUp className="w-5 h-5 text-primary" />
-                    Benefits of this model:
+                    {c.f017}
                   </p>
                   <ul className="space-y-2">
-                    {costBreakdown.specialtyContractorModel.benefits.map((benefit, index) => (
-                      <li key={index} className="text-sm flex items-start gap-2">
-                        <CheckCircle2 className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />
-                        <span>{benefit}</span>
-                      </li>
-                    ))}
+                    {costBreakdown.specialtyContractorModel.benefits.map(
+                      (benefit, index) => (
+                        <li
+                          key={index}
+                          className="text-sm flex items-start gap-2"
+                        >
+                          <CheckCircle2 className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />
+                          <span>{benefit}</span>
+                        </li>
+                      ),
+                    )}
                   </ul>
                 </div>
               </Card>
@@ -290,12 +371,16 @@ const WhySpecialtyContractor = () => {
         {/* FAQ Section */}
         <Section>
           <div className="max-w-4xl mx-auto">
-            <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-center mb-12">Frequently Asked Questions</h2>
+            <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-center mb-12">
+              {c.f018}
+            </h2>
             <div className="space-y-6">
               {faqs.map((faq, index) => (
                 <Card key={index} size="md" variant="elevated">
                   <h3 className="text-lg font-bold mb-3">{faq.question}</h3>
-                  <p className="text-muted-foreground leading-relaxed">{faq.answer}</p>
+                  <p className="text-muted-foreground leading-relaxed">
+                    {faq.answer}
+                  </p>
                 </Card>
               ))}
             </div>
@@ -306,15 +391,23 @@ const WhySpecialtyContractor = () => {
         {testimonials.length > 0 && (
           <Section>
             <div className="max-w-7xl mx-auto">
-              <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-center mb-12">What Our Clients Say</h2>
+              <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-center mb-12">
+                {c.f019}
+              </h2>
               <div className="grid md:grid-cols-3 gap-6">
                 {testimonials.map((testimonial, index) => (
                   <Card key={index} size="md" variant="elevated">
-                    <p className="text-sm italic mb-4 leading-relaxed">"{testimonial.quote}"</p>
+                    <p className="text-sm italic mb-4 leading-relaxed">
+                      "{testimonial.quote}"
+                    </p>
                     <div className="border-t pt-4">
                       <p className="font-bold">{testimonial.client}</p>
-                      <p className="text-sm text-muted-foreground mb-2">{testimonial.role}</p>
-                      <p className="text-xs text-primary">{testimonial.project}</p>
+                      <p className="text-sm text-muted-foreground mb-2">
+                        {testimonial.role}
+                      </p>
+                      <p className="text-xs text-primary">
+                        {testimonial.project}
+                      </p>
                     </div>
                   </Card>
                 ))}
@@ -326,8 +419,12 @@ const WhySpecialtyContractor = () => {
         {/* Final CTA Section */}
         <Section className="bg-muted/30">
           <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4">{finalCTA.title}</h2>
-            <p className="text-xl text-muted-foreground mb-8">{finalCTA.description}</p>
+            <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4">
+              {finalCTA.title}
+            </h2>
+            <p className="text-xl text-muted-foreground mb-8">
+              {finalCTA.description}
+            </p>
             <div className="flex flex-wrap gap-4 justify-center">
               <Button asChild size="lg">
                 <Link to={finalCTA.primaryCTA.href}>
@@ -350,24 +447,24 @@ const WhySpecialtyContractor = () => {
         </Section>
 
         <RelatedLinksGrid
-          title="Continue Exploring"
+          title={c.f020}
           links={[
             {
               icon: Building2,
-              title: "Capabilities & Self-Perform",
-              description: "How our self-performed model removes sub-tier markups and shortens accountability chains.",
+              title: c.f021,
+              description: c.f022,
               href: "/capabilities",
             },
             {
               icon: Layers,
-              title: "Building Envelope Services",
-              description: "EIFS, masonry, sealants, cladding, waterproofing — the specialty scopes we execute directly.",
+              title: c.f023,
+              description: c.f024,
               href: "/services",
             },
             {
               icon: Building,
-              title: "For General Contractors",
-              description: "How GCs partner with Ascent as a reliable specialty trade subcontractor on commercial projects.",
+              title: c.f025,
+              description: c.f026,
               href: "/for-general-contractors",
             },
           ]}

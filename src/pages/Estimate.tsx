@@ -1,3 +1,7 @@
+import { useIntakeEnabled } from "@/hooks/useIntakeEnabled";
+import { useInquirySubmit } from "@/hooks/useInquirySubmit";
+import { usePageContent } from "@/hooks/usePageContent";
+import contentModule from "@/content/pages/estimate";
 import { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { z } from "zod";
@@ -10,14 +14,28 @@ import { Button } from "@/ui/Button";
 import { Card } from "@/design-system/components/Card";
 import { SectionHeader, ProofStrip } from "@/design-system/components";
 import { Progress } from "@/components/ui/progress";
-import { ChevronLeft, ChevronRight, CheckCircle, Home, FileText, Shield, Clock, FileCheck, Phone } from "lucide-react";
+import {
+  ChevronLeft,
+  ChevronRight,
+  CheckCircle,
+  Home,
+  FileText,
+  Shield,
+  Clock,
+  FileCheck,
+  Phone,
+} from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import EstimatorStep0 from "@/components/estimator/EstimatorStep0";
 import EstimatorStep1 from "@/components/estimator/EstimatorStep1";
 import EstimatorStep2Enhanced from "@/components/estimator/EstimatorStep2Enhanced";
 import { QuoteRequestDialog } from "@/components/estimator/QuoteRequestDialog";
-import { requiresQuote, getServiceMessage, isEstimatable } from "@/utils/estimator";
+import {
+  requiresQuote,
+  getServiceMessage,
+  isEstimatable,
+} from "@/utils/estimator";
 import EstimatorStep3 from "@/components/estimator/EstimatorStep3";
 import EstimatorStep4 from "@/components/estimator/EstimatorStep4";
 import EstimatorStep5 from "@/components/estimator/EstimatorStep5";
@@ -34,7 +52,9 @@ const estimateSchema = z.object({
   address: z.string().trim().max(255).optional(),
   preferredContact: z.string().trim().max(50).optional(),
   notes: z.string().trim().max(2000).optional(),
-  consent: z.boolean().refine((val) => val === true, { message: "You must consent to be contacted" }),
+  consent: z.boolean().refine((val) => val === true, {
+    message: "You must consent to be contacted",
+  }),
 });
 
 type EstimateFormData = {
@@ -42,6 +62,10 @@ type EstimateFormData = {
 };
 
 const Estimate = () => {
+  const intakeV2 = useIntakeEnabled();
+  const submitInquiry = useInquirySubmit();
+  const c = usePageContent(contentModule);
+
   const { toast } = useToast();
   const [currentStep, setCurrentStep] = useState(0);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -95,34 +119,39 @@ const Estimate = () => {
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const utmSource = {
-      utm_source: params.get('utm_source') || '',
-      utm_medium: params.get('utm_medium') || '',
-      utm_campaign: params.get('utm_campaign') || '',
-      utm_term: params.get('utm_term') || '',
-      utm_content: params.get('utm_content') || ''
+      utm_source: params.get("utm_source") || "",
+      utm_medium: params.get("utm_medium") || "",
+      utm_campaign: params.get("utm_campaign") || "",
+      utm_term: params.get("utm_term") || "",
+      utm_content: params.get("utm_content") || "",
     };
-    setFormData(prev => ({ ...prev, source: JSON.stringify(utmSource) }));
+    setFormData((prev) => ({ ...prev, source: JSON.stringify(utmSource) }));
   }, []);
 
   // Pre-select quote type from URL parameter
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
-    const typeParam = params.get('type');
-    
-    if (typeParam && ['specialty_prime', 'trade_package', 'emergency', 'general'].includes(typeParam)) {
-      setFormData(prev => ({ ...prev, quoteType: typeParam }));
+    const typeParam = params.get("type");
+
+    if (
+      typeParam &&
+      ["specialty_prime", "trade_package", "emergency", "general"].includes(
+        typeParam,
+      )
+    ) {
+      setFormData((prev) => ({ ...prev, quoteType: typeParam }));
     }
   }, []);
 
   // Capture ?service=<slug> attribution from Wave 1 AEO/GEO landing pages
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
-    const serviceParam = params.get('service');
+    const serviceParam = params.get("service");
     if (serviceParam) {
       // Sanitize: only allow slug-safe characters, cap length
-      const safe = serviceParam.replace(/[^a-z0-9-]/gi, '').slice(0, 80);
+      const safe = serviceParam.replace(/[^a-z0-9-]/gi, "").slice(0, 80);
       if (safe) {
-        setFormData(prev => ({ ...prev, serviceOrigin: safe }));
+        setFormData((prev) => ({ ...prev, serviceOrigin: safe }));
       }
     }
   }, []);
@@ -133,7 +162,10 @@ const Estimate = () => {
     message: ReturnType<typeof getServiceMessage>;
   } | null>(null);
 
-  const handleInputChange = (field: keyof EstimateFormData, value: EstimateFormData[keyof EstimateFormData]) => {
+  const handleInputChange = (
+    field: keyof EstimateFormData,
+    value: EstimateFormData[keyof EstimateFormData],
+  ) => {
     if (field === "service" && value) {
       if (requiresQuote(value as string)) {
         const serviceMessage = getServiceMessage(value as string);
@@ -141,7 +173,7 @@ const Estimate = () => {
           .split("_")
           .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
           .join(" ");
-        
+
         setSelectedServiceInfo({
           name: serviceName,
           message: serviceMessage,
@@ -150,12 +182,16 @@ const Estimate = () => {
         return;
       }
     }
-    
+
     setFormData((prev) => ({ ...prev, [field]: value }));
   };
 
   const calculateCurrentEstimate = () => {
-    if (!formData.service || !isEstimatable(formData.service) || !formData.sqft) {
+    if (
+      !formData.service ||
+      !isEstimatable(formData.service) ||
+      !formData.sqft
+    ) {
       return {
         min: 0,
         max: 0,
@@ -211,9 +247,15 @@ const Estimate = () => {
           formData.stories
         );
       case 2:
-        const baseValid = formData.prepComplexity && formData.finishQuality && formData.region;
+        const baseValid =
+          formData.prepComplexity && formData.finishQuality && formData.region;
         if (formData.service === "commercial_painting") {
-          return Boolean(baseValid && formData.buildingType && formData.accessibility && formData.businessHoursConstraint);
+          return Boolean(
+            baseValid &&
+              formData.buildingType &&
+              formData.accessibility &&
+              formData.businessHoursConstraint,
+          );
         }
         if (formData.service === "condo_multi_unit_painting") {
           return Boolean(baseValid && formData.unitCount);
@@ -236,7 +278,9 @@ const Estimate = () => {
   const handleNext = () => {
     if (canProceed() && currentStep < finalStep) {
       if (currentStep === 0) {
-        trackConversion('quote_form_started', { quote_type: formData.quoteType });
+        trackConversion("quote_form_started", {
+          quote_type: formData.quoteType,
+        });
       }
       setCurrentStep((prev) => prev + 1);
       window.scrollTo({ top: 0, behavior: "smooth" });
@@ -271,15 +315,15 @@ const Estimate = () => {
 
       const sanitizedMessage = `
 Estimate Request:
-- Service: ${formData.service.replace(/[<>]/g, '')}
-- Square Footage: ${formData.sqft.replace(/[<>]/g, '')}
-- Stories: ${formData.stories.replace(/[<>]/g, '')}
-- Prep Complexity: ${formData.prepComplexity.replace(/[<>]/g, '')}
-- Finish Quality: ${formData.finishQuality.replace(/[<>]/g, '')}
-- Region: ${formData.region.replace(/[<>]/g, '')}
+- Service: ${formData.service.replace(/[<>]/g, "")}
+- Square Footage: ${formData.sqft.replace(/[<>]/g, "")}
+- Stories: ${formData.stories.replace(/[<>]/g, "")}
+- Prep Complexity: ${formData.prepComplexity.replace(/[<>]/g, "")}
+- Finish Quality: ${formData.finishQuality.replace(/[<>]/g, "")}
+- Region: ${formData.region.replace(/[<>]/g, "")}
 - Estimated Range: $${estimate.min.toLocaleString()} - $${estimate.max.toLocaleString()} CAD
-- Preferred Contact: ${validatedData.preferredContact || 'Not specified'}
-- Additional Notes: ${validatedData.notes || 'None'}
+- Preferred Contact: ${validatedData.preferredContact || "Not specified"}
+- Additional Notes: ${validatedData.notes || "None"}
 
 Add-ons:
 - Scaffolding: ${formData.scaffolding || "None"}
@@ -288,6 +332,37 @@ Add-ons:
 - Warranty Extension: ${formData.warrantyExtension ? "Yes" : "No"}
 - Premium Site Cleanup: ${formData.siteCleanup ? "Yes" : "No"}
       `.trim();
+
+      if (intakeV2) {
+        await submitInquiry({
+          inquiry_type: "estimate",
+          contact_name: validatedData.name,
+          email: validatedData.email,
+          phone: validatedData.phone,
+          company: formData.company || null,
+          project_location: validatedData.address,
+          message: sanitizedMessage,
+          consent_given: validatedData.consent,
+          service_origin: formData.serviceOrigin || null,
+          details: formData,
+        });
+        trackFormSubmit("estimate_form", {
+          service: formData.service || "general",
+          region: formData.region,
+        });
+        if (formData.quoteType)
+          trackConversion("quote_form_submitted", {
+            quote_type: formData.quoteType,
+          });
+        toast({
+          title: c.f001,
+          description:
+            "Your request was saved successfully. Our team will follow up within 24 hours.",
+        });
+        setIsSubmitted(true);
+        window.scrollTo({ top: 0, behavior: "smooth" });
+        return;
+      }
 
       const insertPromise = supabase.from("contact_submissions").insert({
         name: validatedData.name,
@@ -301,12 +376,18 @@ Add-ons:
       });
 
       const timeoutPromise = new Promise((_, reject) =>
-        setTimeout(() => reject(new Error("Database request timeout")), 10000)
+        setTimeout(() => reject(new Error("Database request timeout")), 10000),
       );
 
-      const insertResult = await Promise.race([insertPromise, timeoutPromise as Promise<never>]);
+      const insertResult = await Promise.race([
+        insertPromise,
+        timeoutPromise as Promise<never>,
+      ]);
       if (insertResult.error) throw insertResult.error;
-      trackFormSubmit("estimate_form", { service: formData.service || "general", region: formData.region });
+      trackFormSubmit("estimate_form", {
+        service: formData.service || "general",
+        region: formData.region,
+      });
 
       if (formData.quoteType) {
         const { error: quoteError } = await supabase
@@ -318,8 +399,13 @@ Add-ons:
             phone: validatedData.phone,
             company: formData.company || null,
             role: formData.role || null,
-            nte_budget: formData.nteBudget ? parseFloat(formData.nteBudget.replace(/[^0-9.]/g, '')) || null : null,
-            scope_categories: formData.scopeCategories.length > 0 ? formData.scopeCategories : null,
+            nte_budget: formData.nteBudget
+              ? parseFloat(formData.nteBudget.replace(/[^0-9.]/g, "")) || null
+              : null,
+            scope_categories:
+              formData.scopeCategories.length > 0
+                ? formData.scopeCategories
+                : null,
             additional_notes: sanitizedMessage,
             consent_given: validatedData.consent,
             consent_timestamp: new Date().toISOString(),
@@ -332,7 +418,7 @@ Add-ons:
           // The primary estimate is already saved; keep that successful flow.
           console.error("Quote request save failed", { code: quoteError.code });
         } else {
-          trackConversion('quote_form_submitted', {
+          trackConversion("quote_form_submitted", {
             quote_type: formData.quoteType,
           });
         }
@@ -346,7 +432,10 @@ Add-ons:
             email: validatedData.email,
             phone: validatedData.phone,
             serviceName: formData.service
-              ? formData.service.split("_").map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(" ")
+              ? formData.service
+                  .split("_")
+                  .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
+                  .join(" ")
               : "General Estimate",
             estimateMin: estimate.min,
             estimateMax: estimate.max,
@@ -360,10 +449,10 @@ Add-ons:
         console.error("Estimate confirmation email failed:", confirmError);
       }
 
-      await trackABTestConversion('homepage-hero-2024', 3);
+      await trackABTestConversion("homepage-hero-2024", 3);
 
       toast({
-        title: "Estimate Request Submitted!",
+        title: c.f001,
         description: notificationWarning
           ? "Your request was saved successfully. Our team will follow up within 24 hours."
           : "We'll contact you within 24 hours to discuss your project.",
@@ -373,23 +462,23 @@ Add-ons:
       window.scrollTo({ top: 0, behavior: "smooth" });
     } catch (error) {
       console.error("Error submitting estimate:", error);
-      
+
       if (error instanceof z.ZodError) {
         toast({
-          title: "Validation Error",
+          title: c.f002,
           description: error.issues[0]?.message || "Validation failed",
           variant: "destructive",
         });
       } else if (error instanceof Error && error.message.includes("timeout")) {
         toast({
-          title: "Request Timeout",
-          description: "The request is taking longer than expected. Please try again.",
+          title: c.f003,
+          description: c.f004,
           variant: "destructive",
         });
       } else {
         toast({
-          title: "Submission Error",
-          description: "There was an error submitting your request. Please try again.",
+          title: c.f005,
+          description: c.f006,
           variant: "destructive",
         });
       }
@@ -404,33 +493,30 @@ Add-ons:
   return (
     <div className="min-h-screen flex flex-col">
       <SEO
-        title="Request Project Estimate | Ascent Group Construction"
-        description="Request a project estimate for building envelope, restoration, or specialty trade work. Fast, accurate pricing with no obligation. Licensed and insured contractors serving Ontario."
+        title={c.f007}
+        description={c.f008}
         keywords="construction estimate, building envelope quote, restoration estimate, project estimate, GTA contractors"
       />
       <Navigation />
 
       <PageHero
-        title="Request a Project Estimate"
-        eyebrow="Project Estimator"
-        description="Answer a few questions about your project and receive a preliminary estimate. Our team follows up within 24 hours to discuss scope and next steps."
+        title={c.f009}
+        eyebrow={c.f010}
+        description={c.f011}
         image={resourceHeroes.estimate}
-        imageAlt="Request a project estimate from Ascent Group Construction"
+        imageAlt={c.f012}
         height="medium"
-        breadcrumbs={[
-          { label: "Home", href: "/" },
-          { label: "Request Estimate" }
-        ]}
+        breadcrumbs={[{ label: c.f013, href: "/" }, { label: c.f014 }]}
       />
 
       {/* Trust Strip */}
       <Section size="tight" className="bg-muted/30" disableAnimation>
         <ProofStrip
           items={[
-            { icon: Shield, value: "WSIB", label: "Certified" },
-            { icon: FileCheck, value: "$2M", label: "CGL Coverage" },
-            { icon: Clock, value: "24hr", label: "Response Time" },
-            { icon: Phone, value: "Direct", label: "Project Manager" },
+            { icon: Shield, value: "WSIB", label: c.f016 },
+            { icon: FileCheck, value: "$2M", label: c.f018 },
+            { icon: Clock, value: "24hr", label: c.f020 },
+            { icon: Phone, value: "Direct", label: c.f022 },
           ]}
           variant="light"
           columns={4}
@@ -442,7 +528,10 @@ Add-ons:
         <Section size="tight" disableAnimation>
           <div className="max-w-4xl mx-auto">
             <div className="rounded-lg border border-primary/30 bg-primary/5 px-4 py-3 text-sm text-foreground">
-              Requesting a quote for: <strong className="text-primary">{formData.serviceOrigin.replace(/-/g, ' ')}</strong>
+              {c.f023}
+              <strong className="text-primary">
+                {formData.serviceOrigin.replace(/-/g, " ")}
+              </strong>
             </div>
           </div>
         </Section>
@@ -452,22 +541,26 @@ Add-ons:
       <Section size="tight" disableAnimation>
         <div className="max-w-4xl mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <Card variant="interactive" size="sm" className="text-center border-primary/30 bg-primary/5">
+            <Card
+              variant="interactive"
+              size="sm"
+              className="text-center border-primary/30 bg-primary/5"
+            >
               <Link to="/estimate" className="block">
-                <p className="text-sm font-bold text-primary mb-1">Project Estimate</p>
-                <p className="text-xs text-muted-foreground">Get preliminary pricing for defined scopes</p>
+                <p className="text-sm font-bold text-primary mb-1">{c.f024}</p>
+                <p className="text-xs text-muted-foreground">{c.f025}</p>
               </Link>
             </Card>
             <Card variant="interactive" size="sm" className="text-center">
               <Link to="/submit-rfp" className="block">
-                <p className="text-sm font-bold mb-1">Submit RFP</p>
-                <p className="text-xs text-muted-foreground">Formal proposals with drawings & specs</p>
+                <p className="text-sm font-bold mb-1">{c.f026}</p>
+                <p className="text-xs text-muted-foreground">{c.f027}</p>
               </Link>
             </Card>
             <Card variant="interactive" size="sm" className="text-center">
               <Link to="/contact" className="block">
-                <p className="text-sm font-bold mb-1">General Inquiry</p>
-                <p className="text-xs text-muted-foreground">Questions, site visits, or consultations</p>
+                <p className="text-sm font-bold mb-1">{c.f028}</p>
+                <p className="text-xs text-muted-foreground">{c.f029}</p>
               </Link>
             </Card>
           </div>
@@ -483,89 +576,168 @@ Add-ons:
               <div className="w-20 h-20 rounded-full bg-secondary/10 flex items-center justify-center mx-auto mb-6">
                 <CheckCircle className="w-10 h-10 text-secondary" />
               </div>
-              <h2 className="text-3xl md:text-4xl font-bold mb-4 text-primary">Estimate Request Submitted</h2>
+              <h2 className="text-3xl md:text-4xl font-bold mb-4 text-primary">
+                {c.f030}
+              </h2>
               <p className="text-lg text-muted-foreground mb-2 max-w-lg mx-auto">
-                Thank you for your request. Our team will review your project details and contact you within 24 hours to discuss next steps.
+                {c.f031}
               </p>
-              <p className="text-sm text-muted-foreground mb-8">
-                A confirmation has been sent to your email address.
-              </p>
+              <p className="text-sm text-muted-foreground mb-8">{c.f032}</p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Button asChild variant="default" size="lg">
-                  <Link to="/"><Home className="w-4 h-4 mr-2" />Return Home</Link>
+                  <Link to="/">
+                    <Home className="w-4 h-4 mr-2" />
+                    {c.f033}
+                  </Link>
                 </Button>
                 <Button asChild variant="outline" size="lg">
-                  <Link to="/submit-rfp"><FileText className="w-4 h-4 mr-2" />Submit an RFP</Link>
+                  <Link to="/submit-rfp">
+                    <FileText className="w-4 h-4 mr-2" />
+                    {c.f034}
+                  </Link>
                 </Button>
               </div>
             </div>
           ) : (
-          <>
-            {/* Progress Bar */}
-            <div className="mb-8">
-              <div className="flex justify-between items-center mb-2">
-                <span className="text-sm font-medium text-muted-foreground">
-                  Step {currentStep + 1} of {totalSteps}
-                </span>
-                <span className="text-sm font-medium text-primary">
-                  {Math.round(((currentStep + 1) / totalSteps) * 100)}% Complete
-                </span>
+            <>
+              {/* Progress Bar */}
+              <div className="mb-8">
+                <div className="flex justify-between items-center mb-2">
+                  <span className="text-sm font-medium text-muted-foreground">
+                    {c.f035}
+                    {currentStep + 1} {c.f036}
+                    {totalSteps}
+                  </span>
+                  <span className="text-sm font-medium text-primary">
+                    {Math.round(((currentStep + 1) / totalSteps) * 100)}
+                    {c.f037}
+                  </span>
+                </div>
+                <Progress
+                  value={((currentStep + 1) / totalSteps) * 100}
+                  className="h-2"
+                />
               </div>
-              <Progress value={((currentStep + 1) / totalSteps) * 100} className="h-2" />
-            </div>
 
-            {/* Step Content */}
-            <Card variant="elevated" size="md" className="mb-6 animate-fade-in-up">
-              {currentStep === 0 && (<EstimatorStep0 data={{ quoteType: formData.quoteType, company: formData.company, role: formData.role, nteBudget: formData.nteBudget, scopeCategories: formData.scopeCategories }} onChange={handleInputChange} />)}
-              {currentStep === 1 && (<EstimatorStep1 data={{ service: formData.service, sqft: formData.sqft, stories: formData.stories }} onChange={handleInputChange} />)}
-              {currentStep === 2 && (<EstimatorStep2Enhanced service={formData.service} data={{ prepComplexity: formData.prepComplexity, finishQuality: formData.finishQuality, region: formData.region, buildingType: formData.buildingType, accessibility: formData.accessibility, businessHoursConstraint: formData.businessHoursConstraint, unitCount: formData.unitCount, includeCommonAreas: formData.includeCommonAreas, materialType: formData.materialType }} onChange={handleInputChange} />)}
-              {currentStep === 3 && (<EstimatorStep3 data={{ scaffolding: formData.scaffolding, colorConsultation: formData.colorConsultation, rushScheduling: formData.rushScheduling, warrantyExtension: formData.warrantyExtension, siteCleanup: formData.siteCleanup }} sqft={parseInt(formData.sqft) || 0} onChange={handleInputChange} />)}
-              {currentStep === 4 && (<EstimatorStep4 estimate={estimate} formData={formData} />)}
-              {currentStep === 5 && (<EstimatorStep5 data={{ name: formData.name, email: formData.email, phone: formData.phone, address: formData.address, preferredContact: formData.preferredContact, notes: formData.notes, consent: formData.consent }} onChange={handleInputChange} />)}
-            </Card>
-
-            {/* Navigation Buttons */}
-            <div className="flex justify-between gap-4">
-              <Button
-                variant="outline"
-                size="lg"
-                onClick={handleBack}
-                disabled={currentStep === 0}
-                className="min-w-[120px]"
+              {/* Step Content */}
+              <Card
+                variant="elevated"
+                size="md"
+                className="mb-6 animate-fade-in-up"
               >
-                <ChevronLeft className="w-4 h-4 mr-2" />
-                Back
-              </Button>
+                {currentStep === 0 && (
+                  <EstimatorStep0
+                    data={{
+                      quoteType: formData.quoteType,
+                      company: formData.company,
+                      role: formData.role,
+                      nteBudget: formData.nteBudget,
+                      scopeCategories: formData.scopeCategories,
+                    }}
+                    onChange={handleInputChange}
+                  />
+                )}
+                {currentStep === 1 && (
+                  <EstimatorStep1
+                    data={{
+                      service: formData.service,
+                      sqft: formData.sqft,
+                      stories: formData.stories,
+                    }}
+                    onChange={handleInputChange}
+                  />
+                )}
+                {currentStep === 2 && (
+                  <EstimatorStep2Enhanced
+                    service={formData.service}
+                    data={{
+                      prepComplexity: formData.prepComplexity,
+                      finishQuality: formData.finishQuality,
+                      region: formData.region,
+                      buildingType: formData.buildingType,
+                      accessibility: formData.accessibility,
+                      businessHoursConstraint: formData.businessHoursConstraint,
+                      unitCount: formData.unitCount,
+                      includeCommonAreas: formData.includeCommonAreas,
+                      materialType: formData.materialType,
+                    }}
+                    onChange={handleInputChange}
+                  />
+                )}
+                {currentStep === 3 && (
+                  <EstimatorStep3
+                    data={{
+                      scaffolding: formData.scaffolding,
+                      colorConsultation: formData.colorConsultation,
+                      rushScheduling: formData.rushScheduling,
+                      warrantyExtension: formData.warrantyExtension,
+                      siteCleanup: formData.siteCleanup,
+                    }}
+                    sqft={parseInt(formData.sqft) || 0}
+                    onChange={handleInputChange}
+                  />
+                )}
+                {currentStep === 4 && (
+                  <EstimatorStep4 estimate={estimate} formData={formData} />
+                )}
+                {currentStep === 5 && (
+                  <EstimatorStep5
+                    data={{
+                      name: formData.name,
+                      email: formData.email,
+                      phone: formData.phone,
+                      address: formData.address,
+                      preferredContact: formData.preferredContact,
+                      notes: formData.notes,
+                      consent: formData.consent,
+                    }}
+                    onChange={handleInputChange}
+                  />
+                )}
+              </Card>
 
-              {currentStep < finalStep ? (
+              {/* Navigation Buttons */}
+              <div className="flex justify-between gap-4">
                 <Button
+                  variant="outline"
                   size="lg"
-                  onClick={handleNext}
-                  disabled={!canProceed()}
-                  className="min-w-[120px] bg-secondary hover:bg-secondary/90"
+                  onClick={handleBack}
+                  disabled={currentStep === 0}
+                  className="min-w-[120px]"
                 >
-                  Next
-                  <ChevronRight className="w-4 h-4 ml-2" />
+                  <ChevronLeft className="w-4 h-4 mr-2" />
+                  {c.f038}
                 </Button>
-              ) : (
-                <Button
-                  size="lg"
-                  onClick={handleSubmit}
-                  disabled={!canProceed() || isSubmitting}
-                  className="min-w-[120px] bg-secondary hover:bg-secondary/90"
-                >
-                  {isSubmitting ? (
-                    "Submitting..."
-                  ) : (
-                    <>
-                      Submit Request
-                      <CheckCircle className="w-4 h-4 ml-2" />
-                    </>
-                  )}
-                </Button>
-              )}
-            </div>
-          </>
+
+                {currentStep < finalStep ? (
+                  <Button
+                    size="lg"
+                    onClick={handleNext}
+                    disabled={!canProceed()}
+                    className="min-w-[120px] bg-secondary hover:bg-secondary/90"
+                  >
+                    {c.f039}
+                    <ChevronRight className="w-4 h-4 ml-2" />
+                  </Button>
+                ) : (
+                  <Button
+                    size="lg"
+                    onClick={handleSubmit}
+                    disabled={!canProceed() || isSubmitting}
+                    className="min-w-[120px] bg-secondary hover:bg-secondary/90"
+                  >
+                    {isSubmitting ? (
+                      "Submitting..."
+                    ) : (
+                      <>
+                        {c.f040}
+                        <CheckCircle className="w-4 h-4 ml-2" />
+                      </>
+                    )}
+                  </Button>
+                )}
+              </div>
+            </>
           )}
         </div>
       </Section>

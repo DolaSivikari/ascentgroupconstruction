@@ -1,3 +1,4 @@
+import { loadNewInquiryCount } from "@/lib/inquiry/api";
 import type { LucideIcon } from "lucide-react";
 import { NavLink, useNavigate, useLocation } from "react-router-dom";
 import {
@@ -59,8 +60,14 @@ export const UnifiedSidebar = ({
 
   const queryClient = useQueryClient();
   const { data: counts, error: countsError } = useQuery({
-    queryKey: ["inbox-stats"],
-    queryFn: loadInboxCounts,
+    queryKey: ["sidebar-inbox-stats"],
+    queryFn: async () => {
+      const [legacy, inquiry] = await Promise.all([
+        loadInboxCounts(),
+        loadNewInquiryCount(),
+      ]);
+      return { ...legacy, inquiry };
+    },
     refetchInterval: 60_000,
   });
   const newSubmissions =
@@ -69,7 +76,8 @@ export const UnifiedSidebar = ({
         counts.contact +
         counts.resume +
         counts.prequal +
-        counts.quote
+        counts.quote +
+        (counts.inquiry ?? 0)
       : 0;
   const [user, setUser] = useState<{
     email?: string;
@@ -121,11 +129,14 @@ export const UnifiedSidebar = ({
       .channel("sidebar-counts")
       .on("postgres_changes", { event: "*", schema: "public" }, (payload) => {
         if (
+          payload.table === "inquiries" ||
           Object.values(INBOX_SOURCES).some(
             (source) => source.table === payload.table,
           )
         ) {
-          void queryClient.invalidateQueries({ queryKey: ["inbox-stats"] });
+          void queryClient.invalidateQueries({
+            queryKey: ["sidebar-inbox-stats"],
+          });
         }
       })
       .subscribe();
@@ -148,6 +159,7 @@ export const UnifiedSidebar = ({
     "/admin/homepage-builder",
     "/admin/seo-dashboard",
     "/admin/page-headers",
+    "/admin/pages",
   ].some((p) => currentPath.startsWith(p));
   const isToolsActive = ["/admin/monitoring", "/admin/audit"].some((p) =>
     currentPath.startsWith(p),
@@ -336,6 +348,11 @@ export const UnifiedSidebar = ({
               label="Documents"
             />
             <NavItem to="/admin/media" icon={Image} label="Media" />
+            <NavItem
+              to="/admin/credentials"
+              icon={ShieldCheck}
+              label="Credentials"
+            />
           </nav>
 
           {/* WEBSITE */}
@@ -362,11 +379,7 @@ export const UnifiedSidebar = ({
               icon={Mail}
               label="Contact & Footer"
             />
-            <NavItem
-              to="/admin/page-headers"
-              icon={Image}
-              label="Page Headers"
-            />
+            <NavItem to="/admin/pages" icon={Image} label="Pages" />
             <NavItem
               to="/admin/seo-dashboard"
               icon={Sparkles}

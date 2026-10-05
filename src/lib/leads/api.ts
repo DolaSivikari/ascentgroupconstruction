@@ -1,3 +1,5 @@
+import { loadInquiryPage, inquiryInboxItem } from "@/lib/inquiry/list";
+import { loadInquiryDetail } from "@/lib/inquiry/api";
 import { supabase } from "@/integrations/supabase/client";
 import {
   INBOX_SOURCES,
@@ -16,9 +18,10 @@ import {
   type LeadFilters,
   type LeadRef,
   type LeadSource,
+  type LegacyLeadSource,
 } from "./model";
 
-const SEARCH_FIELDS: Record<LeadSource, string[]> = {
+const SEARCH_FIELDS: Record<LegacyLeadSource, string[]> = {
   rfp: [
     "contact_name",
     "company_name",
@@ -62,7 +65,8 @@ export function leadSearchFilter(fields: string[], search: string): string {
   return fields.map((field) => `${field}.ilike."${value}"`).join(",");
 }
 
-function sourcesForType(type: LeadFilters["type"]): LeadSource[] {
+function sourcesForType(type: LeadFilters["type"]): LegacyLeadSource[] {
+  if (type === "bid") return [];
   if (type === "rfp") return ["rfp"];
   if (type === "prequal") return ["prequal"];
   if (type === "general") return ["contact"];
@@ -75,6 +79,7 @@ export interface LeadPage {
   items: InboxItem[];
   failed: string[];
   nextCursor: LeadCursor | null;
+  inquiryAvailable?: boolean;
 }
 
 /** Merge bounded, identically ordered keyset reads. No OFFSET into a combined
@@ -84,29 +89,40 @@ export async function loadLeadPage(
   cursor: LeadCursor | null = null,
   signal?: AbortSignal,
   pageSize = LEAD_PAGE_SIZE,
+  includeInquiries = false,
 ): Promise<LeadPage> {
   if (!Number.isInteger(pageSize) || pageSize < 1 || pageSize > LEAD_PAGE_SIZE)
     throw new Error("Invalid page size");
   if (
     cursor &&
     (!UUID.test(cursor.id) ||
-      !LEAD_SOURCES.some((key) => INBOX_SOURCES[key].table === cursor.table) ||
+      !(
+        cursor.table === "inquiries" ||
+        LEAD_SOURCES.some((key) => INBOX_SOURCES[key].table === cursor.table)
+      ) ||
       (cursor.createdAt !== null &&
         (!TIMESTAMP.test(cursor.createdAt) ||
           !Number.isFinite(Date.parse(cursor.createdAt)))))
   )
     throw new Error("Invalid page cursor");
   if (
-    !["all", "open", "closed", ...Object.keys(STATUS_LABELS)].includes(
-      filters.status,
-    )
+    ![
+      "all",
+      "open",
+      "closed",
+      "archived",
+      ...Object.keys(STATUS_LABELS),
+    ].includes(filters.status)
   )
     throw new Error("Invalid lead status");
 
   const sources = sourcesForType(filters.type).filter(
-    key => !filters.source || filters.source === key,
+    (key) =>
+      !filters.attention &&
+      filters.status !== "archived" &&
+      (!filters.source || filters.source === key),
   );
-  const results = await Promise.all(
+  const results: { items: InboxItem[]; failed: string[] }[] = await Promise.all(
     sources.map(async (key) => {
       const source = INBOX_SOURCES[key];
       try {
@@ -186,6 +202,10 @@ export async function loadLeadPage(
       }
     }),
   );
+  const inquiries = includeInquiries
+    ? await loadInquiryPage(filters, cursor, signal, pageSize)
+    : null;
+  if (inquiries) results.push(inquiries);
   const merged = results.flatMap((result) => result.items).sort(compareLeads);
   const items = merged.slice(0, pageSize);
   const failed = results.flatMap((result) => result.failed);
@@ -193,6 +213,7 @@ export async function loadLeadPage(
   return {
     items,
     failed,
+    inquiryAvailable: inquiries?.inquiryAvailable,
     nextCursor:
       !failed.length && merged.length > pageSize
         ? leadCursor(items[items.length - 1])
@@ -206,6 +227,8 @@ export async function loadLeadDetail(
   signal?: AbortSignal,
 ): Promise<InboxItem> {
   if (!UUID.test(ref.id)) throw new Error("This request link is invalid.");
+  if (ref.source === "inquiry")
+    return inquiryInboxItem(await loadInquiryDetail(ref.id));
   const results = await Promise.all(
     (ref.source ? [ref.source] : LEAD_SOURCES).map(async (key) => {
       let query = supabase

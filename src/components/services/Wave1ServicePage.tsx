@@ -1,3 +1,4 @@
+import { useWaveContent } from "@/hooks/useSharedContent";
 /**
  * Wave1ServicePage — shared composition for the static AEO/GEO landing pages
  * (Wave 1 + Wave 2). Mirrors src/pages/ServiceDetail.tsx so these pages match
@@ -100,7 +101,7 @@ interface Wave1ServicePageProps {
 }
 
 export const Wave1ServicePage = ({ slug }: Wave1ServicePageProps) => {
-  const page: Wave1PageData = WAVE1_PAGES[slug];
+  const page: Wave1PageData = useWaveContent(slug);
   const parent = getServiceParent(slug);
   if (!page) return null;
 
@@ -119,7 +120,9 @@ export const Wave1ServicePage = ({ slug }: Wave1ServicePageProps) => {
   const breadcrumbSchema = generateBreadcrumbSchema([
     { name: "Home", url: `${SITE_URL}/` },
     { name: "Services", url: `${SITE_URL}/services` },
-    ...(parent ? [{ name: parent.navLabel, url: `${SITE_URL}${parent.path}` }] : []),
+    ...(parent
+      ? [{ name: parent.navLabel, url: `${SITE_URL}${parent.path}` }]
+      : []),
     { name: page.eyebrow, url: canonical },
   ]);
 
@@ -148,7 +151,10 @@ export const Wave1ServicePage = ({ slug }: Wave1ServicePageProps) => {
         href: `/services/${relatedSlug}`,
       };
     })
-    .filter((l): l is { title: string; description: string; href: string } => l !== null);
+    .filter(
+      (l): l is { title: string; description: string; href: string } =>
+        l !== null,
+    );
 
   // Always anchor back to the EIFS cornerstone page
   relatedLinks.push({
@@ -183,7 +189,10 @@ export const Wave1ServicePage = ({ slug }: Wave1ServicePageProps) => {
         imageAlt={page.heroAlt}
         height="medium"
         overlay="gradient"
-        primaryCta={{ text: CTA_TEXT.primary, href: `/estimate?service=${page.ctaSlug}` }}
+        primaryCta={{
+          text: CTA_TEXT.primary,
+          href: `/estimate?service=${page.ctaSlug}`,
+        }}
         secondaryCta={{ text: "Talk to a PM", href: "/contact" }}
         breadcrumbs={[
           { label: "Home", href: "/" },
@@ -230,7 +239,11 @@ export const Wave1ServicePage = ({ slug }: Wave1ServicePageProps) => {
               {page.splitSections && page.splitSections.length > 0 ? (
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-8">
                   {page.splitSections.map((section) => (
-                    <Card key={section.heading} variant="elevated" className="h-full">
+                    <Card
+                      key={section.heading}
+                      variant="elevated"
+                      className="h-full"
+                    >
                       <CardContent className="p-6">
                         <h3 className="text-xl font-bold text-foreground mb-1">
                           {section.heading}

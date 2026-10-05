@@ -34,6 +34,7 @@ export const PUBLIC_ROUTE_PATTERNS = [
   "/service-areas/:city",
   "/tekev",
   "/unsubscribe",
+  "/prequal-package/:token",
   "/admin",
   "/privacy",
   "/terms",
@@ -44,6 +45,8 @@ export const PUBLIC_ROUTE_PATTERNS = [
 export const ADMIN_ROUTES = {
   dashboard: "/admin",
   pageHeaders: "/admin/page-headers",
+  pages: "/admin/pages",
+  credentials: "/admin/credentials",
   services: "/admin/services",
   servicesManager: "/admin/services-manager",
   projects: "/admin/projects",

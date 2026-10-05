@@ -1,0 +1,167 @@
+[
+  {
+    "id": "about",
+    "count": 91,
+    "file": "src/pages/About.tsx"
+  },
+  {
+    "id": "accessibility",
+    "count": 178,
+    "file": "src/pages/Accessibility.tsx"
+  },
+  {
+    "id": "blog",
+    "count": 21,
+    "file": "src/pages/Blog.tsx"
+  },
+  {
+    "id": "careers",
+    "count": 52,
+    "file": "src/pages/Careers.tsx"
+  },
+  {
+    "id": "commercial-clients",
+    "count": 75,
+    "file": "src/pages/CommercialClients.tsx"
+  },
+  {
+    "id": "contact",
+    "count": 58,
+    "file": "src/pages/Contact.tsx"
+  },
+  {
+    "id": "emergency-repair",
+    "count": 54,
+    "file": "src/pages/EmergencyRepair.tsx"
+  },
+  {
+    "id": "estimate",
+    "count": 36,
+    "file": "src/pages/Estimate.tsx"
+  },
+  {
+    "id": "faq",
+    "count": 114,
+    "file": "src/pages/FAQ.tsx"
+  },
+  {
+    "id": "for-architects",
+    "count": 83,
+    "file": "src/pages/ForArchitects.tsx"
+  },
+  {
+    "id": "for-general-contractors",
+    "count": 87,
+    "file": "src/pages/ForGeneralContractors.tsx"
+  },
+  {
+    "id": "homeowners",
+    "count": 89,
+    "file": "src/pages/Homeowners.tsx"
+  },
+  {
+    "id": "home",
+    "count": 22,
+    "file": "src/pages/Index.tsx"
+  },
+  {
+    "id": "markets",
+    "count": 51,
+    "file": "src/pages/Markets.tsx"
+  },
+  {
+    "id": "our-process",
+    "count": 107,
+    "file": "src/pages/OurProcess.tsx"
+  },
+  {
+    "id": "prequalification",
+    "count": 65,
+    "file": "src/pages/Prequalification.tsx"
+  },
+  {
+    "id": "privacy",
+    "count": 158,
+    "file": "src/pages/Privacy.tsx"
+  },
+  {
+    "id": "projects",
+    "count": 21,
+    "file": "src/pages/Projects.tsx"
+  },
+  {
+    "id": "property-managers",
+    "count": 58,
+    "file": "src/pages/PropertyManagers.tsx"
+  },
+  {
+    "id": "services",
+    "count": 33,
+    "file": "src/pages/Services.tsx"
+  },
+  {
+    "id": "submit-rfp",
+    "count": 42,
+    "file": "src/pages/SubmitRFPNew.tsx"
+  },
+  {
+    "id": "terms",
+    "count": 125,
+    "file": "src/pages/Terms.tsx"
+  },
+  {
+    "id": "why-specialty-contractor",
+    "count": 26,
+    "file": "src/pages/WhySpecialtyContractor.tsx"
+  },
+  {
+    "id": "company-developers",
+    "count": 73,
+    "file": "src/pages/company/Developers.tsx"
+  },
+  {
+    "id": "city-page",
+    "count": 86,
+    "file": "src/pages/resources/LocationPage.tsx"
+  },
+  {
+    "id": "resources-service-areas",
+    "count": 46,
+    "file": "src/pages/resources/ServiceAreas.tsx"
+  },
+  {
+    "id": "home-projects",
+    "count": 6,
+    "file": "src/components/homepage/HomepageFeaturedProjects.tsx"
+  },
+  {
+    "id": "home-final-cta",
+    "count": 8,
+    "file": "src/components/homepage/HomepageFinalCta.tsx"
+  },
+  {
+    "id": "home-parallax",
+    "count": 3,
+    "file": "src/components/homepage/HomepageParallaxBreak.tsx"
+  },
+  {
+    "id": "home-service-highlights",
+    "count": 50,
+    "file": "src/components/homepage/HomepageServiceHighlights.tsx"
+  },
+  {
+    "id": "home-inquiry",
+    "count": 28,
+    "file": "src/components/homepage/InteractiveCTA.tsx"
+  },
+  {
+    "id": "home-audiences",
+    "count": 51,
+    "file": "src/components/homepage/WhoWeServeHomepage.tsx"
+  },
+  {
+    "id": "home-why-choose-us",
+    "count": 13,
+    "file": "src/components/homepage/WhyChooseUs.tsx"
+  }
+]

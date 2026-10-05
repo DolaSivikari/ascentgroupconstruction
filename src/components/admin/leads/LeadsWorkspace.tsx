@@ -1,3 +1,4 @@
+import { InquiryWorkflowActions } from "./InquiryWorkflowActions";
 import { useEffect, useState } from "react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
@@ -51,6 +52,7 @@ interface LeadsWorkspaceProps {
   initialType?: LeadTypeFilter;
   initialStatus?: string;
   initialSource?: LeadSource;
+  initialAttention?: LeadFilters["attention"];
   onSelectionChange: (ref: LeadRef | null) => void;
 }
 export function LeadsWorkspace({
@@ -59,11 +61,13 @@ export function LeadsWorkspace({
   initialType = "all",
   initialStatus = "open",
   initialSource,
+  initialAttention,
   onSelectionChange,
 }: LeadsWorkspaceProps) {
   const [search, setSearch] = useState("");
   const [filters, setFilters] = useState<LeadFilters>({
     search: "",
+    attention: initialAttention,
     type: initialType,
     status: initialStatus,
     ...(initialSource ? { source: initialSource } : {}),
@@ -74,7 +78,7 @@ export function LeadsWorkspace({
   const cursor = cursors[cursors.length - 1];
   const { data, isPending, isFetching, error, refetch } = useQuery({
     queryKey: ["lead-pages", filters, cursor],
-    queryFn: ({ signal }) => loadLeadPage(filters, cursor, signal),
+    queryFn: ({ signal }) => loadLeadPage(filters, cursor, signal, 50, true),
     refetchInterval: 60_000,
     retry: false,
   });
@@ -94,11 +98,12 @@ export function LeadsWorkspace({
     setFilters((previous) => ({
       ...previous,
       type: initialType,
+      attention: initialAttention,
       status: initialStatus,
       source: initialSource,
     }));
     setCursors([null]);
-  }, [initialType, initialStatus, initialSource]);
+  }, [initialType, initialStatus, initialSource, initialAttention]);
   const refresh = () => {
     for (const key of [
       "lead-pages",
@@ -134,6 +139,15 @@ export function LeadsWorkspace({
             });
         },
       );
+    channel.on(
+      "postgres_changes",
+      { event: "*", schema: "public", table: "inquiries" },
+      () => {
+        void queryClient.invalidateQueries({ queryKey: ["lead-pages"] });
+        void queryClient.invalidateQueries({ queryKey: ["lead-detail"] });
+        void queryClient.invalidateQueries({ queryKey: ["dashboard-leads"] });
+      },
+    );
     channel.subscribe();
     return () => {
       void supabase.removeChannel(channel);
@@ -151,6 +165,7 @@ export function LeadsWorkspace({
       type: "all",
       status: "all",
       source: undefined,
+      attention: undefined,
     });
   };
   const typeBadge = (item: InboxItem) => (
@@ -170,7 +185,32 @@ export function LeadsWorkspace({
         Estimates, service quotes, RFPs, general inquiries and prequalification
         requests from every current website form.
       </p>
+      {data && data.inquiryAvailable === false && (
+        <p className="text-sm text-muted-foreground">
+          New inquiry workflow awaits database setup; all current website
+          requests remain available below.
+        </p>
+      )}
       <div className="flex flex-col gap-3 xl:flex-row xl:flex-wrap">
+        <select
+          aria-label="Lead attention filter"
+          className="rounded border bg-background p-2"
+          value={filters.attention || "all"}
+          onChange={(event) =>
+            changeFilters({
+              attention:
+                event.target.value === "all"
+                  ? undefined
+                  : (event.target.value as LeadFilters["attention"]),
+            })
+          }
+        >
+          <option value="all">All attention states</option>
+          <option value="due">Bids due within 7 days</option>
+          <option value="overdue">Overdue bids</option>
+          <option value="unassigned">Unassigned inquiries</option>
+          <option value="alerts">Alerts needing attention</option>
+        </select>
         <div className="relative min-w-0 flex-1">
           <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
           <Input
@@ -220,6 +260,7 @@ export function LeadsWorkspace({
             <SelectItem value="open">Open requests</SelectItem>
             <SelectItem value="all">All statuses</SelectItem>
             <SelectItem value="closed">Closed requests</SelectItem>
+            <SelectItem value="archived">Archived new inquiries</SelectItem>
             {Object.entries(STATUS_LABELS).map(([value, label]) => (
               <SelectItem key={value} value={value}>
                 {label}
@@ -243,6 +284,9 @@ export function LeadsWorkspace({
           </SelectTrigger>
           <SelectContent>
             <SelectItem value="all">All form sources</SelectItem>
+            {data?.inquiryAvailable && (
+              <SelectItem value="inquiry">New inquiries</SelectItem>
+            )}
             {LEAD_SOURCES.map((source) => (
               <SelectItem key={source} value={source}>
                 {INBOX_SOURCES[source].label} requests
@@ -303,6 +347,7 @@ export function LeadsWorkspace({
           </Button>
         </div>
       )}
+      <InquiryWorkflowActions items={items} onRefresh={refresh} onOpen={open} />
       {!!items.length && (
         <>
           <div className="hidden rounded-lg border sm:block">
