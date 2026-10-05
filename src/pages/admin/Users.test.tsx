@@ -78,7 +78,7 @@ describe("actual account roles", () => {
     expect(screen.getByText("Invite User")).toBeInTheDocument();
     expect(screen.getByRole("combobox")).toBeDisabled();
     expect(
-      screen.getByText("Keep at least one super admin."),
+      screen.getByText("At least one super admin must remain."),
     ).toBeInTheDocument();
   });
   it("does not show edit controls after a failed role read", async () => {

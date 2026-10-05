@@ -1,0 +1,166 @@
+{
+  "scope": "Offline fixtures. No live writes, migrations, deployments, publishing or test emails. Full production replay skipped at owner request.",
+  "vitest": {
+    "passed": 496,
+    "files": 77,
+    "command": "vitest run --maxWorkers=2"
+  },
+  "fullTypeScript": "passed",
+  "selectedTypeScript": "passed",
+  "productionBuild": {
+    "status": "passed",
+    "command": "vite build --sourcemap",
+    "warnings": "Existing large chunks, dependency PURE annotation and tool configuration deprecation warnings."
+  },
+  "lint": {
+    "errors": 270,
+    "warnings": 31,
+    "limit": "288 errors / 34 warnings",
+    "newFilesClean": true
+  },
+  "serviceWorker": "passed",
+  "routeAudit": "passed",
+  "adminScreenshots": 108,
+  "interactionChecks": 8,
+  "focusedPublicComparison": {
+    "status": "passed",
+    "urls": 7,
+    "captures": 14,
+    "identical": 10,
+    "declared": 4,
+    "failed": 0,
+    "results": [
+      {
+        "path": "/",
+        "width": 390,
+        "pixelDifferencePercent": 0,
+        "differences": [],
+        "unexpected": [],
+        "declaredReason": null
+      },
+      {
+        "path": "/",
+        "width": 1440,
+        "pixelDifferencePercent": 0,
+        "differences": [],
+        "unexpected": [],
+        "declaredReason": null
+      },
+      {
+        "path": "/about",
+        "width": 390,
+        "pixelDifferencePercent": 0,
+        "differences": [],
+        "unexpected": [],
+        "declaredReason": null
+      },
+      {
+        "path": "/about",
+        "width": 1440,
+        "pixelDifferencePercent": 0,
+        "differences": [],
+        "unexpected": [],
+        "declaredReason": null
+      },
+      {
+        "path": "/projects/browser-fixture-project",
+        "width": 390,
+        "pixelDifferencePercent": 100,
+        "differences": [
+          "visibleText",
+          "screenshot"
+        ],
+        "unexpected": [],
+        "declaredReason": "R4: remove duplicate description and display recorded project status"
+      },
+      {
+        "path": "/projects/browser-fixture-project",
+        "width": 1440,
+        "pixelDifferencePercent": 100,
+        "differences": [
+          "visibleText",
+          "screenshot"
+        ],
+        "unexpected": [],
+        "declaredReason": "R4: remove duplicate description and display recorded project status"
+      },
+      {
+        "path": "/blog/browser-fixture-draft",
+        "width": 390,
+        "pixelDifferencePercent": 0,
+        "differences": [],
+        "unexpected": [],
+        "declaredReason": null
+      },
+      {
+        "path": "/blog/browser-fixture-draft",
+        "width": 1440,
+        "pixelDifferencePercent": 0,
+        "differences": [],
+        "unexpected": [],
+        "declaredReason": null
+      },
+      {
+        "path": "/services/browser-fixture-service",
+        "width": 390,
+        "pixelDifferencePercent": 100,
+        "differences": [
+          "visibleText",
+          "screenshot"
+        ],
+        "unexpected": [],
+        "declaredReason": "R4: render saved overview HTML through the sanitizer"
+      },
+      {
+        "path": "/services/browser-fixture-service",
+        "width": 1440,
+        "pixelDifferencePercent": 0.09241480343630881,
+        "differences": [
+          "visibleText"
+        ],
+        "unexpected": [],
+        "declaredReason": "R4: render saved overview HTML through the sanitizer"
+      },
+      {
+        "path": "/contact",
+        "width": 390,
+        "pixelDifferencePercent": 0,
+        "differences": [],
+        "unexpected": [],
+        "declaredReason": null
+      },
+      {
+        "path": "/contact",
+        "width": 1440,
+        "pixelDifferencePercent": 0,
+        "differences": [],
+        "unexpected": [],
+        "declaredReason": null
+      },
+      {
+        "path": "/company/certifications-insurance",
+        "width": 390,
+        "pixelDifferencePercent": 0,
+        "differences": [],
+        "unexpected": [],
+        "declaredReason": null
+      },
+      {
+        "path": "/company/certifications-insurance",
+        "width": 1440,
+        "pixelDifferencePercent": 0,
+        "differences": [],
+        "unexpected": [],
+        "declaredReason": null
+      }
+    ]
+  },
+  "publicBundle": {
+    "status": "passed",
+    "urls": 7,
+    "loadedPublicChunks": 63,
+    "failures": []
+  },
+  "sql": "Unapplied and unexecuted drafts; require owner review/preflight.",
+  "coverage": "108 screenshots cover shell/theme page variants; final editor validation and replacement-cleanup changes are additionally covered by release unit tests and the final interaction suite."
+}

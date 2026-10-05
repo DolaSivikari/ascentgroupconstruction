@@ -1,11 +1,16 @@
-import { useState, useRef } from 'react';
-import { Upload, X, Loader2, AlertCircle } from 'lucide-react';
-import { Button } from '@/ui/Button';
-import { uploadImage } from '@/utils/imageResolver';
-import { toast } from 'sonner';
-import { supabase } from '@/integrations/supabase/client';
-import { validateAspectRatio, calculateAspectRatio } from '@/utils/image-optimizer';
-import { normalizeImageFile } from '@/utils/image-normalizer';
+import { mediaPath } from "@/lib/admin/media";
+import { MediaPicker } from "./MediaPicker";
+import { useState, useRef, useEffect } from "react";
+import { Upload, X, Loader2, AlertCircle } from "lucide-react";
+import { Button } from "@/ui/Button";
+import { uploadImage } from "@/utils/imageResolver";
+import { toast } from "sonner";
+import { supabase } from "@/integrations/supabase/client";
+import {
+  validateAspectRatio,
+  calculateAspectRatio,
+} from "@/utils/image-optimizer";
+import { normalizeImageFile } from "@/utils/image-normalizer";
 
 interface ImageUploadFieldProps {
   value?: string;
@@ -26,18 +31,31 @@ interface ImageUploadFieldProps {
 export const ImageUploadField = ({
   value,
   onChange,
-  bucket = 'project-images',
-  label = 'Upload Image',
-  accept = 'image/*',
+  bucket = "project-images",
+  label = "Upload Image",
+  accept = "image/*",
   targetAspectRatio,
   useProcessingFunction = false,
   minWidth,
   minHeight,
   minAspectRatio,
 }: ImageUploadFieldProps) => {
+  const previousImage = useRef(value);
+  const [oldPath, setOldPath] = useState<string | null>(null);
+  useEffect(() => {
+    if (previousImage.current && previousImage.current !== value)
+      setOldPath(mediaPath(previousImage.current));
+    previousImage.current = value;
+  }, [value]);
+  const [pickerOpen, setPickerOpen] = useState(false);
+  useEffect(() => {
+    setPreview(value || null);
+  }, [value]);
   const [isUploading, setIsUploading] = useState(false);
   const [preview, setPreview] = useState<string | null>(value || null);
-  const [aspectRatioWarning, setAspectRatioWarning] = useState<string | null>(null);
+  const [aspectRatioWarning, setAspectRatioWarning] = useState<string | null>(
+    null,
+  );
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleFileSelect = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -46,8 +64,8 @@ export const ImageUploadField = ({
 
     // Hard guard against absurdly large source files (browser memory).
     if (file.size > 15 * 1024 * 1024) {
-      toast.error('Image is over 15MB. Please use a smaller source file.');
-      if (fileInputRef.current) fileInputRef.current.value = '';
+      toast.error("Image is over 15MB. Please use a smaller source file.");
+      if (fileInputRef.current) fileInputRef.current.value = "";
       return;
     }
 
@@ -67,7 +85,7 @@ export const ImageUploadField = ({
             minAspectRatio ??
             (targetAspectRatio
               ? (() => {
-                  const [w, h] = targetAspectRatio.split('/').map(Number);
+                  const [w, h] = targetAspectRatio.split("/").map(Number);
                   return w && h ? w / h : 16 / 9;
                 })()
               : 16 / 9);
@@ -75,36 +93,43 @@ export const ImageUploadField = ({
           const result = await normalizeImageFile(file, {
             targetAspectRatio: targetRatio,
             maxWidth: 2400,
-            format: 'image/jpeg',
+            format: "image/jpeg",
             quality: 0.88,
           });
           uploadFile = result.file;
 
           if (result.didCrop && result.didResize) {
-            normalizedNotice = 'Image auto-cropped to landscape and optimized for the web.';
+            normalizedNotice =
+              "Image auto-cropped to landscape and optimized for the web.";
           } else if (result.didCrop) {
-            normalizedNotice = 'Image auto-cropped to landscape for the featured slot.';
+            normalizedNotice =
+              "Image auto-cropped to landscape for the featured slot.";
           } else if (result.didResize) {
-            normalizedNotice = 'Image optimized for the web (downscaled).';
+            normalizedNotice = "Image optimized for the web (downscaled).";
           }
         } catch (normErr) {
-          console.warn('Image normalization failed, uploading original:', normErr);
+          console.warn(
+            "Image normalization failed, uploading original:",
+            normErr,
+          );
           toast.error(
             normErr instanceof Error
               ? normErr.message
-              : 'Could not process this image.'
+              : "Could not process this image.",
           );
           setIsUploading(false);
-          if (fileInputRef.current) fileInputRef.current.value = '';
+          if (fileInputRef.current) fileInputRef.current.value = "";
           return;
         }
       }
 
       // Final size guard on the (potentially smaller) output file.
       if (uploadFile.size > 8 * 1024 * 1024) {
-        toast.error('Processed image is still over 8MB. Try a smaller source image.');
+        toast.error(
+          "Processed image is still over 8MB. Try a smaller source image.",
+        );
         setIsUploading(false);
-        if (fileInputRef.current) fileInputRef.current.value = '';
+        if (fileInputRef.current) fileInputRef.current.value = "";
         return;
       }
 
@@ -117,10 +142,14 @@ export const ImageUploadField = ({
           img.onerror = reject;
           img.src = objectUrl;
         });
-        const isValid = validateAspectRatio(img.width, img.height, targetAspectRatio, 0.15);
+        const isValid = validateAspectRatio(
+          img.width,
+          img.height,
+          targetAspectRatio,
+          0.15,
+        );
         if (!isValid) {
-          normalizedNotice =
-            `Image ratio is ${calculateAspectRatio(img.width, img.height)} — it will be cropped to fit ${targetAspectRatio} on display.`;
+          normalizedNotice = `Image ratio is ${calculateAspectRatio(img.width, img.height)} — it will be cropped to fit ${targetAspectRatio} on display.`;
         }
         URL.revokeObjectURL(objectUrl);
       }
@@ -137,13 +166,16 @@ export const ImageUploadField = ({
 
       if (useProcessingFunction) {
         const formData = new FormData();
-        formData.append('file', uploadFile);
-        formData.append('bucket', bucket);
-        formData.append('stripMetadata', 'true');
+        formData.append("file", uploadFile);
+        formData.append("bucket", bucket);
+        formData.append("stripMetadata", "true");
 
-        const { data, error: functionError } = await supabase.functions.invoke('process-image', {
-          body: formData,
-        });
+        const { data, error: functionError } = await supabase.functions.invoke(
+          "process-image",
+          {
+            body: formData,
+          },
+        );
 
         if (functionError) {
           error = functionError.message;
@@ -162,10 +194,13 @@ export const ImageUploadField = ({
       }
 
       onChange(url!);
-      toast.success('Image uploaded successfully' + (useProcessingFunction ? ' (optimized)' : ''));
+      toast.success(
+        "Image uploaded successfully" +
+          (useProcessingFunction ? " (optimized)" : ""),
+      );
     } catch (error) {
-      console.error('Upload error:', error);
-      toast.error('Failed to upload image');
+      console.error("Upload error:", error);
+      toast.error("Failed to upload image");
     } finally {
       setIsUploading(false);
     }
@@ -173,16 +208,16 @@ export const ImageUploadField = ({
 
   const handleRemove = () => {
     setPreview(null);
-    onChange('');
+    onChange("");
     if (fileInputRef.current) {
-      fileInputRef.current.value = '';
+      fileInputRef.current.value = "";
     }
   };
 
   return (
     <div className="space-y-2">
       <label className="text-sm font-medium">{label}</label>
-      
+
       {/* PHASE 2: Aspect ratio warning */}
       {aspectRatioWarning && (
         <div className="flex items-start gap-2 p-3 bg-warning/10 border border-warning/20 rounded-lg">
@@ -190,7 +225,7 @@ export const ImageUploadField = ({
           <p className="text-sm text-warning">{aspectRatioWarning}</p>
         </div>
       )}
-      
+
       {preview ? (
         <div className="relative group">
           <img
@@ -231,17 +266,50 @@ export const ImageUploadField = ({
           ) : (
             <>
               <Upload className="w-8 h-8 mx-auto mb-2 text-muted-foreground" />
-              <p className="text-sm text-muted-foreground">
-                Click to upload or drag and drop
-              </p>
+              <p className="text-sm text-muted-foreground">Click to upload</p>
               <p className="text-xs text-muted-foreground mt-1">
-                PNG, JPG, WEBP — any orientation. Portrait images are auto-cropped to landscape.
+                PNG, JPG, WEBP — any orientation. Portrait images are
+                auto-cropped to landscape.
               </p>
             </>
           )}
         </div>
       )}
 
+      {bucket === "project-images" && (
+        <>
+          <Button
+            type="button"
+            variant="outline"
+            disabled={isUploading}
+            onClick={() => setPickerOpen(true)}
+          >
+            Choose from library
+          </Button>
+          <MediaPicker
+            open={pickerOpen}
+            onOpenChange={setPickerOpen}
+            onChoose={(asset) => {
+              setPreview(asset.url);
+              onChange(asset.url);
+            }}
+          />
+        </>
+      )}
+      {oldPath && (
+        <p className="text-sm text-muted-foreground">
+          The previous image is retained. After saving,{" "}
+          <a
+            className="underline"
+            href={`/admin/media?folder=${encodeURIComponent(oldPath.split("/").slice(0, -1).join("/"))}&search=${encodeURIComponent(oldPath.split("/").pop() || "")}`}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            review and delete the unused file in Media
+          </a>
+          .
+        </p>
+      )}
       <input
         ref={fileInputRef}
         type="file"

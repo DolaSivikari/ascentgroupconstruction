@@ -1,5 +1,19 @@
 import { Link } from "react-router-dom";
-import { Mail, Phone, MapPin, Linkedin, Building2, Wrench, BookOpen, Sparkles, ChevronRight } from "lucide-react";
+import {
+  Mail,
+  Phone,
+  MapPin,
+  Linkedin,
+  Facebook,
+  Instagram,
+  Twitter,
+  Youtube,
+  Building2,
+  Wrench,
+  BookOpen,
+  Sparkles,
+  ChevronRight,
+} from "lucide-react";
 import ascentLogoVerticalWhite from "@/assets/ascent-logo-vertical-white.png";
 import {
   Accordion,
@@ -22,6 +36,8 @@ interface UnifiedFooterProps {
     address?: string;
   };
   linkedinUrl?: string;
+  socialLinks?: Record<string, string>;
+  tagline?: string;
   foundedYear: number;
   services: Service[];
   showLogo?: boolean;
@@ -31,11 +47,41 @@ export function UnifiedFooter({
   logoUrl,
   contactInfo,
   linkedinUrl,
+  socialLinks = {},
+  tagline = "Building envelope & restoration contractor serving Ontario & GTA",
   foundedYear,
   services,
   showLogo = true,
 }: UnifiedFooterProps) {
   const currentYear = new Date().getFullYear();
+  const profiles = [
+    {
+      key: "linkedin",
+      label: "LinkedIn",
+      icon: Linkedin,
+      url: socialLinks.linkedin || linkedinUrl,
+    },
+    {
+      key: "facebook",
+      label: "Facebook",
+      icon: Facebook,
+      url: socialLinks.facebook,
+    },
+    {
+      key: "instagram",
+      label: "Instagram",
+      icon: Instagram,
+      url: socialLinks.instagram,
+    },
+    { key: "twitter", label: "X", icon: Twitter, url: socialLinks.twitter },
+    {
+      key: "youtube",
+      label: "YouTube",
+      icon: Youtube,
+      url: socialLinks.youtube,
+    },
+  ].filter((profile) => profile.url);
+
   const { phone, email, address } = contactInfo;
 
   const featuredServices = services.slice(0, 6);
@@ -59,11 +105,13 @@ export function UnifiedFooter({
     { label: "For General Contractors", href: "/for-general-contractors" },
     { label: "For Architects", href: "/for-architects" },
     { label: "Contractor Portal", href: "/resources/contractor-portal" },
-    { label: "Certifications & Insurance", href: "/company/certifications-insurance" },
+    {
+      label: "Certifications & Insurance",
+      href: "/company/certifications-insurance",
+    },
     { label: "Technology", href: "/company/technology" },
     { label: "Service Areas", href: "/resources/service-areas" },
   ];
-
 
   return (
     <div className="w-full">
@@ -71,12 +119,15 @@ export function UnifiedFooter({
       <div className="md:hidden space-y-2">
         <div className="mb-6">
           <p className="text-sm text-muted-foreground leading-relaxed">
-            Building envelope & restoration contractor serving Ontario & GTA
+            {tagline}
           </p>
         </div>
 
         <Accordion type="single" collapsible className="space-y-2">
-          <AccordionItem value="company" className="border border-border/50 rounded-lg bg-muted/30 hover:bg-muted/50 transition-colors [&[data-state=open]]:bg-muted/50">
+          <AccordionItem
+            value="company"
+            className="border border-border/50 rounded-lg bg-muted/30 hover:bg-muted/50 transition-colors [&[data-state=open]]:bg-muted/50"
+          >
             <AccordionTrigger className="px-4 py-3 hover:no-underline">
               <div className="flex items-center gap-2 text-sm font-bold text-foreground">
                 <Building2 className="h-4 w-4 text-primary" />
@@ -87,7 +138,10 @@ export function UnifiedFooter({
               <ul className="space-y-2">
                 {companyLinks.map((link) => (
                   <li key={link.label}>
-                    <Link to={link.href} className="text-sm text-muted-foreground hover:text-primary transition-colors block">
+                    <Link
+                      to={link.href}
+                      className="text-sm text-muted-foreground hover:text-primary transition-colors block"
+                    >
                       {link.label}
                     </Link>
                   </li>
@@ -96,7 +150,10 @@ export function UnifiedFooter({
             </AccordionContent>
           </AccordionItem>
 
-          <AccordionItem value="services" className="border border-border/50 rounded-lg bg-muted/30 hover:bg-muted/50 transition-colors [&[data-state=open]]:bg-muted/50">
+          <AccordionItem
+            value="services"
+            className="border border-border/50 rounded-lg bg-muted/30 hover:bg-muted/50 transition-colors [&[data-state=open]]:bg-muted/50"
+          >
             <AccordionTrigger className="px-4 py-3 hover:no-underline">
               <div className="flex items-center gap-2 text-sm font-bold text-foreground">
                 <Wrench className="h-4 w-4 text-primary" />
@@ -106,13 +163,20 @@ export function UnifiedFooter({
             <AccordionContent className="px-4 pb-4">
               <div className="grid grid-cols-2 gap-2">
                 {featuredServices.map((service) => (
-                  <Link key={service.slug} to={`/services/${service.slug}`} className="text-sm text-muted-foreground hover:text-primary transition-colors">
+                  <Link
+                    key={service.slug}
+                    to={`/services/${service.slug}`}
+                    className="text-sm text-muted-foreground hover:text-primary transition-colors"
+                  >
                     {service.name}
                   </Link>
                 ))}
               </div>
               {hasMoreServices && (
-                <Link to="/services" className="inline-flex items-center gap-1 text-sm text-primary hover:text-primary/80 transition-colors mt-3 group">
+                <Link
+                  to="/services"
+                  className="inline-flex items-center gap-1 text-sm text-primary hover:text-primary/80 transition-colors mt-3 group"
+                >
                   View All Services
                   <ChevronRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
                 </Link>
@@ -120,7 +184,10 @@ export function UnifiedFooter({
             </AccordionContent>
           </AccordionItem>
 
-          <AccordionItem value="resources" className="border border-border/50 rounded-lg bg-muted/30 hover:bg-muted/50 transition-colors [&[data-state=open]]:bg-muted/50">
+          <AccordionItem
+            value="resources"
+            className="border border-border/50 rounded-lg bg-muted/30 hover:bg-muted/50 transition-colors [&[data-state=open]]:bg-muted/50"
+          >
             <AccordionTrigger className="px-4 py-3 hover:no-underline">
               <div className="flex items-center gap-2 text-sm font-bold text-foreground">
                 <BookOpen className="h-4 w-4 text-primary" />
@@ -131,7 +198,10 @@ export function UnifiedFooter({
               <ul className="space-y-2">
                 {resourceLinks.map((link) => (
                   <li key={link.label}>
-                    <Link to={link.href} className="text-sm text-muted-foreground hover:text-primary transition-colors block">
+                    <Link
+                      to={link.href}
+                      className="text-sm text-muted-foreground hover:text-primary transition-colors block"
+                    >
                       {link.label}
                     </Link>
                   </li>
@@ -147,11 +217,17 @@ export function UnifiedFooter({
           {email && (
             <div className="flex items-center gap-2">
               <Mail className="h-4 w-4 flex-shrink-0 text-muted-foreground" />
-              <AscentEmailLink className="text-sm text-muted-foreground hover:text-primary transition-colors break-all" showIcon={false} />
+              <AscentEmailLink
+                className="text-sm text-muted-foreground hover:text-primary transition-colors break-all"
+                showIcon={false}
+              />
             </div>
           )}
           {phone && (
-            <a href={`tel:${phone.replace(/\s/g, '')}`} className="flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors">
+            <a
+              href={`tel:${phone.replace(/\s/g, "")}`}
+              className="flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors"
+            >
               <Phone className="h-4 w-4 flex-shrink-0" />
               {phone}
             </a>
@@ -162,12 +238,19 @@ export function UnifiedFooter({
               <span>{address}</span>
             </div>
           )}
-          {linkedinUrl && (
-            <a href={linkedinUrl} target="_blank" rel="noopener noreferrer" aria-label="Visit our LinkedIn page" className="flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors">
-              <Linkedin className="h-4 w-4 flex-shrink-0" />
-              LinkedIn
+          {profiles.map(({ key, label, icon: Icon, url }) => (
+            <a
+              key={key}
+              href={url}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={`Visit our ${label} page`}
+              className="flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors"
+            >
+              <Icon className="h-4 w-4 flex-shrink-0" />
+              <span className="md:sr-only">{label}</span>
             </a>
-          )}
+          ))}
         </div>
       </div>
 
@@ -176,9 +259,9 @@ export function UnifiedFooter({
         {/* Logo */}
         {showLogo && (
           <div className="flex-shrink-0">
-            <img 
-              src={ascentLogoVerticalWhite} 
-              alt="Ascent Group Construction Logo" 
+            <img
+              src={ascentLogoVerticalWhite}
+              alt="Ascent Group Construction Logo"
               width={140}
               height={140}
               loading="lazy"
@@ -200,7 +283,10 @@ export function UnifiedFooter({
               <ul className="space-y-2">
                 {companyLinks.map((link) => (
                   <li key={link.label}>
-                    <Link to={link.href} className="text-sm text-muted-foreground hover:text-primary transition-colors">
+                    <Link
+                      to={link.href}
+                      className="text-sm text-muted-foreground hover:text-primary transition-colors"
+                    >
                       {link.label}
                     </Link>
                   </li>
@@ -218,13 +304,21 @@ export function UnifiedFooter({
             <nav>
               <div className="grid grid-cols-2 gap-x-4 gap-y-2">
                 {featuredServices.map((service) => (
-                  <Link key={service.slug} to={`/services/${service.slug}`} className="text-sm text-muted-foreground hover:text-primary transition-colors line-clamp-1" title={service.name}>
+                  <Link
+                    key={service.slug}
+                    to={`/services/${service.slug}`}
+                    className="text-sm text-muted-foreground hover:text-primary transition-colors line-clamp-1"
+                    title={service.name}
+                  >
                     {service.name}
                   </Link>
                 ))}
               </div>
               {hasMoreServices && (
-                <Link to="/services" className="inline-flex items-center gap-1 text-sm text-primary hover:text-primary/80 transition-colors mt-3 group">
+                <Link
+                  to="/services"
+                  className="inline-flex items-center gap-1 text-sm text-primary hover:text-primary/80 transition-colors mt-3 group"
+                >
                   View All Services
                   <ChevronRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
                 </Link>
@@ -242,7 +336,10 @@ export function UnifiedFooter({
               <ul className="space-y-2">
                 {resourceLinks.map((link) => (
                   <li key={link.label}>
-                    <Link to={link.href} className="text-sm text-muted-foreground hover:text-primary transition-colors">
+                    <Link
+                      to={link.href}
+                      className="text-sm text-muted-foreground hover:text-primary transition-colors"
+                    >
                       {link.label}
                     </Link>
                   </li>
@@ -262,10 +359,16 @@ export function UnifiedFooter({
                 Ready to discuss your project? Request a site assessment.
               </p>
               <div className="flex flex-col gap-2">
-                <Link to="/submit-rfp" className="inline-flex items-center justify-center rounded-md px-4 py-3 text-sm font-semibold text-white bg-primary hover:bg-primary/90 transition-colors">
+                <Link
+                  to="/submit-rfp"
+                  className="inline-flex items-center justify-center rounded-md px-4 py-3 text-sm font-semibold text-white bg-primary hover:bg-primary/90 transition-colors"
+                >
                   Submit RFP
                 </Link>
-                <Link to="/estimate" className="inline-flex items-center justify-center rounded-md px-4 py-3 text-sm font-semibold text-primary border-2 border-primary hover:bg-primary hover:text-primary-foreground transition-colors">
+                <Link
+                  to="/estimate"
+                  className="inline-flex items-center justify-center rounded-md px-4 py-3 text-sm font-semibold text-primary border-2 border-primary hover:bg-primary hover:text-primary-foreground transition-colors"
+                >
                   Request Estimate
                 </Link>
               </div>
@@ -275,11 +378,17 @@ export function UnifiedFooter({
               {email && (
                 <div className="flex items-center gap-2">
                   <Mail className="h-4 w-4 flex-shrink-0 text-muted-foreground" />
-                  <AscentEmailLink className="text-sm text-muted-foreground hover:text-primary transition-colors break-all" showIcon={false} />
+                  <AscentEmailLink
+                    className="text-sm text-muted-foreground hover:text-primary transition-colors break-all"
+                    showIcon={false}
+                  />
                 </div>
               )}
               {phone && (
-                <a href={`tel:${phone.replace(/\s/g, '')}`} className="flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors">
+                <a
+                  href={`tel:${phone.replace(/\s/g, "")}`}
+                  className="flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors"
+                >
                   <Phone className="h-4 w-4 flex-shrink-0" />
                   {phone}
                 </a>
@@ -309,20 +418,37 @@ export function UnifiedFooter({
             </div>
           </div>
           <div className="flex items-center gap-6">
-            <Link to="/privacy" className="text-xs md:text-sm text-muted-foreground hover:text-primary transition-colors">
+            <Link
+              to="/privacy"
+              className="text-xs md:text-sm text-muted-foreground hover:text-primary transition-colors"
+            >
               Privacy Policy
             </Link>
-            <Link to="/terms" className="text-xs md:text-sm text-muted-foreground hover:text-primary transition-colors">
+            <Link
+              to="/terms"
+              className="text-xs md:text-sm text-muted-foreground hover:text-primary transition-colors"
+            >
               Terms of Service
             </Link>
-            <Link to="/accessibility" className="text-xs md:text-sm text-muted-foreground hover:text-primary transition-colors">
+            <Link
+              to="/accessibility"
+              className="text-xs md:text-sm text-muted-foreground hover:text-primary transition-colors"
+            >
               Accessibility
             </Link>
-            {linkedinUrl && (
-              <a href={linkedinUrl} target="_blank" rel="noopener noreferrer" aria-label="Visit our LinkedIn page" className="text-muted-foreground hover:text-primary transition-colors">
-                <Linkedin className="h-4 w-4" />
+            {profiles.map(({ key, label, icon: Icon, url }) => (
+              <a
+                key={key}
+                href={url}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={`Visit our ${label} page`}
+                className="flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors"
+              >
+                <Icon className="h-4 w-4 flex-shrink-0" />
+                <span className="md:sr-only">{label}</span>
               </a>
-            )}
+            ))}
           </div>
         </div>
         <div className="md:hidden flex items-center gap-2 text-xs text-muted-foreground mt-3">

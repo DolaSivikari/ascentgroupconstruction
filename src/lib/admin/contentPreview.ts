@@ -3,7 +3,7 @@ import { generatePreviewToken } from "@/utils/previewToken";
 import { getPreviewUrl } from "@/utils/routeHelpers";
 
 export async function savePreviewLink(
-  table: "blog_posts" | "projects",
+  table: "blog_posts" | "projects" | "services",
   id: string,
   slug: string,
 ): Promise<string> {
@@ -24,7 +24,11 @@ export async function savePreviewLink(
   if (error) throw error;
   if (!data) throw new Error("The preview link could not be saved. Try again.");
   return getPreviewUrl(
-    table === "projects" ? "project" : "blog",
+    table === "projects"
+      ? "project"
+      : table === "services"
+        ? "service"
+        : "blog",
     data.slug,
     token,
   );

@@ -69,7 +69,7 @@ const open = () =>
 describe("settings save and tab guards", () => {
   it("blocks tab changes with unsaved fields and keeps the editor mounted on Stay", async () => {
     open();
-    fireEvent.change(screen.getByLabelText("Business Address"), {
+    fireEvent.change(screen.getByLabelText(/Business address/i), {
       target: { value: "Unsaved address" },
     });
     fireEvent.mouseDown(screen.getByRole("tab", { name: "Contact" }), {
@@ -77,7 +77,7 @@ describe("settings save and tab guards", () => {
       ctrlKey: false,
     });
     fireEvent.click(await screen.findByRole("button", { name: "Stay" }));
-    expect(screen.getByLabelText("Business Address")).toHaveValue(
+    expect(screen.getByLabelText(/Business address/i)).toHaveValue(
       "Unsaved address",
     );
     fireEvent.mouseDown(screen.getByRole("tab", { name: "Contact" }), {
@@ -90,14 +90,13 @@ describe("settings save and tab guards", () => {
   it("does not claim a settings save succeeded when no row was updated", async () => {
     mock.save.mockResolvedValue({ data: null, error: null });
     open();
-    fireEvent.change(screen.getByLabelText("Business Address"), {
+    fireEvent.change(screen.getByLabelText(/Business address/i), {
       target: { value: "Retained address" },
     });
-    fireEvent.click(screen.getByRole("button", { name: "Save All Settings" }));
-    await waitFor(() =>
-      expect(mock.failure).toHaveBeenCalledWith(
-        expect.stringContaining("could not be verified"),
-      ),
+    fireEvent.click(screen.getByRole("button", { name: "Publish settings" }));
+    fireEvent.click(await screen.findByRole("button", { name: "Publish" }));
+    expect(await screen.findByRole("alert")).toHaveTextContent(
+      "Could not verify the saved settings",
     );
     expect(mock.success).not.toHaveBeenCalled();
     fireEvent.mouseDown(screen.getByRole("tab", { name: "Contact" }), {
@@ -106,12 +105,18 @@ describe("settings save and tab guards", () => {
     });
     expect(await screen.findByRole("alertdialog")).toBeVisible();
   });
-  it("saves a cleared numeric field as null, without inventing a founded year", async () => {
+  it("keeps protected business facts and unused contact fields out of the save payload", async () => {
     open();
-    expect(screen.getByLabelText("Founded Year")).toHaveDisplayValue("");
-    fireEvent.click(screen.getByRole("button", { name: "Save All Settings" }));
+    expect(screen.queryByLabelText("Founded Year")).toBeNull();
+    fireEvent.change(screen.getByLabelText(/Business address/i), {
+      target: { value: "Edited address" },
+    });
+    fireEvent.click(screen.getByRole("button", { name: "Publish settings" }));
+    fireEvent.click(await screen.findByRole("button", { name: "Publish" }));
     await waitFor(() => expect(mock.success).toHaveBeenCalled());
-    expect(mock.payload).toMatchObject({ founded_year: null });
+    expect(mock.payload).toMatchObject({ address: "Edited address" });
+    for (const field of ["founded_year", "company_name", "phone", "email"])
+      expect(mock.payload).not.toHaveProperty(field);
   });
   it("hides Security and offers an explicit Create state for a missing About record", async () => {
     open();

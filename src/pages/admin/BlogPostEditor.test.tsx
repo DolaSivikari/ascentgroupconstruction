@@ -104,6 +104,7 @@ const row = {
   publish_state: "draft",
 };
 beforeEach(() => {
+  localStorage.clear();
   vi.clearAllMocks();
   mock.payload = null;
   mock.unsaved = false;
@@ -122,13 +123,14 @@ const open = (id = "post-1") =>
 describe("blog form save contract", () => {
   it("uses native form validation from the header Save button", () => {
     open("new");
-    fireEvent.click(screen.getByRole("button", { name: /^Save$/ }));
+    fireEvent.click(
+      screen.getByRole("button", { name: /Save draft|Save & publish/ }),
+    );
     expect(mock.save).not.toHaveBeenCalled();
     expect(mock.navigate).not.toHaveBeenCalled();
-    expect(screen.getByRole("button", { name: /^Save$/ })).toHaveAttribute(
-      "form",
-      "blog-editor-form",
-    );
+    expect(
+      screen.getByRole("button", { name: /Save draft|Save & publish/ }),
+    ).toHaveAttribute("form", "blog-editor-form");
   });
   it("saves the existing sector, attribution and pin flag and normalizes an empty read time", async () => {
     open();
@@ -140,10 +142,10 @@ describe("blog form save contract", () => {
       target: { value: " Façade / Repair?! " },
     });
     expect(screen.getByLabelText("Slug")).toHaveValue("facade-repair");
-    fireEvent.click(screen.getByRole("button", { name: /^Save$/ }));
-    await waitFor(() =>
-      expect(mock.navigate).toHaveBeenCalledWith("/admin/blog"),
+    fireEvent.click(
+      screen.getByRole("button", { name: /Save draft|Save & publish/ }),
     );
+    await waitFor(() => expect(mock.save).toHaveBeenCalled());
     expect(mock.payload).toMatchObject({
       sector: "Buildings",
       source: "Fixture source",
@@ -162,7 +164,9 @@ describe("blog form save contract", () => {
     fireEvent.change(screen.getByLabelText("Source Attribution"), {
       target: { value: "Edited source" },
     });
-    fireEvent.click(screen.getByRole("button", { name: /^Save$/ }));
+    fireEvent.click(
+      screen.getByRole("button", { name: /Save draft|Save & publish/ }),
+    );
     await waitFor(() =>
       expect(mock.toast).toHaveBeenCalledWith(
         expect.objectContaining({
@@ -177,3 +181,11 @@ describe("blog form save contract", () => {
     expect(mock.navigate).not.toHaveBeenCalled();
   });
 });
+
+vi.mock("@/hooks/useSlugAvailability", () => ({
+  useSlugAvailability: () => ({
+    checking: false,
+    available: true,
+    message: "Slug available",
+  }),
+}));

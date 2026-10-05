@@ -1,6 +1,6 @@
-import { useCallback, useEffect, useState } from 'react';
-import { fetchActiveSettingsRow } from '@/hooks/useActiveSettings';
-import type { Database } from '@/integrations/supabase/types';
+import { useCallback, useEffect, useState } from "react";
+import { fetchActiveSettingsRow } from "@/hooks/useActiveSettings";
+import type { Database } from "@/integrations/supabase/types";
 
 interface UseSettingsDataResult<T> {
   data: T | null;
@@ -11,7 +11,7 @@ interface UseSettingsDataResult<T> {
 
 export function useSettingsData<T = any>(
   tableName: string,
-  selectQuery: string
+  selectQuery: string,
 ): UseSettingsDataResult<T> {
   const [data, setData] = useState<T | null>(null);
   const [loading, setLoading] = useState(true);
@@ -31,7 +31,19 @@ export function useSettingsData<T = any>(
       setData(result.data);
     } catch (err) {
       setData(null);
-      setError(err instanceof Error ? err : Object.assign(new Error(String((err as { message?: string })?.message || "Could not load settings.")), { code: (err as { code?: string })?.code }));
+      setError(
+        err instanceof Error
+          ? err
+          : Object.assign(
+              new Error(
+                String(
+                  (err as { message?: string })?.message ||
+                    "Could not load settings.",
+                ),
+              ),
+              { code: (err as { code?: string })?.code },
+            ),
+      );
       console.error(`Error fetching ${tableName}:`, err);
     } finally {
       setLoading(false);
@@ -42,5 +54,12 @@ export function useSettingsData<T = any>(
     fetchData();
   }, [fetchData]);
 
+  useEffect(() => {
+    const refresh = (event: Event) => {
+      if ((event as CustomEvent).detail === tableName) void fetchData();
+    };
+    window.addEventListener("ascent-settings-updated", refresh);
+    return () => window.removeEventListener("ascent-settings-updated", refresh);
+  }, [tableName, fetchData]);
   return { data, loading, error, refetch: fetchData };
 }

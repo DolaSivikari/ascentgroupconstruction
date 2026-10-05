@@ -1,3 +1,8 @@
+import { EditorSections } from "@/components/admin/EditorSections";
+import { EditorActions } from "@/components/admin/EditorActions";
+import { RichTextEditor } from "@/components/admin/RichTextEditor";
+import { Input } from "@/ui/Input";
+import { Label } from "@/components/ui/label";
 import { useEffect, useState, useRef } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
@@ -9,10 +14,6 @@ import { useLocalDraft, type LocalDraft } from "@/hooks/useLocalDraft";
 import { useFormCompletion } from "@/hooks/useFormCompletion";
 import { useKeyboardShortcuts } from "@/hooks/useKeyboardShortcuts";
 import { ConfirmDialog } from "@/components/admin/ConfirmDialog";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Badge } from "@/components/ui/badge";
-import { ProjectEditorHeader } from "@/components/admin/ProjectEditorHeader";
-import { CompletionChecklist } from "@/components/admin/CompletionChecklist";
 import { BasicInfoTab } from "@/components/admin/project-tabs/BasicInfoTab";
 import { ImagesTab } from "@/components/admin/project-tabs/ImagesTab";
 import { ProjectDetailsTab } from "@/components/admin/project-tabs/ProjectDetailsTab";
@@ -48,7 +49,9 @@ const INITIAL_PROJECT_FORM: ProjectFormData = {
   start_date: "",
   completion_date: "",
   project_status: "Completed",
-  process_notes: "",
+  challenge: "",
+  results: "",
+  tags: [],
   featured: false,
   publish_state: "draft",
   seo_title: "",
@@ -77,6 +80,7 @@ const ProjectEditor = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [loadedProjectId, setLoadedProjectId] = useState<string | null>(null);
   const [loadError, setLoadError] = useState<string | null>(null);
+  const [serverSavedAt, setServerSavedAt] = useState<Date | null>(null);
   const [saveError, setSaveError] = useState<string | null>(null);
   const [restoreDraft, setRestoreDraft] =
     useState<LocalDraft<ProjectFormData> | null>(null);
@@ -316,13 +320,13 @@ const ProjectEditor = () => {
         description: id === "new" ? "Project created" : "Project updated",
       });
       setHasUnsavedChanges(false);
+      setServerSavedAt(new Date());
       markSaved();
       setRestoreDraft(null);
       if (cleanupWarning)
         toast({
-          title: "Project saved; file cleanup needs attention",
+          title: "Project saved; removed images retained in Media",
           description: cleanupWarning,
-          variant: "destructive",
         });
       clearLocalStorage();
       if (id === "new") navigate(`/admin/projects/${projectId}`);
@@ -377,21 +381,15 @@ const ProjectEditor = () => {
         cancelText="Stay"
       />
       <div className="min-h-screen bg-muted/30">
-        <ProjectEditorHeader
-          isNew={id === "new"}
-          isLoading={isLoading}
-          saveDisabled={!canEditProject}
-          isSaving={isSaving}
-          lastSaved={lastSaved}
-          completionPercentage={completion.overall.percentage}
-          publishState={formData.publish_state}
-          onBack={() => navigate("/admin/projects")}
-          onSave={() =>
-            document
-              .querySelector<HTMLFormElement>("#project-editor-form")
-              ?.requestSubmit()
-          }
-          onPreview={handlePreview}
+        <EditorActions
+          title={id === "new" ? "New project" : "Edit project"}
+          state={formData.publish_state || "draft"}
+          onStateChange={(publish_state) => handleFormChange({ publish_state })}
+          formId="project-editor-form"
+          disabled={!canEditProject || isLoading || isSaving}
+          onPreview={id !== "new" ? handlePreview : undefined}
+          savedAt={serverSavedAt}
+          draftAt={lastSaved}
         />
 
         <main className="container mx-auto px-4 py-8">
@@ -465,112 +463,110 @@ const ProjectEditor = () => {
           ) : (
             <form id="project-editor-form" onSubmit={handleSubmit}>
               <fieldset disabled={isLoading || isSaving} className="min-w-0">
-                <div className="flex gap-6">
-                  {/* Main Content */}
-                  <div className="flex-1">
-                    <Tabs defaultValue="basic" className="space-y-6">
-                      <TabsList className="grid w-full grid-cols-3 sm:grid-cols-6 h-auto lg:w-auto lg:inline-grid">
-                        <TabsTrigger value="basic" className="relative">
-                          Basic Info
-                          {completion.tabs.basic &&
-                            completion.tabs.basic.percentage === 100 && (
-                              <Badge
-                                variant="success"
-                                className="ml-2 h-4 w-4 p-0 rounded-full"
-                              />
-                            )}
-                        </TabsTrigger>
-                        <TabsTrigger value="images" className="relative">
-                          Images
-                          {completion.tabs.images &&
-                            completion.tabs.images.percentage === 100 && (
-                              <Badge
-                                variant="success"
-                                className="ml-2 h-4 w-4 p-0 rounded-full"
-                              />
-                            )}
-                        </TabsTrigger>
-                        <TabsTrigger value="details" className="relative">
-                          Details
-                          {completion.tabs.details &&
-                            completion.tabs.details.percentage === 100 && (
-                              <Badge
-                                variant="success"
-                                className="ml-2 h-4 w-4 p-0 rounded-full"
-                              />
-                            )}
-                        </TabsTrigger>
-                        <TabsTrigger value="services" className="relative">
-                          Services
-                          {completion.tabs.services &&
-                            completion.tabs.services.percentage === 100 && (
-                              <Badge
-                                variant="success"
-                                className="ml-2 h-4 w-4 p-0 rounded-full"
-                              />
-                            )}
-                        </TabsTrigger>
-                        <TabsTrigger value="metrics">Metrics</TabsTrigger>
-                        <TabsTrigger value="seo" className="relative">
-                          SEO
-                          {completion.tabs.seo &&
-                            completion.tabs.seo.percentage === 100 && (
-                              <Badge
-                                variant="success"
-                                className="ml-2 h-4 w-4 p-0 rounded-full"
-                              />
-                            )}
-                        </TabsTrigger>
-                      </TabsList>
-
-                      <div className="bg-background rounded-lg border p-6">
-                        <TabsContent value="basic" className="mt-0">
-                          <BasicInfoTab
-                            formData={formData}
-                            slugStatus={slugStatus}
-                            onFormChange={handleFormChange}
-                          />
-                        </TabsContent>
-                        <TabsContent value="images" className="mt-0">
-                          <ImagesTab
-                            projectId={id}
-                            formData={formData}
-                            onFormChange={handleFormChange}
-                          />
-                        </TabsContent>
-                        <TabsContent value="details" className="mt-0">
+                <EditorSections
+                  sections={[
+                    {
+                      id: "project-basics",
+                      title: "Basics",
+                      content: (
+                        <BasicInfoTab
+                          formData={formData}
+                          slugStatus={slugStatus}
+                          onFormChange={handleFormChange}
+                        />
+                      ),
+                    },
+                    {
+                      id: "project-content",
+                      title: "Content",
+                      content: (
+                        <>
+                          {[
+                            ["description", "Description"],
+                            ["scope_of_work", "Scope of work"],
+                            ["challenge", "Challenge"],
+                            ["results", "Results"],
+                          ].map(([key, label]) => (
+                            <RichTextEditor
+                              key={key}
+                              id={key}
+                              label={label}
+                              value={String(
+                                formData[key as keyof ProjectFormData] || "",
+                              )}
+                              onChange={(value) =>
+                                handleFormChange({ [key]: value })
+                              }
+                            />
+                          ))}
+                          <div className="space-y-2">
+                            <Label htmlFor="project-tags">
+                              Tags (comma separated)
+                            </Label>
+                            <Input
+                              id="project-tags"
+                              value={(formData.tags || []).join(", ")}
+                              onChange={(event) =>
+                                handleFormChange({
+                                  tags: event.target.value
+                                    .split(",")
+                                    .map((value) => value.trim()),
+                                })
+                              }
+                            />
+                          </div>
+                        </>
+                      ),
+                    },
+                    {
+                      id: "project-images",
+                      title: "Images",
+                      content: (
+                        <ImagesTab
+                          projectId={id}
+                          formData={formData}
+                          onFormChange={handleFormChange}
+                        />
+                      ),
+                    },
+                    {
+                      id: "project-details",
+                      title: "Details",
+                      content: (
+                        <>
                           <ProjectDetailsTab
                             formData={formData}
                             onFormChange={handleFormChange}
                           />
-                        </TabsContent>
-                        <TabsContent value="services" className="mt-0">
-                          <ServicesTab
-                            formData={formData}
-                            onFormChange={handleFormChange}
-                          />
-                        </TabsContent>
-                        <TabsContent value="metrics" className="mt-0">
                           <MetricsTab
                             formData={formData}
                             onFormChange={handleFormChange}
                           />
-                        </TabsContent>
-                        <TabsContent value="seo" className="mt-0">
-                          <SEOTab
-                            formData={formData}
-                            onFormChange={handleFormChange}
-                          />
-                        </TabsContent>
-                      </div>
-                    </Tabs>
-                  </div>
-
-                  {/* Sidebar - Completion Checklist */}
-                  <div className="hidden xl:block w-80">
-                    <CompletionChecklist completion={completion} />
-                  </div>
-                </div>
+                        </>
+                      ),
+                    },
+                    {
+                      id: "project-services",
+                      title: "Services & process",
+                      content: (
+                        <ServicesTab
+                          formData={formData}
+                          onFormChange={handleFormChange}
+                        />
+                      ),
+                    },
+                    {
+                      id: "project-seo",
+                      title: "SEO",
+                      content: (
+                        <SEOTab
+                          formData={formData}
+                          onFormChange={handleFormChange}
+                        />
+                      ),
+                    },
+                  ]}
+                />
               </fieldset>
             </form>
           )}

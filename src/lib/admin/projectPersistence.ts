@@ -1,3 +1,4 @@
+import type { SupabaseClient } from "@supabase/supabase-js";
 import { supabase } from "@/integrations/supabase/client";
 import { projectImageCategory, type ProjectImage } from "./projectEditor";
 import { adminErrorMessage } from "./editorValues";
@@ -13,40 +14,7 @@ export async function removeSavedGalleryFiles(
   images: ProjectImage[],
 ): Promise<string | null> {
   if (!images.length) return null;
-  const root = supabase.storage.from("project-images").getPublicUrl("")
-    .data.publicUrl;
-  const paths: string[] = [];
-  try {
-    for (const image of images) {
-      if (!image.url.startsWith(root)) continue;
-      const [gallery, featured] = await Promise.all([
-        supabase
-          .from("project_images")
-          .select("id")
-          .eq("url", image.url)
-          .limit(1),
-        supabase
-          .from("projects")
-          .select("id")
-          .eq("featured_image", image.url)
-          .limit(1),
-      ]);
-      if (gallery.error) throw gallery.error;
-      if (featured.error) throw featured.error;
-      if (gallery.data?.length || featured.data?.length) continue;
-      const path = decodeURIComponent(image.url.slice(root.length));
-      if (path && !path.includes("..") && !path.includes("?")) paths.push(path);
-    }
-    if (paths.length) {
-      const { error } = await supabase.storage
-        .from("project-images")
-        .remove([...new Set(paths)]);
-      if (error) throw error;
-    }
-    return null;
-  } catch (error) {
-    return `Removed gallery files were retained in storage. ${adminErrorMessage(error)}`;
-  }
+  return "Removed image files are retained in Media. Review them there; Delete checks all content references before removing an unused file.";
 }
 
 export async function loadProjectRelationships(
@@ -77,6 +45,8 @@ export async function loadProjectRelationships(
       url: image.url,
       category: projectImageCategory(image.category),
       caption: image.caption ?? undefined,
+      altText:
+        (image as unknown as { alt_text?: string }).alt_text || undefined,
       order: image.display_order,
       featured: image.featured ?? false,
     })),
@@ -107,6 +77,7 @@ export async function saveProjectRelationships(
       url: image.url,
       category: image.category,
       caption: image.caption || null,
+      ...(image.altText !== undefined && { alt_text: image.altText || null }),
       display_order: order,
       featured: image.featured,
     };
@@ -117,10 +88,11 @@ export async function saveProjectRelationships(
         existing.url !== image.url ||
         existing.category !== image.category ||
         (existing.caption || null) !== payload.caption ||
+        existing.altText !== image.altText ||
         existing.order !== order ||
         existing.featured !== image.featured
       ) {
-        const { error } = await supabase
+        const { error } = await (supabase as SupabaseClient)
           .from("project_images")
           .update(payload)
           .eq("id", existing.id)
@@ -133,7 +105,7 @@ export async function saveProjectRelationships(
           );
       }
     } else {
-      const { data, error } = await supabase
+      const { data, error } = await (supabase as SupabaseClient)
         .from("project_images")
         .insert({ ...payload, project_id: projectId })
         .select("id")

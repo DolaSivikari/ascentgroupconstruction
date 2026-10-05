@@ -1,1 +1,863 @@
-[]
+[
+  {
+    "path": "/",
+    "reason": "Connect saved footer tagline and validated HTTPS social profiles; use owner meta defaults only where a page supplies none. Public header, hero, contact constants and credential wording remain protected.",
+    "fields": [
+      "visibleText",
+      "screenshot",
+      "jsonLdHash",
+      "title"
+    ]
+  },
+  {
+    "path": "/about",
+    "reason": "Connect saved footer tagline and validated HTTPS social profiles; use owner meta defaults only where a page supplies none. Public header, hero, contact constants and credential wording remain protected. About hero, story, founder and non-credential stats read the active settings row with exact original text fallbacks.",
+    "fields": [
+      "visibleText",
+      "screenshot",
+      "jsonLdHash",
+      "title",
+      "h1"
+    ]
+  },
+  {
+    "path": "/accessibility",
+    "reason": "Connect saved footer tagline and validated HTTPS social profiles; use owner meta defaults only where a page supplies none. Public header, hero, contact constants and credential wording remain protected.",
+    "fields": [
+      "visibleText",
+      "screenshot",
+      "jsonLdHash",
+      "title"
+    ]
+  },
+  {
+    "path": "/blog",
+    "reason": "Connect saved footer tagline and validated HTTPS social profiles; use owner meta defaults only where a page supplies none. Public header, hero, contact constants and credential wording remain protected.",
+    "fields": [
+      "visibleText",
+      "screenshot",
+      "jsonLdHash",
+      "title"
+    ]
+  },
+  {
+    "path": "/blog/early-signs-your-building-envelope-needs-attention",
+    "reason": "Connect saved footer tagline and validated HTTPS social profiles; use owner meta defaults only where a page supplies none. Public header, hero, contact constants and credential wording remain protected. Sanitize rich content and display saved Challenge/Solution/Results on case studies.",
+    "fields": [
+      "visibleText",
+      "screenshot",
+      "jsonLdHash",
+      "title"
+    ]
+  },
+  {
+    "path": "/blog/eifs-vs-stucco-what-building-owners-need-to-know",
+    "reason": "Connect saved footer tagline and validated HTTPS social profiles; use owner meta defaults only where a page supplies none. Public header, hero, contact constants and credential wording remain protected. Sanitize rich content and display saved Challenge/Solution/Results on case studies.",
+    "fields": [
+      "visibleText",
+      "screenshot",
+      "jsonLdHash",
+      "title"
+    ]
+  },
+  {
+    "path": "/blog/how-general-contractors-should-evaluate-specialty-trade-partner",
+    "reason": "Connect saved footer tagline and validated HTTPS social profiles; use owner meta defaults only where a page supplies none. Public header, hero, contact constants and credential wording remain protected. Sanitize rich content and display saved Challenge/Solution/Results on case studies.",
+    "fields": [
+      "visibleText",
+      "screenshot",
+      "jsonLdHash",
+      "title"
+    ]
+  },
+  {
+    "path": "/blog/toronto-property-manager-maintenance-guide",
+    "reason": "Connect saved footer tagline and validated HTTPS social profiles; use owner meta defaults only where a page supplies none. Public header, hero, contact constants and credential wording remain protected. Sanitize rich content and display saved Challenge/Solution/Results on case studies.",
+    "fields": [
+      "visibleText",
+      "screenshot",
+      "jsonLdHash",
+      "title"
+    ]
+  },
+  {
+    "path": "/blog/what-property-managers-should-prepare-before-envelope-restoration",
+    "reason": "Connect saved footer tagline and validated HTTPS social profiles; use owner meta defaults only where a page supplies none. Public header, hero, contact constants and credential wording remain protected. Sanitize rich content and display saved Challenge/Solution/Results on case studies.",
+    "fields": [
+      "visibleText",
+      "screenshot",
+      "jsonLdHash",
+      "title"
+    ]
+  },
+  {
+    "path": "/blog/why-self-performed-work-changes-quality-cost-accountability",
+    "reason": "Connect saved footer tagline and validated HTTPS social profiles; use owner meta defaults only where a page supplies none. Public header, hero, contact constants and credential wording remain protected. Sanitize rich content and display saved Challenge/Solution/Results on case studies.",
+    "fields": [
+      "visibleText",
+      "screenshot",
+      "jsonLdHash",
+      "title"
+    ]
+  },
+  {
+    "path": "/capabilities",
+    "reason": "Connect saved footer tagline and validated HTTPS social profiles; use owner meta defaults only where a page supplies none. Public header, hero, contact constants and credential wording remain protected.",
+    "fields": [
+      "visibleText",
+      "screenshot",
+      "jsonLdHash",
+      "title"
+    ]
+  },
+  {
+    "path": "/careers",
+    "reason": "Connect saved footer tagline and validated HTTPS social profiles; use owner meta defaults only where a page supplies none. Public header, hero, contact constants and credential wording remain protected.",
+    "fields": [
+      "visibleText",
+      "screenshot",
+      "jsonLdHash",
+      "title"
+    ]
+  },
+  {
+    "path": "/case-studies",
+    "reason": "Connect saved footer tagline and validated HTTPS social profiles; use owner meta defaults only where a page supplies none. Public header, hero, contact constants and credential wording remain protected.",
+    "fields": [
+      "visibleText",
+      "screenshot",
+      "jsonLdHash",
+      "title"
+    ]
+  },
+  {
+    "path": "/commercial-clients",
+    "reason": "Connect saved footer tagline and validated HTTPS social profiles; use owner meta defaults only where a page supplies none. Public header, hero, contact constants and credential wording remain protected.",
+    "fields": [
+      "visibleText",
+      "screenshot",
+      "jsonLdHash",
+      "title"
+    ]
+  },
+  {
+    "path": "/company/certifications-insurance",
+    "reason": "Connect saved footer tagline and validated HTTPS social profiles; use owner meta defaults only where a page supplies none. Public header, hero, contact constants and credential wording remain protected.",
+    "fields": [
+      "visibleText",
+      "screenshot",
+      "jsonLdHash",
+      "title"
+    ]
+  },
+  {
+    "path": "/company/developers",
+    "reason": "Connect saved footer tagline and validated HTTPS social profiles; use owner meta defaults only where a page supplies none. Public header, hero, contact constants and credential wording remain protected.",
+    "fields": [
+      "visibleText",
+      "screenshot",
+      "jsonLdHash",
+      "title"
+    ]
+  },
+  {
+    "path": "/company/technology",
+    "reason": "Connect saved footer tagline and validated HTTPS social profiles; use owner meta defaults only where a page supplies none. Public header, hero, contact constants and credential wording remain protected.",
+    "fields": [
+      "visibleText",
+      "screenshot",
+      "jsonLdHash",
+      "title"
+    ]
+  },
+  {
+    "path": "/contact",
+    "reason": "Connect saved footer tagline and validated HTTPS social profiles; use owner meta defaults only where a page supplies none. Public header, hero, contact constants and credential wording remain protected.",
+    "fields": [
+      "visibleText",
+      "screenshot",
+      "jsonLdHash",
+      "title"
+    ]
+  },
+  {
+    "path": "/emergency-repair",
+    "reason": "Connect saved footer tagline and validated HTTPS social profiles; use owner meta defaults only where a page supplies none. Public header, hero, contact constants and credential wording remain protected.",
+    "fields": [
+      "visibleText",
+      "screenshot",
+      "jsonLdHash",
+      "title"
+    ]
+  },
+  {
+    "path": "/estimate",
+    "reason": "Connect saved footer tagline and validated HTTPS social profiles; use owner meta defaults only where a page supplies none. Public header, hero, contact constants and credential wording remain protected.",
+    "fields": [
+      "visibleText",
+      "screenshot",
+      "jsonLdHash",
+      "title"
+    ]
+  },
+  {
+    "path": "/faq",
+    "reason": "Connect saved footer tagline and validated HTTPS social profiles; use owner meta defaults only where a page supplies none. Public header, hero, contact constants and credential wording remain protected.",
+    "fields": [
+      "visibleText",
+      "screenshot",
+      "jsonLdHash",
+      "title"
+    ]
+  },
+  {
+    "path": "/for-architects",
+    "reason": "Connect saved footer tagline and validated HTTPS social profiles; use owner meta defaults only where a page supplies none. Public header, hero, contact constants and credential wording remain protected.",
+    "fields": [
+      "visibleText",
+      "screenshot",
+      "jsonLdHash",
+      "title"
+    ]
+  },
+  {
+    "path": "/for-general-contractors",
+    "reason": "Connect saved footer tagline and validated HTTPS social profiles; use owner meta defaults only where a page supplies none. Public header, hero, contact constants and credential wording remain protected.",
+    "fields": [
+      "visibleText",
+      "screenshot",
+      "jsonLdHash",
+      "title"
+    ]
+  },
+  {
+    "path": "/homeowners",
+    "reason": "Connect saved footer tagline and validated HTTPS social profiles; use owner meta defaults only where a page supplies none. Public header, hero, contact constants and credential wording remain protected.",
+    "fields": [
+      "visibleText",
+      "screenshot",
+      "jsonLdHash",
+      "title"
+    ]
+  },
+  {
+    "path": "/markets",
+    "reason": "Connect saved footer tagline and validated HTTPS social profiles; use owner meta defaults only where a page supplies none. Public header, hero, contact constants and credential wording remain protected.",
+    "fields": [
+      "visibleText",
+      "screenshot",
+      "jsonLdHash",
+      "title"
+    ]
+  },
+  {
+    "path": "/our-process",
+    "reason": "Connect saved footer tagline and validated HTTPS social profiles; use owner meta defaults only where a page supplies none. Public header, hero, contact constants and credential wording remain protected.",
+    "fields": [
+      "visibleText",
+      "screenshot",
+      "jsonLdHash",
+      "title"
+    ]
+  },
+  {
+    "path": "/prequalification",
+    "reason": "Connect saved footer tagline and validated HTTPS social profiles; use owner meta defaults only where a page supplies none. Public header, hero, contact constants and credential wording remain protected.",
+    "fields": [
+      "visibleText",
+      "screenshot",
+      "jsonLdHash",
+      "title"
+    ]
+  },
+  {
+    "path": "/privacy",
+    "reason": "Connect saved footer tagline and validated HTTPS social profiles; use owner meta defaults only where a page supplies none. Public header, hero, contact constants and credential wording remain protected.",
+    "fields": [
+      "visibleText",
+      "screenshot",
+      "jsonLdHash",
+      "title"
+    ]
+  },
+  {
+    "path": "/projects",
+    "reason": "Connect saved footer tagline and validated HTTPS social profiles; use owner meta defaults only where a page supplies none. Public header, hero, contact constants and credential wording remain protected.",
+    "fields": [
+      "visibleText",
+      "screenshot",
+      "jsonLdHash",
+      "title"
+    ]
+  },
+  {
+    "path": "/projects/65-westmount-avenue",
+    "reason": "Connect saved footer tagline and validated HTTPS social profiles; use owner meta defaults only where a page supplies none. Public header, hero, contact constants and credential wording remain protected. Render sanitized rich text once, preserve line breaks, and use recorded project_status in the sidebar.",
+    "fields": [
+      "visibleText",
+      "screenshot",
+      "jsonLdHash",
+      "title"
+    ]
+  },
+  {
+    "path": "/projects/67-edgecroft-rd-etobicoke",
+    "reason": "Connect saved footer tagline and validated HTTPS social profiles; use owner meta defaults only where a page supplies none. Public header, hero, contact constants and credential wording remain protected. Render sanitized rich text once, preserve line breaks, and use recorded project_status in the sidebar.",
+    "fields": [
+      "visibleText",
+      "screenshot",
+      "jsonLdHash",
+      "title"
+    ]
+  },
+  {
+    "path": "/projects/blackhurst-cultural-centre-",
+    "reason": "Connect saved footer tagline and validated HTTPS social profiles; use owner meta defaults only where a page supplies none. Public header, hero, contact constants and credential wording remain protected. Render sanitized rich text once, preserve line breaks, and use recorded project_status in the sidebar.",
+    "fields": [
+      "visibleText",
+      "screenshot",
+      "jsonLdHash",
+      "title"
+    ]
+  },
+  {
+    "path": "/projects/caf-luka",
+    "reason": "Connect saved footer tagline and validated HTTPS social profiles; use owner meta defaults only where a page supplies none. Public header, hero, contact constants and credential wording remain protected. Render sanitized rich text once, preserve line breaks, and use recorded project_status in the sidebar.",
+    "fields": [
+      "visibleText",
+      "screenshot",
+      "jsonLdHash",
+      "title"
+    ]
+  },
+  {
+    "path": "/projects/comfort-inn--suites",
+    "reason": "Connect saved footer tagline and validated HTTPS social profiles; use owner meta defaults only where a page supplies none. Public header, hero, contact constants and credential wording remain protected. Render sanitized rich text once, preserve line breaks, and use recorded project_status in the sidebar.",
+    "fields": [
+      "visibleText",
+      "screenshot",
+      "jsonLdHash",
+      "title"
+    ]
+  },
+  {
+    "path": "/projects/dunnville-secondary-school",
+    "reason": "Connect saved footer tagline and validated HTTPS social profiles; use owner meta defaults only where a page supplies none. Public header, hero, contact constants and credential wording remain protected. Render sanitized rich text once, preserve line breaks, and use recorded project_status in the sidebar.",
+    "fields": [
+      "visibleText",
+      "screenshot",
+      "jsonLdHash",
+      "title"
+    ]
+  },
+  {
+    "path": "/projects/innisfil-catholic-school",
+    "reason": "Connect saved footer tagline and validated HTTPS social profiles; use owner meta defaults only where a page supplies none. Public header, hero, contact constants and credential wording remain protected. Render sanitized rich text once, preserve line breaks, and use recorded project_status in the sidebar.",
+    "fields": [
+      "visibleText",
+      "screenshot",
+      "jsonLdHash",
+      "title"
+    ]
+  },
+  {
+    "path": "/projects/kw-habilitation-affordable-housing",
+    "reason": "Connect saved footer tagline and validated HTTPS social profiles; use owner meta defaults only where a page supplies none. Public header, hero, contact constants and credential wording remain protected. Render sanitized rich text once, preserve line breaks, and use recorded project_status in the sidebar.",
+    "fields": [
+      "visibleText",
+      "screenshot",
+      "jsonLdHash",
+      "title"
+    ]
+  },
+  {
+    "path": "/projects/oakley-ridge",
+    "reason": "Connect saved footer tagline and validated HTTPS social profiles; use owner meta defaults only where a page supplies none. Public header, hero, contact constants and credential wording remain protected. Render sanitized rich text once, preserve line breaks, and use recorded project_status in the sidebar.",
+    "fields": [
+      "visibleText",
+      "screenshot",
+      "jsonLdHash",
+      "title"
+    ]
+  },
+  {
+    "path": "/projects/queensland-condos",
+    "reason": "Connect saved footer tagline and validated HTTPS social profiles; use owner meta defaults only where a page supplies none. Public header, hero, contact constants and credential wording remain protected. Render sanitized rich text once, preserve line breaks, and use recorded project_status in the sidebar.",
+    "fields": [
+      "visibleText",
+      "screenshot",
+      "jsonLdHash",
+      "title"
+    ]
+  },
+  {
+    "path": "/projects/york-region-warehouse",
+    "reason": "Connect saved footer tagline and validated HTTPS social profiles; use owner meta defaults only where a page supplies none. Public header, hero, contact constants and credential wording remain protected. Render sanitized rich text once, preserve line breaks, and use recorded project_status in the sidebar.",
+    "fields": [
+      "visibleText",
+      "screenshot",
+      "jsonLdHash",
+      "title"
+    ]
+  },
+  {
+    "path": "/property-managers",
+    "reason": "Connect saved footer tagline and validated HTTPS social profiles; use owner meta defaults only where a page supplies none. Public header, hero, contact constants and credential wording remain protected.",
+    "fields": [
+      "visibleText",
+      "screenshot",
+      "jsonLdHash",
+      "title"
+    ]
+  },
+  {
+    "path": "/resources/contractor-portal",
+    "reason": "Connect saved footer tagline and validated HTTPS social profiles; use owner meta defaults only where a page supplies none. Public header, hero, contact constants and credential wording remain protected.",
+    "fields": [
+      "visibleText",
+      "screenshot",
+      "jsonLdHash",
+      "title"
+    ]
+  },
+  {
+    "path": "/resources/service-areas",
+    "reason": "Connect saved footer tagline and validated HTTPS social profiles; use owner meta defaults only where a page supplies none. Public header, hero, contact constants and credential wording remain protected.",
+    "fields": [
+      "visibleText",
+      "screenshot",
+      "jsonLdHash",
+      "title"
+    ]
+  },
+  {
+    "path": "/service-areas/ajax",
+    "reason": "Connect saved footer tagline and validated HTTPS social profiles; use owner meta defaults only where a page supplies none. Public header, hero, contact constants and credential wording remain protected.",
+    "fields": [
+      "visibleText",
+      "screenshot",
+      "jsonLdHash",
+      "title"
+    ]
+  },
+  {
+    "path": "/service-areas/aurora",
+    "reason": "Connect saved footer tagline and validated HTTPS social profiles; use owner meta defaults only where a page supplies none. Public header, hero, contact constants and credential wording remain protected.",
+    "fields": [
+      "visibleText",
+      "screenshot",
+      "jsonLdHash",
+      "title"
+    ]
+  },
+  {
+    "path": "/service-areas/brampton",
+    "reason": "Connect saved footer tagline and validated HTTPS social profiles; use owner meta defaults only where a page supplies none. Public header, hero, contact constants and credential wording remain protected.",
+    "fields": [
+      "visibleText",
+      "screenshot",
+      "jsonLdHash",
+      "title"
+    ]
+  },
+  {
+    "path": "/service-areas/burlington",
+    "reason": "Connect saved footer tagline and validated HTTPS social profiles; use owner meta defaults only where a page supplies none. Public header, hero, contact constants and credential wording remain protected.",
+    "fields": [
+      "visibleText",
+      "screenshot",
+      "jsonLdHash",
+      "title"
+    ]
+  },
+  {
+    "path": "/service-areas/hamilton",
+    "reason": "Connect saved footer tagline and validated HTTPS social profiles; use owner meta defaults only where a page supplies none. Public header, hero, contact constants and credential wording remain protected.",
+    "fields": [
+      "visibleText",
+      "screenshot",
+      "jsonLdHash",
+      "title"
+    ]
+  },
+  {
+    "path": "/service-areas/king-city",
+    "reason": "Connect saved footer tagline and validated HTTPS social profiles; use owner meta defaults only where a page supplies none. Public header, hero, contact constants and credential wording remain protected.",
+    "fields": [
+      "visibleText",
+      "screenshot",
+      "jsonLdHash",
+      "title"
+    ]
+  },
+  {
+    "path": "/service-areas/markham",
+    "reason": "Connect saved footer tagline and validated HTTPS social profiles; use owner meta defaults only where a page supplies none. Public header, hero, contact constants and credential wording remain protected.",
+    "fields": [
+      "visibleText",
+      "screenshot",
+      "jsonLdHash",
+      "title"
+    ]
+  },
+  {
+    "path": "/service-areas/milton",
+    "reason": "Connect saved footer tagline and validated HTTPS social profiles; use owner meta defaults only where a page supplies none. Public header, hero, contact constants and credential wording remain protected.",
+    "fields": [
+      "visibleText",
+      "screenshot",
+      "jsonLdHash",
+      "title"
+    ]
+  },
+  {
+    "path": "/service-areas/mississauga",
+    "reason": "Connect saved footer tagline and validated HTTPS social profiles; use owner meta defaults only where a page supplies none. Public header, hero, contact constants and credential wording remain protected.",
+    "fields": [
+      "visibleText",
+      "screenshot",
+      "jsonLdHash",
+      "title"
+    ]
+  },
+  {
+    "path": "/service-areas/newmarket",
+    "reason": "Connect saved footer tagline and validated HTTPS social profiles; use owner meta defaults only where a page supplies none. Public header, hero, contact constants and credential wording remain protected.",
+    "fields": [
+      "visibleText",
+      "screenshot",
+      "jsonLdHash",
+      "title"
+    ]
+  },
+  {
+    "path": "/service-areas/oakville",
+    "reason": "Connect saved footer tagline and validated HTTPS social profiles; use owner meta defaults only where a page supplies none. Public header, hero, contact constants and credential wording remain protected.",
+    "fields": [
+      "visibleText",
+      "screenshot",
+      "jsonLdHash",
+      "title"
+    ]
+  },
+  {
+    "path": "/service-areas/oshawa",
+    "reason": "Connect saved footer tagline and validated HTTPS social profiles; use owner meta defaults only where a page supplies none. Public header, hero, contact constants and credential wording remain protected.",
+    "fields": [
+      "visibleText",
+      "screenshot",
+      "jsonLdHash",
+      "title"
+    ]
+  },
+  {
+    "path": "/service-areas/pickering",
+    "reason": "Connect saved footer tagline and validated HTTPS social profiles; use owner meta defaults only where a page supplies none. Public header, hero, contact constants and credential wording remain protected.",
+    "fields": [
+      "visibleText",
+      "screenshot",
+      "jsonLdHash",
+      "title"
+    ]
+  },
+  {
+    "path": "/service-areas/richmond-hill",
+    "reason": "Connect saved footer tagline and validated HTTPS social profiles; use owner meta defaults only where a page supplies none. Public header, hero, contact constants and credential wording remain protected.",
+    "fields": [
+      "visibleText",
+      "screenshot",
+      "jsonLdHash",
+      "title"
+    ]
+  },
+  {
+    "path": "/service-areas/toronto",
+    "reason": "Connect saved footer tagline and validated HTTPS social profiles; use owner meta defaults only where a page supplies none. Public header, hero, contact constants and credential wording remain protected.",
+    "fields": [
+      "visibleText",
+      "screenshot",
+      "jsonLdHash",
+      "title"
+    ]
+  },
+  {
+    "path": "/service-areas/vaughan",
+    "reason": "Connect saved footer tagline and validated HTTPS social profiles; use owner meta defaults only where a page supplies none. Public header, hero, contact constants and credential wording remain protected.",
+    "fields": [
+      "visibleText",
+      "screenshot",
+      "jsonLdHash",
+      "title"
+    ]
+  },
+  {
+    "path": "/service-areas/whitby",
+    "reason": "Connect saved footer tagline and validated HTTPS social profiles; use owner meta defaults only where a page supplies none. Public header, hero, contact constants and credential wording remain protected.",
+    "fields": [
+      "visibleText",
+      "screenshot",
+      "jsonLdHash",
+      "title"
+    ]
+  },
+  {
+    "path": "/services",
+    "reason": "Connect saved footer tagline and validated HTTPS social profiles; use owner meta defaults only where a page supplies none. Public header, hero, contact constants and credential wording remain protected.",
+    "fields": [
+      "visibleText",
+      "screenshot",
+      "jsonLdHash",
+      "title"
+    ]
+  },
+  {
+    "path": "/services/building-envelope-solutions",
+    "reason": "Connect saved footer tagline and validated HTTPS social profiles; use owner meta defaults only where a page supplies none. Public header, hero, contact constants and credential wording remain protected. DB-driven overview and description render sanitized rich text; dedicated code-managed page content is unchanged.",
+    "fields": [
+      "visibleText",
+      "screenshot",
+      "jsonLdHash",
+      "title"
+    ]
+  },
+  {
+    "path": "/services/caulking-sealants-toronto",
+    "reason": "Connect saved footer tagline and validated HTTPS social profiles; use owner meta defaults only where a page supplies none. Public header, hero, contact constants and credential wording remain protected. DB-driven overview and description render sanitized rich text; dedicated code-managed page content is unchanged.",
+    "fields": [
+      "visibleText",
+      "screenshot",
+      "jsonLdHash",
+      "title"
+    ]
+  },
+  {
+    "path": "/services/cladding-systems",
+    "reason": "Connect saved footer tagline and validated HTTPS social profiles; use owner meta defaults only where a page supplies none. Public header, hero, contact constants and credential wording remain protected. DB-driven overview and description render sanitized rich text; dedicated code-managed page content is unchanged.",
+    "fields": [
+      "visibleText",
+      "screenshot",
+      "jsonLdHash",
+      "title"
+    ]
+  },
+  {
+    "path": "/services/commercial-painting-gta",
+    "reason": "Connect saved footer tagline and validated HTTPS social profiles; use owner meta defaults only where a page supplies none. Public header, hero, contact constants and credential wording remain protected. DB-driven overview and description render sanitized rich text; dedicated code-managed page content is unchanged.",
+    "fields": [
+      "visibleText",
+      "screenshot",
+      "jsonLdHash",
+      "title"
+    ]
+  },
+  {
+    "path": "/services/eifs-stucco-systems",
+    "reason": "Connect saved footer tagline and validated HTTPS social profiles; use owner meta defaults only where a page supplies none. Public header, hero, contact constants and credential wording remain protected. DB-driven overview and description render sanitized rich text; dedicated code-managed page content is unchanged.",
+    "fields": [
+      "visibleText",
+      "screenshot",
+      "jsonLdHash",
+      "title"
+    ]
+  },
+  {
+    "path": "/services/exterior-painting-toronto",
+    "reason": "Connect saved footer tagline and validated HTTPS social profiles; use owner meta defaults only where a page supplies none. Public header, hero, contact constants and credential wording remain protected. DB-driven overview and description render sanitized rich text; dedicated code-managed page content is unchanged.",
+    "fields": [
+      "visibleText",
+      "screenshot",
+      "jsonLdHash",
+      "title"
+    ]
+  },
+  {
+    "path": "/services/facade-remediation",
+    "reason": "Connect saved footer tagline and validated HTTPS social profiles; use owner meta defaults only where a page supplies none. Public header, hero, contact constants and credential wording remain protected. DB-driven overview and description render sanitized rich text; dedicated code-managed page content is unchanged.",
+    "fields": [
+      "visibleText",
+      "screenshot",
+      "jsonLdHash",
+      "title"
+    ]
+  },
+  {
+    "path": "/services/fire-retardant-coatings-ontario",
+    "reason": "Connect saved footer tagline and validated HTTPS social profiles; use owner meta defaults only where a page supplies none. Public header, hero, contact constants and credential wording remain protected. DB-driven overview and description render sanitized rich text; dedicated code-managed page content is unchanged.",
+    "fields": [
+      "visibleText",
+      "screenshot",
+      "jsonLdHash",
+      "title"
+    ]
+  },
+  {
+    "path": "/services/flooring-installation-gta",
+    "reason": "Connect saved footer tagline and validated HTTPS social profiles; use owner meta defaults only where a page supplies none. Public header, hero, contact constants and credential wording remain protected. DB-driven overview and description render sanitized rich text; dedicated code-managed page content is unchanged.",
+    "fields": [
+      "visibleText",
+      "screenshot",
+      "jsonLdHash",
+      "title"
+    ]
+  },
+  {
+    "path": "/services/handyman-patching-toronto",
+    "reason": "Connect saved footer tagline and validated HTTPS social profiles; use owner meta defaults only where a page supplies none. Public header, hero, contact constants and credential wording remain protected. DB-driven overview and description render sanitized rich text; dedicated code-managed page content is unchanged.",
+    "fields": [
+      "visibleText",
+      "screenshot",
+      "jsonLdHash",
+      "title"
+    ]
+  },
+  {
+    "path": "/services/interior-buildouts-finishing",
+    "reason": "Connect saved footer tagline and validated HTTPS social profiles; use owner meta defaults only where a page supplies none. Public header, hero, contact constants and credential wording remain protected. DB-driven overview and description render sanitized rich text; dedicated code-managed page content is unchanged.",
+    "fields": [
+      "visibleText",
+      "screenshot",
+      "jsonLdHash",
+      "title"
+    ]
+  },
+  {
+    "path": "/services/interior-finishing-renovations",
+    "reason": "Connect saved footer tagline and validated HTTPS social profiles; use owner meta defaults only where a page supplies none. Public header, hero, contact constants and credential wording remain protected. DB-driven overview and description render sanitized rich text; dedicated code-managed page content is unchanged.",
+    "fields": [
+      "visibleText",
+      "screenshot",
+      "jsonLdHash",
+      "title"
+    ]
+  },
+  {
+    "path": "/services/interior-painting-toronto",
+    "reason": "Connect saved footer tagline and validated HTTPS social profiles; use owner meta defaults only where a page supplies none. Public header, hero, contact constants and credential wording remain protected. DB-driven overview and description render sanitized rich text; dedicated code-managed page content is unchanged.",
+    "fields": [
+      "visibleText",
+      "screenshot",
+      "jsonLdHash",
+      "title"
+    ]
+  },
+  {
+    "path": "/services/masonry-restoration",
+    "reason": "Connect saved footer tagline and validated HTTPS social profiles; use owner meta defaults only where a page supplies none. Public header, hero, contact constants and credential wording remain protected. DB-driven overview and description render sanitized rich text; dedicated code-managed page content is unchanged.",
+    "fields": [
+      "visibleText",
+      "screenshot",
+      "jsonLdHash",
+      "title"
+    ]
+  },
+  {
+    "path": "/services/painting-services",
+    "reason": "Connect saved footer tagline and validated HTTPS social profiles; use owner meta defaults only where a page supplies none. Public header, hero, contact constants and credential wording remain protected. DB-driven overview and description render sanitized rich text; dedicated code-managed page content is unchanged.",
+    "fields": [
+      "visibleText",
+      "screenshot",
+      "jsonLdHash",
+      "title"
+    ]
+  },
+  {
+    "path": "/services/parking-garage-restoration",
+    "reason": "Connect saved footer tagline and validated HTTPS social profiles; use owner meta defaults only where a page supplies none. Public header, hero, contact constants and credential wording remain protected. DB-driven overview and description render sanitized rich text; dedicated code-managed page content is unchanged.",
+    "fields": [
+      "visibleText",
+      "screenshot",
+      "jsonLdHash",
+      "title"
+    ]
+  },
+  {
+    "path": "/services/residential-exterior-painting-gta",
+    "reason": "Connect saved footer tagline and validated HTTPS social profiles; use owner meta defaults only where a page supplies none. Public header, hero, contact constants and credential wording remain protected. DB-driven overview and description render sanitized rich text; dedicated code-managed page content is unchanged.",
+    "fields": [
+      "visibleText",
+      "screenshot",
+      "jsonLdHash",
+      "title"
+    ]
+  },
+  {
+    "path": "/services/sealant-programs",
+    "reason": "Connect saved footer tagline and validated HTTPS social profiles; use owner meta defaults only where a page supplies none. Public header, hero, contact constants and credential wording remain protected. DB-driven overview and description render sanitized rich text; dedicated code-managed page content is unchanged.",
+    "fields": [
+      "visibleText",
+      "screenshot",
+      "jsonLdHash",
+      "title"
+    ]
+  },
+  {
+    "path": "/services/sustainable-building",
+    "reason": "Connect saved footer tagline and validated HTTPS social profiles; use owner meta defaults only where a page supplies none. Public header, hero, contact constants and credential wording remain protected. DB-driven overview and description render sanitized rich text; dedicated code-managed page content is unchanged.",
+    "fields": [
+      "visibleText",
+      "screenshot",
+      "jsonLdHash",
+      "title"
+    ]
+  },
+  {
+    "path": "/services/tile-flooring",
+    "reason": "Connect saved footer tagline and validated HTTPS social profiles; use owner meta defaults only where a page supplies none. Public header, hero, contact constants and credential wording remain protected. DB-driven overview and description render sanitized rich text; dedicated code-managed page content is unchanged.",
+    "fields": [
+      "visibleText",
+      "screenshot",
+      "jsonLdHash",
+      "title"
+    ]
+  },
+  {
+    "path": "/services/tile-installation-toronto",
+    "reason": "Connect saved footer tagline and validated HTTPS social profiles; use owner meta defaults only where a page supplies none. Public header, hero, contact constants and credential wording remain protected. DB-driven overview and description render sanitized rich text; dedicated code-managed page content is unchanged.",
+    "fields": [
+      "visibleText",
+      "screenshot",
+      "jsonLdHash",
+      "title"
+    ]
+  },
+  {
+    "path": "/services/waterproofing-systems",
+    "reason": "Connect saved footer tagline and validated HTTPS social profiles; use owner meta defaults only where a page supplies none. Public header, hero, contact constants and credential wording remain protected. DB-driven overview and description render sanitized rich text; dedicated code-managed page content is unchanged.",
+    "fields": [
+      "visibleText",
+      "screenshot",
+      "jsonLdHash",
+      "title"
+    ]
+  },
+  {
+    "path": "/submit-rfp",
+    "reason": "Connect saved footer tagline and validated HTTPS social profiles; use owner meta defaults only where a page supplies none. Public header, hero, contact constants and credential wording remain protected.",
+    "fields": [
+      "visibleText",
+      "screenshot",
+      "jsonLdHash",
+      "title"
+    ]
+  },
+  {
+    "path": "/terms",
+    "reason": "Connect saved footer tagline and validated HTTPS social profiles; use owner meta defaults only where a page supplies none. Public header, hero, contact constants and credential wording remain protected.",
+    "fields": [
+      "visibleText",
+      "screenshot",
+      "jsonLdHash",
+      "title"
+    ]
+  },
+  {
+    "path": "/why-specialty-contractor",
+    "reason": "Connect saved footer tagline and validated HTTPS social profiles; use owner meta defaults only where a page supplies none. Public header, hero, contact constants and credential wording remain protected.",
+    "fields": [
+      "visibleText",
+      "screenshot",
+      "jsonLdHash",
+      "title"
+    ]
+  }
+]

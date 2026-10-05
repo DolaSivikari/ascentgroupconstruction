@@ -1,3 +1,5 @@
+import { usePublicSettings } from "@/hooks/usePublicSettings";
+import { resolveAboutContent, type AboutContent } from "@/lib/aboutContent";
 import { SITE_URL } from "@/constants/company";
 import { Link } from "react-router-dom";
 import Navigation from "@/components/Navigation";
@@ -43,62 +45,92 @@ import {
 } from "lucide-react";
 import { mainPageHeroes } from "@/data/hero-images";
 import { usePageAnalytics } from "@/hooks/usePageAnalytics";
-import { generateBreadcrumbSchema, generateHowToSchema, generateFAQSchema } from "@/utils/seo";
+import {
+  generateBreadcrumbSchema,
+  generateHowToSchema,
+  generateFAQSchema,
+} from "@/utils/seo";
 import { founderBio } from "@/data/enriched-company-content";
 import { aboutFaqs } from "@/data/page-faqs";
 
 const MILESTONES = [
-  { year: "2025", title: "Ascent Group Founded", description: "Established by Hebun Isik after graduating from George Brown College's Construction Engineering Technology program — backed by a crew with 15+ years of combined building envelope and interior trades experience." },
-  { year: "Q1 2025", title: "Initial Project Portfolio", description: "First projects delivered across the GTA — focused on EIFS, masonry repair, waterproofing, and interior finishes with self-performed crews." },
-  { year: "Q2 2025", title: "Sto Canada Listed Installer", description: "Listed for Modules SCL-001 through SCL-010, formalizing our EIFS and wall system credentials." },
-  { year: "2025+", title: "Building Trade Partnerships", description: "Growing relationships with general contractors, property managers, and building consultants throughout Ontario." },
+  {
+    year: "2025",
+    title: "Ascent Group Founded",
+    description:
+      "Established by Hebun Isik after graduating from George Brown College's Construction Engineering Technology program — backed by a crew with 15+ years of combined building envelope and interior trades experience.",
+  },
+  {
+    year: "Q1 2025",
+    title: "Initial Project Portfolio",
+    description:
+      "First projects delivered across the GTA — focused on EIFS, masonry repair, waterproofing, and interior finishes with self-performed crews.",
+  },
+  {
+    year: "Q2 2025",
+    title: "Sto Canada Listed Installer",
+    description:
+      "Listed for Modules SCL-001 through SCL-010, formalizing our EIFS and wall system credentials.",
+  },
+  {
+    year: "2025+",
+    title: "Building Trade Partnerships",
+    description:
+      "Growing relationships with general contractors, property managers, and building consultants throughout Ontario.",
+  },
 ];
 
 // ─── Data ────────────────────────────────────────────────────────────────────
 
 const SERVICES = [
-  { icon: Layers,      label: "Façade Remediation & Cladding" },
-  { icon: Wrench,      label: "Sealant Replacement Programs" },
-  { icon: Car,         label: "Concrete & Parking Garage Repairs" },
-  { icon: BrickWall,   label: "EIFS & Stucco Systems" },
-  { icon: BrickWall,   label: "Masonry Restoration" },
-  { icon: Droplets,    label: "Waterproofing Systems" },
+  { icon: Layers, label: "Façade Remediation & Cladding" },
+  { icon: Wrench, label: "Sealant Replacement Programs" },
+  { icon: Car, label: "Concrete & Parking Garage Repairs" },
+  { icon: BrickWall, label: "EIFS & Stucco Systems" },
+  { icon: BrickWall, label: "Masonry Restoration" },
+  { icon: Droplets, label: "Waterproofing Systems" },
   { icon: PaintRoller, label: "Protective & Architectural Coatings" },
-  { icon: Grid2x2,     label: "Flooring & Tile" },
-  { icon: Brush,       label: "Residential & Commercial Painting" },
-  { icon: Building2,   label: "Interior Buildouts" },
+  { icon: Grid2x2, label: "Flooring & Tile" },
+  { icon: Brush, label: "Residential & Commercial Painting" },
+  { icon: Building2, label: "Interior Buildouts" },
 ];
 
 const VALUES = [
   {
     icon: Target,
     title: "Professional Execution",
-    description: "We bring the same professional standards developed on major GTA projects to every job, regardless of size.",
+    description:
+      "We bring the same professional standards developed on major GTA projects to every job, regardless of size.",
   },
   {
     icon: ShieldCheck,
     title: "Clear Accountability",
-    description: "You work directly with the people on your site. No subcontractor layers, no finger-pointing.",
+    description:
+      "You work directly with the people on your site. No subcontractor layers, no finger-pointing.",
   },
   {
     icon: MessageSquare,
     title: "Honest Communication",
-    description: "Realistic schedules, detailed scopes, proactive updates. If issues arise, you hear about them immediately with solutions.",
+    description:
+      "Realistic schedules, detailed scopes, proactive updates. If issues arise, you hear about them immediately with solutions.",
   },
   {
     icon: Handshake,
     title: "Relationship First",
-    description: "Every client relationship matters. We earn trust through consistent, professional work and reliable follow-through.",
+    description:
+      "Every client relationship matters. We earn trust through consistent, professional work and reliable follow-through.",
   },
   {
     icon: HardHat,
     title: "Safety First",
-    description: "WSIB compliant, proper safety protocols, and the right equipment on every job. We never compromise on safety.",
+    description:
+      "WSIB compliant, proper safety protocols, and the right equipment on every job. We never compromise on safety.",
   },
   {
     icon: TrendingUp,
     title: "Long-Term Thinking",
-    description: "We're building for the long term — sustainable growth through client satisfaction and a strong market reputation.",
+    description:
+      "We're building for the long term — sustainable growth through client satisfaction and a strong market reputation.",
   },
 ];
 
@@ -106,25 +138,29 @@ const AUDIENCES = [
   {
     icon: Building2,
     title: "General Contractors",
-    description: "Dependable specialty trade partners for envelope, EIFS, masonry, and interior work on commercial and multi-residential projects.",
+    description:
+      "Dependable specialty trade partners for envelope, EIFS, masonry, and interior work on commercial and multi-residential projects.",
     link: "/for-general-contractors",
   },
   {
     icon: Users,
     title: "Property Managers",
-    description: "Envelope and interior trades for building maintenance, restoration, and capital projects — with minimal tenant disruption.",
+    description:
+      "Envelope and interior trades for building maintenance, restoration, and capital projects — with minimal tenant disruption.",
     link: "/markets",
   },
   {
     icon: Award,
     title: "Developers & Owners",
-    description: "Direct prime-scope pricing without subcontractor markup layers, backed by proven GTA project experience.",
+    description:
+      "Direct prime-scope pricing without subcontractor markup layers, backed by proven GTA project experience.",
     link: "/markets",
   },
   {
     icon: ClipboardList,
     title: "Building Consultants",
-    description: "Reliable contractors who follow your specifications, document everything, and respond professionally to RFIs.",
+    description:
+      "Reliable contractors who follow your specifications, document everything, and respond professionally to RFIs.",
     link: "/markets",
   },
 ];
@@ -189,6 +225,10 @@ const CREDENTIALS = [
 // ─── Component ───────────────────────────────────────────────────────────────
 
 const About = () => {
+  const { data: aboutRow } = usePublicSettings<Partial<AboutContent>>(
+    "about_page_settings",
+  );
+  const content = resolveAboutContent(aboutRow);
   usePageAnalytics("about");
 
   const breadcrumbSchema = generateBreadcrumbSchema([
@@ -210,30 +250,26 @@ const About = () => {
         description="15+ years of combined experience in building envelope, restoration & interior trades across the GTA — now operating as Ascent Group Construction."
         keywords="about Ascent Group, building envelope contractor, specialty contractor Ontario, restoration company, GTA contractor"
         canonical={`${SITE_URL}/about`}
-        structuredData={[breadcrumbSchema, processSchema, generateFAQSchema(aboutFaqs)]}
+        structuredData={[
+          breadcrumbSchema,
+          processSchema,
+          generateFAQSchema(aboutFaqs),
+        ]}
       />
       <Navigation />
 
       {/* ── 1. Hero ──────────────────────────────────────────────────────── */}
       <PageHero
         eyebrow="About Ascent Group"
-        title="15 Years of Experience. One Clear Mission."
-        description="Specialty contractor for building envelope, restoration & interior trades across the GTA — self-performed work, direct accountability, professional closeout."
+        title={content.hero_headline}
+        description={content.hero_intro}
         image={mainPageHeroes.about}
         imageAlt="Ascent Group Construction team at work on a building facade"
         height="large"
-        stats={[
-          { value: "15+", label: "Years Experience" },
-          { value: "85%",  label: "Self-Performed" },
-          { value: "$2M",  label: "CGL Coverage" },
-          { value: "100%", label: "WSIB Compliant" },
-        ]}
+        stats={content.stats}
         primaryCta={{ text: "Start a Project", href: "/submit-rfp" }}
         secondaryCta={{ text: "Request Site Assessment", href: "/contact" }}
-        breadcrumbs={[
-          { label: "Home", href: "/" },
-          { label: "About Us" },
-        ]}
+        breadcrumbs={[{ label: "Home", href: "/" }, { label: "About Us" }]}
       />
 
       <TrustRibbon />
@@ -262,22 +298,29 @@ const About = () => {
                         Our Story
                       </span>
                       <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-6 leading-tight">
-                        Proven Expertise.<br />New Name.
+                        {content.story_headline
+                          .split("\n")
+                          .map((line, index) => (
+                            <span key={index}>
+                              {index > 0 && <br />}
+                              {line}
+                            </span>
+                          ))}
                       </h2>
-                      <p className="text-lg text-muted-foreground leading-relaxed mb-4">
-                        Ascent Group Construction represents 15+ years of combined experience in building envelope and
-                        interior trades — formalized under a new company name in 2025.
-                      </p>
-                      <p className="text-base text-muted-foreground leading-relaxed mb-4">
-                        Our team brings hands-on experience from envelope restoration, EIFS installation, masonry repair,
-                        waterproofing, and interior finishing on buildings ranging from 3-storey walk-ups to 30-storey
-                        towers. We've delivered results for general contractors, property managers, building consultants,
-                        and institutional clients who demand professional execution.
-                      </p>
-                      <p className="text-base text-muted-foreground leading-relaxed">
-                        We founded Ascent Group to bring this proven capability directly to clients — without the
-                        complexity of layered subcontracting or inflated middleman margins.
-                      </p>
+                      {content.story_content.map((paragraph, index) => (
+                        <p
+                          key={index}
+                          className={
+                            index === 0
+                              ? "text-lg text-muted-foreground leading-relaxed mb-4"
+                              : index === content.story_content.length - 1
+                                ? "text-base text-muted-foreground leading-relaxed"
+                                : "text-base text-muted-foreground leading-relaxed mb-4"
+                          }
+                        >
+                          {paragraph}
+                        </p>
+                      ))}
                     </div>
 
                     <div className="space-y-4">
@@ -301,13 +344,23 @@ const About = () => {
                   />
                   <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 max-w-5xl mx-auto">
                     {MILESTONES.map((m) => (
-                      <Card key={`${m.year}-${m.title}`} variant="elevated" size="md">
+                      <Card
+                        key={`${m.year}-${m.title}`}
+                        variant="elevated"
+                        size="md"
+                      >
                         <div className="flex items-center gap-2 mb-3">
                           <Calendar className="w-4 h-4 text-primary" />
-                          <span className="text-sm font-bold text-primary">{m.year}</span>
+                          <span className="text-sm font-bold text-primary">
+                            {m.year}
+                          </span>
                         </div>
-                        <h3 className="text-base font-semibold mb-2">{m.title}</h3>
-                        <p className="text-sm text-muted-foreground leading-relaxed">{m.description}</p>
+                        <h3 className="text-base font-semibold mb-2">
+                          {m.title}
+                        </h3>
+                        <p className="text-sm text-muted-foreground leading-relaxed">
+                          {m.description}
+                        </p>
                       </Card>
                     ))}
                   </div>
@@ -317,10 +370,10 @@ const About = () => {
                 <Section size="tight">
                   <ProofStrip
                     items={[
-                      { value: "15+",  label: "Years Team Experience" },
-                      { value: "$2M",  label: "CGL Coverage" },
+                      { value: "15+", label: "Years Team Experience" },
+                      { value: "$2M", label: "CGL Coverage" },
                       { value: "100%", label: "WSIB Compliant" },
-                      { value: "85%",  label: "Self-Performed" },
+                      { value: "85%", label: "Self-Performed" },
                     ]}
                     variant="dark"
                     columns={4}
@@ -342,24 +395,31 @@ const About = () => {
                         Founder
                       </span>
                       <h2 className="text-3xl md:text-4xl font-bold text-white mb-1">
-                        {founderBio.name}
+                        {content.founder_name}
                       </h2>
                       <p className="text-[hsl(var(--accent))] font-medium mb-6">
-                        {founderBio.title}
+                        {content.founder_title}
                       </p>
-                      <p className="text-white/80 leading-relaxed mb-4 text-base">
-                        Hebun founded Ascent Group Construction in 2025 after graduating from George Brown
-                        College's Construction Engineering Technology program — with the goal of building a
-                        reliable, quality-focused specialty contractor for the Ontario market.
-                      </p>
-                      <p className="text-white/70 leading-relaxed text-base mb-8">
-                        Ascent is backed by a crew with 15+ years of combined experience in building envelope
-                        and interior trades — including EIFS, masonry restoration, waterproofing, and interior
-                        finishing across the GTA.
-                      </p>
+                      {content.founder_bio
+                        .split(/\n\s*\n/)
+                        .map((paragraph, index) => (
+                          <p
+                            key={index}
+                            className={
+                              index === 0
+                                ? "text-white/80 leading-relaxed mb-4 text-base"
+                                : "text-white/70 leading-relaxed text-base mb-8"
+                            }
+                          >
+                            {paragraph}
+                          </p>
+                        ))}
                       <div className="space-y-2">
                         {founderBio.credentials.map((cred, i) => (
-                          <div key={i} className="flex items-center gap-2 text-white/70 text-sm">
+                          <div
+                            key={i}
+                            className="flex items-center gap-2 text-white/70 text-sm"
+                          >
                             <CheckCircle className="w-4 h-4 text-[hsl(var(--accent))] flex-shrink-0" />
                             <span>{cred}</span>
                           </div>
@@ -368,13 +428,19 @@ const About = () => {
                     </div>
 
                     <div className="border-l-4 border-[hsl(var(--accent))] pl-8 py-2">
+                      {content.founder_image_url && (
+                        <img
+                          src={content.founder_image_url}
+                          alt={content.founder_name}
+                          className="w-full rounded-lg mb-6"
+                          loading="lazy"
+                        />
+                      )}
                       <p className="text-2xl md:text-3xl font-semibold text-white leading-snug italic mb-8">
-                        "We're building Ascent Group methodically — professional systems, quality execution, and
-                        honest client relationships. Our focus is on being the most reliable envelope and interior
-                        trade specialist in the GTA."
+                        {content.founder_quote}
                       </p>
                       <p className="text-white/80 text-sm uppercase tracking-wider">
-                        Hebun Isik · Founder &amp; Principal
+                        {content.founder_name} · {content.founder_title}
                       </p>
                     </div>
                   </div>
@@ -400,7 +466,9 @@ const About = () => {
                         <Icon className="w-5 h-5 text-primary" />
                       </div>
                       <h3 className="text-lg font-semibold mb-2">{title}</h3>
-                      <p className="text-muted-foreground text-sm leading-relaxed">{description}</p>
+                      <p className="text-muted-foreground text-sm leading-relaxed">
+                        {description}
+                      </p>
                     </Card>
                   ))}
                 </div>
@@ -433,7 +501,8 @@ const About = () => {
                   <div className="text-center">
                     <Button asChild variant="outline" size="lg">
                       <Link to="/services">
-                        View All Services <ArrowRight className="ml-2 w-4 h-4" />
+                        View All Services{" "}
+                        <ArrowRight className="ml-2 w-4 h-4" />
                       </Link>
                     </Button>
                   </div>
@@ -446,27 +515,32 @@ const About = () => {
                     badge="Clients"
                   />
                   <div className="grid sm:grid-cols-2 gap-6">
-                    {AUDIENCES.map(({ icon: Icon, title, description, link }, i) => (
-                      <Card key={i} variant="elevated" size="lg" hover>
-                        <div className="flex items-start gap-4">
-                          <div className="p-3 bg-primary/10 rounded-xl flex-shrink-0">
-                            <Icon className="w-6 h-6 text-primary" />
+                    {AUDIENCES.map(
+                      ({ icon: Icon, title, description, link }, i) => (
+                        <Card key={i} variant="elevated" size="lg" hover>
+                          <div className="flex items-start gap-4">
+                            <div className="p-3 bg-primary/10 rounded-xl flex-shrink-0">
+                              <Icon className="w-6 h-6 text-primary" />
+                            </div>
+                            <div>
+                              <h3 className="text-xl font-semibold mb-2">
+                                {title}
+                              </h3>
+                              <p className="text-muted-foreground text-sm leading-relaxed mb-4">
+                                {description}
+                              </p>
+                              <Link
+                                to={link}
+                                className="text-primary text-sm font-medium hover:underline inline-flex items-center gap-1"
+                              >
+                                Learn more{" "}
+                                <ArrowRight className="w-3.5 h-3.5" />
+                              </Link>
+                            </div>
                           </div>
-                          <div>
-                            <h3 className="text-xl font-semibold mb-2">{title}</h3>
-                            <p className="text-muted-foreground text-sm leading-relaxed mb-4">
-                              {description}
-                            </p>
-                            <Link
-                              to={link}
-                              className="text-primary text-sm font-medium hover:underline inline-flex items-center gap-1"
-                            >
-                              Learn more <ArrowRight className="w-3.5 h-3.5" />
-                            </Link>
-                          </div>
-                        </div>
-                      </Card>
-                    ))}
+                        </Card>
+                      ),
+                    )}
                   </div>
                 </Section>
 
@@ -487,8 +561,14 @@ const About = () => {
                             <div className="w-0.5 flex-1 bg-border mt-2 mb-2" />
                           )}
                         </div>
-                        <div className={index < PROCESS_STEPS.length - 1 ? "pb-10" : "pb-0"}>
-                          <h3 className="text-lg font-semibold mb-2 mt-2.5">{step.title}</h3>
+                        <div
+                          className={
+                            index < PROCESS_STEPS.length - 1 ? "pb-10" : "pb-0"
+                          }
+                        >
+                          <h3 className="text-lg font-semibold mb-2 mt-2.5">
+                            {step.title}
+                          </h3>
                           <p className="text-muted-foreground text-base leading-relaxed">
                             {step.description}
                           </p>
@@ -499,7 +579,8 @@ const About = () => {
                   <div className="text-center mt-10">
                     <Button asChild variant="outline" size="lg">
                       <Link to="/our-process">
-                        Full Process Details <ArrowRight className="ml-2 w-4 h-4" />
+                        Full Process Details{" "}
+                        <ArrowRight className="ml-2 w-4 h-4" />
                       </Link>
                     </Button>
                   </div>
@@ -521,8 +602,9 @@ const About = () => {
                     Where We Work
                   </h2>
                   <p className="text-lg text-muted-foreground mb-10 max-w-2xl mx-auto">
-                    Primarily serving <strong>Ontario &amp; the Greater Toronto Area</strong>. We consider broader
-                    Ontario for the right project.
+                    Primarily serving{" "}
+                    <strong>Ontario &amp; the Greater Toronto Area</strong>. We
+                    consider broader Ontario for the right project.
                   </p>
                   <div className="flex flex-wrap gap-3 justify-center">
                     {REGIONS.map((region) => (
@@ -557,7 +639,6 @@ const About = () => {
 
       {/* ── 10. Start a Project (unified CTA band) ───────────────────────── */}
       <StartProjectCTA />
-
 
       <Footer />
     </div>

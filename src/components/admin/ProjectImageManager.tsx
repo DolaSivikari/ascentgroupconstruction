@@ -1,10 +1,23 @@
-import React, { useState, useRef } from 'react';
-import { Upload, X, Image as ImageIcon, Grid, List, Eye, Trash2, Star, GripVertical } from 'lucide-react';
-import { supabase } from '@/integrations/supabase/client';
-import { validateImageFile } from '@/utils/image-optimizer';
-import { toast } from 'sonner';
-import { ConfirmDialog } from '@/components/admin/ConfirmDialog';
-import { adminErrorMessage } from '@/lib/admin/editorValues';
+import { useQuery } from "@tanstack/react-query";
+import { MediaPicker } from "./MediaPicker";
+import { Button } from "@/ui/Button";
+import React, { useState, useRef } from "react";
+import {
+  Upload,
+  X,
+  Image as ImageIcon,
+  Grid,
+  List,
+  Eye,
+  Trash2,
+  Star,
+  GripVertical,
+} from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
+import { validateImageFile } from "@/utils/image-optimizer";
+import { toast } from "sonner";
+import { ConfirmDialog } from "@/components/admin/ConfirmDialog";
+import { adminErrorMessage } from "@/lib/admin/editorValues";
 import {
   DndContext,
   closestCenter,
@@ -13,21 +26,22 @@ import {
   useSensor,
   useSensors,
   DragEndEvent,
-} from '@dnd-kit/core';
+} from "@dnd-kit/core";
 import {
   arrayMove,
   SortableContext,
   sortableKeyboardCoordinates,
   useSortable,
   rectSortingStrategy,
-} from '@dnd-kit/sortable';
-import { CSS } from '@dnd-kit/utilities';
+} from "@dnd-kit/sortable";
+import { CSS } from "@dnd-kit/utilities";
 
 interface ProjectImage {
   id: string;
   url: string;
-  category: 'before' | 'after' | 'process' | 'gallery';
+  category: "before" | "after" | "process" | "gallery";
   caption?: string;
+  altText?: string;
   order: number;
   featured: boolean;
 }
@@ -40,12 +54,19 @@ interface ProjectImageManagerProps {
 
 interface SortableImageCardProps {
   image: ProjectImage;
-  viewMode: 'grid' | 'list';
-  categories: Array<{ value: string; label: string; color: string; icon: string }>;
+  viewMode: "grid" | "list";
+  categories: Array<{
+    value: string;
+    label: string;
+    color: string;
+    icon: string;
+  }>;
   onPreview: (image: ProjectImage) => void;
   onToggleFeatured: (imageId: string) => void;
   onDelete: (imageId: string) => void;
   onUpdateCaption: (imageId: string, caption: string) => void;
+  onUpdateAlt: (imageId: string, value: string) => void;
+  altReady: boolean;
   onMoveCategory: (imageId: string, newCategory: string) => void;
 }
 
@@ -57,6 +78,8 @@ const SortableImageCard: React.FC<SortableImageCardProps> = ({
   onToggleFeatured,
   onDelete,
   onUpdateCaption,
+  onUpdateAlt,
+  altReady,
   onMoveCategory,
 }) => {
   const {
@@ -79,8 +102,8 @@ const SortableImageCard: React.FC<SortableImageCardProps> = ({
       ref={setNodeRef}
       style={style}
       className={`group relative bg-card rounded-lg overflow-hidden shadow-md hover:shadow-[var(--shadow-lg)] transition-all ${
-        viewMode === 'list' ? 'flex items-center gap-4 p-3' : ''
-      } ${isDragging ? 'z-50' : ''}`}
+        viewMode === "list" ? "flex items-center gap-4 p-3" : ""
+      } ${isDragging ? "z-50" : ""}`}
     >
       {/* Drag Handle */}
       <div
@@ -100,29 +123,34 @@ const SortableImageCard: React.FC<SortableImageCardProps> = ({
       )}
 
       {/* Category Badge */}
-      <div className={`absolute top-2 right-2 z-10 px-2 py-1 rounded-full text-xs font-medium ${
-        categories.find(c => c.value === image.category)?.color
-      } text-primary-foreground`}>
-        {categories.find(c => c.value === image.category)?.label}
+      <div
+        className={`absolute top-2 right-2 z-10 px-2 py-1 rounded-full text-xs font-medium ${
+          categories.find((c) => c.value === image.category)?.color
+        } text-primary-foreground`}
+      >
+        {categories.find((c) => c.value === image.category)?.label}
       </div>
 
       {/* Image */}
-      <div className={viewMode === 'grid' ? 'aspect-square' : 'w-24 h-24'}>
+      <div className={viewMode === "grid" ? "aspect-square" : "w-24 h-24"}>
         <img
           src={image.url}
-          alt={image.caption || 'Project image'}
+          alt={image.altText || image.caption || "Project image"}
           className="w-full h-full object-cover cursor-pointer"
           onClick={() => onPreview(image)}
         />
       </div>
 
       {/* Actions Overlay */}
-      <div className={`${
-        viewMode === 'grid' 
-          ? 'absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100' 
-          : 'flex-1'
-      } flex items-center justify-center gap-2 transition-opacity`}>
+      <div
+        className={`${
+          viewMode === "grid"
+            ? "absolute top-0 left-0 right-0 aspect-square bg-black/60 opacity-0 group-hover:opacity-100 focus-within:opacity-100"
+            : "flex-1"
+        } flex items-center justify-center gap-2 transition-opacity`}
+      >
         <button
+          type="button"
           onClick={() => onPreview(image)}
           className="p-2 bg-background rounded-full hover:bg-accent transition-colors"
           title="Preview"
@@ -130,13 +158,17 @@ const SortableImageCard: React.FC<SortableImageCardProps> = ({
           <Eye className="w-4 h-4 text-primary" />
         </button>
         <button
+          type="button"
           onClick={() => onToggleFeatured(image.id)}
           className="p-2 bg-background rounded-full hover:bg-accent transition-colors"
-          title="Toggle Featured"
+          title="Set as cover"
         >
-          <Star className={`w-4 h-4 ${image.featured ? 'fill-warning text-warning' : 'text-muted-foreground'}`} />
+          <Star
+            className={`w-4 h-4 ${image.featured ? "fill-warning text-warning" : "text-muted-foreground"}`}
+          />
         </button>
         <button
+          type="button"
           onClick={() => onDelete(image.id)}
           className="p-2 bg-background rounded-full hover:bg-destructive/10 transition-colors"
           title="Remove gallery image"
@@ -146,28 +178,40 @@ const SortableImageCard: React.FC<SortableImageCardProps> = ({
       </div>
 
       {/* Caption Input (List View) */}
-      {viewMode === 'list' && (
+      {
         <div className="flex-1">
           <input
             type="text"
-            value={image.caption || ''}
+            value={image.caption || ""}
             onChange={(e) => onUpdateCaption(image.id, e.target.value)}
+            aria-label="Image caption"
             placeholder="Add caption..."
             className="w-full px-3 py-2 border border-input rounded-lg bg-background focus:ring-2 focus:ring-ring focus:border-transparent"
+          />
+          <input
+            type="text"
+            aria-label="Image alt text"
+            value={image.altText || ""}
+            disabled={!altReady}
+            onChange={(event) => onUpdateAlt(image.id, event.target.value)}
+            placeholder="Describe this image for accessibility"
+            className="mt-2 w-full px-3 py-2 border border-input rounded-lg bg-background"
           />
           <select
             value={image.category}
             onChange={(e) => onMoveCategory(image.id, e.target.value)}
             className="mt-2 w-full px-3 py-1 text-sm border border-input rounded-lg bg-background focus:ring-2 focus:ring-ring"
           >
-            {categories.filter(c => c.value !== 'all').map(cat => (
-              <option key={cat.value} value={cat.value}>
-                {cat.icon} {cat.label}
-              </option>
-            ))}
+            {categories
+              .filter((c) => c.value !== "all")
+              .map((cat) => (
+                <option key={cat.value} value={cat.value}>
+                  {cat.icon} {cat.label}
+                </option>
+              ))}
           </select>
         </div>
-      )}
+      }
     </div>
   );
 };
@@ -177,49 +221,75 @@ export const ProjectImageManager: React.FC<ProjectImageManagerProps> = ({
   images,
   onImagesUpdate,
 }) => {
+  const { data: altReady } = useQuery({
+    queryKey: ["project-image-alt-ready"],
+    queryFn: async () => {
+      const { error } = await supabase
+        .from("project_images")
+        .select("alt_text")
+        .limit(1);
+      return !error;
+    },
+    retry: false,
+  });
   const latestImages = useRef(images);
   latestImages.current = images;
+  const [pickerOpen, setPickerOpen] = useState(false);
   const [imageToRemove, setImageToRemove] = useState<string | null>(null);
-  const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
-  const [selectedCategory, setSelectedCategory] = useState<string>('all');
+  const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
+  const [selectedCategory, setSelectedCategory] = useState<string>("all");
   const [isDragging, setIsDragging] = useState(false);
-  const [uploadProgress, setUploadProgress] = useState<{ [key: string]: number }>({});
+  const [uploadProgress, setUploadProgress] = useState<{
+    [key: string]: number;
+  }>({});
   const [previewImage, setPreviewImage] = useState<ProjectImage | null>(null);
 
   // Category configurations with colors and icons
   const categories = [
-    { value: 'all', label: 'All Images', color: 'bg-secondary', icon: '📷' },
-    { value: 'before', label: 'Before', color: 'bg-primary', icon: '🔵' },
-    { value: 'after', label: 'After', color: 'bg-[hsl(var(--steel-blue))]', icon: '🟢' },
-    { value: 'process', label: 'Process', color: 'bg-accent', icon: '🟡' },
-    { value: 'gallery', label: 'Gallery', color: 'bg-primary', icon: '🟣' },
+    { value: "all", label: "All Images", color: "bg-secondary", icon: "📷" },
+    { value: "before", label: "Before", color: "bg-primary", icon: "🔵" },
+    {
+      value: "after",
+      label: "After",
+      color: "bg-[hsl(var(--steel-blue))]",
+      icon: "🟢",
+    },
+    { value: "process", label: "Process", color: "bg-accent", icon: "🟡" },
+    { value: "gallery", label: "Gallery", color: "bg-primary", icon: "🟣" },
   ];
 
   // Filter images by category
-  const filteredImages = selectedCategory === 'all' 
-    ? images 
-    : images.filter(img => img.category === selectedCategory);
+  const filteredImages =
+    selectedCategory === "all"
+      ? images
+      : images.filter((img) => img.category === selectedCategory);
 
   // Get count for each category
   const getCategoryCount = (category: string) => {
-    if (category === 'all') return images.length;
-    return images.filter(img => img.category === category).length;
+    if (category === "all") return images.length;
+    return images.filter((img) => img.category === category).length;
   };
 
   // Handle file drop
-  const handleDrop = async (e: React.DragEvent, category: string = 'gallery') => {
+  const handleDrop = async (
+    e: React.DragEvent,
+    category: string = "gallery",
+  ) => {
     e.preventDefault();
     setIsDragging(false);
-    
-    const files = Array.from(e.dataTransfer.files).filter(file => 
-      file.type.startsWith('image/')
+
+    const files = Array.from(e.dataTransfer.files).filter((file) =>
+      file.type.startsWith("image/"),
     );
-    
+
     await uploadImages(files, category);
   };
 
   // Handle file input
-  const handleFileInput = async (e: React.ChangeEvent<HTMLInputElement>, category: string) => {
+  const handleFileInput = async (
+    e: React.ChangeEvent<HTMLInputElement>,
+    category: string,
+  ) => {
     const files = Array.from(e.target.files || []);
     await uploadImages(files, category);
   };
@@ -250,26 +320,26 @@ export const ProjectImageManager: React.FC<ProjectImageManagerProps> = ({
 
       try {
         // Update progress
-        setUploadProgress(prev => ({ ...prev, [fileId]: 0 }));
+        setUploadProgress((prev) => ({ ...prev, [fileId]: 0 }));
 
         // Create unique filename
-        const fileExt = file.name.split('.').pop();
+        const fileExt = file.name.split(".").pop();
         const fileName = `${projectId}/${category}/${Date.now()}-${i}.${fileExt}`;
 
         // Upload to Supabase Storage
         const { data, error } = await supabase.storage
-          .from('project-images')
+          .from("project-images")
           .upload(fileName, file, {
-            cacheControl: '3600',
-            upsert: false
+            cacheControl: "3600",
+            upsert: false,
           });
 
         if (error) throw error;
 
         // Get public URL
-        const { data: { publicUrl } } = supabase.storage
-          .from('project-images')
-          .getPublicUrl(fileName);
+        const {
+          data: { publicUrl },
+        } = supabase.storage.from("project-images").getPublicUrl(fileName);
 
         // Create image object
         newImages.push({
@@ -281,11 +351,12 @@ export const ProjectImageManager: React.FC<ProjectImageManagerProps> = ({
         });
 
         // Update progress to complete
-        setUploadProgress(prev => ({ ...prev, [fileId]: 100 }));
-
+        setUploadProgress((prev) => ({ ...prev, [fileId]: 100 }));
       } catch (error) {
-        console.error('Upload error:', error);
-        toast.error(`Could not upload ${file.name}: ${adminErrorMessage(error)}`);
+        console.error("Upload error:", error);
+        toast.error(
+          `Could not upload ${file.name}: ${adminErrorMessage(error)}`,
+        );
       }
     }
 
@@ -302,26 +373,26 @@ export const ProjectImageManager: React.FC<ProjectImageManagerProps> = ({
   // Toggle featured status
   const handleToggleFeatured = (imageId: string) => {
     onImagesUpdate(
-      images.map(img => ({
+      images.map((img) => ({
         ...img,
-        featured: img.id === imageId ? !img.featured : img.featured
-      }))
+        featured: img.id === imageId ? !img.featured : false,
+      })),
     );
   };
 
   // Update image caption
   const handleUpdateCaption = (imageId: string, caption: string) => {
     onImagesUpdate(
-      images.map(img => img.id === imageId ? { ...img, caption } : img)
+      images.map((img) => (img.id === imageId ? { ...img, caption } : img)),
     );
   };
 
   // Move image to different category
   const handleMoveCategory = (imageId: string, newCategory: string) => {
     onImagesUpdate(
-      images.map(img => 
-        img.id === imageId ? { ...img, category: newCategory as any } : img
-      )
+      images.map((img) =>
+        img.id === imageId ? { ...img, category: newCategory as any } : img,
+      ),
     );
   };
 
@@ -330,7 +401,7 @@ export const ProjectImageManager: React.FC<ProjectImageManagerProps> = ({
     useSensor(PointerSensor),
     useSensor(KeyboardSensor, {
       coordinateGetter: sortableKeyboardCoordinates,
-    })
+    }),
   );
 
   // Handle drag end
@@ -342,7 +413,7 @@ export const ProjectImageManager: React.FC<ProjectImageManagerProps> = ({
       const newIndex = filteredImages.findIndex((img) => img.id === over.id);
 
       const reorderedFiltered = arrayMove(filteredImages, oldIndex, newIndex);
-      
+
       // Update order values
       const updatedFiltered = reorderedFiltered.map((img, index) => ({
         ...img,
@@ -351,32 +422,83 @@ export const ProjectImageManager: React.FC<ProjectImageManagerProps> = ({
 
       // Merge with non-filtered images
       const otherImages = images.filter(
-        (img) => selectedCategory !== 'all' && img.category !== selectedCategory
+        (img) =>
+          selectedCategory !== "all" && img.category !== selectedCategory,
       );
-      
+
       onImagesUpdate([...otherImages, ...updatedFiltered]);
     }
   };
 
   return (
     <div className="space-y-6">
-      <ConfirmDialog open={imageToRemove !== null} onOpenChange={open => { if (!open) setImageToRemove(null); }}
-        title="Remove gallery image?" description="This removal will take effect when you save the project. Leaving without saving keeps the image."
-        confirmText="Stage removal" onConfirm={() => { onImagesUpdate(latestImages.current.filter(image => image.id !== imageToRemove)); setImageToRemove(null); }} />
+      <Button
+        type="button"
+        variant="outline"
+        onClick={() => setPickerOpen(true)}
+      >
+        Choose from library
+      </Button>
+      <MediaPicker
+        open={pickerOpen}
+        onOpenChange={setPickerOpen}
+        onChoose={(asset) =>
+          onImagesUpdate([
+            ...latestImages.current,
+            {
+              id: crypto.randomUUID(),
+              url: asset.url,
+              category: "gallery",
+              altText: altReady ? asset.altText : undefined,
+              order: latestImages.current.length,
+              featured: false,
+            },
+          ])
+        }
+      />
+      <ConfirmDialog
+        open={imageToRemove !== null}
+        onOpenChange={(open) => {
+          if (!open) setImageToRemove(null);
+        }}
+        title="Remove gallery image?"
+        description="This removal will take effect when you save the project. Leaving without saving keeps the image."
+        confirmText="Stage removal"
+        onConfirm={() => {
+          onImagesUpdate(
+            latestImages.current.filter((image) => image.id !== imageToRemove),
+          );
+          setImageToRemove(null);
+        }}
+      />
+      {!altReady && (
+        <p className="text-sm text-muted-foreground">
+          Separate gallery alt text needs the reviewed
+          0004_admin_media_and_audit.sql. Existing captions continue to describe
+          images.
+        </p>
+      )}
       {/* Header with Stats */}
       <div className="bg-card p-6 rounded-[var(--radius-lg)] border border-border shadow-sm">
         <div className="flex flex-wrap items-center justify-between gap-3 mb-4">
-          <h2 className="text-xl sm:text-2xl font-bold"> Project Gallery Manager</h2>
+          <h2 className="text-xl sm:text-2xl font-bold">
+            {" "}
+            Project Gallery Manager
+          </h2>
           <div className="flex gap-2">
             <button
-              aria-label="Grid view" onClick={() => setViewMode('grid')}
-              className={`p-2 rounded-lg ${viewMode === 'grid' ? 'bg-primary text-primary-foreground' : 'bg-background'}`}
+              type="button"
+              aria-label="Grid view"
+              onClick={() => setViewMode("grid")}
+              className={`p-2 rounded-lg ${viewMode === "grid" ? "bg-primary text-primary-foreground" : "bg-background"}`}
             >
               <Grid className="w-5 h-5" />
             </button>
             <button
-              aria-label="List view" onClick={() => setViewMode('list')}
-              className={`p-2 rounded-lg ${viewMode === 'list' ? 'bg-primary text-primary-foreground' : 'bg-background'}`}
+              type="button"
+              aria-label="List view"
+              onClick={() => setViewMode("list")}
+              className={`p-2 rounded-lg ${viewMode === "list" ? "bg-primary text-primary-foreground" : "bg-background"}`}
             >
               <List className="w-5 h-5" />
             </button>
@@ -385,21 +507,26 @@ export const ProjectImageManager: React.FC<ProjectImageManagerProps> = ({
 
         {/* Category Filters */}
         <div className="flex flex-wrap gap-3">
-          {categories.map(cat => (
+          {categories.map((cat) => (
             <button
+              type="button"
               key={cat.value}
               onClick={() => setSelectedCategory(cat.value)}
               className={`flex items-center gap-2 px-4 py-2 rounded-lg font-medium transition-all ${
                 selectedCategory === cat.value
                   ? `${cat.color} text-primary-foreground shadow-lg scale-105`
-                  : 'bg-background hover:bg-accent'
+                  : "bg-background hover:bg-accent"
               }`}
             >
               <span className="text-xl">{cat.icon}</span>
               <span>{cat.label}</span>
-              <span className={`px-2 py-0.5 rounded-full text-sm ${
-                selectedCategory === cat.value ? 'bg-primary-foreground/30' : 'bg-muted'
-              }`}>
+              <span
+                className={`px-2 py-0.5 rounded-full text-sm ${
+                  selectedCategory === cat.value
+                    ? "bg-primary-foreground/30"
+                    : "bg-muted"
+                }`}
+              >
                 {getCategoryCount(cat.value)}
               </span>
             </button>
@@ -409,16 +536,21 @@ export const ProjectImageManager: React.FC<ProjectImageManagerProps> = ({
 
       {/* Upload Zones */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-        {['before', 'after', 'process', 'gallery'].map(category => {
-          const catConfig = categories.find(c => c.value === category);
+        {["before", "after", "process", "gallery"].map((category) => {
+          const catConfig = categories.find((c) => c.value === category);
           return (
             <div
               key={category}
               onDrop={(e) => handleDrop(e, category)}
-              onDragOver={(e) => { e.preventDefault(); setIsDragging(true); }}
+              onDragOver={(e) => {
+                e.preventDefault();
+                setIsDragging(true);
+              }}
               onDragLeave={() => setIsDragging(false)}
               className={`relative border-2 border-dashed rounded-[var(--radius-lg)] p-6 text-center transition-all ${
-                isDragging ? 'border-primary bg-primary/10 scale-105' : 'border-border bg-card hover:border-primary/50'
+                isDragging
+                  ? "border-primary bg-primary/10 scale-105"
+                  : "border-border bg-card hover:border-primary/50"
               }`}
             >
               <input
@@ -433,12 +565,16 @@ export const ProjectImageManager: React.FC<ProjectImageManagerProps> = ({
                 htmlFor={`upload-${category}`}
                 className="cursor-pointer flex flex-col items-center gap-3"
               >
-                <div className={`w-16 h-16 ${catConfig?.color} rounded-full flex items-center justify-center text-3xl`}>
+                <div
+                  className={`w-16 h-16 ${catConfig?.color} rounded-full flex items-center justify-center text-3xl`}
+                >
                   {catConfig?.icon}
                 </div>
                 <div>
                   <p className="font-semibold">{catConfig?.label}</p>
-                  <p className="text-sm text-muted-foreground mt-1">Drop files or click</p>
+                  <p className="text-sm text-muted-foreground mt-1">
+                    Drop files or click
+                  </p>
                   <p className="text-xs text-muted-foreground mt-1">
                     {getCategoryCount(category)} images
                   </p>
@@ -455,12 +591,14 @@ export const ProjectImageManager: React.FC<ProjectImageManagerProps> = ({
           {Object.entries(uploadProgress).map(([id, progress]) => (
             <div key={id} className="flex items-center gap-3">
               <div className="flex-1 bg-background rounded-full h-2">
-                <div 
+                <div
                   className="bg-primary h-2 rounded-full transition-all"
                   style={{ width: `${progress}%` }}
                 />
               </div>
-              <span className="text-sm font-medium text-primary">{progress}%</span>
+              <span className="text-sm font-medium text-primary">
+                {progress}%
+              </span>
             </div>
           ))}
         </div>
@@ -476,16 +614,20 @@ export const ProjectImageManager: React.FC<ProjectImageManagerProps> = ({
           items={filteredImages.map((img) => img.id)}
           strategy={rectSortingStrategy}
         >
-          <div className={
-            viewMode === 'grid'
-              ? 'grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4'
-              : 'space-y-3'
-          }>
+          <div
+            className={
+              viewMode === "grid"
+                ? "grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4"
+                : "space-y-3"
+            }
+          >
             {filteredImages.length === 0 ? (
               <div className="col-span-full text-center py-12 text-muted-foreground">
                 <ImageIcon className="w-16 h-16 mx-auto mb-4 opacity-50" />
                 <p className="text-lg">No images in this category yet</p>
-                <p className="text-sm">Upload images using the drop zones above</p>
+                <p className="text-sm">
+                  Upload images using the drop zones above
+                </p>
               </div>
             ) : (
               filteredImages.map((image) => (
@@ -498,6 +640,14 @@ export const ProjectImageManager: React.FC<ProjectImageManagerProps> = ({
                   onToggleFeatured={handleToggleFeatured}
                   onDelete={handleDelete}
                   onUpdateCaption={handleUpdateCaption}
+                  onUpdateAlt={(id, altText) =>
+                    onImagesUpdate(
+                      images.map((image) =>
+                        image.id === id ? { ...image, altText } : image,
+                      ),
+                    )
+                  }
+                  altReady={!!altReady}
                   onMoveCategory={handleMoveCategory}
                 />
               ))
@@ -508,12 +658,16 @@ export const ProjectImageManager: React.FC<ProjectImageManagerProps> = ({
 
       {/* Image Preview Modal */}
       {previewImage && (
-        <div 
+        <div
           className="fixed inset-0 z-50 bg-black/90 flex items-center justify-center p-4"
           onClick={() => setPreviewImage(null)}
         >
-          <div className="max-w-6xl max-h-[90vh] relative" onClick={(e) => e.stopPropagation()}>
+          <div
+            className="max-w-6xl max-h-[90vh] relative"
+            onClick={(e) => e.stopPropagation()}
+          >
             <button
+              type="button"
               onClick={() => setPreviewImage(null)}
               className="absolute -top-12 right-0 p-2 bg-background rounded-full hover:bg-muted"
             >
@@ -521,11 +675,13 @@ export const ProjectImageManager: React.FC<ProjectImageManagerProps> = ({
             </button>
             <img
               src={previewImage.url}
-              alt={previewImage.caption || 'Preview'}
+              alt={previewImage.caption || "Preview"}
               className="max-w-full max-h-[80vh] object-contain rounded-lg"
             />
             {previewImage.caption && (
-              <p className="mt-4 text-primary-foreground text-center text-lg">{previewImage.caption}</p>
+              <p className="mt-4 text-primary-foreground text-center text-lg">
+                {previewImage.caption}
+              </p>
             )}
           </div>
         </div>
@@ -536,38 +692,46 @@ export const ProjectImageManager: React.FC<ProjectImageManagerProps> = ({
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
           <div>
             <p className="text-2xl font-bold text-primary">
-              {images.filter(img => img.category === 'before').length}
+              {images.filter((img) => img.category === "before").length}
             </p>
             <p className="text-sm text-muted-foreground">Before Images</p>
           </div>
           <div>
             <p className="text-2xl font-bold text-[hsl(var(--steel-blue))]">
-              {images.filter(img => img.category === 'after').length}
+              {images.filter((img) => img.category === "after").length}
             </p>
             <p className="text-sm text-muted-foreground">After Images</p>
           </div>
           <div>
             <p className="text-2xl font-bold text-accent">
-              {images.filter(img => img.category === 'process').length}
+              {images.filter((img) => img.category === "process").length}
             </p>
             <p className="text-sm text-muted-foreground">Process Images</p>
           </div>
           <div>
             <p className="text-2xl font-bold text-primary">
-              {images.filter(img => img.category === 'gallery').length}
+              {images.filter((img) => img.category === "gallery").length}
             </p>
             <p className="text-sm text-muted-foreground">Gallery Images</p>
           </div>
         </div>
-        
+
         {/* Pairing Check */}
-        {images.filter(img => img.category === 'before').length !== 
-         images.filter(img => img.category === 'after').length && (
+        {images.filter((img) => img.category === "before").length !==
+          images.filter((img) => img.category === "after").length && (
           <div className="mt-4 p-3 bg-warning/10 dark:bg-warning/20 border border-warning/30 dark:border-warning/30 rounded-lg text-center">
             <p className="text-sm text-warning dark:text-warning">
-              ⚠️ Before/After images don't match! 
-              <strong> {images.filter(img => img.category === 'before').length} before</strong> vs 
-              <strong> {images.filter(img => img.category === 'after').length} after</strong>
+              ⚠️ Before/After images don't match!
+              <strong>
+                {" "}
+                {images.filter((img) => img.category === "before").length}{" "}
+                before
+              </strong>{" "}
+              vs
+              <strong>
+                {" "}
+                {images.filter((img) => img.category === "after").length} after
+              </strong>
             </p>
           </div>
         )}

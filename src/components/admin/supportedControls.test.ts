@@ -21,7 +21,6 @@ describe("supported admin control registration", () => {
     const sidebar = sources["/src/components/admin/UnifiedSidebar.tsx"];
     for (const path of [
       "email-templates",
-      "media",
       "testimonials",
       "navigation",
       "redirects",

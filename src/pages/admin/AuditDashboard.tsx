@@ -2,264 +2,174 @@ import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { AdminPageLayout } from "@/components/admin/AdminPageLayout";
-import { Card } from "@/ui/Card";
-import { Badge } from "@/components/ui/badge";
+import { ActivityTabs } from "@/components/admin/ActivityTabs";
+import { Button } from "@/ui/Button";
 import { Input } from "@/ui/Input";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { Shield, Search, AlertTriangle, Activity, User } from "lucide-react";
-import { format } from "date-fns";
-import { Skeleton } from "@/components/ui/skeleton";
-
+import { Badge } from "@/components/ui/badge";
+import { adminErrorMessage } from "@/lib/admin/editorValues";
+const PAGE_SIZE = 25;
 export default function AuditDashboard() {
-  const [searchQuery, setSearchQuery] = useState("");
-  const [actionFilter, setActionFilter] = useState("all");
-
-  const { data: auditLogs, isLoading } = useQuery({
-    queryKey: ["audit-logs", actionFilter],
+  const [page, setPage] = useState(0);
+  const [action, setAction] = useState("");
+  const [search, setSearch] = useState("");
+  const query = useQuery({
+    queryKey: ["audit-logs", page, action],
     queryFn: async () => {
-      let query = supabase
+      let request = supabase
         .from("audit_log")
-        .select(`
-          id,
-          object_type,
-          object_id,
-          action,
-          user_id,
-          created_at,
-          ip_address,
-          user_agent,
-          before_state,
-          after_state
-        `)
+        .select(
+          "id,object_type,object_id,action,user_id,created_at,before_state,after_state",
+          { count: "exact" },
+        )
         .order("created_at", { ascending: false })
-        .limit(100);
-
-      if (actionFilter !== "all") {
-        query = query.eq("action", actionFilter);
-      }
-
-      const { data, error } = await query;
-      if (error) throw error;
-      return data || [];
+        .order("id");
+      if (action) request = request.eq("action", action);
+      const result = await request.range(
+        page * PAGE_SIZE,
+        (page + 1) * PAGE_SIZE - 1,
+      );
+      if (result.error) throw result.error;
+      if (result.count == null)
+        throw new Error("Could not verify the audit count.");
+      const ids = [
+        ...new Set(
+          (result.data || [])
+            .map((row) => row.user_id)
+            .filter((id): id is string => !!id),
+        ),
+      ];
+      const actors = ids.length
+        ? await supabase.from("profiles").select("id,full_name").in("id", ids)
+        : { data: [], error: null };
+      if (actors.error) throw actors.error;
+      const names = new Map<string, string | null>(
+        (actors.data || []).map(
+          (actor) => [actor.id, actor.full_name] as const,
+        ),
+      );
+      return {
+        rows: (result.data || []).map((row) => ({
+          ...row,
+          actor: row.user_id
+            ? names.get(row.user_id) || "Unknown staff member"
+            : "System",
+        })),
+        count: result.count,
+      };
     },
+    retry: false,
   });
-
-  const { data: failedAttempts } = useQuery({
-    queryKey: ["failed-attempts"],
-    queryFn: async () => {
-      const { data, error } = await supabase
-        .from("auth_failed_attempts")
-        .select("*")
-        .order("attempt_time", { ascending: false })
-        .limit(50);
-      if (error) throw error;
-      return data || [];
-    },
-  });
-
-  const filteredLogs = auditLogs?.filter(log => {
-    if (!searchQuery) return true;
-    const searchLower = searchQuery.toLowerCase();
-    return (
-      log.object_type.toLowerCase().includes(searchLower) ||
-      log.action.toLowerCase().includes(searchLower) ||
-      log.ip_address?.toLowerCase().includes(searchLower)
-    );
-  });
-
-  const getActionColor = (action: string) => {
-    switch (action) {
-      case "INSERT": return "bg-[hsl(var(--steel-blue))]";
-      case "UPDATE": return "bg-primary";
-      case "DELETE": return "bg-accent";
-      default: return "bg-secondary";
-    }
-  };
-
+  const rows =
+    query.data?.rows.filter((row) =>
+      `${row.object_type} ${row.object_id} ${row.action} ${row.actor}`
+        .toLowerCase()
+        .includes(search.toLowerCase()),
+    ) || [];
   return (
     <AdminPageLayout
-      title="🛡️ Audit Dashboard"
-      description="Security events, access logs, and system activity monitoring"
+      title="Activity"
+      description="Recorded changes with the staff member responsible"
     >
-      <div className="space-y-6">
-        {/* Stats Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-          <Card className="p-6">
-            <div className="flex items-center gap-3">
-              <div className="p-3 bg-accent/10 rounded-lg">
-                <Activity className="h-5 w-5 text-accent" />
-              </div>
-              <div>
-                <p className="text-sm text-muted-foreground">Total Events</p>
-                <p className="text-2xl font-bold">{auditLogs?.length || 0}</p>
-              </div>
+      <ActivityTabs />
+      <div className="flex flex-wrap gap-3">
+        <Input
+          className="max-w-sm"
+          aria-label="Search loaded activity"
+          placeholder="Search this page by actor or content"
+          value={search}
+          onChange={(event) => setSearch(event.target.value)}
+        />
+        <select
+          aria-label="Filter action"
+          className="border rounded-md bg-background px-3 py-2"
+          value={action}
+          onChange={(event) => {
+            setAction(event.target.value);
+            setPage(0);
+          }}
+        >
+          <option value="">All actions</option>
+          {["INSERT", "UPDATE", "DELETE"].map((value) => (
+            <option key={value}>{value}</option>
+          ))}
+        </select>
+        <Button variant="outline" onClick={() => void query.refetch()}>
+          Refresh
+        </Button>
+      </div>
+      <p className="text-sm text-muted-foreground">
+        Services, blog, settings and hero change recording requires the reviewed
+        audit-trigger SQL. IP and browser columns are omitted because these
+        content events do not record them.
+      </p>
+      {query.isLoading ? (
+        <p role="status">Loading activity…</p>
+      ) : query.error ? (
+        <p role="alert" className="text-destructive">
+          Activity unavailable: {adminErrorMessage(query.error)}
+        </p>
+      ) : !rows.length ? (
+        <p>No recorded events match this page and filter.</p>
+      ) : (
+        rows.map((row) => (
+          <article key={row.id} className="rounded-lg border p-4 space-y-2">
+            <div className="flex flex-wrap gap-3 items-center">
+              <Badge variant="secondary">{row.action}</Badge>
+              <strong>{row.actor}</strong>
+              <span className="text-sm text-muted-foreground">
+                {row.created_at
+                  ? new Date(row.created_at).toLocaleString()
+                  : "Date not recorded"}
+              </span>
             </div>
-          </Card>
-
-          <Card className="p-6">
-            <div className="flex items-center gap-3">
-              <div className="p-3 bg-danger/10 dark:bg-danger/20 rounded-lg">
-                <AlertTriangle className="h-5 w-5 text-danger" />
+            <p className="text-sm break-all">
+              {row.object_type} · {row.object_id || "No record ID"}
+            </p>
+            <details>
+              <summary className="cursor-pointer text-sm">
+                Recorded changes
+              </summary>
+              <div className="grid md:grid-cols-2 gap-3 mt-3">
+                <div>
+                  <h3 className="text-sm font-medium">Before</h3>
+                  <pre className="overflow-auto max-h-72 rounded border p-3 text-xs">
+                    {JSON.stringify(row.before_state, null, 2)}
+                  </pre>
+                </div>
+                <div>
+                  <h3 className="text-sm font-medium">After</h3>
+                  <pre className="overflow-auto max-h-72 rounded border p-3 text-xs">
+                    {JSON.stringify(row.after_state, null, 2)}
+                  </pre>
+                </div>
               </div>
-              <div>
-                <p className="text-sm text-muted-foreground">Failed Logins</p>
-                <p className="text-2xl font-bold">{failedAttempts?.length || 0}</p>
-              </div>
-            </div>
-          </Card>
-
-          <Card className="p-6">
-            <div className="flex items-center gap-3">
-              <div className="p-3 bg-success/10 dark:bg-success/20 rounded-lg">
-                <User className="h-5 w-5 text-success" />
-              </div>
-              <div>
-                <p className="text-sm text-muted-foreground">Unique Users</p>
-                <p className="text-2xl font-bold">
-                  {new Set(auditLogs?.map(l => l.user_id)).size}
-                </p>
-              </div>
-            </div>
-          </Card>
-
-          <Card className="p-6">
-            <div className="flex items-center gap-3">
-              <div className="p-3 bg-primary/10 rounded-lg">
-                <Shield className="h-5 w-5 text-primary" />
-              </div>
-              <div>
-                <p className="text-sm text-muted-foreground">Today's Activity</p>
-                <p className="text-2xl font-bold">
-                  {auditLogs?.filter(l => 
-                    new Date(l.created_at).toDateString() === new Date().toDateString()
-                  ).length || 0}
-                </p>
-              </div>
-            </div>
-          </Card>
-        </div>
-
-        {/* Filters */}
-        <Card className="p-4">
-          <div className="flex flex-col md:flex-row gap-4">
-            <div className="flex-1 relative">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-              <Input
-                placeholder="Search by object type, action, or IP address..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="pl-10"
-              />
-            </div>
-            <Select value={actionFilter} onValueChange={setActionFilter}>
-              <SelectTrigger className="w-full md:w-[200px]">
-                <SelectValue placeholder="Filter by action" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="all">All Actions</SelectItem>
-                <SelectItem value="INSERT">Insert</SelectItem>
-                <SelectItem value="UPDATE">Update</SelectItem>
-                <SelectItem value="DELETE">Delete</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
-        </Card>
-
-        {/* Audit Log Table */}
-        <Card>
-          <div className="p-6 border-b border-border">
-            <h3 className="text-lg font-semibold">Activity Log</h3>
-            <p className="text-sm text-muted-foreground">Recent system events and user actions</p>
-          </div>
-          <div className="overflow-x-auto">
-            {isLoading ? (
-              <div className="p-6 space-y-4">
-                {Array.from({ length: 5 }).map((_, i) => (
-                  <Skeleton key={i} className="h-16 w-full" />
-                ))}
-              </div>
-            ) : filteredLogs && filteredLogs.length > 0 ? (
-              <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead>Timestamp</TableHead>
-                    <TableHead>Action</TableHead>
-                    <TableHead>Object Type</TableHead>
-                    <TableHead>Object ID</TableHead>
-                    <TableHead>IP Address</TableHead>
-                    <TableHead>User Agent</TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {filteredLogs.map((log) => (
-                    <TableRow key={log.id}>
-                      <TableCell className="text-sm">
-                        {format(new Date(log.created_at), "MMM dd, yyyy HH:mm:ss")}
-                      </TableCell>
-                      <TableCell>
-                        <Badge className={getActionColor(log.action)}>
-                          {log.action}
-                        </Badge>
-                      </TableCell>
-                      <TableCell className="font-mono text-xs">{log.object_type}</TableCell>
-                      <TableCell className="font-mono text-xs truncate max-w-[150px]">
-                        {log.object_id}
-                      </TableCell>
-                      <TableCell className="text-sm">{log.ip_address || "N/A"}</TableCell>
-                      <TableCell className="text-xs text-muted-foreground truncate max-w-[200px]">
-                        {log.user_agent || "N/A"}
-                      </TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            ) : (
-              <div className="p-12 text-center text-muted-foreground">
-                No audit logs found
-              </div>
-            )}
-          </div>
-        </Card>
-
-        {/* Failed Login Attempts */}
-        {failedAttempts && failedAttempts.length > 0 && (
-          <Card>
-            <div className="p-6 border-b border-border">
-              <div className="flex items-center gap-2">
-                <AlertTriangle className="h-5 w-5 text-danger" />
-                <h3 className="text-lg font-semibold">Failed Login Attempts</h3>
-              </div>
-              <p className="text-sm text-muted-foreground">Recent authentication failures</p>
-            </div>
-            <div className="overflow-x-auto">
-              <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead>Timestamp</TableHead>
-                    <TableHead>User Identifier</TableHead>
-                    <TableHead>IP Address</TableHead>
-                    <TableHead>User Agent</TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {failedAttempts.slice(0, 20).map((attempt) => (
-                    <TableRow key={attempt.id}>
-                      <TableCell className="text-sm">
-                        {format(new Date(attempt.attempt_time), "MMM dd, yyyy HH:mm:ss")}
-                      </TableCell>
-                      <TableCell className="font-mono text-sm">{attempt.user_identifier}</TableCell>
-                      <TableCell className="text-sm">{attempt.ip_address || "N/A"}</TableCell>
-                      <TableCell className="text-xs text-muted-foreground truncate max-w-[250px]">
-                        {attempt.user_agent || "N/A"}
-                      </TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </div>
-          </Card>
-        )}
+            </details>
+          </article>
+        ))
+      )}
+      <div className="flex flex-wrap gap-3 items-center">
+        <Button
+          variant="outline"
+          disabled={page === 0 || query.isFetching}
+          onClick={() => setPage(page - 1)}
+        >
+          Previous
+        </Button>
+        <span>
+          Page {page + 1}
+          {query.data ? ` · ${query.data.count} events` : ""}
+        </span>
+        <Button
+          variant="outline"
+          disabled={
+            !query.data ||
+            (page + 1) * PAGE_SIZE >= query.data.count ||
+            query.isFetching
+          }
+          onClick={() => setPage(page + 1)}
+        >
+          Next
+        </Button>
       </div>
     </AdminPageLayout>
   );

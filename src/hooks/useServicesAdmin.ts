@@ -5,14 +5,19 @@ import { toast } from "sonner";
 export const useServicesAdmin = () => {
   const queryClient = useQueryClient();
 
-  const { data: services = [], isLoading } = useQuery({
+  const {
+    data: services = [],
+    isLoading,
+    error,
+    refetch,
+  } = useQuery({
     queryKey: ["services-admin"],
     queryFn: async () => {
       const { data, error } = await supabase
         .from("services")
         .select("*")
         .order("name");
-      
+
       if (error) throw error;
       return data;
     },
@@ -25,7 +30,7 @@ export const useServicesAdmin = () => {
         .insert([service])
         .select()
         .single();
-      
+
       if (error) throw error;
       return data;
     },
@@ -46,7 +51,7 @@ export const useServicesAdmin = () => {
         .eq("id", id)
         .select()
         .single();
-      
+
       if (error) throw error;
       return data;
     },
@@ -61,11 +66,8 @@ export const useServicesAdmin = () => {
 
   const deleteService = useMutation({
     mutationFn: async (id: string) => {
-      const { error } = await supabase
-        .from("services")
-        .delete()
-        .eq("id", id);
-      
+      const { error } = await supabase.from("services").delete().eq("id", id);
+
       if (error) throw error;
     },
     onSuccess: () => {
@@ -80,6 +82,8 @@ export const useServicesAdmin = () => {
   return {
     services,
     isLoading,
+    error,
+    refetch,
     createService,
     updateService,
     deleteService,

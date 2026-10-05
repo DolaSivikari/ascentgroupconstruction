@@ -2,11 +2,16 @@ import { normalizeSlug } from "@/lib/admin/editorValues";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/ui/Input";
 import { Textarea } from "@/components/ui/textarea";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { Button } from "@/ui/Button";
 import { RefreshCw } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { RichTextEditor } from "@/components/admin/RichTextEditor";
 
 interface BasicInfoTabProps {
   formData: any;
@@ -18,7 +23,11 @@ interface BasicInfoTabProps {
   onFormChange: (updates: any) => void;
 }
 
-export const BasicInfoTab = ({ formData, slugStatus, onFormChange }: BasicInfoTabProps) => {
+export const BasicInfoTab = ({
+  formData,
+  slugStatus,
+  onFormChange,
+}: BasicInfoTabProps) => {
   return (
     <div className="space-y-6">
       {/* Title & Slug */}
@@ -63,15 +72,24 @@ export const BasicInfoTab = ({ formData, slugStatus, onFormChange }: BasicInfoTa
           />
           <div className="flex items-center justify-between text-sm">
             <p className="text-muted-foreground">
-              URL: /projects/<span className="font-semibold text-foreground">{formData.slug || "..."}</span>
+              URL: /projects/
+              <span className="font-semibold text-foreground">
+                {formData.slug || "..."}
+              </span>
             </p>
             {formData.slug && (
-              <p className={cn(
-                "text-xs font-medium",
-                slugStatus.isChecking && "text-muted-foreground",
-                slugStatus.isAvailable && !slugStatus.isChecking && "text-success",
-                !slugStatus.isAvailable && !slugStatus.isChecking && "text-destructive"
-              )}>
+              <p
+                className={cn(
+                  "text-xs font-medium",
+                  slugStatus.isChecking && "text-muted-foreground",
+                  slugStatus.isAvailable &&
+                    !slugStatus.isChecking &&
+                    "text-success",
+                  !slugStatus.isAvailable &&
+                    !slugStatus.isChecking &&
+                    "text-destructive",
+                )}
+              >
                 {slugStatus.message}
               </p>
             )}
@@ -103,15 +121,6 @@ export const BasicInfoTab = ({ formData, slugStatus, onFormChange }: BasicInfoTa
       </div>
 
       {/* Description */}
-      <RichTextEditor
-        id="description"
-        label="Full Description"
-        value={formData.description || ''}
-        onChange={(value) => onFormChange({ description: value })}
-        placeholder="Detailed project description with rich formatting..."
-        minHeight="250px"
-        maxLength={10000}
-      />
 
       {/* Category, Status, Featured */}
       <div className="grid md:grid-cols-3 gap-6">
@@ -135,7 +144,7 @@ export const BasicInfoTab = ({ formData, slugStatus, onFormChange }: BasicInfoTa
             </SelectContent>
           </Select>
         </div>
-        
+
         <div className="space-y-2">
           <Label htmlFor="project_status">Project Status</Label>
           <Select
@@ -157,7 +166,9 @@ export const BasicInfoTab = ({ formData, slugStatus, onFormChange }: BasicInfoTa
           <Label htmlFor="featured">Featured Project</Label>
           <Select
             value={formData.featured ? "yes" : "no"}
-            onValueChange={(value) => onFormChange({ featured: value === "yes" })}
+            onValueChange={(value) =>
+              onFormChange({ featured: value === "yes" })
+            }
           >
             <SelectTrigger>
               <SelectValue />
