@@ -1,6 +1,19 @@
 # Technology and capabilities redesigns
 
-Implemented the two Claude Design references as React pages in the existing site. The archive's HTML previews and Markdown briefs were treated as design references. Their suggested Git, publishing and upload instructions were not executed.
+Implemented the two Claude Design references as React pages in the existing site. The archive's HTML previews and Markdown briefs were treated as design references; repository operations follow the owner's request.
+
+## PR integration with current main
+
+The implementation is rebased onto `668279c87def8067d1125431b176db7cb93088af` (PR #49), preserving its shared component updates and all 86 existing page declarations. This PR adds redesign reasons for the two target pages.
+
+[Current verification](evidence/pr-validation.json): **514 tests / 78 files passed**, selected/full TypeScript and production build passed, service-worker and route checks passed, changed source files lint clean, repository lint 270 errors / 31 warnings within the required ceiling. Desktop/mobile controls, all four partnership links, six section anchors and dark-theme checks passed again. The focused public bundle gate covers the two redesigned URLs and 33 loaded public chunks, with no forbidden modules.
+
+| Current candidate | Desktop | Mobile |
+| --- | --- | --- |
+| Technology | [1440 px](evidence/pr-candidate-_company_technology-1440.png) | [390 px](evidence/pr-candidate-_company_technology-390.png) |
+| Capabilities | [1440 px](evidence/pr-candidate-_capabilities-1440.png) | [390 px](evidence/pr-candidate-_capabilities-390.png) |
+
+The original design comparison and validation below were recorded before rebasing onto the latest main. They remain historical evidence; the full approved production replay has not been rerun. No shared component changes from PR #49 were reverted.
 
 ## What changed
 
