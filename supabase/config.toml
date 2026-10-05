@@ -1,83 +1,55 @@
 project_id = "dinliarttwuzzozyvuiu"
 
-# Phase 2: authentication is enforced inside these dedicated monitoring functions.
-[functions.ingest-site-health]
-verify_jwt = false
-
-[functions.health-ping]
-verify_jwt = false
-
-# ─── Public / unauthenticated endpoints ────────────────────────────────────
-# These functions are intentionally callable without a JWT.
-
-[functions.submit-form]
-verify_jwt = false
-
-[functions.send-admin-notification]
-verify_jwt = false
-
-[functions.check-login-attempt]
-verify_jwt = false
-
-[functions.preview-transactional-email]
-verify_jwt = false
-
-[functions.handle-email-events]
-verify_jwt = false
-
-[functions.send-rfp-emails]
-verify_jwt = false
-
-[functions.google-oauth-callback]
-verify_jwt = false
-
-[functions.generate-sitemap]
-verify_jwt = false
-
-[functions.scheduled-fetch-search-console]
-verify_jwt = false
-
-# ─── Authenticated endpoints (explicit, so a platform default change can't flip them) ──
-
-
-[functions.analyze-performance]
-verify_jwt = true
-
-[functions.fetch-search-console-data]
-verify_jwt = true
-
-[functions.generate-keywords]
-verify_jwt = true
-
-[functions.generate-seo-content]
-verify_jwt = true
-
-[functions.google-search-console-auth]
-verify_jwt = true
-
-[functions.invite-user]
-verify_jwt = true
-
-[functions.process-image]
-verify_jwt = true
-
-[functions.send-contact-notification]
-verify_jwt = true
-
-[functions.send-estimate-confirmation]
-verify_jwt = true
-
-[functions.send-package-notification]
-verify_jwt = true
-
-[functions.send-quote-confirmation]
-verify_jwt = true
-
-[functions.send-resume-notification]
-verify_jwt = true
-
-[functions.send-review-request]
-verify_jwt = true
-
-[functions.send-rfp-notification]
-verify_jwt = true
+[functions]
+  [functions.analyze-performance]
+    verify_jwt = true
+  [functions.auth-email-hook]
+    verify_jwt = false
+  [functions.check-login-attempt]
+    verify_jwt = false
+  [functions.fetch-search-console-data]
+    verify_jwt = true
+  [functions.generate-keywords]
+    verify_jwt = true
+  [functions.generate-seo-content]
+    verify_jwt = true
+  [functions.generate-sitemap]
+    verify_jwt = false
+  [functions.google-oauth-callback]
+    verify_jwt = false
+  [functions.google-search-console-auth]
+    verify_jwt = true
+  [functions.handle-email-events]
+    verify_jwt = false
+  [functions.health-ping]
+    verify_jwt = false
+  [functions.ingest-site-health]
+    verify_jwt = false
+  [functions.invite-user]
+    verify_jwt = true
+  [functions.preview-transactional-email]
+    verify_jwt = false
+  [functions.process-image]
+    verify_jwt = true
+  [functions.scheduled-fetch-search-console]
+    verify_jwt = false
+  [functions.send-admin-notification]
+    verify_jwt = false
+  [functions.send-contact-notification]
+    verify_jwt = true
+  [functions.send-estimate-confirmation]
+    verify_jwt = true
+  [functions.send-package-notification]
+    verify_jwt = true
+  [functions.send-quote-confirmation]
+    verify_jwt = true
+  [functions.send-resume-notification]
+    verify_jwt = true
+  [functions.send-review-request]
+    verify_jwt = true
+  [functions.send-rfp-emails]
+    verify_jwt = false
+  [functions.send-rfp-notification]
+    verify_jwt = true
+  [functions.submit-form]
+    verify_jwt = false
