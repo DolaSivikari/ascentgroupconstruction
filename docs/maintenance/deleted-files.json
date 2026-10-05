@@ -1,7 +1,8 @@
 {
-  "baseCommit": "5c79160bd66f6afc532360a6e411d5a3db7d64d0",
-  "removedFiles": 157,
-  "removedBytes": 669727,
+  "baseCommit": "699a6b0a22cfc0c3e14fef70ddfd001fb977ac21",
+  "initialAnalysisCommit": "5c79160bd66f6afc532360a6e411d5a3db7d64d0",
+  "removedFiles": 149,
+  "removedBytes": 650971,
   "files": [
     {
       "path": "src/components/BlogPreview.tsx",
@@ -670,12 +671,6 @@
       "reason": "Unreachable in current graph; no references in retained code/config"
     },
     {
-      "path": "src/components/shared/RelatedLinks.tsx",
-      "bytes": 2404,
-      "sha256": "f086fbdac5c0be0e6245b19cd0e551a55370472d1adcd3b381068802735bcbe8",
-      "reason": "Unreachable in current graph; no references in retained code/config"
-    },
-    {
       "path": "src/components/shared/Section.tsx",
       "bytes": 1697,
       "sha256": "4a99dd89708710fe2f1368a021b74bb37a251055db07fbc445b8b4306ae075d3",
@@ -715,12 +710,6 @@
       "path": "src/components/services/MarketSegmentedServices.tsx",
       "bytes": 4213,
       "sha256": "2c77e9a46b7bea16f47583e34a0c4ec34cf376facf6eee062416ee3a456fb528",
-      "reason": "Unreachable in current graph; no references in retained code/config"
-    },
-    {
-      "path": "src/components/services/OperationalCapabilities.tsx",
-      "bytes": 2381,
-      "sha256": "1bfc4af9fbb47e9960fb3c64aa21b17766d1575f1ec7962b83c75f68f2384b84",
       "reason": "Unreachable in current graph; no references in retained code/config"
     },
     {
@@ -802,12 +791,6 @@
       "reason": "Unreachable in current graph; no references in retained code/config"
     },
     {
-      "path": "src/components/services/ServicePillarsGrid.tsx",
-      "bytes": 2323,
-      "sha256": "7832e36421b2745ced21b346d2203ca3cb626c07e1cbc7d7dbf5e65cf81afb19",
-      "reason": "Unreachable in current graph; no references in retained code/config"
-    },
-    {
       "path": "src/components/services/ServicePromotionsSection.tsx",
       "bytes": 2929,
       "sha256": "6e3bab9dbe6cb3e1a59db3b15d28b0f463db598ab68bf127c14e37be0c003a7a",
@@ -832,12 +815,6 @@
       "reason": "Unreachable in current graph; no references in retained code/config"
     },
     {
-      "path": "src/components/services/ServicesClientSegments.tsx",
-      "bytes": 2211,
-      "sha256": "6e5f14dc8402862887d50ca20788129ad1c614b99aa28736b48101164313d30e",
-      "reason": "Unreachable in current graph; no references in retained code/config"
-    },
-    {
       "path": "src/components/services/ServicesExplorer.tsx",
       "bytes": 9913,
       "sha256": "002ef9a3550c7117c50847da6429799e373d6937e22ec29f79abfb2dea1a581e",
@@ -847,12 +824,6 @@
       "path": "src/components/services/ServicesFeaturedWork.tsx",
       "bytes": 3744,
       "sha256": "da11242afb7de9cc38a69cd4bed084ecde0c071c6abb87b8959c30bd56fa59c0",
-      "reason": "Unreachable in current graph; no references in retained code/config"
-    },
-    {
-      "path": "src/components/services/ServicesTrustBar.tsx",
-      "bytes": 905,
-      "sha256": "de49a50dea2aa1d255877266304de4e7141b23a72d02d854923115774e556ce3",
       "reason": "Unreachable in current graph; no references in retained code/config"
     },
     {
@@ -877,12 +848,6 @@
       "path": "src/components/services/challengeMapping.ts",
       "bytes": 1592,
       "sha256": "d449db6b2c9923d81eb3b7f59e21009a2d687f69336c07e802710fd52bf1229e",
-      "reason": "Unreachable in current graph; no references in retained code/config"
-    },
-    {
-      "path": "src/pages/admin/AdminFeatureNotice.tsx",
-      "bytes": 2114,
-      "sha256": "de806939baf3aa125d5092c376851b88ac45e63736001b4ad862a58166b3c3ac",
       "reason": "Unreachable in current graph; no references in retained code/config"
     },
     {
@@ -928,15 +893,53 @@
       "reason": "Unreachable in current graph; no references in retained code/config"
     },
     {
-      "path": "src/components/admin/settings/SecuritySettingsTab.tsx",
-      "bytes": 6406,
-      "sha256": "a4276a21eb29b04afb703753d8ac3564db11657af0029746864360d86ab34f67",
-      "reason": "Unreachable in current graph; no references in retained code/config"
-    },
-    {
       "path": "src/pages/admin/seo/defaults.ts",
       "bytes": 591,
       "sha256": "bf2a23acbc1b92141341dbd49c84a61618c9b6de4c0c239fc74d3d4f972abfa2",
+      "reason": "Unreachable in current graph; no references in retained code/config"
+    }
+  ],
+  "alreadyRemovedByMergedPR54": [
+    {
+      "path": "src/components/shared/RelatedLinks.tsx",
+      "bytes": 2404,
+      "sha256": "f086fbdac5c0be0e6245b19cd0e551a55370472d1adcd3b381068802735bcbe8",
+      "reason": "Unreachable in current graph; no references in retained code/config"
+    },
+    {
+      "path": "src/components/services/OperationalCapabilities.tsx",
+      "bytes": 2381,
+      "sha256": "1bfc4af9fbb47e9960fb3c64aa21b17766d1575f1ec7962b83c75f68f2384b84",
+      "reason": "Unreachable in current graph; no references in retained code/config"
+    },
+    {
+      "path": "src/components/services/ServicePillarsGrid.tsx",
+      "bytes": 2323,
+      "sha256": "7832e36421b2745ced21b346d2203ca3cb626c07e1cbc7d7dbf5e65cf81afb19",
+      "reason": "Unreachable in current graph; no references in retained code/config"
+    },
+    {
+      "path": "src/components/services/ServicesClientSegments.tsx",
+      "bytes": 2211,
+      "sha256": "6e5f14dc8402862887d50ca20788129ad1c614b99aa28736b48101164313d30e",
+      "reason": "Unreachable in current graph; no references in retained code/config"
+    },
+    {
+      "path": "src/components/services/ServicesTrustBar.tsx",
+      "bytes": 905,
+      "sha256": "de49a50dea2aa1d255877266304de4e7141b23a72d02d854923115774e556ce3",
+      "reason": "Unreachable in current graph; no references in retained code/config"
+    },
+    {
+      "path": "src/pages/admin/AdminFeatureNotice.tsx",
+      "bytes": 2114,
+      "sha256": "de806939baf3aa125d5092c376851b88ac45e63736001b4ad862a58166b3c3ac",
+      "reason": "Unreachable in current graph; no references in retained code/config"
+    },
+    {
+      "path": "src/components/admin/settings/SecuritySettingsTab.tsx",
+      "bytes": 6406,
+      "sha256": "a4276a21eb29b04afb703753d8ac3564db11657af0029746864360d86ab34f67",
       "reason": "Unreachable in current graph; no references in retained code/config"
     },
     {

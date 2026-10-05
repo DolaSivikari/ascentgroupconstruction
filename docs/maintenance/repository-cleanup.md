@@ -1,10 +1,10 @@
 # Repository cleanup
 
-2026-10-05. Base: `5c79160bd66f6afc532360a6e411d5a3db7d64d0` (merged PR #53). The owner's current request authorizes repository cleanup and a clearer GitHub landing page. The older cleanup Phase 0 candidate lists remain preserved as historical evidence.
+2026-10-05. Base: `699a6b0a22cfc0c3e14fef70ddfd001fb977ac21` (merged PR #54). Analysis began at `5c79160` after PR #53; concurrent PR #54 was integrated before final validation. The owner's current request authorizes repository cleanup and a clearer GitHub landing page. The older cleanup Phase 0 candidate lists remain preserved as historical evidence.
 
 ## Result
 
-- Removed **156 unused source modules** plus the unreferenced `0===` shell artifact: **157 files / 669,727 bytes**. The [deletion ledger](deleted-files.json) records every path, size and original SHA-256.
+- Removed **149 additional unused source modules / 650,971 bytes**. PR #54 had already removed seven overlapping source files and the `0===` artifact; those removals are not repeated in this PR. The [deletion ledger](deleted-files.json) records every path, size and original SHA-256.
 - Reorganized **55 guide/evidence files** into `docs/archive/`, `docs/design/` and `docs/navigation/`; the [move map](document-moves.json) records old and new paths. Moved Markdown links were rebased. Active owner plans, SQL references, baseline artifacts and the master-plan-linked Leads guide retain their paths.
 - Replaced the long root README with a concise GitHub landing page: website, current guides, local setup, stack, repository layout and the distinction between code merge, publishing and backend activation. The entire old README is [archived unchanged](../archive/repository-overview-before-cleanup.md).
 - Added current development/operations guides, an explicit historical-guide index and a repository map. Updated assessment/scripts entry points and maintained status links. Corrected the contribution guide's unsupported automatic-function-deployment claim.
@@ -12,7 +12,7 @@
 
 ## Removal evidence
 
-A fresh Knip scan found 188 file candidates. Every proposed removal was also checked using TypeScript module resolution over string literals in retained source, scripts and configuration. Five test files had obsolete mocks for retired components/hooks; only those mock statements were removed, preserving their assertions. No remaining code reference resolves to a removed module.
+The initial fresh Knip scan found 188 file candidates. After the seven overlapping source removals in PR #54, 181 remained; this PR removes another 149. Every proposed removal was also checked using TypeScript module resolution over string literals in retained source, scripts and configuration. Five test files had obsolete mocks for retired components/hooks; only those mock statements were removed, preserving their assertions. No remaining code reference resolves to a removed module.
 
 The post-cleanup graph retains **32 deliberately preserved candidates**: reusable UI library modules, the explicitly selected-typechecked navigation component, and Lovable's convention-loaded MCP integration. Ordinary import graphs do not establish that platform-discovered modules are unused. Package declarations and both lockfiles remain intact.
 

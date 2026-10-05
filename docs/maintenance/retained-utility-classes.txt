@@ -47,6 +47,7 @@ border-t-4
 border-t-accent
 border-y-2
 bottom-10
+dark
 dark:bg-card/40
 dark:bg-card/60
 dark:bg-success/20
@@ -78,6 +79,7 @@ from-secondary/5
 from-steel-blue
 from-white/20
 grid-cols-5
+group
 group-hover/link:translate-x-1
 group-hover:bg-construction-orange/15
 group-hover:bg-steel-blue/20
@@ -95,7 +97,7 @@ group-hover:text-primary/80
 group-hover:text-secondary
 group-hover:to-accent/20
 group-hover:to-transparent
-group-hover:translate-x-0.5
+group-hover:translate-x-1
 group/link
 h-56
 h-72
@@ -147,7 +149,6 @@ md:h-20
 md:h-6
 md:h-[500px]
 md:justify-center
-md:mb-10
 md:ml-14
 md:ml-auto
 md:mr-0
@@ -230,7 +231,6 @@ to-primary/10
 to-secondary/10
 to-steel-blue/80
 top-8
-tracking-[0.14em]
 translate-x-0
 via-accent/10
 via-accent/20
