@@ -15,7 +15,7 @@ const corsHeaders = {
 }
 
 // Configuration
-const SITE_NAME = "AscentGroupWebsiteV1 47"
+const SITE_NAME = "Ascent Group Construction"
 const SENDER_DOMAIN = "notify.www.ascentgroupconstruction.com"
 const ROOT_DOMAIN = "www.ascentgroupconstruction.com"
 const FROM_DOMAIN = "www.ascentgroupconstruction.com"
