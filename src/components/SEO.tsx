@@ -1,3 +1,4 @@
+import { usePageSettings } from "@/lib/content/pageSettings";
 import { usePublicSettings } from "@/hooks/usePublicSettings";
 import { httpsSocialLinks } from "@/lib/publicSettings";
 import { Helmet } from "react-helmet-async";
@@ -45,6 +46,7 @@ const SEO = ({
   noindex = false,
   articleMeta,
 }: SEOProps) => {
+  const pageSettings = usePageSettings();
   const { data: siteSettings } = usePublicSettings<{
     meta_title?: string;
     meta_description?: string;
@@ -62,11 +64,14 @@ const SEO = ({
     [siteSettings?.social_links, footerSettings?.social_media],
   );
   const description =
+    pageSettings.seo.description ||
     requestedDescription ||
     siteSettings?.meta_description?.trim() ||
     DEFAULT_DESCRIPTION;
-  const fullTitle = pageTitle(title || siteSettings?.meta_title?.trim());
-  const imageUrl = publicImageUrl(ogImage);
+  const fullTitle = pageTitle(
+    pageSettings.seo.title || title || siteSettings?.meta_title?.trim(),
+  );
+  const imageUrl = publicImageUrl(pageSettings.seo.image || ogImage);
 
   const cleanPath = window.location.pathname;
   const currentUrl = canonical || `${SITE_URL}${cleanPath}`;
@@ -244,7 +249,7 @@ const SEO = ({
       <meta
         name="robots"
         content={
-          noindex
+          noindex || pageSettings.seo.noindex
             ? "noindex, nofollow"
             : "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
         }

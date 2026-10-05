@@ -1,4 +1,13 @@
-import { Wrench, ShieldCheck, MapPin, Building2, Hammer, PaintBucket } from "lucide-react";
+import { usePageContent } from "@/hooks/usePageContent";
+import contentModule from "@/content/pages/services";
+import {
+  Wrench,
+  ShieldCheck,
+  MapPin,
+  Building2,
+  Hammer,
+  PaintBucket,
+} from "lucide-react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
@@ -6,50 +15,19 @@ import { PageHero } from "@/components/shared/PageHero";
 import { ServicesDataGrid } from "@/components/services/ServicesDataGrid";
 import { ServicesProcessSnapshot } from "@/components/services/ServicesProcessSnapshot";
 import { ServicesCtaSection } from "@/components/services/ServicesCtaSection";
-import { TrustRibbon, SectionHeader, FAQAccordion, DetailCard } from "@/design-system/components";
+import {
+  TrustRibbon,
+  SectionHeader,
+  FAQAccordion,
+  DetailCard,
+} from "@/design-system/components";
 import { Section } from "@/components/sections/Section";
 import { mainPageHeroes } from "@/data/hero-images";
 import { usePageAnalytics } from "@/hooks/usePageAnalytics";
 import { generateBreadcrumbSchema, generateFAQSchema } from "@/utils/seo";
 import { SITE_URL } from "@/constants/company";
-import { servicesFaqs } from "@/data/page-faqs";
+import { useSharedFaqs } from "@/hooks/useSharedContent";
 import { SERVICE_CATEGORIES as SERVICE_CATEGORY_LABELS } from "@/data/service-registry";
-
-const SERVICE_CATEGORIES = [
-  {
-    icon: Building2,
-    title: SERVICE_CATEGORY_LABELS.envelope.title,
-    description:
-      "EIFS & stucco, balcony waterproofing, and architectural cladding — the systems that keep buildings dry, efficient, and intact.",
-    bullets: [
-      "Sto Canada Listed Installer (SCL-001 → SCL-010)",
-      "Dryvit, Parex, and Sto cladding systems",
-      "Exterior waterproofing and envelope systems",
-    ],
-  },
-  {
-    icon: Hammer,
-    title: SERVICE_CATEGORY_LABELS.restoration.title,
-    description:
-      "Masonry restoration, sealant renewal, concrete repair, and parking garage rehabilitation — full lifecycle scopes for property managers and capital planners.",
-    bullets: [
-      "Concrete spall repair & rebar treatment",
-      "Parking garage coatings & line marking",
-      "Masonry repair & sealant replacement programs",
-    ],
-  },
-  {
-    icon: PaintBucket,
-    title: SERVICE_CATEGORY_LABELS.interior.title,
-    description:
-      "Painting, tile, drywall, and flooring — interior buildouts and finishing work executed by the same self-perform crews running our envelope scopes.",
-    bullets: [
-      "Commercial & residential painting",
-      "Tile, resilient flooring, and finishes",
-      "Drywall, framing, and tenant buildouts",
-    ],
-  },
-];
 
 const MATERIAL_PARTNERS = [
   "Sto Canada",
@@ -63,40 +41,60 @@ const MATERIAL_PARTNERS = [
 ];
 
 const Services = () => {
+  const servicesFaqs = useSharedFaqs("servicesFaqs");
+  const c = usePageContent(contentModule);
+  const SERVICE_CATEGORIES = [
+    {
+      icon: Building2,
+      title: SERVICE_CATEGORY_LABELS.envelope.title,
+      description: c.f022,
+      bullets: [c.f023, c.f024, c.f025],
+    },
+    {
+      icon: Hammer,
+      title: SERVICE_CATEGORY_LABELS.restoration.title,
+      description: c.f026,
+      bullets: [c.f027, c.f028, c.f029],
+    },
+    {
+      icon: PaintBucket,
+      title: SERVICE_CATEGORY_LABELS.interior.title,
+      description: c.f030,
+      bullets: [c.f031, c.f032, c.f033],
+    },
+  ];
+
   const breadcrumbSchema = generateBreadcrumbSchema([
-    { name: "Home", url: "/" },
-    { name: "Services", url: "/services" }
+    { name: c.f001, url: "/" },
+    { name: c.f002, url: "/services" },
   ]);
-  usePageAnalytics('services');
+  usePageAnalytics("services");
 
   return (
     <div className="min-h-screen flex flex-col">
-      <SEO 
-        title="Specialty Contracting Services"
-        description="Self-performed and coordinated specialty contracting — envelope, restoration, cladding, masonry, painting, and interior trades across Ontario."
+      <SEO
+        title={c.f003}
+        description={c.f004}
         keywords="specialty contractor Ontario, multi-trade self-perform contractor, building envelope contractor, EIFS stucco contractor, masonry restoration, interior buildouts, commercial painting services, tile and flooring, cladding systems, renovation contractor"
         canonical={`${SITE_URL}/services`}
         structuredData={[breadcrumbSchema, generateFAQSchema(servicesFaqs)]}
       />
       <Navigation />
-      
+
       <PageHero
-        eyebrow="Services"
-        title="Specialty contracting services for envelope, restoration, and interior trade execution"
-        description="Self-performed and coordinated scopes across commercial, multi-unit, and residential projects in Ontario."
+        eyebrow={c.f005}
+        title={c.f006}
+        description={c.f007}
         image={mainPageHeroes.services}
-        imageAlt="Specialty contracting services — building envelope and interior trades"
+        imageAlt={c.f008}
         height="medium"
-        primaryCta={{ text: "Start a Project", href: "/submit-rfp" }}
-        secondaryCta={{ text: "Request Site Assessment", href: "/contact" }}
-        breadcrumbs={[
-          { label: "Home", href: "/" },
-          { label: "Services" }
-        ]}
+        primaryCta={{ text: c.f009, href: "/submit-rfp" }}
+        secondaryCta={{ text: c.f010, href: "/contact" }}
+        breadcrumbs={[{ label: c.f011, href: "/" }, { label: c.f012 }]}
         badges={[
-          { icon: Wrench, text: "Self-Performed Work" },
-          { icon: ShieldCheck, text: "Licensed & Insured" },
-          { icon: MapPin, text: "GTA Coverage" },
+          { icon: Wrench, text: c.f013 },
+          { icon: ShieldCheck, text: c.f014 },
+          { icon: MapPin, text: c.f015 },
         ]}
       />
 
@@ -107,8 +105,8 @@ const Services = () => {
         <Section size="major">
           <SectionHeader
             badge="Service Categories"
-            title="Three Categories. One Self-Perform Crew."
-            description="Every service we offer lives in one of three categories. Each is delivered by the same accountable crew — no broker, no markup layers."
+            title={c.f016}
+            description={c.f017}
             maxWidth="lg"
           />
           <div className="grid md:grid-cols-3 gap-6">
@@ -131,8 +129,8 @@ const Services = () => {
         <Section size="major" className="bg-muted/30">
           <SectionHeader
             badge="Materials & Systems"
-            title="Manufacturer Systems We Install"
-            description="We install to manufacturer specifications using approved systems from leading envelope, coating, and restoration product lines."
+            title={c.f018}
+            description={c.f019}
             maxWidth="md"
           />
           <div className="flex flex-wrap justify-center gap-3 max-w-4xl mx-auto">
@@ -153,8 +151,8 @@ const Services = () => {
         <Section size="major" className="bg-muted/30">
           <SectionHeader
             badge="FAQ"
-            title="People Also Ask"
-            description="Common questions about our services, certifications, and how we deliver."
+            title={c.f020}
+            description={c.f021}
             maxWidth="md"
           />
           <div className="max-w-3xl mx-auto">

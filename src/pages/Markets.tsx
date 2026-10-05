@@ -1,64 +1,40 @@
+import { usePageContent } from "@/hooks/usePageContent";
+import contentModule from "@/content/pages/markets";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { PageHero } from "@/components/shared/PageHero";
 import SEO from "@/components/SEO";
 import { SITE_URL } from "@/constants/company";
-import { SectionHeader, SegmentCard, TrustRibbon, FAQAccordion, StickyPageNav } from "@/design-system/components";
+import {
+  SectionHeader,
+  SegmentCard,
+  TrustRibbon,
+  FAQAccordion,
+  StickyPageNav,
+} from "@/design-system/components";
 import { StartProjectCTA } from "@/components/shared/StartProjectCTA";
 import {
-  Building2, Briefcase, Home, HardHat, Building, Layers, Target, Users,
-  Store, Hotel, Stethoscope, GraduationCap, Factory, Hammer, Building as BuildingIcon, Boxes,
+  Building2,
+  Briefcase,
+  Home,
+  HardHat,
+  Building,
+  Layers,
+  Target,
+  Users,
+  Store,
+  Hotel,
+  Stethoscope,
+  GraduationCap,
+  Factory,
+  Hammer,
+  Building as BuildingIcon,
+  Boxes,
 } from "lucide-react";
 import { sectorHeroes } from "@/data/hero-images";
 import { Section } from "@/components/sections/Section";
-import { marketsFaqs } from "@/data/page-faqs";
+import { useSharedFaqs } from "@/hooks/useSharedContent";
 import { generateBreadcrumbSchema } from "@/utils/seo";
-
-const segments = [
-  {
-    icon: Building2,
-    title: "Property Managers",
-    description: "Building envelope maintenance, restoration programs, and capital improvement planning for multi-unit residential and commercial properties.",
-    href: "/property-managers",
-    badge: "Primary",
-  },
-  {
-    icon: HardHat,
-    title: "General Contractors",
-    description: "Reliable specialty trade partner for building envelope, interior finishing, and restoration scopes on commercial and institutional projects.",
-    href: "/for-general-contractors",
-    badge: "Trade Partner",
-  },
-  {
-    icon: Briefcase,
-    title: "Commercial Clients",
-    description: "Exterior upgrades, tenant improvements, and façade systems for office, retail, and mixed-use commercial properties across the GTA.",
-    href: "/commercial-clients",
-  },
-  {
-    icon: Home,
-    title: "Homeowners",
-    description: "Interior renovations, painting, tile and flooring, and exterior finishing for residential properties.",
-    href: "/homeowners",
-  },
-  {
-    icon: Building,
-    title: "Developers",
-    description: "New construction finishing packages, multi-unit coordination, and phased completion schedules for residential and commercial developments.",
-    href: "/company/developers",
-  },
-];
-
-const subSectors = [
-  { icon: BuildingIcon, label: "Office" },
-  { icon: Store, label: "Retail" },
-  { icon: Hotel, label: "Hospitality" },
-  { icon: Stethoscope, label: "Healthcare" },
-  { icon: GraduationCap, label: "Education" },
-  { icon: Factory, label: "Industrial" },
-  { icon: Boxes, label: "Multi-Residential" },
-  { icon: Hammer, label: "Mixed-Use" },
-];
 
 const sectorTable = [
   {
@@ -99,16 +75,63 @@ const sectorTable = [
 ];
 
 const Markets = () => {
+  const marketsFaqs = useSharedFaqs("marketsFaqs");
+  const c = usePageContent(contentModule);
+  const segments = [
+    {
+      icon: Building2,
+      title: c.f034,
+      description: c.f035,
+      href: "/property-managers",
+      badge: "Primary",
+    },
+    {
+      icon: HardHat,
+      title: c.f036,
+      description: c.f037,
+      href: "/for-general-contractors",
+      badge: "Trade Partner",
+    },
+    {
+      icon: Briefcase,
+      title: c.f038,
+      description: c.f039,
+      href: "/commercial-clients",
+    },
+    {
+      icon: Home,
+      title: c.f040,
+      description: c.f041,
+      href: "/homeowners",
+    },
+    {
+      icon: Building,
+      title: c.f042,
+      description: c.f043,
+      href: "/company/developers",
+    },
+  ];
+  const subSectors = [
+    { icon: BuildingIcon, label: c.f044 },
+    { icon: Store, label: c.f045 },
+    { icon: Hotel, label: c.f046 },
+    { icon: Stethoscope, label: c.f047 },
+    { icon: GraduationCap, label: c.f048 },
+    { icon: Factory, label: c.f049 },
+    { icon: Boxes, label: c.f050 },
+    { icon: Hammer, label: c.f051 },
+  ];
+
   const breadcrumbSchema = generateBreadcrumbSchema([
-    { name: "Home", url: "/" },
-    { name: "Markets", url: "/markets" },
+    { name: c.f001, url: "/" },
+    { name: c.f002, url: "/markets" },
   ]);
 
   // ItemList schema for the segment cards
   const itemListSchema = {
     "@context": "https://schema.org",
     "@type": "ItemList",
-    name: "Markets Served by Ascent Group Construction",
+    name: c.f003,
     itemListElement: segments.map((s, i) => ({
       "@type": "ListItem",
       position: i + 1,
@@ -121,48 +144,45 @@ const Markets = () => {
   return (
     <div className="min-h-screen bg-background">
       <SEO
-        title="Markets We Serve | Ascent Group Construction"
-        description="Ascent Group Construction serves property managers, commercial clients, homeowners, developers, and general contractors across Ontario and the GTA."
+        title={c.f004}
+        description={c.f005}
         canonical={`${SITE_URL}/markets`}
         structuredData={[breadcrumbSchema, itemListSchema]}
       />
       <Navigation />
 
       <PageHero
-        title="Markets We Serve"
-        eyebrow="Our Markets"
-        description="Specialty construction services tailored to your sector — from property managers maintaining building envelopes to general contractors needing a reliable trade partner."
+        title={c.f006}
+        eyebrow={c.f007}
+        description={c.f008}
         image={sectorHeroes["markets-overview"]}
-        imageAlt="Markets served by Ascent Group Construction"
-        breadcrumbs={[
-          { label: "Home", href: "/" },
-          { label: "Markets" },
-        ]}
+        imageAlt={c.f009}
+        breadcrumbs={[{ label: c.f010, href: "/" }, { label: c.f011 }]}
         badges={[
-          { icon: Layers, text: "Multi-Sector Experience" },
-          { icon: Target, text: "Tailored Solutions" },
-          { icon: Users, text: "Trade Partnerships" },
+          { icon: Layers, text: c.f012 },
+          { icon: Target, text: c.f013 },
+          { icon: Users, text: c.f014 },
         ]}
-        primaryCta={{ text: "Start a Project", href: "/submit-rfp" }}
-        secondaryCta={{ text: "Request Site Assessment", href: "/contact" }}
+        primaryCta={{ text: c.f015, href: "/submit-rfp" }}
+        secondaryCta={{ text: c.f016, href: "/contact" }}
       />
 
       <TrustRibbon />
 
       <StickyPageNav
         sections={[
-          { id: "who-we-work-with", label: "Who We Work With" },
-          { id: "sector-glance", label: "Sector at a Glance" },
-          { id: "sub-sectors", label: "Sub-Sectors" },
-          { id: "markets-faq", label: "FAQ" },
+          { id: "who-we-work-with", label: c.f017 },
+          { id: "sector-glance", label: c.f018 },
+          { id: "sub-sectors", label: c.f019 },
+          { id: "markets-faq", label: c.f020 },
         ]}
       />
 
       <section id="who-we-work-with" className="py-16 md:py-24 scroll-mt-24">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <SectionHeader
-            title="Who We Work With"
-            description="From property managers maintaining building envelopes to general contractors needing a reliable trade partner, we deliver focused expertise to every client segment."
+            title={c.f021}
+            description={c.f022}
             badge="Our Markets"
             maxWidth="lg"
           />
@@ -197,79 +217,89 @@ const Markets = () => {
 
       {/* Sector at a glance table */}
       <div id="sector-glance" className="scroll-mt-24">
-      <Section size="major" className="bg-muted/30">
-        <SectionHeader
-          title="Sector at a Glance"
-          description="Typical project size, decision-maker, and response cadence by client segment — so you know exactly how we engage."
-          badge="Quick Reference"
-          maxWidth="lg"
-        />
-        <div className="max-w-6xl mx-auto overflow-x-auto -mx-4 sm:mx-0">
-          <table className="min-w-full text-sm">
-            <thead>
-              <tr className="text-left bg-background border-b border-border">
-                <th className="py-3 px-4 font-semibold">Sector</th>
-                <th className="py-3 px-4 font-semibold">Typical Scope</th>
-                <th className="py-3 px-4 font-semibold">Decision-Maker</th>
-                <th className="py-3 px-4 font-semibold">Response SLA</th>
-                <th className="py-3 px-4 font-semibold">Common Services</th>
-              </tr>
-            </thead>
-            <tbody className="bg-background">
-              {sectorTable.map((row) => (
-                <tr
-                  key={row.sector}
-                  className="border-b border-border last:border-0 hover:bg-muted/50 transition-colors"
-                >
-                  <td className="py-3 px-4 font-medium text-foreground">{row.sector}</td>
-                  <td className="py-3 px-4 text-muted-foreground">{row.scope}</td>
-                  <td className="py-3 px-4 text-muted-foreground">{row.decisionMaker}</td>
-                  <td className="py-3 px-4 text-muted-foreground">{row.sla}</td>
-                  <td className="py-3 px-4 text-muted-foreground">{row.typical}</td>
+        <Section size="major" className="bg-muted/30">
+          <SectionHeader
+            title={c.f023}
+            description={c.f024}
+            badge="Quick Reference"
+            maxWidth="lg"
+          />
+          <div className="max-w-6xl mx-auto overflow-x-auto -mx-4 sm:mx-0">
+            <table className="min-w-full text-sm">
+              <thead>
+                <tr className="text-left bg-background border-b border-border">
+                  <th className="py-3 px-4 font-semibold">{c.f025}</th>
+                  <th className="py-3 px-4 font-semibold">{c.f026}</th>
+                  <th className="py-3 px-4 font-semibold">{c.f027}</th>
+                  <th className="py-3 px-4 font-semibold">{c.f028}</th>
+                  <th className="py-3 px-4 font-semibold">{c.f029}</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </Section>
+              </thead>
+              <tbody className="bg-background">
+                {sectorTable.map((row) => (
+                  <tr
+                    key={row.sector}
+                    className="border-b border-border last:border-0 hover:bg-muted/50 transition-colors"
+                  >
+                    <td className="py-3 px-4 font-medium text-foreground">
+                      {row.sector}
+                    </td>
+                    <td className="py-3 px-4 text-muted-foreground">
+                      {row.scope}
+                    </td>
+                    <td className="py-3 px-4 text-muted-foreground">
+                      {row.decisionMaker}
+                    </td>
+                    <td className="py-3 px-4 text-muted-foreground">
+                      {row.sla}
+                    </td>
+                    <td className="py-3 px-4 text-muted-foreground">
+                      {row.typical}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </Section>
       </div>
 
       {/* Sub-sectors strip */}
       <div id="sub-sectors" className="scroll-mt-24">
-      <Section size="major">
-        <SectionHeader
-          title="Sub-Sectors We Serve"
-          description="Across the five client segments above, we have direct experience in these property types."
-          badge="Building Types"
-          maxWidth="md"
-        />
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 max-w-5xl mx-auto">
-          {subSectors.map(({ icon: Icon, label }) => (
-            <div
-              key={label}
-              className="flex items-center gap-3 bg-background rounded-xl border border-border px-4 py-3 hover:border-primary/40 hover:shadow-sm transition-all"
-            >
-              <Icon className="w-5 h-5 text-primary flex-shrink-0" />
-              <span className="text-sm font-medium">{label}</span>
-            </div>
-          ))}
-        </div>
-      </Section>
+        <Section size="major">
+          <SectionHeader
+            title={c.f030}
+            description={c.f031}
+            badge="Building Types"
+            maxWidth="md"
+          />
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 max-w-5xl mx-auto">
+            {subSectors.map(({ icon: Icon, label }) => (
+              <div
+                key={label}
+                className="flex items-center gap-3 bg-background rounded-xl border border-border px-4 py-3 hover:border-primary/40 hover:shadow-sm transition-all"
+              >
+                <Icon className="w-5 h-5 text-primary flex-shrink-0" />
+                <span className="text-sm font-medium">{label}</span>
+              </div>
+            ))}
+          </div>
+        </Section>
       </div>
 
       {/* People Also Ask */}
       <div id="markets-faq" className="scroll-mt-24">
-      <Section size="major" className="bg-muted/30">
-        <SectionHeader
-          title="People Also Ask"
-          description="Quick answers to the most common questions about who we work with."
-          badge="FAQ"
-          maxWidth="md"
-        />
-        <div className="max-w-3xl mx-auto">
-          <FAQAccordion faqs={marketsFaqs} />
-        </div>
-      </Section>
+        <Section size="major" className="bg-muted/30">
+          <SectionHeader
+            title={c.f032}
+            description={c.f033}
+            badge="FAQ"
+            maxWidth="md"
+          />
+          <div className="max-w-3xl mx-auto">
+            <FAQAccordion faqs={marketsFaqs} />
+          </div>
+        </Section>
       </div>
 
       <StartProjectCTA />

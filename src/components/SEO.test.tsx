@@ -41,7 +41,9 @@ describe("head ownership", () => {
   it("handles a nullable description from a content record", async () => {
     render(
       <HelmetProvider>
-        <SEO title="Article" description={null} />
+        <MemoryRouter>
+          <SEO title="Article" description={null} />
+        </MemoryRouter>
       </HelmetProvider>,
     );
     await waitFor(() => expect(document.title).toContain("Article"));
@@ -94,9 +96,11 @@ describe("head ownership", () => {
     document.head.appendChild(fallback);
     render(
       <HelmetProvider>
-        <Helmet>
-          <meta name="robots" content="noindex, nofollow" />
-        </Helmet>
+        <MemoryRouter>
+          <Helmet>
+            <meta name="robots" content="noindex, nofollow" />
+          </Helmet>
+        </MemoryRouter>
       </HelmetProvider>,
     );
     await waitFor(() =>
@@ -110,7 +114,9 @@ describe("head ownership", () => {
   it("does not append a second company name to a branded title", async () => {
     render(
       <HelmetProvider>
-        <SEO title="Services | Ascent Group Construction" />
+        <MemoryRouter>
+          <SEO title="Services | Ascent Group Construction" />
+        </MemoryRouter>
       </HelmetProvider>,
     );
     await waitFor(() =>
@@ -123,7 +129,9 @@ describe("head ownership", () => {
     const image = "https://images.example.com/public/project.webp";
     render(
       <HelmetProvider>
-        <SEO title={title} ogImage={image} keywords="obsolete keyword" />
+        <MemoryRouter>
+          <SEO title={title} ogImage={image} keywords="obsolete keyword" />
+        </MemoryRouter>
       </HelmetProvider>,
     );
     await waitFor(() => expect(document.title).toBe(title));
@@ -143,7 +151,9 @@ describe("head ownership", () => {
   it("does not turn a service description into the company's identity", async () => {
     render(
       <HelmetProvider>
-        <SEO title="Painting" description="Specific painting scope" />
+        <MemoryRouter>
+          <SEO title="Painting" description="Specific painting scope" />
+        </MemoryRouter>
       </HelmetProvider>,
     );
     await waitFor(() => expect(document.title).toContain("Painting"));
@@ -163,7 +173,9 @@ describe("head ownership", () => {
   it("keeps the existing city list aligned without self-serving business review stars", async () => {
     render(
       <HelmetProvider>
-        <SEO title="Home" includeRating />
+        <MemoryRouter>
+          <SEO title="Home" includeRating />
+        </MemoryRouter>
       </HelmetProvider>,
     );
     await waitFor(() => expect(document.title).toContain("Home"));
@@ -198,7 +210,9 @@ describe("owner metadata defaults", () => {
     };
     const { rerender } = render(
       <HelmetProvider>
-        <SEO />
+        <MemoryRouter>
+          <SEO />
+        </MemoryRouter>
       </HelmetProvider>,
     );
     await waitFor(() =>
@@ -210,7 +224,9 @@ describe("owner metadata defaults", () => {
     );
     rerender(
       <HelmetProvider>
-        <SEO title="Page title" description="Page description" />
+        <MemoryRouter>
+          <SEO title="Page title" description="Page description" />
+        </MemoryRouter>
       </HelmetProvider>,
     );
     await waitFor(() => expect(document.title).toContain("Page title"));
@@ -228,7 +244,9 @@ describe("owner metadata defaults", () => {
     };
     render(
       <HelmetProvider>
-        <SEO />
+        <MemoryRouter>
+          <SEO />
+        </MemoryRouter>
       </HelmetProvider>,
     );
     await waitFor(() =>

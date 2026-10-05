@@ -1,3 +1,5 @@
+import { usePageContent } from "@/hooks/usePageContent";
+import contentModule from "@/content/pages/careers";
 import { useState } from "react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
@@ -13,11 +15,11 @@ import { Section } from "@/components/sections/Section";
 import { TrustRibbon } from "@/design-system/components/TrustRibbon";
 import { FAQAccordion } from "@/design-system/components/FAQAccordion";
 import { RelatedLinksGrid } from "@/design-system/components/RelatedLinksGrid";
-import { careersFaqs } from "@/data/page-faqs";
-import { 
+import { useSharedFaqs } from "@/hooks/useSharedContent";
+import {
   Shield,
-  Target, 
-  HardHat, 
+  Target,
+  HardHat,
   TrendingUp,
   ArrowRight,
   Paintbrush,
@@ -26,83 +28,83 @@ import {
   Calculator,
   Briefcase,
   Users,
-  Building2
+  Building2,
 } from "lucide-react";
 
 const Careers = () => {
+  const careersFaqs = useSharedFaqs("careersFaqs");
+  const c = usePageContent(contentModule);
+
   const [dialogOpen, setDialogOpen] = useState(false);
 
   const values = [
     {
       icon: Shield,
-      title: "Safety",
-      description: "Every crew member goes home safe. We invest in proper training, equipment, and protocols because there is no shortcut to safety."
+      title: c.f001,
+      description: c.f002,
     },
     {
       icon: Target,
-      title: "Quality",
-      description: "We self-perform the work, so our name is on every detail. Consistent execution and pride in craftsmanship define how we operate."
+      title: c.f003,
+      description: c.f004,
     },
     {
       icon: HardHat,
-      title: "Accountability",
-      description: "One crew, one point of contact, direct responsibility. We own the work from start to finish and stand behind it."
+      title: c.f005,
+      description: c.f006,
     },
     {
       icon: TrendingUp,
-      title: "Growth",
-      description: "We're building something. Team members who want to grow with a company—not just fill a seat—find real opportunity here."
-    }
+      title: c.f007,
+      description: c.f008,
+    },
   ];
 
   const tradeCategories = [
     {
       icon: Paintbrush,
-      title: "Envelope & Coatings Installers",
-      description: "EIFS, stucco, sealant, waterproofing membrane, and protective coating application. Experience with Dryvit, Parex, or Sto systems is valued."
+      title: c.f009,
+      description: c.f010,
     },
     {
       icon: Wrench,
-      title: "Restoration & Masonry Trades",
-      description: "Brick and block repair, tuckpointing, concrete restoration, and balcony waterproofing. Skilled hands-on tradespeople who take pride in quality."
+      title: c.f011,
+      description: c.f012,
     },
     {
       icon: HardHat,
-      title: "Painters & Interior Finishers",
-      description: "Commercial and residential painting, epoxy and urethane coatings, drywall finishing, and tile installation. Detail-oriented professionals."
+      title: c.f013,
+      description: c.f014,
     },
     {
       icon: ClipboardList,
-      title: "Project Coordination",
-      description: "Field coordination, scheduling, documentation, and client communication. Construction background with strong organizational skills."
+      title: c.f015,
+      description: c.f016,
     },
     {
       icon: Calculator,
-      title: "Estimating & Pre-Construction",
-      description: "Quantity takeoffs, bid preparation, and scope analysis for envelope and interior trade projects. Experience with estimating software is an asset."
-    }
+      title: c.f017,
+      description: c.f018,
+    },
   ];
 
   return (
     <div className="min-h-screen">
-      <SEO 
-        title="Work With Ascent | Careers in Envelope Restoration & Interior Trades"
-        description="Join Ascent Group Construction — a growing specialty contractor focused on building envelope restoration and interior trades across the GTA. We're looking for skilled tradespeople and coordinators who value quality, safety, and accountability."
+      <SEO
+        title={c.f019}
+        description={c.f020}
         keywords="construction careers GTA, envelope restoration jobs, specialty contractor careers, painting jobs toronto, construction trades ontario, masonry jobs GTA"
       />
       <Navigation />
 
       <PageHero
-        title="Work With Ascent"
-        description="We're a growing specialty contractor focused on building envelope and interior trades across the GTA. We're always interested in hearing from skilled, accountable people."
+        title={c.f021}
+        description={c.f022}
         image={mainPageHeroes.careers}
-        imageAlt="Ascent Group Construction team at work"
+        imageAlt={c.f023}
         height="medium"
-        primaryCta={{ text: "Introduce Yourself", href: "#connect" }}
-        breadcrumbs={[
-          { label: "Home", href: "/" },
-          { label: "Careers" }
-        ]}
+        primaryCta={{ text: c.f024, href: "#connect" }}
+        breadcrumbs={[{ label: c.f025, href: "/" }, { label: c.f026 }]}
       />
 
       <TrustRibbon />
@@ -111,17 +113,10 @@ const Careers = () => {
         {/* Who We Are */}
         <Section>
           <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-3xl font-bold mb-6">Who We Are</h2>
+            <h2 className="text-3xl font-bold mb-6">{c.f027}</h2>
             <div className="space-y-4 text-lg text-muted-foreground">
-              <p>
-                Ascent Group is a specialty contractor with a focused crew delivering building envelope restoration, 
-                coatings, and interior trades across Ontario's Greater Toronto Area. We self-perform the majority of 
-                our work — which means our people are the product.
-              </p>
-              <p>
-                We're not a large company. We're a disciplined, growing team that values doing the work right, 
-                communicating clearly, and building a reputation project by project.
-              </p>
+              <p>{c.f028}</p>
+              <p>{c.f029}</p>
             </div>
           </div>
         </Section>
@@ -129,22 +124,27 @@ const Careers = () => {
         {/* What We Value */}
         <Section className="bg-muted/30">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold mb-4">What We Value</h2>
+            <h2 className="text-3xl font-bold mb-4">{c.f030}</h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              These aren't corporate buzzwords — they're how we actually operate
+              {c.f031}
             </p>
           </div>
 
           <ScrollReveal direction="up">
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
               {values.map((value, index) => (
-                <Card key={index} className="hover:shadow-lg transition-shadow p-0">
+                <Card
+                  key={index}
+                  className="hover:shadow-lg transition-shadow p-0"
+                >
                   <CardContent className="p-6">
                     <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4">
                       <value.icon className="w-6 h-6 text-primary" />
                     </div>
                     <h3 className="text-xl font-bold mb-2">{value.title}</h3>
-                    <p className="text-muted-foreground text-sm">{value.description}</p>
+                    <p className="text-muted-foreground text-sm">
+                      {value.description}
+                    </p>
                   </CardContent>
                 </Card>
               ))}
@@ -155,21 +155,26 @@ const Careers = () => {
         {/* Trades & Roles */}
         <Section>
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold mb-4">Trades & Roles We're Looking For</h2>
+            <h2 className="text-3xl font-bold mb-4">{c.f032}</h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              We don't always have formal openings posted — but we're always open to hearing from the right people
+              {c.f033}
             </p>
           </div>
 
           <div className="max-w-7xl mx-auto grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {tradeCategories.map((category, index) => (
-              <Card key={index} className="hover:shadow-lg transition-shadow p-0">
+              <Card
+                key={index}
+                className="hover:shadow-lg transition-shadow p-0"
+              >
                 <CardContent className="p-6">
                   <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4">
                     <category.icon className="w-6 h-6 text-primary" />
                   </div>
                   <h3 className="text-lg font-bold mb-2">{category.title}</h3>
-                  <p className="text-muted-foreground text-sm">{category.description}</p>
+                  <p className="text-muted-foreground text-sm">
+                    {category.description}
+                  </p>
                 </CardContent>
               </Card>
             ))}
@@ -182,47 +187,38 @@ const Careers = () => {
             <div className="max-w-4xl mx-auto">
               <div className="grid md:grid-cols-2 gap-8 items-center">
                 <div>
-                  <h2 className="text-3xl font-bold mb-6">How to Connect</h2>
+                  <h2 className="text-3xl font-bold mb-6">{c.f034}</h2>
                   <div className="space-y-4 text-muted-foreground">
-                    <p>
-                      If you're a skilled tradesperson, coordinator, or estimator looking for a company that 
-                      values quality work and treats people with respect — we'd like to hear from you.
-                    </p>
-                    <p>
-                      Send us your resume and a brief note about your experience. We review every submission 
-                      and will reach out if there's a fit — now or in the future.
-                    </p>
+                    <p>{c.f035}</p>
+                    <p>{c.f036}</p>
                     <ul className="space-y-2 text-sm">
                       <li className="flex items-start gap-2">
                         <span className="text-primary mt-1">•</span>
-                        Valid Working at Heights certification is an asset
+                        {c.f037}
                       </li>
                       <li className="flex items-start gap-2">
                         <span className="text-primary mt-1">•</span>
-                        Valid Ontario driver's license preferred for field roles
+                        {c.f038}
                       </li>
                       <li className="flex items-start gap-2">
                         <span className="text-primary mt-1">•</span>
-                        All experience levels considered — willingness to learn matters
+                        {c.f039}
                       </li>
                     </ul>
                   </div>
                 </div>
-                
+
                 <Card className="bg-primary text-primary-foreground p-0">
                   <CardContent className="p-8">
                     <HardHat className="w-12 h-12 mb-6 text-secondary" />
-                    <h3 className="text-2xl font-bold mb-4">Introduce Yourself</h3>
-                    <p className="mb-6 opacity-90">
-                      Submit your resume and we'll keep you on file. When the right opportunity comes up, 
-                      we'll reach out directly.
-                    </p>
-                    <Button 
-                      size="lg" 
+                    <h3 className="text-2xl font-bold mb-4">{c.f040}</h3>
+                    <p className="mb-6 opacity-90">{c.f041}</p>
+                    <Button
+                      size="lg"
                       className="w-full"
                       onClick={() => setDialogOpen(true)}
                     >
-                      Submit Your Resume
+                      {c.f042}
                       <ArrowRight className="ml-2 w-4 h-4" />
                     </Button>
                   </CardContent>
@@ -235,32 +231,40 @@ const Careers = () => {
         {/* FAQ */}
         <Section className="bg-muted/30">
           <div className="max-w-3xl mx-auto">
-            <h2 className="text-3xl font-bold text-center mb-4">Careers FAQ</h2>
-            <p className="text-center text-muted-foreground mb-8">
-              Common questions about working with Ascent Group
-            </p>
+            <h2 className="text-3xl font-bold text-center mb-4">{c.f043}</h2>
+            <p className="text-center text-muted-foreground mb-8">{c.f044}</p>
             <FAQAccordion faqs={careersFaqs} />
           </div>
         </Section>
 
         {/* Related Resources */}
         <RelatedLinksGrid
-          title="Learn More About Ascent"
-          description="Explore who we are and how we work before you reach out."
+          title={c.f045}
+          description={c.f046}
           links={[
-            { title: "Our Story", description: "How we were founded and what drives the team.", href: "/about", icon: Users },
-            { title: "Our Process", description: "How a typical project moves from inquiry to closeout.", href: "/our-process", icon: Briefcase },
-            { title: "Capabilities", description: "What we self-perform and how we deliver.", href: "/capabilities", icon: Building2 },
+            { title: c.f047, description: c.f048, href: "/about", icon: Users },
+            {
+              title: c.f049,
+              description: c.f050,
+              href: "/our-process",
+              icon: Briefcase,
+            },
+            {
+              title: c.f051,
+              description: c.f052,
+              href: "/capabilities",
+              icon: Building2,
+            },
           ]}
         />
       </main>
-      
+
       <ResumeSubmissionDialog
         open={dialogOpen}
         onOpenChange={setDialogOpen}
         jobTitle="General Application"
       />
-      
+
       <Footer />
     </div>
   );

@@ -85,6 +85,16 @@ describe("reference-checked media deletion", () => {
     expect(await findMediaReferences(asset.url)).toHaveLength(3);
     expect(mock.tables).toContain("hero_slides");
   });
+  it("retains images referenced by page drafts and publication undo history", async () => {
+    mock.rows.content_entries = [
+      { id: "draft", draft_value: { url: asset.url } },
+    ];
+    mock.rows.content_entry_versions = [
+      { id: "history", value: { image: asset.url } },
+    ];
+    await expect(deleteUnusedMedia(asset)).rejects.toThrow("used by 2");
+    expect(mock.remove).not.toHaveBeenCalled();
+  });
   it("rechecks references at deletion time and refuses a newly used file", async () => {
     expect(await findMediaReferences(asset.url)).toEqual([]);
     mock.rows.services = [{ id: "new-use", featured_image: asset.url }];

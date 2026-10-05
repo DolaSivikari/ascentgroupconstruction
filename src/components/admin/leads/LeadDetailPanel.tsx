@@ -1,3 +1,6 @@
+import { InquiryDetailPanel } from "./InquiryDetailPanel";
+import { markInquiryViewed } from "@/lib/inquiry/api";
+import type { Inquiry } from "@/lib/inquiry/types";
 import { useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import { InboxDetailDialog } from "@/components/admin/inbox/InboxDetailDialog";
@@ -28,7 +31,10 @@ export function LeadDetailPanel({
   const [loadedItem, setLoadedItem] = useState<InboxItem | null>(null);
   const { data, isPending, isFetching, error, refetch } = useQuery({
     queryKey: ["lead-detail", source ?? "all", id],
-    queryFn: ({ signal }) => loadLeadDetail({ id, source }, signal),
+    queryFn: async ({ signal }) => {
+      if (source === "inquiry") await markInquiryViewed(id);
+      return loadLeadDetail({ id, source }, signal);
+    },
     staleTime: 0,
     refetchOnMount: "always",
     retry: false,
@@ -39,6 +45,14 @@ export function LeadDetailPanel({
     if (!isFetching && data && !error)
       setLoadedItem((previous) => previous ?? data);
   }, [data, error, isFetching]);
+  if (loadedItem?.table === "inquiries")
+    return (
+      <InquiryDetailPanel
+        inquiry={loadedItem as unknown as Inquiry}
+        onClose={onClose}
+        onUpdate={onUpdate}
+      />
+    );
   if (loadedItem)
     return (
       <InboxDetailDialog

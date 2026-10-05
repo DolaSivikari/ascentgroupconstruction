@@ -1,3 +1,4 @@
+import { PageVisibility } from "@/components/PageVisibility";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -57,32 +58,43 @@ const RouteTracker = ({ children }: { children: React.ReactNode }) => {
 
 // A data-router context enables the editing guard for Back/Forward and links.
 // The existing public and admin route tree stays in AppRoutes.
-const RouterContent = () => (
-  <HeroPresenceProvider>
-    <ScrollToTop />
-    <RouteTracker>
-      <Suspense fallback={null}>
-        <CookieBanner />
-      </Suspense>
-      <a
-        href="#main-content"
-        className="fixed top-0 left-0 -translate-y-full focus:translate-y-0 z-[100] bg-primary text-primary-foreground px-6 py-3 font-semibold transition-transform focus:outline-none focus:ring-4 focus:ring-primary/50"
-        aria-label="Skip to main content"
-      >
-        Skip to main content
-      </a>
+const RouterContent = () => {
+  const { pathname } = useLocation();
+  if (pathname.startsWith("/prequal-package/"))
+    return (
       <Suspense fallback={<PageLoader />}>
         <AppRoutes />
       </Suspense>
-      <Suspense fallback={null}>
-        <StickyInquiryBar />
-      </Suspense>
-      <Suspense fallback={null}>
-        <ScrollToTopButton />
-      </Suspense>
-    </RouteTracker>
-  </HeroPresenceProvider>
-);
+    );
+  return (
+    <HeroPresenceProvider>
+      <ScrollToTop />
+      <RouteTracker>
+        <Suspense fallback={null}>
+          <CookieBanner />
+        </Suspense>
+        <a
+          href="#main-content"
+          className="fixed top-0 left-0 -translate-y-full focus:translate-y-0 z-[100] bg-primary text-primary-foreground px-6 py-3 font-semibold transition-transform focus:outline-none focus:ring-4 focus:ring-primary/50"
+          aria-label="Skip to main content"
+        >
+          Skip to main content
+        </a>
+        <Suspense fallback={<PageLoader />}>
+          <PageVisibility>
+            <AppRoutes />
+          </PageVisibility>
+        </Suspense>
+        <Suspense fallback={null}>
+          <StickyInquiryBar />
+        </Suspense>
+        <Suspense fallback={null}>
+          <ScrollToTopButton />
+        </Suspense>
+      </RouteTracker>
+    </HeroPresenceProvider>
+  );
+};
 const router = createBrowserRouter([{ path: "*", element: <RouterContent /> }]);
 
 const App = () => (

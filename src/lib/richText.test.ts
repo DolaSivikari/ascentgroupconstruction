@@ -13,9 +13,9 @@ describe("public rich text", () => {
       "<p>First<br>second</p><p>Third</p>",
     );
   });
-  it("keeps headings, formatting, lists and legacy images but removes executable markup and Word styles", () => {
+  it("keeps headings, formatting, lists and approved images but removes executable markup and Word styles", () => {
     const html = sanitizeRichText(
-      '<h2 style="color:red" onclick="alert(1)">Heading</h2><ul><li><strong>Item</strong></li></ul><script>alert(1)</script><img src="/image.jpg" alt="Building" onerror="alert(1)"><iframe src="https://bad.test"></iframe>',
+      '<h2 style="color:red" onclick="alert(1)">Heading</h2><ul><li><strong>Item</strong></li></ul><script>alert(1)</script><img src="https://dinliarttwuzzozyvuiu.supabase.co/storage/v1/object/public/project-images/image.jpg" alt="Building" onerror="alert(1)"><iframe src="https://bad.test"></iframe>',
     );
     expect(html).toContain("<h2>Heading</h2>");
     expect(html).toContain("<strong>Item</strong>");
@@ -46,4 +46,10 @@ describe("public rich text", () => {
     "allows supported editor links: %s",
     (value) => expect(isSafeEditorLink(value)).toBe(true),
   );
+});
+it("blocks remote tracking images and signed/private storage links in public rich text", () => {
+  const html = sanitizeRichText(
+    '<img src="https://tracker.example.test/pixel"><img src="https://dinliarttwuzzozyvuiu.supabase.co/storage/v1/object/sign/project-images/private.jpg?token=secret"><img src="data:image/svg+xml,bad">',
+  );
+  expect(html).not.toContain("<img");
 });

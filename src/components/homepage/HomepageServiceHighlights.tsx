@@ -1,3 +1,5 @@
+import { usePageContent } from "@/hooks/usePageContent";
+import contentModule from "@/content/pages/home-service-highlights";
 import { CARD_STYLES, TYPOGRAPHY_STYLES } from "@/design-system/constants";
 import { cn } from "@/lib/utils";
 import { Link } from "react-router-dom";
@@ -22,94 +24,97 @@ import { GRID } from "@/design-system/layouts";
 import { useScrollFadeIn } from "@/hooks/useScrollFadeIn";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 
-const services = [
-  {
-    icon: Building2,
-    title: "Façade Remediation",
-    description: "Sealant replacement, panel repairs, and full building envelope restoration.",
-    detail: "Full-scope envelope rehabilitation: condition assessments, sealant removal and replacement, panel re-anchoring, flashing repairs, and waterproof membrane integration. We coordinate swing-stage access and occupied-building logistics so tenants aren't disrupted.",
-    href: "/services/facade-remediation",
-  },
-  {
-    icon: Layers,
-    title: "EIFS & Stucco Systems",
-    description: "Energy-efficient insulated finish systems and traditional stucco repair.",
-    detail: "New EIFS installation and existing system rehabilitation — base-coat repairs, mesh replacement, finish-coat colour matching, and drainage-plane corrections. Installed per manufacturer specs for warranty-eligible assemblies.",
-    href: "/services/eifs-stucco-systems",
-  },
-  {
-    icon: Hammer,
-    title: "Masonry Restoration",
-    description: "Repointing, tuckpointing, and structural stabilisation for brick and stone.",
-    detail: "Mortar analysis and compatible repointing, crack stitching, lintel replacement, stone dutchman repairs, and through-wall flashing installation. Heritage-sensitive methods available for designated properties.",
-    href: "/services/masonry-restoration",
-  },
-  {
-    icon: Droplets,
-    title: "Waterproofing",
-    description: "Below-grade, foundation, and deck waterproofing to stop water at the source.",
-    detail: "Blind-side, positive-side, and negative-side waterproofing systems. Traffic-bearing membranes for plaza decks, foundation damp-proofing, crack injection, and drainage board installation.",
-    href: "/services/waterproofing-systems",
-  },
-  {
-    icon: Grid3x3,
-    title: "Metal Cladding",
-    description: "Aluminum, steel, and composite panel installation and repairs.",
-    detail: "ACM, MCM, and solid-aluminum panel systems — sub-girt layout, panel fabrication coordination, thermal-break detailing, and integration with air/vapour barriers for complete rain-screen assemblies.",
-    href: "/services/cladding-systems",
-  },
-  {
-    icon: Car,
-    title: "Parking Garage Restoration",
-    description: "Concrete repair, traffic coatings, and structural rehab for parkades.",
-    detail: "Condition surveys, concrete delamination removal, rebar treatment, shotcrete/form-and-pour repairs, expansion joint replacement, and traffic-bearing polyurethane or MMA coating systems.",
-    href: "/services/parking-garage-restoration",
-  },
-  {
-    icon: LayoutDashboard,
-    title: "Interior Buildouts",
-    description: "Tenant improvements, suite builds, drywall, and finishing trades.",
-    detail: "Demising walls, ceiling grids, suite finishing, millwork coordination, and final paint. We handle permit-ready layouts through to deficiency-free handover for commercial and multi-residential interiors.",
-    href: "/services/interior-buildouts-finishing",
-  },
-  {
-    icon: Paintbrush,
-    title: "Commercial Painting",
-    description: "Commercial, condo, and multi-unit painting with premium coatings.",
-    detail: "Surface prep, primer systems, and premium finish coats from Benjamin Moore and Sherwin-Williams. Common-area refresh programs, suite turnovers, and high-performance coatings for parking and mechanical rooms.",
-    href: "/services/painting-services",
-  },
-];
-
-const highlights = [
-  {
-    icon: Shield,
-    title: "Complete Services",
-    description:
-      "Lead specialty contractor with self-perform trades delivering schedule certainty and quality control across envelope, restoration, painting, and interior projects.",
-  },
-  {
-    icon: Award,
-    title: "Building Our Track Record",
-    description:
-      "15+ years combined team experience with on-time, on-budget delivery serving developers, property managers, and institutional clients across the Greater Toronto Area.",
-  },
-  {
-    icon: FileCheck,
-    title: "Building Our Credentials",
-    description:
-      "Licensed business with WSIB registration and insurance in progress. Committed to safety, quality documentation, and professional execution on every project.",
-  },
-];
-
 const springHover = { type: "spring" as const, stiffness: 300, damping: 20 };
 
 export const HomepageServiceHighlights = () => {
+  const c = usePageContent(contentModule);
+  const services = [
+    {
+      icon: Building2,
+      title: c.f021,
+      description: c.f022,
+      detail: c.f023,
+      href: "/services/facade-remediation",
+    },
+    {
+      icon: Layers,
+      title: c.f024,
+      description: c.f025,
+      detail: c.f026,
+      href: "/services/eifs-stucco-systems",
+    },
+    {
+      icon: Hammer,
+      title: c.f027,
+      description: c.f028,
+      detail: c.f029,
+      href: "/services/masonry-restoration",
+    },
+    {
+      icon: Droplets,
+      title: c.f030,
+      description: c.f031,
+      detail: c.f032,
+      href: "/services/waterproofing-systems",
+    },
+    {
+      icon: Grid3x3,
+      title: c.f033,
+      description: c.f034,
+      detail: c.f035,
+      href: "/services/cladding-systems",
+    },
+    {
+      icon: Car,
+      title: c.f036,
+      description: c.f037,
+      detail: c.f038,
+      href: "/services/parking-garage-restoration",
+    },
+    {
+      icon: LayoutDashboard,
+      title: c.f039,
+      description: c.f040,
+      detail: c.f041,
+      href: "/services/interior-buildouts-finishing",
+    },
+    {
+      icon: Paintbrush,
+      title: c.f042,
+      description: c.f043,
+      detail: c.f044,
+      href: "/services/painting-services",
+    },
+  ];
+  const highlights = [
+    {
+      icon: Shield,
+      title: c.f045,
+      description: c.f046,
+    },
+    {
+      icon: Award,
+      title: c.f047,
+      description: c.f048,
+    },
+    {
+      icon: FileCheck,
+      title: c.f049,
+      description: c.f050,
+    },
+  ];
+
   const rm = useReducedMotion();
-  const { ref: introRef, isVisible: introVisible, skipAnimation: introSkip } =
-    useScrollFadeIn();
-  const { ref: headerRef, isVisible: headerVisible, skipAnimation: headerSkip } =
-    useScrollFadeIn();
+  const {
+    ref: introRef,
+    isVisible: introVisible,
+    skipAnimation: introSkip,
+  } = useScrollFadeIn();
+  const {
+    ref: headerRef,
+    isVisible: headerVisible,
+    skipAnimation: headerSkip,
+  } = useScrollFadeIn();
 
   const showIntro = introVisible || introSkip || rm;
   const showHeader = headerVisible || headerSkip || rm;
@@ -130,48 +135,48 @@ export const HomepageServiceHighlights = () => {
           {/* Header */}
           <div className="max-w-4xl mb-10">
             <p className="text-xs font-semibold text-muted-foreground uppercase tracking-widest mb-4">
-              About Ascent Group
+              {c.f001}
             </p>
             <h2 className="text-3xl md:text-5xl font-bold text-foreground mb-5 leading-tight tracking-tight">
-              Building Envelope, Restoration &amp; Interior Trades Across Toronto (GTA)
+              {c.f002}
             </h2>
             <p className="text-lg text-muted-foreground leading-relaxed max-w-3xl">
-              Lead contractor for envelope restoration, interior buildouts, painting, and specialty
-              trades — planning, self-performing, and delivering accountable results across the GTA
-              and Golden Horseshoe.
+              {c.f003}
             </p>
           </div>
 
           {/* Two-column body */}
           <div className="grid md:grid-cols-2 gap-x-12 gap-y-6 mb-12">
             <div className="space-y-4">
-              <p className={`${TYPOGRAPHY_STYLES.cardBody} text-muted-foreground`}>
-                Ascent Group Construction protects and improves buildings — from exterior envelope
-                and <span className="font-medium text-foreground">façade restoration</span> to{" "}
-                <span className="font-medium text-foreground">interior buildouts</span>,{" "}
-                <span className="font-medium text-foreground">painting</span>, and finishing
-                trades. We act as the lead contractor, planning access and safety, self-performing
-                the core trades, and communicating clearly from site walk to closeout.
+              <p
+                className={`${TYPOGRAPHY_STYLES.cardBody} text-muted-foreground`}
+              >
+                {c.f004}
+                <span className="font-medium text-foreground">
+                  {c.f005}
+                </span> to{" "}
+                <span className="font-medium text-foreground">{c.f006}</span>,{" "}
+                <span className="font-medium text-foreground">{c.f007}</span>
+                {c.f008}
               </p>
-              <p className={`${TYPOGRAPHY_STYLES.cardBody} text-muted-foreground`}>
-                Our foundation is building envelope — but our capability extends across the full
-                scope of restoration, interior construction, and specialty trades that commercial
-                and multi-unit properties require.
+              <p
+                className={`${TYPOGRAPHY_STYLES.cardBody} text-muted-foreground`}
+              >
+                {c.f009}
               </p>
             </div>
             <div className="space-y-4">
-              <p className={`${TYPOGRAPHY_STYLES.cardBody} text-muted-foreground`}>
-                We self-perform key trades —{" "}
-                <span className="font-medium text-foreground">
-                  sealants/caulking, EIFS &amp; stucco, masonry repairs and tuckpointing,
-                  waterproofing &amp; protective coatings, concrete and parking-garage
-                  rehabilitation, commercial painting, interior buildouts, and tile &amp; flooring
-                </span>{" "}
-                — coordinating trusted partners only when needed.
+              <p
+                className={`${TYPOGRAPHY_STYLES.cardBody} text-muted-foreground`}
+              >
+                {c.f010}{" "}
+                <span className="font-medium text-foreground">{c.f011}</span>{" "}
+                {c.f012}
               </p>
-              <p className={`${TYPOGRAPHY_STYLES.cardBody} text-muted-foreground`}>
-                We work safely in occupied buildings, document progress with photo logs, and
-                provide applicable manufacturer and workmanship warranties.
+              <p
+                className={`${TYPOGRAPHY_STYLES.cardBody} text-muted-foreground`}
+              >
+                {c.f013}
               </p>
             </div>
           </div>
@@ -191,7 +196,9 @@ export const HomepageServiceHighlights = () => {
                   <h3 className="text-base font-bold text-foreground mb-1.5">
                     {item.title}
                   </h3>
-                  <p className={`${TYPOGRAPHY_STYLES.cardBody} text-muted-foreground`}>
+                  <p
+                    className={`${TYPOGRAPHY_STYLES.cardBody} text-muted-foreground`}
+                  >
                     {item.description}
                   </p>
                 </div>
@@ -203,11 +210,11 @@ export const HomepageServiceHighlights = () => {
           <div className="flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-muted-foreground mb-14">
             <span className="inline-flex items-center gap-1.5">
               <MapPin className="w-3.5 h-3.5 text-primary" />
-              Toronto · Mississauga · Brampton · Vaughan · Markham · GTA &amp; Golden Horseshoe
+              {c.f014}
             </span>
             <span className="inline-flex items-center gap-1.5">
               <Clock className="w-3.5 h-3.5 text-primary" />
-              48–72 hour response on new enquiries
+              {c.f015}
             </span>
           </div>
 
@@ -222,14 +229,13 @@ export const HomepageServiceHighlights = () => {
           style={fadeStyle(showHeader)}
         >
           <p className="text-xs font-semibold text-muted-foreground uppercase tracking-widest mb-4">
-            Our Services
+            {c.f016}
           </p>
           <h3 className="text-3xl md:text-4xl font-bold text-foreground mb-5 leading-tight tracking-tight">
-            Specialty Trades, Self-Performed
+            {c.f017}
           </h3>
           <p className="text-lg text-muted-foreground leading-relaxed">
-            Eight core service lines delivered by our own trained crews — no sub-contractor
-            hand-offs, full accountability on every project.
+            {c.f018}
           </p>
         </div>
 
@@ -242,11 +248,19 @@ export const HomepageServiceHighlights = () => {
                 initial={rm ? false : { opacity: 0, y: 24 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.1 }}
-                transition={rm ? { duration: 0 } : { delay: index * 0.08, duration: 0.4 }}
+                transition={
+                  rm ? { duration: 0 } : { delay: index * 0.08, duration: 0.4 }
+                }
               >
                 <Link
                   to={service.href}
-                  className={cn(CARD_STYLES.base, CARD_STYLES.motion, CARD_STYLES.hover, CARD_STYLES.interactive, "group/card block p-6 h-full")}
+                  className={cn(
+                    CARD_STYLES.base,
+                    CARD_STYLES.motion,
+                    CARD_STYLES.hover,
+                    CARD_STYLES.interactive,
+                    "group/card block p-6 h-full",
+                  )}
                 >
                   <motion.div
                     className="w-11 h-11 rounded-lg bg-primary/10 flex items-center justify-center mb-4 group-hover/card:bg-primary/20 transition-colors duration-300"
@@ -255,10 +269,14 @@ export const HomepageServiceHighlights = () => {
                   >
                     <Icon className="w-5 h-5 text-primary" />
                   </motion.div>
-                  <h3 className={`${TYPOGRAPHY_STYLES.cardTitle} text-foreground mb-2`}>
+                  <h3
+                    className={`${TYPOGRAPHY_STYLES.cardTitle} text-foreground mb-2`}
+                  >
                     {service.title}
                   </h3>
-                  <p className={`${TYPOGRAPHY_STYLES.cardBody} text-muted-foreground`}>
+                  <p
+                    className={`${TYPOGRAPHY_STYLES.cardBody} text-muted-foreground`}
+                  >
                     {service.description}
                   </p>
 
@@ -270,7 +288,8 @@ export const HomepageServiceHighlights = () => {
                           {service.detail}
                         </p>
                         <span className="inline-flex items-center gap-1 mt-3 text-xs font-semibold text-primary">
-                          Learn more about {service.title}
+                          {c.f019}
+                          {service.title}
                           <ArrowRight className="w-3 h-3" />
                         </span>
                       </div>
@@ -288,7 +307,7 @@ export const HomepageServiceHighlights = () => {
             to="/services"
             className="inline-flex items-center gap-2 text-base font-semibold text-primary hover:text-primary/80 transition-colors duration-200"
           >
-            View all services
+            {c.f020}
             <ArrowRight className="w-4 h-4" />
           </Link>
         </div>

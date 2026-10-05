@@ -53,3 +53,10 @@ project_id = "dinliarttwuzzozyvuiu"
     verify_jwt = true
   [functions.submit-form]
     verify_jwt = false
+
+  [functions.inquiry-alert-resend]
+    verify_jwt = false # Explicit getUser + is_admin checks in the handler
+  [functions.intake-status]
+    verify_jwt = false
+  [functions.credential-package]
+    verify_jwt = false # Random expiring capability token; no anonymous table access

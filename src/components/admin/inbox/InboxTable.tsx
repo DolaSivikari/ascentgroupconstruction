@@ -127,6 +127,8 @@ export const InboxTable = ({ type, highlightId }: InboxTableProps) => {
     if (!deleteItem || deleting) return;
     setDeleting(true);
     try {
+      if (deleteItem.table === "inquiries")
+        throw new Error("Archive inquiries from Leads instead.");
       const { error } = await supabase
         .from(deleteItem.table)
         .delete()

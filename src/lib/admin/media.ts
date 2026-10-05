@@ -7,6 +7,7 @@ import {
   resourceHeroes,
   heroConfigs,
 } from "@/data/hero-images";
+import { contentDatabase, missingOptionalSchema } from "./optionalDatabase";
 import { supabase } from "@/integrations/supabase/client";
 import type { SupabaseClient } from "@supabase/supabase-js";
 export const MEDIA_BUCKET = "project-images";
@@ -184,6 +185,31 @@ export async function findMediaReferences(
           });
         }
       if (data.length < 500) break;
+    }
+  }
+  // Drafts, published overrides and undo history all retain their image references.
+  for (const table of ["content_entries", "content_entry_versions"] as const) {
+    for (let offset = 0; offset < 50000; offset += 500) {
+      const { data, error } = await contentDatabase
+        .from(table)
+        .select("*")
+        .order("id")
+        .range(offset, offset + 499);
+      if (missingOptionalSchema(error)) break;
+      if (error || !Array.isArray(data))
+        throw new Error(`Cannot check ${table}; file retained.`);
+      for (const row of data)
+        if (JSON.stringify(row).includes(url))
+          references.push({
+            table,
+            id: row.id,
+            title: "Page content or publication history",
+          });
+      if (data.length < 500) break;
+      if (offset === 49500)
+        throw new Error(
+          `Cannot confirm all references in ${table}; file retained.`,
+        );
     }
   }
   return references;

@@ -1,3 +1,8 @@
+import { useIntakeEnabled } from "@/hooks/useIntakeEnabled";
+import { useInquirySubmit } from "@/hooks/useInquirySubmit";
+import { rfpAttachmentPath } from "@/lib/inbox/model";
+import { usePageContent } from "@/hooks/usePageContent";
+import contentModule from "@/content/pages/submit-rfp";
 import { useState, useRef } from "react";
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
@@ -9,8 +14,21 @@ import { Card, CardContent } from "@/design-system/components/Card";
 import { Progress } from "@/components/ui/progress";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
-import { ArrowRight, ArrowLeft, CheckCircle2, Send, Home, Phone, Copy, Check, Shield } from "lucide-react";
-import { rfpSubmissionSchema, type RFPSubmission } from "@/schemas/rfp-validation";
+import {
+  ArrowRight,
+  ArrowLeft,
+  CheckCircle2,
+  Send,
+  Home,
+  Phone,
+  Copy,
+  Check,
+  Shield,
+} from "lucide-react";
+import {
+  rfpSubmissionSchema,
+  type RFPSubmission,
+} from "@/schemas/rfp-validation";
 import { RFPStep1Company } from "@/components/rfp/RFPStep1Company";
 import { RFPStep2Project } from "@/components/rfp/RFPStep2Project";
 import { RFPStep3Timeline } from "@/components/rfp/RFPStep3Timeline";
@@ -24,23 +42,35 @@ import { AscentEmailLink } from "@/components/EmailLink";
 import { uploadRfpAttachments } from "@/lib/rfpAttachments";
 import { useAdminRoleCheck } from "@/hooks/useAdminRoleCheck";
 
-
 const stepFields: Record<number, (keyof RFPSubmission)[]> = {
   1: ["company_name", "contact_name", "email", "phone"],
-  2: ["project_name", "project_type", "project_location", "estimated_value_range"],
+  2: [
+    "project_name",
+    "project_type",
+    "project_location",
+    "estimated_value_range",
+  ],
   3: ["estimated_timeline", "delivery_method"],
   4: ["scope_of_work", "consent"],
 };
 
 const validateCurrentStep = (data: RFPSubmission, currentStep: number) => {
-  const result = rfpSubmissionSchema.pick(
-    Object.fromEntries(stepFields[currentStep].map((field) => [field, true])) as Record<keyof RFPSubmission, true>
-  ).safeParse(data);
+  const result = rfpSubmissionSchema
+    .pick(
+      Object.fromEntries(
+        stepFields[currentStep].map((field) => [field, true]),
+      ) as Record<keyof RFPSubmission, true>,
+    )
+    .safeParse(data);
 
   return result.success ? [] : result.error.issues;
 };
 
 export default function SubmitRFPNew() {
+  const intakeV2 = useIntakeEnabled();
+  const submitInquiry = useInquirySubmit();
+  const c = usePageContent(contentModule);
+
   const [currentStep, setCurrentStep] = useState(1);
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
@@ -82,10 +112,10 @@ export default function SubmitRFPNew() {
   const progress = (currentStep / totalSteps) * 100;
 
   const steps = [
-    { number: 1, title: "Company Info", component: RFPStep1Company },
-    { number: 2, title: "Project Details", component: RFPStep2Project },
-    { number: 3, title: "Timeline", component: RFPStep3Timeline },
-    { number: 4, title: "Scope of Work", component: RFPStep4Scope },
+    { number: 1, title: c.f001, component: RFPStep1Company },
+    { number: 2, title: c.f002, component: RFPStep2Project },
+    { number: 3, title: c.f003, component: RFPStep3Timeline },
+    { number: 4, title: c.f004, component: RFPStep4Scope },
   ];
 
   const handleNext = () => {
@@ -115,11 +145,13 @@ export default function SubmitRFPNew() {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
-  const uploadAttachments = () => uploadRfpAttachments(
-    attachmentFiles,
-    uploadedAttachmentsRef.current,
-    async (path, file) => supabase.storage.from("rfp-attachments").upload(path, file),
-  );
+  const uploadAttachments = () =>
+    uploadRfpAttachments(
+      attachmentFiles,
+      uploadedAttachmentsRef.current,
+      async (path, file) =>
+        supabase.storage.from("rfp-attachments").upload(path, file),
+    );
 
   const handleSubmit = async (data: RFPSubmission) => {
     setSubmitting(true);
@@ -151,17 +183,37 @@ export default function SubmitRFPNew() {
         attachment_urls: attachmentUrls.length > 0 ? attachmentUrls : undefined,
       };
 
-      const { data: invokeResponse, error: insertError } = await supabase.functions.invoke(
-        "submit-form",
-        {
-          body: {
-            formType: "rfp",
-            honeypot,
-            startedAt: formStartedAtRef.current,
-            data: submissionData,
-          },
-        },
-      );
+      const { data: invokeResponse, error: insertError } = intakeV2
+        ? {
+            data: await submitInquiry(
+              {
+                inquiry_type: "rfp",
+                contact_name: data.contact_name,
+                email: data.email,
+                phone: data.phone,
+                company: data.company_name,
+                project_name: data.project_name,
+                project_location: data.project_location,
+                message: data.scope_of_work,
+                consent_given: data.consent,
+                attachment_paths: attachmentUrls.map((path) =>
+                  rfpAttachmentPath(path, import.meta.env.VITE_SUPABASE_URL),
+                ),
+                details: { ...submissionData, attachment_urls: undefined },
+              },
+              honeypot,
+              formStartedAtRef.current,
+            ),
+            error: null,
+          }
+        : await supabase.functions.invoke("submit-form", {
+            body: {
+              formType: "rfp",
+              honeypot,
+              startedAt: formStartedAtRef.current,
+              data: submissionData,
+            },
+          });
 
       if (insertError) throw insertError;
       if (invokeResponse && (invokeResponse as any).success === false) {
@@ -169,9 +221,13 @@ export default function SubmitRFPNew() {
       }
 
       const newId = ((invokeResponse as any)?.id as string) || "";
-      const createdAtRaw = (invokeResponse as any)?.created_at as string | undefined;
+      const createdAtRaw = (invokeResponse as any)?.created_at as
+        | string
+        | undefined;
       const createdAt = createdAtRaw ? new Date(createdAtRaw) : new Date();
-      const refId = `RFP-${(newId || "").slice(0, 8).toUpperCase()}`;
+      const refId = intakeV2
+        ? String((invokeResponse as { reference_code: string }).reference_code)
+        : `RFP-${(newId || "").slice(0, 8).toUpperCase()}`;
 
       setSubmissionId(newId);
       setSubmissionRef(refId);
@@ -190,10 +246,13 @@ export default function SubmitRFPNew() {
 
       let notificationWarning = false;
       try {
-        await sendStoredRecordNotifications();
+        if (!intakeV2) await sendStoredRecordNotifications();
       } catch (emailError) {
         notificationWarning = true;
-        console.error("Stored-record RFP email notification failed:", emailError);
+        console.error(
+          "Stored-record RFP email notification failed:",
+          emailError,
+        );
       }
 
       toast.success("RFP Submitted Successfully", {
@@ -203,14 +262,15 @@ export default function SubmitRFPNew() {
       });
 
       // Phase 3: Track A/B test conversion
-      await trackABTestConversion('homepage-hero-2024', 5);
+      await trackABTestConversion("homepage-hero-2024", 5);
 
       setSubmitted(true);
       window.scrollTo({ top: 0, behavior: "smooth" });
     } catch (error: any) {
       console.error("Submission error:", error);
       toast.error("Submission Failed", {
-        description: error.message || "Please try again or contact us directly.",
+        description:
+          error.message || "Please try again or contact us directly.",
       });
     } finally {
       setSubmitting(false);
@@ -233,22 +293,19 @@ export default function SubmitRFPNew() {
   return (
     <div className="min-h-screen flex flex-col bg-gradient-to-b from-background to-muted/20">
       <SEO
-        title="Submit RFP - Request for Proposal | Ascent Group Construction"
-        description="Submit your building envelope or restoration RFP to Ascent Group Construction. Multi-step form for commercial, multi-family, and institutional projects across Ontario."
+        title={c.f005}
+        description={c.f006}
         keywords="building envelope RFP, facade remediation bid, construction proposal, specialty contractor quote, envelope restoration RFP, GTA construction"
       />
       <Navigation />
 
       <PageHero
-        title="Submit Your RFP"
-        description="Complete our 4-step form to receive a detailed construction proposal"
+        title={c.f007}
+        description={c.f008}
         image={resourceHeroes["submit-rfp"]}
-        imageAlt="Submit your construction RFP"
+        imageAlt={c.f009}
         height="small"
-        breadcrumbs={[
-          { label: "Home", href: "/" },
-          { label: "Submit RFP" }
-        ]}
+        breadcrumbs={[{ label: c.f010, href: "/" }, { label: c.f011 }]}
       />
 
       {submitted ? (
@@ -259,9 +316,11 @@ export default function SubmitRFPNew() {
               <div className="w-20 h-20 rounded-full bg-secondary/10 flex items-center justify-center mx-auto mb-6">
                 <CheckCircle2 className="w-10 h-10 text-secondary" />
               </div>
-              <h2 className="text-3xl md:text-4xl font-bold mb-3 text-primary">RFP Received</h2>
+              <h2 className="text-3xl md:text-4xl font-bold mb-3 text-primary">
+                {c.f012}
+              </h2>
               <p className="text-lg text-muted-foreground mb-6 max-w-lg mx-auto">
-                Thank you for your proposal. Our estimating team will review and respond within 2 business days.
+                {c.f013}
               </p>
             </div>
 
@@ -271,21 +330,38 @@ export default function SubmitRFPNew() {
                 <CardContent className="p-6">
                   <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                     <div>
-                      <p className="text-xs uppercase tracking-wider text-muted-foreground mb-1">Reference ID</p>
-                      <p className="text-2xl font-mono font-bold text-primary tracking-wider">{submissionRef}</p>
+                      <p className="text-xs uppercase tracking-wider text-muted-foreground mb-1">
+                        {c.f014}
+                      </p>
+                      <p className="text-2xl font-mono font-bold text-primary tracking-wider">
+                        {submissionRef}
+                      </p>
                       {submittedAt && (
                         <p className="text-xs text-muted-foreground mt-1">
-                          Submitted {submittedAt.toLocaleString()}
+                          {c.f015}
+                          {submittedAt.toLocaleString()}
                         </p>
                       )}
                     </div>
-                    <Button variant="secondary" onClick={copyRef} className="shrink-0">
-                      {refCopied ? (<><Check className="w-4 h-4 mr-2" />Copied</>) : (<><Copy className="w-4 h-4 mr-2" />Copy ID</>)}
+                    <Button
+                      variant="secondary"
+                      onClick={copyRef}
+                      className="shrink-0"
+                    >
+                      {refCopied ? (
+                        <>
+                          <Check className="w-4 h-4 mr-2" />
+                          {c.f016}
+                        </>
+                      ) : (
+                        <>
+                          <Copy className="w-4 h-4 mr-2" />
+                          {c.f017}
+                        </>
+                      )}
                     </Button>
                   </div>
-                  <p className="text-sm text-muted-foreground mt-3">
-                    Please reference this ID in any follow-up correspondence with our team.
-                  </p>
+                  <p className="text-sm text-muted-foreground mt-3">{c.f018}</p>
                 </CardContent>
               </Card>
             )}
@@ -293,27 +369,35 @@ export default function SubmitRFPNew() {
             {/* Timeline card */}
             <Card className="mb-6 border-secondary/20 bg-secondary/5">
               <CardContent className="p-6">
-                <h3 className="font-bold text-primary mb-4 uppercase text-xs tracking-wider">What happens next</h3>
+                <h3 className="font-bold text-primary mb-4 uppercase text-xs tracking-wider">
+                  {c.f019}
+                </h3>
                 <ol className="space-y-3">
                   <li className="flex gap-3">
-                    <span className="flex-shrink-0 w-7 h-7 rounded-full bg-primary text-primary-foreground text-xs font-bold flex items-center justify-center">1</span>
+                    <span className="flex-shrink-0 w-7 h-7 rounded-full bg-primary text-primary-foreground text-xs font-bold flex items-center justify-center">
+                      1
+                    </span>
                     <div>
-                      <p className="font-semibold text-sm">Review (24–48 hours)</p>
-                      <p className="text-sm text-muted-foreground">Our estimating team reviews your project requirements.</p>
+                      <p className="font-semibold text-sm">{c.f020}</p>
+                      <p className="text-sm text-muted-foreground">{c.f021}</p>
                     </div>
                   </li>
                   <li className="flex gap-3">
-                    <span className="flex-shrink-0 w-7 h-7 rounded-full bg-primary text-primary-foreground text-xs font-bold flex items-center justify-center">2</span>
+                    <span className="flex-shrink-0 w-7 h-7 rounded-full bg-primary text-primary-foreground text-xs font-bold flex items-center justify-center">
+                      2
+                    </span>
                     <div>
-                      <p className="font-semibold text-sm">Initial contact (within 2 business days)</p>
-                      <p className="text-sm text-muted-foreground">We reach out to discuss details and clarify questions.</p>
+                      <p className="font-semibold text-sm">{c.f022}</p>
+                      <p className="text-sm text-muted-foreground">{c.f023}</p>
                     </div>
                   </li>
                   <li className="flex gap-3">
-                    <span className="flex-shrink-0 w-7 h-7 rounded-full bg-primary text-primary-foreground text-xs font-bold flex items-center justify-center">3</span>
+                    <span className="flex-shrink-0 w-7 h-7 rounded-full bg-primary text-primary-foreground text-xs font-bold flex items-center justify-center">
+                      3
+                    </span>
                     <div>
-                      <p className="font-semibold text-sm">Proposal & presentation</p>
-                      <p className="text-sm text-muted-foreground">We prepare and walk you through a tailored proposal.</p>
+                      <p className="font-semibold text-sm">{c.f024}</p>
+                      <p className="text-sm text-muted-foreground">{c.f025}</p>
                     </div>
                   </li>
                 </ol>
@@ -322,24 +406,32 @@ export default function SubmitRFPNew() {
 
             {attachmentFiles.length > 0 && (
               <p className="text-sm text-muted-foreground text-center mb-2">
-                {attachmentFiles.length} file{attachmentFiles.length > 1 ? "s" : ""} selected for upload.
+                {attachmentFiles.length} {c.f026}
+                {attachmentFiles.length > 1 ? "s" : ""} {c.f027}
               </p>
             )}
             <p className="text-sm text-muted-foreground text-center mb-8">
-              A confirmation has been sent to your email address.
+              {c.f028}
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button asChild>
-                <Link to="/"><Home className="w-4 h-4 mr-2" />Return Home</Link>
+                <Link to="/">
+                  <Home className="w-4 h-4 mr-2" />
+                  {c.f029}
+                </Link>
               </Button>
               <Button asChild variant="secondary">
-                <Link to="/contact"><Phone className="w-4 h-4 mr-2" />Contact Us</Link>
+                <Link to="/contact">
+                  <Phone className="w-4 h-4 mr-2" />
+                  {c.f030}
+                </Link>
               </Button>
               {isAdmin && submissionId && (
                 <Button asChild variant="secondary">
                   <Link to={`/admin/inbox?tab=rfp&highlight=${submissionId}`}>
-                    <Shield className="w-4 h-4 mr-2" />View in Admin Inbox
+                    <Shield className="w-4 h-4 mr-2" />
+                    {c.f031}
                   </Link>
                 </Button>
               )}
@@ -347,93 +439,158 @@ export default function SubmitRFPNew() {
           </div>
         </main>
       ) : (
-      <>
-      {/* Enhanced Progress */}
-      <section className="py-8 bg-background">
-        <div className="container mx-auto px-4 max-w-4xl">
-          <div className="flex justify-center gap-4 mb-8">
-            {steps.map((step) => (
-              <div key={step.number} className={`flex flex-col items-center transition-all ${step.number === currentStep ? "scale-110" : step.number < currentStep ? "opacity-70" : "opacity-40"}`}>
-                <div className={`w-16 h-16 rounded-full flex items-center justify-center mb-2 ${step.number === currentStep ? "bg-secondary text-secondary-foreground shadow-lg" : step.number < currentStep ? "bg-secondary/70 text-secondary-foreground" : "bg-primary-foreground/20"}`}>
-                  {step.number < currentStep ? <CheckCircle2 className="w-8 h-8" /> : step.number}
-                </div>
-                <span className="text-sm font-medium">{step.title}</span>
+        <>
+          {/* Enhanced Progress */}
+          <section className="py-8 bg-background">
+            <div className="container mx-auto px-4 max-w-4xl">
+              <div className="flex justify-center gap-4 mb-8">
+                {steps.map((step) => (
+                  <div
+                    key={step.number}
+                    className={`flex flex-col items-center transition-all ${step.number === currentStep ? "scale-110" : step.number < currentStep ? "opacity-70" : "opacity-40"}`}
+                  >
+                    <div
+                      className={`w-16 h-16 rounded-full flex items-center justify-center mb-2 ${step.number === currentStep ? "bg-secondary text-secondary-foreground shadow-lg" : step.number < currentStep ? "bg-secondary/70 text-secondary-foreground" : "bg-primary-foreground/20"}`}
+                    >
+                      {step.number < currentStep ? (
+                        <CheckCircle2 className="w-8 h-8" />
+                      ) : (
+                        step.number
+                      )}
+                    </div>
+                    <span className="text-sm font-medium">{step.title}</span>
+                  </div>
+                ))}
               </div>
-            ))}
-          </div>
-          <div className="max-w-2xl mx-auto mb-8">
-            <div className="flex justify-between text-sm mb-2"><span>Step {currentStep} of {totalSteps}</span><span>{Math.round(progress)}% Complete</span></div>
-            <Progress value={progress} className="h-3 bg-primary-foreground/20" />
-          </div>
-        </div>
-      </section>
-
-      <main className="flex-1 py-12">
-        <div className="container mx-auto px-4 max-w-4xl">
-          {/* Form */}
-          <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-6 animate-fade-in-up" noValidate>
-            {/* Honeypot — hidden from users, attractive to bots */}
-            <div
-              aria-hidden="true"
-              style={{ position: "absolute", left: "-10000px", width: "1px", height: "1px", overflow: "hidden" }}
-            >
-              <label htmlFor="rfp-company-website">Company website (leave blank)</label>
-              <input
-                id="rfp-company-website"
-                name="company_website"
-                type="text"
-                tabIndex={-1}
-                autoComplete="off"
-                value={honeypot}
-                onChange={(e) => setHoneypot(e.target.value)}
-              />
+              <div className="max-w-2xl mx-auto mb-8">
+                <div className="flex justify-between text-sm mb-2">
+                  <span>
+                    {c.f032}
+                    {currentStep} {c.f033}
+                    {totalSteps}
+                  </span>
+                  <span>
+                    {Math.round(progress)}
+                    {c.f034}
+                  </span>
+                </div>
+                <Progress
+                  value={progress}
+                  className="h-3 bg-primary-foreground/20"
+                />
+              </div>
             </div>
-            {currentStep === 4 ? (
-              <RFPStep4Scope form={form} onFilesChange={setAttachmentFiles} />
-            ) : (
-              <CurrentStepComponent form={form} />
-            )}
+          </section>
 
-            {/* Navigation Buttons */}
-            <Card>
-              <CardContent className="p-6">
-                <div className="flex justify-between items-center">
-                  {currentStep > 1 ? (
-                    <Button type="button" variant="secondary" onClick={handleBack}>
-                      <ArrowLeft className="w-4 h-4 mr-2" />Back
-                    </Button>
-                  ) : (
-                    <div />
-                  )}
-
-                  {currentStep < totalSteps ? (
-                    <Button type="button" onClick={handleNext} disabled={submitting}>
-                      Next<ArrowRight className="ml-2 w-4 h-4" />
-                    </Button>
-                  ) : (
-                    <Button type="submit" disabled={submitting}>
-                      {submitting ? "Submitting..." : (<>Submit RFP<ArrowRight className="ml-2 w-4 h-4" /></>)}
-                    </Button>
-                  )}
+          <main className="flex-1 py-12">
+            <div className="container mx-auto px-4 max-w-4xl">
+              {/* Form */}
+              <form
+                onSubmit={form.handleSubmit(handleSubmit)}
+                className="space-y-6 animate-fade-in-up"
+                noValidate
+              >
+                {/* Honeypot — hidden from users, attractive to bots */}
+                <div
+                  aria-hidden="true"
+                  style={{
+                    position: "absolute",
+                    left: "-10000px",
+                    width: "1px",
+                    height: "1px",
+                    overflow: "hidden",
+                  }}
+                >
+                  <label htmlFor="rfp-company-website">{c.f035}</label>
+                  <input
+                    id="rfp-company-website"
+                    name={"company_website"}
+                    type="text"
+                    tabIndex={-1}
+                    autoComplete="off"
+                    value={honeypot}
+                    onChange={(e) => setHoneypot(e.target.value)}
+                  />
                 </div>
-              </CardContent>
-            </Card>
-          </form>
+                {currentStep === 4 ? (
+                  <RFPStep4Scope
+                    form={form}
+                    onFilesChange={setAttachmentFiles}
+                  />
+                ) : (
+                  <CurrentStepComponent form={form} />
+                )}
 
-          {/* Help Section */}
-          <Card className="mt-8 border-secondary/20 bg-secondary/5 animate-fade-in-up" style={{ animationDelay: "0.2s" }}>
-            <CardContent className="p-6">
-              <h3 className="font-bold text-lg mb-3">Need Help?</h3>
-              <p className="text-muted-foreground mb-4">Have questions about the RFP process or need assistance with your submission?</p>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
-                <div><p className="font-semibold mb-1">📞 Call Us</p><p className="text-muted-foreground"><PhoneLink showIcon={false} /></p></div>
-                <div><p className="font-semibold mb-1">📧 Email</p><p className="text-muted-foreground"><AscentEmailLink showIcon={false} /></p></div>
-              </div>
-            </CardContent>
-          </Card>
-        </div>
-      </main>
-      </>
+                {/* Navigation Buttons */}
+                <Card>
+                  <CardContent className="p-6">
+                    <div className="flex justify-between items-center">
+                      {currentStep > 1 ? (
+                        <Button
+                          type="button"
+                          variant="secondary"
+                          onClick={handleBack}
+                        >
+                          <ArrowLeft className="w-4 h-4 mr-2" />
+                          {c.f037}
+                        </Button>
+                      ) : (
+                        <div />
+                      )}
+
+                      {currentStep < totalSteps ? (
+                        <Button
+                          type="button"
+                          onClick={handleNext}
+                          disabled={submitting}
+                        >
+                          {c.f038}
+                          <ArrowRight className="ml-2 w-4 h-4" />
+                        </Button>
+                      ) : (
+                        <Button type="submit" disabled={submitting}>
+                          {submitting ? (
+                            "Submitting..."
+                          ) : (
+                            <>
+                              {c.f039}
+                              <ArrowRight className="ml-2 w-4 h-4" />
+                            </>
+                          )}
+                        </Button>
+                      )}
+                    </div>
+                  </CardContent>
+                </Card>
+              </form>
+
+              {/* Help Section */}
+              <Card
+                className="mt-8 border-secondary/20 bg-secondary/5 animate-fade-in-up"
+                style={{ animationDelay: "0.2s" }}
+              >
+                <CardContent className="p-6">
+                  <h3 className="font-bold text-lg mb-3">{c.f040}</h3>
+                  <p className="text-muted-foreground mb-4">{c.f041}</p>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+                    <div>
+                      <p className="font-semibold mb-1">{c.f042}</p>
+                      <p className="text-muted-foreground">
+                        <PhoneLink showIcon={false} />
+                      </p>
+                    </div>
+                    <div>
+                      <p className="font-semibold mb-1">{c.f043}</p>
+                      <p className="text-muted-foreground">
+                        <AscentEmailLink showIcon={false} />
+                      </p>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+          </main>
+        </>
       )}
 
       <Footer />

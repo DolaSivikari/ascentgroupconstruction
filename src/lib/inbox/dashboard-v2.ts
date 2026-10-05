@@ -2,7 +2,11 @@ import { supabase } from "@/integrations/supabase/client";
 import { loadNewInboxCount } from "./api";
 import { loadRecentInboxActivity } from "./dashboard";
 import { INBOX_SOURCES, type InboxItem } from "./model";
-import { LEAD_SOURCES, type LeadSource } from "@/lib/leads/model";
+import {
+  LEAD_SOURCES,
+  type LeadSource,
+  type LegacyLeadSource,
+} from "@/lib/leads/model";
 
 // P4a does not enable the future RPC, even if a schema was applied independently.
 // P4b must explicitly opt in and add the inquiry contribution to legacy totals.
@@ -24,7 +28,7 @@ export async function loadInquirySummaryCapability(enabled = false) {
 }
 
 export interface LegacyLeadSummary {
-  newBySource: Record<LeadSource, number | null>;
+  newBySource: Record<LegacyLeadSource, number | null>;
   newTotal: number | null;
   byStatus: Record<string, number> | null;
   total: number | null;
@@ -32,7 +36,10 @@ export interface LegacyLeadSummary {
   failed: string[];
 }
 
-async function loadStatusCounts(source: LeadSource, signal?: AbortSignal) {
+async function loadStatusCounts(
+  source: LegacyLeadSource,
+  signal?: AbortSignal,
+) {
   const counts = Object.create(null) as Record<string, number>;
   let cursor: string | null = null;
   // Minimal projection; count headers detect a REST row cap smaller than our

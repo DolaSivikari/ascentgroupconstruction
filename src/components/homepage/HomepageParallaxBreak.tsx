@@ -1,3 +1,5 @@
+import { usePageContent } from "@/hooks/usePageContent";
+import contentModule from "@/content/pages/home-parallax";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 import { useEffect, useRef, useState } from "react";
 
@@ -6,6 +8,8 @@ import { useEffect, useRef, useState } from "react";
  * Background image translates upward as user scrolls down for a true parallax effect.
  */
 export const HomepageParallaxBreak = () => {
+  const c = usePageContent(contentModule);
+
   const rm = useReducedMotion();
   const sectionRef = useRef<HTMLDivElement>(null);
   const [offset, setOffset] = useState(0);
@@ -79,14 +83,13 @@ export const HomepageParallaxBreak = () => {
       {/* Content */}
       <div className="relative z-10 py-24 md:py-36 lg:py-44 text-center px-6">
         <p className="text-xs md:text-sm font-semibold uppercase tracking-[0.25em] text-primary-foreground/60 mb-4">
-          Our Commitment
+          {c.f001}
         </p>
         <h2 className="text-3xl md:text-5xl lg:text-6xl font-bold text-primary-foreground leading-tight max-w-4xl mx-auto mb-6 tracking-tight">
-          We Protect &amp; Improve the Buildings People Depend On
+          {c.f002}
         </h2>
         <p className="text-base md:text-lg text-primary-foreground/80 max-w-2xl mx-auto leading-relaxed">
-          From envelope restoration to interior finishing — self-performed trades,
-          accountable delivery, and documentation you can hand to your client.
+          {c.f003}
         </p>
       </div>
     </section>

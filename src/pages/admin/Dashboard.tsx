@@ -1,3 +1,5 @@
+import { loadCombinedLeadSummary } from "@/lib/inquiry/summary";
+import { InquiryDashboardTiles } from "@/components/admin/leads/InquiryDashboardTiles";
 import { useEffect, type ReactNode } from "react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { Link } from "react-router-dom";
@@ -100,7 +102,7 @@ export default function Dashboard() {
   const queryClient = useQueryClient();
   const leads = useQuery({
     queryKey: ["dashboard-leads"],
-    queryFn: ({ signal }) => loadLegacyLeadSummary(signal),
+    queryFn: ({ signal }) => loadCombinedLeadSummary(signal),
     staleTime: 0,
     retry: false,
   });
@@ -124,6 +126,13 @@ export default function Dashboard() {
           void queryClient.invalidateQueries({ queryKey: ["dashboard-leads"] });
         },
       );
+    channel.on(
+      "postgres_changes",
+      { event: "*", schema: "public", table: "inquiries" },
+      () => {
+        void queryClient.invalidateQueries({ queryKey: ["dashboard-leads"] });
+      },
+    );
     channel.subscribe();
     return () => {
       void supabase.removeChannel(channel);
@@ -172,6 +181,9 @@ export default function Dashboard() {
       <div className="min-w-0 space-y-8">
         <section aria-label="Website health">
           <SiteHealthTile />
+          {summary?.inquiry && (
+            <InquiryDashboardTiles summary={summary.inquiry} />
+          )}
         </section>
         {failed.length > 0 && (
           <div

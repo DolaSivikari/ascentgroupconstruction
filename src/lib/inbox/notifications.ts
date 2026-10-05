@@ -8,6 +8,8 @@ export type InboxNotification =
 export function notificationDestination(
   notification: InboxNotification,
 ): string {
+  if (notification.notification_type === "inquiry")
+    return `/admin/inbox?tab=leads&source=inquiry&highlight=${encodeURIComponent(notification.reference_id)}`;
   const tab = Object.prototype.hasOwnProperty.call(
     INBOX_SOURCES,
     notification.notification_type,

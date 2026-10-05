@@ -1,3 +1,4 @@
+import { usePageSettings } from "@/lib/content/pageSettings";
 import React from "react";
 import { Link } from "react-router-dom";
 import { ChevronRight, ChevronDown, LucideIcon } from "lucide-react";
@@ -40,7 +41,7 @@ export interface PageHeroProps {
   description?: string;
   eyebrow?: string;
   breadcrumbs?: PageHeroBreadcrumb[];
-  
+
   // Visual
   variant?: HeroVariant;
   height?: HeroHeight;
@@ -48,21 +49,21 @@ export interface PageHeroProps {
   imageAlt?: string;
   imagePosition?: "center" | "top" | "bottom";
   overlay?: HeroOverlay;
-  
+
   // Layout
   textAlign?: HeroTextAlign;
   maxWidth?: HeroMaxWidth;
-  
+
   // CTAs
   primaryCta?: PageHeroCTA;
   secondaryCta?: PageHeroCTA;
-  
+
   // Extras
   stats?: PageHeroStat[];
   badge?: string;
   badges?: Array<{ icon: LucideIcon; text: string }>;
   showScrollIndicator?: boolean;
-  
+
   // Styling
   className?: string;
   contentClassName?: string;
@@ -80,9 +81,11 @@ const heightClasses: Record<HeroHeight, string> = {
 };
 
 const overlayClasses: Record<HeroOverlay, string> = {
-  gradient: "bg-gradient-to-r from-[hsl(var(--ink))]/90 via-[hsl(var(--ink))]/75 to-[hsl(var(--ink))]/50",
+  gradient:
+    "bg-gradient-to-r from-[hsl(var(--ink))]/90 via-[hsl(var(--ink))]/75 to-[hsl(var(--ink))]/50",
   dark: "bg-[hsl(var(--ink))]/70",
-  brand: "bg-gradient-to-br from-[hsl(var(--primary))]/90 to-[hsl(var(--primary))]/70",
+  brand:
+    "bg-gradient-to-br from-[hsl(var(--primary))]/90 to-[hsl(var(--primary))]/70",
   light: "bg-[hsl(var(--bg))]/40",
   none: "",
 };
@@ -111,10 +114,17 @@ const staggerStyle = (delayMs: number): React.CSSProperties => ({
 
 const heroCtaLink = (cta: PageHeroCTA) => {
   const Icon = cta.icon;
-  const content = <>{Icon && <Icon className="w-5 h-5" aria-hidden="true" />}{cta.text}</>;
-  return cta.href.startsWith("#")
-    ? <a href={cta.href}>{content}</a>
-    : <Link to={cta.href}>{content}</Link>;
+  const content = (
+    <>
+      {Icon && <Icon className="w-5 h-5" aria-hidden="true" />}
+      {cta.text}
+    </>
+  );
+  return cta.href.startsWith("#") ? (
+    <a href={cta.href}>{content}</a>
+  ) : (
+    <Link to={cta.href}>{content}</Link>
+  );
 };
 
 export function PageHero({
@@ -124,7 +134,7 @@ export function PageHero({
   description,
   eyebrow,
   breadcrumbs,
-  
+
   // Visual
   variant = "standard",
   height = "medium",
@@ -132,29 +142,36 @@ export function PageHero({
   imageAlt = "",
   imagePosition = "center",
   overlay = "gradient",
-  
+
   // Layout
   textAlign = "left",
   maxWidth = "default",
-  
+
   // CTAs
   primaryCta,
   secondaryCta,
-  
+
   // Extras
   stats,
   badge,
   badges,
   showScrollIndicator = false,
-  
+
   // Styling
   className,
   contentClassName,
 }: PageHeroProps) {
   const isCentered = variant === "centered" || textAlign === "center";
   const isMinimal = variant === "minimal";
-  useHeroRegistration(isMinimal || ["gradient", "dark", "brand"].includes(overlay));
-  
+  const pageSettings = usePageSettings();
+  if (pageSettings.hero.url) {
+    image = pageSettings.hero.url;
+    imageAlt = pageSettings.hero.alt;
+  }
+  useHeroRegistration(
+    isMinimal || ["gradient", "dark", "brand"].includes(overlay),
+  );
+
   return (
     <section
       id="main-content"
@@ -163,7 +180,7 @@ export function PageHero({
         "relative flex items-end overflow-hidden pt-24",
         heightClasses[height],
         isMinimal && "bg-[hsl(var(--primary))]",
-        className
+        className,
       )}
     >
       {/* Background Image */}
@@ -175,30 +192,41 @@ export function PageHero({
             priority
             className={cn(
               "w-full h-full object-cover",
-              imagePositionClasses[imagePosition]
+              imagePositionClasses[imagePosition],
             )}
           />
         </div>
       )}
-      
+
       {/* Overlay */}
       {!isMinimal && overlay !== "none" && (
-        <div className={cn("absolute inset-0 z-[1]", overlayClasses[overlay])} />
+        <div
+          className={cn("absolute inset-0 z-[1]", overlayClasses[overlay])}
+        />
       )}
-      
+
       {/* Content Container */}
-      <div className={cn("container mx-auto px-6 relative z-10 py-12 md:py-16", contentClassName)}>
+      <div
+        className={cn(
+          "container mx-auto px-6 relative z-10 py-12 md:py-16",
+          contentClassName,
+        )}
+      >
         <div
           className={cn(
             "flex flex-col hero-stagger",
             maxWidthClasses[maxWidth],
             isCentered && "mx-auto text-center items-center",
-            !isCentered && "items-start"
+            !isCentered && "items-start",
           )}
         >
           {/* Breadcrumbs */}
           {breadcrumbs && breadcrumbs.length > 0 && (
-            <nav aria-label="Breadcrumb" className="mb-4 md:mb-6" style={staggerStyle(0)}>
+            <nav
+              aria-label="Breadcrumb"
+              className="mb-4 md:mb-6"
+              style={staggerStyle(0)}
+            >
               <ol className="flex flex-wrap items-center gap-2 text-sm text-[hsl(var(--bg))]/80">
                 {breadcrumbs.map((crumb, index) => (
                   <li key={index} className="flex items-center gap-2">
@@ -215,14 +243,17 @@ export function PageHero({
                       </span>
                     )}
                     {index < breadcrumbs.length - 1 && (
-                      <ChevronRight className="w-4 h-4 flex-shrink-0" aria-hidden="true" />
+                      <ChevronRight
+                        className="w-4 h-4 flex-shrink-0"
+                        aria-hidden="true"
+                      />
                     )}
                   </li>
                 ))}
               </ol>
             </nav>
           )}
-          
+
           {/* Badge */}
           {badge && (
             <div className="mb-4" style={staggerStyle(50)}>
@@ -231,44 +262,63 @@ export function PageHero({
               </span>
             </div>
           )}
-          
+
           {/* Eyebrow */}
           {eyebrow && (
-            <p className="text-sm md:text-base uppercase tracking-wider text-[hsl(var(--bg))]/80 font-semibold mb-2" style={staggerStyle(50)}>
+            <p
+              className="text-sm md:text-base uppercase tracking-wider text-[hsl(var(--bg))]/80 font-semibold mb-2"
+              style={staggerStyle(50)}
+            >
               {eyebrow}
             </p>
           )}
-          
+
           {/* Subtitle (above title) */}
           {subtitle && (
-            <p className="text-sm md:text-base uppercase tracking-wider text-[hsl(var(--accent))] font-semibold mb-2" style={staggerStyle(50)}>
+            <p
+              className="text-sm md:text-base uppercase tracking-wider text-[hsl(var(--accent))] font-semibold mb-2"
+              style={staggerStyle(50)}
+            >
               {subtitle}
             </p>
           )}
-          
+
           {/* Title */}
-          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-[hsl(var(--bg))] mb-4 leading-tight tracking-tight" style={staggerStyle(100)}>
+          <h1
+            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-[hsl(var(--bg))] mb-4 leading-tight tracking-tight"
+            style={staggerStyle(100)}
+          >
             {title}
           </h1>
-          
+
           {/* Accent Line (for left-aligned variants) */}
           {!isCentered && (
-            <div className="w-16 h-1 bg-[hsl(var(--accent))] mb-6" style={staggerStyle(150)} aria-hidden="true" />
+            <div
+              className="w-16 h-1 bg-[hsl(var(--accent))] mb-6"
+              style={staggerStyle(150)}
+              aria-hidden="true"
+            />
           )}
-          
+
           {/* Description */}
           {description && (
-            <p className={cn(
-              "text-base sm:text-lg md:text-xl text-[hsl(var(--bg))]/90 leading-relaxed",
-              isCentered ? "max-w-3xl" : "max-w-2xl"
-            )} style={staggerStyle(200)}>
+            <p
+              className={cn(
+                "text-base sm:text-lg md:text-xl text-[hsl(var(--bg))]/90 leading-relaxed",
+                isCentered ? "max-w-3xl" : "max-w-2xl",
+              )}
+              style={staggerStyle(200)}
+            >
               {description}
             </p>
           )}
-          
+
           {/* Badges (pill-style trust badges) */}
           {badges && badges.length > 0 && (
-            <div className="flex flex-wrap gap-3 mt-6" style={staggerStyle(220)}>
+            <div
+              className="flex flex-wrap gap-3 mt-6"
+              style={staggerStyle(220)}
+            >
               {badges.map((b, i) => {
                 const Icon = b.icon;
                 return (
@@ -277,7 +327,9 @@ export function PageHero({
                     className="flex items-center gap-2 bg-[hsl(var(--bg))]/10 backdrop-blur-sm px-4 py-2 rounded-full border border-[hsl(var(--bg))]/20"
                   >
                     <Icon className="w-4 h-4 text-[hsl(var(--bg))]" />
-                    <span className="text-sm font-medium text-[hsl(var(--bg))]">{b.text}</span>
+                    <span className="text-sm font-medium text-[hsl(var(--bg))]">
+                      {b.text}
+                    </span>
                   </div>
                 );
               })}
@@ -286,12 +338,18 @@ export function PageHero({
 
           {/* Stats */}
           {stats && stats.length > 0 && (
-            <div className={cn(
-              "flex flex-wrap gap-6 md:gap-10 mt-8 p-6 rounded-lg",
-              "bg-[hsl(var(--bg))]/10 backdrop-blur-sm border border-[hsl(var(--bg))]/20"
-            )} style={staggerStyle(250)}>
+            <div
+              className={cn(
+                "flex flex-wrap gap-6 md:gap-10 mt-8 p-6 rounded-lg",
+                "bg-[hsl(var(--bg))]/10 backdrop-blur-sm border border-[hsl(var(--bg))]/20",
+              )}
+              style={staggerStyle(250)}
+            >
               {stats.map((stat, index) => (
-                <div key={index} className={cn("text-center", !isCentered && "text-left")}>
+                <div
+                  key={index}
+                  className={cn("text-center", !isCentered && "text-left")}
+                >
                   <div className="text-2xl md:text-3xl lg:text-4xl font-bold text-[hsl(var(--accent))]">
                     {stat.value}
                   </div>
@@ -302,22 +360,27 @@ export function PageHero({
               ))}
             </div>
           )}
-          
+
           {/* CTAs */}
           {(primaryCta || secondaryCta) && (
-            <div className={cn(
-              "flex flex-wrap gap-4 mt-8",
-              isCentered && "justify-center"
-            )} style={staggerStyle(300)}>
+            <div
+              className={cn(
+                "flex flex-wrap gap-4 mt-8",
+                isCentered && "justify-center",
+              )}
+              style={staggerStyle(300)}
+            >
               {primaryCta && (
                 <Button
                   asChild
                   size="lg"
-                  variant={primaryCta.variant === "outline" ? "outline" : "primary"}
+                  variant={
+                    primaryCta.variant === "outline" ? "outline" : "primary"
+                  }
                   className={cn(
                     "gap-2",
-                    primaryCta.variant === "outline" && 
-                    "border-[hsl(var(--bg))] text-[hsl(var(--bg))] hover:bg-[hsl(var(--bg))]/10"
+                    primaryCta.variant === "outline" &&
+                      "border-[hsl(var(--bg))] text-[hsl(var(--bg))] hover:bg-[hsl(var(--bg))]/10",
                   )}
                 >
                   {heroCtaLink(primaryCta)}
@@ -337,7 +400,7 @@ export function PageHero({
           )}
         </div>
       </div>
-      
+
       {/* Scroll Indicator */}
       {showScrollIndicator && (
         <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 animate-bounce">

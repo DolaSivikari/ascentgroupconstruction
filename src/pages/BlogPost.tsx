@@ -24,7 +24,7 @@ import ProcessTimelineStep from "@/components/ProcessTimelineStep";
 import { TrustRibbon } from "@/design-system/components/TrustRibbon";
 import { FAQAccordion } from "@/design-system/components/FAQAccordion";
 import { RelatedLinksGrid } from "@/design-system/components/RelatedLinksGrid";
-import { blogPostFaqs } from "@/data/page-faqs";
+import { useSharedFaqs } from "@/hooks/useSharedContent";
 import { Wrench, Building2, Briefcase } from "lucide-react";
 import {
   getRelatedForBlogPost,
@@ -43,6 +43,7 @@ import { SITE_URL } from "@/constants/company";
 import { resolveBlogHero } from "@/data/hero-images";
 
 const BlogPost = () => {
+  const blogPostFaqs = useSharedFaqs("blogPostFaqs");
   const { slug } = useParams<{ slug: string }>();
   const { isPreview, previewToken } = usePreviewMode();
   const [post, setPost] = useState<any>(null);

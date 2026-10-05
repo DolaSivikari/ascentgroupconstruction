@@ -21,11 +21,13 @@ export const INBOX_SOURCES = {
 
 export type InboxKind = keyof typeof INBOX_SOURCES;
 export type InboxFilter = "all" | "work" | InboxKind;
-export type InboxTableName = (typeof INBOX_SOURCES)[InboxKind]["table"];
+export type InboxTableName =
+  | (typeof INBOX_SOURCES)[InboxKind]["table"]
+  | "inquiries";
 export interface InboxItem extends Record<string, unknown> {
   id: string;
   table: InboxTableName;
-  type: (typeof INBOX_SOURCES)[InboxKind]["label"];
+  type: (typeof INBOX_SOURCES)[InboxKind]["label"] | "Inquiry";
   email: string;
   created_at: string | null;
   status: string | null;
@@ -41,6 +43,10 @@ const GENERAL_STATUSES = [
 const QUOTE_STATUSES = ["new", "contacted", "quoted", "won", "lost"];
 export const STATUS_LABELS: Record<string, string> = {
   new: "New",
+  reviewing: "Reviewing",
+  bidding: "Bidding",
+  submitted: "Submitted",
+  no_bid: "No bid",
   in_progress: "In Progress",
   contacted: "Contacted",
   completed: "Completed",

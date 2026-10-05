@@ -70,7 +70,7 @@ export async function saveInboxItem(
 ): Promise<void> {
   const patch = inboxUpdate(item, status, notes);
   if (!Object.keys(patch).length) return;
-  if (item.table === "newsletter_subscribers")
+  if (item.table === "newsletter_subscribers" || item.table === "inquiries")
     throw new Error("Unsupported update");
   let query =
     item.table === "quote_requests" ||

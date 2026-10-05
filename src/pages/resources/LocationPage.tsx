@@ -1,3 +1,5 @@
+import { usePageContent } from "@/hooks/usePageContent";
+import { cityContentModule } from "@/content/cityModule";
 import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import Navigation from "@/components/Navigation";
@@ -8,14 +10,27 @@ import { Section } from "@/components/sections/Section";
 import { Card } from "@/design-system/components/Card";
 import { Button } from "@/ui/Button";
 import { CTA_TEXT } from "@/design-system/constants";
-import { MapPin, Phone, Clock, CheckCircle, Building2, Home, Factory, HardHat, ArrowRight } from "lucide-react";
+import {
+  MapPin,
+  Phone,
+  Clock,
+  CheckCircle,
+  Building2,
+  Home,
+  Factory,
+  HardHat,
+  ArrowRight,
+} from "lucide-react";
 import { COMPANY_PHONE } from "@/constants/company";
 import { PhoneLink } from "@/components/shared/PhoneLink";
-import { serviceAreaCities, primaryServiceCities } from "@/data/service-area-cities";
-import { 
+import {
+  serviceAreaCities,
+  primaryServiceCities,
+} from "@/data/service-area-cities";
+import {
   generateBreadcrumbSchema,
   generateServiceSchema,
-  COMPANY
+  COMPANY,
 } from "@/utils/seo";
 import { usePageAnalytics } from "@/hooks/usePageAnalytics";
 import { supabase } from "@/integrations/supabase/client";
@@ -31,17 +46,6 @@ interface AreaProject {
   category: string | null;
 }
 
-const RELATED_SERVICES: { name: string; slug: string }[] = [
-  { name: "Building Envelope Solutions", slug: "building-envelope-solutions" },
-  { name: "Waterproofing Systems", slug: "waterproofing-systems" },
-  { name: "EIFS & Stucco Systems", slug: "eifs-stucco-systems" },
-  { name: "Cladding Systems", slug: "cladding-systems" },
-  { name: "Painting Services", slug: "painting-services" },
-  { name: "Parking Garage Restoration", slug: "parking-garage-restoration" },
-  { name: "Sealant Programs", slug: "sealant-programs" },
-  { name: "Sustainable Building", slug: "sustainable-building" },
-];
-
 interface LocationData {
   name: string;
   slug: string;
@@ -49,128 +53,6 @@ interface LocationData {
   description: string;
   isPrimary: boolean;
 }
-
-const locationDetails: Record<string, LocationData> = {
-  "toronto": {
-    name: "Toronto",
-    slug: "toronto",
-    region: "ON",
-    description: "As Ontario's largest city, Toronto is home to countless commercial, multi-family, and institutional buildings requiring expert building envelope and restoration services. From downtown high-rises to suburban complexes, Ascent Group Construction delivers professional façade remediation, waterproofing, and specialty contractor services throughout Toronto.",
-    isPrimary: true
-  },
-  "mississauga": {
-    name: "Mississauga",
-    slug: "mississauga",
-    region: "ON",
-    description: "Mississauga's rapidly growing commercial and residential landscape demands reliable building envelope contractors. Our team provides comprehensive restoration, EIFS, masonry repair, and protective coating services to property managers and building owners throughout Mississauga.",
-    isPrimary: true
-  },
-  "brampton": {
-    name: "Brampton",
-    slug: "brampton",
-    region: "ON",
-    description: "Brampton's expanding infrastructure requires trusted specialty contractors for building envelope maintenance and restoration. Ascent Group Construction serves commercial, industrial, and multi-family properties with professional cladding, waterproofing, and coating services.",
-    isPrimary: true
-  },
-  "vaughan": {
-    name: "Vaughan",
-    slug: "vaughan",
-    region: "ON",
-    description: "From Woodbridge to Maple, Vaughan's commercial and residential buildings benefit from our expert building envelope services. Our crews deliver quality EIFS installation, masonry restoration, and façade repairs throughout Vaughan.",
-    isPrimary: true
-  },
-  "markham": {
-    name: "Markham",
-    slug: "markham",
-    region: "ON",
-    description: "Markham's diverse building stock—from tech campuses to residential towers—requires specialized envelope contractors. Ascent Group provides comprehensive restoration, waterproofing, and cladding services to Markham property owners.",
-    isPrimary: true
-  },
-  "richmond-hill": {
-    name: "Richmond Hill",
-    slug: "richmond-hill",
-    region: "ON",
-    description: "Richmond Hill's growing community includes many commercial and multi-family buildings needing professional envelope maintenance. Our team delivers quality façade remediation, coating systems, and restoration services.",
-    isPrimary: false
-  },
-  "oakville": {
-    name: "Oakville",
-    slug: "oakville",
-    region: "ON",
-    description: "Oakville's premium commercial and residential properties deserve expert building envelope services. Ascent Group provides meticulous restoration, waterproofing, and protective coating solutions throughout Oakville.",
-    isPrimary: false
-  },
-  "burlington": {
-    name: "Burlington",
-    slug: "burlington",
-    region: "ON",
-    description: "Burlington's lakeside commercial district and residential communities benefit from our comprehensive building envelope services. We deliver professional façade repairs, cladding installation, and waterproofing throughout Burlington.",
-    isPrimary: false
-  },
-  "hamilton": {
-    name: "Hamilton",
-    slug: "hamilton",
-    region: "ON",
-    description: "Hamilton's industrial heritage and growing commercial sector require experienced specialty contractors. Ascent Group serves Hamilton with expert masonry restoration, protective coatings, and building envelope solutions.",
-    isPrimary: false
-  },
-  "ajax": {
-    name: "Ajax",
-    slug: "ajax",
-    region: "ON",
-    description: "Ajax's commercial and residential buildings benefit from our professional building envelope services. We provide quality restoration, waterproofing, and cladding solutions throughout Ajax.",
-    isPrimary: false
-  },
-  "pickering": {
-    name: "Pickering",
-    slug: "pickering",
-    region: "ON",
-    description: "Pickering's growing infrastructure requires reliable specialty contractors. Ascent Group delivers professional façade remediation, EIFS, and envelope restoration services throughout Pickering.",
-    isPrimary: false
-  },
-  "whitby": {
-    name: "Whitby",
-    slug: "whitby",
-    region: "ON",
-    description: "Whitby's commercial and multi-family properties benefit from our comprehensive envelope solutions. We provide professional restoration, coating, and waterproofing services throughout Whitby.",
-    isPrimary: false
-  },
-  "oshawa": {
-    name: "Oshawa",
-    slug: "oshawa",
-    region: "ON",
-    description: "Oshawa's diverse building stock requires experienced envelope contractors. Ascent Group serves Oshawa with expert façade repairs, masonry restoration, and protective coating systems.",
-    isPrimary: false
-  },
-  "newmarket": {
-    name: "Newmarket",
-    slug: "newmarket",
-    region: "ON",
-    description: "Newmarket's commercial and residential properties benefit from our building envelope expertise. We deliver quality EIFS, cladding, and restoration services throughout Newmarket.",
-    isPrimary: false
-  },
-  "aurora": {
-    name: "Aurora",
-    slug: "aurora",
-    region: "ON",
-    description: "Aurora's premium properties deserve expert building envelope care. Ascent Group provides professional façade remediation, waterproofing, and coating services throughout Aurora.",
-    isPrimary: false
-  },
-  "milton": {
-    name: "Milton",
-    slug: "milton",
-    region: "ON",
-    description: "Milton's rapidly growing commercial and residential developments require reliable specialty contractors. We deliver professional envelope restoration and cladding services throughout Milton.",
-    isPrimary: false
-  },
-  "king-city": {
-    name: "King City",
-    slug: "king-city",
-    region: "ON",
-    description: "King City's estate homes and commercial properties benefit from expert building envelope care. Ascent Group provides professional façade remediation, EIFS, masonry restoration, and protective coating services throughout King City and the surrounding area.",
-    isPrimary: false
-  }
-};
 
 const services = [
   "Façade Remediation & Repairs",
@@ -180,11 +62,144 @@ const services = [
   "Masonry Restoration",
   "Cladding Systems",
   "Protective & Architectural Coatings",
-  "Parking Garage Restoration"
+  "Parking Garage Restoration",
 ];
 
 const LocationPage = () => {
   const { city } = useParams<{ city: string }>();
+  const c = usePageContent(cityContentModule(city || "unknown"));
+  const RELATED_SERVICES: { name: string; slug: string }[] = [
+    { name: c.f045, slug: "building-envelope-solutions" },
+    { name: c.f046, slug: "waterproofing-systems" },
+    { name: c.f047, slug: "eifs-stucco-systems" },
+    { name: c.f048, slug: "cladding-systems" },
+    { name: c.f049, slug: "painting-services" },
+    { name: c.f050, slug: "parking-garage-restoration" },
+    { name: c.f051, slug: "sealant-programs" },
+    { name: c.f052, slug: "sustainable-building" },
+  ];
+  const locationDetails: Record<string, LocationData> = {
+    toronto: {
+      name: c.f053,
+      slug: "toronto",
+      region: "ON",
+      description: c.f054,
+      isPrimary: true,
+    },
+    mississauga: {
+      name: c.f055,
+      slug: "mississauga",
+      region: "ON",
+      description: c.f056,
+      isPrimary: true,
+    },
+    brampton: {
+      name: c.f057,
+      slug: "brampton",
+      region: "ON",
+      description: c.f058,
+      isPrimary: true,
+    },
+    vaughan: {
+      name: c.f059,
+      slug: "vaughan",
+      region: "ON",
+      description: c.f060,
+      isPrimary: true,
+    },
+    markham: {
+      name: c.f061,
+      slug: "markham",
+      region: "ON",
+      description: c.f062,
+      isPrimary: true,
+    },
+    "richmond-hill": {
+      name: c.f063,
+      slug: "richmond-hill",
+      region: "ON",
+      description: c.f064,
+      isPrimary: false,
+    },
+    oakville: {
+      name: c.f065,
+      slug: "oakville",
+      region: "ON",
+      description: c.f066,
+      isPrimary: false,
+    },
+    burlington: {
+      name: c.f067,
+      slug: "burlington",
+      region: "ON",
+      description: c.f068,
+      isPrimary: false,
+    },
+    hamilton: {
+      name: c.f069,
+      slug: "hamilton",
+      region: "ON",
+      description: c.f070,
+      isPrimary: false,
+    },
+    ajax: {
+      name: c.f071,
+      slug: "ajax",
+      region: "ON",
+      description: c.f072,
+      isPrimary: false,
+    },
+    pickering: {
+      name: c.f073,
+      slug: "pickering",
+      region: "ON",
+      description: c.f074,
+      isPrimary: false,
+    },
+    whitby: {
+      name: c.f075,
+      slug: "whitby",
+      region: "ON",
+      description: c.f076,
+      isPrimary: false,
+    },
+    oshawa: {
+      name: c.f077,
+      slug: "oshawa",
+      region: "ON",
+      description: c.f078,
+      isPrimary: false,
+    },
+    newmarket: {
+      name: c.f079,
+      slug: "newmarket",
+      region: "ON",
+      description: c.f080,
+      isPrimary: false,
+    },
+    aurora: {
+      name: c.f081,
+      slug: "aurora",
+      region: "ON",
+      description: c.f082,
+      isPrimary: false,
+    },
+    milton: {
+      name: c.f083,
+      slug: "milton",
+      region: "ON",
+      description: c.f084,
+      isPrimary: false,
+    },
+    "king-city": {
+      name: c.f085,
+      slug: "king-city",
+      region: "ON",
+      description: c.f086,
+      isPrimary: false,
+    },
+  };
+
   const location = city ? locationDetails[city] : null;
   const [areaProjects, setAreaProjects] = useState<AreaProject[]>([]);
 
@@ -197,32 +212,35 @@ const LocationPage = () => {
       try {
         const { data, error } = await supabase
           .from("projects")
-          .select("id, title, slug, summary, location, featured_image, category")
+          .select(
+            "id, title, slug, summary, location, featured_image, category",
+          )
           .eq("publish_state", "published")
           .ilike("location", `%${location.name}%`)
           .order("completion_date", { ascending: false, nullsFirst: false })
           .limit(3);
-        if (!cancelled && !error && data) setAreaProjects(data as AreaProject[]);
+        if (!cancelled && !error && data)
+          setAreaProjects(data as AreaProject[]);
       } catch {
         /* projects section is optional — silently degrade */
       }
     })();
-    return () => { cancelled = true; };
+    return () => {
+      cancelled = true;
+    };
   }, [location]);
 
   if (!location) {
     return (
       <div className="min-h-screen">
-        <SEO title="Service Area Not Found" description="The requested service area could not be found." noindex />
+        <SEO title={c.f001} description={c.f002} noindex />
         <Navigation />
         <Section size="major">
           <div className="text-center">
-            <h1 className="text-4xl font-bold mb-4">Location Not Found</h1>
-            <p className="text-muted-foreground mb-8">
-              The service area you're looking for doesn't exist.
-            </p>
+            <h1 className="text-4xl font-bold mb-4">{c.f003}</h1>
+            <p className="text-muted-foreground mb-8">{c.f004}</p>
             <Button asChild>
-              <Link to="/resources/service-areas">View All Service Areas</Link>
+              <Link to="/resources/service-areas">{c.f005}</Link>
             </Button>
           </div>
         </Section>
@@ -233,11 +251,11 @@ const LocationPage = () => {
 
   // Generate structured data
   const breadcrumbSchema = generateBreadcrumbSchema([
-    { name: "Home", url: "/" },
-    { name: "Service Areas", url: "/resources/service-areas" },
-    { name: location.name, url: `/service-areas/${location.slug}` }
+    { name: c.f006, url: "/" },
+    { name: c.f007, url: "/resources/service-areas" },
+    { name: location.name, url: `/service-areas/${location.slug}` },
   ]);
-  
+
   const serviceSchema = generateServiceSchema({
     name: `Building Envelope Services in ${location.name}`,
     description: `Professional building envelope, façade remediation, and restoration services in ${location.name}, ${location.region}. WSIB compliant, $2M insured specialty contractor.`,
@@ -249,12 +267,12 @@ const LocationPage = () => {
   const hero = getCityHero(location.slug);
 
   const otherCities = Object.values(locationDetails)
-    .filter(l => l.slug !== location.slug)
+    .filter((l) => l.slug !== location.slug)
     .slice(0, 6);
 
   return (
     <div className="min-h-screen">
-      <SEO 
+      <SEO
         title={`Building Envelope Contractor in ${location.name} | Ascent Group`}
         description={`Professional building envelope, façade remediation, waterproofing, and restoration services in ${location.name}, ${location.region}. WSIB compliant, $2M insured. Call ${COMPANY_PHONE}.`}
         keywords={`building envelope contractor ${location.name}, facade remediation ${location.name}, waterproofing ${location.name}, EIFS contractor ${location.name}, masonry restoration ${location.name}`}
@@ -269,11 +287,11 @@ const LocationPage = () => {
         image={hero.image}
         imageAlt={hero.imageAlt}
         primaryCta={{ text: CTA_TEXT.contact, href: "/contact" }}
-        secondaryCta={{ text: "Get Estimate", href: "/estimate" }}
+        secondaryCta={{ text: c.f008, href: "/estimate" }}
         breadcrumbs={[
-          { label: "Home", href: "/" },
-          { label: "Service Areas", href: "/resources/service-areas" },
-          { label: location.name }
+          { label: c.f009, href: "/" },
+          { label: c.f010, href: "/resources/service-areas" },
+          { label: location.name },
         ]}
       />
 
@@ -286,27 +304,36 @@ const LocationPage = () => {
         </div>
 
         {/* Contact Info */}
-        <Card variant="elevated" size="lg" className="mt-8 border-l-4 border-primary">
+        <Card
+          variant="elevated"
+          size="lg"
+          className="mt-8 border-l-4 border-primary"
+        >
           <div className="grid md:grid-cols-3 gap-6">
             <div className="flex items-center gap-3">
               <Phone className="w-6 h-6 text-primary" />
               <div>
-                <p className="font-semibold">Call Us</p>
-                <PhoneLink showIcon={false} className="text-primary hover:underline" />
+                <p className="font-semibold">{c.f011}</p>
+                <PhoneLink
+                  showIcon={false}
+                  className="text-primary hover:underline"
+                />
               </div>
             </div>
             <div className="flex items-center gap-3">
               <Clock className="w-6 h-6 text-primary" />
               <div>
-                <p className="font-semibold">Hours</p>
-                <p className="text-muted-foreground">Mon-Fri 8AM-6PM</p>
+                <p className="font-semibold">{c.f012}</p>
+                <p className="text-muted-foreground">{c.f013}</p>
               </div>
             </div>
             <div className="flex items-center gap-3">
               <MapPin className="w-6 h-6 text-primary" />
               <div>
-                <p className="font-semibold">Serving</p>
-                <p className="text-muted-foreground">{location.name} & Area</p>
+                <p className="font-semibold">{c.f014}</p>
+                <p className="text-muted-foreground">
+                  {location.name} {c.f015}
+                </p>
               </div>
             </div>
           </div>
@@ -317,16 +344,23 @@ const LocationPage = () => {
       <Section size="major" className="bg-muted/50">
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            Services in {location.name}
+            {c.f016}
+            {location.name}
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Complete building envelope and restoration solutions for {location.name} properties
+            {c.f017}
+            {location.name} {c.f018}
           </p>
         </div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4 max-w-5xl mx-auto">
           {services.map((service, index) => (
-            <Card key={index} variant="default" size="md" className="hover:border-primary/50 transition-colors">
+            <Card
+              key={index}
+              variant="default"
+              size="md"
+              className="hover:border-primary/50 transition-colors"
+            >
               <CheckCircle className="w-5 h-5 text-primary mb-2" />
               <span className="font-medium">{service}</span>
             </Card>
@@ -338,38 +372,31 @@ const LocationPage = () => {
       <Section size="major">
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            Who We Serve in {location.name}
+            {c.f019}
+            {location.name}
           </h2>
         </div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-5xl mx-auto">
           <Card variant="elevated" size="md" hover>
             <Building2 className="w-10 h-10 text-primary mb-4" />
-            <h3 className="font-semibold mb-2">Property Managers</h3>
-            <p className="text-sm text-muted-foreground">
-              Multi-family and commercial building maintenance
-            </p>
+            <h3 className="font-semibold mb-2">{c.f020}</h3>
+            <p className="text-sm text-muted-foreground">{c.f021}</p>
           </Card>
           <Card variant="elevated" size="md" hover>
             <Factory className="w-10 h-10 text-primary mb-4" />
-            <h3 className="font-semibold mb-2">General Contractors</h3>
-            <p className="text-sm text-muted-foreground">
-              Trade partner for envelope scopes
-            </p>
+            <h3 className="font-semibold mb-2">{c.f022}</h3>
+            <p className="text-sm text-muted-foreground">{c.f023}</p>
           </Card>
           <Card variant="elevated" size="md" hover>
             <HardHat className="w-10 h-10 text-primary mb-4" />
-            <h3 className="font-semibold mb-2">Developers</h3>
-            <p className="text-sm text-muted-foreground">
-              New construction envelope systems
-            </p>
+            <h3 className="font-semibold mb-2">{c.f024}</h3>
+            <p className="text-sm text-muted-foreground">{c.f025}</p>
           </Card>
           <Card variant="elevated" size="md" hover>
             <Home className="w-10 h-10 text-primary mb-4" />
-            <h3 className="font-semibold mb-2">Homeowners</h3>
-            <p className="text-sm text-muted-foreground">
-              Residential exterior services
-            </p>
+            <h3 className="font-semibold mb-2">{c.f026}</h3>
+            <p className="text-sm text-muted-foreground">{c.f027}</p>
           </Card>
         </div>
       </Section>
@@ -378,13 +405,18 @@ const LocationPage = () => {
       <Section size="major" className="bg-muted/50">
         <div className="text-center mb-10">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            Serving {location.name}, {location.region}
+            {c.f028}
+            {location.name}, {location.region}
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Crews dispatched from our GTA base. Same-day response available for emergency envelope failures within the core service radius.
+            {c.f029}
           </p>
         </div>
-        <Card variant="elevated" size="lg" className="overflow-hidden p-0 max-w-5xl mx-auto">
+        <Card
+          variant="elevated"
+          size="lg"
+          className="overflow-hidden p-0 max-w-5xl mx-auto"
+        >
           <div className="aspect-[16/9] w-full bg-muted">
             <iframe
               title={`Map of ${location.name}, ${location.region} service area`}
@@ -402,10 +434,12 @@ const LocationPage = () => {
       <Section size="major">
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            Popular Services in {location.name}
+            {c.f030}
+            {location.name}
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Explore our most-requested specialty trade services for {location.name} properties.
+            {c.f031}
+            {location.name} {c.f032}
           </p>
         </div>
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 max-w-5xl mx-auto">
@@ -422,14 +456,15 @@ const LocationPage = () => {
                 <ArrowRight className="w-4 h-4 text-muted-foreground group-hover:text-primary group-hover:translate-x-1 transition-all flex-shrink-0 mt-1" />
               </div>
               <p className="text-xs text-muted-foreground">
-                Available in {location.name}
+                {c.f033}
+                {location.name}
               </p>
             </Link>
           ))}
         </div>
         <div className="text-center mt-8">
           <Button asChild variant="outline">
-            <Link to="/services">View All Services</Link>
+            <Link to="/services">{c.f034}</Link>
           </Button>
         </div>
       </Section>
@@ -439,10 +474,12 @@ const LocationPage = () => {
         <Section size="major" className="bg-muted/50">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold mb-4">
-              Recent Projects in {location.name}
+              {c.f035}
+              {location.name}
             </h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              A selection of completed work in and around {location.name}.
+              {c.f036}
+              {location.name}.
             </p>
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
@@ -487,7 +524,7 @@ const LocationPage = () => {
           </div>
           <div className="text-center mt-8">
             <Button asChild variant="outline">
-              <Link to="/projects">View All Projects</Link>
+              <Link to="/projects">{c.f037}</Link>
             </Button>
           </div>
         </Section>
@@ -496,12 +533,8 @@ const LocationPage = () => {
       {/* Other Service Areas */}
       <Section size="major" className="bg-muted/50">
         <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            Other Service Areas
-          </h2>
-          <p className="text-lg text-muted-foreground">
-            We also serve these nearby communities
-          </p>
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">{c.f038}</h2>
+          <p className="text-lg text-muted-foreground">{c.f039}</p>
         </div>
 
         <div className="grid md:grid-cols-3 lg:grid-cols-6 gap-4 max-w-5xl mx-auto">
@@ -519,7 +552,7 @@ const LocationPage = () => {
 
         <div className="text-center mt-8">
           <Button asChild variant="outline">
-            <Link to="/resources/service-areas">View All Service Areas</Link>
+            <Link to="/resources/service-areas">{c.f040}</Link>
           </Button>
         </div>
       </Section>
@@ -528,17 +561,21 @@ const LocationPage = () => {
       <Section size="major" className="bg-primary text-primary-foreground">
         <div className="text-center max-w-3xl mx-auto">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            Ready to Start Your {location.name} Project?
+            {c.f041}
+            {location.name} {c.f042}
           </h2>
-          <p className="text-lg text-primary-foreground/90 mb-8">
-            Get a detailed proposal from our team. Free site assessments for commercial projects.
-          </p>
+          <p className="text-lg text-primary-foreground/90 mb-8">{c.f043}</p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button asChild size="lg" variant="secondary">
               <Link to="/contact">{CTA_TEXT.contact}</Link>
             </Button>
-            <Button asChild variant="outline" size="lg" className="bg-transparent border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-primary">
-              <Link to="/estimate">Get Estimate</Link>
+            <Button
+              asChild
+              variant="outline"
+              size="lg"
+              className="bg-transparent border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-primary"
+            >
+              <Link to="/estimate">{c.f044}</Link>
             </Button>
           </div>
         </div>

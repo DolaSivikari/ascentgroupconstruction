@@ -1,5 +1,20 @@
+import { usePageContent } from "@/hooks/usePageContent";
+import contentModule from "@/content/pages/faq";
 import { useState } from "react";
-import { Search, Sparkles, TrendingUp, MessageCircle, Briefcase, DollarSign, Clock, Palette, HardHat, Building2, Shield, MapPin } from "lucide-react";
+import {
+  Search,
+  Sparkles,
+  TrendingUp,
+  MessageCircle,
+  Briefcase,
+  DollarSign,
+  Clock,
+  Palette,
+  HardHat,
+  Building2,
+  Shield,
+  MapPin,
+} from "lucide-react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
@@ -25,6 +40,8 @@ import {
 } from "@/components/ui/accordion";
 
 const FAQ = () => {
+  const c = usePageContent(contentModule);
+
   const [searchQuery, setSearchQuery] = useState("");
 
   const faqCategories = [
@@ -34,20 +51,20 @@ const FAQ = () => {
       count: 8,
       questions: [
         {
-          question: "How long has Ascent Group Construction been in business?",
-          answer: "Ascent Group Construction was established in 2025 by construction professionals with 15+ years of combined experience in building envelope and interior trades work. While we're a new company, our team members bring hands-on expertise from a wide range of highrise and commercial projects across the Greater Toronto Area."
+          question: c.f001,
+          answer: c.f002,
         },
         {
-          question: "What areas do you serve in Ontario?",
-          answer: "We serve the entire Greater Toronto Area (GTA) including Toronto, Mississauga, Brampton, Vaughan, Markham, Richmond Hill, Oakville, Burlington, and surrounding municipalities. We're equipped to handle projects throughout Southern Ontario."
+          question: c.f003,
+          answer: c.f004,
         },
         {
-          question: "Are you licensed and insured?",
-          answer: "Yes, we are fully licensed and insured with $2M commercial general liability (CGL) coverage and full WSIB compliance for workers' compensation. We maintain comprehensive insurance and follow all Ontario construction regulations. Payment and performance bonds can be arranged through our surety partners for projects requiring them. We can provide proof of insurance and clearance certificates upon request."
+          question: c.f005,
+          answer: c.f006,
         },
         {
-          question: "How do I know if you're the right contractor for my project?",
-          answer: "We specialize in building envelope and restoration work — including façade remediation, waterproofing, EIFS and stucco systems, masonry restoration, cladding, and interior finishing. If your project involves any of these scopes in the GTA or Southern Ontario, we're likely a strong fit. We work directly with property owners, developers, property managers, and general contractors as a specialty prime contractor."
+          question: c.f007,
+          answer: c.f008,
         },
       ],
     },
@@ -57,28 +74,28 @@ const FAQ = () => {
       count: 12,
       questions: [
         {
-          question: "How much does commercial construction cost in Toronto?",
-          answer: "Commercial construction in Toronto varies widely by project scope. Tenant improvements range from $50-$200 per square foot, while new construction can exceed $250-$500 per square foot depending on complexity, finishes, and building systems. A 10,000 sq ft buildout averages $500,000-$1.5M. We provide detailed estimates with line-item breakdowns."
+          question: c.f009,
+          answer: c.f010,
         },
         {
-          question: "What's included in your construction estimates?",
-          answer: "Our estimates include all materials, labor, equipment, permits, project management, insurance, and warranty. We break down costs by scope so you understand exactly what you're paying for. No hidden fees."
+          question: c.f011,
+          answer: c.f012,
         },
         {
-          question: "Do you offer project estimates?",
-          answer: "Yes! We provide no-obligation estimates for all projects. For residential projects, we can often provide ballpark quotes with photos. For commercial projects, we conduct on-site visits to provide accurate, detailed estimates within 3-5 business days."
+          question: c.f013,
+          answer: c.f014,
         },
         {
-          question: "How much does it cost to renovate a condo unit in Mississauga?",
-          answer: "A typical 2-bedroom condo unit (800-1000 sq ft) renovation in Mississauga costs $15,000-$35,000 for cosmetic updates (paint, flooring, fixtures). 3-bedroom units (1200+ sq ft) range from $25,000-$60,000. Full gut renovations can exceed $80,000-$150,000. Price varies based on finishes, scope, and structural changes."
+          question: c.f015,
+          answer: c.f016,
         },
         {
-          question: "What payment methods do you accept?",
-          answer: "We accept checks, bank transfers (EFT), credit cards (Visa, Mastercard, Amex), and e-transfers. For projects over $10,000, we work with payment schedules: 25% deposit, 50% at midpoint, 25% on completion. No payment is due until you're completely satisfied."
+          question: c.f017,
+          answer: c.f018,
         },
         {
-          question: "Can I get volume pricing for multiple units?",
-          answer: "Absolutely! Property managers and developers receive volume discounts for multi-unit projects. For 10+ units, expect 15-20% savings. For 50+ units, up to 30% savings. We also offer preferred pricing for annual maintenance contracts."
+          question: c.f019,
+          answer: c.f020,
         },
       ],
     },
@@ -88,28 +105,28 @@ const FAQ = () => {
       count: 11,
       questions: [
         {
-          question: "How long does a typical residential construction project take?",
-          answer: "Interior renovations: 2-6 weeks for a 2000 sq ft home. Exterior renovations: 4-10 weeks depending on weather and scope. Condo unit renovations: 1-3 weeks. Major additions or new construction: 3-12 months. We provide detailed timelines during estimates and communicate daily updates throughout the project."
+          question: c.f021,
+          answer: c.f022,
         },
         {
-          question: "What's the best time of year for exterior construction in Ontario?",
-          answer: "May through October is ideal for exterior construction in Ontario. We need suitable weather for concrete work, masonry, and exterior finishes. Late spring (May-June) and early fall (September) offer the best conditions. Some projects can proceed in winter with proper planning and temporary enclosures."
+          question: c.f023,
+          answer: c.f024,
         },
         {
-          question: "How long does EIFS or stucco repair take?",
-          answer: "Small repairs (under 100 sq ft): 3-5 days. Medium repairs (100-500 sq ft): 1-2 weeks. Large-scale restoration: 3-6 weeks. EIFS requires proper curing time between coats (24-48 hours per layer), so timeline depends on weather and project size."
+          question: c.f025,
+          answer: c.f026,
         },
         {
-          question: "Can you work evenings or weekends to avoid disrupting my business?",
-          answer: "Yes! We offer flexible scheduling for commercial clients including after-hours (6PM-6AM), weekends, and holiday work. After-hours work incurs a 20-30% premium but ensures zero disruption to your operations. Our team members have extensive experience working after-hours in occupied commercial buildings across the GTA."
+          question: c.f027,
+          answer: c.f028,
         },
         {
-          question: "Do I need to move furniture before you start?",
-          answer: "We handle furniture protection and minor moving. For residential projects, please remove small valuables, wall decorations, and fragile items. We'll cover and protect all furniture and flooring with drop cloths, plastic, and padding. For complete furniture removal, we can arrange moving services at additional cost."
+          question: c.f029,
+          answer: c.f030,
         },
         {
-          question: "What happens if weather delays my exterior project?",
-          answer: "Weather delays don't extend your contract price. We monitor forecasts closely and only work in suitable conditions (10°C+, no rain/snow, low humidity). If weather causes delays, we'll communicate immediately and reschedule to the next available window at no extra cost."
+          question: c.f031,
+          answer: c.f032,
         },
       ],
     },
@@ -119,28 +136,28 @@ const FAQ = () => {
       count: 10,
       questions: [
         {
-          question: "What brands and materials do you use?",
-          answer: "We use commercial-grade materials from trusted suppliers including Benjamin Moore paints, Sherwin-Williams coatings, Dryvit EIFS systems, Hardie siding, and trusted building envelope products. We select materials based on your project requirements, durability needs, and budget. All products meet or exceed Ontario Building Code standards."
+          question: c.f033,
+          answer: c.f034,
         },
         {
-          question: "Can I choose my own paint colors?",
-          answer: "Absolutely! We offer complimentary color consultation to help you select from 3,500+ colors across our partner brands. Our team can provide sample boards, digital mockups, and expert advice on color psychology, trends, and complementary palettes."
+          question: c.f035,
+          answer: c.f036,
         },
         {
-          question: "Do you use eco-friendly paints?",
-          answer: "Yes, sustainability is a priority. We use low-VOC (under 50g/L) and zero-VOC paints by default. We also offer Green Seal certified products, Greenguard Gold certified options for sensitive environments, and recycled paint programs. All meet or exceed Canadian environmental standards."
+          question: c.f037,
+          answer: c.f038,
         },
         {
-          question: "What's the difference between paint grades?",
-          answer: "Contractor grade ($30-40/gallon): Basic coverage, 3-5 year lifespan, good for rentals. Mid-grade ($45-60/gallon): Better coverage, 5-8 years, recommended for homes. Premium ($60-85/gallon): Superior coverage, 10-15 years, best for high-traffic commercial. We recommend mid-grade or premium for most projects."
+          question: c.f039,
+          answer: c.f040,
         },
         {
-          question: "How long will my construction project last in Ontario weather?",
-          answer: "With proper construction: Building envelope systems 20-30 years, roofing 15-25 years, exterior finishes 10-20 years, interior finishes 15-30 years. Ontario's freeze-thaw cycles are harsh, so we use weather-resistant materials with proper installation. Quality construction and regular maintenance maximize lifespan."
+          question: c.f041,
+          answer: c.f042,
         },
         {
-          question: "What warranty do you provide on workmanship?",
-          answer: "We provide a 2-year workmanship warranty on all projects covering peeling, blistering, and application defects. Materials carry manufacturer warranties (typically 5-25 years). If issues arise within warranty period, we'll return to fix at no cost. Commercial projects can extend to 5-year warranties."
+          question: c.f043,
+          answer: c.f044,
         },
       ],
     },
@@ -150,32 +167,32 @@ const FAQ = () => {
       count: 13,
       questions: [
         {
-          question: "Do you repair stucco cracks before painting?",
-          answer: "Yes, proper surface prep is critical. We repair all cracks, holes, and damaged stucco before painting using premium patching compounds and mesh. Small cracks (under 1/4\"): included in painting. Large cracks or water damage: quoted separately. All stucco repairs come with 2-year warranty."
+          question: c.f045,
+          answer: c.f046,
         },
         {
-          question: "Can you paint brick or do you only cover it?",
-          answer: "We can both paint brick and restore it. Options include: 1) Paint (permanent, good for curb appeal), 2) Limewash (breathable, traditional look), 3) Stain (enhances natural color), 4) Brick restoration (cleaning, repointing). Each has pros/cons - we'll recommend best approach for your brick type and goals."
+          question: c.f047,
+          answer: c.f048,
         },
         {
-          question: "What's involved in parking garage restoration?",
-          answer: "Comprehensive parking garage restoration includes: concrete repair, expansion joint sealing, waterproofing membrane, traffic coating system, line striping, and bollard painting. Projects typically take 4-8 weeks depending on size. We work overnight/weekends to minimize disruption."
+          question: c.f049,
+          answer: c.f050,
         },
         {
-          question: "Do you install or just repair EIFS?",
-          answer: "We do both! EIFS installation includes: moisture barrier, foam insulation board, base coat with mesh, finish coat, and trim details. We're certified EIFS installers with 15+ years experience. We also specialize in EIFS repairs, water damage remediation, and system upgrades."
+          question: c.f051,
+          answer: c.f052,
         },
         {
-          question: "Can you paint kitchen cabinets?",
-          answer: "Yes! Cabinet refinishing is a specialty. Process: 1) Remove doors/hardware, 2) Clean and degrease, 3) Primer (bonding coat), 4) Two coats premium cabinet paint (Benjamin Moore Advance or Sherwin-Williams Emerald Urethane), 5) Reassemble with new hardware. Average kitchen: $3,500-$6,500, 5-7 days."
+          question: c.f053,
+          answer: c.f054,
         },
         {
-          question: "Do you do drywall repair and installation?",
-          answer: "Yes, our team handles full drywall services: patching holes, water damage repair, texture matching, new installation, mudding, taping, and sanding. We can match any texture (orange peel, knockdown, skip trowel). Drywall services are often bundled with painting projects."
+          question: c.f055,
+          answer: c.f056,
         },
         {
-          question: "Can you paint high ceilings or multiple-story buildings?",
-          answer: "Absolutely. We have scaffolding, boom lifts, swing stages, and specialized equipment for buildings up to 12 stories. Our team is trained and certified for high-access work with full fall protection. We've painted churches with 40-foot ceilings and 10-story condo buildings."
+          question: c.f057,
+          answer: c.f058,
         },
       ],
     },
@@ -185,20 +202,20 @@ const FAQ = () => {
       count: 9,
       questions: [
         {
-          question: "What's your typical unit turnover time for condos?",
-          answer: "Standard 2-bedroom condo unit: 3 days (paint walls, ceiling, trim). With minor repairs and cleaning: 4-5 days. We coordinate with your cleaning crew and can work weekends to minimize vacancy. For 10+ unit buildings, we maintain dedicated crews for fast turnarounds."
+          question: c.f059,
+          answer: c.f060,
         },
         {
-          question: "Do you offer maintenance contracts for property managers?",
-          answer: "Yes! Annual maintenance contracts include: quarterly inspections, priority scheduling, volume pricing (15-25% discount), dedicated account manager, 48-hour emergency response, and monthly invoicing. Perfect for condos, apartments, and commercial property portfolios."
+          question: c.f061,
+          answer: c.f062,
         },
         {
-          question: "Can you coordinate with tenants for interior work?",
-          answer: "Absolutely. We handle all tenant communication including: access scheduling, pre-work walkthroughs, daily updates, and completion inspections. We're respectful, professional, and minimize disruption. Many property managers have us work directly with tenants to reduce their workload."
+          question: c.f063,
+          answer: c.f064,
         },
         {
-          question: "What's included in common area painting?",
-          answer: "Common area painting includes: hallways, stairwells, lobbies, amenity rooms, elevators, parkades, and exterior common spaces. We work evenings/weekends to avoid resident disruption, use low-VOC paints for occupied buildings, and clean daily. Typical condo (100 units): 2-3 weeks."
+          question: c.f065,
+          answer: c.f066,
         },
       ],
     },
@@ -208,20 +225,20 @@ const FAQ = () => {
       count: 7,
       questions: [
         {
-          question: "Do you have WSIB coverage?",
-          answer: "Yes, we maintain full WSIB (Workplace Safety & Insurance Board) clearance for all employees and subcontractors. We provide updated clearance certificates with every project proposal. Our WSIB account is in good standing."
+          question: c.f067,
+          answer: c.f068,
         },
         {
-          question: "What safety certifications does your team have?",
-          answer: "Our team is working toward COR (Certificate of Recognition) certification. Team members hold: JHSC (Joint Health & Safety Committee) certification, Working at Heights certification, WHMIS 2015, Fall Protection, Confined Space Entry, and First Aid/CPR. We conduct regular safety training and maintain strong safety protocols on every project."
+          question: c.f069,
+          answer: c.f070,
         },
         {
-          question: "How do you handle lead paint in older buildings?",
-          answer: "For pre-1980 buildings, we conduct lead testing ($150-300). If lead is present: 1) Containment with sealed barriers, 2) HEPA vacuums and air scrubbers, 3) Wet sanding to minimize dust, 4) Proper disposal, 5) Clearance testing. We're certified in lead-safe practices per Ontario regulations."
+          question: c.f071,
+          answer: c.f072,
         },
         {
-          question: "Do you need building permits for painting projects?",
-          answer: "Generally no for standard repainting. However, permits may be required for: structural changes, heritage buildings, exterior color changes in some municipalities, or commercial buildings over 3 stories. We'll advise on permit requirements and handle applications if needed."
+          question: c.f073,
+          answer: c.f074,
         },
       ],
     },
@@ -231,99 +248,95 @@ const FAQ = () => {
       count: 8,
       questions: [
         {
-          question: "How much does it cost to paint a house in Toronto vs suburbs?",
-          answer: "Toronto proper: 10-15% higher due to parking, permits, and access challenges. Mississauga/Brampton: baseline pricing. York Region: 5-10% lower. Downtown condo projects include costs for elevator booking, security deposits, and parking permits. Suburban houses have easier access."
+          question: c.f075,
+          answer: c.f076,
         },
         {
-          question: "Do Toronto condo buildings have painting restrictions?",
-          answer: "Most Toronto condos require: 1) Insurance certificates for contractors, 2) Elevator booking/fees ($100-500), 3) Move-in/out permits ($50-200), 4) Work hour restrictions (usually 8AM-6PM weekdays), 5) Parking passes. We handle all paperwork and coordination with property management."
+          question: c.f077,
+          answer: c.f078,
         },
         {
-          question: "What neighborhoods do you serve most frequently?",
-          answer: "Most projects are in: Downtown Toronto, North York, Etobicoke, Scarborough, Mississauga (Port Credit, Streetsville, Erin Mills), Brampton (Bramalea, Heart Lake), Vaughan (Woodbridge, Maple), Markham (Unionville, Thornhill), and Richmond Hill. We serve all of GTA and beyond."
+          question: c.f079,
+          answer: c.f080,
         },
         {
-          question: "How do you handle winter painting in Ontario?",
-          answer: "Exterior painting requires 10°C+ temperatures. In winter (November-March), we focus on: 1) Interior projects, 2) Heated parkades, 3) Emergency repairs with specialty cold-weather products, 4) Planning and estimates for spring. For urgent exterior needs, we use heated tents (additional cost)."
+          question: c.f081,
+          answer: c.f082,
         },
       ],
     },
   ];
 
-  const filteredFAQs = faqCategories.map(category => ({
-    ...category,
-    questions: category.questions.filter(
-      q => 
-        q.question.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        q.answer.toLowerCase().includes(searchQuery.toLowerCase())
-    )
-  })).filter(category => category.questions.length > 0);
+  const filteredFAQs = faqCategories
+    .map((category) => ({
+      ...category,
+      questions: category.questions.filter(
+        (q) =>
+          q.question.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          q.answer.toLowerCase().includes(searchQuery.toLowerCase()),
+      ),
+    }))
+    .filter((category) => category.questions.length > 0);
 
   // Popular questions based on search trends
-  const popularQuestions = [
-    "How much does commercial painting cost in Toronto?",
-    "What's the best time of year to paint exterior in Ontario?",
-    "Do you offer volume pricing for multiple units?",
-    "How long does a typical commercial construction project take?"
-  ];
+  const popularQuestions = [c.f083, c.f084, c.f085, c.f086];
 
   // Create FAQ schema from all questions
-  const allFAQs = faqCategories.flatMap(cat => 
-    cat.questions.map(q => ({
+  const allFAQs = faqCategories.flatMap((cat) =>
+    cat.questions.map((q) => ({
       question: q.question,
-      answer: q.answer
-    }))
+      answer: q.answer,
+    })),
   );
 
   // Include voice FAQs in schema
-  const voiceFaqsForSchema = VOICE_OPTIMIZED_FAQS.map(faq => ({
+  const voiceFaqsForSchema = VOICE_OPTIMIZED_FAQS.map((faq) => ({
     question: faq.question,
-    answer: faq.answer
+    answer: faq.answer,
   }));
 
   // Add HowTo schema for "How to Choose a Contractor"
   const howToSchema = generateHowToSchema({
-    name: "How to Choose a Painting Contractor in Ontario",
-    description: "Complete guide to selecting a qualified painting contractor for your project",
+    name: c.f087,
+    description: c.f088,
     steps: [
-      { name: "Verify Insurance", text: "Check for WSIB clearance, liability insurance, and proper licensing" },
-      { name: "Review Portfolio", text: "Examine completed projects similar to yours with photo documentation" },
-      { name: "Check References", text: "Contact recent clients and verify satisfaction, timeline, and quality" },
-      { name: "Compare Quotes", text: "Get 3+ detailed estimates with material and labor breakdowns" },
-      { name: "Review Contract", text: "Ensure written agreement includes timeline, payment schedule, and warranty" }
+      { name: c.f089, text: c.f090 },
+      { name: c.f091, text: c.f092 },
+      { name: c.f093, text: c.f094 },
+      { name: c.f095, text: c.f096 },
+      { name: c.f097, text: c.f098 },
     ],
-    totalTime: "P3D"
+    totalTime: "P3D",
   });
 
   return (
     <>
       <SEO
-        title="Frequently Asked Questions | Building Envelope & Restoration"
-        description="Get answers to 85+ questions about building envelope, restoration, and specialty trade costs, timelines, and services in Ontario and the GTA."
+        title={c.f099}
+        description={c.f100}
         keywords="construction FAQ Toronto, building envelope questions GTA, restoration costs Ontario, EIFS repair, commercial construction questions"
         canonical={`${SITE_URL}/faq`}
-        structuredData={[generateFAQSchema([...allFAQs, ...voiceFaqsForSchema]), howToSchema]}
+        structuredData={[
+          generateFAQSchema([...allFAQs, ...voiceFaqsForSchema]),
+          howToSchema,
+        ]}
       />
-      
+
       <Navigation />
 
       <PageHero
-        title="Frequently Asked Questions"
-        description="Everything you need to know about building envelope, restoration, and specialty trade services across Ontario and the GTA."
+        title={c.f101}
+        description={c.f102}
         image={mainPageHeroes.faq}
-        imageAlt="Construction FAQ and answers"
+        imageAlt={c.f103}
         height="medium"
         variant="centered"
         primaryCta={{ text: CTA_TEXT.contact, href: "/contact" }}
-        breadcrumbs={[
-          { label: "Home", href: "/" },
-          { label: "FAQ" }
-        ]}
+        breadcrumbs={[{ label: c.f104, href: "/" }, { label: c.f105 }]}
       />
 
       <main className="pb-20">
         <div className="container mx-auto px-4">
-          
           {/* Search Section */}
           <div className="max-w-7xl mx-auto mb-12">
             <div className="relative mb-8">
@@ -342,7 +355,7 @@ const FAQ = () => {
               <div className="mb-12">
                 <div className="flex items-center gap-2 mb-4">
                   <TrendingUp className="w-5 h-5 text-primary" />
-                  <h2 className="text-lg font-semibold">Popular Questions</h2>
+                  <h2 className="text-lg font-semibold">{c.f106}</h2>
                 </div>
                 <div className="flex flex-wrap gap-2">
                   {popularQuestions.map((q, idx) => (
@@ -362,21 +375,31 @@ const FAQ = () => {
             {!searchQuery && (
               <ScrollReveal direction="up">
                 <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-12">
-                {faqCategories.map((cat, idx) => {
-                  const IconComponent = cat.iconComponent;
-                  return (
-                    <Card key={idx} className="hover:shadow-md transition-shadow cursor-pointer" onClick={() => document.getElementById(`category-${idx}`)?.scrollIntoView({ behavior: 'smooth' })}>
-                      <CardContent className="p-6 text-center">
-                        <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-3">
-                          <IconComponent className="w-6 h-6 text-primary" />
-                        </div>
-                        <h3 className="font-semibold mb-1">{cat.category}</h3>
-                        <Badge variant="secondary">{cat.count} questions</Badge>
-                      </CardContent>
-                    </Card>
-                  );
-                })}
-              </div>
+                  {faqCategories.map((cat, idx) => {
+                    const IconComponent = cat.iconComponent;
+                    return (
+                      <Card
+                        key={idx}
+                        className="hover:shadow-md transition-shadow cursor-pointer"
+                        onClick={() =>
+                          document
+                            .getElementById(`category-${idx}`)
+                            ?.scrollIntoView({ behavior: "smooth" })
+                        }
+                      >
+                        <CardContent className="p-6 text-center">
+                          <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-3">
+                            <IconComponent className="w-6 h-6 text-primary" />
+                          </div>
+                          <h3 className="font-semibold mb-1">{cat.category}</h3>
+                          <Badge variant="secondary">
+                            {cat.count} {c.f107}
+                          </Badge>
+                        </CardContent>
+                      </Card>
+                    );
+                  })}
+                </div>
               </ScrollReveal>
             )}
           </div>
@@ -395,31 +418,37 @@ const FAQ = () => {
                       <h2 className="text-2xl font-bold text-foreground">
                         {category.category}
                       </h2>
-                      <p className="text-sm text-muted-foreground">{category.count} questions answered</p>
+                      <p className="text-sm text-muted-foreground">
+                        {category.count} {c.f108}
+                      </p>
                     </div>
                   </div>
-                
-                <Card className="border-2">
-                  <CardContent className="p-6">
-                    <Accordion type="single" collapsible className="space-y-4">
-                      {category.questions.map((faq, qIdx) => (
-                        <AccordionItem
-                          key={qIdx}
-                          value={`${idx}-${qIdx}`}
-                          className="border-b last:border-b-0 pb-4 last:pb-0"
-                        >
-                          <AccordionTrigger className="text-left font-semibold text-base hover:no-underline hover:text-primary transition-colors">
-                            {faq.question}
-                          </AccordionTrigger>
-                          <AccordionContent className="text-muted-foreground pt-3 text-base leading-relaxed">
-                            {faq.answer}
-                          </AccordionContent>
-                        </AccordionItem>
-                      ))}
-                    </Accordion>
-                  </CardContent>
-              </Card>
-            </div>
+
+                  <Card className="border-2">
+                    <CardContent className="p-6">
+                      <Accordion
+                        type="single"
+                        collapsible
+                        className="space-y-4"
+                      >
+                        {category.questions.map((faq, qIdx) => (
+                          <AccordionItem
+                            key={qIdx}
+                            value={`${idx}-${qIdx}`}
+                            className="border-b last:border-b-0 pb-4 last:pb-0"
+                          >
+                            <AccordionTrigger className="text-left font-semibold text-base hover:no-underline hover:text-primary transition-colors">
+                              {faq.question}
+                            </AccordionTrigger>
+                            <AccordionContent className="text-muted-foreground pt-3 text-base leading-relaxed">
+                              {faq.answer}
+                            </AccordionContent>
+                          </AccordionItem>
+                        ))}
+                      </Accordion>
+                    </CardContent>
+                  </Card>
+                </div>
               );
             })}
 
@@ -427,11 +456,10 @@ const FAQ = () => {
               <div className="text-center py-16">
                 <MessageCircle className="w-16 h-16 text-muted-foreground mx-auto mb-4" />
                 <p className="text-muted-foreground text-xl mb-2">
-                  No questions found matching "{searchQuery}"
+                  {c.f109}
+                  {searchQuery}"
                 </p>
-                <p className="text-sm text-muted-foreground">
-                  Try different keywords or browse categories above
-                </p>
+                <p className="text-sm text-muted-foreground">{c.f110}</p>
               </div>
             )}
           </div>
@@ -446,24 +474,23 @@ const FAQ = () => {
             <Card className="bg-gradient-to-br from-primary to-primary/80 text-primary-foreground border-0">
               <CardContent className="p-12 text-center">
                 <Sparkles className="w-12 h-12 mx-auto mb-4 text-secondary" />
-                <h3 className="text-3xl font-bold mb-3">
-                  Still have questions?
-                </h3>
+                <h3 className="text-3xl font-bold mb-3">{c.f111}</h3>
                 <p className="text-primary-foreground/90 mb-8 text-lg">
-                  Our team is here to help. Get personalized answers from construction experts.
+                  {c.f112}
                 </p>
                 <div className="flex gap-4 justify-center flex-wrap">
                   <a
                     href="/contact"
                     className="inline-flex items-center justify-center px-8 py-4 bg-secondary text-primary rounded-lg font-semibold hover:bg-secondary/90 transition-colors shadow-lg text-lg"
                   >
-                    Contact Us
+                    {c.f113}
                   </a>
-                  <PhoneLink 
-                    showIcon={false} 
+                  <PhoneLink
+                    showIcon={false}
                     className="inline-flex items-center justify-center px-8 py-4 bg-primary-foreground/20 backdrop-blur-sm text-primary-foreground rounded-lg font-semibold hover:bg-primary-foreground/30 transition-colors text-lg"
                   >
-                    Call {formatPhoneDisplay()}
+                    {c.f114}
+                    {formatPhoneDisplay()}
                   </PhoneLink>
                 </div>
               </CardContent>
@@ -471,7 +498,7 @@ const FAQ = () => {
           </div>
         </div>
       </main>
-      
+
       <Footer />
     </>
   );

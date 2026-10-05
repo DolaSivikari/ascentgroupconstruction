@@ -1,4 +1,4 @@
-import { createRoot } from "react-dom/client"; 
+import { createRoot } from "react-dom/client";
 import { HelmetProvider } from "react-helmet-async";
 import App from "./App.tsx";
 import { ThemeProvider } from "./components/ThemeProvider";
@@ -12,15 +12,24 @@ import { initializeServiceWorker } from "./utils/serviceWorker";
 
 import { initializeAnalyticsConsent } from "./lib/analyticsConsent";
 
-initializeAnalyticsConsent();
+import { bootstrapContent } from "./lib/content/store";
 
-createRoot(document.getElementById("root")!).render(
-  <HelmetProvider>
-    <ThemeProvider>
-      <App />
-    </ThemeProvider>
-  </HelmetProvider>
-);
+const privatePackagePage =
+  window.location.pathname.startsWith("/prequal-package/");
+if (!privatePackagePage) initializeAnalyticsConsent();
+
+async function mount() {
+  await bootstrapContent();
+
+  createRoot(document.getElementById("root")!).render(
+    <HelmetProvider>
+      <ThemeProvider>
+        <App />
+      </ThemeProvider>
+    </HelmetProvider>,
+  );
+}
+void mount();
 
 // Defer non-critical boot work until the browser is idle so it doesn't
 // compete with hydration / first interaction. Falls back to setTimeout for Safari.
@@ -32,12 +41,13 @@ const runIdle = (cb: () => void, timeout = 2000) => {
   }
 };
 
-runIdle(() => {
-  // Web Vitals tracking
-  reportWebVitals();
-  // Error logging
-  initErrorLogging();
-});
+if (!privatePackagePage)
+  runIdle(() => {
+    // Web Vitals tracking
+    reportWebVitals();
+    // Error logging
+    initErrorLogging();
+  });
 
 // Updates activate after existing tabs close. Never reload an open form or editor.
-if (import.meta.env.PROD) initializeServiceWorker();
+if (import.meta.env.PROD && !privatePackagePage) initializeServiceWorker();

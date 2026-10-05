@@ -1,5 +1,7 @@
 # R1–R6 consolidated admin completion
 
+Later master-plan application work is tracked in [MASTER-PLAN-APPLICATION-STATUS.md](MASTER-PLAN-APPLICATION-STATUS.md). The evidence below belongs to the earlier R1–R6 PR.
+
 The owner requested one PR for the complete R1–R6 redesign, overriding the older one-phase-per-PR sequence. This implements the R phases in file 14; it does not claim that all nine phases of the master plan or the future inquiry intake rollout are complete.
 
 **Code is ready for review. Database activation and Lovable publishing are separate owner steps.** No live data, storage, secrets, migrations, deployments or emails were changed during this work.

@@ -18,7 +18,7 @@ export function emailLeadHref(metadata: unknown): string | null {
     typeof row.inquiry_id === "string" &&
     /^[a-f0-9-]{36}$/i.test(row.inquiry_id)
   )
-    return `/admin/inbox?tab=leads&highlight=${encodeURIComponent(row.inquiry_id)}`;
+    return `/admin/inbox?tab=leads&source=inquiry&highlight=${encodeURIComponent(row.inquiry_id)}`;
   return null;
 }
 export function emailDateRange(
