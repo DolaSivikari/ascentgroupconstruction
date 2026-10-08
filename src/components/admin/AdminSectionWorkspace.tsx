@@ -45,7 +45,9 @@ export function AdminSectionWorkspace({
   useEffect(() => {
     if (previous.current === active) return;
     root.current
-      ?.closest<HTMLElement>(".business-page-content")
+      ?.closest<HTMLElement>(
+        "[data-request-detail-scroll], .business-page-content",
+      )
       ?.scrollTo?.({ top: 0, behavior: "instant" });
     const heading = root.current?.querySelector<HTMLElement>(
       "[data-admin-section]:not([hidden]) h2",

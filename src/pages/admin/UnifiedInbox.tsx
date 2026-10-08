@@ -55,6 +55,7 @@ export default function UnifiedInbox() {
         : "all";
   const handleSelectionChange = (ref: LeadRef | null) => {
     const next = new URLSearchParams(searchParams);
+    next.delete("lead-section");
     if (ref) {
       next.set("highlight", ref.id);
       next.set("source", ref.source);
@@ -67,6 +68,7 @@ export default function UnifiedInbox() {
 
   const handleTabChange = (tab: string) => {
     const nextParams = new URLSearchParams(searchParams);
+    nextParams.delete("lead-section");
 
     if (tab === "leads") {
       nextParams.delete("tab");

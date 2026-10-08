@@ -4,13 +4,7 @@ import type { Inquiry } from "@/lib/inquiry/types";
 import { useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import { InboxDetailDialog } from "@/components/admin/inbox/InboxDetailDialog";
-import {
-  Sheet,
-  SheetContent,
-  SheetDescription,
-  SheetHeader,
-  SheetTitle,
-} from "@/components/ui/sheet";
+import { RequestDetailShell } from "@/components/admin/requests/RequestDetailShell";
 import { Button } from "@/ui/Button";
 import { loadLeadDetail } from "@/lib/leads/api";
 import type { LeadSource } from "@/lib/leads/model";
@@ -66,23 +60,36 @@ export function LeadDetailPanel({
       />
     );
   return (
-    <Sheet
-      open
-      onOpenChange={(open) => {
-        if (!open) onClose();
-      }}
+    <RequestDetailShell
+      name="Request details"
+      onClose={onClose}
+      type="Request"
+      description={
+        isPending || isFetching
+          ? "Loading the saved request…"
+          : "This request could not be opened."
+      }
+      footer={
+        <Button variant="outline" onClick={onClose}>
+          Close
+        </Button>
+      }
     >
-      <SheetContent className="w-full sm:max-w-2xl h-dvh overflow-y-auto">
-        <SheetHeader>
-          <SheetTitle>Request details</SheetTitle>
-          <SheetDescription>
-            {isPending || isFetching
-              ? "Loading the saved request…"
-              : "This request could not be opened."}
-          </SheetDescription>
-        </SheetHeader>
-        {error && (
-          <div role="alert" className="mt-6 space-y-4">
+      {isPending || isFetching ? (
+        <div
+          className="space-y-3 py-6"
+          role="status"
+          aria-label="Loading request"
+        >
+          <div className="h-36 animate-pulse rounded-xl bg-muted" />
+          <div className="h-56 animate-pulse rounded-xl bg-muted" />
+        </div>
+      ) : (
+        error && (
+          <div
+            role="alert"
+            className="my-6 space-y-4 rounded-xl border border-destructive/40 bg-card p-5"
+          >
             <p>
               {error instanceof Error
                 ? error.message
@@ -92,8 +99,8 @@ export function LeadDetailPanel({
               Retry request
             </Button>
           </div>
-        )}
-      </SheetContent>
-    </Sheet>
+        )
+      )}
+    </RequestDetailShell>
   );
 }

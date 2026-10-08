@@ -1,3 +1,4 @@
+import { MemoryRouter } from "react-router-dom";
 import {
   cleanup,
   fireEvent,
@@ -72,9 +73,11 @@ function renderWorkspace() {
     defaultOptions: { queries: { retry: false } },
   });
   return render(
-    <QueryClientProvider client={client}>
-      <InboxTable type="work" />
-    </QueryClientProvider>,
+    <MemoryRouter>
+      <QueryClientProvider client={client}>
+        <InboxTable type="work" />
+      </QueryClientProvider>
+    </MemoryRouter>,
   );
 }
 const fixture = [
@@ -182,5 +185,40 @@ describe("existing-record Bids & Estimates workspace", () => {
     expect(screen.getByRole("button", { name: "Export CSV" })).toBeDisabled();
     fireEvent.click(screen.getByRole("button", { name: "Refresh" }));
     await waitFor(() => expect(mock.load).toHaveBeenCalledTimes(2));
+  });
+});
+
+describe("whole inbox row activation", () => {
+  it.each(["click", "Enter", " "])(
+    "opens stored request details using %s from the current table",
+    async (action) => {
+      mock.load.mockResolvedValue({ items: fixture, failed: [] });
+      renderWorkspace();
+      const row = await screen.findByRole("row", {
+        name: "Open request from RFP contact",
+      });
+      if (action === "click")
+        fireEvent.click(within(row).getByText("Brick repairs"));
+      else fireEvent.keyDown(row, { key: action });
+      expect(screen.getByText("Opened request: rfp")).toBeInTheDocument();
+    },
+  );
+  it("keeps delete and contact actions independent of opening the row", async () => {
+    mock.load.mockResolvedValue({ items: fixture, failed: [] });
+    renderWorkspace();
+    const row = await screen.findByRole("row", {
+      name: "Open request from RFP contact",
+    });
+    fireEvent.click(
+      within(row).getByRole("link", { name: "Email RFP contact" }),
+    );
+    expect(screen.queryByText("Opened request: rfp")).not.toBeInTheDocument();
+    fireEvent.click(
+      within(row).getByRole("button", { name: "Delete RFP contact" }),
+    );
+    expect(screen.getByRole("alertdialog")).toHaveTextContent(
+      "permanently deletes",
+    );
+    expect(screen.queryByText("Opened request: rfp")).not.toBeInTheDocument();
   });
 });
