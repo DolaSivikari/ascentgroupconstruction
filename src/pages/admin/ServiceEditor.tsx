@@ -1,3 +1,4 @@
+import { validateSectionForm } from "@/lib/admin/sectionValidation";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
@@ -73,7 +74,10 @@ export default function ServiceEditor() {
   const [failure, setFailure] = useState("");
   const [savedAt, setSavedAt] = useState<Date | null>(null);
   const sequence = useRef(0);
-  const guard = useUnsavedChanges({ hasUnsavedChanges: dirty });
+  const guard = useUnsavedChanges({
+    hasUnsavedChanges: dirty,
+    preserveDraftQueryKeys: ["section"],
+  });
   const draftKey = `service-draft-${id || "new"}`;
   const draft = useLocalDraft(form, draftKey, ready && dirty);
   const slug = useSlugAvailability(
@@ -135,6 +139,8 @@ export default function ServiceEditor() {
   const save = async (event: React.FormEvent) => {
     event.preventDefault();
     if (!ready || busy) return;
+    if (!validateSectionForm(event.currentTarget as HTMLFormElement, navigate))
+      return;
     if (slug.checking || !slug.available) {
       setFailure(slug.message);
       return;
@@ -305,7 +311,7 @@ export default function ServiceEditor() {
           </p>
         </div>
       )}
-      <form id="service-editor-form" onSubmit={save}>
+      <form noValidate id="service-editor-form" onSubmit={save}>
         <fieldset disabled={!ready || busy} className="min-w-0">
           <EditorSections
             sections={[
@@ -344,7 +350,7 @@ export default function ServiceEditor() {
               },
               {
                 id: "service-content",
-                title: "Content",
+                title: "Overview",
                 content: (
                   <>
                     <RichTextEditor
@@ -356,6 +362,14 @@ export default function ServiceEditor() {
                       }
                       maxLength={20000}
                     />
+                  </>
+                ),
+              },
+              {
+                id: "service-description",
+                title: "Fallback description",
+                content: (
+                  <>
                     <RichTextEditor
                       id="service-description"
                       label="Long description (fallback when Overview is empty)"
@@ -391,8 +405,8 @@ export default function ServiceEditor() {
                 ),
               },
               {
-                id: "service-details",
-                title: "Details & process",
+                id: "service-process",
+                title: "Process",
                 content: (
                   <>
                     <StructuredListEditor
@@ -408,6 +422,14 @@ export default function ServiceEditor() {
                       rows={form.process_steps}
                       onChange={(process_steps) => change({ process_steps })}
                     />
+                  </>
+                ),
+              },
+              {
+                id: "service-benefits",
+                title: "Benefits",
+                content: (
+                  <>
                     <StructuredListEditor
                       label="Benefits"
                       fields={[
@@ -421,6 +443,14 @@ export default function ServiceEditor() {
                       rows={form.key_benefits}
                       onChange={(key_benefits) => change({ key_benefits })}
                     />
+                  </>
+                ),
+              },
+              {
+                id: "service-faq",
+                title: "FAQ",
+                content: (
+                  <>
                     <StructuredListEditor
                       label="FAQ"
                       fields={[
@@ -430,6 +460,14 @@ export default function ServiceEditor() {
                       rows={form.faq_items}
                       onChange={(faq_items) => change({ faq_items })}
                     />
+                  </>
+                ),
+              },
+              {
+                id: "service-details",
+                title: "Scope & applications",
+                content: (
+                  <>
                     {(["what_we_provide", "typical_applications"] as const).map(
                       (key) => (
                         <div key={key} className="space-y-2">

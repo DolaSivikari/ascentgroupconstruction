@@ -1,3 +1,7 @@
+import {
+  AdminSectionWorkspace,
+  AdminSectionScreen,
+} from "@/components/admin/AdminSectionWorkspace";
 import { useEffect, useState } from "react";
 import { useSettingsData } from "@/hooks/useSettingsData";
 import { supabase } from "@/integrations/supabase/client";
@@ -39,7 +43,10 @@ export function ConnectedSettingsForm({
   const [saving, setSaving] = useState(false);
   const [publishOpen, setPublishOpen] = useState(false);
   const [saveError, setSaveError] = useState("");
-  const guard = useUnsavedChanges({ hasUnsavedChanges: dirty });
+  const guard = useUnsavedChanges({
+    hasUnsavedChanges: dirty,
+    preserveDraftQueryKeys: ["section"],
+  });
   useEffect(() => {
     if (record)
       setValues({
@@ -132,70 +139,123 @@ export function ConnectedSettingsForm({
           Only settings with a public consumer are shown. Changes become public
           when you choose Publish.
         </p>
-        {table === "site_settings" &&
-          [
-            ["company_tagline", "Footer tagline (phone layout)"],
-            ["address", "Business address"],
-            ["meta_title", "Default meta title"],
-            ["meta_description", "Default meta description"],
-          ].map(([key, label]) => (
-            <div key={key} className="space-y-2">
-              <Label htmlFor={`${table}-${key}`}>{label}</Label>
-              <Textarea
-                id={`${table}-${key}`}
-                rows={key === "meta_description" ? 3 : 2}
-                value={values[key] || ""}
-                onChange={(event) => change(key, event.target.value)}
+        <AdminSectionWorkspace
+          label="Settings sections"
+          items={
+            table === "site_settings"
+              ? [
+                  { id: "company", title: "Company" },
+                  { id: "seo", title: "Default SEO" },
+                  { id: "social", title: "Social profiles" },
+                  { id: "contact", title: "Contact details" },
+                ]
+              : [
+                  { id: "social", title: "Social profiles" },
+                  { id: "contact", title: "Contact details" },
+                ]
+          }
+        >
+          <AdminSectionScreen id="company" title="Company">
+            {table === "site_settings" &&
+              [
+                ["company_tagline", "Footer tagline (phone layout)"],
+                ["address", "Business address"],
+              ].map(([key, label]) => (
+                <div key={key} className="space-y-2">
+                  <Label htmlFor={`${table}-${key}`}>{label}</Label>
+                  <Textarea
+                    id={`${table}-${key}`}
+                    rows={key === "meta_description" ? 3 : 2}
+                    value={values[key] || ""}
+                    onChange={(event) => change(key, event.target.value)}
+                  />
+                  <p className="text-xs text-muted-foreground">
+                    {key.startsWith("meta_")
+                      ? "Used only when a page has no page-specific value."
+                      : ""}
+                  </p>
+                </div>
+              ))}
+          </AdminSectionScreen>
+          <AdminSectionScreen id="seo" title="Default SEO">
+            {table === "site_settings" &&
+              [
+                ["meta_title", "Default meta title"],
+                ["meta_description", "Default meta description"],
+              ].map(([key, label]) => (
+                <div key={key} className="space-y-2">
+                  <Label htmlFor={`${table}-${key}`}>{label}</Label>
+                  <Textarea
+                    id={`${table}-${key}`}
+                    rows={key === "meta_description" ? 3 : 2}
+                    value={values[key] || ""}
+                    onChange={(event) => change(key, event.target.value)}
+                  />
+                  <p className="text-xs text-muted-foreground">
+                    {key.startsWith("meta_")
+                      ? "Used only when a page has no page-specific value."
+                      : ""}
+                  </p>
+                </div>
+              ))}
+          </AdminSectionScreen>
+          <AdminSectionScreen id="social" title="Social profiles">
+            <section className="space-y-4">
+              <h2 className="text-xl font-semibold">Social profiles</h2>
+              <p className="text-sm text-muted-foreground">
+                Footer values take priority over General values. Only HTTPS
+                links are displayed.
+              </p>
+              <div className="grid sm:grid-cols-2 gap-4">
+                {socials.map((name) => (
+                  <div key={name} className="space-y-2">
+                    <Label className="capitalize" htmlFor={`${table}-${name}`}>
+                      {name === "twitter" ? "X / Twitter" : name}
+                    </Label>
+                    <Input
+                      id={`${table}-${name}`}
+                      value={values[name] || ""}
+                      type="url"
+                      placeholder="https://"
+                      onChange={(event) => change(name, event.target.value)}
+                    />
+                  </div>
+                ))}
+              </div>
+            </section>
+          </AdminSectionScreen>
+          <AdminSectionScreen id="contact" title="Contact details">
+            <div className="space-y-2">
+              <Label>Phone and email</Label>
+              <Input
+                aria-label="Company phone"
+                readOnly
+                value={COMPANY_PHONE}
               />
-              <p className="text-xs text-muted-foreground">
-                {key.startsWith("meta_")
-                  ? "Used only when a page has no page-specific value."
-                  : ""}
+              <Input
+                aria-label="Company email"
+                readOnly
+                value={COMPANY_EMAIL}
+              />
+              <p className="text-sm text-muted-foreground">
+                Set in code (spam protection). Ask a developer to change.
               </p>
             </div>
-          ))}
-        <section className="space-y-4">
-          <h2 className="text-xl font-semibold">Social profiles</h2>
-          <p className="text-sm text-muted-foreground">
-            Footer values take priority over General values. Only HTTPS links
-            are displayed.
-          </p>
-          <div className="grid sm:grid-cols-2 gap-4">
-            {socials.map((name) => (
-              <div key={name} className="space-y-2">
-                <Label className="capitalize" htmlFor={`${table}-${name}`}>
-                  {name === "twitter" ? "X / Twitter" : name}
-                </Label>
-                <Input
-                  id={`${table}-${name}`}
-                  value={values[name] || ""}
-                  type="url"
-                  placeholder="https://"
-                  onChange={(event) => change(name, event.target.value)}
-                />
-              </div>
-            ))}
-          </div>
-        </section>
-        <div className="space-y-2">
-          <Label>Phone and email</Label>
-          <Input aria-label="Company phone" readOnly value={COMPANY_PHONE} />
-          <Input aria-label="Company email" readOnly value={COMPANY_EMAIL} />
-          <p className="text-sm text-muted-foreground">
-            Set in code (spam protection). Ask a developer to change.
-          </p>
-        </div>
+          </AdminSectionScreen>
+        </AdminSectionWorkspace>
         {saveError && (
           <p role="alert" className="text-destructive">
             {saveError} Your edits are retained.
           </p>
         )}
-        <Button
-          onClick={() => setPublishOpen(true)}
-          disabled={!dirty || saving}
-        >
-          Publish settings
-        </Button>
+        <div className="admin-section-save-bar">
+          <Button
+            onClick={() => setPublishOpen(true)}
+            disabled={!dirty || saving}
+          >
+            Publish settings
+          </Button>
+        </div>
       </fieldset>
     </div>
   );

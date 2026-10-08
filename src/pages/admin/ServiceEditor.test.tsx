@@ -156,6 +156,7 @@ describe("service featured-image editing", () => {
   });
   it("writes the uploaded image URL and clears the field as null", async () => {
     await ready();
+    fireEvent.click(screen.getByRole("link", { name: "Images" }));
     fireEvent.click(screen.getByRole("button", { name: "Upload fixture" }));
     fireEvent.click(
       screen.getByRole("button", { name: /Save draft|Save & publish/ }),

@@ -28,6 +28,69 @@ const project = {
   completion_date: "",
   created_at: "2026-10-08T00:00:00Z",
 };
+const workspaceFixtures = {
+  services: [
+    {
+      id: projectId,
+      name: "Offline service",
+      slug: "offline-service",
+      publish_state: "draft",
+      short_description: "",
+      featured_image: "",
+      service_overview: "<p>Service overview.</p>",
+    },
+  ],
+  blog_posts: [
+    {
+      id: projectId,
+      title: "Offline article",
+      slug: "offline-article",
+      content: "<p>Article content.</p>",
+      summary: "Fixture",
+      content_type: "case-study",
+      publish_state: "draft",
+      category: "Case Study",
+      sector: "Buildings",
+      read_time_minutes: 4,
+      tags: [],
+    },
+  ],
+  site_settings: [
+    {
+      id: projectId,
+      company_tagline: "Offline company",
+      address: "Fixture address",
+      social_links: {},
+    },
+  ],
+  footer_settings: [{ id: projectId, social_media: {} }],
+  contact_page_settings: [
+    {
+      id: projectId,
+      office_address: "Fixture office",
+      weekday_hours: "9–5",
+      saturday_hours: "Closed",
+      sunday_hours: "Closed",
+      map_embed_url: "",
+    },
+  ],
+  about_page_settings: [
+    {
+      id: projectId,
+      is_active: true,
+      hero_headline: "Offline About",
+      hero_intro: "Fixture intro",
+      story_headline: "Fixture story",
+      story_content: ["Fixture paragraph"],
+      founder_name: "Fixture founder",
+      founder_title: "Founder",
+      founder_bio: "Fixture bio",
+      founder_quote: "Fixture quote",
+      founder_image_url: "",
+      stats: [{ value: "1", label: "Fixture" }],
+    },
+  ],
+};
 (async () => {
   const browser = await puppeteer.launch({
     executablePath: process.env.CHROMIUM_PATH || "/usr/bin/chromium",
@@ -40,6 +103,7 @@ const project = {
       const errors = [],
         warnings = [],
         writes = [];
+      page.on("dialog", (dialog) => dialog.accept());
       page.on("pageerror", (error) => errors.push(error.message));
       page.on("console", (message) => {
         if (message.type() === "warn") warnings.push(message.text());
@@ -145,7 +209,7 @@ const project = {
                         full_name: "Offline owner",
                       },
                     ]
-                  : [];
+                  : workspaceFixtures[table] || [];
           if (request.headers().accept?.includes("vnd.pgrst.object"))
             return rows.length
               ? respond(200, rows[0])
@@ -314,8 +378,222 @@ const project = {
       await page.screenshot({
         path: path.join(out, mode + "-" + width + "-validation.png"),
       });
+      const workspaces = [];
+      if (mode === "after") {
+        const checks = [
+          {
+            name: "Services",
+            url: "/admin/services/" + projectId,
+            input: "#service-name",
+            target: "service-images",
+            expected: 9,
+          },
+          {
+            name: "Blog / case study",
+            url: "/admin/blog/" + projectId,
+            input: "#title",
+            target: "content",
+            expected: 11,
+          },
+          {
+            name: "General settings",
+            url: "/admin/settings",
+            input: "#site_settings-company_tagline",
+            target: "seo",
+            expected: 4,
+          },
+          {
+            name: "Footer settings",
+            url: "/admin/settings?tab=footer",
+            input: "#footer_settings-linkedin",
+            target: "contact",
+            expected: 2,
+          },
+          {
+            name: "About settings",
+            url: "/admin/settings?tab=about",
+            input: "#about-hero_headline",
+            target: "story",
+            expected: 5,
+          },
+          {
+            name: "Contact settings",
+            url: "/admin/settings?tab=contact",
+            input: "#contact_page_settings-office_address",
+            target: "hours",
+            expected: 3,
+          },
+          {
+            name: "Page content",
+            url: "/admin/pages?page=%2Fabout",
+            target: "Story",
+          },
+          {
+            name: "Monitoring",
+            url: "/admin/monitoring",
+            target: "site-health",
+            expected: 3,
+          },
+          {
+            name: "Credentials",
+            url: "/admin/credentials",
+            target: "builder",
+            expected: 3,
+          },
+        ];
+        for (const check of checks) {
+          await page.goto(base + check.url, { waitUntil: "networkidle0" });
+          await page.waitForSelector(".admin-section-workspace");
+          if (check.input) {
+            await page.waitForSelector(check.input);
+            await page.click(check.input, { clickCount: 3 });
+            await page.keyboard.type("Unsaved offline edit");
+          }
+          const items = await page.$$eval(
+            ".admin-section-workspace nav select option",
+            (options) => options.map((option) => option.value),
+          );
+          if (check.expected)
+            assert.equal(items.length, check.expected, check.name);
+          const target = items.includes(check.target) ? check.target : items[1];
+          assert(target, check.name + " needs another section");
+          await page.select(".admin-section-workspace nav select", target);
+          await page.waitForFunction(
+            (target) =>
+              new URLSearchParams(location.search).get("section") === target,
+            {},
+            target,
+          );
+          assert.equal(
+            await page.$('[role="alertdialog"]'),
+            null,
+            check.name + " section navigation blocked a draft",
+          );
+          await page.goBack();
+          await page.waitForFunction(
+            () => new URLSearchParams(location.search).get("section") === null,
+          );
+          if (check.input)
+            assert.equal(
+              await page.$eval(check.input, (input) => input.value),
+              "Unsaved offline edit",
+              check.name + " lost its draft",
+            );
+          const visible = await page.$$eval(
+            "[data-admin-section]",
+            (screens) => [
+              ...new Set(
+                screens
+                  .filter((screen) => !screen.hidden)
+                  .map((screen) => screen.dataset.adminSection),
+              ),
+            ],
+          );
+          assert.equal(
+            visible.length,
+            1,
+            check.name + " stacked multiple sections",
+          );
+          await page.evaluate(() => {
+            const el = document.querySelector(".business-page-content");
+            el.scrollTop = el.scrollHeight;
+          });
+          const nav = await page.$eval(".admin-topbar", (el) => {
+            const r = el.getBoundingClientRect();
+            return { top: r.top, bottom: r.bottom };
+          });
+          assert(
+            nav.top >= 0 && nav.bottom < 180,
+            check.name + " lost the admin header",
+          );
+          assert.equal(
+            await page.evaluate(
+              () => document.documentElement.scrollWidth > innerWidth,
+            ),
+            false,
+            check.name + " overflows",
+          );
+          workspaces.push({
+            name: check.name,
+            sections: items.length,
+            visibleSections: visible,
+            draftRetained: !!check.input,
+            headerVisible: true,
+          });
+          await page.screenshot({
+            path: path.join(
+              out,
+              "workspace-" +
+                check.name.replace(/[^a-z0-9]/gi, "-") +
+                "-" +
+                width +
+                ".png",
+            ),
+          });
+        }
+        // Required fields remain enforced even when their dialog screen is hidden.
+        for (const modal of [
+          {
+            url: "/admin/homepage-builder",
+            button: "Add New Slide",
+            selector: "#headline",
+            key: "slide-section",
+            target: "media",
+          },
+          {
+            url: "/admin/documents-library",
+            button: "Upload Document",
+            selector: '[role="dialog"] input[required]',
+            key: "document-section",
+            target: "file",
+          },
+        ]) {
+          await page.goto(base + modal.url, { waitUntil: "networkidle0" });
+          await page.evaluate(
+            (label) =>
+              [...document.querySelectorAll("button")]
+                .find((button) => button.textContent.trim() === label)
+                .click(),
+            modal.button,
+          );
+          await page.waitForSelector(
+            '[role="dialog"] .admin-section-workspace',
+          );
+          await page.select(
+            '[role="dialog"] .admin-section-workspace nav select',
+            modal.target,
+          );
+          await page.waitForFunction(
+            ({ key, target }) =>
+              new URLSearchParams(location.search).get(key) === target,
+            {},
+            modal,
+          );
+          await page.click('[role="dialog"] button[type="submit"]');
+          await page.waitForFunction(
+            (key) =>
+              ["content", "details"].includes(
+                new URLSearchParams(location.search).get(key),
+              ),
+            {},
+            modal.key,
+          );
+          await page.waitForSelector(modal.selector, { visible: true });
+          workspaces.push({
+            name: modal.button,
+            hiddenRequiredFieldBlocked: true,
+          });
+        }
+        assert.equal(writes.length, 0, "Unexpected backend writes");
+        assert.equal(errors.length, 0, JSON.stringify(errors));
+        assert(
+          !warnings.some((w) => /duplicate extension/i.test(w)),
+          "Duplicate Tiptap extension",
+        );
+      }
       results.push({
         width,
+        workspaces,
         before,
         scrolled,
         errors,

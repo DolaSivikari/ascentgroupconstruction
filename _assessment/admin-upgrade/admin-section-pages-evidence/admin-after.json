@@ -1,0 +1,449 @@
+[
+  {
+    "width": 1440,
+    "workspaces": [
+      {
+        "name": "Services",
+        "sections": 9,
+        "visibleSections": [
+          "service-basics"
+        ],
+        "draftRetained": true,
+        "headerVisible": true
+      },
+      {
+        "name": "Blog / case study",
+        "sections": 11,
+        "visibleSections": [
+          "basics"
+        ],
+        "draftRetained": true,
+        "headerVisible": true
+      },
+      {
+        "name": "General settings",
+        "sections": 4,
+        "visibleSections": [
+          "company"
+        ],
+        "draftRetained": true,
+        "headerVisible": true
+      },
+      {
+        "name": "Footer settings",
+        "sections": 2,
+        "visibleSections": [
+          "social"
+        ],
+        "draftRetained": true,
+        "headerVisible": true
+      },
+      {
+        "name": "About settings",
+        "sections": 5,
+        "visibleSections": [
+          "hero"
+        ],
+        "draftRetained": true,
+        "headerVisible": true
+      },
+      {
+        "name": "Contact settings",
+        "sections": 3,
+        "visibleSections": [
+          "location"
+        ],
+        "draftRetained": true,
+        "headerVisible": true
+      },
+      {
+        "name": "Page content",
+        "sections": 2,
+        "visibleSections": [
+          "Sections and structured data"
+        ],
+        "draftRetained": false,
+        "headerVisible": true
+      },
+      {
+        "name": "Monitoring",
+        "sections": 3,
+        "visibleSections": [
+          "errors"
+        ],
+        "draftRetained": false,
+        "headerVisible": true
+      },
+      {
+        "name": "Credentials",
+        "sections": 3,
+        "visibleSections": [
+          "documents"
+        ],
+        "draftRetained": false,
+        "headerVisible": true
+      },
+      {
+        "name": "Add New Slide",
+        "hiddenRequiredFieldBlocked": true
+      },
+      {
+        "name": "Upload Document",
+        "hiddenRequiredFieldBlocked": true
+      }
+    ],
+    "before": {
+      "sidebar": {
+        "top": 0,
+        "bottom": 900,
+        "position": "fixed"
+      },
+      "topbar": {
+        "top": 0,
+        "bottom": 91,
+        "position": "relative"
+      },
+      "actions": {
+        "top": 115,
+        "bottom": 227.5,
+        "position": "sticky"
+      },
+      "viewport": 900,
+      "bodyScroll": 0,
+      "contentScroll": 0,
+      "contentHeight": 809,
+      "scrollHeight": 962,
+      "overflow": false,
+      "visibleSections": [
+        "overview"
+      ]
+    },
+    "scrolled": {
+      "sidebar": {
+        "top": 0,
+        "bottom": 900,
+        "position": "fixed"
+      },
+      "topbar": {
+        "top": 0,
+        "bottom": 91,
+        "position": "relative"
+      },
+      "actions": {
+        "top": 115,
+        "bottom": 227.5,
+        "position": "sticky"
+      },
+      "viewport": 900,
+      "bodyScroll": 0,
+      "contentScroll": 153,
+      "contentHeight": 809,
+      "scrollHeight": 962,
+      "overflow": false,
+      "visibleSections": [
+        "overview"
+      ]
+    },
+    "errors": [],
+    "writes": [],
+    "duplicateWarnings": []
+  },
+  {
+    "width": 1024,
+    "workspaces": [
+      {
+        "name": "Services",
+        "sections": 9,
+        "visibleSections": [
+          "service-basics"
+        ],
+        "draftRetained": true,
+        "headerVisible": true
+      },
+      {
+        "name": "Blog / case study",
+        "sections": 11,
+        "visibleSections": [
+          "basics"
+        ],
+        "draftRetained": true,
+        "headerVisible": true
+      },
+      {
+        "name": "General settings",
+        "sections": 4,
+        "visibleSections": [
+          "company"
+        ],
+        "draftRetained": true,
+        "headerVisible": true
+      },
+      {
+        "name": "Footer settings",
+        "sections": 2,
+        "visibleSections": [
+          "social"
+        ],
+        "draftRetained": true,
+        "headerVisible": true
+      },
+      {
+        "name": "About settings",
+        "sections": 5,
+        "visibleSections": [
+          "hero"
+        ],
+        "draftRetained": true,
+        "headerVisible": true
+      },
+      {
+        "name": "Contact settings",
+        "sections": 3,
+        "visibleSections": [
+          "location"
+        ],
+        "draftRetained": true,
+        "headerVisible": true
+      },
+      {
+        "name": "Page content",
+        "sections": 2,
+        "visibleSections": [
+          "Sections and structured data"
+        ],
+        "draftRetained": false,
+        "headerVisible": true
+      },
+      {
+        "name": "Monitoring",
+        "sections": 3,
+        "visibleSections": [
+          "errors"
+        ],
+        "draftRetained": false,
+        "headerVisible": true
+      },
+      {
+        "name": "Credentials",
+        "sections": 3,
+        "visibleSections": [
+          "documents"
+        ],
+        "draftRetained": false,
+        "headerVisible": true
+      },
+      {
+        "name": "Add New Slide",
+        "hiddenRequiredFieldBlocked": true
+      },
+      {
+        "name": "Upload Document",
+        "hiddenRequiredFieldBlocked": true
+      }
+    ],
+    "before": {
+      "sidebar": {
+        "top": 0,
+        "bottom": 900,
+        "position": "fixed"
+      },
+      "topbar": {
+        "top": 0,
+        "bottom": 91,
+        "position": "relative"
+      },
+      "actions": {
+        "top": 115,
+        "bottom": 227.5,
+        "position": "sticky"
+      },
+      "viewport": 900,
+      "bodyScroll": 0,
+      "contentScroll": 0,
+      "contentHeight": 809,
+      "scrollHeight": 1010,
+      "overflow": false,
+      "visibleSections": [
+        "overview"
+      ]
+    },
+    "scrolled": {
+      "sidebar": {
+        "top": 0,
+        "bottom": 900,
+        "position": "fixed"
+      },
+      "topbar": {
+        "top": 0,
+        "bottom": 91,
+        "position": "relative"
+      },
+      "actions": {
+        "top": 115,
+        "bottom": 227.5,
+        "position": "sticky"
+      },
+      "viewport": 900,
+      "bodyScroll": 0,
+      "contentScroll": 201,
+      "contentHeight": 809,
+      "scrollHeight": 1010,
+      "overflow": false,
+      "visibleSections": [
+        "overview"
+      ]
+    },
+    "errors": [],
+    "writes": [],
+    "duplicateWarnings": []
+  },
+  {
+    "width": 390,
+    "workspaces": [
+      {
+        "name": "Services",
+        "sections": 9,
+        "visibleSections": [
+          "service-basics"
+        ],
+        "draftRetained": true,
+        "headerVisible": true
+      },
+      {
+        "name": "Blog / case study",
+        "sections": 11,
+        "visibleSections": [
+          "basics"
+        ],
+        "draftRetained": true,
+        "headerVisible": true
+      },
+      {
+        "name": "General settings",
+        "sections": 4,
+        "visibleSections": [
+          "company"
+        ],
+        "draftRetained": true,
+        "headerVisible": true
+      },
+      {
+        "name": "Footer settings",
+        "sections": 2,
+        "visibleSections": [
+          "social"
+        ],
+        "draftRetained": true,
+        "headerVisible": true
+      },
+      {
+        "name": "About settings",
+        "sections": 5,
+        "visibleSections": [
+          "hero"
+        ],
+        "draftRetained": true,
+        "headerVisible": true
+      },
+      {
+        "name": "Contact settings",
+        "sections": 3,
+        "visibleSections": [
+          "location"
+        ],
+        "draftRetained": true,
+        "headerVisible": true
+      },
+      {
+        "name": "Page content",
+        "sections": 2,
+        "visibleSections": [
+          "Sections and structured data"
+        ],
+        "draftRetained": false,
+        "headerVisible": true
+      },
+      {
+        "name": "Monitoring",
+        "sections": 3,
+        "visibleSections": [
+          "errors"
+        ],
+        "draftRetained": false,
+        "headerVisible": true
+      },
+      {
+        "name": "Credentials",
+        "sections": 3,
+        "visibleSections": [
+          "documents"
+        ],
+        "draftRetained": false,
+        "headerVisible": true
+      },
+      {
+        "name": "Add New Slide",
+        "hiddenRequiredFieldBlocked": true
+      },
+      {
+        "name": "Upload Document",
+        "hiddenRequiredFieldBlocked": true
+      }
+    ],
+    "before": {
+      "sidebar": {
+        "top": 0,
+        "bottom": 900,
+        "position": "fixed"
+      },
+      "topbar": {
+        "top": 0,
+        "bottom": 91,
+        "position": "relative"
+      },
+      "actions": {
+        "top": 107,
+        "bottom": 339.1875,
+        "position": "sticky"
+      },
+      "viewport": 900,
+      "bodyScroll": 0,
+      "contentScroll": 0,
+      "contentHeight": 809,
+      "scrollHeight": 1584,
+      "overflow": false,
+      "visibleSections": [
+        "overview"
+      ]
+    },
+    "scrolled": {
+      "sidebar": {
+        "top": 0,
+        "bottom": 900,
+        "position": "fixed"
+      },
+      "topbar": {
+        "top": 0,
+        "bottom": 91,
+        "position": "relative"
+      },
+      "actions": {
+        "top": 107,
+        "bottom": 339.1875,
+        "position": "sticky"
+      },
+      "viewport": 900,
+      "bodyScroll": 0,
+      "contentScroll": 775,
+      "contentHeight": 809,
+      "scrollHeight": 1584,
+      "overflow": false,
+      "visibleSections": [
+        "overview"
+      ]
+    },
+    "errors": [],
+    "writes": [],
+    "duplicateWarnings": []
+  }
+]

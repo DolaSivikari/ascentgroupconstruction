@@ -1,3 +1,7 @@
+import {
+  AdminSectionWorkspace,
+  AdminSectionScreen,
+} from "@/components/admin/AdminSectionWorkspace";
 import { COMPANY_PHONE, COMPANY_EMAIL } from "@/constants/company";
 import { notifySettingsSaved } from "@/lib/publicSettings";
 import { useState, useEffect } from "react";
@@ -31,7 +35,10 @@ export const ContactPageSettingsTab = () => {
   const [formData, setRawFormData] = useState<any>({});
   const [saving, setSaving] = useState(false);
   const [dirty, setDirty] = useState(false);
-  const guard = useUnsavedChanges({ hasUnsavedChanges: dirty });
+  const guard = useUnsavedChanges({
+    hasUnsavedChanges: dirty,
+    preserveDraftQueryKeys: ["section"],
+  });
   const setFormData = (value: typeof formData) => {
     setRawFormData(value);
     setDirty(true);
@@ -108,98 +115,118 @@ export const ContactPageSettingsTab = () => {
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-6">
-            <div className="space-y-6">
-              <div>
-                <Label htmlFor="contact_page_settings-office_address">
-                  Office Address
-                </Label>
-                <Textarea
-                  id="contact_page_settings-office_address"
-                  value={formData.office_address || ""}
-                  onChange={(e) =>
-                    setFormData({ ...formData, office_address: e.target.value })
-                  }
-                  placeholder="123 Main St, Suite 100, City, State 12345"
-                  rows={2}
-                />
-              </div>
-
-              <p className="text-sm text-muted-foreground">
-                Phone: {COMPANY_PHONE}. Email: {COMPANY_EMAIL}. Set in code
-                (spam protection). Ask a developer to change.
-              </p>
-
-              <div>
-                <h3 className="font-semibold mb-3">Business Hours</h3>
-                <div className="space-y-3">
-                  <div>
-                    <Label htmlFor="contact_page_settings-weekday_hours">
-                      Weekday Hours
-                    </Label>
-                    <Input
-                      id="contact_page_settings-weekday_hours"
-                      value={formData.weekday_hours || ""}
-                      onChange={(e) =>
-                        setFormData({
-                          ...formData,
-                          weekday_hours: e.target.value,
-                        })
-                      }
-                      placeholder="Monday-Friday: 8:00 AM - 6:00 PM"
-                    />
-                  </div>
-                  <div>
-                    <Label htmlFor="contact_page_settings-saturday_hours">
-                      Saturday Hours
-                    </Label>
-                    <Input
-                      id="contact_page_settings-saturday_hours"
-                      value={formData.saturday_hours || ""}
-                      onChange={(e) =>
-                        setFormData({
-                          ...formData,
-                          saturday_hours: e.target.value,
-                        })
-                      }
-                      placeholder="Saturday: 9:00 AM - 4:00 PM"
-                    />
-                  </div>
-                  <div>
-                    <Label htmlFor="contact_page_settings-sunday_hours">
-                      Sunday Hours
-                    </Label>
-                    <Input
-                      id="contact_page_settings-sunday_hours"
-                      value={formData.sunday_hours || ""}
-                      onChange={(e) =>
-                        setFormData({
-                          ...formData,
-                          sunday_hours: e.target.value,
-                        })
-                      }
-                      placeholder="Closed"
-                    />
+            <AdminSectionWorkspace
+              label="Contact settings sections"
+              items={[
+                { id: "location", title: "Office location" },
+                { id: "hours", title: "Business hours" },
+                { id: "map", title: "Map" },
+              ]}
+            >
+              <AdminSectionScreen id="location" title="Office location">
+                <div>
+                  <Label htmlFor="contact_page_settings-office_address">
+                    Office Address
+                  </Label>
+                  <Textarea
+                    id="contact_page_settings-office_address"
+                    value={formData.office_address || ""}
+                    onChange={(e) =>
+                      setFormData({
+                        ...formData,
+                        office_address: e.target.value,
+                      })
+                    }
+                    placeholder="123 Main St, Suite 100, City, State 12345"
+                    rows={2}
+                  />
+                </div>
+                <p className="text-sm text-muted-foreground">
+                  Phone: {COMPANY_PHONE}. Email: {COMPANY_EMAIL}. Set in code
+                  (spam protection). Ask a developer to change.
+                </p>
+              </AdminSectionScreen>
+              <AdminSectionScreen id="hours" title="Business hours">
+                <div>
+                  <h3 className="font-semibold mb-3">Business Hours</h3>
+                  <div className="space-y-3">
+                    <div>
+                      <Label htmlFor="contact_page_settings-weekday_hours">
+                        Weekday Hours
+                      </Label>
+                      <Input
+                        id="contact_page_settings-weekday_hours"
+                        value={formData.weekday_hours || ""}
+                        onChange={(e) =>
+                          setFormData({
+                            ...formData,
+                            weekday_hours: e.target.value,
+                          })
+                        }
+                        placeholder="Monday-Friday: 8:00 AM - 6:00 PM"
+                      />
+                    </div>
+                    <div>
+                      <Label htmlFor="contact_page_settings-saturday_hours">
+                        Saturday Hours
+                      </Label>
+                      <Input
+                        id="contact_page_settings-saturday_hours"
+                        value={formData.saturday_hours || ""}
+                        onChange={(e) =>
+                          setFormData({
+                            ...formData,
+                            saturday_hours: e.target.value,
+                          })
+                        }
+                        placeholder="Saturday: 9:00 AM - 4:00 PM"
+                      />
+                    </div>
+                    <div>
+                      <Label htmlFor="contact_page_settings-sunday_hours">
+                        Sunday Hours
+                      </Label>
+                      <Input
+                        id="contact_page_settings-sunday_hours"
+                        value={formData.sunday_hours || ""}
+                        onChange={(e) =>
+                          setFormData({
+                            ...formData,
+                            sunday_hours: e.target.value,
+                          })
+                        }
+                        placeholder="Closed"
+                      />
+                    </div>
                   </div>
                 </div>
-              </div>
+              </AdminSectionScreen>
+              <AdminSectionScreen id="map" title="Map">
+                <div>
+                  <Label htmlFor="contact_page_settings-map_embed_url">
+                    Google Maps Embed URL
+                  </Label>
+                  <Textarea
+                    id="contact_page_settings-map_embed_url"
+                    value={formData.map_embed_url || ""}
+                    onChange={(e) =>
+                      setFormData({
+                        ...formData,
+                        map_embed_url: e.target.value,
+                      })
+                    }
+                    placeholder="https://www.google.com/maps/embed?..."
+                    rows={2}
+                  />
+                </div>
+              </AdminSectionScreen>
+            </AdminSectionWorkspace>
 
-              <div>
-                <Label htmlFor="contact_page_settings-map_embed_url">
-                  Google Maps Embed URL
-                </Label>
-                <Textarea
-                  id="contact_page_settings-map_embed_url"
-                  value={formData.map_embed_url || ""}
-                  onChange={(e) =>
-                    setFormData({ ...formData, map_embed_url: e.target.value })
-                  }
-                  placeholder="https://www.google.com/maps/embed?..."
-                  rows={2}
-                />
-              </div>
-            </div>
-
-            <Button onClick={handleSave} disabled={saving}>
+            <Button
+              className="admin-section-save-bar"
+              onClick={handleSave}
+              disabled={saving}
+            >
               <Save className="h-4 w-4 mr-2" />
               {saving ? "Saving..." : "Save Changes"}
             </Button>
