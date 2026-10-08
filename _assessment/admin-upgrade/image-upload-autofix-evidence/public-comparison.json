@@ -1,0 +1,106 @@
+{
+  "status": "passed",
+  "urls": 6,
+  "captures": 12,
+  "identical": 12,
+  "declared": 0,
+  "failed": 0,
+  "results": [
+    {
+      "path": "/",
+      "width": 1440,
+      "pixelDifferencePercent": 0,
+      "differences": [],
+      "unexpected": [],
+      "declaredReason": null
+    },
+    {
+      "path": "/capabilities",
+      "width": 1440,
+      "pixelDifferencePercent": 0,
+      "differences": [],
+      "unexpected": [],
+      "declaredReason": null
+    },
+    {
+      "path": "/capabilities",
+      "width": 390,
+      "pixelDifferencePercent": 0,
+      "differences": [],
+      "unexpected": [],
+      "declaredReason": null
+    },
+    {
+      "path": "/",
+      "width": 390,
+      "pixelDifferencePercent": 0,
+      "differences": [],
+      "unexpected": [],
+      "declaredReason": null
+    },
+    {
+      "path": "/company/technology",
+      "width": 1440,
+      "pixelDifferencePercent": 0,
+      "differences": [],
+      "unexpected": [],
+      "declaredReason": null
+    },
+    {
+      "path": "/company/technology",
+      "width": 390,
+      "pixelDifferencePercent": 0,
+      "differences": [],
+      "unexpected": [],
+      "declaredReason": null
+    },
+    {
+      "path": "/contact",
+      "width": 390,
+      "pixelDifferencePercent": 0,
+      "differences": [],
+      "unexpected": [],
+      "declaredReason": null
+    },
+    {
+      "path": "/projects/65-westmount-avenue",
+      "width": 1440,
+      "pixelDifferencePercent": 0.0009234075417212316,
+      "differences": [],
+      "unexpected": [],
+      "declaredReason": null
+    },
+    {
+      "path": "/contact",
+      "width": 1440,
+      "pixelDifferencePercent": 0,
+      "differences": [],
+      "unexpected": [],
+      "declaredReason": null
+    },
+    {
+      "path": "/projects/65-westmount-avenue",
+      "width": 390,
+      "pixelDifferencePercent": 0.0025373931623931625,
+      "differences": [],
+      "unexpected": [],
+      "declaredReason": null
+    },
+    {
+      "path": "/services/caulking-sealants-toronto",
+      "width": 1440,
+      "pixelDifferencePercent": 0,
+      "differences": [],
+      "unexpected": [],
+      "declaredReason": null
+    },
+    {
+      "path": "/services/caulking-sealants-toronto",
+      "width": 390,
+      "pixelDifferencePercent": 0,
+      "differences": [],
+      "unexpected": [],
+      "declaredReason": null
+    }
+  ]
+}

@@ -1,0 +1,318 @@
+{
+  "status": "passed",
+  "results": [
+    {
+      "viewport": 1440,
+      "file": "home-design-full (9).jpg",
+      "path": "/storage/v1/object/project-images/00000000-0000-4000-8000-000000000001/gallery/1791489850888-0.jpg",
+      "mime": "image/jpeg",
+      "width": 800,
+      "height": 1067,
+      "corner": [
+        237,
+        52,
+        50,
+        255
+      ],
+      "top": [
+        237,
+        52,
+        50,
+        255
+      ],
+      "bottom": [
+        33,
+        51,
+        237,
+        255
+      ]
+    },
+    {
+      "viewport": 1440,
+      "file": "large-portrait.jpg",
+      "path": "/storage/v1/object/project-images/00000000-0000-4000-8000-000000000001/gallery/1791489851068-0.jpg",
+      "mime": "image/jpeg",
+      "width": 1800,
+      "height": 2400,
+      "corner": [
+        237,
+        52,
+        50,
+        255
+      ],
+      "top": [
+        237,
+        52,
+        50,
+        255
+      ],
+      "bottom": [
+        33,
+        51,
+        237,
+        255
+      ]
+    },
+    {
+      "viewport": 1440,
+      "file": "transparent.png",
+      "path": "/storage/v1/object/project-images/00000000-0000-4000-8000-000000000001/gallery/1791489851276-0.webp",
+      "mime": "image/webp",
+      "width": 800,
+      "height": 1067,
+      "corner": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "top": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "bottom": [
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "viewport": 1440,
+      "file": "valid.jpg",
+      "path": "/storage/v1/object/project-images/00000000-0000-4000-8000-000000000001/gallery/1791489851357-0.jpg",
+      "mime": "image/jpeg",
+      "width": 1200,
+      "height": 900,
+      "corner": [
+        237,
+        52,
+        50,
+        255
+      ],
+      "top": [
+        237,
+        52,
+        50,
+        255
+      ],
+      "bottom": [
+        33,
+        51,
+        237,
+        255
+      ]
+    },
+    {
+      "viewport": 1440,
+      "file": "small-portrait.jpg",
+      "path": "/storage/v1/object/project-images/00000000-0000-4000-8000-000000000001/gallery/1791489851436-0.jpg",
+      "mime": "image/jpeg",
+      "width": 800,
+      "height": 1067,
+      "corner": [
+        237,
+        52,
+        50,
+        255
+      ],
+      "top": [
+        237,
+        52,
+        50,
+        255
+      ],
+      "bottom": [
+        33,
+        51,
+        237,
+        255
+      ]
+    },
+    {
+      "viewport": 1440,
+      "file": "cover-portrait.jpg",
+      "path": "/storage/v1/object/project-images/1791489851521-vks3vbsbepm.jpg",
+      "mime": "image/jpeg",
+      "width": 1200,
+      "height": 675,
+      "corner": [
+        237,
+        52,
+        50,
+        255
+      ],
+      "top": [
+        237,
+        52,
+        50,
+        255
+      ],
+      "bottom": [
+        33,
+        51,
+        237,
+        255
+      ]
+    },
+    {
+      "viewport": 390,
+      "file": "home-design-full (9).jpg",
+      "path": "/storage/v1/object/project-images/00000000-0000-4000-8000-000000000001/gallery/1791489858625-0.jpg",
+      "mime": "image/jpeg",
+      "width": 800,
+      "height": 1067,
+      "corner": [
+        237,
+        52,
+        50,
+        255
+      ],
+      "top": [
+        237,
+        52,
+        50,
+        255
+      ],
+      "bottom": [
+        33,
+        51,
+        237,
+        255
+      ]
+    },
+    {
+      "viewport": 390,
+      "file": "large-portrait.jpg",
+      "path": "/storage/v1/object/project-images/00000000-0000-4000-8000-000000000001/gallery/1791489858814-0.jpg",
+      "mime": "image/jpeg",
+      "width": 1800,
+      "height": 2400,
+      "corner": [
+        237,
+        52,
+        50,
+        255
+      ],
+      "top": [
+        237,
+        52,
+        50,
+        255
+      ],
+      "bottom": [
+        33,
+        51,
+        237,
+        255
+      ]
+    },
+    {
+      "viewport": 390,
+      "file": "transparent.png",
+      "path": "/storage/v1/object/project-images/00000000-0000-4000-8000-000000000001/gallery/1791489858998-0.webp",
+      "mime": "image/webp",
+      "width": 800,
+      "height": 1067,
+      "corner": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "top": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "bottom": [
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "viewport": 390,
+      "file": "valid.jpg",
+      "path": "/storage/v1/object/project-images/00000000-0000-4000-8000-000000000001/gallery/1791489859068-0.jpg",
+      "mime": "image/jpeg",
+      "width": 1200,
+      "height": 900,
+      "corner": [
+        237,
+        52,
+        50,
+        255
+      ],
+      "top": [
+        237,
+        52,
+        50,
+        255
+      ],
+      "bottom": [
+        33,
+        51,
+        237,
+        255
+      ]
+    },
+    {
+      "viewport": 390,
+      "file": "small-portrait.jpg",
+      "path": "/storage/v1/object/project-images/00000000-0000-4000-8000-000000000001/gallery/1791489859141-0.jpg",
+      "mime": "image/jpeg",
+      "width": 800,
+      "height": 1067,
+      "corner": [
+        237,
+        52,
+        50,
+        255
+      ],
+      "top": [
+        237,
+        52,
+        50,
+        255
+      ],
+      "bottom": [
+        33,
+        51,
+        237,
+        255
+      ]
+    },
+    {
+      "viewport": 390,
+      "file": "cover-portrait.jpg",
+      "path": "/storage/v1/object/project-images/1791489859220-o9aj93eqpli.jpg",
+      "mime": "image/jpeg",
+      "width": 1200,
+      "height": 675,
+      "corner": [
+        237,
+        52,
+        50,
+        255
+      ],
+      "top": [
+        237,
+        52,
+        50,
+        255
+      ],
+      "bottom": [
+        33,
+        51,
+        237,
+        255
+      ]
+    }
+  ],
+  "scope": "Local production build; synthetic auth/project/storage only; no save or delete requests."
+}

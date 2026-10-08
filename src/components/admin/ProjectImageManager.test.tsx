@@ -15,11 +15,19 @@ const mock = vi.hoisted(() => ({
   remove: vi.fn(),
   update: vi.fn(),
   error: vi.fn(),
+  success: vi.fn(),
+  normalize: vi.fn(),
+  validate: vi.fn(),
 }));
 vi.mock("@/utils/image-optimizer", () => ({
-  validateImageFile: async () => null,
+  validateImageFile: mock.validate,
 }));
-vi.mock("sonner", () => ({ toast: { error: mock.error } }));
+vi.mock("@/utils/image-normalizer", () => ({
+  normalizeImageFile: mock.normalize,
+}));
+vi.mock("sonner", () => ({
+  toast: { error: mock.error, success: mock.success },
+}));
 vi.mock("@/integrations/supabase/client", () => ({
   supabase: {
     from: () => ({
@@ -54,6 +62,11 @@ afterEach(cleanup);
 beforeEach(() => {
   vi.clearAllMocks();
   mock.upload.mockResolvedValue({ data: {}, error: null });
+  mock.validate.mockResolvedValue(null);
+  mock.normalize.mockImplementation(async (file: File) => ({
+    file,
+    didResize: false,
+  }));
 });
 describe("staged gallery editing", () => {
   it("requires confirmation and stages removal without deleting any storage file", async () => {
@@ -122,5 +135,104 @@ describe("staged gallery editing", () => {
     expect(saved).toHaveLength(3);
     expect(saved[0]).toEqual(edited);
     expect(saved[1]).toEqual(second);
+  });
+});
+
+describe("gallery upload preparation", () => {
+  it("uploads the processed photo and preserves the existing gallery", async () => {
+    const processed = new File(["processed"], "photo.webp", {
+      type: "image/webp",
+    });
+    mock.normalize.mockResolvedValue({
+      file: processed,
+      didResize: true,
+      didPad: false,
+      outputWidth: 800,
+      outputHeight: 1067,
+    });
+    render(
+      <ProjectImageManager
+        projectId="old-project"
+        images={[image]}
+        onImagesUpdate={mock.update}
+      />,
+      { wrapper: QueryWrapper },
+    );
+    fireEvent.change(document.querySelector("#upload-gallery")!, {
+      target: {
+        files: [new File(["original"], "photo.png", { type: "image/png" })],
+      },
+    });
+    await waitFor(() => expect(mock.upload).toHaveBeenCalled());
+    expect(mock.normalize).toHaveBeenCalledWith(
+      expect.any(File),
+      expect.objectContaining({
+        targetAspectRatio: null,
+        minWidth: 800,
+        minHeight: 600,
+        preserveUnchanged: true,
+      }),
+    );
+    expect(mock.validate).toHaveBeenCalledWith(processed, {
+      minWidth: 800,
+      minHeight: 600,
+    });
+    expect(mock.upload).toHaveBeenCalledWith(
+      expect.stringMatching(/^old-project\/gallery\/.+\.webp$/),
+      processed,
+      expect.any(Object),
+    );
+    await waitFor(() => expect(mock.update).toHaveBeenCalled());
+    expect(mock.update.mock.calls[0][0][0]).toEqual(image);
+    expect(mock.success).toHaveBeenCalledWith(
+      expect.stringContaining("800×1067"),
+    );
+    expect(mock.remove).not.toHaveBeenCalled();
+  });
+  it("skips a corrupt file and continues processing the rest of a batch", async () => {
+    mock.normalize
+      .mockRejectedValueOnce(new Error("Could not decode image"))
+      .mockResolvedValueOnce({
+        file: new File(["good"], "good.jpg", { type: "image/jpeg" }),
+        didResize: false,
+      });
+    render(
+      <ProjectImageManager
+        projectId="old-project"
+        images={[image]}
+        onImagesUpdate={mock.update}
+      />,
+      { wrapper: QueryWrapper },
+    );
+    fireEvent.drop(document.querySelector("#upload-gallery")!.parentElement!, {
+      dataTransfer: {
+        files: [
+          new File(["bad"], "bad.jpg", { type: "image/jpeg" }),
+          new File(["good"], "good.jpg", { type: "image/jpeg" }),
+        ],
+      },
+    });
+    await waitFor(() => expect(mock.update).toHaveBeenCalled());
+    expect(mock.upload).toHaveBeenCalledTimes(1);
+    expect(mock.update.mock.calls[0][0]).toHaveLength(2);
+    expect(mock.error).toHaveBeenCalledWith(
+      expect.stringContaining("Could not decode image"),
+    );
+  });
+  it("does not upload when final validation still fails", async () => {
+    mock.validate.mockResolvedValue("Image is too small");
+    render(
+      <ProjectImageManager
+        projectId="old-project"
+        images={[image]}
+        onImagesUpdate={mock.update}
+      />,
+      { wrapper: QueryWrapper },
+    );
+    fireEvent.change(document.querySelector("#upload-gallery")!, {
+      target: { files: [new File(["bad"], "bad.jpg", { type: "image/jpeg" })] },
+    });
+    await waitFor(() => expect(mock.error).toHaveBeenCalled());
+    expect(mock.upload).not.toHaveBeenCalled();
   });
 });

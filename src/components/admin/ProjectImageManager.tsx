@@ -15,6 +15,7 @@ import {
 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { validateImageFile } from "@/utils/image-optimizer";
+import { normalizeImageFile } from "@/utils/image-normalizer";
 import { toast } from "sonner";
 import { ConfirmDialog } from "@/components/admin/ConfirmDialog";
 import { adminErrorMessage } from "@/lib/admin/editorValues";
@@ -291,6 +292,7 @@ export const ProjectImageManager: React.FC<ProjectImageManagerProps> = ({
     category: string,
   ) => {
     const files = Array.from(e.target.files || []);
+    e.target.value = "";
     await uploadImages(files, category);
   };
 
@@ -308,28 +310,39 @@ export const ProjectImageManager: React.FC<ProjectImageManagerProps> = ({
         continue;
       }
 
-      // Dimension guard (min 800x600)
-      const dimensionError = await validateImageFile(file, {
-        minWidth: 800,
-        minHeight: 600,
-      });
-      if (dimensionError) {
-        toast.error(`${file.name}: ${dimensionError}`);
-        continue;
-      }
-
       try {
-        // Update progress
         setUploadProgress((prev) => ({ ...prev, [fileId]: 0 }));
+        const processed = await normalizeImageFile(file, {
+          targetAspectRatio: null,
+          minWidth: 800,
+          minHeight: 600,
+          maxWidth: 2400,
+          format:
+            file.type === "image/png" || file.type === "image/webp"
+              ? "image/webp"
+              : "image/jpeg",
+          quality: 0.92,
+          preserveUnchanged: true,
+        });
+        const uploadFile = processed.file;
+        const dimensionError = await validateImageFile(uploadFile, {
+          minWidth: 800,
+          minHeight: 600,
+        });
+        if (dimensionError) throw new Error(dimensionError);
+        if (uploadFile.size > 10 * 1024 * 1024)
+          throw new Error(
+            "Processed image is over 10MB. Please try another photo.",
+          );
 
         // Create unique filename
-        const fileExt = file.name.split(".").pop();
+        const fileExt = uploadFile.name.split(".").pop();
         const fileName = `${projectId}/${category}/${Date.now()}-${i}.${fileExt}`;
 
         // Upload to Supabase Storage
         const { data, error } = await supabase.storage
           .from("project-images")
-          .upload(fileName, file, {
+          .upload(fileName, uploadFile, {
             cacheControl: "3600",
             upsert: false,
           });
@@ -345,10 +358,16 @@ export const ProjectImageManager: React.FC<ProjectImageManagerProps> = ({
         newImages.push({
           id: fileId,
           url: publicUrl,
-          category: category as any,
+          category: category as ProjectImage["category"],
           order: latestImages.current.length + i,
           featured: false,
         });
+
+        if (processed.didResize) {
+          toast.success(
+            `${file.name}: resized to ${processed.outputWidth}×${processed.outputHeight}px${processed.didPad ? " with padding to keep the whole photo" : ""}.`,
+          );
+        }
 
         // Update progress to complete
         setUploadProgress((prev) => ({ ...prev, [fileId]: 100 }));
@@ -391,7 +410,9 @@ export const ProjectImageManager: React.FC<ProjectImageManagerProps> = ({
   const handleMoveCategory = (imageId: string, newCategory: string) => {
     onImagesUpdate(
       images.map((img) =>
-        img.id === imageId ? { ...img, category: newCategory as any } : img,
+        img.id === imageId
+          ? { ...img, category: newCategory as ProjectImage["category"] }
+          : img,
       ),
     );
   };
