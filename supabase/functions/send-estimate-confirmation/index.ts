@@ -113,7 +113,6 @@ const handler = async (req: Request): Promise<Response> => {
         <li><strong>Service:</strong> ${serviceName}</li>
         ${sqft ? `<li><strong>Square footage:</strong> ${sqft}</li>` : ""}
         ${region ? `<li><strong>Region:</strong> ${region}</li>` : ""}
-        ${notes ? `<li><strong>Notes:</strong> ${notes}</li>` : ""}
       </ul>
       <p><strong>What happens next:</strong></p>
       <ol style="padding-left:20px;margin:8px 0 16px 0;">
@@ -124,12 +123,12 @@ const handler = async (req: Request): Promise<Response> => {
       <p>Need to reach us sooner? Call <a href="tel:6475286804" style="color:#003366;font-weight:600;">+1 (647) 528-6804</a> or reply directly to this email.</p>
     `;
 
-    const customerText = `Hi ${data.name.trim()},
+    const customerText = `Hi ${data.name.trim().slice(0, 100)},
 
 Thank you for using our project estimator. We've received your request for ${data.serviceName} and our estimating team will review it shortly.
 ${hasRange ? `\nPreliminary range: ${rangeText}\n(Indicative only — final pricing follows site review and confirmed scope.)\n` : ""}
 Your request summary:
-- Service: ${data.serviceName}${data.sqft ? `\n- Square footage: ${data.sqft}` : ""}${data.region ? `\n- Region: ${data.region}` : ""}${data.notes ? `\n- Notes: ${data.notes}` : ""}
+- Service: ${data.serviceName}${data.sqft ? `\n- Square footage: ${data.sqft}` : ""}${data.region ? `\n- Region: ${data.region}` : ""}
 
 What happens next:
 1. A project manager reviews your request within 24 business hours.
