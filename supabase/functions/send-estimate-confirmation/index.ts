@@ -58,13 +58,33 @@ const handler = async (req: Request): Promise<Response> => {
       });
     }
 
-    const name = sanitize(data.name.trim());
     const email = data.email.trim().toLowerCase();
+
+    // Only send to an address that just submitted the estimate form, so this
+    // endpoint cannot be used to mail arbitrary people.
+    const serviceKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") ?? "";
+    const admin = createClient(Deno.env.get("SUPABASE_URL") ?? "", serviceKey);
+    const since = new Date(Date.now() - 15 * 60 * 1000).toISOString();
+    const { data: recent, error: recentError } = await admin
+      .from("contact_submissions")
+      .select("id")
+      .ilike("email", email)
+      .eq("submission_type", "estimate")
+      .gte("created_at", since)
+      .limit(1);
+    if (recentError || !recent || recent.length === 0) {
+      return new Response(JSON.stringify({ error: "No matching recent estimate request" }), {
+        status: 403,
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
+    }
+
+    const name = sanitize(data.name.trim());
     const phone = data.phone ? sanitize(data.phone.trim()) : "";
-    const serviceName = sanitize(data.serviceName.trim());
-    const region = data.region ? sanitize(data.region.trim()) : "";
-    const sqft = data.sqft ? sanitize(String(data.sqft).trim()) : "";
-    const notes = data.notes ? sanitize(data.notes.trim()) : "";
+    const serviceName = sanitize(data.serviceName.trim().slice(0, 200));
+    const region = data.region ? sanitize(String(data.region).trim().slice(0, 100)) : "";
+    const sqft = data.sqft ? sanitize(String(data.sqft).trim().slice(0, 20)) : "";
+    const notes = data.notes ? sanitize(String(data.notes).trim().slice(0, 2000)) : "";
 
     const hasRange =
       typeof data.estimateMin === "number" &&
