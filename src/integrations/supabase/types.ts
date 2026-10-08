@@ -83,6 +83,13 @@ export type Database = {
           cta_headline: string | null
           cta_subheadline: string | null
           faq_items: Json | null
+          founder_bio: string | null
+          founder_image_url: string | null
+          founder_name: string | null
+          founder_quote: string | null
+          founder_title: string | null
+          hero_headline: string | null
+          hero_intro: string | null
           id: string
           insurance: Json | null
           is_active: boolean | null
@@ -93,6 +100,7 @@ export type Database = {
           safety_programs: Json | null
           safety_stats: Json | null
           satisfaction_rate: number | null
+          stats: Json | null
           story_content: Json | null
           story_headline: string | null
           story_image_url: string | null
@@ -115,6 +123,13 @@ export type Database = {
           cta_headline?: string | null
           cta_subheadline?: string | null
           faq_items?: Json | null
+          founder_bio?: string | null
+          founder_image_url?: string | null
+          founder_name?: string | null
+          founder_quote?: string | null
+          founder_title?: string | null
+          hero_headline?: string | null
+          hero_intro?: string | null
           id?: string
           insurance?: Json | null
           is_active?: boolean | null
@@ -125,6 +140,7 @@ export type Database = {
           safety_programs?: Json | null
           safety_stats?: Json | null
           satisfaction_rate?: number | null
+          stats?: Json | null
           story_content?: Json | null
           story_headline?: string | null
           story_image_url?: string | null
@@ -147,6 +163,13 @@ export type Database = {
           cta_headline?: string | null
           cta_subheadline?: string | null
           faq_items?: Json | null
+          founder_bio?: string | null
+          founder_image_url?: string | null
+          founder_name?: string | null
+          founder_quote?: string | null
+          founder_title?: string | null
+          hero_headline?: string | null
+          hero_intro?: string | null
           id?: string
           insurance?: Json | null
           is_active?: boolean | null
@@ -157,6 +180,7 @@ export type Database = {
           safety_programs?: Json | null
           safety_stats?: Json | null
           satisfaction_rate?: number | null
+          stats?: Json | null
           story_content?: Json | null
           story_headline?: string | null
           story_image_url?: string | null
@@ -1367,6 +1391,27 @@ export type Database = {
         }
         Relationships: []
       }
+      media_asset_metadata: {
+        Row: {
+          alt_text: string
+          bucket_id: string
+          path: string
+          updated_at: string
+        }
+        Insert: {
+          alt_text?: string
+          bucket_id?: string
+          path: string
+          updated_at?: string
+        }
+        Update: {
+          alt_text?: string
+          bucket_id?: string
+          path?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       navigation_menu_items: {
         Row: {
           badge: string | null
@@ -1692,6 +1737,7 @@ export type Database = {
       }
       project_images: {
         Row: {
+          alt_text: string | null
           caption: string | null
           category: string
           created_at: string | null
@@ -1703,6 +1749,7 @@ export type Database = {
           url: string
         }
         Insert: {
+          alt_text?: string | null
           caption?: string | null
           category: string
           created_at?: string | null
@@ -1714,6 +1761,7 @@ export type Database = {
           url: string
         }
         Update: {
+          alt_text?: string | null
           caption?: string | null
           category?: string
           created_at?: string | null
@@ -3514,6 +3562,13 @@ export type Database = {
           p_content_snapshot: Json
           p_entity_id: string
           p_entity_type: string
+        }
+        Returns: undefined
+      }
+      set_user_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
         }
         Returns: undefined
       }
