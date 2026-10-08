@@ -1,0 +1,50 @@
+{
+  "baseCommit": "eef0db9",
+  "scope": "Project section screens and persistent admin navigation; all browser backend requests intercepted with synthetic records. No live writes.",
+  "vitest": {
+    "filesPassed": 89,
+    "testsPassed": 586
+  },
+  "typescript": {
+    "app": "passed",
+    "selectedStrict": "passed"
+  },
+  "productionBuild": "passed; existing large-chunk warning remains",
+  "serviceWorker": "passed",
+  "routeAudit": "passed",
+  "lint": {
+    "errors": 211,
+    "warnings": 29,
+    "newFiles": "clean",
+    "note": "Existing debt; eslint remains nonzero."
+  },
+  "adminBrowser": {
+    "widths": [
+      1440,
+      1024,
+      390
+    ],
+    "checks": [
+      "one visible project section",
+      "section navigation preserves title and rich text",
+      "Back restores section and edits",
+      "hidden required field blocks writes and returns to Overview",
+      "header and action bar remain visible on scroll",
+      "mobile navigation remains available and closes with Escape"
+    ],
+    "runtimeErrors": 0,
+    "backendWrites": 0
+  },
+  "publicComparison": {
+    "urls": 7,
+    "captures": 14,
+    "identical": 14,
+    "scope": "Fixture comparison, not a complete live website replay"
+  },
+  "publicBundle": {
+    "chunks": 75,
+    "forbiddenAdminPackages": 0
+  },
+  "databaseChanges": false,
+  "deploymentOrPublishing": false
+}

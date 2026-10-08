@@ -346,7 +346,7 @@ const AdminRouteGroup = () => (
     <Route path="services/:id" element={<ServiceEditor />} />
     <Route path="services-manager" element={<ServicesManager />} />
     <Route path="projects" element={<AdminProjects />} />
-    <Route path="projects/:id" element={<ProjectEditor />} />
+    <Route path="projects/:id/:section?" element={<ProjectEditor />} />
     <Route path="blog" element={<AdminBlogPosts />} />
     <Route path="blog-posts" element={<AdminBlogPosts />} />
     <Route path="blog/:id" element={<BlogPostEditor />} />

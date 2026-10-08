@@ -73,6 +73,27 @@
 .business-admin-container[data-admin-theme] {
   font-size: 16px;
   min-width: 0;
+  height: 100vh;
+  height: 100dvh;
+  min-height: 0;
+  overflow: hidden;
+}
+[data-admin-theme] .business-main-content {
+  height: 100%;
+  min-height: 0;
+  overflow: hidden;
+}
+[data-admin-theme] .admin-sidebar {
+  height: 100vh;
+  height: 100dvh;
+}
+[data-admin-theme] .admin-sidebar-scroll {
+  min-height: 0;
+  overscroll-behavior: contain;
+}
+[data-admin-theme] .admin-sidebar-brand,
+[data-admin-theme] .admin-sidebar-footer {
+  flex-shrink: 0;
 }
 [data-admin-theme] h1,
 [data-admin-theme] h2,
@@ -92,12 +113,17 @@
   min-width: 0;
 }
 [data-admin-theme] .admin-topbar {
-  position: sticky;
-  top: 0;
+  position: relative;
+  flex-shrink: 0;
   z-index: 35;
 }
 [data-admin-theme] .business-page-content {
   padding: 1.5rem;
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+  overscroll-behavior: contain;
+  scrollbar-gutter: stable;
 }
 [data-admin-theme] .business-card {
   background: hsl(var(--card));
@@ -128,15 +154,38 @@
 }
 [data-admin-theme] .admin-editor-outline {
   position: sticky;
-  top: 155px;
+  top: calc(var(--admin-editor-actions-height, 140px) + 16px);
   align-self: start;
+}
+[data-admin-theme] .admin-section-page-nav {
+  position: sticky;
+  top: calc(var(--admin-editor-actions-height, 140px) + 16px);
+  align-self: start;
+  background: hsl(var(--background));
+  z-index: 20;
+  max-height: calc(100dvh - var(--admin-editor-actions-height, 140px) - 140px);
+  overflow-y: auto;
+}
+[data-admin-theme] .admin-section-page-link[aria-current="page"] {
+  background: hsl(var(--primary));
+  color: hsl(var(--primary-foreground));
+  font-weight: 600;
+}
+[data-admin-theme] .admin-editor-section[hidden] {
+  display: none;
+}
+@media (max-width: 1023px) {
+  [data-admin-theme] .admin-section-page-nav {
+    top: var(--admin-editor-actions-height, 140px);
+    padding: 0.5rem 0;
+  }
 }
 [data-admin-theme] .admin-editor-section {
   scroll-margin-top: 170px;
 }
 [data-admin-theme] .admin-editor-actions {
   position: sticky;
-  top: 74px;
+  top: 0;
   z-index: 25;
   background: hsl(var(--background));
   border-bottom: 1px solid hsl(var(--border));

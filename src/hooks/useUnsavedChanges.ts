@@ -4,11 +4,14 @@ import { useBlocker } from "react-router-dom";
 interface UseUnsavedChangesProps {
   hasUnsavedChanges: boolean;
   message?: string;
+  /** Screens within one mounted editor retain the same draft state. */
+  preserveDraftPaths?: readonly string[];
 }
 
 export const useUnsavedChanges = ({
   hasUnsavedChanges,
   message = "You have unsaved changes. Are you sure you want to leave?",
+  preserveDraftPaths = [],
 }: UseUnsavedChangesProps) => {
   const dirty = useRef(hasUnsavedChanges);
   const proceeding = useRef(false);
@@ -17,6 +20,10 @@ export const useUnsavedChanges = ({
   const blocker = useBlocker(
     ({ currentLocation, nextLocation }) =>
       dirty.current &&
+      !(
+        preserveDraftPaths.includes(currentLocation.pathname) &&
+        preserveDraftPaths.includes(nextLocation.pathname)
+      ) &&
       (currentLocation.pathname !== nextLocation.pathname ||
         currentLocation.search !== nextLocation.search ||
         currentLocation.hash !== nextLocation.hash),

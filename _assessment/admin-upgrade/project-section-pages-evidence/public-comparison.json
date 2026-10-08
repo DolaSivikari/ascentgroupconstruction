@@ -1,0 +1,122 @@
+{
+  "status": "passed",
+  "urls": 7,
+  "captures": 14,
+  "identical": 14,
+  "declared": 0,
+  "failed": 0,
+  "results": [
+    {
+      "path": "/",
+      "width": 390,
+      "pixelDifferencePercent": 0,
+      "differences": [],
+      "unexpected": [],
+      "declaredReason": null
+    },
+    {
+      "path": "/",
+      "width": 1440,
+      "pixelDifferencePercent": 0,
+      "differences": [],
+      "unexpected": [],
+      "declaredReason": null
+    },
+    {
+      "path": "/about",
+      "width": 390,
+      "pixelDifferencePercent": 0,
+      "differences": [],
+      "unexpected": [],
+      "declaredReason": null
+    },
+    {
+      "path": "/about",
+      "width": 1440,
+      "pixelDifferencePercent": 0,
+      "differences": [],
+      "unexpected": [],
+      "declaredReason": null
+    },
+    {
+      "path": "/projects/browser-fixture-project",
+      "width": 390,
+      "pixelDifferencePercent": 0,
+      "differences": [],
+      "unexpected": [],
+      "declaredReason": null
+    },
+    {
+      "path": "/projects/browser-fixture-project",
+      "width": 1440,
+      "pixelDifferencePercent": 0,
+      "differences": [],
+      "unexpected": [],
+      "declaredReason": null
+    },
+    {
+      "path": "/blog/browser-fixture-draft",
+      "width": 390,
+      "pixelDifferencePercent": 0,
+      "differences": [],
+      "unexpected": [],
+      "declaredReason": null
+    },
+    {
+      "path": "/blog/browser-fixture-draft",
+      "width": 1440,
+      "pixelDifferencePercent": 0,
+      "differences": [],
+      "unexpected": [],
+      "declaredReason": null
+    },
+    {
+      "path": "/services/browser-fixture-service",
+      "width": 390,
+      "pixelDifferencePercent": 0,
+      "differences": [],
+      "unexpected": [],
+      "declaredReason": null
+    },
+    {
+      "path": "/services/browser-fixture-service",
+      "width": 1440,
+      "pixelDifferencePercent": 0,
+      "differences": [],
+      "unexpected": [],
+      "declaredReason": null
+    },
+    {
+      "path": "/contact",
+      "width": 390,
+      "pixelDifferencePercent": 0,
+      "differences": [],
+      "unexpected": [],
+      "declaredReason": null
+    },
+    {
+      "path": "/contact",
+      "width": 1440,
+      "pixelDifferencePercent": 0,
+      "differences": [],
+      "unexpected": [],
+      "declaredReason": null
+    },
+    {
+      "path": "/company/certifications-insurance",
+      "width": 390,
+      "pixelDifferencePercent": 0,
+      "differences": [],
+      "unexpected": [],
+      "declaredReason": null
+    },
+    {
+      "path": "/company/certifications-insurance",
+      "width": 1440,
+      "pixelDifferencePercent": 0,
+      "differences": [],
+      "unexpected": [],
+      "declaredReason": null
+    }
+  ]
+}
