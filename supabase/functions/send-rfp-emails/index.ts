@@ -114,6 +114,26 @@ Deno.serve(async (req) => {
     return json({ error: 'Submission not found' }, 404)
   }
 
+  // Anonymous callers may only trigger emails for a just-submitted RFP (the
+  // public form calls this immediately after inserting). Older submissions can
+  // only be re-sent by an authenticated admin.
+  const createdAtMs = new Date(rfp.created_at ?? 0).getTime()
+  const isFresh = Number.isFinite(createdAtMs) && Date.now() - createdAtMs <= 10 * 60 * 1000
+  if (!isFresh) {
+    const token = (req.headers.get('Authorization') || '').replace(/^Bearer\s+/i, '').trim()
+    let isAdmin = false
+    if (token) {
+      const { data: userData } = await supabase.auth.getUser(token)
+      if (userData?.user) {
+        const { data: adminCheck } = await supabase.rpc('is_admin', { _user_id: userData.user.id })
+        isAdmin = adminCheck === true
+      }
+    }
+    if (!isAdmin) {
+      return json({ error: 'Forbidden' }, 403)
+    }
+  }
+
   const referenceId = `RFP-${rfpId.slice(0, 8).toUpperCase()}`
   const submittedAt = new Date(rfp.created_at ?? Date.now()).toLocaleString()
   const attachmentsCount = Array.isArray(rfp.attachment_urls) ? rfp.attachment_urls.length : 0

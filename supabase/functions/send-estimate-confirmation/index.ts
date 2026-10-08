@@ -58,13 +58,33 @@ const handler = async (req: Request): Promise<Response> => {
       });
     }
 
-    const name = sanitize(data.name.trim());
     const email = data.email.trim().toLowerCase();
+
+    // Only send to an address that just submitted the estimate form, so this
+    // endpoint cannot be used to mail arbitrary people.
+    const serviceKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") ?? "";
+    const admin = createClient(Deno.env.get("SUPABASE_URL") ?? "", serviceKey);
+    const since = new Date(Date.now() - 15 * 60 * 1000).toISOString();
+    const { data: recent, error: recentError } = await admin
+      .from("contact_submissions")
+      .select("id")
+      .ilike("email", email)
+      .eq("submission_type", "estimate")
+      .gte("created_at", since)
+      .limit(1);
+    if (recentError || !recent || recent.length === 0) {
+      return new Response(JSON.stringify({ error: "No matching recent estimate request" }), {
+        status: 403,
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
+    }
+
+    const name = sanitize(data.name.trim());
     const phone = data.phone ? sanitize(data.phone.trim()) : "";
-    const serviceName = sanitize(data.serviceName.trim());
-    const region = data.region ? sanitize(data.region.trim()) : "";
-    const sqft = data.sqft ? sanitize(String(data.sqft).trim()) : "";
-    const notes = data.notes ? sanitize(data.notes.trim()) : "";
+    const serviceName = sanitize(data.serviceName.trim().slice(0, 200));
+    const region = data.region ? sanitize(String(data.region).trim().slice(0, 100)) : "";
+    const sqft = data.sqft ? sanitize(String(data.sqft).trim().slice(0, 20)) : "";
+    const notes = data.notes ? sanitize(String(data.notes).trim().slice(0, 2000)) : "";
 
     const hasRange =
       typeof data.estimateMin === "number" &&
@@ -93,7 +113,6 @@ const handler = async (req: Request): Promise<Response> => {
         <li><strong>Service:</strong> ${serviceName}</li>
         ${sqft ? `<li><strong>Square footage:</strong> ${sqft}</li>` : ""}
         ${region ? `<li><strong>Region:</strong> ${region}</li>` : ""}
-        ${notes ? `<li><strong>Notes:</strong> ${notes}</li>` : ""}
       </ul>
       <p><strong>What happens next:</strong></p>
       <ol style="padding-left:20px;margin:8px 0 16px 0;">
@@ -104,12 +123,12 @@ const handler = async (req: Request): Promise<Response> => {
       <p>Need to reach us sooner? Call <a href="tel:6475286804" style="color:#003366;font-weight:600;">+1 (647) 528-6804</a> or reply directly to this email.</p>
     `;
 
-    const customerText = `Hi ${data.name.trim()},
+    const customerText = `Hi ${data.name.trim().slice(0, 100)},
 
 Thank you for using our project estimator. We've received your request for ${data.serviceName} and our estimating team will review it shortly.
 ${hasRange ? `\nPreliminary range: ${rangeText}\n(Indicative only — final pricing follows site review and confirmed scope.)\n` : ""}
 Your request summary:
-- Service: ${data.serviceName}${data.sqft ? `\n- Square footage: ${data.sqft}` : ""}${data.region ? `\n- Region: ${data.region}` : ""}${data.notes ? `\n- Notes: ${data.notes}` : ""}
+- Service: ${data.serviceName}${data.sqft ? `\n- Square footage: ${data.sqft}` : ""}${data.region ? `\n- Region: ${data.region}` : ""}
 
 What happens next:
 1. A project manager reviews your request within 24 business hours.
