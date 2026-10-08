@@ -2,7 +2,13 @@ import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { Layout, Sparkles } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { AdminPageLayout } from "@/components/admin/AdminPageLayout";
 
 import HeroSlidesManager from "./HeroSlidesManager";
@@ -17,21 +23,25 @@ const HomepageBuilder = () => {
   const [activeTab, setActiveTab] = useState(initialTab);
 
   useEffect(() => {
-    const nextTab = new Set(["hero", "why-choose"]).has(queryTab) ? queryTab : "hero";
+    const nextTab = new Set(["hero", "why-choose"]).has(queryTab)
+      ? queryTab
+      : "hero";
     setActiveTab(nextTab);
   }, [queryTab]);
 
   const handleTabChange = (tab: string) => {
     const nextParams = new URLSearchParams(searchParams);
+    nextParams.delete("section");
+    nextParams.delete("slide-section");
 
     if (tab === "hero") {
       nextParams.delete("tab");
-      setSearchParams(nextParams, { replace: true });
+      setSearchParams(nextParams);
       return;
     }
 
     nextParams.set("tab", tab);
-    setSearchParams(nextParams, { replace: true });
+    setSearchParams(nextParams);
   };
 
   return (
@@ -39,7 +49,11 @@ const HomepageBuilder = () => {
       title="Homepage Builder"
       description="Manage all homepage content in one place — hero slides and why choose us section"
     >
-      <Tabs value={activeTab} onValueChange={handleTabChange} className="space-y-6">
+      <Tabs
+        value={activeTab}
+        onValueChange={handleTabChange}
+        className="space-y-6"
+      >
         <TabsList className="grid w-full grid-cols-2">
           <TabsTrigger value="hero" className="flex items-center gap-2">
             <Layout className="h-4 w-4" />
@@ -70,7 +84,8 @@ const HomepageBuilder = () => {
             <CardHeader>
               <CardTitle>Why Choose Us Section</CardTitle>
               <CardDescription>
-                Edit the key benefits and reasons customers should choose your company
+                Edit the key benefits and reasons customers should choose your
+                company
               </CardDescription>
             </CardHeader>
             <CardContent>
@@ -78,7 +93,6 @@ const HomepageBuilder = () => {
             </CardContent>
           </Card>
         </TabsContent>
-
       </Tabs>
     </AdminPageLayout>
   );

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { Button } from "@/ui/Button";
 import { Badge } from "@/components/ui/badge";
 import { Switch } from "@/components/ui/switch";
@@ -22,6 +22,27 @@ export function EditorActions({
   savedAt?: Date | null;
   draftAt?: Date | null;
 }) {
+  const actions = useRef<HTMLDivElement>(null);
+  useLayoutEffect(() => {
+    const element = actions.current;
+    const container = element?.closest<HTMLElement>(".business-page-content");
+    if (!element || !container) return;
+    const measure = () =>
+      container.style.setProperty(
+        "--admin-editor-actions-height",
+        `${element.getBoundingClientRect().height}px`,
+      );
+    measure();
+    const observer =
+      typeof ResizeObserver !== "undefined"
+        ? new ResizeObserver(measure)
+        : null;
+    observer?.observe(element);
+    return () => {
+      observer?.disconnect();
+      container.style.removeProperty("--admin-editor-actions-height");
+    };
+  }, []);
   const [validation, setValidation] = useState("");
   useEffect(() => {
     const invalid = (event: Event) => {
@@ -50,7 +71,7 @@ export function EditorActions({
     null,
   );
   return (
-    <div className="admin-editor-actions space-y-2">
+    <div className="admin-editor-actions space-y-2" ref={actions}>
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div className="flex flex-wrap gap-3 items-center">
           <h1 className="text-2xl font-semibold">{title}</h1>

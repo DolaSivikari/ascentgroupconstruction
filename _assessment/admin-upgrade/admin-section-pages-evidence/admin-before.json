@@ -1,0 +1,110 @@
+[
+  {
+    "width": 1440,
+    "before": {
+      "sidebar": {
+        "top": 0,
+        "bottom": 900,
+        "position": "fixed"
+      },
+      "topbar": {
+        "top": 0,
+        "bottom": 91,
+        "position": "sticky"
+      },
+      "actions": {
+        "top": 115,
+        "bottom": 227.5,
+        "position": "sticky"
+      },
+      "viewport": 900,
+      "bodyScroll": 0,
+      "contentScroll": 0,
+      "contentHeight": 6109,
+      "scrollHeight": 6109,
+      "overflow": false,
+      "visibleSections": []
+    },
+    "scrolled": {
+      "sidebar": {
+        "top": 0,
+        "bottom": 900,
+        "position": "fixed"
+      },
+      "topbar": {
+        "top": -2099,
+        "bottom": -2008,
+        "position": "sticky"
+      },
+      "actions": {
+        "top": -1984,
+        "bottom": -1871.5,
+        "position": "sticky"
+      },
+      "viewport": 900,
+      "bodyScroll": 2099,
+      "contentScroll": 0,
+      "contentHeight": 6109,
+      "scrollHeight": 6109,
+      "overflow": false,
+      "visibleSections": []
+    },
+    "errors": [],
+    "writes": [],
+    "duplicateWarnings": []
+  },
+  {
+    "width": 390,
+    "before": {
+      "sidebar": {
+        "top": 0,
+        "bottom": 900,
+        "position": "fixed"
+      },
+      "topbar": {
+        "top": 0,
+        "bottom": 91,
+        "position": "sticky"
+      },
+      "actions": {
+        "top": 107,
+        "bottom": 339.1875,
+        "position": "sticky"
+      },
+      "viewport": 900,
+      "bodyScroll": 0,
+      "contentScroll": 0,
+      "contentHeight": 9239,
+      "scrollHeight": 9239,
+      "overflow": false,
+      "visibleSections": []
+    },
+    "scrolled": {
+      "sidebar": {
+        "top": 0,
+        "bottom": 900,
+        "position": "fixed"
+      },
+      "topbar": {
+        "top": -1721,
+        "bottom": -1630,
+        "position": "sticky"
+      },
+      "actions": {
+        "top": -1614,
+        "bottom": -1381.8125,
+        "position": "sticky"
+      },
+      "viewport": 900,
+      "bodyScroll": 1721,
+      "contentScroll": 0,
+      "contentHeight": 9239,
+      "scrollHeight": 9239,
+      "overflow": false,
+      "visibleSections": []
+    },
+    "errors": [],
+    "writes": [],
+    "duplicateWarnings": []
+  }
+]

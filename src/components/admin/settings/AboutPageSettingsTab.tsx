@@ -1,3 +1,7 @@
+import {
+  AdminSectionWorkspace,
+  AdminSectionScreen,
+} from "@/components/admin/AdminSectionWorkspace";
 import type { SupabaseClient } from "@supabase/supabase-js";
 import { useEffect, useState } from "react";
 import { useSettingsData } from "@/hooks/useSettingsData";
@@ -48,7 +52,10 @@ export const AboutPageSettingsTab = () => {
   const [saving, setSaving] = useState(false);
   const [publishOpen, setPublishOpen] = useState(false);
   const [saveError, setSaveError] = useState("");
-  const guard = useUnsavedChanges({ hasUnsavedChanges: dirty });
+  const guard = useUnsavedChanges({
+    hasUnsavedChanges: dirty,
+    preserveDraftQueryKeys: ["section"],
+  });
   useEffect(() => {
     if (record)
       setValues((current) => ({
@@ -163,226 +170,289 @@ export const AboutPageSettingsTab = () => {
         description="Changes become public. Empty fields restore the original text; credential wording remains protected."
         confirmText="Publish"
       />
-      <div className="grid xl:grid-cols-2 gap-6">
-        <fieldset disabled={saving} className="space-y-5 min-w-0">
-          {[
-            ["hero_headline", "Hero headline", 160],
-            ["hero_intro", "Hero intro", 600],
-            ["story_headline", "Story heading", 160],
-            ["founder_name", "Founder name", 120],
-            ["founder_title", "Founder title", 120],
-            ["founder_bio", "Founder biography", 4000],
-            ["founder_quote", "Founder quote", 600],
-          ].map(([key, label, limit]) => (
-            <div key={String(key)} className="space-y-2">
-              <Label htmlFor={`about-${key}`}>{label}</Label>
-              <Textarea
-                id={`about-${key}`}
-                value={String(values[key as keyof AboutContent] || "")}
-                maxLength={Number(limit)}
-                placeholder={String(ABOUT_DEFAULTS[key as keyof AboutContent])}
-                onChange={(event) => change({ [key]: event.target.value })}
-              />
-            </div>
-          ))}
-          <section className="space-y-3">
-            <h2 className="text-xl font-semibold">Story paragraphs</h2>
-            {values.story_content.map((paragraph, index) => (
-              <div key={index} className="space-y-2">
+      <fieldset disabled={saving} className="space-y-5 min-w-0">
+        <AdminSectionWorkspace
+          label="About settings sections"
+          items={[
+            { id: "hero", title: "Hero" },
+            { id: "story", title: "Company story" },
+            { id: "founder", title: "Founder" },
+            { id: "stats", title: "Stats" },
+            { id: "preview", title: "Unsaved preview" },
+          ]}
+        >
+          <AdminSectionScreen id="hero" title="Hero">
+            {[
+              ["hero_headline", "Hero headline", 160],
+              ["hero_intro", "Hero intro", 600],
+            ].map(([key, label, limit]) => (
+              <div key={String(key)} className="space-y-2">
+                <Label htmlFor={`about-${key}`}>{label}</Label>
                 <Textarea
-                  aria-label={`Story paragraph ${index + 1}`}
-                  value={paragraph}
-                  onChange={(event) =>
-                    change({
-                      story_content: values.story_content.map(
-                        (value, position) =>
-                          position === index ? event.target.value : value,
-                      ),
-                    })
-                  }
+                  id={`about-${key}`}
+                  value={String(values[key as keyof AboutContent] || "")}
+                  maxLength={Number(limit)}
+                  placeholder={String(
+                    ABOUT_DEFAULTS[key as keyof AboutContent],
+                  )}
+                  onChange={(event) => change({ [key]: event.target.value })}
                 />
-                <div className="flex gap-2">
-                  <Button
-                    type="button"
-                    size="sm"
-                    variant="outline"
-                    disabled={index === 0}
-                    onClick={() =>
-                      change({
-                        story_content: reorder(values.story_content, index, -1),
-                      })
-                    }
-                  >
-                    Up
-                  </Button>
-                  <Button
-                    type="button"
-                    size="sm"
-                    variant="outline"
-                    disabled={index === values.story_content.length - 1}
-                    onClick={() =>
-                      change({
-                        story_content: reorder(values.story_content, index, 1),
-                      })
-                    }
-                  >
-                    Down
-                  </Button>
-                  <Button
-                    type="button"
-                    size="sm"
-                    variant="outline"
-                    onClick={() =>
-                      change({
-                        story_content: values.story_content.filter(
-                          (_, position) => position !== index,
-                        ),
-                      })
-                    }
-                  >
-                    Remove
-                  </Button>
-                </div>
               </div>
             ))}
-            <Button
-              type="button"
-              variant="outline"
-              onClick={() =>
-                change({ story_content: [...values.story_content, ""] })
-              }
-            >
-              Add paragraph
-            </Button>
-          </section>
-          <ImageUploadField
-            value={values.founder_image_url}
-            onChange={(founder_image_url) => change({ founder_image_url })}
-            label="Founder image"
-          />
-          <section className="space-y-3">
-            <h2 className="text-xl font-semibold">Stats</h2>
-            <p className="text-sm text-muted-foreground">
-              CGL and WSIB values remain in code until the credentials phase.
-            </p>
-            {values.stats.map((stat, index) => (
-              <div key={index} className="space-y-2">
-                <div className="grid grid-cols-2 gap-2">
-                  <Input
-                    aria-label={`Stat ${index + 1} value`}
-                    value={stat.value}
+          </AdminSectionScreen>
+          <AdminSectionScreen id="story" title="Company story">
+            {[["story_headline", "Story heading", 160]].map(
+              ([key, label, limit]) => (
+                <div key={String(key)} className="space-y-2">
+                  <Label htmlFor={`about-${key}`}>{label}</Label>
+                  <Textarea
+                    id={`about-${key}`}
+                    value={String(values[key as keyof AboutContent] || "")}
+                    maxLength={Number(limit)}
+                    placeholder={String(
+                      ABOUT_DEFAULTS[key as keyof AboutContent],
+                    )}
+                    onChange={(event) => change({ [key]: event.target.value })}
+                  />
+                </div>
+              ),
+            )}
+            <section className="space-y-3">
+              <h2 className="text-xl font-semibold">Story paragraphs</h2>
+              {values.story_content.map((paragraph, index) => (
+                <div key={index} className="space-y-2">
+                  <Textarea
+                    aria-label={`Story paragraph ${index + 1}`}
+                    value={paragraph}
                     onChange={(event) =>
                       change({
-                        stats: values.stats.map((value, position) =>
-                          position === index
-                            ? { ...value, value: event.target.value }
-                            : value,
+                        story_content: values.story_content.map(
+                          (value, position) =>
+                            position === index ? event.target.value : value,
                         ),
                       })
                     }
                   />
-                  <Input
-                    aria-label={`Stat ${index + 1} label`}
-                    value={stat.label}
-                    onChange={(event) =>
-                      change({
-                        stats: values.stats.map((value, position) =>
-                          position === index
-                            ? { ...value, label: event.target.value }
-                            : value,
-                        ),
-                      })
-                    }
-                  />
+                  <div className="flex gap-2">
+                    <Button
+                      type="button"
+                      size="sm"
+                      variant="outline"
+                      disabled={index === 0}
+                      onClick={() =>
+                        change({
+                          story_content: reorder(
+                            values.story_content,
+                            index,
+                            -1,
+                          ),
+                        })
+                      }
+                    >
+                      Up
+                    </Button>
+                    <Button
+                      type="button"
+                      size="sm"
+                      variant="outline"
+                      disabled={index === values.story_content.length - 1}
+                      onClick={() =>
+                        change({
+                          story_content: reorder(
+                            values.story_content,
+                            index,
+                            1,
+                          ),
+                        })
+                      }
+                    >
+                      Down
+                    </Button>
+                    <Button
+                      type="button"
+                      size="sm"
+                      variant="outline"
+                      onClick={() =>
+                        change({
+                          story_content: values.story_content.filter(
+                            (_, position) => position !== index,
+                          ),
+                        })
+                      }
+                    >
+                      Remove
+                    </Button>
+                  </div>
                 </div>
-                <div className="flex gap-2">
-                  <Button
-                    type="button"
-                    size="sm"
-                    variant="outline"
-                    disabled={index === 0}
-                    onClick={() =>
-                      change({ stats: reorder(values.stats, index, -1) })
-                    }
-                  >
-                    Up
-                  </Button>
-                  <Button
-                    type="button"
-                    size="sm"
-                    variant="outline"
-                    disabled={index === values.stats.length - 1}
-                    onClick={() =>
-                      change({ stats: reorder(values.stats, index, 1) })
-                    }
-                  >
-                    Down
-                  </Button>
-                  <Button
-                    type="button"
-                    size="sm"
-                    variant="outline"
-                    onClick={() =>
-                      change({
-                        stats: values.stats.filter(
-                          (_, position) => position !== index,
-                        ),
-                      })
-                    }
-                  >
-                    Remove
-                  </Button>
-                </div>
+              ))}
+              <Button
+                type="button"
+                variant="outline"
+                onClick={() =>
+                  change({ story_content: [...values.story_content, ""] })
+                }
+              >
+                Add paragraph
+              </Button>
+            </section>
+          </AdminSectionScreen>
+          <AdminSectionScreen id="founder" title="Founder">
+            {[
+              ["founder_name", "Founder name", 120],
+              ["founder_title", "Founder title", 120],
+              ["founder_bio", "Founder biography", 4000],
+              ["founder_quote", "Founder quote", 600],
+            ].map(([key, label, limit]) => (
+              <div key={String(key)} className="space-y-2">
+                <Label htmlFor={`about-${key}`}>{label}</Label>
+                <Textarea
+                  id={`about-${key}`}
+                  value={String(values[key as keyof AboutContent] || "")}
+                  maxLength={Number(limit)}
+                  placeholder={String(
+                    ABOUT_DEFAULTS[key as keyof AboutContent],
+                  )}
+                  onChange={(event) => change({ [key]: event.target.value })}
+                />
               </div>
             ))}
-            <Button
-              type="button"
-              variant="outline"
-              disabled={values.stats.length >= 4}
-              onClick={() =>
-                change({ stats: [...values.stats, { value: "", label: "" }] })
-              }
+            <ImageUploadField
+              value={values.founder_image_url}
+              onChange={(founder_image_url) => change({ founder_image_url })}
+              label="Founder image"
+            />
+          </AdminSectionScreen>
+          <AdminSectionScreen id="stats" title="Stats">
+            <section className="space-y-3">
+              <h2 className="text-xl font-semibold">Stats</h2>
+              <p className="text-sm text-muted-foreground">
+                CGL and WSIB values remain in code until the credentials phase.
+              </p>
+              {values.stats.map((stat, index) => (
+                <div key={index} className="space-y-2">
+                  <div className="grid grid-cols-2 gap-2">
+                    <Input
+                      aria-label={`Stat ${index + 1} value`}
+                      value={stat.value}
+                      onChange={(event) =>
+                        change({
+                          stats: values.stats.map((value, position) =>
+                            position === index
+                              ? { ...value, value: event.target.value }
+                              : value,
+                          ),
+                        })
+                      }
+                    />
+                    <Input
+                      aria-label={`Stat ${index + 1} label`}
+                      value={stat.label}
+                      onChange={(event) =>
+                        change({
+                          stats: values.stats.map((value, position) =>
+                            position === index
+                              ? { ...value, label: event.target.value }
+                              : value,
+                          ),
+                        })
+                      }
+                    />
+                  </div>
+                  <div className="flex gap-2">
+                    <Button
+                      type="button"
+                      size="sm"
+                      variant="outline"
+                      disabled={index === 0}
+                      onClick={() =>
+                        change({ stats: reorder(values.stats, index, -1) })
+                      }
+                    >
+                      Up
+                    </Button>
+                    <Button
+                      type="button"
+                      size="sm"
+                      variant="outline"
+                      disabled={index === values.stats.length - 1}
+                      onClick={() =>
+                        change({ stats: reorder(values.stats, index, 1) })
+                      }
+                    >
+                      Down
+                    </Button>
+                    <Button
+                      type="button"
+                      size="sm"
+                      variant="outline"
+                      onClick={() =>
+                        change({
+                          stats: values.stats.filter(
+                            (_, position) => position !== index,
+                          ),
+                        })
+                      }
+                    >
+                      Remove
+                    </Button>
+                  </div>
+                </div>
+              ))}
+              <Button
+                type="button"
+                variant="outline"
+                disabled={values.stats.length >= 4}
+                onClick={() =>
+                  change({ stats: [...values.stats, { value: "", label: "" }] })
+                }
+              >
+                Add stat
+              </Button>
+            </section>
+          </AdminSectionScreen>
+          <AdminSectionScreen id="preview" title="Unsaved preview">
+            <aside
+              className="rounded-lg border bg-card p-5 space-y-4 self-start"
+              aria-label="About content preview"
             >
-              Add stat
-            </Button>
-          </section>
-          {saveError && (
-            <p role="alert" className="text-destructive">
-              {saveError} Your edits are retained.
-            </p>
-          )}
+              <p className="text-sm text-muted-foreground">
+                Unsaved preview — does not publish
+              </p>
+              <h2 className="text-2xl font-semibold">
+                {preview.hero_headline}
+              </h2>
+              <p>{preview.hero_intro}</p>
+              <h3 className="text-xl font-semibold whitespace-pre-line">
+                {preview.story_headline}
+              </h3>
+              {preview.story_content.map((paragraph, index) => (
+                <p key={index}>{paragraph}</p>
+              ))}
+              <div className="grid grid-cols-2 gap-3">
+                {preview.stats.map((stat, index) => (
+                  <div key={index}>
+                    <strong>{stat.value}</strong>
+                    <p>{stat.label}</p>
+                  </div>
+                ))}
+              </div>
+            </aside>
+          </AdminSectionScreen>
+        </AdminSectionWorkspace>
+        {saveError && (
+          <p role="alert" className="text-destructive">
+            {saveError} Your edits are retained.
+          </p>
+        )}
+        <div className="admin-section-save-bar">
           <Button
             disabled={!dirty || saving}
             onClick={() => setPublishOpen(true)}
           >
             Publish About changes
           </Button>
-        </fieldset>
-        <aside
-          className="rounded-lg border bg-card p-5 space-y-4 self-start xl:sticky xl:top-24"
-          aria-label="About content preview"
-        >
-          <p className="text-sm text-muted-foreground">
-            Unsaved preview — does not publish
-          </p>
-          <h2 className="text-2xl font-semibold">{preview.hero_headline}</h2>
-          <p>{preview.hero_intro}</p>
-          <h3 className="text-xl font-semibold whitespace-pre-line">
-            {preview.story_headline}
-          </h3>
-          {preview.story_content.map((paragraph, index) => (
-            <p key={index}>{paragraph}</p>
-          ))}
-          <div className="grid grid-cols-2 gap-3">
-            {preview.stats.map((stat, index) => (
-              <div key={index}>
-                <strong>{stat.value}</strong>
-                <p>{stat.label}</p>
-              </div>
-            ))}
-          </div>
-        </aside>
-      </div>
+        </div>
+      </fieldset>
     </div>
   );
 };

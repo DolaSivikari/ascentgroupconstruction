@@ -1,3 +1,9 @@
+import {
+  AdminSectionWorkspace,
+  AdminSectionScreen,
+} from "@/components/admin/AdminSectionWorkspace";
+import { useNavigate } from "react-router-dom";
+import { validateSectionForm } from "@/lib/admin/sectionValidation";
 import { ContentRowActions } from "@/components/admin/ContentRowActions";
 import { ListControls, ListPagination } from "@/components/admin/ListControls";
 import { useContentList } from "@/hooks/useContentList";
@@ -75,6 +81,7 @@ const categoryLabels: Record<string, string> = {
 };
 
 export default function DocumentsLibrary() {
+  const navigateSection = useNavigate();
   const { isLoading, isAdmin } = useAdminAuth();
   const { toast } = useToast();
   const [documents, setDocuments] = useState<Document[]>([]);
@@ -168,6 +175,10 @@ export default function DocumentsLibrary() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (
+      !validateSectionForm(e.currentTarget as HTMLFormElement, navigateSection)
+    )
+      return;
     if (!formData.file && !editingDoc) {
       toast({
         title: "Error",
@@ -376,127 +387,151 @@ export default function DocumentsLibrary() {
               Upload Document
             </Button>
           </DialogTrigger>
-          <DialogContent className="max-w-2xl">
+          <DialogContent className="max-w-2xl max-h-[90dvh] overflow-y-auto">
             <DialogHeader>
               <DialogTitle>
                 {editingDoc ? "Edit" : "Upload"} Document
               </DialogTitle>
             </DialogHeader>
-            <form onSubmit={handleSubmit} className="space-y-4">
-              <div>
-                <Label>Title *</Label>
-                <Input
-                  required
-                  value={formData.title}
-                  onChange={(e) =>
-                    setFormData({ ...formData, title: e.target.value })
-                  }
-                />
-              </div>
-              <div>
-                <Label>Description</Label>
-                <Textarea
-                  rows={3}
-                  value={formData.description}
-                  onChange={(e) =>
-                    setFormData({ ...formData, description: e.target.value })
-                  }
-                />
-              </div>
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <Label>Category *</Label>
-                  <Select
-                    value={formData.category}
-                    onValueChange={(value) =>
-                      setFormData({ ...formData, category: value })
-                    }
-                  >
-                    <SelectTrigger>
-                      <SelectValue />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {Object.entries(categoryLabels).map(([value, label]) => (
-                        <SelectItem key={value} value={value}>
-                          {label}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                </div>
-                <div>
-                  <Label>Version</Label>
-                  <Input
-                    value={formData.version}
-                    onChange={(e) =>
-                      setFormData({ ...formData, version: e.target.value })
-                    }
-                  />
-                </div>
-              </div>
-              <div>
-                <Label>
-                  File {editingDoc && "(leave empty to keep current file)"}
-                </Label>
-                <Input
-                  type="file"
-                  onChange={handleFileSelect}
-                  accept=".pdf,.doc,.docx,.xls,.xlsx"
-                />
-                {editingDoc && (
-                  <p className="text-xs text-muted-foreground mt-1">
-                    Current: {editingDoc.file_name}
-                  </p>
-                )}
-              </div>
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <Label>Expiry Date</Label>
-                  <Input
-                    type="date"
-                    value={formData.expiry_date}
-                    onChange={(e) =>
-                      setFormData({ ...formData, expiry_date: e.target.value })
-                    }
-                  />
-                </div>
-                <div>
-                  <Label>Display Order</Label>
-                  <Input
-                    type="number"
-                    value={formData.display_order}
-                    onChange={(e) =>
-                      setFormData({
-                        ...formData,
-                        display_order: parseInt(e.target.value) || 0,
-                      })
-                    }
-                  />
-                </div>
-              </div>
-              <div className="flex gap-4">
-                <div className="flex items-center space-x-2">
-                  <Switch
-                    checked={formData.is_active}
-                    onCheckedChange={(checked) =>
-                      setFormData({ ...formData, is_active: checked })
-                    }
-                  />
-                  <Label>Active</Label>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <Switch
-                    checked={formData.requires_authentication}
-                    onCheckedChange={(checked) =>
-                      setFormData({
-                        ...formData,
-                        requires_authentication: checked,
-                      })
-                    }
-                  />
-                  <Label>Requires Login</Label>
-                </div>
-              </div>
+            <form noValidate onSubmit={handleSubmit} className="space-y-4">
+              <AdminSectionWorkspace
+                queryKey="document-section"
+                label="Document sections"
+                items={[
+                  { id: "details", title: "Document details" },
+                  { id: "file", title: "File" },
+                  { id: "access", title: "Expiry & access" },
+                ]}
+              >
+                <AdminSectionScreen id="details" title="Document details">
+                  <div>
+                    <Label>Title *</Label>
+                    <Input
+                      required
+                      value={formData.title}
+                      onChange={(e) =>
+                        setFormData({ ...formData, title: e.target.value })
+                      }
+                    />
+                  </div>
+                  <div>
+                    <Label>Description</Label>
+                    <Textarea
+                      rows={3}
+                      value={formData.description}
+                      onChange={(e) =>
+                        setFormData({
+                          ...formData,
+                          description: e.target.value,
+                        })
+                      }
+                    />
+                  </div>
+                  <div className="grid grid-cols-2 gap-4">
+                    <div>
+                      <Label>Category *</Label>
+                      <Select
+                        value={formData.category}
+                        onValueChange={(value) =>
+                          setFormData({ ...formData, category: value })
+                        }
+                      >
+                        <SelectTrigger>
+                          <SelectValue />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {Object.entries(categoryLabels).map(
+                            ([value, label]) => (
+                              <SelectItem key={value} value={value}>
+                                {label}
+                              </SelectItem>
+                            ),
+                          )}
+                        </SelectContent>
+                      </Select>
+                    </div>
+                    <div>
+                      <Label>Version</Label>
+                      <Input
+                        value={formData.version}
+                        onChange={(e) =>
+                          setFormData({ ...formData, version: e.target.value })
+                        }
+                      />
+                    </div>
+                  </div>
+                </AdminSectionScreen>
+                <AdminSectionScreen id="file" title="File">
+                  <div>
+                    <Label>
+                      File {editingDoc && "(leave empty to keep current file)"}
+                    </Label>
+                    <Input
+                      type="file"
+                      onChange={handleFileSelect}
+                      accept=".pdf,.doc,.docx,.xls,.xlsx"
+                    />
+                    {editingDoc && (
+                      <p className="text-xs text-muted-foreground mt-1">
+                        Current: {editingDoc.file_name}
+                      </p>
+                    )}
+                  </div>
+                </AdminSectionScreen>
+                <AdminSectionScreen id="access" title="Expiry & access">
+                  <div className="grid grid-cols-2 gap-4">
+                    <div>
+                      <Label>Expiry Date</Label>
+                      <Input
+                        type="date"
+                        value={formData.expiry_date}
+                        onChange={(e) =>
+                          setFormData({
+                            ...formData,
+                            expiry_date: e.target.value,
+                          })
+                        }
+                      />
+                    </div>
+                    <div>
+                      <Label>Display Order</Label>
+                      <Input
+                        type="number"
+                        value={formData.display_order}
+                        onChange={(e) =>
+                          setFormData({
+                            ...formData,
+                            display_order: parseInt(e.target.value) || 0,
+                          })
+                        }
+                      />
+                    </div>
+                  </div>
+                  <div className="flex gap-4">
+                    <div className="flex items-center space-x-2">
+                      <Switch
+                        checked={formData.is_active}
+                        onCheckedChange={(checked) =>
+                          setFormData({ ...formData, is_active: checked })
+                        }
+                      />
+                      <Label>Active</Label>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <Switch
+                        checked={formData.requires_authentication}
+                        onCheckedChange={(checked) =>
+                          setFormData({
+                            ...formData,
+                            requires_authentication: checked,
+                          })
+                        }
+                      />
+                      <Label>Requires Login</Label>
+                    </div>
+                  </div>
+                </AdminSectionScreen>
+              </AdminSectionWorkspace>
               <div className="flex gap-2 justify-end">
                 <Button
                   type="button"

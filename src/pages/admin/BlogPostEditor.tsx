@@ -1,3 +1,8 @@
+import {
+  AdminSectionWorkspace,
+  AdminSectionScreen,
+} from "@/components/admin/AdminSectionWorkspace";
+import { validateSectionForm } from "@/lib/admin/sectionValidation";
 import { EditorActions } from "@/components/admin/EditorActions";
 import { LocalDraftRecovery } from "@/components/admin/LocalDraftRecovery";
 import { ProcessStepsEditor } from "@/components/admin/ProcessStepsEditor";
@@ -83,7 +88,10 @@ const BlogPostEditor = () => {
     cancelNavigation,
     markSaved,
     message,
-  } = useUnsavedChanges({ hasUnsavedChanges });
+  } = useUnsavedChanges({
+    hasUnsavedChanges,
+    preserveDraftQueryKeys: ["section"],
+  });
 
   const [saving, setSaving] = useState(false);
   const [ready, setReady] = useState(isNewPost);
@@ -194,6 +202,8 @@ const BlogPostEditor = () => {
       return;
     }
     if (!ready || saving) return;
+    if (!validateSectionForm(e.currentTarget as HTMLFormElement, navigate))
+      return;
 
     if (
       !formData.title.trim() ||
@@ -398,75 +408,37 @@ const BlogPostEditor = () => {
           <p role="status" className="text-sm mb-3">
             {slugAvailability.message}
           </p>
-          <nav aria-label="Blog editor sections" className="admin-blog-outline">
-            <label className="sr-only" htmlFor="blog-section-selector">
-              Jump to blog section
-            </label>
-            <select
-              id="blog-section-selector"
-              className="lg:hidden border rounded-md bg-background px-3 py-2 mb-4 w-full"
-              defaultValue=""
-              onChange={(event) =>
-                document
-                  .getElementById(event.target.value)
-                  ?.scrollIntoView({ behavior: "smooth" })
-              }
-            >
-              <option value="" disabled>
-                Jump to section
-              </option>
-              {[
-                "Basics",
-                "Content",
-                "Images",
-                "Details",
-                "SEO",
-                ...(["case-study", "case_study"].includes(formData.content_type)
-                  ? ["Case study"]
-                  : []),
-              ].map((label) => (
-                <option
-                  key={label}
-                  value={`blog-${label.toLowerCase().replace(/ /g, "-")}`}
-                >
-                  {label}
-                </option>
-              ))}
-            </select>
-            <div className="hidden lg:flex lg:flex-col gap-2">
-              {[
-                "Basics",
-                "Content",
-                "Images",
-                "Details",
-                "SEO",
-                ...(["case-study", "case_study"].includes(formData.content_type)
-                  ? ["Case study"]
-                  : []),
-              ].map((label) => (
-                <a
-                  key={label}
-                  className="text-sm rounded-md px-3 py-2 hover:bg-muted"
-                  href={`#blog-${label.toLowerCase().replace(/ /g, "-")}`}
-                >
-                  {label}
-                </a>
-              ))}
-            </div>
-          </nav>
+
           <form
+            noValidate
             id="blog-editor-form"
             onSubmit={handleSubmit}
             className="space-y-6"
           >
             <fieldset disabled={!ready || saving} className="space-y-6 min-w-0">
-              <Card>
-                <CardHeader>
-                  <CardTitle id="blog-basics" className="admin-editor-section">
-                    Basic Information
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-4">
+              <AdminSectionWorkspace
+                label="Blog editor sections"
+                items={[
+                  { id: "basics", title: "Overview" },
+                  { id: "content", title: "Content" },
+                  { id: "details", title: "Details & tags" },
+                  { id: "images", title: "Featured image" },
+                  { id: "seo", title: "SEO" },
+                  ...(["case-study", "case_study"].includes(
+                    formData.content_type,
+                  )
+                    ? [
+                        { id: "case-details", title: "Case study details" },
+                        { id: "case-images", title: "Before & after images" },
+                        { id: "process", title: "Process" },
+                        { id: "challenge", title: "Challenge" },
+                        { id: "solution", title: "Solution" },
+                        { id: "results", title: "Results" },
+                      ]
+                    : []),
+                ]}
+              >
+                <AdminSectionScreen id="basics" title="Overview">
                   <div>
                     <Label htmlFor="title">Title *</Label>
                     <Input
@@ -478,7 +450,6 @@ const BlogPostEditor = () => {
                       required
                     />
                   </div>
-
                   <div>
                     <Label htmlFor="slug">Slug</Label>
                     <Input
@@ -492,7 +463,6 @@ const BlogPostEditor = () => {
                       placeholder="Auto-generated from title"
                     />
                   </div>
-
                   <div>
                     <Label htmlFor="summary">Summary</Label>
                     <Textarea
@@ -513,7 +483,8 @@ const BlogPostEditor = () => {
                       )}
                     </p>
                   </div>
-
+                </AdminSectionScreen>
+                <AdminSectionScreen id="content" title="Content">
                   <RichTextEditor
                     id="blog-content"
                     label="Content *"
@@ -524,7 +495,8 @@ const BlogPostEditor = () => {
                     minHeight="300px"
                     maxLength={50000}
                   />
-
+                </AdminSectionScreen>
+                <AdminSectionScreen id="details" title="Details & tags">
                   <div
                     id="blog-details"
                     className="admin-editor-section grid sm:grid-cols-2 gap-4"
@@ -615,7 +587,6 @@ const BlogPostEditor = () => {
                       />
                     </div>
                   </div>
-
                   <div>
                     <Label htmlFor="source">Source Attribution</Label>
                     <Input
@@ -631,7 +602,6 @@ const BlogPostEditor = () => {
                       an external source
                     </p>
                   </div>
-
                   <div className="flex items-center gap-2">
                     <input
                       type="checkbox"
@@ -646,7 +616,6 @@ const BlogPostEditor = () => {
                       Pin this insight (appears first in feeds)
                     </Label>
                   </div>
-
                   <div>
                     <Label htmlFor="tags">Tags (comma-separated)</Label>
                     <Input
@@ -658,8 +627,8 @@ const BlogPostEditor = () => {
                       placeholder="painting, commercial, tips"
                     />
                   </div>
-
-                  <div id="blog-images" className="admin-editor-section" />
+                </AdminSectionScreen>
+                <AdminSectionScreen id="images" title="Featured image">
                   <ImageUploadField
                     value={formData.featured_image}
                     onChange={(url) =>
@@ -668,16 +637,8 @@ const BlogPostEditor = () => {
                     bucket="project-images"
                     label="Featured Image"
                   />
-                </CardContent>
-              </Card>
-
-              <Card>
-                <CardHeader>
-                  <CardTitle id="blog-seo" className="admin-editor-section">
-                    SEO Settings
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-4">
+                </AdminSectionScreen>
+                <AdminSectionScreen id="seo" title="SEO">
                   <div>
                     <Label htmlFor="seo_title">SEO Title</Label>
                     <Input
@@ -689,7 +650,6 @@ const BlogPostEditor = () => {
                       placeholder="Defaults to post title"
                     />
                   </div>
-
                   <div>
                     <Label htmlFor="seo_description">SEO Description</Label>
                     <Textarea
@@ -702,7 +662,6 @@ const BlogPostEditor = () => {
                       placeholder="Defaults to summary"
                     />
                   </div>
-
                   <div>
                     <Label htmlFor="seo_keywords">
                       SEO Keywords (comma-separated)
@@ -716,125 +675,130 @@ const BlogPostEditor = () => {
                       placeholder="painting services, commercial painting"
                     />
                   </div>
-                </CardContent>
-              </Card>
-
-              {(formData.content_type === "case-study" ||
-                formData.content_type === "case_study") && (
-                <Card>
-                  <CardHeader>
-                    <CardTitle
-                      id="blog-case-study"
-                      className="admin-editor-section"
+                </AdminSectionScreen>
+                {["case-study", "case_study"].includes(
+                  formData.content_type,
+                ) && (
+                  <>
+                    <AdminSectionScreen
+                      id="case-details"
+                      title="Case study details"
                     >
-                      Case Study Details
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent className="space-y-4">
-                    <div className="grid sm:grid-cols-2 gap-4">
-                      <div>
-                        <Label htmlFor="project_location">
-                          Project Location
-                        </Label>
-                        <Input
-                          id="project_location"
-                          value={formData.project_location}
-                          onChange={(e) =>
-                            handleFormChange({
-                              project_location: e.target.value,
-                            })
-                          }
-                          placeholder="e.g., Toronto, ON"
-                        />
+                      <div className="grid sm:grid-cols-2 gap-4">
+                        <div>
+                          <Label htmlFor="project_location">
+                            Project Location
+                          </Label>
+                          <Input
+                            id="project_location"
+                            value={formData.project_location}
+                            onChange={(e) =>
+                              handleFormChange({
+                                project_location: e.target.value,
+                              })
+                            }
+                            placeholder="e.g., Toronto, ON"
+                          />
+                        </div>
+                        <div>
+                          <Label htmlFor="project_size">Project Size</Label>
+                          <Input
+                            id="project_size"
+                            value={formData.project_size}
+                            onChange={(e) =>
+                              handleFormChange({ project_size: e.target.value })
+                            }
+                            placeholder="e.g., 50,000 sq ft"
+                          />
+                        </div>
                       </div>
-                      <div>
-                        <Label htmlFor="project_size">Project Size</Label>
-                        <Input
-                          id="project_size"
-                          value={formData.project_size}
-                          onChange={(e) =>
-                            handleFormChange({ project_size: e.target.value })
-                          }
-                          placeholder="e.g., 50,000 sq ft"
-                        />
+                      <div className="grid sm:grid-cols-2 gap-4">
+                        <div>
+                          <Label htmlFor="project_duration">Duration</Label>
+                          <Input
+                            id="project_duration"
+                            value={formData.project_duration}
+                            onChange={(e) =>
+                              handleFormChange({
+                                project_duration: e.target.value,
+                              })
+                            }
+                            placeholder="e.g., 6 months"
+                          />
+                        </div>
                       </div>
-                    </div>
-
-                    <div className="grid sm:grid-cols-2 gap-4">
-                      <div>
-                        <Label htmlFor="project_duration">Duration</Label>
-                        <Input
-                          id="project_duration"
-                          value={formData.project_duration}
-                          onChange={(e) =>
-                            handleFormChange({
-                              project_duration: e.target.value,
-                            })
-                          }
-                          placeholder="e.g., 6 months"
-                        />
-                      </div>
-                    </div>
-
-                    <MultiImageUpload
-                      images={formData.before_images}
-                      onChange={(before_images) =>
-                        handleFormChange({ before_images })
-                      }
-                      title="Before images"
-                    />
-                    <MultiImageUpload
-                      images={formData.after_images}
-                      onChange={(after_images) =>
-                        handleFormChange({ after_images })
-                      }
-                      title="After images"
-                    />
-                    <div>
-                      <ProcessStepsEditor
-                        steps={formData.process_steps}
-                        onChange={(process_steps) =>
-                          handleFormChange({ process_steps })
+                    </AdminSectionScreen>
+                    <AdminSectionScreen
+                      id="case-images"
+                      title="Before & after images"
+                    >
+                      <MultiImageUpload
+                        images={formData.before_images}
+                        onChange={(before_images) =>
+                          handleFormChange({ before_images })
                         }
+                        title="Before images"
                       />
-                    </div>
-                    <RichTextEditor
-                      id="challenge"
-                      label="Challenge"
-                      value={formData.challenge || ""}
-                      onChange={(value) =>
-                        handleFormChange({ challenge: value })
-                      }
-                      placeholder="What was the main challenge?"
-                      minHeight="150px"
-                      maxLength={2000}
-                    />
-
-                    <RichTextEditor
-                      id="solution"
-                      label="Solution"
-                      value={formData.solution || ""}
-                      onChange={(value) =>
-                        handleFormChange({ solution: value })
-                      }
-                      placeholder="How did you solve it?"
-                      minHeight="150px"
-                      maxLength={2000}
-                    />
-
-                    <RichTextEditor
-                      id="results"
-                      label="Results"
-                      value={formData.results || ""}
-                      onChange={(value) => handleFormChange({ results: value })}
-                      placeholder="What were the outcomes?"
-                      minHeight="150px"
-                      maxLength={2000}
-                    />
-                  </CardContent>
-                </Card>
-              )}
-
+                      <MultiImageUpload
+                        images={formData.after_images}
+                        onChange={(after_images) =>
+                          handleFormChange({ after_images })
+                        }
+                        title="After images"
+                      />
+                    </AdminSectionScreen>
+                    <AdminSectionScreen id="process" title="Process">
+                      <div>
+                        <ProcessStepsEditor
+                          steps={formData.process_steps}
+                          onChange={(process_steps) =>
+                            handleFormChange({ process_steps })
+                          }
+                        />
+                      </div>
+                    </AdminSectionScreen>
+                    <AdminSectionScreen id="challenge" title="Challenge">
+                      <RichTextEditor
+                        id="challenge"
+                        label="Challenge"
+                        value={formData.challenge || ""}
+                        onChange={(value) =>
+                          handleFormChange({ challenge: value })
+                        }
+                        placeholder="What was the main challenge?"
+                        minHeight="150px"
+                        maxLength={2000}
+                      />
+                    </AdminSectionScreen>
+                    <AdminSectionScreen id="solution" title="Solution">
+                      <RichTextEditor
+                        id="solution"
+                        label="Solution"
+                        value={formData.solution || ""}
+                        onChange={(value) =>
+                          handleFormChange({ solution: value })
+                        }
+                        placeholder="How did you solve it?"
+                        minHeight="150px"
+                        maxLength={2000}
+                      />
+                    </AdminSectionScreen>
+                    <AdminSectionScreen id="results" title="Results">
+                      <RichTextEditor
+                        id="results"
+                        label="Results"
+                        value={formData.results || ""}
+                        onChange={(value) =>
+                          handleFormChange({ results: value })
+                        }
+                        placeholder="What were the outcomes?"
+                        minHeight="150px"
+                        maxLength={2000}
+                      />
+                    </AdminSectionScreen>
+                  </>
+                )}
+              </AdminSectionWorkspace>
               <div className="flex justify-end gap-4">
                 <Button
                   type="button"

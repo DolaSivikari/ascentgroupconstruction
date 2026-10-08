@@ -1,73 +1,111 @@
-import { useEffect, useState, lazy, Suspense } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Bot, Loader2 } from 'lucide-react';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { useToast } from '@/hooks/use-toast';
-import { AdminPageLayout } from '@/components/admin/AdminPageLayout';
-import AIVisibilitySection from '@/components/admin/seo/AIVisibilitySection';
-import { SEODashboardOverviewTab } from '@/components/admin/seo/SEODashboardOverviewTab';
+import { useEffect, useState, lazy, Suspense } from "react";
+import { useNavigate, useSearchParams } from "react-router-dom";
+import { Bot, Loader2 } from "lucide-react";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { useToast } from "@/hooks/use-toast";
+import { AdminPageLayout } from "@/components/admin/AdminPageLayout";
+import AIVisibilitySection from "@/components/admin/seo/AIVisibilitySection";
+import { SEODashboardOverviewTab } from "@/components/admin/seo/SEODashboardOverviewTab";
 // Analytics tab pulls in recharts (~90 KB gz). Lazy-load so it only ships when the user opens the Analytics tab.
 const SEODashboardAnalyticsTab = lazy(() =>
-  import('@/components/admin/seo/SEODashboardAnalyticsTab').then((m) => ({ default: m.SEODashboardAnalyticsTab }))
+  import("@/components/admin/seo/SEODashboardAnalyticsTab").then((m) => ({
+    default: m.SEODashboardAnalyticsTab,
+  })),
 );
-import { SEODashboardContentTab } from '@/components/admin/seo/SEODashboardContentTab';
-import { SEODashboardSettingsTab } from '@/components/admin/seo/SEODashboardSettingsTab';
-import { useSeoOverviewStats } from '@/hooks/admin/useSeoOverviewStats';
-import { useSearchConsoleMetrics } from '@/hooks/admin/useSearchConsoleMetrics';
-import { calculateSEOScore } from './seo/scoring';
-import { supabase } from '@/integrations/supabase/client';
+import { SEODashboardContentTab } from "@/components/admin/seo/SEODashboardContentTab";
+import { SEODashboardSettingsTab } from "@/components/admin/seo/SEODashboardSettingsTab";
+import { useSeoOverviewStats } from "@/hooks/admin/useSeoOverviewStats";
+import { useSearchConsoleMetrics } from "@/hooks/admin/useSearchConsoleMetrics";
+import { calculateSEOScore } from "./seo/scoring";
+import { supabase } from "@/integrations/supabase/client";
 import type {
   AnalyticsSnapshot,
   SearchConsoleData,
   SeoContentItem,
   SEOSettings,
-} from './seo/types';
+} from "./seo/types";
 
 interface ErrorWithMessage {
   message?: string;
 }
 
 const errMsg = (e: unknown, fallback: string) =>
-  (typeof e === 'object' && e !== null && 'message' in e && (e as ErrorWithMessage).message) || fallback;
+  (typeof e === "object" &&
+    e !== null &&
+    "message" in e &&
+    (e as ErrorWithMessage).message) ||
+  fallback;
 
 export default function SEODashboard() {
   const navigate = useNavigate();
+  const [sectionParams, setSectionParams] = useSearchParams();
+  const sectionTab = sectionParams.get("tab") || "overview";
+  const activeTab = [
+    "overview",
+    "analytics",
+    "content",
+    "ai-visibility",
+    "settings",
+  ].includes(sectionTab)
+    ? sectionTab
+    : "overview";
   const { toast } = useToast();
   const [loading, setLoading] = useState(true);
   const [seoSettings] = useState<SEOSettings[]>([]);
   const [analytics, setAnalytics] = useState<AnalyticsSnapshot[]>([]);
   const [contentItems, setContentItems] = useState<SeoContentItem[]>([]);
   const [generatingKeywords, setGeneratingKeywords] = useState(false);
-  const [selectedContent, setSelectedContent] = useState('');
-  const [siteUrl, setSiteUrl] = useState('');
+  const [selectedContent, setSelectedContent] = useState("");
+  const [siteUrl, setSiteUrl] = useState("");
   const [fetchingData, setFetchingData] = useState(false);
   const [isConnected, setIsConnected] = useState(false);
   const [checkingConnection, setCheckingConnection] = useState(true);
-  const [searchConsoleData, setSearchConsoleData] = useState<SearchConsoleData[]>([]);
-  const [dateRange, setDateRange] = useState<'7' | '30' | '90'>('30');
+  const [searchConsoleData, setSearchConsoleData] = useState<
+    SearchConsoleData[]
+  >([]);
+  const [dateRange, setDateRange] = useState<"7" | "30" | "90">("30");
   const [lastSyncTime, setLastSyncTime] = useState<string | null>(null);
   const [currentUserId, setCurrentUserId] = useState<string | null>(null);
 
-  const overviewStats = useSeoOverviewStats(seoSettings, analytics, contentItems);
-  const { metrics, dailyMetrics, topPages, topQueries, clicksChange, impressionsChange } =
-    useSearchConsoleMetrics(searchConsoleData);
+  const overviewStats = useSeoOverviewStats(
+    seoSettings,
+    analytics,
+    contentItems,
+  );
+  const {
+    metrics,
+    dailyMetrics,
+    topPages,
+    topQueries,
+    clicksChange,
+    impressionsChange,
+  } = useSearchConsoleMetrics(searchConsoleData);
 
   // Auth + initial load + handle OAuth callback
   useEffect(() => {
     const init = async () => {
-      const { data: { session } } = await supabase.auth.getSession();
-      if (!session) { navigate('/tekev'); return; }
+      const {
+        data: { session },
+      } = await supabase.auth.getSession();
+      if (!session) {
+        navigate("/tekev");
+        return;
+      }
       setCurrentUserId(session.user.id);
 
       const { data: roleData } = await supabase
-        .from('user_roles')
-        .select('role')
-        .eq('user_id', session.user.id)
+        .from("user_roles")
+        .select("role")
+        .eq("user_id", session.user.id)
         .single();
 
-      if (!roleData || !['admin', 'super_admin'].includes(roleData.role)) {
-        navigate('/admin');
-        toast({ variant: 'destructive', title: 'Access Denied', description: 'You do not have permission to access the SEO Dashboard' });
+      if (!roleData || !["admin", "super_admin"].includes(roleData.role)) {
+        navigate("/admin");
+        toast({
+          variant: "destructive",
+          title: "Access Denied",
+          description: "You do not have permission to access the SEO Dashboard",
+        });
       }
     };
 
@@ -76,16 +114,23 @@ export default function SEODashboard() {
     checkGoogleConnection();
 
     const params = new URLSearchParams(window.location.search);
-    const connected = params.get('gsc_connected');
-    const error = params.get('gsc_error');
+    const connected = params.get("gsc_connected");
+    const error = params.get("gsc_error");
 
-    if (connected === 'true') {
-      toast({ title: 'Success', description: 'Google Search Console connected successfully!' });
-      window.history.replaceState({}, '', '/admin/seo-dashboard');
+    if (connected === "true") {
+      toast({
+        title: "Success",
+        description: "Google Search Console connected successfully!",
+      });
+      window.history.replaceState({}, "", "/admin/seo-dashboard");
       checkGoogleConnection();
     } else if (error) {
-      toast({ variant: 'destructive', title: 'Connection Failed', description: decodeURIComponent(error) });
-      window.history.replaceState({}, '', '/admin/seo-dashboard');
+      toast({
+        variant: "destructive",
+        title: "Connection Failed",
+        description: decodeURIComponent(error),
+      });
+      window.history.replaceState({}, "", "/admin/seo-dashboard");
     }
   }, []);
 
@@ -96,40 +141,46 @@ export default function SEODashboard() {
   const loadSearchConsoleData = async () => {
     if (!currentUserId) return;
     try {
-      const startDate = new Date(Date.now() - parseInt(dateRange) * 24 * 60 * 60 * 1000);
+      const startDate = new Date(
+        Date.now() - parseInt(dateRange) * 24 * 60 * 60 * 1000,
+      );
       const { data, error } = await supabase
-        .from('search_console_data')
-        .select('*')
-        .eq('user_id', currentUserId)
-        .gte('date', startDate.toISOString().split('T')[0])
-        .order('date', { ascending: true });
+        .from("search_console_data")
+        .select("*")
+        .eq("user_id", currentUserId)
+        .gte("date", startDate.toISOString().split("T")[0])
+        .order("date", { ascending: true });
 
       if (error) throw error;
 
       setSearchConsoleData(data || []);
       if (data && data.length > 0) {
-        setLastSyncTime(new Date(data[data.length - 1].date).toLocaleDateString());
+        setLastSyncTime(
+          new Date(data[data.length - 1].date).toLocaleDateString(),
+        );
       }
     } catch (error) {
-      console.error('Error loading Search Console data:', error);
+      console.error("Error loading Search Console data:", error);
     }
   };
 
   const checkGoogleConnection = async () => {
     try {
       setCheckingConnection(true);
-      const { data: { session } } = await supabase.auth.getSession();
+      const {
+        data: { session },
+      } = await supabase.auth.getSession();
       if (!session?.user?.id) return;
 
       const { data, error } = await supabase
-        .from('google_auth_tokens')
-        .select('user_id')
-        .eq('user_id', session.user.id)
+        .from("google_auth_tokens")
+        .select("user_id")
+        .eq("user_id", session.user.id)
         .single();
 
       setIsConnected(!!data && !error);
     } catch (error) {
-      console.error('Error checking Google connection:', error);
+      console.error("Error checking Google connection:", error);
       setIsConnected(false);
     } finally {
       setCheckingConnection(false);
@@ -139,20 +190,50 @@ export default function SEODashboard() {
   const loadSEOData = async () => {
     try {
       setLoading(true);
-      const [blogRes, servicesRes, projectsRes, analyticsRes] = await Promise.all([
-        supabase.from('blog_posts').select('id, slug, title, seo_title, seo_description, seo_keywords, featured_image, content, publish_state, updated_at').eq('publish_state', 'published').order('updated_at', { ascending: false }).limit(10),
-        supabase.from('services').select('id, slug, name, seo_title, seo_description, seo_keywords, featured_image, long_description, publish_state, updated_at').eq('publish_state', 'published').order('updated_at', { ascending: false }).limit(10),
-        supabase.from('projects').select('id, slug, title, seo_title, seo_description, seo_keywords, featured_image, description, publish_state, updated_at').eq('publish_state', 'published').order('updated_at', { ascending: false }).limit(10),
-        supabase.from('analytics_snapshots').select('*').gte('snapshot_date', new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString()).order('page_views', { ascending: false }).limit(10),
-      ]);
+      const [blogRes, servicesRes, projectsRes, analyticsRes] =
+        await Promise.all([
+          supabase
+            .from("blog_posts")
+            .select(
+              "id, slug, title, seo_title, seo_description, seo_keywords, featured_image, content, publish_state, updated_at",
+            )
+            .eq("publish_state", "published")
+            .order("updated_at", { ascending: false })
+            .limit(10),
+          supabase
+            .from("services")
+            .select(
+              "id, slug, name, seo_title, seo_description, seo_keywords, featured_image, long_description, publish_state, updated_at",
+            )
+            .eq("publish_state", "published")
+            .order("updated_at", { ascending: false })
+            .limit(10),
+          supabase
+            .from("projects")
+            .select(
+              "id, slug, title, seo_title, seo_description, seo_keywords, featured_image, description, publish_state, updated_at",
+            )
+            .eq("publish_state", "published")
+            .order("updated_at", { ascending: false })
+            .limit(10),
+          supabase
+            .from("analytics_snapshots")
+            .select("*")
+            .gte(
+              "snapshot_date",
+              new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString(),
+            )
+            .order("page_views", { ascending: false })
+            .limit(10),
+        ]);
 
       const items: SeoContentItem[] = [];
 
       blogRes.data?.forEach((post) => {
-        const { score, recommendations } = calculateSEOScore(post, 'blog');
+        const { score, recommendations } = calculateSEOScore(post, "blog");
         items.push({
           id: post.id,
-          type: 'Blog Post',
+          type: "Blog Post",
           displayTitle: post.title,
           seoScore: score,
           recommendations,
@@ -161,10 +242,13 @@ export default function SEODashboard() {
       });
 
       servicesRes.data?.forEach((service) => {
-        const { score, recommendations } = calculateSEOScore(service, 'service');
+        const { score, recommendations } = calculateSEOScore(
+          service,
+          "service",
+        );
         items.push({
           id: service.id,
-          type: 'Service',
+          type: "Service",
           displayTitle: service.name,
           seoScore: score,
           recommendations,
@@ -173,10 +257,13 @@ export default function SEODashboard() {
       });
 
       projectsRes.data?.forEach((project) => {
-        const { score, recommendations } = calculateSEOScore(project, 'project');
+        const { score, recommendations } = calculateSEOScore(
+          project,
+          "project",
+        );
         items.push({
           id: project.id,
-          type: 'Project',
+          type: "Project",
           displayTitle: project.title,
           seoScore: score,
           recommendations,
@@ -186,10 +273,13 @@ export default function SEODashboard() {
 
       setContentItems(items);
       if (analyticsRes.data) setAnalytics(analyticsRes.data);
-
     } catch (error) {
-      console.error('Error loading SEO data:', error);
-      toast({ variant: 'destructive', title: 'Error', description: 'Failed to load SEO data' });
+      console.error("Error loading SEO data:", error);
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description: "Failed to load SEO data",
+      });
     } finally {
       setLoading(false);
     }
@@ -197,16 +287,30 @@ export default function SEODashboard() {
 
   const generateKeywordSuggestions = async () => {
     if (!selectedContent) {
-      toast({ variant: 'destructive', title: 'Error', description: 'Please enter content to analyze' });
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description: "Please enter content to analyze",
+      });
       return;
     }
     try {
       setGeneratingKeywords(true);
-      const { data, error } = await supabase.functions.invoke('generate-keywords', { body: { content: selectedContent } });
+      const { data, error } = await supabase.functions.invoke(
+        "generate-keywords",
+        { body: { content: selectedContent } },
+      );
       if (error) throw error;
-      toast({ title: 'Keywords Generated', description: `Found ${data.keywords?.length || 0} relevant keywords` });
+      toast({
+        title: "Keywords Generated",
+        description: `Found ${data.keywords?.length || 0} relevant keywords`,
+      });
     } catch (error) {
-      toast({ variant: 'destructive', title: 'Error', description: errMsg(error, 'Failed to generate keywords') });
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description: errMsg(error, "Failed to generate keywords"),
+      });
     } finally {
       setGeneratingKeywords(false);
     }
@@ -214,50 +318,89 @@ export default function SEODashboard() {
 
   const connectGoogleSearchConsole = async () => {
     try {
-      const { data, error } = await supabase.functions.invoke('google-search-console-auth');
+      const { data, error } = await supabase.functions.invoke(
+        "google-search-console-auth",
+      );
       if (error) {
-        console.error('Error getting auth URL:', error);
-        toast({ variant: 'destructive', title: 'Error', description: 'Failed to initiate Google Search Console connection' });
+        console.error("Error getting auth URL:", error);
+        toast({
+          variant: "destructive",
+          title: "Error",
+          description: "Failed to initiate Google Search Console connection",
+        });
         return;
       }
       if (data?.authUrl) {
         window.location.href = data.authUrl;
       } else {
-        toast({ variant: 'destructive', title: 'Error', description: 'Failed to get authorization URL' });
+        toast({
+          variant: "destructive",
+          title: "Error",
+          description: "Failed to get authorization URL",
+        });
       }
     } catch (error) {
-      console.error('Error connecting to Google Search Console:', error);
-      toast({ variant: 'destructive', title: 'Error', description: errMsg(error, 'Failed to connect to Google Search Console') });
+      console.error("Error connecting to Google Search Console:", error);
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description: errMsg(
+          error,
+          "Failed to connect to Google Search Console",
+        ),
+      });
     }
   };
 
   const fetchSearchConsoleData = async () => {
     if (!siteUrl) {
-      toast({ variant: 'destructive', title: 'Error', description: 'Please enter a website URL' });
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description: "Please enter a website URL",
+      });
       return;
     }
     try {
       setFetchingData(true);
-      toast({ title: 'Fetching Data', description: 'Retrieving Search Console data...' });
+      toast({
+        title: "Fetching Data",
+        description: "Retrieving Search Console data...",
+      });
 
       let formattedSiteUrl = siteUrl.trim();
-      if (!formattedSiteUrl.startsWith('http') && !formattedSiteUrl.startsWith('sc-domain:')) {
+      if (
+        !formattedSiteUrl.startsWith("http") &&
+        !formattedSiteUrl.startsWith("sc-domain:")
+      ) {
         formattedSiteUrl = `sc-domain:${formattedSiteUrl}`;
       }
 
-      const { data, error } = await supabase.functions.invoke('fetch-search-console-data', {
-        body: {
-          siteUrl: formattedSiteUrl,
-          startDate: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
-          endDate: new Date().toISOString().split('T')[0],
+      const { data, error } = await supabase.functions.invoke(
+        "fetch-search-console-data",
+        {
+          body: {
+            siteUrl: formattedSiteUrl,
+            startDate: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000)
+              .toISOString()
+              .split("T")[0],
+            endDate: new Date().toISOString().split("T")[0],
+          },
         },
-      });
+      );
 
       if (error) throw error;
-      toast({ title: 'Success', description: `Fetched ${data.rowCount || 0} rows of Search Console data` });
+      toast({
+        title: "Success",
+        description: `Fetched ${data.rowCount || 0} rows of Search Console data`,
+      });
       await loadSearchConsoleData();
     } catch (error) {
-      toast({ variant: 'destructive', title: 'Error', description: errMsg(error, 'Failed to fetch Search Console data') });
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description: errMsg(error, "Failed to fetch Search Console data"),
+      });
     } finally {
       setFetchingData(false);
     }
@@ -265,7 +408,10 @@ export default function SEODashboard() {
 
   if (loading) {
     return (
-      <AdminPageLayout title="SEO Dashboard" description="Optimize your content for search engines">
+      <AdminPageLayout
+        title="SEO Dashboard"
+        description="Optimize your content for search engines"
+      >
         <div className="flex items-center justify-center min-h-[400px]">
           <Loader2 className="h-8 w-8 animate-spin text-primary" />
         </div>
@@ -278,8 +424,16 @@ export default function SEODashboard() {
       title="SEO Dashboard"
       description="Optimize your content for search engines and monitor search performance"
     >
-      <Tabs defaultValue="overview" className="space-y-6">
-        <TabsList>
+      <Tabs
+        value={activeTab}
+        onValueChange={(tab) => {
+          const next = new URLSearchParams(sectionParams);
+          next.set("tab", tab);
+          setSectionParams(next);
+        }}
+        className="space-y-6"
+      >
+        <TabsList className="flex flex-wrap h-auto max-w-full">
           <TabsTrigger value="overview">Overview</TabsTrigger>
           <TabsTrigger value="analytics">Search Analytics</TabsTrigger>
           <TabsTrigger value="content">Content SEO</TabsTrigger>
@@ -291,7 +445,10 @@ export default function SEODashboard() {
         </TabsList>
 
         <TabsContent value="overview" className="space-y-6">
-          <SEODashboardOverviewTab stats={overviewStats} contentItems={contentItems} />
+          <SEODashboardOverviewTab
+            stats={overviewStats}
+            contentItems={contentItems}
+          />
         </TabsContent>
 
         <TabsContent value="analytics" className="space-y-6">

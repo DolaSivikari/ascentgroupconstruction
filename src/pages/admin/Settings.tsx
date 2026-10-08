@@ -47,15 +47,16 @@ const Settings = () => {
 
   const handleTabChange = (tab: string) => {
     const nextParams = new URLSearchParams(searchParams);
+    nextParams.delete("section");
 
     if (tab === "general") {
       nextParams.delete("tab");
-      setSearchParams(nextParams, { replace: true });
+      setSearchParams(nextParams);
       return;
     }
 
     nextParams.set("tab", tab);
-    setSearchParams(nextParams, { replace: true });
+    setSearchParams(nextParams);
   };
 
   return (

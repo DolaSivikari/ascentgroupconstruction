@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import {
   Outlet,
   Navigate,
@@ -10,7 +10,6 @@ import { Helmet } from "react-helmet-async";
 import { UnifiedSidebar } from "./UnifiedSidebar";
 import { useAdminAuth } from "@/hooks/useAdminAuth";
 import { supabase } from "@/integrations/supabase/client";
-import { PageTransition } from "@/components/animations/PageTransition";
 import { AdminTopBar } from "./AdminTopBar";
 import { IdleTimeoutWrapper } from "./IdleTimeoutWrapper";
 import {
@@ -39,6 +38,11 @@ export const UnifiedAdminLayout = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [signingOut, setSigningOut] = useState(false);
   const [signOutError, setSignOutError] = useState(false);
+  const pageContent = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    pageContent.current?.scrollTo?.({ top: 0, left: 0, behavior: "instant" });
+  }, [location.pathname]);
 
   const handleSignOut = async () => {
     setSigningOut(true);
@@ -204,10 +208,8 @@ export const UnifiedAdminLayout = () => {
               Could not sign out. Please try again.
             </p>
           )}
-          <div className="business-page-content">
-            <PageTransition type="fade" duration={300}>
-              <Outlet />
-            </PageTransition>
+          <div className="business-page-content" ref={pageContent}>
+            <Outlet />
           </div>
         </div>
       </div>

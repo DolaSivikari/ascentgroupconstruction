@@ -1,3 +1,7 @@
+import {
+  AdminSectionWorkspace,
+  AdminSectionScreen,
+} from "@/components/admin/AdminSectionWorkspace";
 import { useState, type ReactNode } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import {
@@ -267,213 +271,235 @@ export const InboxDetailDialog = ({
           </Description>
         </Header>
         <div className="space-y-6 py-4">
-          <section className="space-y-3">
-            <h3 className="text-sm font-semibold">Contact information</h3>
-            <DetailRow
-              label="Email"
-              value={item.email}
-              link={`mailto:${item.email}`}
-            />
-            {inboxText(item, "phone") && (
-              <DetailRow
-                label="Phone"
-                value={inboxText(item, "phone")}
-                link={`tel:${inboxText(item, "phone")}`}
-              />
-            )}
-          </section>
-          <section className="space-y-3">
-            <h3 className="text-sm font-semibold">Request details</h3>
-            {fieldsByType[item.type].map(([field, label]) =>
-              inboxText(item, field) ? (
+          <AdminSectionWorkspace
+            queryKey="lead-section"
+            label="Request sections"
+            items={[
+              { id: "request", title: "Submitted request" },
+              { id: "workflow", title: "Status & notes" },
+              { id: "attachments", title: "Attachments" },
+            ]}
+          >
+            <AdminSectionScreen id="request">
+              <section className="space-y-3">
+                <h3 className="text-sm font-semibold">Contact information</h3>
                 <DetailRow
-                  key={field}
-                  label={
-                    field === "company" &&
-                    item.table === "contact_submissions" &&
-                    leadType(item) === "estimate"
-                      ? "Property / address"
-                      : label
-                  }
-                  value={inboxText(item, field)}
+                  label="Email"
+                  value={item.email}
+                  link={`mailto:${item.email}`}
                 />
-              ) : null,
-            )}
-            {item.type === "RFP" &&
-              (
-                [
-                  ["bonding_required", "Bonding required"],
-                  ["plans_available", "Plans available"],
-                  ["site_visit_required", "Site visit required"],
-                  ["prequalification_complete", "Prequalification complete"],
-                ] as const
-              ).map(([field, label]) =>
-                typeof item[field] === "boolean" ? (
+                {inboxText(item, "phone") && (
                   <DetailRow
-                    key={field}
-                    label={label}
-                    value={item[field] ? "Yes" : "No"}
-                  />
-                ) : null,
-              )}
-            {item.type === "Quote" && (
-              <>
-                {inboxStrings(item, "scope_categories").length > 0 && (
-                  <DetailRow
-                    label="Scope categories"
-                    value={inboxStrings(item, "scope_categories").join(", ")}
+                    label="Phone"
+                    value={inboxText(item, "phone")}
+                    link={`tel:${inboxText(item, "phone")}`}
                   />
                 )}
-                {[
-                  ["estimated_value", "Estimated value"],
-                  ["nte_budget", "Budget limit"],
-                ].map(([field, label]) =>
-                  typeof item[field] === "number" ? (
+              </section>
+              <section className="space-y-3">
+                <h3 className="text-sm font-semibold">Request details</h3>
+                {fieldsByType[item.type].map(([field, label]) =>
+                  inboxText(item, field) ? (
                     <DetailRow
                       key={field}
-                      label={label}
-                      value={new Intl.NumberFormat("en-CA", {
-                        style: "currency",
-                        currency: "CAD",
-                      }).format(item[field] as number)}
+                      label={
+                        field === "company" &&
+                        item.table === "contact_submissions" &&
+                        leadType(item) === "estimate"
+                          ? "Property / address"
+                          : label
+                      }
+                      value={inboxText(item, field)}
                     />
                   ) : null,
                 )}
-                {typeof item.after_hours_required === "boolean" && (
+                {item.type === "RFP" &&
+                  (
+                    [
+                      ["bonding_required", "Bonding required"],
+                      ["plans_available", "Plans available"],
+                      ["site_visit_required", "Site visit required"],
+                      [
+                        "prequalification_complete",
+                        "Prequalification complete",
+                      ],
+                    ] as const
+                  ).map(([field, label]) =>
+                    typeof item[field] === "boolean" ? (
+                      <DetailRow
+                        key={field}
+                        label={label}
+                        value={item[field] ? "Yes" : "No"}
+                      />
+                    ) : null,
+                  )}
+                {item.type === "Quote" && (
+                  <>
+                    {inboxStrings(item, "scope_categories").length > 0 && (
+                      <DetailRow
+                        label="Scope categories"
+                        value={inboxStrings(item, "scope_categories").join(
+                          ", ",
+                        )}
+                      />
+                    )}
+                    {[
+                      ["estimated_value", "Estimated value"],
+                      ["nte_budget", "Budget limit"],
+                    ].map(([field, label]) =>
+                      typeof item[field] === "number" ? (
+                        <DetailRow
+                          key={field}
+                          label={label}
+                          value={new Intl.NumberFormat("en-CA", {
+                            style: "currency",
+                            currency: "CAD",
+                          }).format(item[field] as number)}
+                        />
+                      ) : null,
+                    )}
+                    {typeof item.after_hours_required === "boolean" && (
+                      <DetailRow
+                        label="After hours required"
+                        value={item.after_hours_required ? "Yes" : "No"}
+                      />
+                    )}
+                  </>
+                )}
+                {item.type === "Newsletter" && (
                   <DetailRow
-                    label="After hours required"
-                    value={item.after_hours_required ? "Yes" : "No"}
+                    label="Subscription"
+                    value={item.is_active ? "Active" : "Inactive"}
                   />
                 )}
-              </>
-            )}
-            {item.type === "Newsletter" && (
-              <DetailRow
-                label="Subscription"
-                value={item.is_active ? "Active" : "Inactive"}
-              />
-            )}
-          </section>
-          {item.type === "RFP" &&
-            inboxStrings(item, "attachment_urls").length > 0 && (
-              <section className="space-y-3">
-                <h3 className="text-sm font-semibold">Attachments</h3>
-                <p className="text-xs text-muted-foreground">
-                  Private files open with a link that expires in five minutes.
-                </p>
-                {inboxStrings(item, "attachment_urls").map((path) => (
-                  <Button
-                    key={path}
-                    variant="outline"
-                    className="w-full justify-start h-auto whitespace-normal text-left break-all"
-                    disabled={!!openingFile}
-                    onClick={() => void openAttachment(path)}
-                  >
-                    <Download className="mr-2 h-4 w-4 shrink-0" />
-                    {openingFile === path ? "Opening..." : fileName(path)}
-                  </Button>
-                ))}
-                {attachmentLink && (
-                  <a
-                    className="block text-sm underline break-all"
-                    href={attachmentLink.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    Open {attachmentLink.name}
-                  </a>
-                )}
               </section>
-            )}
-          {item.type === "Resume" &&
-            inboxText(item, "resume_url") &&
-            (safeFileUrl(inboxText(item, "resume_url")) ? (
-              <Button variant="outline" asChild>
-                <a
-                  href={safeFileUrl(inboxText(item, "resume_url"))!}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <Download className="mr-2 h-4 w-4" />
-                  Download resume
-                </a>
-              </Button>
-            ) : (
-              <p className="text-sm text-muted-foreground">
-                Resume link unavailable.
-              </p>
-            ))}
-          {item.type === "Quote" &&
-            inboxStrings(item, "uploaded_files").map((file) =>
-              safeFileUrl(file) ? (
-                <a
-                  key={file}
-                  className="block text-sm underline break-all"
-                  href={safeFileUrl(file)!}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  {fileName(file)}
-                </a>
+            </AdminSectionScreen>
+            <AdminSectionScreen id="attachments" title="Attachments">
+              {item.type === "RFP" &&
+                inboxStrings(item, "attachment_urls").length > 0 && (
+                  <section className="space-y-3">
+                    <h3 className="text-sm font-semibold">Attachments</h3>
+                    <p className="text-xs text-muted-foreground">
+                      Private files open with a link that expires in five
+                      minutes.
+                    </p>
+                    {inboxStrings(item, "attachment_urls").map((path) => (
+                      <Button
+                        key={path}
+                        variant="outline"
+                        className="w-full justify-start h-auto whitespace-normal text-left break-all"
+                        disabled={!!openingFile}
+                        onClick={() => void openAttachment(path)}
+                      >
+                        <Download className="mr-2 h-4 w-4 shrink-0" />
+                        {openingFile === path ? "Opening..." : fileName(path)}
+                      </Button>
+                    ))}
+                    {attachmentLink && (
+                      <a
+                        className="block text-sm underline break-all"
+                        href={attachmentLink.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        Open {attachmentLink.name}
+                      </a>
+                    )}
+                  </section>
+                )}
+              {item.type === "Resume" &&
+                inboxText(item, "resume_url") &&
+                (safeFileUrl(inboxText(item, "resume_url")) ? (
+                  <Button variant="outline" asChild>
+                    <a
+                      href={safeFileUrl(inboxText(item, "resume_url"))!}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <Download className="mr-2 h-4 w-4" />
+                      Download resume
+                    </a>
+                  </Button>
+                ) : (
+                  <p className="text-sm text-muted-foreground">
+                    Resume link unavailable.
+                  </p>
+                ))}
+              {item.type === "Quote" &&
+                inboxStrings(item, "uploaded_files").map((file) =>
+                  safeFileUrl(file) ? (
+                    <a
+                      key={file}
+                      className="block text-sm underline break-all"
+                      href={safeFileUrl(file)!}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      {fileName(file)}
+                    </a>
+                  ) : (
+                    <DetailRow
+                      key={file}
+                      label="Attached file reference"
+                      value={file}
+                    />
+                  ),
+                )}
+            </AdminSectionScreen>
+            <AdminSectionScreen id="workflow">
+              {statuses.length > 0 && (
+                <section className="space-y-3">
+                  <h3 className="text-sm font-semibold">Update status</h3>
+                  <Select
+                    value={status}
+                    onValueChange={setStatus}
+                    disabled={isSaving}
+                  >
+                    <SelectTrigger aria-label="Request status">
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {!statuses.includes(status) && (
+                        <SelectItem value={status} disabled>
+                          {status}
+                        </SelectItem>
+                      )}
+                      {statuses.map((value) => (
+                        <SelectItem key={value} value={value}>
+                          {STATUS_LABELS[value]}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </section>
+              )}
+              {hasNotes ? (
+                <section className="space-y-3">
+                  <label
+                    htmlFor="inbox-admin-notes"
+                    className="text-sm font-semibold"
+                  >
+                    Admin notes
+                  </label>
+                  <Textarea
+                    id="inbox-admin-notes"
+                    placeholder="Add internal notes..."
+                    value={adminNotes}
+                    onChange={(event) => setAdminNotes(event.target.value)}
+                    rows={4}
+                    disabled={isSaving}
+                  />
+                </section>
               ) : (
-                <DetailRow
-                  key={file}
-                  label="Attached file reference"
-                  value={file}
-                />
-              ),
-            )}
-          {statuses.length > 0 && (
-            <section className="space-y-3">
-              <h3 className="text-sm font-semibold">Update status</h3>
-              <Select
-                value={status}
-                onValueChange={setStatus}
-                disabled={isSaving}
-              >
-                <SelectTrigger aria-label="Request status">
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  {!statuses.includes(status) && (
-                    <SelectItem value={status} disabled>
-                      {status}
-                    </SelectItem>
-                  )}
-                  {statuses.map((value) => (
-                    <SelectItem key={value} value={value}>
-                      {STATUS_LABELS[value]}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </section>
-          )}
-          {hasNotes ? (
-            <section className="space-y-3">
-              <label
-                htmlFor="inbox-admin-notes"
-                className="text-sm font-semibold"
-              >
-                Admin notes
-              </label>
-              <Textarea
-                id="inbox-admin-notes"
-                placeholder="Add internal notes..."
-                value={adminNotes}
-                onChange={(event) => setAdminNotes(event.target.value)}
-                rows={4}
-                disabled={isSaving}
-              />
-            </section>
-          ) : (
-            statuses.length > 0 && (
-              <p className="text-xs text-muted-foreground">
-                Internal notes are not available for this request type yet.
-                Submitted information is read-only.
-              </p>
-            )
-          )}
+                statuses.length > 0 && (
+                  <p className="text-xs text-muted-foreground">
+                    Internal notes are not available for this request type yet.
+                    Submitted information is read-only.
+                  </p>
+                )
+              )}
+            </AdminSectionScreen>
+          </AdminSectionWorkspace>
           <div className="flex flex-wrap justify-between items-center gap-3 pt-4 border-t">
             {allowDelete && (
               <Button

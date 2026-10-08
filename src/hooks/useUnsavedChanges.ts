@@ -4,23 +4,48 @@ import { useBlocker } from "react-router-dom";
 interface UseUnsavedChangesProps {
   hasUnsavedChanges: boolean;
   message?: string;
+  /** Screens within one mounted editor retain the same draft state. */
+  preserveDraftPaths?: readonly string[];
+  /** Changing only these section selectors keeps the same mounted editor. */
+  preserveDraftQueryKeys?: readonly string[];
 }
 
 export const useUnsavedChanges = ({
   hasUnsavedChanges,
   message = "You have unsaved changes. Are you sure you want to leave?",
+  preserveDraftPaths = [],
+  preserveDraftQueryKeys = [],
 }: UseUnsavedChangesProps) => {
   const dirty = useRef(hasUnsavedChanges);
   const proceeding = useRef(false);
   const [pendingAction, setPendingAction] = useState<(() => void) | null>(null);
   dirty.current = hasUnsavedChanges;
-  const blocker = useBlocker(
-    ({ currentLocation, nextLocation }) =>
+  const blocker = useBlocker(({ currentLocation, nextLocation }) => {
+    const currentQuery = new URLSearchParams(currentLocation.search);
+    const nextQuery = new URLSearchParams(nextLocation.search);
+    for (const key of preserveDraftQueryKeys) {
+      currentQuery.delete(key);
+      nextQuery.delete(key);
+    }
+    currentQuery.sort();
+    nextQuery.sort();
+    const sameQueryWorkspace =
+      preserveDraftQueryKeys.length > 0 &&
+      currentLocation.pathname === nextLocation.pathname &&
+      currentLocation.hash === nextLocation.hash &&
+      currentQuery.toString() === nextQuery.toString();
+    return (
       dirty.current &&
+      !sameQueryWorkspace &&
+      !(
+        preserveDraftPaths.includes(currentLocation.pathname) &&
+        preserveDraftPaths.includes(nextLocation.pathname)
+      ) &&
       (currentLocation.pathname !== nextLocation.pathname ||
         currentLocation.search !== nextLocation.search ||
-        currentLocation.hash !== nextLocation.hash),
-  );
+        currentLocation.hash !== nextLocation.hash)
+    );
+  });
   useEffect(() => {
     if (blocker.state !== "blocked") proceeding.current = false;
   }, [blocker.state]);

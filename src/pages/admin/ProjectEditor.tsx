@@ -1,4 +1,8 @@
-import { EditorSections } from "@/components/admin/EditorSections";
+import { EditorSectionPages } from "@/components/admin/EditorSectionPages";
+import {
+  PROJECT_EDITOR_SECTIONS,
+  projectEditorPaths,
+} from "@/lib/admin/projectSections";
 import { EditorActions } from "@/components/admin/EditorActions";
 import { RichTextEditor } from "@/components/admin/RichTextEditor";
 import { Input } from "@/ui/Input";
@@ -98,7 +102,10 @@ const ProjectEditor = () => {
     cancelNavigation,
     markSaved,
     message,
-  } = useUnsavedChanges({ hasUnsavedChanges });
+  } = useUnsavedChanges({
+    hasUnsavedChanges,
+    preserveDraftPaths: projectEditorPaths(id || "new"),
+  });
   const [slugStatus, setSlugStatus] = useState<{
     isChecking: boolean;
     isAvailable: boolean;
@@ -252,6 +259,22 @@ const ProjectEditor = () => {
   const handleSubmit = async (e?: React.FormEvent) => {
     e?.preventDefault();
     if (!canEditProject || isLoading || isSaving) return;
+    const form = document.querySelector<HTMLFormElement>(
+      "#project-editor-form",
+    );
+    if (form && !form.checkValidity()) {
+      const field = form.querySelector<
+        HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+      >("input:invalid, textarea:invalid, select:invalid");
+      const sectionPath = field?.closest<HTMLElement>(
+        "[data-editor-section-path]",
+      )?.dataset.editorSectionPath;
+      setSaveError("Review the highlighted required field before saving.");
+      if (sectionPath)
+        navigate(`${projectEditorPaths(id || "new")[0]}/${sectionPath}`);
+      window.setTimeout(() => field?.focus(), 0);
+      return;
+    }
     if (!slugStatus.isAvailable) {
       toast({
         title: "Error",
@@ -380,7 +403,7 @@ const ProjectEditor = () => {
         confirmText="Leave"
         cancelText="Stay"
       />
-      <div className="min-h-screen bg-muted/30">
+      <div className="min-h-full bg-muted/30">
         <EditorActions
           title={id === "new" ? "New project" : "Edit project"}
           state={formData.publish_state || "draft"}
@@ -461,13 +484,14 @@ const ProjectEditor = () => {
               <p className="text-muted-foreground">Loading complete project…</p>
             )
           ) : (
-            <form id="project-editor-form" onSubmit={handleSubmit}>
+            <form id="project-editor-form" onSubmit={handleSubmit} noValidate>
               <fieldset disabled={isLoading || isSaving} className="min-w-0">
-                <EditorSections
+                <EditorSectionPages
+                  basePath={projectEditorPaths(id || "new")[0]}
                   sections={[
                     {
                       id: "project-basics",
-                      title: "Basics",
+                      title: "Overview",
                       content: (
                         <BasicInfoTab
                           formData={formData}
@@ -478,27 +502,17 @@ const ProjectEditor = () => {
                     },
                     {
                       id: "project-content",
-                      title: "Content",
+                      title: "Description & tags",
                       content: (
                         <>
-                          {[
-                            ["description", "Description"],
-                            ["scope_of_work", "Scope of work"],
-                            ["challenge", "Challenge"],
-                            ["results", "Results"],
-                          ].map(([key, label]) => (
-                            <RichTextEditor
-                              key={key}
-                              id={key}
-                              label={label}
-                              value={String(
-                                formData[key as keyof ProjectFormData] || "",
-                              )}
-                              onChange={(value) =>
-                                handleFormChange({ [key]: value })
-                              }
-                            />
-                          ))}
+                          <RichTextEditor
+                            id="description"
+                            label="Description"
+                            value={formData.description}
+                            onChange={(value) =>
+                              handleFormChange({ description: value })
+                            }
+                          />
                           <div className="space-y-2">
                             <Label htmlFor="project-tags">
                               Tags (comma separated)
@@ -518,6 +532,26 @@ const ProjectEditor = () => {
                         </>
                       ),
                     },
+                    ...(
+                      [
+                        ["scope_of_work", "project-scope", "Scope of work"],
+                        ["challenge", "project-challenge", "Challenge"],
+                        ["results", "project-results", "Results"],
+                      ] as const
+                    ).map(([key, sectionId, label]) => ({
+                      id: sectionId,
+                      title: label,
+                      content: (
+                        <RichTextEditor
+                          id={key}
+                          label={label}
+                          value={String(formData[key] || "")}
+                          onChange={(value) =>
+                            handleFormChange({ [key]: value })
+                          }
+                        />
+                      ),
+                    })),
                     {
                       id: "project-images",
                       title: "Images",
@@ -538,11 +572,17 @@ const ProjectEditor = () => {
                             formData={formData}
                             onFormChange={handleFormChange}
                           />
-                          <MetricsTab
-                            formData={formData}
-                            onFormChange={handleFormChange}
-                          />
                         </>
+                      ),
+                    },
+                    {
+                      id: "project-performance",
+                      title: "Performance & team",
+                      content: (
+                        <MetricsTab
+                          formData={formData}
+                          onFormChange={handleFormChange}
+                        />
                       ),
                     },
                     {
@@ -565,7 +605,12 @@ const ProjectEditor = () => {
                         />
                       ),
                     },
-                  ]}
+                  ].map((item) => ({
+                    ...item,
+                    ...PROJECT_EDITOR_SECTIONS.find(
+                      (section) => section.id === item.id,
+                    )!,
+                  }))}
                 />
               </fieldset>
             </form>

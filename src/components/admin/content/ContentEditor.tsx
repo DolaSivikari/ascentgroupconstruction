@@ -1,3 +1,7 @@
+import {
+  AdminSectionWorkspace,
+  AdminSectionScreen,
+} from "@/components/admin/AdminSectionWorkspace";
 import { useUnsavedChanges } from "@/hooks/useUnsavedChanges";
 import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
@@ -46,6 +50,7 @@ export function ContentEditor({
   const [drafts, setDrafts] = useState<Record<string, unknown>>({});
   const guard = useUnsavedChanges({
     hasUnsavedChanges: Object.keys(drafts).length > 0,
+    preserveDraftQueryKeys: ["section"],
   });
   const [busy, setBusy] = useState(false);
   const [search, setSearch] = useState("");
@@ -222,212 +227,231 @@ export function ContentEditor({
         onChange={(e) => setSearch(e.target.value)}
         placeholder="Find a heading, paragraph or section…"
       />
-      {Object.entries(module.meta)
-        .filter(([key, meta]) =>
-          `${meta.label} ${module.defaults[key]}`
-            .toLowerCase()
-            .includes(search.toLowerCase()),
-        )
-        .map(([key, meta]) => {
-          const current = value(key);
-          const disabled = meta.locked || busy;
-          return (
-            <section key={key} className="space-y-3 rounded-xl border p-4">
-              <div className="flex flex-wrap justify-between gap-2">
-                <label
-                  htmlFor={`content-${module.id}-${key}`}
-                  className="font-semibold"
-                >
-                  {meta.label}{" "}
-                  {meta.locked && (
-                    <span className="text-xs text-muted-foreground">
-                      (locked)
-                    </span>
-                  )}
-                </label>
-                <span className="text-xs text-muted-foreground">
-                  {meta.section} · {key}
-                </span>
-              </div>
-              {meta.help && (
-                <p className="text-sm text-muted-foreground">{meta.help}</p>
-              )}
-              {conflicts.includes(key) && (
-                <p role="alert" className="text-sm text-destructive">
-                  The code default changed since this override was published.
-                  Review both versions before publishing.
-                </p>
-              )}
-              {meta.kind === "seo" ? (
-                <div className="space-y-3">
-                  <Input
-                    id={`content-${module.id}-${key}`}
-                    aria-label="SEO title"
-                    value={(current as Seo).title}
-                    maxLength={120}
-                    disabled={disabled}
-                    onChange={(e) =>
-                      change(key, {
-                        ...(current as Seo),
-                        title: e.target.value,
-                      })
-                    }
-                    placeholder="Use current page title"
-                  />
-                  <p className="text-xs">
-                    {(current as Seo).title.length}/60 recommended characters
-                  </p>
-                  <Textarea
-                    aria-label="SEO description"
-                    value={(current as Seo).description}
-                    maxLength={320}
-                    disabled={disabled}
-                    onChange={(e) =>
-                      change(key, {
-                        ...(current as Seo),
-                        description: e.target.value,
-                      })
-                    }
-                    placeholder="Use current description"
-                  />
-                  <p className="text-xs">
-                    {(current as Seo).description.length}/160 recommended
-                    characters
-                  </p>
-                  <div className="rounded border p-3">
-                    <p className="text-blue-700">
-                      {(current as Seo).title || "Current page title"}
-                    </p>
-                    <p className="text-sm">
-                      www.ascentgroupconstruction.com{path}
-                    </p>
-                    <p className="text-sm text-muted-foreground">
-                      {(current as Seo).description ||
-                        "Current page description"}
-                    </p>
-                  </div>
-                  <Button
-                    variant="outline"
-                    disabled={disabled}
-                    onClick={() => setPicker(key)}
-                  >
-                    Choose share image
-                  </Button>
-                  {(current as Seo).image && (
-                    <Button
-                      variant="outline"
-                      disabled={disabled}
-                      onClick={() =>
-                        change(key, { ...(current as Seo), image: "" })
-                      }
+      <AdminSectionWorkspace
+        label="Page content sections"
+        items={Array.from(
+          new Set(
+            Object.entries(module.meta)
+              .filter(([key, meta]) =>
+                `${meta.label} ${module.defaults[key]}`
+                  .toLowerCase()
+                  .includes(search.toLowerCase()),
+              )
+              .map(([, meta]) => meta.section),
+          ),
+        ).map((section) => ({ id: section, title: section }))}
+      >
+        {" "}
+        {Object.entries(module.meta)
+          .filter(([key, meta]) =>
+            `${meta.label} ${module.defaults[key]}`
+              .toLowerCase()
+              .includes(search.toLowerCase()),
+          )
+          .map(([key, meta]) => {
+            const current = value(key);
+            const disabled = meta.locked || busy;
+            return (
+              <AdminSectionScreen key={key} id={meta.section}>
+                <section className="space-y-3 rounded-xl border p-4">
+                  <div className="flex flex-wrap justify-between gap-2">
+                    <label
+                      htmlFor={`content-${module.id}-${key}`}
+                      className="font-semibold"
                     >
-                      Use default share image
-                    </Button>
+                      {meta.label}{" "}
+                      {meta.locked && (
+                        <span className="text-xs text-muted-foreground">
+                          (locked)
+                        </span>
+                      )}
+                    </label>
+                    <span className="text-xs text-muted-foreground">
+                      {meta.section} · {key}
+                    </span>
+                  </div>
+                  {meta.help && (
+                    <p className="text-sm text-muted-foreground">{meta.help}</p>
                   )}
-                  <label className="flex gap-2">
-                    <input
-                      type="checkbox"
-                      checked={(current as Seo).noindex}
-                      disabled={disabled || module.meta.hidden?.locked}
-                      onChange={(e) =>
-                        change(key, {
-                          ...(current as Seo),
-                          noindex: e.target.checked,
-                        })
-                      }
+                  {conflicts.includes(key) && (
+                    <p role="alert" className="text-sm text-destructive">
+                      The code default changed since this override was
+                      published. Review both versions before publishing.
+                    </p>
+                  )}
+                  {meta.kind === "seo" ? (
+                    <div className="space-y-3">
+                      <Input
+                        id={`content-${module.id}-${key}`}
+                        aria-label="SEO title"
+                        value={(current as Seo).title}
+                        maxLength={120}
+                        disabled={disabled}
+                        onChange={(e) =>
+                          change(key, {
+                            ...(current as Seo),
+                            title: e.target.value,
+                          })
+                        }
+                        placeholder="Use current page title"
+                      />
+                      <p className="text-xs">
+                        {(current as Seo).title.length}/60 recommended
+                        characters
+                      </p>
+                      <Textarea
+                        aria-label="SEO description"
+                        value={(current as Seo).description}
+                        maxLength={320}
+                        disabled={disabled}
+                        onChange={(e) =>
+                          change(key, {
+                            ...(current as Seo),
+                            description: e.target.value,
+                          })
+                        }
+                        placeholder="Use current description"
+                      />
+                      <p className="text-xs">
+                        {(current as Seo).description.length}/160 recommended
+                        characters
+                      </p>
+                      <div className="rounded border p-3">
+                        <p className="text-blue-700">
+                          {(current as Seo).title || "Current page title"}
+                        </p>
+                        <p className="text-sm">
+                          www.ascentgroupconstruction.com{path}
+                        </p>
+                        <p className="text-sm text-muted-foreground">
+                          {(current as Seo).description ||
+                            "Current page description"}
+                        </p>
+                      </div>
+                      <Button
+                        variant="outline"
+                        disabled={disabled}
+                        onClick={() => setPicker(key)}
+                      >
+                        Choose share image
+                      </Button>
+                      {(current as Seo).image && (
+                        <Button
+                          variant="outline"
+                          disabled={disabled}
+                          onClick={() =>
+                            change(key, { ...(current as Seo), image: "" })
+                          }
+                        >
+                          Use default share image
+                        </Button>
+                      )}
+                      <label className="flex gap-2">
+                        <input
+                          type="checkbox"
+                          checked={(current as Seo).noindex}
+                          disabled={disabled || module.meta.hidden?.locked}
+                          onChange={(e) =>
+                            change(key, {
+                              ...(current as Seo),
+                              noindex: e.target.checked,
+                            })
+                          }
+                        />
+                        Exclude from search engines
+                      </label>
+                    </div>
+                  ) : meta.kind === "image" ? (
+                    <div className="space-y-3">
+                      {(current as ImageValue).url && (
+                        <img
+                          src={(current as ImageValue).url}
+                          alt={(current as ImageValue).alt}
+                          className="h-32 rounded object-cover"
+                        />
+                      )}
+                      <Button
+                        variant="outline"
+                        disabled={disabled}
+                        onClick={() => setPicker(key)}
+                      >
+                        Choose from library
+                      </Button>
+                      <Input
+                        id={`content-${module.id}-${key}`}
+                        aria-label="Header image alt text"
+                        value={(current as ImageValue).alt}
+                        disabled={disabled}
+                        maxLength={300}
+                        onChange={(e) =>
+                          change(key, {
+                            ...(current as ImageValue),
+                            alt: e.target.value,
+                          })
+                        }
+                        placeholder="Describe the image"
+                      />
+                    </div>
+                  ) : meta.kind === "flag" ? (
+                    <label className="flex gap-2">
+                      <input
+                        id={`content-${module.id}-${key}`}
+                        type="checkbox"
+                        checked={!!current}
+                        disabled={disabled}
+                        onChange={(e) => change(key, e.target.checked)}
+                      />
+                      Hide this page
+                    </label>
+                  ) : (
+                    <Textarea
+                      id={`content-${module.id}-${key}`}
+                      value={String(current ?? "")}
+                      disabled={disabled}
+                      maxLength={meta.maxLength || 5000}
+                      onChange={(e) => change(key, e.target.value)}
+                      rows={String(current).length > 140 ? 4 : 2}
                     />
-                    Exclude from search engines
-                  </label>
-                </div>
-              ) : meta.kind === "image" ? (
-                <div className="space-y-3">
-                  {(current as ImageValue).url && (
-                    <img
-                      src={(current as ImageValue).url}
-                      alt={(current as ImageValue).alt}
-                      className="h-32 rounded object-cover"
-                    />
                   )}
-                  <Button
-                    variant="outline"
-                    disabled={disabled}
-                    onClick={() => setPicker(key)}
-                  >
-                    Choose from library
-                  </Button>
-                  <Input
-                    id={`content-${module.id}-${key}`}
-                    aria-label="Header image alt text"
-                    value={(current as ImageValue).alt}
-                    disabled={disabled}
-                    maxLength={300}
-                    onChange={(e) =>
-                      change(key, {
-                        ...(current as ImageValue),
-                        alt: e.target.value,
-                      })
-                    }
-                    placeholder="Describe the image"
-                  />
-                </div>
-              ) : meta.kind === "flag" ? (
-                <label className="flex gap-2">
-                  <input
-                    id={`content-${module.id}-${key}`}
-                    type="checkbox"
-                    checked={!!current}
-                    disabled={disabled}
-                    onChange={(e) => change(key, e.target.checked)}
-                  />
-                  Hide this page
-                </label>
-              ) : (
-                <Textarea
-                  id={`content-${module.id}-${key}`}
-                  value={String(current ?? "")}
-                  disabled={disabled}
-                  maxLength={meta.maxLength || 5000}
-                  onChange={(e) => change(key, e.target.value)}
-                  rows={String(current).length > 140 ? 4 : 2}
-                />
-              )}
-              <details>
-                <summary className="cursor-pointer text-sm">
-                  Code default and published value
-                </summary>
-                <pre className="mt-2 whitespace-pre-wrap break-words text-xs">
-                  Code: {JSON.stringify(module.defaults[key], null, 2)}
-                  {"\n"}Published:{" "}
-                  {JSON.stringify(
-                    entry(key)?.published_value ?? module.defaults[key],
-                    null,
-                    2,
-                  )}
-                </pre>
-              </details>
-              <div className="flex flex-wrap gap-3">
-                {!meta.locked && (
-                  <Button
-                    variant="outline"
-                    disabled={busy}
-                    onClick={() => change(key, null)}
-                  >
-                    Draft restore to code default
-                  </Button>
-                )}
-                {entry(key) && (
-                  <Button
-                    variant="outline"
-                    disabled={busy}
-                    onClick={() => setHistory(entry(key)!)}
-                  >
-                    History
-                  </Button>
-                )}
-              </div>
-            </section>
-          );
-        })}
+                  <details>
+                    <summary className="cursor-pointer text-sm">
+                      Code default and published value
+                    </summary>
+                    <pre className="mt-2 whitespace-pre-wrap break-words text-xs">
+                      Code: {JSON.stringify(module.defaults[key], null, 2)}
+                      {"\n"}Published:{" "}
+                      {JSON.stringify(
+                        entry(key)?.published_value ?? module.defaults[key],
+                        null,
+                        2,
+                      )}
+                    </pre>
+                  </details>
+                  <div className="flex flex-wrap gap-3">
+                    {!meta.locked && (
+                      <Button
+                        variant="outline"
+                        disabled={busy}
+                        onClick={() => change(key, null)}
+                      >
+                        Draft restore to code default
+                      </Button>
+                    )}
+                    {entry(key) && (
+                      <Button
+                        variant="outline"
+                        disabled={busy}
+                        onClick={() => setHistory(entry(key)!)}
+                      >
+                        History
+                      </Button>
+                    )}
+                  </div>
+                </section>
+              </AdminSectionScreen>
+            );
+          })}
+      </AdminSectionWorkspace>{" "}
       {history && (
         <section className="space-y-3 rounded border p-4">
           <div className="flex justify-between">

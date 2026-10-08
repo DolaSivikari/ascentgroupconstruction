@@ -15,7 +15,7 @@ interface PageTransitionProps {
 /**
  * Wrapper component for smooth page transitions
  * Automatically animates on route changes
- * 
+ *
  * @example
  * ```tsx
  * <PageTransition type="fade">
@@ -30,8 +30,12 @@ export const PageTransition = ({
   className,
 }: PageTransitionProps) => {
   const location = useLocation();
+  // A transformed ancestor makes fixed navigation scroll with the admin page.
+  const disabled = /^\/admin(?:\/|$)/.test(location.pathname);
   const [displayLocation, setDisplayLocation] = useState(location);
-  const [transitionStage, setTransitionStage] = useState<"entering" | "exiting">("entering");
+  const [transitionStage, setTransitionStage] = useState<
+    "entering" | "exiting"
+  >("entering");
   const [isInitialRender, setIsInitialRender] = useState(true);
 
   // Mark initial render complete
@@ -40,13 +44,18 @@ export const PageTransition = ({
   }, []);
 
   useEffect(() => {
+    if (disabled) {
+      setDisplayLocation(location);
+      setTransitionStage("entering");
+      return;
+    }
     // Skip transition on initial render
     if (isInitialRender) return;
-    
+
     if (location.pathname !== displayLocation.pathname) {
       setTransitionStage("exiting");
     }
-  }, [location, displayLocation, isInitialRender]);
+  }, [location, displayLocation, isInitialRender, disabled]);
 
   const transitionClasses = {
     fade: {
@@ -67,8 +76,10 @@ export const PageTransition = ({
     <div
       className={cn(
         "w-full",
-        !isInitialRender && transitionClasses[type][transitionStage],
-        className
+        !disabled &&
+          !isInitialRender &&
+          transitionClasses[type][transitionStage],
+        className,
       )}
       onAnimationEnd={() => {
         if (transitionStage === "exiting") {
@@ -78,7 +89,7 @@ export const PageTransition = ({
       }}
       style={{
         animationDuration: `${duration}ms`,
-        willChange: isInitialRender ? 'auto' : 'opacity',
+        willChange: disabled || isInitialRender ? "auto" : "opacity",
       }}
     >
       {children}

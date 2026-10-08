@@ -1,3 +1,7 @@
+import {
+  AdminSectionWorkspace,
+  AdminSectionScreen,
+} from "@/components/admin/AdminSectionWorkspace";
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import {
@@ -141,293 +145,322 @@ export function InquiryDetailPanel({
           </SheetDescription>
         </SheetHeader>
         <div className="mt-6 space-y-6">
-          <section className="space-y-2">
-            <h2 className="font-bold">Submitted request</h2>
-            <p className="text-sm">
-              {baseline.inquiry_type.replace(/_/g, " ")} ·{" "}
-              {baseline.project_name || "No project name"}
-            </p>
-            <p className="text-sm">{baseline.project_location}</p>
-            <p className="whitespace-pre-wrap text-sm">{baseline.message}</p>
-            {baseline.details && typeof baseline.details === "object" && (
-              <details>
-                <summary className="text-sm underline">
-                  Additional submitted details
-                </summary>
-                <dl className="mt-2 space-y-2 text-xs">
-                  {Object.entries(baseline.details)
-                    .filter(([key]) => key !== "submission_hash")
-                    .map(([key, value]) => (
-                      <div key={key}>
-                        <dt className="font-semibold">
-                          {key.replace(/_/g, " ")}
-                        </dt>
-                        <dd className="whitespace-pre-wrap break-words">
-                          {typeof value === "string"
-                            ? value
-                            : JSON.stringify(value)}
-                        </dd>
-                      </div>
-                    ))}
-                </dl>
-              </details>
-            )}
-            <a
-              className="block text-sm underline"
-              href={`mailto:${baseline.email}`}
-            >
-              {baseline.email}
-            </a>
-            {baseline.phone && <p className="text-sm">{baseline.phone}</p>}
-            {baseline.drawings_url &&
-              safeDrawingsUrl(baseline.drawings_url) && (
+          <AdminSectionWorkspace
+            queryKey="lead-section"
+            label="Lead sections"
+            items={[
+              { id: "request", title: "Submitted request" },
+              { id: "workflow", title: "Workflow" },
+              { id: "notes", title: "Notes" },
+              { id: "delivery", title: "Alert delivery" },
+              { id: "history", title: "History" },
+            ]}
+          >
+            <AdminSectionScreen id="request">
+              <section className="space-y-2">
+                <h2 className="font-bold">Submitted request</h2>
+                <p className="text-sm">
+                  {baseline.inquiry_type.replace(/_/g, " ")} ·{" "}
+                  {baseline.project_name || "No project name"}
+                </p>
+                <p className="text-sm">{baseline.project_location}</p>
+                <p className="whitespace-pre-wrap text-sm">
+                  {baseline.message}
+                </p>
+                {baseline.details && typeof baseline.details === "object" && (
+                  <details>
+                    <summary className="text-sm underline">
+                      Additional submitted details
+                    </summary>
+                    <dl className="mt-2 space-y-2 text-xs">
+                      {Object.entries(baseline.details)
+                        .filter(([key]) => key !== "submission_hash")
+                        .map(([key, value]) => (
+                          <div key={key}>
+                            <dt className="font-semibold">
+                              {key.replace(/_/g, " ")}
+                            </dt>
+                            <dd className="whitespace-pre-wrap break-words">
+                              {typeof value === "string"
+                                ? value
+                                : JSON.stringify(value)}
+                            </dd>
+                          </div>
+                        ))}
+                    </dl>
+                  </details>
+                )}
                 <a
-                  href={baseline.drawings_url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="block underline"
+                  className="block text-sm underline"
+                  href={`mailto:${baseline.email}`}
                 >
-                  Open drawings link
+                  {baseline.email}
                 </a>
-              )}
-            {baseline.attachment_paths?.map((path, i) => (
-              <Button
-                variant="outline"
-                key={path}
-                onClick={() =>
-                  void act(async () => {
-                    const url = await signRfpAttachment(path);
-                    window.open(url, "_blank", "noopener,noreferrer");
-                  }, "Attachment link opened")
-                }
-              >
-                Open attachment {i + 1}
-              </Button>
-            ))}
-          </section>
-          <section className="space-y-3 rounded-lg border p-4">
-            <h2 className="font-bold">Workflow</h2>
-            <div className="grid gap-4 sm:grid-cols-2">
-              <label className="space-y-1 text-sm">
-                Status
-                <select
-                  className="block w-full rounded border bg-background p-2"
-                  value={form.status}
-                  disabled={busy}
-                  onChange={(e) =>
-                    setForm((f) => ({ ...f, status: e.target.value }))
-                  }
-                >
-                  {INQUIRY_STATUSES.map((s) => (
-                    <option key={s} value={s}>
-                      {s.replace(/_/g, " ")}
-                    </option>
-                  ))}
-                </select>
-              </label>
-              <label className="space-y-1 text-sm">
-                Priority
-                <select
-                  className="block w-full rounded border bg-background p-2"
-                  value={form.priority}
-                  disabled={busy}
-                  onChange={(e) =>
-                    setForm((f) => ({ ...f, priority: e.target.value }))
-                  }
-                >
-                  {PRIORITIES.map((p) => (
-                    <option key={p}>{p}</option>
-                  ))}
-                </select>
-              </label>
-              <label className="space-y-1 text-sm">
-                Assigned to
-                <select
-                  className="block w-full rounded border bg-background p-2"
-                  value={form.assigned_to}
-                  disabled={busy || !!assignees.error}
-                  onChange={(e) =>
-                    setForm((f) => ({ ...f, assigned_to: e.target.value }))
-                  }
-                >
-                  <option value="">Unassigned</option>
-                  {form.assigned_to && !names.has(form.assigned_to) && (
-                    <option value={form.assigned_to}>
-                      Current assignee (unavailable)
-                    </option>
+                {baseline.phone && <p className="text-sm">{baseline.phone}</p>}
+                {baseline.drawings_url &&
+                  safeDrawingsUrl(baseline.drawings_url) && (
+                    <a
+                      href={baseline.drawings_url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="block underline"
+                    >
+                      Open drawings link
+                    </a>
                   )}
-                  {assignees.data?.map((p) => (
-                    <option key={p.id} value={p.id}>
-                      {p.full_name || p.email}
-                    </option>
-                  ))}
-                </select>
-              </label>
-              <label className="space-y-1 text-sm">
-                Bid amount (CAD)
-                <Input
-                  type="number"
-                  min="0"
-                  step="0.01"
-                  value={form.amount}
-                  disabled={busy}
-                  onChange={(e) =>
-                    setForm((f) => ({ ...f, amount: e.target.value }))
-                  }
-                />
-              </label>
-              <label className="space-y-1 text-sm sm:col-span-2">
-                Bid due (Toronto time)
-                <Input
-                  type="datetime-local"
-                  value={form.due}
-                  disabled={busy}
-                  onChange={(e) =>
-                    setForm((f) => ({ ...f, due: e.target.value }))
-                  }
-                />
-                <span className="text-xs text-muted-foreground">
-                  Daylight saving is handled automatically; repeated fall-back
-                  hours use the earlier occurrence.
-                </span>
-              </label>
-            </div>
-            {assignees.error && (
-              <p role="alert">
-                Staff list is unavailable. Existing assignment is retained.
-              </p>
-            )}
-            <div className="flex flex-wrap gap-2">
-              <Button disabled={busy} onClick={save}>
-                Save changes
-              </Button>
-              <Button
-                variant="outline"
-                disabled={busy}
-                onClick={() => setConfirm("reload")}
-              >
-                Reload saved lead
-              </Button>
-              <Button
-                variant="outline"
-                disabled={busy}
-                onClick={() =>
-                  setConfirm(baseline.archived_at ? "restore" : "archive")
-                }
-              >
-                {baseline.archived_at ? "Restore lead" : "Archive lead"}
-              </Button>
-            </div>
-          </section>
-          <section className="space-y-3">
-            <h2 className="font-bold">Notes</h2>
-            {thread.error ? (
-              <p role="alert">
-                Notes, history and alert results could not be loaded.{" "}
-                <Button onClick={() => void thread.refetch()}>Retry</Button>
-              </p>
-            ) : thread.isPending ? (
-              <p>Loading notes…</p>
-            ) : thread.data?.notes.length ? (
-              thread.data.notes.map((n) => (
-                <article key={n.id} className="rounded border p-3">
-                  <p className="text-xs text-muted-foreground">
-                    {actor(n.author_id)} · {formatLeadReceived(n.created_at)}
+                {baseline.attachment_paths?.map((path, i) => (
+                  <Button
+                    variant="outline"
+                    key={path}
+                    onClick={() =>
+                      void act(async () => {
+                        const url = await signRfpAttachment(path);
+                        window.open(url, "_blank", "noopener,noreferrer");
+                      }, "Attachment link opened")
+                    }
+                  >
+                    Open attachment {i + 1}
+                  </Button>
+                ))}
+              </section>
+            </AdminSectionScreen>
+            <AdminSectionScreen id="workflow">
+              <section className="space-y-3 rounded-lg border p-4">
+                <h2 className="font-bold">Workflow</h2>
+                <div className="grid gap-4 sm:grid-cols-2">
+                  <label className="space-y-1 text-sm">
+                    Status
+                    <select
+                      className="block w-full rounded border bg-background p-2"
+                      value={form.status}
+                      disabled={busy}
+                      onChange={(e) =>
+                        setForm((f) => ({ ...f, status: e.target.value }))
+                      }
+                    >
+                      {INQUIRY_STATUSES.map((s) => (
+                        <option key={s} value={s}>
+                          {s.replace(/_/g, " ")}
+                        </option>
+                      ))}
+                    </select>
+                  </label>
+                  <label className="space-y-1 text-sm">
+                    Priority
+                    <select
+                      className="block w-full rounded border bg-background p-2"
+                      value={form.priority}
+                      disabled={busy}
+                      onChange={(e) =>
+                        setForm((f) => ({ ...f, priority: e.target.value }))
+                      }
+                    >
+                      {PRIORITIES.map((p) => (
+                        <option key={p}>{p}</option>
+                      ))}
+                    </select>
+                  </label>
+                  <label className="space-y-1 text-sm">
+                    Assigned to
+                    <select
+                      className="block w-full rounded border bg-background p-2"
+                      value={form.assigned_to}
+                      disabled={busy || !!assignees.error}
+                      onChange={(e) =>
+                        setForm((f) => ({ ...f, assigned_to: e.target.value }))
+                      }
+                    >
+                      <option value="">Unassigned</option>
+                      {form.assigned_to && !names.has(form.assigned_to) && (
+                        <option value={form.assigned_to}>
+                          Current assignee (unavailable)
+                        </option>
+                      )}
+                      {assignees.data?.map((p) => (
+                        <option key={p.id} value={p.id}>
+                          {p.full_name || p.email}
+                        </option>
+                      ))}
+                    </select>
+                  </label>
+                  <label className="space-y-1 text-sm">
+                    Bid amount (CAD)
+                    <Input
+                      type="number"
+                      min="0"
+                      step="0.01"
+                      value={form.amount}
+                      disabled={busy}
+                      onChange={(e) =>
+                        setForm((f) => ({ ...f, amount: e.target.value }))
+                      }
+                    />
+                  </label>
+                  <label className="space-y-1 text-sm sm:col-span-2">
+                    Bid due (Toronto time)
+                    <Input
+                      type="datetime-local"
+                      value={form.due}
+                      disabled={busy}
+                      onChange={(e) =>
+                        setForm((f) => ({ ...f, due: e.target.value }))
+                      }
+                    />
+                    <span className="text-xs text-muted-foreground">
+                      Daylight saving is handled automatically; repeated
+                      fall-back hours use the earlier occurrence.
+                    </span>
+                  </label>
+                </div>
+                {assignees.error && (
+                  <p role="alert">
+                    Staff list is unavailable. Existing assignment is retained.
                   </p>
-                  <p className="mt-2 whitespace-pre-wrap text-sm">{n.body}</p>
-                </article>
-              ))
-            ) : (
-              <p className="text-sm text-muted-foreground">No notes yet.</p>
-            )}
-            <Textarea
-              aria-label="New lead note"
-              value={note}
-              maxLength={5000}
-              onChange={(e) => setNote(e.target.value)}
-            />
-            <Button
-              disabled={busy || !note.trim()}
-              onClick={() =>
-                void act(async () => {
-                  await addInquiryNote(inquiry.id, note);
-                  setNote("");
-                }, "Note added")
-              }
-            >
-              Add note
-            </Button>
-          </section>
-          <section className="space-y-3 rounded-lg border p-4">
-            <div className="flex justify-between gap-3">
-              <h2 className="font-bold">Alert delivery</h2>
-              <Button variant="outline" onClick={() => setReveal(!reveal)}>
-                {reveal ? "Mask recipients" : "Reveal recipients"}
-              </Button>
-            </div>
-            <p className="text-sm">
-              {baseline.alert_status} · {baseline.alert_attempts} attempts.
-              “Sent” means the provider accepted the email; it does not prove
-              inbox delivery.
-            </p>
-            {baseline.alert_last_error && (
-              <p role="alert" className="text-sm">
-                {baseline.alert_last_error}
-              </p>
-            )}
-            {thread.data?.deliveries.map((d) => (
-              <p key={d.id} className="text-xs">
-                Attempt {d.attempt} ·{" "}
-                {reveal ? d.recipient : maskedEmail(d.recipient)} · {d.status}
-                {d.error ? ` · ${d.error}` : ""}
-              </p>
-            ))}
-            <div className="flex flex-wrap gap-2">
-              <Button
-                variant="outline"
-                disabled={
-                  busy ||
-                  !!lease ||
-                  ["sent", "suppressed"].includes(baseline.alert_status)
-                }
-                onClick={() => void resend(false)}
-              >
-                {lease ? "Sending…" : "Resend to failed recipients"}
-              </Button>
-              <Button
-                variant="outline"
-                disabled={busy || !!lease}
-                onClick={() => setConfirm("all")}
-              >
-                Resend to all
-              </Button>
-              <Button
-                variant="outline"
-                disabled={busy}
-                onClick={() =>
-                  void act(
-                    async () =>
-                      setBaseline(await loadInquiryDetail(inquiry.id)),
-                    "Delivery status refreshed",
-                  )
-                }
-              >
-                Refresh status
-              </Button>
-            </div>
-          </section>
-          <section className="space-y-2">
-            <h2 className="font-bold">History</h2>
-            {thread.data?.events.map((event) => (
-              <p key={event.id} className="border-b py-2 text-sm">
-                {formatLeadReceived(event.created_at)} · {actor(event.actor_id)}{" "}
-                · {event.event_type.replace(/_/g, " ")}
-                {event.from_value || event.to_value
-                  ? `: ${event.from_value || "—"} → ${event.to_value || "—"}`
-                  : ""}
-              </p>
-            ))}
-          </section>
+                )}
+                <div className="flex flex-wrap gap-2">
+                  <Button disabled={busy} onClick={save}>
+                    Save changes
+                  </Button>
+                  <Button
+                    variant="outline"
+                    disabled={busy}
+                    onClick={() => setConfirm("reload")}
+                  >
+                    Reload saved lead
+                  </Button>
+                  <Button
+                    variant="outline"
+                    disabled={busy}
+                    onClick={() =>
+                      setConfirm(baseline.archived_at ? "restore" : "archive")
+                    }
+                  >
+                    {baseline.archived_at ? "Restore lead" : "Archive lead"}
+                  </Button>
+                </div>
+              </section>
+            </AdminSectionScreen>
+            <AdminSectionScreen id="notes">
+              <section className="space-y-3">
+                <h2 className="font-bold">Notes</h2>
+                {thread.error ? (
+                  <p role="alert">
+                    Notes, history and alert results could not be loaded.{" "}
+                    <Button onClick={() => void thread.refetch()}>Retry</Button>
+                  </p>
+                ) : thread.isPending ? (
+                  <p>Loading notes…</p>
+                ) : thread.data?.notes.length ? (
+                  thread.data.notes.map((n) => (
+                    <article key={n.id} className="rounded border p-3">
+                      <p className="text-xs text-muted-foreground">
+                        {actor(n.author_id)} ·{" "}
+                        {formatLeadReceived(n.created_at)}
+                      </p>
+                      <p className="mt-2 whitespace-pre-wrap text-sm">
+                        {n.body}
+                      </p>
+                    </article>
+                  ))
+                ) : (
+                  <p className="text-sm text-muted-foreground">No notes yet.</p>
+                )}
+                <Textarea
+                  aria-label="New lead note"
+                  value={note}
+                  maxLength={5000}
+                  onChange={(e) => setNote(e.target.value)}
+                />
+                <Button
+                  disabled={busy || !note.trim()}
+                  onClick={() =>
+                    void act(async () => {
+                      await addInquiryNote(inquiry.id, note);
+                      setNote("");
+                    }, "Note added")
+                  }
+                >
+                  Add note
+                </Button>
+              </section>
+            </AdminSectionScreen>
+            <AdminSectionScreen id="delivery">
+              <section className="space-y-3 rounded-lg border p-4">
+                <div className="flex justify-between gap-3">
+                  <h2 className="font-bold">Alert delivery</h2>
+                  <Button variant="outline" onClick={() => setReveal(!reveal)}>
+                    {reveal ? "Mask recipients" : "Reveal recipients"}
+                  </Button>
+                </div>
+                <p className="text-sm">
+                  {baseline.alert_status} · {baseline.alert_attempts} attempts.
+                  “Sent” means the provider accepted the email; it does not
+                  prove inbox delivery.
+                </p>
+                {baseline.alert_last_error && (
+                  <p role="alert" className="text-sm">
+                    {baseline.alert_last_error}
+                  </p>
+                )}
+                {thread.data?.deliveries.map((d) => (
+                  <p key={d.id} className="text-xs">
+                    Attempt {d.attempt} ·{" "}
+                    {reveal ? d.recipient : maskedEmail(d.recipient)} ·{" "}
+                    {d.status}
+                    {d.error ? ` · ${d.error}` : ""}
+                  </p>
+                ))}
+                <div className="flex flex-wrap gap-2">
+                  <Button
+                    variant="outline"
+                    disabled={
+                      busy ||
+                      !!lease ||
+                      ["sent", "suppressed"].includes(baseline.alert_status)
+                    }
+                    onClick={() => void resend(false)}
+                  >
+                    {lease ? "Sending…" : "Resend to failed recipients"}
+                  </Button>
+                  <Button
+                    variant="outline"
+                    disabled={busy || !!lease}
+                    onClick={() => setConfirm("all")}
+                  >
+                    Resend to all
+                  </Button>
+                  <Button
+                    variant="outline"
+                    disabled={busy}
+                    onClick={() =>
+                      void act(
+                        async () =>
+                          setBaseline(await loadInquiryDetail(inquiry.id)),
+                        "Delivery status refreshed",
+                      )
+                    }
+                  >
+                    Refresh status
+                  </Button>
+                </div>
+              </section>
+            </AdminSectionScreen>
+            <AdminSectionScreen id="history">
+              <section className="space-y-2">
+                <h2 className="font-bold">History</h2>
+                {thread.data?.events.map((event) => (
+                  <p key={event.id} className="border-b py-2 text-sm">
+                    {formatLeadReceived(event.created_at)} ·{" "}
+                    {actor(event.actor_id)} ·{" "}
+                    {event.event_type.replace(/_/g, " ")}
+                    {event.from_value || event.to_value
+                      ? `: ${event.from_value || "—"} → ${event.to_value || "—"}`
+                      : ""}
+                  </p>
+                ))}
+              </section>
+            </AdminSectionScreen>
+          </AdminSectionWorkspace>
         </div>
         <ConfirmDialog
           open={!!confirm}

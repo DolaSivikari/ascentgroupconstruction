@@ -1,7 +1,8 @@
+import { MemoryRouter } from "react-router-dom";
 import {
   cleanup,
   fireEvent,
-  render,
+  render as baseRender,
   screen,
   waitFor,
 } from "@testing-library/react";
@@ -9,6 +10,12 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import type { ComponentProps, ReactNode } from "react";
 import { InboxDetailDialog } from "./InboxDetailDialog";
 import { normalizeInboxItem } from "@/lib/inbox/model";
+const render = (element: ReactNode) =>
+  baseRender(element, { wrapper: MemoryRouter });
+const workflow = () =>
+  fireEvent.click(screen.getByRole("link", { name: "Status & notes" }));
+const attachments = () =>
+  fireEvent.click(screen.getByRole("link", { name: "Attachments" }));
 const mock = vi.hoisted(() => ({
   save: vi.fn(),
   sign: vi.fn(),
@@ -81,6 +88,7 @@ describe("request detail form", () => {
     expect(
       screen.queryByRole("button", { name: "Delete" }),
     ).not.toBeInTheDocument();
+    workflow();
     fireEvent.change(screen.getByLabelText("Admin notes"), {
       target: { value: "Unsaved follow-up" },
     });
@@ -110,6 +118,7 @@ describe("request detail form", () => {
         {...handlers}
       />,
     );
+    workflow();
     fireEvent.change(screen.getByLabelText("Admin notes"), {
       target: { value: "My edit" },
     });
@@ -137,11 +146,13 @@ describe("request detail form", () => {
     expect(screen.getByText("Saved detailed scope")).toBeInTheDocument();
     expect(screen.getByText("Weekend access")).toBeInTheDocument();
     expect(screen.getByLabelText("Admin notes")).toHaveValue("Already called");
+    attachments();
     expect(
       screen.getByRole("button", { name: "roof-plan.pdf" }),
     ).toBeInTheDocument();
     expect(screen.getByRole("button", { name: "Save Changes" })).toBeDisabled();
-    fireEvent.change(screen.getByRole("combobox"), {
+    workflow();
+    fireEvent.change(screen.getByRole("combobox", { name: "Request status" }), {
       target: { value: "contacted" },
     });
     fireEvent.click(screen.getByRole("button", { name: "Save Changes" }));
@@ -168,12 +179,23 @@ describe("request detail form", () => {
       if (kind === "quote") {
         expect(screen.getByText("Original client notes")).toBeInTheDocument();
         expect(
-          screen.getAllByRole("option").map((option) => option.textContent),
+          screen
+            .getAllByRole("option", { hidden: true })
+            .filter(
+              (option) =>
+                option.closest("select")?.getAttribute("aria-label") ===
+                "Request status",
+            )
+            .map((option) => option.textContent),
         ).toEqual(["New", "Contacted", "Quoted", "Won", "Lost"]);
       }
-      fireEvent.change(screen.getByRole("combobox"), {
-        target: { value: "contacted" },
-      });
+      workflow();
+      fireEvent.change(
+        screen.getByRole("combobox", { name: "Request status" }),
+        {
+          target: { value: "contacted" },
+        },
+      );
       fireEvent.click(screen.getByRole("button", { name: "Save Changes" }));
       await waitFor(() =>
         expect(mock.save).toHaveBeenCalledWith(item, "contacted", ""),
@@ -195,6 +217,7 @@ describe("request detail form", () => {
         {...handlers}
       />,
     );
+    workflow();
     fireEvent.change(screen.getByLabelText("Admin notes"), {
       target: { value: "Unsaved follow-up" },
     });
@@ -239,6 +262,7 @@ describe("request detail form", () => {
         {...callbacks()}
       />,
     );
+    attachments();
     fireEvent.click(screen.getByRole("button", { name: "plan.pdf" }));
     expect(
       await screen.findByRole("link", { name: "Open plan.pdf" }),

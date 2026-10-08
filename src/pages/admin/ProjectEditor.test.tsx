@@ -96,6 +96,7 @@ vi.mock("@/components/admin/project-tabs/BasicInfoTab", () => ({
     <label>
       Project title
       <input
+        required
         value={formData.title}
         onChange={(event) => onFormChange({ title: event.target.value })}
       />
@@ -156,15 +157,31 @@ afterEach(() => {
   cleanup();
   vi.useRealTimers();
 });
-const open = (id = "project-1") =>
+const open = (id = "project-1", section = "") =>
   render(
-    <MemoryRouter initialEntries={[`/admin/projects/${id}`]}>
+    <MemoryRouter
+      initialEntries={[`/admin/projects/${id}${section ? `/${section}` : ""}`]}
+    >
       <Routes>
-        <Route path="/admin/projects/:id" element={<ProjectEditor />} />
+        <Route
+          path="/admin/projects/:id/:section?"
+          element={<ProjectEditor />}
+        />
       </Routes>
     </MemoryRouter>,
   );
 describe("safe project-editor saves", () => {
+  it("blocks saving from another screen when a hidden required field is empty and returns to Overview", async () => {
+    open("new", "images");
+    expect(screen.queryByRole("textbox", { name: "Project title" })).toBeNull();
+    fireEvent.click(screen.getByRole("button", { name: "Save draft" }));
+    expect(
+      await screen.findByText(/Review the highlighted required field/),
+    ).toBeInTheDocument();
+    expect(mock.navigate).toHaveBeenCalledWith("/admin/projects/new/overview");
+    expect(mock.insert).not.toHaveBeenCalled();
+    expect(mock.update).not.toHaveBeenCalled();
+  });
   it("blocks editing, manual saving and autosave when relationship loading fails, then permits retry", async () => {
     vi.useFakeTimers();
     mock.joins.mockRejectedValue(new Error("Could not load project services"));
