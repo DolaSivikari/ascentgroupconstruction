@@ -9,6 +9,7 @@ import { supabase } from "@/integrations/supabase/client";
 import {
   validateAspectRatio,
   calculateAspectRatio,
+  validateImageFile,
 } from "@/utils/image-optimizer";
 import { normalizeImageFile } from "@/utils/image-normalizer";
 
@@ -20,9 +21,9 @@ interface ImageUploadFieldProps {
   accept?: string;
   targetAspectRatio?: string; // e.g., '16/9', '4/3'
   useProcessingFunction?: boolean; // Use edge function for processing
-  /** Minimum acceptable width in pixels (rejects smaller). */
+  /** Minimum output width; smaller uploads are enlarged automatically. */
   minWidth?: number;
-  /** Minimum acceptable height in pixels (rejects smaller). */
+  /** Minimum output height; smaller uploads are enlarged automatically. */
   minHeight?: number;
   /** Reject portrait/near-square uploads (e.g. 1.33 = 4:3 minimum). */
   minAspectRatio?: number;
@@ -77,41 +78,48 @@ export const ImageUploadField = ({
       // This replaces the old hard rejection for portrait / wrong-format images.
       let uploadFile = file;
       let normalizedNotice: string | null = null;
+      let normalizedDimensions: { width: number; height: number } | undefined;
 
       const wantsLandscape = Boolean(minAspectRatio || targetAspectRatio);
-      if (wantsLandscape) {
+      if (wantsLandscape || minWidth || minHeight) {
         try {
-          const targetRatio =
-            minAspectRatio ??
-            (targetAspectRatio
-              ? (() => {
-                  const [w, h] = targetAspectRatio.split("/").map(Number);
-                  return w && h ? w / h : 16 / 9;
-                })()
-              : 16 / 9);
+          const [ratioWidth, ratioHeight] =
+            targetAspectRatio?.split("/").map(Number) ?? [];
+          const requestedRatio =
+            ratioWidth && ratioHeight ? ratioWidth / ratioHeight : undefined;
+          const targetRatio = wantsLandscape
+            ? Math.max(minAspectRatio || 0, requestedRatio || 0)
+            : null;
 
           const result = await normalizeImageFile(file, {
             targetAspectRatio: targetRatio,
             maxWidth: 2400,
-            format: "image/jpeg",
-            quality: 0.88,
+            minWidth,
+            minHeight,
+            forceExactRatio: Boolean(targetAspectRatio),
+            format:
+              wantsLandscape || !["image/png", "image/webp"].includes(file.type)
+                ? "image/jpeg"
+                : "image/webp",
+            quality: 0.92,
           });
           uploadFile = result.file;
+          normalizedDimensions = {
+            width: result.outputWidth,
+            height: result.outputHeight,
+          };
 
-          if (result.didCrop && result.didResize) {
-            normalizedNotice =
-              "Image auto-cropped to landscape and optimized for the web.";
-          } else if (result.didCrop) {
-            normalizedNotice =
-              "Image auto-cropped to landscape for the featured slot.";
-          } else if (result.didResize) {
-            normalizedNotice = "Image optimized for the web (downscaled).";
+          if (result.didCrop || result.didResize) {
+            const changes = [
+              result.didCrop ? "cropped" : "",
+              result.didResize ? "resized" : "",
+            ]
+              .filter(Boolean)
+              .join(" and ");
+            normalizedNotice = `Image ${changes} to ${result.outputWidth}×${result.outputHeight}px${result.didPad ? " with padding" : ""}.`;
           }
         } catch (normErr) {
-          console.warn(
-            "Image normalization failed, uploading original:",
-            normErr,
-          );
+          console.warn("Image normalization failed:", normErr);
           toast.error(
             normErr instanceof Error
               ? normErr.message
@@ -121,6 +129,16 @@ export const ImageUploadField = ({
           if (fileInputRef.current) fileInputRef.current.value = "";
           return;
         }
+      }
+
+      const dimensionError = await validateImageFile(uploadFile, {
+        minWidth,
+        minHeight,
+        minAspectRatio,
+      });
+      if (dimensionError) {
+        toast.error(dimensionError);
+        return;
       }
 
       // Final size guard on the (potentially smaller) output file.
@@ -133,25 +151,11 @@ export const ImageUploadField = ({
         return;
       }
 
-      // Soft aspect-ratio note when targetAspectRatio is provided but normalization wasn't a perfect match.
-      if (targetAspectRatio && !normalizedNotice) {
-        const img = new Image();
-        const objectUrl = URL.createObjectURL(uploadFile);
-        await new Promise((resolve, reject) => {
-          img.onload = resolve;
-          img.onerror = reject;
-          img.src = objectUrl;
-        });
-        const isValid = validateAspectRatio(
-          img.width,
-          img.height,
-          targetAspectRatio,
-          0.15,
-        );
-        if (!isValid) {
-          normalizedNotice = `Image ratio is ${calculateAspectRatio(img.width, img.height)} — it will be cropped to fit ${targetAspectRatio} on display.`;
+      if (targetAspectRatio && !normalizedNotice && normalizedDimensions) {
+        const { width, height } = normalizedDimensions;
+        if (!validateAspectRatio(width, height, targetAspectRatio, 0.15)) {
+          normalizedNotice = `Image ratio is ${calculateAspectRatio(width, height)} — it will be cropped to fit ${targetAspectRatio} on display.`;
         }
-        URL.revokeObjectURL(objectUrl);
       }
 
       if (normalizedNotice) setAspectRatioWarning(normalizedNotice);
@@ -202,6 +206,7 @@ export const ImageUploadField = ({
       console.error("Upload error:", error);
       toast.error("Failed to upload image");
     } finally {
+      if (fileInputRef.current) fileInputRef.current.value = "";
       setIsUploading(false);
     }
   };
@@ -268,8 +273,13 @@ export const ImageUploadField = ({
               <Upload className="w-8 h-8 mx-auto mb-2 text-muted-foreground" />
               <p className="text-sm text-muted-foreground">Click to upload</p>
               <p className="text-xs text-muted-foreground mt-1">
-                PNG, JPG, WEBP — any orientation. Portrait images are
-                auto-cropped to landscape.
+                PNG, JPG, WEBP — any orientation.{" "}
+                {minWidth || minHeight
+                  ? "Small images are resized automatically. "
+                  : ""}
+                {minAspectRatio || targetAspectRatio
+                  ? "Portrait images are auto-cropped to fit."
+                  : "Photos keep their original orientation."}
               </p>
             </>
           )}
