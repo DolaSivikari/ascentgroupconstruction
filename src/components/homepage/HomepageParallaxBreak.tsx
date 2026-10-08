@@ -2,6 +2,7 @@ import { usePageContent } from "@/hooks/usePageContent";
 import contentModule from "@/content/pages/home-parallax";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 import { useEffect, useRef, useState } from "react";
+import parallaxImage from "@/assets/parallax-commitment.avif.asset.json";
 
 /**
  * Full-bleed parallax image break with bold mission statement.
@@ -70,8 +71,7 @@ export const HomepageParallaxBreak = () => {
       <div
         className="absolute left-0 right-0 bg-cover bg-center will-change-transform"
         style={{
-          backgroundImage:
-            "url('https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=1920&q=80')",
+          backgroundImage: `url('${parallaxImage.url}')`,
           transform: rm ? "none" : `translate3d(0, ${offset}px, 0)`,
           top: "-140px",
           bottom: "-140px",
