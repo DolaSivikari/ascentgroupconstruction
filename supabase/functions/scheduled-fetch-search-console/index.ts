@@ -15,25 +15,12 @@ Deno.serve(async (req) => {
     const supabaseUrl = Deno.env.get('SUPABASE_URL')!;
     const supabaseServiceKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!;
 
-    // Require service_role JWT — this function may only be triggered by the
-    // Supabase cron scheduler or other trusted backends, never by end users.
+    // Only trusted backends (cron) holding the actual service-role key may run
+    // this job. The bearer token must match the key exactly — decoded claims
+    // are never trusted because they can be forged without a signature check.
     const authHeader = req.headers.get('Authorization') || '';
-    const token = authHeader.replace(/^Bearer\s+/i, '');
-    if (!token) {
-      return new Response(JSON.stringify({ error: 'Unauthorized' }), {
-        status: 401,
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-      });
-    }
-    try {
-      const payload = JSON.parse(atob(token.split('.')[1]));
-      if (payload.role !== 'service_role') {
-        return new Response(JSON.stringify({ error: 'Forbidden' }), {
-          status: 403,
-          headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-        });
-      }
-    } catch {
+    const token = authHeader.replace(/^Bearer\s+/i, '').trim();
+    if (!token || !supabaseServiceKey || token !== supabaseServiceKey) {
       return new Response(JSON.stringify({ error: 'Unauthorized' }), {
         status: 401,
         headers: { ...corsHeaders, 'Content-Type': 'application/json' },

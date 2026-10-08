@@ -60,6 +60,14 @@ Deno.serve(async (req) => {
       });
     }
 
+    // Enforce a maximum upload size (10 MB)
+    const MAX_FILE_BYTES = 10 * 1024 * 1024;
+    if (!(file instanceof File) || file.size <= 0 || file.size > MAX_FILE_BYTES) {
+      return new Response(JSON.stringify({ error: 'File must be between 1 byte and 10 MB' }), {
+        status: 413, headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+      });
+    }
+
     // Validate content type
     if (!ALLOWED_CONTENT_TYPES.has(file.type)) {
       return new Response(JSON.stringify({ error: `Unsupported content type: ${file.type}` }), {

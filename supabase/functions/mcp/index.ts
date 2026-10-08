@@ -82,7 +82,9 @@ var list_projects_default = defineTool({
       "id, title, slug, category, location, client_type, project_status, publish_state, featured, completion_date, description"
     ).order("completion_date", { ascending: false, nullsFirst: false }).limit(take);
     if (featured_only) query = query.eq("featured", true);
-    if (search) query = query.or(`title.ilike.%${search}%,location.ilike.%${search}%`);
+    // Strip PostgREST filter metacharacters so caller text cannot alter the filter.
+    const safeSearch = (search ?? "").replace(/[^\p{L}\p{N}\s\-']/gu, " ").trim().slice(0, 100);
+    if (safeSearch) query = query.or(`title.ilike.%${safeSearch}%,location.ilike.%${safeSearch}%`);
     const { data, error } = await query;
     if (error) {
       return { content: [{ type: "text", text: error.message }], isError: true };
