@@ -177,3 +177,58 @@ describe("Leads workspace behavior", () => {
     ).toBeInTheDocument();
   });
 });
+
+describe("open a request directly from the current Leads view", () => {
+  it("opens from the message cell without changing filters or switching tabs", async () => {
+    const { onSelectionChange } = mount({
+      initialType: "estimate",
+      initialStatus: "new",
+    });
+    const messages = await screen.findAllByText("Saved estimate message");
+    fireEvent.click(messages[0]);
+    expect(onSelectionChange).toHaveBeenCalledOnce();
+    expect(onSelectionChange).toHaveBeenCalledWith({
+      id: item.id,
+      source: "contact",
+    });
+    expect(mocks.load).toHaveBeenLastCalledWith(
+      expect.objectContaining({ type: "estimate", status: "new" }),
+      null,
+      expect.any(AbortSignal),
+      50,
+      true,
+    );
+  });
+  it.each(["Enter", " "])(
+    "opens a focused row with %s, without double-opening its nested name button",
+    async (key) => {
+      const { onSelectionChange } = mount();
+      const row = await screen.findByRole("row", {
+        name: "Open request from Fixture estimate",
+      });
+      fireEvent.keyDown(row, { key });
+      expect(onSelectionChange).toHaveBeenCalledOnce();
+      onSelectionChange.mockClear();
+      fireEvent.click(
+        screen.getAllByRole("button", { name: "View Fixture estimate" })[0],
+      );
+      expect(onSelectionChange).toHaveBeenCalledOnce();
+    },
+  );
+  it("opens when tapping the mobile card, and leaves selected text alone", async () => {
+    const { onSelectionChange } = mount();
+    const card = await screen.findByRole("article", {
+      name: "Open request from Fixture estimate",
+    });
+    fireEvent.click(card);
+    expect(onSelectionChange).toHaveBeenCalledOnce();
+    onSelectionChange.mockClear();
+    const selection = window.getSelection();
+    const range = document.createRange();
+    range.selectNodeContents(card);
+    selection?.addRange(range);
+    fireEvent.click(card);
+    expect(onSelectionChange).not.toHaveBeenCalled();
+    selection?.removeAllRanges();
+  });
+});

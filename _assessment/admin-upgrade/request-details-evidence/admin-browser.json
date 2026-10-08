@@ -1,0 +1,86 @@
+[
+  {
+    "width": 1440,
+    "legacy": {
+      "headerTop": 0,
+      "footerBottom": 900,
+      "panelWidth": 860,
+      "viewportWidth": 1440,
+      "viewportHeight": 900,
+      "overflow": false,
+      "bodyScroll": 491
+    },
+    "modern": {
+      "headerTop": 0,
+      "footerBottom": 900,
+      "panelWidth": 860,
+      "viewportWidth": 1440,
+      "viewportHeight": 900,
+      "overflow": false,
+      "bodyScroll": 643
+    },
+    "openedFromLeads": true,
+    "openedFromAll": true,
+    "legacyNotesRetained": true,
+    "unsentInquiryNoteRetained": true,
+    "runtimeErrors": [],
+    "unexpectedFixtureWrites": [],
+    "interceptedExistingFirstViewedUpdates": 1
+  },
+  {
+    "width": 1024,
+    "legacy": {
+      "headerTop": 0,
+      "footerBottom": 900,
+      "panelWidth": 860,
+      "viewportWidth": 1024,
+      "viewportHeight": 900,
+      "overflow": false,
+      "bodyScroll": 491
+    },
+    "modern": {
+      "headerTop": 0,
+      "footerBottom": 900,
+      "panelWidth": 860,
+      "viewportWidth": 1024,
+      "viewportHeight": 900,
+      "overflow": false,
+      "bodyScroll": 643
+    },
+    "openedFromLeads": true,
+    "openedFromAll": true,
+    "legacyNotesRetained": true,
+    "unsentInquiryNoteRetained": true,
+    "runtimeErrors": [],
+    "unexpectedFixtureWrites": [],
+    "interceptedExistingFirstViewedUpdates": 1
+  },
+  {
+    "width": 390,
+    "legacy": {
+      "headerTop": 0,
+      "footerBottom": 900,
+      "panelWidth": 390,
+      "viewportWidth": 390,
+      "viewportHeight": 900,
+      "overflow": false,
+      "bodyScroll": 1562
+    },
+    "modern": {
+      "headerTop": 0,
+      "footerBottom": 900,
+      "panelWidth": 390,
+      "viewportWidth": 390,
+      "viewportHeight": 900,
+      "overflow": false,
+      "bodyScroll": 1795
+    },
+    "openedFromLeads": true,
+    "openedFromAll": true,
+    "legacyNotesRetained": true,
+    "unsentInquiryNoteRetained": true,
+    "runtimeErrors": [],
+    "unexpectedFixtureWrites": [],
+    "interceptedExistingFirstViewedUpdates": 1
+  }
+]

@@ -1,23 +1,15 @@
 import {
+  RequestDetailShell,
+  RequestDetailCard,
+  RequestDetailField,
+} from "@/components/admin/requests/RequestDetailShell";
+import {
   AdminSectionWorkspace,
   AdminSectionScreen,
 } from "@/components/admin/AdminSectionWorkspace";
-import { useState, type ReactNode } from "react";
+import { useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog";
-import {
-  Sheet,
-  SheetContent,
-  SheetDescription,
-  SheetHeader,
-  SheetTitle,
-} from "@/components/ui/sheet";
+
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/ui/Button";
 import { Textarea } from "@/components/ui/textarea";
@@ -30,17 +22,12 @@ import {
 } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
 import { Download, Trash2 } from "lucide-react";
-import { format } from "date-fns";
+
 import { ConfirmDialog } from "@/components/admin/ConfirmDialog";
 import { signRfpAttachment, saveInboxItem } from "@/lib/inbox/api";
-import {
-  formatLeadReceived,
-  leadType,
-  LEAD_TYPE_LABELS,
-} from "@/lib/leads/model";
+import { leadType, LEAD_TYPE_LABELS } from "@/lib/leads/model";
 import {
   STATUS_LABELS,
-  inboxDate,
   inboxName,
   inboxStatuses,
   inboxStrings,
@@ -131,7 +118,7 @@ export const InboxDetailDialog = ({
   open,
   onClose,
   onUpdate,
-  presentation = "dialog",
+  presentation = "panel",
   allowDelete = true,
 }: InboxDetailDialogProps) => {
   // Freeze the edit baseline. A realtime refetch must not silently move our
@@ -153,13 +140,11 @@ export const InboxDetailDialog = ({
   const changed =
     status !== (item.status || "new") ||
     (hasNotes && adminNotes !== inboxText(item, "admin_notes"));
-  const submitted = inboxDate(item.created_at);
   const isPanel = presentation === "panel";
-  const Root = isPanel ? Sheet : Dialog;
-  const Content = isPanel ? SheetContent : DialogContent;
-  const Header = isPanel ? SheetHeader : DialogHeader;
-  const Title = isPanel ? SheetTitle : DialogTitle;
-  const Description = isPanel ? SheetDescription : DialogDescription;
+  const hasAttachments =
+    inboxStrings(item, "attachment_urls").length > 0 ||
+    inboxStrings(item, "uploaded_files").length > 0 ||
+    !!inboxText(item, "resume_url");
   const requestClose = () => {
     if (isSaving) return;
     if (changed) setShowDiscardConfirm(true);
@@ -238,51 +223,75 @@ export const InboxDetailDialog = ({
   };
 
   return (
-    <Root
-      open={open}
-      onOpenChange={(next) => {
-        if (!next) requestClose();
-      }}
-    >
-      <Content
-        className={
+    <>
+      {" "}
+      <RequestDetailShell
+        open={open}
+        onClose={requestClose}
+        name={inboxName(item)}
+        type={
           isPanel
-            ? "w-full sm:max-w-2xl h-dvh overflow-y-auto"
-            : "max-w-2xl max-h-[90vh] overflow-y-auto"
+            ? LEAD_TYPE_LABELS[leadType(item)]
+            : leadType(item) === "estimate"
+              ? "Estimate"
+              : item.type
+        }
+        status={
+          item.type === "Newsletter"
+            ? item.is_active
+              ? "active"
+              : "inactive"
+            : item.status || "new"
+        }
+        receivedAt={item.created_at}
+        email={item.email}
+        phone={inboxText(item, "phone")}
+        company={inboxText(item, "company_name") || inboxText(item, "company")}
+        dirty={changed}
+        footer={
+          <div className="flex flex-wrap justify-between items-center gap-3">
+            {allowDelete && (
+              <Button
+                variant="destructive"
+                onClick={() => setShowDeleteConfirm(true)}
+                disabled={isSaving}
+              >
+                <Trash2 className="mr-2 h-4 w-4" />
+                Delete
+              </Button>
+            )}
+            <div className="flex gap-2">
+              <Button
+                variant="outline"
+                onClick={requestClose}
+                disabled={isSaving}
+              >
+                Close
+              </Button>
+              {statuses.length > 0 && (
+                <Button
+                  onClick={() => void handleSave()}
+                  disabled={isSaving || !changed}
+                >
+                  {isSaving ? "Saving..." : "Save Changes"}
+                </Button>
+              )}
+            </div>
+          </div>
         }
       >
-        <Header>
-          <Title className="flex flex-wrap items-center gap-2 break-words pr-6">
-            <Badge>
-              {isPanel
-                ? LEAD_TYPE_LABELS[leadType(item)]
-                : leadType(item) === "estimate"
-                  ? "Estimate"
-                  : item.type}
-            </Badge>
-            {inboxName(item)}
-          </Title>
-          <Description>
-            {isPanel
-              ? `Received ${formatLeadReceived(item.created_at)}`
-              : submitted
-                ? `Submitted on ${format(submitted, "MMMM d, yyyy 'at' HH:mm")}`
-                : "Submission date unavailable"}
-          </Description>
-        </Header>
-        <div className="space-y-6 py-4">
-          <AdminSectionWorkspace
-            queryKey="lead-section"
-            label="Request sections"
-            items={[
-              { id: "request", title: "Submitted request" },
-              { id: "workflow", title: "Status & notes" },
-              { id: "attachments", title: "Attachments" },
-            ]}
-          >
-            <AdminSectionScreen id="request">
-              <section className="space-y-3">
-                <h3 className="text-sm font-semibold">Contact information</h3>
+        <AdminSectionWorkspace
+          queryKey="lead-section"
+          label="Request sections"
+          items={[
+            { id: "request", title: "Submitted request" },
+            { id: "workflow", title: "Status & notes" },
+            { id: "attachments", title: "Attachments" },
+          ]}
+        >
+          <AdminSectionScreen id="request">
+            <RequestDetailCard title="Contact information">
+              <dl className="grid gap-4 sm:grid-cols-2">
                 <DetailRow
                   label="Email"
                   value={item.email}
@@ -295,13 +304,20 @@ export const InboxDetailDialog = ({
                     link={`tel:${inboxText(item, "phone")}`}
                   />
                 )}
-              </section>
-              <section className="space-y-3">
-                <h3 className="text-sm font-semibold">Request details</h3>
+              </dl>
+            </RequestDetailCard>
+            <RequestDetailCard title="Request details">
+              <dl className="grid gap-5 sm:grid-cols-2">
                 {fieldsByType[item.type].map(([field, label]) =>
                   inboxText(item, field) ? (
                     <DetailRow
                       key={field}
+                      wide={[
+                        "message",
+                        "scope_of_work",
+                        "additional_notes",
+                        "cover_letter",
+                      ].includes(field)}
                       label={
                         field === "company" &&
                         item.table === "contact_submissions" &&
@@ -372,9 +388,11 @@ export const InboxDetailDialog = ({
                     value={item.is_active ? "Active" : "Inactive"}
                   />
                 )}
-              </section>
-            </AdminSectionScreen>
-            <AdminSectionScreen id="attachments" title="Attachments">
+              </dl>
+            </RequestDetailCard>
+          </AdminSectionScreen>
+          <AdminSectionScreen id="attachments" title="Attachments">
+            <RequestDetailCard title="Files & drawings">
               {item.type === "RFP" &&
                 inboxStrings(item, "attachment_urls").length > 0 && (
                   <section className="space-y-3">
@@ -445,92 +463,68 @@ export const InboxDetailDialog = ({
                     />
                   ),
                 )}
-            </AdminSectionScreen>
-            <AdminSectionScreen id="workflow">
-              {statuses.length > 0 && (
-                <section className="space-y-3">
-                  <h3 className="text-sm font-semibold">Update status</h3>
-                  <Select
-                    value={status}
-                    onValueChange={setStatus}
-                    disabled={isSaving}
-                  >
-                    <SelectTrigger aria-label="Request status">
-                      <SelectValue />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {!statuses.includes(status) && (
-                        <SelectItem value={status} disabled>
-                          {status}
-                        </SelectItem>
-                      )}
-                      {statuses.map((value) => (
-                        <SelectItem key={value} value={value}>
-                          {STATUS_LABELS[value]}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                </section>
+              {!hasAttachments && (
+                <p className="text-sm text-muted-foreground">
+                  No attachments were submitted with this request.
+                </p>
               )}
-              {hasNotes ? (
-                <section className="space-y-3">
-                  <label
-                    htmlFor="inbox-admin-notes"
-                    className="text-sm font-semibold"
-                  >
-                    Admin notes
-                  </label>
-                  <Textarea
-                    id="inbox-admin-notes"
-                    placeholder="Add internal notes..."
-                    value={adminNotes}
-                    onChange={(event) => setAdminNotes(event.target.value)}
-                    rows={4}
-                    disabled={isSaving}
-                  />
-                </section>
-              ) : (
-                statuses.length > 0 && (
-                  <p className="text-xs text-muted-foreground">
-                    Internal notes are not available for this request type yet.
-                    Submitted information is read-only.
-                  </p>
-                )
-              )}
-            </AdminSectionScreen>
-          </AdminSectionWorkspace>
-          <div className="flex flex-wrap justify-between items-center gap-3 pt-4 border-t">
-            {allowDelete && (
-              <Button
-                variant="destructive"
-                onClick={() => setShowDeleteConfirm(true)}
-                disabled={isSaving}
-              >
-                <Trash2 className="mr-2 h-4 w-4" />
-                Delete
-              </Button>
-            )}
-            <div className="flex gap-2">
-              <Button
-                variant="outline"
-                onClick={requestClose}
-                disabled={isSaving}
-              >
-                Close
-              </Button>
-              {statuses.length > 0 && (
-                <Button
-                  onClick={() => void handleSave()}
-                  disabled={isSaving || !changed}
+            </RequestDetailCard>
+          </AdminSectionScreen>
+          <AdminSectionScreen id="workflow">
+            {statuses.length > 0 && (
+              <section className="request-detail-card space-y-3 rounded-xl border bg-card p-5">
+                <h3 className="text-sm font-semibold">Update status</h3>
+                <Select
+                  value={status}
+                  onValueChange={setStatus}
+                  disabled={isSaving}
                 >
-                  {isSaving ? "Saving..." : "Save Changes"}
-                </Button>
-              )}
-            </div>
-          </div>
-        </div>
-      </Content>
+                  <SelectTrigger aria-label="Request status">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {!statuses.includes(status) && (
+                      <SelectItem value={status} disabled>
+                        {status}
+                      </SelectItem>
+                    )}
+                    {statuses.map((value) => (
+                      <SelectItem key={value} value={value}>
+                        {STATUS_LABELS[value]}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </section>
+            )}
+            {hasNotes ? (
+              <section className="space-y-3">
+                <label
+                  htmlFor="inbox-admin-notes"
+                  className="text-sm font-semibold"
+                >
+                  Admin notes
+                </label>
+                <Textarea
+                  id="inbox-admin-notes"
+                  placeholder="Add internal notes..."
+                  value={adminNotes}
+                  onChange={(event) => setAdminNotes(event.target.value)}
+                  rows={4}
+                  disabled={isSaving}
+                />
+              </section>
+            ) : (
+              statuses.length > 0 && (
+                <p className="text-xs text-muted-foreground">
+                  Internal notes are not available for this request type yet.
+                  Submitted information is read-only.
+                </p>
+              )
+            )}
+          </AdminSectionScreen>
+        </AdminSectionWorkspace>
+      </RequestDetailShell>
       <ConfirmDialog
         open={showDeleteConfirm}
         onOpenChange={setShowDeleteConfirm}
@@ -549,27 +543,8 @@ export const InboxDetailDialog = ({
         confirmText="Discard changes"
         cancelText="Keep editing"
       />
-    </Root>
+    </>
   );
 };
 
-const DetailRow = ({
-  label,
-  value,
-  link,
-}: {
-  label: string;
-  value: ReactNode;
-  link?: string;
-}) => (
-  <div className="min-w-0">
-    <p className="text-xs text-muted-foreground">{label}</p>
-    {link ? (
-      <a href={link} className="text-sm font-medium hover:underline break-all">
-        {value}
-      </a>
-    ) : (
-      <p className="text-sm whitespace-pre-wrap break-words">{value}</p>
-    )}
-  </div>
-);
+const DetailRow = RequestDetailField;

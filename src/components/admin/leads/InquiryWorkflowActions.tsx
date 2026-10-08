@@ -1,3 +1,4 @@
+import { requestActivation } from "@/lib/admin/requestActivation";
 import { useState } from "react";
 import {
   DndContext,
@@ -31,7 +32,10 @@ function LeadCard({
   return (
     <article
       ref={drag.setNodeRef}
-      className="space-y-2 rounded-lg border bg-background p-3"
+      {...requestActivation(() => {
+        if (!drag.isDragging) onOpen(item);
+      })}
+      className="cursor-pointer space-y-2 rounded-lg border bg-background p-3 hover:border-primary/40 focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary"
       style={{
         transform: drag.transform
           ? `translate3d(${drag.transform.x}px,${drag.transform.y}px,0)`

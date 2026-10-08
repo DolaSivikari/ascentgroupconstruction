@@ -1,0 +1,43 @@
+{
+  "baseCommit": "b047162",
+  "scope": "Direct inbox/lead opening and shared modern request detail panels",
+  "vitest": {
+    "filesPassed": 91,
+    "testsPassed": 602
+  },
+  "typescript": {
+    "app": "passed",
+    "selectedStrict": "passed"
+  },
+  "productionBuild": "passed; existing chunk and dependency warnings remain",
+  "serviceWorker": "passed",
+  "routeAudit": "passed",
+  "diffCheck": "passed",
+  "lint": {
+    "errors": 211,
+    "warnings": 29,
+    "newFiles": "clean",
+    "note": "Existing lint debt; lint remains nonzero"
+  },
+  "adminBrowser": {
+    "widths": [1440, 1024, 390],
+    "runtimeErrors": 0,
+    "unexpectedFixtureWrites": 0,
+    "liveWrites": 0,
+    "existingFirstViewedUpdatesIntercepted": 3
+  },
+  "publicComparison": {
+    "urls": 7,
+    "captures": 14,
+    "passed": 14,
+    "undeclaredDifferences": 0,
+    "scope": "Representative synthetic fixture comparison; full live-site replay skipped"
+  },
+  "publicBundle": {
+    "chunks": 75,
+    "forbiddenAdminPackages": 0
+  },
+  "databaseSchemaChanges": false,
+  "publishing": false,
+  "coverageLimit": "Offline synthetic records; no live admin authentication, storage writes, recipient email sends or exhaustive request-type/save verification"
+}

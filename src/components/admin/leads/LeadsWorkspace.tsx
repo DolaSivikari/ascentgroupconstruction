@@ -1,3 +1,4 @@
+import { requestActivation } from "@/lib/admin/requestActivation";
 import { InquiryWorkflowActions } from "./InquiryWorkflowActions";
 import { useEffect, useState } from "react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
@@ -183,7 +184,8 @@ export function LeadsWorkspace({
     <section aria-label="Leads workspace" className="min-w-0 space-y-4">
       <p className="text-sm text-muted-foreground">
         Estimates, service quotes, RFPs, general inquiries and prequalification
-        requests from every current website form.
+        requests from every current website form. Click a request to view its
+        details.
       </p>
       {data && data.inquiryAvailable === false && (
         <p className="text-sm text-muted-foreground">
@@ -363,7 +365,12 @@ export function LeadsWorkspace({
               </TableHeader>
               <TableBody>
                 {items.map((item) => (
-                  <TableRow key={`${item.table}-${item.id}`}>
+                  <TableRow
+                    key={`${item.table}-${item.id}`}
+                    {...requestActivation(() => open(item))}
+                    aria-label={`Open request from ${inboxName(item)}`}
+                    className="cursor-pointer hover:bg-primary/5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary"
+                  >
                     <TableCell className="break-words">
                       {typeBadge(item)}
                     </TableCell>
@@ -404,13 +411,24 @@ export function LeadsWorkspace({
             {items.map((item) => (
               <article
                 key={`${item.table}-${item.id}`}
-                className="space-y-3 rounded-lg border p-4"
+                {...requestActivation(() => open(item))}
+                aria-label={`Open request from ${inboxName(item)}`}
+                className="cursor-pointer space-y-3 rounded-lg border p-4 hover:bg-primary/5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary"
               >
                 <div className="flex flex-wrap gap-2">
                   {typeBadge(item)}
                   {statusBadge(item)}
                 </div>
-                <h3 className="font-semibold break-words">{inboxName(item)}</h3>
+                <h3 className="font-semibold break-words">
+                  <button
+                    type="button"
+                    aria-label={`View ${inboxName(item)}`}
+                    onClick={() => open(item)}
+                    className="text-left hover:underline"
+                  >
+                    {inboxName(item)}
+                  </button>
+                </h3>
                 <p className="text-sm break-all text-muted-foreground">
                   {item.email}
                 </p>
@@ -420,14 +438,10 @@ export function LeadsWorkspace({
                 <p className="text-xs text-muted-foreground">
                   {formatLeadReceived(item.created_at)}
                 </p>
-                <Button
-                  variant="outline"
-                  className="w-full"
-                  aria-label={`View ${inboxName(item)}`}
-                  onClick={() => open(item)}
-                >
-                  View request
-                </Button>
+                <p className="flex items-center gap-1 text-xs font-medium text-primary">
+                  Open request{" "}
+                  <ChevronRight className="h-3.5 w-3.5" aria-hidden="true" />
+                </p>
               </article>
             ))}
           </div>

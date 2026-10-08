@@ -1,3 +1,5 @@
+import { requestActivation } from "@/lib/admin/requestActivation";
+import { useSearchParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
@@ -19,7 +21,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Download, Eye, Mail, Phone, Search, Trash2 } from "lucide-react";
+import { Download, Mail, Phone, Search, Trash2 } from "lucide-react";
 import { format } from "date-fns";
 import { InboxDetailDialog } from "./InboxDetailDialog";
 import { useToast } from "@/hooks/use-toast";
@@ -57,6 +59,13 @@ interface InboxTableProps {
   highlightId?: string | null;
 }
 export const InboxTable = ({ type, highlightId }: InboxTableProps) => {
+  const [params, setParams] = useSearchParams();
+  const selectRequest = (item: InboxItem | null) => {
+    const next = new URLSearchParams(params);
+    next.delete("lead-section");
+    setParams(next, { replace: true });
+    setSelectedItem(item);
+  };
   const isWorkspace = type === "work";
   const showDeadline = isWorkspace || type === "quote";
   const [searchQuery, setSearchQuery] = useState("");
@@ -175,6 +184,10 @@ export const InboxTable = ({ type, highlightId }: InboxTableProps) => {
 
   return (
     <div className="space-y-4">
+      <p className="text-sm text-muted-foreground">
+        Click a request to view its details. Email and phone actions are
+        available in the same row.
+      </p>
       {isWorkspace && (
         <p className="text-sm text-muted-foreground">
           RFPs, service quotes and estimator requests in one view. Requested
@@ -318,7 +331,9 @@ export const InboxTable = ({ type, highlightId }: InboxTableProps) => {
                 <TableRow
                   key={`${item.table}-${item.id}`}
                   id={`inbox-row-${item.id}`}
-                  className={`hover:bg-muted/50 ${activeHighlight === item.id ? "ring-2 ring-primary ring-inset bg-primary/5" : ""}`}
+                  {...requestActivation(() => selectRequest(item))}
+                  aria-label={`Open request from ${inboxName(item)}`}
+                  className={`cursor-pointer focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary hover:bg-primary/5 ${activeHighlight === item.id ? "ring-2 ring-primary ring-inset bg-primary/5" : ""}`}
                 >
                   <TableCell>
                     <Badge
@@ -355,7 +370,14 @@ export const InboxTable = ({ type, highlightId }: InboxTableProps) => {
                     </>
                   )}
                   <TableCell className="font-medium">
-                    {inboxName(item)}
+                    <button
+                      type="button"
+                      className="text-left hover:underline font-semibold"
+                      aria-label={`View ${inboxName(item)}`}
+                      onClick={() => selectRequest(item)}
+                    >
+                      {inboxName(item)}
+                    </button>
                     {isWorkspace ? (
                       <div className="text-xs text-muted-foreground">
                         {inboxText(item, "company_name") ||
@@ -428,14 +450,6 @@ export const InboxTable = ({ type, highlightId }: InboxTableProps) => {
                   </TableCell>
                   <TableCell>
                     <div className="flex items-center gap-2">
-                      <Button
-                        variant="ghost"
-                        size="icon"
-                        aria-label={`View ${inboxName(item)}`}
-                        onClick={() => setSelectedItem(item)}
-                      >
-                        <Eye className="h-4 w-4" />
-                      </Button>
                       <Button variant="ghost" size="icon" asChild>
                         <a
                           href={`mailto:${item.email}`}
@@ -487,7 +501,8 @@ export const InboxTable = ({ type, highlightId }: InboxTableProps) => {
           key={`${selectedItem.table}-${selectedItem.id}`}
           item={selectedItem}
           open
-          onClose={() => setSelectedItem(null)}
+          onClose={() => selectRequest(null)}
+          presentation="panel"
           onUpdate={refresh}
         />
       )}

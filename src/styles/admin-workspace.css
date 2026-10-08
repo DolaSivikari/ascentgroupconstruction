@@ -343,3 +343,34 @@
   background: hsl(var(--background));
   padding: 0.75rem 0;
 }
+
+/* Request detail panels share the admin palette and keep their actions visible. */
+.request-detail-shell {
+  width: min(860px, 100vw);
+}
+.request-detail-header,
+.request-detail-footer {
+  background: hsl(var(--card));
+}
+.request-detail-body {
+  background: hsl(var(--muted) / 0.35);
+}
+.request-detail-shell .admin-workspace-section-nav {
+  top: 0;
+  margin-top: 0;
+  background: hsl(var(--background));
+}
+.request-detail-shell .admin-section-page-link {
+  border-color: transparent;
+  border-radius: 8px;
+  font-weight: 500;
+}
+.request-detail-shell .admin-section-page-link[aria-current="page"] {
+  background: hsl(var(--primary));
+  color: hsl(var(--primary-foreground));
+}
+.request-detail-card a,
+.request-detail-card p,
+.request-detail-card dd {
+  overflow-wrap: anywhere;
+}

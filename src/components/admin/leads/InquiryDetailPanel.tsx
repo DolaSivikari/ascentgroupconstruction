@@ -1,16 +1,15 @@
 import {
+  RequestDetailShell,
+  RequestDetailCard,
+  RequestDetailField,
+} from "@/components/admin/requests/RequestDetailShell";
+import {
   AdminSectionWorkspace,
   AdminSectionScreen,
 } from "@/components/admin/AdminSectionWorkspace";
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import {
-  Sheet,
-  SheetContent,
-  SheetHeader,
-  SheetTitle,
-  SheetDescription,
-} from "@/components/ui/sheet";
+
 import { Button } from "@/ui/Button";
 import { Input } from "@/ui/Input";
 import { Textarea } from "@/components/ui/textarea";
@@ -34,7 +33,7 @@ import {
   resendInquiryAlert,
   maskedEmail,
 } from "@/lib/inquiry/api";
-import { formatLeadReceived } from "@/lib/leads/model";
+import { LEAD_TYPE_LABELS, formatLeadReceived } from "@/lib/leads/model";
 import { signRfpAttachment } from "@/lib/inbox/api";
 export function InquiryDetailPanel({
   inquiry,
@@ -74,14 +73,29 @@ export function InquiryDetailPanel({
   );
   const actor = (id: string | null) =>
     id ? names.get(id) || "Former or unavailable staff member" : "System";
-  const dirty =
-    !!note.trim() ||
+  const typeLabel =
+    LEAD_TYPE_LABELS[
+      (
+        { bid_invitation: "bid", prequal_request: "prequal" } as Record<
+          string,
+          string
+        >
+      )[baseline.inquiry_type] || baseline.inquiry_type
+    ] || baseline.inquiry_type.replace(/_/g, " ");
+  const workflowDirty =
     form.status !== baseline.status ||
     form.priority !== baseline.priority ||
     form.assigned_to !== (baseline.assigned_to || "") ||
     form.due !== toTorontoInput(baseline.bid_due_at) ||
     form.amount !==
       (baseline.bid_amount === null ? "" : String(baseline.bid_amount));
+  const dirty = workflowDirty || !!note.trim();
+  const submittedDetails =
+    baseline.details && typeof baseline.details === "object"
+      ? Object.entries(baseline.details).filter(
+          ([key]) => key !== "submission_hash",
+        )
+      : [];
   const close = () => {
     if (busy) return;
     if (dirty) setConfirm("close");
@@ -128,23 +142,53 @@ export function InquiryDetailPanel({
       setBaseline(await loadInquiryDetail(inquiry.id));
     }, "Alert attempt recorded. Review the recipient results below.");
   return (
-    <Sheet
-      open
-      onOpenChange={(open) => {
-        if (!open) close();
-      }}
-    >
-      <SheetContent className="h-dvh w-full overflow-y-auto sm:max-w-2xl">
-        <SheetHeader>
-          <SheetTitle>
-            {baseline.reference_code} · {baseline.contact_name}
-          </SheetTitle>
-          <SheetDescription>
-            {baseline.company || "No company provided"} ·{" "}
-            {formatLeadReceived(baseline.created_at)}
-          </SheetDescription>
-        </SheetHeader>
-        <div className="mt-6 space-y-6">
+    <>
+      {" "}
+      <RequestDetailShell
+        onClose={close}
+        name={baseline.contact_name}
+        type={typeLabel}
+        status={baseline.status}
+        reference={baseline.reference_code}
+        receivedAt={baseline.created_at}
+        email={baseline.email}
+        phone={baseline.phone}
+        company={baseline.company}
+        dirty={dirty}
+        footer={
+          <div className="flex flex-wrap items-center justify-between gap-3">
+            <p className="text-xs text-muted-foreground">
+              {baseline.archived_at
+                ? "Archived request"
+                : "Changes apply to this lead only"}
+            </p>
+            <div className="flex gap-2">
+              <Button variant="outline" onClick={close} disabled={busy}>
+                Close
+              </Button>
+              <Button disabled={busy || !workflowDirty} onClick={save}>
+                Save changes
+              </Button>
+            </div>
+          </div>
+        }
+      >
+        <div className="space-y-5">
+          {thread.error && (
+            <p
+              role="alert"
+              className="mt-4 rounded-lg border border-destructive/40 bg-card p-3 text-sm"
+            >
+              Notes, history and alert results could not be loaded.{" "}
+              <Button
+                size="sm"
+                variant="outline"
+                onClick={() => void thread.refetch()}
+              >
+                Retry details
+              </Button>
+            </p>
+          )}
           <AdminSectionWorkspace
             queryKey="lead-section"
             label="Lead sections"
@@ -157,46 +201,70 @@ export function InquiryDetailPanel({
             ]}
           >
             <AdminSectionScreen id="request">
-              <section className="space-y-2">
-                <h2 className="font-bold">Submitted request</h2>
-                <p className="text-sm">
-                  {baseline.inquiry_type.replace(/_/g, " ")} ·{" "}
-                  {baseline.project_name || "No project name"}
+              <RequestDetailCard title="Project overview">
+                <dl className="grid gap-4 sm:grid-cols-2">
+                  <RequestDetailField label="Request type" value={typeLabel} />
+                  <RequestDetailField
+                    label="Project"
+                    value={baseline.project_name}
+                  />
+                  <RequestDetailField
+                    label="Location"
+                    value={baseline.project_location}
+                  />
+                  <RequestDetailField
+                    label="Company"
+                    value={baseline.company}
+                  />
+                  <RequestDetailField
+                    label="Email"
+                    value={baseline.email}
+                    link={`mailto:${baseline.email}`}
+                  />
+                  {baseline.phone && (
+                    <RequestDetailField
+                      label="Phone"
+                      value={baseline.phone}
+                      link={`tel:${baseline.phone}`}
+                    />
+                  )}
+                </dl>
+              </RequestDetailCard>
+              <RequestDetailCard title="Client message">
+                <p className="whitespace-pre-wrap text-sm leading-relaxed">
+                  {baseline.message || "No message provided."}
                 </p>
-                <p className="text-sm">{baseline.project_location}</p>
-                <p className="whitespace-pre-wrap text-sm">
-                  {baseline.message}
-                </p>
-                {baseline.details && typeof baseline.details === "object" && (
+              </RequestDetailCard>
+              <RequestDetailCard title="Additional details & files">
+                {!submittedDetails.length &&
+                  !baseline.drawings_url &&
+                  !baseline.attachment_paths?.length && (
+                    <p className="text-sm text-muted-foreground">
+                      No additional details or files were submitted.
+                    </p>
+                  )}
+                {!!submittedDetails.length && (
                   <details>
                     <summary className="text-sm underline">
                       Additional submitted details
                     </summary>
                     <dl className="mt-2 space-y-2 text-xs">
-                      {Object.entries(baseline.details)
-                        .filter(([key]) => key !== "submission_hash")
-                        .map(([key, value]) => (
-                          <div key={key}>
-                            <dt className="font-semibold">
-                              {key.replace(/_/g, " ")}
-                            </dt>
-                            <dd className="whitespace-pre-wrap break-words">
-                              {typeof value === "string"
-                                ? value
-                                : JSON.stringify(value)}
-                            </dd>
-                          </div>
-                        ))}
+                      {submittedDetails.map(([key, value]) => (
+                        <div key={key}>
+                          <dt className="font-semibold">
+                            {key.replace(/_/g, " ")}
+                          </dt>
+                          <dd className="whitespace-pre-wrap break-words">
+                            {typeof value === "string"
+                              ? value
+                              : JSON.stringify(value)}
+                          </dd>
+                        </div>
+                      ))}
                     </dl>
                   </details>
                 )}
-                <a
-                  className="block text-sm underline"
-                  href={`mailto:${baseline.email}`}
-                >
-                  {baseline.email}
-                </a>
-                {baseline.phone && <p className="text-sm">{baseline.phone}</p>}
+
                 {baseline.drawings_url &&
                   safeDrawingsUrl(baseline.drawings_url) && (
                     <a
@@ -222,10 +290,10 @@ export function InquiryDetailPanel({
                     Open attachment {i + 1}
                   </Button>
                 ))}
-              </section>
+              </RequestDetailCard>
             </AdminSectionScreen>
             <AdminSectionScreen id="workflow">
-              <section className="space-y-3 rounded-lg border p-4">
+              <section className="request-detail-card space-y-4 rounded-xl border bg-card p-5">
                 <h2 className="font-bold">Workflow</h2>
                 <div className="grid gap-4 sm:grid-cols-2">
                   <label className="space-y-1 text-sm">
@@ -318,9 +386,6 @@ export function InquiryDetailPanel({
                   </p>
                 )}
                 <div className="flex flex-wrap gap-2">
-                  <Button disabled={busy} onClick={save}>
-                    Save changes
-                  </Button>
                   <Button
                     variant="outline"
                     disabled={busy}
@@ -341,11 +406,11 @@ export function InquiryDetailPanel({
               </section>
             </AdminSectionScreen>
             <AdminSectionScreen id="notes">
-              <section className="space-y-3">
+              <section className="request-detail-card space-y-4 rounded-xl border bg-card p-5">
                 <h2 className="font-bold">Notes</h2>
                 {thread.error ? (
                   <p role="alert">
-                    Notes, history and alert results could not be loaded.{" "}
+                    Notes could not be loaded.{" "}
                     <Button onClick={() => void thread.refetch()}>Retry</Button>
                   </p>
                 ) : thread.isPending ? (
@@ -385,7 +450,7 @@ export function InquiryDetailPanel({
               </section>
             </AdminSectionScreen>
             <AdminSectionScreen id="delivery">
-              <section className="space-y-3 rounded-lg border p-4">
+              <section className="request-detail-card space-y-4 rounded-xl border bg-card p-5">
                 <div className="flex justify-between gap-3">
                   <h2 className="font-bold">Alert delivery</h2>
                   <Button variant="outline" onClick={() => setReveal(!reveal)}>
@@ -402,8 +467,24 @@ export function InquiryDetailPanel({
                     {baseline.alert_last_error}
                   </p>
                 )}
+                {thread.error ? (
+                  <p className="text-sm text-muted-foreground">
+                    Recipient results are unavailable.
+                  </p>
+                ) : thread.isPending ? (
+                  <p className="text-sm">Loading recipient results…</p>
+                ) : (
+                  !thread.data?.deliveries.length && (
+                    <p className="text-sm text-muted-foreground">
+                      No recipient delivery results recorded yet.
+                    </p>
+                  )
+                )}
                 {thread.data?.deliveries.map((d) => (
-                  <p key={d.id} className="text-xs">
+                  <p
+                    key={d.id}
+                    className="rounded-lg border bg-background p-3 text-sm"
+                  >
                     Attempt {d.attempt} ·{" "}
                     {reveal ? d.recipient : maskedEmail(d.recipient)} ·{" "}
                     {d.status}
@@ -446,74 +527,99 @@ export function InquiryDetailPanel({
               </section>
             </AdminSectionScreen>
             <AdminSectionScreen id="history">
-              <section className="space-y-2">
+              <section className="request-detail-card space-y-4 rounded-xl border bg-card p-5">
                 <h2 className="font-bold">History</h2>
-                {thread.data?.events.map((event) => (
-                  <p key={event.id} className="border-b py-2 text-sm">
-                    {formatLeadReceived(event.created_at)} ·{" "}
-                    {actor(event.actor_id)} ·{" "}
-                    {event.event_type.replace(/_/g, " ")}
-                    {event.from_value || event.to_value
-                      ? `: ${event.from_value || "—"} → ${event.to_value || "—"}`
-                      : ""}
+                {thread.error ? (
+                  <p className="text-sm text-muted-foreground">
+                    History is unavailable. Retry details to load it.
                   </p>
-                ))}
+                ) : thread.isPending ? (
+                  <p className="text-sm">Loading history…</p>
+                ) : !thread.data?.events.length ? (
+                  <p className="text-sm text-muted-foreground">
+                    No history recorded yet.
+                  </p>
+                ) : (
+                  <ol className="space-y-4">
+                    {thread.data.events.map((event) => (
+                      <li
+                        key={event.id}
+                        className="relative border-l-2 border-primary/20 pl-4"
+                      >
+                        <span
+                          className="absolute -left-[5px] top-1 h-2 w-2 rounded-full bg-primary"
+                          aria-hidden="true"
+                        />
+                        <p className="text-sm font-medium capitalize">
+                          {event.event_type.replace(/_/g, " ")}
+                        </p>
+                        <p className="mt-1 text-xs text-muted-foreground">
+                          {formatLeadReceived(event.created_at)} ·{" "}
+                          {actor(event.actor_id)}
+                        </p>
+                        {(event.from_value || event.to_value) && (
+                          <p className="mt-2 break-words text-sm">
+                            {event.from_value || "—"} → {event.to_value || "—"}
+                          </p>
+                        )}
+                      </li>
+                    ))}
+                  </ol>
+                )}
               </section>
             </AdminSectionScreen>
           </AdminSectionWorkspace>
         </div>
-        <ConfirmDialog
-          open={!!confirm}
-          onOpenChange={(open) => {
-            if (!open) setConfirm(null);
-          }}
-          title={
-            confirm === "close"
-              ? "Discard unsaved lead edits?"
-              : confirm === "all"
-                ? "Send alerts to every active recipient?"
-                : confirm === "reload"
-                  ? "Reload and discard local workflow edits?"
-                  : `${confirm === "restore" ? "Restore" : "Archive"} this lead?`
+      </RequestDetailShell>
+      <ConfirmDialog
+        open={!!confirm}
+        onOpenChange={(open) => {
+          if (!open) setConfirm(null);
+        }}
+        title={
+          confirm === "close"
+            ? "Discard unsaved lead edits?"
+            : confirm === "all"
+              ? "Send alerts to every active recipient?"
+              : confirm === "reload"
+                ? "Reload and discard local workflow edits?"
+                : `${confirm === "restore" ? "Restore" : "Archive"} this lead?`
+        }
+        description={
+          confirm === "close"
+            ? "Your workflow edits and unsent note will be discarded. The saved lead remains unchanged."
+            : confirm === "all"
+              ? "Recipients who already received an alert will get another one."
+              : confirm === "reload"
+                ? "Saved data replaces your current workflow fields. Your unsent note stays here."
+                : "The lead and its history are retained."
+        }
+        onConfirm={() => {
+          const action = confirm;
+          if (action === "close") {
+            onClose();
+            return;
           }
-          description={
-            confirm === "close"
-              ? "Your workflow edits and unsent note will be discarded. The saved lead remains unchanged."
-              : confirm === "all"
-                ? "Recipients who already received an alert will get another one."
-                : confirm === "reload"
-                  ? "Saved data replaces your current workflow fields. Your unsent note stays here."
-                  : "The lead and its history are retained."
-          }
-          onConfirm={() => {
-            const action = confirm;
-            if (action === "close") {
-              onClose();
-              return;
-            }
-            void act(async () => {
-              if (action === "all") {
-                await resendInquiryAlert(inquiry.id, true);
-                setBaseline(await loadInquiryDetail(inquiry.id));
-              } else if (action === "reload") {
-                const fresh = await loadInquiryDetail(inquiry.id);
-                setBaseline(fresh);
-                setForm({
-                  status: fresh.status,
-                  priority: fresh.priority,
-                  assigned_to: fresh.assigned_to || "",
-                  due: toTorontoInput(fresh.bid_due_at),
-                  amount:
-                    fresh.bid_amount === null ? "" : String(fresh.bid_amount),
-                });
-              } else
-                setBaseline(
-                  await archiveInquiry(baseline, action === "archive"),
-                );
-            }, "Lead action completed");
-          }}
-        />
-      </SheetContent>
-    </Sheet>
+          void act(async () => {
+            if (action === "all") {
+              await resendInquiryAlert(inquiry.id, true);
+              setBaseline(await loadInquiryDetail(inquiry.id));
+            } else if (action === "reload") {
+              const fresh = await loadInquiryDetail(inquiry.id);
+              setBaseline(fresh);
+              setForm({
+                status: fresh.status,
+                priority: fresh.priority,
+                assigned_to: fresh.assigned_to || "",
+                due: toTorontoInput(fresh.bid_due_at),
+                amount:
+                  fresh.bid_amount === null ? "" : String(fresh.bid_amount),
+              });
+            } else
+              setBaseline(await archiveInquiry(baseline, action === "archive"));
+          }, "Lead action completed");
+        }}
+      />
+    </>
   );
 }
