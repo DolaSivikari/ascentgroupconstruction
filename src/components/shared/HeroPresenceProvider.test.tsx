@@ -38,7 +38,8 @@ const Harness = ({ initial = "/services/example" }: { initial?: string }) => (
           <Route path="/terms" element={<p>Terms of service</p>} />
           <Route path="/accessibility" element={<p>Accessibility policy</p>} />
           <Route path="/resources/new-plain" element={<p>Plain resource</p>} />
-          <Route path="/loading" element={<LoadingPage />} />
+          {/* React Router 7 navigates inside a transition, so a route-level boundary shows the fallback. */}
+          <Route path="/loading" element={<Suspense fallback={<p>Loading page</p>}><LoadingPage /></Suspense>} />
           <Route path="/later" element={<LaterHero />} />
           <Route path="/projects" element={<PremiumProjectHero featuredProjects={[]} />} />
           <Route path="/" element={<main><HeroSurface><section>Custom home hero</section></HeroSurface></main>} />
