@@ -60,25 +60,30 @@ function Controls() {
     <button onClick={() => navigate("/service-areas/ajax")}>Change city</button>
   );
 }
-function mount() {
-  return render(
+function view() {
+  return (
     <MemoryRouter initialEntries={["/service-areas/toronto"]}>
       <Controls />
       <Routes>
         <Route path="/service-areas/:city" element={<LocationPage />} />
       </Routes>
-    </MemoryRouter>,
+    </MemoryRouter>
   );
+}
+function mount() {
+  return render(view());
 }
 beforeEach(() => vi.clearAllMocks());
 afterEach(cleanup);
-it("loads projects once instead of refetching when the result updates state", async () => {
+it("loads projects once instead of refetching after state updates or rerenders", async () => {
   mock.read.mockResolvedValue({
     data: [project("Toronto project")],
     error: null,
   });
-  mount();
+  const { rerender } = mount();
   await screen.findByRole("link", { name: /Toronto project/ });
+  expect(mock.read.mock.calls).toEqual([["%Toronto%"]]);
+  rerender(view());
   expect(mock.read.mock.calls).toEqual([["%Toronto%"]]);
 });
 it("clears the previous city's projects while loading the next city", async () => {

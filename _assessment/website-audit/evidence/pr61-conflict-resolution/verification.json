@@ -1,0 +1,32 @@
+{
+  "baseCommit": "e743d6a765b986c0b99ebfa051e6d4da7a650528",
+  "previousBranchCommit": "de806216c10830a6617caaeb59bb6b56d078b146",
+  "fullVitest": {
+    "tests": 631,
+    "files": 96,
+    "status": "passed"
+  },
+  "focusedTests": {
+    "tests": 45,
+    "files": 4,
+    "status": "passed"
+  },
+  "typeChecks": [
+    "full-app passed",
+    "selected-strict passed"
+  ],
+  "productionBuild": "passed",
+  "serviceWorker": "passed",
+  "routeAudit": "passed",
+  "localSmoke": "passed",
+  "lint": {
+    "errors": 210,
+    "warnings": 29,
+    "changedFilesErrors": 0,
+    "changedFilesWarnings": 0
+  },
+  "routingBrowserChecks": 7,
+  "liveWrites": 0,
+  "dependencyFilesChanged": false,
+  "hostingChanges": false
+}

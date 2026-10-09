@@ -1,0 +1,67 @@
+{
+  "status": "passed",
+  "scope": "Local production build and synthetic fixtures; no external writes.",
+  "results": [
+    {
+      "width": 1440,
+      "check": "legacy-eifs",
+      "url": "http://127.0.0.1:4189/services/eifs-stucco-systems?utm_source=linkedin&tag=a&tag=b#scope",
+      "canonical": "https://www.ascentgroupconstruction.com/services/eifs-stucco-systems",
+      "httpStatus": 200,
+      "note": "Client navigation; does not prove HTTP 301."
+    },
+    {
+      "width": 1440,
+      "check": "missing-page",
+      "httpStatus": 200,
+      "noindex": true,
+      "backDestination": "/",
+      "errors": [],
+      "note": "HTTP 200 remains the hosting soft-404 issue."
+    },
+    {
+      "width": 390,
+      "check": "legacy-eifs",
+      "url": "http://127.0.0.1:4189/services/eifs-stucco-systems?utm_source=linkedin&tag=a&tag=b#scope",
+      "canonical": "https://www.ascentgroupconstruction.com/services/eifs-stucco-systems",
+      "httpStatus": 200,
+      "note": "Client navigation; does not prove HTTP 301."
+    },
+    {
+      "width": 390,
+      "check": "missing-page",
+      "httpStatus": 200,
+      "noindex": true,
+      "backDestination": "/",
+      "errors": [],
+      "note": "HTTP 200 remains the hosting soft-404 issue."
+    },
+    {
+      "check": "initial-html",
+      "path": "/",
+      "httpStatus": 200,
+      "fallbackHeadline": "We Restore, Repair & Protect Buildings Across the GTA",
+      "legacyGeoTags": false,
+      "frozenCopyrightYear": false,
+      "note": "Shared initial shell remains; no SSR claim."
+    },
+    {
+      "check": "initial-html",
+      "path": "/services/eifs-stucco-systems",
+      "httpStatus": 200,
+      "fallbackHeadline": "We Restore, Repair & Protect Buildings Across the GTA",
+      "legacyGeoTags": false,
+      "frozenCopyrightYear": false,
+      "note": "Shared initial shell remains; no SSR claim."
+    },
+    {
+      "check": "initial-html",
+      "path": "/this-page-does-not-exist-audit-review",
+      "httpStatus": 200,
+      "fallbackHeadline": "We Restore, Repair & Protect Buildings Across the GTA",
+      "legacyGeoTags": false,
+      "frozenCopyrightYear": false,
+      "note": "Shared initial shell remains; no SSR claim."
+    }
+  ]
+}

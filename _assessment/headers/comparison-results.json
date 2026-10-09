@@ -1,0 +1,1706 @@
+{
+  "status": "passed",
+  "urls": 85,
+  "captures": 170,
+  "identical": 62,
+  "declared": 108,
+  "failed": 0,
+  "results": [
+    {
+      "path": "/",
+      "width": 390,
+      "pixelDifferencePercent": 0,
+      "differences": [],
+      "unexpected": [],
+      "declaredReason": null
+    },
+    {
+      "path": "/",
+      "width": 1440,
+      "pixelDifferencePercent": 0.00048611111111111115,
+      "differences": [],
+      "unexpected": [],
+      "declaredReason": null
+    },
+    {
+      "path": "/about",
+      "width": 390,
+      "pixelDifferencePercent": 84.49589743589743,
+      "differences": [
+        "visibleText",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved restrained hero refresh: use documented city/portfolio imagery and topic-specific article fallbacks, apply cropping to the image itself, show source credits, and recover failed saved images. Keep existing page copy, navigation, header dimensions, homepage video, project heroes and credential wording. City project reads now depend on the city name to prevent repeated requests."
+    },
+    {
+      "path": "/about",
+      "width": 1440,
+      "pixelDifferencePercent": 75.96715277777778,
+      "differences": [
+        "visibleText",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved restrained hero refresh: use documented city/portfolio imagery and topic-specific article fallbacks, apply cropping to the image itself, show source credits, and recover failed saved images. Keep existing page copy, navigation, header dimensions, homepage video, project heroes and credential wording. City project reads now depend on the city name to prevent repeated requests."
+    },
+    {
+      "path": "/accessibility",
+      "width": 390,
+      "pixelDifferencePercent": 0,
+      "differences": [],
+      "unexpected": [],
+      "declaredReason": null
+    },
+    {
+      "path": "/accessibility",
+      "width": 1440,
+      "pixelDifferencePercent": 0,
+      "differences": [],
+      "unexpected": [],
+      "declaredReason": null
+    },
+    {
+      "path": "/blog",
+      "width": 390,
+      "pixelDifferencePercent": 49.05128205128205,
+      "differences": [
+        "visibleText",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved restrained hero refresh: use documented city/portfolio imagery and topic-specific article fallbacks, apply cropping to the image itself, show source credits, and recover failed saved images. Keep existing page copy, navigation, header dimensions, homepage video, project heroes and credential wording. City project reads now depend on the city name to prevent repeated requests."
+    },
+    {
+      "path": "/blog",
+      "width": 1440,
+      "pixelDifferencePercent": 42.57555555555555,
+      "differences": [
+        "visibleText",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved restrained hero refresh: use documented city/portfolio imagery and topic-specific article fallbacks, apply cropping to the image itself, show source credits, and recover failed saved images. Keep existing page copy, navigation, header dimensions, homepage video, project heroes and credential wording. City project reads now depend on the city name to prevent repeated requests."
+    },
+    {
+      "path": "/blog/early-signs-your-building-envelope-needs-attention",
+      "width": 390,
+      "pixelDifferencePercent": 41.51282051282051,
+      "differences": [
+        "visibleText",
+        "jsonLdHash",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved restrained hero refresh: use documented city/portfolio imagery and topic-specific article fallbacks, apply cropping to the image itself, show source credits, and recover failed saved images. Keep existing page copy, navigation, header dimensions, homepage video, project heroes and credential wording. City project reads now depend on the city name to prevent repeated requests."
+    },
+    {
+      "path": "/blog/early-signs-your-building-envelope-needs-attention",
+      "width": 1440,
+      "pixelDifferencePercent": 44.63840277777778,
+      "differences": [
+        "visibleText",
+        "jsonLdHash",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved restrained hero refresh: use documented city/portfolio imagery and topic-specific article fallbacks, apply cropping to the image itself, show source credits, and recover failed saved images. Keep existing page copy, navigation, header dimensions, homepage video, project heroes and credential wording. City project reads now depend on the city name to prevent repeated requests."
+    },
+    {
+      "path": "/blog/eifs-vs-stucco-what-building-owners-need-to-know",
+      "width": 390,
+      "pixelDifferencePercent": 45.22333333333333,
+      "differences": [
+        "visibleText",
+        "jsonLdHash",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved restrained hero refresh: use documented city/portfolio imagery and topic-specific article fallbacks, apply cropping to the image itself, show source credits, and recover failed saved images. Keep existing page copy, navigation, header dimensions, homepage video, project heroes and credential wording. City project reads now depend on the city name to prevent repeated requests."
+    },
+    {
+      "path": "/blog/eifs-vs-stucco-what-building-owners-need-to-know",
+      "width": 1440,
+      "pixelDifferencePercent": 44.63715277777778,
+      "differences": [
+        "visibleText",
+        "jsonLdHash",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved restrained hero refresh: use documented city/portfolio imagery and topic-specific article fallbacks, apply cropping to the image itself, show source credits, and recover failed saved images. Keep existing page copy, navigation, header dimensions, homepage video, project heroes and credential wording. City project reads now depend on the city name to prevent repeated requests."
+    },
+    {
+      "path": "/blog/how-general-contractors-should-evaluate-specialty-trade-partner",
+      "width": 390,
+      "pixelDifferencePercent": 47.08538461538462,
+      "differences": [
+        "visibleText",
+        "jsonLdHash",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved restrained hero refresh: use documented city/portfolio imagery and topic-specific article fallbacks, apply cropping to the image itself, show source credits, and recover failed saved images. Keep existing page copy, navigation, header dimensions, homepage video, project heroes and credential wording. City project reads now depend on the city name to prevent repeated requests."
+    },
+    {
+      "path": "/blog/how-general-contractors-should-evaluate-specialty-trade-partner",
+      "width": 1440,
+      "pixelDifferencePercent": 44.280208333333334,
+      "differences": [
+        "visibleText",
+        "jsonLdHash",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved restrained hero refresh: use documented city/portfolio imagery and topic-specific article fallbacks, apply cropping to the image itself, show source credits, and recover failed saved images. Keep existing page copy, navigation, header dimensions, homepage video, project heroes and credential wording. City project reads now depend on the city name to prevent repeated requests."
+    },
+    {
+      "path": "/blog/toronto-property-manager-maintenance-guide",
+      "width": 390,
+      "pixelDifferencePercent": 41.63897435897436,
+      "differences": [
+        "visibleText",
+        "jsonLdHash",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved restrained hero refresh: use documented city/portfolio imagery and topic-specific article fallbacks, apply cropping to the image itself, show source credits, and recover failed saved images. Keep existing page copy, navigation, header dimensions, homepage video, project heroes and credential wording. City project reads now depend on the city name to prevent repeated requests."
+    },
+    {
+      "path": "/blog/toronto-property-manager-maintenance-guide",
+      "width": 1440,
+      "pixelDifferencePercent": 44.78347222222222,
+      "differences": [
+        "visibleText",
+        "jsonLdHash",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved restrained hero refresh: use documented city/portfolio imagery and topic-specific article fallbacks, apply cropping to the image itself, show source credits, and recover failed saved images. Keep existing page copy, navigation, header dimensions, homepage video, project heroes and credential wording. City project reads now depend on the city name to prevent repeated requests."
+    },
+    {
+      "path": "/blog/what-property-managers-should-prepare-before-envelope-restoration",
+      "width": 390,
+      "pixelDifferencePercent": 46.91205128205128,
+      "differences": [
+        "visibleText",
+        "jsonLdHash",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved restrained hero refresh: use documented city/portfolio imagery and topic-specific article fallbacks, apply cropping to the image itself, show source credits, and recover failed saved images. Keep existing page copy, navigation, header dimensions, homepage video, project heroes and credential wording. City project reads now depend on the city name to prevent repeated requests."
+    },
+    {
+      "path": "/blog/what-property-managers-should-prepare-before-envelope-restoration",
+      "width": 1440,
+      "pixelDifferencePercent": 50.055486111111115,
+      "differences": [
+        "visibleText",
+        "jsonLdHash",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved restrained hero refresh: use documented city/portfolio imagery and topic-specific article fallbacks, apply cropping to the image itself, show source credits, and recover failed saved images. Keep existing page copy, navigation, header dimensions, homepage video, project heroes and credential wording. City project reads now depend on the city name to prevent repeated requests."
+    },
+    {
+      "path": "/blog/why-self-performed-work-changes-quality-cost-accountability",
+      "width": 390,
+      "pixelDifferencePercent": 47.174615384615386,
+      "differences": [
+        "visibleText",
+        "jsonLdHash",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved restrained hero refresh: use documented city/portfolio imagery and topic-specific article fallbacks, apply cropping to the image itself, show source credits, and recover failed saved images. Keep existing page copy, navigation, header dimensions, homepage video, project heroes and credential wording. City project reads now depend on the city name to prevent repeated requests."
+    },
+    {
+      "path": "/blog/why-self-performed-work-changes-quality-cost-accountability",
+      "width": 1440,
+      "pixelDifferencePercent": 44.37173611111111,
+      "differences": [
+        "visibleText",
+        "jsonLdHash",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved restrained hero refresh: use documented city/portfolio imagery and topic-specific article fallbacks, apply cropping to the image itself, show source credits, and recover failed saved images. Keep existing page copy, navigation, header dimensions, homepage video, project heroes and credential wording. City project reads now depend on the city name to prevent repeated requests."
+    },
+    {
+      "path": "/capabilities",
+      "width": 390,
+      "pixelDifferencePercent": 84.88897435897435,
+      "differences": [
+        "visibleText",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved restrained hero refresh: use documented city/portfolio imagery and topic-specific article fallbacks, apply cropping to the image itself, show source credits, and recover failed saved images. Keep existing page copy, navigation, header dimensions, homepage video, project heroes and credential wording. City project reads now depend on the city name to prevent repeated requests."
+    },
+    {
+      "path": "/capabilities",
+      "width": 1440,
+      "pixelDifferencePercent": 73.39930555555556,
+      "differences": [
+        "visibleText",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved restrained hero refresh: use documented city/portfolio imagery and topic-specific article fallbacks, apply cropping to the image itself, show source credits, and recover failed saved images. Keep existing page copy, navigation, header dimensions, homepage video, project heroes and credential wording. City project reads now depend on the city name to prevent repeated requests."
+    },
+    {
+      "path": "/careers",
+      "width": 390,
+      "pixelDifferencePercent": 46.76153846153846,
+      "differences": [
+        "visibleText",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved restrained hero refresh: use documented city/portfolio imagery and topic-specific article fallbacks, apply cropping to the image itself, show source credits, and recover failed saved images. Keep existing page copy, navigation, header dimensions, homepage video, project heroes and credential wording. City project reads now depend on the city name to prevent repeated requests."
+    },
+    {
+      "path": "/careers",
+      "width": 1440,
+      "pixelDifferencePercent": 53.74972222222222,
+      "differences": [
+        "visibleText",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved restrained hero refresh: use documented city/portfolio imagery and topic-specific article fallbacks, apply cropping to the image itself, show source credits, and recover failed saved images. Keep existing page copy, navigation, header dimensions, homepage video, project heroes and credential wording. City project reads now depend on the city name to prevent repeated requests."
+    },
+    {
+      "path": "/commercial-clients",
+      "width": 390,
+      "pixelDifferencePercent": 64.1548717948718,
+      "differences": [
+        "visibleText",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved restrained hero refresh: use documented city/portfolio imagery and topic-specific article fallbacks, apply cropping to the image itself, show source credits, and recover failed saved images. Keep existing page copy, navigation, header dimensions, homepage video, project heroes and credential wording. City project reads now depend on the city name to prevent repeated requests."
+    },
+    {
+      "path": "/company/certifications-insurance",
+      "width": 390,
+      "pixelDifferencePercent": 48.67589743589743,
+      "differences": [
+        "visibleText",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved restrained hero refresh: use documented city/portfolio imagery and topic-specific article fallbacks, apply cropping to the image itself, show source credits, and recover failed saved images. Keep existing page copy, navigation, header dimensions, homepage video, project heroes and credential wording. City project reads now depend on the city name to prevent repeated requests."
+    },
+    {
+      "path": "/commercial-clients",
+      "width": 1440,
+      "pixelDifferencePercent": 68.65361111111112,
+      "differences": [
+        "visibleText",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved restrained hero refresh: use documented city/portfolio imagery and topic-specific article fallbacks, apply cropping to the image itself, show source credits, and recover failed saved images. Keep existing page copy, navigation, header dimensions, homepage video, project heroes and credential wording. City project reads now depend on the city name to prevent repeated requests."
+    },
+    {
+      "path": "/company/developers",
+      "width": 390,
+      "pixelDifferencePercent": 51.63487179487179,
+      "differences": [
+        "visibleText",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved restrained hero refresh: use documented city/portfolio imagery and topic-specific article fallbacks, apply cropping to the image itself, show source credits, and recover failed saved images. Keep existing page copy, navigation, header dimensions, homepage video, project heroes and credential wording. City project reads now depend on the city name to prevent repeated requests."
+    },
+    {
+      "path": "/company/certifications-insurance",
+      "width": 1440,
+      "pixelDifferencePercent": 45.017986111111114,
+      "differences": [
+        "visibleText",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved restrained hero refresh: use documented city/portfolio imagery and topic-specific article fallbacks, apply cropping to the image itself, show source credits, and recover failed saved images. Keep existing page copy, navigation, header dimensions, homepage video, project heroes and credential wording. City project reads now depend on the city name to prevent repeated requests."
+    },
+    {
+      "path": "/company/technology",
+      "width": 390,
+      "pixelDifferencePercent": 85.3974358974359,
+      "differences": [
+        "visibleText",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved restrained hero refresh: use documented city/portfolio imagery and topic-specific article fallbacks, apply cropping to the image itself, show source credits, and recover failed saved images. Keep existing page copy, navigation, header dimensions, homepage video, project heroes and credential wording. City project reads now depend on the city name to prevent repeated requests."
+    },
+    {
+      "path": "/company/developers",
+      "width": 1440,
+      "pixelDifferencePercent": 53.81645833333333,
+      "differences": [
+        "visibleText",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved restrained hero refresh: use documented city/portfolio imagery and topic-specific article fallbacks, apply cropping to the image itself, show source credits, and recover failed saved images. Keep existing page copy, navigation, header dimensions, homepage video, project heroes and credential wording. City project reads now depend on the city name to prevent repeated requests."
+    },
+    {
+      "path": "/contact",
+      "width": 390,
+      "pixelDifferencePercent": 55.636153846153846,
+      "differences": [
+        "visibleText",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved restrained hero refresh: use documented city/portfolio imagery and topic-specific article fallbacks, apply cropping to the image itself, show source credits, and recover failed saved images. Keep existing page copy, navigation, header dimensions, homepage video, project heroes and credential wording. City project reads now depend on the city name to prevent repeated requests."
+    },
+    {
+      "path": "/company/technology",
+      "width": 1440,
+      "pixelDifferencePercent": 76.27229166666667,
+      "differences": [
+        "visibleText",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved restrained hero refresh: use documented city/portfolio imagery and topic-specific article fallbacks, apply cropping to the image itself, show source credits, and recover failed saved images. Keep existing page copy, navigation, header dimensions, homepage video, project heroes and credential wording. City project reads now depend on the city name to prevent repeated requests."
+    },
+    {
+      "path": "/emergency-repair",
+      "width": 390,
+      "pixelDifferencePercent": 63.830769230769235,
+      "differences": [
+        "visibleText",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved restrained hero refresh: use documented city/portfolio imagery and topic-specific article fallbacks, apply cropping to the image itself, show source credits, and recover failed saved images. Keep existing page copy, navigation, header dimensions, homepage video, project heroes and credential wording. City project reads now depend on the city name to prevent repeated requests."
+    },
+    {
+      "path": "/contact",
+      "width": 1440,
+      "pixelDifferencePercent": 57.15944444444444,
+      "differences": [
+        "visibleText",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved restrained hero refresh: use documented city/portfolio imagery and topic-specific article fallbacks, apply cropping to the image itself, show source credits, and recover failed saved images. Keep existing page copy, navigation, header dimensions, homepage video, project heroes and credential wording. City project reads now depend on the city name to prevent repeated requests."
+    },
+    {
+      "path": "/estimate",
+      "width": 390,
+      "pixelDifferencePercent": 48.91871794871795,
+      "differences": [
+        "visibleText",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved restrained hero refresh: use documented city/portfolio imagery and topic-specific article fallbacks, apply cropping to the image itself, show source credits, and recover failed saved images. Keep existing page copy, navigation, header dimensions, homepage video, project heroes and credential wording. City project reads now depend on the city name to prevent repeated requests."
+    },
+    {
+      "path": "/emergency-repair",
+      "width": 1440,
+      "pixelDifferencePercent": 60.104236111111106,
+      "differences": [
+        "visibleText",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved restrained hero refresh: use documented city/portfolio imagery and topic-specific article fallbacks, apply cropping to the image itself, show source credits, and recover failed saved images. Keep existing page copy, navigation, header dimensions, homepage video, project heroes and credential wording. City project reads now depend on the city name to prevent repeated requests."
+    },
+    {
+      "path": "/faq",
+      "width": 390,
+      "pixelDifferencePercent": 46.625128205128206,
+      "differences": [
+        "visibleText",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved restrained hero refresh: use documented city/portfolio imagery and topic-specific article fallbacks, apply cropping to the image itself, show source credits, and recover failed saved images. Keep existing page copy, navigation, header dimensions, homepage video, project heroes and credential wording. City project reads now depend on the city name to prevent repeated requests."
+    },
+    {
+      "path": "/estimate",
+      "width": 1440,
+      "pixelDifferencePercent": 45.88784722222222,
+      "differences": [
+        "visibleText",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved restrained hero refresh: use documented city/portfolio imagery and topic-specific article fallbacks, apply cropping to the image itself, show source credits, and recover failed saved images. Keep existing page copy, navigation, header dimensions, homepage video, project heroes and credential wording. City project reads now depend on the city name to prevent repeated requests."
+    },
+    {
+      "path": "/for-architects",
+      "width": 390,
+      "pixelDifferencePercent": 71.79820512820513,
+      "differences": [
+        "visibleText",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved restrained hero refresh: use documented city/portfolio imagery and topic-specific article fallbacks, apply cropping to the image itself, show source credits, and recover failed saved images. Keep existing page copy, navigation, header dimensions, homepage video, project heroes and credential wording. City project reads now depend on the city name to prevent repeated requests."
+    },
+    {
+      "path": "/faq",
+      "width": 1440,
+      "pixelDifferencePercent": 47.50965277777778,
+      "differences": [
+        "visibleText",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved restrained hero refresh: use documented city/portfolio imagery and topic-specific article fallbacks, apply cropping to the image itself, show source credits, and recover failed saved images. Keep existing page copy, navigation, header dimensions, homepage video, project heroes and credential wording. City project reads now depend on the city name to prevent repeated requests."
+    },
+    {
+      "path": "/for-general-contractors",
+      "width": 390,
+      "pixelDifferencePercent": 63.93820512820513,
+      "differences": [
+        "visibleText",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved restrained hero refresh: use documented city/portfolio imagery and topic-specific article fallbacks, apply cropping to the image itself, show source credits, and recover failed saved images. Keep existing page copy, navigation, header dimensions, homepage video, project heroes and credential wording. City project reads now depend on the city name to prevent repeated requests."
+    },
+    {
+      "path": "/for-architects",
+      "width": 1440,
+      "pixelDifferencePercent": 68.70854166666666,
+      "differences": [
+        "visibleText",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved restrained hero refresh: use documented city/portfolio imagery and topic-specific article fallbacks, apply cropping to the image itself, show source credits, and recover failed saved images. Keep existing page copy, navigation, header dimensions, homepage video, project heroes and credential wording. City project reads now depend on the city name to prevent repeated requests."
+    },
+    {
+      "path": "/homeowners",
+      "width": 390,
+      "pixelDifferencePercent": 53.044871794871796,
+      "differences": [
+        "visibleText",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved restrained hero refresh: use documented city/portfolio imagery and topic-specific article fallbacks, apply cropping to the image itself, show source credits, and recover failed saved images. Keep existing page copy, navigation, header dimensions, homepage video, project heroes and credential wording. City project reads now depend on the city name to prevent repeated requests."
+    },
+    {
+      "path": "/for-general-contractors",
+      "width": 1440,
+      "pixelDifferencePercent": 67.1457638888889,
+      "differences": [
+        "visibleText",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved restrained hero refresh: use documented city/portfolio imagery and topic-specific article fallbacks, apply cropping to the image itself, show source credits, and recover failed saved images. Keep existing page copy, navigation, header dimensions, homepage video, project heroes and credential wording. City project reads now depend on the city name to prevent repeated requests."
+    },
+    {
+      "path": "/markets",
+      "width": 390,
+      "pixelDifferencePercent": 74.77589743589743,
+      "differences": [
+        "visibleText",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved restrained hero refresh: use documented city/portfolio imagery and topic-specific article fallbacks, apply cropping to the image itself, show source credits, and recover failed saved images. Keep existing page copy, navigation, header dimensions, homepage video, project heroes and credential wording. City project reads now depend on the city name to prevent repeated requests."
+    },
+    {
+      "path": "/homeowners",
+      "width": 1440,
+      "pixelDifferencePercent": 54.64319444444444,
+      "differences": [
+        "visibleText",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved restrained hero refresh: use documented city/portfolio imagery and topic-specific article fallbacks, apply cropping to the image itself, show source credits, and recover failed saved images. Keep existing page copy, navigation, header dimensions, homepage video, project heroes and credential wording. City project reads now depend on the city name to prevent repeated requests."
+    },
+    {
+      "path": "/our-process",
+      "width": 390,
+      "pixelDifferencePercent": 64.30538461538463,
+      "differences": [
+        "visibleText",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved restrained hero refresh: use documented city/portfolio imagery and topic-specific article fallbacks, apply cropping to the image itself, show source credits, and recover failed saved images. Keep existing page copy, navigation, header dimensions, homepage video, project heroes and credential wording. City project reads now depend on the city name to prevent repeated requests."
+    },
+    {
+      "path": "/markets",
+      "width": 1440,
+      "pixelDifferencePercent": 63.67138888888889,
+      "differences": [
+        "visibleText",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved restrained hero refresh: use documented city/portfolio imagery and topic-specific article fallbacks, apply cropping to the image itself, show source credits, and recover failed saved images. Keep existing page copy, navigation, header dimensions, homepage video, project heroes and credential wording. City project reads now depend on the city name to prevent repeated requests."
+    },
+    {
+      "path": "/prequalification",
+      "width": 390,
+      "pixelDifferencePercent": 61.68589743589744,
+      "differences": [
+        "visibleText",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved restrained hero refresh: use documented city/portfolio imagery and topic-specific article fallbacks, apply cropping to the image itself, show source credits, and recover failed saved images. Keep existing page copy, navigation, header dimensions, homepage video, project heroes and credential wording. City project reads now depend on the city name to prevent repeated requests."
+    },
+    {
+      "path": "/privacy",
+      "width": 390,
+      "pixelDifferencePercent": 0,
+      "differences": [],
+      "unexpected": [],
+      "declaredReason": null
+    },
+    {
+      "path": "/our-process",
+      "width": 1440,
+      "pixelDifferencePercent": 60.24194444444444,
+      "differences": [
+        "visibleText",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved restrained hero refresh: use documented city/portfolio imagery and topic-specific article fallbacks, apply cropping to the image itself, show source credits, and recover failed saved images. Keep existing page copy, navigation, header dimensions, homepage video, project heroes and credential wording. City project reads now depend on the city name to prevent repeated requests."
+    },
+    {
+      "path": "/projects",
+      "width": 390,
+      "pixelDifferencePercent": 0,
+      "differences": [],
+      "unexpected": [],
+      "declaredReason": null
+    },
+    {
+      "path": "/prequalification",
+      "width": 1440,
+      "pixelDifferencePercent": 56.96743055555555,
+      "differences": [
+        "visibleText",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved restrained hero refresh: use documented city/portfolio imagery and topic-specific article fallbacks, apply cropping to the image itself, show source credits, and recover failed saved images. Keep existing page copy, navigation, header dimensions, homepage video, project heroes and credential wording. City project reads now depend on the city name to prevent repeated requests."
+    },
+    {
+      "path": "/privacy",
+      "width": 1440,
+      "pixelDifferencePercent": 0,
+      "differences": [],
+      "unexpected": [],
+      "declaredReason": null
+    },
+    {
+      "path": "/projects/65-westmount-avenue",
+      "width": 390,
+      "pixelDifferencePercent": 0,
+      "differences": [],
+      "unexpected": [],
+      "declaredReason": null
+    },
+    {
+      "path": "/projects/67-edgecroft-rd-etobicoke",
+      "width": 390,
+      "pixelDifferencePercent": 0,
+      "differences": [],
+      "unexpected": [],
+      "declaredReason": null
+    },
+    {
+      "path": "/projects",
+      "width": 1440,
+      "pixelDifferencePercent": 0,
+      "differences": [],
+      "unexpected": [],
+      "declaredReason": null
+    },
+    {
+      "path": "/projects/blackhurst-cultural-centre-",
+      "width": 390,
+      "pixelDifferencePercent": 0,
+      "differences": [],
+      "unexpected": [],
+      "declaredReason": null
+    },
+    {
+      "path": "/projects/65-westmount-avenue",
+      "width": 1440,
+      "pixelDifferencePercent": 0,
+      "differences": [],
+      "unexpected": [],
+      "declaredReason": null
+    },
+    {
+      "path": "/projects/caf-luka",
+      "width": 390,
+      "pixelDifferencePercent": 0,
+      "differences": [],
+      "unexpected": [],
+      "declaredReason": null
+    },
+    {
+      "path": "/projects/67-edgecroft-rd-etobicoke",
+      "width": 1440,
+      "pixelDifferencePercent": 0,
+      "differences": [],
+      "unexpected": [],
+      "declaredReason": null
+    },
+    {
+      "path": "/projects/comfort-inn-suites",
+      "width": 390,
+      "pixelDifferencePercent": 0,
+      "differences": [],
+      "unexpected": [],
+      "declaredReason": null
+    },
+    {
+      "path": "/projects/blackhurst-cultural-centre-",
+      "width": 1440,
+      "pixelDifferencePercent": 0,
+      "differences": [],
+      "unexpected": [],
+      "declaredReason": null
+    },
+    {
+      "path": "/projects/dunnville-secondary-school",
+      "width": 390,
+      "pixelDifferencePercent": 0,
+      "differences": [],
+      "unexpected": [],
+      "declaredReason": null
+    },
+    {
+      "path": "/projects/caf-luka",
+      "width": 1440,
+      "pixelDifferencePercent": 0,
+      "differences": [],
+      "unexpected": [],
+      "declaredReason": null
+    },
+    {
+      "path": "/projects/innisfil-catholic-school",
+      "width": 390,
+      "pixelDifferencePercent": 0,
+      "differences": [],
+      "unexpected": [],
+      "declaredReason": null
+    },
+    {
+      "path": "/projects/comfort-inn-suites",
+      "width": 1440,
+      "pixelDifferencePercent": 0,
+      "differences": [],
+      "unexpected": [],
+      "declaredReason": null
+    },
+    {
+      "path": "/projects/kw-habilitation-affordable-housing",
+      "width": 390,
+      "pixelDifferencePercent": 0,
+      "differences": [],
+      "unexpected": [],
+      "declaredReason": null
+    },
+    {
+      "path": "/projects/dunnville-secondary-school",
+      "width": 1440,
+      "pixelDifferencePercent": 0,
+      "differences": [],
+      "unexpected": [],
+      "declaredReason": null
+    },
+    {
+      "path": "/projects/oakley-ridge",
+      "width": 390,
+      "pixelDifferencePercent": 0,
+      "differences": [],
+      "unexpected": [],
+      "declaredReason": null
+    },
+    {
+      "path": "/projects/innisfil-catholic-school",
+      "width": 1440,
+      "pixelDifferencePercent": 0,
+      "differences": [],
+      "unexpected": [],
+      "declaredReason": null
+    },
+    {
+      "path": "/projects/queensland-condos",
+      "width": 390,
+      "pixelDifferencePercent": 0,
+      "differences": [],
+      "unexpected": [],
+      "declaredReason": null
+    },
+    {
+      "path": "/projects/kw-habilitation-affordable-housing",
+      "width": 1440,
+      "pixelDifferencePercent": 0,
+      "differences": [],
+      "unexpected": [],
+      "declaredReason": null
+    },
+    {
+      "path": "/projects/york-region-warehouse",
+      "width": 390,
+      "pixelDifferencePercent": 0,
+      "differences": [],
+      "unexpected": [],
+      "declaredReason": null
+    },
+    {
+      "path": "/projects/oakley-ridge",
+      "width": 1440,
+      "pixelDifferencePercent": 0,
+      "differences": [],
+      "unexpected": [],
+      "declaredReason": null
+    },
+    {
+      "path": "/property-managers",
+      "width": 390,
+      "pixelDifferencePercent": 73.93589743589743,
+      "differences": [
+        "visibleText",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved restrained hero refresh: use documented city/portfolio imagery and topic-specific article fallbacks, apply cropping to the image itself, show source credits, and recover failed saved images. Keep existing page copy, navigation, header dimensions, homepage video, project heroes and credential wording. City project reads now depend on the city name to prevent repeated requests."
+    },
+    {
+      "path": "/projects/queensland-condos",
+      "width": 1440,
+      "pixelDifferencePercent": 0,
+      "differences": [],
+      "unexpected": [],
+      "declaredReason": null
+    },
+    {
+      "path": "/resources/contractor-portal",
+      "width": 390,
+      "pixelDifferencePercent": 0,
+      "differences": [],
+      "unexpected": [],
+      "declaredReason": "Owner-approved restrained hero refresh: use documented city/portfolio imagery and topic-specific article fallbacks, apply cropping to the image itself, show source credits, and recover failed saved images. Keep existing page copy, navigation, header dimensions, homepage video, project heroes and credential wording. City project reads now depend on the city name to prevent repeated requests."
+    },
+    {
+      "path": "/resources/service-areas",
+      "width": 390,
+      "pixelDifferencePercent": 0,
+      "differences": [],
+      "unexpected": [],
+      "declaredReason": "Owner-approved restrained hero refresh: use documented city/portfolio imagery and topic-specific article fallbacks, apply cropping to the image itself, show source credits, and recover failed saved images. Keep existing page copy, navigation, header dimensions, homepage video, project heroes and credential wording. City project reads now depend on the city name to prevent repeated requests."
+    },
+    {
+      "path": "/projects/york-region-warehouse",
+      "width": 1440,
+      "pixelDifferencePercent": 0,
+      "differences": [],
+      "unexpected": [],
+      "declaredReason": null
+    },
+    {
+      "path": "/property-managers",
+      "width": 1440,
+      "pixelDifferencePercent": 68.44326388888888,
+      "differences": [
+        "visibleText",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved restrained hero refresh: use documented city/portfolio imagery and topic-specific article fallbacks, apply cropping to the image itself, show source credits, and recover failed saved images. Keep existing page copy, navigation, header dimensions, homepage video, project heroes and credential wording. City project reads now depend on the city name to prevent repeated requests."
+    },
+    {
+      "path": "/service-areas/ajax",
+      "width": 390,
+      "pixelDifferencePercent": 50.99717948717949,
+      "differences": [
+        "visibleText",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved restrained hero refresh: use documented city/portfolio imagery and topic-specific article fallbacks, apply cropping to the image itself, show source credits, and recover failed saved images. Keep existing page copy, navigation, header dimensions, homepage video, project heroes and credential wording. City project reads now depend on the city name to prevent repeated requests."
+    },
+    {
+      "path": "/resources/contractor-portal",
+      "width": 1440,
+      "pixelDifferencePercent": 0,
+      "differences": [],
+      "unexpected": [],
+      "declaredReason": "Owner-approved restrained hero refresh: use documented city/portfolio imagery and topic-specific article fallbacks, apply cropping to the image itself, show source credits, and recover failed saved images. Keep existing page copy, navigation, header dimensions, homepage video, project heroes and credential wording. City project reads now depend on the city name to prevent repeated requests."
+    },
+    {
+      "path": "/service-areas/aurora",
+      "width": 390,
+      "pixelDifferencePercent": 50.96564102564103,
+      "differences": [
+        "visibleText",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved restrained hero refresh: use documented city/portfolio imagery and topic-specific article fallbacks, apply cropping to the image itself, show source credits, and recover failed saved images. Keep existing page copy, navigation, header dimensions, homepage video, project heroes and credential wording. City project reads now depend on the city name to prevent repeated requests."
+    },
+    {
+      "path": "/resources/service-areas",
+      "width": 1440,
+      "pixelDifferencePercent": 0,
+      "differences": [],
+      "unexpected": [],
+      "declaredReason": "Owner-approved restrained hero refresh: use documented city/portfolio imagery and topic-specific article fallbacks, apply cropping to the image itself, show source credits, and recover failed saved images. Keep existing page copy, navigation, header dimensions, homepage video, project heroes and credential wording. City project reads now depend on the city name to prevent repeated requests."
+    },
+    {
+      "path": "/service-areas/brampton",
+      "width": 390,
+      "pixelDifferencePercent": 50.85153846153846,
+      "differences": [
+        "visibleText",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved restrained hero refresh: use documented city/portfolio imagery and topic-specific article fallbacks, apply cropping to the image itself, show source credits, and recover failed saved images. Keep existing page copy, navigation, header dimensions, homepage video, project heroes and credential wording. City project reads now depend on the city name to prevent repeated requests."
+    },
+    {
+      "path": "/service-areas/ajax",
+      "width": 1440,
+      "pixelDifferencePercent": 50.35208333333333,
+      "differences": [
+        "visibleText",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved restrained hero refresh: use documented city/portfolio imagery and topic-specific article fallbacks, apply cropping to the image itself, show source credits, and recover failed saved images. Keep existing page copy, navigation, header dimensions, homepage video, project heroes and credential wording. City project reads now depend on the city name to prevent repeated requests."
+    },
+    {
+      "path": "/service-areas/burlington",
+      "width": 390,
+      "pixelDifferencePercent": 50.81692307692308,
+      "differences": [
+        "visibleText",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved restrained hero refresh: use documented city/portfolio imagery and topic-specific article fallbacks, apply cropping to the image itself, show source credits, and recover failed saved images. Keep existing page copy, navigation, header dimensions, homepage video, project heroes and credential wording. City project reads now depend on the city name to prevent repeated requests."
+    },
+    {
+      "path": "/service-areas/aurora",
+      "width": 1440,
+      "pixelDifferencePercent": 56.30666666666667,
+      "differences": [
+        "visibleText",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved restrained hero refresh: use documented city/portfolio imagery and topic-specific article fallbacks, apply cropping to the image itself, show source credits, and recover failed saved images. Keep existing page copy, navigation, header dimensions, homepage video, project heroes and credential wording. City project reads now depend on the city name to prevent repeated requests."
+    },
+    {
+      "path": "/service-areas/hamilton",
+      "width": 390,
+      "pixelDifferencePercent": 50.90435897435898,
+      "differences": [
+        "visibleText",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved restrained hero refresh: use documented city/portfolio imagery and topic-specific article fallbacks, apply cropping to the image itself, show source credits, and recover failed saved images. Keep existing page copy, navigation, header dimensions, homepage video, project heroes and credential wording. City project reads now depend on the city name to prevent repeated requests."
+    },
+    {
+      "path": "/service-areas/king-city",
+      "width": 390,
+      "pixelDifferencePercent": 50.94205128205128,
+      "differences": [
+        "visibleText",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved restrained hero refresh: use documented city/portfolio imagery and topic-specific article fallbacks, apply cropping to the image itself, show source credits, and recover failed saved images. Keep existing page copy, navigation, header dimensions, homepage video, project heroes and credential wording. City project reads now depend on the city name to prevent repeated requests."
+    },
+    {
+      "path": "/service-areas/brampton",
+      "width": 1440,
+      "pixelDifferencePercent": 56.200694444444444,
+      "differences": [
+        "visibleText",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved restrained hero refresh: use documented city/portfolio imagery and topic-specific article fallbacks, apply cropping to the image itself, show source credits, and recover failed saved images. Keep existing page copy, navigation, header dimensions, homepage video, project heroes and credential wording. City project reads now depend on the city name to prevent repeated requests."
+    },
+    {
+      "path": "/service-areas/burlington",
+      "width": 1440,
+      "pixelDifferencePercent": 56.16381944444444,
+      "differences": [
+        "visibleText",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved restrained hero refresh: use documented city/portfolio imagery and topic-specific article fallbacks, apply cropping to the image itself, show source credits, and recover failed saved images. Keep existing page copy, navigation, header dimensions, homepage video, project heroes and credential wording. City project reads now depend on the city name to prevent repeated requests."
+    },
+    {
+      "path": "/service-areas/markham",
+      "width": 390,
+      "pixelDifferencePercent": 50.88666666666667,
+      "differences": [
+        "visibleText",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved restrained hero refresh: use documented city/portfolio imagery and topic-specific article fallbacks, apply cropping to the image itself, show source credits, and recover failed saved images. Keep existing page copy, navigation, header dimensions, homepage video, project heroes and credential wording. City project reads now depend on the city name to prevent repeated requests."
+    },
+    {
+      "path": "/service-areas/hamilton",
+      "width": 1440,
+      "pixelDifferencePercent": 56.17444444444445,
+      "differences": [
+        "visibleText",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved restrained hero refresh: use documented city/portfolio imagery and topic-specific article fallbacks, apply cropping to the image itself, show source credits, and recover failed saved images. Keep existing page copy, navigation, header dimensions, homepage video, project heroes and credential wording. City project reads now depend on the city name to prevent repeated requests."
+    },
+    {
+      "path": "/service-areas/milton",
+      "width": 390,
+      "pixelDifferencePercent": 51.00333333333333,
+      "differences": [
+        "visibleText",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved restrained hero refresh: use documented city/portfolio imagery and topic-specific article fallbacks, apply cropping to the image itself, show source credits, and recover failed saved images. Keep existing page copy, navigation, header dimensions, homepage video, project heroes and credential wording. City project reads now depend on the city name to prevent repeated requests."
+    },
+    {
+      "path": "/service-areas/king-city",
+      "width": 1440,
+      "pixelDifferencePercent": 56.212222222222216,
+      "differences": [
+        "visibleText",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved restrained hero refresh: use documented city/portfolio imagery and topic-specific article fallbacks, apply cropping to the image itself, show source credits, and recover failed saved images. Keep existing page copy, navigation, header dimensions, homepage video, project heroes and credential wording. City project reads now depend on the city name to prevent repeated requests."
+    },
+    {
+      "path": "/service-areas/mississauga",
+      "width": 390,
+      "pixelDifferencePercent": 50.74641025641026,
+      "differences": [
+        "visibleText",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved restrained hero refresh: use documented city/portfolio imagery and topic-specific article fallbacks, apply cropping to the image itself, show source credits, and recover failed saved images. Keep existing page copy, navigation, header dimensions, homepage video, project heroes and credential wording. City project reads now depend on the city name to prevent repeated requests."
+    },
+    {
+      "path": "/service-areas/markham",
+      "width": 1440,
+      "pixelDifferencePercent": 56.22888888888888,
+      "differences": [
+        "visibleText",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved restrained hero refresh: use documented city/portfolio imagery and topic-specific article fallbacks, apply cropping to the image itself, show source credits, and recover failed saved images. Keep existing page copy, navigation, header dimensions, homepage video, project heroes and credential wording. City project reads now depend on the city name to prevent repeated requests."
+    },
+    {
+      "path": "/service-areas/newmarket",
+      "width": 390,
+      "pixelDifferencePercent": 50.80282051282051,
+      "differences": [
+        "visibleText",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved restrained hero refresh: use documented city/portfolio imagery and topic-specific article fallbacks, apply cropping to the image itself, show source credits, and recover failed saved images. Keep existing page copy, navigation, header dimensions, homepage video, project heroes and credential wording. City project reads now depend on the city name to prevent repeated requests."
+    },
+    {
+      "path": "/service-areas/oakville",
+      "width": 390,
+      "pixelDifferencePercent": 50.87641025641025,
+      "differences": [
+        "visibleText",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved restrained hero refresh: use documented city/portfolio imagery and topic-specific article fallbacks, apply cropping to the image itself, show source credits, and recover failed saved images. Keep existing page copy, navigation, header dimensions, homepage video, project heroes and credential wording. City project reads now depend on the city name to prevent repeated requests."
+    },
+    {
+      "path": "/service-areas/milton",
+      "width": 1440,
+      "pixelDifferencePercent": 50.29833333333333,
+      "differences": [
+        "visibleText",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved restrained hero refresh: use documented city/portfolio imagery and topic-specific article fallbacks, apply cropping to the image itself, show source credits, and recover failed saved images. Keep existing page copy, navigation, header dimensions, homepage video, project heroes and credential wording. City project reads now depend on the city name to prevent repeated requests."
+    },
+    {
+      "path": "/service-areas/oshawa",
+      "width": 390,
+      "pixelDifferencePercent": 50.89076923076923,
+      "differences": [
+        "visibleText",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved restrained hero refresh: use documented city/portfolio imagery and topic-specific article fallbacks, apply cropping to the image itself, show source credits, and recover failed saved images. Keep existing page copy, navigation, header dimensions, homepage video, project heroes and credential wording. City project reads now depend on the city name to prevent repeated requests."
+    },
+    {
+      "path": "/service-areas/mississauga",
+      "width": 1440,
+      "pixelDifferencePercent": 59.289791666666666,
+      "differences": [
+        "visibleText",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved restrained hero refresh: use documented city/portfolio imagery and topic-specific article fallbacks, apply cropping to the image itself, show source credits, and recover failed saved images. Keep existing page copy, navigation, header dimensions, homepage video, project heroes and credential wording. City project reads now depend on the city name to prevent repeated requests."
+    },
+    {
+      "path": "/service-areas/pickering",
+      "width": 390,
+      "pixelDifferencePercent": 50.88333333333333,
+      "differences": [
+        "visibleText",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved restrained hero refresh: use documented city/portfolio imagery and topic-specific article fallbacks, apply cropping to the image itself, show source credits, and recover failed saved images. Keep existing page copy, navigation, header dimensions, homepage video, project heroes and credential wording. City project reads now depend on the city name to prevent repeated requests."
+    },
+    {
+      "path": "/service-areas/newmarket",
+      "width": 1440,
+      "pixelDifferencePercent": 59.354791666666664,
+      "differences": [
+        "visibleText",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved restrained hero refresh: use documented city/portfolio imagery and topic-specific article fallbacks, apply cropping to the image itself, show source credits, and recover failed saved images. Keep existing page copy, navigation, header dimensions, homepage video, project heroes and credential wording. City project reads now depend on the city name to prevent repeated requests."
+    },
+    {
+      "path": "/service-areas/richmond-hill",
+      "width": 390,
+      "pixelDifferencePercent": 50.734358974358976,
+      "differences": [
+        "visibleText",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved restrained hero refresh: use documented city/portfolio imagery and topic-specific article fallbacks, apply cropping to the image itself, show source credits, and recover failed saved images. Keep existing page copy, navigation, header dimensions, homepage video, project heroes and credential wording. City project reads now depend on the city name to prevent repeated requests."
+    },
+    {
+      "path": "/service-areas/oakville",
+      "width": 1440,
+      "pixelDifferencePercent": 56.238125000000004,
+      "differences": [
+        "visibleText",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved restrained hero refresh: use documented city/portfolio imagery and topic-specific article fallbacks, apply cropping to the image itself, show source credits, and recover failed saved images. Keep existing page copy, navigation, header dimensions, homepage video, project heroes and credential wording. City project reads now depend on the city name to prevent repeated requests."
+    },
+    {
+      "path": "/service-areas/toronto",
+      "width": 390,
+      "pixelDifferencePercent": 50.88128205128205,
+      "differences": [
+        "visibleText",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved restrained hero refresh: use documented city/portfolio imagery and topic-specific article fallbacks, apply cropping to the image itself, show source credits, and recover failed saved images. Keep existing page copy, navigation, header dimensions, homepage video, project heroes and credential wording. City project reads now depend on the city name to prevent repeated requests."
+    },
+    {
+      "path": "/service-areas/oshawa",
+      "width": 1440,
+      "pixelDifferencePercent": 56.25270833333333,
+      "differences": [
+        "visibleText",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved restrained hero refresh: use documented city/portfolio imagery and topic-specific article fallbacks, apply cropping to the image itself, show source credits, and recover failed saved images. Keep existing page copy, navigation, header dimensions, homepage video, project heroes and credential wording. City project reads now depend on the city name to prevent repeated requests."
+    },
+    {
+      "path": "/service-areas/vaughan",
+      "width": 390,
+      "pixelDifferencePercent": 50.819487179487176,
+      "differences": [
+        "visibleText",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved restrained hero refresh: use documented city/portfolio imagery and topic-specific article fallbacks, apply cropping to the image itself, show source credits, and recover failed saved images. Keep existing page copy, navigation, header dimensions, homepage video, project heroes and credential wording. City project reads now depend on the city name to prevent repeated requests."
+    },
+    {
+      "path": "/service-areas/pickering",
+      "width": 1440,
+      "pixelDifferencePercent": 56.230625,
+      "differences": [
+        "visibleText",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved restrained hero refresh: use documented city/portfolio imagery and topic-specific article fallbacks, apply cropping to the image itself, show source credits, and recover failed saved images. Keep existing page copy, navigation, header dimensions, homepage video, project heroes and credential wording. City project reads now depend on the city name to prevent repeated requests."
+    },
+    {
+      "path": "/service-areas/whitby",
+      "width": 390,
+      "pixelDifferencePercent": 50.9051282051282,
+      "differences": [
+        "visibleText",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved restrained hero refresh: use documented city/portfolio imagery and topic-specific article fallbacks, apply cropping to the image itself, show source credits, and recover failed saved images. Keep existing page copy, navigation, header dimensions, homepage video, project heroes and credential wording. City project reads now depend on the city name to prevent repeated requests."
+    },
+    {
+      "path": "/service-areas/richmond-hill",
+      "width": 1440,
+      "pixelDifferencePercent": 59.255277777777785,
+      "differences": [
+        "visibleText",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved restrained hero refresh: use documented city/portfolio imagery and topic-specific article fallbacks, apply cropping to the image itself, show source credits, and recover failed saved images. Keep existing page copy, navigation, header dimensions, homepage video, project heroes and credential wording. City project reads now depend on the city name to prevent repeated requests."
+    },
+    {
+      "path": "/services",
+      "width": 390,
+      "pixelDifferencePercent": 76.81538461538462,
+      "differences": [
+        "visibleText",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved restrained hero refresh: use documented city/portfolio imagery and topic-specific article fallbacks, apply cropping to the image itself, show source credits, and recover failed saved images. Keep existing page copy, navigation, header dimensions, homepage video, project heroes and credential wording. City project reads now depend on the city name to prevent repeated requests."
+    },
+    {
+      "path": "/service-areas/toronto",
+      "width": 1440,
+      "pixelDifferencePercent": 56.28354166666667,
+      "differences": [
+        "visibleText",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved restrained hero refresh: use documented city/portfolio imagery and topic-specific article fallbacks, apply cropping to the image itself, show source credits, and recover failed saved images. Keep existing page copy, navigation, header dimensions, homepage video, project heroes and credential wording. City project reads now depend on the city name to prevent repeated requests."
+    },
+    {
+      "path": "/services/building-envelope-solutions",
+      "width": 390,
+      "pixelDifferencePercent": 56.537948717948716,
+      "differences": [
+        "visibleText",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved restrained hero refresh: use documented city/portfolio imagery and topic-specific article fallbacks, apply cropping to the image itself, show source credits, and recover failed saved images. Keep existing page copy, navigation, header dimensions, homepage video, project heroes and credential wording. City project reads now depend on the city name to prevent repeated requests."
+    },
+    {
+      "path": "/service-areas/vaughan",
+      "width": 1440,
+      "pixelDifferencePercent": 56.213541666666664,
+      "differences": [
+        "visibleText",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved restrained hero refresh: use documented city/portfolio imagery and topic-specific article fallbacks, apply cropping to the image itself, show source credits, and recover failed saved images. Keep existing page copy, navigation, header dimensions, homepage video, project heroes and credential wording. City project reads now depend on the city name to prevent repeated requests."
+    },
+    {
+      "path": "/services/caulking-sealants-toronto",
+      "width": 390,
+      "pixelDifferencePercent": 0,
+      "differences": [],
+      "unexpected": [],
+      "declaredReason": "Owner-approved restrained hero refresh: use documented city/portfolio imagery and topic-specific article fallbacks, apply cropping to the image itself, show source credits, and recover failed saved images. Keep existing page copy, navigation, header dimensions, homepage video, project heroes and credential wording. City project reads now depend on the city name to prevent repeated requests."
+    },
+    {
+      "path": "/service-areas/whitby",
+      "width": 1440,
+      "pixelDifferencePercent": 56.265902777777775,
+      "differences": [
+        "visibleText",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved restrained hero refresh: use documented city/portfolio imagery and topic-specific article fallbacks, apply cropping to the image itself, show source credits, and recover failed saved images. Keep existing page copy, navigation, header dimensions, homepage video, project heroes and credential wording. City project reads now depend on the city name to prevent repeated requests."
+    },
+    {
+      "path": "/services/cladding-systems",
+      "width": 390,
+      "pixelDifferencePercent": 53.03589743589744,
+      "differences": [
+        "visibleText",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved restrained hero refresh: use documented city/portfolio imagery and topic-specific article fallbacks, apply cropping to the image itself, show source credits, and recover failed saved images. Keep existing page copy, navigation, header dimensions, homepage video, project heroes and credential wording. City project reads now depend on the city name to prevent repeated requests."
+    },
+    {
+      "path": "/services",
+      "width": 1440,
+      "pixelDifferencePercent": 70.66208333333334,
+      "differences": [
+        "visibleText",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved restrained hero refresh: use documented city/portfolio imagery and topic-specific article fallbacks, apply cropping to the image itself, show source credits, and recover failed saved images. Keep existing page copy, navigation, header dimensions, homepage video, project heroes and credential wording. City project reads now depend on the city name to prevent repeated requests."
+    },
+    {
+      "path": "/services/commercial-painting-gta",
+      "width": 390,
+      "pixelDifferencePercent": 0,
+      "differences": [],
+      "unexpected": [],
+      "declaredReason": "Owner-approved restrained hero refresh: use documented city/portfolio imagery and topic-specific article fallbacks, apply cropping to the image itself, show source credits, and recover failed saved images. Keep existing page copy, navigation, header dimensions, homepage video, project heroes and credential wording. City project reads now depend on the city name to prevent repeated requests."
+    },
+    {
+      "path": "/services/eifs-stucco-systems",
+      "width": 390,
+      "pixelDifferencePercent": 53.13897435897436,
+      "differences": [
+        "visibleText",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved restrained hero refresh: use documented city/portfolio imagery and topic-specific article fallbacks, apply cropping to the image itself, show source credits, and recover failed saved images. Keep existing page copy, navigation, header dimensions, homepage video, project heroes and credential wording. City project reads now depend on the city name to prevent repeated requests."
+    },
+    {
+      "path": "/services/building-envelope-solutions",
+      "width": 1440,
+      "pixelDifferencePercent": 50.122777777777785,
+      "differences": [
+        "visibleText",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved restrained hero refresh: use documented city/portfolio imagery and topic-specific article fallbacks, apply cropping to the image itself, show source credits, and recover failed saved images. Keep existing page copy, navigation, header dimensions, homepage video, project heroes and credential wording. City project reads now depend on the city name to prevent repeated requests."
+    },
+    {
+      "path": "/services/exterior-painting-toronto",
+      "width": 390,
+      "pixelDifferencePercent": 0,
+      "differences": [],
+      "unexpected": [],
+      "declaredReason": "Owner-approved restrained hero refresh: use documented city/portfolio imagery and topic-specific article fallbacks, apply cropping to the image itself, show source credits, and recover failed saved images. Keep existing page copy, navigation, header dimensions, homepage video, project heroes and credential wording. City project reads now depend on the city name to prevent repeated requests."
+    },
+    {
+      "path": "/services/caulking-sealants-toronto",
+      "width": 1440,
+      "pixelDifferencePercent": 0,
+      "differences": [],
+      "unexpected": [],
+      "declaredReason": "Owner-approved restrained hero refresh: use documented city/portfolio imagery and topic-specific article fallbacks, apply cropping to the image itself, show source credits, and recover failed saved images. Keep existing page copy, navigation, header dimensions, homepage video, project heroes and credential wording. City project reads now depend on the city name to prevent repeated requests."
+    },
+    {
+      "path": "/services/facade-remediation",
+      "width": 390,
+      "pixelDifferencePercent": 52.89589743589743,
+      "differences": [
+        "visibleText",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved restrained hero refresh: use documented city/portfolio imagery and topic-specific article fallbacks, apply cropping to the image itself, show source credits, and recover failed saved images. Keep existing page copy, navigation, header dimensions, homepage video, project heroes and credential wording. City project reads now depend on the city name to prevent repeated requests."
+    },
+    {
+      "path": "/services/cladding-systems",
+      "width": 1440,
+      "pixelDifferencePercent": 50.45388888888888,
+      "differences": [
+        "visibleText",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved restrained hero refresh: use documented city/portfolio imagery and topic-specific article fallbacks, apply cropping to the image itself, show source credits, and recover failed saved images. Keep existing page copy, navigation, header dimensions, homepage video, project heroes and credential wording. City project reads now depend on the city name to prevent repeated requests."
+    },
+    {
+      "path": "/services/fire-retardant-coatings-ontario",
+      "width": 390,
+      "pixelDifferencePercent": 0,
+      "differences": [],
+      "unexpected": [],
+      "declaredReason": "Owner-approved restrained hero refresh: use documented city/portfolio imagery and topic-specific article fallbacks, apply cropping to the image itself, show source credits, and recover failed saved images. Keep existing page copy, navigation, header dimensions, homepage video, project heroes and credential wording. City project reads now depend on the city name to prevent repeated requests."
+    },
+    {
+      "path": "/services/commercial-painting-gta",
+      "width": 1440,
+      "pixelDifferencePercent": 0,
+      "differences": [],
+      "unexpected": [],
+      "declaredReason": "Owner-approved restrained hero refresh: use documented city/portfolio imagery and topic-specific article fallbacks, apply cropping to the image itself, show source credits, and recover failed saved images. Keep existing page copy, navigation, header dimensions, homepage video, project heroes and credential wording. City project reads now depend on the city name to prevent repeated requests."
+    },
+    {
+      "path": "/services/flooring-installation-gta",
+      "width": 390,
+      "pixelDifferencePercent": 0,
+      "differences": [],
+      "unexpected": [],
+      "declaredReason": "Owner-approved restrained hero refresh: use documented city/portfolio imagery and topic-specific article fallbacks, apply cropping to the image itself, show source credits, and recover failed saved images. Keep existing page copy, navigation, header dimensions, homepage video, project heroes and credential wording. City project reads now depend on the city name to prevent repeated requests."
+    },
+    {
+      "path": "/services/eifs-stucco-systems",
+      "width": 1440,
+      "pixelDifferencePercent": 50.57069444444444,
+      "differences": [
+        "visibleText",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved restrained hero refresh: use documented city/portfolio imagery and topic-specific article fallbacks, apply cropping to the image itself, show source credits, and recover failed saved images. Keep existing page copy, navigation, header dimensions, homepage video, project heroes and credential wording. City project reads now depend on the city name to prevent repeated requests."
+    },
+    {
+      "path": "/services/handyman-patching-toronto",
+      "width": 390,
+      "pixelDifferencePercent": 0,
+      "differences": [],
+      "unexpected": [],
+      "declaredReason": "Owner-approved restrained hero refresh: use documented city/portfolio imagery and topic-specific article fallbacks, apply cropping to the image itself, show source credits, and recover failed saved images. Keep existing page copy, navigation, header dimensions, homepage video, project heroes and credential wording. City project reads now depend on the city name to prevent repeated requests."
+    },
+    {
+      "path": "/services/exterior-painting-toronto",
+      "width": 1440,
+      "pixelDifferencePercent": 0,
+      "differences": [],
+      "unexpected": [],
+      "declaredReason": "Owner-approved restrained hero refresh: use documented city/portfolio imagery and topic-specific article fallbacks, apply cropping to the image itself, show source credits, and recover failed saved images. Keep existing page copy, navigation, header dimensions, homepage video, project heroes and credential wording. City project reads now depend on the city name to prevent repeated requests."
+    },
+    {
+      "path": "/services/interior-buildouts-finishing",
+      "width": 390,
+      "pixelDifferencePercent": 45.81794871794872,
+      "differences": [
+        "visibleText",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved restrained hero refresh: use documented city/portfolio imagery and topic-specific article fallbacks, apply cropping to the image itself, show source credits, and recover failed saved images. Keep existing page copy, navigation, header dimensions, homepage video, project heroes and credential wording. City project reads now depend on the city name to prevent repeated requests."
+    },
+    {
+      "path": "/services/facade-remediation",
+      "width": 1440,
+      "pixelDifferencePercent": 50.397708333333334,
+      "differences": [
+        "visibleText",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved restrained hero refresh: use documented city/portfolio imagery and topic-specific article fallbacks, apply cropping to the image itself, show source credits, and recover failed saved images. Keep existing page copy, navigation, header dimensions, homepage video, project heroes and credential wording. City project reads now depend on the city name to prevent repeated requests."
+    },
+    {
+      "path": "/services/interior-finishing-renovations",
+      "width": 390,
+      "pixelDifferencePercent": 45.44871794871795,
+      "differences": [
+        "visibleText",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved restrained hero refresh: use documented city/portfolio imagery and topic-specific article fallbacks, apply cropping to the image itself, show source credits, and recover failed saved images. Keep existing page copy, navigation, header dimensions, homepage video, project heroes and credential wording. City project reads now depend on the city name to prevent repeated requests."
+    },
+    {
+      "path": "/services/fire-retardant-coatings-ontario",
+      "width": 1440,
+      "pixelDifferencePercent": 0,
+      "differences": [],
+      "unexpected": [],
+      "declaredReason": "Owner-approved restrained hero refresh: use documented city/portfolio imagery and topic-specific article fallbacks, apply cropping to the image itself, show source credits, and recover failed saved images. Keep existing page copy, navigation, header dimensions, homepage video, project heroes and credential wording. City project reads now depend on the city name to prevent repeated requests."
+    },
+    {
+      "path": "/services/interior-painting-toronto",
+      "width": 390,
+      "pixelDifferencePercent": 0,
+      "differences": [],
+      "unexpected": [],
+      "declaredReason": "Owner-approved restrained hero refresh: use documented city/portfolio imagery and topic-specific article fallbacks, apply cropping to the image itself, show source credits, and recover failed saved images. Keep existing page copy, navigation, header dimensions, homepage video, project heroes and credential wording. City project reads now depend on the city name to prevent repeated requests."
+    },
+    {
+      "path": "/services/flooring-installation-gta",
+      "width": 1440,
+      "pixelDifferencePercent": 0,
+      "differences": [],
+      "unexpected": [],
+      "declaredReason": "Owner-approved restrained hero refresh: use documented city/portfolio imagery and topic-specific article fallbacks, apply cropping to the image itself, show source credits, and recover failed saved images. Keep existing page copy, navigation, header dimensions, homepage video, project heroes and credential wording. City project reads now depend on the city name to prevent repeated requests."
+    },
+    {
+      "path": "/services/masonry-restoration",
+      "width": 390,
+      "pixelDifferencePercent": 0,
+      "differences": [],
+      "unexpected": [],
+      "declaredReason": "Owner-approved restrained hero refresh: use documented city/portfolio imagery and topic-specific article fallbacks, apply cropping to the image itself, show source credits, and recover failed saved images. Keep existing page copy, navigation, header dimensions, homepage video, project heroes and credential wording. City project reads now depend on the city name to prevent repeated requests."
+    },
+    {
+      "path": "/services/handyman-patching-toronto",
+      "width": 1440,
+      "pixelDifferencePercent": 0,
+      "differences": [],
+      "unexpected": [],
+      "declaredReason": "Owner-approved restrained hero refresh: use documented city/portfolio imagery and topic-specific article fallbacks, apply cropping to the image itself, show source credits, and recover failed saved images. Keep existing page copy, navigation, header dimensions, homepage video, project heroes and credential wording. City project reads now depend on the city name to prevent repeated requests."
+    },
+    {
+      "path": "/services/painting-services",
+      "width": 390,
+      "pixelDifferencePercent": 45.80179487179487,
+      "differences": [
+        "visibleText",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved restrained hero refresh: use documented city/portfolio imagery and topic-specific article fallbacks, apply cropping to the image itself, show source credits, and recover failed saved images. Keep existing page copy, navigation, header dimensions, homepage video, project heroes and credential wording. City project reads now depend on the city name to prevent repeated requests."
+    },
+    {
+      "path": "/services/interior-buildouts-finishing",
+      "width": 1440,
+      "pixelDifferencePercent": 44.01826388888889,
+      "differences": [
+        "visibleText",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved restrained hero refresh: use documented city/portfolio imagery and topic-specific article fallbacks, apply cropping to the image itself, show source credits, and recover failed saved images. Keep existing page copy, navigation, header dimensions, homepage video, project heroes and credential wording. City project reads now depend on the city name to prevent repeated requests."
+    },
+    {
+      "path": "/services/parking-garage-restoration",
+      "width": 390,
+      "pixelDifferencePercent": 0,
+      "differences": [],
+      "unexpected": [],
+      "declaredReason": "Owner-approved restrained hero refresh: use documented city/portfolio imagery and topic-specific article fallbacks, apply cropping to the image itself, show source credits, and recover failed saved images. Keep existing page copy, navigation, header dimensions, homepage video, project heroes and credential wording. City project reads now depend on the city name to prevent repeated requests."
+    },
+    {
+      "path": "/services/interior-finishing-renovations",
+      "width": 1440,
+      "pixelDifferencePercent": 43.60381944444445,
+      "differences": [
+        "visibleText",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved restrained hero refresh: use documented city/portfolio imagery and topic-specific article fallbacks, apply cropping to the image itself, show source credits, and recover failed saved images. Keep existing page copy, navigation, header dimensions, homepage video, project heroes and credential wording. City project reads now depend on the city name to prevent repeated requests."
+    },
+    {
+      "path": "/services/residential-exterior-painting-gta",
+      "width": 390,
+      "pixelDifferencePercent": 0,
+      "differences": [],
+      "unexpected": [],
+      "declaredReason": "Owner-approved restrained hero refresh: use documented city/portfolio imagery and topic-specific article fallbacks, apply cropping to the image itself, show source credits, and recover failed saved images. Keep existing page copy, navigation, header dimensions, homepage video, project heroes and credential wording. City project reads now depend on the city name to prevent repeated requests."
+    },
+    {
+      "path": "/services/interior-painting-toronto",
+      "width": 1440,
+      "pixelDifferencePercent": 0,
+      "differences": [],
+      "unexpected": [],
+      "declaredReason": "Owner-approved restrained hero refresh: use documented city/portfolio imagery and topic-specific article fallbacks, apply cropping to the image itself, show source credits, and recover failed saved images. Keep existing page copy, navigation, header dimensions, homepage video, project heroes and credential wording. City project reads now depend on the city name to prevent repeated requests."
+    },
+    {
+      "path": "/services/sealant-programs",
+      "width": 390,
+      "pixelDifferencePercent": 0,
+      "differences": [],
+      "unexpected": [],
+      "declaredReason": "Owner-approved restrained hero refresh: use documented city/portfolio imagery and topic-specific article fallbacks, apply cropping to the image itself, show source credits, and recover failed saved images. Keep existing page copy, navigation, header dimensions, homepage video, project heroes and credential wording. City project reads now depend on the city name to prevent repeated requests."
+    },
+    {
+      "path": "/services/masonry-restoration",
+      "width": 1440,
+      "pixelDifferencePercent": 0,
+      "differences": [],
+      "unexpected": [],
+      "declaredReason": "Owner-approved restrained hero refresh: use documented city/portfolio imagery and topic-specific article fallbacks, apply cropping to the image itself, show source credits, and recover failed saved images. Keep existing page copy, navigation, header dimensions, homepage video, project heroes and credential wording. City project reads now depend on the city name to prevent repeated requests."
+    },
+    {
+      "path": "/services/sustainable-building",
+      "width": 390,
+      "pixelDifferencePercent": 59.02384615384615,
+      "differences": [
+        "visibleText",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved restrained hero refresh: use documented city/portfolio imagery and topic-specific article fallbacks, apply cropping to the image itself, show source credits, and recover failed saved images. Keep existing page copy, navigation, header dimensions, homepage video, project heroes and credential wording. City project reads now depend on the city name to prevent repeated requests."
+    },
+    {
+      "path": "/services/painting-services",
+      "width": 1440,
+      "pixelDifferencePercent": 44.01451388888889,
+      "differences": [
+        "visibleText",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved restrained hero refresh: use documented city/portfolio imagery and topic-specific article fallbacks, apply cropping to the image itself, show source credits, and recover failed saved images. Keep existing page copy, navigation, header dimensions, homepage video, project heroes and credential wording. City project reads now depend on the city name to prevent repeated requests."
+    },
+    {
+      "path": "/services/tile-flooring",
+      "width": 390,
+      "pixelDifferencePercent": 0,
+      "differences": [],
+      "unexpected": [],
+      "declaredReason": "Owner-approved restrained hero refresh: use documented city/portfolio imagery and topic-specific article fallbacks, apply cropping to the image itself, show source credits, and recover failed saved images. Keep existing page copy, navigation, header dimensions, homepage video, project heroes and credential wording. City project reads now depend on the city name to prevent repeated requests."
+    },
+    {
+      "path": "/services/parking-garage-restoration",
+      "width": 1440,
+      "pixelDifferencePercent": 0,
+      "differences": [],
+      "unexpected": [],
+      "declaredReason": "Owner-approved restrained hero refresh: use documented city/portfolio imagery and topic-specific article fallbacks, apply cropping to the image itself, show source credits, and recover failed saved images. Keep existing page copy, navigation, header dimensions, homepage video, project heroes and credential wording. City project reads now depend on the city name to prevent repeated requests."
+    },
+    {
+      "path": "/services/tile-installation-toronto",
+      "width": 390,
+      "pixelDifferencePercent": 0,
+      "differences": [],
+      "unexpected": [],
+      "declaredReason": "Owner-approved restrained hero refresh: use documented city/portfolio imagery and topic-specific article fallbacks, apply cropping to the image itself, show source credits, and recover failed saved images. Keep existing page copy, navigation, header dimensions, homepage video, project heroes and credential wording. City project reads now depend on the city name to prevent repeated requests."
+    },
+    {
+      "path": "/services/residential-exterior-painting-gta",
+      "width": 1440,
+      "pixelDifferencePercent": 0,
+      "differences": [],
+      "unexpected": [],
+      "declaredReason": "Owner-approved restrained hero refresh: use documented city/portfolio imagery and topic-specific article fallbacks, apply cropping to the image itself, show source credits, and recover failed saved images. Keep existing page copy, navigation, header dimensions, homepage video, project heroes and credential wording. City project reads now depend on the city name to prevent repeated requests."
+    },
+    {
+      "path": "/services/waterproofing-systems",
+      "width": 390,
+      "pixelDifferencePercent": 52.9025641025641,
+      "differences": [
+        "visibleText",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved restrained hero refresh: use documented city/portfolio imagery and topic-specific article fallbacks, apply cropping to the image itself, show source credits, and recover failed saved images. Keep existing page copy, navigation, header dimensions, homepage video, project heroes and credential wording. City project reads now depend on the city name to prevent repeated requests."
+    },
+    {
+      "path": "/submit-rfp",
+      "width": 390,
+      "pixelDifferencePercent": 35.57717948717949,
+      "differences": [
+        "visibleText",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved restrained hero refresh: use documented city/portfolio imagery and topic-specific article fallbacks, apply cropping to the image itself, show source credits, and recover failed saved images. Keep existing page copy, navigation, header dimensions, homepage video, project heroes and credential wording. City project reads now depend on the city name to prevent repeated requests."
+    },
+    {
+      "path": "/services/sealant-programs",
+      "width": 1440,
+      "pixelDifferencePercent": 0,
+      "differences": [],
+      "unexpected": [],
+      "declaredReason": "Owner-approved restrained hero refresh: use documented city/portfolio imagery and topic-specific article fallbacks, apply cropping to the image itself, show source credits, and recover failed saved images. Keep existing page copy, navigation, header dimensions, homepage video, project heroes and credential wording. City project reads now depend on the city name to prevent repeated requests."
+    },
+    {
+      "path": "/terms",
+      "width": 390,
+      "pixelDifferencePercent": 0,
+      "differences": [],
+      "unexpected": [],
+      "declaredReason": null
+    },
+    {
+      "path": "/services/sustainable-building",
+      "width": 1440,
+      "pixelDifferencePercent": 50.282777777777774,
+      "differences": [
+        "visibleText",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved restrained hero refresh: use documented city/portfolio imagery and topic-specific article fallbacks, apply cropping to the image itself, show source credits, and recover failed saved images. Keep existing page copy, navigation, header dimensions, homepage video, project heroes and credential wording. City project reads now depend on the city name to prevent repeated requests."
+    },
+    {
+      "path": "/why-specialty-contractor",
+      "width": 390,
+      "pixelDifferencePercent": 45.845128205128205,
+      "differences": [
+        "visibleText",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved restrained hero refresh: use documented city/portfolio imagery and topic-specific article fallbacks, apply cropping to the image itself, show source credits, and recover failed saved images. Keep existing page copy, navigation, header dimensions, homepage video, project heroes and credential wording. City project reads now depend on the city name to prevent repeated requests."
+    },
+    {
+      "path": "/services/tile-flooring",
+      "width": 1440,
+      "pixelDifferencePercent": 0,
+      "differences": [],
+      "unexpected": [],
+      "declaredReason": "Owner-approved restrained hero refresh: use documented city/portfolio imagery and topic-specific article fallbacks, apply cropping to the image itself, show source credits, and recover failed saved images. Keep existing page copy, navigation, header dimensions, homepage video, project heroes and credential wording. City project reads now depend on the city name to prevent repeated requests."
+    },
+    {
+      "path": "/services/tile-installation-toronto",
+      "width": 1440,
+      "pixelDifferencePercent": 0,
+      "differences": [],
+      "unexpected": [],
+      "declaredReason": "Owner-approved restrained hero refresh: use documented city/portfolio imagery and topic-specific article fallbacks, apply cropping to the image itself, show source credits, and recover failed saved images. Keep existing page copy, navigation, header dimensions, homepage video, project heroes and credential wording. City project reads now depend on the city name to prevent repeated requests."
+    },
+    {
+      "path": "/services/waterproofing-systems",
+      "width": 1440,
+      "pixelDifferencePercent": 50.27951388888889,
+      "differences": [
+        "visibleText",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved restrained hero refresh: use documented city/portfolio imagery and topic-specific article fallbacks, apply cropping to the image itself, show source credits, and recover failed saved images. Keep existing page copy, navigation, header dimensions, homepage video, project heroes and credential wording. City project reads now depend on the city name to prevent repeated requests."
+    },
+    {
+      "path": "/submit-rfp",
+      "width": 1440,
+      "pixelDifferencePercent": 39.571111111111115,
+      "differences": [
+        "visibleText",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved restrained hero refresh: use documented city/portfolio imagery and topic-specific article fallbacks, apply cropping to the image itself, show source credits, and recover failed saved images. Keep existing page copy, navigation, header dimensions, homepage video, project heroes and credential wording. City project reads now depend on the city name to prevent repeated requests."
+    },
+    {
+      "path": "/terms",
+      "width": 1440,
+      "pixelDifferencePercent": 0,
+      "differences": [],
+      "unexpected": [],
+      "declaredReason": null
+    },
+    {
+      "path": "/why-specialty-contractor",
+      "width": 1440,
+      "pixelDifferencePercent": 50.256527777777784,
+      "differences": [
+        "visibleText",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved restrained hero refresh: use documented city/portfolio imagery and topic-specific article fallbacks, apply cropping to the image itself, show source credits, and recover failed saved images. Keep existing page copy, navigation, header dimensions, homepage video, project heroes and credential wording. City project reads now depend on the city name to prevent repeated requests."
+    }
+  ]
+}

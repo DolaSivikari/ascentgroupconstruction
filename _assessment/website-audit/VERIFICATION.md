@@ -1,5 +1,7 @@
 # Verification and coverage
 
+> This document records the original pre-merge verification against `49b719f`. For the subsequent update with main `e743d6a` and PR #61 conflict resolution, see [the merge verification](PR61-CONFLICT-RESOLUTION.md).
+
 Baseline: freshly fetched main `49b719f`. Candidate: `seo/audit-verified-fixes`. All application checks use the exact frozen lock graph. Production builds use synthetic public Supabase bindings; all browser backend requests are intercepted with offline fixtures.
 
 | Check | Result |

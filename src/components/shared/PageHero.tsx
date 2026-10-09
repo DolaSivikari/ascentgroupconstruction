@@ -3,7 +3,8 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { ChevronRight, ChevronDown, LucideIcon } from "lucide-react";
 import { Button } from "@/ui/Button";
-import { ProgressiveImage } from "@/components/ui/ProgressiveImage";
+import { PageHeroImage } from "./PageHeroImage";
+import { isUsableHeroImage } from "@/data/hero-images";
 import { cn } from "@/lib/utils";
 import { useHeroRegistration } from "@/hooks/useHeroPresence";
 
@@ -46,6 +47,8 @@ export interface PageHeroProps {
   variant?: HeroVariant;
   height?: HeroHeight;
   image?: string;
+  /** Bundled image retained when a saved image cannot be fetched. */
+  fallbackImage?: string;
   imageAlt?: string;
   imagePosition?: "center" | "top" | "bottom";
   overlay?: HeroOverlay;
@@ -97,12 +100,6 @@ const maxWidthClasses: Record<HeroMaxWidth, string> = {
   full: "max-w-full",
 };
 
-const imagePositionClasses: Record<string, string> = {
-  center: "object-center",
-  top: "object-top",
-  bottom: "object-bottom",
-};
-
 // ============================================================================
 // Component
 // ============================================================================
@@ -139,8 +136,9 @@ export function PageHero({
   variant = "standard",
   height = "medium",
   image,
+  fallbackImage,
   imageAlt = "",
-  imagePosition = "center",
+  imagePosition,
   overlay = "gradient",
 
   // Layout
@@ -164,7 +162,8 @@ export function PageHero({
   const isCentered = variant === "centered" || textAlign === "center";
   const isMinimal = variant === "minimal";
   const pageSettings = usePageSettings();
-  if (pageSettings.hero.url) {
+  const bundledFallback = fallbackImage || image;
+  if (isUsableHeroImage(pageSettings.hero.url)) {
     image = pageSettings.hero.url;
     imageAlt = pageSettings.hero.alt;
   }
@@ -177,7 +176,7 @@ export function PageHero({
       id="main-content"
       aria-label={typeof title === "string" ? title : undefined}
       className={cn(
-        "relative flex items-end overflow-hidden pt-24",
+        "relative flex items-end overflow-hidden bg-[hsl(var(--ink))] pt-24",
         heightClasses[height],
         isMinimal && "bg-[hsl(var(--primary))]",
         className,
@@ -185,17 +184,13 @@ export function PageHero({
     >
       {/* Background Image */}
       {image && !isMinimal && (
-        <div className="absolute inset-0 z-0">
-          <ProgressiveImage
-            src={image}
-            alt={imageAlt}
-            priority
-            className={cn(
-              "w-full h-full object-cover",
-              imagePositionClasses[imagePosition],
-            )}
-          />
-        </div>
+        <PageHeroImage
+          key={image}
+          src={image}
+          alt={imageAlt}
+          fallbackSrc={bundledFallback}
+          position={imagePosition}
+        />
       )}
 
       {/* Overlay */}

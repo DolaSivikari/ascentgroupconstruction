@@ -94,7 +94,7 @@ describe("inventory reflects the public presentation", () => {
     const rows = buildPageHeaders(emptyMetadata());
     for (const [path, image] of [
       ["/contact", mainPageHeroes.contact], ["/careers", mainPageHeroes.careers], ["/blog", mainPageHeroes.blog],
-      ["/company/technology", companyHeroes["our-process"]], ["/for-architects", serviceHeroes["building-envelope-solutions"]],
+      ["/company/technology", companyHeroes.technology], ["/for-architects", audienceHeroes["for-architects"]],
       ["/property-managers", audienceHeroes["property-managers"]], ["/company/developers", audienceHeroes.developers],
       ["/resources/contractor-portal", resourceHeroes["contractor-portal"]],
     ]) expect(rows.find(row => row.path === path)?.image).toBe(image);
@@ -136,12 +136,12 @@ describe("inventory reflects the public presentation", () => {
     const rows = buildPageHeaders(emptyMetadata());
     const groups = sharedImagePaths(rows);
     expect(groups.get(mainPageHeroes.services)?.sort()).toEqual([
-      "/capabilities", "/company/technology", "/our-process", "/services", "/submit-rfp", "/why-specialty-contractor",
+      "/prequalification", "/services",
     ].sort());
     const mapPaths = groups.get(resourceHeroes["service-areas"]);
-    expect(mapPaths).toHaveLength(18);
+    expect(mapPaths).toHaveLength(1);
     expect(mapPaths).toContain("/resources/service-areas");
-    expect(mapPaths).toContain("/service-areas/toronto");
+    expect(mapPaths).not.toContain("/service-areas/toronto");
     expect(groups.has("")).toBe(false);
     expect([...groups.values()].flat()).not.toContain("/privacy");
     expect([...groups.values()].flat()).not.toContain("/projects");
