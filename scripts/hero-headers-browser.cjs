@@ -51,7 +51,7 @@ const articleSlugs = [
   "what-property-managers-should-prepare-before-envelope-restoration",
   "why-self-performed-work-changes-quality-cost-accountability",
 ];
-const paths = [
+let paths = [
   ...main,
   ...SERVICE_REGISTRY.map((s) => s.path),
   ...serviceAreaCities.map(
@@ -62,6 +62,25 @@ const paths = [
 ].sort();
 assert.equal(paths.length, 85);
 assert.equal(new Set(paths).size, 85);
+if (process.env.HERO_QA_PATHS) {
+  const selected = JSON.parse(process.env.HERO_QA_PATHS);
+  assert.ok(Array.isArray(selected) && selected.length > 0);
+  assert.ok(selected.every((value) => paths.includes(value)));
+  paths = paths.filter((value) => selected.includes(value));
+}
+const widths = process.env.HERO_QA_WIDTHS
+  ? JSON.parse(process.env.HERO_QA_WIDTHS)
+  : [1440, 390];
+assert.ok(Array.isArray(widths) && widths.length > 0);
+assert.ok(
+  widths.every(
+    (value) => Number.isInteger(value) && value >= 320 && value <= 1920,
+  ),
+);
+const theme = process.env.HERO_QA_THEME || "light";
+assert.ok(["light", "dark"].includes(theme));
+const fontScale = Number(process.env.HERO_QA_FONT_SCALE || 1);
+assert.ok(fontScale >= 1 && fontScale <= 2);
 const id = (n) => `00000000-0000-4000-8000-${String(n).padStart(12, "0")}`;
 const title = (slug) => slug.replace(/-/g, " ");
 const stamp = "2026-10-01T12:00:00Z";
@@ -138,33 +157,46 @@ const errors = [],
   });
   try {
     await Promise.all(
-      [1440, 390].map(async (width) => {
+      widths.map(async (width) => {
         const context = await browser.createBrowserContext();
         const page = await context.newPage();
         await page.setViewport({ width, height: 1000 });
         await page.emulateMediaFeatures([
           { name: "prefers-reduced-motion", value: "reduce" },
         ]);
-        await page.evaluateOnNewDocument(() => {
-          // Existing public project selections shuffle on mount. Hold their
-          // selection constant so image changes cannot hide behind randomness.
-          Math.random = () => 0.5;
-          localStorage.setItem("cookie-consent", "rejected");
-          sessionStorage.setItem("deployment-check-done", "true");
-          window.WebSocket = class {
-            static CONNECTING = 0;
-            static OPEN = 1;
-            static CLOSING = 2;
-            static CLOSED = 3;
-            readyState = 0;
-            addEventListener() {}
-            removeEventListener() {}
-            send() {}
-            close() {
-              this.readyState = 3;
-            }
-          };
-        });
+        await page.evaluateOnNewDocument(
+          (theme, fontScale) => {
+            // Existing public project selections shuffle on mount. Hold their
+            // selection constant so image changes cannot hide behind randomness.
+            Math.random = () => 0.5;
+            localStorage.setItem("cookie-consent", "rejected");
+            localStorage.setItem("theme", theme);
+            if (fontScale !== 1)
+              document.addEventListener(
+                "DOMContentLoaded",
+                () => {
+                  document.documentElement.style.fontSize = `${16 * fontScale}px`;
+                },
+                { once: true },
+              );
+            sessionStorage.setItem("deployment-check-done", "true");
+            window.WebSocket = class {
+              static CONNECTING = 0;
+              static OPEN = 1;
+              static CLOSING = 2;
+              static CLOSED = 3;
+              readyState = 0;
+              addEventListener() {}
+              removeEventListener() {}
+              send() {}
+              close() {
+                this.readyState = 3;
+              }
+            };
+          },
+          theme,
+          fontScale,
+        );
         const pageErrors = [],
           consoleErrors = [];
         page.on("pageerror", (error) => pageErrors.push(error.message));
@@ -263,6 +295,33 @@ const errors = [],
               );
             });
           }
+          // A shorter header brings deferred sections into view sooner. Load the
+          // same sections in both builds before comparing full-document text/schema.
+          await page.evaluate(async () => {
+            for (
+              let top = 0;
+              top < document.documentElement.scrollHeight;
+              top += innerHeight
+            ) {
+              scrollTo(0, top);
+              await new Promise((resolve) => requestAnimationFrame(resolve));
+            }
+            scrollTo(0, 0);
+          });
+          await page.waitForFunction(
+            () =>
+              !document.body.innerText.includes("Loading...") &&
+              ![...document.querySelectorAll('[role="status"]')].some((node) =>
+                /^Loading\b/.test(node.textContent.trim()),
+              ),
+          );
+          await page.waitForNetworkIdle({ idleTime: 400, timeout: 5000 });
+          await page.evaluate(
+            () =>
+              new Promise((resolve) =>
+                requestAnimationFrame(() => requestAnimationFrame(resolve)),
+              ),
+          );
           await page.evaluate(async () => {
             await document.fonts.ready;
             await Promise.all(
@@ -276,6 +335,55 @@ const errors = [],
           const result = await page.evaluate(() => {
             const hero = document.querySelector("[data-hero-image-state]");
             const image = hero?.querySelector("img");
+            const header = hero?.closest("section");
+            const rect = (node) => {
+              const box = node.getBoundingClientRect();
+              return {
+                top: box.top,
+                bottom: box.bottom,
+                left: box.left,
+                right: box.right,
+                width: box.width,
+                height: box.height,
+              };
+            };
+            const actions = header
+              ? [...header.querySelectorAll("a")].filter(
+                  (node) => getComputedStyle(node).display === "inline-flex",
+                )
+              : [];
+            const support = header?.querySelector("[data-page-hero-support]");
+            const headerLayout = header && {
+              imageSurface: rect(hero.parentElement),
+              section: rect(header),
+              title: rect(header.querySelector("h1")),
+              titleFont: getComputedStyle(header.querySelector("h1")).fontSize,
+              imagePosition: image
+                ? getComputedStyle(image).objectPosition
+                : null,
+              titleColor: getComputedStyle(header.querySelector("h1")).color,
+              actions: actions.map((node) => ({
+                label: node.innerText,
+                href: node.getAttribute("href"),
+                ...rect(node),
+              })),
+              primaryActions: header.querySelectorAll("[data-hero-primary]")
+                .length,
+              support: support ? rect(support) : null,
+              currentBreadcrumbs: header.querySelectorAll(
+                '[aria-current="page"]',
+              ).length,
+              wordCounts: Object.entries(
+                header.innerText
+                  .replace(/\s+/g, " ")
+                  .trim()
+                  .split(" ")
+                  .reduce((counts, word) => {
+                    counts[word] = (counts[word] || 0) + 1;
+                    return counts;
+                  }, {}),
+              ).sort(([a], [b]) => a.localeCompare(b)),
+            };
             return {
               finalPath: location.pathname,
               visibleText: document.body.innerText.replace(/\s+/g, " ").trim(),
@@ -303,6 +411,8 @@ const errors = [],
               overflow: document.documentElement.scrollWidth > innerWidth,
               brokenHero:
                 !!hero && (!image || !image.complete || !image.naturalWidth),
+              headerLayout,
+              refinedHeader: !!header?.hasAttribute("data-page-hero"),
             };
           });
           // A relative canonical resolves against the local preview port.
@@ -323,6 +433,41 @@ const errors = [],
             "Overflow: " + pathname + " at " + width,
           );
           assert.equal(result.brokenHero, false, "Broken hero: " + pathname);
+          if (result.refinedHeader) {
+            const layout = result.headerLayout;
+            for (const action of layout.actions) {
+              assert.ok(
+                action.height >= 44 && action.width >= 44,
+                "Small action target: " + pathname,
+              );
+              assert.ok(
+                action.left >= 0 && action.right <= width,
+                "Clipped action: " + pathname,
+              );
+              assert.ok(
+                action.bottom <= layout.imageSurface.bottom - 20,
+                "Action overlaps image credit: " + pathname,
+              );
+            }
+            assert.ok(
+              layout.primaryActions <= 1,
+              "Competing primary actions: " + pathname,
+            );
+            assert.ok(
+              layout.title.top >= 80,
+              "Title overlaps navigation: " + pathname,
+            );
+            assert.ok(
+              layout.title.top >= layout.imageSurface.top &&
+                layout.title.bottom <= layout.imageSurface.bottom,
+              "Title is outside image surface: " + pathname,
+            );
+            if (width < 768 && layout.support)
+              assert.ok(
+                layout.support.top >= layout.imageSurface.bottom - 1,
+                "Facts still inside mobile image: " + pathname,
+              );
+          }
           assert.equal(
             pageErrors.length,
             0,
@@ -365,6 +510,7 @@ const errors = [],
             heroImage: result.heroImage,
             overflow: result.overflow,
             networkSettled,
+            headerLayout: result.headerLayout,
           });
           console.log(width, pathname, result.heroState || "custom/plain");
         }
@@ -385,7 +531,9 @@ const errors = [],
             "Offline synthetic public content; viewport/header screenshots, not full-page/live replay",
           paths: paths.length,
           captures: snapshots.length,
-          widths: [1440, 390],
+          widths,
+          theme,
+          fontScale,
           errors,
           writes,
           checks,

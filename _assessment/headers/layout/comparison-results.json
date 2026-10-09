@@ -1,0 +1,1702 @@
+{
+  "status": "passed",
+  "urls": 85,
+  "captures": 170,
+  "identical": 32,
+  "declared": 138,
+  "failed": 0,
+  "results": [
+    {
+      "path": "/",
+      "width": 1440,
+      "pixelDifferencePercent": 0,
+      "differences": [],
+      "unexpected": [],
+      "declaredReason": null
+    },
+    {
+      "path": "/",
+      "width": 390,
+      "pixelDifferencePercent": 0,
+      "differences": [],
+      "unexpected": [],
+      "declaredReason": null
+    },
+    {
+      "path": "/about",
+      "width": 1440,
+      "pixelDifferencePercent": 83.75104166666667,
+      "differences": [
+        "visibleText",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved shared page-header refinement: shorten mobile spacing; place supporting facts below the mobile image without duplicating or changing them; unify heading widths, type scale, breadcrumbs and button hierarchy; use restrained directional overlays and subject-specific crops. Technology tool labels move into normal flow. Existing wording, facts, links, images, navigation and metadata are preserved."
+    },
+    {
+      "path": "/about",
+      "width": 390,
+      "pixelDifferencePercent": 93.73102564102564,
+      "differences": [
+        "visibleText",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved shared page-header refinement: shorten mobile spacing; place supporting facts below the mobile image without duplicating or changing them; unify heading widths, type scale, breadcrumbs and button hierarchy; use restrained directional overlays and subject-specific crops. Technology tool labels move into normal flow. Existing wording, facts, links, images, navigation and metadata are preserved."
+    },
+    {
+      "path": "/accessibility",
+      "width": 1440,
+      "pixelDifferencePercent": 0,
+      "differences": [],
+      "unexpected": [],
+      "declaredReason": null
+    },
+    {
+      "path": "/accessibility",
+      "width": 390,
+      "pixelDifferencePercent": 0,
+      "differences": [],
+      "unexpected": [],
+      "declaredReason": null
+    },
+    {
+      "path": "/blog",
+      "width": 390,
+      "pixelDifferencePercent": 58.951025641025645,
+      "differences": [
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved shared page-header refinement: shorten mobile spacing; place supporting facts below the mobile image without duplicating or changing them; unify heading widths, type scale, breadcrumbs and button hierarchy; use restrained directional overlays and subject-specific crops. Technology tool labels move into normal flow. Existing wording, facts, links, images, navigation and metadata are preserved."
+    },
+    {
+      "path": "/blog",
+      "width": 1440,
+      "pixelDifferencePercent": 48.397986111111116,
+      "differences": [
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved shared page-header refinement: shorten mobile spacing; place supporting facts below the mobile image without duplicating or changing them; unify heading widths, type scale, breadcrumbs and button hierarchy; use restrained directional overlays and subject-specific crops. Technology tool labels move into normal flow. Existing wording, facts, links, images, navigation and metadata are preserved."
+    },
+    {
+      "path": "/blog/early-signs-your-building-envelope-needs-attention",
+      "width": 390,
+      "pixelDifferencePercent": 67.80948717948718,
+      "differences": [
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved shared page-header refinement: shorten mobile spacing; place supporting facts below the mobile image without duplicating or changing them; unify heading widths, type scale, breadcrumbs and button hierarchy; use restrained directional overlays and subject-specific crops. Technology tool labels move into normal flow. Existing wording, facts, links, images, navigation and metadata are preserved."
+    },
+    {
+      "path": "/blog/early-signs-your-building-envelope-needs-attention",
+      "width": 1440,
+      "pixelDifferencePercent": 63.49097222222222,
+      "differences": [
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved shared page-header refinement: shorten mobile spacing; place supporting facts below the mobile image without duplicating or changing them; unify heading widths, type scale, breadcrumbs and button hierarchy; use restrained directional overlays and subject-specific crops. Technology tool labels move into normal flow. Existing wording, facts, links, images, navigation and metadata are preserved."
+    },
+    {
+      "path": "/blog/eifs-vs-stucco-what-building-owners-need-to-know",
+      "width": 390,
+      "pixelDifferencePercent": 69.6025641025641,
+      "differences": [
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved shared page-header refinement: shorten mobile spacing; place supporting facts below the mobile image without duplicating or changing them; unify heading widths, type scale, breadcrumbs and button hierarchy; use restrained directional overlays and subject-specific crops. Technology tool labels move into normal flow. Existing wording, facts, links, images, navigation and metadata are preserved."
+    },
+    {
+      "path": "/blog/eifs-vs-stucco-what-building-owners-need-to-know",
+      "width": 1440,
+      "pixelDifferencePercent": 63.53819444444444,
+      "differences": [
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved shared page-header refinement: shorten mobile spacing; place supporting facts below the mobile image without duplicating or changing them; unify heading widths, type scale, breadcrumbs and button hierarchy; use restrained directional overlays and subject-specific crops. Technology tool labels move into normal flow. Existing wording, facts, links, images, navigation and metadata are preserved."
+    },
+    {
+      "path": "/blog/how-general-contractors-should-evaluate-specialty-trade-partner",
+      "width": 390,
+      "pixelDifferencePercent": 70.46589743589745,
+      "differences": [
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved shared page-header refinement: shorten mobile spacing; place supporting facts below the mobile image without duplicating or changing them; unify heading widths, type scale, breadcrumbs and button hierarchy; use restrained directional overlays and subject-specific crops. Technology tool labels move into normal flow. Existing wording, facts, links, images, navigation and metadata are preserved."
+    },
+    {
+      "path": "/blog/how-general-contractors-should-evaluate-specialty-trade-partner",
+      "width": 1440,
+      "pixelDifferencePercent": 63.41361111111111,
+      "differences": [
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved shared page-header refinement: shorten mobile spacing; place supporting facts below the mobile image without duplicating or changing them; unify heading widths, type scale, breadcrumbs and button hierarchy; use restrained directional overlays and subject-specific crops. Technology tool labels move into normal flow. Existing wording, facts, links, images, navigation and metadata are preserved."
+    },
+    {
+      "path": "/blog/toronto-property-manager-maintenance-guide",
+      "width": 390,
+      "pixelDifferencePercent": 67.80923076923077,
+      "differences": [
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved shared page-header refinement: shorten mobile spacing; place supporting facts below the mobile image without duplicating or changing them; unify heading widths, type scale, breadcrumbs and button hierarchy; use restrained directional overlays and subject-specific crops. Technology tool labels move into normal flow. Existing wording, facts, links, images, navigation and metadata are preserved."
+    },
+    {
+      "path": "/blog/toronto-property-manager-maintenance-guide",
+      "width": 1440,
+      "pixelDifferencePercent": 63.551875,
+      "differences": [
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved shared page-header refinement: shorten mobile spacing; place supporting facts below the mobile image without duplicating or changing them; unify heading widths, type scale, breadcrumbs and button hierarchy; use restrained directional overlays and subject-specific crops. Technology tool labels move into normal flow. Existing wording, facts, links, images, navigation and metadata are preserved."
+    },
+    {
+      "path": "/blog/what-property-managers-should-prepare-before-envelope-restoration",
+      "width": 390,
+      "pixelDifferencePercent": 70.48897435897436,
+      "differences": [
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved shared page-header refinement: shorten mobile spacing; place supporting facts below the mobile image without duplicating or changing them; unify heading widths, type scale, breadcrumbs and button hierarchy; use restrained directional overlays and subject-specific crops. Technology tool labels move into normal flow. Existing wording, facts, links, images, navigation and metadata are preserved."
+    },
+    {
+      "path": "/blog/what-property-managers-should-prepare-before-envelope-restoration",
+      "width": 1440,
+      "pixelDifferencePercent": 65.7161111111111,
+      "differences": [
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved shared page-header refinement: shorten mobile spacing; place supporting facts below the mobile image without duplicating or changing them; unify heading widths, type scale, breadcrumbs and button hierarchy; use restrained directional overlays and subject-specific crops. Technology tool labels move into normal flow. Existing wording, facts, links, images, navigation and metadata are preserved."
+    },
+    {
+      "path": "/blog/why-self-performed-work-changes-quality-cost-accountability",
+      "width": 390,
+      "pixelDifferencePercent": 70.50846153846155,
+      "differences": [
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved shared page-header refinement: shorten mobile spacing; place supporting facts below the mobile image without duplicating or changing them; unify heading widths, type scale, breadcrumbs and button hierarchy; use restrained directional overlays and subject-specific crops. Technology tool labels move into normal flow. Existing wording, facts, links, images, navigation and metadata are preserved."
+    },
+    {
+      "path": "/blog/why-self-performed-work-changes-quality-cost-accountability",
+      "width": 1440,
+      "pixelDifferencePercent": 63.47104166666667,
+      "differences": [
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved shared page-header refinement: shorten mobile spacing; place supporting facts below the mobile image without duplicating or changing them; unify heading widths, type scale, breadcrumbs and button hierarchy; use restrained directional overlays and subject-specific crops. Technology tool labels move into normal flow. Existing wording, facts, links, images, navigation and metadata are preserved."
+    },
+    {
+      "path": "/capabilities",
+      "width": 390,
+      "pixelDifferencePercent": 97.85000000000001,
+      "differences": [
+        "visibleText",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved shared page-header refinement: shorten mobile spacing; place supporting facts below the mobile image without duplicating or changing them; unify heading widths, type scale, breadcrumbs and button hierarchy; use restrained directional overlays and subject-specific crops. Technology tool labels move into normal flow. Existing wording, facts, links, images, navigation and metadata are preserved."
+    },
+    {
+      "path": "/capabilities",
+      "width": 1440,
+      "pixelDifferencePercent": 83.09284722222222,
+      "differences": [
+        "visibleText",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved shared page-header refinement: shorten mobile spacing; place supporting facts below the mobile image without duplicating or changing them; unify heading widths, type scale, breadcrumbs and button hierarchy; use restrained directional overlays and subject-specific crops. Technology tool labels move into normal flow. Existing wording, facts, links, images, navigation and metadata are preserved."
+    },
+    {
+      "path": "/careers",
+      "width": 390,
+      "pixelDifferencePercent": 64.02871794871795,
+      "differences": [
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved shared page-header refinement: shorten mobile spacing; place supporting facts below the mobile image without duplicating or changing them; unify heading widths, type scale, breadcrumbs and button hierarchy; use restrained directional overlays and subject-specific crops. Technology tool labels move into normal flow. Existing wording, facts, links, images, navigation and metadata are preserved."
+    },
+    {
+      "path": "/careers",
+      "width": 1440,
+      "pixelDifferencePercent": 64.96416666666667,
+      "differences": [
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved shared page-header refinement: shorten mobile spacing; place supporting facts below the mobile image without duplicating or changing them; unify heading widths, type scale, breadcrumbs and button hierarchy; use restrained directional overlays and subject-specific crops. Technology tool labels move into normal flow. Existing wording, facts, links, images, navigation and metadata are preserved."
+    },
+    {
+      "path": "/commercial-clients",
+      "width": 390,
+      "pixelDifferencePercent": 78.75641025641026,
+      "differences": [
+        "visibleText",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved shared page-header refinement: shorten mobile spacing; place supporting facts below the mobile image without duplicating or changing them; unify heading widths, type scale, breadcrumbs and button hierarchy; use restrained directional overlays and subject-specific crops. Technology tool labels move into normal flow. Existing wording, facts, links, images, navigation and metadata are preserved."
+    },
+    {
+      "path": "/commercial-clients",
+      "width": 1440,
+      "pixelDifferencePercent": 78.39930555555556,
+      "differences": [
+        "visibleText",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved shared page-header refinement: shorten mobile spacing; place supporting facts below the mobile image without duplicating or changing them; unify heading widths, type scale, breadcrumbs and button hierarchy; use restrained directional overlays and subject-specific crops. Technology tool labels move into normal flow. Existing wording, facts, links, images, navigation and metadata are preserved."
+    },
+    {
+      "path": "/company/certifications-insurance",
+      "width": 390,
+      "pixelDifferencePercent": 58.9123076923077,
+      "differences": [
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved shared page-header refinement: shorten mobile spacing; place supporting facts below the mobile image without duplicating or changing them; unify heading widths, type scale, breadcrumbs and button hierarchy; use restrained directional overlays and subject-specific crops. Technology tool labels move into normal flow. Existing wording, facts, links, images, navigation and metadata are preserved."
+    },
+    {
+      "path": "/company/certifications-insurance",
+      "width": 1440,
+      "pixelDifferencePercent": 50.835138888888885,
+      "differences": [
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved shared page-header refinement: shorten mobile spacing; place supporting facts below the mobile image without duplicating or changing them; unify heading widths, type scale, breadcrumbs and button hierarchy; use restrained directional overlays and subject-specific crops. Technology tool labels move into normal flow. Existing wording, facts, links, images, navigation and metadata are preserved."
+    },
+    {
+      "path": "/company/developers",
+      "width": 390,
+      "pixelDifferencePercent": 65.70179487179487,
+      "differences": [
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved shared page-header refinement: shorten mobile spacing; place supporting facts below the mobile image without duplicating or changing them; unify heading widths, type scale, breadcrumbs and button hierarchy; use restrained directional overlays and subject-specific crops. Technology tool labels move into normal flow. Existing wording, facts, links, images, navigation and metadata are preserved."
+    },
+    {
+      "path": "/company/developers",
+      "width": 1440,
+      "pixelDifferencePercent": 64.86333333333333,
+      "differences": [
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved shared page-header refinement: shorten mobile spacing; place supporting facts below the mobile image without duplicating or changing them; unify heading widths, type scale, breadcrumbs and button hierarchy; use restrained directional overlays and subject-specific crops. Technology tool labels move into normal flow. Existing wording, facts, links, images, navigation and metadata are preserved."
+    },
+    {
+      "path": "/company/technology",
+      "width": 390,
+      "pixelDifferencePercent": 93.03051282051283,
+      "differences": [
+        "visibleText",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved shared page-header refinement: shorten mobile spacing; place supporting facts below the mobile image without duplicating or changing them; unify heading widths, type scale, breadcrumbs and button hierarchy; use restrained directional overlays and subject-specific crops. Technology tool labels move into normal flow. Existing wording, facts, links, images, navigation and metadata are preserved."
+    },
+    {
+      "path": "/company/technology",
+      "width": 1440,
+      "pixelDifferencePercent": 81.68840277777778,
+      "differences": [
+        "visibleText",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved shared page-header refinement: shorten mobile spacing; place supporting facts below the mobile image without duplicating or changing them; unify heading widths, type scale, breadcrumbs and button hierarchy; use restrained directional overlays and subject-specific crops. Technology tool labels move into normal flow. Existing wording, facts, links, images, navigation and metadata are preserved."
+    },
+    {
+      "path": "/contact",
+      "width": 390,
+      "pixelDifferencePercent": 82.26179487179486,
+      "differences": [
+        "visibleText",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved shared page-header refinement: shorten mobile spacing; place supporting facts below the mobile image without duplicating or changing them; unify heading widths, type scale, breadcrumbs and button hierarchy; use restrained directional overlays and subject-specific crops. Technology tool labels move into normal flow. Existing wording, facts, links, images, navigation and metadata are preserved."
+    },
+    {
+      "path": "/contact",
+      "width": 1440,
+      "pixelDifferencePercent": 68.77250000000001,
+      "differences": [
+        "visibleText",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved shared page-header refinement: shorten mobile spacing; place supporting facts below the mobile image without duplicating or changing them; unify heading widths, type scale, breadcrumbs and button hierarchy; use restrained directional overlays and subject-specific crops. Technology tool labels move into normal flow. Existing wording, facts, links, images, navigation and metadata are preserved."
+    },
+    {
+      "path": "/emergency-repair",
+      "width": 390,
+      "pixelDifferencePercent": 85.42999999999999,
+      "differences": [
+        "visibleText",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved shared page-header refinement: shorten mobile spacing; place supporting facts below the mobile image without duplicating or changing them; unify heading widths, type scale, breadcrumbs and button hierarchy; use restrained directional overlays and subject-specific crops. Technology tool labels move into normal flow. Existing wording, facts, links, images, navigation and metadata are preserved."
+    },
+    {
+      "path": "/emergency-repair",
+      "width": 1440,
+      "pixelDifferencePercent": 74.89763888888888,
+      "differences": [
+        "visibleText",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved shared page-header refinement: shorten mobile spacing; place supporting facts below the mobile image without duplicating or changing them; unify heading widths, type scale, breadcrumbs and button hierarchy; use restrained directional overlays and subject-specific crops. Technology tool labels move into normal flow. Existing wording, facts, links, images, navigation and metadata are preserved."
+    },
+    {
+      "path": "/estimate",
+      "width": 390,
+      "pixelDifferencePercent": 79.87717948717949,
+      "differences": [
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved shared page-header refinement: shorten mobile spacing; place supporting facts below the mobile image without duplicating or changing them; unify heading widths, type scale, breadcrumbs and button hierarchy; use restrained directional overlays and subject-specific crops. Technology tool labels move into normal flow. Existing wording, facts, links, images, navigation and metadata are preserved."
+    },
+    {
+      "path": "/estimate",
+      "width": 1440,
+      "pixelDifferencePercent": 55.918124999999996,
+      "differences": [
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved shared page-header refinement: shorten mobile spacing; place supporting facts below the mobile image without duplicating or changing them; unify heading widths, type scale, breadcrumbs and button hierarchy; use restrained directional overlays and subject-specific crops. Technology tool labels move into normal flow. Existing wording, facts, links, images, navigation and metadata are preserved."
+    },
+    {
+      "path": "/faq",
+      "width": 390,
+      "pixelDifferencePercent": 68.14948717948718,
+      "differences": [
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved shared page-header refinement: shorten mobile spacing; place supporting facts below the mobile image without duplicating or changing them; unify heading widths, type scale, breadcrumbs and button hierarchy; use restrained directional overlays and subject-specific crops. Technology tool labels move into normal flow. Existing wording, facts, links, images, navigation and metadata are preserved."
+    },
+    {
+      "path": "/faq",
+      "width": 1440,
+      "pixelDifferencePercent": 59.23694444444444,
+      "differences": [
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved shared page-header refinement: shorten mobile spacing; place supporting facts below the mobile image without duplicating or changing them; unify heading widths, type scale, breadcrumbs and button hierarchy; use restrained directional overlays and subject-specific crops. Technology tool labels move into normal flow. Existing wording, facts, links, images, navigation and metadata are preserved."
+    },
+    {
+      "path": "/for-architects",
+      "width": 390,
+      "pixelDifferencePercent": 83.47794871794872,
+      "differences": [
+        "visibleText",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved shared page-header refinement: shorten mobile spacing; place supporting facts below the mobile image without duplicating or changing them; unify heading widths, type scale, breadcrumbs and button hierarchy; use restrained directional overlays and subject-specific crops. Technology tool labels move into normal flow. Existing wording, facts, links, images, navigation and metadata are preserved."
+    },
+    {
+      "path": "/for-architects",
+      "width": 1440,
+      "pixelDifferencePercent": 78.17013888888889,
+      "differences": [
+        "visibleText",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved shared page-header refinement: shorten mobile spacing; place supporting facts below the mobile image without duplicating or changing them; unify heading widths, type scale, breadcrumbs and button hierarchy; use restrained directional overlays and subject-specific crops. Technology tool labels move into normal flow. Existing wording, facts, links, images, navigation and metadata are preserved."
+    },
+    {
+      "path": "/for-general-contractors",
+      "width": 390,
+      "pixelDifferencePercent": 77.42153846153846,
+      "differences": [
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved shared page-header refinement: shorten mobile spacing; place supporting facts below the mobile image without duplicating or changing them; unify heading widths, type scale, breadcrumbs and button hierarchy; use restrained directional overlays and subject-specific crops. Technology tool labels move into normal flow. Existing wording, facts, links, images, navigation and metadata are preserved."
+    },
+    {
+      "path": "/for-general-contractors",
+      "width": 1440,
+      "pixelDifferencePercent": 76.64027777777778,
+      "differences": [
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved shared page-header refinement: shorten mobile spacing; place supporting facts below the mobile image without duplicating or changing them; unify heading widths, type scale, breadcrumbs and button hierarchy; use restrained directional overlays and subject-specific crops. Technology tool labels move into normal flow. Existing wording, facts, links, images, navigation and metadata are preserved."
+    },
+    {
+      "path": "/homeowners",
+      "width": 390,
+      "pixelDifferencePercent": 71.74153846153845,
+      "differences": [
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved shared page-header refinement: shorten mobile spacing; place supporting facts below the mobile image without duplicating or changing them; unify heading widths, type scale, breadcrumbs and button hierarchy; use restrained directional overlays and subject-specific crops. Technology tool labels move into normal flow. Existing wording, facts, links, images, navigation and metadata are preserved."
+    },
+    {
+      "path": "/homeowners",
+      "width": 1440,
+      "pixelDifferencePercent": 66.24125,
+      "differences": [
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved shared page-header refinement: shorten mobile spacing; place supporting facts below the mobile image without duplicating or changing them; unify heading widths, type scale, breadcrumbs and button hierarchy; use restrained directional overlays and subject-specific crops. Technology tool labels move into normal flow. Existing wording, facts, links, images, navigation and metadata are preserved."
+    },
+    {
+      "path": "/markets",
+      "width": 390,
+      "pixelDifferencePercent": 86.16102564102565,
+      "differences": [
+        "visibleText",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved shared page-header refinement: shorten mobile spacing; place supporting facts below the mobile image without duplicating or changing them; unify heading widths, type scale, breadcrumbs and button hierarchy; use restrained directional overlays and subject-specific crops. Technology tool labels move into normal flow. Existing wording, facts, links, images, navigation and metadata are preserved."
+    },
+    {
+      "path": "/markets",
+      "width": 1440,
+      "pixelDifferencePercent": 73.52486111111111,
+      "differences": [
+        "visibleText",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved shared page-header refinement: shorten mobile spacing; place supporting facts below the mobile image without duplicating or changing them; unify heading widths, type scale, breadcrumbs and button hierarchy; use restrained directional overlays and subject-specific crops. Technology tool labels move into normal flow. Existing wording, facts, links, images, navigation and metadata are preserved."
+    },
+    {
+      "path": "/our-process",
+      "width": 390,
+      "pixelDifferencePercent": 90.2948717948718,
+      "differences": [
+        "visibleText",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved shared page-header refinement: shorten mobile spacing; place supporting facts below the mobile image without duplicating or changing them; unify heading widths, type scale, breadcrumbs and button hierarchy; use restrained directional overlays and subject-specific crops. Technology tool labels move into normal flow. Existing wording, facts, links, images, navigation and metadata are preserved."
+    },
+    {
+      "path": "/our-process",
+      "width": 1440,
+      "pixelDifferencePercent": 75.93041666666667,
+      "differences": [
+        "visibleText",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved shared page-header refinement: shorten mobile spacing; place supporting facts below the mobile image without duplicating or changing them; unify heading widths, type scale, breadcrumbs and button hierarchy; use restrained directional overlays and subject-specific crops. Technology tool labels move into normal flow. Existing wording, facts, links, images, navigation and metadata are preserved."
+    },
+    {
+      "path": "/prequalification",
+      "width": 390,
+      "pixelDifferencePercent": 76.4376923076923,
+      "differences": [
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved shared page-header refinement: shorten mobile spacing; place supporting facts below the mobile image without duplicating or changing them; unify heading widths, type scale, breadcrumbs and button hierarchy; use restrained directional overlays and subject-specific crops. Technology tool labels move into normal flow. Existing wording, facts, links, images, navigation and metadata are preserved."
+    },
+    {
+      "path": "/prequalification",
+      "width": 1440,
+      "pixelDifferencePercent": 74.99145833333334,
+      "differences": [
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved shared page-header refinement: shorten mobile spacing; place supporting facts below the mobile image without duplicating or changing them; unify heading widths, type scale, breadcrumbs and button hierarchy; use restrained directional overlays and subject-specific crops. Technology tool labels move into normal flow. Existing wording, facts, links, images, navigation and metadata are preserved."
+    },
+    {
+      "path": "/privacy",
+      "width": 390,
+      "pixelDifferencePercent": 0,
+      "differences": [],
+      "unexpected": [],
+      "declaredReason": null
+    },
+    {
+      "path": "/privacy",
+      "width": 1440,
+      "pixelDifferencePercent": 0,
+      "differences": [],
+      "unexpected": [],
+      "declaredReason": null
+    },
+    {
+      "path": "/projects",
+      "width": 390,
+      "pixelDifferencePercent": 0,
+      "differences": [],
+      "unexpected": [],
+      "declaredReason": null
+    },
+    {
+      "path": "/projects",
+      "width": 1440,
+      "pixelDifferencePercent": 0,
+      "differences": [],
+      "unexpected": [],
+      "declaredReason": null
+    },
+    {
+      "path": "/projects/65-westmount-avenue",
+      "width": 390,
+      "pixelDifferencePercent": 0,
+      "differences": [],
+      "unexpected": [],
+      "declaredReason": null
+    },
+    {
+      "path": "/projects/65-westmount-avenue",
+      "width": 1440,
+      "pixelDifferencePercent": 0,
+      "differences": [],
+      "unexpected": [],
+      "declaredReason": null
+    },
+    {
+      "path": "/projects/67-edgecroft-rd-etobicoke",
+      "width": 390,
+      "pixelDifferencePercent": 0,
+      "differences": [],
+      "unexpected": [],
+      "declaredReason": null
+    },
+    {
+      "path": "/projects/67-edgecroft-rd-etobicoke",
+      "width": 1440,
+      "pixelDifferencePercent": 0,
+      "differences": [],
+      "unexpected": [],
+      "declaredReason": null
+    },
+    {
+      "path": "/projects/blackhurst-cultural-centre-",
+      "width": 390,
+      "pixelDifferencePercent": 0,
+      "differences": [],
+      "unexpected": [],
+      "declaredReason": null
+    },
+    {
+      "path": "/projects/blackhurst-cultural-centre-",
+      "width": 1440,
+      "pixelDifferencePercent": 0,
+      "differences": [],
+      "unexpected": [],
+      "declaredReason": null
+    },
+    {
+      "path": "/projects/caf-luka",
+      "width": 390,
+      "pixelDifferencePercent": 0,
+      "differences": [],
+      "unexpected": [],
+      "declaredReason": null
+    },
+    {
+      "path": "/projects/caf-luka",
+      "width": 1440,
+      "pixelDifferencePercent": 0,
+      "differences": [],
+      "unexpected": [],
+      "declaredReason": null
+    },
+    {
+      "path": "/projects/comfort-inn-suites",
+      "width": 390,
+      "pixelDifferencePercent": 0,
+      "differences": [],
+      "unexpected": [],
+      "declaredReason": null
+    },
+    {
+      "path": "/projects/comfort-inn-suites",
+      "width": 1440,
+      "pixelDifferencePercent": 0,
+      "differences": [],
+      "unexpected": [],
+      "declaredReason": null
+    },
+    {
+      "path": "/projects/dunnville-secondary-school",
+      "width": 390,
+      "pixelDifferencePercent": 0,
+      "differences": [],
+      "unexpected": [],
+      "declaredReason": null
+    },
+    {
+      "path": "/projects/dunnville-secondary-school",
+      "width": 1440,
+      "pixelDifferencePercent": 0,
+      "differences": [],
+      "unexpected": [],
+      "declaredReason": null
+    },
+    {
+      "path": "/projects/innisfil-catholic-school",
+      "width": 390,
+      "pixelDifferencePercent": 0,
+      "differences": [],
+      "unexpected": [],
+      "declaredReason": null
+    },
+    {
+      "path": "/projects/kw-habilitation-affordable-housing",
+      "width": 390,
+      "pixelDifferencePercent": 0,
+      "differences": [],
+      "unexpected": [],
+      "declaredReason": null
+    },
+    {
+      "path": "/projects/innisfil-catholic-school",
+      "width": 1440,
+      "pixelDifferencePercent": 0,
+      "differences": [],
+      "unexpected": [],
+      "declaredReason": null
+    },
+    {
+      "path": "/projects/oakley-ridge",
+      "width": 390,
+      "pixelDifferencePercent": 0,
+      "differences": [],
+      "unexpected": [],
+      "declaredReason": null
+    },
+    {
+      "path": "/projects/kw-habilitation-affordable-housing",
+      "width": 1440,
+      "pixelDifferencePercent": 0,
+      "differences": [],
+      "unexpected": [],
+      "declaredReason": null
+    },
+    {
+      "path": "/projects/queensland-condos",
+      "width": 390,
+      "pixelDifferencePercent": 0,
+      "differences": [],
+      "unexpected": [],
+      "declaredReason": null
+    },
+    {
+      "path": "/projects/oakley-ridge",
+      "width": 1440,
+      "pixelDifferencePercent": 0,
+      "differences": [],
+      "unexpected": [],
+      "declaredReason": null
+    },
+    {
+      "path": "/projects/york-region-warehouse",
+      "width": 390,
+      "pixelDifferencePercent": 0,
+      "differences": [],
+      "unexpected": [],
+      "declaredReason": null
+    },
+    {
+      "path": "/projects/queensland-condos",
+      "width": 1440,
+      "pixelDifferencePercent": 0,
+      "differences": [],
+      "unexpected": [],
+      "declaredReason": null
+    },
+    {
+      "path": "/property-managers",
+      "width": 390,
+      "pixelDifferencePercent": 84.88307692307693,
+      "differences": [
+        "visibleText",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved shared page-header refinement: shorten mobile spacing; place supporting facts below the mobile image without duplicating or changing them; unify heading widths, type scale, breadcrumbs and button hierarchy; use restrained directional overlays and subject-specific crops. Technology tool labels move into normal flow. Existing wording, facts, links, images, navigation and metadata are preserved."
+    },
+    {
+      "path": "/projects/york-region-warehouse",
+      "width": 1440,
+      "pixelDifferencePercent": 0,
+      "differences": [],
+      "unexpected": [],
+      "declaredReason": null
+    },
+    {
+      "path": "/resources/contractor-portal",
+      "width": 390,
+      "pixelDifferencePercent": 64.51179487179488,
+      "differences": [
+        "visibleText",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved shared page-header refinement: shorten mobile spacing; place supporting facts below the mobile image without duplicating or changing them; unify heading widths, type scale, breadcrumbs and button hierarchy; use restrained directional overlays and subject-specific crops. Technology tool labels move into normal flow. Existing wording, facts, links, images, navigation and metadata are preserved."
+    },
+    {
+      "path": "/property-managers",
+      "width": 1440,
+      "pixelDifferencePercent": 78.27743055555555,
+      "differences": [
+        "visibleText",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved shared page-header refinement: shorten mobile spacing; place supporting facts below the mobile image without duplicating or changing them; unify heading widths, type scale, breadcrumbs and button hierarchy; use restrained directional overlays and subject-specific crops. Technology tool labels move into normal flow. Existing wording, facts, links, images, navigation and metadata are preserved."
+    },
+    {
+      "path": "/resources/service-areas",
+      "width": 390,
+      "pixelDifferencePercent": 83.58358974358976,
+      "differences": [
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved shared page-header refinement: shorten mobile spacing; place supporting facts below the mobile image without duplicating or changing them; unify heading widths, type scale, breadcrumbs and button hierarchy; use restrained directional overlays and subject-specific crops. Technology tool labels move into normal flow. Existing wording, facts, links, images, navigation and metadata are preserved."
+    },
+    {
+      "path": "/resources/contractor-portal",
+      "width": 1440,
+      "pixelDifferencePercent": 56.82479166666666,
+      "differences": [
+        "visibleText",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved shared page-header refinement: shorten mobile spacing; place supporting facts below the mobile image without duplicating or changing them; unify heading widths, type scale, breadcrumbs and button hierarchy; use restrained directional overlays and subject-specific crops. Technology tool labels move into normal flow. Existing wording, facts, links, images, navigation and metadata are preserved."
+    },
+    {
+      "path": "/service-areas/ajax",
+      "width": 390,
+      "pixelDifferencePercent": 59.54666666666667,
+      "differences": [
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved shared page-header refinement: shorten mobile spacing; place supporting facts below the mobile image without duplicating or changing them; unify heading widths, type scale, breadcrumbs and button hierarchy; use restrained directional overlays and subject-specific crops. Technology tool labels move into normal flow. Existing wording, facts, links, images, navigation and metadata are preserved."
+    },
+    {
+      "path": "/resources/service-areas",
+      "width": 1440,
+      "pixelDifferencePercent": 75.94368055555556,
+      "differences": [
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved shared page-header refinement: shorten mobile spacing; place supporting facts below the mobile image without duplicating or changing them; unify heading widths, type scale, breadcrumbs and button hierarchy; use restrained directional overlays and subject-specific crops. Technology tool labels move into normal flow. Existing wording, facts, links, images, navigation and metadata are preserved."
+    },
+    {
+      "path": "/service-areas/aurora",
+      "width": 390,
+      "pixelDifferencePercent": 59.38589743589744,
+      "differences": [
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved shared page-header refinement: shorten mobile spacing; place supporting facts below the mobile image without duplicating or changing them; unify heading widths, type scale, breadcrumbs and button hierarchy; use restrained directional overlays and subject-specific crops. Technology tool labels move into normal flow. Existing wording, facts, links, images, navigation and metadata are preserved."
+    },
+    {
+      "path": "/service-areas/ajax",
+      "width": 1440,
+      "pixelDifferencePercent": 61.57534722222222,
+      "differences": [
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved shared page-header refinement: shorten mobile spacing; place supporting facts below the mobile image without duplicating or changing them; unify heading widths, type scale, breadcrumbs and button hierarchy; use restrained directional overlays and subject-specific crops. Technology tool labels move into normal flow. Existing wording, facts, links, images, navigation and metadata are preserved."
+    },
+    {
+      "path": "/service-areas/brampton",
+      "width": 390,
+      "pixelDifferencePercent": 60.798974358974355,
+      "differences": [
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved shared page-header refinement: shorten mobile spacing; place supporting facts below the mobile image without duplicating or changing them; unify heading widths, type scale, breadcrumbs and button hierarchy; use restrained directional overlays and subject-specific crops. Technology tool labels move into normal flow. Existing wording, facts, links, images, navigation and metadata are preserved."
+    },
+    {
+      "path": "/service-areas/aurora",
+      "width": 1440,
+      "pixelDifferencePercent": 62.650486111111114,
+      "differences": [
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved shared page-header refinement: shorten mobile spacing; place supporting facts below the mobile image without duplicating or changing them; unify heading widths, type scale, breadcrumbs and button hierarchy; use restrained directional overlays and subject-specific crops. Technology tool labels move into normal flow. Existing wording, facts, links, images, navigation and metadata are preserved."
+    },
+    {
+      "path": "/service-areas/burlington",
+      "width": 390,
+      "pixelDifferencePercent": 60.438717948717944,
+      "differences": [
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved shared page-header refinement: shorten mobile spacing; place supporting facts below the mobile image without duplicating or changing them; unify heading widths, type scale, breadcrumbs and button hierarchy; use restrained directional overlays and subject-specific crops. Technology tool labels move into normal flow. Existing wording, facts, links, images, navigation and metadata are preserved."
+    },
+    {
+      "path": "/service-areas/brampton",
+      "width": 1440,
+      "pixelDifferencePercent": 60.2675,
+      "differences": [
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved shared page-header refinement: shorten mobile spacing; place supporting facts below the mobile image without duplicating or changing them; unify heading widths, type scale, breadcrumbs and button hierarchy; use restrained directional overlays and subject-specific crops. Technology tool labels move into normal flow. Existing wording, facts, links, images, navigation and metadata are preserved."
+    },
+    {
+      "path": "/service-areas/hamilton",
+      "width": 390,
+      "pixelDifferencePercent": 60.11358974358975,
+      "differences": [
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved shared page-header refinement: shorten mobile spacing; place supporting facts below the mobile image without duplicating or changing them; unify heading widths, type scale, breadcrumbs and button hierarchy; use restrained directional overlays and subject-specific crops. Technology tool labels move into normal flow. Existing wording, facts, links, images, navigation and metadata are preserved."
+    },
+    {
+      "path": "/service-areas/burlington",
+      "width": 1440,
+      "pixelDifferencePercent": 60.029513888888886,
+      "differences": [
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved shared page-header refinement: shorten mobile spacing; place supporting facts below the mobile image without duplicating or changing them; unify heading widths, type scale, breadcrumbs and button hierarchy; use restrained directional overlays and subject-specific crops. Technology tool labels move into normal flow. Existing wording, facts, links, images, navigation and metadata are preserved."
+    },
+    {
+      "path": "/service-areas/king-city",
+      "width": 390,
+      "pixelDifferencePercent": 60.47205128205129,
+      "differences": [
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved shared page-header refinement: shorten mobile spacing; place supporting facts below the mobile image without duplicating or changing them; unify heading widths, type scale, breadcrumbs and button hierarchy; use restrained directional overlays and subject-specific crops. Technology tool labels move into normal flow. Existing wording, facts, links, images, navigation and metadata are preserved."
+    },
+    {
+      "path": "/service-areas/hamilton",
+      "width": 1440,
+      "pixelDifferencePercent": 59.93618055555555,
+      "differences": [
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved shared page-header refinement: shorten mobile spacing; place supporting facts below the mobile image without duplicating or changing them; unify heading widths, type scale, breadcrumbs and button hierarchy; use restrained directional overlays and subject-specific crops. Technology tool labels move into normal flow. Existing wording, facts, links, images, navigation and metadata are preserved."
+    },
+    {
+      "path": "/service-areas/markham",
+      "width": 390,
+      "pixelDifferencePercent": 60.47846153846154,
+      "differences": [
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved shared page-header refinement: shorten mobile spacing; place supporting facts below the mobile image without duplicating or changing them; unify heading widths, type scale, breadcrumbs and button hierarchy; use restrained directional overlays and subject-specific crops. Technology tool labels move into normal flow. Existing wording, facts, links, images, navigation and metadata are preserved."
+    },
+    {
+      "path": "/service-areas/king-city",
+      "width": 1440,
+      "pixelDifferencePercent": 60.18027777777778,
+      "differences": [
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved shared page-header refinement: shorten mobile spacing; place supporting facts below the mobile image without duplicating or changing them; unify heading widths, type scale, breadcrumbs and button hierarchy; use restrained directional overlays and subject-specific crops. Technology tool labels move into normal flow. Existing wording, facts, links, images, navigation and metadata are preserved."
+    },
+    {
+      "path": "/service-areas/milton",
+      "width": 390,
+      "pixelDifferencePercent": 59.652051282051275,
+      "differences": [
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved shared page-header refinement: shorten mobile spacing; place supporting facts below the mobile image without duplicating or changing them; unify heading widths, type scale, breadcrumbs and button hierarchy; use restrained directional overlays and subject-specific crops. Technology tool labels move into normal flow. Existing wording, facts, links, images, navigation and metadata are preserved."
+    },
+    {
+      "path": "/service-areas/markham",
+      "width": 1440,
+      "pixelDifferencePercent": 60.00652777777778,
+      "differences": [
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved shared page-header refinement: shorten mobile spacing; place supporting facts below the mobile image without duplicating or changing them; unify heading widths, type scale, breadcrumbs and button hierarchy; use restrained directional overlays and subject-specific crops. Technology tool labels move into normal flow. Existing wording, facts, links, images, navigation and metadata are preserved."
+    },
+    {
+      "path": "/service-areas/mississauga",
+      "width": 390,
+      "pixelDifferencePercent": 61.057435897435894,
+      "differences": [
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved shared page-header refinement: shorten mobile spacing; place supporting facts below the mobile image without duplicating or changing them; unify heading widths, type scale, breadcrumbs and button hierarchy; use restrained directional overlays and subject-specific crops. Technology tool labels move into normal flow. Existing wording, facts, links, images, navigation and metadata are preserved."
+    },
+    {
+      "path": "/service-areas/milton",
+      "width": 1440,
+      "pixelDifferencePercent": 53.61055555555555,
+      "differences": [
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved shared page-header refinement: shorten mobile spacing; place supporting facts below the mobile image without duplicating or changing them; unify heading widths, type scale, breadcrumbs and button hierarchy; use restrained directional overlays and subject-specific crops. Technology tool labels move into normal flow. Existing wording, facts, links, images, navigation and metadata are preserved."
+    },
+    {
+      "path": "/service-areas/newmarket",
+      "width": 390,
+      "pixelDifferencePercent": 59.341025641025645,
+      "differences": [
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved shared page-header refinement: shorten mobile spacing; place supporting facts below the mobile image without duplicating or changing them; unify heading widths, type scale, breadcrumbs and button hierarchy; use restrained directional overlays and subject-specific crops. Technology tool labels move into normal flow. Existing wording, facts, links, images, navigation and metadata are preserved."
+    },
+    {
+      "path": "/service-areas/mississauga",
+      "width": 1440,
+      "pixelDifferencePercent": 63.52638888888889,
+      "differences": [
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved shared page-header refinement: shorten mobile spacing; place supporting facts below the mobile image without duplicating or changing them; unify heading widths, type scale, breadcrumbs and button hierarchy; use restrained directional overlays and subject-specific crops. Technology tool labels move into normal flow. Existing wording, facts, links, images, navigation and metadata are preserved."
+    },
+    {
+      "path": "/service-areas/oakville",
+      "width": 390,
+      "pixelDifferencePercent": 60.03333333333334,
+      "differences": [
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved shared page-header refinement: shorten mobile spacing; place supporting facts below the mobile image without duplicating or changing them; unify heading widths, type scale, breadcrumbs and button hierarchy; use restrained directional overlays and subject-specific crops. Technology tool labels move into normal flow. Existing wording, facts, links, images, navigation and metadata are preserved."
+    },
+    {
+      "path": "/service-areas/newmarket",
+      "width": 1440,
+      "pixelDifferencePercent": 65.79041666666666,
+      "differences": [
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved shared page-header refinement: shorten mobile spacing; place supporting facts below the mobile image without duplicating or changing them; unify heading widths, type scale, breadcrumbs and button hierarchy; use restrained directional overlays and subject-specific crops. Technology tool labels move into normal flow. Existing wording, facts, links, images, navigation and metadata are preserved."
+    },
+    {
+      "path": "/service-areas/oshawa",
+      "width": 390,
+      "pixelDifferencePercent": 59.48487179487179,
+      "differences": [
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved shared page-header refinement: shorten mobile spacing; place supporting facts below the mobile image without duplicating or changing them; unify heading widths, type scale, breadcrumbs and button hierarchy; use restrained directional overlays and subject-specific crops. Technology tool labels move into normal flow. Existing wording, facts, links, images, navigation and metadata are preserved."
+    },
+    {
+      "path": "/service-areas/oakville",
+      "width": 1440,
+      "pixelDifferencePercent": 59.91034722222223,
+      "differences": [
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved shared page-header refinement: shorten mobile spacing; place supporting facts below the mobile image without duplicating or changing them; unify heading widths, type scale, breadcrumbs and button hierarchy; use restrained directional overlays and subject-specific crops. Technology tool labels move into normal flow. Existing wording, facts, links, images, navigation and metadata are preserved."
+    },
+    {
+      "path": "/service-areas/pickering",
+      "width": 390,
+      "pixelDifferencePercent": 59.56743589743589,
+      "differences": [
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved shared page-header refinement: shorten mobile spacing; place supporting facts below the mobile image without duplicating or changing them; unify heading widths, type scale, breadcrumbs and button hierarchy; use restrained directional overlays and subject-specific crops. Technology tool labels move into normal flow. Existing wording, facts, links, images, navigation and metadata are preserved."
+    },
+    {
+      "path": "/service-areas/oshawa",
+      "width": 1440,
+      "pixelDifferencePercent": 62.686527777777776,
+      "differences": [
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved shared page-header refinement: shorten mobile spacing; place supporting facts below the mobile image without duplicating or changing them; unify heading widths, type scale, breadcrumbs and button hierarchy; use restrained directional overlays and subject-specific crops. Technology tool labels move into normal flow. Existing wording, facts, links, images, navigation and metadata are preserved."
+    },
+    {
+      "path": "/service-areas/richmond-hill",
+      "width": 390,
+      "pixelDifferencePercent": 60.14692307692307,
+      "differences": [
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved shared page-header refinement: shorten mobile spacing; place supporting facts below the mobile image without duplicating or changing them; unify heading widths, type scale, breadcrumbs and button hierarchy; use restrained directional overlays and subject-specific crops. Technology tool labels move into normal flow. Existing wording, facts, links, images, navigation and metadata are preserved."
+    },
+    {
+      "path": "/service-areas/pickering",
+      "width": 1440,
+      "pixelDifferencePercent": 62.702708333333334,
+      "differences": [
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved shared page-header refinement: shorten mobile spacing; place supporting facts below the mobile image without duplicating or changing them; unify heading widths, type scale, breadcrumbs and button hierarchy; use restrained directional overlays and subject-specific crops. Technology tool labels move into normal flow. Existing wording, facts, links, images, navigation and metadata are preserved."
+    },
+    {
+      "path": "/service-areas/toronto",
+      "width": 390,
+      "pixelDifferencePercent": 61.89743589743589,
+      "differences": [
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved shared page-header refinement: shorten mobile spacing; place supporting facts below the mobile image without duplicating or changing them; unify heading widths, type scale, breadcrumbs and button hierarchy; use restrained directional overlays and subject-specific crops. Technology tool labels move into normal flow. Existing wording, facts, links, images, navigation and metadata are preserved."
+    },
+    {
+      "path": "/service-areas/richmond-hill",
+      "width": 1440,
+      "pixelDifferencePercent": 63.08923611111111,
+      "differences": [
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved shared page-header refinement: shorten mobile spacing; place supporting facts below the mobile image without duplicating or changing them; unify heading widths, type scale, breadcrumbs and button hierarchy; use restrained directional overlays and subject-specific crops. Technology tool labels move into normal flow. Existing wording, facts, links, images, navigation and metadata are preserved."
+    },
+    {
+      "path": "/service-areas/vaughan",
+      "width": 390,
+      "pixelDifferencePercent": 60.278717948717954,
+      "differences": [
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved shared page-header refinement: shorten mobile spacing; place supporting facts below the mobile image without duplicating or changing them; unify heading widths, type scale, breadcrumbs and button hierarchy; use restrained directional overlays and subject-specific crops. Technology tool labels move into normal flow. Existing wording, facts, links, images, navigation and metadata are preserved."
+    },
+    {
+      "path": "/service-areas/toronto",
+      "width": 1440,
+      "pixelDifferencePercent": 60.752986111111106,
+      "differences": [
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved shared page-header refinement: shorten mobile spacing; place supporting facts below the mobile image without duplicating or changing them; unify heading widths, type scale, breadcrumbs and button hierarchy; use restrained directional overlays and subject-specific crops. Technology tool labels move into normal flow. Existing wording, facts, links, images, navigation and metadata are preserved."
+    },
+    {
+      "path": "/service-areas/whitby",
+      "width": 390,
+      "pixelDifferencePercent": 59.64307692307692,
+      "differences": [
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved shared page-header refinement: shorten mobile spacing; place supporting facts below the mobile image without duplicating or changing them; unify heading widths, type scale, breadcrumbs and button hierarchy; use restrained directional overlays and subject-specific crops. Technology tool labels move into normal flow. Existing wording, facts, links, images, navigation and metadata are preserved."
+    },
+    {
+      "path": "/service-areas/vaughan",
+      "width": 1440,
+      "pixelDifferencePercent": 60.012152777777786,
+      "differences": [
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved shared page-header refinement: shorten mobile spacing; place supporting facts below the mobile image without duplicating or changing them; unify heading widths, type scale, breadcrumbs and button hierarchy; use restrained directional overlays and subject-specific crops. Technology tool labels move into normal flow. Existing wording, facts, links, images, navigation and metadata are preserved."
+    },
+    {
+      "path": "/services",
+      "width": 390,
+      "pixelDifferencePercent": 88.42923076923077,
+      "differences": [
+        "visibleText",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved shared page-header refinement: shorten mobile spacing; place supporting facts below the mobile image without duplicating or changing them; unify heading widths, type scale, breadcrumbs and button hierarchy; use restrained directional overlays and subject-specific crops. Technology tool labels move into normal flow. Existing wording, facts, links, images, navigation and metadata are preserved."
+    },
+    {
+      "path": "/service-areas/whitby",
+      "width": 1440,
+      "pixelDifferencePercent": 59.75541666666667,
+      "differences": [
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved shared page-header refinement: shorten mobile spacing; place supporting facts below the mobile image without duplicating or changing them; unify heading widths, type scale, breadcrumbs and button hierarchy; use restrained directional overlays and subject-specific crops. Technology tool labels move into normal flow. Existing wording, facts, links, images, navigation and metadata are preserved."
+    },
+    {
+      "path": "/services/building-envelope-solutions",
+      "width": 390,
+      "pixelDifferencePercent": 68.68384615384615,
+      "differences": [
+        "visibleText",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved shared page-header refinement: shorten mobile spacing; place supporting facts below the mobile image without duplicating or changing them; unify heading widths, type scale, breadcrumbs and button hierarchy; use restrained directional overlays and subject-specific crops. Technology tool labels move into normal flow. Existing wording, facts, links, images, navigation and metadata are preserved."
+    },
+    {
+      "path": "/services",
+      "width": 1440,
+      "pixelDifferencePercent": 80.4882638888889,
+      "differences": [
+        "visibleText",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved shared page-header refinement: shorten mobile spacing; place supporting facts below the mobile image without duplicating or changing them; unify heading widths, type scale, breadcrumbs and button hierarchy; use restrained directional overlays and subject-specific crops. Technology tool labels move into normal flow. Existing wording, facts, links, images, navigation and metadata are preserved."
+    },
+    {
+      "path": "/services/caulking-sealants-toronto",
+      "width": 390,
+      "pixelDifferencePercent": 93.2476923076923,
+      "differences": [
+        "visibleText",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved shared page-header refinement: shorten mobile spacing; place supporting facts below the mobile image without duplicating or changing them; unify heading widths, type scale, breadcrumbs and button hierarchy; use restrained directional overlays and subject-specific crops. Technology tool labels move into normal flow. Existing wording, facts, links, images, navigation and metadata are preserved."
+    },
+    {
+      "path": "/services/building-envelope-solutions",
+      "width": 1440,
+      "pixelDifferencePercent": 61.27951388888889,
+      "differences": [
+        "visibleText",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved shared page-header refinement: shorten mobile spacing; place supporting facts below the mobile image without duplicating or changing them; unify heading widths, type scale, breadcrumbs and button hierarchy; use restrained directional overlays and subject-specific crops. Technology tool labels move into normal flow. Existing wording, facts, links, images, navigation and metadata are preserved."
+    },
+    {
+      "path": "/services/cladding-systems",
+      "width": 390,
+      "pixelDifferencePercent": 65.09076923076923,
+      "differences": [
+        "visibleText",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved shared page-header refinement: shorten mobile spacing; place supporting facts below the mobile image without duplicating or changing them; unify heading widths, type scale, breadcrumbs and button hierarchy; use restrained directional overlays and subject-specific crops. Technology tool labels move into normal flow. Existing wording, facts, links, images, navigation and metadata are preserved."
+    },
+    {
+      "path": "/services/caulking-sealants-toronto",
+      "width": 1440,
+      "pixelDifferencePercent": 82.36916666666667,
+      "differences": [
+        "visibleText",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved shared page-header refinement: shorten mobile spacing; place supporting facts below the mobile image without duplicating or changing them; unify heading widths, type scale, breadcrumbs and button hierarchy; use restrained directional overlays and subject-specific crops. Technology tool labels move into normal flow. Existing wording, facts, links, images, navigation and metadata are preserved."
+    },
+    {
+      "path": "/services/commercial-painting-gta",
+      "width": 390,
+      "pixelDifferencePercent": 91.85692307692308,
+      "differences": [
+        "visibleText",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved shared page-header refinement: shorten mobile spacing; place supporting facts below the mobile image without duplicating or changing them; unify heading widths, type scale, breadcrumbs and button hierarchy; use restrained directional overlays and subject-specific crops. Technology tool labels move into normal flow. Existing wording, facts, links, images, navigation and metadata are preserved."
+    },
+    {
+      "path": "/services/cladding-systems",
+      "width": 1440,
+      "pixelDifferencePercent": 61.28104166666667,
+      "differences": [
+        "visibleText",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved shared page-header refinement: shorten mobile spacing; place supporting facts below the mobile image without duplicating or changing them; unify heading widths, type scale, breadcrumbs and button hierarchy; use restrained directional overlays and subject-specific crops. Technology tool labels move into normal flow. Existing wording, facts, links, images, navigation and metadata are preserved."
+    },
+    {
+      "path": "/services/eifs-stucco-systems",
+      "width": 390,
+      "pixelDifferencePercent": 82.29564102564103,
+      "differences": [
+        "visibleText",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved shared page-header refinement: shorten mobile spacing; place supporting facts below the mobile image without duplicating or changing them; unify heading widths, type scale, breadcrumbs and button hierarchy; use restrained directional overlays and subject-specific crops. Technology tool labels move into normal flow. Existing wording, facts, links, images, navigation and metadata are preserved."
+    },
+    {
+      "path": "/services/commercial-painting-gta",
+      "width": 1440,
+      "pixelDifferencePercent": 80.15131944444445,
+      "differences": [
+        "visibleText",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved shared page-header refinement: shorten mobile spacing; place supporting facts below the mobile image without duplicating or changing them; unify heading widths, type scale, breadcrumbs and button hierarchy; use restrained directional overlays and subject-specific crops. Technology tool labels move into normal flow. Existing wording, facts, links, images, navigation and metadata are preserved."
+    },
+    {
+      "path": "/services/exterior-painting-toronto",
+      "width": 390,
+      "pixelDifferencePercent": 92.73692307692308,
+      "differences": [
+        "visibleText",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved shared page-header refinement: shorten mobile spacing; place supporting facts below the mobile image without duplicating or changing them; unify heading widths, type scale, breadcrumbs and button hierarchy; use restrained directional overlays and subject-specific crops. Technology tool labels move into normal flow. Existing wording, facts, links, images, navigation and metadata are preserved."
+    },
+    {
+      "path": "/services/eifs-stucco-systems",
+      "width": 1440,
+      "pixelDifferencePercent": 74.223125,
+      "differences": [
+        "visibleText",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved shared page-header refinement: shorten mobile spacing; place supporting facts below the mobile image without duplicating or changing them; unify heading widths, type scale, breadcrumbs and button hierarchy; use restrained directional overlays and subject-specific crops. Technology tool labels move into normal flow. Existing wording, facts, links, images, navigation and metadata are preserved."
+    },
+    {
+      "path": "/services/facade-remediation",
+      "width": 390,
+      "pixelDifferencePercent": 64.6576923076923,
+      "differences": [
+        "visibleText",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved shared page-header refinement: shorten mobile spacing; place supporting facts below the mobile image without duplicating or changing them; unify heading widths, type scale, breadcrumbs and button hierarchy; use restrained directional overlays and subject-specific crops. Technology tool labels move into normal flow. Existing wording, facts, links, images, navigation and metadata are preserved."
+    },
+    {
+      "path": "/services/fire-retardant-coatings-ontario",
+      "width": 390,
+      "pixelDifferencePercent": 94.73692307692308,
+      "differences": [
+        "visibleText",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved shared page-header refinement: shorten mobile spacing; place supporting facts below the mobile image without duplicating or changing them; unify heading widths, type scale, breadcrumbs and button hierarchy; use restrained directional overlays and subject-specific crops. Technology tool labels move into normal flow. Existing wording, facts, links, images, navigation and metadata are preserved."
+    },
+    {
+      "path": "/services/exterior-painting-toronto",
+      "width": 1440,
+      "pixelDifferencePercent": 78.13368055555556,
+      "differences": [
+        "visibleText",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved shared page-header refinement: shorten mobile spacing; place supporting facts below the mobile image without duplicating or changing them; unify heading widths, type scale, breadcrumbs and button hierarchy; use restrained directional overlays and subject-specific crops. Technology tool labels move into normal flow. Existing wording, facts, links, images, navigation and metadata are preserved."
+    },
+    {
+      "path": "/services/flooring-installation-gta",
+      "width": 390,
+      "pixelDifferencePercent": 94.74435897435897,
+      "differences": [
+        "visibleText",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved shared page-header refinement: shorten mobile spacing; place supporting facts below the mobile image without duplicating or changing them; unify heading widths, type scale, breadcrumbs and button hierarchy; use restrained directional overlays and subject-specific crops. Technology tool labels move into normal flow. Existing wording, facts, links, images, navigation and metadata are preserved."
+    },
+    {
+      "path": "/services/facade-remediation",
+      "width": 1440,
+      "pixelDifferencePercent": 61.27576388888889,
+      "differences": [
+        "visibleText",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved shared page-header refinement: shorten mobile spacing; place supporting facts below the mobile image without duplicating or changing them; unify heading widths, type scale, breadcrumbs and button hierarchy; use restrained directional overlays and subject-specific crops. Technology tool labels move into normal flow. Existing wording, facts, links, images, navigation and metadata are preserved."
+    },
+    {
+      "path": "/services/handyman-patching-toronto",
+      "width": 390,
+      "pixelDifferencePercent": 93.19897435897437,
+      "differences": [
+        "visibleText",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved shared page-header refinement: shorten mobile spacing; place supporting facts below the mobile image without duplicating or changing them; unify heading widths, type scale, breadcrumbs and button hierarchy; use restrained directional overlays and subject-specific crops. Technology tool labels move into normal flow. Existing wording, facts, links, images, navigation and metadata are preserved."
+    },
+    {
+      "path": "/services/fire-retardant-coatings-ontario",
+      "width": 1440,
+      "pixelDifferencePercent": 80.16027777777778,
+      "differences": [
+        "visibleText",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved shared page-header refinement: shorten mobile spacing; place supporting facts below the mobile image without duplicating or changing them; unify heading widths, type scale, breadcrumbs and button hierarchy; use restrained directional overlays and subject-specific crops. Technology tool labels move into normal flow. Existing wording, facts, links, images, navigation and metadata are preserved."
+    },
+    {
+      "path": "/services/interior-buildouts-finishing",
+      "width": 390,
+      "pixelDifferencePercent": 59.43692307692308,
+      "differences": [
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved shared page-header refinement: shorten mobile spacing; place supporting facts below the mobile image without duplicating or changing them; unify heading widths, type scale, breadcrumbs and button hierarchy; use restrained directional overlays and subject-specific crops. Technology tool labels move into normal flow. Existing wording, facts, links, images, navigation and metadata are preserved."
+    },
+    {
+      "path": "/services/flooring-installation-gta",
+      "width": 1440,
+      "pixelDifferencePercent": 82.37993055555556,
+      "differences": [
+        "visibleText",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved shared page-header refinement: shorten mobile spacing; place supporting facts below the mobile image without duplicating or changing them; unify heading widths, type scale, breadcrumbs and button hierarchy; use restrained directional overlays and subject-specific crops. Technology tool labels move into normal flow. Existing wording, facts, links, images, navigation and metadata are preserved."
+    },
+    {
+      "path": "/services/interior-finishing-renovations",
+      "width": 390,
+      "pixelDifferencePercent": 58.31564102564103,
+      "differences": [
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved shared page-header refinement: shorten mobile spacing; place supporting facts below the mobile image without duplicating or changing them; unify heading widths, type scale, breadcrumbs and button hierarchy; use restrained directional overlays and subject-specific crops. Technology tool labels move into normal flow. Existing wording, facts, links, images, navigation and metadata are preserved."
+    },
+    {
+      "path": "/services/handyman-patching-toronto",
+      "width": 1440,
+      "pixelDifferencePercent": 82.40430555555555,
+      "differences": [
+        "visibleText",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved shared page-header refinement: shorten mobile spacing; place supporting facts below the mobile image without duplicating or changing them; unify heading widths, type scale, breadcrumbs and button hierarchy; use restrained directional overlays and subject-specific crops. Technology tool labels move into normal flow. Existing wording, facts, links, images, navigation and metadata are preserved."
+    },
+    {
+      "path": "/services/interior-painting-toronto",
+      "width": 390,
+      "pixelDifferencePercent": 94.75358974358974,
+      "differences": [
+        "visibleText",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved shared page-header refinement: shorten mobile spacing; place supporting facts below the mobile image without duplicating or changing them; unify heading widths, type scale, breadcrumbs and button hierarchy; use restrained directional overlays and subject-specific crops. Technology tool labels move into normal flow. Existing wording, facts, links, images, navigation and metadata are preserved."
+    },
+    {
+      "path": "/services/interior-buildouts-finishing",
+      "width": 1440,
+      "pixelDifferencePercent": 49.41291666666667,
+      "differences": [
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved shared page-header refinement: shorten mobile spacing; place supporting facts below the mobile image without duplicating or changing them; unify heading widths, type scale, breadcrumbs and button hierarchy; use restrained directional overlays and subject-specific crops. Technology tool labels move into normal flow. Existing wording, facts, links, images, navigation and metadata are preserved."
+    },
+    {
+      "path": "/services/masonry-restoration",
+      "width": 390,
+      "pixelDifferencePercent": 65.08948717948718,
+      "differences": [
+        "visibleText",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved shared page-header refinement: shorten mobile spacing; place supporting facts below the mobile image without duplicating or changing them; unify heading widths, type scale, breadcrumbs and button hierarchy; use restrained directional overlays and subject-specific crops. Technology tool labels move into normal flow. Existing wording, facts, links, images, navigation and metadata are preserved."
+    },
+    {
+      "path": "/services/interior-finishing-renovations",
+      "width": 1440,
+      "pixelDifferencePercent": 49.412638888888885,
+      "differences": [
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved shared page-header refinement: shorten mobile spacing; place supporting facts below the mobile image without duplicating or changing them; unify heading widths, type scale, breadcrumbs and button hierarchy; use restrained directional overlays and subject-specific crops. Technology tool labels move into normal flow. Existing wording, facts, links, images, navigation and metadata are preserved."
+    },
+    {
+      "path": "/services/painting-services",
+      "width": 390,
+      "pixelDifferencePercent": 59.298974358974355,
+      "differences": [
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved shared page-header refinement: shorten mobile spacing; place supporting facts below the mobile image without duplicating or changing them; unify heading widths, type scale, breadcrumbs and button hierarchy; use restrained directional overlays and subject-specific crops. Technology tool labels move into normal flow. Existing wording, facts, links, images, navigation and metadata are preserved."
+    },
+    {
+      "path": "/services/interior-painting-toronto",
+      "width": 1440,
+      "pixelDifferencePercent": 82.48479166666667,
+      "differences": [
+        "visibleText",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved shared page-header refinement: shorten mobile spacing; place supporting facts below the mobile image without duplicating or changing them; unify heading widths, type scale, breadcrumbs and button hierarchy; use restrained directional overlays and subject-specific crops. Technology tool labels move into normal flow. Existing wording, facts, links, images, navigation and metadata are preserved."
+    },
+    {
+      "path": "/services/parking-garage-restoration",
+      "width": 390,
+      "pixelDifferencePercent": 80.00076923076924,
+      "differences": [
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved shared page-header refinement: shorten mobile spacing; place supporting facts below the mobile image without duplicating or changing them; unify heading widths, type scale, breadcrumbs and button hierarchy; use restrained directional overlays and subject-specific crops. Technology tool labels move into normal flow. Existing wording, facts, links, images, navigation and metadata are preserved."
+    },
+    {
+      "path": "/services/masonry-restoration",
+      "width": 1440,
+      "pixelDifferencePercent": 61.29131944444445,
+      "differences": [
+        "visibleText",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved shared page-header refinement: shorten mobile spacing; place supporting facts below the mobile image without duplicating or changing them; unify heading widths, type scale, breadcrumbs and button hierarchy; use restrained directional overlays and subject-specific crops. Technology tool labels move into normal flow. Existing wording, facts, links, images, navigation and metadata are preserved."
+    },
+    {
+      "path": "/services/residential-exterior-painting-gta",
+      "width": 390,
+      "pixelDifferencePercent": 94.75589743589744,
+      "differences": [
+        "visibleText",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved shared page-header refinement: shorten mobile spacing; place supporting facts below the mobile image without duplicating or changing them; unify heading widths, type scale, breadcrumbs and button hierarchy; use restrained directional overlays and subject-specific crops. Technology tool labels move into normal flow. Existing wording, facts, links, images, navigation and metadata are preserved."
+    },
+    {
+      "path": "/services/painting-services",
+      "width": 1440,
+      "pixelDifferencePercent": 49.41256944444444,
+      "differences": [
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved shared page-header refinement: shorten mobile spacing; place supporting facts below the mobile image without duplicating or changing them; unify heading widths, type scale, breadcrumbs and button hierarchy; use restrained directional overlays and subject-specific crops. Technology tool labels move into normal flow. Existing wording, facts, links, images, navigation and metadata are preserved."
+    },
+    {
+      "path": "/services/sealant-programs",
+      "width": 390,
+      "pixelDifferencePercent": 57.9174358974359,
+      "differences": [
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved shared page-header refinement: shorten mobile spacing; place supporting facts below the mobile image without duplicating or changing them; unify heading widths, type scale, breadcrumbs and button hierarchy; use restrained directional overlays and subject-specific crops. Technology tool labels move into normal flow. Existing wording, facts, links, images, navigation and metadata are preserved."
+    },
+    {
+      "path": "/services/parking-garage-restoration",
+      "width": 1440,
+      "pixelDifferencePercent": 50.41298611111111,
+      "differences": [
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved shared page-header refinement: shorten mobile spacing; place supporting facts below the mobile image without duplicating or changing them; unify heading widths, type scale, breadcrumbs and button hierarchy; use restrained directional overlays and subject-specific crops. Technology tool labels move into normal flow. Existing wording, facts, links, images, navigation and metadata are preserved."
+    },
+    {
+      "path": "/services/sustainable-building",
+      "width": 390,
+      "pixelDifferencePercent": 69.73102564102564,
+      "differences": [
+        "visibleText",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved shared page-header refinement: shorten mobile spacing; place supporting facts below the mobile image without duplicating or changing them; unify heading widths, type scale, breadcrumbs and button hierarchy; use restrained directional overlays and subject-specific crops. Technology tool labels move into normal flow. Existing wording, facts, links, images, navigation and metadata are preserved."
+    },
+    {
+      "path": "/services/residential-exterior-painting-gta",
+      "width": 1440,
+      "pixelDifferencePercent": 82.31402777777778,
+      "differences": [
+        "visibleText",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved shared page-header refinement: shorten mobile spacing; place supporting facts below the mobile image without duplicating or changing them; unify heading widths, type scale, breadcrumbs and button hierarchy; use restrained directional overlays and subject-specific crops. Technology tool labels move into normal flow. Existing wording, facts, links, images, navigation and metadata are preserved."
+    },
+    {
+      "path": "/services/tile-flooring",
+      "width": 390,
+      "pixelDifferencePercent": 59.31564102564103,
+      "differences": [
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved shared page-header refinement: shorten mobile spacing; place supporting facts below the mobile image without duplicating or changing them; unify heading widths, type scale, breadcrumbs and button hierarchy; use restrained directional overlays and subject-specific crops. Technology tool labels move into normal flow. Existing wording, facts, links, images, navigation and metadata are preserved."
+    },
+    {
+      "path": "/services/sealant-programs",
+      "width": 1440,
+      "pixelDifferencePercent": 49.4125,
+      "differences": [
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved shared page-header refinement: shorten mobile spacing; place supporting facts below the mobile image without duplicating or changing them; unify heading widths, type scale, breadcrumbs and button hierarchy; use restrained directional overlays and subject-specific crops. Technology tool labels move into normal flow. Existing wording, facts, links, images, navigation and metadata are preserved."
+    },
+    {
+      "path": "/services/tile-installation-toronto",
+      "width": 390,
+      "pixelDifferencePercent": 94.16153846153847,
+      "differences": [
+        "visibleText",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved shared page-header refinement: shorten mobile spacing; place supporting facts below the mobile image without duplicating or changing them; unify heading widths, type scale, breadcrumbs and button hierarchy; use restrained directional overlays and subject-specific crops. Technology tool labels move into normal flow. Existing wording, facts, links, images, navigation and metadata are preserved."
+    },
+    {
+      "path": "/services/sustainable-building",
+      "width": 1440,
+      "pixelDifferencePercent": 61.27791666666666,
+      "differences": [
+        "visibleText",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved shared page-header refinement: shorten mobile spacing; place supporting facts below the mobile image without duplicating or changing them; unify heading widths, type scale, breadcrumbs and button hierarchy; use restrained directional overlays and subject-specific crops. Technology tool labels move into normal flow. Existing wording, facts, links, images, navigation and metadata are preserved."
+    },
+    {
+      "path": "/services/waterproofing-systems",
+      "width": 390,
+      "pixelDifferencePercent": 65.09358974358975,
+      "differences": [
+        "visibleText",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved shared page-header refinement: shorten mobile spacing; place supporting facts below the mobile image without duplicating or changing them; unify heading widths, type scale, breadcrumbs and button hierarchy; use restrained directional overlays and subject-specific crops. Technology tool labels move into normal flow. Existing wording, facts, links, images, navigation and metadata are preserved."
+    },
+    {
+      "path": "/services/tile-flooring",
+      "width": 1440,
+      "pixelDifferencePercent": 49.41090277777778,
+      "differences": [
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved shared page-header refinement: shorten mobile spacing; place supporting facts below the mobile image without duplicating or changing them; unify heading widths, type scale, breadcrumbs and button hierarchy; use restrained directional overlays and subject-specific crops. Technology tool labels move into normal flow. Existing wording, facts, links, images, navigation and metadata are preserved."
+    },
+    {
+      "path": "/submit-rfp",
+      "width": 390,
+      "pixelDifferencePercent": 50.34871794871795,
+      "differences": [
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved shared page-header refinement: shorten mobile spacing; place supporting facts below the mobile image without duplicating or changing them; unify heading widths, type scale, breadcrumbs and button hierarchy; use restrained directional overlays and subject-specific crops. Technology tool labels move into normal flow. Existing wording, facts, links, images, navigation and metadata are preserved."
+    },
+    {
+      "path": "/services/tile-installation-toronto",
+      "width": 1440,
+      "pixelDifferencePercent": 82.45340277777777,
+      "differences": [
+        "visibleText",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved shared page-header refinement: shorten mobile spacing; place supporting facts below the mobile image without duplicating or changing them; unify heading widths, type scale, breadcrumbs and button hierarchy; use restrained directional overlays and subject-specific crops. Technology tool labels move into normal flow. Existing wording, facts, links, images, navigation and metadata are preserved."
+    },
+    {
+      "path": "/terms",
+      "width": 390,
+      "pixelDifferencePercent": 0,
+      "differences": [],
+      "unexpected": [],
+      "declaredReason": null
+    },
+    {
+      "path": "/services/waterproofing-systems",
+      "width": 1440,
+      "pixelDifferencePercent": 61.27319444444444,
+      "differences": [
+        "visibleText",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved shared page-header refinement: shorten mobile spacing; place supporting facts below the mobile image without duplicating or changing them; unify heading widths, type scale, breadcrumbs and button hierarchy; use restrained directional overlays and subject-specific crops. Technology tool labels move into normal flow. Existing wording, facts, links, images, navigation and metadata are preserved."
+    },
+    {
+      "path": "/why-specialty-contractor",
+      "width": 390,
+      "pixelDifferencePercent": 64.4851282051282,
+      "differences": [
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved shared page-header refinement: shorten mobile spacing; place supporting facts below the mobile image without duplicating or changing them; unify heading widths, type scale, breadcrumbs and button hierarchy; use restrained directional overlays and subject-specific crops. Technology tool labels move into normal flow. Existing wording, facts, links, images, navigation and metadata are preserved."
+    },
+    {
+      "path": "/submit-rfp",
+      "width": 1440,
+      "pixelDifferencePercent": 53.65416666666667,
+      "differences": [
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved shared page-header refinement: shorten mobile spacing; place supporting facts below the mobile image without duplicating or changing them; unify heading widths, type scale, breadcrumbs and button hierarchy; use restrained directional overlays and subject-specific crops. Technology tool labels move into normal flow. Existing wording, facts, links, images, navigation and metadata are preserved."
+    },
+    {
+      "path": "/terms",
+      "width": 1440,
+      "pixelDifferencePercent": 0,
+      "differences": [],
+      "unexpected": [],
+      "declaredReason": null
+    },
+    {
+      "path": "/why-specialty-contractor",
+      "width": 1440,
+      "pixelDifferencePercent": 61.72,
+      "differences": [
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-approved shared page-header refinement: shorten mobile spacing; place supporting facts below the mobile image without duplicating or changing them; unify heading widths, type scale, breadcrumbs and button hierarchy; use restrained directional overlays and subject-specific crops. Technology tool labels move into normal flow. Existing wording, facts, links, images, navigation and metadata are preserved."
+    }
+  ]
+}
