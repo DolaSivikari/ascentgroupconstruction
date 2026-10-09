@@ -1,0 +1,31 @@
+{
+  "status": "blocked: existing empty asset-descriptor source map in both builds",
+  "sourceMapsReviewed": [
+    {
+      "build": "before",
+      "loadedPublicChunks": 154,
+      "forbiddenSources": [],
+      "unsupportedSourceMaps": [
+        {
+          "script": "/assets/parallax-commitment.avif.asset-F1DiY2Sh.js",
+          "sha256": "81daee717dab696db3eecf51e15d61e72bfa284d503ed002894c8530a720b67e",
+          "kind": "Existing asset descriptor module; empty source map",
+          "code": "const a=\"cc5a048a-7d56-4fa0-81b3-ee6e0a3ae3b5\",e=\"e7a4ef17-a206-4eb3-aa01-840ca899c752\",t=\"/__l5e/assets-v1/cc5a048a-7d56-4fa0-81b3-ee6e0a3ae3b5/parallax-commitment.avif\",c=\"a/v1/e7a4ef17-a206-4eb3-aa01-840ca899c752/cc5a048a-7d56-4fa0-81b3-ee6e0a3ae3b5/parallax-commitment.avif\",i=\"parallax-commitment.avif\";const n=\"image/avif\",o=\"2026-10-08T23:36:01Z\",s={version:1,asset_id:a,project_id:e,url:t,r2_key:c,original_filename:i,size:362843,content_type:n,created_at:o};export{s as _};\n//# sourceMappingURL=parallax-commitment.avif.asset-F1DiY2Sh.js.map\n"
+        }
+      ]
+    },
+    {
+      "build": "after",
+      "loadedPublicChunks": 154,
+      "forbiddenSources": [],
+      "unsupportedSourceMaps": [
+        {
+          "script": "/assets/parallax-commitment.avif.asset-F1DiY2Sh.js",
+          "sha256": "81daee717dab696db3eecf51e15d61e72bfa284d503ed002894c8530a720b67e",
+          "kind": "Existing asset descriptor module; empty source map",
+          "code": "const a=\"cc5a048a-7d56-4fa0-81b3-ee6e0a3ae3b5\",e=\"e7a4ef17-a206-4eb3-aa01-840ca899c752\",t=\"/__l5e/assets-v1/cc5a048a-7d56-4fa0-81b3-ee6e0a3ae3b5/parallax-commitment.avif\",c=\"a/v1/e7a4ef17-a206-4eb3-aa01-840ca899c752/cc5a048a-7d56-4fa0-81b3-ee6e0a3ae3b5/parallax-commitment.avif\",i=\"parallax-commitment.avif\";const n=\"image/avif\",o=\"2026-10-08T23:36:01Z\",s={version:1,asset_id:a,project_id:e,url:t,r2_key:c,original_filename:i,size:362843,content_type:n,created_at:o};export{s as _};\n//# sourceMappingURL=parallax-commitment.avif.asset-F1DiY2Sh.js.map\n"
+        }
+      ]
+    }
+  ]
+}

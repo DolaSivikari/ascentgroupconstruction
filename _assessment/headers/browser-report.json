@@ -1,0 +1,1453 @@
+{
+  "scope": "Offline synthetic public content; viewport/header screenshots, not full-page/live replay",
+  "paths": 85,
+  "captures": 170,
+  "widths": [
+    1440,
+    390
+  ],
+  "errors": [],
+  "writes": [],
+  "baseCommit": "49b719f4c3601d343d9b1350cb4c5b99fbf8f36d",
+  "pageHeroPaths": 69,
+  "loadedHeroCaptures": 138,
+  "pageErrors": 0,
+  "consoleErrors": 0,
+  "unsettledCityCaptures": 0,
+  "checks": [
+    {
+      "path": "/",
+      "width": 390,
+      "overflow": false,
+      "networkSettled": true
+    },
+    {
+      "path": "/",
+      "width": 1440,
+      "overflow": false,
+      "networkSettled": true
+    },
+    {
+      "path": "/about",
+      "width": 390,
+      "heroState": "loaded",
+      "heroAlt": "Finished shared interior at KW Habilitation Affordable Housing",
+      "heroImage": "/assets/residential-amenities-Dg2T1SuO.jpg",
+      "overflow": false,
+      "networkSettled": true
+    },
+    {
+      "path": "/about",
+      "width": 1440,
+      "heroState": "loaded",
+      "heroAlt": "Finished shared interior at KW Habilitation Affordable Housing",
+      "heroImage": "/assets/residential-amenities-Dg2T1SuO.jpg",
+      "overflow": false,
+      "networkSettled": true
+    },
+    {
+      "path": "/accessibility",
+      "width": 390,
+      "overflow": false,
+      "networkSettled": true
+    },
+    {
+      "path": "/accessibility",
+      "width": 1440,
+      "overflow": false,
+      "networkSettled": true
+    },
+    {
+      "path": "/blog",
+      "width": 390,
+      "heroState": "loaded",
+      "heroAlt": "Scaffolding during envelope repairs at 65 Westmount Avenue",
+      "heroImage": "/assets/envelope-staging-CVUvOIxZ.jpg",
+      "overflow": false,
+      "networkSettled": true
+    },
+    {
+      "path": "/blog",
+      "width": 1440,
+      "heroState": "loaded",
+      "heroAlt": "Scaffolding during envelope repairs at 65 Westmount Avenue",
+      "heroImage": "/assets/envelope-staging-CVUvOIxZ.jpg",
+      "overflow": false,
+      "networkSettled": true
+    },
+    {
+      "path": "/blog/early-signs-your-building-envelope-needs-attention",
+      "width": 390,
+      "heroState": "loaded",
+      "heroAlt": "Exposed window opening during envelope repairs at 65 Westmount Avenue",
+      "heroImage": "/assets/envelope-opening-CtwKOqQW.jpg",
+      "overflow": false,
+      "networkSettled": true
+    },
+    {
+      "path": "/blog/early-signs-your-building-envelope-needs-attention",
+      "width": 1440,
+      "heroState": "loaded",
+      "heroAlt": "Exposed window opening during envelope repairs at 65 Westmount Avenue",
+      "heroImage": "/assets/envelope-opening-CtwKOqQW.jpg",
+      "overflow": false,
+      "networkSettled": true
+    },
+    {
+      "path": "/blog/eifs-vs-stucco-what-building-owners-need-to-know",
+      "width": 390,
+      "heroState": "loaded",
+      "heroAlt": "Exterior stucco work at Comfort Inn & Suites",
+      "heroImage": "/assets/stucco-finish-CXkMQfOu.jpg",
+      "overflow": false,
+      "networkSettled": true
+    },
+    {
+      "path": "/blog/how-general-contractors-should-evaluate-specialty-trade-partner",
+      "width": 390,
+      "heroState": "loaded",
+      "heroAlt": "Structural steel coating work at York Region Warehouse",
+      "heroImage": "/assets/coatings-progress-CrXR7mC4.jpg",
+      "overflow": false,
+      "networkSettled": true
+    },
+    {
+      "path": "/blog/eifs-vs-stucco-what-building-owners-need-to-know",
+      "width": 1440,
+      "heroState": "loaded",
+      "heroAlt": "Exterior stucco work at Comfort Inn & Suites",
+      "heroImage": "/assets/stucco-finish-CXkMQfOu.jpg",
+      "overflow": false,
+      "networkSettled": true
+    },
+    {
+      "path": "/blog/how-general-contractors-should-evaluate-specialty-trade-partner",
+      "width": 1440,
+      "heroState": "loaded",
+      "heroAlt": "Structural steel coating work at York Region Warehouse",
+      "heroImage": "/assets/coatings-progress-CrXR7mC4.jpg",
+      "overflow": false,
+      "networkSettled": true
+    },
+    {
+      "path": "/blog/toronto-property-manager-maintenance-guide",
+      "width": 390,
+      "heroState": "loaded",
+      "heroAlt": "Queensland Condos building and surrounding streets",
+      "heroImage": "/assets/condominium-exterior-BBIVadQ6.jpg",
+      "overflow": false,
+      "networkSettled": true
+    },
+    {
+      "path": "/blog/toronto-property-manager-maintenance-guide",
+      "width": 1440,
+      "heroState": "loaded",
+      "heroAlt": "Queensland Condos building and surrounding streets",
+      "heroImage": "/assets/condominium-exterior-BBIVadQ6.jpg",
+      "overflow": false,
+      "networkSettled": true
+    },
+    {
+      "path": "/blog/what-property-managers-should-prepare-before-envelope-restoration",
+      "width": 390,
+      "heroState": "loaded",
+      "heroAlt": "Scaffolding during envelope repairs at 65 Westmount Avenue",
+      "heroImage": "/assets/envelope-staging-CVUvOIxZ.jpg",
+      "overflow": false,
+      "networkSettled": true
+    },
+    {
+      "path": "/blog/what-property-managers-should-prepare-before-envelope-restoration",
+      "width": 1440,
+      "heroState": "loaded",
+      "heroAlt": "Scaffolding during envelope repairs at 65 Westmount Avenue",
+      "heroImage": "/assets/envelope-staging-CVUvOIxZ.jpg",
+      "overflow": false,
+      "networkSettled": true
+    },
+    {
+      "path": "/blog/why-self-performed-work-changes-quality-cost-accountability",
+      "width": 390,
+      "heroState": "loaded",
+      "heroAlt": "Window flashing work at 65 Westmount Avenue",
+      "heroImage": "/assets/envelope-flashing-v2l95MOH.jpg",
+      "overflow": false,
+      "networkSettled": true
+    },
+    {
+      "path": "/blog/why-self-performed-work-changes-quality-cost-accountability",
+      "width": 1440,
+      "heroState": "loaded",
+      "heroAlt": "Window flashing work at 65 Westmount Avenue",
+      "heroImage": "/assets/envelope-flashing-v2l95MOH.jpg",
+      "overflow": false,
+      "networkSettled": true
+    },
+    {
+      "path": "/capabilities",
+      "width": 390,
+      "heroState": "loaded",
+      "heroAlt": "Repainted doors and interior finishes at Dunnville Secondary School",
+      "heroImage": "/assets/institutional-finishes-Co_GeBWb.jpg",
+      "overflow": false,
+      "networkSettled": true
+    },
+    {
+      "path": "/capabilities",
+      "width": 1440,
+      "heroState": "loaded",
+      "heroAlt": "Repainted doors and interior finishes at Dunnville Secondary School",
+      "heroImage": "/assets/institutional-finishes-Co_GeBWb.jpg",
+      "overflow": false,
+      "networkSettled": true
+    },
+    {
+      "path": "/careers",
+      "width": 390,
+      "heroState": "loaded",
+      "heroAlt": "Interior finishing in progress at Innisfil Catholic School",
+      "heroImage": "/assets/interior-progress-DfJWBag3.jpg",
+      "overflow": false,
+      "networkSettled": true
+    },
+    {
+      "path": "/careers",
+      "width": 1440,
+      "heroState": "loaded",
+      "heroAlt": "Interior finishing in progress at Innisfil Catholic School",
+      "heroImage": "/assets/interior-progress-DfJWBag3.jpg",
+      "overflow": false,
+      "networkSettled": true
+    },
+    {
+      "path": "/commercial-clients",
+      "width": 390,
+      "heroState": "loaded",
+      "heroAlt": "Finished caf\u00e9 interior from the Caf\u00e9 Luka portfolio",
+      "heroImage": "/assets/commercial-interior-CNaVLHnM.jpg",
+      "overflow": false,
+      "networkSettled": true
+    },
+    {
+      "path": "/company/certifications-insurance",
+      "width": 390,
+      "heroState": "loaded",
+      "heroAlt": "Finished school corridor at Dunnville Secondary School",
+      "heroImage": "/assets/school-corridor-BiknUeCu.jpg",
+      "overflow": false,
+      "networkSettled": true
+    },
+    {
+      "path": "/commercial-clients",
+      "width": 1440,
+      "heroState": "loaded",
+      "heroAlt": "Finished caf\u00e9 interior from the Caf\u00e9 Luka portfolio",
+      "heroImage": "/assets/commercial-interior-CNaVLHnM.jpg",
+      "overflow": false,
+      "networkSettled": true
+    },
+    {
+      "path": "/company/developers",
+      "width": 390,
+      "heroState": "loaded",
+      "heroAlt": "KW Habilitation Affordable Housing exterior",
+      "heroImage": "/assets/housing-exterior-DzyI4qRj.jpg",
+      "overflow": false,
+      "networkSettled": true
+    },
+    {
+      "path": "/company/certifications-insurance",
+      "width": 1440,
+      "heroState": "loaded",
+      "heroAlt": "Finished school corridor at Dunnville Secondary School",
+      "heroImage": "/assets/school-corridor-BiknUeCu.jpg",
+      "overflow": false,
+      "networkSettled": true
+    },
+    {
+      "path": "/company/technology",
+      "width": 390,
+      "heroState": "loaded",
+      "heroAlt": "Architectural project documentation for Blackhurst Cultural Centre",
+      "heroImage": "/assets/project-documentation-DrKheCfJ.png",
+      "overflow": false,
+      "networkSettled": true
+    },
+    {
+      "path": "/company/developers",
+      "width": 1440,
+      "heroState": "loaded",
+      "heroAlt": "KW Habilitation Affordable Housing exterior",
+      "heroImage": "/assets/housing-exterior-DzyI4qRj.jpg",
+      "overflow": false,
+      "networkSettled": true
+    },
+    {
+      "path": "/contact",
+      "width": 390,
+      "heroState": "loaded",
+      "heroAlt": "KW Habilitation Affordable Housing exterior",
+      "heroImage": "/assets/housing-exterior-DzyI4qRj.jpg",
+      "overflow": false,
+      "networkSettled": true
+    },
+    {
+      "path": "/company/technology",
+      "width": 1440,
+      "heroState": "loaded",
+      "heroAlt": "Architectural project documentation for Blackhurst Cultural Centre",
+      "heroImage": "/assets/project-documentation-DrKheCfJ.png",
+      "overflow": false,
+      "networkSettled": true
+    },
+    {
+      "path": "/emergency-repair",
+      "width": 390,
+      "heroState": "loaded",
+      "heroAlt": "Exposed window opening during envelope repairs at 65 Westmount Avenue",
+      "heroImage": "/assets/envelope-opening-CtwKOqQW.jpg",
+      "overflow": false,
+      "networkSettled": true
+    },
+    {
+      "path": "/contact",
+      "width": 1440,
+      "heroState": "loaded",
+      "heroAlt": "KW Habilitation Affordable Housing exterior",
+      "heroImage": "/assets/housing-exterior-DzyI4qRj.jpg",
+      "overflow": false,
+      "networkSettled": true
+    },
+    {
+      "path": "/estimate",
+      "width": 390,
+      "heroState": "loaded",
+      "heroAlt": "Residential design sketch from the 67 Edgecroft Road project",
+      "heroImage": "/assets/project-planning-BPKy0Qk5.jpg",
+      "overflow": false,
+      "networkSettled": true
+    },
+    {
+      "path": "/emergency-repair",
+      "width": 1440,
+      "heroState": "loaded",
+      "heroAlt": "Exposed window opening during envelope repairs at 65 Westmount Avenue",
+      "heroImage": "/assets/envelope-opening-CtwKOqQW.jpg",
+      "overflow": false,
+      "networkSettled": true
+    },
+    {
+      "path": "/faq",
+      "width": 390,
+      "heroState": "loaded",
+      "heroAlt": "Exposed window opening during envelope repairs at 65 Westmount Avenue",
+      "heroImage": "/assets/envelope-opening-CtwKOqQW.jpg",
+      "overflow": false,
+      "networkSettled": true
+    },
+    {
+      "path": "/estimate",
+      "width": 1440,
+      "heroState": "loaded",
+      "heroAlt": "Residential design sketch from the 67 Edgecroft Road project",
+      "heroImage": "/assets/project-planning-BPKy0Qk5.jpg",
+      "overflow": false,
+      "networkSettled": true
+    },
+    {
+      "path": "/for-architects",
+      "width": 390,
+      "heroState": "loaded",
+      "heroAlt": "Architectural project documentation for Blackhurst Cultural Centre",
+      "heroImage": "/assets/project-documentation-DrKheCfJ.png",
+      "overflow": false,
+      "networkSettled": true
+    },
+    {
+      "path": "/faq",
+      "width": 1440,
+      "heroState": "loaded",
+      "heroAlt": "Exposed window opening during envelope repairs at 65 Westmount Avenue",
+      "heroImage": "/assets/envelope-opening-CtwKOqQW.jpg",
+      "overflow": false,
+      "networkSettled": true
+    },
+    {
+      "path": "/for-general-contractors",
+      "width": 390,
+      "heroState": "loaded",
+      "heroAlt": "Structural steel coating work at York Region Warehouse",
+      "heroImage": "/assets/coatings-progress-CrXR7mC4.jpg",
+      "overflow": false,
+      "networkSettled": true
+    },
+    {
+      "path": "/for-architects",
+      "width": 1440,
+      "heroState": "loaded",
+      "heroAlt": "Architectural project documentation for Blackhurst Cultural Centre",
+      "heroImage": "/assets/project-documentation-DrKheCfJ.png",
+      "overflow": false,
+      "networkSettled": true
+    },
+    {
+      "path": "/homeowners",
+      "width": 390,
+      "heroState": "loaded",
+      "heroAlt": "Finished residential exterior at 67 Edgecroft Road",
+      "heroImage": "/assets/cladding-residential-BXJchJh8.jpg",
+      "overflow": false,
+      "networkSettled": true
+    },
+    {
+      "path": "/for-general-contractors",
+      "width": 1440,
+      "heroState": "loaded",
+      "heroAlt": "Structural steel coating work at York Region Warehouse",
+      "heroImage": "/assets/coatings-progress-CrXR7mC4.jpg",
+      "overflow": false,
+      "networkSettled": true
+    },
+    {
+      "path": "/markets",
+      "width": 390,
+      "heroState": "loaded",
+      "heroAlt": "Queensland Condos building and surrounding streets",
+      "heroImage": "/assets/condominium-exterior-BBIVadQ6.jpg",
+      "overflow": false,
+      "networkSettled": true
+    },
+    {
+      "path": "/our-process",
+      "width": 390,
+      "heroState": "loaded",
+      "heroAlt": "Residential design sketch from the 67 Edgecroft Road project",
+      "heroImage": "/assets/project-planning-BPKy0Qk5.jpg",
+      "overflow": false,
+      "networkSettled": true
+    },
+    {
+      "path": "/homeowners",
+      "width": 1440,
+      "heroState": "loaded",
+      "heroAlt": "Finished residential exterior at 67 Edgecroft Road",
+      "heroImage": "/assets/cladding-residential-BXJchJh8.jpg",
+      "overflow": false,
+      "networkSettled": true
+    },
+    {
+      "path": "/prequalification",
+      "width": 390,
+      "heroState": "loaded",
+      "heroAlt": "Coated structural steel at York Region Warehouse",
+      "heroImage": "/assets/structural-coatings-BmuDK13E.jpg",
+      "overflow": false,
+      "networkSettled": true
+    },
+    {
+      "path": "/markets",
+      "width": 1440,
+      "heroState": "loaded",
+      "heroAlt": "Queensland Condos building and surrounding streets",
+      "heroImage": "/assets/condominium-exterior-BBIVadQ6.jpg",
+      "overflow": false,
+      "networkSettled": true
+    },
+    {
+      "path": "/privacy",
+      "width": 390,
+      "overflow": false,
+      "networkSettled": true
+    },
+    {
+      "path": "/our-process",
+      "width": 1440,
+      "heroState": "loaded",
+      "heroAlt": "Residential design sketch from the 67 Edgecroft Road project",
+      "heroImage": "/assets/project-planning-BPKy0Qk5.jpg",
+      "overflow": false,
+      "networkSettled": true
+    },
+    {
+      "path": "/projects",
+      "width": 390,
+      "overflow": false,
+      "networkSettled": true
+    },
+    {
+      "path": "/prequalification",
+      "width": 1440,
+      "heroState": "loaded",
+      "heroAlt": "Coated structural steel at York Region Warehouse",
+      "heroImage": "/assets/structural-coatings-BmuDK13E.jpg",
+      "overflow": false,
+      "networkSettled": true
+    },
+    {
+      "path": "/projects/65-westmount-avenue",
+      "width": 390,
+      "overflow": false,
+      "networkSettled": true
+    },
+    {
+      "path": "/privacy",
+      "width": 1440,
+      "overflow": false,
+      "networkSettled": true
+    },
+    {
+      "path": "/projects/67-edgecroft-rd-etobicoke",
+      "width": 390,
+      "overflow": false,
+      "networkSettled": true
+    },
+    {
+      "path": "/projects",
+      "width": 1440,
+      "overflow": false,
+      "networkSettled": true
+    },
+    {
+      "path": "/projects/blackhurst-cultural-centre-",
+      "width": 390,
+      "overflow": false,
+      "networkSettled": true
+    },
+    {
+      "path": "/projects/65-westmount-avenue",
+      "width": 1440,
+      "overflow": false,
+      "networkSettled": true
+    },
+    {
+      "path": "/projects/caf-luka",
+      "width": 390,
+      "overflow": false,
+      "networkSettled": true
+    },
+    {
+      "path": "/projects/67-edgecroft-rd-etobicoke",
+      "width": 1440,
+      "overflow": false,
+      "networkSettled": true
+    },
+    {
+      "path": "/projects/comfort-inn-suites",
+      "width": 390,
+      "overflow": false,
+      "networkSettled": true
+    },
+    {
+      "path": "/projects/blackhurst-cultural-centre-",
+      "width": 1440,
+      "overflow": false,
+      "networkSettled": true
+    },
+    {
+      "path": "/projects/dunnville-secondary-school",
+      "width": 390,
+      "overflow": false,
+      "networkSettled": true
+    },
+    {
+      "path": "/projects/caf-luka",
+      "width": 1440,
+      "overflow": false,
+      "networkSettled": true
+    },
+    {
+      "path": "/projects/innisfil-catholic-school",
+      "width": 390,
+      "overflow": false,
+      "networkSettled": true
+    },
+    {
+      "path": "/projects/kw-habilitation-affordable-housing",
+      "width": 390,
+      "overflow": false,
+      "networkSettled": true
+    },
+    {
+      "path": "/projects/comfort-inn-suites",
+      "width": 1440,
+      "overflow": false,
+      "networkSettled": true
+    },
+    {
+      "path": "/projects/oakley-ridge",
+      "width": 390,
+      "overflow": false,
+      "networkSettled": true
+    },
+    {
+      "path": "/projects/dunnville-secondary-school",
+      "width": 1440,
+      "overflow": false,
+      "networkSettled": true
+    },
+    {
+      "path": "/projects/queensland-condos",
+      "width": 390,
+      "overflow": false,
+      "networkSettled": true
+    },
+    {
+      "path": "/projects/innisfil-catholic-school",
+      "width": 1440,
+      "overflow": false,
+      "networkSettled": true
+    },
+    {
+      "path": "/projects/york-region-warehouse",
+      "width": 390,
+      "overflow": false,
+      "networkSettled": true
+    },
+    {
+      "path": "/projects/kw-habilitation-affordable-housing",
+      "width": 1440,
+      "overflow": false,
+      "networkSettled": true
+    },
+    {
+      "path": "/property-managers",
+      "width": 390,
+      "heroState": "loaded",
+      "heroAlt": "Queensland Condos building and surrounding streets",
+      "heroImage": "/assets/condominium-exterior-BBIVadQ6.jpg",
+      "overflow": false,
+      "networkSettled": true
+    },
+    {
+      "path": "/projects/oakley-ridge",
+      "width": 1440,
+      "overflow": false,
+      "networkSettled": true
+    },
+    {
+      "path": "/resources/contractor-portal",
+      "width": 390,
+      "heroState": "loaded",
+      "heroAlt": "Reviewing contractor project documents",
+      "heroImage": "/assets/hero-contractor-portal-BTY-Vdq2.jpg",
+      "overflow": false,
+      "networkSettled": true
+    },
+    {
+      "path": "/projects/queensland-condos",
+      "width": 1440,
+      "overflow": false,
+      "networkSettled": true
+    },
+    {
+      "path": "/resources/service-areas",
+      "width": 390,
+      "heroState": "loaded",
+      "heroAlt": "Service coverage areas across Ontario",
+      "heroImage": "/assets/hero-service-areas-C6HG_Ug2.jpg",
+      "overflow": false,
+      "networkSettled": true
+    },
+    {
+      "path": "/projects/york-region-warehouse",
+      "width": 1440,
+      "overflow": false,
+      "networkSettled": true
+    },
+    {
+      "path": "/service-areas/ajax",
+      "width": 390,
+      "heroState": "loaded",
+      "heroAlt": "Aerial view of Ajax, Ontario",
+      "heroImage": "/assets/ajax-DhkpdXgg.jpg",
+      "overflow": false,
+      "networkSettled": true
+    },
+    {
+      "path": "/property-managers",
+      "width": 1440,
+      "heroState": "loaded",
+      "heroAlt": "Queensland Condos building and surrounding streets",
+      "heroImage": "/assets/condominium-exterior-BBIVadQ6.jpg",
+      "overflow": false,
+      "networkSettled": true
+    },
+    {
+      "path": "/service-areas/aurora",
+      "width": 390,
+      "heroState": "loaded",
+      "heroAlt": "Aurora Town Hall",
+      "heroImage": "/assets/aurora-Bg72Vv3u.jpg",
+      "overflow": false,
+      "networkSettled": true
+    },
+    {
+      "path": "/resources/contractor-portal",
+      "width": 1440,
+      "heroState": "loaded",
+      "heroAlt": "Reviewing contractor project documents",
+      "heroImage": "/assets/hero-contractor-portal-BTY-Vdq2.jpg",
+      "overflow": false,
+      "networkSettled": true
+    },
+    {
+      "path": "/service-areas/brampton",
+      "width": 390,
+      "heroState": "loaded",
+      "heroAlt": "Peel Art Gallery, Museum and Archives building in Brampton",
+      "heroImage": "/assets/brampton-DQX-Ncbp.jpg",
+      "overflow": false,
+      "networkSettled": true
+    },
+    {
+      "path": "/service-areas/burlington",
+      "width": 390,
+      "heroState": "loaded",
+      "heroAlt": "Street clock and downtown buildings in Burlington",
+      "heroImage": "/assets/burlington-r1w4GHG8.jpg",
+      "overflow": false,
+      "networkSettled": true
+    },
+    {
+      "path": "/resources/service-areas",
+      "width": 1440,
+      "heroState": "loaded",
+      "heroAlt": "Service coverage areas across Ontario",
+      "heroImage": "/assets/hero-service-areas-C6HG_Ug2.jpg",
+      "overflow": false,
+      "networkSettled": true
+    },
+    {
+      "path": "/service-areas/hamilton",
+      "width": 390,
+      "heroState": "loaded",
+      "heroAlt": "Hamilton skyline viewed from the Niagara Escarpment",
+      "heroImage": "/assets/hamilton-BR2DYNwN.jpg",
+      "overflow": false,
+      "networkSettled": true
+    },
+    {
+      "path": "/service-areas/ajax",
+      "width": 1440,
+      "heroState": "loaded",
+      "heroAlt": "Aerial view of Ajax, Ontario",
+      "heroImage": "/assets/ajax-DhkpdXgg.jpg",
+      "overflow": false,
+      "networkSettled": true
+    },
+    {
+      "path": "/service-areas/king-city",
+      "width": 390,
+      "heroState": "loaded",
+      "heroAlt": "King City GO station building",
+      "heroImage": "/assets/king-city-VLvulzPA.jpg",
+      "overflow": false,
+      "networkSettled": true
+    },
+    {
+      "path": "/service-areas/aurora",
+      "width": 1440,
+      "heroState": "loaded",
+      "heroAlt": "Aurora Town Hall",
+      "heroImage": "/assets/aurora-Bg72Vv3u.jpg",
+      "overflow": false,
+      "networkSettled": true
+    },
+    {
+      "path": "/service-areas/markham",
+      "width": 390,
+      "heroState": "loaded",
+      "heroAlt": "Markham Civic Centre and reflecting pool",
+      "heroImage": "/assets/markham-CutgbzeF.jpg",
+      "overflow": false,
+      "networkSettled": true
+    },
+    {
+      "path": "/service-areas/brampton",
+      "width": 1440,
+      "heroState": "loaded",
+      "heroAlt": "Peel Art Gallery, Museum and Archives building in Brampton",
+      "heroImage": "/assets/brampton-DQX-Ncbp.jpg",
+      "overflow": false,
+      "networkSettled": true
+    },
+    {
+      "path": "/service-areas/milton",
+      "width": 390,
+      "heroState": "loaded",
+      "heroAlt": "Downtown Milton streetscape",
+      "heroImage": "/assets/milton-DRdXQ2ZQ.jpg",
+      "overflow": false,
+      "networkSettled": true
+    },
+    {
+      "path": "/service-areas/burlington",
+      "width": 1440,
+      "heroState": "loaded",
+      "heroAlt": "Street clock and downtown buildings in Burlington",
+      "heroImage": "/assets/burlington-r1w4GHG8.jpg",
+      "overflow": false,
+      "networkSettled": true
+    },
+    {
+      "path": "/service-areas/mississauga",
+      "width": 390,
+      "heroState": "loaded",
+      "heroAlt": "Mississauga skyline above the tree canopy",
+      "heroImage": "/assets/mississauga-z5ncIB08.jpg",
+      "overflow": false,
+      "networkSettled": true
+    },
+    {
+      "path": "/service-areas/hamilton",
+      "width": 1440,
+      "heroState": "loaded",
+      "heroAlt": "Hamilton skyline viewed from the Niagara Escarpment",
+      "heroImage": "/assets/hamilton-BR2DYNwN.jpg",
+      "overflow": false,
+      "networkSettled": true
+    },
+    {
+      "path": "/service-areas/newmarket",
+      "width": 390,
+      "heroState": "loaded",
+      "heroAlt": "Main Street South heritage district in Newmarket",
+      "heroImage": "/assets/newmarket-B8yFOSUf.jpg",
+      "overflow": false,
+      "networkSettled": true
+    },
+    {
+      "path": "/service-areas/king-city",
+      "width": 1440,
+      "heroState": "loaded",
+      "heroAlt": "King City GO station building",
+      "heroImage": "/assets/king-city-VLvulzPA.jpg",
+      "overflow": false,
+      "networkSettled": true
+    },
+    {
+      "path": "/service-areas/oakville",
+      "width": 390,
+      "heroState": "loaded",
+      "heroAlt": "Aerial view of Oakville and its waterfront",
+      "heroImage": "/assets/oakville-DGH8oruq.jpg",
+      "overflow": false,
+      "networkSettled": true
+    },
+    {
+      "path": "/service-areas/markham",
+      "width": 1440,
+      "heroState": "loaded",
+      "heroAlt": "Markham Civic Centre and reflecting pool",
+      "heroImage": "/assets/markham-CutgbzeF.jpg",
+      "overflow": false,
+      "networkSettled": true
+    },
+    {
+      "path": "/service-areas/oshawa",
+      "width": 390,
+      "heroState": "loaded",
+      "heroAlt": "Historic civic buildings in downtown Oshawa",
+      "heroImage": "/assets/oshawa-Dx3gzIsB.jpg",
+      "overflow": false,
+      "networkSettled": true
+    },
+    {
+      "path": "/service-areas/milton",
+      "width": 1440,
+      "heroState": "loaded",
+      "heroAlt": "Downtown Milton streetscape",
+      "heroImage": "/assets/milton-DRdXQ2ZQ.jpg",
+      "overflow": false,
+      "networkSettled": true
+    },
+    {
+      "path": "/service-areas/pickering",
+      "width": 390,
+      "heroState": "loaded",
+      "heroAlt": "Pickering City Hall",
+      "heroImage": "/assets/pickering-Bd9AX8sF.jpg",
+      "overflow": false,
+      "networkSettled": true
+    },
+    {
+      "path": "/service-areas/mississauga",
+      "width": 1440,
+      "heroState": "loaded",
+      "heroAlt": "Mississauga skyline above the tree canopy",
+      "heroImage": "/assets/mississauga-z5ncIB08.jpg",
+      "overflow": false,
+      "networkSettled": true
+    },
+    {
+      "path": "/service-areas/richmond-hill",
+      "width": 390,
+      "heroState": "loaded",
+      "heroAlt": "Downtown Richmond Hill streetscape",
+      "heroImage": "/assets/richmond-hill-BK3pRory.jpg",
+      "overflow": false,
+      "networkSettled": true
+    },
+    {
+      "path": "/service-areas/newmarket",
+      "width": 1440,
+      "heroState": "loaded",
+      "heroAlt": "Main Street South heritage district in Newmarket",
+      "heroImage": "/assets/newmarket-B8yFOSUf.jpg",
+      "overflow": false,
+      "networkSettled": true
+    },
+    {
+      "path": "/service-areas/toronto",
+      "width": 390,
+      "heroState": "loaded",
+      "heroAlt": "Toronto skyline seen from Snake Island",
+      "heroImage": "/assets/toronto-Czp3nuSm.jpg",
+      "overflow": false,
+      "networkSettled": true
+    },
+    {
+      "path": "/service-areas/oakville",
+      "width": 1440,
+      "heroState": "loaded",
+      "heroAlt": "Aerial view of Oakville and its waterfront",
+      "heroImage": "/assets/oakville-DGH8oruq.jpg",
+      "overflow": false,
+      "networkSettled": true
+    },
+    {
+      "path": "/service-areas/vaughan",
+      "width": 390,
+      "heroState": "loaded",
+      "heroAlt": "Vaughan Metropolitan Centre skyline",
+      "heroImage": "/assets/vaughan-Kr249tm6.jpg",
+      "overflow": false,
+      "networkSettled": true
+    },
+    {
+      "path": "/service-areas/oshawa",
+      "width": 1440,
+      "heroState": "loaded",
+      "heroAlt": "Historic civic buildings in downtown Oshawa",
+      "heroImage": "/assets/oshawa-Dx3gzIsB.jpg",
+      "overflow": false,
+      "networkSettled": true
+    },
+    {
+      "path": "/service-areas/whitby",
+      "width": 390,
+      "heroState": "loaded",
+      "heroAlt": "Downtown Whitby streetscape",
+      "heroImage": "/assets/whitby-B6lBiheR.jpg",
+      "overflow": false,
+      "networkSettled": true
+    },
+    {
+      "path": "/service-areas/pickering",
+      "width": 1440,
+      "heroState": "loaded",
+      "heroAlt": "Pickering City Hall",
+      "heroImage": "/assets/pickering-Bd9AX8sF.jpg",
+      "overflow": false,
+      "networkSettled": true
+    },
+    {
+      "path": "/services",
+      "width": 390,
+      "heroState": "loaded",
+      "heroAlt": "Coated structural steel at York Region Warehouse",
+      "heroImage": "/assets/structural-coatings-BmuDK13E.jpg",
+      "overflow": false,
+      "networkSettled": true
+    },
+    {
+      "path": "/service-areas/richmond-hill",
+      "width": 1440,
+      "heroState": "loaded",
+      "heroAlt": "Downtown Richmond Hill streetscape",
+      "heroImage": "/assets/richmond-hill-BK3pRory.jpg",
+      "overflow": false,
+      "networkSettled": true
+    },
+    {
+      "path": "/services/building-envelope-solutions",
+      "width": 390,
+      "heroState": "loaded",
+      "heroAlt": "Completed exterior at 65 Westmount Avenue",
+      "heroImage": "/assets/envelope-complete-BYZf2nVp.jpg",
+      "overflow": false,
+      "networkSettled": true
+    },
+    {
+      "path": "/service-areas/toronto",
+      "width": 1440,
+      "heroState": "loaded",
+      "heroAlt": "Toronto skyline seen from Snake Island",
+      "heroImage": "/assets/toronto-Czp3nuSm.jpg",
+      "overflow": false,
+      "networkSettled": true
+    },
+    {
+      "path": "/services/caulking-sealants-toronto",
+      "width": 390,
+      "heroState": "loaded",
+      "heroAlt": "Building envelope caulking and sealant renewal by Ascent Group Construction \u2014 Greater Toronto Area",
+      "heroImage": "/assets/wave-caulking-sealants-BWLsSDXT.jpg",
+      "overflow": false,
+      "networkSettled": true
+    },
+    {
+      "path": "/service-areas/vaughan",
+      "width": 1440,
+      "heroState": "loaded",
+      "heroAlt": "Vaughan Metropolitan Centre skyline",
+      "heroImage": "/assets/vaughan-Kr249tm6.jpg",
+      "overflow": false,
+      "networkSettled": true
+    },
+    {
+      "path": "/services/cladding-systems",
+      "width": 390,
+      "heroState": "loaded",
+      "heroAlt": "Finished residential exterior at 67 Edgecroft Road",
+      "heroImage": "/assets/cladding-residential-BXJchJh8.jpg",
+      "overflow": false,
+      "networkSettled": true
+    },
+    {
+      "path": "/service-areas/whitby",
+      "width": 1440,
+      "heroState": "loaded",
+      "heroAlt": "Downtown Whitby streetscape",
+      "heroImage": "/assets/whitby-B6lBiheR.jpg",
+      "overflow": false,
+      "networkSettled": true
+    },
+    {
+      "path": "/services/commercial-painting-gta",
+      "width": 390,
+      "heroState": "loaded",
+      "heroAlt": "Commercial painting by Ascent Group Construction \u2014 Greater Toronto Area",
+      "heroImage": "/assets/wave-commercial-painting-3t0N8jZe.jpg",
+      "overflow": false,
+      "networkSettled": true
+    },
+    {
+      "path": "/services",
+      "width": 1440,
+      "heroState": "loaded",
+      "heroAlt": "Coated structural steel at York Region Warehouse",
+      "heroImage": "/assets/structural-coatings-BmuDK13E.jpg",
+      "overflow": false,
+      "networkSettled": true
+    },
+    {
+      "path": "/services/eifs-stucco-systems",
+      "width": 390,
+      "heroState": "loaded",
+      "heroAlt": "Exterior stucco work at Comfort Inn & Suites",
+      "heroImage": "/assets/stucco-finish-CXkMQfOu.jpg",
+      "overflow": false,
+      "networkSettled": true
+    },
+    {
+      "path": "/services/building-envelope-solutions",
+      "width": 1440,
+      "heroState": "loaded",
+      "heroAlt": "Completed exterior at 65 Westmount Avenue",
+      "heroImage": "/assets/envelope-complete-BYZf2nVp.jpg",
+      "overflow": false,
+      "networkSettled": true
+    },
+    {
+      "path": "/services/exterior-painting-toronto",
+      "width": 390,
+      "heroState": "loaded",
+      "heroAlt": "Exterior painting and stucco recoat by Ascent Group Construction \u2014 Greater Toronto Area",
+      "heroImage": "/assets/wave-exterior-painting-Bic62Rx3.jpg",
+      "overflow": false,
+      "networkSettled": true
+    },
+    {
+      "path": "/services/caulking-sealants-toronto",
+      "width": 1440,
+      "heroState": "loaded",
+      "heroAlt": "Building envelope caulking and sealant renewal by Ascent Group Construction \u2014 Greater Toronto Area",
+      "heroImage": "/assets/wave-caulking-sealants-BWLsSDXT.jpg",
+      "overflow": false,
+      "networkSettled": true
+    },
+    {
+      "path": "/services/facade-remediation",
+      "width": 390,
+      "heroState": "loaded",
+      "heroAlt": "Scaffolding during envelope repairs at 65 Westmount Avenue",
+      "heroImage": "/assets/envelope-staging-CVUvOIxZ.jpg",
+      "overflow": false,
+      "networkSettled": true
+    },
+    {
+      "path": "/services/cladding-systems",
+      "width": 1440,
+      "heroState": "loaded",
+      "heroAlt": "Finished residential exterior at 67 Edgecroft Road",
+      "heroImage": "/assets/cladding-residential-BXJchJh8.jpg",
+      "overflow": false,
+      "networkSettled": true
+    },
+    {
+      "path": "/services/fire-retardant-coatings-ontario",
+      "width": 390,
+      "heroState": "loaded",
+      "heroAlt": "Fire retardant and intumescent coating application by Ascent Group Construction \u2014 Ontario",
+      "heroImage": "/assets/wave-fire-retardant-z8aD7jcE.jpg",
+      "overflow": false,
+      "networkSettled": true
+    },
+    {
+      "path": "/services/commercial-painting-gta",
+      "width": 1440,
+      "heroState": "loaded",
+      "heroAlt": "Commercial painting by Ascent Group Construction \u2014 Greater Toronto Area",
+      "heroImage": "/assets/wave-commercial-painting-3t0N8jZe.jpg",
+      "overflow": false,
+      "networkSettled": true
+    },
+    {
+      "path": "/services/flooring-installation-gta",
+      "width": 390,
+      "heroState": "loaded",
+      "heroAlt": "Flooring installation by Ascent Group Construction \u2014 Greater Toronto Area",
+      "heroImage": "/assets/wave-flooring-installation-C6_sS3d3.jpg",
+      "overflow": false,
+      "networkSettled": true
+    },
+    {
+      "path": "/services/eifs-stucco-systems",
+      "width": 1440,
+      "heroState": "loaded",
+      "heroAlt": "Exterior stucco work at Comfort Inn & Suites",
+      "heroImage": "/assets/stucco-finish-CXkMQfOu.jpg",
+      "overflow": false,
+      "networkSettled": true
+    },
+    {
+      "path": "/services/handyman-patching-toronto",
+      "width": 390,
+      "heroState": "loaded",
+      "heroAlt": "Drywall patching and handyman services by Ascent Group Construction \u2014 Toronto and GTA",
+      "heroImage": "/assets/wave-handyman-patching-B1eNrW8I.jpg",
+      "overflow": false,
+      "networkSettled": true
+    },
+    {
+      "path": "/services/exterior-painting-toronto",
+      "width": 1440,
+      "heroState": "loaded",
+      "heroAlt": "Exterior painting and stucco recoat by Ascent Group Construction \u2014 Greater Toronto Area",
+      "heroImage": "/assets/wave-exterior-painting-Bic62Rx3.jpg",
+      "overflow": false,
+      "networkSettled": true
+    },
+    {
+      "path": "/services/interior-buildouts-finishing",
+      "width": 390,
+      "heroState": "loaded",
+      "heroAlt": "Finished interior at Innisfil Catholic School",
+      "heroImage": "/assets/interior-finishes-CMJ_mwo0.jpg",
+      "overflow": false,
+      "networkSettled": true
+    },
+    {
+      "path": "/services/facade-remediation",
+      "width": 1440,
+      "heroState": "loaded",
+      "heroAlt": "Scaffolding during envelope repairs at 65 Westmount Avenue",
+      "heroImage": "/assets/envelope-staging-CVUvOIxZ.jpg",
+      "overflow": false,
+      "networkSettled": true
+    },
+    {
+      "path": "/services/interior-finishing-renovations",
+      "width": 390,
+      "heroState": "loaded",
+      "heroAlt": "Finished residential interior at Queensland Condos",
+      "heroImage": "/assets/residential-interior-BWIDTcjv.jpg",
+      "overflow": false,
+      "networkSettled": true
+    },
+    {
+      "path": "/services/fire-retardant-coatings-ontario",
+      "width": 1440,
+      "heroState": "loaded",
+      "heroAlt": "Fire retardant and intumescent coating application by Ascent Group Construction \u2014 Ontario",
+      "heroImage": "/assets/wave-fire-retardant-z8aD7jcE.jpg",
+      "overflow": false,
+      "networkSettled": true
+    },
+    {
+      "path": "/services/interior-painting-toronto",
+      "width": 390,
+      "heroState": "loaded",
+      "heroAlt": "Interior painting by Ascent Group Construction \u2014 Toronto and Greater Toronto Area",
+      "heroImage": "/assets/wave-interior-painting-D4de2EWC.jpg",
+      "overflow": false,
+      "networkSettled": true
+    },
+    {
+      "path": "/services/flooring-installation-gta",
+      "width": 1440,
+      "heroState": "loaded",
+      "heroAlt": "Flooring installation by Ascent Group Construction \u2014 Greater Toronto Area",
+      "heroImage": "/assets/wave-flooring-installation-C6_sS3d3.jpg",
+      "overflow": false,
+      "networkSettled": true
+    },
+    {
+      "path": "/services/masonry-restoration",
+      "width": 390,
+      "heroState": "loaded",
+      "heroAlt": "Masonry Restoration",
+      "heroImage": "/assets/hero-masonry-restoration-FIIOguYF.jpg",
+      "overflow": false,
+      "networkSettled": true
+    },
+    {
+      "path": "/services/handyman-patching-toronto",
+      "width": 1440,
+      "heroState": "loaded",
+      "heroAlt": "Drywall patching and handyman services by Ascent Group Construction \u2014 Toronto and GTA",
+      "heroImage": "/assets/wave-handyman-patching-B1eNrW8I.jpg",
+      "overflow": false,
+      "networkSettled": true
+    },
+    {
+      "path": "/services/painting-services",
+      "width": 390,
+      "heroState": "loaded",
+      "heroAlt": "Repainted doors and interior finishes at Dunnville Secondary School",
+      "heroImage": "/assets/institutional-finishes-Co_GeBWb.jpg",
+      "overflow": false,
+      "networkSettled": true
+    },
+    {
+      "path": "/services/interior-buildouts-finishing",
+      "width": 1440,
+      "heroState": "loaded",
+      "heroAlt": "Finished interior at Innisfil Catholic School",
+      "heroImage": "/assets/interior-finishes-CMJ_mwo0.jpg",
+      "overflow": false,
+      "networkSettled": true
+    },
+    {
+      "path": "/services/parking-garage-restoration",
+      "width": 390,
+      "heroState": "loaded",
+      "heroAlt": "Parking Garage Restoration",
+      "heroImage": "/assets/hero-parking-rehabilitation-2Zm0wk2e.jpg",
+      "overflow": false,
+      "networkSettled": true
+    },
+    {
+      "path": "/services/interior-finishing-renovations",
+      "width": 1440,
+      "heroState": "loaded",
+      "heroAlt": "Finished residential interior at Queensland Condos",
+      "heroImage": "/assets/residential-interior-BWIDTcjv.jpg",
+      "overflow": false,
+      "networkSettled": true
+    },
+    {
+      "path": "/services/residential-exterior-painting-gta",
+      "width": 390,
+      "heroState": "loaded",
+      "heroAlt": "Residential exterior house painting by Ascent Group Construction \u2014 Greater Toronto Area",
+      "heroImage": "/assets/wave-residential-exterior-DejiyJV4.jpg",
+      "overflow": false,
+      "networkSettled": true
+    },
+    {
+      "path": "/services/interior-painting-toronto",
+      "width": 1440,
+      "heroState": "loaded",
+      "heroAlt": "Interior painting by Ascent Group Construction \u2014 Toronto and Greater Toronto Area",
+      "heroImage": "/assets/wave-interior-painting-D4de2EWC.jpg",
+      "overflow": false,
+      "networkSettled": true
+    },
+    {
+      "path": "/services/sealant-programs",
+      "width": 390,
+      "heroState": "loaded",
+      "heroAlt": "Sealant Programs",
+      "heroImage": "/assets/hero-sealant-replacement-C5Namy6i.jpg",
+      "overflow": false,
+      "networkSettled": true
+    },
+    {
+      "path": "/services/masonry-restoration",
+      "width": 1440,
+      "heroState": "loaded",
+      "heroAlt": "Masonry Restoration",
+      "heroImage": "/assets/hero-masonry-restoration-FIIOguYF.jpg",
+      "overflow": false,
+      "networkSettled": true
+    },
+    {
+      "path": "/services/sustainable-building",
+      "width": 390,
+      "heroState": "loaded",
+      "heroAlt": "KW Habilitation Affordable Housing exterior",
+      "heroImage": "/assets/housing-exterior-DzyI4qRj.jpg",
+      "overflow": false,
+      "networkSettled": true
+    },
+    {
+      "path": "/services/painting-services",
+      "width": 1440,
+      "heroState": "loaded",
+      "heroAlt": "Repainted doors and interior finishes at Dunnville Secondary School",
+      "heroImage": "/assets/institutional-finishes-Co_GeBWb.jpg",
+      "overflow": false,
+      "networkSettled": true
+    },
+    {
+      "path": "/services/tile-flooring",
+      "width": 390,
+      "heroState": "loaded",
+      "heroAlt": "Tile & Flooring",
+      "heroImage": "/assets/hero-tile-flooring-DH2IOl6P.jpg",
+      "overflow": false,
+      "networkSettled": true
+    },
+    {
+      "path": "/services/parking-garage-restoration",
+      "width": 1440,
+      "heroState": "loaded",
+      "heroAlt": "Parking Garage Restoration",
+      "heroImage": "/assets/hero-parking-rehabilitation-2Zm0wk2e.jpg",
+      "overflow": false,
+      "networkSettled": true
+    },
+    {
+      "path": "/services/tile-installation-toronto",
+      "width": 390,
+      "heroState": "loaded",
+      "heroAlt": "Tile installation by Ascent Group Construction \u2014 Toronto and Greater Toronto Area",
+      "heroImage": "/assets/wave-tile-installation-QuLkbaFn.jpg",
+      "overflow": false,
+      "networkSettled": true
+    },
+    {
+      "path": "/services/residential-exterior-painting-gta",
+      "width": 1440,
+      "heroState": "loaded",
+      "heroAlt": "Residential exterior house painting by Ascent Group Construction \u2014 Greater Toronto Area",
+      "heroImage": "/assets/wave-residential-exterior-DejiyJV4.jpg",
+      "overflow": false,
+      "networkSettled": true
+    },
+    {
+      "path": "/services/waterproofing-systems",
+      "width": 390,
+      "heroState": "loaded",
+      "heroAlt": "Exposed window opening during envelope repairs at 65 Westmount Avenue",
+      "heroImage": "/assets/envelope-opening-CtwKOqQW.jpg",
+      "overflow": false,
+      "networkSettled": true
+    },
+    {
+      "path": "/submit-rfp",
+      "width": 390,
+      "heroState": "loaded",
+      "heroAlt": "Finished school corridor at Dunnville Secondary School",
+      "heroImage": "/assets/school-corridor-BiknUeCu.jpg",
+      "overflow": false,
+      "networkSettled": true
+    },
+    {
+      "path": "/services/sealant-programs",
+      "width": 1440,
+      "heroState": "loaded",
+      "heroAlt": "Sealant Programs",
+      "heroImage": "/assets/hero-sealant-replacement-C5Namy6i.jpg",
+      "overflow": false,
+      "networkSettled": true
+    },
+    {
+      "path": "/terms",
+      "width": 390,
+      "overflow": false,
+      "networkSettled": true
+    },
+    {
+      "path": "/services/sustainable-building",
+      "width": 1440,
+      "heroState": "loaded",
+      "heroAlt": "KW Habilitation Affordable Housing exterior",
+      "heroImage": "/assets/housing-exterior-DzyI4qRj.jpg",
+      "overflow": false,
+      "networkSettled": true
+    },
+    {
+      "path": "/why-specialty-contractor",
+      "width": 390,
+      "heroState": "loaded",
+      "heroAlt": "Stucco installation work at Comfort Inn & Suites",
+      "heroImage": "/assets/stucco-installation-CUx0wOlG.jpg",
+      "overflow": false,
+      "networkSettled": true
+    },
+    {
+      "path": "/services/tile-flooring",
+      "width": 1440,
+      "heroState": "loaded",
+      "heroAlt": "Tile & Flooring",
+      "heroImage": "/assets/hero-tile-flooring-DH2IOl6P.jpg",
+      "overflow": false,
+      "networkSettled": true
+    },
+    {
+      "path": "/services/tile-installation-toronto",
+      "width": 1440,
+      "heroState": "loaded",
+      "heroAlt": "Tile installation by Ascent Group Construction \u2014 Toronto and Greater Toronto Area",
+      "heroImage": "/assets/wave-tile-installation-QuLkbaFn.jpg",
+      "overflow": false,
+      "networkSettled": true
+    },
+    {
+      "path": "/services/waterproofing-systems",
+      "width": 1440,
+      "heroState": "loaded",
+      "heroAlt": "Exposed window opening during envelope repairs at 65 Westmount Avenue",
+      "heroImage": "/assets/envelope-opening-CtwKOqQW.jpg",
+      "overflow": false,
+      "networkSettled": true
+    },
+    {
+      "path": "/submit-rfp",
+      "width": 1440,
+      "heroState": "loaded",
+      "heroAlt": "Finished school corridor at Dunnville Secondary School",
+      "heroImage": "/assets/school-corridor-BiknUeCu.jpg",
+      "overflow": false,
+      "networkSettled": true
+    },
+    {
+      "path": "/terms",
+      "width": 1440,
+      "overflow": false,
+      "networkSettled": true
+    },
+    {
+      "path": "/why-specialty-contractor",
+      "width": 1440,
+      "heroState": "loaded",
+      "heroAlt": "Stucco installation work at Comfort Inn & Suites",
+      "heroImage": "/assets/stucco-installation-CUx0wOlG.jpg",
+      "overflow": false,
+      "networkSettled": true
+    }
+  ]
+}

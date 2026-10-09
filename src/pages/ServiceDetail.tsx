@@ -299,6 +299,9 @@ const ServiceDetail = () => {
         title={service.name}
         description={service.short_description || ""}
         image={hero.image}
+        fallbackImage={
+          resolveServiceHero(service.slug, null, service.category).image
+        }
         imageAlt={hero.imageAlt}
         primaryCta={{ text: CTA_TEXT.primary, href: "/contact" }}
         breadcrumbs={[
