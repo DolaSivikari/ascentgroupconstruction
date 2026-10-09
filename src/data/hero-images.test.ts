@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { SERVICE_REGISTRY } from "./service-registry";
 import { serviceAreaCities } from "./service-area-cities";
+import { generatedHeroScenes } from "./hero-scenes";
 import {
   getCityHero,
   isUsableHeroImage,
@@ -121,7 +122,7 @@ describe("city and article fallbacks", () => {
       resolveBlogHero("/placeholder.svg", "A real project case study"),
     ).toEqual({
       image: mainPageHeroes.blog,
-      imageAlt: "Construction photograph used to illustrate this article",
+      imageAlt: generatedHeroScenes.blog.alt,
       source: "fallback",
     });
     expect(resolveBlogHero(null).image).toBeTruthy();

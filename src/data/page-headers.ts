@@ -121,7 +121,7 @@ const staticImages: Array<[string, string, string]> = [
   [
     "/emergency-repair",
     "Emergency Repair",
-    serviceHeroes["waterproofing-systems"],
+    mainPageHeroes["emergency-repair"],
   ],
 ];
 
@@ -133,7 +133,7 @@ export function buildPageHeaders(metadata: HeaderMetadata): PageHeaderRow[] {
     image,
     group: "Main & company",
     presentation: "Image hero",
-    source: "Shared image registry",
+    source: "Page-specific image registry",
   }));
   const firstSlide = metadata.slides[0]?.poster_url?.trim();
   rows.push({

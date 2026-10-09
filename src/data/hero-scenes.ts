@@ -1,0 +1,464 @@
+/** Page-specific illustrative scenes. Briefs: _assessment/headers/page-specific-image-briefs.json. */
+import type { HeroPhoto } from "./hero-photography";
+import scene0 from "@/assets/heroes/scenes/about.webp";
+import scene1 from "@/assets/heroes/scenes/services.webp";
+import scene2 from "@/assets/heroes/scenes/contact.webp";
+import scene3 from "@/assets/heroes/scenes/careers.webp";
+import scene4 from "@/assets/heroes/scenes/faq.webp";
+import scene5 from "@/assets/heroes/scenes/blog.webp";
+import scene6 from "@/assets/heroes/scenes/markets.webp";
+import scene7 from "@/assets/heroes/scenes/property-managers.webp";
+import scene8 from "@/assets/heroes/scenes/homeowners.webp";
+import scene9 from "@/assets/heroes/scenes/for-general-contractors.webp";
+import scene10 from "@/assets/heroes/scenes/for-architects.webp";
+import scene11 from "@/assets/heroes/scenes/technology.webp";
+import scene12 from "@/assets/heroes/scenes/our-process.webp";
+import scene13 from "@/assets/heroes/scenes/capabilities.webp";
+import scene14 from "@/assets/heroes/scenes/why-specialty-contractor.webp";
+import scene15 from "@/assets/heroes/scenes/certifications-insurance.webp";
+import scene16 from "@/assets/heroes/scenes/prequalification.webp";
+import scene17 from "@/assets/heroes/scenes/contractor-portal.webp";
+import scene18 from "@/assets/heroes/scenes/estimate.webp";
+import scene19 from "@/assets/heroes/scenes/submit-rfp.webp";
+import scene20 from "@/assets/heroes/scenes/emergency-repair.webp";
+import scene21 from "@/assets/heroes/scenes/building-envelope-solutions.webp";
+import scene22 from "@/assets/heroes/scenes/cladding-systems.webp";
+import scene23 from "@/assets/heroes/scenes/waterproofing-systems.webp";
+import scene24 from "@/assets/heroes/scenes/eifs-stucco-systems.webp";
+import scene25 from "@/assets/heroes/scenes/facade-remediation.webp";
+import scene26 from "@/assets/heroes/scenes/masonry-restoration.webp";
+import scene27 from "@/assets/heroes/scenes/parking-garage-restoration.webp";
+import scene28 from "@/assets/heroes/scenes/sealant-programs.webp";
+import scene29 from "@/assets/heroes/scenes/interior-buildouts-finishing.webp";
+import scene30 from "@/assets/heroes/scenes/interior-finishing-renovations.webp";
+import scene31 from "@/assets/heroes/scenes/painting-services.webp";
+import scene32 from "@/assets/heroes/scenes/tile-flooring.webp";
+import scene33 from "@/assets/heroes/scenes/sustainable-building.webp";
+import scene34 from "@/assets/heroes/scenes/commercial-painting-gta.webp";
+import scene35 from "@/assets/heroes/scenes/exterior-painting-toronto.webp";
+import scene36 from "@/assets/heroes/scenes/caulking-sealants-toronto.webp";
+import scene37 from "@/assets/heroes/scenes/fire-retardant-coatings-ontario.webp";
+import scene38 from "@/assets/heroes/scenes/interior-painting-toronto.webp";
+import scene39 from "@/assets/heroes/scenes/residential-exterior-painting-gta.webp";
+import scene40 from "@/assets/heroes/scenes/tile-installation-toronto.webp";
+import scene41 from "@/assets/heroes/scenes/flooring-installation-gta.webp";
+import scene42 from "@/assets/heroes/scenes/handyman-patching-toronto.webp";
+import scene43 from "@/assets/heroes/scenes/article-envelope-signs.webp";
+import scene44 from "@/assets/heroes/scenes/article-eifs-stucco.webp";
+import scene45 from "@/assets/heroes/scenes/article-trade-partner.webp";
+import scene46 from "@/assets/heroes/scenes/article-pm-maintenance.webp";
+import scene47 from "@/assets/heroes/scenes/article-envelope-preparation.webp";
+import scene48 from "@/assets/heroes/scenes/article-self-performed.webp";
+import scene49 from "@/assets/heroes/scenes/commercial-clients.webp";
+import scene50 from "@/assets/heroes/scenes/developers.webp";
+
+export const generatedHeroScenes = {
+  about: {
+    image: scene0,
+    alt: "Illustrative specialty-construction crew reviewing facade-restoration plans.",
+    source: "AI-generated construction illustration",
+    origin: "generated",
+    position: "60% 65%",
+    mobilePosition: "60% 55%",
+  },
+  services: {
+    image: scene1,
+    alt: "Specialty-trade illustration of envelope, masonry and interior work on a commercial renovation.",
+    source: "AI-generated construction illustration",
+    origin: "generated",
+    position: "60% 65%",
+    mobilePosition: "60% 55%",
+  },
+  contact: {
+    image: scene2,
+    alt: "Illustrative site-assessment consultation between a construction estimator and a building owner.",
+    source: "AI-generated construction illustration",
+    origin: "generated",
+    position: "60% 65%",
+    mobilePosition: "60% 55%",
+  },
+  careers: {
+    image: scene3,
+    alt: "Illustrative skilled-trades mentoring at a building-envelope training panel.",
+    source: "AI-generated construction illustration",
+    origin: "generated",
+    position: "60% 65%",
+    mobilePosition: "60% 55%",
+  },
+  faq: {
+    image: scene4,
+    alt: "Illustrative contractor answering a property owner's questions about a wall assembly.",
+    source: "AI-generated construction illustration",
+    origin: "generated",
+    position: "60% 65%",
+    mobilePosition: "60% 55%",
+  },
+  blog: {
+    image: scene5,
+    alt: "Illustrative construction field notes, detail photographs and material samples for technical insights.",
+    source: "AI-generated construction illustration",
+    origin: "generated",
+    position: "60% 65%",
+    mobilePosition: "60% 55%",
+  },
+  markets: {
+    image: scene6,
+    alt: "Illustrative mix of commercial, multi-residential and institutional building types served by specialty contractors.",
+    source: "AI-generated construction illustration",
+    origin: "generated",
+    position: "60% 65%",
+    mobilePosition: "60% 55%",
+  },
+  "property-managers": {
+    image: scene7,
+    alt: "Illustrative occupied-apartment facade inspection with a property manager.",
+    source: "AI-generated construction illustration",
+    origin: "generated",
+    position: "60% 65%",
+    mobilePosition: "60% 55%",
+  },
+  homeowners: {
+    image: scene8,
+    alt: "Illustrative residential repair and finishing consultation at an Ontario-style home.",
+    source: "AI-generated construction illustration",
+    origin: "generated",
+    position: "60% 65%",
+    mobilePosition: "60% 55%",
+  },
+  "for-general-contractors": {
+    image: scene9,
+    alt: "Illustrative coordination between a general-contractor superintendent and a specialty-trade foreman.",
+    source: "AI-generated construction illustration",
+    origin: "generated",
+    position: "60% 65%",
+    mobilePosition: "60% 55%",
+  },
+  "for-architects": {
+    image: scene10,
+    alt: "Illustrative architect and installer reviewing air-barrier continuity and a window-flashing detail.",
+    source: "AI-generated construction illustration",
+    origin: "generated",
+    position: "60% 65%",
+    mobilePosition: "60% 55%",
+  },
+  technology: {
+    image: scene11,
+    alt: "Illustrative digital facade surveying with a tablet and laser-distance meter.",
+    source: "AI-generated construction illustration",
+    origin: "generated",
+    position: "60% 65%",
+    mobilePosition: "60% 55%",
+  },
+  "our-process": {
+    image: scene12,
+    alt: "Illustrative documented construction walkthrough and closeout inspection.",
+    source: "AI-generated construction illustration",
+    origin: "generated",
+    position: "60% 65%",
+    mobilePosition: "60% 55%",
+  },
+  capabilities: {
+    image: scene13,
+    alt: "Illustrative specialty-trade execution and facade quality inspection on a coordinated site.",
+    source: "AI-generated construction illustration",
+    origin: "generated",
+    position: "60% 65%",
+    mobilePosition: "60% 55%",
+  },
+  "why-specialty-contractor": {
+    image: scene14,
+    alt: "Illustrative specialist workmanship at a window-flashing and air-barrier transition.",
+    source: "AI-generated construction illustration",
+    origin: "generated",
+    position: "60% 65%",
+    mobilePosition: "60% 55%",
+  },
+  "certifications-insurance": {
+    image: scene15,
+    alt: "Illustrative construction compliance paperwork and safety equipment; no actual credentials depicted.",
+    source: "AI-generated construction illustration",
+    origin: "generated",
+    position: "60% 65%",
+    mobilePosition: "60% 55%",
+  },
+  prequalification: {
+    image: scene16,
+    alt: "Illustrative contractor vendor dossier, capability documents and project-reference materials.",
+    source: "AI-generated construction illustration",
+    origin: "generated",
+    position: "60% 65%",
+    mobilePosition: "60% 55%",
+  },
+  "contractor-portal": {
+    image: scene17,
+    alt: "Illustrative trade-partner scope coordination in a construction site office.",
+    source: "AI-generated construction illustration",
+    origin: "generated",
+    position: "60% 65%",
+    mobilePosition: "60% 55%",
+  },
+  estimate: {
+    image: scene18,
+    alt: "Illustrative construction quantity takeoff and estimate preparation.",
+    source: "AI-generated construction illustration",
+    origin: "generated",
+    position: "60% 65%",
+    mobilePosition: "60% 55%",
+  },
+  "submit-rfp": {
+    image: scene19,
+    alt: "Illustrative construction request-for-proposal package preparation.",
+    source: "AI-generated construction illustration",
+    origin: "generated",
+    position: "60% 65%",
+    mobilePosition: "60% 55%",
+  },
+  "emergency-repair": {
+    image: scene20,
+    alt: "Illustrative construction response to rain-related window and facade damage.",
+    source: "AI-generated construction illustration",
+    origin: "generated",
+    position: "60% 65%",
+    mobilePosition: "60% 55%",
+  },
+  "building-envelope-solutions": {
+    image: scene21,
+    alt: "Illustrative building-envelope installation with window flashing, air barrier and insulation.",
+    source: "AI-generated construction illustration",
+    origin: "generated",
+    position: "60% 65%",
+    mobilePosition: "60% 55%",
+  },
+  "cladding-systems": {
+    image: scene22,
+    alt: "Illustrative metal rainscreen cladding panels, support rails and ventilated cavity.",
+    source: "AI-generated construction illustration",
+    origin: "generated",
+    position: "60% 65%",
+    mobilePosition: "60% 55%",
+  },
+  "waterproofing-systems": {
+    image: scene23,
+    alt: "Illustrative foundation waterproofing membrane, drainage sheet and protected joints.",
+    source: "AI-generated construction illustration",
+    origin: "generated",
+    position: "60% 65%",
+    mobilePosition: "60% 55%",
+  },
+  "eifs-stucco-systems": {
+    image: scene24,
+    alt: "Illustrative EIFS insulation, reinforcing mesh, base coat and textured finish application.",
+    source: "AI-generated construction illustration",
+    origin: "generated",
+    position: "60% 65%",
+    mobilePosition: "60% 55%",
+  },
+  "facade-remediation": {
+    image: scene25,
+    alt: "Illustrative repair of a weathered brick facade and its window joints.",
+    source: "AI-generated construction illustration",
+    origin: "generated",
+    position: "60% 65%",
+    mobilePosition: "60% 55%",
+  },
+  "masonry-restoration": {
+    image: scene26,
+    alt: "Illustrative brick masonry repointing with a pointing trowel and fresh mortar.",
+    source: "AI-generated construction illustration",
+    origin: "generated",
+    position: "60% 65%",
+    mobilePosition: "60% 55%",
+  },
+  "parking-garage-restoration": {
+    image: scene27,
+    alt: "Illustrative concrete slab patching inside a marked parking garage.",
+    source: "AI-generated construction illustration",
+    origin: "generated",
+    position: "60% 65%",
+    mobilePosition: "60% 55%",
+  },
+  "sealant-programs": {
+    image: scene28,
+    alt: "Illustrative replacement and tooling of exterior precast-panel joint sealant.",
+    source: "AI-generated construction illustration",
+    origin: "generated",
+    position: "60% 65%",
+    mobilePosition: "60% 55%",
+  },
+  "interior-buildouts-finishing": {
+    image: scene29,
+    alt: "Illustrative commercial interior fit-out with partition framing and drywall installation.",
+    source: "AI-generated construction illustration",
+    origin: "generated",
+    position: "60% 65%",
+    mobilePosition: "60% 55%",
+  },
+  "interior-finishing-renovations": {
+    image: scene30,
+    alt: "Illustrative residential interior finishing, trim and renovation workmanship.",
+    source: "AI-generated construction illustration",
+    origin: "generated",
+    position: "60% 65%",
+    mobilePosition: "60% 55%",
+  },
+  "painting-services": {
+    image: scene31,
+    alt: "Illustrative professional wall preparation and roller-applied painting.",
+    source: "AI-generated construction illustration",
+    origin: "generated",
+    position: "60% 65%",
+    mobilePosition: "60% 55%",
+  },
+  "tile-flooring": {
+    image: scene32,
+    alt: "Illustrative commercial tile and resilient-flooring finishes with clean transitions.",
+    source: "AI-generated construction illustration",
+    origin: "generated",
+    position: "60% 65%",
+    mobilePosition: "60% 55%",
+  },
+  "sustainable-building": {
+    image: scene33,
+    alt: "Illustrative energy retrofit with continuous insulation, efficient glazing and rainscreen cladding.",
+    source: "AI-generated construction illustration",
+    origin: "generated",
+    position: "60% 65%",
+    mobilePosition: "60% 55%",
+  },
+  "commercial-painting-gta": {
+    image: scene34,
+    alt: "Illustrative commercial office repainting with protected surfaces and roller-applied finish.",
+    source: "AI-generated construction illustration",
+    origin: "generated",
+    position: "60% 65%",
+    mobilePosition: "60% 55%",
+  },
+  "exterior-painting-toronto": {
+    image: scene35,
+    alt: "Illustrative ground-level application of an exterior facade coating.",
+    source: "AI-generated construction illustration",
+    origin: "generated",
+    position: "60% 65%",
+    mobilePosition: "60% 55%",
+  },
+  "caulking-sealants-toronto": {
+    image: scene36,
+    alt: "Illustrative window-perimeter caulking with a manual sealant gun.",
+    source: "AI-generated construction illustration",
+    origin: "generated",
+    position: "60% 65%",
+    mobilePosition: "60% 55%",
+  },
+  "fire-retardant-coatings-ontario": {
+    image: scene37,
+    alt: "Illustrative inspection of intumescent coating on a steel column.",
+    source: "AI-generated construction illustration",
+    origin: "generated",
+    position: "60% 65%",
+    mobilePosition: "60% 55%",
+  },
+  "interior-painting-toronto": {
+    image: scene38,
+    alt: "Illustrative precise interior paint edging at a residential doorway.",
+    source: "AI-generated construction illustration",
+    origin: "generated",
+    position: "60% 65%",
+    mobilePosition: "60% 55%",
+  },
+  "residential-exterior-painting-gta": {
+    image: scene39,
+    alt: "Illustrative residential exterior painting of a porch and entry trim.",
+    source: "AI-generated construction illustration",
+    origin: "generated",
+    position: "60% 65%",
+    mobilePosition: "60% 55%",
+  },
+  "tile-installation-toronto": {
+    image: scene40,
+    alt: "Illustrative porcelain floor-tile installation over combed thinset mortar.",
+    source: "AI-generated construction illustration",
+    origin: "generated",
+    position: "60% 65%",
+    mobilePosition: "60% 55%",
+  },
+  "flooring-installation-gta": {
+    image: scene41,
+    alt: "Illustrative click-lock plank flooring installation with perimeter spacers.",
+    source: "AI-generated construction illustration",
+    origin: "generated",
+    position: "60% 65%",
+    mobilePosition: "60% 55%",
+  },
+  "handyman-patching-toronto": {
+    image: scene42,
+    alt: "Illustrative drywall patching and smoothing of a small wall repair.",
+    source: "AI-generated construction illustration",
+    origin: "generated",
+    position: "60% 65%",
+    mobilePosition: "60% 55%",
+  },
+  "article-envelope-signs": {
+    image: scene43,
+    alt: "Illustrative early envelope warning signs at a weathered window perimeter.",
+    source: "AI-generated construction illustration",
+    origin: "generated",
+    position: "60% 65%",
+    mobilePosition: "60% 55%",
+  },
+  "article-eifs-stucco": {
+    image: scene44,
+    alt: "Illustrative physical EIFS and traditional-stucco sample comparison.",
+    source: "AI-generated construction illustration",
+    origin: "generated",
+    position: "60% 65%",
+    mobilePosition: "60% 55%",
+  },
+  "article-trade-partner": {
+    image: scene45,
+    alt: "Illustrative review of a specialty trade partner's scope and quality records.",
+    source: "AI-generated construction illustration",
+    origin: "generated",
+    position: "60% 65%",
+    mobilePosition: "60% 55%",
+  },
+  "article-pm-maintenance": {
+    image: scene46,
+    alt: "Illustrative apartment-building preventive-maintenance inspection and scheduling.",
+    source: "AI-generated construction illustration",
+    origin: "generated",
+    position: "60% 65%",
+    mobilePosition: "60% 55%",
+  },
+  "article-envelope-preparation": {
+    image: scene47,
+    alt: "Illustrative planning of tenant access and staging before envelope restoration.",
+    source: "AI-generated construction illustration",
+    origin: "generated",
+    position: "60% 65%",
+    mobilePosition: "60% 55%",
+  },
+  "article-self-performed": {
+    image: scene48,
+    alt: "Illustrative direct crew inspection of a completed cladding detail.",
+    source: "AI-generated construction illustration",
+    origin: "generated",
+    position: "60% 65%",
+    mobilePosition: "60% 55%",
+  },
+  "commercial-clients": {
+    image: scene49,
+    alt: "Illustrative facade-restoration planning at an occupied commercial property.",
+    source: "AI-generated construction illustration",
+    origin: "generated",
+    position: "60% 65%",
+    mobilePosition: "60% 55%",
+  },
+  developers: {
+    image: scene50,
+    alt: "Illustrative developer and specialty contractor coordinating exterior finishes on a multi-residential project.",
+    source: "AI-generated construction illustration",
+    origin: "generated",
+    position: "60% 65%",
+    mobilePosition: "60% 55%",
+  },
+} satisfies Record<string, HeroPhoto>;

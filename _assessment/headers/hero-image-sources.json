@@ -215,7 +215,9 @@
       "projectTitle": "65 Westmount Avenue",
       "bytes": 205098,
       "downloadUrl": "https://dinliarttwuzzozyvuiu.supabase.co/storage/v1/render/image/public/project-images/1781787450437-ttpe0td4vcp.jpg?width=1280&quality=70",
-      "sha256": "bb7e40fc481414ac42d6f7d830665926871c23efe1a89299234a7a13fffabadd"
+      "sha256": "bb7e40fc481414ac42d6f7d830665926871c23efe1a89299234a7a13fffabadd",
+      "status": "retired bundled header asset",
+      "reason": "Replaced by a unique page-specific scene; the original published project photograph remains available at source."
     },
     {
       "key": "envelope-opening",
@@ -226,7 +228,9 @@
       "projectTitle": "65 Westmount Avenue",
       "bytes": 572259,
       "downloadUrl": "https://dinliarttwuzzozyvuiu.supabase.co/storage/v1/render/image/public/project-images/new/process/1781787394929-8.jpg?width=1280&quality=70",
-      "sha256": "bf7cd389866a84751d3b58fe3b510de80701021de52bbcffd9558c85ff926bc9"
+      "sha256": "bf7cd389866a84751d3b58fe3b510de80701021de52bbcffd9558c85ff926bc9",
+      "status": "retired bundled header asset",
+      "reason": "Replaced by a unique page-specific scene; the original published project photograph remains available at source."
     },
     {
       "key": "envelope-flashing",
@@ -237,7 +241,9 @@
       "projectTitle": "65 Westmount Avenue",
       "bytes": 632714,
       "downloadUrl": "https://dinliarttwuzzozyvuiu.supabase.co/storage/v1/render/image/public/project-images/new/process/1781787402120-13.jpg?width=1280&quality=70",
-      "sha256": "15a4fb96f390ca45256b658467951d13ee211c0de05d0c5fc87518688d8bc742"
+      "sha256": "15a4fb96f390ca45256b658467951d13ee211c0de05d0c5fc87518688d8bc742",
+      "status": "retired bundled header asset",
+      "reason": "Replaced by a unique page-specific scene; the original published project photograph remains available at source."
     },
     {
       "key": "envelope-staging",
@@ -248,7 +254,9 @@
       "projectTitle": "65 Westmount Avenue",
       "bytes": 517865,
       "downloadUrl": "https://dinliarttwuzzozyvuiu.supabase.co/storage/v1/render/image/public/project-images/new/before/1781787442300-0.jpg?width=1280&quality=70",
-      "sha256": "8e0fada59e8ef0dc5cf46ce18d4435fa8b397ab5a4bf1c5a485524042879eed2"
+      "sha256": "8e0fada59e8ef0dc5cf46ce18d4435fa8b397ab5a4bf1c5a485524042879eed2",
+      "status": "retired bundled header asset",
+      "reason": "Replaced by a unique page-specific scene; the original published project photograph remains available at source."
     },
     {
       "key": "stucco-installation",
@@ -259,7 +267,9 @@
       "projectTitle": "Comfort Inn & Suites",
       "bytes": 210852,
       "downloadUrl": "https://dinliarttwuzzozyvuiu.supabase.co/storage/v1/render/image/public/project-images/new/process/1763559933173-0.jpg?width=1280&quality=70",
-      "sha256": "c1d05ee8577f0be15d9aa4edee30a27c3722fbd95b8e7fa2ecd089f7a44c6ebf"
+      "sha256": "c1d05ee8577f0be15d9aa4edee30a27c3722fbd95b8e7fa2ecd089f7a44c6ebf",
+      "status": "retired bundled header asset",
+      "reason": "Replaced by a unique page-specific scene; the original published project photograph remains available at source."
     },
     {
       "key": "stucco-finish",
@@ -270,7 +280,9 @@
       "projectTitle": "Comfort Inn & Suites",
       "bytes": 123074,
       "downloadUrl": "https://dinliarttwuzzozyvuiu.supabase.co/storage/v1/render/image/public/project-images/a1b7a274-1c99-49f6-bf0d-a420066b309d/process/1791488925391-0.jpg?width=1280&quality=70",
-      "sha256": "9ec2a400f1689fe0f965f45e98d04dc605755f5deac2053b4328fd82dce464a6"
+      "sha256": "9ec2a400f1689fe0f965f45e98d04dc605755f5deac2053b4328fd82dce464a6",
+      "status": "retired bundled header asset",
+      "reason": "Replaced by a unique page-specific scene; the original published project photograph remains available at source."
     },
     {
       "key": "cladding-residential",
@@ -281,7 +293,9 @@
       "projectTitle": "67 Edgecroft Rd Etobicoke",
       "bytes": 226491,
       "downloadUrl": "https://dinliarttwuzzozyvuiu.supabase.co/storage/v1/render/image/public/project-images/new/after/1780716554931-0.jpeg?width=1280&quality=70",
-      "sha256": "af36f4c080b98f242a4d13cf53eebe3ea97f427512cc685c4b69dfc5d08db216"
+      "sha256": "af36f4c080b98f242a4d13cf53eebe3ea97f427512cc685c4b69dfc5d08db216",
+      "status": "retired bundled header asset",
+      "reason": "Replaced by a unique page-specific scene; the original published project photograph remains available at source."
     },
     {
       "key": "project-planning",
@@ -292,7 +306,9 @@
       "projectTitle": "67 Edgecroft Rd Etobicoke",
       "bytes": 105484,
       "downloadUrl": "https://dinliarttwuzzozyvuiu.supabase.co/storage/v1/render/image/public/project-images/new/gallery/1780716647152-0.jpeg?width=1280&quality=70",
-      "sha256": "33cc6c6785d6039a175b74c1cae8012b9b4c2002769ccd967ecb218bda75af86"
+      "sha256": "33cc6c6785d6039a175b74c1cae8012b9b4c2002769ccd967ecb218bda75af86",
+      "status": "retired bundled header asset",
+      "reason": "Replaced by a unique page-specific scene; the original published project photograph remains available at source."
     },
     {
       "key": "project-documentation",
@@ -303,7 +319,9 @@
       "projectTitle": "Blackhurst Cultural Centre",
       "bytes": 799306,
       "downloadUrl": "https://dinliarttwuzzozyvuiu.supabase.co/storage/v1/render/image/public/project-images/1776798291945-laq7ij5uiye.png?width=1280&quality=70",
-      "sha256": "b8e595d97421b0df0f831e6aa10f0056c256512cfabc76b2c62b680c7fd7b41b"
+      "sha256": "b8e595d97421b0df0f831e6aa10f0056c256512cfabc76b2c62b680c7fd7b41b",
+      "status": "retired bundled header asset",
+      "reason": "Replaced by a unique page-specific scene; the original published project photograph remains available at source."
     },
     {
       "key": "interior-progress",
@@ -314,7 +332,9 @@
       "projectTitle": "Innisfil Catholic School",
       "bytes": 205075,
       "downloadUrl": "https://dinliarttwuzzozyvuiu.supabase.co/storage/v1/render/image/public/project-images/new/gallery/1763561434045-0.jpg?width=1280&quality=70",
-      "sha256": "ac8becd1df4ecbe75e39bbdf3c102bef49397bdffcad77aaf3768d2b8c0b8cd2"
+      "sha256": "ac8becd1df4ecbe75e39bbdf3c102bef49397bdffcad77aaf3768d2b8c0b8cd2",
+      "status": "retired bundled header asset",
+      "reason": "Replaced by a unique page-specific scene; the original published project photograph remains available at source."
     },
     {
       "key": "interior-finishes",
@@ -325,7 +345,9 @@
       "projectTitle": "Innisfil Catholic School",
       "bytes": 129919,
       "downloadUrl": "https://dinliarttwuzzozyvuiu.supabase.co/storage/v1/render/image/public/project-images/new/gallery/1763561435191-1.jpg?width=1280&quality=70",
-      "sha256": "1763524b6b00283f30bc2a1b5e0e15b9c534431214ae3cf1fae14d3954408004"
+      "sha256": "1763524b6b00283f30bc2a1b5e0e15b9c534431214ae3cf1fae14d3954408004",
+      "status": "retired bundled header asset",
+      "reason": "Replaced by a unique page-specific scene; the original published project photograph remains available at source."
     },
     {
       "key": "institutional-finishes",
@@ -336,7 +358,9 @@
       "projectTitle": "Dunnville Secondary School",
       "bytes": 348214,
       "downloadUrl": "https://dinliarttwuzzozyvuiu.supabase.co/storage/v1/render/image/public/project-images/new/gallery/1763560946134-2.jpg?width=1280&quality=70",
-      "sha256": "ec282554f720c202eaf93ac8a3fb979fbb0873f30648dd5f0ee7f6213a39d479"
+      "sha256": "ec282554f720c202eaf93ac8a3fb979fbb0873f30648dd5f0ee7f6213a39d479",
+      "status": "retired bundled header asset",
+      "reason": "Replaced by a unique page-specific scene; the original published project photograph remains available at source."
     },
     {
       "key": "residential-interior",
@@ -347,7 +371,9 @@
       "projectTitle": "Queensland Condos",
       "bytes": 168421,
       "downloadUrl": "https://dinliarttwuzzozyvuiu.supabase.co/storage/v1/render/image/public/project-images/new/gallery/1763561840596-0.jpg?width=1280&quality=70",
-      "sha256": "36a4a3ff5a1615201c09c389a4eed9dba160a70a99a91ec7828a7c3e5847870a"
+      "sha256": "36a4a3ff5a1615201c09c389a4eed9dba160a70a99a91ec7828a7c3e5847870a",
+      "status": "retired bundled header asset",
+      "reason": "Replaced by a unique page-specific scene; the original published project photograph remains available at source."
     },
     {
       "key": "residential-amenities",
@@ -358,7 +384,9 @@
       "projectTitle": "KW Habilitation Affordable Housing",
       "bytes": 175947,
       "downloadUrl": "https://dinliarttwuzzozyvuiu.supabase.co/storage/v1/render/image/public/project-images/f258383c-6e1b-4e1e-910d-239bd695cf0e/gallery/1780716079277-0.jpeg?width=1280&quality=70",
-      "sha256": "e6224c12dc5c7a27faadfe22d7c9f91e2d967e9ecc60eb11f5c95bd66771f3a3"
+      "sha256": "e6224c12dc5c7a27faadfe22d7c9f91e2d967e9ecc60eb11f5c95bd66771f3a3",
+      "status": "retired bundled header asset",
+      "reason": "Replaced by a unique page-specific scene; the original published project photograph remains available at source."
     },
     {
       "key": "condominium-exterior",
@@ -369,7 +397,9 @@
       "projectTitle": "Queensland Condos",
       "bytes": 181951,
       "downloadUrl": "https://dinliarttwuzzozyvuiu.supabase.co/storage/v1/render/image/public/project-images/1763562552629-d5mnykzdjq.jpg?width=1280&quality=70",
-      "sha256": "484ac508415a950be99ef02f950bd4a377a72573ec7c916c6be606f1810665b3"
+      "sha256": "484ac508415a950be99ef02f950bd4a377a72573ec7c916c6be606f1810665b3",
+      "status": "retired bundled header asset",
+      "reason": "Replaced by a unique page-specific scene; the original published project photograph remains available at source."
     },
     {
       "key": "housing-exterior",
@@ -380,7 +410,9 @@
       "projectTitle": "KW Habilitation Affordable Housing",
       "bytes": 230412,
       "downloadUrl": "https://dinliarttwuzzozyvuiu.supabase.co/storage/v1/render/image/public/project-images/1780715688331-7eb7tkhjzp6.jpg?width=1280&quality=70",
-      "sha256": "55f40ec16b4a546eabb3e80e7cf04eae691c0bbad37ed159c53953fbf8193116"
+      "sha256": "55f40ec16b4a546eabb3e80e7cf04eae691c0bbad37ed159c53953fbf8193116",
+      "status": "retired bundled header asset",
+      "reason": "Replaced by a unique page-specific scene; the original published project photograph remains available at source."
     },
     {
       "key": "commercial-interior",
@@ -391,7 +423,9 @@
       "projectTitle": "Café Luka",
       "bytes": 223059,
       "downloadUrl": "https://dinliarttwuzzozyvuiu.supabase.co/storage/v1/render/image/public/project-images/new/gallery/1763560368896-3.jpeg?width=1280&quality=70",
-      "sha256": "48ac145ef6dadbc5c12c73799566398a05dfdf8c26420c10e16c60c34e4d5e47"
+      "sha256": "48ac145ef6dadbc5c12c73799566398a05dfdf8c26420c10e16c60c34e4d5e47",
+      "status": "retired bundled header asset",
+      "reason": "Replaced by a unique page-specific scene; the original published project photograph remains available at source."
     },
     {
       "key": "coatings-progress",
@@ -402,7 +436,9 @@
       "projectTitle": "York Region Warehouse",
       "bytes": 451913,
       "downloadUrl": "https://dinliarttwuzzozyvuiu.supabase.co/storage/v1/render/image/public/project-images/new/before/1775922122933-1.jpg?width=1280&quality=70",
-      "sha256": "ef55e74f414210d029406a0471a638a7a1d38db347f067219030fae48acf26c3"
+      "sha256": "ef55e74f414210d029406a0471a638a7a1d38db347f067219030fae48acf26c3",
+      "status": "retired bundled header asset",
+      "reason": "Replaced by a unique page-specific scene; the original published project photograph remains available at source."
     },
     {
       "key": "structural-coatings",
@@ -413,7 +449,9 @@
       "projectTitle": "York Region Warehouse",
       "bytes": 289107,
       "downloadUrl": "https://dinliarttwuzzozyvuiu.supabase.co/storage/v1/render/image/public/project-images/new/after/1775922147777-2.jpeg?width=1280&quality=70",
-      "sha256": "ae5ca053c1f809b071455a87620f80095cc12521432d9f90e51b7d146e5be600"
+      "sha256": "ae5ca053c1f809b071455a87620f80095cc12521432d9f90e51b7d146e5be600",
+      "status": "retired bundled header asset",
+      "reason": "Replaced by a unique page-specific scene; the original published project photograph remains available at source."
     },
     {
       "key": "school-corridor",
@@ -424,8 +462,10 @@
       "projectTitle": "Dunnville Secondary School",
       "bytes": 458422,
       "downloadUrl": "https://dinliarttwuzzozyvuiu.supabase.co/storage/v1/render/image/public/project-images/new/gallery/1763560947836-5.jpg?width=1280&quality=70",
-      "sha256": "83a98f71bf5fc80c6b77cc0fc59a7f7aca730359fe966b7d1736c267690ecea6"
+      "sha256": "83a98f71bf5fc80c6b77cc0fc59a7f7aca730359fe966b7d1736c267690ecea6",
+      "status": "retired bundled header asset",
+      "reason": "Replaced by a unique page-specific scene; the original published project photograph remains available at source."
     }
   ],
-  "note": "Public portfolio references are reused within the owner's website; no claim of authorship or broader project scope. City images retain their individual licenses and attribution in the header. Only server-provided resizing/compression and responsive CSS crops; no generated or retouched imagery."
+  "note": "City photographs remain current. Portfolio entries preserve the PR #60 source history; their duplicated bundled files were retired when page-specific scenes replaced them. Original project media and the public portfolio were not changed."
 }

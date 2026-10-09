@@ -1,4 +1,5 @@
 /** Curated images. Sources: _assessment/headers/hero-image-sources.json. */
+import { generatedHeroScenes } from "./hero-scenes";
 import photoToronto from "@/assets/heroes/cities/toronto.jpg";
 import photoMississauga from "@/assets/heroes/cities/mississauga.jpg";
 import photoBrampton from "@/assets/heroes/cities/brampton.jpg";
@@ -16,26 +17,6 @@ import photoPickering from "@/assets/heroes/cities/pickering.jpg";
 import photoAjax from "@/assets/heroes/cities/ajax.jpg";
 import photoWhitby from "@/assets/heroes/cities/whitby.jpg";
 import photoOshawa from "@/assets/heroes/cities/oshawa.jpg";
-import photoEnvelopeComplete from "@/assets/heroes/portfolio/envelope-complete.jpg";
-import photoEnvelopeOpening from "@/assets/heroes/portfolio/envelope-opening.jpg";
-import photoEnvelopeFlashing from "@/assets/heroes/portfolio/envelope-flashing.jpg";
-import photoEnvelopeStaging from "@/assets/heroes/portfolio/envelope-staging.jpg";
-import photoStuccoInstallation from "@/assets/heroes/portfolio/stucco-installation.jpg";
-import photoStuccoFinish from "@/assets/heroes/portfolio/stucco-finish.jpg";
-import photoCladdingResidential from "@/assets/heroes/portfolio/cladding-residential.jpg";
-import photoProjectPlanning from "@/assets/heroes/portfolio/project-planning.jpg";
-import photoProjectDocumentation from "@/assets/heroes/portfolio/project-documentation.png";
-import photoInteriorProgress from "@/assets/heroes/portfolio/interior-progress.jpg";
-import photoInteriorFinishes from "@/assets/heroes/portfolio/interior-finishes.jpg";
-import photoInstitutionalFinishes from "@/assets/heroes/portfolio/institutional-finishes.jpg";
-import photoResidentialInterior from "@/assets/heroes/portfolio/residential-interior.jpg";
-import photoResidentialAmenities from "@/assets/heroes/portfolio/residential-amenities.jpg";
-import photoCondominiumExterior from "@/assets/heroes/portfolio/condominium-exterior.jpg";
-import photoHousingExterior from "@/assets/heroes/portfolio/housing-exterior.jpg";
-import photoCommercialInterior from "@/assets/heroes/portfolio/commercial-interior.jpg";
-import photoCoatingsProgress from "@/assets/heroes/portfolio/coatings-progress.jpg";
-import photoStructuralCoatings from "@/assets/heroes/portfolio/structural-coatings.jpg";
-import photoSchoolCorridor from "@/assets/heroes/portfolio/school-corridor.jpg";
 
 export interface HeroPhoto {
   image: string;
@@ -48,6 +29,7 @@ export interface HeroPhoto {
   licenseUrl?: string;
   projectPath?: string;
   projectTitle?: string;
+  origin?: "generated";
 }
 
 export const cityPhotography: Record<string, HeroPhoto> = {
@@ -237,7 +219,8 @@ export const cityPhotography: Record<string, HeroPhoto> = {
 
 export const portfolioPhotography: Record<string, HeroPhoto> = {
   "envelope-complete": {
-    image: photoEnvelopeComplete,
+    image:
+      "https://dinliarttwuzzozyvuiu.supabase.co/storage/v1/object/public/project-images/1781787450437-ttpe0td4vcp.jpg",
     alt: "Completed exterior at 65 Westmount Avenue",
     source:
       "https://dinliarttwuzzozyvuiu.supabase.co/storage/v1/object/public/project-images/1781787450437-ttpe0td4vcp.jpg",
@@ -247,7 +230,8 @@ export const portfolioPhotography: Record<string, HeroPhoto> = {
     mobilePosition: "50% 50%",
   },
   "envelope-opening": {
-    image: photoEnvelopeOpening,
+    image:
+      "https://dinliarttwuzzozyvuiu.supabase.co/storage/v1/object/public/project-images/new/process/1781787394929-8.jpg",
     alt: "Exposed window opening during envelope repairs at 65 Westmount Avenue",
     source:
       "https://dinliarttwuzzozyvuiu.supabase.co/storage/v1/object/public/project-images/new/process/1781787394929-8.jpg",
@@ -257,7 +241,8 @@ export const portfolioPhotography: Record<string, HeroPhoto> = {
     mobilePosition: "50% 50%",
   },
   "envelope-flashing": {
-    image: photoEnvelopeFlashing,
+    image:
+      "https://dinliarttwuzzozyvuiu.supabase.co/storage/v1/object/public/project-images/new/process/1781787402120-13.jpg",
     alt: "Window flashing work at 65 Westmount Avenue",
     source:
       "https://dinliarttwuzzozyvuiu.supabase.co/storage/v1/object/public/project-images/new/process/1781787402120-13.jpg",
@@ -267,7 +252,8 @@ export const portfolioPhotography: Record<string, HeroPhoto> = {
     mobilePosition: "50% 50%",
   },
   "envelope-staging": {
-    image: photoEnvelopeStaging,
+    image:
+      "https://dinliarttwuzzozyvuiu.supabase.co/storage/v1/object/public/project-images/new/before/1781787442300-0.jpg",
     alt: "Scaffolding during envelope repairs at 65 Westmount Avenue",
     source:
       "https://dinliarttwuzzozyvuiu.supabase.co/storage/v1/object/public/project-images/new/before/1781787442300-0.jpg",
@@ -277,7 +263,8 @@ export const portfolioPhotography: Record<string, HeroPhoto> = {
     mobilePosition: "50% 50%",
   },
   "stucco-installation": {
-    image: photoStuccoInstallation,
+    image:
+      "https://dinliarttwuzzozyvuiu.supabase.co/storage/v1/object/public/project-images/new/process/1763559933173-0.jpg",
     alt: "Stucco installation work at Comfort Inn & Suites",
     source:
       "https://dinliarttwuzzozyvuiu.supabase.co/storage/v1/object/public/project-images/new/process/1763559933173-0.jpg",
@@ -287,7 +274,8 @@ export const portfolioPhotography: Record<string, HeroPhoto> = {
     mobilePosition: "50% 50%",
   },
   "stucco-finish": {
-    image: photoStuccoFinish,
+    image:
+      "https://dinliarttwuzzozyvuiu.supabase.co/storage/v1/object/public/project-images/a1b7a274-1c99-49f6-bf0d-a420066b309d/process/1791488925391-0.jpg",
     alt: "Exterior stucco work at Comfort Inn & Suites",
     source:
       "https://dinliarttwuzzozyvuiu.supabase.co/storage/v1/object/public/project-images/a1b7a274-1c99-49f6-bf0d-a420066b309d/process/1791488925391-0.jpg",
@@ -297,7 +285,8 @@ export const portfolioPhotography: Record<string, HeroPhoto> = {
     mobilePosition: "50% 50%",
   },
   "cladding-residential": {
-    image: photoCladdingResidential,
+    image:
+      "https://dinliarttwuzzozyvuiu.supabase.co/storage/v1/object/public/project-images/new/after/1780716554931-0.jpeg",
     alt: "Finished residential exterior at 67 Edgecroft Road",
     source:
       "https://dinliarttwuzzozyvuiu.supabase.co/storage/v1/object/public/project-images/new/after/1780716554931-0.jpeg",
@@ -307,7 +296,8 @@ export const portfolioPhotography: Record<string, HeroPhoto> = {
     mobilePosition: "50% 50%",
   },
   "project-planning": {
-    image: photoProjectPlanning,
+    image:
+      "https://dinliarttwuzzozyvuiu.supabase.co/storage/v1/object/public/project-images/new/gallery/1780716647152-0.jpeg",
     alt: "Residential design sketch from the 67 Edgecroft Road project",
     source:
       "https://dinliarttwuzzozyvuiu.supabase.co/storage/v1/object/public/project-images/new/gallery/1780716647152-0.jpeg",
@@ -317,7 +307,8 @@ export const portfolioPhotography: Record<string, HeroPhoto> = {
     mobilePosition: "50% 50%",
   },
   "project-documentation": {
-    image: photoProjectDocumentation,
+    image:
+      "https://dinliarttwuzzozyvuiu.supabase.co/storage/v1/object/public/project-images/1776798291945-laq7ij5uiye.png",
     alt: "Architectural project documentation for Blackhurst Cultural Centre",
     source:
       "https://dinliarttwuzzozyvuiu.supabase.co/storage/v1/object/public/project-images/1776798291945-laq7ij5uiye.png",
@@ -327,7 +318,8 @@ export const portfolioPhotography: Record<string, HeroPhoto> = {
     mobilePosition: "50% 50%",
   },
   "interior-progress": {
-    image: photoInteriorProgress,
+    image:
+      "https://dinliarttwuzzozyvuiu.supabase.co/storage/v1/object/public/project-images/new/gallery/1763561434045-0.jpg",
     alt: "Interior finishing in progress at Innisfil Catholic School",
     source:
       "https://dinliarttwuzzozyvuiu.supabase.co/storage/v1/object/public/project-images/new/gallery/1763561434045-0.jpg",
@@ -337,7 +329,8 @@ export const portfolioPhotography: Record<string, HeroPhoto> = {
     mobilePosition: "50% 50%",
   },
   "interior-finishes": {
-    image: photoInteriorFinishes,
+    image:
+      "https://dinliarttwuzzozyvuiu.supabase.co/storage/v1/object/public/project-images/new/gallery/1763561435191-1.jpg",
     alt: "Finished interior at Innisfil Catholic School",
     source:
       "https://dinliarttwuzzozyvuiu.supabase.co/storage/v1/object/public/project-images/new/gallery/1763561435191-1.jpg",
@@ -347,7 +340,8 @@ export const portfolioPhotography: Record<string, HeroPhoto> = {
     mobilePosition: "50% 50%",
   },
   "institutional-finishes": {
-    image: photoInstitutionalFinishes,
+    image:
+      "https://dinliarttwuzzozyvuiu.supabase.co/storage/v1/object/public/project-images/new/gallery/1763560946134-2.jpg",
     alt: "Repainted doors and interior finishes at Dunnville Secondary School",
     source:
       "https://dinliarttwuzzozyvuiu.supabase.co/storage/v1/object/public/project-images/new/gallery/1763560946134-2.jpg",
@@ -357,7 +351,8 @@ export const portfolioPhotography: Record<string, HeroPhoto> = {
     mobilePosition: "50% 50%",
   },
   "residential-interior": {
-    image: photoResidentialInterior,
+    image:
+      "https://dinliarttwuzzozyvuiu.supabase.co/storage/v1/object/public/project-images/new/gallery/1763561840596-0.jpg",
     alt: "Finished residential interior at Queensland Condos",
     source:
       "https://dinliarttwuzzozyvuiu.supabase.co/storage/v1/object/public/project-images/new/gallery/1763561840596-0.jpg",
@@ -367,7 +362,8 @@ export const portfolioPhotography: Record<string, HeroPhoto> = {
     mobilePosition: "50% 50%",
   },
   "residential-amenities": {
-    image: photoResidentialAmenities,
+    image:
+      "https://dinliarttwuzzozyvuiu.supabase.co/storage/v1/object/public/project-images/f258383c-6e1b-4e1e-910d-239bd695cf0e/gallery/1780716079277-0.jpeg",
     alt: "Finished shared interior at KW Habilitation Affordable Housing",
     source:
       "https://dinliarttwuzzozyvuiu.supabase.co/storage/v1/object/public/project-images/f258383c-6e1b-4e1e-910d-239bd695cf0e/gallery/1780716079277-0.jpeg",
@@ -377,7 +373,8 @@ export const portfolioPhotography: Record<string, HeroPhoto> = {
     mobilePosition: "50% 50%",
   },
   "condominium-exterior": {
-    image: photoCondominiumExterior,
+    image:
+      "https://dinliarttwuzzozyvuiu.supabase.co/storage/v1/object/public/project-images/1763562552629-d5mnykzdjq.jpg",
     alt: "Queensland Condos building and surrounding streets",
     source:
       "https://dinliarttwuzzozyvuiu.supabase.co/storage/v1/object/public/project-images/1763562552629-d5mnykzdjq.jpg",
@@ -387,7 +384,8 @@ export const portfolioPhotography: Record<string, HeroPhoto> = {
     mobilePosition: "50% 55%",
   },
   "housing-exterior": {
-    image: photoHousingExterior,
+    image:
+      "https://dinliarttwuzzozyvuiu.supabase.co/storage/v1/object/public/project-images/1780715688331-7eb7tkhjzp6.jpg",
     alt: "KW Habilitation Affordable Housing exterior",
     source:
       "https://dinliarttwuzzozyvuiu.supabase.co/storage/v1/object/public/project-images/1780715688331-7eb7tkhjzp6.jpg",
@@ -397,7 +395,8 @@ export const portfolioPhotography: Record<string, HeroPhoto> = {
     mobilePosition: "50% 50%",
   },
   "commercial-interior": {
-    image: photoCommercialInterior,
+    image:
+      "https://dinliarttwuzzozyvuiu.supabase.co/storage/v1/object/public/project-images/new/gallery/1763560368896-3.jpeg",
     alt: "Finished café interior from the Café Luka portfolio",
     source:
       "https://dinliarttwuzzozyvuiu.supabase.co/storage/v1/object/public/project-images/new/gallery/1763560368896-3.jpeg",
@@ -407,7 +406,8 @@ export const portfolioPhotography: Record<string, HeroPhoto> = {
     mobilePosition: "50% 50%",
   },
   "coatings-progress": {
-    image: photoCoatingsProgress,
+    image:
+      "https://dinliarttwuzzozyvuiu.supabase.co/storage/v1/object/public/project-images/new/before/1775922122933-1.jpg",
     alt: "Structural steel coating work at York Region Warehouse",
     source:
       "https://dinliarttwuzzozyvuiu.supabase.co/storage/v1/object/public/project-images/new/before/1775922122933-1.jpg",
@@ -417,7 +417,8 @@ export const portfolioPhotography: Record<string, HeroPhoto> = {
     mobilePosition: "50% 50%",
   },
   "structural-coatings": {
-    image: photoStructuralCoatings,
+    image:
+      "https://dinliarttwuzzozyvuiu.supabase.co/storage/v1/object/public/project-images/new/after/1775922147777-2.jpeg",
     alt: "Coated structural steel at York Region Warehouse",
     source:
       "https://dinliarttwuzzozyvuiu.supabase.co/storage/v1/object/public/project-images/new/after/1775922147777-2.jpeg",
@@ -427,7 +428,8 @@ export const portfolioPhotography: Record<string, HeroPhoto> = {
     mobilePosition: "50% 50%",
   },
   "school-corridor": {
-    image: photoSchoolCorridor,
+    image:
+      "https://dinliarttwuzzozyvuiu.supabase.co/storage/v1/object/public/project-images/new/gallery/1763560947836-5.jpg",
     alt: "Finished school corridor at Dunnville Secondary School",
     source:
       "https://dinliarttwuzzozyvuiu.supabase.co/storage/v1/object/public/project-images/new/gallery/1763560947836-5.jpg",
@@ -438,10 +440,11 @@ export const portfolioPhotography: Record<string, HeroPhoto> = {
   },
 };
 
-const photosByImage = new Map(
+const photosByImage = new Map<string, HeroPhoto>(
   [
     ...Object.values(cityPhotography),
     ...Object.values(portfolioPhotography),
+    ...Object.values(generatedHeroScenes),
   ].map((photo) => [photo.image, photo]),
 );
 
