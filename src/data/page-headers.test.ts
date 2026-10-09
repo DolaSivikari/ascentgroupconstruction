@@ -3,7 +3,7 @@ import { buildPageHeaders, sharedImagePaths, type HeaderMetadata } from "./page-
 import { SERVICE_REGISTRY } from "./service-registry";
 import { SERVICE_REDIRECTS } from "./service-redirects";
 import { getServiceAreaPath, serviceAreaCities } from "./service-area-cities";
-import { audienceHeroes, companyHeroes, mainPageHeroes, resourceHeroes, serviceHeroes } from "./hero-images";
+import { articleHeroes, audienceHeroes, companyHeroes, mainPageHeroes, resourceHeroes, serviceHeroes } from "./hero-images";
 import { enrichedHeroSlides } from "./enriched-hero-slides";
 
 const emptyMetadata = (): HeaderMetadata => ({ services: [], projects: [], articles: [], slides: [], failed: [] });
@@ -136,7 +136,7 @@ describe("inventory reflects the public presentation", () => {
     const rows = buildPageHeaders(emptyMetadata());
     const groups = sharedImagePaths(rows);
     expect(groups.get(mainPageHeroes.services)?.sort()).toEqual([
-      "/prequalification", "/services",
+      "/services",
     ].sort());
     const mapPaths = groups.get(resourceHeroes["service-areas"]);
     expect(mapPaths).toHaveLength(1);
@@ -145,5 +145,23 @@ describe("inventory reflects the public presentation", () => {
     expect(groups.has("")).toBe(false);
     expect([...groups.values()].flat()).not.toContain("/privacy");
     expect([...groups.values()].flat()).not.toContain("/projects");
+  });
+
+  it("gives every one of the 69 current image-hero pages a distinct bundled default", () => {
+    const metadata = emptyMetadata();
+    metadata.services = SERVICE_REGISTRY.filter(service => service.source === "db").map(service => ({
+      id: service.slug, slug: service.slug, name: service.navLabel, category: service.category, featured_image: null,
+    }));
+    metadata.articles = Object.keys(articleHeroes).map(slug => ({
+      id: slug, slug, title: slug, featured_image: null,
+    }));
+    const rows = buildPageHeaders(metadata).filter(row => row.presentation === "Image hero");
+    expect(rows).toHaveLength(69);
+    expect(rows.every(row => row.image)).toBe(true);
+    const groups = sharedImagePaths(rows);
+    expect([...groups.values()].filter(paths => paths.length > 1)).toEqual([]);
+    expect(groups.size).toBe(69);
+    expect(rows.find(row => row.path === "/emergency-repair")?.image).toBe(mainPageHeroes["emergency-repair"]);
+    expect(mainPageHeroes["emergency-repair"]).not.toBe(serviceHeroes["waterproofing-systems"]);
   });
 });

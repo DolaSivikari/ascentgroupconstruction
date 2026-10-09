@@ -32,7 +32,7 @@ import {
   MapPin,
   Zap,
 } from "lucide-react";
-import { serviceHeroes } from "@/data/hero-images";
+import { mainPageHeroes } from "@/data/hero-images";
 import {
   serviceAreaCities,
   primaryServiceCities,
@@ -103,7 +103,7 @@ const EmergencyRepair = () => {
         eyebrow={c.f002}
         title={c.f003}
         description={c.f004}
-        image={serviceHeroes["waterproofing-systems"]}
+        image={mainPageHeroes["emergency-repair"]}
         imageAlt={c.f005}
         height="medium"
         primaryCta={{ text: `Call ${COMPANY_PHONE}`, href: COMPANY_PHONE_TEL }}

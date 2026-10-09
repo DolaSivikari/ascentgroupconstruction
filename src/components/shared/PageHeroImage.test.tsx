@@ -3,6 +3,7 @@ import { MemoryRouter } from "react-router-dom";
 import { afterEach, describe, expect, it } from "vitest";
 import { PageHeroImage } from "./PageHeroImage";
 import { cityPhotography, portfolioPhotography } from "@/data/hero-photography";
+import { generatedHeroScenes } from "@/data/hero-scenes";
 
 afterEach(cleanup);
 const show = (props: Parameters<typeof PageHeroImage>[0]) =>
@@ -75,5 +76,17 @@ describe("hero image loading and crop", () => {
       "--hero-image-position": "top",
       "--hero-image-position-mobile": "top",
     });
+  });
+
+  it("labels generated scenes as illustrations without inventing a project reference or credentials", () => {
+    const photo = generatedHeroScenes["certifications-insurance"];
+    show({ src: photo.image, alt: "Actual company certificates" });
+    const image = screen.getByRole("img", { name: photo.alt });
+    fireEvent.load(image);
+    expect(
+      screen.getByText("Illustrative construction scene"),
+    ).toBeInTheDocument();
+    expect(screen.queryByRole("link")).not.toBeInTheDocument();
+    expect(screen.queryByText("Photo credit")).not.toBeInTheDocument();
   });
 });

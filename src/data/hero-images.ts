@@ -1,4 +1,5 @@
-import { cityPhotography, portfolioPhotography } from "./hero-photography";
+import { cityPhotography } from "./hero-photography";
+import { generatedHeroScenes } from "./hero-scenes";
 /**
  * Hero Image Mapping
  * Centralized configuration for all page hero images
@@ -8,7 +9,6 @@ import { cityPhotography, portfolioPhotography } from "./hero-photography";
 import heroCommercial from "@/assets/heroes/hero-commercial.jpg";
 import heroConstructionManagement from "@/assets/heroes/hero-construction-management.jpg";
 import { getServiceEntry, type ServiceCategory } from "@/data/service-registry";
-import heroContractorPortal from "@/assets/heroes/hero-contractor-portal.jpg";
 import heroEducation from "@/assets/heroes/hero-education.jpg";
 import heroEquipment from "@/assets/heroes/hero-equipment.jpg";
 import heroFinancing from "@/assets/heroes/hero-financing.jpg";
@@ -18,89 +18,77 @@ import heroIndustrial from "@/assets/heroes/hero-industrial.jpg";
 import heroInstitutional from "@/assets/heroes/hero-institutional.jpg";
 import heroMultiFamily from "@/assets/heroes/hero-multi-family.jpg";
 import heroRetail from "@/assets/heroes/hero-retail.jpg";
-import heroSealantReplacement from "@/assets/heroes/hero-sealant-replacement.jpg";
 import heroServiceAreas from "@/assets/heroes/hero-service-areas.jpg";
 import heroSustainable from "@/assets/heroes/hero-sustainable.jpg";
-import heroTileFlooring from "@/assets/heroes/hero-tile-flooring.jpg";
 import heroWarranties from "@/assets/heroes/hero-warranties.jpg";
-
-// Import additional hero images from root assets folder
-import heroMasonryRestoration from "@/assets/hero-masonry-restoration.jpg";
-import heroParkingRehabilitation from "@/assets/hero-parking-rehabilitation.jpg";
-
-// Static specialty services use the same registry as database-driven services.
-import heroCommercialPainting from "@/assets/heroes/wave-commercial-painting.jpg";
-import heroExteriorPainting from "@/assets/heroes/wave-exterior-painting.jpg";
-import heroCaulkingSealants from "@/assets/heroes/wave-caulking-sealants.jpg";
-import heroFireRetardant from "@/assets/heroes/wave-fire-retardant.jpg";
-import heroInteriorPainting from "@/assets/heroes/wave-interior-painting.jpg";
-import heroResidentialExterior from "@/assets/heroes/wave-residential-exterior.jpg";
-import heroTileInstallation from "@/assets/heroes/wave-tile-installation.jpg";
-import heroFlooringInstallation from "@/assets/heroes/wave-flooring-installation.jpg";
-import heroHandymanPatching from "@/assets/heroes/wave-handyman-patching.jpg";
 
 /**
  * Main Pages Hero Images
  */
 export const mainPageHeroes = {
-  about: portfolioPhotography["residential-amenities"].image,
-  services: portfolioPhotography["structural-coatings"].image,
+  about: generatedHeroScenes["about"].image,
+  services: generatedHeroScenes["services"].image,
+  contact: generatedHeroScenes["contact"].image,
+  careers: generatedHeroScenes["careers"].image,
+  faq: generatedHeroScenes["faq"].image,
+  blog: generatedHeroScenes["blog"].image,
+  insights: generatedHeroScenes["blog"].image,
+  "emergency-repair": generatedHeroScenes["emergency-repair"].image,
   projects: heroConstructionManagement,
-  contact: portfolioPhotography["housing-exterior"].image,
-  careers: portfolioPhotography["interior-progress"].image,
-  faq: portfolioPhotography["envelope-opening"].image,
-  blog: portfolioPhotography["envelope-staging"].image,
-  insights: portfolioPhotography["envelope-staging"].image,
 } as const;
 
 /**
  * Service Pages Hero Images
  */
 export const serviceHeroes = {
-  // Building Envelope Category
   "building-envelope-solutions":
-    portfolioPhotography["envelope-complete"].image,
-  "cladding-systems": portfolioPhotography["cladding-residential"].image,
-  "eifs-stucco-systems": portfolioPhotography["stucco-finish"].image,
-  "masonry-restoration": heroMasonryRestoration,
-  "waterproofing-systems": portfolioPhotography["envelope-opening"].image,
-  "facade-remediation": portfolioPhotography["envelope-staging"].image,
-  "parking-garage-restoration": heroParkingRehabilitation,
-  "sealant-programs": heroSealantReplacement,
-
-  // Interior Construction Category
+    generatedHeroScenes["building-envelope-solutions"].image,
+  "cladding-systems": generatedHeroScenes["cladding-systems"].image,
+  "waterproofing-systems": generatedHeroScenes["waterproofing-systems"].image,
+  "eifs-stucco-systems": generatedHeroScenes["eifs-stucco-systems"].image,
+  "facade-remediation": generatedHeroScenes["facade-remediation"].image,
+  "masonry-restoration": generatedHeroScenes["masonry-restoration"].image,
+  "parking-garage-restoration":
+    generatedHeroScenes["parking-garage-restoration"].image,
+  "sealant-programs": generatedHeroScenes["sealant-programs"].image,
   "interior-buildouts-finishing":
-    portfolioPhotography["interior-finishes"].image,
+    generatedHeroScenes["interior-buildouts-finishing"].image,
   "interior-finishing-renovations":
-    portfolioPhotography["residential-interior"].image,
-  "painting-services": portfolioPhotography["institutional-finishes"].image,
-  "tile-flooring": heroTileFlooring,
-
-  // Specialized Services Category
-  "sustainable-building": portfolioPhotography["housing-exterior"].image,
-
-  // Static specialty pages
-  "commercial-painting-gta": heroCommercialPainting,
-  "exterior-painting-toronto": heroExteriorPainting,
-  "caulking-sealants-toronto": heroCaulkingSealants,
-  "fire-retardant-coatings-ontario": heroFireRetardant,
-  "interior-painting-toronto": heroInteriorPainting,
-  "residential-exterior-painting-gta": heroResidentialExterior,
-  "tile-installation-toronto": heroTileInstallation,
-  "flooring-installation-gta": heroFlooringInstallation,
-  "handyman-patching-toronto": heroHandymanPatching,
+    generatedHeroScenes["interior-finishing-renovations"].image,
+  "painting-services": generatedHeroScenes["painting-services"].image,
+  "tile-flooring": generatedHeroScenes["tile-flooring"].image,
+  "sustainable-building": generatedHeroScenes["sustainable-building"].image,
+  "commercial-painting-gta":
+    generatedHeroScenes["commercial-painting-gta"].image,
+  "exterior-painting-toronto":
+    generatedHeroScenes["exterior-painting-toronto"].image,
+  "caulking-sealants-toronto":
+    generatedHeroScenes["caulking-sealants-toronto"].image,
+  "fire-retardant-coatings-ontario":
+    generatedHeroScenes["fire-retardant-coatings-ontario"].image,
+  "interior-painting-toronto":
+    generatedHeroScenes["interior-painting-toronto"].image,
+  "residential-exterior-painting-gta":
+    generatedHeroScenes["residential-exterior-painting-gta"].image,
+  "tile-installation-toronto":
+    generatedHeroScenes["tile-installation-toronto"].image,
+  "flooring-installation-gta":
+    generatedHeroScenes["flooring-installation-gta"].image,
+  "handyman-patching-toronto":
+    generatedHeroScenes["handyman-patching-toronto"].image,
 } as const;
 
 /**
  * Audience Pages Hero Images
  */
 export const audienceHeroes = {
-  "for-general-contractors": portfolioPhotography["coatings-progress"].image,
-  "for-architects": portfolioPhotography["project-documentation"].image,
-  homeowners: portfolioPhotography["cladding-residential"].image,
-  "property-managers": portfolioPhotography["condominium-exterior"].image,
-  "commercial-clients": portfolioPhotography["commercial-interior"].image,
-  developers: portfolioPhotography["housing-exterior"].image,
+  "for-general-contractors":
+    generatedHeroScenes["for-general-contractors"].image,
+  "for-architects": generatedHeroScenes["for-architects"].image,
+  homeowners: generatedHeroScenes["homeowners"].image,
+  "property-managers": generatedHeroScenes["property-managers"].image,
+  "commercial-clients": generatedHeroScenes["commercial-clients"].image,
+  developers: generatedHeroScenes["developers"].image,
 } as const;
 
 /**
@@ -115,19 +103,21 @@ export const sectorHeroes = {
   institutional: heroInstitutional,
   industrial: heroIndustrial,
   "multi-family": heroMultiFamily,
-  "markets-overview": portfolioPhotography["condominium-exterior"].image,
+  "markets-overview": generatedHeroScenes.markets.image,
 } as const;
 
 /**
  * Company Pages Hero Images
  */
 export const companyHeroes = {
-  "our-process": portfolioPhotography["project-planning"].image,
-  technology: portfolioPhotography["project-documentation"].image,
-  capabilities: portfolioPhotography["institutional-finishes"].image,
+  "our-process": generatedHeroScenes["our-process"].image,
+  technology: generatedHeroScenes["technology"].image,
+  capabilities: generatedHeroScenes["capabilities"].image,
   sustainability: heroSustainable,
-  "why-specialty-contractor": portfolioPhotography["stucco-installation"].image,
-  "certifications-insurance": portfolioPhotography["school-corridor"].image,
+  "why-specialty-contractor":
+    generatedHeroScenes["why-specialty-contractor"].image,
+  "certifications-insurance":
+    generatedHeroScenes["certifications-insurance"].image,
   "equipment-resources": heroEquipment,
   warranties: heroWarranties,
   financing: heroFinancing,
@@ -137,11 +127,11 @@ export const companyHeroes = {
  * Resource Pages Hero Images
  */
 export const resourceHeroes = {
-  prequalification: portfolioPhotography["structural-coatings"].image,
-  "contractor-portal": heroContractorPortal,
+  prequalification: generatedHeroScenes["prequalification"].image,
+  "contractor-portal": generatedHeroScenes["contractor-portal"].image,
   "service-areas": heroServiceAreas,
-  estimate: portfolioPhotography["project-planning"].image,
-  "submit-rfp": portfolioPhotography["school-corridor"].image,
+  estimate: generatedHeroScenes["estimate"].image,
+  "submit-rfp": generatedHeroScenes["submit-rfp"].image,
 } as const;
 
 /**
@@ -179,7 +169,7 @@ export const heroConfigs: Record<string, HeroConfig> = {
   // Main Pages
   about: {
     image: mainPageHeroes.about,
-    imageAlt: "Ascent Group Construction team at work",
+    imageAlt: generatedHeroScenes.about.alt,
     defaultHeight: "large",
   },
   services: {
@@ -215,7 +205,7 @@ export const heroConfigs: Record<string, HeroConfig> = {
     defaultHeight: "medium",
   },
   "masonry-restoration": {
-    image: heroMasonryRestoration,
+    image: serviceHeroes["masonry-restoration"],
     imageAlt: "Masonry restoration and brick repair",
     defaultHeight: "medium",
   },
@@ -235,7 +225,7 @@ export const heroConfigs: Record<string, HeroConfig> = {
     defaultHeight: "medium",
   },
   "tile-flooring": {
-    image: heroTileFlooring,
+    image: serviceHeroes["tile-flooring"],
     imageAlt: "Tile and flooring installation",
     defaultHeight: "medium",
   },
@@ -385,17 +375,17 @@ export function getCityHero(
 /** Explicit topic assignments; a valid editor image always wins. */
 export const articleHeroes = {
   "early-signs-your-building-envelope-needs-attention":
-    portfolioPhotography["envelope-opening"],
+    generatedHeroScenes["article-envelope-signs"],
   "eifs-vs-stucco-what-building-owners-need-to-know":
-    portfolioPhotography["stucco-finish"],
+    generatedHeroScenes["article-eifs-stucco"],
   "how-general-contractors-should-evaluate-specialty-trade-partner":
-    portfolioPhotography["coatings-progress"],
+    generatedHeroScenes["article-trade-partner"],
   "toronto-property-manager-maintenance-guide":
-    portfolioPhotography["condominium-exterior"],
+    generatedHeroScenes["article-pm-maintenance"],
   "what-property-managers-should-prepare-before-envelope-restoration":
-    portfolioPhotography["envelope-staging"],
+    generatedHeroScenes["article-envelope-preparation"],
   "why-self-performed-work-changes-quality-cost-accountability":
-    portfolioPhotography["envelope-flashing"],
+    generatedHeroScenes["article-self-performed"],
 } as const;
 
 export function resolveBlogHero(
@@ -417,7 +407,7 @@ export function resolveBlogHero(
     ? { image: topic.image, imageAlt: topic.alt, source: "article" }
     : {
         image: mainPageHeroes.blog,
-        imageAlt: "Construction photograph used to illustrate this article",
+        imageAlt: generatedHeroScenes.blog.alt,
         source: "fallback",
       };
 }
