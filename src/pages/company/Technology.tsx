@@ -67,7 +67,6 @@ const Technology = () => {
             image={companyHeroes.technology}
             imageAlt="Ascent Group digital construction technology"
             height="small"
-            contentClassName="pb-28 md:pb-24"
             overlay="gradient"
             stats={[
               { value: "5 Steps", label: "Documented from start to finish" },
@@ -86,18 +85,20 @@ const Technology = () => {
             secondaryCta={{ text: "Try the workflow demos", href: "#workflow" }}
           />
 
-          <div className="container absolute bottom-6 left-1/2 z-20 flex -translate-x-1/2 flex-wrap gap-2 px-6 text-white">
-            <span className="mr-2 self-center text-xs font-semibold uppercase tracking-wider">
-              Tools we use
-            </span>
-            {TOOL_STRIP.map((tool) => (
-              <span
-                key={tool}
-                className="rounded border border-white/20 bg-white/10 px-2 py-1 text-xs"
-              >
-                {tool}
+          <div className="border-b border-border bg-muted/30 py-4">
+            <div className="container mx-auto flex flex-wrap gap-2 px-6 text-foreground">
+              <span className="mr-2 self-center text-xs font-semibold uppercase tracking-wider">
+                Tools we use
               </span>
-            ))}
+              {TOOL_STRIP.map((tool) => (
+                <span
+                  key={tool}
+                  className="rounded border border-border bg-background px-2 py-1 text-xs"
+                >
+                  {tool}
+                </span>
+              ))}
+            </div>
           </div>
         </div>
 
