@@ -1,0 +1,176 @@
+{
+  "status": "passed",
+  "captures": 34,
+  "results": [
+    {
+      "path": "/service-areas/ajax",
+      "width": 1440,
+      "projectReads": 1
+    },
+    {
+      "path": "/service-areas/ajax",
+      "width": 390,
+      "projectReads": 1
+    },
+    {
+      "path": "/service-areas/aurora",
+      "width": 1440,
+      "projectReads": 1
+    },
+    {
+      "path": "/service-areas/aurora",
+      "width": 390,
+      "projectReads": 1
+    },
+    {
+      "path": "/service-areas/brampton",
+      "width": 1440,
+      "projectReads": 1
+    },
+    {
+      "path": "/service-areas/brampton",
+      "width": 390,
+      "projectReads": 1
+    },
+    {
+      "path": "/service-areas/burlington",
+      "width": 1440,
+      "projectReads": 1
+    },
+    {
+      "path": "/service-areas/burlington",
+      "width": 390,
+      "projectReads": 1
+    },
+    {
+      "path": "/service-areas/hamilton",
+      "width": 1440,
+      "projectReads": 1
+    },
+    {
+      "path": "/service-areas/hamilton",
+      "width": 390,
+      "projectReads": 1
+    },
+    {
+      "path": "/service-areas/king-city",
+      "width": 1440,
+      "projectReads": 1
+    },
+    {
+      "path": "/service-areas/king-city",
+      "width": 390,
+      "projectReads": 1
+    },
+    {
+      "path": "/service-areas/markham",
+      "width": 1440,
+      "projectReads": 1
+    },
+    {
+      "path": "/service-areas/markham",
+      "width": 390,
+      "projectReads": 1
+    },
+    {
+      "path": "/service-areas/milton",
+      "width": 1440,
+      "projectReads": 1
+    },
+    {
+      "path": "/service-areas/milton",
+      "width": 390,
+      "projectReads": 1
+    },
+    {
+      "path": "/service-areas/mississauga",
+      "width": 1440,
+      "projectReads": 1
+    },
+    {
+      "path": "/service-areas/mississauga",
+      "width": 390,
+      "projectReads": 1
+    },
+    {
+      "path": "/service-areas/newmarket",
+      "width": 1440,
+      "projectReads": 1
+    },
+    {
+      "path": "/service-areas/newmarket",
+      "width": 390,
+      "projectReads": 1
+    },
+    {
+      "path": "/service-areas/oakville",
+      "width": 1440,
+      "projectReads": 1
+    },
+    {
+      "path": "/service-areas/oakville",
+      "width": 390,
+      "projectReads": 1
+    },
+    {
+      "path": "/service-areas/oshawa",
+      "width": 1440,
+      "projectReads": 1
+    },
+    {
+      "path": "/service-areas/oshawa",
+      "width": 390,
+      "projectReads": 1
+    },
+    {
+      "path": "/service-areas/pickering",
+      "width": 1440,
+      "projectReads": 1
+    },
+    {
+      "path": "/service-areas/pickering",
+      "width": 390,
+      "projectReads": 1
+    },
+    {
+      "path": "/service-areas/richmond-hill",
+      "width": 1440,
+      "projectReads": 1
+    },
+    {
+      "path": "/service-areas/richmond-hill",
+      "width": 390,
+      "projectReads": 1
+    },
+    {
+      "path": "/service-areas/toronto",
+      "width": 1440,
+      "projectReads": 1
+    },
+    {
+      "path": "/service-areas/toronto",
+      "width": 390,
+      "projectReads": 1
+    },
+    {
+      "path": "/service-areas/vaughan",
+      "width": 1440,
+      "projectReads": 1
+    },
+    {
+      "path": "/service-areas/vaughan",
+      "width": 390,
+      "projectReads": 1
+    },
+    {
+      "path": "/service-areas/whitby",
+      "width": 1440,
+      "projectReads": 1
+    },
+    {
+      "path": "/service-areas/whitby",
+      "width": 390,
+      "projectReads": 1
+    }
+  ]
+}

@@ -13,5 +13,4 @@ Disallow: /admin
 Disallow: /auth
 Disallow: /api/
 
-# /tekev remains crawlable so its noindex directive can be read.
 Sitemap: https://www.ascentgroupconstruction.com/sitemap.xml

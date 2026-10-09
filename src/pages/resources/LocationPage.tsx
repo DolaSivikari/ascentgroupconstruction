@@ -207,6 +207,7 @@ const LocationPage = () => {
   usePageAnalytics(`service-area-${city}`);
 
   useEffect(() => {
+    setAreaProjects([]);
     if (!locationName) return;
     let cancelled = false;
     (async () => {
