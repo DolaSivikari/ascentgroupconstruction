@@ -1,0 +1,45 @@
+/* Scoped to shared interior-page headers. Navy surfaces keep white text in both themes. */
+.page-hero-overlay-gradient {
+  background: linear-gradient(
+    90deg,
+    rgb(4 20 37 / 88%) 0%,
+    rgb(4 20 37 / 76%) 55%,
+    rgb(4 20 37 / var(--hero-overlay-mobile-end)) 100%
+  );
+}
+.page-hero-overlay-dark {
+  background: rgb(4 20 37 / 72%);
+}
+.page-hero-overlay-brand {
+  background: linear-gradient(135deg, rgb(0 51 102 / 86%), rgb(0 51 102 / 56%));
+}
+.page-hero-overlay-light {
+  background: rgb(255 255 255 / 70%);
+}
+.page-hero-overlay-centered {
+  background: linear-gradient(
+    180deg,
+    rgb(4 20 37 / 80%),
+    rgb(4 20 37 / 70%) 55%,
+    rgb(4 20 37 / 76%)
+  );
+}
+.page-hero h1 {
+  text-shadow: 0 2px 12px rgb(0 0 0 / 25%);
+}
+@media (prefers-reduced-motion: reduce) {
+  .page-hero * {
+    animation: none !important;
+  }
+}
+/* Tablet text still spans most of the image; relax the far edge only on wide screens. */
+@media (min-width: 1280px) {
+  .page-hero-overlay-gradient:not(.page-hero-overlay-centered) {
+    background: linear-gradient(
+      90deg,
+      rgb(4 20 37 / 88%) 0%,
+      rgb(4 20 37 / 72%) 42%,
+      rgb(4 20 37 / var(--hero-overlay-end)) 100%
+    );
+  }
+}

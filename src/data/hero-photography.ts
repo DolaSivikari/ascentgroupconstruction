@@ -23,6 +23,9 @@ export interface HeroPhoto {
   alt: string;
   position?: string;
   mobilePosition?: string;
+  /** Opacity at the image edge, away from the desktop headline. */
+  overlayOpacity?: number;
+  mobileOverlayOpacity?: number;
   source: string;
   author?: string;
   license?: string;
