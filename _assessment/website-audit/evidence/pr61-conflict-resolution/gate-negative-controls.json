@@ -1,8 +1,0 @@
-{
-  "equality": "passed",
-  "deliberateTextChange": "rejected",
-  "deliberateScreenshotChange": "rejected",
-  "cleanPublicBundle": "passed",
-  "publicTiptap": "rejected",
-  "publicCharts": "rejected"
-}
