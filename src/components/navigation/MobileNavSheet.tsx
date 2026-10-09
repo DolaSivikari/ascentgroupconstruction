@@ -29,7 +29,7 @@ import { useSwipeGesture } from "@/hooks/useSwipeGesture";
 import { haptics } from "@/utils/haptics";
 import { ScreenReaderAnnouncement } from "@/components/ui/ScreenReaderAnnouncement";
 import { getIcon } from "@/utils/getIcon";
-import { useCompanySettings } from "@/hooks/useCompanySettings";
+import { COMPANY_PHONE, COMPANY_PHONE_TEL } from "@/constants/company";
 import { useState, useRef, useEffect } from "react";
 import { cn } from "@/lib/utils";
 import ascentLogoHorizontalDark from "@/assets/ascent-logo-horizontal-dark.webp";
@@ -66,7 +66,6 @@ const NAV_ROWS: NavRow[] = [
 
 export function MobileNavSheet({ open, onOpenChange }: MobileNavSheetProps) {
   const location = useLocation();
-  const { settings } = useCompanySettings();
   const {
     searchQuery,
     setSearchQuery,
@@ -121,12 +120,13 @@ export function MobileNavSheet({ open, onOpenChange }: MobileNavSheetProps) {
     }
   }, [open, setSearchQuery]);
 
-  const phoneNumber = settings?.phone || "";
-  const phoneHref = phoneNumber ? `tel:${phoneNumber.replace(/[^\d+]/g, "")}` : "";
+  const phoneNumber = COMPANY_PHONE;
+  const phoneHref = COMPANY_PHONE_TEL;
 
   return (
     <Sheet open={open} onOpenChange={onOpenChange}>
       <SheetContent
+        id="mobile-menu"
         side="left"
         className="w-full sm:max-w-md p-0 flex flex-col bg-background border-r border-border"
         style={{

@@ -1,0 +1,47 @@
+{
+  "baseline": {
+    "captures": 170,
+    "urls": 85,
+    "viewportWidths": [
+      1440,
+      390
+    ],
+    "affectedSnapshots": 169,
+    "ruleViolations": 225,
+    "nodeInstances": 481,
+    "rules": {
+      "color-contrast": 165,
+      "scrollable-region-focusable": 46,
+      "link-in-text-block": 6,
+      "aria-prohibited-attr": 2,
+      "aria-progressbar-name": 4,
+      "button-name": 2
+    },
+    "pageErrors": 0,
+    "horizontalOverflow": 0,
+    "incompleteChecks": {
+      "color-contrast": 164,
+      "aria-prohibited-attr": 2
+    }
+  },
+  "candidate": {
+    "captures": 170,
+    "urls": 85,
+    "viewportWidths": [
+      1440,
+      390
+    ],
+    "affectedSnapshots": 0,
+    "ruleViolations": 0,
+    "nodeInstances": 0,
+    "rules": {},
+    "pageErrors": 0,
+    "horizontalOverflow": 0,
+    "incompleteChecks": {
+      "color-contrast": 164,
+      "aria-prohibited-attr": 2
+    }
+  },
+  "status": "passed",
+  "policy": "Axe-core 4.13.0 WCAG2A/AA and WCAG2.1A/AA tags. Offline fixtures, Chromium, reduced motion; automated checks do not establish full accessibility compliance."
+}

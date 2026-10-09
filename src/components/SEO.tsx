@@ -104,11 +104,6 @@ const SEO = ({
         postalCode: COMPANY_ADDRESS.postalCode,
         addressCountry: COMPANY_ADDRESS.country,
       },
-      geo: {
-        "@type": "GeoCoordinates",
-        latitude: "43.7615",
-        longitude: "-79.4111",
-      },
       areaServed: [
         ...serviceAreaCities.map((name) => ({ "@type": "City", name })),
         {

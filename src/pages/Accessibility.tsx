@@ -258,7 +258,7 @@ const Accessibility = () => {
                     <p>
                       <strong>{c.f118}</strong>{" "}
                       <AscentEmailLink
-                        className="text-primary hover:underline inline"
+                        className="text-primary underline underline-offset-2 inline"
                         showIcon={false}
                       />
                     </p>
@@ -266,7 +266,7 @@ const Accessibility = () => {
                       <strong>{c.f119}</strong>{" "}
                       <PhoneLink
                         showIcon={false}
-                        className="text-primary hover:underline inline"
+                        className="text-primary underline underline-offset-2 inline"
                       />
                     </p>
                     <p>
@@ -303,7 +303,7 @@ const Accessibility = () => {
                     <p>
                       {c.f132}
                       <AscentEmailLink
-                        className="text-primary hover:underline inline"
+                        className="text-primary underline underline-offset-2 inline"
                         showIcon={false}
                       />
                     </p>
@@ -311,14 +311,14 @@ const Accessibility = () => {
                       {c.f133}
                       <PhoneLink
                         showIcon={false}
-                        className="text-primary hover:underline inline"
+                        className="text-primary underline underline-offset-2 inline"
                       />
                     </p>
                     <p>
                       {c.f134}
                       <Link
                         to="/contact"
-                        className="text-primary hover:underline"
+                        className="text-primary underline underline-offset-2"
                       >
                         {c.f135}
                       </Link>{" "}
@@ -367,7 +367,7 @@ const Accessibility = () => {
                   href="https://www.w3.org/WAI/WCAG21/quickref/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-primary hover:underline"
+                  className="text-primary underline underline-offset-2"
                 >
                   {c.f156}
                 </a>
@@ -401,7 +401,7 @@ const Accessibility = () => {
                       href="https://www.ontario.ca/page/how-make-customer-service-accessible"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-primary hover:underline"
+                      className="text-primary underline underline-offset-2"
                     >
                       {c.f167}
                     </a>
@@ -413,7 +413,7 @@ const Accessibility = () => {
                       href="http://www.ohrc.on.ca"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-primary hover:underline"
+                      className="text-primary underline underline-offset-2"
                     >
                       {c.f169}
                     </a>
@@ -448,7 +448,7 @@ const Accessibility = () => {
                 <p>
                   {c.f177}
                   <AscentEmailLink
-                    className="text-primary hover:underline inline"
+                    className="text-primary underline underline-offset-2 inline"
                     showIcon={false}
                   />
                 </p>
@@ -456,12 +456,12 @@ const Accessibility = () => {
                   {c.f178}
                   <PhoneLink
                     showIcon={false}
-                    className="text-primary hover:underline inline"
+                    className="text-primary underline underline-offset-2 inline"
                   />
                 </p>
                 <p>
                   {c.f179}
-                  <Link to="/contact" className="text-primary hover:underline">
+                  <Link to="/contact" className="text-primary underline underline-offset-4">
                     {c.f180}
                   </Link>
                 </p>

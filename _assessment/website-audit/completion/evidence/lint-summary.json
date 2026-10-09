@@ -1,0 +1,17 @@
+{
+  "baseline": {
+    "errors": 210,
+    "warnings": 29
+  },
+  "candidate": {
+    "errors": 205,
+    "warnings": 29
+  },
+  "budget": {
+    "errors": 288,
+    "warnings": 34
+  },
+  "newFileMessages": 0,
+  "increasedFileCounts": [],
+  "status": "within-budget; not clean whole-repository lint"
+}

@@ -162,12 +162,12 @@ const Capabilities = () => {
         {/* ── Why Self-Perform? ───────────────────────────────────────────── */}
         <section
           id="why-self-perform"
-          className="w-full bg-[hsl(var(--ink))] py-20 md:py-28 scroll-mt-24"
+          className="w-full bg-[hsl(var(--navy-surface))] py-20 md:py-28 scroll-mt-24"
         >
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="grid md:grid-cols-2 gap-12 lg:gap-20 items-center mb-16">
               <div>
-                <span className="text-sm font-semibold uppercase tracking-wider text-[hsl(var(--accent))] mb-3 block">
+                <span className="text-sm font-semibold uppercase tracking-wider text-white/90 mb-3 block">
                   Our Model
                 </span>
                 <h2 className="text-3xl md:text-4xl font-bold text-white mb-6 leading-tight">

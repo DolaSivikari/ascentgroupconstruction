@@ -8,7 +8,7 @@ import Footer from "@/components/Footer";
 import EnhancedHero from "@/components/homepage/EnhancedHero";
 import { HeroSurface } from "@/components/shared/HeroPresenceProvider";
 import SEO from "@/components/SEO";
-import SkipLink from "@/components/SkipLink";
+import { HomepageEntryPaths } from "@/components/homepage/HomepageEntryPaths";
 import {
   createHowToSchema,
   createQASchema,
@@ -46,6 +46,7 @@ const HomepageFinalCta = lazy(() =>
     default: m.HomepageFinalCta,
   })),
 );
+const HomepageQuestions = lazy(() => import("@/components/homepage/HomepageQuestions"));
 import { videoSchema } from "@/utils/structured-data";
 import { getHomepageVideos } from "@/data/video-metadata";
 
@@ -133,7 +134,6 @@ const Index = () => {
   return (
     <>
       <div className="min-h-screen relative">
-        <SkipLink />
         <SEO
           title={c.f021}
           description={c.f022}
@@ -157,6 +157,7 @@ const Index = () => {
 
           {/* ── Zone A: White background ── */}
           <div className="bg-background">
+            <HomepageEntryPaths />
             <HomepageProofStrip />
             <DeferredSection name="Service highlights">
               <HomepageServiceHighlights />
@@ -184,6 +185,10 @@ const Index = () => {
               <WhyChooseUs />
             </DeferredSection>
           </div>
+
+          <DeferredSection name="Project questions">
+            <HomepageQuestions />
+          </DeferredSection>
 
           {/* ── Inline Conversion Form ── */}
           <DeferredSection name="Project inquiry">

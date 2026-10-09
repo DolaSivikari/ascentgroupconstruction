@@ -185,7 +185,7 @@ const WhoWeServeHomepage = () => {
             <Button
               asChild
               size="lg"
-              className="bg-primary hover:bg-primary/90"
+              variant="navy"
             >
               <Link to="/contact">{c.f020}</Link>
             </Button>

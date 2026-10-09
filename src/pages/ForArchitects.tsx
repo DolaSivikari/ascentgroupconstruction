@@ -253,7 +253,7 @@ const ForArchitects = () => {
               size="md"
               className="relative"
             >
-              <span className="text-4xl font-bold text-primary/15 absolute top-4 right-4">
+              <span aria-hidden="true" className="text-4xl font-bold text-muted-foreground absolute top-4 right-4">
                 {item.step}
               </span>
               <ClipboardList className="w-8 h-8 text-primary mb-3" />

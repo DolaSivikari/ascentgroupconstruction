@@ -3,7 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/ui/Button";
 import OptimizedImage from "./OptimizedImage";
 import { ChevronDown, Shield, Phone, ArrowRight, FileText } from "lucide-react";
-import { useCompanySettings } from "@/hooks/useCompanySettings";
+import { COMPANY_PHONE, COMPANY_PHONE_TEL } from "@/constants/company";
 import { MegaMenuWithSections } from "./navigation/MegaMenuWithSections";
 import { MobileNavSheet } from "./navigation/MobileNavSheet";
 import ascentLogoHorizontalDark from "@/assets/ascent-logo-horizontal-dark.webp";
@@ -96,7 +96,6 @@ const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [activeMegaMenu, setActiveMegaMenu] = useState<string | null>(null);
   const [adminDropdownOpen, setAdminDropdownOpen] = useState(false);
-  const { settings } = useCompanySettings();
 
   // Check admin role
   const { isAdmin } = useAdminRoleCheck();
@@ -331,18 +330,16 @@ const Navigation = () => {
             {/* Right: Utility Items */}
             <div className="flex items-center gap-2">
               {/* Phone Number */}
-              {settings?.phone && (
-                <a
-                  href={`tel:${settings.phone}`}
+              <a
+                  href={COMPANY_PHONE_TEL}
                   className={cn(
                     "hidden lg:flex items-center gap-2 text-sm font-normal hover:text-primary hover-scale whitespace-nowrap transition-colors duration-[150ms]",
                     isHeroPage && isAtTop ? "text-white" : "text-muted-foreground"
                   )}
                 >
-                  <Phone className="w-4 h-4" />
-                  {settings.phone}
-                </a>
-              )}
+                  <Phone className="w-4 h-4" aria-hidden="true" />
+                  {COMPANY_PHONE}
+              </a>
 
               {/* Theme toggle (light/dark) */}
               <ThemeToggle
@@ -468,10 +465,18 @@ const Navigation = () => {
                 height={80}
                 loading="eager"
                 decoding="async"
-                className="h-16 -my-3 w-auto"
+                className="h-12 w-auto"
               />
             </Link>
 
+            <div className="flex items-center gap-1">
+              <a
+                href={COMPANY_PHONE_TEL}
+                aria-label={`Call Ascent Group Construction at ${COMPANY_PHONE}`}
+                className={cn("inline-flex h-11 w-11 items-center justify-center rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2", isHeroPage && isAtTop ? "text-white hover:bg-white/10" : "text-foreground hover:bg-muted")}
+              >
+                <Phone className="h-5 w-5" aria-hidden="true" />
+              </a>
             {/* Mobile Menu Button */}
             <button
               className={cn(
@@ -492,6 +497,7 @@ const Navigation = () => {
                 <span className={`h-0.5 w-full bg-current rounded-full transition-all duration-300 ease-out ${isOpen ? '-rotate-45 -translate-y-2' : ''}`} />
               </div>
             </button>
+            </div>
           </div>
 
           {/* Mobile Navigation Sheet */}

@@ -33,7 +33,7 @@ export const ServicesProcessSnapshot = () => {
   return (
     <Section size="major">
       <div className="mb-12">
-        <p className={`${TYPOGRAPHY_STYLES.label} text-accent mb-3`}>Our Process</p>
+        <p className={`${TYPOGRAPHY_STYLES.label} text-primary mb-3`}>Our Process</p>
         <h2 className={`${TYPOGRAPHY_STYLES.sectionTitle} text-foreground mb-4`}>
           How We Engage
         </h2>
@@ -54,7 +54,7 @@ export const ServicesProcessSnapshot = () => {
               <div className="relative z-10">
                 <div className="flex items-center gap-3 mb-4">
                   <div className="w-12 h-12 rounded-full bg-accent/10 border-2 border-accent/20 flex items-center justify-center">
-                    <span className="text-sm font-bold text-accent">{s.step}</span>
+                    <span className="text-sm font-bold text-primary">{s.step}</span>
                   </div>
                   <div className="w-9 h-9 rounded-lg bg-primary/10 flex items-center justify-center">
                     <Icon className="w-4.5 h-4.5 text-primary" />

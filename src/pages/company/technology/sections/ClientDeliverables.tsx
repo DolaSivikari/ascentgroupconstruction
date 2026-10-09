@@ -15,7 +15,7 @@ import { Elevation } from "./Drawings";
 import { measureShape, type Point } from "../takeoff";
 
 function RedactedPrice() {
-  return <span className="tech-redaction" aria-label="Sample price redacted" />;
+  return <span className="tech-redaction" role="img" aria-label="Sample price redacted" />;
 }
 
 const BID_SECTIONS = [
@@ -561,7 +561,7 @@ function PdfFrame({
           </select>
         </label>
       </div>
-      <div className="max-h-[650px] overflow-auto">
+      <div className="max-h-[650px] overflow-auto focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring" tabIndex={0} role="region" aria-label="Sample document viewer">
         <div style={{ zoom: zoom / 100 }}>{children}</div>
       </div>
     </div>

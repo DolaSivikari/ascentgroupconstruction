@@ -443,14 +443,15 @@ export default function SubmitRFPNew() {
           {/* Enhanced Progress */}
           <section className="py-8 bg-background">
             <div className="container mx-auto px-4 max-w-4xl">
-              <div className="flex justify-center gap-4 mb-8">
+              <div className="flex justify-center gap-2 sm:gap-4 mb-8">
                 {steps.map((step) => (
                   <div
                     key={step.number}
-                    className={`flex flex-col items-center transition-all ${step.number === currentStep ? "scale-110" : step.number < currentStep ? "opacity-70" : "opacity-40"}`}
+                    aria-current={step.number === currentStep ? "step" : undefined}
+                    className={`flex min-w-0 flex-1 flex-col items-center text-center transition-all ${step.number === currentStep ? "scale-110" : "text-muted-foreground"}`}
                   >
                     <div
-                      className={`w-16 h-16 rounded-full flex items-center justify-center mb-2 ${step.number === currentStep ? "bg-secondary text-secondary-foreground shadow-lg" : step.number < currentStep ? "bg-secondary/70 text-secondary-foreground" : "bg-primary-foreground/20"}`}
+                      className={`w-12 h-12 sm:w-16 sm:h-16 rounded-full flex items-center justify-center mb-2 ${step.number === currentStep ? "bg-secondary text-secondary-foreground shadow-lg" : step.number < currentStep ? "bg-secondary text-secondary-foreground" : "bg-muted text-foreground"}`}
                     >
                       {step.number < currentStep ? (
                         <CheckCircle2 className="w-8 h-8" />
@@ -458,7 +459,7 @@ export default function SubmitRFPNew() {
                         step.number
                       )}
                     </div>
-                    <span className="text-sm font-medium">{step.title}</span>
+                    <span className="text-xs sm:text-sm font-medium">{step.title}</span>
                   </div>
                 ))}
               </div>
@@ -475,6 +476,7 @@ export default function SubmitRFPNew() {
                   </span>
                 </div>
                 <Progress
+                  aria-label="RFP submission progress"
                   value={progress}
                   className="h-3 bg-primary-foreground/20"
                 />

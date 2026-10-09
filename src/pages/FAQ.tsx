@@ -481,7 +481,7 @@ const FAQ = () => {
                 <div className="flex gap-4 justify-center flex-wrap">
                   <a
                     href="/contact"
-                    className="inline-flex items-center justify-center px-8 py-4 bg-secondary text-primary rounded-lg font-semibold hover:bg-secondary/90 transition-colors shadow-lg text-lg"
+                    className="inline-flex items-center justify-center px-8 py-4 bg-secondary text-secondary-foreground rounded-lg font-semibold hover:bg-secondary/90 transition-colors shadow-lg text-lg"
                   >
                     {c.f113}
                   </a>

@@ -13,11 +13,11 @@ export const buttonVariants = cva(
   {
     variants: {
       variant: {
-        primary: "bg-[hsl(var(--brand-accent))] text-white hover:opacity-90 shadow-lg",
-        default: "bg-[hsl(var(--brand-accent))] text-white hover:opacity-90 shadow-lg",
+        primary: "bg-[hsl(var(--brand-accent))] text-accent-foreground hover:opacity-90 shadow-lg",
+        default: "bg-[hsl(var(--brand-accent))] text-accent-foreground hover:opacity-90 shadow-lg",
         secondary: "border-2 border-[hsl(var(--brand-primary))] text-[hsl(var(--brand-primary))] bg-transparent hover:bg-[hsl(var(--bg-soft))]",
         outline: "border-2 border-[hsl(var(--brand-primary))] text-[hsl(var(--brand-primary))] bg-transparent hover:bg-[hsl(var(--bg-soft))]",
-        navy: "bg-[hsl(var(--brand-primary))] text-white hover:opacity-90 shadow-lg",
+        navy: "bg-[hsl(var(--navy-surface))] text-white hover:opacity-90 shadow-lg",
         ghost: "text-[hsl(var(--brand-primary))] hover:bg-[hsl(var(--bg-soft))]",
         danger: "bg-[hsl(var(--danger))] text-white hover:opacity-90",
         destructive: "bg-[hsl(var(--danger))] text-white hover:opacity-90",

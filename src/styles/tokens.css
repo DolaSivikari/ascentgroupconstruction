@@ -1,6 +1,7 @@
 @layer base {
 :root {
   /* Brand Colors - Corporate Palette - ALL IN HSL FORMAT */
+  --navy-surface: 210 100% 20%; /* Stable dark surface for white text in either theme. */
   --brand-primary: 210 100% 20%; /* Navy Blue #003366 */
   --brand-accent: 24 95% 53%; /* Construction Orange #F97316 */
   --brand-gray: 200 18% 26%; /* Charcoal Gray #36454F */
@@ -10,6 +11,7 @@
   --bg-soft: 210 20% 98%; /* Soft background */
 
   /* Feedback Colors - ALL IN HSL FORMAT */
+  --success-foreground: 0 0% 10%;
   --success: 142 76% 36%; /* Green #16A34A */
   --warning: 38 92% 50%; /* Yellow #D97706 */
   --danger: 0 84% 60%; /* Red #DC2626 */
