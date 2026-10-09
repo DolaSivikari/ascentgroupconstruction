@@ -188,6 +188,7 @@ describe("head ownership", () => {
       name: "King City",
     });
     expect(business.aggregateRating).toBeUndefined();
+    expect(business.geo).toBeUndefined();
   });
 });
 

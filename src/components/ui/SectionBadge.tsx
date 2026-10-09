@@ -15,9 +15,9 @@ export const SectionBadge = ({
   className 
 }: SectionBadgeProps) => {
   const variants = {
-    orange: "bg-construction-orange/10 text-construction-orange border-construction-orange/20",
+    orange: "bg-construction-orange/10 text-primary border-construction-orange/20",
     primary: "bg-primary/10 text-primary border-primary/20",
-    accent: "bg-accent/10 text-accent border-accent/20",
+    accent: "bg-accent/10 text-primary border-accent/20",
   };
 
   return (

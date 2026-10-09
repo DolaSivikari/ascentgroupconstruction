@@ -6,7 +6,19 @@ const SkipLink = () => {
   return (
     <a
       href="#main-content"
-      className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-primary focus:text-primary-foreground focus:rounded-md focus:shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary"
+      onClick={(event) => {
+        const target =
+          document.getElementById("main-content") ||
+          document.querySelector("main") ||
+          document.querySelector("h1");
+        if (!target) return;
+        event.preventDefault();
+        target.setAttribute("tabindex", "-1");
+        target.focus({ preventScroll: true });
+        target.scrollIntoView({ behavior: "auto", block: "start" });
+      }}
+      className="fixed top-0 left-0 -translate-y-full focus:translate-y-0 z-[100] bg-primary text-primary-foreground px-6 py-3 font-semibold transition-transform focus:outline-none focus:ring-4 focus:ring-primary/50"
+      aria-label="Skip to main content"
     >
       Skip to main content
     </a>

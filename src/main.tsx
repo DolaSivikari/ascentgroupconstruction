@@ -6,7 +6,6 @@ import "./styles/animations.css";
 import "./styles/mobile-nav.css";
 import "./styles/textures.css";
 import "./index.css";
-import { reportWebVitals } from "./lib/webVitals";
 import { initErrorLogging } from "./utils/errorLogger";
 import { initializeServiceWorker } from "./utils/serviceWorker";
 
@@ -44,7 +43,7 @@ const runIdle = (cb: () => void, timeout = 2000) => {
 if (!privatePackagePage)
   runIdle(() => {
     // Web Vitals tracking
-    reportWebVitals();
+    void import("./lib/webVitals").then(({ reportWebVitals }) => reportWebVitals());
     // Error logging
     initErrorLogging();
   });

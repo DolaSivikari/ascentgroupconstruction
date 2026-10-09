@@ -117,7 +117,7 @@ const EmergencyRepair = () => {
       />
 
       {/* Urgent Phone Banner */}
-      <div className="bg-destructive text-destructive-foreground">
+      <div className="bg-red-700 text-white">
         <div className="container mx-auto px-4 py-4 flex flex-col sm:flex-row items-center justify-center gap-4 text-center">
           <Phone className="w-6 h-6 animate-pulse" />
           <span className="text-lg font-semibold">

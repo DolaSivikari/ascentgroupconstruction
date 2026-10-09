@@ -44,7 +44,7 @@ export const TrustRibbon = ({
       aria-label="Trust signals"
     >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-3 md:py-4">
-        <ul className="flex items-center justify-around md:justify-between gap-3 md:gap-6 overflow-x-auto scrollbar-hide">
+        <ul className="flex flex-wrap md:flex-nowrap items-center justify-center md:justify-between gap-x-4 gap-y-2 md:gap-6">
           {items.map(({ icon: Icon, text, short }, i) => (
             <li
               key={i}

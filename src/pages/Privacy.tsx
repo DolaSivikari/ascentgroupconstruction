@@ -239,7 +239,7 @@ const Privacy = () => {
                         href="https://tools.google.com/dlpage/gaoptout"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-primary hover:underline"
+                        className="text-primary underline underline-offset-2"
                       >
                         https://tools.google.com/dlpage/gaoptout
                       </a>
@@ -350,7 +350,7 @@ const Privacy = () => {
                   <p>
                     {c.f155}
                     <AscentEmailLink
-                      className="text-primary hover:underline inline"
+                      className="text-primary underline underline-offset-2 inline"
                       showIcon={false}
                     />
                   </p>
@@ -358,7 +358,7 @@ const Privacy = () => {
                     {c.f156}
                     <PhoneLink
                       showIcon={false}
-                      className="text-primary hover:underline inline"
+                      className="text-primary underline underline-offset-2 inline"
                     />
                   </p>
                   <p className="mt-4 text-sm text-muted-foreground">
@@ -367,7 +367,7 @@ const Privacy = () => {
                       href="https://www.priv.gc.ca"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-primary hover:underline"
+                      className="text-primary underline underline-offset-2"
                     >
                       {c.f158}
                     </a>

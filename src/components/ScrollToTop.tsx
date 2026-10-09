@@ -7,9 +7,20 @@ const ScrollToTop = () => {
   useEffect(() => {
     if (hash) {
       // If there's a hash, scroll to that element
-      const element = document.querySelector(hash);
+      let id = hash.slice(1);
+      try {
+        id = decodeURIComponent(id);
+      } catch {
+        /* Keep malformed literal fragments harmless. */
+      }
+      const element = document.getElementById(id);
       if (element) {
-        element.scrollIntoView({ behavior: "smooth" });
+        element.scrollIntoView({
+          behavior: window.matchMedia("(prefers-reduced-motion: reduce)")
+            .matches
+            ? "auto"
+            : "smooth",
+        });
       }
     } else {
       // Otherwise, scroll to the top of the page

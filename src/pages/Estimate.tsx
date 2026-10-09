@@ -614,6 +614,7 @@ Add-ons:
                   </span>
                 </div>
                 <Progress
+                  aria-label="Estimate request progress"
                   value={((currentStep + 1) / totalSteps) * 100}
                   className="h-2"
                 />

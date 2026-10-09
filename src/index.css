@@ -58,7 +58,7 @@ All colors MUST be HSL.
     --secondary-foreground: 0 0% 100%; /* White on gray */
 
     --accent: 24 90% 50%;           /* Construction Orange — slightly muted for professionalism */
-    --accent-foreground: 0 0% 100%; /* White text on orange */
+    --accent-foreground: 0 0% 10%; /* Dark text meets AA on the existing orange. */
 
     /* Steel Blue - Secondary accent for links, icons, highlights */
     --steel-blue: 193 37% 48%;      /* Steel Blue #4A90A4 */
@@ -69,7 +69,7 @@ All colors MUST be HSL.
     
     /* Accessible color variants for WCAG AA compliance */
     --accent-orange-dark: 25 100% 45%; /* Darker orange for contrast */
-    --text-on-orange: 0 0% 100%; /* White text on orange */
+    --text-on-orange: 0 0% 10%;
 
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
@@ -147,7 +147,7 @@ All colors MUST be HSL.
     --secondary-foreground: 0 0% 10%;
 
     --accent: 25 100% 55%;          /* Brighter orange for dark mode */
-    --accent-foreground: 0 0% 100%;
+    --accent-foreground: 0 0% 10%;
 
     /* Steel Blue - Dark mode */
     --steel-blue: 193 37% 58%;      /* Lighter steel blue for dark mode */
@@ -158,7 +158,7 @@ All colors MUST be HSL.
     
     /* Accessible color variants for dark mode */
     --accent-orange-dark: 25 100% 50%;
-    --text-on-orange: 0 0% 100%;
+    --text-on-orange: 0 0% 10%;
 
     --destructive: 0 70% 50%;
     --destructive-foreground: 0 0% 100%;

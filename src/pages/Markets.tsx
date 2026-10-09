@@ -224,7 +224,7 @@ const Markets = () => {
             badge="Quick Reference"
             maxWidth="lg"
           />
-          <div className="max-w-6xl mx-auto overflow-x-auto -mx-4 sm:mx-0">
+          <div tabIndex={0} role="region" aria-label="Markets comparison" className="max-w-6xl mx-auto overflow-x-auto -mx-4 sm:mx-0 focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary">
             <table className="min-w-full text-sm">
               <thead>
                 <tr className="text-left bg-background border-b border-border">

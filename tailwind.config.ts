@@ -162,7 +162,7 @@ export default {
         // Semantic feedback colors — use these instead of bg-green-500/text-yellow-500/etc.
         success: {
           DEFAULT: "hsl(var(--success))",
-          foreground: "hsl(0 0% 100%)",
+          foreground: "hsl(var(--success-foreground))",
         },
         warning: {
           DEFAULT: "hsl(var(--warning))",

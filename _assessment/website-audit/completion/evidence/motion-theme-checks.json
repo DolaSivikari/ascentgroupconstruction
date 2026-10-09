@@ -1,0 +1,675 @@
+{
+  "status": "passed",
+  "width": 320,
+  "policy": "Normal motion; four representative page types in light and dark themes; baseline included for context. All external requests intercepted.",
+  "scenarios": [
+    {
+      "theme": "light",
+      "path": "/",
+      "a11y": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".hover\\:shadow-2xl > .z-10.relative:nth-child(1)"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 2.85 (foreground color: #ffffff, background color: #f97015, font size: 13.5pt (18px), font weight: normal). Expected contrast ratio of 4.5:1"
+            },
+            {
+              "target": [
+                ".hover\\:scale-105 > span"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 2.53 (foreground color: #f97015, background color: #fcefe6, font size: 10.5pt (14px), font weight: normal). Expected contrast ratio of 4.5:1"
+            },
+            {
+              "target": [
+                ".min-w-\\[200px\\].px-8.py-4:nth-child(1)"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 2.85 (foreground color: #ffffff, background color: #f97015, font size: 13.5pt (18px), font weight: normal). Expected contrast ratio of 4.5:1"
+            },
+            {
+              "target": [
+                ".border-white\\/15.hover\\:bg-white\\/15.hover\\:border-white\\/25:nth-child(1) > .min-h-\\[48px\\].md\\:min-h-\\[44px\\].md\\:px-4"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 2.85 (foreground color: #ffffff, background color: #f97015, font size: 12.0pt (16px), font weight: normal). Expected contrast ratio of 4.5:1"
+            }
+          ]
+        }
+      ],
+      "errors": [],
+      "overflow": false,
+      "build": "baseline b42b30f"
+    },
+    {
+      "theme": "light",
+      "path": "/services",
+      "a11y": [
+        {
+          "id": "aria-prohibited-attr",
+          "nodes": [
+            {
+              "target": [
+                ".py-20.md\\:py-28.lg\\:py-32:nth-child(1) > .scroll-reveal.is-visible > .sm\\:px-6.lg\\:px-8.max-w-7xl > .mb-12.text-center > h2 > .inline-block"
+              ],
+              "failureSummary": "Fix all of the following:\n  aria-label attribute cannot be used on a span with no valid role attribute."
+            },
+            {
+              "target": [
+                "span[aria-label=\"Our Services\"]"
+              ],
+              "failureSummary": "Fix all of the following:\n  aria-label attribute cannot be used on a span with no valid role attribute."
+            },
+            {
+              "target": [
+                ".py-20.md\\:py-28.lg\\:py-32:nth-child(3) > .scroll-reveal.is-visible > .sm\\:px-6.lg\\:px-8.max-w-7xl > .mb-12.text-center > h2 > .inline-block"
+              ],
+              "failureSummary": "Fix all of the following:\n  aria-label attribute cannot be used on a span with no valid role attribute."
+            },
+            {
+              "target": [
+                "span[aria-label=\"People Also Ask\"]"
+              ],
+              "failureSummary": "Fix all of the following:\n  aria-label attribute cannot be used on a span with no valid role attribute."
+            }
+          ]
+        },
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".px-8.min-h-\\[52px\\].md\\:px-5:nth-child(1)"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 2.85 (foreground color: #ffffff, background color: #f97015, font size: 13.5pt (18px), font weight: normal). Expected contrast ratio of 4.5:1"
+            },
+            {
+              "target": [
+                ".text-accent.uppercase.tracking-wider"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 3.08 (foreground color: #f2690d, background color: #ffffff, font size: 10.5pt (14px), font weight: normal). Expected contrast ratio of 4.5:1"
+            },
+            {
+              "target": [
+                ".relative:nth-child(1) > .z-10.relative > .gap-3.mb-4.items-center > .w-12.bg-accent\\/10.border-accent\\/20 > .text-accent.font-bold"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 2.76 (foreground color: #f2690d, background color: #fef0e7, font size: 10.5pt (14px), font weight: bold). Expected contrast ratio of 4.5:1"
+            },
+            {
+              "target": [
+                ".relative:nth-child(2) > .z-10.relative > .gap-3.mb-4.items-center > .w-12.bg-accent\\/10.border-accent\\/20 > .text-accent.font-bold"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 2.76 (foreground color: #f2690d, background color: #fef0e7, font size: 10.5pt (14px), font weight: bold). Expected contrast ratio of 4.5:1"
+            },
+            {
+              "target": [
+                ".relative:nth-child(3) > .z-10.relative > .gap-3.mb-4.items-center > .w-12.bg-accent\\/10.border-accent\\/20 > .text-accent.font-bold"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 2.76 (foreground color: #f2690d, background color: #fef0e7, font size: 10.5pt (14px), font weight: bold). Expected contrast ratio of 4.5:1"
+            },
+            {
+              "target": [
+                ".relative:nth-child(4) > .z-10.relative > .gap-3.mb-4.items-center > .w-12.bg-accent\\/10.border-accent\\/20 > .text-accent.font-bold"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 2.76 (foreground color: #f2690d, background color: #fef0e7, font size: 10.5pt (14px), font weight: bold). Expected contrast ratio of 4.5:1"
+            }
+          ]
+        },
+        {
+          "id": "scrollable-region-focusable",
+          "nodes": [
+            {
+              "target": [
+                ".justify-around"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element should have focusable content\n  Element should be focusable"
+            }
+          ]
+        }
+      ],
+      "errors": [],
+      "overflow": false,
+      "build": "baseline b42b30f"
+    },
+    {
+      "theme": "light",
+      "path": "/company/technology",
+      "a11y": [
+        {
+          "id": "aria-prohibited-attr",
+          "nodes": [
+            {
+              "target": [
+                "span[aria-label=\"Try what our clients receive\"]"
+              ],
+              "failureSummary": "Fix all of the following:\n  aria-label attribute cannot be used on a span with no valid role attribute."
+            },
+            {
+              "target": [
+                "tr:nth-child(1) > td:nth-child(3) > .tech-redaction[aria-label=\"Sample price redacted\"]"
+              ],
+              "failureSummary": "Fix all of the following:\n  aria-label attribute cannot be used on a span with no valid role attribute."
+            },
+            {
+              "target": [
+                "tr:nth-child(2) > td:nth-child(3) > .tech-redaction[aria-label=\"Sample price redacted\"]"
+              ],
+              "failureSummary": "Fix all of the following:\n  aria-label attribute cannot be used on a span with no valid role attribute."
+            },
+            {
+              "target": [
+                "tr:nth-child(3) > td:nth-child(3) > .tech-redaction[aria-label=\"Sample price redacted\"]"
+              ],
+              "failureSummary": "Fix all of the following:\n  aria-label attribute cannot be used on a span with no valid role attribute."
+            },
+            {
+              "target": [
+                "tr:nth-child(4) > td:nth-child(3) > .tech-redaction[aria-label=\"Sample price redacted\"]"
+              ],
+              "failureSummary": "Fix all of the following:\n  aria-label attribute cannot be used on a span with no valid role attribute."
+            },
+            {
+              "target": [
+                "span[aria-label=\"Five steps, all on record\"]"
+              ],
+              "failureSummary": "Fix all of the following:\n  aria-label attribute cannot be used on a span with no valid role attribute."
+            }
+          ]
+        },
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                "a[href$=\"#models\"]"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 2.85 (foreground color: #ffffff, background color: #f97015, font size: 13.5pt (18px), font weight: normal). Expected contrast ratio of 4.5:1"
+            }
+          ]
+        },
+        {
+          "id": "scrollable-region-focusable",
+          "nodes": [
+            {
+              "target": [
+                ".max-h-\\[650px\\]"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element should have focusable content\n  Element should be focusable"
+            }
+          ]
+        }
+      ],
+      "errors": [],
+      "overflow": false,
+      "build": "baseline b42b30f"
+    },
+    {
+      "theme": "light",
+      "path": "/capabilities",
+      "a11y": [
+        {
+          "id": "aria-prohibited-attr",
+          "nodes": [
+            {
+              "target": [
+                "span[aria-label=\"How We Partner With You\"]"
+              ],
+              "failureSummary": "Fix all of the following:\n  aria-label attribute cannot be used on a span with no valid role attribute."
+            },
+            {
+              "target": [
+                "span[aria-label=\"Capability Matrix\"]"
+              ],
+              "failureSummary": "Fix all of the following:\n  aria-label attribute cannot be used on a span with no valid role attribute."
+            },
+            {
+              "target": [
+                "span[aria-label=\"Inspection & Test Plan\"]"
+              ],
+              "failureSummary": "Fix all of the following:\n  aria-label attribute cannot be used on a span with no valid role attribute."
+            },
+            {
+              "target": [
+                "span[aria-label=\"Project size and capacity\"]"
+              ],
+              "failureSummary": "Fix all of the following:\n  aria-label attribute cannot be used on a span with no valid role attribute."
+            },
+            {
+              "target": [
+                "span[aria-label=\"People Also Ask\"]"
+              ],
+              "failureSummary": "Fix all of the following:\n  aria-label attribute cannot be used on a span with no valid role attribute."
+            }
+          ]
+        },
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".px-8.min-h-\\[52px\\].md\\:px-5:nth-child(1)"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 2.85 (foreground color: #ffffff, background color: #f97015, font size: 13.5pt (18px), font weight: normal). Expected contrast ratio of 4.5:1"
+            },
+            {
+              "target": [
+                ".text-\\[hsl\\(var\\(--accent\\)\\)\\].block.uppercase"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 4.08 (foreground color: #f2690d, background color: #003366, font size: 10.5pt (14px), font weight: normal). Expected contrast ratio of 4.5:1"
+            },
+            {
+              "target": [
+                ".self-start.text-card-foreground[aria-live=\"polite\"] > .hover\\:opacity-90.bg-\\[hsl\\(var\\(--brand-accent\\)\\)\\][href$=\"contact\"]"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 2.85 (foreground color: #ffffff, background color: #f97015, font size: 10.5pt (14px), font weight: normal). Expected contrast ratio of 4.5:1"
+            }
+          ]
+        },
+        {
+          "id": "scrollable-region-focusable",
+          "nodes": [
+            {
+              "target": [
+                ".justify-around"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element should have focusable content\n  Element should be focusable"
+            }
+          ]
+        }
+      ],
+      "errors": [],
+      "overflow": false,
+      "build": "baseline b42b30f"
+    },
+    {
+      "theme": "dark",
+      "path": "/",
+      "a11y": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".hover\\:shadow-2xl > .z-10.relative:nth-child(1)"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 2.46 (foreground color: #ffffff, background color: #fa8638, font size: 13.5pt (18px), font weight: normal). Expected contrast ratio of 4.5:1"
+            },
+            {
+              "target": [
+                ".hover\\:bg-primary\\/90.bg-primary.px-8"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 1.11 (foreground color: #ffffff, background color: #f2f2f2, font size: 13.5pt (18px), font weight: normal). Expected contrast ratio of 4.5:1"
+            },
+            {
+              "target": [
+                ".min-w-\\[200px\\].px-8.py-4:nth-child(1)"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 2.46 (foreground color: #ffffff, background color: #fa8638, font size: 13.5pt (18px), font weight: normal). Expected contrast ratio of 4.5:1"
+            },
+            {
+              "target": [
+                ".border-white\\/15.hover\\:bg-white\\/15.hover\\:border-white\\/25:nth-child(1) > .min-h-\\[48px\\].md\\:min-h-\\[44px\\].md\\:px-4"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 2.46 (foreground color: #ffffff, background color: #fa8638, font size: 12.0pt (16px), font weight: normal). Expected contrast ratio of 4.5:1"
+            }
+          ]
+        }
+      ],
+      "errors": [],
+      "overflow": false,
+      "build": "baseline b42b30f"
+    },
+    {
+      "theme": "dark",
+      "path": "/services",
+      "a11y": [
+        {
+          "id": "aria-prohibited-attr",
+          "nodes": [
+            {
+              "target": [
+                ".py-20.md\\:py-28.lg\\:py-32:nth-child(1) > .scroll-reveal.is-visible > .sm\\:px-6.lg\\:px-8.max-w-7xl > .mb-12.text-center > h2 > .inline-block"
+              ],
+              "failureSummary": "Fix all of the following:\n  aria-label attribute cannot be used on a span with no valid role attribute."
+            },
+            {
+              "target": [
+                "span[aria-label=\"Our Services\"]"
+              ],
+              "failureSummary": "Fix all of the following:\n  aria-label attribute cannot be used on a span with no valid role attribute."
+            },
+            {
+              "target": [
+                ".py-20.md\\:py-28.lg\\:py-32:nth-child(3) > .scroll-reveal.is-visible > .sm\\:px-6.lg\\:px-8.max-w-7xl > .mb-12.text-center > h2 > .inline-block"
+              ],
+              "failureSummary": "Fix all of the following:\n  aria-label attribute cannot be used on a span with no valid role attribute."
+            },
+            {
+              "target": [
+                "span[aria-label=\"People Also Ask\"]"
+              ],
+              "failureSummary": "Fix all of the following:\n  aria-label attribute cannot be used on a span with no valid role attribute."
+            }
+          ]
+        },
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".px-8.min-h-\\[52px\\].md\\:px-5:nth-child(1)"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 2.46 (foreground color: #ffffff, background color: #fa8638, font size: 13.5pt (18px), font weight: normal). Expected contrast ratio of 4.5:1"
+            }
+          ]
+        },
+        {
+          "id": "scrollable-region-focusable",
+          "nodes": [
+            {
+              "target": [
+                ".justify-around"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element should have focusable content\n  Element should be focusable"
+            }
+          ]
+        }
+      ],
+      "errors": [],
+      "overflow": false,
+      "build": "baseline b42b30f"
+    },
+    {
+      "theme": "dark",
+      "path": "/company/technology",
+      "a11y": [
+        {
+          "id": "aria-prohibited-attr",
+          "nodes": [
+            {
+              "target": [
+                "span[aria-label=\"Try what our clients receive\"]"
+              ],
+              "failureSummary": "Fix all of the following:\n  aria-label attribute cannot be used on a span with no valid role attribute."
+            },
+            {
+              "target": [
+                "tr:nth-child(1) > td:nth-child(3) > .tech-redaction[aria-label=\"Sample price redacted\"]"
+              ],
+              "failureSummary": "Fix all of the following:\n  aria-label attribute cannot be used on a span with no valid role attribute."
+            },
+            {
+              "target": [
+                "tr:nth-child(2) > td:nth-child(3) > .tech-redaction[aria-label=\"Sample price redacted\"]"
+              ],
+              "failureSummary": "Fix all of the following:\n  aria-label attribute cannot be used on a span with no valid role attribute."
+            },
+            {
+              "target": [
+                "tr:nth-child(3) > td:nth-child(3) > .tech-redaction[aria-label=\"Sample price redacted\"]"
+              ],
+              "failureSummary": "Fix all of the following:\n  aria-label attribute cannot be used on a span with no valid role attribute."
+            },
+            {
+              "target": [
+                "tr:nth-child(4) > td:nth-child(3) > .tech-redaction[aria-label=\"Sample price redacted\"]"
+              ],
+              "failureSummary": "Fix all of the following:\n  aria-label attribute cannot be used on a span with no valid role attribute."
+            },
+            {
+              "target": [
+                "span[aria-label=\"Five steps, all on record\"]"
+              ],
+              "failureSummary": "Fix all of the following:\n  aria-label attribute cannot be used on a span with no valid role attribute."
+            }
+          ]
+        },
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                "a[href$=\"#models\"]"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 2.46 (foreground color: #ffffff, background color: #fa8638, font size: 13.5pt (18px), font weight: normal). Expected contrast ratio of 4.5:1"
+            },
+            {
+              "target": [
+                ".sm\\:flex-row > .px-8.min-h-\\[52px\\].md\\:px-5:nth-child(1)"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 3.13 (foreground color: #3c8cdd, background color: #f2f2f2, font size: 13.5pt (18px), font weight: normal). Expected contrast ratio of 4.5:1"
+            }
+          ]
+        },
+        {
+          "id": "scrollable-region-focusable",
+          "nodes": [
+            {
+              "target": [
+                ".max-h-\\[650px\\]"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element should have focusable content\n  Element should be focusable"
+            }
+          ]
+        }
+      ],
+      "errors": [],
+      "overflow": false,
+      "build": "baseline b42b30f"
+    },
+    {
+      "theme": "dark",
+      "path": "/capabilities",
+      "a11y": [
+        {
+          "id": "aria-prohibited-attr",
+          "nodes": [
+            {
+              "target": [
+                "span[aria-label=\"How We Partner With You\"]"
+              ],
+              "failureSummary": "Fix all of the following:\n  aria-label attribute cannot be used on a span with no valid role attribute."
+            },
+            {
+              "target": [
+                "span[aria-label=\"Capability Matrix\"]"
+              ],
+              "failureSummary": "Fix all of the following:\n  aria-label attribute cannot be used on a span with no valid role attribute."
+            },
+            {
+              "target": [
+                "span[aria-label=\"Inspection & Test Plan\"]"
+              ],
+              "failureSummary": "Fix all of the following:\n  aria-label attribute cannot be used on a span with no valid role attribute."
+            },
+            {
+              "target": [
+                "span[aria-label=\"Project size and capacity\"]"
+              ],
+              "failureSummary": "Fix all of the following:\n  aria-label attribute cannot be used on a span with no valid role attribute."
+            },
+            {
+              "target": [
+                "span[aria-label=\"People Also Ask\"]"
+              ],
+              "failureSummary": "Fix all of the following:\n  aria-label attribute cannot be used on a span with no valid role attribute."
+            }
+          ]
+        },
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".px-8.min-h-\\[52px\\].md\\:px-5:nth-child(1)"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 2.46 (foreground color: #ffffff, background color: #fa8638, font size: 13.5pt (18px), font weight: normal). Expected contrast ratio of 4.5:1"
+            },
+            {
+              "target": [
+                ".text-\\[hsl\\(var\\(--accent\\)\\)\\].block.uppercase"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 2.34 (foreground color: #ff791a, background color: #f2f2f2, font size: 10.5pt (14px), font weight: normal). Expected contrast ratio of 4.5:1"
+            },
+            {
+              "target": [
+                ".md\\:grid-cols-2 > div:nth-child(1) > .mb-6"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 1.11 (foreground color: #ffffff, background color: #f2f2f2, font size: 22.5pt (30px), font weight: bold). Expected contrast ratio of 3:1"
+            },
+            {
+              "target": [
+                ".text-white\\/80"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 1.09 (foreground color: #fcfcfc, background color: #f2f2f2, font size: 13.5pt (18px), font weight: normal). Expected contrast ratio of 4.5:1"
+            },
+            {
+              "target": [
+                ".text-white\\/70.leading-relaxed.mb-4"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 1.08 (foreground color: #fbfbfb, background color: #f2f2f2, font size: 12.0pt (16px), font weight: normal). Expected contrast ratio of 4.5:1"
+            },
+            {
+              "target": [
+                ".text-white\\/70.leading-relaxed:nth-child(2)"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 1.08 (foreground color: #fbfbfb, background color: #f2f2f2, font size: 12.0pt (16px), font weight: normal). Expected contrast ratio of 4.5:1"
+            },
+            {
+              "target": [
+                ".bg-white\\/5.border-white\\/10.hover\\:bg-white\\/10:nth-child(1) > .mb-2.leading-tight.tracking-tight"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 1.1 (foreground color: #ffffff, background color: #f3f3f3, font size: 15.0pt (20px), font weight: normal). Expected contrast ratio of 4.5:1"
+            },
+            {
+              "target": [
+                ".bg-white\\/5.border-white\\/10.hover\\:bg-white\\/10:nth-child(1) > .text-white\\/60.text-base.leading-relaxed"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 1.06 (foreground color: #fafafa, background color: #f3f3f3, font size: 12.0pt (16px), font weight: normal). Expected contrast ratio of 4.5:1"
+            },
+            {
+              "target": [
+                ".bg-white\\/5.border-white\\/10.hover\\:bg-white\\/10:nth-child(2) > .mb-2.leading-tight.tracking-tight"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 1.1 (foreground color: #ffffff, background color: #f3f3f3, font size: 15.0pt (20px), font weight: normal). Expected contrast ratio of 4.5:1"
+            },
+            {
+              "target": [
+                ".bg-white\\/5.border-white\\/10.hover\\:bg-white\\/10:nth-child(2) > .text-white\\/60.text-base.leading-relaxed"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 1.06 (foreground color: #fafafa, background color: #f3f3f3, font size: 12.0pt (16px), font weight: normal). Expected contrast ratio of 4.5:1"
+            },
+            {
+              "target": [
+                ".bg-white\\/5.border-white\\/10.hover\\:bg-white\\/10:nth-child(3) > .mb-2.leading-tight.tracking-tight"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 1.1 (foreground color: #ffffff, background color: #f3f3f3, font size: 15.0pt (20px), font weight: normal). Expected contrast ratio of 4.5:1"
+            },
+            {
+              "target": [
+                ".bg-white\\/5.border-white\\/10.hover\\:bg-white\\/10:nth-child(3) > .text-white\\/60.text-base.leading-relaxed"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 1.06 (foreground color: #fafafa, background color: #f3f3f3, font size: 12.0pt (16px), font weight: normal). Expected contrast ratio of 4.5:1"
+            },
+            {
+              "target": [
+                ".bg-white\\/5.border-white\\/10.hover\\:bg-white\\/10:nth-child(4) > .mb-2.leading-tight.tracking-tight"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 1.1 (foreground color: #ffffff, background color: #f3f3f3, font size: 15.0pt (20px), font weight: normal). Expected contrast ratio of 4.5:1"
+            },
+            {
+              "target": [
+                ".bg-white\\/5.border-white\\/10.hover\\:bg-white\\/10:nth-child(4) > .text-white\\/60.text-base.leading-relaxed"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 1.06 (foreground color: #fafafa, background color: #f3f3f3, font size: 12.0pt (16px), font weight: normal). Expected contrast ratio of 4.5:1"
+            },
+            {
+              "target": [
+                ".self-start.text-card-foreground[aria-live=\"polite\"] > .hover\\:opacity-90.bg-\\[hsl\\(var\\(--brand-accent\\)\\)\\][href$=\"contact\"]"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 2.46 (foreground color: #ffffff, background color: #fa8638, font size: 10.5pt (14px), font weight: normal). Expected contrast ratio of 4.5:1"
+            }
+          ]
+        },
+        {
+          "id": "scrollable-region-focusable",
+          "nodes": [
+            {
+              "target": [
+                ".justify-around"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element should have focusable content\n  Element should be focusable"
+            }
+          ]
+        }
+      ],
+      "errors": [],
+      "overflow": false,
+      "build": "baseline b42b30f"
+    },
+    {
+      "theme": "light",
+      "path": "/",
+      "a11y": [],
+      "errors": [],
+      "overflow": false,
+      "build": "website/audit-completion"
+    },
+    {
+      "theme": "light",
+      "path": "/services",
+      "a11y": [],
+      "errors": [],
+      "overflow": false,
+      "build": "website/audit-completion"
+    },
+    {
+      "theme": "light",
+      "path": "/company/technology",
+      "a11y": [],
+      "errors": [],
+      "overflow": false,
+      "build": "website/audit-completion"
+    },
+    {
+      "theme": "light",
+      "path": "/capabilities",
+      "a11y": [],
+      "errors": [],
+      "overflow": false,
+      "build": "website/audit-completion"
+    },
+    {
+      "theme": "dark",
+      "path": "/",
+      "a11y": [],
+      "errors": [],
+      "overflow": false,
+      "build": "website/audit-completion"
+    },
+    {
+      "theme": "dark",
+      "path": "/services",
+      "a11y": [],
+      "errors": [],
+      "overflow": false,
+      "build": "website/audit-completion"
+    },
+    {
+      "theme": "dark",
+      "path": "/company/technology",
+      "a11y": [],
+      "errors": [],
+      "overflow": false,
+      "build": "website/audit-completion"
+    },
+    {
+      "theme": "dark",
+      "path": "/capabilities",
+      "a11y": [],
+      "errors": [],
+      "overflow": false,
+      "build": "website/audit-completion"
+    }
+  ]
+}

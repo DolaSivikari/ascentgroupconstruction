@@ -1,0 +1,24 @@
+{
+  "status": "passed",
+  "width": 320,
+  "results": [
+    {
+      "path": "/company/technology",
+      "rotationBefore": "scale(0.336471) rotateX(66deg) rotateZ(128deg)",
+      "rotationAfter": "scale(0.336471) rotateX(66deg) rotateZ(138deg)",
+      "exploded": true
+    },
+    {
+      "path": "/capabilities",
+      "storeys": 30,
+      "elevationUpdated": true
+    },
+    {
+      "path": "/submit-rfp",
+      "progress": 25,
+      "allStepLabelsFit": true,
+      "violations": []
+    }
+  ],
+  "errors": []
+}

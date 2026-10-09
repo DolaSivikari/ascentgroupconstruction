@@ -63,6 +63,7 @@ export const CTABand = ({
           <Button
             size="lg"
             variant={variant === "dark" ? "secondary" : "default"}
+            className={variant === "dark" ? "border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-primary" : undefined}
             asChild
           >
             <Link to={primaryCta.href}>{primaryCta.text}</Link>

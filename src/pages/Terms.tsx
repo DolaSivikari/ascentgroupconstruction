@@ -36,7 +36,7 @@ const Terms = () => {
               <h2 className="text-2xl font-semibold mb-4">{c.f008}</h2>
               <p className="mb-4">
                 {c.f009}
-                <Link to="/privacy" className="text-primary hover:underline">
+                <Link to="/privacy" className="text-primary underline underline-offset-2">
                   {c.f010}
                 </Link>
                 {c.f011}
@@ -180,7 +180,7 @@ const Terms = () => {
                       href="https://www.wsib.ca"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-primary hover:underline"
+                      className="text-primary underline underline-offset-2"
                     >
                       {c.f079}
                     </a>
@@ -285,7 +285,7 @@ const Terms = () => {
                   <p>
                     {c.f124}
                     <AscentEmailLink
-                      className="text-primary hover:underline inline"
+                      className="text-primary underline underline-offset-2 inline"
                       showIcon={false}
                     />
                   </p>
@@ -293,7 +293,7 @@ const Terms = () => {
                     {c.f125}
                     <PhoneLink
                       showIcon={false}
-                      className="text-primary hover:underline inline"
+                      className="text-primary underline underline-offset-2 inline"
                     />
                   </p>
                 </div>

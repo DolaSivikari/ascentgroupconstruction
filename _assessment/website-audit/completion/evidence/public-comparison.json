@@ -1,0 +1,1933 @@
+{
+  "status": "passed",
+  "urls": 85,
+  "captures": 170,
+  "identical": 0,
+  "declared": 170,
+  "failed": 0,
+  "results": [
+    {
+      "path": "/",
+      "width": 1440,
+      "pixelDifferencePercent": 100,
+      "differences": [
+        "visibleText",
+        "jsonLdHash",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-requested website audit completion: retain protected contact constants and show click-to-call reliably on desktop and phone; fit the mobile logo beside call/menu controls. Improve orange-control and success-badge foreground contrast without changing brand hues. Wrap static trust labels on phones. Remove unverified company-schema coordinates. Make skip navigation focus main content and animated headings readable. Add commercial/homeowner entry links and matching visible FAQ/schema. Display existing insurance/experience values immediately and link credentials/projects. Keep hero/video and credential wording. Keep CTA text/borders and stable navy surfaces readable in both themes; service-process labels use the existing primary text color."
+    },
+    {
+      "path": "/",
+      "width": 390,
+      "pixelDifferencePercent": 100,
+      "differences": [
+        "visibleText",
+        "jsonLdHash",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-requested website audit completion: retain protected contact constants and show click-to-call reliably on desktop and phone; fit the mobile logo beside call/menu controls. Improve orange-control and success-badge foreground contrast without changing brand hues. Wrap static trust labels on phones. Remove unverified company-schema coordinates. Make skip navigation focus main content and animated headings readable. Add commercial/homeowner entry links and matching visible FAQ/schema. Display existing insurance/experience values immediately and link credentials/projects. Keep hero/video and credential wording. Keep CTA text/borders and stable navy surfaces readable in both themes; service-process labels use the existing primary text color."
+    },
+    {
+      "path": "/about",
+      "width": 1440,
+      "pixelDifferencePercent": 0.0896082815421151,
+      "differences": [
+        "visibleText",
+        "jsonLdHash"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-requested website audit completion: retain protected contact constants and show click-to-call reliably on desktop and phone; fit the mobile logo beside call/menu controls. Improve orange-control and success-badge foreground contrast without changing brand hues. Wrap static trust labels on phones. Remove unverified company-schema coordinates. Make skip navigation focus main content and animated headings readable.  Keep CTA text/borders and stable navy surfaces readable in both themes; service-process labels use the existing primary text color."
+    },
+    {
+      "path": "/about",
+      "width": 390,
+      "pixelDifferencePercent": 100,
+      "differences": [
+        "jsonLdHash",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-requested website audit completion: retain protected contact constants and show click-to-call reliably on desktop and phone; fit the mobile logo beside call/menu controls. Improve orange-control and success-badge foreground contrast without changing brand hues. Wrap static trust labels on phones. Remove unverified company-schema coordinates. Make skip navigation focus main content and animated headings readable.  Keep CTA text/borders and stable navy surfaces readable in both themes; service-process labels use the existing primary text color."
+    },
+    {
+      "path": "/accessibility",
+      "width": 1440,
+      "pixelDifferencePercent": 0.07680309514780505,
+      "differences": [
+        "visibleText"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-requested website audit completion: retain protected contact constants and show click-to-call reliably on desktop and phone; fit the mobile logo beside call/menu controls. Improve orange-control and success-badge foreground contrast without changing brand hues. Wrap static trust labels on phones. Remove unverified company-schema coordinates. Make skip navigation focus main content and animated headings readable. Underline inline external/contact links permanently. Keep CTA text/borders and stable navy surfaces readable in both themes; service-process labels use the existing primary text color."
+    },
+    {
+      "path": "/accessibility",
+      "width": 390,
+      "pixelDifferencePercent": 0.15738035142951057,
+      "differences": [
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-requested website audit completion: retain protected contact constants and show click-to-call reliably on desktop and phone; fit the mobile logo beside call/menu controls. Improve orange-control and success-badge foreground contrast without changing brand hues. Wrap static trust labels on phones. Remove unverified company-schema coordinates. Make skip navigation focus main content and animated headings readable. Underline inline external/contact links permanently. Keep CTA text/borders and stable navy surfaces readable in both themes; service-process labels use the existing primary text color."
+    },
+    {
+      "path": "/blog",
+      "width": 1440,
+      "pixelDifferencePercent": 0.3061972863953062,
+      "differences": [
+        "visibleText",
+        "jsonLdHash",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-requested website audit completion: retain protected contact constants and show click-to-call reliably on desktop and phone; fit the mobile logo beside call/menu controls. Improve orange-control and success-badge foreground contrast without changing brand hues. Wrap static trust labels on phones. Remove unverified company-schema coordinates. Make skip navigation focus main content and animated headings readable.  Keep CTA text/borders and stable navy surfaces readable in both themes; service-process labels use the existing primary text color."
+    },
+    {
+      "path": "/blog",
+      "width": 390,
+      "pixelDifferencePercent": 0.6967626967626968,
+      "differences": [
+        "jsonLdHash",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-requested website audit completion: retain protected contact constants and show click-to-call reliably on desktop and phone; fit the mobile logo beside call/menu controls. Improve orange-control and success-badge foreground contrast without changing brand hues. Wrap static trust labels on phones. Remove unverified company-schema coordinates. Make skip navigation focus main content and animated headings readable.  Keep CTA text/borders and stable navy surfaces readable in both themes; service-process labels use the existing primary text color."
+    },
+    {
+      "path": "/blog/early-signs-your-building-envelope-needs-attention",
+      "width": 1440,
+      "pixelDifferencePercent": 0.17712066905615292,
+      "differences": [
+        "visibleText",
+        "jsonLdHash",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-requested website audit completion: retain protected contact constants and show click-to-call reliably on desktop and phone; fit the mobile logo beside call/menu controls. Improve orange-control and success-badge foreground contrast without changing brand hues. Wrap static trust labels on phones. Remove unverified company-schema coordinates. Make skip navigation focus main content and animated headings readable.  Keep CTA text/borders and stable navy surfaces readable in both themes; service-process labels use the existing primary text color."
+    },
+    {
+      "path": "/blog/early-signs-your-building-envelope-needs-attention",
+      "width": 390,
+      "pixelDifferencePercent": 100,
+      "differences": [
+        "jsonLdHash",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-requested website audit completion: retain protected contact constants and show click-to-call reliably on desktop and phone; fit the mobile logo beside call/menu controls. Improve orange-control and success-badge foreground contrast without changing brand hues. Wrap static trust labels on phones. Remove unverified company-schema coordinates. Make skip navigation focus main content and animated headings readable.  Keep CTA text/borders and stable navy surfaces readable in both themes; service-process labels use the existing primary text color."
+    },
+    {
+      "path": "/blog/eifs-vs-stucco-what-building-owners-need-to-know",
+      "width": 1440,
+      "pixelDifferencePercent": 0.17712066905615292,
+      "differences": [
+        "visibleText",
+        "jsonLdHash",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-requested website audit completion: retain protected contact constants and show click-to-call reliably on desktop and phone; fit the mobile logo beside call/menu controls. Improve orange-control and success-badge foreground contrast without changing brand hues. Wrap static trust labels on phones. Remove unverified company-schema coordinates. Make skip navigation focus main content and animated headings readable.  Keep CTA text/borders and stable navy surfaces readable in both themes; service-process labels use the existing primary text color."
+    },
+    {
+      "path": "/blog/eifs-vs-stucco-what-building-owners-need-to-know",
+      "width": 390,
+      "pixelDifferencePercent": 100,
+      "differences": [
+        "jsonLdHash",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-requested website audit completion: retain protected contact constants and show click-to-call reliably on desktop and phone; fit the mobile logo beside call/menu controls. Improve orange-control and success-badge foreground contrast without changing brand hues. Wrap static trust labels on phones. Remove unverified company-schema coordinates. Make skip navigation focus main content and animated headings readable.  Keep CTA text/borders and stable navy surfaces readable in both themes; service-process labels use the existing primary text color."
+    },
+    {
+      "path": "/blog/how-general-contractors-should-evaluate-specialty-trade-partner",
+      "width": 1440,
+      "pixelDifferencePercent": 0.17712066905615292,
+      "differences": [
+        "visibleText",
+        "jsonLdHash",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-requested website audit completion: retain protected contact constants and show click-to-call reliably on desktop and phone; fit the mobile logo beside call/menu controls. Improve orange-control and success-badge foreground contrast without changing brand hues. Wrap static trust labels on phones. Remove unverified company-schema coordinates. Make skip navigation focus main content and animated headings readable.  Keep CTA text/borders and stable navy surfaces readable in both themes; service-process labels use the existing primary text color."
+    },
+    {
+      "path": "/blog/how-general-contractors-should-evaluate-specialty-trade-partner",
+      "width": 390,
+      "pixelDifferencePercent": 100,
+      "differences": [
+        "jsonLdHash",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-requested website audit completion: retain protected contact constants and show click-to-call reliably on desktop and phone; fit the mobile logo beside call/menu controls. Improve orange-control and success-badge foreground contrast without changing brand hues. Wrap static trust labels on phones. Remove unverified company-schema coordinates. Make skip navigation focus main content and animated headings readable.  Keep CTA text/borders and stable navy surfaces readable in both themes; service-process labels use the existing primary text color."
+    },
+    {
+      "path": "/blog/toronto-property-manager-maintenance-guide",
+      "width": 1440,
+      "pixelDifferencePercent": 0.17712066905615292,
+      "differences": [
+        "visibleText",
+        "jsonLdHash",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-requested website audit completion: retain protected contact constants and show click-to-call reliably on desktop and phone; fit the mobile logo beside call/menu controls. Improve orange-control and success-badge foreground contrast without changing brand hues. Wrap static trust labels on phones. Remove unverified company-schema coordinates. Make skip navigation focus main content and animated headings readable.  Keep CTA text/borders and stable navy surfaces readable in both themes; service-process labels use the existing primary text color."
+    },
+    {
+      "path": "/blog/toronto-property-manager-maintenance-guide",
+      "width": 390,
+      "pixelDifferencePercent": 100,
+      "differences": [
+        "jsonLdHash",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-requested website audit completion: retain protected contact constants and show click-to-call reliably on desktop and phone; fit the mobile logo beside call/menu controls. Improve orange-control and success-badge foreground contrast without changing brand hues. Wrap static trust labels on phones. Remove unverified company-schema coordinates. Make skip navigation focus main content and animated headings readable.  Keep CTA text/borders and stable navy surfaces readable in both themes; service-process labels use the existing primary text color."
+    },
+    {
+      "path": "/blog/what-property-managers-should-prepare-before-envelope-restoration",
+      "width": 1440,
+      "pixelDifferencePercent": 0.17712066905615292,
+      "differences": [
+        "visibleText",
+        "jsonLdHash",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-requested website audit completion: retain protected contact constants and show click-to-call reliably on desktop and phone; fit the mobile logo beside call/menu controls. Improve orange-control and success-badge foreground contrast without changing brand hues. Wrap static trust labels on phones. Remove unverified company-schema coordinates. Make skip navigation focus main content and animated headings readable.  Keep CTA text/borders and stable navy surfaces readable in both themes; service-process labels use the existing primary text color."
+    },
+    {
+      "path": "/blog/what-property-managers-should-prepare-before-envelope-restoration",
+      "width": 390,
+      "pixelDifferencePercent": 100,
+      "differences": [
+        "jsonLdHash",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-requested website audit completion: retain protected contact constants and show click-to-call reliably on desktop and phone; fit the mobile logo beside call/menu controls. Improve orange-control and success-badge foreground contrast without changing brand hues. Wrap static trust labels on phones. Remove unverified company-schema coordinates. Make skip navigation focus main content and animated headings readable.  Keep CTA text/borders and stable navy surfaces readable in both themes; service-process labels use the existing primary text color."
+    },
+    {
+      "path": "/blog/why-self-performed-work-changes-quality-cost-accountability",
+      "width": 1440,
+      "pixelDifferencePercent": 0.17712066905615292,
+      "differences": [
+        "visibleText",
+        "jsonLdHash",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-requested website audit completion: retain protected contact constants and show click-to-call reliably on desktop and phone; fit the mobile logo beside call/menu controls. Improve orange-control and success-badge foreground contrast without changing brand hues. Wrap static trust labels on phones. Remove unverified company-schema coordinates. Make skip navigation focus main content and animated headings readable.  Keep CTA text/borders and stable navy surfaces readable in both themes; service-process labels use the existing primary text color."
+    },
+    {
+      "path": "/blog/why-self-performed-work-changes-quality-cost-accountability",
+      "width": 390,
+      "pixelDifferencePercent": 100,
+      "differences": [
+        "jsonLdHash",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-requested website audit completion: retain protected contact constants and show click-to-call reliably on desktop and phone; fit the mobile logo beside call/menu controls. Improve orange-control and success-badge foreground contrast without changing brand hues. Wrap static trust labels on phones. Remove unverified company-schema coordinates. Make skip navigation focus main content and animated headings readable.  Keep CTA text/borders and stable navy surfaces readable in both themes; service-process labels use the existing primary text color."
+    },
+    {
+      "path": "/capabilities",
+      "width": 1440,
+      "pixelDifferencePercent": 0.07187772822727166,
+      "differences": [
+        "visibleText",
+        "jsonLdHash"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-requested website audit completion: retain protected contact constants and show click-to-call reliably on desktop and phone; fit the mobile logo beside call/menu controls. Improve orange-control and success-badge foreground contrast without changing brand hues. Wrap static trust labels on phones. Remove unverified company-schema coordinates. Make skip navigation focus main content and animated headings readable. Make the Our Model eyebrow readable on navy. Keep interactive models unchanged. Keep CTA text/borders and stable navy surfaces readable in both themes; service-process labels use the existing primary text color."
+    },
+    {
+      "path": "/careers",
+      "width": 1440,
+      "pixelDifferencePercent": 0.0956442006990434,
+      "differences": [
+        "visibleText",
+        "jsonLdHash"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-requested website audit completion: retain protected contact constants and show click-to-call reliably on desktop and phone; fit the mobile logo beside call/menu controls. Improve orange-control and success-badge foreground contrast without changing brand hues. Wrap static trust labels on phones. Remove unverified company-schema coordinates. Make skip navigation focus main content and animated headings readable.  Keep CTA text/borders and stable navy surfaces readable in both themes; service-process labels use the existing primary text color."
+    },
+    {
+      "path": "/capabilities",
+      "width": 390,
+      "pixelDifferencePercent": 100,
+      "differences": [
+        "jsonLdHash",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-requested website audit completion: retain protected contact constants and show click-to-call reliably on desktop and phone; fit the mobile logo beside call/menu controls. Improve orange-control and success-badge foreground contrast without changing brand hues. Wrap static trust labels on phones. Remove unverified company-schema coordinates. Make skip navigation focus main content and animated headings readable. Make the Our Model eyebrow readable on navy. Keep interactive models unchanged. Keep CTA text/borders and stable navy surfaces readable in both themes; service-process labels use the existing primary text color."
+    },
+    {
+      "path": "/careers",
+      "width": 390,
+      "pixelDifferencePercent": 100,
+      "differences": [
+        "jsonLdHash",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-requested website audit completion: retain protected contact constants and show click-to-call reliably on desktop and phone; fit the mobile logo beside call/menu controls. Improve orange-control and success-badge foreground contrast without changing brand hues. Wrap static trust labels on phones. Remove unverified company-schema coordinates. Make skip navigation focus main content and animated headings readable.  Keep CTA text/borders and stable navy surfaces readable in both themes; service-process labels use the existing primary text color."
+    },
+    {
+      "path": "/commercial-clients",
+      "width": 1440,
+      "pixelDifferencePercent": 0.08605916928595529,
+      "differences": [
+        "visibleText",
+        "jsonLdHash"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-requested website audit completion: retain protected contact constants and show click-to-call reliably on desktop and phone; fit the mobile logo beside call/menu controls. Improve orange-control and success-badge foreground contrast without changing brand hues. Wrap static trust labels on phones. Remove unverified company-schema coordinates. Make skip navigation focus main content and animated headings readable.  Keep CTA text/borders and stable navy surfaces readable in both themes; service-process labels use the existing primary text color."
+    },
+    {
+      "path": "/commercial-clients",
+      "width": 390,
+      "pixelDifferencePercent": 100,
+      "differences": [
+        "jsonLdHash",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-requested website audit completion: retain protected contact constants and show click-to-call reliably on desktop and phone; fit the mobile logo beside call/menu controls. Improve orange-control and success-badge foreground contrast without changing brand hues. Wrap static trust labels on phones. Remove unverified company-schema coordinates. Make skip navigation focus main content and animated headings readable.  Keep CTA text/borders and stable navy surfaces readable in both themes; service-process labels use the existing primary text color."
+    },
+    {
+      "path": "/company/certifications-insurance",
+      "width": 1440,
+      "pixelDifferencePercent": 0.12425476285638157,
+      "differences": [
+        "visibleText",
+        "jsonLdHash",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-requested website audit completion: retain protected contact constants and show click-to-call reliably on desktop and phone; fit the mobile logo beside call/menu controls. Improve orange-control and success-badge foreground contrast without changing brand hues. Wrap static trust labels on phones. Remove unverified company-schema coordinates. Make skip navigation focus main content and animated headings readable.  Keep CTA text/borders and stable navy surfaces readable in both themes; service-process labels use the existing primary text color."
+    },
+    {
+      "path": "/company/certifications-insurance",
+      "width": 390,
+      "pixelDifferencePercent": 100,
+      "differences": [
+        "jsonLdHash",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-requested website audit completion: retain protected contact constants and show click-to-call reliably on desktop and phone; fit the mobile logo beside call/menu controls. Improve orange-control and success-badge foreground contrast without changing brand hues. Wrap static trust labels on phones. Remove unverified company-schema coordinates. Make skip navigation focus main content and animated headings readable.  Keep CTA text/borders and stable navy surfaces readable in both themes; service-process labels use the existing primary text color."
+    },
+    {
+      "path": "/company/developers",
+      "width": 1440,
+      "pixelDifferencePercent": 0.1078810089804543,
+      "differences": [
+        "visibleText",
+        "jsonLdHash",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-requested website audit completion: retain protected contact constants and show click-to-call reliably on desktop and phone; fit the mobile logo beside call/menu controls. Improve orange-control and success-badge foreground contrast without changing brand hues. Wrap static trust labels on phones. Remove unverified company-schema coordinates. Make skip navigation focus main content and animated headings readable.  Keep CTA text/borders and stable navy surfaces readable in both themes; service-process labels use the existing primary text color."
+    },
+    {
+      "path": "/company/developers",
+      "width": 390,
+      "pixelDifferencePercent": 100,
+      "differences": [
+        "jsonLdHash",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-requested website audit completion: retain protected contact constants and show click-to-call reliably on desktop and phone; fit the mobile logo beside call/menu controls. Improve orange-control and success-badge foreground contrast without changing brand hues. Wrap static trust labels on phones. Remove unverified company-schema coordinates. Make skip navigation focus main content and animated headings readable.  Keep CTA text/borders and stable navy surfaces readable in both themes; service-process labels use the existing primary text color."
+    },
+    {
+      "path": "/company/technology",
+      "width": 1440,
+      "pixelDifferencePercent": 0.11440965883736968,
+      "differences": [
+        "visibleText",
+        "jsonLdHash",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-requested website audit completion: retain protected contact constants and show click-to-call reliably on desktop and phone; fit the mobile logo beside call/menu controls. Improve orange-control and success-badge foreground contrast without changing brand hues. Wrap static trust labels on phones. Remove unverified company-schema coordinates. Make skip navigation focus main content and animated headings readable. Make the sample-document viewer keyboard-focusable and identify price-redaction graphics. Keep interactive models unchanged. Keep CTA text/borders and stable navy surfaces readable in both themes; service-process labels use the existing primary text color."
+    },
+    {
+      "path": "/company/technology",
+      "width": 390,
+      "pixelDifferencePercent": 0.2640509046589394,
+      "differences": [
+        "jsonLdHash",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-requested website audit completion: retain protected contact constants and show click-to-call reliably on desktop and phone; fit the mobile logo beside call/menu controls. Improve orange-control and success-badge foreground contrast without changing brand hues. Wrap static trust labels on phones. Remove unverified company-schema coordinates. Make skip navigation focus main content and animated headings readable. Make the sample-document viewer keyboard-focusable and identify price-redaction graphics. Keep interactive models unchanged. Keep CTA text/borders and stable navy surfaces readable in both themes; service-process labels use the existing primary text color."
+    },
+    {
+      "path": "/contact",
+      "width": 1440,
+      "pixelDifferencePercent": 0.08734314916008905,
+      "differences": [
+        "visibleText",
+        "jsonLdHash"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-requested website audit completion: retain protected contact constants and show click-to-call reliably on desktop and phone; fit the mobile logo beside call/menu controls. Improve orange-control and success-badge foreground contrast without changing brand hues. Wrap static trust labels on phones. Remove unverified company-schema coordinates. Make skip navigation focus main content and animated headings readable.  Keep CTA text/borders and stable navy surfaces readable in both themes; service-process labels use the existing primary text color."
+    },
+    {
+      "path": "/contact",
+      "width": 390,
+      "pixelDifferencePercent": 100,
+      "differences": [
+        "jsonLdHash",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-requested website audit completion: retain protected contact constants and show click-to-call reliably on desktop and phone; fit the mobile logo beside call/menu controls. Improve orange-control and success-badge foreground contrast without changing brand hues. Wrap static trust labels on phones. Remove unverified company-schema coordinates. Make skip navigation focus main content and animated headings readable.  Keep CTA text/borders and stable navy surfaces readable in both themes; service-process labels use the existing primary text color."
+    },
+    {
+      "path": "/emergency-repair",
+      "width": 1440,
+      "pixelDifferencePercent": 1.1536369096852968,
+      "differences": [
+        "visibleText",
+        "jsonLdHash",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-requested website audit completion: retain protected contact constants and show click-to-call reliably on desktop and phone; fit the mobile logo beside call/menu controls. Improve orange-control and success-badge foreground contrast without changing brand hues. Wrap static trust labels on phones. Remove unverified company-schema coordinates. Make skip navigation focus main content and animated headings readable.  Darken the existing red banner for readable white text; retain all existing emergency wording. Keep CTA text/borders and stable navy surfaces readable in both themes; service-process labels use the existing primary text color."
+    },
+    {
+      "path": "/emergency-repair",
+      "width": 390,
+      "pixelDifferencePercent": 100,
+      "differences": [
+        "jsonLdHash",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-requested website audit completion: retain protected contact constants and show click-to-call reliably on desktop and phone; fit the mobile logo beside call/menu controls. Improve orange-control and success-badge foreground contrast without changing brand hues. Wrap static trust labels on phones. Remove unverified company-schema coordinates. Make skip navigation focus main content and animated headings readable.  Darken the existing red banner for readable white text; retain all existing emergency wording. Keep CTA text/borders and stable navy surfaces readable in both themes; service-process labels use the existing primary text color."
+    },
+    {
+      "path": "/estimate",
+      "width": 1440,
+      "pixelDifferencePercent": 0.14803360822913894,
+      "differences": [
+        "visibleText",
+        "jsonLdHash",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-requested website audit completion: retain protected contact constants and show click-to-call reliably on desktop and phone; fit the mobile logo beside call/menu controls. Improve orange-control and success-badge foreground contrast without changing brand hues. Wrap static trust labels on phones. Remove unverified company-schema coordinates. Make skip navigation focus main content and animated headings readable. Name the existing progress bar and expose its current completion value. Keep CTA text/borders and stable navy surfaces readable in both themes; service-process labels use the existing primary text color."
+    },
+    {
+      "path": "/estimate",
+      "width": 390,
+      "pixelDifferencePercent": 0.3014531506151618,
+      "differences": [
+        "jsonLdHash",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-requested website audit completion: retain protected contact constants and show click-to-call reliably on desktop and phone; fit the mobile logo beside call/menu controls. Improve orange-control and success-badge foreground contrast without changing brand hues. Wrap static trust labels on phones. Remove unverified company-schema coordinates. Make skip navigation focus main content and animated headings readable. Name the existing progress bar and expose its current completion value. Keep CTA text/borders and stable navy surfaces readable in both themes; service-process labels use the existing primary text color."
+    },
+    {
+      "path": "/faq",
+      "width": 1440,
+      "pixelDifferencePercent": 0.05343434982496098,
+      "differences": [
+        "visibleText",
+        "jsonLdHash"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-requested website audit completion: retain protected contact constants and show click-to-call reliably on desktop and phone; fit the mobile logo beside call/menu controls. Improve orange-control and success-badge foreground contrast without changing brand hues. Wrap static trust labels on phones. Remove unverified company-schema coordinates. Make skip navigation focus main content and animated headings readable.  Use the existing secondary foreground on the gray contact control. Keep CTA text/borders and stable navy surfaces readable in both themes; service-process labels use the existing primary text color."
+    },
+    {
+      "path": "/faq",
+      "width": 390,
+      "pixelDifferencePercent": 0.11097593254994524,
+      "differences": [
+        "jsonLdHash",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-requested website audit completion: retain protected contact constants and show click-to-call reliably on desktop and phone; fit the mobile logo beside call/menu controls. Improve orange-control and success-badge foreground contrast without changing brand hues. Wrap static trust labels on phones. Remove unverified company-schema coordinates. Make skip navigation focus main content and animated headings readable.  Use the existing secondary foreground on the gray contact control. Keep CTA text/borders and stable navy surfaces readable in both themes; service-process labels use the existing primary text color."
+    },
+    {
+      "path": "/for-architects",
+      "width": 1440,
+      "pixelDifferencePercent": 0.07192982456140351,
+      "differences": [
+        "visibleText",
+        "jsonLdHash"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-requested website audit completion: retain protected contact constants and show click-to-call reliably on desktop and phone; fit the mobile logo beside call/menu controls. Improve orange-control and success-badge foreground contrast without changing brand hues. Wrap static trust labels on phones. Remove unverified company-schema coordinates. Make skip navigation focus main content and animated headings readable. Use muted text for decorative step numbers and hide their redundant labels from assistive technology. Display decorative step numbers in the existing muted text color for readable contrast. Keep CTA text/borders and stable navy surfaces readable in both themes; service-process labels use the existing primary text color."
+    },
+    {
+      "path": "/for-architects",
+      "width": 390,
+      "pixelDifferencePercent": 100,
+      "differences": [
+        "jsonLdHash",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-requested website audit completion: retain protected contact constants and show click-to-call reliably on desktop and phone; fit the mobile logo beside call/menu controls. Improve orange-control and success-badge foreground contrast without changing brand hues. Wrap static trust labels on phones. Remove unverified company-schema coordinates. Make skip navigation focus main content and animated headings readable. Use muted text for decorative step numbers and hide their redundant labels from assistive technology. Display decorative step numbers in the existing muted text color for readable contrast. Keep CTA text/borders and stable navy surfaces readable in both themes; service-process labels use the existing primary text color."
+    },
+    {
+      "path": "/for-general-contractors",
+      "width": 1440,
+      "pixelDifferencePercent": 0.06200224791265253,
+      "differences": [
+        "visibleText",
+        "jsonLdHash"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-requested website audit completion: retain protected contact constants and show click-to-call reliably on desktop and phone; fit the mobile logo beside call/menu controls. Improve orange-control and success-badge foreground contrast without changing brand hues. Wrap static trust labels on phones. Remove unverified company-schema coordinates. Make skip navigation focus main content and animated headings readable.  Keep CTA text/borders and stable navy surfaces readable in both themes; service-process labels use the existing primary text color."
+    },
+    {
+      "path": "/for-general-contractors",
+      "width": 390,
+      "pixelDifferencePercent": 100,
+      "differences": [
+        "jsonLdHash",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-requested website audit completion: retain protected contact constants and show click-to-call reliably on desktop and phone; fit the mobile logo beside call/menu controls. Improve orange-control and success-badge foreground contrast without changing brand hues. Wrap static trust labels on phones. Remove unverified company-schema coordinates. Make skip navigation focus main content and animated headings readable.  Keep CTA text/borders and stable navy surfaces readable in both themes; service-process labels use the existing primary text color."
+    },
+    {
+      "path": "/homeowners",
+      "width": 1440,
+      "pixelDifferencePercent": 9.810002529084471,
+      "differences": [
+        "visibleText",
+        "jsonLdHash",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-requested website audit completion: retain protected contact constants and show click-to-call reliably on desktop and phone; fit the mobile logo beside call/menu controls. Improve orange-control and success-badge foreground contrast without changing brand hues. Wrap static trust labels on phones. Remove unverified company-schema coordinates. Make skip navigation focus main content and animated headings readable. Use the existing neutral section background for readable FAQ copy. Keep CTA text/borders and stable navy surfaces readable in both themes; service-process labels use the existing primary text color."
+    },
+    {
+      "path": "/homeowners",
+      "width": 390,
+      "pixelDifferencePercent": 100,
+      "differences": [
+        "jsonLdHash",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-requested website audit completion: retain protected contact constants and show click-to-call reliably on desktop and phone; fit the mobile logo beside call/menu controls. Improve orange-control and success-badge foreground contrast without changing brand hues. Wrap static trust labels on phones. Remove unverified company-schema coordinates. Make skip navigation focus main content and animated headings readable. Use the existing neutral section background for readable FAQ copy. Keep CTA text/borders and stable navy surfaces readable in both themes; service-process labels use the existing primary text color."
+    },
+    {
+      "path": "/markets",
+      "width": 1440,
+      "pixelDifferencePercent": 0.08612629022465089,
+      "differences": [
+        "visibleText",
+        "jsonLdHash"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-requested website audit completion: retain protected contact constants and show click-to-call reliably on desktop and phone; fit the mobile logo beside call/menu controls. Improve orange-control and success-badge foreground contrast without changing brand hues. Wrap static trust labels on phones. Remove unverified company-schema coordinates. Make skip navigation focus main content and animated headings readable. Make the existing horizontally scrolling comparison keyboard-focusable. Keep CTA text/borders and stable navy surfaces readable in both themes; service-process labels use the existing primary text color."
+    },
+    {
+      "path": "/markets",
+      "width": 390,
+      "pixelDifferencePercent": 100,
+      "differences": [
+        "jsonLdHash",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-requested website audit completion: retain protected contact constants and show click-to-call reliably on desktop and phone; fit the mobile logo beside call/menu controls. Improve orange-control and success-badge foreground contrast without changing brand hues. Wrap static trust labels on phones. Remove unverified company-schema coordinates. Make skip navigation focus main content and animated headings readable. Make the existing horizontally scrolling comparison keyboard-focusable. Keep CTA text/borders and stable navy surfaces readable in both themes; service-process labels use the existing primary text color."
+    },
+    {
+      "path": "/our-process",
+      "width": 1440,
+      "pixelDifferencePercent": 0.0820012408532691,
+      "differences": [
+        "visibleText",
+        "jsonLdHash"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-requested website audit completion: retain protected contact constants and show click-to-call reliably on desktop and phone; fit the mobile logo beside call/menu controls. Improve orange-control and success-badge foreground contrast without changing brand hues. Wrap static trust labels on phones. Remove unverified company-schema coordinates. Make skip navigation focus main content and animated headings readable.  Keep CTA text/borders and stable navy surfaces readable in both themes; service-process labels use the existing primary text color."
+    },
+    {
+      "path": "/our-process",
+      "width": 390,
+      "pixelDifferencePercent": 0.21418212203578665,
+      "differences": [
+        "jsonLdHash",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-requested website audit completion: retain protected contact constants and show click-to-call reliably on desktop and phone; fit the mobile logo beside call/menu controls. Improve orange-control and success-badge foreground contrast without changing brand hues. Wrap static trust labels on phones. Remove unverified company-schema coordinates. Make skip navigation focus main content and animated headings readable.  Keep CTA text/borders and stable navy surfaces readable in both themes; service-process labels use the existing primary text color."
+    },
+    {
+      "path": "/prequalification",
+      "width": 1440,
+      "pixelDifferencePercent": 0.1476008577938614,
+      "differences": [
+        "visibleText",
+        "jsonLdHash",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-requested website audit completion: retain protected contact constants and show click-to-call reliably on desktop and phone; fit the mobile logo beside call/menu controls. Improve orange-control and success-badge foreground contrast without changing brand hues. Wrap static trust labels on phones. Remove unverified company-schema coordinates. Make skip navigation focus main content and animated headings readable.  Keep CTA text/borders and stable navy surfaces readable in both themes; service-process labels use the existing primary text color."
+    },
+    {
+      "path": "/prequalification",
+      "width": 390,
+      "pixelDifferencePercent": 0.28725892581314266,
+      "differences": [
+        "jsonLdHash",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-requested website audit completion: retain protected contact constants and show click-to-call reliably on desktop and phone; fit the mobile logo beside call/menu controls. Improve orange-control and success-badge foreground contrast without changing brand hues. Wrap static trust labels on phones. Remove unverified company-schema coordinates. Make skip navigation focus main content and animated headings readable.  Keep CTA text/borders and stable navy surfaces readable in both themes; service-process labels use the existing primary text color."
+    },
+    {
+      "path": "/privacy",
+      "width": 1440,
+      "pixelDifferencePercent": 0.07119803009790648,
+      "differences": [
+        "visibleText"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-requested website audit completion: retain protected contact constants and show click-to-call reliably on desktop and phone; fit the mobile logo beside call/menu controls. Improve orange-control and success-badge foreground contrast without changing brand hues. Wrap static trust labels on phones. Remove unverified company-schema coordinates. Make skip navigation focus main content and animated headings readable. Underline the existing privacy-commissioner link permanently. Keep CTA text/borders and stable navy surfaces readable in both themes; service-process labels use the existing primary text color."
+    },
+    {
+      "path": "/privacy",
+      "width": 390,
+      "pixelDifferencePercent": 0.13300729170615816,
+      "differences": [
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-requested website audit completion: retain protected contact constants and show click-to-call reliably on desktop and phone; fit the mobile logo beside call/menu controls. Improve orange-control and success-badge foreground contrast without changing brand hues. Wrap static trust labels on phones. Remove unverified company-schema coordinates. Make skip navigation focus main content and animated headings readable. Underline the existing privacy-commissioner link permanently. Keep CTA text/borders and stable navy surfaces readable in both themes; service-process labels use the existing primary text color."
+    },
+    {
+      "path": "/projects/65-westmount-avenue",
+      "width": 1440,
+      "pixelDifferencePercent": 0.13064118061851515,
+      "differences": [
+        "visibleText",
+        "jsonLdHash",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-requested website audit completion: retain protected contact constants and show click-to-call reliably on desktop and phone; fit the mobile logo beside call/menu controls. Improve orange-control and success-badge foreground contrast without changing brand hues. Wrap static trust labels on phones. Remove unverified company-schema coordinates. Make skip navigation focus main content and animated headings readable.  Keep CTA text/borders and stable navy surfaces readable in both themes; service-process labels use the existing primary text color."
+    },
+    {
+      "path": "/projects/65-westmount-avenue",
+      "width": 390,
+      "pixelDifferencePercent": 0.3193108974358974,
+      "differences": [
+        "jsonLdHash",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-requested website audit completion: retain protected contact constants and show click-to-call reliably on desktop and phone; fit the mobile logo beside call/menu controls. Improve orange-control and success-badge foreground contrast without changing brand hues. Wrap static trust labels on phones. Remove unverified company-schema coordinates. Make skip navigation focus main content and animated headings readable.  Keep CTA text/borders and stable navy surfaces readable in both themes; service-process labels use the existing primary text color."
+    },
+    {
+      "path": "/projects/67-edgecroft-rd-etobicoke",
+      "width": 1440,
+      "pixelDifferencePercent": 0.13064118061851515,
+      "differences": [
+        "visibleText",
+        "jsonLdHash",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-requested website audit completion: retain protected contact constants and show click-to-call reliably on desktop and phone; fit the mobile logo beside call/menu controls. Improve orange-control and success-badge foreground contrast without changing brand hues. Wrap static trust labels on phones. Remove unverified company-schema coordinates. Make skip navigation focus main content and animated headings readable.  Keep CTA text/borders and stable navy surfaces readable in both themes; service-process labels use the existing primary text color."
+    },
+    {
+      "path": "/projects/67-edgecroft-rd-etobicoke",
+      "width": 390,
+      "pixelDifferencePercent": 0.3193108974358974,
+      "differences": [
+        "jsonLdHash",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-requested website audit completion: retain protected contact constants and show click-to-call reliably on desktop and phone; fit the mobile logo beside call/menu controls. Improve orange-control and success-badge foreground contrast without changing brand hues. Wrap static trust labels on phones. Remove unverified company-schema coordinates. Make skip navigation focus main content and animated headings readable.  Keep CTA text/borders and stable navy surfaces readable in both themes; service-process labels use the existing primary text color."
+    },
+    {
+      "path": "/projects/blackhurst-cultural-centre-",
+      "width": 1440,
+      "pixelDifferencePercent": 0.13064118061851515,
+      "differences": [
+        "visibleText",
+        "jsonLdHash",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-requested website audit completion: retain protected contact constants and show click-to-call reliably on desktop and phone; fit the mobile logo beside call/menu controls. Improve orange-control and success-badge foreground contrast without changing brand hues. Wrap static trust labels on phones. Remove unverified company-schema coordinates. Make skip navigation focus main content and animated headings readable.  Keep CTA text/borders and stable navy surfaces readable in both themes; service-process labels use the existing primary text color."
+    },
+    {
+      "path": "/projects/blackhurst-cultural-centre-",
+      "width": 390,
+      "pixelDifferencePercent": 0.3193108974358974,
+      "differences": [
+        "jsonLdHash",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-requested website audit completion: retain protected contact constants and show click-to-call reliably on desktop and phone; fit the mobile logo beside call/menu controls. Improve orange-control and success-badge foreground contrast without changing brand hues. Wrap static trust labels on phones. Remove unverified company-schema coordinates. Make skip navigation focus main content and animated headings readable.  Keep CTA text/borders and stable navy surfaces readable in both themes; service-process labels use the existing primary text color."
+    },
+    {
+      "path": "/projects/caf-luka",
+      "width": 1440,
+      "pixelDifferencePercent": 0.13064118061851515,
+      "differences": [
+        "visibleText",
+        "jsonLdHash",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-requested website audit completion: retain protected contact constants and show click-to-call reliably on desktop and phone; fit the mobile logo beside call/menu controls. Improve orange-control and success-badge foreground contrast without changing brand hues. Wrap static trust labels on phones. Remove unverified company-schema coordinates. Make skip navigation focus main content and animated headings readable.  Keep CTA text/borders and stable navy surfaces readable in both themes; service-process labels use the existing primary text color."
+    },
+    {
+      "path": "/projects/caf-luka",
+      "width": 390,
+      "pixelDifferencePercent": 0.3193108974358974,
+      "differences": [
+        "jsonLdHash",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-requested website audit completion: retain protected contact constants and show click-to-call reliably on desktop and phone; fit the mobile logo beside call/menu controls. Improve orange-control and success-badge foreground contrast without changing brand hues. Wrap static trust labels on phones. Remove unverified company-schema coordinates. Make skip navigation focus main content and animated headings readable.  Keep CTA text/borders and stable navy surfaces readable in both themes; service-process labels use the existing primary text color."
+    },
+    {
+      "path": "/projects/comfort-inn--suites",
+      "width": 1440,
+      "pixelDifferencePercent": 0.13064118061851515,
+      "differences": [
+        "visibleText",
+        "jsonLdHash",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-requested website audit completion: retain protected contact constants and show click-to-call reliably on desktop and phone; fit the mobile logo beside call/menu controls. Improve orange-control and success-badge foreground contrast without changing brand hues. Wrap static trust labels on phones. Remove unverified company-schema coordinates. Make skip navigation focus main content and animated headings readable.  Keep CTA text/borders and stable navy surfaces readable in both themes; service-process labels use the existing primary text color."
+    },
+    {
+      "path": "/projects/comfort-inn--suites",
+      "width": 390,
+      "pixelDifferencePercent": 0.3193108974358974,
+      "differences": [
+        "jsonLdHash",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-requested website audit completion: retain protected contact constants and show click-to-call reliably on desktop and phone; fit the mobile logo beside call/menu controls. Improve orange-control and success-badge foreground contrast without changing brand hues. Wrap static trust labels on phones. Remove unverified company-schema coordinates. Make skip navigation focus main content and animated headings readable.  Keep CTA text/borders and stable navy surfaces readable in both themes; service-process labels use the existing primary text color."
+    },
+    {
+      "path": "/projects/dunnville-secondary-school",
+      "width": 1440,
+      "pixelDifferencePercent": 0.13064118061851515,
+      "differences": [
+        "visibleText",
+        "jsonLdHash",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-requested website audit completion: retain protected contact constants and show click-to-call reliably on desktop and phone; fit the mobile logo beside call/menu controls. Improve orange-control and success-badge foreground contrast without changing brand hues. Wrap static trust labels on phones. Remove unverified company-schema coordinates. Make skip navigation focus main content and animated headings readable.  Keep CTA text/borders and stable navy surfaces readable in both themes; service-process labels use the existing primary text color."
+    },
+    {
+      "path": "/projects/dunnville-secondary-school",
+      "width": 390,
+      "pixelDifferencePercent": 0.3193108974358974,
+      "differences": [
+        "jsonLdHash",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-requested website audit completion: retain protected contact constants and show click-to-call reliably on desktop and phone; fit the mobile logo beside call/menu controls. Improve orange-control and success-badge foreground contrast without changing brand hues. Wrap static trust labels on phones. Remove unverified company-schema coordinates. Make skip navigation focus main content and animated headings readable.  Keep CTA text/borders and stable navy surfaces readable in both themes; service-process labels use the existing primary text color."
+    },
+    {
+      "path": "/projects/innisfil-catholic-school",
+      "width": 1440,
+      "pixelDifferencePercent": 0.13064118061851515,
+      "differences": [
+        "visibleText",
+        "jsonLdHash",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-requested website audit completion: retain protected contact constants and show click-to-call reliably on desktop and phone; fit the mobile logo beside call/menu controls. Improve orange-control and success-badge foreground contrast without changing brand hues. Wrap static trust labels on phones. Remove unverified company-schema coordinates. Make skip navigation focus main content and animated headings readable.  Keep CTA text/borders and stable navy surfaces readable in both themes; service-process labels use the existing primary text color."
+    },
+    {
+      "path": "/projects/innisfil-catholic-school",
+      "width": 390,
+      "pixelDifferencePercent": 0.3193108974358974,
+      "differences": [
+        "jsonLdHash",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-requested website audit completion: retain protected contact constants and show click-to-call reliably on desktop and phone; fit the mobile logo beside call/menu controls. Improve orange-control and success-badge foreground contrast without changing brand hues. Wrap static trust labels on phones. Remove unverified company-schema coordinates. Make skip navigation focus main content and animated headings readable.  Keep CTA text/borders and stable navy surfaces readable in both themes; service-process labels use the existing primary text color."
+    },
+    {
+      "path": "/projects/kw-habilitation-affordable-housing",
+      "width": 1440,
+      "pixelDifferencePercent": 0.13064118061851515,
+      "differences": [
+        "visibleText",
+        "jsonLdHash",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-requested website audit completion: retain protected contact constants and show click-to-call reliably on desktop and phone; fit the mobile logo beside call/menu controls. Improve orange-control and success-badge foreground contrast without changing brand hues. Wrap static trust labels on phones. Remove unverified company-schema coordinates. Make skip navigation focus main content and animated headings readable.  Keep CTA text/borders and stable navy surfaces readable in both themes; service-process labels use the existing primary text color."
+    },
+    {
+      "path": "/projects/kw-habilitation-affordable-housing",
+      "width": 390,
+      "pixelDifferencePercent": 0.3193108974358974,
+      "differences": [
+        "jsonLdHash",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-requested website audit completion: retain protected contact constants and show click-to-call reliably on desktop and phone; fit the mobile logo beside call/menu controls. Improve orange-control and success-badge foreground contrast without changing brand hues. Wrap static trust labels on phones. Remove unverified company-schema coordinates. Make skip navigation focus main content and animated headings readable.  Keep CTA text/borders and stable navy surfaces readable in both themes; service-process labels use the existing primary text color."
+    },
+    {
+      "path": "/projects/oakley-ridge",
+      "width": 1440,
+      "pixelDifferencePercent": 0.13064118061851515,
+      "differences": [
+        "visibleText",
+        "jsonLdHash",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-requested website audit completion: retain protected contact constants and show click-to-call reliably on desktop and phone; fit the mobile logo beside call/menu controls. Improve orange-control and success-badge foreground contrast without changing brand hues. Wrap static trust labels on phones. Remove unverified company-schema coordinates. Make skip navigation focus main content and animated headings readable.  Keep CTA text/borders and stable navy surfaces readable in both themes; service-process labels use the existing primary text color."
+    },
+    {
+      "path": "/projects/oakley-ridge",
+      "width": 390,
+      "pixelDifferencePercent": 0.3193108974358974,
+      "differences": [
+        "jsonLdHash",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-requested website audit completion: retain protected contact constants and show click-to-call reliably on desktop and phone; fit the mobile logo beside call/menu controls. Improve orange-control and success-badge foreground contrast without changing brand hues. Wrap static trust labels on phones. Remove unverified company-schema coordinates. Make skip navigation focus main content and animated headings readable.  Keep CTA text/borders and stable navy surfaces readable in both themes; service-process labels use the existing primary text color."
+    },
+    {
+      "path": "/projects/queensland-condos",
+      "width": 1440,
+      "pixelDifferencePercent": 0.13064118061851515,
+      "differences": [
+        "visibleText",
+        "jsonLdHash",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-requested website audit completion: retain protected contact constants and show click-to-call reliably on desktop and phone; fit the mobile logo beside call/menu controls. Improve orange-control and success-badge foreground contrast without changing brand hues. Wrap static trust labels on phones. Remove unverified company-schema coordinates. Make skip navigation focus main content and animated headings readable.  Keep CTA text/borders and stable navy surfaces readable in both themes; service-process labels use the existing primary text color."
+    },
+    {
+      "path": "/projects/queensland-condos",
+      "width": 390,
+      "pixelDifferencePercent": 0.3193108974358974,
+      "differences": [
+        "jsonLdHash",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-requested website audit completion: retain protected contact constants and show click-to-call reliably on desktop and phone; fit the mobile logo beside call/menu controls. Improve orange-control and success-badge foreground contrast without changing brand hues. Wrap static trust labels on phones. Remove unverified company-schema coordinates. Make skip navigation focus main content and animated headings readable.  Keep CTA text/borders and stable navy surfaces readable in both themes; service-process labels use the existing primary text color."
+    },
+    {
+      "path": "/projects/york-region-warehouse",
+      "width": 1440,
+      "pixelDifferencePercent": 0.13064118061851515,
+      "differences": [
+        "visibleText",
+        "jsonLdHash",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-requested website audit completion: retain protected contact constants and show click-to-call reliably on desktop and phone; fit the mobile logo beside call/menu controls. Improve orange-control and success-badge foreground contrast without changing brand hues. Wrap static trust labels on phones. Remove unverified company-schema coordinates. Make skip navigation focus main content and animated headings readable.  Keep CTA text/borders and stable navy surfaces readable in both themes; service-process labels use the existing primary text color."
+    },
+    {
+      "path": "/projects/york-region-warehouse",
+      "width": 390,
+      "pixelDifferencePercent": 0.3193108974358974,
+      "differences": [
+        "jsonLdHash",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-requested website audit completion: retain protected contact constants and show click-to-call reliably on desktop and phone; fit the mobile logo beside call/menu controls. Improve orange-control and success-badge foreground contrast without changing brand hues. Wrap static trust labels on phones. Remove unverified company-schema coordinates. Make skip navigation focus main content and animated headings readable.  Keep CTA text/borders and stable navy surfaces readable in both themes; service-process labels use the existing primary text color."
+    },
+    {
+      "path": "/property-managers",
+      "width": 1440,
+      "pixelDifferencePercent": 0.07437362519448469,
+      "differences": [
+        "visibleText",
+        "jsonLdHash"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-requested website audit completion: retain protected contact constants and show click-to-call reliably on desktop and phone; fit the mobile logo beside call/menu controls. Improve orange-control and success-badge foreground contrast without changing brand hues. Wrap static trust labels on phones. Remove unverified company-schema coordinates. Make skip navigation focus main content and animated headings readable.  Keep CTA text/borders and stable navy surfaces readable in both themes; service-process labels use the existing primary text color."
+    },
+    {
+      "path": "/property-managers",
+      "width": 390,
+      "pixelDifferencePercent": 100,
+      "differences": [
+        "jsonLdHash",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-requested website audit completion: retain protected contact constants and show click-to-call reliably on desktop and phone; fit the mobile logo beside call/menu controls. Improve orange-control and success-badge foreground contrast without changing brand hues. Wrap static trust labels on phones. Remove unverified company-schema coordinates. Make skip navigation focus main content and animated headings readable.  Keep CTA text/borders and stable navy surfaces readable in both themes; service-process labels use the existing primary text color."
+    },
+    {
+      "path": "/resources/contractor-portal",
+      "width": 1440,
+      "pixelDifferencePercent": 0.10243745923541417,
+      "differences": [
+        "visibleText",
+        "jsonLdHash",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-requested website audit completion: retain protected contact constants and show click-to-call reliably on desktop and phone; fit the mobile logo beside call/menu controls. Improve orange-control and success-badge foreground contrast without changing brand hues. Wrap static trust labels on phones. Remove unverified company-schema coordinates. Make skip navigation focus main content and animated headings readable.  Keep CTA text/borders and stable navy surfaces readable in both themes; service-process labels use the existing primary text color."
+    },
+    {
+      "path": "/resources/contractor-portal",
+      "width": 390,
+      "pixelDifferencePercent": 100,
+      "differences": [
+        "jsonLdHash",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-requested website audit completion: retain protected contact constants and show click-to-call reliably on desktop and phone; fit the mobile logo beside call/menu controls. Improve orange-control and success-badge foreground contrast without changing brand hues. Wrap static trust labels on phones. Remove unverified company-schema coordinates. Make skip navigation focus main content and animated headings readable.  Keep CTA text/borders and stable navy surfaces readable in both themes; service-process labels use the existing primary text color."
+    },
+    {
+      "path": "/resources/service-areas",
+      "width": 1440,
+      "pixelDifferencePercent": 0.10303153257593323,
+      "differences": [
+        "visibleText",
+        "jsonLdHash",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-requested website audit completion: retain protected contact constants and show click-to-call reliably on desktop and phone; fit the mobile logo beside call/menu controls. Improve orange-control and success-badge foreground contrast without changing brand hues. Wrap static trust labels on phones. Remove unverified company-schema coordinates. Make skip navigation focus main content and animated headings readable.  Keep CTA text/borders and stable navy surfaces readable in both themes; service-process labels use the existing primary text color."
+    },
+    {
+      "path": "/resources/service-areas",
+      "width": 390,
+      "pixelDifferencePercent": 100,
+      "differences": [
+        "jsonLdHash",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-requested website audit completion: retain protected contact constants and show click-to-call reliably on desktop and phone; fit the mobile logo beside call/menu controls. Improve orange-control and success-badge foreground contrast without changing brand hues. Wrap static trust labels on phones. Remove unverified company-schema coordinates. Make skip navigation focus main content and animated headings readable.  Keep CTA text/borders and stable navy surfaces readable in both themes; service-process labels use the existing primary text color."
+    },
+    {
+      "path": "/service-areas/ajax",
+      "width": 1440,
+      "pixelDifferencePercent": 0.07108901223147292,
+      "differences": [
+        "visibleText",
+        "jsonLdHash"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-requested website audit completion: retain protected contact constants and show click-to-call reliably on desktop and phone; fit the mobile logo beside call/menu controls. Improve orange-control and success-badge foreground contrast without changing brand hues. Wrap static trust labels on phones. Remove unverified company-schema coordinates. Make skip navigation focus main content and animated headings readable.  Keep CTA text/borders and stable navy surfaces readable in both themes; service-process labels use the existing primary text color."
+    },
+    {
+      "path": "/service-areas/ajax",
+      "width": 390,
+      "pixelDifferencePercent": 0.14269509901183733,
+      "differences": [
+        "jsonLdHash",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-requested website audit completion: retain protected contact constants and show click-to-call reliably on desktop and phone; fit the mobile logo beside call/menu controls. Improve orange-control and success-badge foreground contrast without changing brand hues. Wrap static trust labels on phones. Remove unverified company-schema coordinates. Make skip navigation focus main content and animated headings readable.  Keep CTA text/borders and stable navy surfaces readable in both themes; service-process labels use the existing primary text color."
+    },
+    {
+      "path": "/service-areas/aurora",
+      "width": 1440,
+      "pixelDifferencePercent": 0.07030852902307615,
+      "differences": [
+        "visibleText",
+        "jsonLdHash"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-requested website audit completion: retain protected contact constants and show click-to-call reliably on desktop and phone; fit the mobile logo beside call/menu controls. Improve orange-control and success-badge foreground contrast without changing brand hues. Wrap static trust labels on phones. Remove unverified company-schema coordinates. Make skip navigation focus main content and animated headings readable.  Keep CTA text/borders and stable navy surfaces readable in both themes; service-process labels use the existing primary text color."
+    },
+    {
+      "path": "/service-areas/aurora",
+      "width": 390,
+      "pixelDifferencePercent": 0.14269509901183733,
+      "differences": [
+        "jsonLdHash",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-requested website audit completion: retain protected contact constants and show click-to-call reliably on desktop and phone; fit the mobile logo beside call/menu controls. Improve orange-control and success-badge foreground contrast without changing brand hues. Wrap static trust labels on phones. Remove unverified company-schema coordinates. Make skip navigation focus main content and animated headings readable.  Keep CTA text/borders and stable navy surfaces readable in both themes; service-process labels use the existing primary text color."
+    },
+    {
+      "path": "/service-areas/brampton",
+      "width": 1440,
+      "pixelDifferencePercent": 0.06986111111111111,
+      "differences": [
+        "visibleText",
+        "jsonLdHash"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-requested website audit completion: retain protected contact constants and show click-to-call reliably on desktop and phone; fit the mobile logo beside call/menu controls. Improve orange-control and success-badge foreground contrast without changing brand hues. Wrap static trust labels on phones. Remove unverified company-schema coordinates. Make skip navigation focus main content and animated headings readable.  Keep CTA text/borders and stable navy surfaces readable in both themes; service-process labels use the existing primary text color."
+    },
+    {
+      "path": "/service-areas/brampton",
+      "width": 390,
+      "pixelDifferencePercent": 0.14076256620716265,
+      "differences": [
+        "jsonLdHash",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-requested website audit completion: retain protected contact constants and show click-to-call reliably on desktop and phone; fit the mobile logo beside call/menu controls. Improve orange-control and success-badge foreground contrast without changing brand hues. Wrap static trust labels on phones. Remove unverified company-schema coordinates. Make skip navigation focus main content and animated headings readable.  Keep CTA text/borders and stable navy surfaces readable in both themes; service-process labels use the existing primary text color."
+    },
+    {
+      "path": "/service-areas/burlington",
+      "width": 1440,
+      "pixelDifferencePercent": 0.06986111111111111,
+      "differences": [
+        "visibleText",
+        "jsonLdHash"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-requested website audit completion: retain protected contact constants and show click-to-call reliably on desktop and phone; fit the mobile logo beside call/menu controls. Improve orange-control and success-badge foreground contrast without changing brand hues. Wrap static trust labels on phones. Remove unverified company-schema coordinates. Make skip navigation focus main content and animated headings readable.  Keep CTA text/borders and stable navy surfaces readable in both themes; service-process labels use the existing primary text color."
+    },
+    {
+      "path": "/service-areas/burlington",
+      "width": 390,
+      "pixelDifferencePercent": 0.14136204959120197,
+      "differences": [
+        "jsonLdHash",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-requested website audit completion: retain protected contact constants and show click-to-call reliably on desktop and phone; fit the mobile logo beside call/menu controls. Improve orange-control and success-badge foreground contrast without changing brand hues. Wrap static trust labels on phones. Remove unverified company-schema coordinates. Make skip navigation focus main content and animated headings readable.  Keep CTA text/borders and stable navy surfaces readable in both themes; service-process labels use the existing primary text color."
+    },
+    {
+      "path": "/service-areas/hamilton",
+      "width": 1440,
+      "pixelDifferencePercent": 0.06986111111111111,
+      "differences": [
+        "visibleText",
+        "jsonLdHash"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-requested website audit completion: retain protected contact constants and show click-to-call reliably on desktop and phone; fit the mobile logo beside call/menu controls. Improve orange-control and success-badge foreground contrast without changing brand hues. Wrap static trust labels on phones. Remove unverified company-schema coordinates. Make skip navigation focus main content and animated headings readable.  Keep CTA text/borders and stable navy surfaces readable in both themes; service-process labels use the existing primary text color."
+    },
+    {
+      "path": "/service-areas/hamilton",
+      "width": 390,
+      "pixelDifferencePercent": 0.14136204959120197,
+      "differences": [
+        "jsonLdHash",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-requested website audit completion: retain protected contact constants and show click-to-call reliably on desktop and phone; fit the mobile logo beside call/menu controls. Improve orange-control and success-badge foreground contrast without changing brand hues. Wrap static trust labels on phones. Remove unverified company-schema coordinates. Make skip navigation focus main content and animated headings readable.  Keep CTA text/borders and stable navy surfaces readable in both themes; service-process labels use the existing primary text color."
+    },
+    {
+      "path": "/service-areas/king-city",
+      "width": 1440,
+      "pixelDifferencePercent": 0.06986111111111111,
+      "differences": [
+        "visibleText",
+        "jsonLdHash"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-requested website audit completion: retain protected contact constants and show click-to-call reliably on desktop and phone; fit the mobile logo beside call/menu controls. Improve orange-control and success-badge foreground contrast without changing brand hues. Wrap static trust labels on phones. Remove unverified company-schema coordinates. Make skip navigation focus main content and animated headings readable.  Keep CTA text/borders and stable navy surfaces readable in both themes; service-process labels use the existing primary text color."
+    },
+    {
+      "path": "/service-areas/king-city",
+      "width": 390,
+      "pixelDifferencePercent": 0.14076256620716265,
+      "differences": [
+        "jsonLdHash",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-requested website audit completion: retain protected contact constants and show click-to-call reliably on desktop and phone; fit the mobile logo beside call/menu controls. Improve orange-control and success-badge foreground contrast without changing brand hues. Wrap static trust labels on phones. Remove unverified company-schema coordinates. Make skip navigation focus main content and animated headings readable.  Keep CTA text/borders and stable navy surfaces readable in both themes; service-process labels use the existing primary text color."
+    },
+    {
+      "path": "/service-areas/markham",
+      "width": 1440,
+      "pixelDifferencePercent": 0.06986111111111111,
+      "differences": [
+        "visibleText",
+        "jsonLdHash"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-requested website audit completion: retain protected contact constants and show click-to-call reliably on desktop and phone; fit the mobile logo beside call/menu controls. Improve orange-control and success-badge foreground contrast without changing brand hues. Wrap static trust labels on phones. Remove unverified company-schema coordinates. Make skip navigation focus main content and animated headings readable.  Keep CTA text/borders and stable navy surfaces readable in both themes; service-process labels use the existing primary text color."
+    },
+    {
+      "path": "/service-areas/markham",
+      "width": 390,
+      "pixelDifferencePercent": 0.14136204959120197,
+      "differences": [
+        "jsonLdHash",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-requested website audit completion: retain protected contact constants and show click-to-call reliably on desktop and phone; fit the mobile logo beside call/menu controls. Improve orange-control and success-badge foreground contrast without changing brand hues. Wrap static trust labels on phones. Remove unverified company-schema coordinates. Make skip navigation focus main content and animated headings readable.  Keep CTA text/borders and stable navy surfaces readable in both themes; service-process labels use the existing primary text color."
+    },
+    {
+      "path": "/service-areas/milton",
+      "width": 1440,
+      "pixelDifferencePercent": 0.07063163807189542,
+      "differences": [
+        "visibleText",
+        "jsonLdHash"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-requested website audit completion: retain protected contact constants and show click-to-call reliably on desktop and phone; fit the mobile logo beside call/menu controls. Improve orange-control and success-badge foreground contrast without changing brand hues. Wrap static trust labels on phones. Remove unverified company-schema coordinates. Make skip navigation focus main content and animated headings readable.  Keep CTA text/borders and stable navy surfaces readable in both themes; service-process labels use the existing primary text color."
+    },
+    {
+      "path": "/service-areas/milton",
+      "width": 390,
+      "pixelDifferencePercent": 0.14273065722240594,
+      "differences": [
+        "jsonLdHash",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-requested website audit completion: retain protected contact constants and show click-to-call reliably on desktop and phone; fit the mobile logo beside call/menu controls. Improve orange-control and success-badge foreground contrast without changing brand hues. Wrap static trust labels on phones. Remove unverified company-schema coordinates. Make skip navigation focus main content and animated headings readable.  Keep CTA text/borders and stable navy surfaces readable in both themes; service-process labels use the existing primary text color."
+    },
+    {
+      "path": "/service-areas/mississauga",
+      "width": 1440,
+      "pixelDifferencePercent": 0.06945699767012131,
+      "differences": [
+        "visibleText",
+        "jsonLdHash"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-requested website audit completion: retain protected contact constants and show click-to-call reliably on desktop and phone; fit the mobile logo beside call/menu controls. Improve orange-control and success-badge foreground contrast without changing brand hues. Wrap static trust labels on phones. Remove unverified company-schema coordinates. Make skip navigation focus main content and animated headings readable.  Keep CTA text/borders and stable navy surfaces readable in both themes; service-process labels use the existing primary text color."
+    },
+    {
+      "path": "/service-areas/mississauga",
+      "width": 390,
+      "pixelDifferencePercent": 0.14007274148847793,
+      "differences": [
+        "jsonLdHash",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-requested website audit completion: retain protected contact constants and show click-to-call reliably on desktop and phone; fit the mobile logo beside call/menu controls. Improve orange-control and success-badge foreground contrast without changing brand hues. Wrap static trust labels on phones. Remove unverified company-schema coordinates. Make skip navigation focus main content and animated headings readable.  Keep CTA text/borders and stable navy surfaces readable in both themes; service-process labels use the existing primary text color."
+    },
+    {
+      "path": "/service-areas/newmarket",
+      "width": 1440,
+      "pixelDifferencePercent": 0.06989923796818467,
+      "differences": [
+        "visibleText",
+        "jsonLdHash"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-requested website audit completion: retain protected contact constants and show click-to-call reliably on desktop and phone; fit the mobile logo beside call/menu controls. Improve orange-control and success-badge foreground contrast without changing brand hues. Wrap static trust labels on phones. Remove unverified company-schema coordinates. Make skip navigation focus main content and animated headings readable.  Keep CTA text/borders and stable navy surfaces readable in both themes; service-process labels use the existing primary text color."
+    },
+    {
+      "path": "/service-areas/newmarket",
+      "width": 390,
+      "pixelDifferencePercent": 0.14124920344884645,
+      "differences": [
+        "jsonLdHash",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-requested website audit completion: retain protected contact constants and show click-to-call reliably on desktop and phone; fit the mobile logo beside call/menu controls. Improve orange-control and success-badge foreground contrast without changing brand hues. Wrap static trust labels on phones. Remove unverified company-schema coordinates. Make skip navigation focus main content and animated headings readable.  Keep CTA text/borders and stable navy surfaces readable in both themes; service-process labels use the existing primary text color."
+    },
+    {
+      "path": "/service-areas/oakville",
+      "width": 1440,
+      "pixelDifferencePercent": 0.06986111111111111,
+      "differences": [
+        "visibleText",
+        "jsonLdHash"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-requested website audit completion: retain protected contact constants and show click-to-call reliably on desktop and phone; fit the mobile logo beside call/menu controls. Improve orange-control and success-badge foreground contrast without changing brand hues. Wrap static trust labels on phones. Remove unverified company-schema coordinates. Make skip navigation focus main content and animated headings readable.  Keep CTA text/borders and stable navy surfaces readable in both themes; service-process labels use the existing primary text color."
+    },
+    {
+      "path": "/service-areas/oakville",
+      "width": 390,
+      "pixelDifferencePercent": 0.1420292625594296,
+      "differences": [
+        "jsonLdHash",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-requested website audit completion: retain protected contact constants and show click-to-call reliably on desktop and phone; fit the mobile logo beside call/menu controls. Improve orange-control and success-badge foreground contrast without changing brand hues. Wrap static trust labels on phones. Remove unverified company-schema coordinates. Make skip navigation focus main content and animated headings readable.  Keep CTA text/borders and stable navy surfaces readable in both themes; service-process labels use the existing primary text color."
+    },
+    {
+      "path": "/service-areas/oshawa",
+      "width": 1440,
+      "pixelDifferencePercent": 0.07030852902307615,
+      "differences": [
+        "visibleText",
+        "jsonLdHash"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-requested website audit completion: retain protected contact constants and show click-to-call reliably on desktop and phone; fit the mobile logo beside call/menu controls. Improve orange-control and success-badge foreground contrast without changing brand hues. Wrap static trust labels on phones. Remove unverified company-schema coordinates. Make skip navigation focus main content and animated headings readable.  Keep CTA text/borders and stable navy surfaces readable in both themes; service-process labels use the existing primary text color."
+    },
+    {
+      "path": "/service-areas/oshawa",
+      "width": 390,
+      "pixelDifferencePercent": 0.14265954080126872,
+      "differences": [
+        "jsonLdHash",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-requested website audit completion: retain protected contact constants and show click-to-call reliably on desktop and phone; fit the mobile logo beside call/menu controls. Improve orange-control and success-badge foreground contrast without changing brand hues. Wrap static trust labels on phones. Remove unverified company-schema coordinates. Make skip navigation focus main content and animated headings readable.  Keep CTA text/borders and stable navy surfaces readable in both themes; service-process labels use the existing primary text color."
+    },
+    {
+      "path": "/service-areas/pickering",
+      "width": 1440,
+      "pixelDifferencePercent": 0.07030852902307615,
+      "differences": [
+        "visibleText",
+        "jsonLdHash"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-requested website audit completion: retain protected contact constants and show click-to-call reliably on desktop and phone; fit the mobile logo beside call/menu controls. Improve orange-control and success-badge foreground contrast without changing brand hues. Wrap static trust labels on phones. Remove unverified company-schema coordinates. Make skip navigation focus main content and animated headings readable.  Keep CTA text/borders and stable navy surfaces readable in both themes; service-process labels use the existing primary text color."
+    },
+    {
+      "path": "/service-areas/pickering",
+      "width": 390,
+      "pixelDifferencePercent": 0.14223392172888516,
+      "differences": [
+        "jsonLdHash",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-requested website audit completion: retain protected contact constants and show click-to-call reliably on desktop and phone; fit the mobile logo beside call/menu controls. Improve orange-control and success-badge foreground contrast without changing brand hues. Wrap static trust labels on phones. Remove unverified company-schema coordinates. Make skip navigation focus main content and animated headings readable.  Keep CTA text/borders and stable navy surfaces readable in both themes; service-process labels use the existing primary text color."
+    },
+    {
+      "path": "/service-areas/richmond-hill",
+      "width": 1440,
+      "pixelDifferencePercent": 0.06945699767012131,
+      "differences": [
+        "visibleText",
+        "jsonLdHash"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-requested website audit completion: retain protected contact constants and show click-to-call reliably on desktop and phone; fit the mobile logo beside call/menu controls. Improve orange-control and success-badge foreground contrast without changing brand hues. Wrap static trust labels on phones. Remove unverified company-schema coordinates. Make skip navigation focus main content and animated headings readable.  Keep CTA text/borders and stable navy surfaces readable in both themes; service-process labels use the existing primary text color."
+    },
+    {
+      "path": "/service-areas/richmond-hill",
+      "width": 390,
+      "pixelDifferencePercent": 0.14128441012966622,
+      "differences": [
+        "jsonLdHash",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-requested website audit completion: retain protected contact constants and show click-to-call reliably on desktop and phone; fit the mobile logo beside call/menu controls. Improve orange-control and success-badge foreground contrast without changing brand hues. Wrap static trust labels on phones. Remove unverified company-schema coordinates. Make skip navigation focus main content and animated headings readable.  Keep CTA text/borders and stable navy surfaces readable in both themes; service-process labels use the existing primary text color."
+    },
+    {
+      "path": "/service-areas/toronto",
+      "width": 1440,
+      "pixelDifferencePercent": 0.06941935160092343,
+      "differences": [
+        "visibleText",
+        "jsonLdHash"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-requested website audit completion: retain protected contact constants and show click-to-call reliably on desktop and phone; fit the mobile logo beside call/menu controls. Improve orange-control and success-badge foreground contrast without changing brand hues. Wrap static trust labels on phones. Remove unverified company-schema coordinates. Make skip navigation focus main content and animated headings readable.  Keep CTA text/borders and stable navy surfaces readable in both themes; service-process labels use the existing primary text color."
+    },
+    {
+      "path": "/service-areas/toronto",
+      "width": 390,
+      "pixelDifferencePercent": 0.14024456303316873,
+      "differences": [
+        "jsonLdHash",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-requested website audit completion: retain protected contact constants and show click-to-call reliably on desktop and phone; fit the mobile logo beside call/menu controls. Improve orange-control and success-badge foreground contrast without changing brand hues. Wrap static trust labels on phones. Remove unverified company-schema coordinates. Make skip navigation focus main content and animated headings readable.  Keep CTA text/borders and stable navy surfaces readable in both themes; service-process labels use the existing primary text color."
+    },
+    {
+      "path": "/service-areas/vaughan",
+      "width": 1440,
+      "pixelDifferencePercent": 0.06986111111111111,
+      "differences": [
+        "visibleText",
+        "jsonLdHash"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-requested website audit completion: retain protected contact constants and show click-to-call reliably on desktop and phone; fit the mobile logo beside call/menu controls. Improve orange-control and success-badge foreground contrast without changing brand hues. Wrap static trust labels on phones. Remove unverified company-schema coordinates. Make skip navigation focus main content and animated headings readable.  Keep CTA text/borders and stable navy surfaces readable in both themes; service-process labels use the existing primary text color."
+    },
+    {
+      "path": "/service-areas/vaughan",
+      "width": 390,
+      "pixelDifferencePercent": 0.14132682356339452,
+      "differences": [
+        "jsonLdHash",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-requested website audit completion: retain protected contact constants and show click-to-call reliably on desktop and phone; fit the mobile logo beside call/menu controls. Improve orange-control and success-badge foreground contrast without changing brand hues. Wrap static trust labels on phones. Remove unverified company-schema coordinates. Make skip navigation focus main content and animated headings readable.  Keep CTA text/borders and stable navy surfaces readable in both themes; service-process labels use the existing primary text color."
+    },
+    {
+      "path": "/service-areas/whitby",
+      "width": 1440,
+      "pixelDifferencePercent": 0.06986111111111111,
+      "differences": [
+        "visibleText",
+        "jsonLdHash"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-requested website audit completion: retain protected contact constants and show click-to-call reliably on desktop and phone; fit the mobile logo beside call/menu controls. Improve orange-control and success-badge foreground contrast without changing brand hues. Wrap static trust labels on phones. Remove unverified company-schema coordinates. Make skip navigation focus main content and animated headings readable.  Keep CTA text/borders and stable navy surfaces readable in both themes; service-process labels use the existing primary text color."
+    },
+    {
+      "path": "/service-areas/whitby",
+      "width": 390,
+      "pixelDifferencePercent": 0.14269509901183733,
+      "differences": [
+        "jsonLdHash",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-requested website audit completion: retain protected contact constants and show click-to-call reliably on desktop and phone; fit the mobile logo beside call/menu controls. Improve orange-control and success-badge foreground contrast without changing brand hues. Wrap static trust labels on phones. Remove unverified company-schema coordinates. Make skip navigation focus main content and animated headings readable.  Keep CTA text/borders and stable navy surfaces readable in both themes; service-process labels use the existing primary text color."
+    },
+    {
+      "path": "/services",
+      "width": 1440,
+      "pixelDifferencePercent": 100,
+      "differences": [
+        "visibleText",
+        "jsonLdHash",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-requested website audit completion: retain protected contact constants and show click-to-call reliably on desktop and phone; fit the mobile logo beside call/menu controls. Improve orange-control and success-badge foreground contrast without changing brand hues. Wrap static trust labels on phones. Remove unverified company-schema coordinates. Make skip navigation focus main content and animated headings readable. Add query-backed, accessible service search, preserve other query parameters, group published hubs and specialties without removing URLs. Keep CTA text/borders and stable navy surfaces readable in both themes; service-process labels use the existing primary text color."
+    },
+    {
+      "path": "/services",
+      "width": 390,
+      "pixelDifferencePercent": 100,
+      "differences": [
+        "visibleText",
+        "jsonLdHash",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-requested website audit completion: retain protected contact constants and show click-to-call reliably on desktop and phone; fit the mobile logo beside call/menu controls. Improve orange-control and success-badge foreground contrast without changing brand hues. Wrap static trust labels on phones. Remove unverified company-schema coordinates. Make skip navigation focus main content and animated headings readable. Add query-backed, accessible service search, preserve other query parameters, group published hubs and specialties without removing URLs. Keep CTA text/borders and stable navy surfaces readable in both themes; service-process labels use the existing primary text color."
+    },
+    {
+      "path": "/services/building-envelope-solutions",
+      "width": 1440,
+      "pixelDifferencePercent": 0.1358210620258813,
+      "differences": [
+        "visibleText",
+        "jsonLdHash",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-requested website audit completion: retain protected contact constants and show click-to-call reliably on desktop and phone; fit the mobile logo beside call/menu controls. Improve orange-control and success-badge foreground contrast without changing brand hues. Wrap static trust labels on phones. Remove unverified company-schema coordinates. Make skip navigation focus main content and animated headings readable.  Keep CTA text/borders and stable navy surfaces readable in both themes; service-process labels use the existing primary text color."
+    },
+    {
+      "path": "/services/building-envelope-solutions",
+      "width": 390,
+      "pixelDifferencePercent": 100,
+      "differences": [
+        "jsonLdHash",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-requested website audit completion: retain protected contact constants and show click-to-call reliably on desktop and phone; fit the mobile logo beside call/menu controls. Improve orange-control and success-badge foreground contrast without changing brand hues. Wrap static trust labels on phones. Remove unverified company-schema coordinates. Make skip navigation focus main content and animated headings readable.  Keep CTA text/borders and stable navy surfaces readable in both themes; service-process labels use the existing primary text color."
+    },
+    {
+      "path": "/services/caulking-sealants-toronto",
+      "width": 1440,
+      "pixelDifferencePercent": 100,
+      "differences": [
+        "visibleText",
+        "jsonLdHash",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-requested website audit completion: retain protected contact constants and show click-to-call reliably on desktop and phone; fit the mobile logo beside call/menu controls. Improve orange-control and success-badge foreground contrast without changing brand hues. Wrap static trust labels on phones. Remove unverified company-schema coordinates. Make skip navigation focus main content and animated headings readable.  Keep CTA text/borders and stable navy surfaces readable in both themes; service-process labels use the existing primary text color."
+    },
+    {
+      "path": "/services/caulking-sealants-toronto",
+      "width": 390,
+      "pixelDifferencePercent": 100,
+      "differences": [
+        "visibleText",
+        "jsonLdHash",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-requested website audit completion: retain protected contact constants and show click-to-call reliably on desktop and phone; fit the mobile logo beside call/menu controls. Improve orange-control and success-badge foreground contrast without changing brand hues. Wrap static trust labels on phones. Remove unverified company-schema coordinates. Make skip navigation focus main content and animated headings readable.  Keep CTA text/borders and stable navy surfaces readable in both themes; service-process labels use the existing primary text color."
+    },
+    {
+      "path": "/services/cladding-systems",
+      "width": 1440,
+      "pixelDifferencePercent": 0.14985806501788768,
+      "differences": [
+        "visibleText",
+        "jsonLdHash",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-requested website audit completion: retain protected contact constants and show click-to-call reliably on desktop and phone; fit the mobile logo beside call/menu controls. Improve orange-control and success-badge foreground contrast without changing brand hues. Wrap static trust labels on phones. Remove unverified company-schema coordinates. Make skip navigation focus main content and animated headings readable.  Keep CTA text/borders and stable navy surfaces readable in both themes; service-process labels use the existing primary text color."
+    },
+    {
+      "path": "/services/cladding-systems",
+      "width": 390,
+      "pixelDifferencePercent": 100,
+      "differences": [
+        "jsonLdHash",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-requested website audit completion: retain protected contact constants and show click-to-call reliably on desktop and phone; fit the mobile logo beside call/menu controls. Improve orange-control and success-badge foreground contrast without changing brand hues. Wrap static trust labels on phones. Remove unverified company-schema coordinates. Make skip navigation focus main content and animated headings readable.  Keep CTA text/borders and stable navy surfaces readable in both themes; service-process labels use the existing primary text color."
+    },
+    {
+      "path": "/services/commercial-painting-gta",
+      "width": 1440,
+      "pixelDifferencePercent": 0.10813437121818144,
+      "differences": [
+        "visibleText",
+        "jsonLdHash",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-requested website audit completion: retain protected contact constants and show click-to-call reliably on desktop and phone; fit the mobile logo beside call/menu controls. Improve orange-control and success-badge foreground contrast without changing brand hues. Wrap static trust labels on phones. Remove unverified company-schema coordinates. Make skip navigation focus main content and animated headings readable.  Keep CTA text/borders and stable navy surfaces readable in both themes; service-process labels use the existing primary text color."
+    },
+    {
+      "path": "/services/commercial-painting-gta",
+      "width": 390,
+      "pixelDifferencePercent": 100,
+      "differences": [
+        "jsonLdHash",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-requested website audit completion: retain protected contact constants and show click-to-call reliably on desktop and phone; fit the mobile logo beside call/menu controls. Improve orange-control and success-badge foreground contrast without changing brand hues. Wrap static trust labels on phones. Remove unverified company-schema coordinates. Make skip navigation focus main content and animated headings readable.  Keep CTA text/borders and stable navy surfaces readable in both themes; service-process labels use the existing primary text color."
+    },
+    {
+      "path": "/services/eifs-stucco-systems",
+      "width": 1440,
+      "pixelDifferencePercent": 0.14072918187569963,
+      "differences": [
+        "visibleText",
+        "jsonLdHash",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-requested website audit completion: retain protected contact constants and show click-to-call reliably on desktop and phone; fit the mobile logo beside call/menu controls. Improve orange-control and success-badge foreground contrast without changing brand hues. Wrap static trust labels on phones. Remove unverified company-schema coordinates. Make skip navigation focus main content and animated headings readable.  Keep CTA text/borders and stable navy surfaces readable in both themes; service-process labels use the existing primary text color."
+    },
+    {
+      "path": "/services/eifs-stucco-systems",
+      "width": 390,
+      "pixelDifferencePercent": 100,
+      "differences": [
+        "jsonLdHash",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-requested website audit completion: retain protected contact constants and show click-to-call reliably on desktop and phone; fit the mobile logo beside call/menu controls. Improve orange-control and success-badge foreground contrast without changing brand hues. Wrap static trust labels on phones. Remove unverified company-schema coordinates. Make skip navigation focus main content and animated headings readable.  Keep CTA text/borders and stable navy surfaces readable in both themes; service-process labels use the existing primary text color."
+    },
+    {
+      "path": "/services/exterior-painting-toronto",
+      "width": 1440,
+      "pixelDifferencePercent": 0.10769698269698269,
+      "differences": [
+        "visibleText",
+        "jsonLdHash",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-requested website audit completion: retain protected contact constants and show click-to-call reliably on desktop and phone; fit the mobile logo beside call/menu controls. Improve orange-control and success-badge foreground contrast without changing brand hues. Wrap static trust labels on phones. Remove unverified company-schema coordinates. Make skip navigation focus main content and animated headings readable.  Keep CTA text/borders and stable navy surfaces readable in both themes; service-process labels use the existing primary text color."
+    },
+    {
+      "path": "/services/exterior-painting-toronto",
+      "width": 390,
+      "pixelDifferencePercent": 100,
+      "differences": [
+        "jsonLdHash",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-requested website audit completion: retain protected contact constants and show click-to-call reliably on desktop and phone; fit the mobile logo beside call/menu controls. Improve orange-control and success-badge foreground contrast without changing brand hues. Wrap static trust labels on phones. Remove unverified company-schema coordinates. Make skip navigation focus main content and animated headings readable.  Keep CTA text/borders and stable navy surfaces readable in both themes; service-process labels use the existing primary text color."
+    },
+    {
+      "path": "/services/facade-remediation",
+      "width": 1440,
+      "pixelDifferencePercent": 0.14985806501788768,
+      "differences": [
+        "visibleText",
+        "jsonLdHash",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-requested website audit completion: retain protected contact constants and show click-to-call reliably on desktop and phone; fit the mobile logo beside call/menu controls. Improve orange-control and success-badge foreground contrast without changing brand hues. Wrap static trust labels on phones. Remove unverified company-schema coordinates. Make skip navigation focus main content and animated headings readable.  Keep CTA text/borders and stable navy surfaces readable in both themes; service-process labels use the existing primary text color."
+    },
+    {
+      "path": "/services/facade-remediation",
+      "width": 390,
+      "pixelDifferencePercent": 100,
+      "differences": [
+        "jsonLdHash",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-requested website audit completion: retain protected contact constants and show click-to-call reliably on desktop and phone; fit the mobile logo beside call/menu controls. Improve orange-control and success-badge foreground contrast without changing brand hues. Wrap static trust labels on phones. Remove unverified company-schema coordinates. Make skip navigation focus main content and animated headings readable.  Keep CTA text/borders and stable navy surfaces readable in both themes; service-process labels use the existing primary text color."
+    },
+    {
+      "path": "/services/fire-retardant-coatings-ontario",
+      "width": 1440,
+      "pixelDifferencePercent": 0.11127733451536644,
+      "differences": [
+        "visibleText",
+        "jsonLdHash",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-requested website audit completion: retain protected contact constants and show click-to-call reliably on desktop and phone; fit the mobile logo beside call/menu controls. Improve orange-control and success-badge foreground contrast without changing brand hues. Wrap static trust labels on phones. Remove unverified company-schema coordinates. Make skip navigation focus main content and animated headings readable.  Keep CTA text/borders and stable navy surfaces readable in both themes; service-process labels use the existing primary text color."
+    },
+    {
+      "path": "/services/fire-retardant-coatings-ontario",
+      "width": 390,
+      "pixelDifferencePercent": 100,
+      "differences": [
+        "jsonLdHash",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-requested website audit completion: retain protected contact constants and show click-to-call reliably on desktop and phone; fit the mobile logo beside call/menu controls. Improve orange-control and success-badge foreground contrast without changing brand hues. Wrap static trust labels on phones. Remove unverified company-schema coordinates. Make skip navigation focus main content and animated headings readable.  Keep CTA text/borders and stable navy surfaces readable in both themes; service-process labels use the existing primary text color."
+    },
+    {
+      "path": "/services/flooring-installation-gta",
+      "width": 1440,
+      "pixelDifferencePercent": 0.1046819436994656,
+      "differences": [
+        "visibleText",
+        "jsonLdHash",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-requested website audit completion: retain protected contact constants and show click-to-call reliably on desktop and phone; fit the mobile logo beside call/menu controls. Improve orange-control and success-badge foreground contrast without changing brand hues. Wrap static trust labels on phones. Remove unverified company-schema coordinates. Make skip navigation focus main content and animated headings readable.  Keep CTA text/borders and stable navy surfaces readable in both themes; service-process labels use the existing primary text color."
+    },
+    {
+      "path": "/services/flooring-installation-gta",
+      "width": 390,
+      "pixelDifferencePercent": 100,
+      "differences": [
+        "jsonLdHash",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-requested website audit completion: retain protected contact constants and show click-to-call reliably on desktop and phone; fit the mobile logo beside call/menu controls. Improve orange-control and success-badge foreground contrast without changing brand hues. Wrap static trust labels on phones. Remove unverified company-schema coordinates. Make skip navigation focus main content and animated headings readable.  Keep CTA text/borders and stable navy surfaces readable in both themes; service-process labels use the existing primary text color."
+    },
+    {
+      "path": "/services/handyman-patching-toronto",
+      "width": 1440,
+      "pixelDifferencePercent": 0.10490040990130532,
+      "differences": [
+        "visibleText",
+        "jsonLdHash",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-requested website audit completion: retain protected contact constants and show click-to-call reliably on desktop and phone; fit the mobile logo beside call/menu controls. Improve orange-control and success-badge foreground contrast without changing brand hues. Wrap static trust labels on phones. Remove unverified company-schema coordinates. Make skip navigation focus main content and animated headings readable.  Keep CTA text/borders and stable navy surfaces readable in both themes; service-process labels use the existing primary text color."
+    },
+    {
+      "path": "/services/handyman-patching-toronto",
+      "width": 390,
+      "pixelDifferencePercent": 100,
+      "differences": [
+        "jsonLdHash",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-requested website audit completion: retain protected contact constants and show click-to-call reliably on desktop and phone; fit the mobile logo beside call/menu controls. Improve orange-control and success-badge foreground contrast without changing brand hues. Wrap static trust labels on phones. Remove unverified company-schema coordinates. Make skip navigation focus main content and animated headings readable.  Keep CTA text/borders and stable navy surfaces readable in both themes; service-process labels use the existing primary text color."
+    },
+    {
+      "path": "/services/interior-buildouts-finishing",
+      "width": 1440,
+      "pixelDifferencePercent": 100,
+      "differences": [
+        "visibleText",
+        "jsonLdHash",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-requested website audit completion: retain protected contact constants and show click-to-call reliably on desktop and phone; fit the mobile logo beside call/menu controls. Improve orange-control and success-badge foreground contrast without changing brand hues. Wrap static trust labels on phones. Remove unverified company-schema coordinates. Make skip navigation focus main content and animated headings readable.  Keep CTA text/borders and stable navy surfaces readable in both themes; service-process labels use the existing primary text color."
+    },
+    {
+      "path": "/services/interior-buildouts-finishing",
+      "width": 390,
+      "pixelDifferencePercent": 100,
+      "differences": [
+        "visibleText",
+        "jsonLdHash",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-requested website audit completion: retain protected contact constants and show click-to-call reliably on desktop and phone; fit the mobile logo beside call/menu controls. Improve orange-control and success-badge foreground contrast without changing brand hues. Wrap static trust labels on phones. Remove unverified company-schema coordinates. Make skip navigation focus main content and animated headings readable.  Keep CTA text/borders and stable navy surfaces readable in both themes; service-process labels use the existing primary text color."
+    },
+    {
+      "path": "/services/interior-finishing-renovations",
+      "width": 1440,
+      "pixelDifferencePercent": 0.1521297173535449,
+      "differences": [
+        "visibleText",
+        "jsonLdHash",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-requested website audit completion: retain protected contact constants and show click-to-call reliably on desktop and phone; fit the mobile logo beside call/menu controls. Improve orange-control and success-badge foreground contrast without changing brand hues. Wrap static trust labels on phones. Remove unverified company-schema coordinates. Make skip navigation focus main content and animated headings readable.  Keep CTA text/borders and stable navy surfaces readable in both themes; service-process labels use the existing primary text color."
+    },
+    {
+      "path": "/services/interior-finishing-renovations",
+      "width": 390,
+      "pixelDifferencePercent": 100,
+      "differences": [
+        "jsonLdHash",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-requested website audit completion: retain protected contact constants and show click-to-call reliably on desktop and phone; fit the mobile logo beside call/menu controls. Improve orange-control and success-badge foreground contrast without changing brand hues. Wrap static trust labels on phones. Remove unverified company-schema coordinates. Make skip navigation focus main content and animated headings readable.  Keep CTA text/borders and stable navy surfaces readable in both themes; service-process labels use the existing primary text color."
+    },
+    {
+      "path": "/services/interior-painting-toronto",
+      "width": 1440,
+      "pixelDifferencePercent": 0.10516407340913625,
+      "differences": [
+        "visibleText",
+        "jsonLdHash",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-requested website audit completion: retain protected contact constants and show click-to-call reliably on desktop and phone; fit the mobile logo beside call/menu controls. Improve orange-control and success-badge foreground contrast without changing brand hues. Wrap static trust labels on phones. Remove unverified company-schema coordinates. Make skip navigation focus main content and animated headings readable.  Keep CTA text/borders and stable navy surfaces readable in both themes; service-process labels use the existing primary text color."
+    },
+    {
+      "path": "/services/interior-painting-toronto",
+      "width": 390,
+      "pixelDifferencePercent": 100,
+      "differences": [
+        "jsonLdHash",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-requested website audit completion: retain protected contact constants and show click-to-call reliably on desktop and phone; fit the mobile logo beside call/menu controls. Improve orange-control and success-badge foreground contrast without changing brand hues. Wrap static trust labels on phones. Remove unverified company-schema coordinates. Make skip navigation focus main content and animated headings readable.  Keep CTA text/borders and stable navy surfaces readable in both themes; service-process labels use the existing primary text color."
+    },
+    {
+      "path": "/services/masonry-restoration",
+      "width": 1440,
+      "pixelDifferencePercent": 0.14985806501788768,
+      "differences": [
+        "visibleText",
+        "jsonLdHash",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-requested website audit completion: retain protected contact constants and show click-to-call reliably on desktop and phone; fit the mobile logo beside call/menu controls. Improve orange-control and success-badge foreground contrast without changing brand hues. Wrap static trust labels on phones. Remove unverified company-schema coordinates. Make skip navigation focus main content and animated headings readable.  Keep CTA text/borders and stable navy surfaces readable in both themes; service-process labels use the existing primary text color."
+    },
+    {
+      "path": "/services/masonry-restoration",
+      "width": 390,
+      "pixelDifferencePercent": 100,
+      "differences": [
+        "jsonLdHash",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-requested website audit completion: retain protected contact constants and show click-to-call reliably on desktop and phone; fit the mobile logo beside call/menu controls. Improve orange-control and success-badge foreground contrast without changing brand hues. Wrap static trust labels on phones. Remove unverified company-schema coordinates. Make skip navigation focus main content and animated headings readable.  Keep CTA text/borders and stable navy surfaces readable in both themes; service-process labels use the existing primary text color."
+    },
+    {
+      "path": "/services/painting-services",
+      "width": 1440,
+      "pixelDifferencePercent": 100,
+      "differences": [
+        "visibleText",
+        "jsonLdHash",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-requested website audit completion: retain protected contact constants and show click-to-call reliably on desktop and phone; fit the mobile logo beside call/menu controls. Improve orange-control and success-badge foreground contrast without changing brand hues. Wrap static trust labels on phones. Remove unverified company-schema coordinates. Make skip navigation focus main content and animated headings readable.  Keep CTA text/borders and stable navy surfaces readable in both themes; service-process labels use the existing primary text color."
+    },
+    {
+      "path": "/services/painting-services",
+      "width": 390,
+      "pixelDifferencePercent": 100,
+      "differences": [
+        "visibleText",
+        "jsonLdHash",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-requested website audit completion: retain protected contact constants and show click-to-call reliably on desktop and phone; fit the mobile logo beside call/menu controls. Improve orange-control and success-badge foreground contrast without changing brand hues. Wrap static trust labels on phones. Remove unverified company-schema coordinates. Make skip navigation focus main content and animated headings readable.  Keep CTA text/borders and stable navy surfaces readable in both themes; service-process labels use the existing primary text color."
+    },
+    {
+      "path": "/services/parking-garage-restoration",
+      "width": 1440,
+      "pixelDifferencePercent": 0.1371831838245764,
+      "differences": [
+        "visibleText",
+        "jsonLdHash",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-requested website audit completion: retain protected contact constants and show click-to-call reliably on desktop and phone; fit the mobile logo beside call/menu controls. Improve orange-control and success-badge foreground contrast without changing brand hues. Wrap static trust labels on phones. Remove unverified company-schema coordinates. Make skip navigation focus main content and animated headings readable.  Keep CTA text/borders and stable navy surfaces readable in both themes; service-process labels use the existing primary text color."
+    },
+    {
+      "path": "/services/parking-garage-restoration",
+      "width": 390,
+      "pixelDifferencePercent": 100,
+      "differences": [
+        "jsonLdHash",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-requested website audit completion: retain protected contact constants and show click-to-call reliably on desktop and phone; fit the mobile logo beside call/menu controls. Improve orange-control and success-badge foreground contrast without changing brand hues. Wrap static trust labels on phones. Remove unverified company-schema coordinates. Make skip navigation focus main content and animated headings readable.  Keep CTA text/borders and stable navy surfaces readable in both themes; service-process labels use the existing primary text color."
+    },
+    {
+      "path": "/services/residential-exterior-painting-gta",
+      "width": 1440,
+      "pixelDifferencePercent": 0.10516407340913625,
+      "differences": [
+        "visibleText",
+        "jsonLdHash",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-requested website audit completion: retain protected contact constants and show click-to-call reliably on desktop and phone; fit the mobile logo beside call/menu controls. Improve orange-control and success-badge foreground contrast without changing brand hues. Wrap static trust labels on phones. Remove unverified company-schema coordinates. Make skip navigation focus main content and animated headings readable.  Keep CTA text/borders and stable navy surfaces readable in both themes; service-process labels use the existing primary text color."
+    },
+    {
+      "path": "/services/residential-exterior-painting-gta",
+      "width": 390,
+      "pixelDifferencePercent": 100,
+      "differences": [
+        "jsonLdHash",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-requested website audit completion: retain protected contact constants and show click-to-call reliably on desktop and phone; fit the mobile logo beside call/menu controls. Improve orange-control and success-badge foreground contrast without changing brand hues. Wrap static trust labels on phones. Remove unverified company-schema coordinates. Make skip navigation focus main content and animated headings readable.  Keep CTA text/borders and stable navy surfaces readable in both themes; service-process labels use the existing primary text color."
+    },
+    {
+      "path": "/services/sealant-programs",
+      "width": 1440,
+      "pixelDifferencePercent": 0.1521297173535449,
+      "differences": [
+        "visibleText",
+        "jsonLdHash",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-requested website audit completion: retain protected contact constants and show click-to-call reliably on desktop and phone; fit the mobile logo beside call/menu controls. Improve orange-control and success-badge foreground contrast without changing brand hues. Wrap static trust labels on phones. Remove unverified company-schema coordinates. Make skip navigation focus main content and animated headings readable.  Keep CTA text/borders and stable navy surfaces readable in both themes; service-process labels use the existing primary text color."
+    },
+    {
+      "path": "/services/sealant-programs",
+      "width": 390,
+      "pixelDifferencePercent": 100,
+      "differences": [
+        "jsonLdHash",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-requested website audit completion: retain protected contact constants and show click-to-call reliably on desktop and phone; fit the mobile logo beside call/menu controls. Improve orange-control and success-badge foreground contrast without changing brand hues. Wrap static trust labels on phones. Remove unverified company-schema coordinates. Make skip navigation focus main content and animated headings readable.  Keep CTA text/borders and stable navy surfaces readable in both themes; service-process labels use the existing primary text color."
+    },
+    {
+      "path": "/services/sustainable-building",
+      "width": 1440,
+      "pixelDifferencePercent": 0.1498904702649453,
+      "differences": [
+        "visibleText",
+        "jsonLdHash",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-requested website audit completion: retain protected contact constants and show click-to-call reliably on desktop and phone; fit the mobile logo beside call/menu controls. Improve orange-control and success-badge foreground contrast without changing brand hues. Wrap static trust labels on phones. Remove unverified company-schema coordinates. Make skip navigation focus main content and animated headings readable.  Keep CTA text/borders and stable navy surfaces readable in both themes; service-process labels use the existing primary text color."
+    },
+    {
+      "path": "/services/sustainable-building",
+      "width": 390,
+      "pixelDifferencePercent": 100,
+      "differences": [
+        "jsonLdHash",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-requested website audit completion: retain protected contact constants and show click-to-call reliably on desktop and phone; fit the mobile logo beside call/menu controls. Improve orange-control and success-badge foreground contrast without changing brand hues. Wrap static trust labels on phones. Remove unverified company-schema coordinates. Make skip navigation focus main content and animated headings readable.  Keep CTA text/borders and stable navy surfaces readable in both themes; service-process labels use the existing primary text color."
+    },
+    {
+      "path": "/services/tile-flooring",
+      "width": 1440,
+      "pixelDifferencePercent": 100,
+      "differences": [
+        "visibleText",
+        "jsonLdHash",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-requested website audit completion: retain protected contact constants and show click-to-call reliably on desktop and phone; fit the mobile logo beside call/menu controls. Improve orange-control and success-badge foreground contrast without changing brand hues. Wrap static trust labels on phones. Remove unverified company-schema coordinates. Make skip navigation focus main content and animated headings readable.  Keep CTA text/borders and stable navy surfaces readable in both themes; service-process labels use the existing primary text color."
+    },
+    {
+      "path": "/services/tile-flooring",
+      "width": 390,
+      "pixelDifferencePercent": 100,
+      "differences": [
+        "visibleText",
+        "jsonLdHash",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-requested website audit completion: retain protected contact constants and show click-to-call reliably on desktop and phone; fit the mobile logo beside call/menu controls. Improve orange-control and success-badge foreground contrast without changing brand hues. Wrap static trust labels on phones. Remove unverified company-schema coordinates. Make skip navigation focus main content and animated headings readable.  Keep CTA text/borders and stable navy surfaces readable in both themes; service-process labels use the existing primary text color."
+    },
+    {
+      "path": "/services/tile-installation-toronto",
+      "width": 1440,
+      "pixelDifferencePercent": 0.10570249343042266,
+      "differences": [
+        "visibleText",
+        "jsonLdHash",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-requested website audit completion: retain protected contact constants and show click-to-call reliably on desktop and phone; fit the mobile logo beside call/menu controls. Improve orange-control and success-badge foreground contrast without changing brand hues. Wrap static trust labels on phones. Remove unverified company-schema coordinates. Make skip navigation focus main content and animated headings readable.  Keep CTA text/borders and stable navy surfaces readable in both themes; service-process labels use the existing primary text color."
+    },
+    {
+      "path": "/services/tile-installation-toronto",
+      "width": 390,
+      "pixelDifferencePercent": 100,
+      "differences": [
+        "jsonLdHash",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-requested website audit completion: retain protected contact constants and show click-to-call reliably on desktop and phone; fit the mobile logo beside call/menu controls. Improve orange-control and success-badge foreground contrast without changing brand hues. Wrap static trust labels on phones. Remove unverified company-schema coordinates. Make skip navigation focus main content and animated headings readable.  Keep CTA text/borders and stable navy surfaces readable in both themes; service-process labels use the existing primary text color."
+    },
+    {
+      "path": "/services/waterproofing-systems",
+      "width": 1440,
+      "pixelDifferencePercent": 0.14985806501788768,
+      "differences": [
+        "visibleText",
+        "jsonLdHash",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-requested website audit completion: retain protected contact constants and show click-to-call reliably on desktop and phone; fit the mobile logo beside call/menu controls. Improve orange-control and success-badge foreground contrast without changing brand hues. Wrap static trust labels on phones. Remove unverified company-schema coordinates. Make skip navigation focus main content and animated headings readable.  Keep CTA text/borders and stable navy surfaces readable in both themes; service-process labels use the existing primary text color."
+    },
+    {
+      "path": "/services/waterproofing-systems",
+      "width": 390,
+      "pixelDifferencePercent": 100,
+      "differences": [
+        "jsonLdHash",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-requested website audit completion: retain protected contact constants and show click-to-call reliably on desktop and phone; fit the mobile logo beside call/menu controls. Improve orange-control and success-badge foreground contrast without changing brand hues. Wrap static trust labels on phones. Remove unverified company-schema coordinates. Make skip navigation focus main content and animated headings readable.  Keep CTA text/borders and stable navy surfaces readable in both themes; service-process labels use the existing primary text color."
+    },
+    {
+      "path": "/submit-rfp",
+      "width": 1440,
+      "pixelDifferencePercent": 0.9014962897871509,
+      "differences": [
+        "visibleText",
+        "jsonLdHash",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-requested website audit completion: retain protected contact constants and show click-to-call reliably on desktop and phone; fit the mobile logo beside call/menu controls. Improve orange-control and success-badge foreground contrast without changing brand hues. Wrap static trust labels on phones. Remove unverified company-schema coordinates. Make skip navigation focus main content and animated headings readable. Name the existing progress bar and expose its current completion value. Keep CTA text/borders and stable navy surfaces readable in both themes; service-process labels use the existing primary text color. Keep all four step labels readable and fitting small phone widths; expose the current step without diluting future labels."
+    },
+    {
+      "path": "/submit-rfp",
+      "width": 390,
+      "pixelDifferencePercent": 100,
+      "differences": [
+        "jsonLdHash",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-requested website audit completion: retain protected contact constants and show click-to-call reliably on desktop and phone; fit the mobile logo beside call/menu controls. Improve orange-control and success-badge foreground contrast without changing brand hues. Wrap static trust labels on phones. Remove unverified company-schema coordinates. Make skip navigation focus main content and animated headings readable. Name the existing progress bar and expose its current completion value. Keep CTA text/borders and stable navy surfaces readable in both themes; service-process labels use the existing primary text color. Keep all four step labels readable and fitting small phone widths; expose the current step without diluting future labels."
+    },
+    {
+      "path": "/terms",
+      "width": 1440,
+      "pixelDifferencePercent": 0.06167958247667247,
+      "differences": [
+        "visibleText"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-requested website audit completion: retain protected contact constants and show click-to-call reliably on desktop and phone; fit the mobile logo beside call/menu controls. Improve orange-control and success-badge foreground contrast without changing brand hues. Wrap static trust labels on phones. Remove unverified company-schema coordinates. Make skip navigation focus main content and animated headings readable.  Keep CTA text/borders and stable navy surfaces readable in both themes; service-process labels use the existing primary text color. Underline inline privacy and external legal links permanently."
+    },
+    {
+      "path": "/terms",
+      "width": 390,
+      "pixelDifferencePercent": 0.11668709487672083,
+      "differences": [
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-requested website audit completion: retain protected contact constants and show click-to-call reliably on desktop and phone; fit the mobile logo beside call/menu controls. Improve orange-control and success-badge foreground contrast without changing brand hues. Wrap static trust labels on phones. Remove unverified company-schema coordinates. Make skip navigation focus main content and animated headings readable.  Keep CTA text/borders and stable navy surfaces readable in both themes; service-process labels use the existing primary text color. Underline inline privacy and external legal links permanently."
+    },
+    {
+      "path": "/why-specialty-contractor",
+      "width": 1440,
+      "pixelDifferencePercent": 0.06289234699440785,
+      "differences": [
+        "visibleText",
+        "jsonLdHash"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-requested website audit completion: retain protected contact constants and show click-to-call reliably on desktop and phone; fit the mobile logo beside call/menu controls. Improve orange-control and success-badge foreground contrast without changing brand hues. Wrap static trust labels on phones. Remove unverified company-schema coordinates. Make skip navigation focus main content and animated headings readable.  Keep CTA text/borders and stable navy surfaces readable in both themes; service-process labels use the existing primary text color."
+    },
+    {
+      "path": "/why-specialty-contractor",
+      "width": 390,
+      "pixelDifferencePercent": 100,
+      "differences": [
+        "jsonLdHash",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-requested website audit completion: retain protected contact constants and show click-to-call reliably on desktop and phone; fit the mobile logo beside call/menu controls. Improve orange-control and success-badge foreground contrast without changing brand hues. Wrap static trust labels on phones. Remove unverified company-schema coordinates. Make skip navigation focus main content and animated headings readable.  Keep CTA text/borders and stable navy surfaces readable in both themes; service-process labels use the existing primary text color."
+    },
+    {
+      "path": "/projects",
+      "width": 390,
+      "pixelDifferencePercent": 0.2931759598426265,
+      "differences": [
+        "jsonLdHash",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-requested website audit completion: retain protected contact constants and show click-to-call reliably on desktop and phone; fit the mobile logo beside call/menu controls. Improve orange-control and success-badge foreground contrast without changing brand hues. Wrap static trust labels on phones. Remove unverified company-schema coordinates. Make skip navigation focus main content and animated headings readable. Give existing project filters and view controls accessible names and selected states. Keep CTA text/borders and stable navy surfaces readable in both themes; service-process labels use the existing primary text color."
+    },
+    {
+      "path": "/projects",
+      "width": 1440,
+      "pixelDifferencePercent": 0.12915348101265822,
+      "differences": [
+        "visibleText",
+        "jsonLdHash",
+        "screenshot"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-requested website audit completion: retain protected contact constants and show click-to-call reliably on desktop and phone; fit the mobile logo beside call/menu controls. Improve orange-control and success-badge foreground contrast without changing brand hues. Wrap static trust labels on phones. Remove unverified company-schema coordinates. Make skip navigation focus main content and animated headings readable. Give existing project filters and view controls accessible names and selected states. Keep CTA text/borders and stable navy surfaces readable in both themes; service-process labels use the existing primary text color."
+    }
+  ]
+}

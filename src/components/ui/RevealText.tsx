@@ -37,28 +37,30 @@ export const RevealText = ({
   }
 
   const words = children.split(" ");
+  const Tag = as;
   const MotionWrapper = as === "div" ? motion.div : motion.span;
 
   return (
-    <MotionWrapper
-      className={cn("inline-block", className)}
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, margin: "-50px" }}
-      transition={{ staggerChildren: stagger }}
-      aria-label={children}
-    >
-      {words.map((word, i) => (
-        <motion.span
-          key={`${word}-${i}`}
-          variants={wordReveal}
-          className="inline-block"
-          aria-hidden="true"
-        >
-          {word}
-          {i < words.length - 1 && "\u00A0"}
-        </motion.span>
-      ))}
-    </MotionWrapper>
+    <Tag className={cn("inline-block", className)}>
+      <span className="sr-only">{children}</span>
+      <MotionWrapper
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-50px" }}
+        transition={{ staggerChildren: stagger }}
+        aria-hidden="true"
+      >
+        {words.map((word, i) => (
+          <motion.span
+            key={`${word}-${i}`}
+            variants={wordReveal}
+            className="inline-block"
+          >
+            {word}
+            {i < words.length - 1 && "\u00A0"}
+          </motion.span>
+        ))}
+      </MotionWrapper>
+    </Tag>
   );
 };

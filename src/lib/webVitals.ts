@@ -114,46 +114,6 @@ const sendToAnalytics = (metric: any) => {
   }
 };
 
-// Calculate Total Blocking Time (TBT) - approximation
-const calculateTBT = () => {
-  if (typeof window !== 'undefined' && (window as any).performance) {
-    const perfEntries = (window as any).performance.getEntriesByType('measure');
-    let tbt = 0;
-    
-    perfEntries.forEach((entry: any) => {
-      if (entry.duration > 50) {
-        tbt += entry.duration - 50;
-      }
-    });
-
-    const tbtMetric = {
-      name: 'TBT',
-      value: tbt,
-      rating: tbt < 200 ? 'good' : tbt < 600 ? 'needs-improvement' : 'poor',
-      id: `tbt-${Date.now()}`,
-    };
-
-    sendToAnalytics(tbtMetric);
-  }
-};
-
-// Calculate Time to Interactive (TTI) - approximation
-const calculateTTI = () => {
-  if (typeof window !== 'undefined' && (window as any).performance) {
-    const navTiming = (window as any).performance.timing;
-    const tti = navTiming.domInteractive - navTiming.navigationStart;
-
-    const ttiMetric = {
-      name: 'TTI',
-      value: tti,
-      rating: tti < 3800 ? 'good' : tti < 7300 ? 'needs-improvement' : 'poor',
-      id: `tti-${Date.now()}`,
-    };
-
-    sendToAnalytics(ttiMetric);
-  }
-};
-
 export const reportWebVitals = () => {
   // Core Web Vitals
   onCLS(sendToAnalytics);  // Cumulative Layout Shift
@@ -163,16 +123,6 @@ export const reportWebVitals = () => {
   // Additional Core Metrics
   onFCP(sendToAnalytics);  // First Contentful Paint
   onTTFB(sendToAnalytics); // Time to First Byte
-  
-  // Calculate additional metrics after page load
-  if (typeof window !== 'undefined') {
-    window.addEventListener('load', () => {
-      setTimeout(() => {
-        calculateTBT();
-        calculateTTI();
-      }, 3000); // Wait 3s after load for accurate measurements
-    });
-  }
 };
 
 // Export metrics for debugging

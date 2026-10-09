@@ -299,7 +299,7 @@ const Homeowners = () => {
       </Section>
 
       {/* FAQ Section for Homeowners (FAQPage JSON-LD auto-emitted) */}
-      <Section className="bg-accent">
+      <Section className="bg-muted/30">
         <ScrollReveal>
           <div className="text-center mb-12">
             <H2 className="mb-4">{c.f077}</H2>

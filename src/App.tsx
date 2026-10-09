@@ -12,6 +12,7 @@ import { lazy, Suspense, useEffect } from "react";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { DeferredBoundary } from "./components/DeferredBoundary";
 import ScrollToTop from "./components/ScrollToTop";
+import SkipLink from "./components/SkipLink";
 import { trackPageView } from "@/lib/analytics";
 import { useContactClickAnalytics } from "@/hooks/useContactClickAnalytics";
 import { AppRoutes } from "@/routes/AppRoutes";
@@ -76,13 +77,7 @@ const RouterContent = () => {
             <CookieBanner />
           </Suspense>
         </DeferredBoundary>
-        <a
-          href="#main-content"
-          className="fixed top-0 left-0 -translate-y-full focus:translate-y-0 z-[100] bg-primary text-primary-foreground px-6 py-3 font-semibold transition-transform focus:outline-none focus:ring-4 focus:ring-primary/50"
-          aria-label="Skip to main content"
-        >
-          Skip to main content
-        </a>
+        <SkipLink />
         <Suspense fallback={<PageLoader />}>
           <PageVisibility>
             <AppRoutes />

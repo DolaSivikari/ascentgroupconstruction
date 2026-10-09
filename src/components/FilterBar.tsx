@@ -95,6 +95,7 @@ const FilterBar = ({
           <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-5 h-5" />
           <Input
             type="text"
+            aria-label="Search projects"
             placeholder="Search projects by name, location, or description..."
             value={searchTerm}
             onChange={(e) => onSearchChange(e.target.value)}
@@ -105,6 +106,7 @@ const FilterBar = ({
               variant="ghost"
               size="sm"
               onClick={() => onSearchChange("")}
+              aria-label="Clear project search"
               className="absolute right-2 top-1/2 transform -translate-y-1/2"
             >
               <X className="w-4 h-4" />
@@ -153,7 +155,7 @@ const FilterBar = ({
             {/* Delivery Method Filter */}
             {onDeliveryMethodChange && (
               <Select value={selectedDeliveryMethod} onValueChange={onDeliveryMethodChange}>
-                <SelectTrigger className="w-[180px] h-9">
+                <SelectTrigger aria-label="Delivery method" className="w-[180px] h-9">
                   <SelectValue placeholder="Delivery Method" />
                 </SelectTrigger>
                 <SelectContent>
@@ -168,7 +170,7 @@ const FilterBar = ({
             {/* Client Type Filter */}
             {onClientTypeChange && (
               <Select value={selectedClientType} onValueChange={onClientTypeChange}>
-                <SelectTrigger className="w-[160px] h-9">
+                <SelectTrigger aria-label="Client type" className="w-[160px] h-9">
                   <SelectValue placeholder="Client Type" />
                 </SelectTrigger>
                 <SelectContent>
@@ -185,7 +187,7 @@ const FilterBar = ({
             {/* Project Value Range Filter */}
             {onValueRangeChange && (
               <Select value={selectedValueRange} onValueChange={onValueRangeChange}>
-                <SelectTrigger className="w-[160px] h-9">
+                <SelectTrigger aria-label="Project value" className="w-[160px] h-9">
                   <DollarSign className="w-4 h-4 mr-2" />
                   <SelectValue placeholder="Project Value" />
                 </SelectTrigger>
@@ -300,6 +302,8 @@ const FilterBar = ({
                   variant={viewMode === "grid" ? "default" : "outline"}
                   size="sm"
                   onClick={() => onViewModeChange("grid")}
+                  aria-label="Grid view"
+                  aria-pressed={viewMode === "grid"}
                 >
                   <Grid3x3 className="w-4 h-4" />
                 </Button>
@@ -307,6 +311,8 @@ const FilterBar = ({
                   variant={viewMode === "list" ? "default" : "outline"}
                   size="sm"
                   onClick={() => onViewModeChange("list")}
+                  aria-label="List view"
+                  aria-pressed={viewMode === "list"}
                 >
                   <List className="w-4 h-4" />
                 </Button>
