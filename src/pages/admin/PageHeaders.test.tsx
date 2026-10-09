@@ -95,7 +95,7 @@ describe("page-header administration", () => {
     fireEvent.change(screen.getByRole("combobox", { name: "Image coverage" }), { target: { value: "all" } });
     fireEvent.change(screen.getByRole("combobox", { name: "Page group" }), { target: { value: "Cities" } });
     expect(within(screen.getByRole("table")).getAllByRole("row")).toHaveLength(18);
-    expect(screen.getAllByText("Illustrated regional map")).toHaveLength(17);
+    expect(screen.getAllByText("City image registry")).toHaveLength(17);
   });
 
   it("shows partial-source failures and retries without hiding healthy service editor links", async () => {

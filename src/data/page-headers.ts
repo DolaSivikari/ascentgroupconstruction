@@ -90,17 +90,9 @@ const staticImages: Array<[string, string, string]> = [
     "For General Contractors",
     audienceHeroes["for-general-contractors"],
   ],
-  [
-    "/for-architects",
-    "For Architects",
-    serviceHeroes["building-envelope-solutions"],
-  ],
+  ["/for-architects", "For Architects", audienceHeroes["for-architects"]],
   ["/company/developers", "Developers", audienceHeroes.developers],
-  [
-    "/company/technology",
-    "Technology & Innovation",
-    companyHeroes["our-process"],
-  ],
+  ["/company/technology", "Technology & Innovation", companyHeroes.technology],
   ["/our-process", "Our Process", companyHeroes["our-process"]],
   ["/capabilities", "Capabilities", companyHeroes.capabilities],
   [
@@ -267,7 +259,11 @@ export function buildPageHeaders(metadata: HeaderMetadata): PageHeaderRow[] {
     });
   }
   for (const article of metadata.articles) {
-    const hero = resolveBlogHero(article.featured_image, article.title);
+    const hero = resolveBlogHero(
+      article.featured_image,
+      article.title,
+      article.slug,
+    );
     rows.push({
       path: `/blog/${article.slug}`,
       title: article.title,
@@ -277,7 +273,9 @@ export function buildPageHeaders(metadata: HeaderMetadata): PageHeaderRow[] {
       source:
         hero.source === "database"
           ? "Article editor"
-          : "Contextual article fallback",
+          : hero.source === "article"
+            ? "Topic image registry"
+            : "Contextual article fallback",
       editPath: `/admin/blog/${article.id}`,
     });
   }

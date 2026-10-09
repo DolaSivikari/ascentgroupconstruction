@@ -64,7 +64,7 @@ const Technology = () => {
             eyebrow="Technology & Documentation"
             title="Built on Digital Precision"
             description="From the first site assessment to the final closeout package — every step of our process is documented, coordinated, and accountable. No verbal-only updates, no retroactive records."
-            image={companyHeroes["our-process"]}
+            image={companyHeroes.technology}
             imageAlt="Ascent Group digital construction technology"
             height="small"
             contentClassName="pb-28 md:pb-24"

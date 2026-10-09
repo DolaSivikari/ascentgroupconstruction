@@ -36,7 +36,7 @@ import {
   BookOpen,
   Microscope,
 } from "lucide-react";
-import { serviceHeroes } from "@/data/hero-images";
+import { audienceHeroes } from "@/data/hero-images";
 
 const projectTypes = [
   "Façade remediation & envelope restoration",
@@ -157,7 +157,7 @@ const ForArchitects = () => {
         eyebrow={c.f003}
         title={c.f004}
         description={c.f005}
-        image={serviceHeroes["building-envelope-solutions"]}
+        image={audienceHeroes["for-architects"]}
         imageAlt={c.f006}
         height="medium"
         primaryCta={{ text: c.f007, href: "/contact" }}

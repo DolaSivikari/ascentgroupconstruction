@@ -130,7 +130,7 @@ const BlogPost = () => {
     );
   }
 
-  const hero = resolveBlogHero(post.featured_image, post.title);
+  const hero = resolveBlogHero(post.featured_image, post.title, post.slug);
 
   const formattedDate = post.published_at
     ? new Date(post.published_at).toLocaleDateString("en-US", {
@@ -206,6 +206,7 @@ const BlogPost = () => {
           title={post.title}
           subtitle={`${post.category} · ${formattedDate} · ${post.read_time_minutes || 5} min read`}
           image={hero.image}
+          fallbackImage={resolveBlogHero(null, post.title, post.slug).image}
           imageAlt={hero.imageAlt}
           height="small"
           breadcrumbs={[
