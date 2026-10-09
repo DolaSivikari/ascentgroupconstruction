@@ -20,9 +20,15 @@ if (!checkOnly && existsSync(join(repo, 'node_modules'))) {
   throw new Error('node_modules already exists; use --check to validate an isolated install.');
 }
 
-const mirror = 'https://europe-west4-npm.pkg.dev/lovable-core-prod/sandbox-npm-cache/';
+const mirrors = [
+  'https://europe-west4-npm.pkg.dev/lovable-core-prod/sandbox-npm-cache/',
+  'https://europe-west1-npm.pkg.dev/lovable-core-prod/sandbox-npm-cache/',
+];
 const lock = readFileSync(join(repo, 'bun.lock'), 'utf8');
-const translated = lock.replaceAll(mirror, 'https://registry.npmjs.org/');
+const translated = mirrors.reduce(
+  (result, mirror) => result.replaceAll(mirror, 'https://registry.npmjs.org/'),
+  lock,
+);
 const installDir = mkdtempSync(join(tmpdir(), 'agc-ci-deps-'));
 try {
   writeFileSync(join(installDir, 'package.json'), readFileSync(join(repo, 'package.json')));

@@ -1,0 +1,30 @@
+{
+  "status": "passed",
+  "files": [
+    {
+      "file": "Technology-BwIx9wWs.css",
+      "sha256": "4b9f6129260e7eaffda9ac387f03c432e2fe299dc615abd04035b046e08d3ed0",
+      "identical": true
+    },
+    {
+      "file": "Capabilities-t52rKTO_.css",
+      "sha256": "b7b238e6fd2881f348c31157df10ec7a1753b6bfbda6c97920664a116a54a91a",
+      "identical": true
+    },
+    {
+      "file": "UnifiedAdminLayout-MeVqSv-y.css",
+      "sha256": "3355a8d90b23ecbb957e8fe2814b354732210018432f69a3b1bd31a5528825f6",
+      "identical": true
+    },
+    {
+      "file": "index-QCMPkKMA.css",
+      "sha256": "aa64b0e945954f0bdd1773e8d61080433687dd43d6b756f8c2bf90e68bcce79b",
+      "identical": true
+    },
+    {
+      "file": "ProjectDetail-DgZjG3NI.css",
+      "sha256": "8dbe892fb602df96d1430a8797a7828a6a49a211264922da4716d5894c838a9c",
+      "identical": true
+    }
+  ]
+}

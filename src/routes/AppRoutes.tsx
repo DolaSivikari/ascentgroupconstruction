@@ -4,6 +4,7 @@ import { PageTransition } from "@/components/animations/PageTransition";
 import { SERVICE_REDIRECTS } from "@/data/service-redirects";
 import { LegacyInboxRedirect } from "@/components/admin/LegacyInboxRedirect";
 import { LegacyArticleRedirect } from "@/components/blog/LegacyArticleRedirect";
+import { LegacyRouteRedirect } from "@/components/routing/LegacyRouteRedirect";
 import Index from "@/pages/Index";
 import NotFound from "@/pages/NotFound";
 
@@ -289,7 +290,7 @@ const ServiceRouteGroup = () => (
       <Route
         key={slug}
         path={`/services/${slug}`}
-        element={<Navigate to={destination} replace />}
+        element={<LegacyRouteRedirect to={destination} />}
       />
     ))}
 
@@ -478,18 +479,18 @@ export const AppRoutes = () => (
       {/* Phase 4 redirects: consolidated pages */}
       <Route
         path="/sustainability"
-        element={<Navigate to="/services/sustainable-building" replace />}
+        element={<LegacyRouteRedirect to="/services/sustainable-building" />}
       />
-      <Route path="/insights" element={<Navigate to="/blog" replace />} />
+      <Route path="/insights" element={<LegacyRouteRedirect to="/blog" />} />
       <Route
         path="/service-selector"
-        element={<Navigate to="/services" replace />}
+        element={<LegacyRouteRedirect to="/services" />}
       />
       {/* Legacy CTA shortlinks (previously handled by Netlify _redirects, which Lovable hosting ignores) */}
-      <Route path="/free-quote" element={<Navigate to="/contact" replace />} />
+      <Route path="/free-quote" element={<LegacyRouteRedirect to="/contact" />} />
       <Route
         path="/get-estimate"
-        element={<Navigate to="/contact" replace />}
+        element={<LegacyRouteRedirect to="/contact" />}
       />
 
       {ServiceRouteGroup()}
@@ -523,7 +524,7 @@ export const AppRoutes = () => (
       />
       <Route
         path="/company/equipment-resources"
-        element={<Navigate to="/company/technology" replace />}
+        element={<LegacyRouteRedirect to="/company/technology" />}
       />
       <Route path="/company/technology" element={<Technology />} />
       <Route path="/company/developers" element={<Developers />} />
@@ -535,7 +536,7 @@ export const AppRoutes = () => (
       <Route path="/service-areas/:city" element={<LocationPage />} />
       <Route path="/blog" element={<Blog />} />
       <Route path="/blog/:slug" element={<BlogPost />} />
-      <Route path="/case-studies" element={<Navigate to="/blog" replace />} />
+      <Route path="/case-studies" element={<LegacyRouteRedirect to="/blog" />} />
       <Route path="/case-study/:slug" element={<LegacyArticleRedirect />} />
       <Route path="/projects/:slug" element={<ProjectDetail />} />
 

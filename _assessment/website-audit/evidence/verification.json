@@ -1,0 +1,55 @@
+{
+  "baseSha": "49b719f",
+  "branch": "seo/audit-verified-fixes",
+  "fullTests": {
+    "files": 95,
+    "passed": 626,
+    "newRegressionTests": 24
+  },
+  "focusedTests": {
+    "files": 4,
+    "passed": 24
+  },
+  "assetMetadataTests": {
+    "passed": 7
+  },
+  "fullAppTypes": "passed",
+  "selectedStrictTypes": "passed",
+  "productionBuild": "passed",
+  "serviceWorker": "passed",
+  "routeAudit": "passed",
+  "changedLint": {
+    "errors": 0,
+    "warnings": 0
+  },
+  "repositoryLint": {
+    "errors": 210,
+    "warnings": 29
+  },
+  "canonicalUrls": 85,
+  "viewportWidths": [
+    1440,
+    390
+  ],
+  "capturesPerBuild": 170,
+  "candidatePageErrors": 0,
+  "candidateHorizontalOverflow": 0,
+  "cityProjectRequests": "exactly one per city capture",
+  "productionVerification": "not performed; hosting/account access unavailable",
+  "liveWrites": 0,
+  "publicComparison": {
+    "status": "passed",
+    "urls": 85,
+    "captures": 170,
+    "identical": 170,
+    "declared": 0,
+    "failed": 0
+  },
+  "publicBundle": {
+    "status": "passed",
+    "urls": 85,
+    "chunks": 159,
+    "verifiedDataOnlyAssets": 1
+  },
+  "publicCss": "5 files byte-identical"
+}

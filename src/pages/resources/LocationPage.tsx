@@ -201,12 +201,14 @@ const LocationPage = () => {
   };
 
   const location = city ? locationDetails[city] : null;
+  const locationName = location?.name;
   const [areaProjects, setAreaProjects] = useState<AreaProject[]>([]);
 
   usePageAnalytics(`service-area-${city}`);
 
   useEffect(() => {
-    if (!location) return;
+    setAreaProjects([]);
+    if (!locationName) return;
     let cancelled = false;
     (async () => {
       try {
@@ -216,7 +218,7 @@ const LocationPage = () => {
             "id, title, slug, summary, location, featured_image, category",
           )
           .eq("publish_state", "published")
-          .ilike("location", `%${location.name}%`)
+          .ilike("location", `%${locationName}%`)
           .order("completion_date", { ascending: false, nullsFirst: false })
           .limit(3);
         if (!cancelled && !error && data)
@@ -228,7 +230,7 @@ const LocationPage = () => {
     return () => {
       cancelled = true;
     };
-  }, [location]);
+  }, [locationName]);
 
   if (!location) {
     return (
