@@ -1,0 +1,57 @@
+[
+  {
+    "path": "_assessment/page-redesigns/homepage-hero-scroll/README.md",
+    "sha256": "a86bdc34d4b3fa58b1d4bcc9159c01d787729ef14e2d163cd1fa2fdd07978b12",
+    "unchanged": true
+  },
+  {
+    "path": "_assessment/page-redesigns/homepage-hero-scroll/changes-to-existing-files.diff",
+    "sha256": "509c2b14ea6ba501fd11baf51f5134b74bbf9e24e15580b3daa9c71973df6738",
+    "unchanged": true
+  },
+  {
+    "path": "_assessment/page-redesigns/homepage-hero-scroll/CODEX-PROMPT-HERO-SCROLL.md",
+    "sha256": "71f0e7de3387a975669d1c26e13328b0ec1023352b77f2e9afb8ade40b091c87",
+    "unchanged": true
+  },
+  {
+    "path": "_assessment/page-redesigns/homepage-hero-scroll/test-page/index.html",
+    "sha256": "c1a0f30d0a1e76ec322b36bbbeb865de461d49bcf3613e6c1e1d4c2e5282adb2",
+    "unchanged": true
+  },
+  {
+    "path": "_assessment/page-redesigns/homepage-hero-scroll/code/src/pages/Index.tsx",
+    "sha256": "ee201ea60df28c5589a65a47d7df65db35c6dfbb74deb3dfb10a89c81d112a85",
+    "unchanged": true
+  },
+  {
+    "path": "_assessment/page-redesigns/homepage-hero-scroll/code/src/components/homepage/AnimatedScrollIndicator.tsx",
+    "sha256": "f58e0f3b621fa182680d707cd6baac2b38b20654bb04965339c9a6d3570c759e",
+    "unchanged": true
+  },
+  {
+    "path": "_assessment/page-redesigns/homepage-hero-scroll/code/src/components/homepage/EnhancedHero.tsx",
+    "sha256": "d970b8fd018cb1eabb1efe6fe4a1aec1c09221585652209b2cf22d5dad2d5254",
+    "unchanged": true
+  },
+  {
+    "path": "_assessment/page-redesigns/homepage-hero-scroll/code/src/components/homepage/hero-scroll-frame.css",
+    "sha256": "2e7762d63faf067bca80677d91fabf55c0c991b50901fb0cfa2a30397d0c6e54",
+    "unchanged": true
+  },
+  {
+    "path": "_assessment/page-redesigns/homepage-hero-scroll/code/src/components/homepage/HeroScrollFrame.test.tsx",
+    "sha256": "288105547f9abe2e4148d8b5009fcb8912064f6dd507f6d424c56fc90425506e",
+    "unchanged": true
+  },
+  {
+    "path": "_assessment/page-redesigns/homepage-hero-scroll/code/src/components/homepage/HeroScrollFrame.tsx",
+    "sha256": "b473a6af6077faa3d64504fc0b7c3c5669430aa4cc69709d3633720fb4c6ca2b",
+    "unchanged": true
+  },
+  {
+    "path": "_assessment/page-redesigns/homepage-hero-scroll/code/src/components/homepage/heroScrollPin.ts",
+    "sha256": "388a43661dfe11934e34ec2494076ae43edf99c8b7dbd9121ce1af95cc385b9b",
+    "unchanged": true
+  }
+]

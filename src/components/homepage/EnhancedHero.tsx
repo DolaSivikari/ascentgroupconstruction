@@ -92,7 +92,7 @@ function useStatCounter(stat: string, trigger: number) {
 /* ══════════════════════════════════════════════
    EnhancedHero — Cinematic Homepage Slideshow
    ══════════════════════════════════════════════ */
-const EnhancedHero = ({ splashComplete = true }: { splashComplete?: boolean }) => {
+const EnhancedHero = ({ splashComplete = true, scrollFrameEnabled = true }: { splashComplete?: boolean; scrollFrameEnabled?: boolean }) => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [previousSlide, setPreviousSlide] = useState<number | null>(null);
   const [isVideoLoaded, setIsVideoLoaded] = useState(false);
@@ -144,7 +144,7 @@ const EnhancedHero = ({ splashComplete = true }: { splashComplete?: boolean }) =
 
   const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
   const prefersReducedMotion = useReducedMotion();
-  useHeroScrollFrame(scrollFrameRef, sectionRef, prefersReducedMotion);
+  useHeroScrollFrame(scrollFrameRef, sectionRef, prefersReducedMotion || !scrollFrameEnabled);
   // Skip autoplay video only when the user explicitly opts out
   // (Data Saver or prefers-reduced-motion). Poster image is used as fallback.
   const prefersReducedData =
@@ -562,7 +562,7 @@ const EnhancedHero = ({ splashComplete = true }: { splashComplete?: boolean }) =
             transition: 'opacity 600ms ease-in-out, transform 600ms ease-in-out'
           }}
         >
-        <div className="max-w-4xl mx-auto">
+        <div className="max-w-4xl mx-auto" data-hero-content="">
           {/* Headline — reveals first */}
           <h1
             className={`text-5xl md:text-6xl lg:text-7xl font-bold mb-6 leading-[1.1] tracking-tight text-white ${shouldAnimate ? 'animate-hero-reveal' : ''}`}

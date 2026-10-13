@@ -1,0 +1,3 @@
+# Preserve verbatim uploaded reference formatting; active source uses normal checks.
+_assessment/page-redesigns/homepage-hero-scroll/code/** -whitespace
+_assessment/page-redesigns/homepage-hero-scroll/changes-to-existing-files.diff -whitespace

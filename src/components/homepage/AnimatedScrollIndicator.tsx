@@ -30,6 +30,7 @@ export const AnimatedScrollIndicator = () => {
     <div
       className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-3 pointer-events-none"
       aria-hidden="true"
+      data-hero-scroll-cue=""
     >
       <span
         className={`text-xs font-medium tracking-[0.25em] uppercase text-white/70 ${

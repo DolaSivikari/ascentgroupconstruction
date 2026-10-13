@@ -1,0 +1,42 @@
+--- a/src/components/homepage/EnhancedHero.tsx	2026-10-09 14:58:30.000000000 -0400
++++ b/src/components/homepage/EnhancedHero.tsx	2026-10-13 13:22:51.156976900 -0400
+@@ -554,7 +554,7 @@
+             transition: 'opacity 600ms ease-in-out, transform 600ms ease-in-out'
+           }}
+         >
+-        <div className="max-w-4xl mx-auto">
++        <div className="max-w-4xl mx-auto" data-hero-content="">
+           {/* Headline — reveals first */}
+           <h1
+             className={`text-5xl md:text-6xl lg:text-7xl font-bold mb-6 leading-[1.1] tracking-tight text-white ${shouldAnimate ? 'animate-hero-reveal' : ''}`}
+--- a/src/components/homepage/AnimatedScrollIndicator.tsx	2026-10-09 14:58:30.000000000 -0400
++++ b/src/components/homepage/AnimatedScrollIndicator.tsx	2026-10-13 13:22:51.223159800 -0400
+@@ -30,6 +30,7 @@
+     <div
+       className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-3 pointer-events-none"
+       aria-hidden="true"
++      data-hero-scroll-cue=""
+     >
+       <span
+         className={`text-xs font-medium tracking-[0.25em] uppercase text-white/70 ${
+--- a/src/pages/Index.tsx	2026-10-09 14:58:30.000000000 -0400
++++ b/src/pages/Index.tsx	2026-10-13 13:22:51.337640800 -0400
+@@ -7,6 +7,7 @@
+ import Footer from "@/components/Footer";
+ import EnhancedHero from "@/components/homepage/EnhancedHero";
+ import { HeroSurface } from "@/components/shared/HeroPresenceProvider";
++import { HeroScrollFrame } from "@/components/homepage/HeroScrollFrame";
+ import SEO from "@/components/SEO";
+ import { HomepageEntryPaths } from "@/components/homepage/HomepageEntryPaths";
+ import {
+@@ -152,7 +153,9 @@
+         <main id="main-content" role="main">
+           {/* 1. Hero */}
+           <HeroSurface>
+-            <EnhancedHero />
++            <HeroScrollFrame>
++              <EnhancedHero />
++            </HeroScrollFrame>
+           </HeroSurface>
+ 
+           {/* ── Zone A: White background ── */}
