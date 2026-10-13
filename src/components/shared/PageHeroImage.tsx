@@ -53,13 +53,9 @@ export function PageHeroImage({
           />
         )}
       </div>
-      {loaded && !unavailable && photo && (
+      {loaded && !unavailable && photo && photo.origin !== "generated" && (
         <div className="absolute bottom-3 right-4 z-20 max-w-[calc(100%-2rem)] text-xs text-white/90 sm:right-6">
-          {photo.origin === "generated" ? (
-            <span className="inline-block rounded bg-black/45 px-2 py-1">
-              Illustrative construction scene
-            </span>
-          ) : photo.projectPath ? (
+          {photo.projectPath ? (
             <Link
               to={photo.projectPath}
               className="inline-block rounded bg-black/45 px-2 py-1 underline-offset-4 hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-white"

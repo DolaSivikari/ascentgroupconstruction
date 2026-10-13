@@ -110,7 +110,7 @@ describe("shared header content and actions", () => {
     expect(screen.getByText("Article · 5 min read")).toBeInTheDocument();
   });
 
-  it("retains a saved editor image and restores the page image with accurate disclosure if it fails", () => {
+  it("retains a saved editor image and restores the page image without a visible caption if it fails", () => {
     saved.url = "https://storage.example/editor-photo.jpg";
     saved.alt = "Owner-selected building photo";
     const scene = generatedHeroScenes["waterproofing-systems"];
@@ -126,7 +126,7 @@ describe("shared header content and actions", () => {
     expect(fallback).toHaveAttribute("src", scene.image);
     fireEvent.load(fallback);
     expect(
-      screen.getByText("Illustrative construction scene"),
-    ).toBeInTheDocument();
+      screen.queryByText("Illustrative construction scene"),
+    ).not.toBeInTheDocument();
   });
 });
