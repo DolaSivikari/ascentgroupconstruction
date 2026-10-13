@@ -79,6 +79,8 @@ assert.ok(
 );
 const theme = process.env.HERO_QA_THEME || "light";
 assert.ok(["light", "dark"].includes(theme));
+const motion = process.env.HERO_QA_MOTION || "reduce";
+assert.ok(["reduce", "no-preference"].includes(motion));
 const fontScale = Number(process.env.HERO_QA_FONT_SCALE || 1);
 assert.ok(fontScale >= 1 && fontScale <= 2);
 const id = (n) => `00000000-0000-4000-8000-${String(n).padStart(12, "0")}`;
@@ -162,7 +164,7 @@ const errors = [],
         const page = await context.newPage();
         await page.setViewport({ width, height: 1000 });
         await page.emulateMediaFeatures([
-          { name: "prefers-reduced-motion", value: "reduce" },
+          { name: "prefers-reduced-motion", value: motion },
         ]);
         await page.evaluateOnNewDocument(
           (theme, fontScale) => {
@@ -334,6 +336,9 @@ const errors = [],
                 .map((image) => image.decode().catch(() => {})),
             );
           });
+          if (pathname === "/" && process.env.HERO_QA_SCROLL_FRAME === "true") {
+            await require("./homepage-scroll-frame-checks.cjs")({ page, output, width });
+          }
           const result = await page.evaluate(() => {
             const hero = document.querySelector("[data-hero-image-state]");
             const image = hero?.querySelector("img");
@@ -535,6 +540,7 @@ const errors = [],
           captures: snapshots.length,
           widths,
           theme,
+          motion,
           fontScale,
           errors,
           writes,

@@ -1,0 +1,581 @@
+{
+  "scope": "Homepage-only framing; offline public fixtures and actual local MP4 in Chrome. No live writes.",
+  "productionVerified": false,
+  "publicComparison": {
+    "status": "passed",
+    "urls": 6,
+    "captures": 12,
+    "identical": 12,
+    "declared": 0,
+    "failed": 0,
+    "results": [
+      {
+        "path": "/",
+        "width": 390,
+        "pixelDifferencePercent": 0,
+        "differences": [],
+        "unexpected": [],
+        "declaredReason": null
+      },
+      {
+        "path": "/",
+        "width": 1440,
+        "pixelDifferencePercent": 0,
+        "differences": [],
+        "unexpected": [],
+        "declaredReason": null
+      },
+      {
+        "path": "/about",
+        "width": 390,
+        "pixelDifferencePercent": 0,
+        "differences": [],
+        "unexpected": [],
+        "declaredReason": null
+      },
+      {
+        "path": "/about",
+        "width": 1440,
+        "pixelDifferencePercent": 0,
+        "differences": [],
+        "unexpected": [],
+        "declaredReason": null
+      },
+      {
+        "path": "/contact",
+        "width": 390,
+        "pixelDifferencePercent": 0,
+        "differences": [],
+        "unexpected": [],
+        "declaredReason": null
+      },
+      {
+        "path": "/contact",
+        "width": 1440,
+        "pixelDifferencePercent": 0,
+        "differences": [],
+        "unexpected": [],
+        "declaredReason": null
+      },
+      {
+        "path": "/privacy",
+        "width": 390,
+        "pixelDifferencePercent": 0.0017948717948717949,
+        "differences": [],
+        "unexpected": [],
+        "declaredReason": null
+      },
+      {
+        "path": "/privacy",
+        "width": 1440,
+        "pixelDifferencePercent": 0,
+        "differences": [],
+        "unexpected": [],
+        "declaredReason": null
+      },
+      {
+        "path": "/projects",
+        "width": 390,
+        "pixelDifferencePercent": 0,
+        "differences": [],
+        "unexpected": [],
+        "declaredReason": null
+      },
+      {
+        "path": "/projects",
+        "width": 1440,
+        "pixelDifferencePercent": 0.06458333333333333,
+        "differences": [],
+        "unexpected": [],
+        "declaredReason": null
+      },
+      {
+        "path": "/services/waterproofing-systems",
+        "width": 390,
+        "pixelDifferencePercent": 0,
+        "differences": [],
+        "unexpected": [],
+        "declaredReason": null
+      },
+      {
+        "path": "/services/waterproofing-systems",
+        "width": 1440,
+        "pixelDifferencePercent": 0.07395833333333333,
+        "differences": [],
+        "unexpected": [],
+        "declaredReason": null
+      }
+    ]
+  },
+  "motion": [
+    {
+      "scope": "offline fixture, real local MP4 playback",
+      "width": 1440,
+      "checks": [
+        {
+          "mode": "pinned",
+          "progress": 0,
+          "extraHeight": 500,
+          "position": "relative",
+          "heroTop": 0,
+          "clip": "inset(0%)",
+          "paused": false,
+          "sameVideo": true,
+          "sameSource": true,
+          "loads": 0,
+          "sameText": true,
+          "controlsVisible": true,
+          "overflow": false,
+          "contentTransform": "matrix(1, 0, 0, 1, 0, 0)",
+          "statement": false
+        },
+        {
+          "mode": "pinned",
+          "progress": 0,
+          "extraHeight": 500,
+          "position": "relative",
+          "heroTop": 0,
+          "clip": "inset(0%)",
+          "paused": false,
+          "sameVideo": true,
+          "sameSource": true,
+          "loads": 0,
+          "sameText": true,
+          "controlsVisible": true,
+          "overflow": false,
+          "contentTransform": "matrix(1, 0, 0, 1, 0, 0)",
+          "statement": false
+        },
+        {
+          "mode": "pinned",
+          "progress": 0.75,
+          "extraHeight": 500,
+          "position": "relative",
+          "heroTop": 0,
+          "clip": "inset(9.75% 6.75% round 10.5px)",
+          "paused": false,
+          "sameVideo": true,
+          "sameSource": true,
+          "loads": 0,
+          "sameText": true,
+          "controlsVisible": true,
+          "overflow": false,
+          "contentTransform": "matrix(1, 0, 0, 1, 0, 0)",
+          "statement": false
+        },
+        {
+          "mode": "pinned",
+          "progress": 1,
+          "extraHeight": 500,
+          "position": "relative",
+          "heroTop": 0,
+          "clip": "inset(13% 9% round 14px)",
+          "paused": false,
+          "sameVideo": true,
+          "sameSource": true,
+          "loads": 0,
+          "sameText": true,
+          "controlsVisible": true,
+          "overflow": false,
+          "contentTransform": "matrix(1, 0, 0, 1, 0, 0)",
+          "statement": false
+        },
+        {
+          "mode": "pinned",
+          "progress": 1,
+          "extraHeight": 500,
+          "position": "relative",
+          "heroTop": -120,
+          "clip": "inset(13% 9% round 14px)",
+          "paused": false,
+          "sameVideo": true,
+          "sameSource": true,
+          "loads": 0,
+          "sameText": true,
+          "controlsVisible": true,
+          "overflow": false,
+          "contentTransform": "matrix(1, 0, 0, 1, 0, 0)",
+          "statement": false
+        },
+        {
+          "mode": "pinned",
+          "progress": 0,
+          "extraHeight": 500,
+          "position": "relative",
+          "heroTop": 0,
+          "clip": "inset(0%)",
+          "paused": false,
+          "sameVideo": true,
+          "sameSource": true,
+          "loads": 0,
+          "sameText": true,
+          "controlsVisible": true,
+          "overflow": false,
+          "contentTransform": "matrix(1, 0, 0, 1, 0, 0)",
+          "statement": false
+        },
+        {
+          "mode": "flow",
+          "progress": 0,
+          "extraHeight": 0,
+          "position": "relative",
+          "heroTop": 0,
+          "clip": "inset(0%)",
+          "paused": false,
+          "sameVideo": true,
+          "sameSource": true,
+          "loads": 0,
+          "sameText": true,
+          "controlsVisible": true,
+          "overflow": false,
+          "contentTransform": "matrix(1, 0, 0, 1, 0, 0)",
+          "statement": false
+        }
+      ],
+      "reduced": {
+        "padding": 0,
+        "clip": "none",
+        "videos": 0
+      },
+      "controls": {
+        "click": true,
+        "keyboard": true
+      },
+      "dataSaver": {
+        "videos": 0,
+        "posterLoaded": true
+      }
+    },
+    {
+      "scope": "offline fixture, real local MP4 playback",
+      "width": 390,
+      "checks": [
+        {
+          "mode": "pinned",
+          "progress": 0,
+          "extraHeight": 500,
+          "position": "relative",
+          "heroTop": 0,
+          "clip": "inset(0px)",
+          "paused": false,
+          "sameVideo": true,
+          "sameSource": true,
+          "loads": 0,
+          "sameText": true,
+          "controlsVisible": true,
+          "overflow": false,
+          "contentTransform": "matrix(1, 0, 0, 1, 0, 0)",
+          "statement": false
+        },
+        {
+          "mode": "pinned",
+          "progress": 0,
+          "extraHeight": 500,
+          "position": "relative",
+          "heroTop": 0,
+          "clip": "inset(0px)",
+          "paused": false,
+          "sameVideo": true,
+          "sameSource": true,
+          "loads": 0,
+          "sameText": true,
+          "controlsVisible": true,
+          "overflow": false,
+          "contentTransform": "matrix(1, 0, 0, 1, 0, 0)",
+          "statement": false
+        },
+        {
+          "mode": "pinned",
+          "progress": 0.75,
+          "extraHeight": 500,
+          "position": "relative",
+          "heroTop": 0,
+          "clip": "inset(24px 12px round 9px)",
+          "paused": false,
+          "sameVideo": true,
+          "sameSource": true,
+          "loads": 0,
+          "sameText": true,
+          "controlsVisible": true,
+          "overflow": false,
+          "contentTransform": "matrix(1, 0, 0, 1, 0, 0)",
+          "statement": false
+        },
+        {
+          "mode": "pinned",
+          "progress": 1,
+          "extraHeight": 500,
+          "position": "relative",
+          "heroTop": 0,
+          "clip": "inset(32px 16px round 12px)",
+          "paused": false,
+          "sameVideo": true,
+          "sameSource": true,
+          "loads": 0,
+          "sameText": true,
+          "controlsVisible": true,
+          "overflow": false,
+          "contentTransform": "matrix(1, 0, 0, 1, 0, 0)",
+          "statement": false
+        },
+        {
+          "mode": "pinned",
+          "progress": 1,
+          "extraHeight": 500,
+          "position": "relative",
+          "heroTop": -120,
+          "clip": "inset(32px 16px round 12px)",
+          "paused": false,
+          "sameVideo": true,
+          "sameSource": true,
+          "loads": 0,
+          "sameText": true,
+          "controlsVisible": true,
+          "overflow": false,
+          "contentTransform": "matrix(1, 0, 0, 1, 0, 0)",
+          "statement": false
+        },
+        {
+          "mode": "pinned",
+          "progress": 0,
+          "extraHeight": 500,
+          "position": "relative",
+          "heroTop": 0,
+          "clip": "inset(0px)",
+          "paused": false,
+          "sameVideo": true,
+          "sameSource": true,
+          "loads": 0,
+          "sameText": true,
+          "controlsVisible": true,
+          "overflow": false,
+          "contentTransform": "matrix(1, 0, 0, 1, 0, 0)",
+          "statement": false
+        },
+        {
+          "mode": "flow",
+          "progress": 0,
+          "extraHeight": 0,
+          "position": "relative",
+          "heroTop": 0,
+          "clip": "inset(0px)",
+          "paused": false,
+          "sameVideo": true,
+          "sameSource": true,
+          "loads": 0,
+          "sameText": true,
+          "controlsVisible": true,
+          "overflow": false,
+          "contentTransform": "matrix(1, 0, 0, 1, 0, 0)",
+          "statement": false
+        }
+      ],
+      "reduced": {
+        "padding": 0,
+        "clip": "none",
+        "videos": 0
+      },
+      "controls": {
+        "click": true,
+        "keyboard": true
+      },
+      "dataSaver": {
+        "videos": 0,
+        "posterLoaded": true
+      }
+    },
+    {
+      "scope": "offline fixture, real local MP4 playback",
+      "width": 320,
+      "checks": [
+        {
+          "mode": "pinned",
+          "progress": 0,
+          "extraHeight": 500,
+          "position": "relative",
+          "heroTop": 0,
+          "clip": "inset(0px)",
+          "paused": false,
+          "sameVideo": true,
+          "sameSource": true,
+          "loads": 0,
+          "sameText": true,
+          "controlsVisible": true,
+          "overflow": false,
+          "contentTransform": "matrix(1, 0, 0, 1, 0, 0)",
+          "statement": false
+        },
+        {
+          "mode": "pinned",
+          "progress": 0,
+          "extraHeight": 500,
+          "position": "relative",
+          "heroTop": 0,
+          "clip": "inset(0px)",
+          "paused": false,
+          "sameVideo": true,
+          "sameSource": true,
+          "loads": 0,
+          "sameText": true,
+          "controlsVisible": true,
+          "overflow": false,
+          "contentTransform": "matrix(1, 0, 0, 1, 0, 0)",
+          "statement": false
+        },
+        {
+          "mode": "pinned",
+          "progress": 0.75,
+          "extraHeight": 500,
+          "position": "relative",
+          "heroTop": 0,
+          "clip": "inset(24px 12px round 9px)",
+          "paused": false,
+          "sameVideo": true,
+          "sameSource": true,
+          "loads": 0,
+          "sameText": true,
+          "controlsVisible": true,
+          "overflow": false,
+          "contentTransform": "matrix(1, 0, 0, 1, 0, 0)",
+          "statement": false
+        },
+        {
+          "mode": "pinned",
+          "progress": 1,
+          "extraHeight": 500,
+          "position": "relative",
+          "heroTop": 0,
+          "clip": "inset(32px 16px round 12px)",
+          "paused": false,
+          "sameVideo": true,
+          "sameSource": true,
+          "loads": 0,
+          "sameText": true,
+          "controlsVisible": true,
+          "overflow": false,
+          "contentTransform": "matrix(1, 0, 0, 1, 0, 0)",
+          "statement": false
+        },
+        {
+          "mode": "pinned",
+          "progress": 1,
+          "extraHeight": 500,
+          "position": "relative",
+          "heroTop": -120,
+          "clip": "inset(32px 16px round 12px)",
+          "paused": false,
+          "sameVideo": true,
+          "sameSource": true,
+          "loads": 0,
+          "sameText": true,
+          "controlsVisible": true,
+          "overflow": false,
+          "contentTransform": "matrix(1, 0, 0, 1, 0, 0)",
+          "statement": false
+        },
+        {
+          "mode": "pinned",
+          "progress": 0,
+          "extraHeight": 500,
+          "position": "relative",
+          "heroTop": 0,
+          "clip": "inset(0px)",
+          "paused": false,
+          "sameVideo": true,
+          "sameSource": true,
+          "loads": 0,
+          "sameText": true,
+          "controlsVisible": true,
+          "overflow": false,
+          "contentTransform": "matrix(1, 0, 0, 1, 0, 0)",
+          "statement": false
+        },
+        {
+          "mode": "flow",
+          "progress": 0,
+          "extraHeight": 0,
+          "position": "relative",
+          "heroTop": 0,
+          "clip": "inset(0px)",
+          "paused": false,
+          "sameVideo": true,
+          "sameSource": true,
+          "loads": 0,
+          "sameText": true,
+          "controlsVisible": true,
+          "overflow": false,
+          "contentTransform": "matrix(1, 0, 0, 1, 0, 0)",
+          "statement": false
+        }
+      ],
+      "reduced": {
+        "padding": 0,
+        "clip": "none",
+        "videos": 0
+      },
+      "controls": {
+        "click": true,
+        "keyboard": true
+      },
+      "dataSaver": {
+        "videos": 0,
+        "posterLoaded": true
+      }
+    }
+  ],
+  "bundle": {
+    "status": "passed",
+    "urls": 6,
+    "loadedPublicChunks": 111,
+    "verifiedAssetMetadata": [
+      "/assets/parallax-commitment.avif.asset-F1DiY2Sh.js"
+    ],
+    "failures": []
+  },
+  "tests": {
+    "initialFullRun": {
+      "files": 113,
+      "passed": 688,
+      "failed": 0
+    },
+    "finalFullRun": {
+      "files": 113,
+      "passed": 687,
+      "failed": 1,
+      "failure": "Existing getIcon async lazy-icon timing assertion while build was running"
+    },
+    "isolatedIconRerun": {
+      "files": 1,
+      "passed": 3,
+      "failed": 0
+    },
+    "earlierConcurrentAdminTimingRerun": {
+      "files": 3,
+      "passed": 18,
+      "failed": 0
+    },
+    "newScrollTests": 8
+  },
+  "checks": {
+    "selectedTypeScript": "passed",
+    "appTypeScript": "passed",
+    "build": "passed",
+    "routeAudit": "passed",
+    "serviceWorker": "passed",
+    "gitDiffCheck": "passed",
+    "lint": {
+      "errors": 201,
+      "warnings": 29,
+      "newRegressions": 0
+    },
+    "entry": {
+      "rawBytes": 1048502,
+      "gzipBytes": 314524
+    }
+  },
+  "coverageLimits": [
+    "Six representative public routes at 1440/390 widths, not a full 85-page capture",
+    "Normal-motion homepage at 1440/390/320 widths; 400px short-screen resize, reduced motion, Data Saver",
+    "Offline synthetic content, not authenticated Lovable/production or mobile Safari"
+  ]
+}
