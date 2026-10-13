@@ -1,5 +1,7 @@
 # Homepage video scroll frame
 
+This records the original frame-only phase. The owner's later Part A scroll-out adds a separate pin/statement wrapper; see [the current handoff and integration notes](../../_assessment/page-redesigns/homepage-hero-scroll/IMPLEMENTATION-NOTES.md).
+
 The homepage's existing media crops inward into a rounded panel as the visitor scrolls. Desktop reaches 9% side and 13% vertical insets with 14 px corners; phones use 16 px side and 32 px vertical insets with 12 px corners. The dark surround is `#0b0d10`, with the existing black gradient inside the frame.
 
 The hero holds for half a viewport and then returns to normal page flow. Scrolling back reverses the frame. Only the video/poster and gradient are cropped: the headline, buttons and slideshow controls retain their layout and size. There is no new statement, extra content section or homepage redesign.

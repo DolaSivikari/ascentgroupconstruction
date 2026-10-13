@@ -1,0 +1,14 @@
+{
+  "status": "no-new-findings",
+  "urls": 86,
+  "captures": 172,
+  "baselineRuleViolations": 116,
+  "candidateRuleViolations": 116,
+  "new": [],
+  "removed": [],
+  "homepageRuleViolations": 0,
+  "overflow": 0,
+  "pageErrors": 0,
+  "incompleteChecks": 168,
+  "scope": "Offline reduced-motion Chromium WCAG2/2.1 A/AA automated checks. Existing violations remain; incomplete checks require manual review."
+}

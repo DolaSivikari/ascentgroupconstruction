@@ -7,6 +7,7 @@ import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import EnhancedHero from "@/components/homepage/EnhancedHero";
 import { HeroSurface } from "@/components/shared/HeroPresenceProvider";
+import { HeroScrollFrame } from "@/components/homepage/HeroScrollFrame";
 import SEO from "@/components/SEO";
 import { HomepageEntryPaths } from "@/components/homepage/HomepageEntryPaths";
 import {
@@ -152,7 +153,9 @@ const Index = () => {
         <main id="main-content" role="main">
           {/* 1. Hero */}
           <HeroSurface>
-            <EnhancedHero />
+            <HeroScrollFrame>
+              <EnhancedHero scrollFrameEnabled={false} />
+            </HeroScrollFrame>
           </HeroSurface>
 
           {/* ── Zone A: White background ── */}

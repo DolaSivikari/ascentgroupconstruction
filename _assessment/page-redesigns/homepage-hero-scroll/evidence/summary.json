@@ -1,0 +1,31 @@
+{
+  "base": "4dc64452c1cda25e4be087b7381c56733ceb614c",
+  "tests": 730,
+  "testFiles": 117,
+  "typecheckApp": "passed",
+  "typecheckSelected": "passed",
+  "build": "passed",
+  "serviceWorker": "passed",
+  "routes": "passed",
+  "entryBudget": "passed",
+  "entryBytes": 1023861,
+  "entryGzipBytes": 306356,
+  "lintErrors": 201,
+  "lintWarnings": 29,
+  "lintRegressions": 0,
+  "publicComparison": {
+    "urls": 86,
+    "captures": 172,
+    "identical": 170,
+    "declared": 2,
+    "unexpected": 0
+  },
+  "bundleGate": {
+    "loadedPublicChunks": 229,
+    "status": "passed"
+  },
+  "browser": "Local Chromium production builds with offline fixtures; real local MP4",
+  "firefoxSafariLovablePreview": "not tested",
+  "liveWrites": false,
+  "mergePublishDeploy": false
+}

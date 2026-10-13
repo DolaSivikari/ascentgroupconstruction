@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Hero scroll-out test page</title>
+<!--
+  Test page for HeroScrollFrame. It reproduces the two site conditions that break pinning:
+  1. src/index.css sets overflow-x: hidden on html, body and #root (disables position: sticky);
+  2. PageTransition keeps transform: translateY(0) scale(1) after its enter animation
+     (turns position: fixed into page-relative positioning). Add ?transition=0 to test without it.
+  It uses the real stylesheet (../code/src/components/homepage/hero-scroll-frame.css) and the
+  same logic as HeroScrollFrame.tsx / heroScrollPin.ts, written in plain JavaScript.
+-->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="../code/src/components/homepage/hero-scroll-frame.css">
+<style>
+  html, body, #root { width: 100%; overflow-x: hidden; }            /* same as src/index.css */
+  html { scroll-behavior: smooth; }
+  body { margin: 0; font-family: Barlow, system-ui, sans-serif; background: #fff; color: #16212c; }
+  @keyframes page-enter { from { opacity: 0; transform: translateY(30px) scale(0.98); } to { opacity: 1; transform: translateY(0) scale(1); } }
+  .page-transition-enter { animation: page-enter .4s cubic-bezier(.4,0,.2,1) forwards; } /* same as animations.css */
+  .nav { position: fixed; top: 0; left: 0; right: 0; z-index: 50; display: flex; justify-content: space-between; align-items: center; padding: 18px 48px; color: #fff; font-weight: 700; transition: background .3s; }
+  .nav.solid { background: #fff; color: #003366; box-shadow: 0 1px 0 rgba(0,0,0,.08); }
+  .nav a { color: inherit; text-decoration: none; margin-left: 24px; font-weight: 600; }
+  .cta { background: #f97316; color: #fff !important; padding: 10px 16px; border-radius: 8px; }
+  /* stand-in for EnhancedHero (same structure: media, overlay, content, scroll cue) */
+  .fake-hero { position: relative; min-height: 100vh; display: flex; align-items: center; justify-content: center; overflow: hidden; padding-top: 96px; color: #fff; }
+  .fake-hero video { position: absolute; inset: -16px; width: calc(100% + 32px); height: calc(100% + 32px); object-fit: cover; z-index: 2; }
+  .fake-hero .overlay { position: absolute; inset: 0; z-index: 3; background: linear-gradient(180deg, rgba(0,0,0,.7), rgba(0,0,0,.6) 50%, rgba(0,0,0,.8)); }
+  .fake-hero .content { position: relative; z-index: 10; width: 100%; max-width: 1200px; padding: 0 16px; }
+  .fake-hero h1 { font-size: 72px; line-height: 1.1; letter-spacing: -.025em; margin: 0 0 24px; max-width: 900px; }
+  .fake-hero p { font-size: 24px; line-height: 1.6; max-width: 48rem; margin: 0 0 48px; color: rgba(255,255,255,.9); }
+  .fake-hero .btns { display: flex; gap: 16px; margin-bottom: 40px; }
+  .fake-hero .btns a { padding: 14px 28px; border-radius: 8px; font-weight: 600; color: #fff; text-decoration: none; }
+  .fake-hero .btns a:first-child { background: #f97316; }
+  .fake-hero .btns a:last-child { border: 2px solid rgba(255,255,255,.3); background: rgba(255,255,255,.1); }
+  .fake-hero .strip { display: flex; gap: 24px; align-items: center; font-size: 14px; color: rgba(255,255,255,.8); }
+  .fake-hero .strip b { color: #f97316; font-size: 24px; }
+  .fake-hero .cue { position: absolute; bottom: 32px; left: 50%; transform: translateX(-50%); z-index: 20; font-size: 12px; letter-spacing: .25em; color: rgba(255,255,255,.7); }
+  .after { padding: 40px 48px; max-width: 1200px; margin: 0 auto; }
+  .after h2 { font-size: 28px; margin: 0 0 20px; }
+  .paths { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .paths div { border: 1px solid #d6dce2; border-radius: 12px; padding: 24px; background: #f7f8fa; }
+  .filler { height: 1400px; background: linear-gradient(#fff, #eef2f6); }
+</style>
+</head>
+<body>
+<div id="root">
+  <div id="page" class="w-full page-transition-enter">
+    <nav class="nav" id="nav"><span>ASCENT GROUP CONSTRUCTION</span><span><a href="#">Services</a><a href="#">Projects</a><a class="cta" href="#">Start a Project</a></span></nav>
+    <main id="main-content">
+      <!-- HeroScrollFrame (pinned mode) -->
+      <div class="hsf" data-hero-scroll id="pin">
+        <div class="hsf-stage" data-state="before" id="stage">
+          <div class="hsf-frame">
+            <section class="fake-hero" aria-label="Hero slideshow">
+              <video autoplay muted loop playsinline poster="" src="../../homepage/preview/hero.mp4"></video>
+              <div class="overlay"></div>
+              <div class="content">
+                <div data-hero-content>
+                  <h1>We Restore, Repair &amp; Protect Buildings Across the GTA</h1>
+                  <p>Self-performed facade, waterproofing, masonry, and interior work for commercial, multi-unit, and institutional buildings.</p>
+                  <div class="btns"><a href="#">Request a Proposal →</a><a href="#">View Projects</a></div>
+                  <div class="strip"><span><b>15+</b> YEARS EXPERIENCE</span><span>━━ ── ── ──</span><span>01 / 04</span></div>
+                </div>
+              </div>
+              <div class="cue" data-hero-scroll-cue>SCROLL</div>
+            </section>
+            <div class="hsf-shade" aria-hidden="true"></div>
+          </div>
+          <section class="hsf-statement" aria-labelledby="hsf-title">
+            <div class="hsf-statement-inner">
+              <p class="hsf-eyebrow">Our Commitment</p>
+              <h2 id="hsf-title" class="hsf-title">Built to be documented</h2>
+              <p class="hsf-body">From envelope restoration to interior finishing — self-performed trades, accountable delivery, and documentation you can hand to your client.</p>
+              <ul class="hsf-points"><li>Self-performed crews</li><li>Daily field reports</li><li>Closeout on every job</li></ul>
+            </div>
+          </section>
+        </div>
+      </div>
+      <section class="after"><h2>What kind of property are you planning work on?</h2><div class="paths"><div><b>Commercial &amp; Multi-Residential</b><br>Building envelope, restoration and interior trade work…</div><div><b>Your Home</b><br>Exterior repairs, painting, tile, flooring and finishing…</div></div></section>
+      <div class="filler"></div>
+    </main>
+  </div>
+</div>
+<script>
+  // ---- heroScrollPin.ts (same maths) ----
+  const clamp01 = (v) => Math.min(1, Math.max(0, v));
+  function computePin(top, pinHeight, viewportHeight) {
+    const distance = Math.max(1, pinHeight - viewportHeight), travelled = -top;
+    const progress = clamp01(travelled / distance);
+    const state = top >= 0 ? "before" : travelled >= distance ? "after" : "pinned";
+    return { state, progress };
+  }
+  function heroScrollValues(progress) {
+    const p = clamp01(progress);
+    return { frame: 1 - (1 - p) ** 2, content: 1 - clamp01(p * 2.6), lift: -p * 60, cue: 1 - clamp01(p * 5), statement: clamp01((p - 0.4) * 2.5) };
+  }
+  // ---- HeroScrollFrame.tsx effect (same logic) ----
+  const params = new URLSearchParams(location.search);
+  if (params.get("transition") === "0") document.getElementById("page").classList.remove("page-transition-enter");
+  const pin = document.getElementById("pin"), stage = document.getElementById("stage");
+  let frameRequest = 0, lastState = "", lastFaded = null, useTransform = false;
+  function update() {
+    frameRequest = 0;
+    const rect = pin.getBoundingClientRect();
+    const { state, progress } = computePin(rect.top, pin.offsetHeight, window.innerHeight);
+    const v = heroScrollValues(progress);
+    if (state !== lastState) {
+      lastState = state; stage.dataset.state = state;
+      if (state === "pinned" && !useTransform && Math.abs(stage.getBoundingClientRect().top) > 1) { useTransform = true; stage.dataset.pin = "transform"; }
+    }
+    const s = stage.style;
+    const scale = pin.offsetHeight ? rect.height / pin.offsetHeight || 1 : 1;
+    s.setProperty("--hsf-shift", useTransform && state === "pinned" ? `${-rect.top / scale}px` : "0px");
+    s.setProperty("--hsf-frame", v.frame.toFixed(4));
+    s.setProperty("--hsf-content", v.content.toFixed(4));
+    s.setProperty("--hsf-lift", `${v.lift.toFixed(2)}px`);
+    s.setProperty("--hsf-cue", v.cue.toFixed(4));
+    s.setProperty("--hsf-statement", v.statement.toFixed(4));
+    const faded = v.content < 0.1;
+    if (faded !== lastFaded) { lastFaded = faded; stage.dataset.faded = String(faded); }
+  }
+  const schedule = () => { if (!frameRequest) frameRequest = requestAnimationFrame(update); };
+  // ?p=0.7 shows a fixed point of the animation without scrolling (for screenshots)
+  if (params.has("p")) {
+    const v = heroScrollValues(Number(params.get("p")));
+    for (const [k, val] of Object.entries({ frame: v.frame, content: v.content, cue: v.cue, statement: v.statement })) stage.style.setProperty(`--hsf-${k}`, String(val));
+    stage.style.setProperty("--hsf-lift", `${v.lift}px`);
+    document.getElementById("nav").classList.add("solid");
+  } else {
+    update();
+    addEventListener("scroll", schedule, { passive: true });
+    addEventListener("resize", schedule);
+    addEventListener("scroll", () => document.getElementById("nav").classList.toggle("solid", scrollY > 100), { passive: true });
+  }
+  stage.addEventListener("focusin", (e) => { if (stage.dataset.faded !== "true") return; const c = stage.querySelector("[data-hero-content]"); if (c && c.contains(e.target)) window.scrollTo({ top: window.scrollY + pin.getBoundingClientRect().top, behavior: "auto" }); });
+  window.__hsfUpdate = update; // for automated checks
+</script>
+</body>
+</html>

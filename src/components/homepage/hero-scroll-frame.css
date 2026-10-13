@@ -53,3 +53,172 @@
     );
   }
 }
+
+/*
+ * Homepage hero scroll-out (HeroScrollFrame.tsx).
+ * Values come from CSS variables written on scroll, so React never re-renders while scrolling.
+ *   --hsf-frame 0..1      video shrinks into a framed panel and darkens
+ *   --hsf-content 1..0    slide copy, buttons and controls fade out
+ *   --hsf-lift px         slide copy rises as it fades
+ *   --hsf-cue 1..0        "Scroll" cue fades out
+ *   --hsf-statement 0..1  "Built to be documented" fades in
+ *   --hsf-shift px        only used by the transform fallback pin
+ */
+
+/* The pin is one screen plus half a screen of scroll. */
+.hsf {
+  position: relative;
+  height: 150vh;
+  height: 150svh;
+  background-color: #0b0d10;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
+.hsf-stage {
+  --hsf-frame: 0;
+  --hsf-content: 1;
+  --hsf-lift: 0px;
+  --hsf-cue: 1;
+  --hsf-statement: 0;
+  --hsf-shift: 0px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 100vh;
+  height: 100svh;
+  overflow: hidden;
+}
+
+.hsf-stage[data-state="pinned"] {
+  position: fixed;
+}
+
+.hsf-stage[data-state="after"] {
+  top: auto;
+  bottom: 0;
+}
+
+/* Fallback when a transformed ancestor breaks position: fixed. */
+.hsf-stage[data-pin="transform"][data-state="pinned"] {
+  position: absolute;
+  top: 0;
+  transform: translate3d(0, var(--hsf-shift), 0);
+}
+
+.hsf-frame {
+  position: absolute;
+  inset: 0;
+  clip-path: inset(
+    calc(var(--hsf-frame) * 13%) calc(var(--hsf-frame) * 9%)
+      round calc(var(--hsf-frame) * 14px)
+  );
+  will-change: clip-path;
+}
+
+/* EnhancedHero fills the stage exactly (desktop only, where 100vh = 100svh). */
+.hsf-frame > section {
+  height: 100%;
+}
+
+/* Current main retains EnhancedHero's existing media wrapper; its old controller is off. */
+.hsf-frame > .homepage-hero-scroll-frame {
+  height: 100%;
+}
+
+.hsf-shade {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  background: rgba(0, 0, 0, 0.45);
+  opacity: var(--hsf-frame);
+  pointer-events: none;
+}
+
+.hsf-stage [data-hero-content] {
+  opacity: var(--hsf-content);
+  transform: translate3d(0, var(--hsf-lift), 0);
+}
+
+.hsf-stage [data-hero-scroll-cue] {
+  opacity: var(--hsf-cue);
+}
+
+.hsf-stage[data-faded="true"] [data-hero-content] {
+  pointer-events: none;
+}
+
+/* Statement over the framed video. */
+.hsf-statement {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  z-index: 20;
+  padding-inline: 20px;
+  text-align: center;
+  color: #fff;
+  opacity: var(--hsf-statement);
+  transform: translate3d(0, calc(-50% + (1 - var(--hsf-statement)) * 24px), 0);
+  pointer-events: none;
+}
+
+/* Static version: phones, tablets, short windows and reduced motion. */
+.hsf-static {
+  background: #0b0d10;
+  color: #fff;
+  text-align: center;
+  padding: 64px 20px;
+}
+
+.hsf-eyebrow {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: #ffb27a;
+}
+
+.hsf-title {
+  margin: 12px 0 14px;
+  font-size: clamp(34px, 4.4vw, 64px);
+  font-weight: 700;
+  line-height: 1.08;
+  letter-spacing: -0.015em;
+  color: #fff;
+}
+
+.hsf-body {
+  margin: 0 auto;
+  max-width: 38rem;
+  font-size: clamp(16px, 1.4vw, 19px);
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.hsf-points {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px 28px;
+  list-style: none;
+  padding: 0;
+  margin: 22px 0 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: #fff;
+}
+
+.hsf-points li::before {
+  content: "";
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  margin-right: 9px;
+  vertical-align: 2px;
+  background: #f97316;
+}
