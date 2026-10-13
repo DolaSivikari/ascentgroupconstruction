@@ -7,6 +7,9 @@ Run scripts from the repository root. CI entry points are defined in `.github/wo
 | Script | Purpose |
 | --- | --- |
 | `install-ci-dependencies.mjs` | Frozen Bun/Node dependency installation, including package-mirror handling |
+| `check-operational-contracts.mjs` | Required monitoring/comparison JSON and active guides |
+| `check-lint-budget.mjs` | Existing lint debt without new per-file/rule violations |
+| `check-entry-budget.mjs` | Initial production JavaScript transfer budget |
 | `audit-routes.ts` | Internal links and registered route checks |
 | `validate-sw.js` | Service-worker lifecycle and open-tab update safeguards |
 | `verify-headers.js` | Hosting header-file validation |
@@ -23,7 +26,7 @@ See [development commands](../docs/development/README.md). A host smoke check do
 - `baseline/bundle-check.ts`: check public-loaded JavaScript against the bundle policy.
 - `site-health/crawl.ts`: collect nightly public-page checks; upload only with explicit configuration.
 
-Use the [baseline guide](../_assessment/baseline/README.md) and [Site Health setup checklist](../_assessment/admin-upgrade/PHASE-2-IMPLEMENTATION-STATUS.md). Browser tooling stays outside application dependencies.
+Use the [baseline guide](../docs/development/public-comparison.md) and [Site Health setup checklist](../docs/admin-upgrade/PHASE-2-IMPLEMENTATION-STATUS.md). Browser tooling stays outside application dependencies.
 
 ## Admin fixture runners
 

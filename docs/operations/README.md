@@ -18,7 +18,7 @@ A manually applied subset of an older migration must be reconciled with migratio
 
 ## Nightly Site Health
 
-Use the [Phase 2 setup checklist](../../_assessment/admin-upgrade/PHASE-2-IMPLEMENTATION-STATUS.md#owner-setup-in-order).
+Use the [Phase 2 setup checklist](../../docs/admin-upgrade/PHASE-2-IMPLEMENTATION-STATUS.md#owner-setup-in-order).
 
 The setup has separate parts:
 
@@ -34,7 +34,7 @@ The owner's database conversation reported the tables missing and prepared a sta
 
 ## Intake and content activation
 
-The [application status](../../_assessment/admin-upgrade/MASTER-PLAN-APPLICATION-STATUS.md) records the required schema, functions and switches. Keep new inquiry intake, content overrides and newsletter server paths disabled until their own prerequisites are verified.
+The [application status](../../docs/admin-upgrade/MASTER-PLAN-APPLICATION-STATUS.md) records the required schema, functions and switches. Keep new inquiry intake, content overrides and newsletter server paths disabled until their own prerequisites are verified.
 
 Do not apply `0001` unchanged over the installed role safeguards; the status document explains the collision. Credential claims and owner-supplied business facts remain owner decisions.
 

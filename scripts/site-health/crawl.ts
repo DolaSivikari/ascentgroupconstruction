@@ -163,7 +163,7 @@ try {
   const urls = await sitemap(HEALTH_ORIGIN + "/sitemap.xml");
   urls.forEach((value) => sitemapPaths.add(new URL(value).pathname));
   const known = JSON.parse(
-    await readFile("_assessment/baseline/inventory.json", "utf8"),
+    await readFile("config/page-safety/inventory.json", "utf8"),
   ) as { pages: Array<{ path: string }> };
   payload.paths = inventory(
     urls,

@@ -1,4 +1,4 @@
-import { useMemo, useSyncExternalStore } from "react";
+import { useEffect, useSyncExternalStore } from "react";
 import type { SupabaseClient } from "@supabase/supabase-js";
 import { supabase } from "@/integrations/supabase/client";
 import { visitorSupabase } from "@/lib/publicSettings";
@@ -6,17 +6,25 @@ import type { OptionalDatabase } from "@/lib/admin/optionalDatabase";
 import { resolveContentValues, type ContentModule } from "@/content/types";
 const publicDb = visitorSupabase as unknown as SupabaseClient<OptionalDatabase>;
 const adminDb = supabase as unknown as SupabaseClient<OptionalDatabase>;
-type Snapshot = { enabled: boolean; values: Record<string, unknown> };
-let snapshot: Snapshot = { enabled: false, values: {} };
+type Snapshot = {
+  enabled: boolean;
+  values: Record<string, unknown>;
+  revision: number;
+};
+let generation = 0;
+const loaded = new Set<string>();
+const pending = new Map<string, Promise<void>>();
+let snapshot: Snapshot = { enabled: false, values: {}, revision: generation };
 const listeners = new Set<() => void>();
 const emit = () => listeners.forEach((fn) => fn());
 const previews = new Map<string, Record<string, unknown>>();
-let generation = 0;
-/** One bounded request; failed/missing flags turn everything off. No late hero swap. */
+/** Refresh capabilities; content is fetched only for mounted modules. */
 export async function refreshContentOverrides() {
   const request = ++generation;
+  loaded.clear();
+  pending.clear();
   if (import.meta.env.VITE_PAGE_OVERRIDES_ENABLED !== "true") {
-    snapshot = { enabled: false, values: {} };
+    snapshot = { enabled: false, values: {}, revision: generation };
     emit();
     return;
   }
@@ -26,7 +34,7 @@ export async function refreshContentOverrides() {
       .select("key,enabled");
     if (error || !flags?.find((f) => f.key === "content_overrides")?.enabled) {
       if (request === generation) {
-        snapshot = { enabled: false, values: {} };
+        snapshot = { enabled: false, values: {}, revision: generation };
         emit();
       }
       return;
@@ -46,43 +54,72 @@ export async function refreshContentOverrides() {
     }
     if (!allowed) {
       if (request === generation) {
-        snapshot = { enabled: false, values: {} };
+        snapshot = { enabled: false, values: {}, revision: generation };
         emit();
       }
       return;
     }
-    const db = canary ? adminDb : publicDb;
-    const rows: Array<{ key: string; published_value: unknown }> = [];
-    for (let from = 0; from < 20000; from += 1000) {
-      const { data, error: loadError } = await db
-        .from("content_entries")
-        .select("key,published_value")
-        .not("published_value", "is", null)
-        .order("key")
-        .range(from, from + 999);
-      if (loadError) throw loadError;
-      rows.push(...(data || []));
-      if ((data?.length || 0) < 1000) break;
-      if (from === 19000) throw new Error("Content exceeds supported limit");
-    }
     if (request === generation) {
-      snapshot = {
-        enabled: true,
-        values: Object.fromEntries(rows.map((r) => [r.key, r.published_value])),
-      };
+      moduleDb = canary ? adminDb : publicDb;
+      snapshot = { enabled: true, values: {}, revision: generation };
       emit();
     }
   } catch {
     if (request === generation) {
-      snapshot = { enabled: false, values: {} };
+      snapshot = { enabled: false, values: {}, revision: generation };
       emit();
     }
   }
 }
 export function disableContentOverrides() {
   ++generation;
-  snapshot = { enabled: false, values: {} };
+  loaded.clear();
+  pending.clear();
+  snapshot = { enabled: false, values: {}, revision: generation };
   emit();
+}
+let moduleDb = publicDb;
+async function loadModule(id: string) {
+  if (!snapshot.enabled || loaded.has(id)) return;
+  if (pending.has(id)) return pending.get(id);
+  const request = generation;
+  const task = (async () => {
+    try {
+      const rows: Array<{ key: string; published_value: unknown }> = [];
+      for (let start = 0; start < 2000; start += 1000) {
+        const { data, error } = await moduleDb
+          .from("content_entries")
+          .select("key,published_value")
+          .eq("page_id", id)
+          .not("published_value", "is", null)
+          .order("key")
+          .range(start, start + 999);
+        if (error) throw error;
+        rows.push(...(data || []));
+        if ((data?.length || 0) < 1000) break;
+        if (start === 1000)
+          throw new Error("Page content exceeds supported limit");
+      }
+      if (request !== generation) return;
+      loaded.add(id);
+      snapshot = {
+        ...snapshot,
+        values: {
+          ...snapshot.values,
+          ...Object.fromEntries(
+            rows.map((row) => [row.key, row.published_value]),
+          ),
+        },
+      };
+      emit();
+    } catch {
+      // Keep code defaults on failure. A refresh or next mount can retry.
+    } finally {
+      if (request === generation) pending.delete(id);
+    }
+  })();
+  pending.set(id, task);
+  return task;
 }
 export function useResolvedContent<T extends Record<string, unknown>>(
   module: ContentModule,
@@ -96,28 +133,19 @@ export function useResolvedContent<T extends Record<string, unknown>>(
     },
     () => snapshot,
   );
+  useEffect(() => {
+    void loadModule(module.id);
+  }, [module.id, state.enabled, state.revision]);
   const preview = previews.get(module.id);
-  const initial = useMemo(
-    () => ({
-      values: preview
-        ? Object.fromEntries(
-            Object.entries(preview).map(([key, value]) => [
-              `${module.id}.${key}`,
-              value,
-            ]),
-          )
-        : state.values,
-      enabled: !!preview || state.enabled,
-    }),
-    // Freeze published overrides for this route visit, while existing database fallbacks can resolve normally.
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [module.id],
-  );
-  return resolveContentValues(
-    module,
-    initial.values,
-    initial.enabled && (!!preview || state.enabled),
-  ) as T;
+  const values = preview
+    ? Object.fromEntries(
+        Object.entries(preview).map(([key, value]) => [
+          `${module.id}.${key}`,
+          value,
+        ]),
+      )
+    : state.values;
+  return resolveContentValues(module, values, !!preview || state.enabled) as T;
 }
 export async function prepareContentPreview(
   moduleId: string,
@@ -140,13 +168,17 @@ export async function prepareContentPreview(
 export async function initializeContentPreview() {
   if (new URLSearchParams(location.search).get("content_preview") !== "1")
     return;
+  const request = generation;
   try {
     const item = JSON.parse(
       sessionStorage.getItem("ascent-content-preview") || "null",
     );
     if (!item || item.expires < Date.now()) return;
     await prepareContentPreview(item.moduleId, item.values);
+    if (request !== generation) return;
     previews.set(item.moduleId, item.values);
+    snapshot = { ...snapshot };
+    emit();
   } catch {
     sessionStorage.removeItem("ascent-content-preview");
   }

@@ -1,3 +1,4 @@
+import { invokeChecked } from "@/lib/invokeChecked";
 import { useIntakeEnabled } from "@/hooks/useIntakeEnabled";
 import { useInquirySubmit } from "@/hooks/useInquirySubmit";
 import { usePageContent } from "@/hooks/usePageContent";
@@ -426,7 +427,7 @@ Add-ons:
 
       let notificationWarning = false;
       try {
-        await supabase.functions.invoke("send-estimate-confirmation", {
+        await invokeChecked("send-estimate-confirmation", {
           body: {
             name: validatedData.name,
             email: validatedData.email,

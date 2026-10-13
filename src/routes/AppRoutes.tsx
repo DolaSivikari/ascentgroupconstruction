@@ -1,4 +1,5 @@
-import { lazy, type ComponentType } from "react";
+import { lazy } from "react";
+import { lazyPage as lazyWithFallback } from "@/components/routing/lazyPage";
 import { Navigate, Route, Routes } from "react-router-dom";
 import { PageTransition } from "@/components/animations/PageTransition";
 import { SERVICE_REDIRECTS } from "@/data/service-redirects";
@@ -7,20 +8,6 @@ import { LegacyArticleRedirect } from "@/components/blog/LegacyArticleRedirect";
 import { LegacyRouteRedirect } from "@/components/routing/LegacyRouteRedirect";
 import Index from "@/pages/Index";
 import NotFound from "@/pages/NotFound";
-
-const lazyWithFallback = (
-  importer: () => Promise<{ default: ComponentType }>,
-  name: string,
-) =>
-  lazy(() =>
-    importer().catch(() => ({
-      default: () => (
-        <div className="min-h-screen flex items-center justify-center">
-          <p>Failed to load {name}</p>
-        </div>
-      ),
-    })),
-  );
 
 // Public pages — lazy-loaded for smaller initial bundle (only Index loads eagerly)
 const About = lazyWithFallback(() => import("@/pages/About"), "About");

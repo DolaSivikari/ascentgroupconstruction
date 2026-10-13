@@ -1,4 +1,4 @@
-/** Curated images. Sources: _assessment/headers/hero-image-sources.json. */
+/** Curated images. Sources: docs/design/hero-image-sources.json. */
 import { generatedHeroScenes } from "./hero-scenes";
 import photoToronto from "@/assets/heroes/cities/toronto.jpg";
 import photoMississauga from "@/assets/heroes/cities/mississauga.jpg";

@@ -1,3 +1,4 @@
+import { invokeChecked } from "@/lib/invokeChecked";
 import { useState } from "react";
 import {
   Dialog,
@@ -20,7 +21,11 @@ interface ResumeSubmissionDialogProps {
   jobTitle?: string;
 }
 
-const ResumeSubmissionDialog = ({ open, onOpenChange, jobTitle }: ResumeSubmissionDialogProps) => {
+const ResumeSubmissionDialog = ({
+  open,
+  onOpenChange,
+  jobTitle,
+}: ResumeSubmissionDialogProps) => {
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
@@ -29,7 +34,7 @@ const ResumeSubmissionDialog = ({ open, onOpenChange, jobTitle }: ResumeSubmissi
     phone: "",
     coverMessage: "",
     portfolioLinks: "",
-    honeypot: "" // Honeypot for bot detection
+    honeypot: "", // Honeypot for bot detection
   });
 
   const [lastSubmitTime, setLastSubmitTime] = useState<number>(0);
@@ -53,27 +58,30 @@ const ResumeSubmissionDialog = ({ open, onOpenChange, jobTitle }: ResumeSubmissi
     try {
       // Convert portfolio links string to array
       const portfolioArray = formData.portfolioLinks
-        .split('\n')
-        .map(link => link.trim())
-        .filter(link => link.length > 0);
+        .split("\n")
+        .map((link) => link.trim())
+        .filter((link) => link.length > 0);
 
       // Submit via edge function with bot protection
-      const { error } = await supabase.functions.invoke('submit-form', {
-        body: {
-          formType: 'resume',
-          data: {
-            name: formData.name,
-            email: formData.email,
-            phone: formData.phone,
-            coverMessage: formData.coverMessage,
-            portfolioLinks: portfolioArray.length > 0 ? portfolioArray : null
+      const { data: result, error } = await supabase.functions.invoke(
+        "submit-form",
+        {
+          body: {
+            formType: "resume",
+            data: {
+              name: formData.name,
+              email: formData.email,
+              phone: formData.phone,
+              coverMessage: formData.coverMessage,
+              portfolioLinks: portfolioArray.length > 0 ? portfolioArray : null,
+            },
+            honeypot: formData.honeypot,
           },
-          honeypot: formData.honeypot
-        }
-      });
+        },
+      );
 
       if (error) {
-        if (error.message?.includes('Rate limit exceeded')) {
+        if (error.message?.includes("Rate limit exceeded")) {
           toast({
             title: "Too many submissions",
             description: "Please try again in a few minutes.",
@@ -84,36 +92,51 @@ const ResumeSubmissionDialog = ({ open, onOpenChange, jobTitle }: ResumeSubmissi
         throw error;
       }
 
+      if (result?.success !== true)
+        throw new Error("Your application was not accepted. Please try again.");
+
       // Send email notifications
+      let notificationWarning = false;
       try {
-        await supabase.functions.invoke('send-resume-notification', {
+        await invokeChecked("send-resume-notification", {
           body: {
             applicantName: formData.name,
             email: formData.email,
             phone: formData.phone,
             coverMessage: formData.coverMessage,
-            jobTitle: jobTitle
-          }
+            jobTitle: jobTitle,
+          },
         });
       } catch (emailError) {
-        console.error('Email notification failed:', emailError);
+        notificationWarning = true;
+        console.error("Email notification failed:", emailError);
         // Don't fail the submission if email fails
       }
 
       toast({
         title: "Application Submitted!",
-        description: "Thank you for your interest. Check your email for confirmation. We'll review your application and get back to you soon.",
+        description: notificationWarning
+          ? "Your application was saved. We'll review it and get back to you soon."
+          : "Thank you for your interest. Check your email for confirmation. We'll review your application and get back to you soon.",
       });
 
       // Reset form and close dialog
-      setFormData({ name: "", email: "", phone: "", coverMessage: "", portfolioLinks: "", honeypot: "" });
+      setFormData({
+        name: "",
+        email: "",
+        phone: "",
+        coverMessage: "",
+        portfolioLinks: "",
+        honeypot: "",
+      });
       setLastSubmitTime(now);
       onOpenChange(false);
     } catch (error) {
       console.error("Error submitting resume:", error);
       toast({
         title: "Error",
-        description: "Failed to submit application. Please try again or email us directly.",
+        description:
+          "Failed to submit application. Please try again or email us directly.",
         variant: "destructive",
       });
     } finally {
@@ -129,10 +152,11 @@ const ResumeSubmissionDialog = ({ open, onOpenChange, jobTitle }: ResumeSubmissi
             {jobTitle ? `Apply for: ${jobTitle}` : "Submit Your Application"}
           </DialogTitle>
           <DialogDescription>
-            Fill out the form below to submit your resume and application. We'll get back to you soon!
+            Fill out the form below to submit your resume and application. We'll
+            get back to you soon!
           </DialogDescription>
         </DialogHeader>
-        
+
         <form onSubmit={handleSubmit} className="space-y-4 mt-4">
           <div className="space-y-2">
             <Label htmlFor="name">Full Name *</Label>
@@ -140,7 +164,9 @@ const ResumeSubmissionDialog = ({ open, onOpenChange, jobTitle }: ResumeSubmissi
               id="name"
               required
               value={formData.name}
-              onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+              onChange={(e) =>
+                setFormData({ ...formData, name: e.target.value })
+              }
               placeholder="John Smith"
             />
           </div>
@@ -152,7 +178,9 @@ const ResumeSubmissionDialog = ({ open, onOpenChange, jobTitle }: ResumeSubmissi
               type="email"
               required
               value={formData.email}
-              onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+              onChange={(e) =>
+                setFormData({ ...formData, email: e.target.value })
+              }
               placeholder="john@example.com"
             />
           </div>
@@ -163,7 +191,9 @@ const ResumeSubmissionDialog = ({ open, onOpenChange, jobTitle }: ResumeSubmissi
               id="phone"
               type="tel"
               value={formData.phone}
-              onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+              onChange={(e) =>
+                setFormData({ ...formData, phone: e.target.value })
+              }
               placeholder="(647) 123-4567"
             />
           </div>
@@ -173,7 +203,9 @@ const ResumeSubmissionDialog = ({ open, onOpenChange, jobTitle }: ResumeSubmissi
             <Textarea
               id="coverMessage"
               value={formData.coverMessage}
-              onChange={(e) => setFormData({ ...formData, coverMessage: e.target.value })}
+              onChange={(e) =>
+                setFormData({ ...formData, coverMessage: e.target.value })
+              }
               placeholder="Tell us about your experience and why you'd be a great fit..."
               className="min-h-[120px]"
             />
@@ -182,29 +214,39 @@ const ResumeSubmissionDialog = ({ open, onOpenChange, jobTitle }: ResumeSubmissi
           <div className="space-y-2">
             <Label htmlFor="portfolioLinks">
               Portfolio / Resume Links
-              <span className="text-xs text-muted-foreground ml-2">(one per line)</span>
+              <span className="text-xs text-muted-foreground ml-2">
+                (one per line)
+              </span>
             </Label>
             <Textarea
               id="portfolioLinks"
               value={formData.portfolioLinks}
-              onChange={(e) => setFormData({ ...formData, portfolioLinks: e.target.value })}
+              onChange={(e) =>
+                setFormData({ ...formData, portfolioLinks: e.target.value })
+              }
               placeholder="https://linkedin.com/in/yourprofile&#10;https://drive.google.com/your-resume"
               className="min-h-[80px] font-mono text-sm"
             />
             <p className="text-xs text-muted-foreground">
-              Add links to your LinkedIn, resume, portfolio, or other relevant documents
+              Add links to your LinkedIn, resume, portfolio, or other relevant
+              documents
             </p>
           </div>
 
           {/* Honeypot field - hidden from users */}
-          <div style={{ position: 'absolute', left: '-9999px' }} aria-hidden="true">
+          <div
+            style={{ position: "absolute", left: "-9999px" }}
+            aria-hidden="true"
+          >
             <Input
               type="text"
               name="website"
               tabIndex={-1}
               autoComplete="off"
               value={formData.honeypot}
-              onChange={(e) => setFormData({ ...formData, honeypot: e.target.value })}
+              onChange={(e) =>
+                setFormData({ ...formData, honeypot: e.target.value })
+              }
             />
           </div>
 

@@ -1,3 +1,4 @@
+import { invokeChecked } from "@/lib/invokeChecked";
 import { useIntakeEnabled } from "@/hooks/useIntakeEnabled";
 import { InquiryForm } from "@/components/inquiry/InquiryForm";
 import { usePageContent } from "@/hooks/usePageContent";
@@ -160,25 +161,16 @@ const Contact = () => {
 
       let notificationWarning = false;
       try {
-        const timeoutPromise = new Promise((_, reject) =>
-          setTimeout(
-            () => reject(new Error("Email notification timeout")),
-            10000,
-          ),
-        );
-        await Promise.race([
-          supabase.functions.invoke("send-contact-notification", {
-            body: {
-              name: validatedData.name,
-              email: validatedData.email,
-              phone: validatedData.phone,
-              company: validatedData.company,
-              message: validatedData.message,
-              submissionType: "Contact Form",
-            },
-          }),
-          timeoutPromise,
-        ]);
+        await invokeChecked("send-contact-notification", {
+          body: {
+            name: validatedData.name,
+            email: validatedData.email,
+            phone: validatedData.phone,
+            company: validatedData.company,
+            message: validatedData.message,
+            submissionType: "Contact Form",
+          },
+        });
 
         // Review requests are sent by staff from the admin area, not triggered
         // by anonymous form submissions.

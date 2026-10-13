@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 export interface LocalDraft<T> {
   data: T;
@@ -13,23 +13,51 @@ export function useLocalDraft<T>(
 ) {
   const [lastSaved, setLastSaved] = useState<Date | null>(null);
   const [error, setError] = useState<string | null>(null);
-  useEffect(() => {
-    setLastSaved(null);
-    setError(null);
-  }, [storageKey]);
-  useEffect(() => {
-    if (!enabled) return;
+  const pending = useRef<{ key: string; data: T } | null>(null);
+  const flush = useCallback(() => {
+    const draft = pending.current;
+    if (!draft) return;
     try {
       const timestamp = new Date().toISOString();
-      localStorage.setItem(storageKey, JSON.stringify({ data, timestamp }));
+      localStorage.setItem(
+        draft.key,
+        JSON.stringify({ data: draft.data, timestamp }),
+      );
+      pending.current = null;
       setLastSaved(new Date(timestamp));
       setError(null);
     } catch {
       setError(
-        "The draft could not be saved on this device. Keep this page open and use Save Project.",
+        "The draft could not be saved on this device. Keep this page open and use Save.",
       );
     }
-  }, [data, storageKey, enabled]);
+  }, []);
+  useEffect(() => {
+    if (pending.current?.key !== storageKey) flush();
+    setLastSaved(null);
+    setError(null);
+  }, [storageKey, flush]);
+  useEffect(() => {
+    if (!enabled) {
+      pending.current = null;
+      return;
+    }
+    pending.current = { key: storageKey, data };
+    const timer = setTimeout(flush, 500);
+    return () => clearTimeout(timer);
+  }, [data, storageKey, enabled, flush]);
+  useEffect(() => {
+    const onHidden = () => {
+      if (document.visibilityState === "hidden") flush();
+    };
+    window.addEventListener("pagehide", flush);
+    document.addEventListener("visibilitychange", onHidden);
+    return () => {
+      window.removeEventListener("pagehide", flush);
+      document.removeEventListener("visibilitychange", onHidden);
+      flush();
+    };
+  }, [flush]);
   const loadFromLocalStorage = useCallback((): LocalDraft<T> | null => {
     try {
       const raw = localStorage.getItem(storageKey);
@@ -46,6 +74,7 @@ export function useLocalDraft<T>(
     }
   }, [storageKey]);
   const clearLocalStorage = useCallback(() => {
+    if (pending.current?.key === storageKey) pending.current = null;
     try {
       localStorage.removeItem(storageKey);
       setLastSaved(null);
@@ -56,5 +85,5 @@ export function useLocalDraft<T>(
       );
     }
   }, [storageKey]);
-  return { lastSaved, error, loadFromLocalStorage, clearLocalStorage };
+  return { lastSaved, error, loadFromLocalStorage, clearLocalStorage, flush };
 }

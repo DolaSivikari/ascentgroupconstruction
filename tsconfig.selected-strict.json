@@ -15,6 +15,12 @@
     "src/hooks/useActiveSettings.ts",
     "src/hooks/useSettingsData.ts",
     "src/pages/admin/seo/types.ts",
-    "src/hooks/admin/useSeoOverviewStats.ts"
+    "src/hooks/admin/useSeoOverviewStats.ts",
+    "src/lib/invokeChecked.ts",
+    "src/utils/telemetryPrivacy.ts",
+    "src/utils/getIcon.tsx",
+    "src/lib/admin/projectFields.ts",
+    "src/hooks/useLocalDraft.ts",
+    "src/lib/admin/saveProject.ts"
   ]
 }

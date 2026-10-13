@@ -1,11 +1,6 @@
-import { SupabaseClient } from "npm:@supabase/supabase-js@2";
+import type { SupabaseClient } from "npm:@supabase/supabase-js@2";
 
-export interface RateLimitResult {
-  allowed: boolean;
-  request_count?: number;
-  limit?: number;
-  retry_after_seconds?: number;
-}
+import { rateLimitDecision, type RateLimitResult } from "./rate-limit-contract.ts";
 
 /**
  * Check and update rate limit for a given identifier and endpoint
@@ -21,7 +16,8 @@ export const checkRateLimit = async (
   identifier: string,
   endpoint: string,
   limit: number = 50,
-  windowMinutes: number = 1
+  windowMinutes: number = 1,
+  failureMode: "allow" | "deny" = "deny"
 ): Promise<RateLimitResult> => {
   try {
     const { data, error } = await supabase.rpc('check_and_update_rate_limit', {
@@ -31,17 +27,10 @@ export const checkRateLimit = async (
       p_window_minutes: windowMinutes
     });
 
-    if (error) {
-      console.error('[Rate Limiter] Check failed:', error);
-      // On error, allow request to prevent blocking legitimate users
-      return { allowed: true };
-    }
-
-    return data as RateLimitResult;
-  } catch (err) {
-    console.error('[Rate Limiter] Exception:', err);
-    // On exception, allow request
-    return { allowed: true };
+    return rateLimitDecision(data, !!error, failureMode);
+  } catch {
+    console.warn("[Rate Limiter] Check unavailable");
+    return rateLimitDecision(null, true, failureMode);
   }
 };
 

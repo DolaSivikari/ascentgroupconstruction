@@ -24,6 +24,7 @@ export async function handleInquiryIntake(
     "submit-form:inquiry",
     5,
     15,
+    "allow", // Persist validated inquiries even when limiter infrastructure is unavailable.
   );
   if (!rate.allowed)
     return createRateLimitResponse(
