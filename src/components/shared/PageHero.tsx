@@ -56,12 +56,12 @@ export interface PageHeroProps {
   contentClassName?: string;
 }
 
-// Phones use natural content height; desktop profiles retain the page hierarchy.
+// Restore generous image proportions; long mobile content can still grow naturally.
 const heightClasses: Record<HeroHeight, string> = {
-  large: "md:min-h-[34rem]",
-  medium: "md:min-h-[28rem]",
-  small: "md:min-h-[24rem]",
-  mini: "md:min-h-[18rem]",
+  large: "min-h-[75svh] md:min-h-[min(80svh,56rem)]",
+  medium: "min-h-[60svh] md:min-h-[min(65svh,42rem)]",
+  small: "min-h-[50svh] md:min-h-[min(55svh,36rem)]",
+  mini: "min-h-[35svh] md:min-h-[min(40svh,28rem)]",
 };
 const maxWidthClasses: Record<HeroMaxWidth, string> = {
   narrow: "max-w-2xl",
