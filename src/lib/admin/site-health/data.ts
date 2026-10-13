@@ -2,11 +2,11 @@ import type { SupabaseClient } from "@supabase/supabase-js";
 import { supabase } from "@/integrations/supabase/client";
 import {
   healthResultSchema,
-  missingHealthSchema,
   type HealthResult,
   type IssueState,
 } from "./contract";
 import type { HealthDatabase } from "./types";
+import { healthFailure } from "./readiness";
 
 const health = supabase as unknown as SupabaseClient<HealthDatabase>;
 export async function loadHealthOverview() {
@@ -17,16 +17,29 @@ export async function loadHealthOverview() {
       .select("fingerprint", { head: true })
       .limit(1),
   ]);
-  if (prerequisites.some((result) => missingHealthSchema(result.error)))
-    return { available: false as const, runs: [] };
-  for (const result of prerequisites) if (result.error) throw result.error;
+  // A permission/cache failure must not be hidden by another missing table.
+  const failures = prerequisites.filter((result) => result.error);
+  const blocking = failures.find(
+    (result) => healthFailure(result.error).kind !== "missing-schema",
+  );
+  if (blocking) throw blocking.error;
+  if (failures.length)
+    return {
+      available: false as const,
+      runs: [],
+      reason: healthFailure(failures[0].error),
+    };
   const { data, error } = await health
     .from("site_health_runs")
     .select("*")
     .order("started_at", { ascending: false })
     .limit(32);
-  if (missingHealthSchema(error))
-    return { available: false as const, runs: [] };
+  if (error && healthFailure(error).kind === "missing-schema")
+    return {
+      available: false as const,
+      runs: [],
+      reason: healthFailure(error),
+    };
   if (error) throw error;
   return { available: true as const, runs: data || [] };
 }

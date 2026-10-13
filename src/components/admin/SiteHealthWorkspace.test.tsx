@@ -90,6 +90,80 @@ beforeEach(() => {
 });
 afterEach(cleanup);
 describe("honest Site Health workspace", () => {
+  it("shows empty history without a healthy status", async () => {
+    mock.overview.mockResolvedValue({ available: true, runs: [] });
+    open();
+    expect(
+      await screen.findByText(/No nightly checks recorded yet/),
+    ).toBeInTheDocument();
+    expect(screen.queryByText(/No issues detected/)).not.toBeInTheDocument();
+  });
+  it("keeps an API-cache failure distinct from confirmed missing tables", async () => {
+    mock.overview.mockRejectedValue({ code: "PGRST205" });
+    open();
+    expect(
+      await screen.findByText(/API cannot find.*schema cache/),
+    ).toBeInTheDocument();
+    expect(
+      screen.queryByText("Site Health needs setup"),
+    ).not.toBeInTheDocument();
+  });
+  it("does not show a clean result list after loading fails", async () => {
+    mock.results.mockRejectedValue({ code: "42501" });
+    open();
+    expect(
+      await screen.findByText(/Could not load page results/),
+    ).toBeInTheDocument();
+    expect(screen.queryByText(/No issues detected/)).not.toBeInTheDocument();
+    expect(screen.queryByText(/All page results/)).not.toBeInTheDocument();
+  });
+  it("does not treat an empty result list as a pass", async () => {
+    mock.results.mockResolvedValue([]);
+    open();
+    expect(
+      await screen.findByText(/No page results are recorded for this run/),
+    ).toBeInTheDocument();
+    expect(screen.queryByText(/No issues detected/)).not.toBeInTheDocument();
+  });
+  it.each([401, 403, 503])(
+    "does not turn a function HTTP %s failure into deployment advice",
+    async (status) => {
+      mock.ping.mockResolvedValue({
+        data: null,
+        error: { context: { status } },
+      });
+      open();
+      fireEvent.click(screen.getByRole("button", { name: "Check database" }));
+      expect(
+        await screen.findByText(
+          status === 503
+            ? /health-ping service failed/
+            : /database check was denied/,
+        ),
+      ).toBeInTheDocument();
+      expect(screen.queryByText(/Deploy health-ping/)).not.toBeInTheDocument();
+    },
+  );
+  it("shows a loading state while history is pending", () => {
+    mock.overview.mockReturnValue(new Promise(() => {}));
+    open();
+    expect(screen.getByText("Loading check history…")).toBeInTheDocument();
+    expect(screen.queryByText(/No issues detected/)).not.toBeInTheDocument();
+  });
+  it("reports rejected network requests without exposing raw errors", async () => {
+    mock.ping.mockRejectedValue({
+      name: "FunctionsFetchError",
+      message: "private backend response",
+    });
+    open();
+    fireEvent.click(screen.getByRole("button", { name: "Check database" }));
+    expect(
+      await screen.findByText(/could not reach the function/),
+    ).toBeInTheDocument();
+    expect(
+      screen.queryByText(/private backend response/),
+    ).not.toBeInTheDocument();
+  });
   it("shows setup required instead of a fabricated healthy state", async () => {
     mock.overview.mockResolvedValue({ available: false, runs: [] });
     open();

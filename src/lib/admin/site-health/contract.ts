@@ -152,9 +152,7 @@ export function missingHealthSchema(error: unknown): boolean {
   return (
     !!error &&
     typeof error === "object" &&
-    ["42P01", "42703", "PGRST204", "PGRST205"].includes(
-      String((error as { code?: string }).code),
-    )
+    String((error as { code?: string }).code) === "42P01"
   );
 }
 export const healthTime = (value: string | null) =>

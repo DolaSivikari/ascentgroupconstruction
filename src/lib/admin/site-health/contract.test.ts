@@ -178,7 +178,8 @@ describe("pilot and alert decisions", () => {
       ),
     ).toEqual([finding]));
   it("distinguishes absent schema from denied permission", () => {
-    expect(missingHealthSchema({ code: "PGRST205" })).toBe(true);
+    expect(missingHealthSchema({ code: "42P01" })).toBe(true);
+    expect(missingHealthSchema({ code: "PGRST205" })).toBe(false);
     expect(missingHealthSchema({ code: "42501" })).toBe(false);
   });
 });

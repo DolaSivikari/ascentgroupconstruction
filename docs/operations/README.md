@@ -18,7 +18,7 @@ A manually applied subset of an older migration must be reconciled with migratio
 
 ## Nightly Site Health
 
-Use the [Phase 2 setup checklist](../../docs/admin-upgrade/PHASE-2-IMPLEMENTATION-STATUS.md#owner-setup-in-order).
+Use the [monitoring-only maintenance checklist](database-maintenance.md). The historical Phase 2 checklist describes the full `0003` migration; do not use it to activate only missing monitoring objects over an existing database.
 
 The setup has separate parts:
 

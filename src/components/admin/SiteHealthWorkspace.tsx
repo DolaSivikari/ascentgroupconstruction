@@ -28,6 +28,11 @@ import {
   resetIssueState,
   saveIssueState,
 } from "@/lib/admin/site-health/data";
+import {
+  healthFailure,
+  healthPingFailure,
+  validHealthPing,
+} from "@/lib/admin/site-health/readiness";
 
 export function SiteHealthTile() {
   const query = useQuery({
@@ -58,9 +63,11 @@ export function SiteHealthTile() {
       </h3>
       <p className="break-words text-xl font-bold">{value}</p>
       <p className="text-xs text-muted-foreground">
-        {run
-          ? `${run.pages_checked} URLs · ${healthTime(run.finished_at)} Toronto`
-          : "Nightly visitor checks and recorded browser errors"}
+        {query.error
+          ? healthFailure(query.error).message
+          : run
+            ? `${run.pages_checked} URLs · ${healthTime(run.finished_at)} Toronto`
+            : "Nightly visitor checks and recorded browser errors"}
       </p>
     </a>
   );
@@ -213,21 +220,19 @@ export function SiteHealthWorkspace() {
     setPingBusy(true);
     try {
       const { data, error } = await supabase.functions.invoke("health-ping");
-      if (error)
-        throw new Error(
-          "The database check is unavailable. Deploy health-ping before using this check.",
-        );
-      if (!data || data.status !== "ok" || !Number.isInteger(data.latency_ms))
-        throw new Error("The database did not confirm readiness.");
+      if (error) {
+        setPing(healthPingFailure(error));
+        return;
+      }
+      if (!validHealthPing(data)) {
+        setPing("The database did not confirm readiness.");
+        return;
+      }
       setPing(
         `Database answered in ${data.latency_ms} ms. Checked ${healthTime(data.checked_at)} Toronto.`,
       );
     } catch (error) {
-      setPing(
-        error instanceof Error
-          ? error.message
-          : "The database check is unavailable.",
-      );
+      setPing(healthPingFailure(error));
     } finally {
       setPingBusy(false);
     }
@@ -263,8 +268,10 @@ export function SiteHealthWorkspace() {
           </div>
         </div>
         <p className="text-sm text-muted-foreground">
-          Public pages checked at desktop and phone widths, daily at 07:00 UTC
-          (3am Toronto in summer, 2am in winter). Forms are never submitted.
+          The nightly workflow is configured for 07:00 UTC (3am Toronto in
+          summer, 2am in winter). Database setup, deployed functions and an
+          enabled scheduler are separate requirements. Forms are never
+          submitted.
         </p>
         {ping && (
           <p role="status" className="text-sm">
@@ -275,23 +282,24 @@ export function SiteHealthWorkspace() {
           <p>Loading check history…</p>
         ) : overview.error ? (
           <p role="alert">
-            Site Health is unavailable: {adminErrorMessage(overview.error)}
+            Site Health is unavailable: {healthFailure(overview.error).message}
           </p>
         ) : !overview.data?.available ? (
           <div className="rounded border p-4">
             <h3 className="font-semibold">Site Health needs setup</h3>
             <p className="mt-2 text-sm">
-              The monitoring tables are not available yet. Follow the Phase 2
-              setup checklist to connect nightly results. Existing error and
-              performance monitoring remains available below.
+              {overview.data?.reason?.message ||
+                "The monitoring tables are not available yet."}{" "}
+              Follow the monitoring setup checklist to connect nightly results.
+              Existing error and performance monitoring remains available below.
             </p>
             <a
               className="mt-3 inline-block text-sm underline"
-              href="https://github.com/DolaSivikari/ascentgroupconstruction/blob/main/docs/admin-upgrade/PHASE-2-IMPLEMENTATION-STATUS.md#owner-setup-in-order"
+              href="https://github.com/DolaSivikari/ascentgroupconstruction/blob/main/docs/operations/database-maintenance.md"
               target="_blank"
               rel="noopener noreferrer"
             >
-              Open the Phase 2 setup checklist
+              Open the monitoring activation checklist
             </a>
           </div>
         ) : !run ? (
@@ -346,13 +354,14 @@ export function SiteHealthWorkspace() {
             )}
             {results.error && (
               <p role="alert">
-                Could not load page results: {adminErrorMessage(results.error)}
+                Could not load page results:{" "}
+                {healthFailure(results.error).message}
               </p>
             )}
             {states.error && (
               <p role="alert">
                 Issue decisions are unavailable:{" "}
-                {adminErrorMessage(states.error)}. Issues remain visible.
+                {healthFailure(states.error).message} Issues remain visible.
               </p>
             )}
             {priorResults.error && (
@@ -363,6 +372,11 @@ export function SiteHealthWorkspace() {
             )}
             {results.isPending ? (
               <p>Loading page results…</p>
+            ) : results.error ? null : !results.data?.length ? (
+              <p role="status">
+                No page results are recorded for this run. Its stored status
+                does not establish that the website is healthy.
+              </p>
             ) : (
               <>
                 <label className="flex items-center gap-2 text-sm">
