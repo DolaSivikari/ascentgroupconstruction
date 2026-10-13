@@ -78,14 +78,14 @@ describe("hero image loading and crop", () => {
     });
   });
 
-  it("labels generated scenes as illustrations without inventing a project reference or credentials", () => {
+  it("renders generated header images without a visible scene label or invented project reference", () => {
     const photo = generatedHeroScenes["certifications-insurance"];
     show({ src: photo.image, alt: "Actual company certificates" });
     const image = screen.getByRole("img", { name: photo.alt });
     fireEvent.load(image);
     expect(
-      screen.getByText("Illustrative construction scene"),
-    ).toBeInTheDocument();
+      screen.queryByText("Illustrative construction scene"),
+    ).not.toBeInTheDocument();
     expect(screen.queryByRole("link")).not.toBeInTheDocument();
     expect(screen.queryByText("Photo credit")).not.toBeInTheDocument();
   });
