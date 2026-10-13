@@ -1,0 +1,55 @@
+.homepage-hero-scroll-frame {
+  --hero-frame-progress: 0;
+  background: #0b0d10;
+}
+
+.homepage-hero-media-frame {
+  display: contents;
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .homepage-hero-scroll-frame[data-frame-mode="pinned"] {
+    position: relative;
+    min-height: calc(var(--hero-frame-height) + var(--hero-frame-distance));
+  }
+
+  .homepage-hero-scroll-frame[data-frame-mode="pinned"][data-frame-position="during"]
+    > .homepage-hero-scroll-scene {
+    top: var(--hero-frame-offset);
+  }
+
+  .homepage-hero-scroll-frame[data-frame-mode="pinned"][data-frame-position="after"]
+    > .homepage-hero-scroll-scene {
+    top: var(--hero-frame-offset);
+  }
+
+  .homepage-hero-scroll-frame[data-frame-mode="pinned"]
+    .homepage-hero-media-frame,
+  .homepage-hero-scroll-frame[data-frame-mode="flow"]
+    .homepage-hero-media-frame {
+    display: block;
+    clip-path: inset(
+      calc(var(--hero-frame-progress) * 13%)
+        calc(var(--hero-frame-progress) * 9%) round
+        calc(var(--hero-frame-progress) * 14px)
+    );
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) and (max-width: 767px) {
+  .homepage-hero-scroll-frame[data-frame-mode="pinned"]
+    .homepage-hero-media-frame,
+  .homepage-hero-scroll-frame[data-frame-mode="flow"]
+    .homepage-hero-media-frame {
+    clip-path: inset(
+      calc(var(--hero-frame-progress) * 32px)
+        calc(var(--hero-frame-progress) * 16px) round
+        calc(var(--hero-frame-progress) * 12px)
+    );
+  }
+}

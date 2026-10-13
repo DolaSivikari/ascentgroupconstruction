@@ -9,6 +9,8 @@ import { useVideoPreloader } from "@/hooks/useVideoPreloader";
 import { AnimatedScrollIndicator } from "@/components/homepage/AnimatedScrollIndicator";
 import { enrichedHeroSlides } from "@/data/enriched-hero-slides";
 import { fetchHeroSlides, type HeroSlide as AdminHeroSlide } from "@/hooks/useHomepageData";
+import { useHeroScrollFrame } from "./useHeroScrollFrame";
+import "./hero-scroll-frame.css";
 
 /* ── Constants ── */
 const TRANSITION_DURATION = 1000; // ms — cinematic pace
@@ -107,6 +109,7 @@ const EnhancedHero = ({ splashComplete = true }: { splashComplete?: boolean }) =
   const autoplayIntervalRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const heroReadyRef = useRef(false);
   const sectionRef = useRef<HTMLElement>(null);
+  const scrollFrameRef = useRef<HTMLDivElement>(null);
 
   // Parallax refs
   const mouseTarget = useRef({ x: 0, y: 0 });
@@ -141,6 +144,7 @@ const EnhancedHero = ({ splashComplete = true }: { splashComplete?: boolean }) =
 
   const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
   const prefersReducedMotion = useReducedMotion();
+  useHeroScrollFrame(scrollFrameRef, sectionRef, prefersReducedMotion);
   // Skip autoplay video only when the user explicitly opts out
   // (Data Saver or prefers-reduced-motion). Poster image is used as fallback.
   const prefersReducedData =
@@ -436,9 +440,10 @@ const EnhancedHero = ({ splashComplete = true }: { splashComplete?: boolean }) =
   };
 
   return (
+    <div ref={scrollFrameRef} className="homepage-hero-scroll-frame">
     <section
       ref={sectionRef}
-      className="relative min-h-[90vh] md:min-h-screen flex items-center justify-center overflow-hidden pt-24"
+      className="homepage-hero-scroll-scene relative min-h-[90vh] md:min-h-screen flex items-center justify-center overflow-hidden pt-24"
       onTouchStart={handleTouchStart}
       onTouchMove={handleTouchMove}
       onTouchEnd={handleTouchEnd}
@@ -449,6 +454,8 @@ const EnhancedHero = ({ splashComplete = true }: { splashComplete?: boolean }) =
       aria-label="Hero slideshow"
     >
 
+      {/* The scroll mask encloses both media layers and the existing overlay only. */}
+      <div className="homepage-hero-media-frame">
       {/* ── Previous slide layer (outgoing — scales down + darkens) ── */}
       {prevSlide && transitionPhase === 'out' && (
         <div
@@ -544,6 +551,7 @@ const EnhancedHero = ({ splashComplete = true }: { splashComplete?: boolean }) =
 
       {/* ── Gradient overlay ── */}
       <div className="absolute inset-0 z-[3] bg-gradient-to-b from-black/70 via-black/60 to-black/80" />
+      </div>
 
       {/* Content */}
         <div 
@@ -709,6 +717,7 @@ const EnhancedHero = ({ splashComplete = true }: { splashComplete?: boolean }) =
         }
       `}</style>
     </section>
+    </div>
   );
 };
 
