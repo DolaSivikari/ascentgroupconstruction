@@ -1,0 +1,26 @@
+{
+  "canonicalPages": 85,
+  "affectedSharedHeaders": 69,
+  "captures": 170,
+  "identicalCaptures": 32,
+  "declaredScreenshotChanges": 138,
+  "unexpectedDifferences": 0,
+  "textAndMetadata": "Exact match for all 170 captures",
+  "tests": 680,
+  "testFiles": 112,
+  "lintErrors": 201,
+  "lintWarnings": 29,
+  "lintRegressions": 0,
+  "narrowDarkThemeCaptures": 3,
+  "bundleGate": {
+    "status": "passed",
+    "urls": 85,
+    "loadedPublicChunks": 229,
+    "verifiedAssetMetadata": [
+      "/assets/parallax-commitment.avif.asset-F1DiY2Sh.js"
+    ],
+    "failures": []
+  },
+  "browserLimitation": "Initial combined long run had a protocol timeout; affected page passed independently, remainder rerun separately for each viewport.",
+  "scope": "Offline synthetic fixtures; no live writes, image edits, SQL, emails or publication."
+}
