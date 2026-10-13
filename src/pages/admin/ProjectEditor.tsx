@@ -1,3 +1,4 @@
+import { saveProject } from "@/lib/admin/saveProject";
 import { EditorSectionPages } from "@/components/admin/EditorSectionPages";
 import {
   PROJECT_EDITOR_SECTIONS,
@@ -24,13 +25,9 @@ import { ProjectDetailsTab } from "@/components/admin/project-tabs/ProjectDetail
 import { ServicesTab } from "@/components/admin/project-tabs/ServicesTab";
 import { MetricsTab } from "@/components/admin/project-tabs/MetricsTab";
 import { SEOTab } from "@/components/admin/project-tabs/SEOTab";
-import {
-  projectSavePayload,
-  type ProjectFormData,
-} from "@/lib/admin/projectEditor";
+import { type ProjectFormData } from "@/lib/admin/projectEditor";
 import {
   loadProjectRelationships,
-  saveProjectRelationships,
   type ProjectRelationships,
   removeSavedGalleryFiles,
 } from "@/lib/admin/projectPersistence";
@@ -88,6 +85,9 @@ const ProjectEditor = () => {
   const [saveError, setSaveError] = useState<string | null>(null);
   const [restoreDraft, setRestoreDraft] =
     useState<LocalDraft<ProjectFormData> | null>(null);
+  const [expectedUpdatedAt, setExpectedUpdatedAt] = useState<string | null>(
+    null,
+  );
   const [createdProjectId, setCreatedProjectId] = useState<string | null>(null);
   const [relationships, setRelationships] = useState<ProjectRelationships>({
     images: [],
@@ -152,6 +152,7 @@ const ProjectEditor = () => {
 
   useEffect(() => {
     setCreatedProjectId(null);
+    setExpectedUpdatedAt(null);
     setLoadedProjectId(null);
     setLoadError(null);
     setSaveError(null);
@@ -200,6 +201,7 @@ const ProjectEditor = () => {
       };
       const draft = loadFromLocalStorage();
       setFormData(loadedForm);
+      setExpectedUpdatedAt(data.updated_at);
       setRelationships(related);
       setHasUnsavedChanges(false);
       setLoadedProjectId(id);
@@ -287,46 +289,21 @@ const ProjectEditor = () => {
     setSaveError(null);
     let projectDetailsSaved = false;
     try {
-      const {
-        data: { user },
-      } = await supabase.auth.getUser();
-      if (!user) {
-        toast({
-          title: "Authentication Error",
-          description: "You must be logged in",
-          variant: "destructive",
-        });
-        setIsLoading(false);
-        return;
-      }
-      const savedId = id === "new" ? createdProjectId : id;
-      const finalProjectData = {
-        ...projectSavePayload(formData),
-        updated_by: user.id,
-        ...(!savedId && { created_by: user.id }),
-      };
-      const { error, data } = !savedId
-        ? await supabase
-            .from("projects")
-            .insert([finalProjectData])
-            .select()
-            .single()
-        : await supabase
-            .from("projects")
-            .update(finalProjectData)
-            .eq("id", savedId)
-            .select()
-            .single();
-      if (error) throw error;
-      if (!data) throw new Error("Could not save project details.");
-      projectDetailsSaved = true;
-      const projectId = data.id;
+      const saved = await saveProject({
+        id: (id === "new" ? createdProjectId : id) || null,
+        expectedUpdatedAt,
+        form: formData,
+        baseline: relationships,
+        onReserved: (project) => {
+          projectDetailsSaved = true;
+          setExpectedUpdatedAt(project.updated_at);
+          if (id === "new") setCreatedProjectId(project.id);
+        },
+      });
+      const projectId = saved.project.id;
+      const savedRelationships = saved.relationships;
+      setExpectedUpdatedAt(saved.project.updated_at);
       if (id === "new") setCreatedProjectId(projectId);
-      const savedRelationships = await saveProjectRelationships(
-        projectId,
-        { images: formData.project_images, serviceIds: formData.service_ids },
-        relationships,
-      );
       const removedImages = relationships.images.filter(
         (image) =>
           !savedRelationships.images.some((saved) => saved.url === image.url),
@@ -356,7 +333,7 @@ const ProjectEditor = () => {
     } catch (error) {
       const message = adminErrorMessage(error);
       const description = projectDetailsSaved
-        ? `Project details were saved, but the full save is incomplete. ${message}`
+        ? `Some project changes may have saved, but the full save is incomplete. ${message}`
         : message;
       setSaveError(description);
       setHasUnsavedChanges(true);

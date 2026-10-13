@@ -4,7 +4,7 @@
 
 The public website and admin workspace for Ascent Group Construction. Visitors can explore services, projects and service areas and submit inquiries. The admin manages content, projects, leads and monitoring.
 
-[Website](https://www.ascentgroupconstruction.com) 路 [Documentation](docs/README.md) 路 [Admin master plan](_assessment/admin-upgrade/00-ADMIN-MASTER-PLAN.md) 路 [Contributing](CONTRIBUTING.md)
+[Website](https://www.ascentgroupconstruction.com) 路 [Documentation](docs/README.md) 路 [Admin master plan](docs/admin-upgrade/00-ADMIN-MASTER-PLAN.md) 路 [Contributing](CONTRIBUTING.md)
 
 ## Start here
 
@@ -13,7 +13,7 @@ The public website and admin workspace for Ascent Group Construction. Visitors c
 | Develop or troubleshoot locally | [Development guide](docs/development/README.md) |
 | Understand the folder structure | [Repository map](docs/maintenance/repository-map.md) |
 | Follow the website's visual rules | [Design system](docs/design/README.md) |
-| Continue admin work | [Master plan](_assessment/admin-upgrade/00-ADMIN-MASTER-PLAN.md) and [implementation status](_assessment/admin-upgrade/MASTER-PLAN-APPLICATION-STATUS.md) |
+| Continue admin work | [Master plan](docs/admin-upgrade/00-ADMIN-MASTER-PLAN.md) and [implementation status](docs/admin-upgrade/MASTER-PLAN-APPLICATION-STATUS.md) |
 | Publish or activate backend features | [Operations guide](docs/operations/README.md) |
 | Explore page access and navigation | [Navigation audit](docs/navigation/site-navigation-audit.md) and [interactive map](docs/navigation/site-navigation-map.html) |
 
@@ -46,7 +46,7 @@ public/       Public assets and hosting files
 supabase/     Edge Functions and migration history
 drizzle/      Separate database tooling and migration history
 docs/         Current guides, navigation documents and historical archive
-_assessment/  Owner assessments, admin plans and comparison evidence
+config/       Active page-safety inventory and comparison declarations
 scripts/      Build, verification, baseline and monitoring utilities
 .github/      GitHub Actions workflows
 ```
@@ -57,4 +57,4 @@ Merging a PR does not publish the website. The owner publishes with **Lovable 鈫
 
 Database migrations, Edge Function deployment, secrets and GitHub Actions scheduling are separate steps. Code availability does not prove a feature is operational. New intake, content overrides and nightly Site Health have their own setup requirements; use the [operations guide](docs/operations/README.md) and current implementation status.
 
-Historical guides and prior validation results live in [the archive](docs/archive/README.md). Original owner assessments remain in [_assessment](_assessment/README.md); their observations must be rechecked against current code.
+Historical guides and prior validation results live in [the archive](docs/archive/README.md). Original assessments are retained in Git history before `39b2880`; active plans live in `docs/admin-upgrade/`.

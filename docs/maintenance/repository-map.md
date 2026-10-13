@@ -15,7 +15,7 @@
 | `scripts/` | Build, verification and operational scripts | [Scripts index](../../scripts/README.md) |
 | `.github/` | Build, comparison and nightly workflows | Workflow files and Actions results |
 | `docs/` | Current guides, navigation material and archives | [Documentation index](../README.md) |
-| `_assessment/` | Owner uploads, master plans, status and evidence | [Assessment index](../../_assessment/README.md) |
+| `config/page-safety/` | Active monitoring inventory and comparison declarations | Keep these runtime contracts when archiving reports |
 | `documents/` | Supplied company document | Retained; do not infer an unused document from missing imports |
 
 ## Why some folders are retained

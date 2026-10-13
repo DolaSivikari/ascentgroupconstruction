@@ -1,0 +1,33 @@
+{
+  "publicCanonicalPages": 85,
+  "viewports": [
+    1440,
+    390
+  ],
+  "capturesPerBuild": 170,
+  "comparison": "170 identical, zero unexpected differences",
+  "runtimeErrors": 0,
+  "backendWrites": 0,
+  "tests": 680,
+  "testFiles": 112,
+  "lintErrors": 201,
+  "lintWarnings": 29,
+  "lintRegressions": 0,
+  "types": [
+    "full app",
+    "expanded selected strict"
+  ],
+  "build": "passed",
+  "routeAudit": "passed",
+  "serviceWorker": "passed",
+  "SQL": "isolated PostgreSQL 16 fixture only; transaction/rollback/concurrency/authorization passed",
+  "backendTypeCheck": "submit-form and shared dependencies passed with Deno; pre-existing dependency warnings remain",
+  "entryBytesBefore": 1904284,
+  "entryBytesAfter": 1046876,
+  "limits": [
+    "Offline synthetic public fixtures; not recorded-production CI replay",
+    "One existing homepage rotating-stat difference required deterministic timer freeze and targeted recapture",
+    "Final admin-only version reset and resume failure-toast adjustment covered by type/build/test checks; ordinary public presentation unchanged",
+    "No live database/email/storage/deployment/publishing verification"
+  ]
+}

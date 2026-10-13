@@ -213,6 +213,18 @@ const About = () => {
   const content = useAboutDetails(resolveAboutContent(aboutRow));
   usePageAnalytics("about");
 
+  // Semantic aliases preserve the existing persisted field IDs.
+  const {
+    f005: seoTitle,
+    f006: seoDescription,
+    f007: heroEyebrow,
+    f008: heroImageAlt,
+    f009: proposalLabel,
+    f010: contactLabel,
+    f011: homeLabel,
+    f012: aboutLabel,
+  } = c;
+
   const breadcrumbSchema = generateBreadcrumbSchema([
     { name: c.f001, url: "/" },
     { name: c.f002, url: "/about" },
@@ -227,8 +239,8 @@ const About = () => {
   return (
     <div className="min-h-screen">
       <SEO
-        title={c.f005}
-        description={c.f006}
+        title={seoTitle}
+        description={seoDescription}
         keywords="about Ascent Group, building envelope contractor, specialty contractor Ontario, restoration company, GTA contractor"
         canonical={`${SITE_URL}/about`}
         structuredData={[
@@ -241,16 +253,16 @@ const About = () => {
 
       {/* ── 1. Hero ──────────────────────────────────────────────────────── */}
       <PageHero
-        eyebrow={c.f007}
+        eyebrow={heroEyebrow}
         title={content.hero_headline}
         description={content.hero_intro}
         image={mainPageHeroes.about}
-        imageAlt={c.f008}
+        imageAlt={heroImageAlt}
         height="large"
         stats={content.stats}
-        primaryCta={{ text: c.f009, href: "/submit-rfp" }}
-        secondaryCta={{ text: c.f010, href: "/contact" }}
-        breadcrumbs={[{ label: c.f011, href: "/" }, { label: c.f012 }]}
+        primaryCta={{ text: proposalLabel, href: "/submit-rfp" }}
+        secondaryCta={{ text: contactLabel, href: "/contact" }}
+        breadcrumbs={[{ label: homeLabel, href: "/" }, { label: aboutLabel }]}
       />
 
       <TrustRibbon />

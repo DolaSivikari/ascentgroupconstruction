@@ -1,0 +1,320 @@
+{
+  "src/components/FilterBar.tsx": {
+    "2:@typescript-eslint/no-explicit-any": 1
+  },
+  "src/components/Footer.tsx": {
+    "2:@typescript-eslint/no-explicit-any": 3
+  },
+  "src/components/SEO.tsx": {
+    "2:@typescript-eslint/no-explicit-any": 1
+  },
+  "src/components/admin/InviteUserDialog.tsx": {
+    "2:@typescript-eslint/no-explicit-any": 1
+  },
+  "src/components/admin/ProcessStepsEditor.tsx": {
+    "2:@typescript-eslint/no-explicit-any": 2
+  },
+  "src/components/admin/WhyChooseUsManager.tsx": {
+    "2:@typescript-eslint/no-explicit-any": 9
+  },
+  "src/components/admin/project-tabs/BasicInfoTab.tsx": {
+    "2:@typescript-eslint/no-explicit-any": 2
+  },
+  "src/components/admin/project-tabs/ImagesTab.tsx": {
+    "2:@typescript-eslint/no-explicit-any": 2
+  },
+  "src/components/admin/project-tabs/MetricsTab.tsx": {
+    "2:@typescript-eslint/no-explicit-any": 4
+  },
+  "src/components/admin/project-tabs/ProjectDetailsTab.tsx": {
+    "2:@typescript-eslint/no-explicit-any": 2
+  },
+  "src/components/admin/seo/AIVisibilitySection.tsx": {
+    "2:@typescript-eslint/no-explicit-any": 1
+  },
+  "src/components/admin/seo/SEODashboardAnalyticsTab.tsx": {
+    "2:no-restricted-imports": 3
+  },
+  "src/components/admin/seo/SEODashboardContentTab.tsx": {
+    "2:no-restricted-imports": 2
+  },
+  "src/components/admin/seo/SEODashboardOverviewTab.tsx": {
+    "2:no-restricted-imports": 1
+  },
+  "src/components/admin/settings/ContactPageSettingsTab.tsx": {
+    "2:@typescript-eslint/no-explicit-any": 1
+  },
+  "src/components/estimator/EstimatorStep0.tsx": {
+    "2:@typescript-eslint/no-explicit-any": 1
+  },
+  "src/components/estimator/EstimatorStep2Enhanced.tsx": {
+    "2:@typescript-eslint/no-explicit-any": 1
+  },
+  "src/components/estimator/EstimatorStep3.tsx": {
+    "2:@typescript-eslint/no-explicit-any": 1
+  },
+  "src/components/estimator/EstimatorStep4.tsx": {
+    "2:@typescript-eslint/no-explicit-any": 1
+  },
+  "src/components/forms/FileUploadZone.tsx": {
+    "1:react-hooks/exhaustive-deps": 1
+  },
+  "src/components/homepage/EnhancedHero.tsx": {
+    "2:no-empty": 1,
+    "1:react-hooks/exhaustive-deps": 2
+  },
+  "src/components/homepage/HomepageFeaturedProjects.tsx": {
+    "2:no-restricted-imports": 1,
+    "2:@typescript-eslint/no-explicit-any": 2
+  },
+  "src/components/homepage/InteractiveCTA.tsx": {
+    "1:react-hooks/exhaustive-deps": 1,
+    "2:@typescript-eslint/no-explicit-any": 2
+  },
+  "src/components/proof/OperationalProofBar.tsx": {
+    "1:react-refresh/only-export-components": 1
+  },
+  "src/components/rfp/RFPStep2Project.tsx": {
+    "2:@typescript-eslint/no-explicit-any": 2
+  },
+  "src/components/rfp/RFPStep3Timeline.tsx": {
+    "2:@typescript-eslint/no-explicit-any": 1
+  },
+  "src/components/tools/ServiceSelector.tsx": {
+    "2:@typescript-eslint/no-explicit-any": 1
+  },
+  "src/components/ui/ProgressiveImage.tsx": {
+    "1:react-hooks/exhaustive-deps": 1
+  },
+  "src/components/ui/ThemeToggle.tsx": {
+    "2:no-restricted-imports": 1
+  },
+  "src/components/ui/badge.tsx": {
+    "1:react-refresh/only-export-components": 1
+  },
+  "src/components/ui/button.tsx": {
+    "1:react-refresh/only-export-components": 1
+  },
+  "src/components/ui/chart.tsx": {
+    "2:@typescript-eslint/no-explicit-any": 12
+  },
+  "src/components/ui/command.tsx": {
+    "2:@typescript-eslint/no-empty-object-type": 1
+  },
+  "src/components/ui/form.tsx": {
+    "1:react-refresh/only-export-components": 1
+  },
+  "src/components/ui/navigation-menu.tsx": {
+    "1:react-refresh/only-export-components": 1
+  },
+  "src/components/ui/sidebar.tsx": {
+    "1:react-refresh/only-export-components": 1
+  },
+  "src/components/ui/sonner.tsx": {
+    "1:react-refresh/only-export-components": 1
+  },
+  "src/components/ui/textarea.tsx": {
+    "2:@typescript-eslint/no-empty-object-type": 1
+  },
+  "src/components/ui/toggle.tsx": {
+    "1:react-refresh/only-export-components": 1
+  },
+  "src/hooks/useABTest.ts": {
+    "2:@typescript-eslint/no-explicit-any": 5
+  },
+  "src/hooks/useActiveSettings.ts": {
+    "2:@typescript-eslint/no-explicit-any": 2
+  },
+  "src/hooks/useFeaturedServices.ts": {
+    "2:@typescript-eslint/no-explicit-any": 5
+  },
+  "src/hooks/useFormCompletion.ts": {
+    "2:@typescript-eslint/no-explicit-any": 3,
+    "1:react-hooks/exhaustive-deps": 1
+  },
+  "src/hooks/useScrollReveal.ts": {
+    "2:prefer-const": 1
+  },
+  "src/hooks/useServicesAdmin.ts": {
+    "2:@typescript-eslint/no-explicit-any": 2
+  },
+  "src/hooks/useSettingsData.ts": {
+    "2:@typescript-eslint/no-explicit-any": 1
+  },
+  "src/hooks/useTableFilters.ts": {
+    "2:@typescript-eslint/no-explicit-any": 3
+  },
+  "src/hooks/useTableSort.ts": {
+    "2:@typescript-eslint/no-explicit-any": 1
+  },
+  "src/hooks/useWhyChooseUs.ts": {
+    "2:@typescript-eslint/no-explicit-any": 1
+  },
+  "src/hooks/useWhyChooseUsAdmin.ts": {
+    "2:@typescript-eslint/no-explicit-any": 2
+  },
+  "src/integrations/supabase/previewAuthStorage.ts": {
+    "2:prefer-const": 1
+  },
+  "src/lib/webVitals.ts": {
+    "2:@typescript-eslint/no-explicit-any": 7
+  },
+  "src/pages/Auth.tsx": {
+    "2:@typescript-eslint/no-explicit-any": 1
+  },
+  "src/pages/BlogPost.tsx": {
+    "2:@typescript-eslint/no-explicit-any": 3
+  },
+  "src/pages/Estimate.tsx": {
+    "2:@typescript-eslint/no-explicit-any": 10,
+    "2:no-case-declarations": 1
+  },
+  "src/pages/Prequalification.tsx": {
+    "2:@typescript-eslint/no-explicit-any": 3
+  },
+  "src/pages/ProjectDetail.tsx": {
+    "2:@typescript-eslint/no-explicit-any": 7
+  },
+  "src/pages/Projects.tsx": {
+    "2:@typescript-eslint/no-explicit-any": 6
+  },
+  "src/pages/ServiceDetail.tsx": {
+    "1:react-hooks/exhaustive-deps": 1,
+    "2:@typescript-eslint/no-explicit-any": 1
+  },
+  "src/pages/SubmitRFPNew.tsx": {
+    "2:@typescript-eslint/no-explicit-any": 5
+  },
+  "src/pages/admin/BlogPostEditor.tsx": {
+    "2:@typescript-eslint/no-explicit-any": 3,
+    "1:react-hooks/exhaustive-deps": 1
+  },
+  "src/pages/admin/BlogPosts.tsx": {
+    "2:@typescript-eslint/no-explicit-any": 1,
+    "1:react-hooks/exhaustive-deps": 1
+  },
+  "src/pages/admin/DocumentsLibrary.tsx": {
+    "1:react-hooks/exhaustive-deps": 1,
+    "2:@typescript-eslint/no-explicit-any": 3
+  },
+  "src/pages/admin/EmailTemplates.tsx": {
+    "1:react-hooks/exhaustive-deps": 1
+  },
+  "src/pages/admin/HomepageBuilder.tsx": {
+    "2:no-restricted-imports": 1
+  },
+  "src/pages/admin/ProjectEditor.tsx": {
+    "1:react-hooks/exhaustive-deps": 2
+  },
+  "src/pages/admin/SEODashboard.tsx": {
+    "1:react-hooks/exhaustive-deps": 2
+  },
+  "src/ui/Button.tsx": {
+    "1:react-refresh/only-export-components": 1
+  },
+  "src/utils/errorLogger.ts": {
+    "2:@typescript-eslint/no-explicit-any": 1
+  },
+  "src/utils/estimator.ts": {
+    "2:@typescript-eslint/no-explicit-any": 5
+  },
+  "src/utils/getIcon.ts": {
+    "2:@typescript-eslint/no-explicit-any": 3
+  },
+  "src/utils/personalization.ts": {
+    "2:@typescript-eslint/no-explicit-any": 1
+  },
+  "src/utils/schema-injector.ts": {
+    "2:@typescript-eslint/no-explicit-any": 1
+  },
+  "src/utils/structured-data.ts": {
+    "2:@typescript-eslint/no-explicit-any": 1
+  },
+  "supabase/functions/_shared/errorHandler.ts": {
+    "2:@typescript-eslint/no-explicit-any": 3
+  },
+  "supabase/functions/_shared/transactional-email-templates/inquiry-alert.tsx": {
+    "1:react-refresh/only-export-components": 1
+  },
+  "supabase/functions/_shared/transactional-email-templates/inquiry-confirmation.tsx": {
+    "1:react-refresh/only-export-components": 1
+  },
+  "supabase/functions/_shared/transactional-email-templates/registry.ts": {
+    "2:@typescript-eslint/no-explicit-any": 3
+  },
+  "supabase/functions/_shared/transactional-email-templates/review-request.tsx": {
+    "1:react-refresh/only-export-components": 1,
+    "2:@typescript-eslint/no-explicit-any": 1
+  },
+  "supabase/functions/_shared/transactional-email-templates/rfp-customer-confirmation.tsx": {
+    "1:react-refresh/only-export-components": 1,
+    "2:@typescript-eslint/no-explicit-any": 1
+  },
+  "supabase/functions/_shared/transactional-email-templates/rfp-internal-notification.tsx": {
+    "1:react-refresh/only-export-components": 1,
+    "2:@typescript-eslint/no-explicit-any": 1
+  },
+  "supabase/functions/_shared/transactional-email-templates/send-email.ts": {
+    "2:@typescript-eslint/no-explicit-any": 1
+  },
+  "supabase/functions/analyze-performance/index.ts": {
+    "2:@typescript-eslint/no-explicit-any": 4
+  },
+  "supabase/functions/auth-email-hook/index.ts": {
+    "2:@typescript-eslint/no-explicit-any": 1
+  },
+  "supabase/functions/check-login-attempt/index.ts": {
+    "2:@typescript-eslint/no-explicit-any": 1
+  },
+  "supabase/functions/fetch-search-console-data/index.ts": {
+    "2:@typescript-eslint/no-explicit-any": 1
+  },
+  "supabase/functions/generate-keywords/index.ts": {
+    "2:@typescript-eslint/no-explicit-any": 1
+  },
+  "supabase/functions/generate-sitemap/index.ts": {
+    "2:@typescript-eslint/no-explicit-any": 2
+  },
+  "supabase/functions/handle-email-events/index.ts": {
+    "2:@typescript-eslint/ban-ts-comment": 1,
+    "2:@typescript-eslint/no-explicit-any": 1
+  },
+  "supabase/functions/invite-user/index.ts": {
+    "2:@typescript-eslint/no-explicit-any": 2
+  },
+  "supabase/functions/mcp/index.ts": {
+    "2:no-empty": 1,
+    "2:no-var": 8
+  },
+  "supabase/functions/scheduled-fetch-search-console/index.ts": {
+    "2:@typescript-eslint/no-explicit-any": 1
+  },
+  "supabase/functions/send-contact-notification/index.ts": {
+    "2:@typescript-eslint/no-explicit-any": 1
+  },
+  "supabase/functions/send-estimate-confirmation/index.ts": {
+    "2:@typescript-eslint/no-explicit-any": 1
+  },
+  "supabase/functions/send-package-notification/index.ts": {
+    "2:@typescript-eslint/no-explicit-any": 2
+  },
+  "supabase/functions/send-quote-confirmation/index.ts": {
+    "2:@typescript-eslint/no-explicit-any": 1
+  },
+  "supabase/functions/send-resume-notification/index.ts": {
+    "2:@typescript-eslint/no-explicit-any": 2
+  },
+  "supabase/functions/send-review-request/index.ts": {
+    "2:@typescript-eslint/ban-ts-comment": 1,
+    "2:@typescript-eslint/no-explicit-any": 1
+  },
+  "supabase/functions/send-rfp-emails/index.ts": {
+    "2:@typescript-eslint/ban-ts-comment": 1
+  },
+  "supabase/functions/send-rfp-notification/index.ts": {
+    "2:no-empty": 1
+  },
+  "supabase/functions/submit-form/index.ts": {
+    "2:@typescript-eslint/no-explicit-any": 5
+  }
+}

@@ -1,3 +1,4 @@
+import { invokeChecked } from "@/lib/invokeChecked";
 import { useIntakeEnabled } from "@/hooks/useIntakeEnabled";
 import { useInquirySubmit } from "@/hooks/useInquirySubmit";
 import { CONSENT_TEXT } from "@/lib/inquiry/schema";
@@ -113,7 +114,7 @@ Ballpark Range: ${serviceMessage.ballparkRange || "Custom pricing"}
 
       // Fire-and-forget customer + admin emails (don't block success on failure)
       try {
-        await supabase.functions.invoke("send-quote-confirmation", {
+        await invokeChecked("send-quote-confirmation", {
           body: {
             name: validatedData.name,
             email: validatedData.email,

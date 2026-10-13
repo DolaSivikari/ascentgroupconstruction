@@ -41,6 +41,14 @@ jobs:
       - name: Install project dependencies
         run: node scripts/install-ci-dependencies.mjs
 
+      - name: Check operational inputs and types
+        run: |
+          node scripts/check-operational-contracts.mjs
+          npm run typecheck:selected
+          node node_modules/typescript/bin/tsc -p tsconfig.app.json --noEmit
+      - name: Enforce lint debt without new violations
+        run: node scripts/check-lint-budget.mjs
+
       - name: Run regression tests
         run: node node_modules/vitest/vitest.mjs run
 
@@ -50,6 +58,9 @@ jobs:
         run: |
           set -o pipefail
           npm run build 2>&1 | tee build.log
+
+      - name: Check initial JavaScript budget
+        run: node scripts/check-entry-budget.mjs
 
       - name: Run smoke tests against this build
         run: |
@@ -97,3 +108,26 @@ jobs:
         env:
           VITE_SUPABASE_PROJECT_ID: ${{ secrets.VITE_SUPABASE_PROJECT_ID }}
         run: bash scripts/smoke-test.sh https://www.ascentgroupconstruction.com
+
+  project-save-contract:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_PASSWORD: fixture-only
+        options: >-
+          --health-cmd "pg_isready -U postgres"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Test draft SQL against a disposable schema
+        env:
+          DATABASE_CONTAINER: ${{ job.services.postgres.id }}
+        run: |
+          docker exec -i "$DATABASE_CONTAINER" psql -U postgres -v ON_ERROR_STOP=1 < scripts/sql/project-save-fixture.sql
+          docker exec -i "$DATABASE_CONTAINER" psql -U postgres -v ON_ERROR_STOP=1 < docs/operations/sql/save-project-atomic.sql
+          docker exec -i "$DATABASE_CONTAINER" psql -U postgres -v ON_ERROR_STOP=1 < scripts/sql/project-save-check.sql

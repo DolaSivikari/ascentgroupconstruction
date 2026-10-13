@@ -13,7 +13,7 @@ on:
       - ".github/actions/baseline-tools/**"
       - ".github/workflows/public-safety.yml"
       - ".github/workflows/public-baseline.yml"
-      - "_assessment/baseline/**"
+      - "config/page-safety/**"
 permissions:
   contents: read
   actions: read
@@ -38,7 +38,7 @@ jobs:
           files=subprocess.check_output(['git','diff','--name-only',os.environ['BASE_SHA'],'HEAD'],text=True).splitlines()
           def public(path):
             if '/admin/' in path or path.startswith('src/lib/admin/'): return False
-            return path.startswith(('src/','public/','scripts/baseline/','_assessment/baseline/','.github/actions/baseline-tools/')) or path in ['index.html','vite.config.ts','.github/workflows/public-safety.yml','.github/workflows/public-baseline.yml']
+            return path.startswith(('src/','public/','scripts/baseline/','config/page-safety/','.github/actions/baseline-tools/')) or path in ['index.html','vite.config.ts','.github/workflows/public-safety.yml','.github/workflows/public-baseline.yml']
           with open(os.environ['GITHUB_OUTPUT'],'a') as out:
             out.write('run='+str(any(map(public,files))).lower()+'\n')
             # Only the PR that introduces Phase 0 may bootstrap the first baseline.
@@ -109,7 +109,7 @@ jobs:
           trap 'kill "$PREVIEW_PID" 2>/dev/null || true' EXIT
           for attempt in {1..30}; do if curl --fail --silent http://127.0.0.1:4176/ -o /dev/null; then break; fi; sleep 1; done
           node --import tsx scripts/baseline/capture.ts --mode=replay --baseline="$RUNNER_TEMP/public-baseline" --out="$RUNNER_TEMP/public-candidate"
-          node --import tsx scripts/baseline/compare.ts "$RUNNER_TEMP/public-baseline" "$RUNNER_TEMP/public-candidate" "$RUNNER_TEMP/public-comparison" _assessment/baseline/intentional-changes.json
+          node --import tsx scripts/baseline/compare.ts "$RUNNER_TEMP/public-baseline" "$RUNNER_TEMP/public-candidate" "$RUNNER_TEMP/public-comparison" config/page-safety/intentional-changes.json
           node --import tsx scripts/baseline/bundle-check.ts dist "$RUNNER_TEMP/public-candidate" "$RUNNER_TEMP/bundle-results.json"
           node --import tsx scripts/baseline/self-test.ts "$RUNNER_TEMP/public-baseline" "$RUNNER_TEMP/comparison-proof"
       - name: Report public gate diagnostics

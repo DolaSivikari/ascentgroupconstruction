@@ -287,7 +287,7 @@ export function SiteHealthWorkspace() {
             </p>
             <a
               className="mt-3 inline-block text-sm underline"
-              href="https://github.com/DolaSivikari/ascentgroupconstruction/blob/main/_assessment/admin-upgrade/PHASE-2-IMPLEMENTATION-STATUS.md#owner-setup-in-order"
+              href="https://github.com/DolaSivikari/ascentgroupconstruction/blob/main/docs/admin-upgrade/PHASE-2-IMPLEMENTATION-STATUS.md#owner-setup-in-order"
               target="_blank"
               rel="noopener noreferrer"
             >

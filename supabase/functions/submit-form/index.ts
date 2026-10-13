@@ -134,6 +134,7 @@ Deno.serve(async (req) => {
       `submit-form:${formType}`,
       5,
       15,
+      "allow", // Preserve lead intake during limiter outages; email endpoints fail closed.
     );
     if (!rateLimit.allowed) {
       console.log(`[rate_limited] client=${clientId} type=${formType}`);

@@ -169,6 +169,8 @@ const errors = [],
             // Existing public project selections shuffle on mount. Hold their
             // selection constant so image changes cannot hide behind randomness.
             Math.random = () => 0.5;
+            // Freeze periodic text/carousel changes for deterministic comparisons.
+            window.setInterval = () => 0;
             localStorage.setItem("cookie-consent", "rejected");
             localStorage.setItem("theme", theme);
             if (fontScale !== 1)

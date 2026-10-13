@@ -37,4 +37,4 @@ PUPPETEER_CORE_PATH=/path/to/puppeteer-core node scripts/admin-r1-public-browser
 
 Use `R1_PREVIEW_ORIGIN` for another **local** preview port and `R1_QA_OUTPUT` for a different output directory. By default artifacts go under `node_modules/.cache/`. The admin runner uses the existing `.env` only to identify which backend requests to intercept; it never sends authentication or mutations to that backend. Host resolver rules also redirect Supabase hostnames to localhost. For baseline public screenshots, run the public script with `before` against a separately built main checkout.
 
-Full gate results and known phase boundaries are in [R1 implementation status](../../../_assessment/admin-upgrade/R1-IMPLEMENTATION-STATUS.md).
+Full gate results and known phase boundaries are in [R1 implementation status](https://github.com/DolaSivikari/ascentgroupconstruction/blob/24713b5/_assessment/admin-upgrade/R1-IMPLEMENTATION-STATUS.md).

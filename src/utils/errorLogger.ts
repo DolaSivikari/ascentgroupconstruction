@@ -1,5 +1,10 @@
+import { diagnosticText, diagnosticContext } from "./telemetryPrivacy";
 import { supabase } from "@/integrations/supabase/client";
 import { CRAWLER_USER_AGENT } from "@/lib/baseline/policy";
+
+const recentReports = new Map<string, number>();
+let windowStart = 0;
+let reportsInWindow = 0;
 
 const isSiteHealthCrawler = () =>
   typeof navigator !== "undefined" &&
@@ -8,7 +13,10 @@ const isSiteHealthCrawler = () =>
 /**
  * Log client-side errors to database for monitoring
  */
-export const logError = async (error: Error, context?: Record<string, any>) => {
+export const logError = async (
+  error: Error,
+  context?: Record<string, unknown>,
+) => {
   if (isSiteHealthCrawler()) return;
   try {
     // Avoid logging in development to reduce noise
@@ -17,21 +25,36 @@ export const logError = async (error: Error, context?: Record<string, any>) => {
       return;
     }
 
-    await supabase.from("error_logs").insert({
-      message: error.message,
-      stack: error.stack || "",
+    const message = diagnosticText(error.message);
+    const url = diagnosticText(
+      window.location.origin + window.location.pathname,
+    );
+    const key = `${url}:${message}`;
+    const now = Date.now();
+    if (now - windowStart >= 60000) {
+      windowStart = now;
+      reportsInWindow = 0;
+      recentReports.clear();
+    }
+    if (reportsInWindow >= 10 || recentReports.has(key)) return;
+    recentReports.set(key, now);
+    reportsInWindow++;
+    const { error: writeError } = await supabase.from("error_logs").insert({
+      message,
+      stack: diagnosticText(error.stack || ""),
       context: JSON.stringify({
-        ...context,
+        ...diagnosticContext(context),
         buildVersion:
           (window as Window & { __BUILD_VERSION?: string }).__BUILD_VERSION ||
           new URL(import.meta.url).pathname,
       }),
-      url: window.location.href,
+      url,
       user_agent: navigator.userAgent,
     });
-  } catch (logError) {
+    if (writeError) console.warn("[Error Logger] Report could not be saved");
+  } catch {
     // Silently fail - don't break the app if logging fails
-    console.error("[Error Logger] Failed to log error:", logError);
+    console.warn("[Error Logger] Report could not be saved");
   }
 };
 

@@ -1,9 +1,9 @@
 import type { SupabaseClient } from "@supabase/supabase-js";
 import { supabase } from "@/integrations/supabase/client";
 import type { Json } from "@/integrations/supabase/types";
-export type RowTable<Row> = {
+export type RowTable<Row, Required extends keyof Row = never> = {
   Row: Row;
-  Insert: Partial<Row>;
+  Insert: Pick<Row, Required> & Partial<Omit<Row, Required>>;
   Update: Partial<Row>;
   Relationships: [];
 };
@@ -31,7 +31,7 @@ export type ContentVersion = {
 export type OptionalDatabase = {
   public: {
     Tables: {
-      content_entries: RowTable<ContentEntry>;
+      content_entries: RowTable<ContentEntry, "key" | "page_id" | "kind">;
       content_entry_versions: RowTable<ContentVersion>;
       site_flags: RowTable<{
         key: string;

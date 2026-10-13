@@ -1,3 +1,4 @@
+import { invokeChecked } from "@/lib/invokeChecked";
 import { useIntakeEnabled } from "@/hooks/useIntakeEnabled";
 import { useInquirySubmit } from "@/hooks/useInquirySubmit";
 import { CONSENT_TEXT } from "@/lib/inquiry/schema";
@@ -190,8 +191,7 @@ const InteractiveCTA = () => {
       }
 
       // Fire-and-forget notification email (server already stored the row)
-      supabase.functions
-        .invoke("send-contact-notification", {
+      void invokeChecked("send-contact-notification", {
           body: {
             name: validatedData.name,
             email: validatedData.email,

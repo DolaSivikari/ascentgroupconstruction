@@ -29,25 +29,39 @@ vi.mock("react-router-dom", async (original) => ({
 vi.mock("@/integrations/supabase/client", () => ({
   supabase: {
     from: () => {
+      let operation = "read";
+      let payload: unknown;
+      let rowId = "";
+      const execute = () =>
+        operation === "update"
+          ? mock.update(payload, "id", rowId)
+          : operation === "insert"
+            ? mock.insert(payload)
+            : mock.load();
       const query = {
         select: (columns: string) =>
           columns === "id, slug"
             ? { eq: async () => ({ data: [], error: null }) }
             : query,
-        eq: () => query,
-        single: mock.load,
+        eq: (column: string, value: string) => {
+          if (column === "id") rowId = value;
+          return query;
+        },
+        is: () => query,
+        update: (value: unknown) => {
+          operation = "update";
+          payload = value;
+          return query;
+        },
+        insert: (value: unknown) => {
+          operation = "insert";
+          payload = value;
+          return query;
+        },
+        single: execute,
+        maybeSingle: execute,
       };
-      return {
-        ...query,
-        update: (value: unknown) => ({
-          eq: (column: string, id: string) => ({
-            select: () => ({ single: () => mock.update(value, column, id) }),
-          }),
-        }),
-        insert: (value: unknown) => ({
-          select: () => ({ single: () => mock.insert(value) }),
-        }),
-      };
+      return query;
     },
     auth: {
       getUser: async () => ({
@@ -141,12 +155,16 @@ beforeEach(() => {
       title: "Fixture project",
       slug: "fixture-project",
       publish_state: "draft",
+      updated_at: "2026-10-10T00:00:00Z",
     },
     error: null,
   });
-  mock.update.mockResolvedValue({ data: { id: "project-1" }, error: null });
+  mock.update.mockResolvedValue({
+    data: { id: "project-1", updated_at: "2026-10-10T00:01:00Z" },
+    error: null,
+  });
   mock.insert.mockResolvedValue({
-    data: { id: "created-project" },
+    data: { id: "created-project", updated_at: "2026-10-10T00:01:00Z" },
     error: null,
   });
   mock.joins.mockResolvedValue(related);
@@ -246,7 +264,7 @@ describe("safe project-editor saves", () => {
       new Error("Fixture relationship failure"),
     );
     mock.update.mockResolvedValue({
-      data: { id: "created-project" },
+      data: { id: "created-project", updated_at: "2026-10-10T00:01:00Z" },
       error: null,
     });
     open("new");
@@ -338,7 +356,9 @@ describe("safe project-editor saves", () => {
     fireEvent.change(screen.getByLabelText("Project title"), {
       target: { value: "Explicitly saved edit" },
     });
-    expect(localStorage.getItem("project-draft-project-1")).not.toBeNull();
+    await waitFor(() =>
+      expect(localStorage.getItem("project-draft-project-1")).not.toBeNull(),
+    );
     fireEvent.click(
       screen.getByRole("button", { name: /Save draft|Save & publish/ }),
     );

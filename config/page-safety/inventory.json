@@ -1,0 +1,1473 @@
+{
+  "capturedAt": "2026-10-04T03:26:19.217Z",
+  "publishedSha": "bf6a40b",
+  "contentPages": 85,
+  "urls": 86,
+  "redirects": [
+    "/case-studies"
+  ],
+  "pages": [
+    {
+      "path": "/",
+      "finalPath": "/",
+      "title": "Envelope & Restoration GTA | Ascent Group Construction",
+      "viewports": [
+        1440,
+        390
+      ],
+      "status": [
+        200,
+        200
+      ],
+      "screenshots": {
+        "1440": "8a5edab282632443-1440.png",
+        "390": "8a5edab282632443-390.png"
+      }
+    },
+    {
+      "path": "/about",
+      "finalPath": "/about",
+      "title": "About \u2014 Envelope & Restoration | Ascent Group Construction",
+      "viewports": [
+        1440,
+        390
+      ],
+      "status": [
+        200,
+        200
+      ],
+      "screenshots": {
+        "1440": "979bddc4a8caafdd-1440.png",
+        "390": "979bddc4a8caafdd-390.png"
+      }
+    },
+    {
+      "path": "/accessibility",
+      "finalPath": "/accessibility",
+      "title": "Accessibility Statement | Ascent Group Construction",
+      "viewports": [
+        1440,
+        390
+      ],
+      "status": [
+        200,
+        200
+      ],
+      "screenshots": {
+        "1440": "8034008c1a676758-1440.png",
+        "390": "8034008c1a676758-390.png"
+      }
+    },
+    {
+      "path": "/blog",
+      "finalPath": "/blog",
+      "title": "Construction Insights | Envelope & Restoration Contractor | Ascent Group Construction",
+      "viewports": [
+        1440,
+        390
+      ],
+      "status": [
+        200,
+        200
+      ],
+      "screenshots": {
+        "1440": "8caafe4386f95803-1440.png",
+        "390": "8caafe4386f95803-390.png"
+      }
+    },
+    {
+      "path": "/blog/early-signs-your-building-envelope-needs-attention",
+      "finalPath": "/blog/early-signs-your-building-envelope-needs-attention",
+      "title": "Early Signs Your Building Envelope Needs Attention | Warning Signs Guide | Ascent Group Construction",
+      "viewports": [
+        1440,
+        390
+      ],
+      "status": [
+        200,
+        200
+      ],
+      "screenshots": {
+        "1440": "5cd1c3a7445538ae-1440.png",
+        "390": "5cd1c3a7445538ae-390.png"
+      }
+    },
+    {
+      "path": "/blog/eifs-vs-stucco-what-building-owners-need-to-know",
+      "finalPath": "/blog/eifs-vs-stucco-what-building-owners-need-to-know",
+      "title": "EIFS vs Stucco: What Building Owners Need to Know | Comparison Guide | Ascent Group Construction",
+      "viewports": [
+        1440,
+        390
+      ],
+      "status": [
+        200,
+        200
+      ],
+      "screenshots": {
+        "1440": "9688d34e68fc4ff7-1440.png",
+        "390": "9688d34e68fc4ff7-390.png"
+      }
+    },
+    {
+      "path": "/blog/how-general-contractors-should-evaluate-specialty-trade-partner",
+      "finalPath": "/blog/how-general-contractors-should-evaluate-specialty-trade-partner",
+      "title": "How to Evaluate a Specialty Trade Partner | Guide for General Contractors | Ascent Group Construction",
+      "viewports": [
+        1440,
+        390
+      ],
+      "status": [
+        200,
+        200
+      ],
+      "screenshots": {
+        "1440": "08f8c3bc9ccd61e9-1440.png",
+        "390": "08f8c3bc9ccd61e9-390.png"
+      }
+    },
+    {
+      "path": "/blog/toronto-property-manager-maintenance-guide",
+      "finalPath": "/blog/toronto-property-manager-maintenance-guide",
+      "title": "Toronto Property Manager Building Envelope Maintenance Guide | Ascent Group Construction",
+      "viewports": [
+        1440,
+        390
+      ],
+      "status": [
+        200,
+        200
+      ],
+      "screenshots": {
+        "1440": "e635dec917d41f71-1440.png",
+        "390": "e635dec917d41f71-390.png"
+      }
+    },
+    {
+      "path": "/blog/what-property-managers-should-prepare-before-envelope-restoration",
+      "finalPath": "/blog/what-property-managers-should-prepare-before-envelope-restoration",
+      "title": "What Property Managers Should Prepare Before Envelope Restoration | Ascent Group Construction",
+      "viewports": [
+        1440,
+        390
+      ],
+      "status": [
+        200,
+        200
+      ],
+      "screenshots": {
+        "1440": "7642429e85a0a441-1440.png",
+        "390": "7642429e85a0a441-390.png"
+      }
+    },
+    {
+      "path": "/blog/why-self-performed-work-changes-quality-cost-accountability",
+      "finalPath": "/blog/why-self-performed-work-changes-quality-cost-accountability",
+      "title": "Why Self-Performed Construction Work Changes Quality & Accountability | Ascent Group Construction",
+      "viewports": [
+        1440,
+        390
+      ],
+      "status": [
+        200,
+        200
+      ],
+      "screenshots": {
+        "1440": "8b42207342761945-1440.png",
+        "390": "8b42207342761945-390.png"
+      }
+    },
+    {
+      "path": "/capabilities",
+      "finalPath": "/capabilities",
+      "title": "Capabilities | Self-Perform Specialty Contracting | Ascent Group Construction",
+      "viewports": [
+        1440,
+        390
+      ],
+      "status": [
+        200,
+        200
+      ],
+      "screenshots": {
+        "1440": "3c2f2ed6726272d9-1440.png",
+        "390": "3c2f2ed6726272d9-390.png"
+      }
+    },
+    {
+      "path": "/careers",
+      "finalPath": "/careers",
+      "title": "Work With Ascent | Careers in Envelope Restoration & Interior Trades",
+      "viewports": [
+        1440,
+        390
+      ],
+      "status": [
+        200,
+        200
+      ],
+      "screenshots": {
+        "1440": "013cc6e0ad656a19-1440.png",
+        "390": "013cc6e0ad656a19-390.png"
+      }
+    },
+    {
+      "path": "/case-studies",
+      "finalPath": "/blog",
+      "title": "Construction Insights | Envelope & Restoration Contractor | Ascent Group Construction",
+      "viewports": [
+        1440,
+        390
+      ],
+      "status": [
+        200,
+        200
+      ],
+      "screenshots": {
+        "1440": "cecbd40a18e583bd-1440.png",
+        "390": "cecbd40a18e583bd-390.png"
+      }
+    },
+    {
+      "path": "/commercial-clients",
+      "finalPath": "/commercial-clients",
+      "title": "Commercial Building Envelope & Restoration Services - Toronto & GTA | Ascent Group Construction",
+      "viewports": [
+        1440,
+        390
+      ],
+      "status": [
+        200,
+        200
+      ],
+      "screenshots": {
+        "1440": "a4d06a2cb7281301-1440.png",
+        "390": "a4d06a2cb7281301-390.png"
+      }
+    },
+    {
+      "path": "/company/certifications-insurance",
+      "finalPath": "/company/certifications-insurance",
+      "title": "Certifications & Insurance Coverage | Ascent Group Construction",
+      "viewports": [
+        1440,
+        390
+      ],
+      "status": [
+        200,
+        200
+      ],
+      "screenshots": {
+        "1440": "f5fc3725cafbf2af-1440.png",
+        "390": "f5fc3725cafbf2af-390.png"
+      }
+    },
+    {
+      "path": "/company/developers",
+      "finalPath": "/company/developers",
+      "title": "Developers & Contractors | Partnership Solutions | Ascent Group Construction",
+      "viewports": [
+        1440,
+        390
+      ],
+      "status": [
+        200,
+        200
+      ],
+      "screenshots": {
+        "1440": "748d685e8784d236-1440.png",
+        "390": "748d685e8784d236-390.png"
+      }
+    },
+    {
+      "path": "/company/technology",
+      "finalPath": "/company/technology",
+      "title": "Technology & Digital Tools | Ascent Group Construction",
+      "viewports": [
+        1440,
+        390
+      ],
+      "status": [
+        200,
+        200
+      ],
+      "screenshots": {
+        "1440": "45b518b979cfc04c-1440.png",
+        "390": "45b518b979cfc04c-390.png"
+      }
+    },
+    {
+      "path": "/contact",
+      "finalPath": "/contact",
+      "title": "Contact Us | Ascent Group Construction",
+      "viewports": [
+        1440,
+        390
+      ],
+      "status": [
+        200,
+        200
+      ],
+      "screenshots": {
+        "1440": "4eb950636535d637-1440.png",
+        "390": "4eb950636535d637-390.png"
+      }
+    },
+    {
+      "path": "/emergency-repair",
+      "finalPath": "/emergency-repair",
+      "title": "Emergency Building Repair | 24/7 Fa\u00e7ade & Envelope Response | Ascent Group",
+      "viewports": [
+        1440,
+        390
+      ],
+      "status": [
+        200,
+        200
+      ],
+      "screenshots": {
+        "1440": "b804b59a1c42b3da-1440.png",
+        "390": "b804b59a1c42b3da-390.png"
+      }
+    },
+    {
+      "path": "/estimate",
+      "finalPath": "/estimate",
+      "title": "Request Project Estimate | Ascent Group Construction",
+      "viewports": [
+        1440,
+        390
+      ],
+      "status": [
+        200,
+        200
+      ],
+      "screenshots": {
+        "1440": "7a2135687a2ab2aa-1440.png",
+        "390": "7a2135687a2ab2aa-390.png"
+      }
+    },
+    {
+      "path": "/faq",
+      "finalPath": "/faq",
+      "title": "Frequently Asked Questions | Building Envelope & Restoration | Ascent Group Construction",
+      "viewports": [
+        1440,
+        390
+      ],
+      "status": [
+        200,
+        200
+      ],
+      "screenshots": {
+        "1440": "1965ee0fd57296a1-1440.png",
+        "390": "1965ee0fd57296a1-390.png"
+      }
+    },
+    {
+      "path": "/for-architects",
+      "finalPath": "/for-architects",
+      "title": "For Architects & Building Science Consultants | Ascent Group",
+      "viewports": [
+        1440,
+        390
+      ],
+      "status": [
+        200,
+        200
+      ],
+      "screenshots": {
+        "1440": "064869eaa9fb8293-1440.png",
+        "390": "064869eaa9fb8293-390.png"
+      }
+    },
+    {
+      "path": "/for-general-contractors",
+      "finalPath": "/for-general-contractors",
+      "title": "Trade Partner for General Contractors | Ascent Group Construction",
+      "viewports": [
+        1440,
+        390
+      ],
+      "status": [
+        200,
+        200
+      ],
+      "screenshots": {
+        "1440": "4e6aef4c97cceb40-1440.png",
+        "390": "4e6aef4c97cceb40-390.png"
+      }
+    },
+    {
+      "path": "/homeowners",
+      "finalPath": "/homeowners",
+      "title": "Residential Services for Homeowners | Painting, Renovations, Tile, Flooring | Ascent Group Construction",
+      "viewports": [
+        1440,
+        390
+      ],
+      "status": [
+        200,
+        200
+      ],
+      "screenshots": {
+        "1440": "e4233c8d3ede1049-1440.png",
+        "390": "e4233c8d3ede1049-390.png"
+      }
+    },
+    {
+      "path": "/markets",
+      "finalPath": "/markets",
+      "title": "Markets We Serve | Ascent Group Construction",
+      "viewports": [
+        1440,
+        390
+      ],
+      "status": [
+        200,
+        200
+      ],
+      "screenshots": {
+        "1440": "d106d5242cdd614d-1440.png",
+        "390": "d106d5242cdd614d-390.png"
+      }
+    },
+    {
+      "path": "/our-process",
+      "finalPath": "/our-process",
+      "title": "How We Work \u2014 From Inquiry to Closeout | Ascent Group Construction",
+      "viewports": [
+        1440,
+        390
+      ],
+      "status": [
+        200,
+        200
+      ],
+      "screenshots": {
+        "1440": "b27d42d8f3992fc9-1440.png",
+        "390": "b27d42d8f3992fc9-390.png"
+      }
+    },
+    {
+      "path": "/prequalification",
+      "finalPath": "/prequalification",
+      "title": "Vendor Pre-Qualification Package - Main Specialty Contractor | Ascent Group Construction",
+      "viewports": [
+        1440,
+        390
+      ],
+      "status": [
+        200,
+        200
+      ],
+      "screenshots": {
+        "1440": "f8f40b2e36cc6283-1440.png",
+        "390": "f8f40b2e36cc6283-390.png"
+      }
+    },
+    {
+      "path": "/privacy",
+      "finalPath": "/privacy",
+      "title": "Privacy Policy | Ascent Group Construction",
+      "viewports": [
+        1440,
+        390
+      ],
+      "status": [
+        200,
+        200
+      ],
+      "screenshots": {
+        "1440": "0ece7f7c306b4cf6-1440.png",
+        "390": "0ece7f7c306b4cf6-390.png"
+      }
+    },
+    {
+      "path": "/projects",
+      "finalPath": "/projects",
+      "title": "Our Projects | Ascent Group Construction",
+      "viewports": [
+        1440,
+        390
+      ],
+      "status": [
+        200,
+        200
+      ],
+      "screenshots": {
+        "1440": "902ceeb21a5f1f10-1440.png",
+        "390": "902ceeb21a5f1f10-390.png"
+      }
+    },
+    {
+      "path": "/projects/65-westmount-avenue",
+      "finalPath": "/projects/65-westmount-avenue",
+      "title": "65 Westmount Avenue | Ascent Group Construction",
+      "viewports": [
+        1440,
+        390
+      ],
+      "status": [
+        200,
+        200
+      ],
+      "screenshots": {
+        "1440": "a9ac116fddf89a79-1440.png",
+        "390": "a9ac116fddf89a79-390.png"
+      }
+    },
+    {
+      "path": "/projects/67-edgecroft-rd-etobicoke",
+      "finalPath": "/projects/67-edgecroft-rd-etobicoke",
+      "title": "Exterior House Painting in Etobicoke | 67 Edgecroft Rd | Ascent Group Construction",
+      "viewports": [
+        1440,
+        390
+      ],
+      "status": [
+        200,
+        200
+      ],
+      "screenshots": {
+        "1440": "46b6cf8942526763-1440.png",
+        "390": "46b6cf8942526763-390.png"
+      }
+    },
+    {
+      "path": "/projects/blackhurst-cultural-centre-",
+      "finalPath": "/projects/blackhurst-cultural-centre-",
+      "title": "Blackhurst Cultural Centre: Masonry & CMU in Toronto | Ascent Group Construction",
+      "viewports": [
+        1440,
+        390
+      ],
+      "status": [
+        200,
+        200
+      ],
+      "screenshots": {
+        "1440": "cb9e81119d16303f-1440.png",
+        "390": "cb9e81119d16303f-390.png"
+      }
+    },
+    {
+      "path": "/projects/caf-luka",
+      "finalPath": "/projects/caf-luka",
+      "title": "Hotel Stucco Renovation: Comfort Inn Kingston, Ontario | Ascent Group Construction",
+      "viewports": [
+        1440,
+        390
+      ],
+      "status": [
+        200,
+        200
+      ],
+      "screenshots": {
+        "1440": "031cf6d216f74bae-1440.png",
+        "390": "031cf6d216f74bae-390.png"
+      }
+    },
+    {
+      "path": "/projects/comfort-inn--suites",
+      "finalPath": "/projects/comfort-inn--suites",
+      "title": "Hotel Stucco Kingston, ON | Comfort Inn Exterior Finish | Ascent Group Construction",
+      "viewports": [
+        1440,
+        390
+      ],
+      "status": [
+        200,
+        200
+      ],
+      "screenshots": {
+        "1440": "32e5793fbe436cc7-1440.png",
+        "390": "32e5793fbe436cc7-390.png"
+      }
+    },
+    {
+      "path": "/projects/dunnville-secondary-school",
+      "finalPath": "/projects/dunnville-secondary-school",
+      "title": "Dunnville Secondary School Repainting | Commercial Painting | Ascent Group Construction",
+      "viewports": [
+        1440,
+        390
+      ],
+      "status": [
+        200,
+        200
+      ],
+      "screenshots": {
+        "1440": "c87800ef3b3fef44-1440.png",
+        "390": "c87800ef3b3fef44-390.png"
+      }
+    },
+    {
+      "path": "/projects/innisfil-catholic-school",
+      "finalPath": "/projects/innisfil-catholic-school",
+      "title": "Innisfil Catholic School Painting | Ascent Group Construc...",
+      "viewports": [
+        1440,
+        390
+      ],
+      "status": [
+        200,
+        200
+      ],
+      "screenshots": {
+        "1440": "3e53d935f5a8bd79-1440.png",
+        "390": "3e53d935f5a8bd79-390.png"
+      }
+    },
+    {
+      "path": "/projects/kw-habilitation-affordable-housing",
+      "finalPath": "/projects/kw-habilitation-affordable-housing",
+      "title": "KW Habilitation Affordable Housing: Inclusive Living | Ascent Group Construction",
+      "viewports": [
+        1440,
+        390
+      ],
+      "status": [
+        200,
+        200
+      ],
+      "screenshots": {
+        "1440": "ab586a17ee036d23-1440.png",
+        "390": "ab586a17ee036d23-390.png"
+      }
+    },
+    {
+      "path": "/projects/oakley-ridge",
+      "finalPath": "/projects/oakley-ridge",
+      "title": "Oakley Ridge: Guelph Student Rentals & Daycare | 2026 | Ascent Group Construction",
+      "viewports": [
+        1440,
+        390
+      ],
+      "status": [
+        200,
+        200
+      ],
+      "screenshots": {
+        "1440": "53e5ec82318d5e40-1440.png",
+        "390": "53e5ec82318d5e40-390.png"
+      }
+    },
+    {
+      "path": "/projects/queensland-condos",
+      "finalPath": "/projects/queensland-condos",
+      "title": "Multi-Family Painting: Queensland Condos & Apartments | Ascent Group Construction",
+      "viewports": [
+        1440,
+        390
+      ],
+      "status": [
+        200,
+        200
+      ],
+      "screenshots": {
+        "1440": "6b2bd34115ed40e6-1440.png",
+        "390": "6b2bd34115ed40e6-390.png"
+      }
+    },
+    {
+      "path": "/projects/york-region-warehouse",
+      "finalPath": "/projects/york-region-warehouse",
+      "title": "York Region Warehouse Fireproofing | Intumescent Coating | Ascent Group Construction",
+      "viewports": [
+        1440,
+        390
+      ],
+      "status": [
+        200,
+        200
+      ],
+      "screenshots": {
+        "1440": "fbe453d3f74c55f3-1440.png",
+        "390": "fbe453d3f74c55f3-390.png"
+      }
+    },
+    {
+      "path": "/property-managers",
+      "finalPath": "/property-managers",
+      "title": "Property Management Services - Envelope & Restoration for Multi-Residential | Ascent Group Construction",
+      "viewports": [
+        1440,
+        390
+      ],
+      "status": [
+        200,
+        200
+      ],
+      "screenshots": {
+        "1440": "46d392d974ad2dff-1440.png",
+        "390": "46d392d974ad2dff-390.png"
+      }
+    },
+    {
+      "path": "/resources/contractor-portal",
+      "finalPath": "/resources/contractor-portal",
+      "title": "Partner With Ascent | Contractor Portal | Ascent Group Construction",
+      "viewports": [
+        1440,
+        390
+      ],
+      "status": [
+        200,
+        200
+      ],
+      "screenshots": {
+        "1440": "ce7444ed0a00d47f-1440.png",
+        "390": "ce7444ed0a00d47f-390.png"
+      }
+    },
+    {
+      "path": "/resources/service-areas",
+      "finalPath": "/resources/service-areas",
+      "title": "Service Areas | Ascent Group Construction",
+      "viewports": [
+        1440,
+        390
+      ],
+      "status": [
+        200,
+        200
+      ],
+      "screenshots": {
+        "1440": "b6b8a33d572ccaa0-1440.png",
+        "390": "b6b8a33d572ccaa0-390.png"
+      }
+    },
+    {
+      "path": "/service-areas/ajax",
+      "finalPath": "/service-areas/ajax",
+      "title": "Building Envelope Contractor in Ajax | Ascent Group",
+      "viewports": [
+        1440,
+        390
+      ],
+      "status": [
+        200,
+        200
+      ],
+      "screenshots": {
+        "1440": "b4bb93951ef546b8-1440.png",
+        "390": "b4bb93951ef546b8-390.png"
+      }
+    },
+    {
+      "path": "/service-areas/aurora",
+      "finalPath": "/service-areas/aurora",
+      "title": "Building Envelope Contractor in Aurora | Ascent Group",
+      "viewports": [
+        1440,
+        390
+      ],
+      "status": [
+        200,
+        200
+      ],
+      "screenshots": {
+        "1440": "004e1eb43d83e748-1440.png",
+        "390": "004e1eb43d83e748-390.png"
+      }
+    },
+    {
+      "path": "/service-areas/brampton",
+      "finalPath": "/service-areas/brampton",
+      "title": "Building Envelope Contractor in Brampton | Ascent Group",
+      "viewports": [
+        1440,
+        390
+      ],
+      "status": [
+        200,
+        200
+      ],
+      "screenshots": {
+        "1440": "0fffbf97d61097b8-1440.png",
+        "390": "0fffbf97d61097b8-390.png"
+      }
+    },
+    {
+      "path": "/service-areas/burlington",
+      "finalPath": "/service-areas/burlington",
+      "title": "Building Envelope Contractor in Burlington | Ascent Group",
+      "viewports": [
+        1440,
+        390
+      ],
+      "status": [
+        200,
+        200
+      ],
+      "screenshots": {
+        "1440": "65b1843a15356805-1440.png",
+        "390": "65b1843a15356805-390.png"
+      }
+    },
+    {
+      "path": "/service-areas/hamilton",
+      "finalPath": "/service-areas/hamilton",
+      "title": "Building Envelope Contractor in Hamilton | Ascent Group",
+      "viewports": [
+        1440,
+        390
+      ],
+      "status": [
+        200,
+        200
+      ],
+      "screenshots": {
+        "1440": "ee39724a06578bfe-1440.png",
+        "390": "ee39724a06578bfe-390.png"
+      }
+    },
+    {
+      "path": "/service-areas/king-city",
+      "finalPath": "/service-areas/king-city",
+      "title": "Building Envelope Contractor in King City | Ascent Group",
+      "viewports": [
+        1440,
+        390
+      ],
+      "status": [
+        200,
+        200
+      ],
+      "screenshots": {
+        "1440": "d32782cbab70febe-1440.png",
+        "390": "d32782cbab70febe-390.png"
+      }
+    },
+    {
+      "path": "/service-areas/markham",
+      "finalPath": "/service-areas/markham",
+      "title": "Building Envelope Contractor in Markham | Ascent Group",
+      "viewports": [
+        1440,
+        390
+      ],
+      "status": [
+        200,
+        200
+      ],
+      "screenshots": {
+        "1440": "b195403ccd6b6d7e-1440.png",
+        "390": "b195403ccd6b6d7e-390.png"
+      }
+    },
+    {
+      "path": "/service-areas/milton",
+      "finalPath": "/service-areas/milton",
+      "title": "Building Envelope Contractor in Milton | Ascent Group",
+      "viewports": [
+        1440,
+        390
+      ],
+      "status": [
+        200,
+        200
+      ],
+      "screenshots": {
+        "1440": "04e40ae2bf682f3f-1440.png",
+        "390": "04e40ae2bf682f3f-390.png"
+      }
+    },
+    {
+      "path": "/service-areas/mississauga",
+      "finalPath": "/service-areas/mississauga",
+      "title": "Building Envelope Contractor in Mississauga | Ascent Group",
+      "viewports": [
+        1440,
+        390
+      ],
+      "status": [
+        200,
+        200
+      ],
+      "screenshots": {
+        "1440": "df5a195f00cec43d-1440.png",
+        "390": "df5a195f00cec43d-390.png"
+      }
+    },
+    {
+      "path": "/service-areas/newmarket",
+      "finalPath": "/service-areas/newmarket",
+      "title": "Building Envelope Contractor in Newmarket | Ascent Group",
+      "viewports": [
+        1440,
+        390
+      ],
+      "status": [
+        200,
+        200
+      ],
+      "screenshots": {
+        "1440": "935f4388d5c2a9db-1440.png",
+        "390": "935f4388d5c2a9db-390.png"
+      }
+    },
+    {
+      "path": "/service-areas/oakville",
+      "finalPath": "/service-areas/oakville",
+      "title": "Building Envelope Contractor in Oakville | Ascent Group",
+      "viewports": [
+        1440,
+        390
+      ],
+      "status": [
+        200,
+        200
+      ],
+      "screenshots": {
+        "1440": "82354bf6287e70e9-1440.png",
+        "390": "82354bf6287e70e9-390.png"
+      }
+    },
+    {
+      "path": "/service-areas/oshawa",
+      "finalPath": "/service-areas/oshawa",
+      "title": "Building Envelope Contractor in Oshawa | Ascent Group",
+      "viewports": [
+        1440,
+        390
+      ],
+      "status": [
+        200,
+        200
+      ],
+      "screenshots": {
+        "1440": "9d44fab515a6e2a2-1440.png",
+        "390": "9d44fab515a6e2a2-390.png"
+      }
+    },
+    {
+      "path": "/service-areas/pickering",
+      "finalPath": "/service-areas/pickering",
+      "title": "Building Envelope Contractor in Pickering | Ascent Group",
+      "viewports": [
+        1440,
+        390
+      ],
+      "status": [
+        200,
+        200
+      ],
+      "screenshots": {
+        "1440": "439798343a2ec844-1440.png",
+        "390": "439798343a2ec844-390.png"
+      }
+    },
+    {
+      "path": "/service-areas/richmond-hill",
+      "finalPath": "/service-areas/richmond-hill",
+      "title": "Building Envelope Contractor in Richmond Hill | Ascent Group",
+      "viewports": [
+        1440,
+        390
+      ],
+      "status": [
+        200,
+        200
+      ],
+      "screenshots": {
+        "1440": "a1a7128039cd209a-1440.png",
+        "390": "a1a7128039cd209a-390.png"
+      }
+    },
+    {
+      "path": "/service-areas/toronto",
+      "finalPath": "/service-areas/toronto",
+      "title": "Building Envelope Contractor in Toronto | Ascent Group",
+      "viewports": [
+        1440,
+        390
+      ],
+      "status": [
+        200,
+        200
+      ],
+      "screenshots": {
+        "1440": "6b469b00ce71f24b-1440.png",
+        "390": "6b469b00ce71f24b-390.png"
+      }
+    },
+    {
+      "path": "/service-areas/vaughan",
+      "finalPath": "/service-areas/vaughan",
+      "title": "Building Envelope Contractor in Vaughan | Ascent Group",
+      "viewports": [
+        1440,
+        390
+      ],
+      "status": [
+        200,
+        200
+      ],
+      "screenshots": {
+        "1440": "9138557728f83a11-1440.png",
+        "390": "9138557728f83a11-390.png"
+      }
+    },
+    {
+      "path": "/service-areas/whitby",
+      "finalPath": "/service-areas/whitby",
+      "title": "Building Envelope Contractor in Whitby | Ascent Group",
+      "viewports": [
+        1440,
+        390
+      ],
+      "status": [
+        200,
+        200
+      ],
+      "screenshots": {
+        "1440": "93c971fb3c02c0bb-1440.png",
+        "390": "93c971fb3c02c0bb-390.png"
+      }
+    },
+    {
+      "path": "/services",
+      "finalPath": "/services",
+      "title": "Specialty Contracting Services | Ascent Group Construction",
+      "viewports": [
+        1440,
+        390
+      ],
+      "status": [
+        200,
+        200
+      ],
+      "screenshots": {
+        "1440": "3b1aeccb742dd4e6-1440.png",
+        "390": "3b1aeccb742dd4e6-390.png"
+      }
+    },
+    {
+      "path": "/services/building-envelope-solutions",
+      "finalPath": "/services/building-envelope-solutions",
+      "title": "Building Envelope Solutions | Commercial Fa\u00e7ade Repair & Restoration | Ascent Group Construction",
+      "viewports": [
+        1440,
+        390
+      ],
+      "status": [
+        200,
+        200
+      ],
+      "screenshots": {
+        "1440": "8f676c04191dd2c9-1440.png",
+        "390": "8f676c04191dd2c9-390.png"
+      }
+    },
+    {
+      "path": "/services/caulking-sealants-toronto",
+      "finalPath": "/services/caulking-sealants-toronto",
+      "title": "Caulking & Sealant Contractor Toronto | Ascent Group",
+      "viewports": [
+        1440,
+        390
+      ],
+      "status": [
+        200,
+        200
+      ],
+      "screenshots": {
+        "1440": "510099232db3e9a2-1440.png",
+        "390": "510099232db3e9a2-390.png"
+      }
+    },
+    {
+      "path": "/services/cladding-systems",
+      "finalPath": "/services/cladding-systems",
+      "title": "Commercial Cladding Systems | Metal Panel & Composite Fa\u00e7ade Installation | Ascent Group Construction",
+      "viewports": [
+        1440,
+        390
+      ],
+      "status": [
+        200,
+        200
+      ],
+      "screenshots": {
+        "1440": "f1a717b2b87c2d6d-1440.png",
+        "390": "f1a717b2b87c2d6d-390.png"
+      }
+    },
+    {
+      "path": "/services/commercial-painting-gta",
+      "finalPath": "/services/commercial-painting-gta",
+      "title": "Commercial Painting Contractor GTA | Ascent Group",
+      "viewports": [
+        1440,
+        390
+      ],
+      "status": [
+        200,
+        200
+      ],
+      "screenshots": {
+        "1440": "2b6576ed941f0364-1440.png",
+        "390": "2b6576ed941f0364-390.png"
+      }
+    },
+    {
+      "path": "/services/eifs-stucco-systems",
+      "finalPath": "/services/eifs-stucco-systems",
+      "title": "EIFS & Stucco Repair | Expert Installation & Restoration Services | Ascent Group Construction",
+      "viewports": [
+        1440,
+        390
+      ],
+      "status": [
+        200,
+        200
+      ],
+      "screenshots": {
+        "1440": "42aff48178836a7a-1440.png",
+        "390": "42aff48178836a7a-390.png"
+      }
+    },
+    {
+      "path": "/services/exterior-painting-toronto",
+      "finalPath": "/services/exterior-painting-toronto",
+      "title": "Exterior Painting Toronto | Stucco & EIFS Recoats | Ascent Group Construction",
+      "viewports": [
+        1440,
+        390
+      ],
+      "status": [
+        200,
+        200
+      ],
+      "screenshots": {
+        "1440": "3a8a9d4d70e7f364-1440.png",
+        "390": "3a8a9d4d70e7f364-390.png"
+      }
+    },
+    {
+      "path": "/services/facade-remediation",
+      "finalPath": "/services/facade-remediation",
+      "title": "Fa\u00e7ade Remediation Contractor GTA | Ascent Group",
+      "viewports": [
+        1440,
+        390
+      ],
+      "status": [
+        200,
+        200
+      ],
+      "screenshots": {
+        "1440": "ec10050c10eeaf74-1440.png",
+        "390": "ec10050c10eeaf74-390.png"
+      }
+    },
+    {
+      "path": "/services/fire-retardant-coatings-ontario",
+      "finalPath": "/services/fire-retardant-coatings-ontario",
+      "title": "Fire Retardant & Intumescent Coatings Ontario | Ascent",
+      "viewports": [
+        1440,
+        390
+      ],
+      "status": [
+        200,
+        200
+      ],
+      "screenshots": {
+        "1440": "1ed8166ef19fc21f-1440.png",
+        "390": "1ed8166ef19fc21f-390.png"
+      }
+    },
+    {
+      "path": "/services/flooring-installation-gta",
+      "finalPath": "/services/flooring-installation-gta",
+      "title": "Flooring Contractor GTA | LVT, Laminate, Hardwood | Ascent",
+      "viewports": [
+        1440,
+        390
+      ],
+      "status": [
+        200,
+        200
+      ],
+      "screenshots": {
+        "1440": "08d1da9ce2bbd870-1440.png",
+        "390": "08d1da9ce2bbd870-390.png"
+      }
+    },
+    {
+      "path": "/services/handyman-patching-toronto",
+      "finalPath": "/services/handyman-patching-toronto",
+      "title": "Drywall Patching & Handyman Services Toronto | Ascent",
+      "viewports": [
+        1440,
+        390
+      ],
+      "status": [
+        200,
+        200
+      ],
+      "screenshots": {
+        "1440": "7a612a8d873e45ef-1440.png",
+        "390": "7a612a8d873e45ef-390.png"
+      }
+    },
+    {
+      "path": "/services/interior-buildouts-finishing",
+      "finalPath": "/services/interior-buildouts-finishing",
+      "title": "Commercial Interior Buildouts | Tenant Improvements & Fit-Outs | Ascent Group Construction",
+      "viewports": [
+        1440,
+        390
+      ],
+      "status": [
+        200,
+        200
+      ],
+      "screenshots": {
+        "1440": "49b66f2f018ecda1-1440.png",
+        "390": "49b66f2f018ecda1-390.png"
+      }
+    },
+    {
+      "path": "/services/interior-finishing-renovations",
+      "finalPath": "/services/interior-finishing-renovations",
+      "title": "Residential Interior Renovations GTA | Ascent Group",
+      "viewports": [
+        1440,
+        390
+      ],
+      "status": [
+        200,
+        200
+      ],
+      "screenshots": {
+        "1440": "7d9c5aac8ac8711a-1440.png",
+        "390": "7d9c5aac8ac8711a-390.png"
+      }
+    },
+    {
+      "path": "/services/interior-painting-toronto",
+      "finalPath": "/services/interior-painting-toronto",
+      "title": "Interior Painting Contractor Toronto | Ascent Group",
+      "viewports": [
+        1440,
+        390
+      ],
+      "status": [
+        200,
+        200
+      ],
+      "screenshots": {
+        "1440": "d7ddc57cf36344f9-1440.png",
+        "390": "d7ddc57cf36344f9-390.png"
+      }
+    },
+    {
+      "path": "/services/masonry-restoration",
+      "finalPath": "/services/masonry-restoration",
+      "title": "Masonry Restoration | Brick & Stone Repair | Tuckpointing Services | Ascent Group Construction",
+      "viewports": [
+        1440,
+        390
+      ],
+      "status": [
+        200,
+        200
+      ],
+      "screenshots": {
+        "1440": "02e58f8ed8d437d0-1440.png",
+        "390": "02e58f8ed8d437d0-390.png"
+      }
+    },
+    {
+      "path": "/services/painting-services",
+      "finalPath": "/services/painting-services",
+      "title": "Commercial Painting Services | Interior & Exterior Coating Systems | Ascent Group Construction",
+      "viewports": [
+        1440,
+        390
+      ],
+      "status": [
+        200,
+        200
+      ],
+      "screenshots": {
+        "1440": "6afe395df0d0b17d-1440.png",
+        "390": "6afe395df0d0b17d-390.png"
+      }
+    },
+    {
+      "path": "/services/parking-garage-restoration",
+      "finalPath": "/services/parking-garage-restoration",
+      "title": "Parking Garage Restoration Contractor GTA | Ascent",
+      "viewports": [
+        1440,
+        390
+      ],
+      "status": [
+        200,
+        200
+      ],
+      "screenshots": {
+        "1440": "480a2ab70e935ae7-1440.png",
+        "390": "480a2ab70e935ae7-390.png"
+      }
+    },
+    {
+      "path": "/services/residential-exterior-painting-gta",
+      "finalPath": "/services/residential-exterior-painting-gta",
+      "title": "Residential Exterior House Painters GTA | Ascent Group",
+      "viewports": [
+        1440,
+        390
+      ],
+      "status": [
+        200,
+        200
+      ],
+      "screenshots": {
+        "1440": "66f944b32755123f-1440.png",
+        "390": "66f944b32755123f-390.png"
+      }
+    },
+    {
+      "path": "/services/sealant-programs",
+      "finalPath": "/services/sealant-programs",
+      "title": "Building Sealant Programs Toronto & GTA | Ascent Group",
+      "viewports": [
+        1440,
+        390
+      ],
+      "status": [
+        200,
+        200
+      ],
+      "screenshots": {
+        "1440": "1df7f0ed104394cc-1440.png",
+        "390": "1df7f0ed104394cc-390.png"
+      }
+    },
+    {
+      "path": "/services/sustainable-building",
+      "finalPath": "/services/sustainable-building",
+      "title": "Sustainable Building Services | Energy-Efficient Envelope Solutions | Ascent Group Construction",
+      "viewports": [
+        1440,
+        390
+      ],
+      "status": [
+        200,
+        200
+      ],
+      "screenshots": {
+        "1440": "402c02906662c2ec-1440.png",
+        "390": "402c02906662c2ec-390.png"
+      }
+    },
+    {
+      "path": "/services/tile-flooring",
+      "finalPath": "/services/tile-flooring",
+      "title": "Commercial Tile & Flooring Installation | LVT & Ceramic Systems | Ascent Group Construction",
+      "viewports": [
+        1440,
+        390
+      ],
+      "status": [
+        200,
+        200
+      ],
+      "screenshots": {
+        "1440": "acd0c2d3d6600b84-1440.png",
+        "390": "acd0c2d3d6600b84-390.png"
+      }
+    },
+    {
+      "path": "/services/tile-installation-toronto",
+      "finalPath": "/services/tile-installation-toronto",
+      "title": "Tile Installation Contractor Toronto | Ascent Group",
+      "viewports": [
+        1440,
+        390
+      ],
+      "status": [
+        200,
+        200
+      ],
+      "screenshots": {
+        "1440": "15f130f561101e4c-1440.png",
+        "390": "15f130f561101e4c-390.png"
+      }
+    },
+    {
+      "path": "/services/waterproofing-systems",
+      "finalPath": "/services/waterproofing-systems",
+      "title": "Commercial Waterproofing Services | Foundation & Parking Garage Solutions | Ascent Group Construction",
+      "viewports": [
+        1440,
+        390
+      ],
+      "status": [
+        200,
+        200
+      ],
+      "screenshots": {
+        "1440": "9313afc4fe1526ea-1440.png",
+        "390": "9313afc4fe1526ea-390.png"
+      }
+    },
+    {
+      "path": "/submit-rfp",
+      "finalPath": "/submit-rfp",
+      "title": "Submit RFP - Request for Proposal | Ascent Group Construction",
+      "viewports": [
+        1440,
+        390
+      ],
+      "status": [
+        200,
+        200
+      ],
+      "screenshots": {
+        "1440": "b135b71cb63bb5a1-1440.png",
+        "390": "b135b71cb63bb5a1-390.png"
+      }
+    },
+    {
+      "path": "/terms",
+      "finalPath": "/terms",
+      "title": "Terms of Use | Ascent Group Construction",
+      "viewports": [
+        1440,
+        390
+      ],
+      "status": [
+        200,
+        200
+      ],
+      "screenshots": {
+        "1440": "2dda5c6b8eee51aa-1440.png",
+        "390": "2dda5c6b8eee51aa-390.png"
+      }
+    },
+    {
+      "path": "/why-specialty-contractor",
+      "finalPath": "/why-specialty-contractor",
+      "title": "Specialty Contractor vs General Contractor | Building Envelope & Restoration | Ascent Group Construction",
+      "viewports": [
+        1440,
+        390
+      ],
+      "status": [
+        200,
+        200
+      ],
+      "screenshots": {
+        "1440": "95562dbafc769cd3-1440.png",
+        "390": "95562dbafc769cd3-390.png"
+      }
+    }
+  ]
+}

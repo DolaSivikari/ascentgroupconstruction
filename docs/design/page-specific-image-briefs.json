@@ -1,0 +1,365 @@
+{
+  "direction": "Every current shared header gets its own image directly tied to the page headline and purpose. Real city photographs and the service-area map retain their geographic context.",
+  "generator": "image_gen",
+  "illustrativeDisclosure": "Not an actual Ascent employee, project or credential.",
+  "commonPrompt": "Create ONE photorealistic illustrative construction editorial photograph for an Ontario/GTA specialty contractor website header. Wide landscape 16:9. Restrained realistic natural light, physically believable proportions, building materials, realistic hands and correctly contacting tools. Muted charcoal, warm brick and neutral tones with small construction-orange accents only where appropriate. Main action/material detail occupies centre-right, around 55–65% horizontal position, leaving quieter real contextual texture to the left for white headline overlay; it must remain legible in a centred narrow mobile crop. Avoid extreme panoramas, tiny distant subjects, theatrical posing, CGI gloss, oversaturated teal/orange, fisheye or dramatic motion. No writing, no text, no gibberish letters, no logos, no brand-labelled tools or clothing, no official certificates, badges or watermarks. Any papers/screens may have unlabeled diagrams and abstract gray lines only. PPE appropriate to the scene, people anonymous, no unsafe height work. Do not depict this as an actual Ascent project or employee. The page's title is context only and must NOT appear as text in the image. Subject: ",
+  "scenes": [
+    {
+      "key": "about",
+      "path": "/about",
+      "title": "15 Years of Experience. One Clear Mission.",
+      "brief": "A specialty-construction crew reviewing plans beside facade-restoration work.",
+      "alt": "Illustrative specialty-construction crew reviewing facade-restoration plans."
+    },
+    {
+      "key": "services",
+      "path": "/services",
+      "title": "Specialty contracting services for envelope, restoration, and interior trade execution",
+      "brief": "A believable ground-level low-rise commercial building renovation in Ontario: exposed air-barrier and metal-cladding work on the exterior beside a retained brick wall, with a clearly visible ground-floor storefront interior fit-out through the doorway. One unbranded tradesperson at a safe freestanding wall mock-up checking the installed layers. This must clearly communicate the overall building envelope, restoration and interior specialty trades as one coherent real construction scene, not merely a painted warehouse, skyline, montage or luxury kitchen.",
+      "alt": "Specialty-trade illustration of envelope, masonry and interior work on a commercial renovation."
+    },
+    {
+      "key": "contact",
+      "path": "/contact",
+      "title": "Contact Us",
+      "brief": "An exterior site-assessment conversation: a construction estimator in proper hi-vis and hardhat and a property owner in ordinary business-casual clothing reviewing a clipboard together beside an Ontario brick building's ground-floor window. Focus on the consultation and building needing assessment, not a random completed house. Calm approachable professional scene.",
+      "alt": "Illustrative site-assessment consultation between a construction estimator and a building owner."
+    },
+    {
+      "key": "careers",
+      "path": "/careers",
+      "title": "Work With Ascent",
+      "brief": "An experienced specialty tradesperson mentoring an apprentice at a waist-high building-envelope practice panel in a well-organized workshop. Both wear appropriate work clothes, unbranded hi-vis, clear safety glasses and gloves; focus on learning hands-on detail work using a short straightedge on a wall panel. No company logos or identity claims; realistic welcoming skilled-trades career photography.",
+      "alt": "Illustrative skilled-trades mentoring at a building-envelope training panel."
+    },
+    {
+      "key": "faq",
+      "path": "/faq",
+      "title": "Frequently Asked Questions",
+      "brief": "A contractor explaining a physical small cutaway exterior-wall sample to a property owner at an outdoor site table. The property owner points inquisitively at a specific flashing detail, the contractor calmly explains. Drawings on table show diagrams only, no legible text. Real warm practical question-and-answer consultation, with exterior brick work visible in background.",
+      "alt": "Illustrative contractor answering a property owner's questions about a wall assembly."
+    },
+    {
+      "key": "blog",
+      "path": "/blog",
+      "title": "Blog & Case Studies",
+      "brief": "Editorial construction technical field research: a well-used site notebook, printed unlabeled building-detail photographs, a small wall-material sample and simple drawing on a real sturdy desk near a window overlooking a building facade. A gloved field inspector's hand sorts the reference photographs. No screen text, title or logos. The scene should communicate construction insights, field reports and case studies rather than an arbitrary facade.",
+      "alt": "Illustrative construction field notes, detail photographs and material samples for technical insights."
+    },
+    {
+      "key": "markets",
+      "path": "/markets",
+      "title": "Markets We Serve",
+      "brief": "A single coherent Ontario mixed-use streetscape photograph: commercial ground-floor storefronts below a medium-height residential building, with a smaller brick residential property at the edge and a low-rise institutional building farther back. Built-environment focus, clean realistic occupied buildings, restrained architectural editorial photo, no giant futuristic skyscrapers, no readable storefront signs, no montage.",
+      "alt": "Illustrative mix of commercial, multi-residential and institutional building types served by specialty contractors."
+    },
+    {
+      "key": "property-managers",
+      "path": "/property-managers",
+      "title": "Envelope & Restoration Partner for Multi-Residential Properties",
+      "brief": "A property manager with a maintenance clipboard and a hardhat-wearing building-envelope inspector checking the ground-level brick facade of an occupied mid-rise apartment building. Real balconies and window joints visible higher up, subtle cordoned work area protecting tenants. Practical maintenance and capital-project coordination, clearly multi-residential rather than a detached house or empty skyline.",
+      "alt": "Illustrative occupied-apartment facade inspection with a property manager."
+    },
+    {
+      "key": "homeowners",
+      "path": "/homeowners",
+      "title": "Residential Services for Homeowners",
+      "brief": "A residential-renovation contractor showing a homeowner carefully finished trim and restored window perimeter at the entrance of an ordinary well-kept Ontario brick house. A small organized paint tray and floor-protection sheet near the entry, realistic sensible interior/exterior improvement context. Human-scale home services, not mansion glamour or commercial tower.",
+      "alt": "Illustrative residential repair and finishing consultation at an Ontario-style home."
+    },
+    {
+      "key": "for-general-contractors",
+      "path": "/for-general-contractors",
+      "title": "Reliable Trade Partner for General Contractors",
+      "brief": "A general-contractor site superintendent and a specialty-trade foreman in distinct unbranded hardhats and hi-vis vests coordinating a marked-up wall detail at a site table outside a commercial building under facade renovation. Materials staged neatly behind them; focus on coordination, shared accountability and scope handoff between two trades, not generic coating work or skyscraper views.",
+      "alt": "Illustrative coordination between a general-contractor superintendent and a specialty-trade foreman."
+    },
+    {
+      "key": "for-architects",
+      "path": "/for-architects",
+      "title": "A Contractor Who Speaks Building Science",
+      "brief": "A building-science consultant and an envelope installer at a ground-level exterior wall mock-up examining a continuous air-barrier seal and metal window flashing, with a printed black-line wall-section drawing nearby. Correct plausible material layers and water-shedding overlaps. Ground-level technical inspection, no vague boardroom, random institutional drawing with text or certificates.",
+      "alt": "Illustrative architect and installer reviewing air-barrier continuity and a window-flashing detail."
+    },
+    {
+      "key": "technology",
+      "path": "/company/technology",
+      "title": "Built on Digital Precision",
+      "brief": "A construction field technician wearing unbranded hi-vis vest using a rugged tablet and handheld laser-distance meter to measure a low-rise facade from ground level. Tablet shows subtle unlabeled geometry and a photographic record with no visible writing. Facade and measurement equipment clearly readable, modern practical digital surveying rather than sci-fi holograms or a random paper board.",
+      "alt": "Illustrative digital facade surveying with a tablet and laser-distance meter."
+    },
+    {
+      "key": "our-process",
+      "path": "/our-process",
+      "title": "From Inquiry to Closeout",
+      "brief": "An organized construction closeout walkthrough: a site lead checks a simple diagram-only checklist while another tradesperson points out a finished facade joint at an Ontario commercial entry. Rolled plans and an orderly material sample kit on nearby site table suggest scope planning through inspection. Real practical process, no flowchart collage, exaggerated clipboard text or arbitrary house drawing.",
+      "alt": "Illustrative documented construction walkthrough and closeout inspection."
+    },
+    {
+      "key": "capabilities",
+      "path": "/capabilities",
+      "title": "How Ascent Delivers Projects",
+      "brief": "An accountable specialty-construction delivery scene: a site supervisor inspecting a low-level facade detail with a straightedge while another crew member prepares cladding materials on a neatly organized ground-level workbench. A real small commercial building under envelope restoration provides context. Show skilled crew execution, quality control and coordinated delivery; not a completed school corridor or generic office.",
+      "alt": "Illustrative specialty-trade execution and facade quality inspection on a coordinated site."
+    },
+    {
+      "key": "why-specialty-contractor",
+      "path": "/why-specialty-contractor",
+      "title": "Why We Focus on Specialty Trades",
+      "brief": "Close practical documentary photograph of a specialty building-envelope installer concentrating on a precise window-flashing and seal transition on a ground-level training wall panel. Visible gloved hand using a small seam roller against properly lapped membrane, subtle real brick wall behind. Skilled detail execution and craftsmanship are the subject, not a generic crew meeting or arbitrary building.",
+      "alt": "Illustrative specialist workmanship at a window-flashing and air-barrier transition."
+    },
+    {
+      "key": "certifications-insurance",
+      "path": "/company/certifications-insurance",
+      "title": "Certifications & Insurance Coverage",
+      "brief": "Professional construction compliance and insurance administration still life: an orderly neutral project-record folder, plain unlabelled insurance-style paperwork with only blurred gray line blocks, a clean hard hat, safety glasses and gloves on a contractor's office desk overlooking an actual-looking work yard. NO visible certificates, seals, logos, authority marks, coverage amounts, signatures or readable words. Show organized risk/compliance documentation without fabricating credentials. Not a school hallway.",
+      "alt": "Illustrative construction compliance paperwork and safety equipment; no actual credentials depicted."
+    },
+    {
+      "key": "prequalification",
+      "path": "/prequalification",
+      "title": "Vendor Pre-Qualification Package",
+      "brief": "Procurement-prequalification desk with an open tabbed vendor dossier, diagram-only capability sheets, a tablet displaying tiny unlabelled site photographs, simple material samples and an unbranded hardhat. Organized specialty-contractor tender submission atmosphere. All documents intentionally contain abstract gray lines and diagrams only, no badges, claims, names or official certificates. Not a painted warehouse.",
+      "alt": "Illustrative contractor vendor dossier, capability documents and project-reference materials."
+    },
+    {
+      "key": "contractor-portal",
+      "path": "/resources/contractor-portal",
+      "title": "Partner With Ascent",
+      "brief": "Two anonymous construction trade partners meeting at a modest site office table, each in unbranded workwear with hardhats set safely nearby, reviewing a scope diagram and small cladding sample together. The real site is visible through a window; collaborative subcontractor/procurement coordination, no staged handshake or luxury boardroom, no readable documents.",
+      "alt": "Illustrative trade-partner scope coordination in a construction site office."
+    },
+    {
+      "key": "estimate",
+      "path": "/estimate",
+      "title": "Request a Project Estimate",
+      "brief": "A construction estimator at a real project desk measuring an unlabeled building-elevation drawing with a scale ruler beside a calculator, neatly arranged cladding and sealant samples and an open cost worksheet rendered as unreadable gray rows. Grounded accurate takeoff and pricing scene, no fictitious currency totals or certificates, not an arbitrary client sketch as the whole image.",
+      "alt": "Illustrative construction quantity takeoff and estimate preparation."
+    },
+    {
+      "key": "submit-rfp",
+      "path": "/submit-rfp",
+      "title": "Submit Your RFP",
+      "brief": "Close professional construction bid-preparation scene: a project manager's hands organizing a blank-tab tender folder and building-detail drawings on an orderly desk, with a laptop showing an unlabelled proposal checklist and a site photograph. Clearly request-for-proposal documentation, no readable words, company brands, fabricated signatures or certifications; not a school corridor.",
+      "alt": "Illustrative construction request-for-proposal package preparation."
+    },
+    {
+      "key": "emergency-repair",
+      "path": "/emergency-repair",
+      "title": "Emergency Building Repair",
+      "brief": "A realistic Ontario exterior-building leak assessment after rain: two construction response technicians in hi-vis, gloves and hardhats examining a damaged ground-floor window perimeter and carefully securing a small weatherproof temporary cover, damp brick and overcast daylight, work area cordoned safely. Urgency through practical response, no dramatic disaster, emergency-services branding, firefighters or dangerous heights.",
+      "alt": "Illustrative construction response to rain-related window and facade damage."
+    },
+    {
+      "key": "building-envelope-solutions",
+      "path": "/services/building-envelope-solutions",
+      "title": "Building Envelope Solutions",
+      "brief": "A real construction facade mock-up showing a correctly detailed ground-floor window surrounded by sheathing, continuous air-barrier membrane, rigid insulation, and partial cladding. A gloved envelope installer checks membrane continuity with a small roller, finished adjacent facade gives context. Correct physically plausible rain-shedding flashings and installed layer interfaces. Real materials, not a labelled exploded 3D diagram.",
+      "alt": "Illustrative building-envelope installation with window flashing, air barrier and insulation."
+    },
+    {
+      "key": "cladding-systems",
+      "path": "/services/cladding-systems",
+      "title": "Cladding Systems",
+      "brief": "Precise close architectural photograph of metal rainscreen and aluminum-composite cladding being fitted to a commercial building at ground level: straight dark graphite panels, crisp joints, visible small ventilated cavity at an unfinished edge, stainless fasteners and correct support rails. A gloved installer holds a small panel at the workbench, no unsafe lifting; not plain brick or residential stucco.",
+      "alt": "Illustrative metal rainscreen cladding panels, support rails and ventilated cavity."
+    },
+    {
+      "key": "waterproofing-systems",
+      "path": "/services/waterproofing-systems",
+      "title": "Waterproofing Systems",
+      "brief": "Clear realistic view of below-grade foundation waterproofing work in a shallow safely benched excavation beside a low-rise building: black continuous waterproof membrane on concrete wall, sealed laps and a separate dimpled drainage/protection sheet with gravel drain visible at the bottom. Focus on actual moisture-protection systems and correct connections, no people in trenches, no subterranean hazards, not merely an exposed window opening.",
+      "alt": "Illustrative foundation waterproofing membrane, drainage sheet and protected joints."
+    },
+    {
+      "key": "eifs-stucco-systems",
+      "path": "/services/eifs-stucco-systems",
+      "title": "EIFS & Stucco Systems",
+      "brief": "Close realistic trade-detail photograph of an EIFS practice wall at ground level showing white insulation boards, a small properly overlapping fiberglass mesh section embedded in gray base coat, and adjacent fully finished warm neutral textured stucco. One gloved hand holds a clean steel trowel finishing a small section; believable correct layer sequence, no logos, no label diagram, not random exterior siding.",
+      "alt": "Illustrative EIFS insulation, reinforcing mesh, base coat and textured finish application."
+    },
+    {
+      "key": "facade-remediation",
+      "path": "/services/facade-remediation",
+      "title": "Façade Remediation",
+      "brief": "A mid-distance realistic photograph of a low-rise Ontario commercial brick facade restoration in progress, with clearly distinguishable carefully repaired sections of deteriorated brick and window joints, ground-level cordoned work area and neatly staged replacement masonry. A tradesperson at ground level checks a restored wall section; subtle scaffold in background correctly grounded. Actual repair scope rather than new-build skyscraper glamour.",
+      "alt": "Illustrative repair of a weathered brick facade and its window joints."
+    },
+    {
+      "key": "masonry-restoration",
+      "path": "/services/masonry-restoration",
+      "title": "Masonry Restoration",
+      "brief": "Close realistic documentary view of a gloved mason using a pointing trowel to repoint a low ground-level red-brick wall with fresh correctly recessed mortar beside weathered joints. Mason kneels securely on firm ground, proper safety glasses, ordinary unlabeled mortar board nearby. Detailed believable bricks and human anatomy, no floating worker, no dangerous scaffold, no text.",
+      "alt": "Illustrative brick masonry repointing with a pointing trowel and fresh mortar."
+    },
+    {
+      "key": "parking-garage-restoration",
+      "path": "/services/parking-garage-restoration",
+      "title": "Parking Garage Restoration",
+      "brief": "Actual-looking low-ceiling concrete parking garage with parking lines, square support columns and a visible access ramp. A small cordoned ground-floor concrete repair zone shows prepared slab edges and newly trowelled patch mortar; one tradesperson kneels on firm ground using a finishing trowel. Repair materials organized away from cars. This must read as a parking garage restoration, NOT a multi-storey open warehouse or factory atrium.",
+      "alt": "Illustrative concrete slab patching inside a marked parking garage."
+    },
+    {
+      "key": "sealant-programs",
+      "path": "/services/sealant-programs",
+      "title": "Sealant Programs",
+      "brief": "Close realistic facade-joint maintenance photograph at ground level: a gloved tradesperson tooling a fresh continuous gray sealant bead with a small rounded spatula between two precast concrete wall panels. Correct consistent joint width, masking edges and a small foam backer-rod sample on nearby workbench; medium-scale building facade visible beyond. Focus on systematic exterior expansion-joint renewal, different composition from a tiny window caulking job.",
+      "alt": "Illustrative replacement and tooling of exterior precast-panel joint sealant."
+    },
+    {
+      "key": "interior-buildouts-finishing",
+      "path": "/services/interior-buildouts-finishing",
+      "title": "Interior Buildouts & Finishing",
+      "brief": "Grounded wide photograph of a commercial office interior fit-out in progress: properly fixed metal-stud partitions with some plasterboard installed, organized floor protection, ceiling framing, a tradesperson measuring a wall at floor level. Visible doorway leads to a completed white wall section showing the intended finish. Correct indoor building materials, no luxury furniture or random corridor-only image.",
+      "alt": "Illustrative commercial interior fit-out with partition framing and drywall installation."
+    },
+    {
+      "key": "interior-finishing-renovations",
+      "path": "/services/interior-finishing-renovations",
+      "title": "Interior Finishing & Renovations",
+      "brief": "A real renovated small residential interior with crisply painted walls, fresh trim and restored doorway, flooring protected with paper while an installer carefully checks a baseboard joint at floor level. Modest light-filled Ontario-style room, credible workmanship, not a lavish kitchen and not bare commercial framing. Interior finish craftsmanship is the clear focal subject.",
+      "alt": "Illustrative residential interior finishing, trim and renovation workmanship."
+    },
+    {
+      "key": "painting-services",
+      "path": "/services/painting-services",
+      "title": "Painting Services",
+      "brief": "Practical painting-trades photograph at ground level showing a professional applying an even finish with a correctly oriented roller to a prepared interior wall, with straight mask lines, clean unbranded paint tray and drop cloths. Large neutral wall surfaces with subtle newly painted contrast. Realistic hand and tool contact, no brand names, no giant random structural warehouse or finished doors-only image.",
+      "alt": "Illustrative professional wall preparation and roller-applied painting."
+    },
+    {
+      "key": "tile-flooring",
+      "path": "/services/tile-flooring",
+      "title": "Tile & Flooring",
+      "brief": "A completed high-quality commercial entrance floor showing aligned matte porcelain tiles transitioning cleanly to resilient floor finish at a doorway, with a realistic tiny flooring sample board and knee-pad tools near the installer off to one side. Architectural material-detail photography emphasizing finish systems, straight grout lines and durable flooring rather than a random furnished room.",
+      "alt": "Illustrative commercial tile and resilient-flooring finishes with clean transitions."
+    },
+    {
+      "key": "sustainable-building",
+      "path": "/services/sustainable-building",
+      "title": "Sustainable Building",
+      "brief": "Realistic architectural-construction view of a low-rise building's energy retrofit: continuous exterior mineral-wool insulation being placed behind rainscreen battens and a new thermally efficient window, beside the carefully finished cladding area. Neatly staged materials and no green symbols, leaf graphics, solar farm or fabricated certification seals. Sustainability communicated specifically through envelope thermal performance.",
+      "alt": "Illustrative energy retrofit with continuous insulation, efficient glazing and rainscreen cladding."
+    },
+    {
+      "key": "commercial-painting-gta",
+      "path": "/services/commercial-painting-gta",
+      "title": "Commercial Painting GTA",
+      "brief": "A professional commercial office repaint in progress: broad clean wall and protected window trim, painter in plain unbranded workwear applying finish with roller on a short extension pole from stable ground, tidy drop cloths and paint tray, office-like scale. No gibberish company names on clothing, correct roller contact and realistic proportions.",
+      "alt": "Illustrative commercial office repainting with protected surfaces and roller-applied finish."
+    },
+    {
+      "key": "exterior-painting-toronto",
+      "path": "/services/exterior-painting-toronto",
+      "title": "Exterior Painting Toronto",
+      "brief": "Exterior low-rise commercial facade painting at ground level: a worker in appropriate hi-vis, gloves and eye protection applies a weather-resistant coating with a short roller to a previously prepared smooth facade panel next to brick, with neatly taped trim and protected pavement. No lift, suspended platform or heights, no skyline or generic interior painter.",
+      "alt": "Illustrative ground-level application of an exterior facade coating."
+    },
+    {
+      "key": "caulking-sealants-toronto",
+      "path": "/services/caulking-sealants-toronto",
+      "title": "Caulking & Sealants Toronto",
+      "brief": "Macro-to-medium realistic photograph of a single gloved hand using a physically correct manual caulking gun: a cylindrical cartridge in an open metal cradle with rear plunger and handle, a narrow white nozzle contacting a window-frame-to-brick joint at ground level. A smooth continuous bead at the joint. Correct contact and tool geometry, no gun-like weapon, no brand label, no extra hands. Frame and brick in clear focus.",
+      "alt": "Illustrative window-perimeter caulking with a manual sealant gun."
+    },
+    {
+      "key": "fire-retardant-coatings-ontario",
+      "path": "/services/fire-retardant-coatings-ontario",
+      "title": "Fire-Retardant Coatings Ontario",
+      "brief": "Realistic inspection of white intumescent fire-protection coating on a ground-level steel structural column in a commercial interior. Close detail shows slight correct coating texture; an inspector's gloved hand uses a small generic digital dry-film thickness gauge touching the column, with undecorated unlabelled display. Normal building interior background, no flame drama, no certification badges or claims, not arbitrary painted beams from far away.",
+      "alt": "Illustrative inspection of intumescent coating on a steel column."
+    },
+    {
+      "key": "interior-painting-toronto",
+      "path": "/services/interior-painting-toronto",
+      "title": "Interior Painting Toronto",
+      "brief": "Quiet modest residential room repaint: painter in plain workwear uses an angled brush to cut in at an interior doorway edge next to a smoothly painted light warm-gray wall. Carefully protected trim and floor, small paint pot with no label. Close careful indoor finish work, distinct from commercial rolling composition, no text.",
+      "alt": "Illustrative precise interior paint edging at a residential doorway."
+    },
+    {
+      "key": "residential-exterior-painting-gta",
+      "path": "/services/residential-exterior-painting-gta",
+      "title": "Residential Exterior Painting GTA",
+      "brief": "A practical ground-level repaint of a detached Ontario house's porch trim and front entry, professional using a small brush along the door surround, neatly protected brick and steps, ordinary residential context. Real warm daylight, modest home, no giant ladder blocking frame and no glamorous mansion. Exterior residential painting is clear.",
+      "alt": "Illustrative residential exterior painting of a porch and entry trim."
+    },
+    {
+      "key": "tile-installation-toronto",
+      "path": "/services/tile-installation-toronto",
+      "title": "Tile Installation Toronto",
+      "brief": "Technically believable close photograph of a professional installing a single matte porcelain floor tile on freshly combed thinset in a small bathroom. Consistent parallel thinset ridges on the exposed installation area, aligned straight grout spacers at tile edges, gloved hand lowering tile securely from normal kneeling height. Correct proportions, tidy work area, no tiny odd black rings everywhere and no extra fingers.",
+      "alt": "Illustrative porcelain floor-tile installation over combed thinset mortar."
+    },
+    {
+      "key": "flooring-installation-gta",
+      "path": "/services/flooring-installation-gta",
+      "title": "Flooring Installation GTA",
+      "brief": "Low-angle real-looking photograph of a flooring installer fitting a click-lock luxury vinyl plank into the unfinished edge of a straight row in a modest room. Correct plank thickness and groove engagement visible; tapping block, rubber mallet and perimeter spacer nearby without logos. Ground-level kneeling technique, realistic anatomy, no nonsense printed equipment names.",
+      "alt": "Illustrative click-lock plank flooring installation with perimeter spacers."
+    },
+    {
+      "key": "handyman-patching-toronto",
+      "path": "/services/handyman-patching-toronto",
+      "title": "Handyman & Patching Toronto",
+      "brief": "Close realistic drywall repair scene: properly seated small square patch with mesh seam tape already embedded in thin joint compound, a hand smoothing the final skim coat with a normal broad stainless taping knife. Even white wall, neat protected work area, correct small patch geometry and realistic hand. No disconnected hanging tape, frothy blobs or weird tool edges.",
+      "alt": "Illustrative drywall patching and smoothing of a small wall repair."
+    },
+    {
+      "key": "article-envelope-signs",
+      "path": "/blog/early-signs-your-building-envelope-needs-attention",
+      "title": "Early Signs Your Building Envelope Needs Attention",
+      "brief": "A realistic ground-level diagnostic close-up of an aging exterior window: visible failed sealant, a subtle water stain on adjacent brick and minor mortar deterioration. An inspector's gloved hand holds a small moisture meter against the wall. Show credible early warning signs, not severe collapse, generic skyline or the same installation photo used on a service page.",
+      "alt": "Illustrative early envelope warning signs at a weathered window perimeter."
+    },
+    {
+      "key": "article-eifs-stucco",
+      "path": "/blog/eifs-vs-stucco-what-building-owners-need-to-know",
+      "title": "EIFS vs. Stucco: What Building Owners Need to Know",
+      "brief": "Realistic editorial photograph of two freestanding physical wall samples side by side on a construction workbench: one EIFS sample has a visible rigid-insulation edge and mesh base coat beneath thin texture; the other traditional stucco sample has a thicker cement plaster edge and metal lath. Actual plausible sample materials, no label text, no giant 3D cutaway graphic or collage. Useful comparison through honest observable cross sections.",
+      "alt": "Illustrative physical EIFS and traditional-stucco sample comparison."
+    },
+    {
+      "key": "article-trade-partner",
+      "path": "/blog/how-general-contractors-should-evaluate-specialty-trade-partner",
+      "title": "How General Contractors Should Evaluate a Specialty Trade Partner",
+      "brief": "A construction procurement reviewer examining an anonymous trade partner's diagram-only scope sheet alongside real-looking material samples, a small photographic inspection record and a blank-tab project dossier on a modest site-office table. An unbranded hardhat and PPE subtly present. Practical evidence review rather than arbitrary coating work, no readable qualifications or fake certificates.",
+      "alt": "Illustrative review of a specialty trade partner's scope and quality records."
+    },
+    {
+      "key": "article-pm-maintenance",
+      "path": "/blog/toronto-property-manager-maintenance-guide",
+      "title": "Toronto Property Manager Maintenance Guide",
+      "brief": "A distinct realistic preventive-maintenance inspection scene at the ground-floor entry of an occupied brick apartment building: maintenance technician checks door threshold and drainage openings with a small flashlight while a property manager consults a diagram-only schedule. Ontario-style multi-residential context, routine planning not dramatic disaster or repeated condominium aerial.",
+      "alt": "Illustrative apartment-building preventive-maintenance inspection and scheduling."
+    },
+    {
+      "key": "article-envelope-preparation",
+      "path": "/blog/what-property-managers-should-prepare-before-envelope-restoration",
+      "title": "What Property Managers Should Prepare Before Envelope Restoration",
+      "brief": "Realistic preconstruction planning for an occupied apartment facade: a manager and contractor compare site-access plans on a foldout table beside neatly laid barrier feet and temporary fence panels at ground level. An apartment entrance remains safely accessible. Emphasize tenant access, staging and advance coordination, not same scaffold photo reused from facade service.",
+      "alt": "Illustrative planning of tenant access and staging before envelope restoration."
+    },
+    {
+      "key": "article-self-performed",
+      "path": "/blog/why-self-performed-work-changes-quality-cost-accountability",
+      "title": "Why Self-Performed Work Changes Quality, Cost and Accountability",
+      "brief": "A distinct real-looking hands-on quality handoff: a specialty trade lead inspecting a completed ground-level cladding corner joint beside the installer who did the work, gloved hand checking straightness with a short straightedge. Both on firm ground in proper unbranded PPE, finished facade detail prominent. Direct crew accountability and workmanship, not generic office or reused flashing close-up.",
+      "alt": "Illustrative direct crew inspection of a completed cladding detail."
+    },
+    {
+      "key": "commercial-clients",
+      "path": "/commercial-clients",
+      "title": "Envelope & Restoration for Commercial Properties",
+      "brief": "Commercial brick-and-glass facade-restoration planning at an occupied property.",
+      "alt": "Illustrative facade-restoration planning at an occupied commercial property."
+    },
+    {
+      "key": "developers",
+      "path": "/company/developers",
+      "title": "Build With a Trusted Partner",
+      "brief": "A developer and specialty contractor coordinating cladding on a multi-residential development.",
+      "alt": "Illustrative developer and specialty contractor coordinating exterior finishes on a multi-residential project."
+    }
+  ]
+}

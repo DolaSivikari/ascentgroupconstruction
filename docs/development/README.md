@@ -45,7 +45,7 @@ npm run lint
 
 Existing lint debt is recorded in the implementation reports. Preserve test assertions and report failed or skipped checks accurately. A successful build alone does not verify live database permissions, email delivery or deployed functions.
 
-Browser comparison tools are installed separately from application dependencies. Follow [baseline instructions](../../_assessment/baseline/README.md) or [cleanup fixture instructions](../../_assessment/cleanup/README.md) when a task requires them.
+Browser comparison tools are installed separately from application dependencies. Follow [baseline instructions](../../docs/development/public-comparison.md) or [cleanup fixture instructions](https://github.com/DolaSivikari/ascentgroupconstruction/blob/24713b5/_assessment/cleanup/README.md) when a task requires them.
 
 ## Editing rules
 

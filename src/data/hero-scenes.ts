@@ -1,4 +1,4 @@
-/** Page-specific illustrative scenes. Briefs: _assessment/headers/page-specific-image-briefs.json. */
+/** Page-specific illustrative scenes. Briefs: docs/design/page-specific-image-briefs.json. */
 import type { HeroPhoto } from "./hero-photography";
 import scene0 from "@/assets/heroes/scenes/about.webp";
 import scene1 from "@/assets/heroes/scenes/services.webp";

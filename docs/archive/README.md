@@ -13,4 +13,4 @@ Use [current documentation](../README.md) for new work. The application code, cu
 - [R1 browser verification](admin-r1/README.md): screenshots and recorded checks from that implementation.
 - [Previous repository overview](repository-overview-before-cleanup.md): the complete README preserved before this cleanup.
 
-Original owner assessments and later baseline/redesign evidence remain at their existing paths under [_assessment](../../_assessment/README.md). This archive does not remove those records or establish that their findings have been resolved.
+Original owner assessments and later baseline/redesign evidence remain at their existing paths under [_assessment](https://github.com/DolaSivikari/ascentgroupconstruction/blob/24713b5/_assessment/README.md). This archive does not remove those records or establish that their findings have been resolved.
