@@ -1,0 +1,11 @@
+{
+  "status": "passed",
+  "baseSha": "2433571b582729effc84989079ebf26277eb5870",
+  "onlyApplicationFileChanged": "src/components/homepage/WhoWeServeHomepage.tsx",
+  "benefitAndAudienceStringsExact": true,
+  "contentModuleUnchanged": true,
+  "followingAudienceSectionByteExact": true,
+  "otherWhyChooseUsUnchanged": true,
+  "servicesUnchanged": true,
+  "pageCompositionUnchanged": true
+}

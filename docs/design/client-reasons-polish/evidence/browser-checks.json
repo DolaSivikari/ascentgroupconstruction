@@ -1,0 +1,184 @@
+{
+  "status": "passed",
+  "fixturePolicy": "Deterministic offline public fixtures; no external requests/mutations or form submissions",
+  "previewScope": "Section-only exports hide unrelated fixed controls; full comparisons do not.",
+  "results": [
+    {
+      "width": 1440,
+      "theme": "light",
+      "motion": "reduce",
+      "exactWordsAndOrder": true,
+      "benefitCount": 7,
+      "existingActionTargets": [
+        {
+          "label": "Request Site Assessment",
+          "href": "/contact"
+        },
+        {
+          "label": "View Services",
+          "href": "/services"
+        },
+        {
+          "label": "For GCs: Request Unit Pricing",
+          "href": "/contact"
+        }
+      ],
+      "followingAudienceContentAndLinksUnchanged": true,
+      "coverageSpansRow": true,
+      "overflow": false,
+      "wcagViolations": 0
+    },
+    {
+      "width": 390,
+      "theme": "light",
+      "motion": "reduce",
+      "exactWordsAndOrder": true,
+      "benefitCount": 7,
+      "existingActionTargets": [
+        {
+          "label": "Request Site Assessment",
+          "href": "/contact"
+        },
+        {
+          "label": "View Services",
+          "href": "/services"
+        },
+        {
+          "label": "For GCs: Request Unit Pricing",
+          "href": "/contact"
+        }
+      ],
+      "followingAudienceContentAndLinksUnchanged": true,
+      "coverageSpansRow": false,
+      "overflow": false,
+      "wcagViolations": 0
+    },
+    {
+      "width": 320,
+      "theme": "light",
+      "motion": "reduce",
+      "exactWordsAndOrder": true,
+      "benefitCount": 7,
+      "existingActionTargets": [
+        {
+          "label": "Request Site Assessment",
+          "href": "/contact"
+        },
+        {
+          "label": "View Services",
+          "href": "/services"
+        },
+        {
+          "label": "For GCs: Request Unit Pricing",
+          "href": "/contact"
+        }
+      ],
+      "followingAudienceContentAndLinksUnchanged": true,
+      "coverageSpansRow": false,
+      "overflow": false,
+      "wcagViolations": 0
+    },
+    {
+      "width": 768,
+      "theme": "light",
+      "motion": "reduce",
+      "exactWordsAndOrder": true,
+      "benefitCount": 7,
+      "existingActionTargets": [
+        {
+          "label": "Request Site Assessment",
+          "href": "/contact"
+        },
+        {
+          "label": "View Services",
+          "href": "/services"
+        },
+        {
+          "label": "For GCs: Request Unit Pricing",
+          "href": "/contact"
+        }
+      ],
+      "followingAudienceContentAndLinksUnchanged": true,
+      "coverageSpansRow": true,
+      "overflow": false,
+      "wcagViolations": 0
+    },
+    {
+      "width": 1440,
+      "theme": "dark",
+      "motion": "reduce",
+      "exactWordsAndOrder": true,
+      "benefitCount": 7,
+      "existingActionTargets": [
+        {
+          "label": "Request Site Assessment",
+          "href": "/contact"
+        },
+        {
+          "label": "View Services",
+          "href": "/services"
+        },
+        {
+          "label": "For GCs: Request Unit Pricing",
+          "href": "/contact"
+        }
+      ],
+      "followingAudienceContentAndLinksUnchanged": true,
+      "coverageSpansRow": true,
+      "overflow": false,
+      "wcagViolations": 0
+    },
+    {
+      "width": 390,
+      "theme": "dark",
+      "motion": "reduce",
+      "exactWordsAndOrder": true,
+      "benefitCount": 7,
+      "existingActionTargets": [
+        {
+          "label": "Request Site Assessment",
+          "href": "/contact"
+        },
+        {
+          "label": "View Services",
+          "href": "/services"
+        },
+        {
+          "label": "For GCs: Request Unit Pricing",
+          "href": "/contact"
+        }
+      ],
+      "followingAudienceContentAndLinksUnchanged": true,
+      "coverageSpansRow": false,
+      "overflow": false,
+      "wcagViolations": 0
+    },
+    {
+      "width": 1440,
+      "theme": "light",
+      "motion": "no-preference",
+      "exactWordsAndOrder": true,
+      "benefitCount": 7,
+      "existingActionTargets": [
+        {
+          "label": "Request Site Assessment",
+          "href": "/contact"
+        },
+        {
+          "label": "View Services",
+          "href": "/services"
+        },
+        {
+          "label": "For GCs: Request Unit Pricing",
+          "href": "/contact"
+        }
+      ],
+      "followingAudienceContentAndLinksUnchanged": true,
+      "coverageSpansRow": true,
+      "overflow": false,
+      "wcagViolations": 0
+    }
+  ],
+  "errors": [],
+  "mutations": []
+}

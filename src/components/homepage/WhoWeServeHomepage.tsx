@@ -116,58 +116,65 @@ const WhoWeServeHomepage = () => {
         {/* Why Choose Us */}
         <div
           ref={headerRef}
-          className="max-w-4xl mb-12"
+          className="mb-12 overflow-hidden rounded-2xl border border-border border-t-4 border-t-[hsl(var(--brand-accent))] bg-card shadow-sm"
           style={fadeStyle(showHeader)}
+          data-client-reasons
         >
-          <SectionBadge icon={Award} text={c.f001} />
-          <h2 className="text-3xl md:text-5xl font-bold text-foreground mb-6 leading-tight tracking-tight">
-            {c.f002}
-          </h2>
-          <p className="text-xl md:text-2xl text-foreground font-semibold mb-6">
-            {c.f003}
-            <span className="text-primary">{c.f004}</span> {c.f005}
-          </p>
+          <div className="border-b border-border p-6 md:p-8">
+            <SectionBadge icon={Award} text={c.f001} />
+            <h2 className="mb-5 text-3xl font-bold leading-tight tracking-tight text-foreground md:text-4xl">
+              {c.f002}
+            </h2>
+            <p className="mb-6 rounded-r-lg border-l-2 border-primary bg-muted/30 px-4 py-3 text-lg font-semibold leading-relaxed text-foreground md:text-xl">
+              {c.f003}
+              <span className="text-primary">{c.f004}</span> {c.f005}
+            </p>
 
-          <div className="space-y-4 mb-8">
-            <p className="text-base md:text-lg text-muted-foreground leading-relaxed">
-              {c.f006}
-              <span className="text-foreground font-semibold">
-                {c.f007}
-              </span>{" "}
-              {c.f008}
-              <span className="text-foreground font-semibold">
-                {c.f009}
-              </span>{" "}
-              {c.f010}
-              <span className="text-foreground font-semibold">{c.f011}</span>
-              {c.f012}
-              <span className="text-foreground font-semibold">{c.f013}</span>
-              {c.f014}
-              <span className="text-foreground font-semibold">{c.f015}</span>.
-            </p>
-            <p className="text-base md:text-lg text-muted-foreground leading-relaxed">
-              {c.f016}
-              <span className="text-foreground font-semibold">{c.f017}</span>
-              {c.f018}
-              <span className="text-foreground font-semibold">{c.f019}</span>.
-            </p>
+            <div className="grid gap-5 lg:grid-cols-[1.4fr_1fr] lg:gap-8">
+              <p className="text-base md:text-lg text-muted-foreground leading-relaxed">
+                {c.f006}
+                <span className="text-foreground font-semibold">
+                  {c.f007}
+                </span>{" "}
+                {c.f008}
+                <span className="text-foreground font-semibold">
+                  {c.f009}
+                </span>{" "}
+                {c.f010}
+                <span className="text-foreground font-semibold">{c.f011}</span>
+                {c.f012}
+                <span className="text-foreground font-semibold">{c.f013}</span>
+                {c.f014}
+                <span className="text-foreground font-semibold">{c.f015}</span>.
+              </p>
+              <p className="text-base md:text-lg text-muted-foreground leading-relaxed">
+                {c.f016}
+                <span className="text-foreground font-semibold">{c.f017}</span>
+                {c.f018}
+                <span className="text-foreground font-semibold">{c.f019}</span>.
+              </p>
+            </div>
           </div>
 
           {/* Benefit bullets */}
-          <div className="grid md:grid-cols-2 gap-4 mb-8">
+          <div className="grid gap-4 bg-muted/20 p-6 md:grid-cols-2 md:p-8 xl:grid-cols-3">
             {benefits.map((b, i) => (
               <Card
                 key={i}
                 variant="outline"
                 size="sm"
-                hover
-                className="h-full"
+                className={`h-full rounded-xl border border-border bg-background p-5 ${i === benefits.length - 1 ? "md:col-span-2 xl:col-span-3" : ""}`}
               >
                 <div className="flex gap-3">
-                  <CheckCircle2 className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
-                  <div>
+                  <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-primary/10">
+                    <CheckCircle2
+                      className="h-4 w-4 text-primary"
+                      aria-hidden="true"
+                    />
+                  </span>
+                  <div className="min-w-0">
                     <h3
-                      className={`${TYPOGRAPHY_STYLES.cardTitle} text-foreground mb-1`}
+                      className={`${TYPOGRAPHY_STYLES.cardTitle} mb-2 leading-snug text-foreground`}
                     >
                       {b.title}
                     </h3>
@@ -181,18 +188,29 @@ const WhoWeServeHomepage = () => {
           </div>
 
           {/* CTAs */}
-          <div className="flex flex-col sm:flex-row flex-wrap gap-4">
+          <div className="flex flex-col flex-wrap gap-3 border-t border-border p-6 sm:flex-row md:px-8 md:py-6">
             <Button
               asChild
               size="lg"
               variant="navy"
+              className="min-w-0 whitespace-normal text-center"
             >
               <Link to="/contact">{c.f020}</Link>
             </Button>
-            <Button asChild size="lg" variant="outline">
+            <Button
+              asChild
+              size="lg"
+              variant="outline"
+              className="min-w-0 whitespace-normal border-primary text-center text-primary hover:bg-muted/50"
+            >
               <Link to="/services">{c.f021}</Link>
             </Button>
-            <Button asChild size="lg" variant="outline">
+            <Button
+              asChild
+              size="lg"
+              variant="outline"
+              className="min-w-0 whitespace-normal border-primary text-center text-primary hover:bg-muted/50"
+            >
               <Link to="/contact">{c.f022}</Link>
             </Button>
           </div>
