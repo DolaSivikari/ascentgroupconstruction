@@ -1,0 +1,12 @@
+{
+  "baseSha": "a2b2f4102635bc1eb869c5cc0dc00659e2a1ead2",
+  "existingCaptureSha": "6d2d6a44815411b3da74b203739e951abf1ccbfb",
+  "baseAndExistingCaptureGitTreesEqual": true,
+  "applicationFilesChanged": [
+    "src/components/homepage/WhyChooseUs.tsx"
+  ],
+  "contentModuleUnchanged": true,
+  "hookAndQueryUnchanged": true,
+  "protectedContactConstantsAndHeroUnchanged": true,
+  "dependenciesOrBackendChanges": false
+}

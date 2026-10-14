@@ -1,0 +1,103 @@
+{
+  "phase": "HP \u2014 Why Choose Us style only",
+  "date": "2026-10-14",
+  "baseSha": "a2b2f4102635bc1eb869c5cc0dc00659e2a1ead2",
+  "applicationFilesChanged": [
+    "src/components/homepage/WhyChooseUs.tsx"
+  ],
+  "contentIntegrity": {
+    "allVisibleTextAndMetadataExact": true,
+    "contentModuleUnchanged": true,
+    "fallbackLiteralsUnchanged": true,
+    "dataQueryAndPriorityUnchanged": true,
+    "orderAndLinkTargetsUnchanged": true
+  },
+  "vitest": {
+    "status": "passed",
+    "files": 117,
+    "tests": 730,
+    "workers": 2,
+    "firstRun": {
+      "passed": 729,
+      "failed": 1,
+      "reason": "Existing PageHeaders preview test exceeded its unchanged 5000ms limit while browser/build checks ran concurrently."
+    },
+    "focusedRerun": {
+      "files": 1,
+      "tests": 3,
+      "status": "passed"
+    },
+    "fullRerun": "passed without timeout/assertion changes"
+  },
+  "applicationTypeScript": "passed",
+  "selectedTypeScript": "passed",
+  "productionBuild": "passed",
+  "serviceWorker": "passed",
+  "routeAudit": "passed",
+  "operationalContracts": "passed",
+  "gitDiffCheck": "passed",
+  "lint": {
+    "rawExit": 1,
+    "errors": 201,
+    "warnings": 29,
+    "unchangedBudgetPassed": true,
+    "fileRuleRegressions": 0,
+    "changedComponentClean": true
+  },
+  "entryBudget": {
+    "status": "passed",
+    "baseRawBytes": 1024513,
+    "baseGzipBytes": 306606,
+    "candidateRawBytes": 1024511,
+    "candidateGzipBytes": 306589
+  },
+  "comparison": {
+    "status": "passed",
+    "urls": 86,
+    "captures": 172,
+    "identical": 170,
+    "declared": 2,
+    "failed": 0
+  },
+  "publicBundle": {
+    "status": "passed",
+    "urls": 86,
+    "loadedPublicChunks": 234,
+    "verifiedAssetMetadata": [
+      "/assets/parallax-commitment.avif.asset-F1DiY2Sh.js"
+    ],
+    "failures": []
+  },
+  "browser": {
+    "engine": "Chromium",
+    "offlineFixturesOnly": true,
+    "responsiveWidths": [
+      1440,
+      390,
+      320
+    ],
+    "lightAndDark": "passed",
+    "normalAndReducedMotion": "passed",
+    "exactFallbackAndSavedWords": "passed",
+    "oddItemCount": "passed",
+    "longDescription": "passed",
+    "missingIconAndBadge": "passed",
+    "sectionWcagViolations": 0,
+    "runtimeErrors": 0,
+    "horizontalOverflowCaptures": 0,
+    "externalMutations": 0,
+    "formsSubmitted": false,
+    "fixtureCases": 8
+  },
+  "correctionsBeforeFinalCapture": [
+    "Outline-button contrast adjusted with section-local semantic text/border tokens.",
+    "Draft capture stopped before rebuild; only final-build captures enter comparison."
+  ],
+  "limitations": [
+    "Deterministic synthetic fixtures, not current production CMS data or a replacement approved production baseline.",
+    "No native Safari/Firefox or physical-device checks.",
+    "WCAG checks cover the changed section; the final all-page regression checks screenshots, text, metadata and runtime errors, not an additional inventory-wide WCAG scan.",
+    "No production forms, live database writes, merge, deployment or Lovable publishing.",
+    "GitHub CI is separate from these local results."
+  ]
+}

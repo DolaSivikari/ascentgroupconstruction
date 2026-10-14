@@ -1,0 +1,177 @@
+{
+  "status": "passed",
+  "previewScope": "Section-only exports hide unrelated fixed site controls; complete-page comparisons remain unmodified.",
+  "fixturePolicy": "Synthetic saved reasons and empty fallback lists; external requests/mutations blocked; no form submissions",
+  "results": [
+    {
+      "width": 1440,
+      "theme": "light",
+      "kind": "fallback",
+      "motion": "reduce",
+      "exactWordsAndOrder": true,
+      "items": 6,
+      "allDescriptionsVisible": true,
+      "overflow": false,
+      "axeViolations": 0,
+      "links": [
+        {
+          "text": "Request a Proposal",
+          "href": "/contact"
+        },
+        {
+          "text": "View Portfolio",
+          "href": "/projects"
+        }
+      ]
+    },
+    {
+      "width": 390,
+      "theme": "light",
+      "kind": "fallback",
+      "motion": "reduce",
+      "exactWordsAndOrder": true,
+      "items": 6,
+      "allDescriptionsVisible": true,
+      "overflow": false,
+      "axeViolations": 0,
+      "links": [
+        {
+          "text": "Request a Proposal",
+          "href": "/contact"
+        },
+        {
+          "text": "View Portfolio",
+          "href": "/projects"
+        }
+      ]
+    },
+    {
+      "width": 320,
+      "theme": "light",
+      "kind": "fallback",
+      "motion": "reduce",
+      "exactWordsAndOrder": true,
+      "items": 6,
+      "allDescriptionsVisible": true,
+      "overflow": false,
+      "axeViolations": 0,
+      "links": [
+        {
+          "text": "Request a Proposal",
+          "href": "/contact"
+        },
+        {
+          "text": "View Portfolio",
+          "href": "/projects"
+        }
+      ]
+    },
+    {
+      "width": 1440,
+      "theme": "dark",
+      "kind": "fallback",
+      "motion": "reduce",
+      "exactWordsAndOrder": true,
+      "items": 6,
+      "allDescriptionsVisible": true,
+      "overflow": false,
+      "axeViolations": 0,
+      "links": [
+        {
+          "text": "Request a Proposal",
+          "href": "/contact"
+        },
+        {
+          "text": "View Portfolio",
+          "href": "/projects"
+        }
+      ]
+    },
+    {
+      "width": 390,
+      "theme": "dark",
+      "kind": "fallback",
+      "motion": "reduce",
+      "exactWordsAndOrder": true,
+      "items": 6,
+      "allDescriptionsVisible": true,
+      "overflow": false,
+      "axeViolations": 0,
+      "links": [
+        {
+          "text": "Request a Proposal",
+          "href": "/contact"
+        },
+        {
+          "text": "View Portfolio",
+          "href": "/projects"
+        }
+      ]
+    },
+    {
+      "width": 1440,
+      "theme": "light",
+      "kind": "saved",
+      "motion": "reduce",
+      "exactWordsAndOrder": true,
+      "items": 5,
+      "allDescriptionsVisible": true,
+      "overflow": false,
+      "axeViolations": 0,
+      "links": [
+        {
+          "text": "Request a Proposal",
+          "href": "/contact"
+        },
+        {
+          "text": "View Portfolio",
+          "href": "/projects"
+        }
+      ]
+    },
+    {
+      "width": 390,
+      "theme": "light",
+      "kind": "saved",
+      "motion": "reduce",
+      "exactWordsAndOrder": true,
+      "items": 5,
+      "allDescriptionsVisible": true,
+      "overflow": false,
+      "axeViolations": 0,
+      "links": [
+        {
+          "text": "Request a Proposal",
+          "href": "/contact"
+        },
+        {
+          "text": "View Portfolio",
+          "href": "/projects"
+        }
+      ]
+    },
+    {
+      "width": 1440,
+      "theme": "light",
+      "kind": "fallback",
+      "motion": "no-preference",
+      "exactWordsAndOrder": true,
+      "items": 6,
+      "allDescriptionsVisible": true,
+      "overflow": false,
+      "axeViolations": 0,
+      "links": [
+        {
+          "text": "Request a Proposal",
+          "href": "/contact"
+        },
+        {
+          "text": "View Portfolio",
+          "href": "/projects"
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "mutations": []
+}

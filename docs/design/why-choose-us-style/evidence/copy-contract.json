@@ -1,0 +1,8 @@
+{
+  "status": "passed",
+  "fallbackLiteralCount": 18,
+  "fallbackStringsExactlyUnchanged": true,
+  "contentModuleExactlyUnchanged": true,
+  "queryExactlyUnchanged": true,
+  "queryHash": "b3b04021dd0bf09d135fdab810bc27e1aabaa11cd04464ab89ef6a82a3c52267"
+}
