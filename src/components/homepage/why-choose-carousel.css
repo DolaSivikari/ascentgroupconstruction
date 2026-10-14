@@ -1,0 +1,72 @@
+.why-choose-carousel {
+  padding-block: clamp(3rem, 6vw, 5rem);
+}
+
+.why-carousel-intros,
+.why-carousel-stage,
+.why-carousel-actions {
+  display: grid;
+}
+
+.why-carousel-panel {
+  grid-area: 1 / 1;
+  min-width: 0;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition:
+    opacity 600ms cubic-bezier(0.22, 1, 0.36, 1),
+    visibility 0s 600ms;
+}
+
+.why-carousel-stage {
+  touch-action: pan-y pinch-zoom;
+}
+
+.why-carousel-actions > .why-carousel-panel {
+  align-items: flex-start;
+  align-content: flex-start;
+}
+
+.why-carousel-panel[data-active="true"] {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transition-delay: 0s;
+}
+
+.why-carousel-cards {
+  display: grid;
+  gap: 1rem;
+  align-self: stretch;
+}
+
+@media (min-width: 640px) {
+  .why-carousel-cards {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .why-carousel-cards[data-count="1"] {
+    grid-template-columns: minmax(0, 1fr);
+    max-width: 36rem;
+    width: 100%;
+    margin-inline: auto;
+  }
+}
+
+@media (min-width: 1024px) {
+  .why-carousel-cards {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  .why-carousel-cards[data-count="2"] {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    max-width: 54rem;
+    width: 100%;
+    margin-inline: auto;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .why-carousel-panel {
+    transition: none;
+  }
+}
