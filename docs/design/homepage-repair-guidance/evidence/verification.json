@@ -1,0 +1,88 @@
+{
+  "phase": "HP \u2014 restrained homepage repair guidance",
+  "date": "2026-10-14",
+  "baseSha": "52d58a9d1c3c673c91908400ce78989056f076a8",
+  "vitest": {
+    "status": "passed",
+    "files": 117,
+    "tests": 730
+  },
+  "applicationTypeScript": "passed",
+  "selectedTypeScript": "passed",
+  "productionBuild": "passed",
+  "serviceWorker": "passed",
+  "routeAudit": "passed",
+  "operationalContracts": "passed",
+  "gitDiffCheck": "passed",
+  "standaloneBrowserRunner": "passed",
+  "lint": {
+    "rawExit": 1,
+    "errors": 201,
+    "warnings": 29,
+    "unchangedBudgetPassed": true,
+    "fileRuleRegressions": 0,
+    "changedApplicationFilesClean": true
+  },
+  "entryBudget": {
+    "status": "passed",
+    "baseRawBytes": 1023904,
+    "baseGzipBytes": 306398,
+    "candidateRawBytes": 1024513,
+    "candidateGzipBytes": 306606
+  },
+  "comparison": {
+    "status": "passed",
+    "urls": 86,
+    "captures": 172,
+    "identical": 170,
+    "declared": 2,
+    "failed": 0
+  },
+  "publicBundle": {
+    "status": "passed",
+    "urls": 86,
+    "loadedPublicChunks": 234,
+    "verifiedAssetMetadata": [
+      "/assets/parallax-commitment.avif.asset-F1DiY2Sh.js"
+    ],
+    "failures": []
+  },
+  "browser": {
+    "engine": "Chromium",
+    "offlineFixturesOnly": true,
+    "widths": [
+      1440,
+      390,
+      320
+    ],
+    "problemKeyboardToggles": true,
+    "documentationArrowKeyTabs": true,
+    "contactNavigationAndReturn": true,
+    "originalFormControlEquivalence": true,
+    "formsSubmitted": false,
+    "externalMutations": 0,
+    "horizontalOverflow": 0,
+    "newPageRuntimeErrors": 0,
+    "homepageAxeViolations": 0,
+    "darkHomepageAxeViolations": 0,
+    "fullInventoryAxeFindingCount": 116,
+    "inventoryAxeCountUnchangedFromMain": true
+  },
+  "hero": {
+    "actualVideoPlayback": "passed",
+    "videoNodePreserved": "passed",
+    "carouselAutoplay": "passed",
+    "fixedPin": "passed",
+    "transformFallback": "passed",
+    "releaseAndReverseScroll": "passed",
+    "keyboardFocusRecovery": "passed",
+    "phoneReducedMotionShortWindowAndLargeTextFallbacks": "passed"
+  },
+  "limitations": [
+    "Local regression uses deterministic synthetic data, not current production CMS content or a replacement approved production baseline.",
+    "No native Safari/Firefox or real device testing.",
+    "No authenticated admin publishing, production form submissions, database changes, merge, deployment or Lovable publishing.",
+    "Known page-transition transform effect on fixed navigation reproduces on main; Part B remains separate.",
+    "GitHub production-baseline CI results are separate from these local checks."
+  ]
+}

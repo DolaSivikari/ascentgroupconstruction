@@ -1,0 +1,63 @@
+{
+  "baseSha": "52d58a9d1c3c673c91908400ce78989056f076a8",
+  "previousCaptureSha": "996e46590549731400717f80fe03dbfec904dcd4",
+  "baseAndPreviousCaptureGitTreesEqual": true,
+  "unchangedProtectedSources": [
+    {
+      "path": "src/components/homepage/EnhancedHero.tsx",
+      "unchanged": true,
+      "sha256": "e7e1084b43a4af85fc7520992663641bab77b90384b769208620728ea996c432"
+    },
+    {
+      "path": "src/components/homepage/HeroScrollFrame.tsx",
+      "unchanged": true,
+      "sha256": "8bb1c83f9e6353e567675370df2bba465e28fda7d774473731b2f4b5c66dbc5a"
+    },
+    {
+      "path": "src/components/homepage/InteractiveCTA.tsx",
+      "unchanged": true,
+      "sha256": "fc699bf3235cfdaef39fd29eafd241c66850948430c11e1a1f2b2a40b1d28f98"
+    },
+    {
+      "path": "src/data/enriched-hero-slides.ts",
+      "unchanged": true,
+      "sha256": "199287f38418304e8b20e90d74ad3841094496bdf895a05ef3f578828a10484f"
+    },
+    {
+      "path": "src/content/pages/home-commitment.ts",
+      "unchanged": true,
+      "sha256": "efdfdba1507185fc5544ab87f93ac5309a4f2bdf74370849453a3a02fd68ddb9"
+    },
+    {
+      "path": "src/components/Navigation.tsx",
+      "unchanged": true,
+      "sha256": "5041b6dd88a0e4c644d701dca0045d105a3afa2a14bc33c9a78c6d83e80bac29"
+    },
+    {
+      "path": "src/constants/company.ts",
+      "unchanged": true,
+      "sha256": "2ffe96ad1b3c2e172d9f3658c344afc0c1ed0d613f9a050f73b8b95ae29128a5"
+    },
+    {
+      "path": "src/pages/company/Technology.tsx",
+      "unchanged": true,
+      "sha256": "4268a64774162717d26ca29cebdd357be69d8a61a9da6fb8c8f6d966aec9f921"
+    },
+    {
+      "path": "src/pages/Capabilities.tsx",
+      "unchanged": true,
+      "sha256": "46bab64a52fce7456a1b0b526c538b14d17c1ce6a69cd865cb768922061d7424"
+    },
+    {
+      "path": "src/components/homepage/HomepageEntryPaths.tsx",
+      "unchanged": true,
+      "sha256": "c64e7dce73694d02c643dcc7a71a056b1b9799bc35df17e15ecb7edac43cb74b"
+    },
+    {
+      "path": "src/components/homepage/HomepageProofStrip.tsx",
+      "unchanged": true,
+      "sha256": "428287378c95c84fd16ba3fa37376357c8380ea90935473537f24d51dc586537"
+    }
+  ],
+  "newSchemaOrDependencies": false
+}

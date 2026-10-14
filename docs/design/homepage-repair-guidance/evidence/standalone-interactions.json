@@ -1,0 +1,57 @@
+{
+  "status": "passed",
+  "fixturePolicy": "Empty lists and no-row responses; all external mutations and non-fixture requests blocked; no form submissions",
+  "results": [
+    {
+      "width": 1440,
+      "problemKeyboardToggles": 4,
+      "documentationKeyboardTabs": 3,
+      "existingRoutes": [
+        "/contact",
+        "/submit-rfp",
+        "/services/sealant-programs",
+        "/services/facade-remediation",
+        "/services/parking-garage-restoration",
+        "/our-process"
+      ],
+      "expandableIntroduction": true,
+      "contactNavigationAndReturn": true,
+      "overflow": false
+    },
+    {
+      "width": 390,
+      "problemKeyboardToggles": 4,
+      "documentationKeyboardTabs": 3,
+      "existingRoutes": [
+        "/contact",
+        "/submit-rfp",
+        "/services/sealant-programs",
+        "/services/facade-remediation",
+        "/services/parking-garage-restoration",
+        "/our-process"
+      ],
+      "expandableIntroduction": true,
+      "contactNavigationAndReturn": true,
+      "overflow": false
+    },
+    {
+      "width": 320,
+      "problemKeyboardToggles": 4,
+      "documentationKeyboardTabs": 3,
+      "existingRoutes": [
+        "/contact",
+        "/submit-rfp",
+        "/services/sealant-programs",
+        "/services/facade-remediation",
+        "/services/parking-garage-restoration",
+        "/our-process"
+      ],
+      "expandableIntroduction": true,
+      "contactNavigationAndReturn": true,
+      "overflow": false
+    }
+  ],
+  "existingFormControlsUnchanged": true,
+  "errors": [],
+  "mutations": []
+}

@@ -47,7 +47,19 @@ const HomepageFinalCta = lazy(() =>
     default: m.HomepageFinalCta,
   })),
 );
-const HomepageQuestions = lazy(() => import("@/components/homepage/HomepageQuestions"));
+const HomepageQuestions = lazy(
+  () => import("@/components/homepage/HomepageQuestions"),
+);
+const HomepageRepairGuide = lazy(() =>
+  import("@/components/homepage/HomepageRepairGuide").then((m) => ({
+    default: m.HomepageRepairGuide,
+  })),
+);
+const HomepageDocumentationPreview = lazy(() =>
+  import("@/components/homepage/HomepageDocumentationPreview").then((m) => ({
+    default: m.HomepageDocumentationPreview,
+  })),
+);
 import { videoSchema } from "@/utils/structured-data";
 import { getHomepageVideos } from "@/data/video-metadata";
 
@@ -162,6 +174,12 @@ const Index = () => {
           <div className="bg-background">
             <HomepageEntryPaths />
             <HomepageProofStrip />
+            <DeferredSection name="Repair planning">
+              <HomepageRepairGuide />
+            </DeferredSection>
+            <DeferredSection name="Documentation examples">
+              <HomepageDocumentationPreview />
+            </DeferredSection>
             <DeferredSection name="Service highlights">
               <HomepageServiceHighlights />
             </DeferredSection>
