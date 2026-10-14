@@ -18,6 +18,7 @@ import {
   FileCheck,
   MapPin,
   Clock,
+  ChevronDown,
 } from "lucide-react";
 import { motion } from "framer-motion";
 import { GRID } from "@/design-system/layouts";
@@ -145,41 +146,51 @@ export const HomepageServiceHighlights = () => {
             </p>
           </div>
 
-          {/* Two-column body */}
-          <div className="grid md:grid-cols-2 gap-x-12 gap-y-6 mb-12">
-            <div className="space-y-4">
-              <p
-                className={`${TYPOGRAPHY_STYLES.cardBody} text-muted-foreground`}
-              >
-                {c.f004}
-                <span className="font-medium text-foreground">
-                  {c.f005}
-                </span> to{" "}
-                <span className="font-medium text-foreground">{c.f006}</span>,{" "}
-                <span className="font-medium text-foreground">{c.f007}</span>
-                {c.f008}
-              </p>
-              <p
-                className={`${TYPOGRAPHY_STYLES.cardBody} text-muted-foreground`}
-              >
-                {c.f009}
-              </p>
+          {/* Keep the full company introduction available without repeating it up front. */}
+          <details className="group mb-8 rounded-lg border border-border bg-card">
+            <summary className="flex min-h-12 cursor-pointer list-none items-center justify-between gap-3 rounded-lg px-5 py-3 text-sm font-semibold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring [&::-webkit-details-marker]:hidden">
+              {c.f051}
+              <ChevronDown
+                className="h-4 w-4 shrink-0 transition-transform group-open:rotate-180 motion-reduce:transition-none"
+                aria-hidden="true"
+              />
+            </summary>
+            <div className="grid md:grid-cols-2 gap-x-12 gap-y-6 border-t border-border p-5">
+              <div className="space-y-4">
+                <p
+                  className={`${TYPOGRAPHY_STYLES.cardBody} text-muted-foreground`}
+                >
+                  {c.f004}
+                  <span className="font-medium text-foreground">
+                    {c.f005}
+                  </span>{" "}
+                  to{" "}
+                  <span className="font-medium text-foreground">{c.f006}</span>,{" "}
+                  <span className="font-medium text-foreground">{c.f007}</span>
+                  {c.f008}
+                </p>
+                <p
+                  className={`${TYPOGRAPHY_STYLES.cardBody} text-muted-foreground`}
+                >
+                  {c.f009}
+                </p>
+              </div>
+              <div className="space-y-4">
+                <p
+                  className={`${TYPOGRAPHY_STYLES.cardBody} text-muted-foreground`}
+                >
+                  {c.f010}{" "}
+                  <span className="font-medium text-foreground">{c.f011}</span>{" "}
+                  {c.f012}
+                </p>
+                <p
+                  className={`${TYPOGRAPHY_STYLES.cardBody} text-muted-foreground`}
+                >
+                  {c.f013}
+                </p>
+              </div>
             </div>
-            <div className="space-y-4">
-              <p
-                className={`${TYPOGRAPHY_STYLES.cardBody} text-muted-foreground`}
-              >
-                {c.f010}{" "}
-                <span className="font-medium text-foreground">{c.f011}</span>{" "}
-                {c.f012}
-              </p>
-              <p
-                className={`${TYPOGRAPHY_STYLES.cardBody} text-muted-foreground`}
-              >
-                {c.f013}
-              </p>
-            </div>
-          </div>
+          </details>
 
           {/* Three highlight cards */}
           <div className="grid sm:grid-cols-3 gap-4 mb-10">

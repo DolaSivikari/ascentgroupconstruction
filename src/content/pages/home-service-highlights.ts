@@ -50,8 +50,16 @@ export const defaults = {
   f048: "15+ years combined team experience with on-time, on-budget delivery serving developers, property managers, and institutional clients across the Greater Toronto Area.",
   f049: "Building Our Credentials",
   f050: "Licensed business with WSIB registration and insurance in progress. Committed to safety, quality documentation, and professional execution on every project.",
+  f051: "About our team and approach",
 };
 export const meta = {
+  f051: {
+    label: "Expandable company introduction",
+    section: "Page copy",
+    kind: "text",
+    maxLength: 300,
+    locked: false,
+  },
   f001: {
     label: "About Ascent Group",
     section: "Page copy",

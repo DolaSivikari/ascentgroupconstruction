@@ -2,8 +2,8 @@ import { defineContent } from "../types";
 export const defaults = {
   f001: "Something went wrong",
   f002: "We couldn't send your request. Please try again or call us directly.",
-  f003: "Your Envelope, Restoration & Trades Partner",
-  f004: "From concept to completion, we deliver exceptional results with transparent communication and expert craftsmanship.",
+  f003: "Tell us what you're dealing with",
+  f004: "Start with the building location, the issue you've noticed and any access requirements. You can begin a conversation before you have a complete scope.",
   f005: "Fully Licensed",
   f006: "WSIB Compliant",
   f007: "Responsive Support",
