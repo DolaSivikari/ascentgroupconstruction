@@ -1,0 +1,12 @@
+{
+  "pr72Merged": true,
+  "asset": "/assets/WhyChooseUs-CWAbMxY7.js",
+  "markers": {
+    "newSectionId": false,
+    "newNavyTexture": false,
+    "newTwoColumnPanel": false,
+    "oldDetachedCta": true,
+    "oldCardsGrid": true
+  },
+  "limitation": "Public bundle inspection, not a rendered-browser cache diagnosis."
+}
