@@ -8,14 +8,13 @@ import {
   Briefcase,
   Award,
   CheckCircle2,
+  ArrowUpRight,
 } from "lucide-react";
 import { Section } from "@/components/sections/Section";
 import { SectionBadge } from "@/components/ui/SectionBadge";
-import { SegmentCard } from "@/design-system/components/SegmentCard";
 import { Card } from "@/design-system/components/Card";
 import { Button } from "@/ui/Button";
 import { Link } from "react-router-dom";
-import { GRID } from "@/design-system/layouts";
 import { useScrollFadeIn } from "@/hooks/useScrollFadeIn";
 import { useStaggerAnimation } from "@/hooks/useStaggerAnimation";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
@@ -217,9 +216,16 @@ const WhoWeServeHomepage = () => {
         </div>
 
         {/* Divider + Who We Serve cards */}
-        <div className="mt-16 pt-12 border-t border-border/50">
+        <div
+          className="mt-16 border-t border-border/50 pt-12"
+          data-home-audiences
+        >
           <div className="max-w-3xl mb-8">
-            <h3 className="text-2xl md:text-3xl font-semibold text-foreground mb-4 leading-tight">
+            <span
+              className="mb-5 block h-1 w-10 rounded-full bg-[hsl(var(--brand-accent))]"
+              aria-hidden="true"
+            />
+            <h3 className="mb-4 text-2xl font-semibold leading-tight tracking-tight text-foreground md:text-3xl">
               {c.f023}
             </h3>
             <p className="text-base md:text-lg text-muted-foreground leading-relaxed">
@@ -227,7 +233,10 @@ const WhoWeServeHomepage = () => {
             </p>
           </div>
 
-          <div ref={gridRef} className={GRID.cards4}>
+          <div
+            ref={gridRef}
+            className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-4"
+          >
             {clientSegments.map((segment, index) => (
               <div
                 key={index}
@@ -236,12 +245,26 @@ const WhoWeServeHomepage = () => {
                   transitionDelay: showGrid ? `${delays[index] ?? 0}ms` : "0ms",
                 }}
               >
-                <SegmentCard
-                  icon={segment.icon}
-                  title={segment.title}
-                  description={segment.description}
-                  href={segment.link}
-                />
+                <Link
+                  to={segment.link}
+                  className="group flex h-full flex-col rounded-xl border border-border bg-card p-6 shadow-sm transition-colors hover:border-primary/50 hover:bg-muted/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-4 focus-visible:ring-offset-background motion-reduce:transition-none"
+                >
+                  <div className="mb-6 flex items-center justify-between gap-4">
+                    <span className="flex h-12 w-12 items-center justify-center rounded-xl border border-[hsl(var(--brand-accent)/0.2)] bg-[hsl(var(--brand-accent)/0.08)] text-primary">
+                      <segment.icon className="h-6 w-6" aria-hidden="true" />
+                    </span>
+                    <ArrowUpRight
+                      className="h-5 w-5 shrink-0 text-primary/70 group-hover:text-primary group-focus-visible:text-primary"
+                      aria-hidden="true"
+                    />
+                  </div>
+                  <h3 className="mb-3 text-xl font-semibold leading-snug text-foreground xl:min-h-14">
+                    {segment.title}
+                  </h3>
+                  <p className="text-base leading-relaxed text-muted-foreground">
+                    {segment.description}
+                  </p>
+                </Link>
               </div>
             ))}
           </div>
