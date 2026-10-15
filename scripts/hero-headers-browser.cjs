@@ -342,6 +342,9 @@ const errors = [],
           if (pathname === "/" && process.env.HERO_QA_WHY_CAROUSEL === "true") {
             await require("./why-choose-carousel-checks.cjs")({ page, output, width });
           }
+          if (pathname === "/" && process.env.HERO_QA_REPAIR_SCOPE === "true") {
+            await require("./repair-scope-walkthrough-checks.cjs")({ page, output, width });
+          }
           const result = await page.evaluate(() => {
             const hero = document.querySelector("[data-hero-image-state]");
             const image = hero?.querySelector("img");

@@ -1,0 +1,110 @@
+{
+  "status": "passed",
+  "urls": 6,
+  "captures": 12,
+  "identical": 10,
+  "declared": 2,
+  "failed": 0,
+  "results": [
+    {
+      "path": "/",
+      "width": 390,
+      "pixelDifferencePercent": 0.022051282051282053,
+      "differences": [
+        "visibleText"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-requested repair-scope walkthrough: replace the schematic with an AI-generated window-joint reference photo, follow one W-01 example through scope/progress/closeout tabs, explain exclusions, written changes and owner decisions, and add a Contact action. Only this homepage section changes; existing process text, credentials, hero and navigation are retained."
+    },
+    {
+      "path": "/",
+      "width": 1440,
+      "pixelDifferencePercent": 0.013402777777777777,
+      "differences": [
+        "visibleText"
+      ],
+      "unexpected": [],
+      "declaredReason": "Owner-requested repair-scope walkthrough: replace the schematic with an AI-generated window-joint reference photo, follow one W-01 example through scope/progress/closeout tabs, explain exclusions, written changes and owner decisions, and add a Contact action. Only this homepage section changes; existing process text, credentials, hero and navigation are retained."
+    },
+    {
+      "path": "/about",
+      "width": 390,
+      "pixelDifferencePercent": 0,
+      "differences": [],
+      "unexpected": [],
+      "declaredReason": null
+    },
+    {
+      "path": "/about",
+      "width": 1440,
+      "pixelDifferencePercent": 0,
+      "differences": [],
+      "unexpected": [],
+      "declaredReason": null
+    },
+    {
+      "path": "/contact",
+      "width": 390,
+      "pixelDifferencePercent": 0,
+      "differences": [],
+      "unexpected": [],
+      "declaredReason": null
+    },
+    {
+      "path": "/contact",
+      "width": 1440,
+      "pixelDifferencePercent": 0,
+      "differences": [],
+      "unexpected": [],
+      "declaredReason": null
+    },
+    {
+      "path": "/privacy",
+      "width": 390,
+      "pixelDifferencePercent": 0,
+      "differences": [],
+      "unexpected": [],
+      "declaredReason": null
+    },
+    {
+      "path": "/privacy",
+      "width": 1440,
+      "pixelDifferencePercent": 0,
+      "differences": [],
+      "unexpected": [],
+      "declaredReason": null
+    },
+    {
+      "path": "/projects",
+      "width": 390,
+      "pixelDifferencePercent": 0,
+      "differences": [],
+      "unexpected": [],
+      "declaredReason": null
+    },
+    {
+      "path": "/projects",
+      "width": 1440,
+      "pixelDifferencePercent": 0,
+      "differences": [],
+      "unexpected": [],
+      "declaredReason": null
+    },
+    {
+      "path": "/services/waterproofing-systems",
+      "width": 390,
+      "pixelDifferencePercent": 0,
+      "differences": [],
+      "unexpected": [],
+      "declaredReason": null
+    },
+    {
+      "path": "/services/waterproofing-systems",
+      "width": 1440,
+      "pixelDifferencePercent": 0,
+      "differences": [],
+      "unexpected": [],
+      "declaredReason": null
+    }
+  ]
+}

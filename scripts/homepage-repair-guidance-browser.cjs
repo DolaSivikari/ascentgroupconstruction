@@ -43,7 +43,7 @@ module.exports = async ({ page, output, width }) => {
   await docs.scrollIntoViewIfNeeded();
   assert.equal(
     await docs
-      .getByText("Illustrative sample — not a completed project", {
+      .getByText("Worked example · Window perimeter sealant", {
         exact: true,
       })
       .isVisible(),
@@ -56,11 +56,11 @@ module.exports = async ({ page, output, width }) => {
   await page.waitForFunction(
     () =>
       document.querySelector('[role="tab"][data-state="active"]')
-        .textContent === "During work",
+        .textContent.trim().endsWith("During work"),
   );
   assert.equal(
     await docs
-      .getByRole("heading", { name: "A progress record you can follow" })
+      .getByRole("heading", { name: "Keep the work connected to the scope" })
       .isVisible(),
     true,
   );
@@ -71,11 +71,11 @@ module.exports = async ({ page, output, width }) => {
   await page.waitForFunction(
     () =>
       document.querySelector('[role="tab"][data-state="active"]')
-        .textContent === "At completion",
+        .textContent.trim().endsWith("At completion"),
   );
   assert.equal(
     await docs
-      .getByRole("heading", { name: "An organized handover" })
+      .getByRole("heading", { name: "Hand over records the next person can use" })
       .isVisible(),
     true,
   );
@@ -85,7 +85,7 @@ module.exports = async ({ page, output, width }) => {
   await before.click();
   assert.equal(
     await docs
-      .getByRole("heading", { name: "A scope you can review" })
+      .getByRole("heading", { name: "Agree exactly what is included" })
       .isVisible(),
     true,
   );
