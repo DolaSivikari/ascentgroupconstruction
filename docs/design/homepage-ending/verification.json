@@ -1,0 +1,97 @@
+{
+  "baseCommit": "d40d961",
+  "beforeBuildSource": "3c85620; identical Git tree to d40d961",
+  "scope": "Homepage final CTA only",
+  "measuredSectionHeights": {
+    "1440": {
+      "beforePx": 709.890625,
+      "afterPx": 448,
+      "reductionPx": 261.890625,
+      "reductionPercent": 36.9
+    },
+    "390": {
+      "beforePx": 1390.53125,
+      "afterPx": 898.796875,
+      "reductionPx": 491.734375,
+      "reductionPercent": 35.4
+    }
+  },
+  "checks": {
+    "vitest": {
+      "status": "passed",
+      "files": 121,
+      "tests": 747,
+      "failed": 0
+    },
+    "selectedTypeScript": "passed",
+    "appTypeScript": "passed",
+    "productionBuild": "passed",
+    "serviceWorker": "passed",
+    "routeAudit": "passed",
+    "operationalContracts": {
+      "status": "passed",
+      "inventoryUrls": 86
+    },
+    "lint": {
+      "errors": 201,
+      "warnings": 29,
+      "fileRuleRegressions": 0,
+      "changedFilesClean": true,
+      "enforcedMaximumErrors": 205,
+      "enforcedMaximumWarnings": 29
+    },
+    "entryBudget": {
+      "status": "passed",
+      "rawBytes": 1052002,
+      "gzipBytes": 315710
+    },
+    "diffCheck": "passed"
+  },
+  "publicComparison": {
+    "routes": [
+      "/",
+      "/about",
+      "/projects",
+      "/services/waterproofing-systems",
+      "/privacy",
+      "/contact"
+    ],
+    "widths": [
+      1440,
+      390
+    ],
+    "captures": 12,
+    "identical": 10,
+    "declared": 2,
+    "failed": 0,
+    "metadataChanged": false
+  },
+  "additionalBrowserChecks": {
+    "normalMotionWidths": [
+      768,
+      320
+    ],
+    "dark150PercentTextWidths": [
+      390,
+      320
+    ],
+    "nativeLinkKeyboardOrder": "passed",
+    "visibleFocusRings": "passed",
+    "lastLinkClearOfFixedBarAtPageBottom": "passed",
+    "overflow": false,
+    "runtimeErrors": 0,
+    "mutations": 0
+  },
+  "contentCompatibility": {
+    "originalFieldIdsRendered": "f001-f008",
+    "unchangedDefaults": "f003-f008",
+    "newEditableLabels": "f009-f011",
+    "publishedOverridesRetainPriority": true
+  },
+  "limitations": [
+    "Offline synthetic fixtures, not live database or document availability verification.",
+    "Six representative routes compared, not all public pages.",
+    "Owner-controlled claims and existing response promises are unchanged.",
+    "No merge, publish, SQL, live writes, emails, deployment or secrets changes."
+  ]
+}
