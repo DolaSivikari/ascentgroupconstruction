@@ -21,36 +21,6 @@ import { useReducedMotion } from "@/hooks/useReducedMotion";
 
 const WhoWeServeHomepage = () => {
   const c = usePageContent(contentModule);
-  const benefits = [
-    {
-      title: c.f025,
-      desc: "One team, one contract, one responsible point of contact.",
-    },
-    {
-      title: c.f026,
-      desc: "Sealants/caulking, EIFS & stucco, masonry repairs, waterproofing & protective coatings, concrete and parking‑garage rehabilitation, commercial painting, interior buildouts.",
-    },
-    {
-      title: c.f027,
-      desc: "We build to drawings and specs, submit materials, and document compliance.",
-    },
-    {
-      title: c.f028,
-      desc: "Photo logs, inspection records (ITPs when requested), clear punch‑list closeout.",
-    },
-    {
-      title: c.f029,
-      desc: "Safe access, phasing, tenant coordination, off‑hours where needed.",
-    },
-    {
-      title: c.f030,
-      desc: "48–72‑hour site walks, fast submittals, and unit pricing for GC trade packages.",
-    },
-    {
-      title: c.f031,
-      desc: "Toronto, Mississauga, Brampton, Vaughan/Markham, Oakville/Burlington, Hamilton.",
-    },
-  ];
   const clientSegments = [
     {
       icon: Briefcase,

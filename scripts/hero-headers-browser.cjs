@@ -339,6 +339,9 @@ const errors = [],
           if (pathname === "/" && process.env.HERO_QA_SCROLL_FRAME === "true") {
             await require("./homepage-scroll-frame-checks.cjs")({ page, output, width });
           }
+          if (pathname === "/" && process.env.HERO_QA_WHY_CAROUSEL === "true") {
+            await require("./why-choose-carousel-checks.cjs")({ page, output, width });
+          }
           const result = await page.evaluate(() => {
             const hero = document.querySelector("[data-hero-image-state]");
             const image = hero?.querySelector("img");

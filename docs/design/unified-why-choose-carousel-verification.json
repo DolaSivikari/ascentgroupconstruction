@@ -1,0 +1,1047 @@
+{
+  "scope": "Homepage-only unified benefit carousel; offline fixture verification, no live writes or publishing.",
+  "publicComparison": {
+    "status": "passed",
+    "urls": 6,
+    "captures": 12,
+    "identical": 10,
+    "declared": 2,
+    "failed": 0,
+    "results": [
+      {
+        "path": "/",
+        "width": 390,
+        "pixelDifferencePercent": 0,
+        "differences": [
+          "visibleText"
+        ],
+        "unexpected": [],
+        "declaredReason": "Owner-approved unified Why Choose Us carousel: move the existing client reasons out of Who We Serve and combine them with property-owner reasons after the project showcase. Retain audience segment links, saved content sources and all protected claims verbatim. Group benefits into 3/2/1 cards by viewport, fade between groups, keep a stable stage, pause while reading or interacting, and disable auto-rotation for reduced motion. Preserve additional introduction copy in an expandable approach panel."
+      },
+      {
+        "path": "/",
+        "width": 1440,
+        "pixelDifferencePercent": 0,
+        "differences": [
+          "visibleText"
+        ],
+        "unexpected": [],
+        "declaredReason": "Owner-approved unified Why Choose Us carousel: move the existing client reasons out of Who We Serve and combine them with property-owner reasons after the project showcase. Retain audience segment links, saved content sources and all protected claims verbatim. Group benefits into 3/2/1 cards by viewport, fade between groups, keep a stable stage, pause while reading or interacting, and disable auto-rotation for reduced motion. Preserve additional introduction copy in an expandable approach panel."
+      },
+      {
+        "path": "/about",
+        "width": 390,
+        "pixelDifferencePercent": 0,
+        "differences": [],
+        "unexpected": [],
+        "declaredReason": null
+      },
+      {
+        "path": "/about",
+        "width": 1440,
+        "pixelDifferencePercent": 0,
+        "differences": [],
+        "unexpected": [],
+        "declaredReason": null
+      },
+      {
+        "path": "/contact",
+        "width": 390,
+        "pixelDifferencePercent": 0,
+        "differences": [],
+        "unexpected": [],
+        "declaredReason": null
+      },
+      {
+        "path": "/contact",
+        "width": 1440,
+        "pixelDifferencePercent": 0,
+        "differences": [],
+        "unexpected": [],
+        "declaredReason": null
+      },
+      {
+        "path": "/privacy",
+        "width": 390,
+        "pixelDifferencePercent": 0,
+        "differences": [],
+        "unexpected": [],
+        "declaredReason": null
+      },
+      {
+        "path": "/privacy",
+        "width": 1440,
+        "pixelDifferencePercent": 0,
+        "differences": [],
+        "unexpected": [],
+        "declaredReason": null
+      },
+      {
+        "path": "/projects",
+        "width": 390,
+        "pixelDifferencePercent": 0,
+        "differences": [],
+        "unexpected": [],
+        "declaredReason": null
+      },
+      {
+        "path": "/projects",
+        "width": 1440,
+        "pixelDifferencePercent": 0,
+        "differences": [],
+        "unexpected": [],
+        "declaredReason": null
+      },
+      {
+        "path": "/services/waterproofing-systems",
+        "width": 390,
+        "pixelDifferencePercent": 0,
+        "differences": [],
+        "unexpected": [],
+        "declaredReason": null
+      },
+      {
+        "path": "/services/waterproofing-systems",
+        "width": 1440,
+        "pixelDifferencePercent": 0,
+        "differences": [],
+        "unexpected": [],
+        "declaredReason": null
+      }
+    ]
+  },
+  "carousel": [
+    {
+      "scope": "offline fixture, all 13 fallback benefits; existing live content sources retained",
+      "width": 1440,
+      "autoRotation": "observed real 12-second rotation",
+      "start": {
+        "label": "Why Clients Choose Us, 1 of 5",
+        "activeIds": [
+          "client-0",
+          "client-1",
+          "client-2"
+        ],
+        "count": 5,
+        "stageHeight": 333.890625,
+        "sectionHeight": 983.625,
+        "safeHiddenSlides": true,
+        "overflow": false,
+        "actions": [
+          "/contact",
+          "/services",
+          "/contact"
+        ],
+        "reduced": false
+      },
+      "owner": {
+        "label": "Why Property Owners Choose Us, 4 of 5",
+        "activeIds": [
+          "owner-0",
+          "owner-1",
+          "owner-2"
+        ],
+        "count": 5,
+        "stageHeight": 333.890625,
+        "sectionHeight": 983.625,
+        "safeHiddenSlides": true,
+        "overflow": false,
+        "actions": [
+          "/contact",
+          "/projects"
+        ],
+        "reduced": false
+      },
+      "states": [
+        {
+          "label": "Why Clients Choose Us, 1 of 5",
+          "activeIds": [
+            "client-0",
+            "client-1",
+            "client-2"
+          ],
+          "count": 5,
+          "stageHeight": 333.890625,
+          "sectionHeight": 983.625,
+          "safeHiddenSlides": true,
+          "overflow": false,
+          "actions": [
+            "/contact",
+            "/services",
+            "/contact"
+          ],
+          "reduced": false
+        },
+        {
+          "label": "Why Clients Choose Us, 2 of 5",
+          "activeIds": [
+            "client-3",
+            "client-4"
+          ],
+          "count": 5,
+          "stageHeight": 333.890625,
+          "sectionHeight": 983.625,
+          "safeHiddenSlides": true,
+          "overflow": false,
+          "actions": [
+            "/contact",
+            "/services",
+            "/contact"
+          ],
+          "reduced": false
+        },
+        {
+          "label": "Why Clients Choose Us, 3 of 5",
+          "activeIds": [
+            "client-5",
+            "client-6"
+          ],
+          "count": 5,
+          "stageHeight": 333.890625,
+          "sectionHeight": 983.625,
+          "safeHiddenSlides": true,
+          "overflow": false,
+          "actions": [
+            "/contact",
+            "/services",
+            "/contact"
+          ],
+          "reduced": false
+        },
+        {
+          "label": "Why Property Owners Choose Us, 4 of 5",
+          "activeIds": [
+            "owner-0",
+            "owner-1",
+            "owner-2"
+          ],
+          "count": 5,
+          "stageHeight": 333.890625,
+          "sectionHeight": 983.625,
+          "safeHiddenSlides": true,
+          "overflow": false,
+          "actions": [
+            "/contact",
+            "/projects"
+          ],
+          "reduced": false
+        },
+        {
+          "label": "Why Property Owners Choose Us, 5 of 5",
+          "activeIds": [
+            "owner-3",
+            "owner-4",
+            "owner-5"
+          ],
+          "count": 5,
+          "stageHeight": 333.890625,
+          "sectionHeight": 983.625,
+          "safeHiddenSlides": true,
+          "overflow": false,
+          "actions": [
+            "/contact",
+            "/projects"
+          ],
+          "reduced": false
+        }
+      ],
+      "visibleBenefits": [
+        "client-0",
+        "client-1",
+        "client-2",
+        "client-3",
+        "client-4",
+        "client-5",
+        "client-6",
+        "owner-0",
+        "owner-1",
+        "owner-2",
+        "owner-3",
+        "owner-4",
+        "owner-5"
+      ],
+      "expandedCopy": "protected warranties and proposal copy verified"
+    },
+    {
+      "scope": "offline fixture, all 13 fallback benefits; existing live content sources retained",
+      "width": 768,
+      "autoRotation": "disabled for reduced motion",
+      "start": {
+        "label": "Why Clients Choose Us, 1 of 7",
+        "activeIds": [
+          "client-0",
+          "client-1"
+        ],
+        "count": 7,
+        "stageHeight": 359.890625,
+        "sectionHeight": 945.625,
+        "safeHiddenSlides": true,
+        "overflow": false,
+        "actions": [
+          "/contact",
+          "/services",
+          "/contact"
+        ],
+        "reduced": true
+      },
+      "owner": {
+        "label": "Why Property Owners Choose Us, 5 of 7",
+        "activeIds": [
+          "owner-0",
+          "owner-1"
+        ],
+        "count": 7,
+        "stageHeight": 359.890625,
+        "sectionHeight": 945.625,
+        "safeHiddenSlides": true,
+        "overflow": false,
+        "actions": [
+          "/contact",
+          "/projects"
+        ],
+        "reduced": true
+      },
+      "states": [
+        {
+          "label": "Why Clients Choose Us, 1 of 7",
+          "activeIds": [
+            "client-0",
+            "client-1"
+          ],
+          "count": 7,
+          "stageHeight": 359.890625,
+          "sectionHeight": 945.625,
+          "safeHiddenSlides": true,
+          "overflow": false,
+          "actions": [
+            "/contact",
+            "/services",
+            "/contact"
+          ],
+          "reduced": true
+        },
+        {
+          "label": "Why Clients Choose Us, 2 of 7",
+          "activeIds": [
+            "client-2",
+            "client-3"
+          ],
+          "count": 7,
+          "stageHeight": 359.890625,
+          "sectionHeight": 945.625,
+          "safeHiddenSlides": true,
+          "overflow": false,
+          "actions": [
+            "/contact",
+            "/services",
+            "/contact"
+          ],
+          "reduced": true
+        },
+        {
+          "label": "Why Clients Choose Us, 3 of 7",
+          "activeIds": [
+            "client-4",
+            "client-5"
+          ],
+          "count": 7,
+          "stageHeight": 359.890625,
+          "sectionHeight": 945.625,
+          "safeHiddenSlides": true,
+          "overflow": false,
+          "actions": [
+            "/contact",
+            "/services",
+            "/contact"
+          ],
+          "reduced": true
+        },
+        {
+          "label": "Why Clients Choose Us, 4 of 7",
+          "activeIds": [
+            "client-6"
+          ],
+          "count": 7,
+          "stageHeight": 359.890625,
+          "sectionHeight": 945.625,
+          "safeHiddenSlides": true,
+          "overflow": false,
+          "actions": [
+            "/contact",
+            "/services",
+            "/contact"
+          ],
+          "reduced": true
+        },
+        {
+          "label": "Why Property Owners Choose Us, 5 of 7",
+          "activeIds": [
+            "owner-0",
+            "owner-1"
+          ],
+          "count": 7,
+          "stageHeight": 359.890625,
+          "sectionHeight": 945.625,
+          "safeHiddenSlides": true,
+          "overflow": false,
+          "actions": [
+            "/contact",
+            "/projects"
+          ],
+          "reduced": true
+        },
+        {
+          "label": "Why Property Owners Choose Us, 6 of 7",
+          "activeIds": [
+            "owner-2",
+            "owner-3"
+          ],
+          "count": 7,
+          "stageHeight": 359.890625,
+          "sectionHeight": 945.625,
+          "safeHiddenSlides": true,
+          "overflow": false,
+          "actions": [
+            "/contact",
+            "/projects"
+          ],
+          "reduced": true
+        },
+        {
+          "label": "Why Property Owners Choose Us, 7 of 7",
+          "activeIds": [
+            "owner-4",
+            "owner-5"
+          ],
+          "count": 7,
+          "stageHeight": 359.890625,
+          "sectionHeight": 945.625,
+          "safeHiddenSlides": true,
+          "overflow": false,
+          "actions": [
+            "/contact",
+            "/projects"
+          ],
+          "reduced": true
+        }
+      ],
+      "visibleBenefits": [
+        "client-0",
+        "client-1",
+        "client-2",
+        "client-3",
+        "client-4",
+        "client-5",
+        "client-6",
+        "owner-0",
+        "owner-1",
+        "owner-2",
+        "owner-3",
+        "owner-4",
+        "owner-5"
+      ],
+      "expandedCopy": "protected warranties and proposal copy verified"
+    },
+    {
+      "scope": "offline fixture, all 13 fallback benefits; existing live content sources retained",
+      "width": 390,
+      "autoRotation": "disabled for reduced motion",
+      "start": {
+        "label": "Why Clients Choose Us, 1 of 13",
+        "activeIds": [
+          "client-0"
+        ],
+        "count": 13,
+        "stageHeight": 351.890625,
+        "sectionHeight": 1205.859375,
+        "safeHiddenSlides": true,
+        "overflow": false,
+        "actions": [
+          "/contact",
+          "/services",
+          "/contact"
+        ],
+        "reduced": true
+      },
+      "owner": {
+        "label": "Why Property Owners Choose Us, 8 of 13",
+        "activeIds": [
+          "owner-0"
+        ],
+        "count": 13,
+        "stageHeight": 351.890625,
+        "sectionHeight": 1205.859375,
+        "safeHiddenSlides": true,
+        "overflow": false,
+        "actions": [
+          "/contact",
+          "/projects"
+        ],
+        "reduced": true
+      },
+      "states": [
+        {
+          "label": "Why Property Owners Choose Us, 8 of 13",
+          "activeIds": [
+            "owner-0"
+          ],
+          "count": 13,
+          "stageHeight": 351.890625,
+          "sectionHeight": 1205.859375,
+          "safeHiddenSlides": true,
+          "overflow": false,
+          "actions": [
+            "/contact",
+            "/projects"
+          ],
+          "reduced": true
+        },
+        {
+          "label": "Why Property Owners Choose Us, 9 of 13",
+          "activeIds": [
+            "owner-1"
+          ],
+          "count": 13,
+          "stageHeight": 351.890625,
+          "sectionHeight": 1205.859375,
+          "safeHiddenSlides": true,
+          "overflow": false,
+          "actions": [
+            "/contact",
+            "/projects"
+          ],
+          "reduced": true
+        },
+        {
+          "label": "Why Property Owners Choose Us, 10 of 13",
+          "activeIds": [
+            "owner-2"
+          ],
+          "count": 13,
+          "stageHeight": 351.890625,
+          "sectionHeight": 1205.859375,
+          "safeHiddenSlides": true,
+          "overflow": false,
+          "actions": [
+            "/contact",
+            "/projects"
+          ],
+          "reduced": true
+        },
+        {
+          "label": "Why Property Owners Choose Us, 11 of 13",
+          "activeIds": [
+            "owner-3"
+          ],
+          "count": 13,
+          "stageHeight": 351.890625,
+          "sectionHeight": 1205.859375,
+          "safeHiddenSlides": true,
+          "overflow": false,
+          "actions": [
+            "/contact",
+            "/projects"
+          ],
+          "reduced": true
+        },
+        {
+          "label": "Why Property Owners Choose Us, 12 of 13",
+          "activeIds": [
+            "owner-4"
+          ],
+          "count": 13,
+          "stageHeight": 351.890625,
+          "sectionHeight": 1205.859375,
+          "safeHiddenSlides": true,
+          "overflow": false,
+          "actions": [
+            "/contact",
+            "/projects"
+          ],
+          "reduced": true
+        },
+        {
+          "label": "Why Property Owners Choose Us, 13 of 13",
+          "activeIds": [
+            "owner-5"
+          ],
+          "count": 13,
+          "stageHeight": 351.890625,
+          "sectionHeight": 1205.859375,
+          "safeHiddenSlides": true,
+          "overflow": false,
+          "actions": [
+            "/contact",
+            "/projects"
+          ],
+          "reduced": true
+        },
+        {
+          "label": "Why Clients Choose Us, 1 of 13",
+          "activeIds": [
+            "client-0"
+          ],
+          "count": 13,
+          "stageHeight": 351.890625,
+          "sectionHeight": 1205.859375,
+          "safeHiddenSlides": true,
+          "overflow": false,
+          "actions": [
+            "/contact",
+            "/services",
+            "/contact"
+          ],
+          "reduced": true
+        },
+        {
+          "label": "Why Clients Choose Us, 2 of 13",
+          "activeIds": [
+            "client-1"
+          ],
+          "count": 13,
+          "stageHeight": 351.890625,
+          "sectionHeight": 1205.859375,
+          "safeHiddenSlides": true,
+          "overflow": false,
+          "actions": [
+            "/contact",
+            "/services",
+            "/contact"
+          ],
+          "reduced": true
+        },
+        {
+          "label": "Why Clients Choose Us, 3 of 13",
+          "activeIds": [
+            "client-2"
+          ],
+          "count": 13,
+          "stageHeight": 351.890625,
+          "sectionHeight": 1205.859375,
+          "safeHiddenSlides": true,
+          "overflow": false,
+          "actions": [
+            "/contact",
+            "/services",
+            "/contact"
+          ],
+          "reduced": true
+        },
+        {
+          "label": "Why Clients Choose Us, 4 of 13",
+          "activeIds": [
+            "client-3"
+          ],
+          "count": 13,
+          "stageHeight": 351.890625,
+          "sectionHeight": 1205.859375,
+          "safeHiddenSlides": true,
+          "overflow": false,
+          "actions": [
+            "/contact",
+            "/services",
+            "/contact"
+          ],
+          "reduced": true
+        },
+        {
+          "label": "Why Clients Choose Us, 5 of 13",
+          "activeIds": [
+            "client-4"
+          ],
+          "count": 13,
+          "stageHeight": 351.890625,
+          "sectionHeight": 1205.859375,
+          "safeHiddenSlides": true,
+          "overflow": false,
+          "actions": [
+            "/contact",
+            "/services",
+            "/contact"
+          ],
+          "reduced": true
+        },
+        {
+          "label": "Why Clients Choose Us, 6 of 13",
+          "activeIds": [
+            "client-5"
+          ],
+          "count": 13,
+          "stageHeight": 351.890625,
+          "sectionHeight": 1205.859375,
+          "safeHiddenSlides": true,
+          "overflow": false,
+          "actions": [
+            "/contact",
+            "/services",
+            "/contact"
+          ],
+          "reduced": true
+        },
+        {
+          "label": "Why Clients Choose Us, 7 of 13",
+          "activeIds": [
+            "client-6"
+          ],
+          "count": 13,
+          "stageHeight": 351.890625,
+          "sectionHeight": 1205.859375,
+          "safeHiddenSlides": true,
+          "overflow": false,
+          "actions": [
+            "/contact",
+            "/services",
+            "/contact"
+          ],
+          "reduced": true
+        }
+      ],
+      "visibleBenefits": [
+        "owner-0",
+        "owner-1",
+        "owner-2",
+        "owner-3",
+        "owner-4",
+        "owner-5",
+        "client-0",
+        "client-1",
+        "client-2",
+        "client-3",
+        "client-4",
+        "client-5",
+        "client-6"
+      ],
+      "expandedCopy": "protected warranties and proposal copy verified"
+    },
+    {
+      "scope": "offline fixture, all 13 fallback benefits; existing live content sources retained",
+      "width": 320,
+      "autoRotation": "disabled for reduced motion",
+      "start": {
+        "label": "Why Clients Choose Us, 1 of 13",
+        "activeIds": [
+          "client-0"
+        ],
+        "count": 13,
+        "stageHeight": 405.390625,
+        "sectionHeight": 1340.15625,
+        "safeHiddenSlides": true,
+        "overflow": false,
+        "actions": [
+          "/contact",
+          "/services",
+          "/contact"
+        ],
+        "reduced": true
+      },
+      "owner": {
+        "label": "Why Property Owners Choose Us, 8 of 13",
+        "activeIds": [
+          "owner-0"
+        ],
+        "count": 13,
+        "stageHeight": 405.390625,
+        "sectionHeight": 1340.15625,
+        "safeHiddenSlides": true,
+        "overflow": false,
+        "actions": [
+          "/contact",
+          "/projects"
+        ],
+        "reduced": true
+      },
+      "states": [
+        {
+          "label": "Why Property Owners Choose Us, 8 of 13",
+          "activeIds": [
+            "owner-0"
+          ],
+          "count": 13,
+          "stageHeight": 405.390625,
+          "sectionHeight": 1340.15625,
+          "safeHiddenSlides": true,
+          "overflow": false,
+          "actions": [
+            "/contact",
+            "/projects"
+          ],
+          "reduced": true
+        },
+        {
+          "label": "Why Property Owners Choose Us, 9 of 13",
+          "activeIds": [
+            "owner-1"
+          ],
+          "count": 13,
+          "stageHeight": 405.390625,
+          "sectionHeight": 1340.15625,
+          "safeHiddenSlides": true,
+          "overflow": false,
+          "actions": [
+            "/contact",
+            "/projects"
+          ],
+          "reduced": true
+        },
+        {
+          "label": "Why Property Owners Choose Us, 10 of 13",
+          "activeIds": [
+            "owner-2"
+          ],
+          "count": 13,
+          "stageHeight": 405.390625,
+          "sectionHeight": 1340.15625,
+          "safeHiddenSlides": true,
+          "overflow": false,
+          "actions": [
+            "/contact",
+            "/projects"
+          ],
+          "reduced": true
+        },
+        {
+          "label": "Why Property Owners Choose Us, 11 of 13",
+          "activeIds": [
+            "owner-3"
+          ],
+          "count": 13,
+          "stageHeight": 405.390625,
+          "sectionHeight": 1340.15625,
+          "safeHiddenSlides": true,
+          "overflow": false,
+          "actions": [
+            "/contact",
+            "/projects"
+          ],
+          "reduced": true
+        },
+        {
+          "label": "Why Property Owners Choose Us, 12 of 13",
+          "activeIds": [
+            "owner-4"
+          ],
+          "count": 13,
+          "stageHeight": 405.390625,
+          "sectionHeight": 1340.15625,
+          "safeHiddenSlides": true,
+          "overflow": false,
+          "actions": [
+            "/contact",
+            "/projects"
+          ],
+          "reduced": true
+        },
+        {
+          "label": "Why Property Owners Choose Us, 13 of 13",
+          "activeIds": [
+            "owner-5"
+          ],
+          "count": 13,
+          "stageHeight": 405.390625,
+          "sectionHeight": 1340.15625,
+          "safeHiddenSlides": true,
+          "overflow": false,
+          "actions": [
+            "/contact",
+            "/projects"
+          ],
+          "reduced": true
+        },
+        {
+          "label": "Why Clients Choose Us, 1 of 13",
+          "activeIds": [
+            "client-0"
+          ],
+          "count": 13,
+          "stageHeight": 405.390625,
+          "sectionHeight": 1340.15625,
+          "safeHiddenSlides": true,
+          "overflow": false,
+          "actions": [
+            "/contact",
+            "/services",
+            "/contact"
+          ],
+          "reduced": true
+        },
+        {
+          "label": "Why Clients Choose Us, 2 of 13",
+          "activeIds": [
+            "client-1"
+          ],
+          "count": 13,
+          "stageHeight": 405.390625,
+          "sectionHeight": 1340.15625,
+          "safeHiddenSlides": true,
+          "overflow": false,
+          "actions": [
+            "/contact",
+            "/services",
+            "/contact"
+          ],
+          "reduced": true
+        },
+        {
+          "label": "Why Clients Choose Us, 3 of 13",
+          "activeIds": [
+            "client-2"
+          ],
+          "count": 13,
+          "stageHeight": 405.390625,
+          "sectionHeight": 1340.15625,
+          "safeHiddenSlides": true,
+          "overflow": false,
+          "actions": [
+            "/contact",
+            "/services",
+            "/contact"
+          ],
+          "reduced": true
+        },
+        {
+          "label": "Why Clients Choose Us, 4 of 13",
+          "activeIds": [
+            "client-3"
+          ],
+          "count": 13,
+          "stageHeight": 405.390625,
+          "sectionHeight": 1340.15625,
+          "safeHiddenSlides": true,
+          "overflow": false,
+          "actions": [
+            "/contact",
+            "/services",
+            "/contact"
+          ],
+          "reduced": true
+        },
+        {
+          "label": "Why Clients Choose Us, 5 of 13",
+          "activeIds": [
+            "client-4"
+          ],
+          "count": 13,
+          "stageHeight": 405.390625,
+          "sectionHeight": 1340.15625,
+          "safeHiddenSlides": true,
+          "overflow": false,
+          "actions": [
+            "/contact",
+            "/services",
+            "/contact"
+          ],
+          "reduced": true
+        },
+        {
+          "label": "Why Clients Choose Us, 6 of 13",
+          "activeIds": [
+            "client-5"
+          ],
+          "count": 13,
+          "stageHeight": 405.390625,
+          "sectionHeight": 1340.15625,
+          "safeHiddenSlides": true,
+          "overflow": false,
+          "actions": [
+            "/contact",
+            "/services",
+            "/contact"
+          ],
+          "reduced": true
+        },
+        {
+          "label": "Why Clients Choose Us, 7 of 13",
+          "activeIds": [
+            "client-6"
+          ],
+          "count": 13,
+          "stageHeight": 405.390625,
+          "sectionHeight": 1340.15625,
+          "safeHiddenSlides": true,
+          "overflow": false,
+          "actions": [
+            "/contact",
+            "/services",
+            "/contact"
+          ],
+          "reduced": true
+        }
+      ],
+      "visibleBenefits": [
+        "owner-0",
+        "owner-1",
+        "owner-2",
+        "owner-3",
+        "owner-4",
+        "owner-5",
+        "client-0",
+        "client-1",
+        "client-2",
+        "client-3",
+        "client-4",
+        "client-5",
+        "client-6"
+      ],
+      "expandedCopy": "protected warranties and proposal copy verified"
+    }
+  ],
+  "bundle": {
+    "status": "passed",
+    "urls": 6,
+    "loadedPublicChunks": 119,
+    "verifiedAssetMetadata": [
+      "/assets/parallax-commitment.avif.asset-F1DiY2Sh.js"
+    ],
+    "failures": []
+  },
+  "contentContract": {
+    "originalDescriptionsPreservedVerbatim": 13,
+    "editorModules": [
+      {
+        "path": "src/content/pages/home-audiences.ts",
+        "unchanged": true,
+        "sha256": "ddd013d0f1ca1554b73c8d92decff15008af8fd95dc4aa4f0904c81513c57018"
+      },
+      {
+        "path": "src/content/pages/home-why-choose-us.ts",
+        "unchanged": true,
+        "sha256": "7182a1faf2be822ceb8a529c13299e0d80efab167f41cf1f60c160f60242e13c"
+      }
+    ],
+    "ownerQuery": "Unchanged; interface type exported for presentation model"
+  },
+  "tests": {
+    "fullSuite": {
+      "files": 118,
+      "passed": 739,
+      "failed": 0
+    },
+    "finalCarouselRerun": {
+      "files": 1,
+      "passed": 9,
+      "failed": 0
+    }
+  },
+  "checks": {
+    "fullTypeScript": "passed",
+    "selectedTypeScript": "passed",
+    "build": "passed",
+    "routeAudit": "passed",
+    "serviceWorker": "passed",
+    "diff": "passed",
+    "lint": {
+      "errors": 201,
+      "warnings": 29,
+      "regressions": 0
+    },
+    "entry": {
+      "rawBytes": 1053541,
+      "gzipBytes": 316291
+    }
+  },
+  "coverageLimits": [
+    "Six representative public routes at desktop/phone widths; not all 85 canonical routes",
+    "Carousel at 1440/768/390/320 widths; real timed rotation observed at 1440; reduced motion at the other widths",
+    "Offline fixtures; authenticated published overrides, actual live database records, production publishing and mobile Safari not exercised"
+  ]
+}
