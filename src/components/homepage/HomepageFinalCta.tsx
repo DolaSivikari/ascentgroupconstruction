@@ -8,157 +8,76 @@ import {
   ClipboardList,
   ArrowRight,
 } from "lucide-react";
-import { motion } from "framer-motion";
-import { GRID } from "@/design-system/layouts";
-import { Button } from "@/ui/Button";
-import { useScrollFadeIn } from "@/hooks/useScrollFadeIn";
-import { useReducedMotion } from "@/hooks/useReducedMotion";
 
 export const HomepageFinalCta = () => {
   const c = usePageContent(contentModule);
-  const ctaCards = [
+  const paths = [
     {
       icon: MessageSquare,
       title: c.f003,
       description: c.f004,
-      cta: "Start a Conversation",
+      label: c.f009,
       href: "/contact",
-      primary: true,
     },
     {
       icon: FolderOpen,
       title: c.f005,
       description: c.f006,
-      cta: "See Our Work",
+      label: c.f010,
       href: "/projects",
-      primary: false,
     },
     {
       icon: ClipboardList,
       title: c.f007,
       description: c.f008,
-      cta: "Download Package",
+      label: c.f011,
       href: "/prequalification",
-      primary: false,
     },
   ];
 
-  const rm = useReducedMotion();
-  const {
-    ref: headerRef,
-    isVisible: headerVisible,
-    skipAnimation: headerSkip,
-  } = useScrollFadeIn();
-
-  const showHeader = headerVisible || headerSkip || rm;
-
   return (
-    <>
-      {/* Fine separator */}
-      <div className="border-t border-border/30" />
-
-      <section
-        className="relative py-20 md:py-28 overflow-hidden"
-        style={{
-          background:
-            "linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--primary) / 0.92) 100%)",
-        }}
-      >
-        {/* Subtle dot pattern overlay */}
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute inset-0 opacity-[0.04]"
-          style={{
-            backgroundImage:
-              "radial-gradient(circle, white 1px, transparent 1px)",
-            backgroundSize: "28px 28px",
-          }}
-        />
-
-        <div className="relative container mx-auto px-6 md:px-8 lg:px-12 max-w-7xl">
-          {/* Header */}
-          <div
-            ref={headerRef}
-            className="text-center mb-14"
-            style={{
-              opacity: showHeader ? 1 : 0,
-              transform: showHeader ? "translateY(0)" : "translateY(24px)",
-              transition: rm
-                ? "none"
-                : "opacity 300ms ease-out, transform 300ms ease-out",
-            }}
+    <section
+      aria-labelledby="homepage-ending-heading"
+      data-homepage-ending
+      className="border-t border-border bg-muted/30 py-12 md:py-16"
+    >
+      <div className="container mx-auto max-w-7xl px-4 md:px-8 lg:px-12">
+        <div className="mb-8 max-w-2xl">
+          <h2
+            id="homepage-ending-heading"
+            className={`${TYPOGRAPHY_STYLES.subsectionTitle} mb-3 tracking-tight`}
           >
-            <h2 className="text-3xl md:text-5xl font-bold text-white mb-5 leading-tight tracking-tight">
-              {c.f001}
-            </h2>
-            <p className="text-lg text-white/80 max-w-2xl mx-auto leading-relaxed">
-              {c.f002}
-            </p>
-          </div>
-
-          {/* CTA cards */}
-          <div className={GRID.cards3}>
-            {ctaCards.map((card, index) => {
-              const Icon = card.icon;
-              return (
-                <motion.div
-                  key={index}
-                  initial={rm ? false : { opacity: 0, scale: 0.95, y: 24 }}
-                  whileInView={{ opacity: 1, scale: 1, y: 0 }}
-                  viewport={{ once: true, amount: 0.1 }}
-                  transition={
-                    rm
-                      ? { duration: 0 }
-                      : { delay: index * 0.08, duration: 0.4 }
-                  }
-                  whileHover={
-                    rm
-                      ? {}
-                      : {
-                          y: -4,
-                          transition: {
-                            duration: 0.3,
-                            ease: [0.22, 1, 0.36, 1],
-                          },
-                        }
-                  }
-                  className="flex flex-col p-6 rounded-[var(--card-border-radius)] bg-white/10 border border-white/15 hover:bg-white/15 hover:border-white/25 transition-all duration-300"
-                >
-                  <div className="w-12 h-12 rounded-lg bg-white/15 flex items-center justify-center mb-5">
-                    <Icon className="w-6 h-6 text-white" />
-                  </div>
-                  <h3
-                    className={`${TYPOGRAPHY_STYLES.cardTitle} text-white mb-3`}
-                  >
-                    {card.title}
-                  </h3>
-                  <p className="text-base text-white/75 leading-relaxed flex-1 mb-6">
-                    {card.description}
-                  </p>
-                  <Button
-                    asChild
-                    size="default"
-                    variant={card.primary ? "primary" : "outline"}
-                    className={
-                      card.primary
-                        ? "w-full justify-center"
-                        : "w-full justify-center border-white/30 text-white hover:bg-white/10 hover:border-white/50"
-                    }
-                  >
-                    <Link
-                      to={card.href}
-                      className="inline-flex items-center gap-2"
-                    >
-                      {card.cta}
-                      <ArrowRight className="w-4 h-4" />
-                    </Link>
-                  </Button>
-                </motion.div>
-              );
-            })}
-          </div>
+            {c.f001}
+          </h2>
+          <p className="leading-relaxed text-muted-foreground">{c.f002}</p>
         </div>
-      </section>
-    </>
+        <ul
+          role="list"
+          className="grid gap-8 md:grid-cols-3 md:gap-6 lg:gap-10"
+        >
+          {paths.map(({ icon: Icon, title, description, label, href }) => (
+            <li
+              key={href}
+              className="flex min-w-0 flex-col items-start border-t border-border pt-6"
+            >
+              <span className="mb-4 flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-primary/10">
+                <Icon className="h-5 w-5 text-primary" aria-hidden="true" />
+              </span>
+              <h3 className="mb-2 text-lg font-semibold">{title}</h3>
+              <p className="mb-3 text-sm leading-relaxed text-muted-foreground">
+                {description}
+              </p>
+              <Link
+                to={href}
+                className="mt-auto inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-primary underline underline-offset-4 hover:text-primary/80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+              >
+                {label}
+                <ArrowRight className="h-4 w-4 shrink-0" aria-hidden="true" />
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
   );
 };
