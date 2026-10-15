@@ -1,0 +1,82 @@
+{
+  "baseCommit": "f7a88cf",
+  "scope": "Homepage repair-scope walkthrough only",
+  "tests": {
+    "fullSuite": {
+      "files": 120,
+      "passed": 744,
+      "failed": 0
+    },
+    "targetedAfterCompactLayout": {
+      "passed": 3,
+      "failed": 0
+    }
+  },
+  "checks": {
+    "selectedTypeScript": "passed",
+    "appTypeScript": "passed",
+    "productionBuild": "passed",
+    "serviceWorker": "passed",
+    "routeAudit": "passed",
+    "lint": {
+      "errors": 201,
+      "warnings": 29,
+      "fileRuleRegressions": 0,
+      "changedFilesClean": true
+    },
+    "entryBudget": {
+      "rawBytes": 1052010,
+      "gzipBytes": 315702,
+      "status": "passed"
+    },
+    "diffCheck": "passed"
+  },
+  "publicComparison": {
+    "routes": [
+      "/",
+      "/about",
+      "/projects",
+      "/services/waterproofing-systems",
+      "/privacy",
+      "/contact"
+    ],
+    "viewports": [
+      1440,
+      390
+    ],
+    "captures": 12,
+    "identical": 10,
+    "declaredHomeChanges": 2,
+    "unexpectedChanges": 0,
+    "metadataChanged": false
+  },
+  "additionalBrowserChecks": {
+    "viewports": [
+      320,
+      768
+    ],
+    "theme": "dark",
+    "fontScale": 1.5,
+    "captures": 2,
+    "allStagesKeyboardAccessible": true,
+    "checklistsKeyboardAccessible": true,
+    "processStepsKeyboardAccessible": true,
+    "imageDecoded": true,
+    "horizontalOverflow": false
+  },
+  "image": {
+    "source": "AI-generated educational reference; not project photography",
+    "path": "src/assets/documentation/window-joint-example.webp",
+    "width": 1536,
+    "height": 1024,
+    "bytes": 217250
+  },
+  "limitations": [
+    "Offline deterministic fixture verification, not production database verification.",
+    "Six representative routes compared, not a full 85-page recrawl.",
+    "Existing published content overrides retain priority over code defaults.",
+    "PR requires owner review, merge and Lovable Publish Update; no publishing performed."
+  ],
+  "liveWrites": false,
+  "sqlChanges": false
+}

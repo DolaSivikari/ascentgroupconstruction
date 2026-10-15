@@ -58,101 +58,150 @@ export const homeRepairGuide = {
   ],
   documents: {
     eyebrow: "From the scope to the handover",
-    title: "See what a clear repair scope looks like",
+    title: "Know what's being repaired, before work begins",
     introduction:
-      "Explore an example of joint sealant replacement and localized EIFS repair, using the same documentation approach shown on our Technology page.",
-    sampleLabel: "Illustrative sample — not a completed project",
-    drawingLabel: "Illustrative south elevation with sample repair locations",
+      "A price alone doesn't tell you where the work stops, how changes are handled or what records you'll receive. Follow one window-joint repair through the scope, the site record and the handover to see how those questions can be answered.",
+    sampleLabel: "Worked example · Window perimeter sealant",
+    drawingLabel:
+      "Close-up example of separation at the joint between a window frame and an exterior wall",
     drawingCaption:
-      "Example locations only. Actual quantities, access and repair details are established for the specific building.",
+      "AI-generated reference image showing a possible joint condition. Not an Ascent project photograph or a diagnosis of water entry.",
+    exampleTitle: "Start with a specific location",
+    exampleIntroduction:
+      "In this example, a property manager notices water near a window. The visible gap is a starting point for investigation; it does not establish the source of the leak.",
     legend: [
-      "Joint sealant locations",
-      "Localized EIFS repair",
-      "Access to be confirmed",
+      "Location: south elevation, window W-01",
+      "Observed: separation at the perimeter joint",
+      "Confirm: condition, extent and safe access on site",
     ],
-    tabsLabel: "Sample project documentation",
+    exampleNote:
+      "Example only. Quantities, materials, access and required records must be confirmed for the actual building and agreed scope.",
+    tabsLabel: "Follow the repair from scope to handover",
+    recordLabel: "Example record · W-01",
+    decisionLabel: "What this helps you decide",
     stages: [
       {
         id: "before",
         label: "Before work",
-        title: "A scope you can review",
+        title: "Agree exactly what is included",
         description:
-          "Locations, preparation and exclusions make quotations easier to understand and compare.",
+          "Turn the observed issue into a location-specific scope. The owner should be able to see which joints are included, what preparation is proposed and what still needs confirming before comparing prices.",
+        recordTitle: "Scope outline",
+        detailLabel: "Read the scope checklist",
+        recordItems: [
+          { label: "Work area", value: "W-01 · agreed perimeter joints only" },
+          {
+            label: "Proposed work",
+            value: "Remove, prepare and replace sealant",
+          },
+          {
+            label: "To confirm",
+            value: "Extent, substrate condition and access",
+          },
+        ],
         groups: [
           {
-            title: "Included in this example",
+            title: "Define the work",
             items: [
-              "Joint removal, preparation, backer rod and new sealant",
-              "Localized EIFS mesh, base-coat and finish repairs",
-              "Access setups, field reports and digital closeout",
+              "Mark the repair locations and confirm joint lengths and dimensions on site.",
+              "Describe removal, joint preparation, backer rod where required and compatible replacement sealant.",
+              "Agree access, protection of occupied areas, work hours and the records required at handover.",
             ],
           },
           {
-            title: "Outside this example",
+            title: "Set the boundaries",
             items: [
-              "Window replacement",
-              "Hazardous material abatement",
-              "Concrete repairs unless separately agreed",
+              "Window replacement and concealed wall repairs are outside this example.",
+              "If opening the joint reveals additional damage, record it and obtain written direction before expanding the work.",
             ],
           },
         ],
-        note: "Clarification: confirm work hours and access arrangements before mobilization; review variations in writing.",
+        decision:
+          "Are the quotations covering the same locations, preparation, access and exclusions?",
+        note: "This is a scope example, not a repair specification. The actual repair method depends on the assembly, site findings and applicable product requirements.",
       },
       {
         id: "during",
         label: "During work",
-        title: "A progress record you can follow",
+        title: "Keep the work connected to the scope",
         description:
-          "A sample field report links the work area, completed activities and open issues.",
+          "Use the same location reference in the site record. That makes it easier to understand what was done, see the supporting photographs and separate agreed work from an unresolved change.",
+        recordTitle: "Field record outline",
+        detailLabel: "Read the progress checklist",
+        recordItems: [
+          { label: "Reference", value: "W-01 · same location as the scope" },
+          {
+            label: "Record",
+            value: "Preparation and installation photographs",
+          },
+          {
+            label: "Open item",
+            value: "Additional damage requires written direction",
+          },
+        ],
         groups: [
           {
-            title: "Sample progress entry",
+            title: "Record the agreed work",
             items: [
-              "Location: south elevation, joint SL-01",
-              "Activity: joint preparation recorded before new sealant",
-              "Evidence: photographs linked to the repair location",
+              "Identify the date, repair location and activity in each progress entry.",
+              "Link photographs of the exposed joint, preparation and installed sealant to W-01.",
+              "Record relevant product information and installation checks required by the agreed scope.",
             ],
           },
           {
-            title: "Sample open issue",
+            title: "Keep changes visible",
             items: [
-              "Additional finish damage found beside the joint",
-              "Proposed scope variation recorded for review",
-              "Status: awaiting written direction",
+              "Describe additional damage with its location and supporting photographs.",
+              "Record the proposed change, cost or schedule implications and written direction separately from completed work.",
             ],
           },
         ],
-        note: "Example entry only. No live job status, site photographs or approved change order is represented here.",
+        decision:
+          "What has been completed, what evidence supports it and does anything need my approval?",
+        note: "This is an example of the information a field record can contain. It is not a live job update, completed inspection or approved change order.",
       },
       {
         id: "completion",
         label: "At completion",
-        title: "An organized handover",
+        title: "Hand over records the next person can use",
         description:
-          "A sample closeout index helps the building team find the records associated with the agreed work.",
+          "Bring the location references, completion photographs and outstanding items together. A useful handover lets the building team find what was repaired without reconstructing the project from scattered emails.",
+        recordTitle: "Closeout index outline",
+        detailLabel: "Read the handover checklist",
+        recordItems: [
+          {
+            label: "Repair record",
+            value: "W-01 · scope and approved changes",
+          },
+          { label: "Evidence", value: "Photographs and deficiency status" },
+          { label: "Reference", value: "Product and maintenance information" },
+        ],
         groups: [
           {
-            title: "Completion records",
+            title: "Review completion",
             items: [
-              "Repair locations and photographs by phase",
-              "Deficiency list and completion status",
-              "Approved scope changes and marked-up records",
+              "Match the agreed repair locations and approved changes to the completion record.",
+              "Review the deficiency list: identify open items and record their completion status.",
+              "Organize before, during and completion photographs by repair location.",
             ],
           },
           {
-            title: "Handover index",
+            title: "Keep the useful references",
             items: [
-              "Product data and maintenance information",
+              "Index product data, maintenance information and marked-up repair records required by the scope.",
               "Applicable warranty documents",
-              "Project correspondence and closeout records",
+              "Retain approved changes and relevant correspondence with the closeout records.",
             ],
           },
         ],
+        decision:
+          "Can the building team find what was repaired, any open items and the information needed to maintain it?",
         note: "The required documents and applicable warranties are confirmed for each project's products and agreed scope.",
       },
     ],
-    action: "Explore the full documentation examples",
+    action: "Explore the documentation examples",
     href: "/company/technology",
+    discussion: { label: "Discuss your repair scope", href: "/contact" },
   },
   process: {
     title: "Your first project with Ascent",
