@@ -47,9 +47,6 @@ const HomepageFinalCta = lazy(() =>
     default: m.HomepageFinalCta,
   })),
 );
-const HomepageQuestions = lazy(
-  () => import("@/components/homepage/HomepageQuestions"),
-);
 const HomepageRepairGuide = lazy(() =>
   import("@/components/homepage/HomepageRepairGuide").then((m) => ({
     default: m.HomepageRepairGuide,
@@ -207,9 +204,6 @@ const Index = () => {
             </DeferredSection>
           </div>
 
-          <DeferredSection name="Project questions">
-            <HomepageQuestions />
-          </DeferredSection>
 
           {/* ── Inline Conversion Form ── */}
           <DeferredSection name="Project inquiry">
