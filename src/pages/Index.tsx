@@ -207,9 +207,6 @@ const Index = () => {
             </DeferredSection>
           </div>
 
-          <DeferredSection name="Project questions">
-            <HomepageQuestions />
-          </DeferredSection>
 
           {/* ── Inline Conversion Form ── */}
           <DeferredSection name="Project inquiry">
