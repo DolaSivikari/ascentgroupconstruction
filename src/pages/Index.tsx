@@ -47,9 +47,6 @@ const HomepageFinalCta = lazy(() =>
     default: m.HomepageFinalCta,
   })),
 );
-const HomepageQuestions = lazy(
-  () => import("@/components/homepage/HomepageQuestions"),
-);
 const HomepageRepairGuide = lazy(() =>
   import("@/components/homepage/HomepageRepairGuide").then((m) => ({
     default: m.HomepageRepairGuide,
