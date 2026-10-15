@@ -1,0 +1,226 @@
+{
+  "status": "passed",
+  "fixturePolicy": "Offline synthetic fixtures; external requests blocked; no forms submitted.",
+  "previewScope": "Section-only exports hide unrelated fixed site controls. Full-page comparison captures do not.",
+  "results": [
+    {
+      "width": 1440,
+      "theme": "light",
+      "motion": "reduce",
+      "exactWordsAndOrder": true,
+      "audienceLinks": [
+        {
+          "text": "General ContractorsTrade partner for envelope and restoration scopes on commercial and multi-family projects across the GTA.",
+          "href": "/for-general-contractors"
+        },
+        {
+          "text": "Property ManagersReliable envelope maintenance and emergency restoration for multi-residential and commercial portfolios.",
+          "href": "/property-managers"
+        },
+        {
+          "text": "Commercial OwnersFaçade remediation and building envelope solutions for office buildings, retail strips, and industrial properties.",
+          "href": "/commercial-clients"
+        },
+        {
+          "text": "HomeownersExterior restoration and interior renovation services for single-family homes across Ontario.",
+          "href": "/homeowners"
+        }
+      ],
+      "precedingReasonsCopyUnchanged": true,
+      "cardCount": 4,
+      "rows": 1,
+      "overflow": false,
+      "wcagViolations": 0,
+      "keyboardLinksChecked": 4,
+      "navigationAndBackChecked": true
+    },
+    {
+      "width": 390,
+      "theme": "light",
+      "motion": "reduce",
+      "exactWordsAndOrder": true,
+      "audienceLinks": [
+        {
+          "text": "General ContractorsTrade partner for envelope and restoration scopes on commercial and multi-family projects across the GTA.",
+          "href": "/for-general-contractors"
+        },
+        {
+          "text": "Property ManagersReliable envelope maintenance and emergency restoration for multi-residential and commercial portfolios.",
+          "href": "/property-managers"
+        },
+        {
+          "text": "Commercial OwnersFaçade remediation and building envelope solutions for office buildings, retail strips, and industrial properties.",
+          "href": "/commercial-clients"
+        },
+        {
+          "text": "HomeownersExterior restoration and interior renovation services for single-family homes across Ontario.",
+          "href": "/homeowners"
+        }
+      ],
+      "precedingReasonsCopyUnchanged": true,
+      "cardCount": 4,
+      "rows": 4,
+      "overflow": false,
+      "wcagViolations": 0,
+      "keyboardLinksChecked": 0,
+      "navigationAndBackChecked": false
+    },
+    {
+      "width": 320,
+      "theme": "light",
+      "motion": "reduce",
+      "exactWordsAndOrder": true,
+      "audienceLinks": [
+        {
+          "text": "General ContractorsTrade partner for envelope and restoration scopes on commercial and multi-family projects across the GTA.",
+          "href": "/for-general-contractors"
+        },
+        {
+          "text": "Property ManagersReliable envelope maintenance and emergency restoration for multi-residential and commercial portfolios.",
+          "href": "/property-managers"
+        },
+        {
+          "text": "Commercial OwnersFaçade remediation and building envelope solutions for office buildings, retail strips, and industrial properties.",
+          "href": "/commercial-clients"
+        },
+        {
+          "text": "HomeownersExterior restoration and interior renovation services for single-family homes across Ontario.",
+          "href": "/homeowners"
+        }
+      ],
+      "precedingReasonsCopyUnchanged": true,
+      "cardCount": 4,
+      "rows": 4,
+      "overflow": false,
+      "wcagViolations": 0,
+      "keyboardLinksChecked": 0,
+      "navigationAndBackChecked": false
+    },
+    {
+      "width": 768,
+      "theme": "light",
+      "motion": "reduce",
+      "exactWordsAndOrder": true,
+      "audienceLinks": [
+        {
+          "text": "General ContractorsTrade partner for envelope and restoration scopes on commercial and multi-family projects across the GTA.",
+          "href": "/for-general-contractors"
+        },
+        {
+          "text": "Property ManagersReliable envelope maintenance and emergency restoration for multi-residential and commercial portfolios.",
+          "href": "/property-managers"
+        },
+        {
+          "text": "Commercial OwnersFaçade remediation and building envelope solutions for office buildings, retail strips, and industrial properties.",
+          "href": "/commercial-clients"
+        },
+        {
+          "text": "HomeownersExterior restoration and interior renovation services for single-family homes across Ontario.",
+          "href": "/homeowners"
+        }
+      ],
+      "precedingReasonsCopyUnchanged": true,
+      "cardCount": 4,
+      "rows": 2,
+      "overflow": false,
+      "wcagViolations": 0,
+      "keyboardLinksChecked": 0,
+      "navigationAndBackChecked": false
+    },
+    {
+      "width": 1440,
+      "theme": "dark",
+      "motion": "reduce",
+      "exactWordsAndOrder": true,
+      "audienceLinks": [
+        {
+          "text": "General ContractorsTrade partner for envelope and restoration scopes on commercial and multi-family projects across the GTA.",
+          "href": "/for-general-contractors"
+        },
+        {
+          "text": "Property ManagersReliable envelope maintenance and emergency restoration for multi-residential and commercial portfolios.",
+          "href": "/property-managers"
+        },
+        {
+          "text": "Commercial OwnersFaçade remediation and building envelope solutions for office buildings, retail strips, and industrial properties.",
+          "href": "/commercial-clients"
+        },
+        {
+          "text": "HomeownersExterior restoration and interior renovation services for single-family homes across Ontario.",
+          "href": "/homeowners"
+        }
+      ],
+      "precedingReasonsCopyUnchanged": true,
+      "cardCount": 4,
+      "rows": 1,
+      "overflow": false,
+      "wcagViolations": 0,
+      "keyboardLinksChecked": 0,
+      "navigationAndBackChecked": false
+    },
+    {
+      "width": 390,
+      "theme": "dark",
+      "motion": "reduce",
+      "exactWordsAndOrder": true,
+      "audienceLinks": [
+        {
+          "text": "General ContractorsTrade partner for envelope and restoration scopes on commercial and multi-family projects across the GTA.",
+          "href": "/for-general-contractors"
+        },
+        {
+          "text": "Property ManagersReliable envelope maintenance and emergency restoration for multi-residential and commercial portfolios.",
+          "href": "/property-managers"
+        },
+        {
+          "text": "Commercial OwnersFaçade remediation and building envelope solutions for office buildings, retail strips, and industrial properties.",
+          "href": "/commercial-clients"
+        },
+        {
+          "text": "HomeownersExterior restoration and interior renovation services for single-family homes across Ontario.",
+          "href": "/homeowners"
+        }
+      ],
+      "precedingReasonsCopyUnchanged": true,
+      "cardCount": 4,
+      "rows": 4,
+      "overflow": false,
+      "wcagViolations": 0,
+      "keyboardLinksChecked": 0,
+      "navigationAndBackChecked": false
+    },
+    {
+      "width": 1440,
+      "theme": "light",
+      "motion": "no-preference",
+      "exactWordsAndOrder": true,
+      "audienceLinks": [
+        {
+          "text": "General ContractorsTrade partner for envelope and restoration scopes on commercial and multi-family projects across the GTA.",
+          "href": "/for-general-contractors"
+        },
+        {
+          "text": "Property ManagersReliable envelope maintenance and emergency restoration for multi-residential and commercial portfolios.",
+          "href": "/property-managers"
+        },
+        {
+          "text": "Commercial OwnersFaçade remediation and building envelope solutions for office buildings, retail strips, and industrial properties.",
+          "href": "/commercial-clients"
+        },
+        {
+          "text": "HomeownersExterior restoration and interior renovation services for single-family homes across Ontario.",
+          "href": "/homeowners"
+        }
+      ],
+      "precedingReasonsCopyUnchanged": true,
+      "cardCount": 4,
+      "rows": 1,
+      "overflow": false,
+      "wcagViolations": 0,
+      "keyboardLinksChecked": 0,
+      "navigationAndBackChecked": false
+    }
+  ],
+  "pageErrors": [],
+  "attemptedExternalMutations": []
+}

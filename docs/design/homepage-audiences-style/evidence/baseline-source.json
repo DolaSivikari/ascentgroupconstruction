@@ -1,0 +1,7 @@
+{
+  "baseSha": "3b019d24918f67543331a5db1ebf8a8a168bbe71",
+  "capturedSourceSha": "1cab582ec5d5ae2a9738a951888e18714113686d",
+  "gitTreesEqual": true,
+  "baselineEvidence": "docs/design/client-reasons-polish/evidence/public-comparison.json; previous local production-build capture reused only after Git tree equality verified",
+  "fixtureScope": "Synthetic offline fixtures; not current production CMS data and not an approved production baseline replacement"
+}
