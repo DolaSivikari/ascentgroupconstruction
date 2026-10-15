@@ -4,6 +4,22 @@ const fs = require("node:fs");
 const path = require("node:path");
 
 module.exports = async ({ page, output, width }) => {
+  // Catch incompatible Who We Serve/carousel merges in the actual lazy-loaded page.
+  await page.waitForSelector("[data-home-audiences]");
+  const audienceLinks = await page.$$eval("[data-home-audiences] a", (links) =>
+    links.map((link) => link.getAttribute("href")),
+  );
+  assert.deepEqual(audienceLinks, [
+    "/for-general-contractors",
+    "/property-managers",
+    "/commercial-clients",
+    "/homeowners",
+  ]);
+  assert.equal(
+    await page.$("[data-client-reasons]"),
+    null,
+    "Obsolete client-benefits block was reintroduced",
+  );
   const selector = "[data-why-carousel]";
   await page.waitForSelector(selector);
   await page.$eval(selector, (node) =>
@@ -145,6 +161,7 @@ module.exports = async ({ page, output, width }) => {
         scope:
           "offline fixture, all 13 fallback benefits; existing live content sources retained",
         width,
+        audienceLinks,
         autoRotation,
         start,
         owner,
