@@ -1,0 +1,13 @@
+{
+  "base": "3b019d24918f67543331a5db1ebf8a8a168bbe71",
+  "unchanged": {
+    "componentHooksDataAndPrecedingClientReasonsJSX": "byte-identical from component declaration to audience boundary",
+    "protectedFiles": [
+      "src/components/homepage/WhyChooseUs.tsx",
+      "src/pages/Index.tsx",
+      "src/design-system/components/SegmentCard.tsx",
+      "src/content/pages/home-audiences.ts"
+    ]
+  },
+  "changed": "Only homepage audience card presentation and necessary local imports"
+}

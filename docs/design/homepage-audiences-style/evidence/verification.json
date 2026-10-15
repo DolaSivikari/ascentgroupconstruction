@@ -1,0 +1,85 @@
+{
+  "phase": "HP \u2014 homepage Who We Serve card polish",
+  "date": "2026-10-14",
+  "baseSha": "3b019d24918f67543331a5db1ebf8a8a168bbe71",
+  "applicationFilesChanged": [
+    "src/components/homepage/WhoWeServeHomepage.tsx"
+  ],
+  "vitest": {
+    "status": "passed",
+    "files": 117,
+    "tests": 730,
+    "workers": 2
+  },
+  "applicationTypeScript": "passed",
+  "selectedTypeScript": "passed",
+  "productionBuild": "passed",
+  "serviceWorker": "passed",
+  "routeAudit": "passed",
+  "operationalContracts": "passed",
+  "gitDiffCheck": "passed",
+  "frozenDependencyInstall": "passed; package.json and bun.lock unchanged",
+  "lint": {
+    "rawExit": 1,
+    "errors": 201,
+    "warnings": 29,
+    "unchangedBudgetPassed": true,
+    "fileRuleRegressions": 0,
+    "changedComponentClean": true
+  },
+  "entryBudget": {
+    "status": "passed",
+    "baseRawBytes": 1024511,
+    "baseGzipBytes": 306616,
+    "candidateRawBytes": 1024509,
+    "candidateGzipBytes": 306605
+  },
+  "comparison": {
+    "status": "passed",
+    "urls": 86,
+    "captures": 172,
+    "identical": 170,
+    "declared": 2,
+    "failed": 0
+  },
+  "bundle": {
+    "status": "passed",
+    "urls": 86,
+    "loadedPublicChunks": 234,
+    "verifiedAssetMetadata": [
+      "/assets/parallax-commitment.avif.asset-F1DiY2Sh.js"
+    ],
+    "failures": []
+  },
+  "browser": {
+    "engine": "Chromium",
+    "offlineFixturesOnly": true,
+    "cases": 7,
+    "widths": [
+      1440,
+      768,
+      390,
+      320
+    ],
+    "lightAndDark": "passed",
+    "normalAndReducedMotion": "passed",
+    "wordingReadingOrderAndDestinationsExact": true,
+    "allFourAudienceCardsVisible": true,
+    "precedingClientReasonsSourceByteExact": true,
+    "precedingClientReasonsContentExact": true,
+    "keyboardFocusLinksChecked": 4,
+    "contractorNavigationAndBack": "passed",
+    "sectionWcagViolations": 0,
+    "runtimeErrors": 0,
+    "horizontalOverflow": 0,
+    "externalMutations": 0,
+    "formsSubmitted": false
+  },
+  "limitations": [
+    "Synthetic local fixtures, not current production CMS data or a replacement approved production baseline.",
+    "No native Safari/Firefox or physical-device checks.",
+    "WCAG scans cover the changed block; all-route regression covers screenshots, copy, metadata and runtime errors.",
+    "No live backend/storage writes, merge, deployment or publishing.",
+    "GitHub CI results are separate from these local checks."
+  ]
+}
